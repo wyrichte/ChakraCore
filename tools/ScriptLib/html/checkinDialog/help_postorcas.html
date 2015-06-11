@@ -1,0 +1,301 @@
+<HTML>
+<BODY>
+
+<DIV ID=Introduction>
+	We have found that there is great value in having certain information
+ 	logged along with every change that we make to the code base.   To
+	ensure uniformity here, the following form leads you the process.
+</DIV>
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Title_helpSec>
+<A NAME=Title_help> <DT> <B> Title </B> (required) </DT> 
+<DD>
+    A one line summary of the submission.
+</DD>
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Bugs_fixed_helpSec>
+<A NAME=Bugs_fixed_help> <DT> <B> Bugs Fixed </B> </DT>
+<DD>
+   	The checkin automation can resolve bugs automatically when a submission
+    is checked in.   By clicking on 'Find My Fixed Bugs' you can populate the
+    form with the Fix Available, Fix Tested or Fix Queued bugs that are 
+    currently assigned to you.  Alternatively, you can also enter the bug
+    numbers manually as a comma separated list.
+    <P> 
+    The checkin system will only resolve bugs if the 'opened build' field
+	of the bugs is the VBL that it checks into (eg Lab21S).  It does this
+    because a bug should not be resolved until the change has been integrated
+    into the VBL where the bug was originally found.   
+</DD>
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Issue_description_helpSec>
+<A NAME=Issue_description_help> <DT> <B> Issue Description (required except bug fixes) </B></DT>
+<DD>
+    A description of reason why the change was needed. 
+    Do not include descriptions in the 'Find My Fixed Bugs' table as 
+    they will be included automatically.  Bug numbers entered manually
+	do need to be described, as only the bug number is available and
+    not the description. 
+</DD>
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Change_description_helpSec>
+<A NAME=Change_description_help> <DT> <B> Change Description </B></DT>
+<DD>
+    A high level description (a sentence to several paragraphs) of the 
+    modifications to the code base that were needed to resolve the issue(s).  
+	If there were several viable options for fixing something, documenting why
+    you chose the one you did is very valuable.  If the fix is trivial or
+	you have described the issue in product studio, then this field is optional.
+</DD>
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=SLInt_helpSec>
+<A NAME=SLInt_help> <DT> <B> Integrate into Silverlight </B></DT>
+<DD>
+    Does this change need to be integrated into Silverlight?
+    <DL>
+        <DT> <b>Yes</b> </DT>
+    <DD>
+        This change:
+        <ul>
+            <li>Effects the Silverlight product</li>
+            <li>Is safe enough to ship in the Silverlight product</li>
+            <li>Will probably merge without issue into the Silverlight_W2_CLR code base</li>
+        </ul>
+        If <b>all</b> are true, then check this box.  The change will be automatically integrated into the
+        Silverlight code base for you in the future (i.e. not as part of this snap submission).
+    </DD>
+    <DT> <b>No</b> </DT>
+    <DD>
+        This change:
+        <ul>
+            <li>Does <b>not</b> effect the Silverlight product</li>
+            <li>Is <b>not</b> safe enough for the Silverlight product</li>
+            <li>Will require special attention and/or testing to merge into Silverlight_W2_CLR</li>
+        </ul>
+        If <b>any</b> of these are true, then check this box.  If the change needs to be integrated but
+        doesn't meet the criteria, then you should do so separately from this checkin.
+    </DD>
+    </DL>
+</DD>
+</DL>
+</A>
+</DIV>
+
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Risk_helpSec>
+<A NAME=Risk_help> <DT> <B> Risk </B></DT>
+<DD>
+    A measure of how risky a fix is.
+    <DL>
+    <DT> Low <B>(SafeToMerge)</B></DT>
+    <DD>
+		You would bet $100 that you will never see a break caused by this change.
+        If breaks should happen, this checkin is unlikely to be the culprit.
+        <B>So low risk jobs are assumed to be mergeable in SNAP</B>.
+    </DD>
+    <DT> Medium </DT>
+    <DD>
+        You beleive that the change is small and unlikely to cause a break.
+        Nevertheless, if a break does happen, this checkin should not be
+        ruled out as a possible culprit.
+    </DD>
+    <DT> High </DT>
+    <DD>
+        You have done what testing you can, but the change is large and/or the
+        ramifications are the fix are subtle and you could imagine breaking 
+        something.  You should detail the risk in the Test Impact section.
+    </DD>
+    </DL>
+</DD>
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Checkin_tests_helpSec>
+<A NAME=Checkin_tests_help> <DT> <B> Checkin Tests </B> (required) </DT>
+<DD>
+</DD>
+    All Checkins should have run through the battery of tests and builds 
+    that the dailyDevRun automation does (see
+	<A HREF='http://mswikis/clr/dev/Pages/Running%20Tests.aspx' TARGET=BLANK> New User Doc </A>).
+
+	This field indicates when this was done, and any anomalies that where 
+    discovered during that run.  This field is typically filled in automatically
+	by the form software.
+	<P>
+	Fixes that need fast turnaround time may not have done a dailyDevRun.
+	In this case, indicate that in this field as well as the reason why.
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Checkin_tests_on_Mac_helpSec>
+<A NAME=Checkin_tests_on_Mac_help> <DT> <B> Checkin Tests on Mac </B> </DT>
+<DD>
+</DD>
+    You should also run <A HREF='http://mswikis/clr/dev/Pages/Running%20Macintosh%20Tests.aspx' TARGET=BLANK>DailyDevRun automation on a Mac</A>,
+    or get a buddy to run it for you.  Please indicate in this field whether
+    this was done, or specify a reason why not.
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Code_review_helpSec>
+<A NAME=Code_review_help> <DT> <B> Code Review </B> (required) </DT>
+<DD>
+</DD>
+    All changes to the product must be reviews by one or more developers before
+    being submitted.  This field is the e-mail alias of the developer who
+    did the review.  
+	If your update is not to the product, you can enter
+    'Not Needed' (however a code review is strongly encouraged even in this case).
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Test_review_helpSection>
+<DIV ID=Test_review_helpSec>
+<A NAME=Test_review_help> <DT> <B> Test Review </B> (required) </DT>
+<DD>
+</DD>
+    In line with "Feature Crew" concept, all checkins must be accompanied by test review. 
+	A member of the Test team must review the change to provide feedback from a test perspective. 
+    <P>
+    If your update is not to the product, you can enter 'Not Needed'.
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- 
+<DL>
+<DIV ID=Security_review_helpSection>
+<DIV ID=Security_review_helpSec>
+<A NAME=Security_review_help> <DT> <B> Security Review </B> (might be required) </DT>
+<DD>
+</DD>
+    To avoid security flaws, we have a special review that looks just for
+    changes that might open security hole (eg. buffer overruns, design flaws, etc). 
+    Each feature area has been assigned a set of security reviewers.  Go
+    to the <A TARGET=_blank HREF='http://teams/sites/clrdev/Lists/Security%20Reviewers%20list/AllItems.aspx'>
+	Security Reviewer list</A> on the <A TARGET=_blank HREF='http://teams/sites/clrdev/default.aspx'>
+	CLR Developers Site </A> for details.
+
+    This field is the e-mail alias of the developer who did the security review. 
+    This cannot be the same as the main Code Reviewer even if she is the best person
+    to do the Security review. You do need to have a second pair of eyes take a look 
+    at the changes. Please email <A HREF='mailto:ClrSecCR'>ClrSecCr</A> for clarifications.
+    <P>
+    If your update is not to the product, you can enter 'Not Needed'.
+</DL>
+</A>
+</DIV>
+-->
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Breaking_change_helpSec>
+<A NAME=Breaking_change_help> <DT> <B> Breaking Change </B></DT>
+<DD>
+</DD>
+    We need to carefully track any change that can break compatibility with
+    previous versions of the runtime.  If the change you make can break 
+	existing users, write a short description here. 
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Perf_testing_helpSec>
+<A NAME=Perf_testing_help> <DT> <B> Perf Testing </B></DT>
+<DD>
+</DD>
+    Any performance testing done.  If your change is likely to have
+	had an impact on performance you need to get a performance test pass
+    done on the appropriate benchmarks (TODO provide link).
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Additional_testing_helpSec>
+<A NAME=Additional_testing_help> <DT> <B> Additional Testing </B></DT>
+<DD>
+</DD>
+    All checkins should have been through the checkin testing (see checkin
+    testing above), however, risky checkins generally need more.  List 
+	that additional testing here.
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Dev_impact_helpSec>
+<A NAME=Dev_impact_help> <DT> <B> Dev Impact </B></DT>
+<DD>
+</DD>
+    If your change will cause breaks or unusual behavior for developers 
+    (hopefully not). Indicate exactly what (and what to do) here.
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Test_impact_helpSec>
+<A NAME=Test_impact_help> <DT> <B> Test Impact </B></DT>
+<DD>
+</DD>
+    If your change will cause breaks or unusual behavior for testers 
+    (hopefully not). Indicate exactly what (and what to do) here.
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=Doc_impact_helpSec>
+<A NAME=Doc_impact_help> <DT> <B> Doc Impact </B></DT>
+<DD>
+</DD>
+    If your change affect the externally visible behavior (we need
+    to change our user documentation), list what changed here.
+</DL>
+</A>
+</DIV>
+
+</BODY>
+</HTML>

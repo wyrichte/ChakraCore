@@ -1,0 +1,18 @@
+ActiveScriptError_DelegateFailure_MarshalInParam.js(1, 1) JavaScript runtime error: invoke: could not convert return value to IInspectable
+Restricted Error String: (null)
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x800A13EB
+Error Type: Type error
+Stack info:
+ActiveScriptError_DelegateFailure_MarshalInParam.js(14, 5) JavaScript runtime error: The text associated with this error code could not be found.
+
+All out parameters initialized
+Restricted Error String: All out parameters initialized
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x800A13EB
+Error Type: Type error
+Stack info:
+frame 0: Anonymous function(), line: 13, characterPosition: 4
+frame 1: Global code, line: 2, characterPosition: 1

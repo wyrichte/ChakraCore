@@ -1,0 +1,902 @@
+RecyclerStress - inspectable.js
+
+=================================================
+Starting [Test 1: Inspectable_In: null]
+Pass: testNull_InspectableIn(null).isValidType
+      Actual: true
+
+PASS [Test 1: Inspectable_In: null]
+=================================================
+
+=================================================
+Starting [Test 2: Inspectable_In: Boolean]
+Pass: testBoolean_InspectableIn(true).isValidType
+      Actual: true
+
+Pass: testBoolean_InspectableIn(true).outValue
+      Actual: true
+
+Pass: testBoolean_InspectableIn(false).isValidType
+      Actual: true
+
+Pass: testBoolean_InspectableIn(false).outValue
+      Actual: false
+
+Pass: testBoolean_InspectableIn(new Boolean(0)).isValidType
+      Actual: true
+
+Pass: testBoolean_InspectableIn(new Boolean(0)).outValue
+      Actual: false
+
+PASS [Test 2: Inspectable_In: Boolean]
+=================================================
+
+=================================================
+Starting [Test 3: Inspectable_In: String]
+Pass: testString_InspectableIn("String1").isValidType
+      Actual: true
+
+Pass: testString_InspectableIn("String1").outValue
+      Actual: String1
+
+Pass: testString_InspectableIn(new String("String2")).isValidType
+      Actual: true
+
+Pass: testString_InspectableIn(new String("String2")).outValue
+      Actual: String2
+
+PASS [Test 3: Inspectable_In: String]
+=================================================
+
+=================================================
+Starting [Test 4: Inspectable_In: Number]
+Pass: testNumber_InspectableIn(15).isValidType
+      Actual: true
+
+Pass: testNumber_InspectableIn(15).outValue
+      Actual: 15
+
+Pass: testNumber_InspectableIn(new Number(15)).isValidType
+      Actual: true
+
+Pass: testNumber_InspectableIn(new Number(15)).outValue
+      Actual: 15
+
+PASS [Test 4: Inspectable_In: Number]
+=================================================
+
+=================================================
+Starting [Test 5: Inspectable_In: Date]
+Pass: testDate_InspectableIn(winrtDate).isValidType
+      Actual: true
+
+Pass: testDate_InspectableIn(winrtDate).outValue
+      Actual: Sun Dec 31 1600 16:00:00 GMT-0800 (Pacific Standard Time)
+
+Pass: testDate_InspectableIn(jsDate).isValidType
+      Actual: true
+
+Pass: testDate_InspectableIn(jsDate).outValue
+      Actual: Sun Jun 24 1979 11:33:00 GMT-0700 (Pacific Daylight Time)
+
+PASS [Test 5: Inspectable_In: Date]
+=================================================
+
+=================================================
+Starting [Test 6: Inspectable_In: unboxed inspectable]
+Pass: testInspectable_InspectableIn(new Animals.Animal(1)).isValidType
+      Actual: true
+
+Pass: testInspectable_InspectableIn(new Animals.Animal(1)).outValue
+      Actual: [object Animals.Animal]
+
+PASS [Test 6: Inspectable_In: unboxed inspectable]
+=================================================
+
+=================================================
+Starting [Test 7: Inspectable_In: Js Arrays]
+Pass: testArray_InspectableIn([true, new Date(20, 20, 20), "This is Date Entry"]).isValidType
+      Actual: true
+
+Pass: testArray_InspectableIn([true, new Date(20, 20, 20), "This is Date Entry"]).outValue.length
+      Actual: 3
+
+Pass: testArray_InspectableIn([true, new Date(20, 20, 20), "This is Date Entry"]).outValue[0]
+      Actual: true
+
+Pass: testArray_InspectableIn([true, new Date(20, 20, 20), "This is Date Entry"]).outValue[1]
+      Actual: Tue Sep 20 1921 00:00:00 GMT-0700 (Pacific Daylight Time)
+
+Pass: testArray_InspectableIn([true, new Date(20, 20, 20), "This is Date Entry"]).outValue[2]
+      Actual: This is Date Entry
+
+PASS [Test 7: Inspectable_In: Js Arrays]
+=================================================
+
+=================================================
+Starting [Test 8: Inspectable_In: GUID Arrays from winrt]
+Pass: testGuidArray_InspectableIn(myArray).isValidType
+      Actual: true
+
+Pass: testGuidArray_InspectableIn(myArray).outValue.length
+      Actual: 3
+
+Pass: testGuidArray_InspectableIn(myArray).outValue[0]
+      Actual: 3463f772-274f-449d-8b25-822742c2b3ff
+
+Pass: testGuidArray_InspectableIn(myArray).outValue[1]
+      Actual: 3b3b41bc-96e3-43fe-8ec1-7e3dde4f776c
+
+Pass: testGuidArray_InspectableIn(myArray).outValue[2]
+      Actual: c1a5f085-740c-4991-9342-60b1e471beb9
+
+PASS [Test 8: Inspectable_In: GUID Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 9: Inspectable_In: Class (Animal) Arrays from winrt]
+Pass: testArray_InspectableIn(myArray).isValidType
+      Actual: true
+
+Pass: testArray_InspectableIn(myArray).outValue.length
+      Actual: 3
+
+Pass: testArray_InspectableIn(myArray).outValue[0]
+      Actual: [object Animals.Animal]
+
+Pass: testArray_InspectableIn(myArray).outValue[0].getGreeting()
+      Actual: Animal1
+
+Pass: testArray_InspectableIn(myArray).outValue[1]
+      Actual: null
+
+Pass: testArray_InspectableIn(myArray).outValue[2]
+      Actual: [object Animals.Animal]
+
+Pass: testArray_InspectableIn(myArray).outValue[2].getGreeting()
+      Actual: Animal3
+
+PASS [Test 9: Inspectable_In: Class (Animal) Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 10: Inspectable_In: string Arrays from winrt]
+Pass: testStringArray_InspectableIn(myArray).isValidType
+      Actual: true
+
+Pass: testStringArray_InspectableIn(myArray).outValue.length
+      Actual: 5
+
+Pass: testStringArray_InspectableIn(myArray).outValue[0]
+      Actual: Javascript
+
+Pass: testStringArray_InspectableIn(myArray).outValue[1]
+      Actual: is
+
+Pass: testStringArray_InspectableIn(myArray).outValue[2]
+      Actual: present
+
+Pass: testStringArray_InspectableIn(myArray).outValue[3]
+      Actual: and
+
+Pass: testStringArray_InspectableIn(myArray).outValue[4]
+      Actual: future
+
+PASS [Test 10: Inspectable_In: string Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 11: Inspectable_In: char16 Arrays from winrt]
+Pass: testChar16Array_InspectableIn(myArray).isValidType
+      Actual: true
+
+Pass: testChar16Array_InspectableIn(myArray).outValue.length
+      Actual: 10
+
+Pass: testChar16Array(myArray)_InspectableIn.outValue[0]
+      Actual: P
+
+Pass: testChar16Array(myArray)_InspectableIn.outValue[1]
+      Actual: r
+
+Pass: testChar16Array(myArray)_InspectableIn.outValue[2]
+      Actual: o
+
+Pass: testChar16Array(myArray)_InspectableIn.outValue[3]
+      Actual: j
+
+Pass: testChar16Array(myArray)_InspectableIn.outValue[4]
+      Actual: e
+
+Pass: testChar16Array(myArray)_InspectableIn.outValue[5]
+      Actual: c
+
+Pass: testChar16Array(myArray)_InspectableIn.outValue[6]
+      Actual: t
+
+Pass: testChar16Array(myArray)_InspectableIn.outValue[7]
+      Actual: i
+
+Pass: testChar16Array(myArray)_InspectableIn.outValue[8]
+      Actual: o
+
+Pass: testChar16Array(myArray)_InspectableIn.outValue[9]
+      Actual: n
+
+PASS [Test 11: Inspectable_In: char16 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 12: Inspectable_In: Uint8 Arrays from winrt]
+Pass: testUInt8Array_InspectableIn(myArray).isValidType
+      Actual: true
+
+Pass: testUInt8Array_InspectableIn(myArray).outValue.length
+      Actual: 4
+
+Pass: testUInt8Array_InspectableIn(myArray).outValue[0]
+      Actual: 0
+
+Pass: testUInt8Array_InspectableIn(myArray).outValue[1]
+      Actual: 2
+
+Pass: testUInt8Array_InspectableIn(myArray).outValue[2]
+      Actual: 32
+
+Pass: testUInt8Array_InspectableIn(myArray).outValue[3]
+      Actual: 34
+
+PASS [Test 12: Inspectable_In: Uint8 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 13: Inspectable_In: Struct Arrays from winrt]
+Pass: testDimensionsArray_InspectableIn(myArray).isValidType
+      Actual: true
+
+Pass: testDimensionsArray_InspectableIn(myArray).outValue.length
+      Actual: 2
+
+Pass: testDimensionsArray_InspectableIn(myArray).outValue[0].length
+      Actual: 40
+
+Pass: testDimensionsArray_InspectableIn(myArray).outValue[0].width
+      Actual: 40
+
+Pass: testDimensionsArray_InspectableIn(myArray).outValue[1].length
+      Actual: 100
+
+Pass: testDimensionsArray_InspectableIn(myArray).outValue[1].width
+      Actual: 40
+
+PASS [Test 13: Inspectable_In: Struct Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 14: Inspectable_In: TimeSpan Arrays from winrt]
+Pass: testTimeSpanArray_InspectableIn(myArray).isValidType
+      Actual: true
+
+Pass: testTimeSpanArray_InspectableIn(myArray).outValue.length
+      Actual: 3
+
+Pass: testTimeSpanArray_InspectableIn(myArray).outValue[0]
+      Actual: 1265068800000
+
+Pass: testTimeSpanArray_InspectableIn(myArray).outValue[1]
+      Actual: 0
+
+Pass: testTimeSpanArray_InspectableIn(myArray).outValue[2]
+      Actual: 3600000
+
+PASS [Test 14: Inspectable_In: TimeSpan Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 15: Inspectable_In: Winrt Delegate Array from winrt]
+Pass: testDelegateArray_InspectableIn(myArray, myArray).isValidType
+      Actual: true
+
+Pass: testDelegateArray_InspectableIn(myArray).outValue[0] are same
+      Actual: true
+
+Pass: testDelegateArray_InspectableIn(myArray).outValue[1] are same
+      Actual: true
+
+PASS [Test 15: Inspectable_In: Winrt Delegate Array from winrt]
+=================================================
+
+=================================================
+Starting [Test 16: Inspectable_In: Js Delegate Array from winrt]
+Pass: testDelegateArray_InspectableIn(myArray).outValue.length
+      Actual: 2
+
+Pass: testDelegateArray_InspectableIn(myArray).outValue[0]
+      Actual: function delegate1() {
+                return "delegate1";
+            }
+
+Pass: testDelegateArray_InspectableIn(myArray).outValue[1]
+      Actual: function delegate2() {
+                return "delegate2";
+            }
+
+PASS [Test 16: Inspectable_In: Js Delegate Array from winrt]
+=================================================
+
+=================================================
+Starting [Test 17: Inspectable_Out: null]
+Pass: testNull_InspectableOut()
+      Actual: null
+
+PASS [Test 17: Inspectable_Out: null]
+=================================================
+
+=================================================
+Starting [Test 18: Inspectable_Out: Boolean]
+Pass: testBoolean_InspectableOut(true)
+      Actual: true
+
+Pass: testBoolean_InspectableOut(false)
+      Actual: false
+
+PASS [Test 18: Inspectable_Out: Boolean]
+=================================================
+
+=================================================
+Starting [Test 19: Inspectable_Out: String]
+Pass: testString_InspectableOut("String1")
+      Actual: String1
+
+Pass: testString_InspectableOut("")
+      Actual: 
+
+PASS [Test 19: Inspectable_Out: String]
+=================================================
+
+=================================================
+Starting [Test 20: Inspectable_Out: Int32]
+Pass: testInt32_InspectableOut(2)
+      Actual: 2
+
+PASS [Test 20: Inspectable_Out: Int32]
+=================================================
+
+=================================================
+Starting [Test 21: Inspectable_Out: Guid]
+Pass: testGuid_InspectableOut("{10C27311-B58F-476C-BFF4-6689B8A19836}")
+      Actual: 10c27311-b58f-476c-bff4-6689b8a19836
+
+PASS [Test 21: Inspectable_Out: Guid]
+=================================================
+
+=================================================
+Starting [Test 22: Inspectable_Out: Date]
+Pass: testDate_InspectableOut(winrtDate)
+      Actual: Sun Dec 31 1600 16:00:00 GMT-0800 (Pacific Standard Time)
+
+Pass: testDate_InspectableOut(jsDate)
+      Actual: Sun Jun 24 1979 11:33:00 GMT-0700 (Pacific Daylight Time)
+
+PASS [Test 22: Inspectable_Out: Date]
+=================================================
+
+=================================================
+Starting [Test 23: Inspectable_Out: GUID Arrays from winrt]
+Pass: testGuidArray_InspectableOut(myArray).length
+      Actual: 3
+
+Pass: testGuidArray_InspectableOut(myArray)[0]
+      Actual: 3463f772-274f-449d-8b25-822742c2b3ff
+
+Pass: testGuidArray_InspectableOut(myArray)[1]
+      Actual: 3b3b41bc-96e3-43fe-8ec1-7e3dde4f776c
+
+Pass: testGuidArray_InspectableOut(myArray)[2]
+      Actual: c1a5f085-740c-4991-9342-60b1e471beb9
+
+PASS [Test 23: Inspectable_Out: GUID Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 24: Inspectable_Out: Date Arrays from winrt]
+Pass: testDateArray_InspectableOut(myArray).length
+      Actual: 2
+
+Pass: testDateArray_InspectableOut(myArray)[0]
+      Actual: Fri Feb 01 1641 16:00:00 GMT-0800 (Pacific Standard Time)
+
+Pass: testDateArray_InspectableOut(myArray)[1]
+      Actual: Sun Dec 31 1600 16:00:00 GMT-0800 (Pacific Standard Time)
+
+PASS [Test 24: Inspectable_Out: Date Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 25: Inspectable_Out: Boolean Arrays from winrt]
+Pass: testBooleanArray_InspectableOut(myArray).length
+      Actual: 4
+
+Pass: testBooleanArray_InspectableOut(myArray)[0]
+      Actual: true
+
+Pass: testBooleanArray_InspectableOut(myArray)[1]
+      Actual: false
+
+Pass: testBooleanArray_InspectableOut(myArray)[2]
+      Actual: true
+
+Pass: testBooleanArray_InspectableOut(myArray)[3]
+      Actual: true
+
+PASS [Test 25: Inspectable_Out: Boolean Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 26: Inspectable_Out: String Arrays from winrt]
+Pass: testStringArray_InspectableOut(myArray).length
+      Actual: 5
+
+Pass: testStringArray_InspectableOut(myArray)[0]
+      Actual: Javascript
+
+Pass: testStringArray_InspectableOut(myArray)[1]
+      Actual: is
+
+Pass: testStringArray_InspectableOut(myArray)[2]
+      Actual: present
+
+Pass: testStringArray_InspectableOut(myArray)[3]
+      Actual: and
+
+Pass: testStringArray_InspectableOut(myArray)[4]
+      Actual: future
+
+PASS [Test 26: Inspectable_Out: String Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 27: Inspectable_Out: UInt16 Arrays from winrt]
+Pass: testUInt16Array_InspectableOut(myArray).length
+      Actual: 2
+
+Pass: testUInt16Array_InspectableOut(myArray)[0]
+      Actual: 10
+
+Pass: testUInt16Array_InspectableOut(myArray)[1]
+      Actual: 20
+
+PASS [Test 27: Inspectable_Out: UInt16 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 28: Inspectable_Out: IVector<int> Arrays from winrt]
+Pass: testVectorArray_InspectableOut(myArray).length
+      Actual: 2
+
+Pass: testVectorArray_InspectableOut(myArray)[0]
+      Actual: 1,2,3,4,5
+
+Pass: testVectorArray_InspectableOut(myArray)[1]
+      Actual: 100,200,300,400
+
+PASS [Test 28: Inspectable_Out: IVector<int> Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 29: Inspectable_Out: Js Arrays that are marshaled into inspectable arrays]
+Pass: testArray_InspectableOut(myArray).length
+      Actual: 3
+
+Pass: testArray_InspectableOut(myArray)[0]
+      Actual: true
+
+Pass: testArray_InspectableOut(myArray)[1]
+      Actual: Tue Sep 20 1921 00:00:00 GMT-0700 (Pacific Daylight Time)
+
+Pass: testArray_InspectableOut(myArray)[2]
+      Actual: This is Date Entry
+
+PASS [Test 29: Inspectable_Out: Js Arrays that are marshaled into inspectable arrays]
+=================================================
+
+=================================================
+Starting [Test 30: Inspectable_Out: Box inspectable in winrt]
+Pass: testBoxInspectable_InspectableOut(myAnimal)
+      Actual: [object Animals.Animal]
+
+Pass: testBoxInspectable_InspectableOut(myVector)
+      Actual: 1,2,3,4,5,6,7,8,9
+
+PASS [Test 30: Inspectable_Out: Box inspectable in winrt]
+=================================================
+
+=================================================
+Starting [Test 31: Inspectable_Out: Plain inspectable in and out]
+Pass: testInspectable_InspectableOut(myAnimal)
+      Actual: [object Animals.Animal]
+
+Pass: testInspectable_InspectableOut(myVector)
+      Actual: 1,2,3,4,5,6,7,8,9
+
+PASS [Test 31: Inspectable_Out: Plain inspectable in and out]
+=================================================
+
+=================================================
+Starting [Test 32: Inspectable_Out: IVector<IVector<int>>]
+Pass: myVectorOfVectorInspectable[0].length
+      Actual: 5
+
+Pass: myVectorOfVectorInspectable[0][0]
+      Actual: 1
+
+Pass: myVectorOfVectorInspectable[0][1]
+      Actual: 2
+
+Pass: myVectorOfVectorInspectable[0][2]
+      Actual: 3
+
+Pass: myVectorOfVectorInspectable[0][3]
+      Actual: 4
+
+Pass: myVectorOfVectorInspectable[0][4]
+      Actual: 5
+
+Pass: myVectorOfVectorInspectable[1].length
+      Actual: 4
+
+Pass: myVectorOfVectorInspectable[1][0]
+      Actual: 100
+
+Pass: myVectorOfVectorInspectable[1][1]
+      Actual: 200
+
+Pass: myVectorOfVectorInspectable[1][2]
+      Actual: 300
+
+Pass: myVectorOfVectorInspectable[1][3]
+      Actual: 400
+
+Pass: testBoxInspectable_InspectableOut(myVectorOfVector)
+      Actual: 1,2,3,4,5,100,200,300,400
+
+Pass: testBoxInspectable_InspectableOut(myVectorOfVector)[0]
+      Actual: 1,2,3,4,5
+
+Pass: testBoxInspectable_InspectableOut(myVectorOfVector)[1]
+      Actual: 100,200,300,400
+
+Pass: testInspectable_InspectableOut(myVectorOfVector)
+      Actual: 1,2,3,4,5,100,200,300,400
+
+Pass: testInspectable_InspectableOut(myVectorOfVector)[0]
+      Actual: 1,2,3,4,5
+
+Pass: testInspectable_InspectableOut(myVectorOfVector)[1]
+      Actual: 100,200,300,400
+
+PASS [Test 32: Inspectable_Out: IVector<IVector<int>>]
+=================================================
+
+=================================================
+Starting [Test 33: Inspectable_Out: IMap<Dimension, IVector<HSTRING>>]
+Pass: myMapOfStructAndVectorInspectable.toString()
+      Actual: [object Windows.Foundation.Collections.IMap`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: myMapOfStructAndVectorInspectable.size
+      Actual: 2
+
+Pass: myMapOfStructAndVectorInspectable.first().toString()
+      Actual: [object Windows.Foundation.Collections.IIterator`1<Windows.Foundation.Collections.IKeyValuePair`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>>]
+
+Pass: myMapOfStructAndVectorInspectable.first().current.toString()
+      Actual: [object Windows.Foundation.Collections.IKeyValuePair`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: myMapOfStructAndVectorInspectable.first().current.key.toString()
+      Actual: [object Animals.Dimensions]
+
+Pass: (Key: 1) myDimension.length
+      Actual: 150
+
+Pass: (Key: 1) myDimension.width
+      Actual: 100
+
+Pass: myMapOfStructAndVectorInspectable.first().current.value.toString()
+      Actual: Hundred And Fifty,by,Hundred
+
+Pass: (Value: 1) myVector.length
+      Actual: 3
+
+Pass: (Value: 1) myVector[0]
+      Actual: Hundred And Fifty
+
+Pass: (Value: 1) myVector[1]
+      Actual: by
+
+Pass: (Value: 1) myVector[2]
+      Actual: Hundred
+
+Pass: myMapOfStructAndVectorInspectable.first().current.toString()
+      Actual: [object Windows.Foundation.Collections.IKeyValuePair`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: myMapOfStructAndVectorInspectable.first().current.key.toString()
+      Actual: [object Animals.Dimensions]
+
+Pass: (Key: 2) myDimension.length
+      Actual: 100
+
+Pass: (Key: 2) myDimension.width
+      Actual: 100
+
+Pass: myMapOfStructAndVectorInspectable.first().current.value.toString()
+      Actual: Hundred,by,Hundred
+
+Pass: (Value: 2) myVector.length
+      Actual: 3
+
+Pass: (Value: 2) myVector[0]
+      Actual: Hundred
+
+Pass: (Value: 2) myVector[1]
+      Actual: by
+
+Pass: (Value: 2) myVector[2]
+      Actual: Hundred
+
+Pass: testBoxInspectable_InspectableOut(myMapOfStructAndVector)
+      Actual: [object Windows.Foundation.Collections.IMap`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: testBoxInspectable_InspectableOut(myMapOfStructAndVector).toString()
+      Actual: [object Windows.Foundation.Collections.IMap`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: testBoxInspectable_InspectableOut(myMapOfStructAndVector).size
+      Actual: 2
+
+Pass: testBoxInspectable_InspectableOut(myMapOfStructAndVector).first().toString()
+      Actual: [object Windows.Foundation.Collections.IIterator`1<Windows.Foundation.Collections.IKeyValuePair`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>>]
+
+Pass: testBoxInspectable_InspectableOut(myMapOfStructAndVector).first().current.toString()
+      Actual: [object Windows.Foundation.Collections.IKeyValuePair`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: testBoxInspectable_InspectableOut(myMapOfStructAndVector).first().current.key.toString()
+      Actual: [object Animals.Dimensions]
+
+Pass: (Key: 1) myDimension.length
+      Actual: 150
+
+Pass: (Key: 1) myDimension.width
+      Actual: 100
+
+Pass: testBoxInspectable_InspectableOut(myMapOfStructAndVector).first().current.value.toString()
+      Actual: Hundred And Fifty,by,Hundred
+
+Pass: (Value: 1) myVector.length
+      Actual: 3
+
+Pass: (Value: 1) myVector[0]
+      Actual: Hundred And Fifty
+
+Pass: (Value: 1) myVector[1]
+      Actual: by
+
+Pass: (Value: 1) myVector[2]
+      Actual: Hundred
+
+Pass: testBoxInspectable_InspectableOut(myMapOfStructAndVector).first().current.toString()
+      Actual: [object Windows.Foundation.Collections.IKeyValuePair`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: testBoxInspectable_InspectableOut(myMapOfStructAndVector).first().current.key.toString()
+      Actual: [object Animals.Dimensions]
+
+Pass: (Key: 2) myDimension.length
+      Actual: 100
+
+Pass: (Key: 2) myDimension.width
+      Actual: 100
+
+Pass: testBoxInspectable_InspectableOut(myMapOfStructAndVector).first().current.value.toString()
+      Actual: Hundred,by,Hundred
+
+Pass: (Value: 2) myVector.length
+      Actual: 3
+
+Pass: (Value: 2) myVector[0]
+      Actual: Hundred
+
+Pass: (Value: 2) myVector[1]
+      Actual: by
+
+Pass: (Value: 2) myVector[2]
+      Actual: Hundred
+
+Pass: testInspectable_InspectableOut(myMapOfStructAndVector)
+      Actual: [object Windows.Foundation.Collections.IMap`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: testInspectable_InspectableOut(myMapOfStructAndVector).toString()
+      Actual: [object Windows.Foundation.Collections.IMap`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: testInspectable_InspectableOut(myMapOfStructAndVector).size
+      Actual: 2
+
+Pass: testInspectable_InspectableOut(myMapOfStructAndVector).first().toString()
+      Actual: [object Windows.Foundation.Collections.IIterator`1<Windows.Foundation.Collections.IKeyValuePair`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>>]
+
+Pass: testInspectable_InspectableOut(myMapOfStructAndVector).first().current.toString()
+      Actual: [object Windows.Foundation.Collections.IKeyValuePair`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: testInspectable_InspectableOut(myMapOfStructAndVector).first().current.key.toString()
+      Actual: [object Animals.Dimensions]
+
+Pass: (Key: 1) myDimension.length
+      Actual: 150
+
+Pass: (Key: 1) myDimension.width
+      Actual: 100
+
+Pass: testInspectable_InspectableOut(myMapOfStructAndVector).first().current.value.toString()
+      Actual: Hundred And Fifty,by,Hundred
+
+Pass: (Value: 1) myVector.length
+      Actual: 3
+
+Pass: (Value: 1) myVector[0]
+      Actual: Hundred And Fifty
+
+Pass: (Value: 1) myVector[1]
+      Actual: by
+
+Pass: (Value: 1) myVector[2]
+      Actual: Hundred
+
+Pass: testInspectable_InspectableOut(myMapOfStructAndVector).first().current.toString()
+      Actual: [object Windows.Foundation.Collections.IKeyValuePair`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: testInspectable_InspectableOut(myMapOfStructAndVector).first().current.key.toString()
+      Actual: [object Animals.Dimensions]
+
+Pass: (Key: 2) myDimension.length
+      Actual: 100
+
+Pass: (Key: 2) myDimension.width
+      Actual: 100
+
+Pass: testInspectable_InspectableOut(myMapOfStructAndVector).first().current.value.toString()
+      Actual: Hundred,by,Hundred
+
+Pass: (Value: 2) myVector.length
+      Actual: 3
+
+Pass: (Value: 2) myVector[0]
+      Actual: Hundred
+
+Pass: (Value: 2) myVector[1]
+      Actual: by
+
+Pass: (Value: 2) myVector[2]
+      Actual: Hundred
+
+PASS [Test 33: Inspectable_Out: IMap<Dimension, IVector<HSTRING>>]
+=================================================
+
+=================================================
+Starting [Test 34: Inspectable_Out: Struct from winrt]
+Pass: testDimensions_InspectableOut(myStruct).length
+      Actual: 10
+
+Pass: testDimensions_InspectableOut(myStruct).width
+      Actual: 40
+
+PASS [Test 34: Inspectable_Out: Struct from winrt]
+=================================================
+
+=================================================
+Starting [Test 35: Inspectable_Out: Point]
+Pass: testPoint_InspectableOut(myPoint).x
+      Actual: 10
+
+Pass: testPoint_InspectableOut(myPoint).y
+      Actual: 40
+
+PASS [Test 35: Inspectable_Out: Point]
+=================================================
+
+=================================================
+Starting [Test 36: Inspectable_Out: Struct Arrays from winrt]
+Pass: testInspectable_InspectableOut(myArray).length
+      Actual: 2
+
+Pass: testInspectable_InspectableOut(myArray)[0].length
+      Actual: 40
+
+Pass: testInspectable_InspectableOut(myArray)[0].width
+      Actual: 40
+
+Pass: testInspectable_InspectableOut(myArray)[1].length
+      Actual: 100
+
+Pass: testInspectable_InspectableOut(myArray)[1].width
+      Actual: 40
+
+PASS [Test 36: Inspectable_Out: Struct Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 37: Inspectable_Out: Size Arrays from winrt]
+Pass: testSizeArray_InspectableOut(myArray).length
+      Actual: 3
+
+Pass: testSizeArray_InspectableOut(myArray)[0].height
+      Actual: 10
+
+Pass: testSizeArray_InspectableOut(myArray)[0].width
+      Actual: 40
+
+Pass: testSizeArray_InspectableOut(myArray)[1].height
+      Actual: 30
+
+Pass: testSizeArray_InspectableOut(myArray)[1].width
+      Actual: 50
+
+Pass: testSizeArray_InspectableOut(myArray)[2].height
+      Actual: 100
+
+Pass: testSizeArray_InspectableOut(myArray)[2].width
+      Actual: 50
+
+PASS [Test 37: Inspectable_Out: Size Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 38: Inspectable_Out: Enum Arrays from winrt]
+Pass: testInspectable_InspectableOut(myArray).length
+      Actual: 4
+
+Pass: testInspectable_InspectableOut(myArray)[0]
+      Actual: 13
+
+Pass: testInspectable_InspectableOut(myArray)[1]
+      Actual: 20
+
+Pass: testInspectable_InspectableOut(myArray)[2]
+      Actual: 3
+
+Pass: testInspectable_InspectableOut(myArray)[3]
+      Actual: 25
+
+PASS [Test 38: Inspectable_Out: Enum Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 39: Inspectable_Out: Js Delegate Arrays from winrt]
+Pass: testInspectable_InspectableOut(myArray).length
+      Actual: 2
+
+Pass: testInspectable_InspectableOut(myArray)[0]
+      Actual: function delegate1() {
+                return "delegate1";
+            }
+
+Pass: testInspectable_InspectableOut(myArray)[1]
+      Actual: function delegate2() {
+                return "delegate2";
+            }
+
+PASS [Test 39: Inspectable_Out: Js Delegate Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 40: Inspectable_Out: Winrt Delegate Arrays from winrt]
+Pass: testInspectable_InspectableOut(myArray).length
+      Actual: 2
+
+Pass: testInspectable_InspectableOut(myArray)[0] are same
+      Actual: true
+
+Pass: testInspectable_InspectableOut(myArray)[1] are same
+      Actual: true
+
+PASS [Test 40: Inspectable_Out: Winrt Delegate Arrays from winrt]
+=================================================
+
+Passed: 40
+Failed: 0

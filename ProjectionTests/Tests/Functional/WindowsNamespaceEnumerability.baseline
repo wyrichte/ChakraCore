@@ -1,0 +1,905 @@
+Enumeration Tests over Windows Namespaces
+
+=================================================
+Starting [Test 1: Namespace Enumerability -- own Winmd only (Windows.Foundation)]
+Comment: for...in enumeration of Windows.Foundation
+Pass: AsyncStatus should be defined
+      Actual: object
+
+Pass: Collections should be defined
+      Actual: object
+
+Pass: Diagnostics should be defined
+      Actual: object
+
+Pass: Metadata should be defined
+      Actual: object
+
+Pass: PropertyType should be defined
+      Actual: object
+
+Pass: Uri should be defined
+      Actual: function
+
+Pass: WwwFormUrlDecoder should be defined
+      Actual: function
+
+Comment: Object.keys enumeration of Windows.Foundation
+Pass: AsyncStatus should be defined
+      Actual: object
+
+Pass: Collections should be defined
+      Actual: object
+
+Pass: Diagnostics should be defined
+      Actual: object
+
+Pass: Metadata should be defined
+      Actual: object
+
+Pass: PropertyType should be defined
+      Actual: object
+
+Pass: Uri should be defined
+      Actual: function
+
+Pass: WwwFormUrlDecoder should be defined
+      Actual: function
+
+Comment: Object.getOwnPropertyNames enumeration of Windows.Foundation
+Pass: AsyncStatus should be defined
+      Actual: object
+
+Pass: Collections should be defined
+      Actual: object
+
+Pass: Diagnostics should be defined
+      Actual: object
+
+Pass: Metadata should be defined
+      Actual: object
+
+Pass: PropertyType should be defined
+      Actual: object
+
+Pass: Uri should be defined
+      Actual: function
+
+Pass: WwwFormUrlDecoder should be defined
+      Actual: function
+
+Pass: Object.Keys(Windows.Foundation)
+      Actual: AsyncStatus,Collections,Diagnostics,Metadata,PropertyType,Uri,WwwFormUrlDecoder
+
+Pass: typeof 
+function WwwFormUrlDecoder() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Uri() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof [object Windows.Foundation.PropertyType]
+      Actual: object
+
+Pass: typeof [object Metadata]
+      Actual: object
+
+Pass: typeof [object Diagnostics]
+      Actual: object
+
+Pass: typeof [object Collections]
+      Actual: object
+
+Pass: typeof [object Windows.Foundation.AsyncStatus]
+      Actual: object
+
+Comment: Verify order of enumeration over Windows.Foundation
+Pass: property: 0
+      Actual: AsyncStatus
+
+Pass: property: 1
+      Actual: Collections
+
+Pass: property: 2
+      Actual: Diagnostics
+
+Pass: property: 3
+      Actual: Metadata
+
+Pass: property: 4
+      Actual: PropertyType
+
+Pass: property: 5
+      Actual: Uri
+
+Pass: property: 6
+      Actual: WwwFormUrlDecoder
+
+Pass: Total number of properties enumerated
+      Actual: 7
+
+PASS [Test 1: Namespace Enumerability -- own Winmd only (Windows.Foundation)]
+=================================================
+
+=================================================
+Starting [Test 2: Namespace Enumerability -- no metadata of exact name (Windows.Foundation.Metadata)]
+Comment: for...in enumeration of Windows.Foundation.Metadata
+Pass: ActivatableAttribute should be defined
+      Actual: function
+
+Pass: AllowMultipleAttribute should be defined
+      Actual: function
+
+Pass: AttributeTargets should be defined
+      Actual: object
+
+Pass: AttributeUsageAttribute should be defined
+      Actual: function
+
+Pass: ComposableAttribute should be defined
+      Actual: function
+
+Pass: CompositionType should be defined
+      Actual: object
+
+Pass: DefaultAttribute should be defined
+      Actual: function
+
+Pass: DefaultOverloadAttribute should be defined
+      Actual: function
+
+Pass: DualApiPartitionAttribute should be defined
+      Actual: function
+
+Pass: ExclusiveToAttribute should be defined
+      Actual: function
+
+Pass: GCPressureAmount should be defined
+      Actual: object
+
+Pass: GCPressureAttribute should be defined
+      Actual: function
+
+Pass: GuidAttribute should be defined
+      Actual: function
+
+Pass: HasVariantAttribute should be defined
+      Actual: function
+
+Pass: LengthIsAttribute should be defined
+      Actual: function
+
+Pass: MarshalingBehaviorAttribute should be defined
+      Actual: function
+
+Pass: MarshalingType should be defined
+      Actual: object
+
+Pass: MuseAttribute should be defined
+      Actual: function
+
+Pass: OverloadAttribute should be defined
+      Actual: function
+
+Pass: OverridableAttribute should be defined
+      Actual: function
+
+Pass: ProtectedAttribute should be defined
+      Actual: function
+
+Pass: RangeAttribute should be defined
+      Actual: function
+
+Pass: StaticAttribute should be defined
+      Actual: function
+
+Pass: ThreadingAttribute should be defined
+      Actual: function
+
+Pass: ThreadingModel should be defined
+      Actual: object
+
+Pass: VariantAttribute should be defined
+      Actual: function
+
+Pass: VersionAttribute should be defined
+      Actual: function
+
+Pass: WebHostHiddenAttribute should be defined
+      Actual: function
+
+Comment: Object.keys enumeration of Windows.Foundation.Metadata
+Pass: ActivatableAttribute should be defined
+      Actual: function
+
+Pass: AllowMultipleAttribute should be defined
+      Actual: function
+
+Pass: AttributeTargets should be defined
+      Actual: object
+
+Pass: AttributeUsageAttribute should be defined
+      Actual: function
+
+Pass: ComposableAttribute should be defined
+      Actual: function
+
+Pass: CompositionType should be defined
+      Actual: object
+
+Pass: DefaultAttribute should be defined
+      Actual: function
+
+Pass: DefaultOverloadAttribute should be defined
+      Actual: function
+
+Pass: DualApiPartitionAttribute should be defined
+      Actual: function
+
+Pass: ExclusiveToAttribute should be defined
+      Actual: function
+
+Pass: GCPressureAmount should be defined
+      Actual: object
+
+Pass: GCPressureAttribute should be defined
+      Actual: function
+
+Pass: GuidAttribute should be defined
+      Actual: function
+
+Pass: HasVariantAttribute should be defined
+      Actual: function
+
+Pass: LengthIsAttribute should be defined
+      Actual: function
+
+Pass: MarshalingBehaviorAttribute should be defined
+      Actual: function
+
+Pass: MarshalingType should be defined
+      Actual: object
+
+Pass: MuseAttribute should be defined
+      Actual: function
+
+Pass: OverloadAttribute should be defined
+      Actual: function
+
+Pass: OverridableAttribute should be defined
+      Actual: function
+
+Pass: ProtectedAttribute should be defined
+      Actual: function
+
+Pass: RangeAttribute should be defined
+      Actual: function
+
+Pass: StaticAttribute should be defined
+      Actual: function
+
+Pass: ThreadingAttribute should be defined
+      Actual: function
+
+Pass: ThreadingModel should be defined
+      Actual: object
+
+Pass: VariantAttribute should be defined
+      Actual: function
+
+Pass: VersionAttribute should be defined
+      Actual: function
+
+Pass: WebHostHiddenAttribute should be defined
+      Actual: function
+
+Comment: Object.getOwnPropertyNames enumeration of Windows.Foundation.Metadata
+Pass: ActivatableAttribute should be defined
+      Actual: function
+
+Pass: AllowMultipleAttribute should be defined
+      Actual: function
+
+Pass: AttributeTargets should be defined
+      Actual: object
+
+Pass: AttributeUsageAttribute should be defined
+      Actual: function
+
+Pass: ComposableAttribute should be defined
+      Actual: function
+
+Pass: CompositionType should be defined
+      Actual: object
+
+Pass: DefaultAttribute should be defined
+      Actual: function
+
+Pass: DefaultOverloadAttribute should be defined
+      Actual: function
+
+Pass: DualApiPartitionAttribute should be defined
+      Actual: function
+
+Pass: ExclusiveToAttribute should be defined
+      Actual: function
+
+Pass: GCPressureAmount should be defined
+      Actual: object
+
+Pass: GCPressureAttribute should be defined
+      Actual: function
+
+Pass: GuidAttribute should be defined
+      Actual: function
+
+Pass: HasVariantAttribute should be defined
+      Actual: function
+
+Pass: LengthIsAttribute should be defined
+      Actual: function
+
+Pass: MarshalingBehaviorAttribute should be defined
+      Actual: function
+
+Pass: MarshalingType should be defined
+      Actual: object
+
+Pass: MuseAttribute should be defined
+      Actual: function
+
+Pass: OverloadAttribute should be defined
+      Actual: function
+
+Pass: OverridableAttribute should be defined
+      Actual: function
+
+Pass: ProtectedAttribute should be defined
+      Actual: function
+
+Pass: RangeAttribute should be defined
+      Actual: function
+
+Pass: StaticAttribute should be defined
+      Actual: function
+
+Pass: ThreadingAttribute should be defined
+      Actual: function
+
+Pass: ThreadingModel should be defined
+      Actual: object
+
+Pass: VariantAttribute should be defined
+      Actual: function
+
+Pass: VersionAttribute should be defined
+      Actual: function
+
+Pass: WebHostHiddenAttribute should be defined
+      Actual: function
+
+Pass: Object.Keys(Windows.Foundation.Metadata)
+      Actual: ActivatableAttribute,AllowMultipleAttribute,AttributeTargets,AttributeUsageAttribute,ComposableAttribute,CompositionType,DefaultAttribute,DefaultOverloadAttribute,DualApiPartitionAttribute,ExclusiveToAttribute,GCPressureAmount,GCPressureAttribute,GuidAttribute,HasVariantAttribute,LengthIsAttribute,MarshalingBehaviorAttribute,MarshalingType,MuseAttribute,OverloadAttribute,OverridableAttribute,ProtectedAttribute,RangeAttribute,StaticAttribute,ThreadingAttribute,ThreadingModel,VariantAttribute,VersionAttribute,WebHostHiddenAttribute
+
+Pass: typeof 
+function Windows.Foundation.Metadata.WebHostHiddenAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.VersionAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.VariantAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof [object Windows.Foundation.Metadata.ThreadingModel]
+      Actual: object
+
+Pass: typeof 
+function Windows.Foundation.Metadata.ThreadingAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.StaticAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.RangeAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.ProtectedAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.OverridableAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.OverloadAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.MuseAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof [object Windows.Foundation.Metadata.MarshalingType]
+      Actual: object
+
+Pass: typeof 
+function Windows.Foundation.Metadata.MarshalingBehaviorAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.LengthIsAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.HasVariantAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.GuidAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.GCPressureAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof [object Windows.Foundation.Metadata.GCPressureAmount]
+      Actual: object
+
+Pass: typeof 
+function Windows.Foundation.Metadata.ExclusiveToAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.DualApiPartitionAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.DefaultOverloadAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.DefaultAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof [object Windows.Foundation.Metadata.CompositionType]
+      Actual: object
+
+Pass: typeof 
+function Windows.Foundation.Metadata.ComposableAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.AttributeUsageAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof [object Windows.Foundation.Metadata.AttributeTargets]
+      Actual: object
+
+Pass: typeof 
+function Windows.Foundation.Metadata.AllowMultipleAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function Windows.Foundation.Metadata.ActivatableAttribute() {
+    [native code]
+}
+
+      Actual: function
+
+Comment: Verify order of enumeration over Windows.Foundation.Metadata
+Pass: property: 0
+      Actual: ActivatableAttribute
+
+Pass: property: 1
+      Actual: AllowMultipleAttribute
+
+Pass: property: 2
+      Actual: AttributeTargets
+
+Pass: property: 3
+      Actual: AttributeUsageAttribute
+
+Pass: property: 4
+      Actual: ComposableAttribute
+
+Pass: property: 5
+      Actual: CompositionType
+
+Pass: property: 6
+      Actual: DefaultAttribute
+
+Pass: property: 7
+      Actual: DefaultOverloadAttribute
+
+Pass: property: 8
+      Actual: DualApiPartitionAttribute
+
+Pass: property: 9
+      Actual: ExclusiveToAttribute
+
+Pass: property: 10
+      Actual: GCPressureAmount
+
+Pass: property: 11
+      Actual: GCPressureAttribute
+
+Pass: property: 12
+      Actual: GuidAttribute
+
+Pass: property: 13
+      Actual: HasVariantAttribute
+
+Pass: property: 14
+      Actual: LengthIsAttribute
+
+Pass: property: 15
+      Actual: MarshalingBehaviorAttribute
+
+Pass: property: 16
+      Actual: MarshalingType
+
+Pass: property: 17
+      Actual: MuseAttribute
+
+Pass: property: 18
+      Actual: OverloadAttribute
+
+Pass: property: 19
+      Actual: OverridableAttribute
+
+Pass: property: 20
+      Actual: ProtectedAttribute
+
+Pass: property: 21
+      Actual: RangeAttribute
+
+Pass: property: 22
+      Actual: StaticAttribute
+
+Pass: property: 23
+      Actual: ThreadingAttribute
+
+Pass: property: 24
+      Actual: ThreadingModel
+
+Pass: property: 25
+      Actual: VariantAttribute
+
+Pass: property: 26
+      Actual: VersionAttribute
+
+Pass: property: 27
+      Actual: WebHostHiddenAttribute
+
+Pass: Total number of properties enumerated
+      Actual: 28
+
+PASS [Test 2: Namespace Enumerability -- no metadata of exact name (Windows.Foundation.Metadata)]
+=================================================
+
+=================================================
+Starting [Test 3: Namespace Enumerability -- only child namespace Winmds (Windows)]
+Comment: NOTE: Only checking for enumerability of some (not all) members due to high churn.
+Pass: Object (Windows) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (Storage) when enumerating over Windows
+      Actual: true
+
+Pass: Object (Windows) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (Foundation) when enumerating over Windows
+      Actual: true
+
+Pass: Object (Windows) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (Devices) when enumerating over Windows
+      Actual: true
+
+Pass: Object (Windows) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (UI) when enumerating over Windows
+      Actual: true
+
+Pass: typeof [object Storage]
+      Actual: object
+
+Pass: typeof [object Foundation]
+      Actual: object
+
+Pass: typeof [object UI]
+      Actual: object
+
+Comment: Verify order of enumeration over Windows
+Pass: property: 0
+      Actual: ApplicationModel
+
+Pass: property: 1
+      Actual: Data
+
+Pass: property: 2
+      Actual: Devices
+
+Pass: property: 3
+      Actual: Foundation
+
+Pass: property: 4
+      Actual: Globalization
+
+Pass: property: 5
+      Actual: Graphics
+
+Pass: property: 6
+      Actual: Management
+
+Pass: property: 7
+      Actual: Media
+
+Pass: property: 8
+      Actual: Networking
+
+Pass: property: 9
+      Actual: Security
+
+Pass: property: 10
+      Actual: Storage
+
+Pass: property: 11
+      Actual: System
+
+Pass: property: 12
+      Actual: UI
+
+Pass: property: 13
+      Actual: Web
+
+Pass: Total number of properties enumerated
+      Actual: 14
+
+Pass: typeof [object Devices]
+      Actual: object
+
+Pass: Object.keys(Windows)
+      Actual: ApplicationModel,Data,Devices,Foundation,Globalization,Graphics,Management,Media,Networking,Security,Storage,System,UI,Web
+
+PASS [Test 3: Namespace Enumerability -- only child namespace Winmds (Windows)]
+=================================================
+
+=================================================
+Starting [Test 4: Namespace Enumerability -- all namespace children are enumerable true]
+Comment: Verify all children of first party namespace (Windows.Foundation.Metadata) are enumerable true
+Pass: Enumerable: ActivatableAttribute
+      Actual: true
+
+Pass: Enumerable: AllowMultipleAttribute
+      Actual: true
+
+Pass: Enumerable: AttributeTargets
+      Actual: true
+
+Pass: Enumerable: AttributeUsageAttribute
+      Actual: true
+
+Pass: Enumerable: ComposableAttribute
+      Actual: true
+
+Pass: Enumerable: CompositionType
+      Actual: true
+
+Pass: Enumerable: DefaultAttribute
+      Actual: true
+
+Pass: Enumerable: DefaultOverloadAttribute
+      Actual: true
+
+Pass: Enumerable: DualApiPartitionAttribute
+      Actual: true
+
+Pass: Enumerable: ExclusiveToAttribute
+      Actual: true
+
+Pass: Enumerable: GCPressureAmount
+      Actual: true
+
+Pass: Enumerable: GCPressureAttribute
+      Actual: true
+
+Pass: Enumerable: GuidAttribute
+      Actual: true
+
+Pass: Enumerable: HasVariantAttribute
+      Actual: true
+
+Pass: Enumerable: LengthIsAttribute
+      Actual: true
+
+Pass: Enumerable: MarshalingBehaviorAttribute
+      Actual: true
+
+Pass: Enumerable: MarshalingType
+      Actual: true
+
+Pass: Enumerable: MuseAttribute
+      Actual: true
+
+Pass: Enumerable: OverloadAttribute
+      Actual: true
+
+Pass: Enumerable: OverridableAttribute
+      Actual: true
+
+Pass: Enumerable: ProtectedAttribute
+      Actual: true
+
+Pass: Enumerable: RangeAttribute
+      Actual: true
+
+Pass: Enumerable: StaticAttribute
+      Actual: true
+
+Pass: Enumerable: ThreadingAttribute
+      Actual: true
+
+Pass: Enumerable: ThreadingModel
+      Actual: true
+
+Pass: Enumerable: VariantAttribute
+      Actual: true
+
+Pass: Enumerable: VersionAttribute
+      Actual: true
+
+Pass: Enumerable: WebHostHiddenAttribute
+      Actual: true
+
+Comment: Verify all children of first party namespace (Windows.Foundation) are enumerable true
+Pass: Enumerable: AsyncStatus
+      Actual: true
+
+Pass: Enumerable: Collections
+      Actual: true
+
+Pass: Enumerable: Diagnostics
+      Actual: true
+
+Pass: Enumerable: Metadata
+      Actual: true
+
+Pass: Enumerable: PropertyType
+      Actual: true
+
+Pass: Enumerable: Uri
+      Actual: true
+
+Pass: Enumerable: WwwFormUrlDecoder
+      Actual: true
+
+Comment: Verify all children of first party namespace (Windows) are enumerable true
+Pass: Enumerable: ApplicationModel
+      Actual: true
+
+Pass: Enumerable: Data
+      Actual: true
+
+Pass: Enumerable: Devices
+      Actual: true
+
+Pass: Enumerable: Foundation
+      Actual: true
+
+Pass: Enumerable: Globalization
+      Actual: true
+
+Pass: Enumerable: Graphics
+      Actual: true
+
+Pass: Enumerable: Management
+      Actual: true
+
+Pass: Enumerable: Media
+      Actual: true
+
+Pass: Enumerable: Networking
+      Actual: true
+
+Pass: Enumerable: Security
+      Actual: true
+
+Pass: Enumerable: Storage
+      Actual: true
+
+Pass: Enumerable: System
+      Actual: true
+
+Pass: Enumerable: UI
+      Actual: true
+
+Pass: Enumerable: Web
+      Actual: true
+
+PASS [Test 4: Namespace Enumerability -- all namespace children are enumerable true]
+=================================================
+
+Passed: 4
+Failed: 0

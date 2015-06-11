@@ -1,0 +1,210 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 425,
+        "length": 12,
+        "text": "return 'bar'",
+        "frameDescription": "toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.sort"
+      },
+      {
+        "start": 631,
+        "length": 23,
+        "text": "array2.sort(c2.compare)",
+        "frameDescription": "toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.sort"
+      },
+      {
+        "start": 773,
+        "length": 21,
+        "text": "array.sort(c.compare)",
+        "frameDescription": "testCallback"
+      },
+      {
+        "start": 802,
+        "length": 14,
+        "text": "testCallback()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 425,
+        "length": 12,
+        "text": "return 'bar'",
+        "frameDescription": "toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.sort"
+      },
+      {
+        "start": 631,
+        "length": 23,
+        "text": "array2.sort(c2.compare)",
+        "frameDescription": "toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.sort"
+      },
+      {
+        "start": 773,
+        "length": 21,
+        "text": "array.sort(c.compare)",
+        "frameDescription": "testCallback"
+      },
+      {
+        "start": 802,
+        "length": 14,
+        "text": "testCallback()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 425,
+        "length": 12,
+        "text": "return 'bar'",
+        "frameDescription": "toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.sort"
+      },
+      {
+        "start": 631,
+        "length": 23,
+        "text": "array2.sort(c2.compare)",
+        "frameDescription": "toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.sort"
+      },
+      {
+        "start": 773,
+        "length": 21,
+        "text": "array.sort(c.compare)",
+        "frameDescription": "testCallback"
+      },
+      {
+        "start": 802,
+        "length": 14,
+        "text": "testCallback()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 425,
+        "length": 12,
+        "text": "return 'bar'",
+        "frameDescription": "toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.sort"
+      },
+      {
+        "start": 631,
+        "length": 23,
+        "text": "array2.sort(c2.compare)",
+        "frameDescription": "toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.sort"
+      },
+      {
+        "start": 773,
+        "length": 21,
+        "text": "array.sort(c.compare)",
+        "frameDescription": "testCallback"
+      },
+      {
+        "start": 802,
+        "length": 14,
+        "text": "testCallback()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

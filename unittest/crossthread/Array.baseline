@@ -1,0 +1,129 @@
+--------Case 01--------
+1,2,3
+--------Case 02--------
+everyCallback1: this.p1=blah, value=1, index=0, array=1,2,3
+everyCallback1: this.p1=blah, value=2, index=1, array=1,2,3
+everyCallback1: this.p1=blah, value=3, index=2, array=1,2,3
+true
+--------Case 03--------
+everyCallback2: this.p1=blah, value=1, index=0, array=1,2,3
+false
+--------Case 04--------
+someCallback1: this.p1=blah, value=1, index=0, array=1,2,3
+true
+--------Case 05--------
+someCallback2: this.p1=blah, value=1, index=0, array=1,2,3
+someCallback2: this.p1=blah, value=2, index=1, array=1,2,3
+someCallback2: this.p1=blah, value=3, index=2, array=1,2,3
+false
+--------Case 06--------
+forEachCallback: this.p1=blah, value=1, index=0, array=1,2,3
+forEachCallback: this.p1=blah, value=2, index=1, array=1,2,3
+forEachCallback: this.p1=blah, value=3, index=2, array=1,2,3
+undefined
+--------Case 07--------
+mapCallback: this.p1=blah, value=1, index=0, array=1,2,3
+mapCallback: this.p1=blah, value=2, index=1, array=1,2,3
+mapCallback: this.p1=blah, value=3, index=2, array=1,2,3
+10,20,30
+--------Case 08--------
+filterCallback: this.p1=blah, value=1, index=0, array=1,2,3
+filterCallback: this.p1=blah, value=2, index=1, array=1,2,3
+filterCallback: this.p1=blah, value=3, index=2, array=1,2,3
+1,3
+--------Case 09--------
+reduceCallback: previousValue=7, currentValue=1, index=0, array=1,2,3
+reduceCallback: previousValue=8, currentValue=2, index=1, array=1,2,3
+reduceCallback: previousValue=10, currentValue=3, index=2, array=1,2,3
+13
+--------Case 10--------
+reduceRightCallback: previousValue=7, currentValue=3, index=2, array=1,2,3
+reduceRightCallback: previousValue=10, currentValue=2, index=1, array=1,2,3
+reduceRightCallback: previousValue=12, currentValue=1, index=0, array=1,2,3
+13
+--------Case 11--------
+1,2,3
+--------Case 12--------
+everyCallback1: this.p1=blah, value=1, index=0, array=1,2,3
+everyCallback1: this.p1=blah, value=2, index=1, array=1,2,3
+everyCallback1: this.p1=blah, value=3, index=2, array=1,2,3
+true
+--------Case 13--------
+everyCallback2: this.p1=blah, value=1, index=0, array=1,2,3
+false
+--------Case 14--------
+someCallback1: this.p1=blah, value=1, index=0, array=1,2,3
+true
+--------Case 15--------
+someCallback2: this.p1=blah, value=1, index=0, array=1,2,3
+someCallback2: this.p1=blah, value=2, index=1, array=1,2,3
+someCallback2: this.p1=blah, value=3, index=2, array=1,2,3
+false
+--------Case 16--------
+forEachCallback: this.p1=blah, value=1, index=0, array=1,2,3
+forEachCallback: this.p1=blah, value=2, index=1, array=1,2,3
+forEachCallback: this.p1=blah, value=3, index=2, array=1,2,3
+undefined
+--------Case 17--------
+mapCallback: this.p1=blah, value=1, index=0, array=1,2,3
+mapCallback: this.p1=blah, value=2, index=1, array=1,2,3
+mapCallback: this.p1=blah, value=3, index=2, array=1,2,3
+10,20,30
+--------Case 18--------
+filterCallback: this.p1=blah, value=1, index=0, array=1,2,3
+filterCallback: this.p1=blah, value=2, index=1, array=1,2,3
+filterCallback: this.p1=blah, value=3, index=2, array=1,2,3
+1,3
+--------Case 19--------
+reduceCallback: previousValue=7, currentValue=1, index=0, array=1,2,3
+reduceCallback: previousValue=8, currentValue=2, index=1, array=1,2,3
+reduceCallback: previousValue=10, currentValue=3, index=2, array=1,2,3
+13
+--------Case 20--------
+reduceRightCallback: previousValue=7, currentValue=3, index=2, array=1,2,3
+reduceRightCallback: previousValue=10, currentValue=2, index=1, array=1,2,3
+reduceRightCallback: previousValue=12, currentValue=1, index=0, array=1,2,3
+13
+--------Case 21--------
+1,2,3
+--------Case 22--------
+everyCallback1: this.p1=blah, value=1, index=0, array=1,2,3
+everyCallback1: this.p1=blah, value=2, index=1, array=1,2,3
+everyCallback1: this.p1=blah, value=3, index=2, array=1,2,3
+true
+--------Case 23--------
+everyCallback2: this.p1=blah, value=1, index=0, array=1,2,3
+false
+--------Case 24--------
+someCallback1: this.p1=blah, value=1, index=0, array=1,2,3
+true
+--------Case 25--------
+someCallback2: this.p1=blah, value=1, index=0, array=1,2,3
+someCallback2: this.p1=blah, value=2, index=1, array=1,2,3
+someCallback2: this.p1=blah, value=3, index=2, array=1,2,3
+false
+--------Case 26--------
+forEachCallback: this.p1=blah, value=1, index=0, array=1,2,3
+forEachCallback: this.p1=blah, value=2, index=1, array=1,2,3
+forEachCallback: this.p1=blah, value=3, index=2, array=1,2,3
+undefined
+--------Case 27--------
+mapCallback: this.p1=blah, value=1, index=0, array=1,2,3
+mapCallback: this.p1=blah, value=2, index=1, array=1,2,3
+mapCallback: this.p1=blah, value=3, index=2, array=1,2,3
+10,20,30
+--------Case 28--------
+filterCallback: this.p1=blah, value=1, index=0, array=1,2,3
+filterCallback: this.p1=blah, value=2, index=1, array=1,2,3
+filterCallback: this.p1=blah, value=3, index=2, array=1,2,3
+1,3
+--------Case 29--------
+reduceCallback: previousValue=7, currentValue=1, index=0, array=1,2,3
+reduceCallback: previousValue=8, currentValue=2, index=1, array=1,2,3
+reduceCallback: previousValue=10, currentValue=3, index=2, array=1,2,3
+13
+--------Case 30--------
+reduceRightCallback: previousValue=7, currentValue=3, index=2, array=1,2,3
+reduceRightCallback: previousValue=10, currentValue=2, index=1, array=1,2,3
+reduceRightCallback: previousValue=12, currentValue=1, index=0, array=1,2,3
+13

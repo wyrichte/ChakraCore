@@ -1,0 +1,263 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 23,
+        "length": 15,
+        "text": "var k = ccc(10)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 15,
+        "length": 5,
+        "text": "x + 1",
+        "frameDescription": "ccc"
+      },
+      {
+        "start": 23,
+        "length": 15,
+        "text": "var k = ccc(10)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "x": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 20,
+        "length": 0,
+        "text": "",
+        "frameDescription": "ccc"
+      },
+      {
+        "start": 23,
+        "length": 15,
+        "text": "var k = ccc(10)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "[Return value]": "11",
+      "arguments": "{...}",
+      "x": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 23,
+        "length": 15,
+        "text": "var k = ccc(10)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 446,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "foo": "<large string>",
+      "ccc": "x => x + 1",
+      "k": "11"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 176,
+        "length": 11,
+        "text": "k = ccc(10)",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 446,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "nested": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 15,
+        "length": 5,
+        "text": "x + 1",
+        "frameDescription": "ccc"
+      },
+      {
+        "start": 176,
+        "length": 11,
+        "text": "k = ccc(10)",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 446,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 20,
+        "length": 0,
+        "text": "",
+        "frameDescription": "ccc"
+      },
+      {
+        "start": 176,
+        "length": 11,
+        "text": "k = ccc(10)",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 446,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "[Return value]": "11",
+      "arguments": "{...}",
+      "x": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 366,
+        "length": 16,
+        "text": "k = nested()(10)",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 446,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 278,
+        "length": 18,
+        "text": "return x => ccc(x)",
+        "frameDescription": "nested"
+      },
+      {
+        "start": 366,
+        "length": 16,
+        "text": "k = nested()(10)",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 446,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 278,
+        "length": 18,
+        "text": "return x => ccc(x)",
+        "frameDescription": "nested"
+      },
+      {
+        "start": 366,
+        "length": 16,
+        "text": "k = nested()(10)",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 446,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 357,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "nested"
+      },
+      {
+        "start": 366,
+        "length": 16,
+        "text": "k = nested()(10)",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 446,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "[Return value]": "x => ccc(x)",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

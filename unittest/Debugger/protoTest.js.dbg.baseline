@@ -1,0 +1,250 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 220,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "foo": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 220,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 20,
+        "length": 26,
+        "text": "WScript.Echo(\"Proto test\")",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "obj1": "undefined",
+      "obj2": "undefined",
+      "[Globals]": {
+        "foo": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 20,
+        "length": 26,
+        "text": "WScript.Echo(\"Proto test\")",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 220,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "language_initiated",
+      "location": {
+        "start": 98,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "obj1": {
+        "__proto__": "{...}",
+        "a": "10",
+        "b": "30"
+      },
+      "obj2": {
+        "__proto__": "[]",
+        "length": "3",
+        "[0]": "2",
+        "[1]": "4",
+        "[2]": "6"
+      },
+      "[Globals]": {
+        "foo": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 98,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 220,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "language_initiated",
+      "location": {
+        "start": 134,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "obj1": {
+        "__proto__": "[2]",
+        "a": "10",
+        "b": "30"
+      },
+      "obj2": {
+        "__proto__": "[]",
+        "length": "3",
+        "[0]": "2",
+        "[1]": "4",
+        "[2]": "6"
+      },
+      "[Globals]": {
+        "foo": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 134,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 220,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "language_initiated",
+      "location": {
+        "start": 206,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "[prototype]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "[prototype]": "{...}",
+        "length": "0"
+      },
+      "obj1": {
+        "[prototype]": "[2]",
+        "__proto__": "31",
+        "a": "10",
+        "b": "30"
+      },
+      "obj2": {
+        "[prototype]": "[]",
+        "length": "3",
+        "[0]": "2",
+        "[1]": "4",
+        "[2]": "6"
+      },
+      "[Globals]": {
+        "foo": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 206,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 220,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

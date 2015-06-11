@@ -1,0 +1,25 @@
+
+
+Running AsyncDebugging tests
+
+Test basic IActiveScriptDirectAsyncCausality functionality...
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={12345678-E251-4588-AE37-9D6D748ACD49}, operationId=1, operationName=SimpleTestOperationName, relatedContext=0)
+Using downlevel causality API (RoCausality) instead of WinRT-based API.
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={12345678-E251-4588-AE37-9D6D748ACD49}, operationId=1, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={12345678-E251-4588-AE37-9D6D748ACD49}, operationId=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=2, operationName=SomeOtherOperationName, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=3, operationName=, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=2, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=2, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=3, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=3, work=0)
+Calling AsyncCausalityTracer.TraceOperationRelation(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=3, relation=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Done.
+Total Test Cases  1
+Passed:  1
+Failed   0
+
+

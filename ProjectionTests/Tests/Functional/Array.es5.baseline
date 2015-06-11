@@ -1,0 +1,4444 @@
+Arrays marshaling and projection test case
+
+=================================================
+Starting [Test fpa0: Simple pass array of string]
+Pass: Expected same length: 3 vs 3
+      Actual: true
+
+Pass: Expected same element
+      Actual: true
+
+Pass: Expected same element
+      Actual: true
+
+Pass: Expected same element
+      Actual: true
+
+PASS [Test fpa0: Simple pass array of string]
+=================================================
+
+=================================================
+Starting [Test fpa1: Simple canvas pixel array as string array (is type mismatch)]
+Pass: r.passRetrievableStringArray(arr); returned (TypeError: Type mismatch)
+      Actual: true
+
+PASS [Test fpa1: Simple canvas pixel array as string array (is type mismatch)]
+=================================================
+
+=================================================
+Starting [Test fpa3: Pass null to [in] array fastsig]
+Pass: r.retrievePassedStringArray()
+      Actual: null
+
+PASS [Test fpa3: Pass null to [in] array fastsig]
+=================================================
+
+=================================================
+Starting [Test fpa4: Pass undefined to [in] array fastsig]
+Pass: r.retrievePassedStringArray()
+      Actual: null
+
+PASS [Test fpa4: Pass undefined to [in] array fastsig]
+=================================================
+
+=================================================
+Starting [Test fpa5: Pass arrayProjection[string] to [in] array fastsig]
+Comment: arr : [ length = 9 ] : [ contents =  white Red Blue Yellow Pink Black Orange Purple Green ]
+Pass: Expected same length: 9 vs 9
+      Actual: true
+
+Pass: Expected same element
+      Actual: true
+
+Pass: Expected same element
+      Actual: true
+
+Pass: Expected same element
+      Actual: true
+
+Pass: Expected same element
+      Actual: true
+
+Pass: Expected same element
+      Actual: true
+
+Pass: Expected same element
+      Actual: true
+
+Pass: Expected same element
+      Actual: true
+
+Pass: Expected same element
+      Actual: true
+
+Pass: Expected same element
+      Actual: true
+
+PASS [Test fpa5: Pass arrayProjection[string] to [in] array fastsig]
+=================================================
+
+=================================================
+Starting [Test fpa6: Pass TypedArray[int] to [in] array fastsig (is type mismatch)]
+Comment: arr : [ length = 4 ] : [ contents =  1 2 3 4 ]
+Pass: r.passRetrievableStringArray(arr) returned (TypeError: Type mismatch)
+      Actual: true
+
+PASS [Test fpa6: Pass TypedArray[int] to [in] array fastsig (is type mismatch)]
+=================================================
+
+=================================================
+Starting [Test fpa7: Pass ArrayProjection[Struct] to [in] array fastsig (is type mismatch)]
+Comment: arr : [ length = 5 ] : [ contents =  [object Animals.PackedByte] [object Animals.PackedByte] [object Animals.PackedByte] [object Animals.PackedByte] [object Animals.PackedByte] ]
+Pass: r.passRetrievableStringArray(arr) returned (TypeError: Type mismatch)
+      Actual: true
+
+PASS [Test fpa7: Pass ArrayProjection[Struct] to [in] array fastsig (is type mismatch)]
+=================================================
+
+=================================================
+Starting [Test fpa8: Pass integer to [in] array fastsig (is type mismatch)]
+Pass: r.passRetrievableStringArray(arr) returned (TypeError: Array object expected)
+      Actual: true
+
+PASS [Test fpa8: Pass integer to [in] array fastsig (is type mismatch)]
+=================================================
+
+=================================================
+Starting [Test 1: MarshalInArray]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: var myVector = myAnimal.passArray(myArray);
+Comment: verifyVectorAndArrayItems("myVector", myVector, "myArray", myArray)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and myArray[0]
+      Actual: 1
+
+Pass: myVector[1] and myArray[1]
+      Actual: 2
+
+Pass: myVector[2] and myArray[2]
+      Actual: 3
+
+Pass: myVector[3] and myArray[3]
+      Actual: 4
+
+Pass: myVector[4] and myArray[4]
+      Actual: 5
+
+Pass: myVector[5] and myArray[5]
+      Actual: 6
+
+Pass: myVector[6] and myArray[6]
+      Actual: 7
+
+Pass: myVector[7] and myArray[7]
+      Actual: 8
+
+Pass: myVector[8] and myArray[8]
+      Actual: 9
+
+Comment: myArray = null
+Comment: myVector = myAnimal.passArray(myArray);
+Comment: verifyVectorAndArrayItems("myVector", myVector, "new Array()", new Array())
+Pass: Number of array Items and Vector Items
+      Actual: 0
+
+Comment: myVector = myAnimal.passArray(10);
+Pass: instanceof TypeError: Array object expected
+      Actual: true
+
+Pass: e.description
+      Actual: Array object expected
+
+Pass: Expected exception was caught
+      Actual: true
+
+PASS [Test 1: MarshalInArray]
+=================================================
+
+=================================================
+Starting [Test 2: ProjectOutArrayByValue]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: var myVector = myAnimal.passArray(myArray);
+Comment: verifyVectorAndArrayItems("myVector", myVector, "myArray", myArray)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and myArray[0]
+      Actual: 1
+
+Pass: myVector[1] and myArray[1]
+      Actual: 2
+
+Pass: myVector[2] and myArray[2]
+      Actual: 3
+
+Pass: myVector[3] and myArray[3]
+      Actual: 4
+
+Pass: myVector[4] and myArray[4]
+      Actual: 5
+
+Pass: myVector[5] and myArray[5]
+      Actual: 6
+
+Pass: myVector[6] and myArray[6]
+      Actual: 7
+
+Pass: myVector[7] and myArray[7]
+      Actual: 8
+
+Pass: myVector[8] and myArray[8]
+      Actual: 9
+
+Comment: var myNewArray = new Array(9);
+Comment: myVector = myAnimal.fillArray(myNewArray);
+Comment: verifyVectorAndArrayItems("myNewArray", myNewArray, "myVector", myVector)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myNewArray[0] and myVector[0]
+      Actual: 1
+
+Pass: myNewArray[1] and myVector[1]
+      Actual: 2
+
+Pass: myNewArray[2] and myVector[2]
+      Actual: 3
+
+Pass: myNewArray[3] and myVector[3]
+      Actual: 4
+
+Pass: myNewArray[4] and myVector[4]
+      Actual: 5
+
+Pass: myNewArray[5] and myVector[5]
+      Actual: 6
+
+Pass: myNewArray[6] and myVector[6]
+      Actual: 7
+
+Pass: myNewArray[7] and myVector[7]
+      Actual: 8
+
+Pass: myNewArray[8] and myVector[8]
+      Actual: 9
+
+Pass: Array.isArray(myNewArray)
+      Actual: true
+
+Comment: myNewArray = [11, 22, 33, 44];
+Comment: myVector = myAnimal.fillArray(myNewArray);
+Comment: verifyVectorAndArrayItems("myNewArray", myNewArray, "myVector", myVector)
+Pass: Number of array Items and Vector Items
+      Actual: 4
+
+Pass: myNewArray[0] and myVector[0]
+      Actual: 1
+
+Pass: myNewArray[1] and myVector[1]
+      Actual: 2
+
+Pass: myNewArray[2] and myVector[2]
+      Actual: 3
+
+Pass: myNewArray[3] and myVector[3]
+      Actual: 4
+
+Pass: Array.isArray(myNewArray)
+      Actual: true
+
+Comment: myNewArray.length = 0;
+Comment: myVector = myAnimal.fillArray(myNewArray);
+Comment: verifyVectorAndArrayItems("myNewArray", myNewArray, "myVector", myVector)
+Pass: Number of array Items and Vector Items
+      Actual: 0
+
+Pass: Array.isArray(myNewArray)
+      Actual: true
+
+Comment: myVector = myAnimal.fillArray(10);
+Pass: instanceof TypeError: Array object expected
+      Actual: true
+
+Pass: e.description
+      Actual: Array object expected
+
+Pass: Expected exception was caught
+      Actual: true
+
+PASS [Test 2: ProjectOutArrayByValue]
+=================================================
+
+=================================================
+Starting [Test 3: ProjectOutByRefArray_Basic]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: var myVector = myAnimal.passArray(myArray);
+Comment: verifyVectorAndArrayItems("myVector", myVector, "myArray", myArray)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and myArray[0]
+      Actual: 1
+
+Pass: myVector[1] and myArray[1]
+      Actual: 2
+
+Pass: myVector[2] and myArray[2]
+      Actual: 3
+
+Pass: myVector[3] and myArray[3]
+      Actual: 4
+
+Pass: myVector[4] and myArray[4]
+      Actual: 5
+
+Pass: myVector[5] and myArray[5]
+      Actual: 6
+
+Pass: myVector[6] and myArray[6]
+      Actual: 7
+
+Pass: myVector[7] and myArray[7]
+      Actual: 8
+
+Pass: myVector[8] and myArray[8]
+      Actual: 9
+
+Comment: var myResult = myAnimal.receiveArray();
+Comment: var expectedResult = [["value", "object"], ["outVector", "object"]];
+Comment: verifyResultObject("myResult", myResult, expectedResult, "object");
+Pass: typeof myResult
+      Actual: object
+
+Pass: myResult.value
+      Actual: value
+
+Pass: typeof myResult.value
+      Actual: object
+
+Pass: myResult.outVector
+      Actual: outVector
+
+Pass: typeof myResult.outVector
+      Actual: object
+
+Pass: number of members
+      Actual: 2
+
+Comment: verifyVectorAndArrayItems("myResult.value", myResult.value, "myResult.outVector", myResult.outVector)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myResult.value[0] and myResult.outVector[0]
+      Actual: 1
+
+Pass: myResult.value[1] and myResult.outVector[1]
+      Actual: 2
+
+Pass: myResult.value[2] and myResult.outVector[2]
+      Actual: 3
+
+Pass: myResult.value[3] and myResult.outVector[3]
+      Actual: 4
+
+Pass: myResult.value[4] and myResult.outVector[4]
+      Actual: 5
+
+Pass: myResult.value[5] and myResult.outVector[5]
+      Actual: 6
+
+Pass: myResult.value[6] and myResult.outVector[6]
+      Actual: 7
+
+Pass: myResult.value[7] and myResult.outVector[7]
+      Actual: 8
+
+Pass: myResult.value[8] and myResult.outVector[8]
+      Actual: 9
+
+Comment: var myArrayProjection = myResult.value;
+Pass: Array.isArray(myArrayProjection)
+      Actual: false
+
+Comment: myArrayProjection[9]: [object Int32Array]
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 4
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: Array.prototype.arrayTestProperty = "Array's Array Test Property"
+Comment: Object.prototype.arrayTestProperty = "Object's Array Test Property";
+Comment: Object.prototype.objectTestProperty = "Object's Object Test Property";
+Pass: myArrayProjection.arrayTestProperty
+      Actual: Object's Array Test Property
+
+Pass: myArrayProjection.objectTestProperty
+      Actual: Object's Object Test Property
+
+Comment: delete Array.prototype.arrayTestProperty;
+Comment: delete Object.prototype.arrayTestProperty;
+Comment: delete Object.prototype.objectTestProperty;
+Comment: var a = Array.apply(this, myArrayProjection)
+Comment: a[9]: 1,2,3,4,5,6,7,8,9
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 4
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: myArrayProjection[9]: [object Int32Array]
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 4
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: a = new Array(myArrayProjection)
+Comment: a[1]: [object Int32Array]
+Comment: 0 = [object Int32Array]
+Comment: myArrayProjection[9]: [object Int32Array]
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 4
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: Attempting to set property (length) to: [3]
+Pass: Able to write to property: length
+      Actual: false
+
+Comment: Enumerating over: ArrayProjection instance: myArrayProjection
+Comment: 	0
+Comment: 	1
+Comment: 	2
+Comment: 	3
+Comment: 	4
+Comment: 	5
+Comment: 	6
+Comment: 	7
+Comment: 	8
+Pass: Enumerate children
+      Actual: true
+
+Comment: Checking if object has property: 3
+Pass: Object has property: 3
+      Actual: true
+
+Comment: Checking if object has property: 11
+Pass: Object has property: 11
+      Actual: false
+
+Comment: Attempting to set property (6) to: [88]
+Pass: Able to write to property: 6
+      Actual: true
+
+Comment: Attempting to set property (11) to: [11]
+Pass: Able to write to property: 11
+      Actual: false
+
+Comment: Attempting to add property: 4
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot redefine non-configurable property '4'
+Pass: Able to add property: 4
+      Actual: false
+
+Comment: Attempting to add property: 10
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property '10': object is not extensible
+Pass: Able to add property: 10
+      Actual: false
+
+Comment: Attempting to add property: 14
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property '14': object is not extensible
+Pass: Able to add property: 14
+      Actual: false
+
+Comment: Attempting to delete property: 4
+Pass: Object has property [4]
+      Actual: true
+
+Pass: Able to delete property: 4
+      Actual: false
+
+Comment: Attempting to add property: FavoriteRecipe
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property 'FavoriteRecipe': object is not extensible
+Pass: Able to add property: FavoriteRecipe
+      Actual: false
+
+Comment: Attempting to set property (FavoriteRecipe) to: [Almond Cake]
+Pass: Able to write to property: FavoriteRecipe
+      Actual: false
+
+Comment: myVector = myAnimal.fillArray(myArrayProjection);
+Comment: verifyVectorAndArrayItems("myVector", myVector, "myArrayProjection", myArrayProjection)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and myArrayProjection[0]
+      Actual: 1
+
+Pass: myVector[1] and myArrayProjection[1]
+      Actual: 2
+
+Pass: myVector[2] and myArrayProjection[2]
+      Actual: 3
+
+Pass: myVector[3] and myArrayProjection[3]
+      Actual: 4
+
+Pass: myVector[4] and myArrayProjection[4]
+      Actual: 5
+
+Pass: myVector[5] and myArrayProjection[5]
+      Actual: 6
+
+Pass: myVector[6] and myArrayProjection[6]
+      Actual: 7
+
+Pass: myVector[7] and myArrayProjection[7]
+      Actual: 8
+
+Pass: myVector[8] and myArrayProjection[8]
+      Actual: 9
+
+Pass: Array.isArray(myArrayProjection)
+      Actual: false
+
+Comment: myArrayProjection[9]: [object Int32Array]
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 4
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: Array.prototype.arrayTestProperty = "Array's Array Test Property"
+Comment: Object.prototype.arrayTestProperty = "Object's Array Test Property";
+Comment: Object.prototype.objectTestProperty = "Object's Object Test Property";
+Pass: myArrayProjection.arrayTestProperty
+      Actual: Object's Array Test Property
+
+Pass: myArrayProjection.objectTestProperty
+      Actual: Object's Object Test Property
+
+Comment: delete Array.prototype.arrayTestProperty;
+Comment: delete Object.prototype.arrayTestProperty;
+Comment: delete Object.prototype.objectTestProperty;
+Comment: myArrayProjection[4] = 300
+Comment: myVector = myAnimal.passArray(myArrayProjection);
+Comment: verifyVectorAndArrayItems("myVector", myVector, "myArrayProjection", myArrayProjection)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and myArrayProjection[0]
+      Actual: 1
+
+Pass: myVector[1] and myArrayProjection[1]
+      Actual: 2
+
+Pass: myVector[2] and myArrayProjection[2]
+      Actual: 3
+
+Pass: myVector[3] and myArrayProjection[3]
+      Actual: 4
+
+Pass: myVector[4] and myArrayProjection[4]
+      Actual: 300
+
+Pass: myVector[5] and myArrayProjection[5]
+      Actual: 6
+
+Pass: myVector[6] and myArrayProjection[6]
+      Actual: 7
+
+Pass: myVector[7] and myArrayProjection[7]
+      Actual: 8
+
+Pass: myVector[8] and myArrayProjection[8]
+      Actual: 9
+
+Comment: myVector = myAnimal.passArrayHSTRING(myArrayProjection);
+Pass: myAnimal.passArrayHSTRING(myArrayProjection) returned (TypeError: Type mismatch)
+      Actual: true
+
+Comment: myVector = myAnimal.fillArrayHSTRING(myArrayProjection);
+Pass: myAnimal.fillArrayHSTRING(myArrayProjection) returned (TypeError: Type mismatch)
+      Actual: true
+
+PASS [Test 3: ProjectOutByRefArray_Basic]
+=================================================
+
+=================================================
+Starting [Test 4: ProjectOutByRefArrayNull_Basic]
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: myResult = myAnimal.passArray(null);
+Comment: myResult = myAnimal.receiveArray();
+Comment: expectedResult = [["value", "object"], ["outVector", "object"]];
+Comment: verifyVectorAndArrayItems("myResult.value", myResult.value, "null", null)
+Pass: myResult.value
+      Actual: null
+
+PASS [Test 4: ProjectOutByRefArrayNull_Basic]
+=================================================
+
+=================================================
+Starting [Test 5: Delegate_MarshalInArray_Basic]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: delegatePassArray.outVector = myAnimal.passArray(myArray);
+Comment: myAnimal.callDelegatePassArray(delegatePassArray)
+Comment: *** delegatePassArray Delegate
+Comment: var intVector = delegatePassArray.outVector;
+Comment: verifyVectorAndArrayItems("intArray", intArray, "intVector", intVector)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: intArray[0] and intVector[0]
+      Actual: 1
+
+Pass: intArray[1] and intVector[1]
+      Actual: 2
+
+Pass: intArray[2] and intVector[2]
+      Actual: 3
+
+Pass: intArray[3] and intVector[3]
+      Actual: 4
+
+Pass: intArray[4] and intVector[4]
+      Actual: 5
+
+Pass: intArray[5] and intVector[5]
+      Actual: 6
+
+Pass: intArray[6] and intVector[6]
+      Actual: 7
+
+Pass: intArray[7] and intVector[7]
+      Actual: 8
+
+Pass: intArray[8] and intVector[8]
+      Actual: 9
+
+Pass: Array.isArray(intArray)
+      Actual: false
+
+Comment: intArray[9]: [object Int32Array]
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 4
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: Array.prototype.arrayTestProperty = "Array's Array Test Property"
+Comment: Object.prototype.arrayTestProperty = "Object's Array Test Property";
+Comment: Object.prototype.objectTestProperty = "Object's Object Test Property";
+Pass: intArray.arrayTestProperty
+      Actual: Object's Array Test Property
+
+Pass: intArray.objectTestProperty
+      Actual: Object's Object Test Property
+
+Comment: delete Array.prototype.arrayTestProperty;
+Comment: delete Object.prototype.arrayTestProperty;
+Comment: delete Object.prototype.objectTestProperty;
+Comment: var a = Array.apply(this, intArray)
+Comment: a[9]: 1,2,3,4,5,6,7,8,9
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 4
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: intArray[9]: [object Int32Array]
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 4
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: a = new Array(intArray)
+Comment: a[1]: [object Int32Array]
+Comment: 0 = [object Int32Array]
+Comment: intArray[9]: [object Int32Array]
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 4
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: Attempting to set property (length) to: [3]
+Pass: Able to write to property: length
+      Actual: false
+
+Comment: Enumerating over: ArrayProjection instance: intArray
+Comment: 	0
+Comment: 	1
+Comment: 	2
+Comment: 	3
+Comment: 	4
+Comment: 	5
+Comment: 	6
+Comment: 	7
+Comment: 	8
+Pass: Enumerate children
+      Actual: true
+
+Comment: Checking if object has property: 3
+Pass: Object has property: 3
+      Actual: true
+
+Comment: Checking if object has property: 11
+Pass: Object has property: 11
+      Actual: false
+
+Comment: Attempting to set property (6) to: [88]
+Pass: Able to write to property: 6
+      Actual: true
+
+Comment: Attempting to set property (11) to: [11]
+Pass: Able to write to property: 11
+      Actual: false
+
+Comment: Attempting to add property: 4
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot redefine non-configurable property '4'
+Pass: Able to add property: 4
+      Actual: false
+
+Comment: Attempting to add property: 10
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property '10': object is not extensible
+Pass: Able to add property: 10
+      Actual: false
+
+Comment: Attempting to add property: 14
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property '14': object is not extensible
+Pass: Able to add property: 14
+      Actual: false
+
+Comment: Attempting to delete property: 4
+Pass: Object has property [4]
+      Actual: true
+
+Pass: Able to delete property: 4
+      Actual: false
+
+Comment: Attempting to add property: FavoriteRecipe
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property 'FavoriteRecipe': object is not extensible
+Pass: Able to add property: FavoriteRecipe
+      Actual: false
+
+Comment: Attempting to set property (FavoriteRecipe) to: [Almond Cake]
+Pass: Able to write to property: FavoriteRecipe
+      Actual: false
+
+Comment: myVector = myAnimal.fillArray(intArray);
+Comment: verifyVectorAndArrayItems("myVector", myVector, "intArray", intArray)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and intArray[0]
+      Actual: 1
+
+Pass: myVector[1] and intArray[1]
+      Actual: 2
+
+Pass: myVector[2] and intArray[2]
+      Actual: 3
+
+Pass: myVector[3] and intArray[3]
+      Actual: 4
+
+Pass: myVector[4] and intArray[4]
+      Actual: 5
+
+Pass: myVector[5] and intArray[5]
+      Actual: 6
+
+Pass: myVector[6] and intArray[6]
+      Actual: 7
+
+Pass: myVector[7] and intArray[7]
+      Actual: 8
+
+Pass: myVector[8] and intArray[8]
+      Actual: 9
+
+Pass: Array.isArray(intArray)
+      Actual: false
+
+Comment: intArray[9]: [object Int32Array]
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 4
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: Array.prototype.arrayTestProperty = "Array's Array Test Property"
+Comment: Object.prototype.arrayTestProperty = "Object's Array Test Property";
+Comment: Object.prototype.objectTestProperty = "Object's Object Test Property";
+Pass: intArray.arrayTestProperty
+      Actual: Object's Array Test Property
+
+Pass: intArray.objectTestProperty
+      Actual: Object's Object Test Property
+
+Comment: delete Array.prototype.arrayTestProperty;
+Comment: delete Object.prototype.arrayTestProperty;
+Comment: delete Object.prototype.objectTestProperty;
+Comment: intArray[4] = 300
+Comment: var myVector = animal.passArray(intArray);
+Comment: verifyVectorAndArrayItems("myVector", myVector, "intArray", intArray)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and intArray[0]
+      Actual: 1
+
+Pass: myVector[1] and intArray[1]
+      Actual: 2
+
+Pass: myVector[2] and intArray[2]
+      Actual: 3
+
+Pass: myVector[3] and intArray[3]
+      Actual: 4
+
+Pass: myVector[4] and intArray[4]
+      Actual: 300
+
+Pass: myVector[5] and intArray[5]
+      Actual: 6
+
+Pass: myVector[6] and intArray[6]
+      Actual: 7
+
+Pass: myVector[7] and intArray[7]
+      Actual: 8
+
+Pass: myVector[8] and intArray[8]
+      Actual: 9
+
+Comment: myVector = myAnimal.passArrayHSTRING(intArray);
+Pass: myAnimal.passArrayHSTRING(intArray) returned (TypeError: Type mismatch)
+      Actual: true
+
+Comment: myVector = myAnimal.fillArrayHSTRING(intArray);
+Pass: myAnimal.fillArrayHSTRING(intArray) returned (TypeError: Type mismatch)
+      Actual: true
+
+Pass: myArray
+      Actual: 1,2,3,4,5,6,7,8,9
+
+PASS [Test 5: Delegate_MarshalInArray_Basic]
+=================================================
+
+=================================================
+Starting [Test 6: Delegate_MarshalInArray_Null]
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: var myArray = null
+Comment: delegatePassArray.outVector = myAnimal.passArray(myArray);
+Comment: myAnimal.callDelegatePassArray(delegatePassArray)
+Comment: *** delegatePassArray Delegate
+Comment: var intVector = delegatePassArray.outVector;
+Comment: verifyVectorAndArrayItems("intArray", intArray, "null", null)
+Pass: intArray
+      Actual: null
+
+Pass: myArray
+      Actual: null
+
+PASS [Test 6: Delegate_MarshalInArray_Null]
+=================================================
+
+=================================================
+Starting [Test 7: Delegate_ProjectOutArrayByValue]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: myAnimal.passArray(myArray);
+Comment: delegateFillArray.arrayLength = myArray.length;
+Comment: myAnimal.callDelegateFillArray(delegateFillArray)
+Comment: *** delegateFillArray Delegate
+Pass: Array.isArray(intArray)
+      Actual: false
+
+Pass: intArray.length
+      Actual: 9
+
+Comment: Array.prototype.arrayTestProperty = "Array's Array Test Property"
+Comment: Object.prototype.arrayTestProperty = "Object's Array Test Property";
+Comment: Object.prototype.objectTestProperty = "Object's Object Test Property";
+Pass: intArray.arrayTestProperty
+      Actual: Object's Array Test Property
+
+Pass: intArray.objectTestProperty
+      Actual: Object's Object Test Property
+
+Comment: delete Array.prototype.arrayTestProperty;
+Comment: delete Object.prototype.arrayTestProperty;
+Comment: delete Object.prototype.objectTestProperty;
+Comment: myVector = myAnimal.fillArray(intArray);
+Comment: verifyVectorAndArrayItems("myVector", myVector, "intArray", intArray)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and intArray[0]
+      Actual: 1
+
+Pass: myVector[1] and intArray[1]
+      Actual: 2
+
+Pass: myVector[2] and intArray[2]
+      Actual: 3
+
+Pass: myVector[3] and intArray[3]
+      Actual: 4
+
+Pass: myVector[4] and intArray[4]
+      Actual: 5
+
+Pass: myVector[5] and intArray[5]
+      Actual: 6
+
+Pass: myVector[6] and intArray[6]
+      Actual: 7
+
+Pass: myVector[7] and intArray[7]
+      Actual: 8
+
+Pass: myVector[8] and intArray[8]
+      Actual: 9
+
+Pass: Array.isArray(intArray)
+      Actual: false
+
+Comment: intArray[9]: [object Int32Array]
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 4
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: Array.prototype.arrayTestProperty = "Array's Array Test Property"
+Comment: Object.prototype.arrayTestProperty = "Object's Array Test Property";
+Comment: Object.prototype.objectTestProperty = "Object's Object Test Property";
+Pass: intArray.arrayTestProperty
+      Actual: Object's Array Test Property
+
+Pass: intArray.objectTestProperty
+      Actual: Object's Object Test Property
+
+Comment: delete Array.prototype.arrayTestProperty;
+Comment: delete Object.prototype.arrayTestProperty;
+Comment: delete Object.prototype.objectTestProperty;
+Comment: Attempting to set property (length) to: [3]
+Pass: Able to write to property: length
+      Actual: false
+
+Comment: Enumerating over: ArrayProjection instance: intArray
+Comment: 	0
+Comment: 	1
+Comment: 	2
+Comment: 	3
+Comment: 	4
+Comment: 	5
+Comment: 	6
+Comment: 	7
+Comment: 	8
+Pass: Enumerate children
+      Actual: true
+
+Comment: Checking if object has property: 3
+Pass: Object has property: 3
+      Actual: true
+
+Comment: Checking if object has property: 11
+Pass: Object has property: 11
+      Actual: false
+
+Comment: Attempting to set property (6) to: [88]
+Pass: Able to write to property: 6
+      Actual: true
+
+Comment: Attempting to set property (6) to: [6]
+Pass: Able to write to property: 6
+      Actual: true
+
+Comment: Attempting to set property (11) to: [11]
+Pass: Able to write to property: 11
+      Actual: false
+
+Comment: Attempting to add property: 4
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot redefine non-configurable property '4'
+Pass: Able to add property: 4
+      Actual: false
+
+Comment: Attempting to add property: 10
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property '10': object is not extensible
+Pass: Able to add property: 10
+      Actual: false
+
+Comment: Attempting to add property: 14
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property '14': object is not extensible
+Pass: Able to add property: 14
+      Actual: false
+
+Comment: Attempting to delete property: 4
+Pass: Object has property [4]
+      Actual: true
+
+Pass: Able to delete property: 4
+      Actual: false
+
+Comment: Attempting to add property: FavoriteRecipe
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property 'FavoriteRecipe': object is not extensible
+Pass: Able to add property: FavoriteRecipe
+      Actual: false
+
+Comment: Attempting to set property (FavoriteRecipe) to: [Almond Cake]
+Pass: Able to write to property: FavoriteRecipe
+      Actual: false
+
+Comment: intArray[4] = 300
+Comment: var myVector = animal.passArray(intArray);
+Comment: verifyVectorAndArrayItems("myVector", myVector, "intArray", intArray)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and intArray[0]
+      Actual: 1
+
+Pass: myVector[1] and intArray[1]
+      Actual: 2
+
+Pass: myVector[2] and intArray[2]
+      Actual: 3
+
+Pass: myVector[3] and intArray[3]
+      Actual: 4
+
+Pass: myVector[4] and intArray[4]
+      Actual: 300
+
+Pass: myVector[5] and intArray[5]
+      Actual: 6
+
+Pass: myVector[6] and intArray[6]
+      Actual: 6
+
+Pass: myVector[7] and intArray[7]
+      Actual: 8
+
+Pass: myVector[8] and intArray[8]
+      Actual: 9
+
+Comment: myVector = myAnimal.passArrayHSTRING(intArray);
+Pass: myAnimal.passArrayHSTRING(intArray) returned (TypeError: Type mismatch)
+      Actual: true
+
+Comment: myVector = myAnimal.fillArrayHSTRING(intArray);
+Pass: myAnimal.fillArrayHSTRING(intArray) returned (TypeError: Type mismatch)
+      Actual: true
+
+Comment: intArray[7] = 45;
+Comment: delegateFillArray.intArray = intArray;
+Pass: myArray
+      Actual: 1,2,3,4,5,6,7,8,9
+
+Comment: myResult = myAnimal.receiveArray();
+Comment: verifyVectorAndArrayItems("delegateFillArray.intArray", delegateFillArray.intArray, "myResult.outVector", myResult.outVector)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: delegateFillArray.intArray[0] and myResult.outVector[0]
+      Actual: 1
+
+Pass: delegateFillArray.intArray[1] and myResult.outVector[1]
+      Actual: 2
+
+Pass: delegateFillArray.intArray[2] and myResult.outVector[2]
+      Actual: 3
+
+Pass: delegateFillArray.intArray[3] and myResult.outVector[3]
+      Actual: 4
+
+Pass: delegateFillArray.intArray[4] and myResult.outVector[4]
+      Actual: 300
+
+Pass: delegateFillArray.intArray[5] and myResult.outVector[5]
+      Actual: 6
+
+Pass: delegateFillArray.intArray[6] and myResult.outVector[6]
+      Actual: 6
+
+Pass: delegateFillArray.intArray[7] and myResult.outVector[7]
+      Actual: 45
+
+Pass: delegateFillArray.intArray[8] and myResult.outVector[8]
+      Actual: 9
+
+Comment: delegateFillArray.intArray[5] = 1234
+Pass: myResult.value[5] != 1234
+      Actual: true
+
+Comment: myResult = myAnimal.receiveArray();
+Pass: myResult.value[5] != 1234
+      Actual: true
+
+PASS [Test 7: Delegate_ProjectOutArrayByValue]
+=================================================
+
+=================================================
+Starting [Test 8: Delegate_ProjectOutArrayByRef_Array]
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: myAnimal.callDelegateReceiveArray(delegateReceiveArray)
+Comment: *** delegateReceiveArray Delegate
+Comment: delegateReceiveArray.myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+Comment: return delegateReceiveArray.myArray;
+Pass: delegateReceiveArray.myArray
+      Actual: 1,2,3,4,5,6,7,8,9,10
+
+Comment: myResult = myAnimal.receiveArray();
+Comment: verifyVectorAndArrayItems("myResult.outVector", myResult.outVector, "delegateReceiveArray.myArray", delegateReceiveArray.myArray)
+Pass: Number of array Items and Vector Items
+      Actual: 10
+
+Pass: myResult.outVector[0] and delegateReceiveArray.myArray[0]
+      Actual: 1
+
+Pass: myResult.outVector[1] and delegateReceiveArray.myArray[1]
+      Actual: 2
+
+Pass: myResult.outVector[2] and delegateReceiveArray.myArray[2]
+      Actual: 3
+
+Pass: myResult.outVector[3] and delegateReceiveArray.myArray[3]
+      Actual: 4
+
+Pass: myResult.outVector[4] and delegateReceiveArray.myArray[4]
+      Actual: 5
+
+Pass: myResult.outVector[5] and delegateReceiveArray.myArray[5]
+      Actual: 6
+
+Pass: myResult.outVector[6] and delegateReceiveArray.myArray[6]
+      Actual: 7
+
+Pass: myResult.outVector[7] and delegateReceiveArray.myArray[7]
+      Actual: 8
+
+Pass: myResult.outVector[8] and delegateReceiveArray.myArray[8]
+      Actual: 9
+
+Pass: myResult.outVector[9] and delegateReceiveArray.myArray[9]
+      Actual: 10
+
+Comment: delegateReceiveArray.myArray[5] = 1234
+Pass: myResult.value[5] != 1234
+      Actual: true
+
+Comment: myResult = myAnimal.receiveArray();
+Pass: myResult.value[5] != 1234
+      Actual: true
+
+PASS [Test 8: Delegate_ProjectOutArrayByRef_Array]
+=================================================
+
+=================================================
+Starting [Test 9: Delegate_ProjectOutArrayByRef_ArrayProjection]
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: myAnimal.callDelegateReceiveArray(delegateReceiveArray)
+Comment: *** delegateReceiveArray Delegate
+Comment: delegateReceiveArray.myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+Comment: animal.passArray(delegateReceiveArray.myArray);
+Comment: var myResult = animal.receiveArray();
+Comment: myResult.value[9]: [object Int32Array]
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 4
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: delegateReceiveArray.myArray[3] = 999;
+Comment: myResult.value[3] = 999;
+Comment: myResult.value[9]: [object Int32Array]
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 999
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: delegateReceiveArray.myArrayProjection = myResult.value;
+Comment: return delegateReceiveArray.myArrayProjection;
+Comment: verifyVectorAndArrayItems("delegateReceiveArray.myArray", delegateReceiveArray.myArray, "delegateReceiveArray.myArrayProjection", delegateReceiveArray.myArrayProjection)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: delegateReceiveArray.myArray[0] and delegateReceiveArray.myArrayProjection[0]
+      Actual: 1
+
+Pass: delegateReceiveArray.myArray[1] and delegateReceiveArray.myArrayProjection[1]
+      Actual: 2
+
+Pass: delegateReceiveArray.myArray[2] and delegateReceiveArray.myArrayProjection[2]
+      Actual: 3
+
+Pass: delegateReceiveArray.myArray[3] and delegateReceiveArray.myArrayProjection[3]
+      Actual: 999
+
+Pass: delegateReceiveArray.myArray[4] and delegateReceiveArray.myArrayProjection[4]
+      Actual: 5
+
+Pass: delegateReceiveArray.myArray[5] and delegateReceiveArray.myArrayProjection[5]
+      Actual: 6
+
+Pass: delegateReceiveArray.myArray[6] and delegateReceiveArray.myArrayProjection[6]
+      Actual: 7
+
+Pass: delegateReceiveArray.myArray[7] and delegateReceiveArray.myArrayProjection[7]
+      Actual: 8
+
+Pass: delegateReceiveArray.myArray[8] and delegateReceiveArray.myArrayProjection[8]
+      Actual: 9
+
+Comment: myResult = myAnimal.receiveArray();
+Comment: verifyVectorAndArrayItems("myResult.outVector", myResult.outVector, "delegateReceiveArray.myArrayProjection", delegateReceiveArray.myArrayProjection)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myResult.outVector[0] and delegateReceiveArray.myArrayProjection[0]
+      Actual: 1
+
+Pass: myResult.outVector[1] and delegateReceiveArray.myArrayProjection[1]
+      Actual: 2
+
+Pass: myResult.outVector[2] and delegateReceiveArray.myArrayProjection[2]
+      Actual: 3
+
+Pass: myResult.outVector[3] and delegateReceiveArray.myArrayProjection[3]
+      Actual: 999
+
+Pass: myResult.outVector[4] and delegateReceiveArray.myArrayProjection[4]
+      Actual: 5
+
+Pass: myResult.outVector[5] and delegateReceiveArray.myArrayProjection[5]
+      Actual: 6
+
+Pass: myResult.outVector[6] and delegateReceiveArray.myArrayProjection[6]
+      Actual: 7
+
+Pass: myResult.outVector[7] and delegateReceiveArray.myArrayProjection[7]
+      Actual: 8
+
+Pass: myResult.outVector[8] and delegateReceiveArray.myArrayProjection[8]
+      Actual: 9
+
+Comment: delegateReceiveArray.myArrayProjection[5] = 1234
+Pass: myResult.value[5] != 1234
+      Actual: true
+
+Pass: delegateReceiveArray.myArray[5] != 1234
+      Actual: true
+
+Comment: myResult = myAnimal.receiveArray();
+Pass: myResult.value[5] != 1234
+      Actual: true
+
+PASS [Test 9: Delegate_ProjectOutArrayByRef_ArrayProjection]
+=================================================
+
+=================================================
+Starting [Test 11: ArrayProjection_ArrayPrototypeMethods]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: var myVector = myAnimal.passArray(myArray);
+Comment: myResult = myAnimal.receiveArray();
+Comment: var myArrayProjection = myResult.value
+Comment: myArrayProjection[9]: [object Int32Array]
+Comment: 0 = 1
+Comment: 1 = 2
+Comment: 2 = 3
+Comment: 3 = 4
+Comment: 4 = 5
+Comment: 5 = 6
+Comment: 6 = 7
+Comment: 7 = 8
+Comment: 8 = 9
+Comment: var secondResult = myAnimal.receiveArray();
+Comment: var secondArray = secondResult.value;
+Comment: Object.getPrototypeOf(secondArray) === Object.getPrototypeOf(myArrayProjection)
+Pass: compare prototype of array projection
+      Actual: true
+
+Comment: var n = myArrayProjection.pop()
+Pass: Object doesn't support property or method 'pop' returned (TypeError: Object doesn't support property or method 'pop')
+      Actual: true
+
+Comment: n = myArrayProjection.push()
+Pass: Object doesn't support property or method 'push' returned (TypeError: Object doesn't support property or method 'push')
+      Actual: true
+
+Comment: n = myArrayProjection.push(11)
+Pass: Object doesn't support property or method 'push' returned (TypeError: Object doesn't support property or method 'push')
+      Actual: true
+
+Comment: n = myArrayProjection.push(11, 22, 33)
+Pass: Object doesn't support property or method 'push' returned (TypeError: Object doesn't support property or method 'push')
+      Actual: true
+
+Comment: n = myArrayProjection.shift()
+Pass: Object doesn't support property or method 'shift' returned (TypeError: Object doesn't support property or method 'shift')
+      Actual: true
+
+Comment: n = myArrayProjection.unshift()
+Pass: Object doesn't support property or method 'unshift' returned (TypeError: Object doesn't support property or method 'unshift')
+      Actual: true
+
+Comment: n = myArrayProjection.unshift(0)
+Pass: Object doesn't support property or method 'unshift' returned (TypeError: Object doesn't support property or method 'unshift')
+      Actual: true
+
+Comment: n = myArrayProjection.unshift(25, 50, 100)
+Pass: Object doesn't support property or method 'unshift' returned (TypeError: Object doesn't support property or method 'unshift')
+      Actual: true
+
+Comment: n = myArrayProjection.slice()
+Pass: Object doesn't support property or method 'slice' returned (TypeError: Object doesn't support property or method 'slice')
+      Actual: true
+
+Comment: n = myArrayProjection.slice(5, 2)
+Pass: Object doesn't support property or method 'slice' returned (TypeError: Object doesn't support property or method 'slice')
+      Actual: true
+
+Comment: n = myArrayProjection.slice(5, 8)
+Pass: Object doesn't support property or method 'slice' returned (TypeError: Object doesn't support property or method 'slice')
+      Actual: true
+
+Comment: n = myArrayProjection.slice(5)
+Pass: Object doesn't support property or method 'slice' returned (TypeError: Object doesn't support property or method 'slice')
+      Actual: true
+
+Comment: n = myArrayProjection.slice(-2)
+Pass: Object doesn't support property or method 'slice' returned (TypeError: Object doesn't support property or method 'slice')
+      Actual: true
+
+Comment: n = myArrayProjection.slice(-7, -2)
+Pass: Object doesn't support property or method 'slice' returned (TypeError: Object doesn't support property or method 'slice')
+      Actual: true
+
+Comment: n = myArrayProjection.splice()
+Pass: Object doesn't support property or method 'splice' returned (TypeError: Object doesn't support property or method 'splice')
+      Actual: true
+
+Comment: n = myArrayProjection.splice(5, 0)
+Pass: Object doesn't support property or method 'splice' returned (TypeError: Object doesn't support property or method 'splice')
+      Actual: true
+
+Comment: n = myArrayProjection.splice(5, 2)
+Pass: Object doesn't support property or method 'splice' returned (TypeError: Object doesn't support property or method 'splice')
+      Actual: true
+
+Comment: n = myArrayProjection.splice(2, 2, 14, 98, 54)
+Pass: Object doesn't support property or method 'splice' returned (TypeError: Object doesn't support property or method 'splice')
+      Actual: true
+
+Comment: n = myArrayProjection.splice(4, 0, 32, 83)
+Pass: Object doesn't support property or method 'splice' returned (TypeError: Object doesn't support property or method 'splice')
+      Actual: true
+
+Comment: buffer = myArrayProjection.buffer
+Comment: Enumerating over: typed array instance: myArrayProjection.buffer
+Pass: Enumerate children
+      Actual: false
+
+Comment: typed array of myArrayProjection
+Pass: 0
+      Actual: 1
+
+Pass: 1
+      Actual: 2
+
+Pass: 2
+      Actual: 3
+
+Pass: 3
+      Actual: 4
+
+Pass: 4
+      Actual: 5
+
+Pass: 5
+      Actual: 6
+
+Pass: 6
+      Actual: 7
+
+Pass: 7
+      Actual: 8
+
+Pass: 8
+      Actual: 9
+
+Comment: typed array of myArrayProjection
+Pass: 0
+      Actual: 2
+
+Pass: 1
+      Actual: 3
+
+Pass: 2
+      Actual: 4
+
+Pass: 3
+      Actual: 5
+
+Pass: 4
+      Actual: 6
+
+Pass: 5
+      Actual: 7
+
+Pass: 6
+      Actual: 8
+
+Pass: 7
+      Actual: 9
+
+PASS [Test 11: ArrayProjection_ArrayPrototypeMethods]
+=================================================
+
+=================================================
+Starting [Test 12: MarshalInES5Array]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8];
+Comment: Object.defineProperty(myArray, "8", { set: function (x) { value = x; }, get: function () { return value }, configurable: true });
+Comment: myArray[8] = 9;
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: var myVector = myAnimal.passArray(myArray);
+Comment: verifyVectorAndArrayItems("myVector", myVector, "myArray", myArray)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and myArray[0]
+      Actual: 1
+
+Pass: myVector[1] and myArray[1]
+      Actual: 2
+
+Pass: myVector[2] and myArray[2]
+      Actual: 3
+
+Pass: myVector[3] and myArray[3]
+      Actual: 4
+
+Pass: myVector[4] and myArray[4]
+      Actual: 5
+
+Pass: myVector[5] and myArray[5]
+      Actual: 6
+
+Pass: myVector[6] and myArray[6]
+      Actual: 7
+
+Pass: myVector[7] and myArray[7]
+      Actual: 8
+
+Pass: myVector[8] and myArray[8]
+      Actual: 9
+
+PASS [Test 12: MarshalInES5Array]
+=================================================
+
+=================================================
+Starting [Test 13: ProjectOutES5ArrayByValue]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: var myVector = myAnimal.passArray(myArray);
+Comment: verifyVectorAndArrayItems("myVector", myVector, "myArray", myArray)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and myArray[0]
+      Actual: 1
+
+Pass: myVector[1] and myArray[1]
+      Actual: 2
+
+Pass: myVector[2] and myArray[2]
+      Actual: 3
+
+Pass: myVector[3] and myArray[3]
+      Actual: 4
+
+Pass: myVector[4] and myArray[4]
+      Actual: 5
+
+Pass: myVector[5] and myArray[5]
+      Actual: 6
+
+Pass: myVector[6] and myArray[6]
+      Actual: 7
+
+Pass: myVector[7] and myArray[7]
+      Actual: 8
+
+Pass: myVector[8] and myArray[8]
+      Actual: 9
+
+Comment: var myNewArray = new Array(9);
+Comment: Object.defineProperty(myArray, "8", { set: function (x) { value = x; }, get: function () { return value }, configurable: true });
+Comment: myVector = myAnimal.fillArray(myNewArray);
+Comment: verifyVectorAndArrayItems("myNewArray", myNewArray, "myVector", myVector)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myNewArray[0] and myVector[0]
+      Actual: 1
+
+Pass: myNewArray[1] and myVector[1]
+      Actual: 2
+
+Pass: myNewArray[2] and myVector[2]
+      Actual: 3
+
+Pass: myNewArray[3] and myVector[3]
+      Actual: 4
+
+Pass: myNewArray[4] and myVector[4]
+      Actual: 5
+
+Pass: myNewArray[5] and myVector[5]
+      Actual: 6
+
+Pass: myNewArray[6] and myVector[6]
+      Actual: 7
+
+Pass: myNewArray[7] and myVector[7]
+      Actual: 8
+
+Pass: myNewArray[8] and myVector[8]
+      Actual: 9
+
+Pass: Array.isArray(myNewArray)
+      Actual: true
+
+Comment: myNewArray.length = 4
+Comment: myNewArray[0] = 11;
+Comment: myNewArray[1] = 22;
+Comment: myNewArray[2] = 33;
+Comment: myNewArray[3] = 44;
+Comment: myVector = myAnimal.fillArray(myNewArray);
+Comment: verifyVectorAndArrayItems("myNewArray", myNewArray, "myVector", myVector)
+Pass: Number of array Items and Vector Items
+      Actual: 4
+
+Pass: myNewArray[0] and myVector[0]
+      Actual: 1
+
+Pass: myNewArray[1] and myVector[1]
+      Actual: 2
+
+Pass: myNewArray[2] and myVector[2]
+      Actual: 3
+
+Pass: myNewArray[3] and myVector[3]
+      Actual: 4
+
+Pass: Array.isArray(myNewArray)
+      Actual: true
+
+Comment: myNewArray.length = 0;
+Comment: myVector = myAnimal.fillArray(myNewArray);
+Comment: verifyVectorAndArrayItems("myNewArray", myNewArray, "myVector", myVector)
+Pass: Number of array Items and Vector Items
+      Actual: 0
+
+Pass: Array.isArray(myNewArray)
+      Actual: true
+
+PASS [Test 13: ProjectOutES5ArrayByValue]
+=================================================
+
+=================================================
+Starting [Test 14: Delegate_ProjectOutArrayByRef_ES5Array]
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: myAnimal.callDelegateReceiveArray(delegateReceiveArray)
+Comment: *** delegateReceiveArray Delegate
+Comment: var delegateReceiveArray.myArray = [1, 2, 3, 4, 5, 6, 7, 8];
+Comment: Object.defineProperty(myArray, "8", { set: function (x) { value = x; }, get: function () { return value }, configurable: true });
+Comment: myArray[8] = 9;
+Comment: return delegateReceiveArray.myArray;
+Pass: delegateReceiveArray.myArray
+      Actual: 1,2,3,4,5,6,7,8,9
+
+Comment: myResult = myAnimal.receiveArray();
+Comment: verifyVectorAndArrayItems("myResult.outVector", myResult.outVector, "delegateReceiveArray.myArray", delegateReceiveArray.myArray)
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myResult.outVector[0] and delegateReceiveArray.myArray[0]
+      Actual: 1
+
+Pass: myResult.outVector[1] and delegateReceiveArray.myArray[1]
+      Actual: 2
+
+Pass: myResult.outVector[2] and delegateReceiveArray.myArray[2]
+      Actual: 3
+
+Pass: myResult.outVector[3] and delegateReceiveArray.myArray[3]
+      Actual: 4
+
+Pass: myResult.outVector[4] and delegateReceiveArray.myArray[4]
+      Actual: 5
+
+Pass: myResult.outVector[5] and delegateReceiveArray.myArray[5]
+      Actual: 6
+
+Pass: myResult.outVector[6] and delegateReceiveArray.myArray[6]
+      Actual: 7
+
+Pass: myResult.outVector[7] and delegateReceiveArray.myArray[7]
+      Actual: 8
+
+Pass: myResult.outVector[8] and delegateReceiveArray.myArray[8]
+      Actual: 9
+
+Comment: delegateReceiveArray.myArray[5] = 1234
+Pass: myResult.value[5] != 1234
+      Actual: true
+
+Comment: myResult = myAnimal.receiveArray();
+Pass: myResult.value[5] != 1234
+      Actual: true
+
+PASS [Test 14: Delegate_ProjectOutArrayByRef_ES5Array]
+=================================================
+
+=================================================
+Starting [Test 15: ArrayOnlyMarshalingAndProjecting]
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: PassArray:
+Pass: myArray
+      Actual: 1,2,3,4,5
+
+Comment: FillArray:
+Pass: myArray
+      Actual: 1,2,3,4,5
+
+Comment: ReceiveArray:
+Pass: myArray2.toString()
+      Actual: [object Int32Array]
+
+PASS [Test 15: ArrayOnlyMarshalingAndProjecting]
+=================================================
+
+=================================================
+Starting [Test 16: Receive a small struct array]
+Pass: packedByteArray.length
+      Actual: 5
+
+Pass: packedByteArray[0].toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: packedByteArray[0].field0
+      Actual: 0
+
+Pass: packedByteArray[1].toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: packedByteArray[1].field0
+      Actual: 1
+
+Pass: packedByteArray[2].toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: packedByteArray[2].field0
+      Actual: 2
+
+Pass: packedByteArray[3].toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: packedByteArray[3].field0
+      Actual: 3
+
+Pass: packedByteArray[4].toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: packedByteArray[4].field0
+      Actual: 4
+
+PASS [Test 16: Receive a small struct array]
+=================================================
+
+=================================================
+Starting [Test 17: Receive a small packed boolean array]
+Pass: packedBooleanArray.length
+      Actual: 5
+
+Pass: packedBooleanArray[0].toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: packedBooleanArray[0].field0
+      Actual: false
+
+Pass: packedBooleanArray[0].field1
+      Actual: true
+
+Pass: packedBooleanArray[0].field2
+      Actual: true
+
+Pass: packedBooleanArray[0].field3
+      Actual: false
+
+Pass: packedBooleanArray[1].toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: packedBooleanArray[1].field0
+      Actual: false
+
+Pass: packedBooleanArray[1].field1
+      Actual: true
+
+Pass: packedBooleanArray[1].field2
+      Actual: true
+
+Pass: packedBooleanArray[1].field3
+      Actual: false
+
+Pass: packedBooleanArray[2].toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: packedBooleanArray[2].field0
+      Actual: false
+
+Pass: packedBooleanArray[2].field1
+      Actual: true
+
+Pass: packedBooleanArray[2].field2
+      Actual: true
+
+Pass: packedBooleanArray[2].field3
+      Actual: false
+
+Pass: packedBooleanArray[3].toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: packedBooleanArray[3].field0
+      Actual: false
+
+Pass: packedBooleanArray[3].field1
+      Actual: true
+
+Pass: packedBooleanArray[3].field2
+      Actual: true
+
+Pass: packedBooleanArray[3].field3
+      Actual: false
+
+Pass: packedBooleanArray[4].toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: packedBooleanArray[4].field0
+      Actual: false
+
+Pass: packedBooleanArray[4].field1
+      Actual: true
+
+Pass: packedBooleanArray[4].field2
+      Actual: true
+
+Pass: packedBooleanArray[4].field3
+      Actual: false
+
+PASS [Test 17: Receive a small packed boolean array]
+=================================================
+
+=================================================
+Starting [Test 18: Receive a odd sized struct]
+Pass: oddSizedStructArray.length
+      Actual: 5
+
+Pass: oddSizedStructArray[0].toString()
+      Actual: [object Animals.OddSizedStruct]
+
+Pass: oddSizedStructArray[0].field0
+      Actual: 0
+
+Pass: oddSizedStructArray[0].field1
+      Actual: 50
+
+Pass: oddSizedStructArray[0].field2
+      Actual: 200
+
+Pass: oddSizedStructArray[1].toString()
+      Actual: [object Animals.OddSizedStruct]
+
+Pass: oddSizedStructArray[1].field0
+      Actual: 1
+
+Pass: oddSizedStructArray[1].field1
+      Actual: 51
+
+Pass: oddSizedStructArray[1].field2
+      Actual: 201
+
+Pass: oddSizedStructArray[2].toString()
+      Actual: [object Animals.OddSizedStruct]
+
+Pass: oddSizedStructArray[2].field0
+      Actual: 2
+
+Pass: oddSizedStructArray[2].field1
+      Actual: 52
+
+Pass: oddSizedStructArray[2].field2
+      Actual: 202
+
+Pass: oddSizedStructArray[3].toString()
+      Actual: [object Animals.OddSizedStruct]
+
+Pass: oddSizedStructArray[3].field0
+      Actual: 3
+
+Pass: oddSizedStructArray[3].field1
+      Actual: 53
+
+Pass: oddSizedStructArray[3].field2
+      Actual: 203
+
+Pass: oddSizedStructArray[4].toString()
+      Actual: [object Animals.OddSizedStruct]
+
+Pass: oddSizedStructArray[4].field0
+      Actual: 4
+
+Pass: oddSizedStructArray[4].field1
+      Actual: 54
+
+Pass: oddSizedStructArray[4].field2
+      Actual: 204
+
+PASS [Test 18: Receive a odd sized struct]
+=================================================
+
+=================================================
+Starting [Test 19: Receive a small complex struct]
+Pass: smallComplexStructArray.length
+      Actual: 5
+
+Pass: smallComplexStructArray[0].toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: smallComplexStructArray[0].field0
+      Actual: 0
+
+Pass: smallComplexStructArray[0].field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: smallComplexStructArray[0].field1.field0
+      Actual: 50
+
+Pass: smallComplexStructArray[0].field2
+      Actual: 200
+
+Pass: smallComplexStructArray[1].toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: smallComplexStructArray[1].field0
+      Actual: 1
+
+Pass: smallComplexStructArray[1].field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: smallComplexStructArray[1].field1.field0
+      Actual: 51
+
+Pass: smallComplexStructArray[1].field2
+      Actual: 201
+
+Pass: smallComplexStructArray[2].toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: smallComplexStructArray[2].field0
+      Actual: 2
+
+Pass: smallComplexStructArray[2].field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: smallComplexStructArray[2].field1.field0
+      Actual: 52
+
+Pass: smallComplexStructArray[2].field2
+      Actual: 202
+
+Pass: smallComplexStructArray[3].toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: smallComplexStructArray[3].field0
+      Actual: 3
+
+Pass: smallComplexStructArray[3].field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: smallComplexStructArray[3].field1.field0
+      Actual: 53
+
+Pass: smallComplexStructArray[3].field2
+      Actual: 203
+
+Pass: smallComplexStructArray[4].toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: smallComplexStructArray[4].field0
+      Actual: 4
+
+Pass: smallComplexStructArray[4].field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: smallComplexStructArray[4].field1.field0
+      Actual: 54
+
+Pass: smallComplexStructArray[4].field2
+      Actual: 204
+
+PASS [Test 19: Receive a small complex struct]
+=================================================
+
+=================================================
+Starting [Test 20: Receive a big complex struct]
+Pass: bigComplexStructArray.length
+      Actual: 5
+
+Pass: bigComplexStructArray[0].toString()
+      Actual: [object Animals.BigComplexStruct]
+
+Pass: bigComplexStructArray[0].field0
+      Actual: 0
+
+Pass: bigComplexStructArray[0].field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[0].field1.field0
+      Actual: 50
+
+Pass: bigComplexStructArray[0].field2
+      Actual: 200
+
+Pass: bigComplexStructArray[0].field3.toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: bigComplexStructArray[0].field3.field0
+      Actual: false
+
+Pass: bigComplexStructArray[0].field3.field1
+      Actual: true
+
+Pass: bigComplexStructArray[0].field3.field2
+      Actual: false
+
+Pass: bigComplexStructArray[0].field3.field3
+      Actual: true
+
+Pass: bigComplexStructArray[0].field3.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: bigComplexStructArray[0].field4.field0
+      Actual: 180
+
+Pass: bigComplexStructArray[0].field4.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[0].field4.field1.field0
+      Actual: 150
+
+Pass: bigComplexStructArray[0].field4.field2
+      Actual: 190
+
+Pass: bigComplexStructArray[0].field5.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: bigComplexStructArray[0].field5.field0
+      Actual: 80
+
+Pass: bigComplexStructArray[0].field5.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[0].field5.field1.field0
+      Actual: 50
+
+Pass: bigComplexStructArray[0].field5.field2
+      Actual: 90
+
+Pass: bigComplexStructArray[0].field6
+      Actual: 7
+
+Pass: bigComplexStructArray[0].field7
+      Actual: 2000
+
+Pass: bigComplexStructArray[1].toString()
+      Actual: [object Animals.BigComplexStruct]
+
+Pass: bigComplexStructArray[1].field0
+      Actual: 1
+
+Pass: bigComplexStructArray[1].field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[1].field1.field0
+      Actual: 51
+
+Pass: bigComplexStructArray[1].field2
+      Actual: 201
+
+Pass: bigComplexStructArray[1].field3.toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: bigComplexStructArray[1].field3.field0
+      Actual: false
+
+Pass: bigComplexStructArray[1].field3.field1
+      Actual: true
+
+Pass: bigComplexStructArray[1].field3.field2
+      Actual: false
+
+Pass: bigComplexStructArray[1].field3.field3
+      Actual: true
+
+Pass: bigComplexStructArray[1].field3.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: bigComplexStructArray[1].field4.field0
+      Actual: 181
+
+Pass: bigComplexStructArray[1].field4.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[1].field4.field1.field0
+      Actual: 151
+
+Pass: bigComplexStructArray[1].field4.field2
+      Actual: 191
+
+Pass: bigComplexStructArray[1].field5.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: bigComplexStructArray[1].field5.field0
+      Actual: 81
+
+Pass: bigComplexStructArray[1].field5.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[1].field5.field1.field0
+      Actual: 51
+
+Pass: bigComplexStructArray[1].field5.field2
+      Actual: 91
+
+Pass: bigComplexStructArray[1].field6
+      Actual: 8
+
+Pass: bigComplexStructArray[1].field7
+      Actual: 2001
+
+Pass: bigComplexStructArray[2].toString()
+      Actual: [object Animals.BigComplexStruct]
+
+Pass: bigComplexStructArray[2].field0
+      Actual: 2
+
+Pass: bigComplexStructArray[2].field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[2].field1.field0
+      Actual: 52
+
+Pass: bigComplexStructArray[2].field2
+      Actual: 202
+
+Pass: bigComplexStructArray[2].field3.toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: bigComplexStructArray[2].field3.field0
+      Actual: false
+
+Pass: bigComplexStructArray[2].field3.field1
+      Actual: true
+
+Pass: bigComplexStructArray[2].field3.field2
+      Actual: false
+
+Pass: bigComplexStructArray[2].field3.field3
+      Actual: true
+
+Pass: bigComplexStructArray[2].field3.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: bigComplexStructArray[2].field4.field0
+      Actual: 182
+
+Pass: bigComplexStructArray[2].field4.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[2].field4.field1.field0
+      Actual: 152
+
+Pass: bigComplexStructArray[2].field4.field2
+      Actual: 192
+
+Pass: bigComplexStructArray[2].field5.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: bigComplexStructArray[2].field5.field0
+      Actual: 82
+
+Pass: bigComplexStructArray[2].field5.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[2].field5.field1.field0
+      Actual: 52
+
+Pass: bigComplexStructArray[2].field5.field2
+      Actual: 92
+
+Pass: bigComplexStructArray[2].field6
+      Actual: 9
+
+Pass: bigComplexStructArray[2].field7
+      Actual: 2002
+
+Pass: bigComplexStructArray[3].toString()
+      Actual: [object Animals.BigComplexStruct]
+
+Pass: bigComplexStructArray[3].field0
+      Actual: 3
+
+Pass: bigComplexStructArray[3].field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[3].field1.field0
+      Actual: 53
+
+Pass: bigComplexStructArray[3].field2
+      Actual: 203
+
+Pass: bigComplexStructArray[3].field3.toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: bigComplexStructArray[3].field3.field0
+      Actual: false
+
+Pass: bigComplexStructArray[3].field3.field1
+      Actual: true
+
+Pass: bigComplexStructArray[3].field3.field2
+      Actual: false
+
+Pass: bigComplexStructArray[3].field3.field3
+      Actual: true
+
+Pass: bigComplexStructArray[3].field3.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: bigComplexStructArray[3].field4.field0
+      Actual: 183
+
+Pass: bigComplexStructArray[3].field4.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[3].field4.field1.field0
+      Actual: 153
+
+Pass: bigComplexStructArray[3].field4.field2
+      Actual: 193
+
+Pass: bigComplexStructArray[3].field5.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: bigComplexStructArray[3].field5.field0
+      Actual: 83
+
+Pass: bigComplexStructArray[3].field5.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[3].field5.field1.field0
+      Actual: 53
+
+Pass: bigComplexStructArray[3].field5.field2
+      Actual: 93
+
+Pass: bigComplexStructArray[3].field6
+      Actual: 10
+
+Pass: bigComplexStructArray[3].field7
+      Actual: 2003
+
+Pass: bigComplexStructArray[4].toString()
+      Actual: [object Animals.BigComplexStruct]
+
+Pass: bigComplexStructArray[4].field0
+      Actual: 4
+
+Pass: bigComplexStructArray[4].field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[4].field1.field0
+      Actual: 54
+
+Pass: bigComplexStructArray[4].field2
+      Actual: 204
+
+Pass: bigComplexStructArray[4].field3.toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: bigComplexStructArray[4].field3.field0
+      Actual: false
+
+Pass: bigComplexStructArray[4].field3.field1
+      Actual: true
+
+Pass: bigComplexStructArray[4].field3.field2
+      Actual: false
+
+Pass: bigComplexStructArray[4].field3.field3
+      Actual: true
+
+Pass: bigComplexStructArray[4].field3.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: bigComplexStructArray[4].field4.field0
+      Actual: 184
+
+Pass: bigComplexStructArray[4].field4.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[4].field4.field1.field0
+      Actual: 154
+
+Pass: bigComplexStructArray[4].field4.field2
+      Actual: 194
+
+Pass: bigComplexStructArray[4].field5.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: bigComplexStructArray[4].field5.field0
+      Actual: 84
+
+Pass: bigComplexStructArray[4].field5.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: bigComplexStructArray[4].field5.field1.field0
+      Actual: 54
+
+Pass: bigComplexStructArray[4].field5.field2
+      Actual: 94
+
+Pass: bigComplexStructArray[4].field6
+      Actual: 11
+
+Pass: bigComplexStructArray[4].field7
+      Actual: 2004
+
+PASS [Test 20: Receive a big complex struct]
+=================================================
+
+=================================================
+Starting [Test 22: Passing CanvasPixelArray as Uint8Array]
+Comment: Create Canvas Pixel Array
+Comment: [object CanvasPixelArray]
+Pass: canvasPixelArray.length
+      Actual: 8
+
+Pass: canvasPixelArray[0]
+      Actual: 2
+
+Pass: canvasPixelArray[1]
+      Actual: 3
+
+Pass: canvasPixelArray[2]
+      Actual: 4
+
+Pass: canvasPixelArray[3]
+      Actual: 5
+
+Pass: canvasPixelArray[4]
+      Actual: 6
+
+Pass: canvasPixelArray[5]
+      Actual: 7
+
+Pass: canvasPixelArray[6]
+      Actual: 8
+
+Pass: canvasPixelArray[7]
+      Actual: 9
+
+Comment: Pass as Uint8Array
+Comment: 2,3,4,5,6,7,8,9
+Pass: myVector.length
+      Actual: 8
+
+Pass: myVector[0]
+      Actual: 2
+
+Pass: myVector[1]
+      Actual: 3
+
+Pass: myVector[2]
+      Actual: 4
+
+Pass: myVector[3]
+      Actual: 5
+
+Pass: myVector[4]
+      Actual: 6
+
+Pass: myVector[5]
+      Actual: 7
+
+Pass: myVector[6]
+      Actual: 8
+
+Pass: myVector[7]
+      Actual: 9
+
+PASS [Test 22: Passing CanvasPixelArray as Uint8Array]
+=================================================
+
+=================================================
+Starting [Test 23: Filling CanvasPixelArray as Uint8Array]
+Comment: Create Canvas Pixel Array
+Comment: [object CanvasPixelArray]
+Pass: canvasPixelArray.length
+      Actual: 8
+
+Pass: canvasPixelArray[0]
+      Actual: 2
+
+Pass: canvasPixelArray[1]
+      Actual: 3
+
+Pass: canvasPixelArray[2]
+      Actual: 4
+
+Pass: canvasPixelArray[3]
+      Actual: 5
+
+Pass: canvasPixelArray[4]
+      Actual: 6
+
+Pass: canvasPixelArray[5]
+      Actual: 7
+
+Pass: canvasPixelArray[6]
+      Actual: 8
+
+Pass: canvasPixelArray[7]
+      Actual: 9
+
+Comment: Fill it as Uint8Array
+Comment: [object CanvasPixelArray]
+Pass: canvasPixelArray.length
+      Actual: 8
+
+Pass: canvasPixelArray[0]
+      Actual: 22
+
+Pass: canvasPixelArray[1]
+      Actual: 33
+
+Pass: canvasPixelArray[2]
+      Actual: 44
+
+Pass: canvasPixelArray[3]
+      Actual: 0
+
+Pass: canvasPixelArray[4]
+      Actual: 0
+
+Pass: canvasPixelArray[5]
+      Actual: 0
+
+Pass: canvasPixelArray[6]
+      Actual: 0
+
+Pass: canvasPixelArray[7]
+      Actual: 0
+
+PASS [Test 23: Filling CanvasPixelArray as Uint8Array]
+=================================================
+
+=================================================
+Starting [Test 24: Passing CanvasPixelArray as IntArray]
+Comment: Create Canvas Pixel Array
+Comment: [object CanvasPixelArray]
+Pass: canvasPixelArray.length
+      Actual: 8
+
+Pass: canvasPixelArray[0]
+      Actual: 2
+
+Pass: canvasPixelArray[1]
+      Actual: 3
+
+Pass: canvasPixelArray[2]
+      Actual: 4
+
+Pass: canvasPixelArray[3]
+      Actual: 5
+
+Pass: canvasPixelArray[4]
+      Actual: 6
+
+Pass: canvasPixelArray[5]
+      Actual: 7
+
+Pass: canvasPixelArray[6]
+      Actual: 8
+
+Pass: canvasPixelArray[7]
+      Actual: 9
+
+Comment: Pass as IntArray
+Pass: new Animals.Animal(1).passArray(canvasPixelArray) returned (TypeError: Type mismatch)
+      Actual: true
+
+PASS [Test 24: Passing CanvasPixelArray as IntArray]
+=================================================
+
+=================================================
+Starting [Test 25: Filling CanvasPixelArray as IntArray]
+Comment: Create Canvas Pixel Array
+Comment: [object CanvasPixelArray]
+Pass: canvasPixelArray.length
+      Actual: 8
+
+Pass: canvasPixelArray[0]
+      Actual: 2
+
+Pass: canvasPixelArray[1]
+      Actual: 3
+
+Pass: canvasPixelArray[2]
+      Actual: 4
+
+Pass: canvasPixelArray[3]
+      Actual: 5
+
+Pass: canvasPixelArray[4]
+      Actual: 6
+
+Pass: canvasPixelArray[5]
+      Actual: 7
+
+Pass: canvasPixelArray[6]
+      Actual: 8
+
+Pass: canvasPixelArray[7]
+      Actual: 9
+
+Comment: Pass Array
+Comment: Fill it as IntArray
+Pass: myAnimal.fillArray(canvasPixelArray) returned (TypeError: Type mismatch)
+      Actual: true
+
+PASS [Test 25: Filling CanvasPixelArray as IntArray]
+=================================================
+
+=================================================
+Starting [Test 26: PassArray With [in] length attribute]
+Comment: Call PassArray with 4 elements on JsArray of 9 elements
+Pass: resultArray.length
+      Actual: 9
+
+Pass: resultArray[0]
+      Actual: 1
+
+Pass: resultArray[1]
+      Actual: 2
+
+Pass: resultArray[2]
+      Actual: 3
+
+Pass: resultArray[3]
+      Actual: 4
+
+Pass: resultArray[4]
+      Actual: 0
+
+Pass: resultArray[5]
+      Actual: 0
+
+Pass: resultArray[6]
+      Actual: 0
+
+Pass: resultArray[7]
+      Actual: 0
+
+Pass: resultArray[8]
+      Actual: 0
+
+Comment: Call PassArray with 9 elements on JsArray of 9 elements
+Pass: resultArray.length
+      Actual: 9
+
+Pass: resultArray[0]
+      Actual: 11
+
+Pass: resultArray[1]
+      Actual: 22
+
+Pass: resultArray[2]
+      Actual: 33
+
+Pass: resultArray[3]
+      Actual: 44
+
+Pass: resultArray[4]
+      Actual: 55
+
+Pass: resultArray[5]
+      Actual: 66
+
+Pass: resultArray[6]
+      Actual: 77
+
+Pass: resultArray[7]
+      Actual: 88
+
+Pass: resultArray[8]
+      Actual: 99
+
+Comment: Call PassArray with 11 elements on JsArray of 9 elements
+Pass: PassArray with length > size returned (TypeError: Illegal length and size specified for the array)
+      Actual: true
+
+Comment: Call PassArray with 4 elements on Int32Array of 9 elements
+Pass: resultArray.length
+      Actual: 9
+
+Pass: resultArray[0]
+      Actual: 1
+
+Pass: resultArray[1]
+      Actual: 2
+
+Pass: resultArray[2]
+      Actual: 3
+
+Pass: resultArray[3]
+      Actual: 4
+
+Pass: resultArray[4]
+      Actual: 0
+
+Pass: resultArray[5]
+      Actual: 0
+
+Pass: resultArray[6]
+      Actual: 0
+
+Pass: resultArray[7]
+      Actual: 0
+
+Pass: resultArray[8]
+      Actual: 0
+
+Comment: Call PassArray with 9 elements on Int32Array of 9 elements
+Pass: resultArray.length
+      Actual: 9
+
+Pass: resultArray[0]
+      Actual: 11
+
+Pass: resultArray[1]
+      Actual: 22
+
+Pass: resultArray[2]
+      Actual: 33
+
+Pass: resultArray[3]
+      Actual: 44
+
+Pass: resultArray[4]
+      Actual: 55
+
+Pass: resultArray[5]
+      Actual: 66
+
+Pass: resultArray[6]
+      Actual: 77
+
+Pass: resultArray[7]
+      Actual: 88
+
+Pass: resultArray[8]
+      Actual: 99
+
+Comment: Call PassArray with 11 elements on Int32Array of 9 elements
+Pass: PassArray with length > size returned (TypeError: Illegal length and size specified for the array)
+      Actual: true
+
+Comment: Call PassArray with 0 elements on null
+Pass: resultArray
+      Actual: null
+
+Comment: Call PassArray with 11 elements on null
+Pass: PassArray with length > size returned (TypeError: Illegal length and size specified for the array)
+      Actual: true
+
+PASS [Test 26: PassArray With [in] length attribute]
+=================================================
+
+=================================================
+Starting [Test 27: PassArray With [out] length attribute]
+Comment: Call PassArray JsArray
+Pass: elementsRead
+      Actual: 9
+
+Pass: resultArray.length
+      Actual: 9
+
+Pass: resultArray[0]
+      Actual: 1
+
+Pass: resultArray[1]
+      Actual: 2
+
+Pass: resultArray[2]
+      Actual: 3
+
+Pass: resultArray[3]
+      Actual: 4
+
+Pass: resultArray[4]
+      Actual: 5
+
+Pass: resultArray[5]
+      Actual: 6
+
+Pass: resultArray[6]
+      Actual: 7
+
+Pass: resultArray[7]
+      Actual: 8
+
+Pass: resultArray[8]
+      Actual: 9
+
+Comment: Call PassArray Int32Array
+Pass: elementsRead
+      Actual: 4
+
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 11
+
+Pass: resultArray[1]
+      Actual: 22
+
+Pass: resultArray[2]
+      Actual: 33
+
+Pass: resultArray[3]
+      Actual: 44
+
+Comment: Call PassArray with 0 elements on null
+Pass: elementsRead
+      Actual: 0
+
+Pass: resultArray
+      Actual: null
+
+PASS [Test 27: PassArray With [out] length attribute]
+=================================================
+
+=================================================
+Starting [Test 28: FillArray With [in] length attribute]
+Comment: Call FillArray with 4 elements on JsArray of 9 elements
+Pass: myArray.length
+      Actual: 9
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: myArray[4]
+      Actual: 0
+
+Pass: myArray[5]
+      Actual: 0
+
+Pass: myArray[6]
+      Actual: 0
+
+Pass: myArray[7]
+      Actual: 0
+
+Pass: myArray[8]
+      Actual: 0
+
+Comment: Call FillArray with 9 elements on JsArray of 9 elements
+Pass: myArray.length
+      Actual: 9
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: myArray[4]
+      Actual: 56
+
+Pass: myArray[5]
+      Actual: 67
+
+Pass: myArray[6]
+      Actual: 78
+
+Pass: myArray[7]
+      Actual: 89
+
+Pass: myArray[8]
+      Actual: 90
+
+Comment: Call FillArray with 11 elements on JsArray of 9 elements
+Pass: FillArray with length > size returned (TypeError: Illegal length and size specified for the array)
+      Actual: true
+
+Comment: Call FillArray with 4 elements on Int32Array of 9 elements
+Pass: myArray.length
+      Actual: 9
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: myArray[4]
+      Actual: 0
+
+Pass: myArray[5]
+      Actual: 0
+
+Pass: myArray[6]
+      Actual: 0
+
+Pass: myArray[7]
+      Actual: 0
+
+Pass: myArray[8]
+      Actual: 0
+
+Comment: Call FillArray with 9 elements on Int32Array of 9 elements
+Pass: myArray.length
+      Actual: 9
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: myArray[4]
+      Actual: 56
+
+Pass: myArray[5]
+      Actual: 67
+
+Pass: myArray[6]
+      Actual: 78
+
+Pass: myArray[7]
+      Actual: 89
+
+Pass: myArray[8]
+      Actual: 90
+
+Comment: Call FillArray with 11 elements on Int32Array of 9 elements
+Pass: FillArray with length > size returned (TypeError: Illegal length and size specified for the array)
+      Actual: true
+
+Comment: Call FillArray with 0 elements on null
+Comment: Call FillArray with 11 elements on null
+Pass: FillArray with length > size returned (TypeError: Illegal length and size specified for the array)
+      Actual: true
+
+PASS [Test 28: FillArray With [in] length attribute]
+=================================================
+
+=================================================
+Starting [Test 29: FillArray With [out] length attribute]
+Comment: Call FillArray with 4 elements on JsArray of 9 elements
+Pass: elementsRead
+      Actual: 4
+
+Pass: myArray.length
+      Actual: 9
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: myArray[4]
+      Actual: 0
+
+Pass: myArray[5]
+      Actual: 0
+
+Pass: myArray[6]
+      Actual: 0
+
+Pass: myArray[7]
+      Actual: 0
+
+Pass: myArray[8]
+      Actual: 0
+
+Comment: Call FillArray with 2 elements on JsArray of 2 elements
+Pass: elementsRead
+      Actual: 2
+
+Pass: myArray.length
+      Actual: 2
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Comment: Call FillArray with 4 elements on Int32Array of 9 elements
+Pass: elementsRead
+      Actual: 4
+
+Pass: myArray.length
+      Actual: 9
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: myArray[4]
+      Actual: 0
+
+Pass: myArray[5]
+      Actual: 0
+
+Pass: myArray[6]
+      Actual: 0
+
+Pass: myArray[7]
+      Actual: 0
+
+Pass: myArray[8]
+      Actual: 0
+
+Comment: Call FillArray with 2 elements on Int32Array of 2 elements
+Pass: elementsRead
+      Actual: 2
+
+Pass: myArray.length
+      Actual: 2
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Comment: Call FillArray with 0 elements on null
+Pass: elementsRead
+      Actual: 0
+
+PASS [Test 29: FillArray With [out] length attribute]
+=================================================
+
+=================================================
+Starting [Test 30: ReceiveArray With [in] length attribute]
+Comment: Call ReceiveArray with 4 elements
+Pass: myArray.length
+      Actual: 9
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: myArray[4]
+      Actual: 0
+
+Pass: myArray[5]
+      Actual: 0
+
+Pass: myArray[6]
+      Actual: 0
+
+Pass: myArray[7]
+      Actual: 0
+
+Pass: myArray[8]
+      Actual: 0
+
+Comment: Call ReceiveArray with 9 elements
+Pass: myArray.length
+      Actual: 9
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: myArray[4]
+      Actual: 56
+
+Pass: myArray[5]
+      Actual: 67
+
+Pass: myArray[6]
+      Actual: 78
+
+Pass: myArray[7]
+      Actual: 89
+
+Pass: myArray[8]
+      Actual: 90
+
+Comment: Call ReceiveArray with 11 elements
+Pass: myArray.length
+      Actual: 11
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: myArray[4]
+      Actual: 56
+
+Pass: myArray[5]
+      Actual: 67
+
+Pass: myArray[6]
+      Actual: 78
+
+Pass: myArray[7]
+      Actual: 89
+
+Pass: myArray[8]
+      Actual: 90
+
+Pass: myArray[9]
+      Actual: 0
+
+Pass: myArray[10]
+      Actual: 0
+
+Comment: Call ReceiveArray with 0 elements
+Pass: myArray.length
+      Actual: 9
+
+Pass: myArray[0]
+      Actual: 0
+
+Pass: myArray[1]
+      Actual: 0
+
+Pass: myArray[2]
+      Actual: 0
+
+Pass: myArray[3]
+      Actual: 0
+
+Pass: myArray[4]
+      Actual: 0
+
+Pass: myArray[5]
+      Actual: 0
+
+Pass: myArray[6]
+      Actual: 0
+
+Pass: myArray[7]
+      Actual: 0
+
+Pass: myArray[8]
+      Actual: 0
+
+Comment: Call ReceiveArray with 0 elements
+Pass: myArray
+      Actual: null
+
+PASS [Test 30: ReceiveArray With [in] length attribute]
+=================================================
+
+=================================================
+Starting [Test 31: ReceiveArray With [out] length attribute]
+Comment: Call ReceiveArray with size = 4  length = 2
+Pass: elementsRead
+      Actual: 2
+
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 0
+
+Pass: myArray[3]
+      Actual: 0
+
+Comment: Call ReceiveArray with size = 4  length = 4
+Pass: elementsRead
+      Actual: 4
+
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Comment: Call ReceiveArray with size = 0  length = 0
+Pass: elementsRead
+      Actual: 0
+
+Pass: myArray
+      Actual: null
+
+PASS [Test 31: ReceiveArray With [out] length attribute]
+=================================================
+
+=================================================
+Starting [Test 32: Delegate PassArray With [in] length attribute]
+Comment: Call PassArray with size = 4  length = 2
+Comment: *** delegatePassArrayWithInLength - Invoke ***
+Comment: arrayInDelegate : [ length = 4 ] : [ contents =  12 23 0 0 ]
+Comment: lengthAttribute : 2
+Comment: *** delegatePassArrayWithInLength - Exit ***
+Pass: elementsRead
+      Actual: 2
+
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 0
+
+Pass: myArray[3]
+      Actual: 0
+
+Comment: Call PassArray with size = 4  length = 4
+Comment: *** delegatePassArrayWithInLength - Invoke ***
+Comment: arrayInDelegate : [ length = 4 ] : [ contents =  12 23 34 45 ]
+Comment: lengthAttribute : 4
+Comment: *** delegatePassArrayWithInLength - Exit ***
+Pass: elementsRead
+      Actual: 4
+
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Comment: Call PassArray with size = 0  length = 0
+Comment: *** delegatePassArrayWithInLength - Invoke ***
+Comment: arrayInDelegate : null
+Comment: lengthAttribute : 0
+Comment: *** delegatePassArrayWithInLength - Exit ***
+Pass: elementsRead
+      Actual: 0
+
+Pass: myArray
+      Actual: null
+
+PASS [Test 32: Delegate PassArray With [in] length attribute]
+=================================================
+
+=================================================
+Starting [Test 33: Delegate PassArray With [out] length attribute]
+Comment: Call PassArray with size = 4  length = 2
+Comment: *** delegatePassArrayWithOutLength - Invoke ***
+Comment: arrayInDelegate : [ length = 4 ] : [ contents =  12 23 0 0 ]
+Comment: *** delegatePassArrayWithOutLength - Exit ***
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 0
+
+Pass: myArray[3]
+      Actual: 0
+
+Comment: Call PassArray with size = 4  length = 4
+Comment: *** delegatePassArrayWithOutLength - Invoke ***
+Comment: arrayInDelegate : [ length = 4 ] : [ contents =  12 23 34 45 ]
+Comment: *** delegatePassArrayWithOutLength - Exit ***
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Comment: Call PassArray with size = 0  length = 0
+Comment: *** delegatePassArrayWithOutLength - Invoke ***
+Comment: arrayInDelegate : null
+Comment: *** delegatePassArrayWithOutLength - Exit ***
+Pass: myArray
+      Actual: null
+
+PASS [Test 33: Delegate PassArray With [out] length attribute]
+=================================================
+
+=================================================
+Starting [Test 34: Delegate FillArray With [in] length attribute]
+Comment: Call FillArray with size = 4  length = 2
+Comment: *** delegateFillArrayWithInLength - Invoke ***
+Pass: arrayInDelegate.length
+      Actual: 4
+
+Pass: arrayInDelegate[0]
+      Actual: 0
+
+Pass: arrayInDelegate[1]
+      Actual: 0
+
+Pass: arrayInDelegate[2]
+      Actual: 0
+
+Pass: arrayInDelegate[3]
+      Actual: 0
+
+Pass: lengthAttribute
+      Actual: 2
+
+Comment: *** delegateFillArrayWithInLength - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 0
+
+Pass: resultArray[3]
+      Actual: 0
+
+Comment: Call FillArray with size = 4  length = 4
+Comment: *** delegateFillArrayWithInLength - Invoke ***
+Pass: arrayInDelegate.length
+      Actual: 4
+
+Pass: arrayInDelegate[0]
+      Actual: 0
+
+Pass: arrayInDelegate[1]
+      Actual: 0
+
+Pass: arrayInDelegate[2]
+      Actual: 0
+
+Pass: arrayInDelegate[3]
+      Actual: 0
+
+Pass: lengthAttribute
+      Actual: 4
+
+Comment: *** delegateFillArrayWithInLength - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 34
+
+Pass: resultArray[3]
+      Actual: 45
+
+Comment: Call FillArray with size = 0  length = 0
+Comment: *** delegateFillArrayWithInLength - Invoke ***
+Pass: arrayInDelegate
+      Actual: null
+
+Pass: lengthAttribute
+      Actual: 0
+
+Comment: *** delegateFillArrayWithInLength - Exit ***
+Pass: resultArray
+      Actual: null
+
+PASS [Test 34: Delegate FillArray With [in] length attribute]
+=================================================
+
+=================================================
+Starting [Test 35: Delegate FillArray With [out] length attribute]
+Comment: Call FillArray with size = 4  length = 2
+Comment: *** delegateFillArrayWithOutLength - Invoke ***
+Pass: arrayInDelegate.length
+      Actual: 4
+
+Pass: arrayInDelegate[0]
+      Actual: 0
+
+Pass: arrayInDelegate[1]
+      Actual: 0
+
+Pass: arrayInDelegate[2]
+      Actual: 0
+
+Pass: arrayInDelegate[3]
+      Actual: 0
+
+Comment: returnLength : 2
+Comment: *** delegateFillArrayWithOutLength - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 0
+
+Pass: resultArray[3]
+      Actual: 0
+
+Comment: Call FillArray with size = 4  length = 4
+Comment: *** delegateFillArrayWithOutLength - Invoke ***
+Pass: arrayInDelegate.length
+      Actual: 4
+
+Pass: arrayInDelegate[0]
+      Actual: 0
+
+Pass: arrayInDelegate[1]
+      Actual: 0
+
+Pass: arrayInDelegate[2]
+      Actual: 0
+
+Pass: arrayInDelegate[3]
+      Actual: 0
+
+Comment: returnLength : 4
+Comment: *** delegateFillArrayWithOutLength - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 34
+
+Pass: resultArray[3]
+      Actual: 45
+
+Comment: Call FillArray with size = 0  length = 0
+Comment: *** delegateFillArrayWithOutLength - Invoke ***
+Pass: arrayInDelegate
+      Actual: null
+
+Comment: returnLength : 0
+Comment: *** delegateFillArrayWithOutLength - Exit ***
+Pass: resultArray
+      Actual: null
+
+PASS [Test 35: Delegate FillArray With [out] length attribute]
+=================================================
+
+=================================================
+Starting [Test 36: Delegate ReceiveArray With [in] length attribute]
+Comment: Call ReceiveArray with size = 4  length = 2
+Comment: *** delegateReceiveArrayWithInLength - Invoke ***
+Pass: lengthAttribute
+      Actual: 2
+
+Comment: returnArray : [ length = 4 ] : [ contents =  12 23 34 45 ]
+Comment: *** delegateReceiveArrayWithInLength - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 0
+
+Pass: resultArray[3]
+      Actual: 0
+
+Comment: Call ReceiveArray with size = 4  length = 4
+Comment: *** delegateReceiveArrayWithInLength - Invoke ***
+Pass: lengthAttribute
+      Actual: 4
+
+Comment: returnArray : [ length = 4 ] : [ contents =  12 23 34 45 ]
+Comment: *** delegateReceiveArrayWithInLength - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 34
+
+Pass: resultArray[3]
+      Actual: 45
+
+Comment: Call ReceiveArray with size = 0  length = 0
+Comment: *** delegateReceiveArrayWithInLength - Invoke ***
+Pass: lengthAttribute
+      Actual: 0
+
+Comment: returnArray : null
+Comment: *** delegateReceiveArrayWithInLength - Exit ***
+Pass: resultArray
+      Actual: null
+
+PASS [Test 36: Delegate ReceiveArray With [in] length attribute]
+=================================================
+
+=================================================
+Starting [Test 37: Delegate ReceiveArray With [out] length attribute]
+Comment: Call ReceiveArray with size = 4  length = 2
+Comment: *** delegateReceiveArrayWithOutLength - Invoke ***
+Comment: returnArray : [ length = 4 ] : [ contents =  12 23 34 45 ]
+Comment: returnLength : 2
+Comment: *** delegateReceiveArrayWithOutLength - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 0
+
+Pass: resultArray[3]
+      Actual: 0
+
+Comment: Call ReceiveArray with size = 4  length = 4
+Comment: *** delegateReceiveArrayWithOutLength - Invoke ***
+Comment: returnArray : [ length = 4 ] : [ contents =  12 23 34 45 ]
+Comment: returnLength : 4
+Comment: *** delegateReceiveArrayWithOutLength - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 34
+
+Pass: resultArray[3]
+      Actual: 45
+
+Comment: Call ReceiveArray with size = 0  length = 0
+Comment: *** delegateReceiveArrayWithOutLength - Invoke ***
+Comment: returnArray : null
+Comment: returnLength : 0
+Comment: *** delegateReceiveArrayWithOutLength - Exit ***
+Pass: resultArray
+      Actual: null
+
+PASS [Test 37: Delegate ReceiveArray With [out] length attribute]
+=================================================
+
+=================================================
+Starting [Test 38: PassArray With [out] length attribute which has retVal attribute too]
+Comment: Call PassArray JsArray
+Pass: elementsRead
+      Actual: 9
+
+Pass: resultArray.length
+      Actual: 9
+
+Pass: resultArray[0]
+      Actual: 1
+
+Pass: resultArray[1]
+      Actual: 2
+
+Pass: resultArray[2]
+      Actual: 3
+
+Pass: resultArray[3]
+      Actual: 4
+
+Pass: resultArray[4]
+      Actual: 5
+
+Pass: resultArray[5]
+      Actual: 6
+
+Pass: resultArray[6]
+      Actual: 7
+
+Pass: resultArray[7]
+      Actual: 8
+
+Pass: resultArray[8]
+      Actual: 9
+
+Comment: Call PassArray Int32Array
+Pass: elementsRead
+      Actual: 4
+
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 11
+
+Pass: resultArray[1]
+      Actual: 22
+
+Pass: resultArray[2]
+      Actual: 33
+
+Pass: resultArray[3]
+      Actual: 44
+
+Comment: Call PassArray with 0 elements on null
+Pass: elementsRead
+      Actual: 0
+
+Pass: resultArray
+      Actual: null
+
+PASS [Test 38: PassArray With [out] length attribute which has retVal attribute too]
+=================================================
+
+=================================================
+Starting [Test 39: FillArray With [out] length attribute which has retVal attribute too]
+Comment: Call FillArray with 4 elements on JsArray of 9 elements
+Pass: elementsRead
+      Actual: 4
+
+Pass: myArray.length
+      Actual: 9
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: myArray[4]
+      Actual: 0
+
+Pass: myArray[5]
+      Actual: 0
+
+Pass: myArray[6]
+      Actual: 0
+
+Pass: myArray[7]
+      Actual: 0
+
+Pass: myArray[8]
+      Actual: 0
+
+Comment: Call FillArray with 2 elements on JsArray of 2 elements
+Pass: elementsRead
+      Actual: 2
+
+Pass: myArray.length
+      Actual: 2
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Comment: Call FillArray with 4 elements on Int32Array of 9 elements
+Pass: elementsRead
+      Actual: 4
+
+Pass: myArray.length
+      Actual: 9
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: myArray[4]
+      Actual: 0
+
+Pass: myArray[5]
+      Actual: 0
+
+Pass: myArray[6]
+      Actual: 0
+
+Pass: myArray[7]
+      Actual: 0
+
+Pass: myArray[8]
+      Actual: 0
+
+Comment: Call FillArray with 2 elements on Int32Array of 2 elements
+Pass: elementsRead
+      Actual: 2
+
+Pass: myArray.length
+      Actual: 2
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Comment: Call FillArray with 0 elements on null
+Pass: elementsRead
+      Actual: 0
+
+PASS [Test 39: FillArray With [out] length attribute which has retVal attribute too]
+=================================================
+
+=================================================
+Starting [Test 40: ReceiveArray With [out] length attribute which has retVal attribute too]
+Comment: Call ReceiveArray with size = 4  length = 2
+Comment: [object Object]
+Pass: elementsRead
+      Actual: 2
+
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 0
+
+Pass: myArray[3]
+      Actual: 0
+
+Comment: Call ReceiveArray with size = 4  length = 4
+Pass: elementsRead
+      Actual: 4
+
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Comment: Call ReceiveArray with size = 0  length = 0
+Pass: elementsRead
+      Actual: 0
+
+Pass: myArray
+      Actual: null
+
+PASS [Test 40: ReceiveArray With [out] length attribute which has retVal attribute too]
+=================================================
+
+=================================================
+Starting [Test 41: Delegate PassArray With [out] length attribute which has retVal attribute too]
+Comment: Call PassArray with size = 4  length = 2
+Comment: *** delegatePassArrayWithOutLengthWithRetValLength - Invoke ***
+Comment: arrayInDelegate : [ length = 4 ] : [ contents =  12 23 0 0 ]
+Comment: *** delegatePassArrayWithOutLengthWithRetValLength - Exit ***
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 0
+
+Pass: myArray[3]
+      Actual: 0
+
+Comment: Call PassArray with size = 4  length = 4
+Comment: *** delegatePassArrayWithOutLengthWithRetValLength - Invoke ***
+Comment: arrayInDelegate : [ length = 4 ] : [ contents =  12 23 34 45 ]
+Comment: *** delegatePassArrayWithOutLengthWithRetValLength - Exit ***
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Comment: Call PassArray with size = 0  length = 0
+Comment: *** delegatePassArrayWithOutLengthWithRetValLength - Invoke ***
+Comment: arrayInDelegate : null
+Comment: *** delegatePassArrayWithOutLengthWithRetValLength - Exit ***
+Pass: myArray
+      Actual: null
+
+PASS [Test 41: Delegate PassArray With [out] length attribute which has retVal attribute too]
+=================================================
+
+=================================================
+Starting [Test 42: Delegate FillArray With [out] length attribute which has retVal attribute too]
+Comment: Call FillArray with size = 4  length = 2
+Comment: *** delegateFillArrayWithOutLengthWithRetValLength - Invoke ***
+Pass: arrayInDelegate.length
+      Actual: 4
+
+Pass: arrayInDelegate[0]
+      Actual: 0
+
+Pass: arrayInDelegate[1]
+      Actual: 0
+
+Pass: arrayInDelegate[2]
+      Actual: 0
+
+Pass: arrayInDelegate[3]
+      Actual: 0
+
+Comment: returnLength : 2
+Comment: *** delegateFillArrayWithOutLengthWithRetValLength - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 0
+
+Pass: resultArray[3]
+      Actual: 0
+
+Comment: Call FillArray with size = 4  length = 4
+Comment: *** delegateFillArrayWithOutLengthWithRetValLength - Invoke ***
+Pass: arrayInDelegate.length
+      Actual: 4
+
+Pass: arrayInDelegate[0]
+      Actual: 0
+
+Pass: arrayInDelegate[1]
+      Actual: 0
+
+Pass: arrayInDelegate[2]
+      Actual: 0
+
+Pass: arrayInDelegate[3]
+      Actual: 0
+
+Comment: returnLength : 4
+Comment: *** delegateFillArrayWithOutLengthWithRetValLength - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 34
+
+Pass: resultArray[3]
+      Actual: 45
+
+Comment: Call FillArray with size = 0  length = 0
+Comment: *** delegateFillArrayWithOutLengthWithRetValLength - Invoke ***
+Pass: arrayInDelegate
+      Actual: null
+
+Comment: returnLength : 0
+Comment: *** delegateFillArrayWithOutLengthWithRetValLength - Exit ***
+Pass: resultArray
+      Actual: null
+
+PASS [Test 42: Delegate FillArray With [out] length attribute which has retVal attribute too]
+=================================================
+
+=================================================
+Starting [Test 43: Delegate ReceiveArray With [out] length attribute which has retVal attribute too]
+Comment: Call ReceiveArray with size = 4  length = 2
+Comment: *** delegateReceiveArrayWithOutLengthWithRetValLength - Invoke ***
+Comment: returnArray : [ length = 4 ] : [ contents =  12 23 34 45 ]
+Comment: returnLength : 2
+Comment: *** delegateReceiveArrayWithOutLengthWithRetValLength - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 0
+
+Pass: resultArray[3]
+      Actual: 0
+
+Comment: Call ReceiveArray with size = 4  length = 4
+Comment: *** delegateReceiveArrayWithOutLengthWithRetValLength - Invoke ***
+Comment: returnArray : [ length = 4 ] : [ contents =  12 23 34 45 ]
+Comment: returnLength : 4
+Comment: *** delegateReceiveArrayWithOutLengthWithRetValLength - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 34
+
+Pass: resultArray[3]
+      Actual: 45
+
+Comment: Call ReceiveArray with size = 0  length = 0
+Comment: *** delegateReceiveArrayWithOutLengthWithRetValLength - Invoke ***
+Comment: returnArray : null
+Comment: returnLength : 0
+Comment: *** delegateReceiveArrayWithOutLengthWithRetValLength - Exit ***
+Pass: resultArray
+      Actual: null
+
+PASS [Test 43: Delegate ReceiveArray With [out] length attribute which has retVal attribute too]
+=================================================
+
+=================================================
+Starting [Test 44: PassArray With [out] length attribute which has random parameter with retVal attribute]
+Comment: Call PassArray JsArray
+Pass: elementsRead
+      Actual: 9
+
+Pass: random parameter
+      Actual: 100
+
+Pass: resultArray.length
+      Actual: 9
+
+Pass: resultArray[0]
+      Actual: 1
+
+Pass: resultArray[1]
+      Actual: 2
+
+Pass: resultArray[2]
+      Actual: 3
+
+Pass: resultArray[3]
+      Actual: 4
+
+Pass: resultArray[4]
+      Actual: 5
+
+Pass: resultArray[5]
+      Actual: 6
+
+Pass: resultArray[6]
+      Actual: 7
+
+Pass: resultArray[7]
+      Actual: 8
+
+Pass: resultArray[8]
+      Actual: 9
+
+Comment: Call PassArray Int32Array
+Pass: elementsRead
+      Actual: 4
+
+Pass: random parameter
+      Actual: 100
+
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 11
+
+Pass: resultArray[1]
+      Actual: 22
+
+Pass: resultArray[2]
+      Actual: 33
+
+Pass: resultArray[3]
+      Actual: 44
+
+Comment: Call PassArray with 0 elements on null
+Pass: elementsRead
+      Actual: 0
+
+Pass: random parameter
+      Actual: 100
+
+Pass: resultArray
+      Actual: null
+
+PASS [Test 44: PassArray With [out] length attribute which has random parameter with retVal attribute]
+=================================================
+
+=================================================
+Starting [Test 45: FillArray With [out] length attribute which has random parameter with retVal attribute]
+Comment: Call FillArray with 4 elements on JsArray of 9 elements
+Pass: elementsRead
+      Actual: 4
+
+Pass: random parameter
+      Actual: 100
+
+Pass: myArray.length
+      Actual: 9
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: myArray[4]
+      Actual: 0
+
+Pass: myArray[5]
+      Actual: 0
+
+Pass: myArray[6]
+      Actual: 0
+
+Pass: myArray[7]
+      Actual: 0
+
+Pass: myArray[8]
+      Actual: 0
+
+Comment: Call FillArray with 2 elements on JsArray of 2 elements
+Pass: elementsRead
+      Actual: 2
+
+Pass: random parameter
+      Actual: 100
+
+Pass: myArray.length
+      Actual: 2
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Comment: Call FillArray with 4 elements on Int32Array of 9 elements
+Pass: elementsRead
+      Actual: 4
+
+Pass: random parameter
+      Actual: 100
+
+Pass: myArray.length
+      Actual: 9
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: myArray[4]
+      Actual: 0
+
+Pass: myArray[5]
+      Actual: 0
+
+Pass: myArray[6]
+      Actual: 0
+
+Pass: myArray[7]
+      Actual: 0
+
+Pass: myArray[8]
+      Actual: 0
+
+Comment: Call FillArray with 2 elements on Int32Array of 2 elements
+Pass: elementsRead
+      Actual: 2
+
+Pass: random parameter
+      Actual: 100
+
+Pass: myArray.length
+      Actual: 2
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Comment: Call FillArray with 0 elements on null
+Pass: elementsRead
+      Actual: 0
+
+Pass: random parameter
+      Actual: 100
+
+PASS [Test 45: FillArray With [out] length attribute which has random parameter with retVal attribute]
+=================================================
+
+=================================================
+Starting [Test 46: ReceiveArray With [out] length attribute which has random parameter with retVal attribute]
+Comment: Call ReceiveArray with size = 4  length = 2
+Pass: elementsRead
+      Actual: 2
+
+Pass: random parameter
+      Actual: 100
+
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 0
+
+Pass: myArray[3]
+      Actual: 0
+
+Comment: Call ReceiveArray with size = 4  length = 4
+Pass: elementsRead
+      Actual: 4
+
+Pass: random parameter
+      Actual: 100
+
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Comment: Call ReceiveArray with size = 0  length = 0
+Pass: elementsRead
+      Actual: 0
+
+Pass: random parameter
+      Actual: 100
+
+Pass: myArray
+      Actual: null
+
+PASS [Test 46: ReceiveArray With [out] length attribute which has random parameter with retVal attribute]
+=================================================
+
+=================================================
+Starting [Test 47: Delegate PassArray With [out] length attribute which has random parameter with retVal attribute]
+Comment: Call PassArray with size = 4  length = 2
+Comment: *** delegatePassArrayWithOutLengthWithRetValRandomParam - Invoke ***
+Comment: arrayInDelegate : [ length = 4 ] : [ contents =  12 23 0 0 ]
+Comment: *** delegatePassArrayWithOutLengthWithRetValRandomParam - Exit ***
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 0
+
+Pass: myArray[3]
+      Actual: 0
+
+Pass: randomParam
+      Actual: 100
+
+Comment: Call PassArray with size = 4  length = 4
+Comment: *** delegatePassArrayWithOutLengthWithRetValRandomParam - Invoke ***
+Comment: arrayInDelegate : [ length = 4 ] : [ contents =  12 23 34 45 ]
+Comment: *** delegatePassArrayWithOutLengthWithRetValRandomParam - Exit ***
+Pass: myArray.length
+      Actual: 4
+
+Pass: myArray[0]
+      Actual: 12
+
+Pass: myArray[1]
+      Actual: 23
+
+Pass: myArray[2]
+      Actual: 34
+
+Pass: myArray[3]
+      Actual: 45
+
+Pass: randomParam
+      Actual: 100
+
+Comment: Call PassArray with size = 0  length = 0
+Comment: *** delegatePassArrayWithOutLengthWithRetValRandomParam - Invoke ***
+Comment: arrayInDelegate : null
+Comment: *** delegatePassArrayWithOutLengthWithRetValRandomParam - Exit ***
+Pass: myArray
+      Actual: null
+
+Pass: randomParam
+      Actual: 100
+
+PASS [Test 47: Delegate PassArray With [out] length attribute which has random parameter with retVal attribute]
+=================================================
+
+=================================================
+Starting [Test 48: Delegate FillArray With [out] length attribute which has random parameter with retVal attribute]
+Comment: Call FillArray with size = 4  length = 2
+Comment: *** delegateFillArrayWithOutLengthWithRetValRandomParam - Invoke ***
+Pass: arrayInDelegate.length
+      Actual: 4
+
+Pass: arrayInDelegate[0]
+      Actual: 0
+
+Pass: arrayInDelegate[1]
+      Actual: 0
+
+Pass: arrayInDelegate[2]
+      Actual: 0
+
+Pass: arrayInDelegate[3]
+      Actual: 0
+
+Comment: returnLength : 2
+Comment: *** delegateFillArrayWithOutLengthWithRetValRandomParam - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 0
+
+Pass: resultArray[3]
+      Actual: 0
+
+Pass: randomParam
+      Actual: 100
+
+Comment: Call FillArray with size = 4  length = 4
+Comment: *** delegateFillArrayWithOutLengthWithRetValRandomParam - Invoke ***
+Pass: arrayInDelegate.length
+      Actual: 4
+
+Pass: arrayInDelegate[0]
+      Actual: 0
+
+Pass: arrayInDelegate[1]
+      Actual: 0
+
+Pass: arrayInDelegate[2]
+      Actual: 0
+
+Pass: arrayInDelegate[3]
+      Actual: 0
+
+Comment: returnLength : 4
+Comment: *** delegateFillArrayWithOutLengthWithRetValRandomParam - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 34
+
+Pass: resultArray[3]
+      Actual: 45
+
+Pass: randomParam
+      Actual: 100
+
+Comment: Call FillArray with size = 0  length = 0
+Comment: *** delegateFillArrayWithOutLengthWithRetValRandomParam - Invoke ***
+Pass: arrayInDelegate
+      Actual: null
+
+Comment: returnLength : 0
+Comment: *** delegateFillArrayWithOutLengthWithRetValRandomParam - Exit ***
+Pass: resultArray
+      Actual: null
+
+Pass: randomParam
+      Actual: 100
+
+PASS [Test 48: Delegate FillArray With [out] length attribute which has random parameter with retVal attribute]
+=================================================
+
+=================================================
+Starting [Test 49: Delegate ReceiveArray With [out] length attribute which has random parameter with retVal attribute]
+Comment: Call ReceiveArray with size = 4  length = 2
+Comment: *** delegateReceiveArrayWithOutLengthWithRetValRandomParam - Invoke ***
+Comment: returnArray : [ length = 4 ] : [ contents =  12 23 34 45 ]
+Comment: returnLength : 2
+Comment: *** delegateReceiveArrayWithOutLengthWithRetValRandomParam - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 0
+
+Pass: resultArray[3]
+      Actual: 0
+
+Pass: randomParam
+      Actual: 100
+
+Comment: Call ReceiveArray with size = 4  length = 4
+Comment: *** delegateReceiveArrayWithOutLengthWithRetValRandomParam - Invoke ***
+Comment: returnArray : [ length = 4 ] : [ contents =  12 23 34 45 ]
+Comment: returnLength : 4
+Comment: *** delegateReceiveArrayWithOutLengthWithRetValRandomParam - Exit ***
+Pass: resultArray.length
+      Actual: 4
+
+Pass: resultArray[0]
+      Actual: 12
+
+Pass: resultArray[1]
+      Actual: 23
+
+Pass: resultArray[2]
+      Actual: 34
+
+Pass: resultArray[3]
+      Actual: 45
+
+Pass: randomParam
+      Actual: 100
+
+Comment: Call ReceiveArray with size = 0  length = 0
+Comment: *** delegateReceiveArrayWithOutLengthWithRetValRandomParam - Invoke ***
+Comment: returnArray : null
+Comment: returnLength : 0
+Comment: *** delegateReceiveArrayWithOutLengthWithRetValRandomParam - Exit ***
+Pass: resultArray
+      Actual: null
+
+Pass: randomParam
+      Actual: 100
+
+PASS [Test 49: Delegate ReceiveArray With [out] length attribute which has random parameter with retVal attribute]
+=================================================
+
+=================================================
+Starting [Test 50: Array property on runtimeclass]
+Pass: myAnimal.myArrayProp.toString()
+      Actual: [object Int32Array]
+
+Pass: myAnimal.myArrayProp.length
+      Actual: 4
+
+Pass: myAnimal.myArrayProp[0]
+      Actual: 1
+
+Pass: myAnimal.myArrayProp[1]
+      Actual: 2
+
+Pass: myAnimal.myArrayProp[2]
+      Actual: 3
+
+Pass: myAnimal.myArrayProp[3]
+      Actual: 4
+
+PASS [Test 50: Array property on runtimeclass]
+=================================================
+
+=================================================
+Starting [Test 51: Array property on static interface]
+Pass: Animals.Animal.myStaticArrayProp.toString()
+      Actual: [object Int32Array]
+
+Pass: Animals.Animal.myStaticArrayProp.length
+      Actual: 4
+
+Pass: Animals.Animal.myStaticArrayProp[0]
+      Actual: 1
+
+Pass: Animals.Animal.myStaticArrayProp[1]
+      Actual: 2
+
+Pass: Animals.Animal.myStaticArrayProp[2]
+      Actual: 3
+
+Pass: Animals.Animal.myStaticArrayProp[3]
+      Actual: 4
+
+PASS [Test 51: Array property on static interface]
+=================================================
+
+Passed: 57
+Failed: 0

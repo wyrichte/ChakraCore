@@ -1,0 +1,2 @@
+BailOut: function: foo ( (#1.1), #2) offset: #0005 Opcode: BailForDebugger Kind: BailOutExplicit
+foo done

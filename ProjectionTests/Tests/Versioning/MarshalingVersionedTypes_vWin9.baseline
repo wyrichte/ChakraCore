@@ -1,0 +1,513 @@
+Marshaling Versioned Types Test - Version NTDDI_MOCK_WIN9
+
+=================================================
+Starting [Test 0: DevTests.Versioning.MarshalVersionedTypes Members]
+Pass: DevTests.Versioning.MarshalVersionedTypes should be defined
+      Actual: function MarshalVersionedTypes() { [native code] }
+
+Pass: DevTests.Versioning.MarshalVersionedTypes instance should be defined
+      Actual: [object DevTests.Versioning.MarshalVersionedTypes]
+
+Comment: Verifying members of [object DevTests.Versioning.MarshalVersionedTypes]
+Pass: callMaxVersionDelegate should be defined
+      Actual: function
+
+Pass: typeof function callMaxVersionDelegate() { [native code] }
+      Actual: function
+
+Pass: callMinVersionDelegate should be defined
+      Actual: function
+
+Pass: typeof function callMinVersionDelegate() { [native code] }
+      Actual: function
+
+Pass: callWin8Delegate should be defined
+      Actual: function
+
+Pass: typeof function callWin8Delegate() { [native code] }
+      Actual: function
+
+Pass: callWin8SP1Delegate should be defined
+      Actual: function
+
+Pass: typeof function callWin8SP1Delegate() { [native code] }
+      Actual: function
+
+Pass: callWin9Delegate should be defined
+      Actual: function
+
+Pass: typeof function callWin9Delegate() { [native code] }
+      Actual: function
+
+Pass: maxVersionClassIn should be defined
+      Actual: function
+
+Pass: typeof function maxVersionClassIn() { [native code] }
+      Actual: function
+
+Pass: maxVersionEnumIn should be defined
+      Actual: function
+
+Pass: typeof function maxVersionEnumIn() { [native code] }
+      Actual: function
+
+Pass: maxVersionEnumOut should be defined
+      Actual: function
+
+Pass: typeof function maxVersionEnumOut() { [native code] }
+      Actual: function
+
+Pass: maxVersionInterfaceIn should be defined
+      Actual: function
+
+Pass: typeof function maxVersionInterfaceIn() { [native code] }
+      Actual: function
+
+Pass: maxVersionInterfaceVectorIn should be defined
+      Actual: function
+
+Pass: typeof function maxVersionInterfaceVectorIn() { [native code] }
+      Actual: function
+
+Pass: maxVersionStructIn should be defined
+      Actual: function
+
+Pass: typeof function maxVersionStructIn() { [native code] }
+      Actual: function
+
+Pass: maxVersionStructOut should be defined
+      Actual: function
+
+Pass: typeof function maxVersionStructOut() { [native code] }
+      Actual: function
+
+Pass: minVersionClassIn should be defined
+      Actual: function
+
+Pass: typeof function minVersionClassIn() { [native code] }
+      Actual: function
+
+Pass: minVersionEnumIn should be defined
+      Actual: function
+
+Pass: typeof function minVersionEnumIn() { [native code] }
+      Actual: function
+
+Pass: minVersionEnumOut should be defined
+      Actual: function
+
+Pass: typeof function minVersionEnumOut() { [native code] }
+      Actual: function
+
+Pass: minVersionInterfaceIn should be defined
+      Actual: function
+
+Pass: typeof function minVersionInterfaceIn() { [native code] }
+      Actual: function
+
+Pass: minVersionInterfaceVectorIn should be defined
+      Actual: function
+
+Pass: typeof function minVersionInterfaceVectorIn() { [native code] }
+      Actual: function
+
+Pass: minVersionStructIn should be defined
+      Actual: function
+
+Pass: typeof function minVersionStructIn() { [native code] }
+      Actual: function
+
+Pass: minVersionStructOut should be defined
+      Actual: function
+
+Pass: typeof function minVersionStructOut() { [native code] }
+      Actual: function
+
+Pass: win8ClassIn should be defined
+      Actual: function
+
+Pass: typeof function win8ClassIn() { [native code] }
+      Actual: function
+
+Pass: win8EnumIn should be defined
+      Actual: function
+
+Pass: typeof function win8EnumIn() { [native code] }
+      Actual: function
+
+Pass: win8EnumOut should be defined
+      Actual: function
+
+Pass: typeof function win8EnumOut() { [native code] }
+      Actual: function
+
+Pass: win8InterfaceIn should be defined
+      Actual: function
+
+Pass: typeof function win8InterfaceIn() { [native code] }
+      Actual: function
+
+Pass: win8InterfaceVectorIn should be defined
+      Actual: function
+
+Pass: typeof function win8InterfaceVectorIn() { [native code] }
+      Actual: function
+
+Pass: win8SP1ClassIn should be defined
+      Actual: function
+
+Pass: typeof function win8SP1ClassIn() { [native code] }
+      Actual: function
+
+Pass: win8SP1EnumIn should be defined
+      Actual: function
+
+Pass: typeof function win8SP1EnumIn() { [native code] }
+      Actual: function
+
+Pass: win8SP1EnumOut should be defined
+      Actual: function
+
+Pass: typeof function win8SP1EnumOut() { [native code] }
+      Actual: function
+
+Pass: win8SP1InterfaceIn should be defined
+      Actual: function
+
+Pass: typeof function win8SP1InterfaceIn() { [native code] }
+      Actual: function
+
+Pass: win8SP1InterfaceVectorIn should be defined
+      Actual: function
+
+Pass: typeof function win8SP1InterfaceVectorIn() { [native code] }
+      Actual: function
+
+Pass: win8SP1StructIn should be defined
+      Actual: function
+
+Pass: typeof function win8SP1StructIn() { [native code] }
+      Actual: function
+
+Pass: win8SP1StructOut should be defined
+      Actual: function
+
+Pass: typeof function win8SP1StructOut() { [native code] }
+      Actual: function
+
+Pass: win8StructIn should be defined
+      Actual: function
+
+Pass: typeof function win8StructIn() { [native code] }
+      Actual: function
+
+Pass: win8StructOut should be defined
+      Actual: function
+
+Pass: typeof function win8StructOut() { [native code] }
+      Actual: function
+
+Pass: win9ClassIn should be defined
+      Actual: function
+
+Pass: typeof function win9ClassIn() { [native code] }
+      Actual: function
+
+Pass: win9EnumIn should be defined
+      Actual: function
+
+Pass: typeof function win9EnumIn() { [native code] }
+      Actual: function
+
+Pass: win9EnumOut should be defined
+      Actual: function
+
+Pass: typeof function win9EnumOut() { [native code] }
+      Actual: function
+
+Pass: win9InterfaceIn should be defined
+      Actual: function
+
+Pass: typeof function win9InterfaceIn() { [native code] }
+      Actual: function
+
+Pass: win9InterfaceVectorIn should be defined
+      Actual: function
+
+Pass: typeof function win9InterfaceVectorIn() { [native code] }
+      Actual: function
+
+Pass: win9StructIn should be defined
+      Actual: function
+
+Pass: typeof function win9StructIn() { [native code] }
+      Actual: function
+
+Pass: win9StructOut should be defined
+      Actual: function
+
+Pass: typeof function win9StructOut() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+Pass: Number of members == number of members expected
+      Actual: 41
+
+PASS [Test 0: DevTests.Versioning.MarshalVersionedTypes Members]
+=================================================
+
+=================================================
+Starting [Test 1: Marshaling of Versioned Interfaces]
+Pass: minVersionInterfaceIn should succeed for this target version
+      Actual: undefined
+
+Pass: win8InterfaceIn should succeed for this target version
+      Actual: undefined
+
+Pass: win8SP1InterfaceIn should succeed for this target version
+      Actual: undefined
+
+Pass: win9InterfaceIn should succeed for this target version
+      Actual: undefined
+
+Pass: maxVersionInterfaceIn has an invalid signature for this target version returned (TypeError: The function 'maxVersionInterfaceIn' has an invalid signature and cannot be called)
+      Actual: true
+
+PASS [Test 1: Marshaling of Versioned Interfaces]
+=================================================
+
+=================================================
+Starting [Test 2: Marshaling of Versioned RuntimeClasses]
+Pass: minVersionClassIn should succeed for this target version
+      Actual: undefined
+
+Pass: win8ClassIn should succeed for this target version
+      Actual: undefined
+
+Pass: win8SP1ClassIn should succeed for this target version
+      Actual: undefined
+
+Pass: win9ClassIn should succeed for this target version
+      Actual: undefined
+
+Pass: maxVersionClassIn has an invalid signature for this target version returned (TypeError: The function 'maxVersionClassIn' has an invalid signature and cannot be called)
+      Actual: true
+
+PASS [Test 2: Marshaling of Versioned RuntimeClasses]
+=================================================
+
+=================================================
+Starting [Test 3: Marshaling of Versioned Structs]
+Pass: minVersionStructIn should succeed for this target version
+      Actual: undefined
+
+Comment: Verifying fields of minVersionStructOut()
+Pass: a should be defined
+      Actual: 12
+
+Pass: a
+      Actual: 12
+
+Pass: b should be defined
+      Actual: true
+
+Pass: b
+      Actual: true
+
+Pass: win8StructIn should succeed for this target version
+      Actual: undefined
+
+Comment: Verifying fields of win8StructOut()
+Pass: a should be defined
+      Actual: 12
+
+Pass: a
+      Actual: 12
+
+Pass: b should be defined
+      Actual: true
+
+Pass: b
+      Actual: true
+
+Pass: win8SP1StructIn should succeed for this target version
+      Actual: undefined
+
+Comment: Verifying fields of win8SP1StructOut()
+Pass: a should be defined
+      Actual: 12
+
+Pass: a
+      Actual: 12
+
+Pass: b should be defined
+      Actual: true
+
+Pass: b
+      Actual: true
+
+Pass: win9StructIn should succeed for this target version
+      Actual: undefined
+
+Comment: Verifying fields of win9StructOut()
+Pass: a should be defined
+      Actual: 12
+
+Pass: a
+      Actual: 12
+
+Pass: b should be defined
+      Actual: true
+
+Pass: b
+      Actual: true
+
+Pass: maxVersionStructIn has an invalid signature for this target version returned (TypeError: The function 'maxVersionStructIn' has an invalid signature and cannot be called)
+      Actual: true
+
+Pass: maxVersionStructOut has an invalid signature for this target version returned (TypeError: The function 'maxVersionStructOut' has an invalid signature and cannot be called)
+      Actual: true
+
+PASS [Test 3: Marshaling of Versioned Structs]
+=================================================
+
+=================================================
+Starting [Test 4: Marshaling of Versioned Enums]
+Pass: minVersionEnumIn should succeed for this target version
+      Actual: undefined
+
+Pass: minVersionEnumOut()
+      Actual: 0
+
+Pass: win8EnumIn should succeed for this target version
+      Actual: undefined
+
+Pass: win8EnumOut()
+      Actual: 100794368
+
+Pass: win8SP1EnumIn should succeed for this target version
+      Actual: undefined
+
+Pass: win8SP1EnumOut()
+      Actual: 100794624
+
+Pass: win9EnumIn should succeed for this target version
+      Actual: undefined
+
+Pass: win9EnumOut()
+      Actual: 100859904
+
+Pass: maxVersionEnumIn has an invalid signature for this target version returned (TypeError: The function 'maxVersionEnumIn' has an invalid signature and cannot be called)
+      Actual: true
+
+Pass: maxVersionEnumOut has an invalid signature for this target version returned (TypeError: The function 'maxVersionEnumOut' has an invalid signature and cannot be called)
+      Actual: true
+
+PASS [Test 4: Marshaling of Versioned Enums]
+=================================================
+
+=================================================
+Starting [Test 5: Marshaling of Versioned Delegates]
+Pass: minInterface.minVersion should be defined
+      Actual: 0
+
+Pass: minInterface.minVersion
+      Actual: 0
+
+Pass: minInterface.activationValue should be defined
+      Actual: 0
+
+Pass: minInterface.activationValue
+      Actual: 0
+
+Pass: minInterface.minVersion should be defined
+      Actual: 0
+
+Pass: minInterface.minVersion
+      Actual: 0
+
+Pass: minInterface.activationValue should be defined
+      Actual: 0
+
+Pass: minInterface.activationValue
+      Actual: 0
+
+Pass: minInterface.minVersion should be defined
+      Actual: 0
+
+Pass: minInterface.minVersion
+      Actual: 0
+
+Pass: minInterface.activationValue should be defined
+      Actual: 0
+
+Pass: minInterface.activationValue
+      Actual: 0
+
+Comment: Verifying fields of Delegate Win8SP1Struct param
+Pass: a should be defined
+      Actual: -73
+
+Pass: a
+      Actual: -73
+
+Pass: b should be defined
+      Actual: false
+
+Pass: b
+      Actual: false
+
+Pass: callWin8SP1Delegate has an invalid signature for this target version returned (TypeError: The function 'callWin8SP1Delegate' has an invalid signature and cannot be called)
+      Actual: true
+
+Pass: win9Class.win8Version should be defined
+      Actual: 100794368
+
+Pass: win9Class.win8Version
+      Actual: 100794368
+
+Pass: win9Class.win9Version should be defined
+      Actual: 100859904
+
+Pass: win9Class.win9Version
+      Actual: 100859904
+
+Pass: win9Class.activationValue should be defined
+      Actual: 0
+
+Pass: win9Class.activationValue
+      Actual: 0
+
+Pass: callMaxVersionDelegate has an invalid signature for this target version returned (TypeError: The function 'callMaxVersionDelegate' has an invalid signature and cannot be called)
+      Actual: true
+
+PASS [Test 5: Marshaling of Versioned Delegates]
+=================================================
+
+=================================================
+Starting [Test 6: Marshaling of IVector with Versioned T]
+Pass: minVersionInterfaceVectorIn should succeed for this target version
+      Actual: undefined
+
+Pass: win8InterfaceVectorIn should succeed for this target version
+      Actual: undefined
+
+Pass: win8SP1InterfaceVectorIn should succeed for this target version
+      Actual: undefined
+
+Pass: win9InterfaceVectorIn should succeed for this target version
+      Actual: undefined
+
+Pass: maxVersionInterfaceVectorIn has an invalid signature for this target version returned (TypeError: The function 'maxVersionInterfaceVectorIn' has an invalid signature and cannot be called)
+      Actual: true
+
+PASS [Test 6: Marshaling of IVector with Versioned T]
+=================================================
+
+Passed: 7
+Failed: 0

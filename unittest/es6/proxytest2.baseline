@@ -1,0 +1,180 @@
+*** Running test #1 (0): basic get test
+get trap foo on function receiver function
+PASSED
+*** Running test #2 (1): basic get test number
+get trap 6 on function receiver function
+PASSED
+*** Running test #3 (2): basic get test function
+get trap basicTestFunc on function receiver function
+PASSED
+*** Running test #4 (3): get on prototype
+get trap bar on function receiver function
+PASSED
+*** Running test #5 (4): get func on prototype
+get trap protoFunc on function receiver function
+PASSED
+*** Running test #6 (5): get argument on object
+get trap foo on function receiver function
+PASSED
+*** Running test #7 (6): get argument on prototype
+get trap bar on function receiver function
+PASSED
+*** Running test #8 (7): get argument on prototype1
+get trap bar on function receiver function
+PASSED
+*** Running test #9 (8): get argument on prototype2
+get trap bar on function receiver object
+PASSED
+*** Running test #10 (9): get non-existing object
+get trap nonexistProperty on function receiver function
+PASSED
+*** Running test #11 (10): get inconsistent result
+get trap nonConfigurable on function receiver function
+PASSED
+*** Running test #12 (11): has trap
+has trap function.foo
+PASSED
+*** Running test #13 (12): has trap number
+has trap function.2
+PASSED
+*** Running test #14 (13): has trap nonexisting
+has trap function.nonexisting
+PASSED
+*** Running test #15 (14): has trap nonexisting number
+has trap function.56
+PASSED
+*** Running test #16 (15): has trap arguments
+has trap function.nonexisting
+PASSED
+*** Running test #17 (16): has trap inconsistent output1
+has trap function.nonexisting
+PASSED
+*** Running test #18 (17): has trap inconsistent output2
+has trap function.foo
+PASSED
+*** Running test #19 (18): has trap using with
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.eval
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.LogResult
+get trap Symbol(Symbol.unscopables) on function receiver function
+get trap foo on function receiver function
+eval out:5
+PASSED
+*** Running test #20 (19): has trap using with1
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.eval
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.LogResult
+get trap Symbol(Symbol.unscopables) on function receiver function
+get trap foo1 on function receiver function
+eval out:5
+PASSED
+*** Running test #21 (20): propertyIsEnumerable shouldn't call has trap
+get trap propertyIsEnumerable on function receiver function
+getOwnPropertyDescriptor trap foo1
+get trap propertyIsEnumerable on function receiver function
+getOwnPropertyDescriptor trap foo2
+PASSED
+*** Running test #22 (21): typeof fld; known bug of extra hastrap
+get trap nonexistProperty on function receiver function
+PASSED
+*** Running test #23 (22): typeof element using with; known bug of extra has trap
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.assert
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.nonexisting
+PASSED
+*** Running test #24 (23): no get trap
+PASSED
+Summary of tests: total executed: 24; passed: 24; failed: 0
+*** Running test #25 (0): basic get test
+get trap foo on function receiver function
+PASSED
+*** Running test #26 (1): basic get test number
+get trap 6 on function receiver function
+PASSED
+*** Running test #27 (2): basic get test function
+get trap basicTestFunc on function receiver function
+PASSED
+*** Running test #28 (3): get on prototype
+get trap bar on function receiver function
+PASSED
+*** Running test #29 (4): get func on prototype
+get trap protoFunc on function receiver function
+PASSED
+*** Running test #30 (5): get argument on object
+get trap foo on function receiver function
+PASSED
+*** Running test #31 (6): get argument on prototype
+get trap bar on function receiver function
+PASSED
+*** Running test #32 (7): get argument on prototype1
+get trap bar on function receiver function
+PASSED
+*** Running test #33 (8): get argument on prototype2
+get trap bar on function receiver object
+PASSED
+*** Running test #34 (9): get non-existing object
+get trap nonexistProperty on function receiver function
+PASSED
+*** Running test #35 (10): get inconsistent result
+get trap nonConfigurable on function receiver function
+PASSED
+*** Running test #36 (11): has trap
+has trap function.foo
+PASSED
+*** Running test #37 (12): has trap number
+has trap function.2
+PASSED
+*** Running test #38 (13): has trap nonexisting
+has trap function.nonexisting
+PASSED
+*** Running test #39 (14): has trap nonexisting number
+has trap function.56
+PASSED
+*** Running test #40 (15): has trap arguments
+has trap function.nonexisting
+PASSED
+*** Running test #41 (16): has trap inconsistent output1
+has trap function.nonexisting
+PASSED
+*** Running test #42 (17): has trap inconsistent output2
+has trap function.foo
+PASSED
+*** Running test #43 (18): has trap using with
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.eval
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.LogResult
+get trap Symbol(Symbol.unscopables) on function receiver function
+get trap foo on function receiver function
+eval out:5
+PASSED
+*** Running test #44 (19): has trap using with1
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.eval
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.LogResult
+get trap Symbol(Symbol.unscopables) on function receiver function
+get trap foo1 on function receiver function
+eval out:5
+PASSED
+*** Running test #45 (20): propertyIsEnumerable shouldn't call has trap
+get trap propertyIsEnumerable on function receiver function
+getOwnPropertyDescriptor trap foo1
+get trap propertyIsEnumerable on function receiver function
+getOwnPropertyDescriptor trap foo2
+PASSED
+*** Running test #46 (21): typeof fld; known bug of extra hastrap
+get trap nonexistProperty on function receiver function
+PASSED
+*** Running test #47 (22): typeof element using with; known bug of extra has trap
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.assert
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.nonexisting
+PASSED
+*** Running test #48 (23): no get trap
+PASSED
+Summary of tests: total executed: 48; passed: 48; failed: 0

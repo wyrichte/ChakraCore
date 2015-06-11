@@ -1,0 +1,24 @@
+[
+  {
+    "locals": {
+      "this": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "arguments": "null",
+      "o": {
+        "[Methods]": {
+          "f": "function() { /*f*/}",
+          "g": "function g() { /*g*/ }"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "[Globals]": {}
+    }
+  }
+]

@@ -1,0 +1,83 @@
+APPX_MANIFEST = AppxManifest.xml
+
+APPX_FILES = \
+    default.html \
+    console.js \
+    disabletests.js \
+    xml2json.js \
+    jsonlogger.js \
+    newGlue.js \
+    win8testshared.js \
+    tile.png \
+
+APPX_PACKAGE_FILES = \
+    {$(OBJ_PATH)\..\..\abis\custom\animal\winrt\dllsrv\dll_mc\$(O)\Animals.dll = Animals.dll} \
+    {$(OBJ_PATH)\..\..\abis\custom\animal\winrt\idl\$(O)\animals.winmd = animals.winmd} \
+    {$(OBJ_PATH)\..\..\abis\custom\devtests\winrt\dllsrv\dll_mc\$(O)\DevTests.dll = DevTests.dll} \
+    {$(OBJ_PATH)\..\..\abis\custom\devtests\winrt\idl\$(O)\devtests.winmd = devtests.winmd} \
+    {$(OBJ_PATH)\..\..\abis\custom\devtests.camelcasing\winrt\dllsrv\dll_mc\$(O)\DevTests.CamelCasing.dll = DevTests.CamelCasing.dll} \
+    {$(OBJ_PATH)\..\..\abis\custom\devtests.camelcasing\winrt\idl\$(O)\devtests.camelcasing.winmd = devtests.camelcasing.winmd} \
+    {$(OBJ_PATH)\..\..\abis\custom\devtests.repros\winrt\dllsrv\dll_mc\$(O)\DevTests.Repros.dll = DevTests.Repros.dll} \
+    {$(OBJ_PATH)\..\..\abis\custom\devtests.repros\winrt\idl\$(O)\devtests.repros.winmd = devtests.repros.winmd} \
+    {$(OBJ_PATH)\..\..\abis\custom\teachrt\winrt\dllsrv\dll_mc\$(O)\FabrikamKitchenServer.dll = FabrikamKitchenServer.dll} \
+    {$(OBJ_PATH)\..\..\abis\custom\teachrt\winrt\idl\dll_mc\$(O)\FabrikamKitchenServer.ProxyStub.dll = FabrikamKitchenServer.ProxyStub.dll} \
+    {$(OBJ_PATH)\..\..\abis\custom\teachrt\winrt\idl\dll_mc\$(O)\fabrikam.winmd = fabrikam.winmd} \
+    {$(OBJ_PATH)\..\..\abis\custom\winery\dllsrv\dll_mc\$(O)\Winery.dll = Winery.dll} \
+    {$(OBJ_PATH)\..\..\abis\custom\winery\idl\$(O)\winery.winmd = winery.winmd} \
+    {..\Functional\Activation.js = Activation.js} \	
+    {..\Functional\ArmSpecific.js = ArmSpecific.js} \
+    {..\Functional\Array.js = Array.js} \
+    {..\Functional\ArrayAsIterable.js = ArrayAsIterable.js} \
+    {..\Functional\ArrayAsIterator.js = ArrayAsIterator.js} \
+    {..\Functional\ArrayAsVector.js = ArrayAsVector.js} \
+    {..\Functional\ArrayAsVectorView.js = ArrayAsVectorView.js} \
+    {..\Functional\ArrayString.js = ArrayString.js} \
+    {..\Functional\BasicTypes-win7.js = BasicTypes-win7.js} \
+    {..\Functional\BasicTypes-win8.js = BasicTypes-win8.js} \
+    {..\Functional\BugRegressions.js = BugRegressions.js} \
+    {..\Functional\CamelCasing.js = CamelCasing.js} \
+    {..\Functional\Collections.js = Collections.js} \
+    {..\Functional\CollectionsVectorView.js = CollectionsVectorView.js} \
+    {..\Functional\CrossWinmd.js = CrossWinmd.js} \
+    {..\Functional\DateTime.js = DateTime.js} \
+    {..\Functional\DateTimeAndTimeSpan.js = DateTimeAndTimeSpan.js} \
+    {..\Functional\Delegates.js = Delegates.js} \
+    {..\Functional\Enum.js = Enum.js} \
+    {..\Functional\ES5ArrayAsIterable.js = ES5ArrayAsIterable.js} \
+    {..\Functional\ES5ArrayAsIterator.js = ES5ArrayAsIterator.js} \
+    {..\Functional\ES5ArrayAsVector.js = ES5ArrayAsVector.js} \
+    {..\Functional\ES5ArrayAsVectorView.js = ES5ArrayAsVectorView.js} \
+    {..\Functional\Events.js = Events.js} \
+    {..\Functional\FunctionManipulation.js = FunctionManipulation.js} \
+    {..\Functional\GenericStringVector.js = GenericStringVector.js} \
+    {..\Functional\GenericVector.js = GenericVector.js} \
+    {..\Functional\GUID.js = GUID.js} \
+    {..\Functional\IMap.js = IMap.js} \
+    {..\Functional\Inspectable.js = Inspectable.js} \
+    {..\Functional\Interfaces.js = Interfaces.js} \
+    {..\Functional\IPropertyValue.js = IPropertyValue.js} \
+    {..\Functional\IReference.js = IReference.js} \
+    {..\Functional\KitchenTest.js = KitchenTest.js} \
+    {..\Functional\MemoryLeaks.js = MemoryLeaks.js} \
+    {..\Functional\ObjectIdentity.js = ObjectIdentity.js} \
+    {..\Functional\ObservableVector.js = ObservableVector.js} \
+    {..\Functional\Overloading.js = Overloading.js} \
+    {..\Functional\ParameterTest.js = ParameterTest.js} \
+    {..\Functional\ProjectedObjectAttributes.js = ProjectedObjectAttributes.js} \
+    {..\Functional\Promises.js = Promises.js} \
+    {..\Functional\PropertySet.js = PropertySet.js} \
+    {..\Functional\PropertyTests.js = PropertyTests.js} \
+    {..\Functional\PropertyValue.js = PropertyValue.js} \
+    {..\Functional\RCCollections.js = RCCollections.js} \
+    {..\Functional\RCObservableVector.js = RCObservableVector.js} \
+    {..\Functional\RCSingleObservableVector.js = RCSingleObservableVector.js} \
+    {..\Functional\runtimeclass.js = runtimeclass.js} \
+    {..\Functional\Statics.js = Statics.js} \
+    {..\Functional\StringArrayAsIterable.js = StringArrayAsIterable.js} \
+    {..\Functional\StringArrayAsIterator.js = StringArrayAsIterator.js} \
+    {..\Functional\StringArrayAsVector.js = StringArrayAsVector.js} \
+    {..\Functional\StringArrayAsVectorView.js = StringArrayAsVectorView.js} \
+    {..\Functional\Strings.js = Strings.js} \
+    {..\Functional\Structs.js = Structs.js} \
+    {..\Functional\WebHostHidden.js = WebHostHidden.js} \
+    {..\Functional\WineryTest.js = WineryTest.js} \

@@ -1,0 +1,123 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "foo1": "null",
+      "[Scope]1": {
+        "foo2": "<large string>",
+        "bar4": "<large string>",
+        "x": "undefined"
+      },
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "foo2": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo2",
+        "prototype": "{...}"
+      },
+      "bar4": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "bar4",
+        "prototype": "{...}"
+      },
+      "x": "undefined",
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "foo2": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo2",
+        "prototype": "{...}"
+      },
+      "bar4": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "bar4",
+        "prototype": "{...}"
+      },
+      "x": "1",
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "foo2": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo2",
+        "prototype": "{...}"
+      },
+      "bar4": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "bar4",
+        "prototype": "{...}"
+      },
+      "x": "1",
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  }
+]

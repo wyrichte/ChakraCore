@@ -1,0 +1,36 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 122,
+        "length": 9,
+        "text": "var x = 1",
+        "frameDescription": "f3"
+      },
+      {
+        "start": 185,
+        "length": 4,
+        "text": "f3()",
+        "frameDescription": "f2"
+      },
+      {
+        "start": 203,
+        "length": 4,
+        "text": "f2()",
+        "frameDescription": "f1"
+      },
+      {
+        "start": 217,
+        "length": 4,
+        "text": "f1()",
+        "frameDescription": "deepfunction"
+      },
+      {
+        "start": 229,
+        "length": 14,
+        "text": "deepfunction()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

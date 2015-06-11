@@ -1,0 +1,62 @@
+[
+  {
+    "evaluate": {
+      "$newValue$": "'$newValue$' is undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "$propertyName$": "'$propertyName$' is undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "$mutationType$": "'$mutationType$' is undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "$newValue$": "2"
+    }
+  },
+  {
+    "evaluate": {
+      "$propertyName$": "b"
+    }
+  },
+  {
+    "evaluate": {
+      "$mutationType$": "add"
+    }
+  },
+  {
+    "evaluate": {
+      "$newValue$": "3"
+    }
+  },
+  {
+    "evaluate": {
+      "$propertyName$": "a"
+    }
+  },
+  {
+    "evaluate": {
+      "$mutationType$": "update"
+    }
+  },
+  {
+    "evaluate": {
+      "$newValue$": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "$propertyName$": "b"
+    }
+  },
+  {
+    "evaluate": {
+      "$mutationType$": "delete"
+    }
+  }
+]

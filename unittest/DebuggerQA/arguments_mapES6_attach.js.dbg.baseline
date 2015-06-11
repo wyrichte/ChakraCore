@@ -1,0 +1,37 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 173,
+        "length": 9,
+        "text": "arguments",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Map.prototype.forEach"
+      },
+      {
+        "start": 138,
+        "length": 158,
+        "text": "map.forEach(function () {\n        arguments; /**loc(bp1):\n\t\t\tstack();\n\t\t\tlocals();\n            **/\n        WScript.Echo(arguments.callee.caller);\n    })",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 349,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

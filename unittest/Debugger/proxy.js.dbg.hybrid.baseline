@@ -1,0 +1,82 @@
+[
+  {
+    "evaluate": {
+      "a": {
+        "[handler]": {
+          "__proto__": "{...}"
+        },
+        "[target]": {
+          "__proto__": "{...}"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "test2": {
+        "[handler]": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "[target]": {
+          "__proto__": "{...}",
+          "a": "1",
+          "b": "2",
+          "c": "3",
+          "[1]": "2",
+          "[2]": "3"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "test3": {
+        "[handler]": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "[target]": {
+          "__proto__": "{...}",
+          "A": "1",
+          "B": "2",
+          "C": "3"
+        }
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1058,
+        "length": 39,
+        "text": "return Reflect.get(obj, name, receiver)",
+        "frameDescription": "get handler"
+      },
+      {
+        "start": 1287,
+        "length": 9,
+        "text": "test3.foo",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 1324,
+        "length": 74,
+        "text": "testRunner.runTests(tests, { verbose: WScript.Arguments[0] != \"summary\" })",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

@@ -1,0 +1,140 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "foo": {
+            "__proto__": "<large string>",
+            "arguments": "{...}",
+            "caller": "null",
+            "length": "0",
+            "name": "foo",
+            "prototype": "{...}"
+          }
+        },
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": "<large string>",
+            "__defineSetter__": "<large string>",
+            "__lookupGetter__": "<large string>",
+            "__lookupSetter__": "<large string>",
+            "constructor": "<large string>",
+            "hasOwnProperty": "<large string>",
+            "isPrototypeOf": "<large string>",
+            "propertyIsEnumerable": "<large string>",
+            "toLocaleString": "<large string>",
+            "toString": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": "null"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": {
+            "__proto__": "<large string>",
+            "arguments": "{...}",
+            "caller": "null",
+            "length": "0",
+            "name": "foo",
+            "prototype": "{...}"
+          }
+        },
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": "<large string>",
+            "__defineSetter__": "<large string>",
+            "__lookupGetter__": "<large string>",
+            "__lookupSetter__": "<large string>",
+            "constructor": "<large string>",
+            "hasOwnProperty": "<large string>",
+            "isPrototypeOf": "<large string>",
+            "propertyIsEnumerable": "<large string>",
+            "toLocaleString": "<large string>",
+            "toString": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "a": {
+        "__proto__": {
+          "[Methods]": {
+            "concat": "<large string>",
+            "constructor": "<large string>",
+            "copyWithin": "<large string>",
+            "entries": "<large string>",
+            "every": "<large string>",
+            "fill": "<large string>",
+            "filter": "<large string>",
+            "find": "<large string>",
+            "findIndex": "<large string>",
+            "forEach": "<large string>",
+            "indexOf": "<large string>",
+            "join": "<large string>",
+            "keys": "<large string>",
+            "lastIndexOf": "<large string>",
+            "map": "<large string>",
+            "pop": "<large string>",
+            "push": "<large string>",
+            "reduce": "<large string>",
+            "reduceRight": "<large string>",
+            "reverse": "<large string>",
+            "shift": "<large string>",
+            "slice": "<large string>",
+            "some": "<large string>",
+            "sort": "<large string>",
+            "splice": "<large string>",
+            "Symbol.iterator": "<large string>",
+            "toLocaleString": "<large string>",
+            "toString": "<large string>",
+            "unshift": "<large string>",
+            "values": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "length": "0",
+          "Symbol.unscopables": {
+            "__proto__": "{...}",
+            "copyWithin": "true",
+            "entries": "true",
+            "fill": "true",
+            "find": "true",
+            "findIndex": "true",
+            "keys": "true",
+            "values": "true"
+          }
+        },
+        "length": "0"
+      },
+      "x": "undefined",
+      "[Globals]": {
+        "foo": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": ""
+          },
+          "arguments": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "length": "0"
+          },
+          "caller": "null",
+          "length": "0",
+          "name": "foo",
+          "prototype": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}"
+          }
+        }
+      }
+    }
+  }
+]

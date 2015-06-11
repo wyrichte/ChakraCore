@@ -1,0 +1,171 @@
+Struct tests
+
+=================================================
+Starting [Test 1: BasicGetDimensions - Ensure that GetDimensions returns what we expect]
+Pass: type
+      Actual: object
+
+Pass: length : number = '180'
+      Actual: length : number = '180'
+
+Pass: width : number = '360'
+      Actual: width : number = '360'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 1: BasicGetDimensions - Ensure that GetDimensions returns what we expect]
+=================================================
+
+=================================================
+Starting [Test 2: MarshalInlineStruct - Make sure that we can marshal an inline struct]
+Pass: type
+      Actual: object
+
+Pass: length : number = '92'
+      Actual: length : number = '92'
+
+Pass: width : number = '181'
+      Actual: width : number = '181'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 2: MarshalInlineStruct - Make sure that we can marshal an inline struct]
+=================================================
+
+=================================================
+Starting [Test 3: MarshalCoercibleInlineStruct - Make sure that we can marshal an inline struct]
+Pass: type
+      Actual: object
+
+Pass: length : number = '192'
+      Actual: length : number = '192'
+
+Pass: width : number = '186'
+      Actual: width : number = '186'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 3: MarshalCoercibleInlineStruct - Make sure that we can marshal an inline struct]
+=================================================
+
+=================================================
+Starting [Test 4: MarshalNullDimensions - Behavior of null dimensions]
+Comment: Caught error: Could not convert object to struct: object missing expected property 'length'
+Pass: instanceof TypeError: Could not convert object to struct: object missing expected property 'length'
+      Actual: true
+
+Pass: error.description
+      Actual: Could not convert object to struct: object missing expected property 'length'
+
+PASS [Test 4: MarshalNullDimensions - Behavior of null dimensions]
+=================================================
+
+=================================================
+Starting [Test 5: RoundTripFromWinRT - Make sure that we can marshal an inline struct]
+Pass: type
+      Actual: object
+
+Pass: length : number = '180'
+      Actual: length : number = '180'
+
+Pass: width : number = '360'
+      Actual: width : number = '360'
+
+Pass: number of members
+      Actual: 2
+
+Pass: Do not expect == of roundtripped object
+      Actual: true
+
+Pass: Do not expect === of roundtripped object
+      Actual: true
+
+PASS [Test 5: RoundTripFromWinRT - Make sure that we can marshal an inline struct]
+=================================================
+
+=================================================
+Starting [Test 6: SimpleNestedStruct - Make sure that we can marshal an inline struct]
+Pass: type
+      Actual: object
+
+Pass: inner : object = '[object Animals._InnerStruct]'
+      Actual: inner : object = '[object Animals._InnerStruct]'
+
+Pass: number of members
+      Actual: 1
+
+Pass: type
+      Actual: object
+
+Pass: a : number = '100'
+      Actual: a : number = '100'
+
+Pass: number of members
+      Actual: 1
+
+PASS [Test 6: SimpleNestedStruct - Make sure that we can marshal an inline struct]
+=================================================
+
+=================================================
+Starting [Test 7: MarshalInlineNestedStruct - Check inline nested struct]
+Pass: type
+      Actual: object
+
+Pass: inner : object = '[object Animals._InnerStruct]'
+      Actual: inner : object = '[object Animals._InnerStruct]'
+
+Pass: number of members
+      Actual: 1
+
+Pass: type
+      Actual: object
+
+Pass: a : number = '52'
+      Actual: a : number = '52'
+
+Pass: number of members
+      Actual: 1
+
+PASS [Test 7: MarshalInlineNestedStruct - Check inline nested struct]
+=================================================
+
+=================================================
+Starting [Test 8: RoundtripNestedStruct - Make sure a nested struct can round trip from WinRT object and back through]
+Pass: type
+      Actual: object
+
+Pass: inner : object = '[object Animals._InnerStruct]'
+      Actual: inner : object = '[object Animals._InnerStruct]'
+
+Pass: number of members
+      Actual: 1
+
+Pass: type
+      Actual: object
+
+Pass: a : number = '100'
+      Actual: a : number = '100'
+
+Pass: number of members
+      Actual: 1
+
+PASS [Test 8: RoundtripNestedStruct - Make sure a nested struct can round trip from WinRT object and back through]
+=================================================
+
+=================================================
+Starting [Test 9: MarshalNullNestedStruct - Null in the case of an inner struct]
+Comment: Caught error: Could not convert object to struct: object missing expected property 'a'
+Pass: instanceof TypeError: Could not convert object to struct: object missing expected property 'a'
+      Actual: true
+
+Pass: error.description
+      Actual: Could not convert object to struct: object missing expected property 'a'
+
+PASS [Test 9: MarshalNullNestedStruct - Null in the case of an inner struct]
+=================================================
+
+Passed: 9
+Failed: 0

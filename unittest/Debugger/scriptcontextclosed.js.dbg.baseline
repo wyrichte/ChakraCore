@@ -1,0 +1,72 @@
+[
+  {
+    "evaluate": {
+      "e": {
+        "[Methods]": {},
+        "Debug": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "debuggerEnabled": "Permission denied",
+          "EngineInterface": "{...}",
+          "faultInjectionCookie": "Permission denied",
+          "MS_ASYNC_CALLBACK_STATUS_ASSIGN_DELEGATE": "0",
+          "MS_ASYNC_CALLBACK_STATUS_CANCEL": "3",
+          "MS_ASYNC_CALLBACK_STATUS_CHOOSEANY": "2",
+          "MS_ASYNC_CALLBACK_STATUS_ERROR": "4",
+          "MS_ASYNC_CALLBACK_STATUS_JOIN": "1",
+          "MS_ASYNC_OP_STATUS_CANCELED": "2",
+          "MS_ASYNC_OP_STATUS_ERROR": "3",
+          "MS_ASYNC_OP_STATUS_SUCCESS": "1",
+          "setNonUserCodeExceptions": "Permission denied"
+        },
+        "Infinity": "Infinity",
+        "Intl": "",
+        "JSON": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "Math": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "E": "2.718281828459045",
+          "LN2": "0.6931471805599453",
+          "LN10": "2.302585092994046",
+          "LOG2E": "1.4426950408889633",
+          "LOG10E": "0.4342944819032518",
+          "PI": "3.141592653589793",
+          "SQRT1_2": "0.7071067811865476",
+          "SQRT2": "1.4142135623730951"
+        },
+        "NaN": "NaN",
+        "Reflect": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "SCA": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "undefined": "undefined",
+        "WScript": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "Arguments": "[]",
+          "StdErr": "{...}",
+          "StdIn": "{...}",
+          "StdOut": "{...}"
+        },
+        "x": {
+          "__proto__": "[]",
+          "length": "1",
+          "[0]": "{...}"
+        },
+        "x2": {
+          "__proto__": "{...}",
+          "a": "1",
+          "b": "2",
+          "c": "Permission denied"
+        }
+      }
+    }
+  }
+]

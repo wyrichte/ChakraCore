@@ -1,0 +1,568 @@
+-----------------------------------------
+Error()
+message      =             (string)
+name         = Error       (string)
+description  =             (string)
+number       = 0           (number)
+stack        = Error
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:60:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(NaN, NaN)
+message      = NaN         (string)
+name         = Error       (string)
+description  = NaN         (string)
+number       = NaN         (number)
+stack        = Error: NaN
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:63:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(1, 1)
+message      = 1           (string)
+name         = Error       (string)
+description  = 1           (string)
+number       = 1           (number)
+stack        = Error: 1
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:64:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(1.1, 1.1)
+message      = 1.1         (string)
+name         = Error       (string)
+description  = 1.1         (string)
+number       = 1.1         (number)
+stack        = Error: 1.1
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:65:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(undefined, undefined)
+message      =             (string)
+name         = Error       (string)
+description  = undefined   (string)
+number       = NaN         (number)
+stack        = Error
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:66:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(null, null)
+message      = null        (string)
+name         = Error       (string)
+description  = null        (string)
+number       = 0           (number)
+stack        = Error: null
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:67:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(true, true)
+message      = true        (string)
+name         = Error       (string)
+description  = true        (string)
+number       = 1           (number)
+stack        = Error: true
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:68:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(false, false)
+message      = false       (string)
+name         = Error       (string)
+description  = false       (string)
+number       = 0           (number)
+stack        = Error: false
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:69:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error('blah', 'blah')
+message      = blah        (string)
+name         = Error       (string)
+description  = blah        (string)
+number       = NaN         (number)
+stack        = Error: blah
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:70:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(new Object(), new Object())
+message      = [object Object](string)
+name         = Error       (string)
+description  = [object Object](string)
+number       = NaN         (number)
+stack        = Error: [object Object]
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:73:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(new String('blah'), new String('blah'))
+message      = blah        (string)
+name         = Error       (string)
+description  = blah        (string)
+number       = NaN         (number)
+stack        = Error: blah
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:74:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(new Number(1.1), new Number(1.1))
+message      = 1.1         (string)
+name         = Error       (string)
+description  = 1.1         (string)
+number       = 1.1         (number)
+stack        = Error: 1.1
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:75:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(new Boolean(true), new Boolean(true))
+message      = true        (string)
+name         = Error       (string)
+description  = true        (string)
+number       = 1           (number)
+stack        = Error: true
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:76:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(Test, Test)
+message      = function Test(typename, s)
+{
+    WScript.Echo("-----------------------------------------");
+    WScript.Echo(typename + "(" + s + ")");
+    var e = eval("new " + typename + "(" + s + ")");
+    DumpObject(e);
+}(string)
+name         = Error       (string)
+description  = function Test(typename, s)
+{
+    WScript.Echo("-----------------------------------------");
+    WScript.Echo(typename + "(" + s + ")");
+    var e = eval("new " + typename + "(" + s + ")");
+    DumpObject(e);
+}(string)
+number       = NaN         (number)
+stack        = Error: function Test(typename, s)
+{
+    WScript.Echo("-----------------------------------------");
+    WScript.Echo(typename + "(" + s + ")");
+    var e = eval("new " + typename + "(" + s + ")");
+    DumpObject(e);
+}
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:77:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(NaN)
+message      = NaN         (string)
+name         = Error       (string)
+description  = NaN         (string)
+stack        = Error: NaN
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:80:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(1)
+message      = 1           (string)
+name         = Error       (string)
+description  = 1           (string)
+stack        = Error: 1
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:81:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(undefined)
+message      =             (string)
+name         = Error       (string)
+description  = undefined   (string)
+stack        = Error
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:82:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(null)
+message      = null        (string)
+name         = Error       (string)
+description  = null        (string)
+stack        = Error: null
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:83:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(true)
+message      = true        (string)
+name         = Error       (string)
+description  = true        (string)
+stack        = Error: true
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:84:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(false)
+message      = false       (string)
+name         = Error       (string)
+description  = false       (string)
+stack        = Error: false
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:85:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error('blah')
+message      = blah        (string)
+name         = Error       (string)
+description  = blah        (string)
+stack        = Error: blah
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:86:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(new Object())
+message      = [object Object](string)
+name         = Error       (string)
+description  = [object Object](string)
+stack        = Error: [object Object]
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:89:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(new String('blah'))
+message      = blah        (string)
+name         = Error       (string)
+description  = blah        (string)
+stack        = Error: blah
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:90:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(new Number(1.1))
+message      = 1.1         (string)
+name         = Error       (string)
+description  = 1.1         (string)
+stack        = Error: 1.1
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:91:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(new Boolean(1.1))
+message      = true        (string)
+name         = Error       (string)
+description  = true        (string)
+stack        = Error: true
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:92:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+Error(Test)
+message      = function Test(typename, s)
+{
+    WScript.Echo("-----------------------------------------");
+    WScript.Echo(typename + "(" + s + ")");
+    var e = eval("new " + typename + "(" + s + ")");
+    DumpObject(e);
+}(string)
+name         = Error       (string)
+description  = function Test(typename, s)
+{
+    WScript.Echo("-----------------------------------------");
+    WScript.Echo(typename + "(" + s + ")");
+    var e = eval("new " + typename + "(" + s + ")");
+    DumpObject(e);
+}(string)
+stack        = Error: function Test(typename, s)
+{
+    WScript.Echo("-----------------------------------------");
+    WScript.Echo(typename + "(" + s + ")");
+    var e = eval("new " + typename + "(" + s + ")");
+    DumpObject(e);
+}
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:93:5)
+   at Global code (errorctor.js:96:1)(string)
+-----------------------------------------
+TypeError()
+message      =             (string)
+name         = TypeError   (string)
+stack        = TypeError
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:60:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(NaN, NaN)
+message      = NaN         (string)
+name         = TypeError   (string)
+stack        = TypeError: NaN
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:63:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(1, 1)
+message      = 1           (string)
+name         = TypeError   (string)
+stack        = TypeError: 1
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:64:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(1.1, 1.1)
+message      = 1.1         (string)
+name         = TypeError   (string)
+stack        = TypeError: 1.1
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:65:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(undefined, undefined)
+message      =             (string)
+name         = TypeError   (string)
+stack        = TypeError
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:66:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(null, null)
+message      = null        (string)
+name         = TypeError   (string)
+stack        = TypeError: null
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:67:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(true, true)
+message      = true        (string)
+name         = TypeError   (string)
+stack        = TypeError: true
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:68:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(false, false)
+message      = false       (string)
+name         = TypeError   (string)
+stack        = TypeError: false
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:69:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError('blah', 'blah')
+message      = blah        (string)
+name         = TypeError   (string)
+stack        = TypeError: blah
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:70:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(new Object(), new Object())
+message      = [object Object](string)
+name         = TypeError   (string)
+stack        = TypeError: [object Object]
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:73:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(new String('blah'), new String('blah'))
+message      = blah        (string)
+name         = TypeError   (string)
+stack        = TypeError: blah
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:74:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(new Number(1.1), new Number(1.1))
+message      = 1.1         (string)
+name         = TypeError   (string)
+stack        = TypeError: 1.1
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:75:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(new Boolean(true), new Boolean(true))
+message      = true        (string)
+name         = TypeError   (string)
+stack        = TypeError: true
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:76:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(Test, Test)
+message      = function Test(typename, s)
+{
+    WScript.Echo("-----------------------------------------");
+    WScript.Echo(typename + "(" + s + ")");
+    var e = eval("new " + typename + "(" + s + ")");
+    DumpObject(e);
+}(string)
+name         = TypeError   (string)
+stack        = TypeError: function Test(typename, s)
+{
+    WScript.Echo("-----------------------------------------");
+    WScript.Echo(typename + "(" + s + ")");
+    var e = eval("new " + typename + "(" + s + ")");
+    DumpObject(e);
+}
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:77:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(NaN)
+message      = NaN         (string)
+name         = TypeError   (string)
+stack        = TypeError: NaN
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:80:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(1)
+message      = 1           (string)
+name         = TypeError   (string)
+stack        = TypeError: 1
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:81:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(undefined)
+message      =             (string)
+name         = TypeError   (string)
+stack        = TypeError
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:82:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(null)
+message      = null        (string)
+name         = TypeError   (string)
+stack        = TypeError: null
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:83:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(true)
+message      = true        (string)
+name         = TypeError   (string)
+stack        = TypeError: true
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:84:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(false)
+message      = false       (string)
+name         = TypeError   (string)
+stack        = TypeError: false
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:85:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError('blah')
+message      = blah        (string)
+name         = TypeError   (string)
+stack        = TypeError: blah
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:86:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(new Object())
+message      = [object Object](string)
+name         = TypeError   (string)
+stack        = TypeError: [object Object]
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:89:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(new String('blah'))
+message      = blah        (string)
+name         = TypeError   (string)
+stack        = TypeError: blah
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:90:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(new Number(1.1))
+message      = 1.1         (string)
+name         = TypeError   (string)
+stack        = TypeError: 1.1
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:91:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(new Boolean(1.1))
+message      = true        (string)
+name         = TypeError   (string)
+stack        = TypeError: true
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:92:5)
+   at Global code (errorctor.js:97:1)(string)
+-----------------------------------------
+TypeError(Test)
+message      = function Test(typename, s)
+{
+    WScript.Echo("-----------------------------------------");
+    WScript.Echo(typename + "(" + s + ")");
+    var e = eval("new " + typename + "(" + s + ")");
+    DumpObject(e);
+}(string)
+name         = TypeError   (string)
+stack        = TypeError: function Test(typename, s)
+{
+    WScript.Echo("-----------------------------------------");
+    WScript.Echo(typename + "(" + s + ")");
+    var e = eval("new " + typename + "(" + s + ")");
+    DumpObject(e);
+}
+   at eval code (eval code:1:1)
+   at Test (errorctor.js:53:5)
+   at TestCtor (errorctor.js:93:5)
+   at Global code (errorctor.js:97:1)(string)

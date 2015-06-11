@@ -1,0 +1,11 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "abcdefghijklmnopqrstuvwxyz01234567891",
+      "y": "undefined",
+      "[Globals]": ""
+    }
+  }
+]

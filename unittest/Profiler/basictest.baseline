@@ -1,0 +1,23 @@
+Test Anonymous function
+In function f1
+in F2, value : 500010
+Anonymous function2
+24
+In topFunc1
+Script Profiler starts
+In function f1
+in F2, value : 500010
+Anonymous function2
+24
+Dumping sorted function compiled events
+[FunctionCompiled]: Function: Anonymous function, Line: 1, Column: 2, Character Position: 0
+[FunctionCompiled]: Function: Anonymous function, Line: 31, Column: 6, Character Position: 617
+[FunctionCompiled]: Function: F1, Line: 8, Column: 5, Character Position: 124
+[FunctionCompiled]: Function: F2, Line: 15, Column: 5, Character Position: 274
+[FunctionCompiled]: Function: F4, Line: 46, Column: 5, Character Position: 1083
+[FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
+[FunctionCompiled]: Function: f6, Line: 49, Column: 18, Character Position: 1145
+[FunctionCompiled]: Function: topFunc, Line: 7, Column: 1, Character Position: 102
+[FunctionCompiled]: Function: topFunc1, Line: 62, Column: 1, Character Position: 1329
+Passed: Validation
+Script Profiler ends

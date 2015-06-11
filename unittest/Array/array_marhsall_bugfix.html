@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body onload="doTest();">
+<script type="text/javascript">
+function getOtherFrame() {
+  return this.window.frames[0].window;
+}
+
+function doTest() {
+this.Array = getOtherFrame().Array;
+ for(var i = 0; i < 10; i++){
+  test();
+ }
+WScript.Echo("Pass");
+}
+
+function test() {
+    for (var i = 0; i < 100; i++) {
+        var a = new Array();
+ 	a.push(i);
+    }
+}
+</script>
+<iframe src="array_marhsall_bugfix_child.html"></iframe>
+</body>
+
+</html> 

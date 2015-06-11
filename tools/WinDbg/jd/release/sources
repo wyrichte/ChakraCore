@@ -1,0 +1,9 @@
+TARGETNAME = jsd
+TARGETTYPE = DYNLINK
+
+!include ..\sources.inc
+
+SOURCES = \
+        ..\jd.cpp \
+        ..\jd.rc \
+        ..\ScriptDebugSite.cpp \

@@ -1,0 +1,43 @@
+[
+  {
+    "log": "first breakpoint hit"
+  },
+  {
+    "log": "second breakpoint hit"
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "7",
+        "ids": "[0,1,2,3,4,5,6]",
+        "x": "3"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {
+        "val": "4"
+      },
+      "[Globals]": {
+        "make_func": "<large string>",
+        "ids": "[0,1,2,3,4,5,6]",
+        "i": "7",
+        "x": "3"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 276,
+        "length": 5,
+        "text": "x = 5",
+        "frameDescription": "Anonymous function"
+      }
+    ]
+  }
+]

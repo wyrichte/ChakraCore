@@ -1,0 +1,6 @@
+Error: Throwing...
+   at toString (intlinternalshiddenfromexceptionstacktest.js:10:17)
+   at Intl.Collator.prototype.compare (native code)
+   at Array.prototype.sort (native code)
+   at testCallback (intlinternalshiddenfromexceptionstacktest.js:17:5)
+   at Global code (intlinternalshiddenfromexceptionstacktest.js:21:5)

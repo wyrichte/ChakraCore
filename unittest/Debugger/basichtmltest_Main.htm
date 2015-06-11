@@ -1,0 +1,29 @@
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<iframe name="b" src="./childFrame.htm"></iframe>
+<script>
+
+var testObj = function()
+{
+	this.testPages = new Array();
+
+	this.addTestPage = function()
+	{
+		this.testPages.push(1); /**bp:stack();**/
+	}
+}
+
+function f()
+{
+    var m = {}
+	var x = b.suite();
+    x;              /**bp:evaluate('x',2)**/
+    WScript.Echo("Pass");
+}
+
+</script>
+</head>
+<body onload="f()">
+</body>
+</html>

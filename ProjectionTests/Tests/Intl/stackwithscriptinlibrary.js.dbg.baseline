@@ -1,0 +1,226 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 452,
+        "length": 26,
+        "text": "var coll = Intl.Collator()",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a": "undefined",
+        "coll": "undefined",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "baz": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "bar": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "foo": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "coll": "undefined",
+      "a": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 452,
+        "length": 26,
+        "text": "var coll = Intl.Collator()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 569,
+        "length": 20,
+        "text": "coll.compare(a, \"b\")",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a": "{...}",
+        "coll": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "baz": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "bar": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "foo": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "coll": {
+        "__proto__": "{...}"
+      },
+      "a": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 20,
+        "text": "coll.compare(a, \"b\")",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 207,
+        "length": 67,
+        "text": "return Debug.msTraceAsyncOperationStarting(operationName, logLevel)",
+        "frameDescription": "baz"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a": "{...}",
+        "coll": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "somestring",
+        "[1]": "0",
+        "length": "2"
+      },
+      "operationName": "somestring",
+      "logLevel": "0",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "baz": "<large string>",
+        "bar": "<large string>",
+        "foo": "<large string>",
+        "coll": "{...}",
+        "a": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 207,
+        "length": 67,
+        "text": "return Debug.msTraceAsyncOperationStarting(operationName, logLevel)",
+        "frameDescription": "baz"
+      },
+      {
+        "start": 324,
+        "length": 35,
+        "text": "return baz(operationName, logLevel)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 409,
+        "length": 35,
+        "text": "return bar(operationName, logLevel)",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 529,
+        "length": 27,
+        "text": "return foo(\"somestring\", 0)",
+        "frameDescription": "toString"
+      },
+      {
+        "start": 569,
+        "length": 20,
+        "text": "coll.compare(a, \"b\")",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

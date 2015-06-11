@@ -1,0 +1,85 @@
+Winery tests
+
+=================================================
+Starting [Test 1: IGeneralShop.shopArea]
+Pass: Winery has property shopArea
+      Actual: true
+
+Pass: winery.shopArea.width
+      Actual: 100
+
+Pass: winery.shopArea.length
+      Actual: 120
+
+PASS [Test 1: IGeneralShop.shopArea]
+=================================================
+
+=================================================
+Starting [Test 2: IGeneralShop.shopDimension]
+Pass: Winery has property shopDimension
+      Actual: true
+
+Pass: winery.shopDimension.baseArea.width
+      Actual: 100
+
+Pass: winery.shopDimension.baseArea.length
+      Actual: 120
+
+Pass: winery.shopDimension.height
+      Actual: 1.1
+
+PASS [Test 2: IGeneralShop.shopDimension]
+=================================================
+
+=================================================
+Starting [Test 3: IGeneralShop.shopName]
+Pass: Winery has property shopName
+      Actual: true
+
+Pass: winery.shopName
+      Actual: Delille Cellars
+
+PASS [Test 3: IGeneralShop.shopName]
+=================================================
+
+=================================================
+Starting [Test 4: IWarehouse]
+Pass: winery.wineInStorage
+      Actual: 1
+
+Pass: winery.wineInStorage
+      Actual: 0
+
+PASS [Test 4: IWarehouse]
+=================================================
+
+=================================================
+Starting [Test 5: IProductionLine]
+Pass: Number of events handled
+      Actual: 1
+
+PASS [Test 5: IProductionLine]
+=================================================
+
+=================================================
+Starting [Test 6: IWineRetail]
+Pass: Winery has property welcomeMessage
+      Actual: true
+
+Pass: winery.welcomeMessage
+      Actual: Welcome to Delille Cellars in Woodinville!
+
+Pass: winery.getBestSellingRed()
+      Actual: 2
+
+Pass: winery.getBestSellingWhite()
+      Actual: 1
+
+Pass: winery.getBestSellingSweet()
+      Actual: 0
+
+PASS [Test 6: IWineRetail]
+=================================================
+
+Passed: 6
+Failed: 0

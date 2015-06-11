@@ -1,0 +1,135 @@
+[
+  {
+    "evaluate": {
+      "sample": {
+        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "arguments": "Accessing the 'arguments' property of a function is not allowed in strict mode",
+        "caller": "Accessing the 'caller' property of a function or arguments object is not allowed in strict mode",
+        "length": "0",
+        "name": "sample",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 271,
+        "length": 8,
+        "text": "foo(arg)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 406,
+        "length": 6,
+        "text": "bar(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "a": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 208,
+        "length": 1,
+        "text": "a",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 271,
+        "length": 8,
+        "text": "foo(arg)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 406,
+        "length": 6,
+        "text": "bar(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "this": "null"
+    }
+  },
+  {
+    "evaluate": {
+      "baz": {
+        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "baz",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "baz": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "baz",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "foo": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "1",
+        "name": "foo"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "bar": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "1",
+        "name": "bar"
+      }
+    }
+  }
+]

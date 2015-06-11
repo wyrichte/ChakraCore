@@ -1,0 +1,156 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "k": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "k": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[sum returned]": "3",
+      "[sum returned]#1": "9",
+      "arguments": "{...}",
+      "k": "12",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[mul returned]": "20",
+      "arguments": "{...}",
+      "k": "20",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[sum returned]": "5",
+      "[sum returned]#1": "11",
+      "[mul returned]": "55",
+      "arguments": "{...}",
+      "k": "55",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "m": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "m": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[get o.b returned]": "10",
+      "arguments": "{...}",
+      "m": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[set o.b returned]": "undefined",
+      "arguments": "{...}",
+      "m": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[get o.b returned]": "31",
+      "[get o.b returned]#1": "31",
+      "[sum returned]": "62",
+      "[Return value]": "undefined",
+      "arguments": "{...}",
+      "m": "62",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "undefined",
+      "j1": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "10",
+      "j1": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[f2 returned]": "51",
+      "arguments": "{...}",
+      "j": "10",
+      "j1": "51",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[f1 returned]": "<large string>",
+      "arguments": "{...}",
+      "j": "10",
+      "j1": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[f1 returned]": "<large string>",
+      "[Anonymous function returned]": "<large string>",
+      "arguments": "{...}",
+      "j": "10",
+      "j1": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[f1 returned]": "<large string>",
+      "[Anonymous function returned]": "<large string>",
+      "[Anonymous function returned]#1": "inside",
+      "[Return value]": "undefined",
+      "arguments": "{...}",
+      "j": "10",
+      "j1": "<large string>",
+      "[Globals]": ""
+    }
+  }
+]

@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<regress-exe>
+  <test>
+    <default>
+      <files>basictest.js</files>
+      <baseline>basictest.baseline</baseline>
+      <compile-flags>-ForceCleanCacheOnCollect -off:simpleJit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>basictest.js</files>
+      <baseline>basictest_rundown.baseline</baseline>
+      <compile-flags>-AutomaticSourceRundown -ForceCleanCacheOnCollect -off:simpleJit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug114639.js</files>
+      <baseline>bug114639.baseline</baseline>
+      <compile-flags>-ForceCleanCacheOnCollect</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>basictest2.js</files>
+      <baseline>basictest2.baseline</baseline>
+      <compile-flags>-Force:Deferparse -ForceCleanCacheOnCollect -LogLineColumnProfileInfo-</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_125409.js</files>
+      <baseline>bug_125409.baseline</baseline>
+      <compile-flags>-Force:Deferparse</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_296426.js</files>
+      <baseline>bug_296426.baseline</baseline>
+      <compile-flags>-debuglaunch -Intl</compile-flags>
+      <tags>exclude_serialized,Intl,exclude_winglob</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_164240_1.js</files>
+      <baseline>bug_164240_1.baseline</baseline>
+      <compile-flags>-Force:Deferparse</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_350137.js</files>
+      <baseline>bug_350137.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_507389.js</files>
+      <baseline>bug_507389.baseline</baseline>
+      <compile-flags>-Force:Deferparse</compile-flags>
+      <tags>exclude_dynapogo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>GetCurrentSourceInfoFastCalcTest.js</files>
+      <baseline>GetCurrentSourceInfoFastCalcTest.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>GetCurrentSourceInfoFastCalcTest.js</files>
+      <baseline>GetCurrentSourceInfoFastCalcTest.baseline</baseline>
+      <compile-flags>-FastLineColumnCalculation-</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>GetCurrentSourceInfoUnicodeFastCalcTest.js</files>
+      <baseline>GetCurrentSourceInfoUnicodeFastCalcTest.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>GetLineOfPositionFastCalcTest.js</files>
+      <baseline>GetLineOfPositionFastCalcTest.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>GetLineOfPositionFastCalcTest.js</files>
+      <baseline>GetLineOfPositionFastCalcTest.baseline</baseline>
+      <compile-flags>-FastLineColumnCalculation-</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>crosscontext1.js</files>
+      <baseline>crosscontext1.js.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>qualified_names1.js</files>
+      <baseline>qualified_names1.baseline</baseline>
+      <compile-flags>-es6classes</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>qualified_names2.js</files>
+      <baseline>qualified_names2.baseline</baseline>
+      <tags>exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_winglob</tags>
+      <files>intlib.js</files>
+      <baseline>intlib.baseline</baseline>
+      <compile-flags>-Intl -LogProfilerCallTree -Off:Inline</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>exclude_dynapogo,exclude_serialized</tags>
+      <files>utf8boundarytest.js</files>
+      <baseline>utf8boundarytest.baseline</baseline>
+      <compile-flags>-PerformUTF8BoundaryTest -LogLineColumnProfileInfo-</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>proxy.js</files>
+      <tags>exclude_dynapogo, exclude_serialized</tags>
+      <baseline>proxy.baseline</baseline>
+      <compile-flags>-LogProfilerCallTree -Off:Inline</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Generators.js</files>
+      <tags>exclude_dynapogo, exclude_serialized</tags>
+      <baseline>Generators.baseline</baseline>
+      <compile-flags>-es6all -LogProfilerCallTree -Off:Inline</compile-flags>
+    </default>
+  </test>
+<test>
+    <default>
+        <files>SIMDFloat32x4_profiler.js</files>
+        <baseline>SIMDFloat32x4_profiler.baseline</baseline>
+        <compile-flags>-Simdjs</compile-flags>
+    </default>
+</test>
+<test>
+    <default>
+        <files>SIMDFloat64x2_profiler.js</files>
+        <baseline>SIMDFloat64x2_profiler.baseline</baseline>
+        <compile-flags>-Simdjs</compile-flags>
+    </default>
+</test>
+<test>
+    <default>
+        <files>SIMDInt32x4_profiler.js</files>
+        <baseline>SIMDInt32x4_profiler.baseline</baseline>
+        <compile-flags>-Simdjs</compile-flags>
+    </default>
+</test>
+</regress-exe>

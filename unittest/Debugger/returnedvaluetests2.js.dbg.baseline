@@ -1,0 +1,109 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "o": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[A returned]": "{...}",
+      "arguments": "{...}",
+      "o": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "obj1": "{...}"
+      },
+      "[A returned]": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[obj1.B returned]": {
+        "__proto__": "{...}",
+        "x": "x"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "o": {
+        "__proto__": "{...}",
+        "x": "x"
+      },
+      "[Globals]": {
+        "A": "<large string>",
+        "test1": "<large string>",
+        "f1": "<large string>",
+        "f2": "<large string>",
+        "test2": "<large string>",
+        "obj1": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "obj1": "{...}"
+      },
+      "[Return value]": {
+        "__proto__": "{...}",
+        "x": "x"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "o": {
+        "__proto__": "{...}",
+        "x": "x"
+      },
+      "[Globals]": {
+        "A": "<large string>",
+        "test1": "<large string>",
+        "f1": "<large string>",
+        "f2": "<large string>",
+        "test2": "<large string>",
+        "obj1": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "k": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "m": "undefined",
+      "coll": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[f2 returned]": "102",
+      "arguments": "{...}",
+      "k": "undefined",
+      "[Globals]": ""
+    }
+  }
+]

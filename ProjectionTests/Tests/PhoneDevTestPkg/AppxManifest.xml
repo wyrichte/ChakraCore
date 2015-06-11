@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <!--IDENTITY-->
+  <Identity Name="JSProjection-Dev"
+          ProcessorArchitecture="neutral"
+          Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          Version="1.0.0.0"  ResourceId="neutral" />
+
+  <!--Properties-->
+  <Properties>
+    <Logo>tile.png</Logo>
+    <PublisherDisplayName>Microsoft Corporation</PublisherDisplayName>
+    <DisplayName>BPTQATests</DisplayName>
+    <Description>JSProjection Dev tests</Description>
+  </Properties>
+
+  <!--RESOURCES-->
+  <Resources>
+    <Resource Language="en-us"/>
+  </Resources>
+
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <Capability Name="internetClientServer" />
+    <Capability Name="privateNetworkClientServer" />
+    <Capability Name="picturesLibrary" />
+    <Capability Name="videosLibrary" />
+    <Capability Name="musicLibrary" />
+    <Capability Name="documentsLibrary" />
+    <Capability Name="removableStorage" />
+    <Capability Name="enterpriseAuthentication" />
+    <Capability Name="sharedUserCertificates" />
+  </Capabilities>
+
+  <Prerequisites>
+    <OSMinVersion>6.3.0</OSMinVersion>
+    <OSMaxVersionTested>6.3.0</OSMaxVersionTested>
+  </Prerequisites>
+
+  <!--APPLICATIONS-->
+<Applications>
+    <Application Id="x215FB4E6y7865y4089yA4ECy1EF96C685FC5x" StartPage="default.html">
+      <VisualElements DisplayName="JSProjection Dev tests" Logo="tile.png" SmallLogo="tile.png" Description="JSProjection Dev tests app" ForegroundText="light" BackgroundColor="#aa00aa">
+        <DefaultTile ShortName="JSProjection-Dev"/>
+        <SplashScreen BackgroundColor="red" Image="tile.png"/>
+      </VisualElements>
+    </Application>
+  </Applications>
+  <Extensions>
+    <Extension Category="windows.activatableClass.inProcessServer">
+      <InProcessServer>
+        <Path>Animals.dll</Path>
+        <ActivatableClass ActivatableClassId="Animals.Animal" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.Fish" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.Turkey" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.Elephant" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.DinoFactory" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.Dino" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.HiddenClass" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.VisibleClassWithHiddenInterfaceOnly" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.VisibleClassWithDefaultHiddenInterface" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.VisibleClassWithDefaultVisibleInterface" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.AnimalFactory" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.PomapoodleFactory" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.Pomapoodle" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.EmptyFactory" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.EmptyClass" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.SimplestClass" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.SingleIVector" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.DoubleIVector" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.MultipleIVector" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.InterfaceWithSingleIVector" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.InterfaceWithDoubleIVector" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.InterfaceWithMultipleIVector" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RCIObservable" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RCISingleObservable" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RCIDoubleObservable" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="Animals.RCIDoubleObservableMap" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RC1WithEvent" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RC2WithEvent" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RC3WithEvent" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RC4WithEvent" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RC5WithEvent" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RC6WithEvent" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RC7WithEvent" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RC8WithEvent" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.PropertyValueTests" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RCPropertyValue1" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RCPropertyValue2" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RCPropertyValue3" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RCPropertyValue4" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RCPropertyValue5" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RCPropertyValue6" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RCStringMap" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RCStringMapWithIterable" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Animals.RCStringMapWithDefaultIterable" ThreadingModel="both" />
+      </InProcessServer>
+    </Extension>
+    <Extension Category="windows.activatableClass.inProcessServer">
+      <InProcessServer>
+        <Path>DevTests.CamelCasing.dll</Path>
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.StringVariations" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.OverloadStringVariations" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.SimpleNameCollisions.InternalConflict" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.SimpleNameCollisions.ExternalConflictSameCase" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.SimpleNameCollisions.ExternalConflictDifferentCase" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.SimpleNameCollisions.InternalConflictWithExternalConflict" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.SimpleNameCollisions.InternalConflictWithExternalConflict2" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.SimpleNameCollisions.DoubleConflict" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.SimpleNameCollisions.StaticInternalConflict" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.SimpleNameCollisions.StaticExternalConflictDifferentCase" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.CrossMemberCollisions.BuiltInConflicts" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.CrossMemberCollisions.BuiltInConflictsStatic" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.CrossMemberCollisions.CamelLengthConflict" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.CrossMemberCollisions.PascalLengthConflict" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.CrossMemberCollisions.VectorLengthConflict" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.CrossMemberCollisions.InternalCrossMemberConflict" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.CrossMemberCollisions.ExternalPropPropConflict" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.CrossMemberCollisions.ExternalPropMethodConflict" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.CrossMemberCollisions.ExternalMethodMethodConflict" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.CrossMemberCollisions.ExternalMethodPropConflict" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.CamelCasing.CrossMemberCollisions.DoubleCrossMemberConflict" ThreadingModel="both" />
+      </InProcessServer>
+    </Extension>
+    <Extension Category="windows.activatableClass.inProcessServer">
+      <InProcessServer>
+        <Path>DevTests.dll</Path>
+        <ActivatableClass ActivatableClassId="DevTests.DateTimeAndTimeSpan.Tests" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.Arm.Tests" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.SimpleTestNamespace.SimpleClass" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.GCPressure.SmallClass" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.GCPressure.MediumClass" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="DevTests.GCPressure.LargeClass" ThreadingModel="both" />        
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.MinVersionClass" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.MinVersionFactory" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.Win8Class" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.Win8Factory" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.Win8SP1Class" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.Win8SP1Factory" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.Win9Class" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.Win9Factory" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.MaxVersionClass" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.MarshalVersionedTypes" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.VectorInt" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.RequiresVectorInt" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.VersionedVectorInt" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.VectorVersionedT" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.ObservableVectorInt" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.RequiresObservableVectorInt" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.VersionedObservableVectorInt" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Versioning.ObservableVectorVersionedT" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Delegates.TestClass" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Delegates.StaticTestClass" ThreadingModel="both" />
+      </InProcessServer>
+    </Extension>
+    <Extension Category="windows.activatableClass.inProcessServer">
+      <InProcessServer>
+        <Path>DevTests.Repros.dll</Path>
+          <ActivatableClass ActivatableClassId="DevTests.Repros.WebUI.WebUIActivation" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Repros.Performance.RefClass" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Repros.InterfaceOutFastPath.Tests" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Repros.VersionedProperties.VersionedProperty" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Repros.VersionedProperties.ConflictWithVersionedProperty" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Repros.Stringables.SimpleStringable" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="DevTests.Repros.VersionedProperties.ReadOnlyVersionedProperty" ThreadingModel="both" />    
+      </InProcessServer>
+    </Extension>
+    <Extension Category="windows.activatableClass.inProcessServer">
+      <InProcessServer>
+        <Path>FabrikamKitchenServer.dll</Path>
+        <ActivatableClass ActivatableClassId="Fabrikam.Kitchen.Toaster" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Fabrikam.Kitchen.Chef" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Fabrikam.Kitchen.Oven" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="Fabrikam.Kitchen.Kitchen" ThreadingModel="both" />
+      </InProcessServer>
+    </Extension>
+    <Extension Category="windows.activatableClass.inProcessServer">
+      <InProcessServer>
+        <Path>Winery.dll</Path>
+          <ActivatableClass ActivatableClassId="Winery.RWinery" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="Winery.WinRTErrorTests.RestrictedErrorAccess" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="Winery.Overloading.SimpleStaticConflict.Access" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="Winery.Overloading.SimpleStaticConflictWithSameArity.Access" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="Winery.Overloading.SimpleStaticConflictWithinInterface.Access" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.Access" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="Winery.Overloading.SimpleStaticConflictVersioned.Access" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.Access" ThreadingModel="both" />
+          <ActivatableClass ActivatableClassId="Winery.Overloading.StaticConflictWithRequiresInterface.Access" ThreadingModel="both" />
+      </InProcessServer>
+    </Extension>
+    <Extension Category="windows.activatableClass.proxyStub">
+      <ProxyStub ClassId="F6EFEABD-3370-4AA0-A4FD-88BADC3B1A39">
+        <Path>FabrikamKitchenServer.ProxyStub.dll</Path>
+        <Interface Name="Fabrikam.Kitchen.IChef" InterfaceId="857C4CED-4154-476B-85DD-C36250ED5861" />
+        <Interface Name="Fabrikam.Kitchen.IChefFactory" InterfaceId="79E2B139-46FB-4B98-935E-C1F4BBAECE51" />
+        <Interface Name="Fabrikam.Kitchen.IKitchen" InterfaceId="DE222A4A-EDE0-45B6-BD27-9CE34BDBDB18" />
+        <Interface Name="Fabrikam.Kitchen.IBakeAsyncInfo" InterfaceId="82765471-f9da-4955-94c3-f475496a431b" />
+        <Interface Name="Fabrikam.Kitchen.ITimerAsyncInfo" InterfaceId="27F2EF37-58CB-40D2-8311-96C46CDB472A" />
+        <Interface Name="Fabrikam.Kitchen.IOven" InterfaceId="263D036E-F067-4F9A-9F83-4874C5D697D1" />
+        <Interface Name="Fabrikam.Kitchen.IToaster" InterfaceId="6A112353-4F87-4460-A908-2944E92686F3" />
+        <Interface Name="Fabrikam.Kitchen.IToastCompleteHandler" InterfaceId="C2969913-53E8-478B-B765-AEC39B0C8872" />        
+      </ProxyStub>
+    </Extension>
+  </Extensions>
+</Package>

@@ -1,0 +1,14 @@
+[
+  {
+    "evaluate": {
+      "bar": {
+        "bar.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "bar.arguments": "null",
+        "bar.caller": "null",
+        "bar.length": "0",
+        "bar.name": "bar",
+        "bar.prototype": "{...}"
+      }
+    }
+  }
+]

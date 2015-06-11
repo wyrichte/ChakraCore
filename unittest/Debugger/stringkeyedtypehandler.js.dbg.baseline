@@ -1,0 +1,45 @@
+[
+  {
+    "locals": {
+      "this": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "o": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "b": "10",
+        "c": "20",
+        "constructor": "undefined"
+      },
+      "[Globals]": {
+        "foo": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "name": "foo",
+          "prototype": "{...}"
+        },
+        "o": {
+          "__proto__": "{...}"
+        }
+      }
+    }
+  }
+]

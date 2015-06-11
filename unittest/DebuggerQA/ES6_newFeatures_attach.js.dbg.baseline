@@ -1,0 +1,144 @@
+[
+  {
+    "evaluate": {
+      "arrow_b": {
+        "arrow_b.__proto__": {
+          "[Methods]": "{...}",
+          "arrow_b.__proto__.__proto__": "{...}",
+          "arrow_b.__proto__.arguments": "null",
+          "arrow_b.__proto__.caller": "null",
+          "arrow_b.__proto__.length": "0",
+          "arrow_b.__proto__.name": ""
+        },
+        "arrow_b.arguments": "null",
+        "arrow_b.caller": "null",
+        "arrow_b.length": "0",
+        "arrow_b.name": "arrow_b"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 144,
+        "length": 7,
+        "text": "arrow_a",
+        "frameDescription": "arrow_b"
+      },
+      {
+        "start": 364,
+        "length": 9,
+        "text": "arrow_b()",
+        "frameDescription": "arrow_a"
+      },
+      {
+        "start": 454,
+        "length": 9,
+        "text": "arrow_a()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": {
+        "[Methods]": "{...}",
+        "arguments.__proto__": "{...}",
+        "arguments.length": "0"
+      },
+      "arrow_c": "1",
+      "[Scope]1": {
+        "placeHolder": "1",
+        "arrow_a": "<large string>"
+      },
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "arrow_c": "1"
+    }
+  },
+  {
+    "evaluate": {
+      "arrow_b": "'arrow_b' is undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "arrow_a": {
+        "[Methods]": "{...}",
+        "arrow_a.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "arrow_a.arguments": "{...}",
+        "arrow_a.length": "0",
+        "arrow_a.name": "arrow_a"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "Run",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "constructor": {
+        "[Methods]": "{...}",
+        "constructor.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "constructor.arguments": "null",
+        "constructor.caller": "null",
+        "constructor.length": "1",
+        "constructor.name": "Object",
+        "constructor.prototype": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1126,
+        "length": 11,
+        "text": "placeHolder",
+        "frameDescription": "classTwo.prototype.sample1"
+      },
+      {
+        "start": 1257,
+        "length": 17,
+        "text": "_class2.sample1()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "sample1": "'sample1' is undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 735,
+        "length": 11,
+        "text": "placeHolder",
+        "frameDescription": "classOne.prototype.sample2"
+      },
+      {
+        "start": 1281,
+        "length": 17,
+        "text": "_class2.sample2()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "sample2": "'sample2' is undefined"
+    }
+  }
+]

@@ -1,0 +1,1 @@
+var chefType = typeof Fabrikam.Kitchen.Chef;

@@ -1,0 +1,24 @@
+=== Before change ===
+ok
+ENC: QueryEdit: 1 requests
+ENC: editactivationobject2.js (238,113):
+/**edit(test)**/
+    function f1() { return x;}
+    /// funct...
+===>
+ function f1() { return x + x;}
+...
+ENC: === AST Diffing ===
+ENC: Update: FuncDecl function f() {..    var x = "ok -> FuncDecl function f() {..    var x = "ok
+ENC: Update: FuncDecl function f1() { return x;} -> FuncDecl function f1() { return x + x;}
+ENC: === Semantic Changes ===
+ENC: UpdateFunction: FuncDecl function f() {..    var x = "ok -> FuncDecl function f() {..    var x = "ok
+ENC:     Old functionBody: f
+ENC: UpdateFunction: FuncDecl function f1() { return x;} -> FuncDecl function f1() { return x + x;}
+ENC:     Old functionBody: f1
+ENC: MoveFunction: FuncDecl function f2() { return eval('') -> FuncDecl function f2() { return eval('')
+ENC:     Old functionBody: f2
+ENC: MoveFunction: FuncDecl function test() {..    WScript. -> FuncDecl function test() {..    WScript.
+ENC:     Old functionBody: test
+=== After change ===
+okok

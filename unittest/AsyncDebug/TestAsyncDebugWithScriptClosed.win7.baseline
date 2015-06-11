@@ -1,0 +1,14 @@
+
+
+Running AsyncDebugging tests
+
+Test IActiveScriptDirectAsyncCausality functionality is blocked when script site is closed...
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={12345678-E251-4588-AE37-9D6D748ACD49}, operationId=1, operationName=SomeOtherOperationName, relatedContext=0)
+Using downlevel causality API (RoCausality) instead of WinRT-based API.
+Failed to call IActiveScriptDirectAsyncCausality::TraceAsyncOperationStarting with hr = 80070005
+Done.
+Total Test Cases  1
+Passed:  1
+Failed   0
+
+

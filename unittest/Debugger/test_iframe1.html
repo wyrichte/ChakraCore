@@ -1,0 +1,97 @@
+<!DOCTYPE HTML />
+<html>
+<head>
+        <!-- Copyright © Microsoft Corporation. All Rights Reserved. -->        
+        <title>Try Frame</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+     
+<script type="text/javascript">
+
+    function writeChildDoc(doc)
+    {
+        doc.open();
+        doc.write("<html>\n<head>\n");
+        doc.write("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\" />\n");
+        doc.write("<scri" + "pt type='text/javascript'>var inDapIF=true; var inDapMgrIf=true;</scr" + "ipt>\n");
+        doc.write("<scri" + "pt src=\"include_test1.js\"></scr" + "ipt>\n");
+        doc.write("<scri" + "pt type='text/javascript'>\n");
+
+        function code() {
+            debugger;
+            function f1() {
+                test2();
+            }
+            var a = 0;
+            var start = new Date();
+            for (; ; ) {
+                try { window.foobar(); } catch (e) { }
+                if (((new Date()) - start) > 100) {
+                    f1();
+                    break;
+                }
+            }
+        }
+        
+        doc.write(code.toString() + "\n");
+        doc.write("code();\n");
+
+
+        doc.write("</scr" + "ipt>\n</head>\n<body>\n");
+
+        doc.write("</body></html>");
+        doc.close();
+    }
+    
+    function getFrameDoc(FrameID) {
+        var doc = FrameID.contentDocument;
+        if (doc == undefined || doc == null) {
+            doc = FrameID.contentWindow.document;
+        }
+        return doc;
+    }
+
+    function addiframe() {
+        var aDiv = document.getElementById('titleBelowBox');
+        var newdiv = document.createElement('div');
+        var divIdName = "myDiv2";
+        newdiv.setAttribute("id",divIdName);
+        newdiv.innerHTML = "Event Number 2 has been added! <a href=\"javascript:;\" onclick=\"removeEvent(\'"+divIdName+"\')\">Remove Event 2</a>";
+        aDiv.appendChild(newdiv); 
+
+
+        var aFrame = document.createElement('iframe');
+        // width="100%" frameborder="0" height="420px" src="empty.html"
+        aFrame.setAttribute('width', '100%');
+        aFrame.setAttribute('frameborder', '1');
+        aFrame.setAttribute('height', '60');
+        aFrame.setAttribute('id','frame1');
+        newdiv.appendChild(aFrame);
+        var doc = getFrameDoc(aFrame);
+        writeChildDoc(doc);
+    }
+
+    function removeIframe()
+    {
+        var aDiv = document.getElementById('titleBelowBox');
+        var aFrame = document.getElementById('myDiv2');
+        aDiv.removeChild(aFrame);
+        
+    }
+    
+    WScript.SetKeepAlive();
+    setTimeout('addiframe();WScript.Echo("Pass");', 100);
+    setTimeout('WScript.Quit()', 2000);
+    
+</script>
+</head>
+
+<body>
+    <h1 id="DemoTitle">Add dummy text to iframe</h1>
+    <div id="belowBox"> 
+        <div id="titleBelowBox" class="titleBar" tabindex="7">JS Code</div> 
+    </div>  
+
+</body>
+
+
+</html>

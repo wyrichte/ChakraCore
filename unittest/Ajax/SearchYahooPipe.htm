@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>Top 1000 json refs</title>
+</head>
+</body>
+<script type="text/javascript">
+function ws_results(obj) {
+    var arr = new Array();
+	alert(obj.ResultSet.totalResultsAvailable);
+	for(var i = 0; i<100; i++)
+	{
+	    arr[i] = new Object();
+	    arr[i].ClickUrl = obj.ResultSet.Result[i].ClickUrl;
+	    arr[i].ModificationDateUTS = obj.ResultSet.Result[i].ModificationDate;
+	    arr[i].ModificationDate = new Date(arr[i].ModificationDateUTS * 1000)
+	    arr[i].Summary = obj.ResultSet.Result[i].Summary;
+	    
+	}
+    for(var i = 0; i<100; i++)
+	{
+	   document.write(arr[i].ClickUrl + "<br/>" + arr[i].ModificationDateUTS + "<br/>" +  arr[i].ModificationDate.toUTCString() + "<br/>"+ arr[i].Summary + "<br/>" + "<br/>");
+	}
+    
+            
+}
+</script>
+<script type="text/javascript" src="http://search.yahooapis.com/WebSearchService/V1/webSearch?appid=YahooDemo&query=Eze&results=100&output=json&callback=ws_results"></script>
+<body></body>
+</html>

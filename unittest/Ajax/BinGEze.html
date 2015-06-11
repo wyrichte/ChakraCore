@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>Eze Bing</title>
+</head>
+<body bgcolor = #ABCDaa>
+<h2> Bing Eze</h2>
+
+<input type='text' id='userInput' value='Enter seach text here' />
+<input type='button' onclick='SearchText()' value='Search'/>
+<p></p>
+ <textarea id = "ta" name="textarea" rows="40" cols="80"></textarea>
+<script type="text/javascript">
+
+    function SearchText() {
+        var userInput = document.getElementById('userInput').value;
+        if (fScript == false) {
+            injectedScript = document.createElement("SCRIPT");
+            injectedScript.id = "s2";
+            injectedScript.type = "text/javascript"
+            injectedScript.src = "http://search.yahooapis.com/WebSearchService/V1/webSearch?appid=YahooDemo&query=" + userInput + "&results=10&output=json&callback=ws_results";
+            document.body.insertAdjacentElement("beforeEnd", injectedScript);
+            fScript = true;
+        }
+        else {
+            injectedScript.src = "http://search.yahooapis.com/WebSearchService/V1/webSearch?appid=YahooDemo&query=" + userInput + "&results=10&output=json&callback=ws_results";
+        }
+    }
+
+    function ws_results(obj) {
+        var arr = new Array();
+        //alert(obj.ResultSet.totalResultsAvailable);
+        for (var i = 0; i < 10; i++) {
+            arr[i] = new Object();
+            arr[i].ClickUrl = obj.ResultSet.Result[i].ClickUrl;
+            arr[i].ModificationDateUTS = obj.ResultSet.Result[i].ModificationDate;
+            arr[i].ModificationDate = new Date(arr[i].ModificationDateUTS * 1000)
+            arr[i].Summary = obj.ResultSet.Result[i].Summary;
+
+        }
+        var res = "Total results available :  " + obj.ResultSet.totalResultsAvailable + "\n";
+        for (var i = 0; i < 10; i++) {
+
+            res += "Url:  " + arr[i].ClickUrl + "\n" +
+	            "Modification date UTS :  " + arr[i].ModificationDateUTS + "\n" +
+	            "Modification date UTC :  " + arr[i].ModificationDate.toUTCString() + "\n" +
+	            "Summary :  " + arr[i].Summary + "\n" + "\n";
+            //document.write(arr[i].ClickUrl + "<br/>" + arr[i].ModificationDateUTS + "<br/>" + arr[i].ModificationDate.toUTCString() + "<br/>" + arr[i].Summary + "<br/>" + "<br/>");
+        }
+
+        var element = document.getElementById('ta');
+        element.value = res;
+
+    }
+
+    var injectedScript = null;
+    var fScript = false;
+
+</script>
+<!--<script type="text/javascript" src="http://search.yahooapis.com/WebSearchService/V1/webSearch?appid=YahooDemo&query=Eze&results=2&output=json&callback=ws_results"></script>
+-->
+
+
+</body>
+</html>

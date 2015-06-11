@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+<test>
+   <default>
+      <files>ActiveScriptError_Originate.js</files>
+      <baseline>ActiveScriptError_Originate.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>ActiveScriptError_Delegate.js</files>
+      <baseline>ActiveScriptError_Delegate.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>ActiveScriptError_NestedDelegate.js</files>
+      <baseline>ActiveScriptError_NestedDelegate.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>ActiveScriptError_Transform.js</files>
+      <baseline>ActiveScriptError_Transform.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>ActiveScriptError_DelegateTransform.js</files>
+      <baseline>ActiveScriptError_DelegateTransform.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>ActiveScriptError_OriginateWithCapability.js</files>
+      <baseline>ActiveScriptError_OriginateWithCapability.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_win8</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>ActiveScriptError_OriginateWithCapability.js</files>
+      <baseline>ActiveScriptError_OriginateWithCapability.win8.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_winBlue</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>ActiveScriptError_DelegateFailure_MarshalInParam.js</files>
+      <baseline>ActiveScriptError_DelegateFailure_MarshalInParam.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>ActiveScriptError_DelegateFailure_MarshalOutParam.js</files>
+      <baseline>ActiveScriptError_DelegateFailure_MarshalOutParam.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>ActiveScriptError_DelegateFailure_NullOutParam.js</files>
+      <baseline>ActiveScriptError_DelegateFailure_NullOutParam.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>ActiveScriptError_DelegateFailure_NullOutParam_2.js</files>
+      <baseline>ActiveScriptError_DelegateFailure_NullOutParam_2.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>ActiveScriptError_DelegateFailure_NullOutParam_3.js</files>
+      <baseline>ActiveScriptError_DelegateFailure_NullOutParam_3.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>ActiveScriptError_DelegateFailure_Throw.js</files>
+      <baseline>ActiveScriptError_DelegateFailure_Throw.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>ActiveScriptError_SSO.js</files>
+      <baseline>ActiveScriptError_SSO.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WERExceptionSupport</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+
+</regress-exe>
+

@@ -1,0 +1,6 @@
+0
+1
+2
+CustomError: 1
+	at test() (bailout-throw.js:10:5)
+	at Global code (bailout-throw.js:14:1)

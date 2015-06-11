@@ -1,0 +1,47 @@
+!undef _NT_TARGET_VERSION # we use a Win8 API directly
+
+TARGETNAME=chakrathunk
+TARGETTYPE=DYNLINK
+
+USE_MSVCRT=1
+USE_STL=1
+
+NTTARGETFILE1=\
+ $(OBJ_PATH)\$O\jsthunk_thunks.obj \
+
+SOURCES=\
+ jsthunk.cpp \
+ jsthunk.rc \
+
+ARM_SOURCES=arm\jsthunkasm.asm
+I386_SOURCES=i386\jsthunkasm.asm
+
+INCLUDES= \
+ $(MINWIN_PRIV_SDK_INC_PATH)\ntos; \
+
+C_DEFINES=\
+ $(C_DEFINES) \
+ /DTARGET=\"$(TARGETNAME).$(TARGETEXT)\" \
+
+TARGET_DESTINATION=retail
+
+TARGETLIBS=\
+ $(SDK_LIB_PATH)\mincore.lib \
+ $(SDK_LIB_PATH)\ntdll.lib \
+ $(OBJ_PATH)\$O\jsthunk_thunks.obj \
+
+# The functions are all identical, but yet it is important that they remain unique.
+LINKER_NOICF=1
+
+# We only have two files and no inlining potential between them.
+FORCENATIVEOBJECT=1
+!undef LINK_TIME_CODE_GENERATION
+
+# We have only a version resource.
+MUI=0
+MUI_COMMENT=0
+
+# We would like our functions to remain contiguous for reporting their size to ETW,
+# and have their order preserved to help us verify their equality (at least without CFG).
+BBT=0
+POGO=0

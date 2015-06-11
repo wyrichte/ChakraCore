@@ -1,0 +1,7 @@
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 2) (baz), LineNumber : 1, ColumnNumber : 1
+StackFramesEvent: Frame : (MethodID : 3) (bar), LineNumber : 5, ColumnNumber : 1
+StackFramesEvent: Frame : (MethodID : 4) (foo), LineNumber : 9, ColumnNumber : 1
+StackFramesEvent: Frame : (MethodID : 1) (Global code), LineNumber : 12, ColumnNumber : 0
+1

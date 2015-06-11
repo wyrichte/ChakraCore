@@ -1,0 +1,12 @@
+Parameterized delegate tests
+
+=================================================
+Starting [Test 0: BLUE: 178785 - Unprojected parameterized delegate marks parent delegate as unprojected]
+Comment: First trigger Expr construction for the hidden parameterized delegate...
+Comment: Failed to get hidden parameterized delegate - expected. The function 'getHiddenHandler' has an invalid signature and cannot be called
+Comment: Now trigger Expr construction for the non-hidden parameterized delegate...
+PASS [Test 0: BLUE: 178785 - Unprojected parameterized delegate marks parent delegate as unprojected]
+=================================================
+
+Passed: 1
+Failed: 0

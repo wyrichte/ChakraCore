@@ -1,0 +1,977 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<assembly
+    xmlns="urn:schemas-microsoft-com:asm.v3"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    manifestVersion="1.0"
+    >
+  <assemblyIdentity
+      buildType="$(build.buildType)"
+      language="neutral"
+      name="Chakra AnimalServer"
+      processorArchitecture="$(build.arch)"
+      publicKeyToken="$(Build.WindowsPublicKeyToken)"
+      version="$(build.version)"
+      versionScope="nonSxS"
+      />
+  <file
+      destinationPath="$(runtime.system32)"
+      importPath="$(build.nttree)\"
+      name="DevTests.dll"
+      sourceName="DevTests.dll"
+      sourcePath=".\"
+      >
+    <securityDescriptor name="WRP_FILE_DEFAULT_SDDL"/>
+  </file>
+  <registryKeys>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.DateTimeAndTimeSpan.Tests">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{9FF4C7D1-5C32-4851-85EC-0FE28CC1AF1A}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{9FF4C7D1-5C32-4851-85EC-0FE28CC1AF1A}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.DateTimeAndTimeSpan.Tests"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Arm.Tests">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{9FF4C7D1-5C32-4851-85EC-0FE28CC1AF1B}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{9FF4C7D1-5C32-4851-85EC-0FE28CC1AF1B}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Arm.Tests"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.SimpleTestNamespace.SimpleClass">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{344B78EC-CE0D-4784-AD73-0AAC721241FD}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{344B78EC-CE0D-4784-AD73-0AAC721241FD}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.SimpleTestNamespace.SimpleClass"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.GCPressure.SmallClass">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{6DE767B1-1F30-4841-83A9-00B00B4E6AEF}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{6DE767B1-1F30-4841-83A9-00B00B4E6AEF}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.GCPressure.SmallClass"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.GCPressure.MediumClass">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{4AB5BA74-E01F-4BF7-AAF1-D1F17D7738A7}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{4AB5BA74-E01F-4BF7-AAF1-D1F17D7738A7}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.GCPressure.MediumClass"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.GCPressure.LargeClass">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{279872DD-0518-44AF-90B6-D2A424BBFA2C}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{279872DD-0518-44AF-90B6-D2A424BBFA2C}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.GCPressure.LargeClass"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.MinVersionClass">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{3CE4B0D1-3743-482B-B728-DA30D5E40CCD}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{3CE4B0D1-3743-482B-B728-DA30D5E40CCD}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.MinVersionClass"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.MinVersionFactory">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{3A697925-D7D9-43BB-BA51-2BB55DCF4219}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{3A697925-D7D9-43BB-BA51-2BB55DCF4219}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.MinVersionFactory"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.Win8Class">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{F8A91203-1F19-4856-995F-D40B7A4F8E06}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{F8A91203-1F19-4856-995F-D40B7A4F8E06}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.Win8Class"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.Win8Factory">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{0BB62741-8715-4669-BFDC-6C1DFB723F8B}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{0BB62741-8715-4669-BFDC-6C1DFB723F8B}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.Win8Factory"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.Win8SP1Class">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{E4CF0003-8520-4A3C-833A-12F2072BD360}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{E4CF0003-8520-4A3C-833A-12F2072BD360}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.Win8SP1Class"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.Win8SP1Factory">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{847170DC-A78C-4AD3-AA26-29E30C35A0C4}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{847170DC-A78C-4AD3-AA26-29E30C35A0C4}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.Win8SP1Factory"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.Win9Class">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{674AFCC4-70F7-4B07-91E4-1D52F3D2EF19}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{674AFCC4-70F7-4B07-91E4-1D52F3D2EF19}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.Win9Class"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.Win9Factory">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{060DB174-67AF-40DF-98BE-EA599B2DFB13}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{060DB174-67AF-40DF-98BE-EA599B2DFB13}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.Win9Factory"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.MaxVersionClass">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{EBDA968E-B9C2-427C-8228-FB01818B8DEB}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{EBDA968E-B9C2-427C-8228-FB01818B8DEB}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.MaxVersionClass"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.MarshalVersionedTypes">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{6CE88079-1F9A-407F-900C-F4E18B654746}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{6CE88079-1F9A-407F-900C-F4E18B654746}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.MarshalVersionedTypes"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.VectorInt">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{C9868353-CC8D-458A-BDA6-9C3B07027255}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{C9868353-CC8D-458A-BDA6-9C3B07027255}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.VectorInt"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.RequiresVectorInt">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{3D343904-5DC5-46EC-8176-6ED7DC2D7B69}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{3D343904-5DC5-46EC-8176-6ED7DC2D7B69}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.RequiresVectorInt"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.VersionedVectorInt">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{C3A7F934-F1E0-43A8-BB41-A9743BB1A9AE}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{C3A7F934-F1E0-43A8-BB41-A9743BB1A9AE}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.VersionedVectorInt"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.VectorVersionedT">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{07B128EB-CEA3-4E8E-A0CC-28783AC894BF}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{07B128EB-CEA3-4E8E-A0CC-28783AC894BF}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.VectorVersionedT"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.ObservableVectorInt">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{557BB2FD-6E13-411E-9EAF-07F07B1ED363}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{557BB2FD-6E13-411E-9EAF-07F07B1ED363}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.ObservableVectorInt"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.RequiresObservableVectorInt">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{F7A7D1B3-C0E4-4F1F-98E6-3906EC434871}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{F7A7D1B3-C0E4-4F1F-98E6-3906EC434871}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.RequiresObservableVectorInt"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.VersionedObservableVectorInt">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{84440DFF-4E04-401E-90F0-38A8C220739B}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{84440DFF-4E04-401E-90F0-38A8C220739B}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.VersionedObservableVectorInt"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Versioning.ObservableVectorVersionedT">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{43672110-6EC7-4CA7-9E05-9224396A79A1}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{43672110-6EC7-4CA7-9E05-9224396A79A1}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Versioning.ObservableVectorVersionedT"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Delegates.TestClass">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{3DF4E623-2C85-4179-BDEC-1C45063E933C}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{3DF4E623-2C85-4179-BDEC-1C45063E933C}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Delegates.TestClass"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Delegates.StaticTestClass">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{a394abb1-24c4-4b22-9a36-a16d90cdf29d}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{a394abb1-24c4-4b22-9a36-a16d90cdf29d}">
+      <registryValue
+        name="ActivatableClassId"
+        value="DevTests.Delegates.StaticTestClass"
+        valueType="REG_SZ"/>
+    </registryKey>
+  </registryKeys>
+  <trustInfo>
+    <security>
+      <accessControl>
+        <securityDescriptorDefinitions>
+          <securityDescriptorDefinition
+              name="WRP_REGKEY_DEFAULT_SDDL"
+              sddl="$(build.wrpRegKeySddl)"
+              />
+          <securityDescriptorDefinition
+              name="WRP_FILE_DEFAULT_SDDL"
+              sddl="$(build.wrpFileSddl)"
+              />
+        </securityDescriptorDefinitions>
+      </accessControl>
+    </security>
+  </trustInfo>
+</assembly>

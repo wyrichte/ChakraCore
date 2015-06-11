@@ -1,0 +1,297 @@
+[
+  {
+    "evaluate": {
+      "Int8Array": {
+        "__proto__": {
+          "[Methods]": {
+            "from": "function from() { [native code] }",
+            "of": "function of() { [native code] }"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": ""
+          },
+          "arguments": "null",
+          "caller": "null",
+          "length": "3",
+          "name": "TypedArray",
+          "prototype": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "buffer": "'this' is not a typed array object",
+            "byteLength": "'this' is not a typed array object",
+            "byteOffset": "'this' is not a typed array object",
+            "length": "'this' is not a typed array object",
+            "Symbol.toStringTag": "'this' is not a typed array object"
+          }
+        },
+        "arguments": "null",
+        "BYTES_PER_ELEMENT": "1",
+        "caller": "null",
+        "length": "3",
+        "name": "Int8Array",
+        "prototype": {
+          "[Methods]": {
+            "constructor": "function Int8Array() { [native code] }"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "buffer": "'this' is not a typed array object",
+            "byteLength": "'this' is not a typed array object",
+            "byteOffset": "'this' is not a typed array object",
+            "length": "'this' is not a typed array object",
+            "Symbol.toStringTag": "'this' is not a typed array object"
+          },
+          "BYTES_PER_ELEMENT": "1"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "ta": {
+        "__proto__": {
+          "[Methods]": {
+            "constructor": "function Int8Array() { [native code] }"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "buffer": "[object ArrayBuffer]",
+            "byteLength": "1",
+            "byteOffset": "0",
+            "length": "1",
+            "Symbol.toStringTag": "Int8Array"
+          },
+          "BYTES_PER_ELEMENT": "1"
+        },
+        "[0]": "1"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 314,
+        "length": 6,
+        "text": "return",
+        "frameDescription": "callback"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "[TypedArray].prototype.every"
+      },
+      {
+        "start": 376,
+        "length": 18,
+        "text": "ta.every(callback)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 314,
+        "length": 6,
+        "text": "return",
+        "frameDescription": "callback"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "[TypedArray].prototype.filter"
+      },
+      {
+        "start": 397,
+        "length": 19,
+        "text": "ta.filter(callback)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 314,
+        "length": 6,
+        "text": "return",
+        "frameDescription": "callback"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "[TypedArray].prototype.find"
+      },
+      {
+        "start": 419,
+        "length": 17,
+        "text": "ta.find(callback)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 314,
+        "length": 6,
+        "text": "return",
+        "frameDescription": "callback"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "[TypedArray].prototype.findIndex"
+      },
+      {
+        "start": 439,
+        "length": 22,
+        "text": "ta.findIndex(callback)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 314,
+        "length": 6,
+        "text": "return",
+        "frameDescription": "callback"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "[TypedArray].prototype.forEach"
+      },
+      {
+        "start": 464,
+        "length": 20,
+        "text": "ta.forEach(callback)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 314,
+        "length": 6,
+        "text": "return",
+        "frameDescription": "callback"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "[TypedArray].prototype.map"
+      },
+      {
+        "start": 487,
+        "length": 16,
+        "text": "ta.map(callback)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 314,
+        "length": 6,
+        "text": "return",
+        "frameDescription": "callback"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "[TypedArray].prototype.reduce"
+      },
+      {
+        "start": 506,
+        "length": 20,
+        "text": "ta2.reduce(callback)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 314,
+        "length": 6,
+        "text": "return",
+        "frameDescription": "callback"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "[TypedArray].prototype.reduceRight"
+      },
+      {
+        "start": 529,
+        "length": 25,
+        "text": "ta2.reduceRight(callback)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 314,
+        "length": 6,
+        "text": "return",
+        "frameDescription": "callback"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "[TypedArray].prototype.some"
+      },
+      {
+        "start": 557,
+        "length": 17,
+        "text": "ta.some(callback)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 314,
+        "length": 6,
+        "text": "return",
+        "frameDescription": "callback"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "[TypedArray].prototype.sort"
+      },
+      {
+        "start": 577,
+        "length": 18,
+        "text": "ta2.sort(callback)",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

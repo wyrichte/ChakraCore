@@ -1,0 +1,12 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+</head>
+<body>
+<script>
+    // This test run with -profilememory shoudl still print 1.
+    window.CKEditor = 1;
+    document.write("<script>WScript.Echo(CKEditor)<" + "/script>");
+</script>
+</html>

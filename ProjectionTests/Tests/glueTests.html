@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        iframe {
+            height: 200px;
+            width: 100%;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function createTestFrame(frame) {
+                var doc = frame.contentDocument;
+
+                doc.addEventListener("DOMContentLoaded", function() {
+                    var win = frame.contentWindow;
+                    win.glueTests[frame.id]();
+                    win.runner.run();
+                }, false);
+
+            }
+
+            var els = document.getElementsByTagName("iframe");
+            for(var i = 0; i < els.length; i++) {
+                createTestFrame(els[i]);
+            }
+        }, false)
+    </script>
+</head>
+<body>
+<a href="javascript:location.reload(false)">Refresh this page</a>
+<div id="tests">
+    <iframe src="test.html" id="standard"></iframe>
+    <iframe src="test.html" id="noFilename"></iframe>
+    <iframe src="test.html" id="invalid"></iframe>
+    <iframe src="test.html" id="setupError"></iframe>
+    <iframe src="test.html" id="teardownError"></iframe>
+    <iframe src="test.html" id="crossContext"></iframe>
+
+</div>
+
+</body>
+</html>

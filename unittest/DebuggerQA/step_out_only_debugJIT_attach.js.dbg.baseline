@@ -1,0 +1,30 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 195,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.forEach"
+      },
+      {
+        "start": 108,
+        "length": 89,
+        "text": "a.forEach(function () {\n        var x; /**loc(bp1):stack();resume('step_out')**/\n    })",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 249,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  }
+]

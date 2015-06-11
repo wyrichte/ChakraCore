@@ -1,0 +1,26 @@
+<html>
+<title>Multi IFrames </title>
+<link rel="stylesheet" href="demo.css">
+	<body>
+	
+	        <script>
+	            document.title = "Parent IFrame";
+	            document.write("<br/>");
+	            document.write("\n Script run in parent frame ")
+	            document.write("\n Demo of crossframe object communication ")
+	            complexNumber = new Object();
+	            complexNumber.real = 3;
+	            complexNumber.img = 4;
+	            document.write("<br/>");
+	            document.write("parent defines complex number : " + complexNumber.real + " + " + complexNumber.img + "i");
+	            document.write("<br/>");
+    	</script>
+<p>
+   		<iframe src="frame_a.html"></iframe>
+   		<iframe src="frame_b.html"></iframe>
+
+</p>
+
+    </body>
+	
+</html>

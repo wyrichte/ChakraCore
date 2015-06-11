@@ -1,0 +1,130 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 326,
+        "length": 8,
+        "text": "return a",
+        "frameDescription": "get bar"
+      },
+      {
+        "start": 660,
+        "length": 12,
+        "text": "k = foo1.bar",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 505,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "set bar"
+      },
+      {
+        "start": 675,
+        "length": 13,
+        "text": "foo1.bar = 31",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 811,
+        "length": 8,
+        "text": "return a",
+        "frameDescription": "get property1"
+      },
+      {
+        "start": 1221,
+        "length": 22,
+        "text": "var k = foo1.property1",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 886,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "set property1"
+      },
+      {
+        "start": 1246,
+        "length": 19,
+        "text": "foo1.property1 = 10",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1056,
+        "length": 8,
+        "text": "return a",
+        "frameDescription": "get property2"
+      },
+      {
+        "start": 1268,
+        "length": 18,
+        "text": "k = foo1.property2",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1131,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "set property2"
+      },
+      {
+        "start": 1289,
+        "length": 19,
+        "text": "foo1.property2 = 32",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2144,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "anotherNameFunc"
+      },
+      {
+        "start": 2547,
+        "length": 13,
+        "text": "k = foo1.bar2",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2418,
+        "length": 17,
+        "text": "bValue = newValue",
+        "frameDescription": "setFunction"
+      },
+      {
+        "start": 2563,
+        "length": 14,
+        "text": "foo1.bar2 = 20",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

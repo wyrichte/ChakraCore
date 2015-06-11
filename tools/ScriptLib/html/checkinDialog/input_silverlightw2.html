@@ -1,0 +1,91 @@
+<HTML>
+<BODY>
+
+
+<SPAN ID=Introduction> <!-- This will be filled in with dynamic content --> </SPAN> 
+
+<TABLE >
+<TR><TH COLSPAN=2 ALIGN=CENTER> 
+    Checkin Submission Form <BR>
+    (see <A HREF='http://mswikis/clr/dev/Pages/New%20Developer.aspx' TARGET=_blank> New User's Guide</A> for more info)
+    </TH> 
+</TR>
+
+<!-- --------------------------------------------------------------------- -->
+
+<TR><TD> <A HREF=help_silverlightw2.html#Title_help TABINDEX=-1 TARGET=Help> Title </A> </TD>
+    <TD> <INPUT ID=Title_input SIZE=99> </TD> 
+</TR>
+
+<TR><TD> <A HREF=help_silverlightw2.html#Bugs_fixed_help TABINDEX=-1 TARGET=Help> Bugs Fixed</A> </TD>
+    <TD>
+	    <INPUT TYPE=BUTTON ID=FindFixedBugs VALUE='Find My Fixed Bugs'>
+		<B>OR</B> Enter Bug Numbers to Resolve <INPUT TABINDEX=-1 ID=Bugs_fixed_input  SIZE=32> </INPUT> 
+        <TABLE ID=Bugs_fixed_table> <!-- This will be filled in with dynamic content -->
+        </TABLE>
+    </TD>
+</TR>
+
+<TR><TD> <A HREF=help_silverlightw2.html#Issue_description_help TABINDEX=-1 TARGET=Help> Issue <BR> Description </A> </TD>
+    <TD> <TEXTAREA ID=Issue_description_input  ROWS=5 COLS=75></TEXTAREA> </TD>
+</TR>
+
+<TR><TD> <A HREF=help_silverlightw2.html#Change_description_help TABINDEX=-1 TARGET=Help> Change <BR> Description </A> </TD>
+    <TD> <TEXTAREA ID=Change_description_input  ROWS=5 COLS=75></TEXTAREA> </TD>
+</TR>
+
+<TR><TD> <A HREF=help_silverlightw2.html#Risk_help TABINDEX=-1 TARGET=Help> Risk </A> </TD> 
+    <TD> <INPUT TYPE=RADIO ID=Risk_input NAME=Risk_input VALUE=Low CHECKED> Low <B>(SafeToMerge)</B></INPUT>
+         <INPUT TYPE=RADIO ID=Risk_input NAME=Risk_input VALUE=Medium> Medium </INPUT>
+         <INPUT TYPE=RADIO ID=Risk_input NAME=Risk_input VALUE=High> High </INPUT>
+    </TD> 
+</TR>
+
+<TR><TD> <A HREF=help_silverlightw2.html#Checkin_tests_help TABINDEX=-1 TARGET=Help> Checkin Tests </A> </TD>
+    <TD> <INPUT ID=Checkin_tests_input  SIZE=99> </INPUT> </TD> 
+</TR>
+
+<TR><TD> <A HREF=help_silverlightw2.html#Checkin_tests_on_Mac_help TABINDEX=-1 TARGET=Help> Checkin Tests on Mac </A> </TD>
+    <TD> <INPUT ID=Checkin_tests_on_Mac_input  SIZE=99> </INPUT> </TD> 
+</TR>
+
+<TR><TD> <A HREF=help_silverlightw2.html#Code_review_help TABINDEX=-1 TARGET=Help> Code Review </A> </TD>
+    <TD> <INPUT ID=Code_review_input  SIZE=99> </INPUT> </TD> 
+</TR>
+
+<TR><TD> <A HREF=help_silverlightw2.html#Test_review_help TABINDEX=-1 TARGET=Help> Test Review </A> </TD>
+    <TD> <INPUT ID=Test_review_input  SIZE=99 /> </TD> 
+</TR>
+
+<!-- <TR><TD> <A HREF=help_silverlightw2.html#Security_review_help TABINDEX=-1 TARGET=Help> Security Review </A> </TD>
+    <TD> <INPUT ID=Security_review_input  SIZE=99 /> </TD> 
+</TR> --> 
+
+<TR> <TD> <A HREF=help_silverlightw2.html#Breaking_change_help TABINDEX=-1 TARGET=Help> Breaking Change </A> </TD>
+     <TD> <TEXTAREA ID=Breaking_change_input ROWS=1 COLS=75></TEXTAREA> </TD>
+</TR>
+
+<TR><TD> <A HREF=help_silverlightw2.html#Perf_testing_help TABINDEX=-1 TARGET=Help> Perf Testing </A> </TD>
+     <TD> <TEXTAREA ID=Perf_testing_input ROWS=1 COLS=75></TEXTAREA> </TD>
+</TR>
+
+<TR><TD> <A HREF=help_silverlightw2.html#Additional_testing_help TABINDEX=-1 TARGET=Help> Additional Testing </A> </TD>
+    <TD> <TEXTAREA ID=Additional_testing_input ROWS=1 COLS=75></TEXTAREA> </TD>
+</TR>
+
+<TR><TD> <A HREF=help_silverlightw2.html#Dev_impact_help TABINDEX=-1 TARGET=Help> Dev Impact  </A> </TD>
+    <TD> <TEXTAREA ID=Dev_impact_input ROWS=1 COLS=75></TEXTAREA> </TD>
+</TR>
+
+<TR><TD> <A HREF=help_silverlightw2.html#Test_impact_help TABINDEX=-1 TARGET=Help> Test Impact </A> </TD>
+    <TD> <TEXTAREA ID=Test_impact_input ROWS=1 COLS=75></TEXTAREA> </TD>
+</TR>
+
+<TR><TD> <A HREF=help_silverlightw2.html#Doc_impact_help TABINDEX=-1 TARGET=Help> Doc Impact  </A> </TD>
+    <TD> <TEXTAREA ID=Doc_impact_input ROWS=1 COLS=75></TEXTAREA> </TD>
+</TR>
+</TABLE>
+<INPUT TYPE=BUTTON ID=Submit Value=Submit>
+<INPUT TYPE=BUTTON ID=Cancel Value=Cancel>
+</BODY>
+</HTML>

@@ -1,0 +1,6 @@
+#include "kitchen_messages.h"
+
+STRINGTABLE
+BEGIN
+    IDS_TOASTER_ALLOCATION_FAILURE   "Toast allocation failed due to insufficient memory"
+END

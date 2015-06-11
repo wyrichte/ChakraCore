@@ -1,0 +1,1890 @@
+{
+  "testname" : "JS Completions - Test completions for diffrent host types",
+  "owner" : "cmurdoch",
+  "validated" : false,
+  "timeout" : 1000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakrals.dll",
+  "_comment1" : "Put an underscore \"_\" prefix to comment out a header field.",
+  "_comment2" : "No field in the schema uses the underscore prefix",
+  "runAuthoringTest" : true,
+  "commands" :
+  [
+{
+  "action": "multipleHostTypeCompletion",
+  "args": [
+    "MultipleHostTypeCompletion_context1.js",
+    "MultipleHostTypeCompletion.js"
+  ],
+  "events": [
+    {
+      "completions": [
+        {
+          "browserCompletions": {
+            "extent": {
+              "offset": 121,
+              "length": 0
+            },
+            "kind": "member",
+            "completions": [
+              {
+                "kind": "field",
+                "group": "members",
+                "name": "browser",
+                "displayText": "browser",
+                "insertionText": "browser"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "constructor",
+                "displayText": "constructor",
+                "insertionText": "constructor"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "hasOwnProperty",
+                "displayText": "hasOwnProperty",
+                "insertionText": "hasOwnProperty"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "propertyIsEnumerable",
+                "displayText": "propertyIsEnumerable",
+                "insertionText": "propertyIsEnumerable"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "isPrototypeOf",
+                "displayText": "isPrototypeOf",
+                "insertionText": "isPrototypeOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleString",
+                "displayText": "toLocaleString",
+                "insertionText": "toLocaleString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toString",
+                "displayText": "toString",
+                "insertionText": "toString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "valueOf",
+                "displayText": "valueOf",
+                "insertionText": "valueOf"
+              },
+              {
+                "kind": "property",
+                "group": "members",
+                "name": "__proto__",
+                "displayText": "__proto__",
+                "insertionText": "__proto__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineGetter__",
+                "displayText": "__defineGetter__",
+                "insertionText": "__defineGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineSetter__",
+                "displayText": "__defineSetter__",
+                "insertionText": "__defineSetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupGetter__",
+                "displayText": "__lookupGetter__",
+                "insertionText": "__lookupGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupSetter__",
+                "displayText": "__lookupSetter__",
+                "insertionText": "__lookupSetter__"
+              }
+            ]
+          },
+          "applicationCompletions": {
+            "extent": {
+              "offset": 121,
+              "length": 0
+            },
+            "kind": "member",
+            "completions": [
+              {
+                "kind": "field",
+                "group": "members",
+                "name": "application",
+                "displayText": "application",
+                "insertionText": "application"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "constructor",
+                "displayText": "constructor",
+                "insertionText": "constructor"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "hasOwnProperty",
+                "displayText": "hasOwnProperty",
+                "insertionText": "hasOwnProperty"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "propertyIsEnumerable",
+                "displayText": "propertyIsEnumerable",
+                "insertionText": "propertyIsEnumerable"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "isPrototypeOf",
+                "displayText": "isPrototypeOf",
+                "insertionText": "isPrototypeOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleString",
+                "displayText": "toLocaleString",
+                "insertionText": "toLocaleString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toString",
+                "displayText": "toString",
+                "insertionText": "toString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "valueOf",
+                "displayText": "valueOf",
+                "insertionText": "valueOf"
+              },
+              {
+                "kind": "property",
+                "group": "members",
+                "name": "__proto__",
+                "displayText": "__proto__",
+                "insertionText": "__proto__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineGetter__",
+                "displayText": "__defineGetter__",
+                "insertionText": "__defineGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineSetter__",
+                "displayText": "__defineSetter__",
+                "insertionText": "__defineSetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupGetter__",
+                "displayText": "__lookupGetter__",
+                "insertionText": "__lookupGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupSetter__",
+                "displayText": "__lookupSetter__",
+                "insertionText": "__lookupSetter__"
+              }
+            ]
+          }
+        },
+        {
+          "browserCompletions": {
+            "extent": {
+              "offset": 166,
+              "length": 0
+            },
+            "kind": "member",
+            "completions": [
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "constructor",
+                "displayText": "constructor",
+                "insertionText": "constructor"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "indexOf",
+                "displayText": "indexOf",
+                "insertionText": "indexOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "lastIndexOf",
+                "displayText": "lastIndexOf",
+                "insertionText": "lastIndexOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "replace",
+                "displayText": "replace",
+                "insertionText": "replace"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "search",
+                "displayText": "search",
+                "insertionText": "search"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "slice",
+                "displayText": "slice",
+                "insertionText": "slice"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "codePointAt",
+                "displayText": "codePointAt",
+                "insertionText": "codePointAt"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "normalize",
+                "displayText": "normalize",
+                "insertionText": "normalize"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "charAt",
+                "displayText": "charAt",
+                "insertionText": "charAt"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "charCodeAt",
+                "displayText": "charCodeAt",
+                "insertionText": "charCodeAt"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "concat",
+                "displayText": "concat",
+                "insertionText": "concat"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "localeCompare",
+                "displayText": "localeCompare",
+                "insertionText": "localeCompare"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "match",
+                "displayText": "match",
+                "insertionText": "match"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "split",
+                "displayText": "split",
+                "insertionText": "split"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "substring",
+                "displayText": "substring",
+                "insertionText": "substring"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "substr",
+                "displayText": "substr",
+                "insertionText": "substr"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleLowerCase",
+                "displayText": "toLocaleLowerCase",
+                "insertionText": "toLocaleLowerCase"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleUpperCase",
+                "displayText": "toLocaleUpperCase",
+                "insertionText": "toLocaleUpperCase"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLowerCase",
+                "displayText": "toLowerCase",
+                "insertionText": "toLowerCase"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toString",
+                "displayText": "toString",
+                "insertionText": "toString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toUpperCase",
+                "displayText": "toUpperCase",
+                "insertionText": "toUpperCase"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "trim",
+                "displayText": "trim",
+                "insertionText": "trim"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "valueOf",
+                "displayText": "valueOf",
+                "insertionText": "valueOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "anchor",
+                "displayText": "anchor",
+                "insertionText": "anchor"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "big",
+                "displayText": "big",
+                "insertionText": "big"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "blink",
+                "displayText": "blink",
+                "insertionText": "blink"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "bold",
+                "displayText": "bold",
+                "insertionText": "bold"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "fixed",
+                "displayText": "fixed",
+                "insertionText": "fixed"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "fontcolor",
+                "displayText": "fontcolor",
+                "insertionText": "fontcolor"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "fontsize",
+                "displayText": "fontsize",
+                "insertionText": "fontsize"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "italics",
+                "displayText": "italics",
+                "insertionText": "italics"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "link",
+                "displayText": "link",
+                "insertionText": "link"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "small",
+                "displayText": "small",
+                "insertionText": "small"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "strike",
+                "displayText": "strike",
+                "insertionText": "strike"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "sub",
+                "displayText": "sub",
+                "insertionText": "sub"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "sup",
+                "displayText": "sup",
+                "insertionText": "sup"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "repeat",
+                "displayText": "repeat",
+                "insertionText": "repeat"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "startsWith",
+                "displayText": "startsWith",
+                "insertionText": "startsWith"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "endsWith",
+                "displayText": "endsWith",
+                "insertionText": "endsWith"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "includes",
+                "displayText": "includes",
+                "insertionText": "includes"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "trimLeft",
+                "displayText": "trimLeft",
+                "insertionText": "trimLeft"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "trimRight",
+                "displayText": "trimRight",
+                "insertionText": "trimRight"
+              },
+              {
+                "kind": "field",
+                "group": "members",
+                "name": "length",
+                "displayText": "length",
+                "insertionText": "length"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "hasOwnProperty",
+                "displayText": "hasOwnProperty",
+                "insertionText": "hasOwnProperty"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "propertyIsEnumerable",
+                "displayText": "propertyIsEnumerable",
+                "insertionText": "propertyIsEnumerable"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "isPrototypeOf",
+                "displayText": "isPrototypeOf",
+                "insertionText": "isPrototypeOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleString",
+                "displayText": "toLocaleString",
+                "insertionText": "toLocaleString"
+              },
+              {
+                "kind": "property",
+                "group": "members",
+                "name": "__proto__",
+                "displayText": "__proto__",
+                "insertionText": "__proto__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineGetter__",
+                "displayText": "__defineGetter__",
+                "insertionText": "__defineGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineSetter__",
+                "displayText": "__defineSetter__",
+                "insertionText": "__defineSetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupGetter__",
+                "displayText": "__lookupGetter__",
+                "insertionText": "__lookupGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupSetter__",
+                "displayText": "__lookupSetter__",
+                "insertionText": "__lookupSetter__"
+              }
+            ]
+          },
+          "applicationCompletions": {
+            "extent": {
+              "offset": 166,
+              "length": 0
+            },
+            "kind": "member",
+            "completions": [
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "constructor",
+                "displayText": "constructor",
+                "insertionText": "constructor"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "indexOf",
+                "displayText": "indexOf",
+                "insertionText": "indexOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "lastIndexOf",
+                "displayText": "lastIndexOf",
+                "insertionText": "lastIndexOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "replace",
+                "displayText": "replace",
+                "insertionText": "replace"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "search",
+                "displayText": "search",
+                "insertionText": "search"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "slice",
+                "displayText": "slice",
+                "insertionText": "slice"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "codePointAt",
+                "displayText": "codePointAt",
+                "insertionText": "codePointAt"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "normalize",
+                "displayText": "normalize",
+                "insertionText": "normalize"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "charAt",
+                "displayText": "charAt",
+                "insertionText": "charAt"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "charCodeAt",
+                "displayText": "charCodeAt",
+                "insertionText": "charCodeAt"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "concat",
+                "displayText": "concat",
+                "insertionText": "concat"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "localeCompare",
+                "displayText": "localeCompare",
+                "insertionText": "localeCompare"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "match",
+                "displayText": "match",
+                "insertionText": "match"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "split",
+                "displayText": "split",
+                "insertionText": "split"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "substring",
+                "displayText": "substring",
+                "insertionText": "substring"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "substr",
+                "displayText": "substr",
+                "insertionText": "substr"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleLowerCase",
+                "displayText": "toLocaleLowerCase",
+                "insertionText": "toLocaleLowerCase"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleUpperCase",
+                "displayText": "toLocaleUpperCase",
+                "insertionText": "toLocaleUpperCase"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLowerCase",
+                "displayText": "toLowerCase",
+                "insertionText": "toLowerCase"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toString",
+                "displayText": "toString",
+                "insertionText": "toString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toUpperCase",
+                "displayText": "toUpperCase",
+                "insertionText": "toUpperCase"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "trim",
+                "displayText": "trim",
+                "insertionText": "trim"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "valueOf",
+                "displayText": "valueOf",
+                "insertionText": "valueOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "repeat",
+                "displayText": "repeat",
+                "insertionText": "repeat"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "startsWith",
+                "displayText": "startsWith",
+                "insertionText": "startsWith"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "endsWith",
+                "displayText": "endsWith",
+                "insertionText": "endsWith"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "includes",
+                "displayText": "includes",
+                "insertionText": "includes"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "trimLeft",
+                "displayText": "trimLeft",
+                "insertionText": "trimLeft"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "trimRight",
+                "displayText": "trimRight",
+                "insertionText": "trimRight"
+              },
+              {
+                "kind": "field",
+                "group": "members",
+                "name": "length",
+                "displayText": "length",
+                "insertionText": "length"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "hasOwnProperty",
+                "displayText": "hasOwnProperty",
+                "insertionText": "hasOwnProperty"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "propertyIsEnumerable",
+                "displayText": "propertyIsEnumerable",
+                "insertionText": "propertyIsEnumerable"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "isPrototypeOf",
+                "displayText": "isPrototypeOf",
+                "insertionText": "isPrototypeOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleString",
+                "displayText": "toLocaleString",
+                "insertionText": "toLocaleString"
+              },
+              {
+                "kind": "property",
+                "group": "members",
+                "name": "__proto__",
+                "displayText": "__proto__",
+                "insertionText": "__proto__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineGetter__",
+                "displayText": "__defineGetter__",
+                "insertionText": "__defineGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineSetter__",
+                "displayText": "__defineSetter__",
+                "insertionText": "__defineSetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupGetter__",
+                "displayText": "__lookupGetter__",
+                "insertionText": "__lookupGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupSetter__",
+                "displayText": "__lookupSetter__",
+                "insertionText": "__lookupSetter__"
+              }
+            ]
+          }
+        },
+        {
+          "browserCompletions": {
+            "extent": {
+              "offset": 211,
+              "length": 0
+            },
+            "kind": "member",
+            "completions": [
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "constructor",
+                "displayText": "constructor",
+                "insertionText": "constructor"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getDate",
+                "displayText": "getDate",
+                "insertionText": "getDate"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getDay",
+                "displayText": "getDay",
+                "insertionText": "getDay"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getFullYear",
+                "displayText": "getFullYear",
+                "insertionText": "getFullYear"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getHours",
+                "displayText": "getHours",
+                "insertionText": "getHours"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getMilliseconds",
+                "displayText": "getMilliseconds",
+                "insertionText": "getMilliseconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getMinutes",
+                "displayText": "getMinutes",
+                "insertionText": "getMinutes"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getMonth",
+                "displayText": "getMonth",
+                "insertionText": "getMonth"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getSeconds",
+                "displayText": "getSeconds",
+                "insertionText": "getSeconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getTime",
+                "displayText": "getTime",
+                "insertionText": "getTime"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getTimezoneOffset",
+                "displayText": "getTimezoneOffset",
+                "insertionText": "getTimezoneOffset"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCDate",
+                "displayText": "getUTCDate",
+                "insertionText": "getUTCDate"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCDay",
+                "displayText": "getUTCDay",
+                "insertionText": "getUTCDay"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCFullYear",
+                "displayText": "getUTCFullYear",
+                "insertionText": "getUTCFullYear"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCHours",
+                "displayText": "getUTCHours",
+                "insertionText": "getUTCHours"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCMilliseconds",
+                "displayText": "getUTCMilliseconds",
+                "insertionText": "getUTCMilliseconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCMinutes",
+                "displayText": "getUTCMinutes",
+                "insertionText": "getUTCMinutes"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCMonth",
+                "displayText": "getUTCMonth",
+                "insertionText": "getUTCMonth"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCSeconds",
+                "displayText": "getUTCSeconds",
+                "insertionText": "getUTCSeconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getVarDate",
+                "displayText": "getVarDate",
+                "insertionText": "getVarDate"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getYear",
+                "displayText": "getYear",
+                "insertionText": "getYear"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setDate",
+                "displayText": "setDate",
+                "insertionText": "setDate"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setFullYear",
+                "displayText": "setFullYear",
+                "insertionText": "setFullYear"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setHours",
+                "displayText": "setHours",
+                "insertionText": "setHours"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setMilliseconds",
+                "displayText": "setMilliseconds",
+                "insertionText": "setMilliseconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setMinutes",
+                "displayText": "setMinutes",
+                "insertionText": "setMinutes"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setMonth",
+                "displayText": "setMonth",
+                "insertionText": "setMonth"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setSeconds",
+                "displayText": "setSeconds",
+                "insertionText": "setSeconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setTime",
+                "displayText": "setTime",
+                "insertionText": "setTime"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCDate",
+                "displayText": "setUTCDate",
+                "insertionText": "setUTCDate"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCFullYear",
+                "displayText": "setUTCFullYear",
+                "insertionText": "setUTCFullYear"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCHours",
+                "displayText": "setUTCHours",
+                "insertionText": "setUTCHours"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCMilliseconds",
+                "displayText": "setUTCMilliseconds",
+                "insertionText": "setUTCMilliseconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCMinutes",
+                "displayText": "setUTCMinutes",
+                "insertionText": "setUTCMinutes"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCMonth",
+                "displayText": "setUTCMonth",
+                "insertionText": "setUTCMonth"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCSeconds",
+                "displayText": "setUTCSeconds",
+                "insertionText": "setUTCSeconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setYear",
+                "displayText": "setYear",
+                "insertionText": "setYear"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toDateString",
+                "displayText": "toDateString",
+                "insertionText": "toDateString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toISOString",
+                "displayText": "toISOString",
+                "insertionText": "toISOString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toJSON",
+                "displayText": "toJSON",
+                "insertionText": "toJSON"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleDateString",
+                "displayText": "toLocaleDateString",
+                "insertionText": "toLocaleDateString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleString",
+                "displayText": "toLocaleString",
+                "insertionText": "toLocaleString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleTimeString",
+                "displayText": "toLocaleTimeString",
+                "insertionText": "toLocaleTimeString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toString",
+                "displayText": "toString",
+                "insertionText": "toString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toTimeString",
+                "displayText": "toTimeString",
+                "insertionText": "toTimeString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toUTCString",
+                "displayText": "toUTCString",
+                "insertionText": "toUTCString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toGMTString",
+                "displayText": "toGMTString",
+                "insertionText": "toGMTString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "valueOf",
+                "displayText": "valueOf",
+                "insertionText": "valueOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "hasOwnProperty",
+                "displayText": "hasOwnProperty",
+                "insertionText": "hasOwnProperty"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "propertyIsEnumerable",
+                "displayText": "propertyIsEnumerable",
+                "insertionText": "propertyIsEnumerable"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "isPrototypeOf",
+                "displayText": "isPrototypeOf",
+                "insertionText": "isPrototypeOf"
+              },
+              {
+                "kind": "property",
+                "group": "members",
+                "name": "__proto__",
+                "displayText": "__proto__",
+                "insertionText": "__proto__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineGetter__",
+                "displayText": "__defineGetter__",
+                "insertionText": "__defineGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineSetter__",
+                "displayText": "__defineSetter__",
+                "insertionText": "__defineSetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupGetter__",
+                "displayText": "__lookupGetter__",
+                "insertionText": "__lookupGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupSetter__",
+                "displayText": "__lookupSetter__",
+                "insertionText": "__lookupSetter__"
+              }
+            ]
+          },
+          "applicationCompletions": {
+            "extent": {
+              "offset": 211,
+              "length": 0
+            },
+            "kind": "member",
+            "completions": [
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "constructor",
+                "displayText": "constructor",
+                "insertionText": "constructor"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getDate",
+                "displayText": "getDate",
+                "insertionText": "getDate"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getDay",
+                "displayText": "getDay",
+                "insertionText": "getDay"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getFullYear",
+                "displayText": "getFullYear",
+                "insertionText": "getFullYear"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getHours",
+                "displayText": "getHours",
+                "insertionText": "getHours"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getMilliseconds",
+                "displayText": "getMilliseconds",
+                "insertionText": "getMilliseconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getMinutes",
+                "displayText": "getMinutes",
+                "insertionText": "getMinutes"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getMonth",
+                "displayText": "getMonth",
+                "insertionText": "getMonth"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getSeconds",
+                "displayText": "getSeconds",
+                "insertionText": "getSeconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getTime",
+                "displayText": "getTime",
+                "insertionText": "getTime"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getTimezoneOffset",
+                "displayText": "getTimezoneOffset",
+                "insertionText": "getTimezoneOffset"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCDate",
+                "displayText": "getUTCDate",
+                "insertionText": "getUTCDate"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCDay",
+                "displayText": "getUTCDay",
+                "insertionText": "getUTCDay"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCFullYear",
+                "displayText": "getUTCFullYear",
+                "insertionText": "getUTCFullYear"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCHours",
+                "displayText": "getUTCHours",
+                "insertionText": "getUTCHours"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCMilliseconds",
+                "displayText": "getUTCMilliseconds",
+                "insertionText": "getUTCMilliseconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCMinutes",
+                "displayText": "getUTCMinutes",
+                "insertionText": "getUTCMinutes"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCMonth",
+                "displayText": "getUTCMonth",
+                "insertionText": "getUTCMonth"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getUTCSeconds",
+                "displayText": "getUTCSeconds",
+                "insertionText": "getUTCSeconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "getYear",
+                "displayText": "getYear",
+                "insertionText": "getYear"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setDate",
+                "displayText": "setDate",
+                "insertionText": "setDate"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setFullYear",
+                "displayText": "setFullYear",
+                "insertionText": "setFullYear"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setHours",
+                "displayText": "setHours",
+                "insertionText": "setHours"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setMilliseconds",
+                "displayText": "setMilliseconds",
+                "insertionText": "setMilliseconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setMinutes",
+                "displayText": "setMinutes",
+                "insertionText": "setMinutes"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setMonth",
+                "displayText": "setMonth",
+                "insertionText": "setMonth"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setSeconds",
+                "displayText": "setSeconds",
+                "insertionText": "setSeconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setTime",
+                "displayText": "setTime",
+                "insertionText": "setTime"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCDate",
+                "displayText": "setUTCDate",
+                "insertionText": "setUTCDate"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCFullYear",
+                "displayText": "setUTCFullYear",
+                "insertionText": "setUTCFullYear"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCHours",
+                "displayText": "setUTCHours",
+                "insertionText": "setUTCHours"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCMilliseconds",
+                "displayText": "setUTCMilliseconds",
+                "insertionText": "setUTCMilliseconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCMinutes",
+                "displayText": "setUTCMinutes",
+                "insertionText": "setUTCMinutes"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCMonth",
+                "displayText": "setUTCMonth",
+                "insertionText": "setUTCMonth"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setUTCSeconds",
+                "displayText": "setUTCSeconds",
+                "insertionText": "setUTCSeconds"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "setYear",
+                "displayText": "setYear",
+                "insertionText": "setYear"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toDateString",
+                "displayText": "toDateString",
+                "insertionText": "toDateString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toISOString",
+                "displayText": "toISOString",
+                "insertionText": "toISOString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toJSON",
+                "displayText": "toJSON",
+                "insertionText": "toJSON"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleDateString",
+                "displayText": "toLocaleDateString",
+                "insertionText": "toLocaleDateString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleString",
+                "displayText": "toLocaleString",
+                "insertionText": "toLocaleString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleTimeString",
+                "displayText": "toLocaleTimeString",
+                "insertionText": "toLocaleTimeString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toString",
+                "displayText": "toString",
+                "insertionText": "toString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toTimeString",
+                "displayText": "toTimeString",
+                "insertionText": "toTimeString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toUTCString",
+                "displayText": "toUTCString",
+                "insertionText": "toUTCString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toGMTString",
+                "displayText": "toGMTString",
+                "insertionText": "toGMTString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "valueOf",
+                "displayText": "valueOf",
+                "insertionText": "valueOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "hasOwnProperty",
+                "displayText": "hasOwnProperty",
+                "insertionText": "hasOwnProperty"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "propertyIsEnumerable",
+                "displayText": "propertyIsEnumerable",
+                "insertionText": "propertyIsEnumerable"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "isPrototypeOf",
+                "displayText": "isPrototypeOf",
+                "insertionText": "isPrototypeOf"
+              },
+              {
+                "kind": "property",
+                "group": "members",
+                "name": "__proto__",
+                "displayText": "__proto__",
+                "insertionText": "__proto__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineGetter__",
+                "displayText": "__defineGetter__",
+                "insertionText": "__defineGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineSetter__",
+                "displayText": "__defineSetter__",
+                "insertionText": "__defineSetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupGetter__",
+                "displayText": "__lookupGetter__",
+                "insertionText": "__lookupGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupSetter__",
+                "displayText": "__lookupSetter__",
+                "insertionText": "__lookupSetter__"
+              }
+            ]
+          }
+        },
+        {
+          "browserCompletions": {
+            "extent": {
+              "offset": 270,
+              "length": 0
+            },
+            "kind": "member",
+            "completions": [
+              {
+                "kind": "field",
+                "group": "members",
+                "name": "context_browser",
+                "displayText": "context_browser",
+                "insertionText": "context_browser"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "constructor",
+                "displayText": "constructor",
+                "insertionText": "constructor"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "hasOwnProperty",
+                "displayText": "hasOwnProperty",
+                "insertionText": "hasOwnProperty"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "propertyIsEnumerable",
+                "displayText": "propertyIsEnumerable",
+                "insertionText": "propertyIsEnumerable"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "isPrototypeOf",
+                "displayText": "isPrototypeOf",
+                "insertionText": "isPrototypeOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleString",
+                "displayText": "toLocaleString",
+                "insertionText": "toLocaleString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toString",
+                "displayText": "toString",
+                "insertionText": "toString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "valueOf",
+                "displayText": "valueOf",
+                "insertionText": "valueOf"
+              },
+              {
+                "kind": "property",
+                "group": "members",
+                "name": "__proto__",
+                "displayText": "__proto__",
+                "insertionText": "__proto__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineGetter__",
+                "displayText": "__defineGetter__",
+                "insertionText": "__defineGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineSetter__",
+                "displayText": "__defineSetter__",
+                "insertionText": "__defineSetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupGetter__",
+                "displayText": "__lookupGetter__",
+                "insertionText": "__lookupGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupSetter__",
+                "displayText": "__lookupSetter__",
+                "insertionText": "__lookupSetter__"
+              }
+            ]
+          },
+          "applicationCompletions": {
+            "extent": {
+              "offset": 270,
+              "length": 0
+            },
+            "kind": "member",
+            "completions": [
+              {
+                "kind": "field",
+                "group": "members",
+                "name": "context_application",
+                "displayText": "context_application",
+                "insertionText": "context_application"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "constructor",
+                "displayText": "constructor",
+                "insertionText": "constructor"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "hasOwnProperty",
+                "displayText": "hasOwnProperty",
+                "insertionText": "hasOwnProperty"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "propertyIsEnumerable",
+                "displayText": "propertyIsEnumerable",
+                "insertionText": "propertyIsEnumerable"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "isPrototypeOf",
+                "displayText": "isPrototypeOf",
+                "insertionText": "isPrototypeOf"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toLocaleString",
+                "displayText": "toLocaleString",
+                "insertionText": "toLocaleString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "toString",
+                "displayText": "toString",
+                "insertionText": "toString"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "valueOf",
+                "displayText": "valueOf",
+                "insertionText": "valueOf"
+              },
+              {
+                "kind": "property",
+                "group": "members",
+                "name": "__proto__",
+                "displayText": "__proto__",
+                "insertionText": "__proto__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineGetter__",
+                "displayText": "__defineGetter__",
+                "insertionText": "__defineGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__defineSetter__",
+                "displayText": "__defineSetter__",
+                "insertionText": "__defineSetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupGetter__",
+                "displayText": "__lookupGetter__",
+                "insertionText": "__lookupGetter__"
+              },
+              {
+                "kind": "method",
+                "group": "members",
+                "name": "__lookupSetter__",
+                "displayText": "__lookupSetter__",
+                "insertionText": "__lookupSetter__"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

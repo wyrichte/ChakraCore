@@ -1,0 +1,76 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 98,
+        "length": 6,
+        "text": "a += 3",
+        "frameDescription": "f"
+      },
+      {
+        "start": 241,
+        "length": 5,
+        "text": "f(10)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "a": "13",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 167,
+        "length": 21,
+        "text": "a.cause.exception = 5",
+        "frameDescription": "f"
+      },
+      {
+        "start": 241,
+        "length": 5,
+        "text": "f(10)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "a": "17",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 210,
+        "length": 23,
+        "text": "a.another.exception = 5",
+        "frameDescription": "f"
+      },
+      {
+        "start": 241,
+        "length": 5,
+        "text": "f(10)",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

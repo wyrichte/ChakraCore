@@ -1,0 +1,15 @@
+var e = Debug.createTypedObject(2000, "mytype", 32, true);
+function installPrototype() {
+  e.__proto__ = {blah: 1};
+}
+
+var obj = new Object();
+function installObjPrototype() {
+  obj.__proto__ = {bar: 1};
+}
+
+var typedArray = new Int8Array(9);
+typedArray.foo = 20;
+function installTypedArrayPrototype() {
+    e.__proto__ = typedArray;
+}

@@ -1,0 +1,46 @@
+EvalError
+stack          = (string)  EvalError
+   at eval code (eval code:1:1)
+   at Test (nativeerrors.js:41:5)
+   at Global code (nativeerrors.js:60:1)
+toString()     = EvalError
+
+RangeError('This is a range error')
+stack          = (string)  RangeError: This is a range error
+   at eval code (eval code:1:1)
+   at Test (nativeerrors.js:41:5)
+   at Global code (nativeerrors.js:61:1)
+toString()     = RangeError: This is a range error
+
+ReferenceError
+stack          = (string)  ReferenceError
+   at eval code (eval code:1:1)
+   at Test (nativeerrors.js:41:5)
+   at Global code (nativeerrors.js:62:1)
+toString()     = ReferenceError
+
+SyntaxError
+stack          = (string)  SyntaxError
+   at eval code (eval code:1:1)
+   at Test (nativeerrors.js:41:5)
+   at Global code (nativeerrors.js:63:1)
+toString()     = SyntaxError
+
+TypeError('This is a type error')
+stack          = (string)  TypeError: This is a type error
+   at eval code (eval code:1:1)
+   at Test (nativeerrors.js:41:5)
+   at Global code (nativeerrors.js:64:1)
+toString()     = TypeError: This is a type error
+
+URIError
+stack          = (string)  URIError
+   at eval code (eval code:1:1)
+   at Test (nativeerrors.js:41:5)
+   at Global code (nativeerrors.js:65:1)
+toString()     = URIError
+
+RegExpError
+ReferenceError: 'RegExpError' is undefined
+ConversionError
+ReferenceError: 'ConversionError' is undefined

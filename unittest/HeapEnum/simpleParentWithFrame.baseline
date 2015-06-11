@@ -1,0 +1,96 @@
+x local
+5
+y local
+y local
+
+
+===========>Starting Heap Dump for specific object<===============
+
+ type: ObjectObject flags: (new) optional info records (2)
+ |  [Prototype] type: ObjectObject flags: (new) optional info records (2)
+ |  |  [Prototype] type: Null flags: (new) optional info records (0)
+ |  |  [Properties] count: 7
+ |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    |  [Prototype] type: ObjectObject (seen)
+ |  |  | 1 hasOwnProperty: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 1
+ |  |  |    | 0 length: value: 1.000000
+ |  |  | 2 propertyIsEnumerable: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 1
+ |  |  |    | 0 length: value: 1.000000
+ |  |  | 3 isPrototypeOf: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 1
+ |  |  |    | 0 length: value: 1.000000
+ |  |  | 4 toLocaleString: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 1
+ |  |  |    | 0 length: value: 0.000000
+ |  |  | 5 toString: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 1
+ |  |  |    | 0 length: value: 0.000000
+ |  |  | 6 valueOf: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 1
+ |  |  |    | 0 length: value: 0.000000
+ |  [Properties] count: 5
+ |  | 0 x: type: ObjectObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 1
+ |  |    | 0 x_data: value: 5.000000
+ |  | 1 x2: type: ObjectObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 1
+ |  |    | 0 x_data: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: x local
+ |  |    |    [Prototype] type: StringObject flags: (new) optional info records (2)
+ |  |    |    |  [Internal property] type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    |  |    [Internal property] value: (empty string)
+ |  |    |    |  |    [Prototype] type: StringObject (seen)
+ |  |    |    |  [Prototype] type: ObjectObject (seen)
+ |  | 2 x3: type: ObjectObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 1
+ |  |    | 0 x_data: type: String (seen)
+ |  | 3 y: type: ObjectObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 1
+ |  |    | 0 body: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |    [Prototype] type: FunctionObject (seen)
+ |  |    |    [Function name] body
+ |  | 4 yy: type: ObjectObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 2
+ |  |    | 0 get_direct: type: FunctionObject flags: (new) optional info records (3)
+ |  |    |    [Prototype] type: FunctionObject (seen)
+ |  |    |    [Function name] get_direct
+ |  |    |    [Scopes] count: 1
+ |  |    |    | scope[0]: type: Scope flags: (new) optional info records (1)
+ |  |    |    |  [Array elements] count: 2
+ |  |    |    |  | 0: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    |  |    [Internal property] value: y local
+ |  |    |    |  |    [Prototype] type: StringObject (seen)
+ |  |    |    |  | 1: type: ObjectObject flags: (new) optional info records (2)
+ |  |    |    |  |    [Prototype] type: ObjectObject (seen)
+ |  |    |    |  |    [Properties] count: 1
+ |  |    |    |  |    | 0 y_data: value: 6.000000
+ |  |    | 1 set_via_prop: type: FunctionObject flags: (new) optional info records (3)
+ |  |    |    [Prototype] type: FunctionObject (seen)
+ |  |    |    [Function name] set_via_prop
+ |  |    |    [Scopes] count: 1
+ |  |    |    | scope[0]: type: Scope (seen)
+
+==========>End Heap Dump<===============
+
+
+
+
+===========>Starting Heap Dump for specific object<===============
+
+==========>End Heap Dump<===============
+
+

@@ -1,0 +1,1 @@
+@cscript //nologo "%~dp0\ChakraTool\main.wsf" %* 

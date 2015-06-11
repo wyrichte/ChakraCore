@@ -1,0 +1,292 @@
+Bug Regressions
+
+=================================================
+Starting [Test 164485: Inheritted generic interface crashes (see Windows.Data.Json.JsonArray)]
+PASS [Test 164485: Inheritted generic interface crashes (see Windows.Data.Json.JsonArray)]
+=================================================
+
+=================================================
+Starting [Test 164448: Windows.Foundation.Collections["MapChangedEventHandler`2"]]
+PASS [Test 164448: Windows.Foundation.Collections["MapChangedEventHandler`2"]]
+=================================================
+
+=================================================
+Starting [Test 164458: Windows.Foundation.Collections.PropertySet]
+PASS [Test 164458: Windows.Foundation.Collections.PropertySet]
+=================================================
+
+=================================================
+Starting [Test 164470: Windows.System.ApplicationLifetime]
+PASS [Test 164470: Windows.System.ApplicationLifetime]
+=================================================
+
+=================================================
+Starting [Test 164474: Windows.Networking.NetworkOperators.ProvisioningAgent]
+PASS [Test 164474: Windows.Networking.NetworkOperators.ProvisioningAgent]
+=================================================
+
+=================================================
+Starting [Test 164434: Windows.Devices.Sensors.AccelerometerReadingChangedEventHandler]
+Pass: Windows.Devices.Sensors.AccelerometerReadingChangedEventHandler
+      Actual: undefined
+
+PASS [Test 164434: Windows.Devices.Sensors.AccelerometerReadingChangedEventHandler]
+=================================================
+
+=================================================
+Starting [Test 177062: Windows.Media.MediaProperties.AudioEncodingProperties]
+Comment: Windows.Media.MediaProperties.AudioEncodingProperties: function AudioEncodingProperties() { [native code] }
+Pass: typeof Windows.Media.MediaProperties.AudioEncodingProperties
+      Actual: function
+
+PASS [Test 177062: Windows.Media.MediaProperties.AudioEncodingProperties]
+=================================================
+
+=================================================
+Starting [Test 357538: Windows.UI.Xaml.ResourceDictionary should be hidden as the runtime class is hidden]
+Pass: Windows.UI.Xaml.ResourceDictionary
+      Actual: undefined
+
+Pass: Windows.ApplicationModel.Core.DeviceActivationEvents
+      Actual: undefined
+
+PASS [Test 357538: Windows.UI.Xaml.ResourceDictionary should be hidden as the runtime class is hidden]
+=================================================
+
+=================================================
+Starting [Test 167042: Initialize [out] pointers to nullptr]
+Pass: turkey.getNumFeathers()
+      Actual: 100
+
+Pass: Animals.Animal.getCLSID()
+      Actual: eb561c4d-2526-4a9e-94d3-4743a5eb658b
+
+Pass: myAnimal.getNumLegs()
+      Actual: 4
+
+Pass: dimensions.length
+      Actual: 180
+
+Pass: dimensions.width
+      Actual: 360
+
+Pass: child.mother.getNumLegs()
+      Actual: 100
+
+PASS [Test 167042: Initialize [out] pointers to nullptr]
+=================================================
+
+=================================================
+Starting [Test 183112: Windows.Foundation.Collections.PropertySet]
+Pass: propSet.size
+      Actual: 0
+
+PASS [Test 183112: Windows.Foundation.Collections.PropertySet]
+=================================================
+
+=================================================
+Starting [Test 186241: Windows.Foundation.Uri.length]
+Pass: Windows.Foundation.Uri.length
+      Actual: 1
+
+PASS [Test 186241: Windows.Foundation.Uri.length]
+=================================================
+
+=================================================
+Starting [Test buddy-test-1: Single byte struct]
+PASS [Test buddy-test-1: Single byte struct]
+=================================================
+
+=================================================
+Starting [Test buddy-test-2: Struct of bools]
+PASS [Test buddy-test-2: Struct of bools]
+=================================================
+
+=================================================
+Starting [Test buddy-test-3: Send and get vector of structs]
+PASS [Test buddy-test-3: Send and get vector of structs]
+=================================================
+
+=================================================
+Starting [Test 222538 1: Marshal HRESULT]
+Pass: Marshal [out] HRESULT
+      Actual: 52
+
+PASS [Test 222538 1: Marshal HRESULT]
+=================================================
+
+=================================================
+Starting [Test 222538 2: Marshal HRESULT as Property ]
+Pass: Marshal HRESULT as Property
+      Actual: 192
+
+PASS [Test 222538 2: Marshal HRESULT as Property ]
+=================================================
+
+=================================================
+Starting [Test 220655: Windows.Devices.Proximity.SessionAdvertisement]
+Pass: Exception while calling Windows.Devices.Proximity.SessionAdvertisement()
+      Actual: TypeError: Unable to get property 'SessionAdvertisement' of undefined or null reference
+
+Pass: Exception Caught
+      Actual: true
+
+PASS [Test 220655: Windows.Devices.Proximity.SessionAdvertisement]
+=================================================
+
+=================================================
+Starting [Test int64-roundtrip-1: An int64 can roundtrip from WinRT->JS->WinRT without modification (not converted to double)]
+Pass: Projected max int64 not equal to double approximation: dateTimeTests.int64Cmp(int64max, int64maxDouble)
+      Actual: -1
+
+Pass: dateTimeTests.verifyInt64Max(int64max)
+      Actual: true
+
+Pass: Mathematical operation with int64 value: (int64max = int64max + 0)
+      Actual: 9223372036854776000
+
+Pass: dateTimeTests.verifyInt64Max(int64max)
+      Actual: false
+
+Pass: Projected max int64 now equal to double approximation: dateTimeTests.int64Cmp(int64max, int64maxDouble)
+      Actual: 0
+
+PASS [Test int64-roundtrip-1: An int64 can roundtrip from WinRT->JS->WinRT without modification (not converted to double)]
+=================================================
+
+=================================================
+Starting [Test 231314: QueryObjectInterface on IJavascriptOperations]
+Pass: simpleClassOriginal.getMessage()
+      Actual: Hello
+
+Pass: simpleClassOriginal.value
+      Actual: 50
+
+Comment: QueryObjectInterface and modify underlying native class
+Pass: simpleClassOriginal.getMessage()
+      Actual: Goodbye
+
+Pass: simpleClassOriginal.value
+      Actual: 217
+
+Pass: simpleClassReceived === simpleClassOriginal
+      Actual: [object DevTests.SimpleTestNamespace.SimpleClass]
+
+PASS [Test 231314: QueryObjectInterface on IJavascriptOperations]
+=================================================
+
+=================================================
+Starting [Test 357908: Windows.Foundation.HResult]
+Pass: Exception caught trying to create a Windows.Foundation.HReslt
+      Actual: TypeError: Object doesn't support this action
+
+Pass: Exception caught
+      Actual: true
+
+PASS [Test 357908: Windows.Foundation.HResult]
+=================================================
+
+=================================================
+Starting [Test 376072: Error strings with arguments]
+Comment: Test marshaling of HRESULT: STG_E_FILEALREADYEXISTS
+Pass: instanceof WinRTError:  already exists.
+
+      Actual: true
+
+Pass: Error number
+      Actual: 2147680336
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual:  already exists.
+
+
+Pass: Error message
+      Actual:  already exists.
+
+
+PASS [Test 376072: Error strings with arguments]
+=================================================
+
+=================================================
+Starting [Test 231298: VarToDispEx should fail for WinRT objects]
+Pass: TestUtilities.VarToDispExTest({})
+      Actual: Call succeeded
+
+Pass: TestUtilities.VarToDispExTest(new Animals.Animal())
+      Actual: Call failed with hr of E_INVALIDARG
+
+PASS [Test 231298: VarToDispEx should fail for WinRT objects]
+=================================================
+
+=================================================
+Starting [Test 397120: Ensure that we can create a XmlDocument and call loadXml]
+PASS [Test 397120: Ensure that we can create a XmlDocument and call loadXml]
+=================================================
+
+=================================================
+Starting [Test 405211-repro1: Ensure that we can create a XmlDocument and call createCDataSection]
+PASS [Test 405211-repro1: Ensure that we can create a XmlDocument and call createCDataSection]
+=================================================
+
+=================================================
+Starting [Test 405211-repro2: Ensure that we can create a XmlDocument, call loadXml and use doc.documentElement property's methods]
+PASS [Test 405211-repro2: Ensure that we can create a XmlDocument, call loadXml and use doc.documentElement property's methods]
+=================================================
+
+=================================================
+Starting [Test 426277: instance of]
+Pass: myAnimal instanceof Object
+      Actual: true
+
+Pass: myAnimal instanceof Animals.Animal
+      Actual: true
+
+Pass: 1 instanceof Animals.Animal
+      Actual: false
+
+Pass: 1 instanceof myAnimal returned (TypeError: Invalid operand to 'instanceof': Function expected)
+      Actual: true
+
+Pass: myAnimal instanceof myAnimal returned (TypeError: Invalid operand to 'instanceof': Function expected)
+      Actual: true
+
+PASS [Test 426277: instance of]
+=================================================
+
+=================================================
+Starting [Test 639242: Interface [out] fast path when runtimeclass name is not found in metadata]
+Pass: result of interfaceOutTest should be defined
+      Actual: [object DevTests.Repros.InterfaceOutFastPath.IOutInterface]
+
+Pass: interface.testMethod()
+      Actual: true
+
+PASS [Test 639242: Interface [out] fast path when runtimeclass name is not found in metadata]
+=================================================
+
+=================================================
+Starting [Test 897014: Object identity when calling InspectableUnknownToVar with non-default interface pointer]
+Pass: simpleClassOriginal.getMessage()
+      Actual: Hello
+
+Pass: simpleClassOriginal.value
+      Actual: 50
+
+Comment: QueryObjectInterface and modify underlying native class
+Pass: simpleClassOriginal.getMessage()
+      Actual: Goodbye
+
+Pass: simpleClassOriginal.value
+      Actual: 217
+
+Pass: simpleClassReceived === simpleClassOriginal
+      Actual: [object DevTests.SimpleTestNamespace.SimpleClass]
+
+PASS [Test 897014: Object identity when calling InspectableUnknownToVar with non-default interface pointer]
+=================================================
+
+Passed: 28
+Failed: 0

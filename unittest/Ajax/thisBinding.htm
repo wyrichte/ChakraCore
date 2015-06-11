@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Test!!</title>
+
+</head>
+<body>
+<br>
+<span id="oneMoreResult">checkThis : </span>.
+
+<script type="text/javascript">
+    var test = 10;
+	var outputresult;
+	outputresult = document.getElementById("oneMoreResult");
+	function verify(a, b)
+	{
+		return (a == b)? "Pass"  :"Failed";
+	}	
+</script>
+
+<form id="Form1" action="c:\test.htm" method="post">
+<script>
+	var str0 = "";
+	var currentForm = document.getElementById("Form1");
+	currentForm.test=20;
+		
+	function checkThis() {	
+		return '[' + this.test + ':' + test + ':' + window.test + ':' + currentForm.test + ']';
+	}
+	
+	str0 += 'Button0:' + test;	
+	str0 += checkThis();
+	str0 += checkThis.call(null);
+	str0 += checkThis.apply(null);
+	
+</script>
+
+<table>
+<tr>
+<td >
+<input id="test0" type="button" name="Button0:10[10:10:10:20][10:10:10:20][10:10:10:20]" onclick="	
+    outputresult.innerHTML = str0;
+"/>
+</td>
+<td >
+<input id="test1" type="button" name="Button1:20[10:10:10:20][10:10:10:20][10:10:10:20]" onclick="
+    var s = '';
+	s += 'Button1:' + test;	
+	s += checkThis();
+	s += checkThis.call(null);
+	s += checkThis.apply(null);
+	outputresult.innerHTML = s;
+"/>
+</td>
+
+<td >
+<input id="test2" type="button" name="Button2:20[20:20:10:20][20:20:10:20][20:20:10:20]" onclick="
+	var s = '';	
+	function checkThis() {	
+		return '[' + this.test + ':' + test + ':' + window.test + ':' + currentForm.test + ']';
+	}
+	
+	s += 'Button2:' +test;	
+	s += checkThis();
+	s += checkThis.call(null);
+	s += checkThis.apply(null);
+	outputresult.innerHTML = s;
+"/>
+</td>
+
+</tr>
+</table>
+
+</form>
+
+<script>
+var flag = true;
+var s = "<br>"
+for (var i = 0; i <= 2; i++)
+{
+	var e = document.getElementById("test" + (i));
+	e.outputresult = outputresult;
+	e.click();	
+	
+	e.value = verify(outputresult.innerHTML, e.name);
+	if (e.value != "Pass") {
+		flag = false;
+		s += "Expect : " + e.name + "<br>";
+		s += "Actual : " + outputresult.innerHTML + "<br>";
+	}
+}
+
+outputresult.innerHTML = verify(flag, true) + s;
+
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "[Uninitialized block variable]",
+      "c": "[Uninitialized block variable]",
+      "a": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "[Uninitialized block variable]",
+      "c": "[Uninitialized block variable]",
+      "a": "0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "1",
+      "c": "[Uninitialized block variable]",
+      "a": "0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "1",
+      "c": "2",
+      "a": "0",
+      "[Globals]": ""
+    }
+  }
+]

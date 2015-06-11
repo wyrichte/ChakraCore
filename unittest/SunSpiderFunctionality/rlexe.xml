@@ -1,0 +1,498 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+<test>
+   <default>
+      <files>3d-cube.js</files>
+      <baseline>3d-cube.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>3d-cube.js</files>
+      <baseline>3d-cube.baseline</baseline>
+	  <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
+	  <tags>exclude_ship</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>3d-cube.js</files>
+      <baseline>3d-cube.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>3d-cube.js</files>
+      <baseline>3d-cube.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -jsrt:8</compile-flags>
+      <tags>exclude_dynapogo,exclude_ship</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>3d-morph.js</files>
+      <baseline>3d-morph.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>3d-morph.js</files>
+      <baseline>3d-morph.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>3d-raytrace.js</files>
+      <baseline>3d-raytrace.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>3d-raytrace.js</files>
+      <baseline>3d-raytrace.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>access-binary-trees.js</files>
+      <baseline>access-binary-trees.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>access-binary-trees.js</files>
+      <baseline>access-binary-trees.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>access-fannkuch.js</files>
+      <baseline>access-fannkuch.baseline</baseline>
+	  
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>access-fannkuch.js</files>
+      <baseline>access-fannkuch.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>access-nbody.js</files>
+      <baseline>access-nbody.baseline</baseline>
+      <tags>fail_mutators</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>access-nbody.js</files>
+      <baseline>access-nbody.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre,fail_mutators</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>access-nsieve.js</files>
+	  
+      <baseline>access-nsieve.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>access-nsieve.js</files>
+      <baseline>access-nsieve.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>bitops-3bit-bits-in-byte.js</files>
+      <baseline>bitops-3bit-bits-in-byte.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>bitops-3bit-bits-in-byte.js</files>
+      <baseline>bitops-3bit-bits-in-byte.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>bitops-bits-in-byte.js</files>
+      <baseline>bitops-bits-in-byte.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>bitops-bits-in-byte.js</files>
+      <baseline>bitops-bits-in-byte.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>bitops-bitwise-and.js</files>
+      <baseline>bitops-bitwise-and.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>bitops-bitwise-and.js</files>
+      <baseline>bitops-bitwise-and.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>bitops-nsieve-bits.js</files>
+      <baseline>bitops-nsieve-bits.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>bitops-nsieve-bits.js</files>
+      <baseline>bitops-nsieve-bits.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>controlflow-recursive.js</files>
+      <baseline>controlflow-recursive.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>controlflow-recursive.js</files>
+      <baseline>controlflow-recursive.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>crypto-aes.js</files>
+      <baseline>crypto-aes.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>crypto-aes.js</files>
+      <baseline>crypto-aes.baseline</baseline>
+	  <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
+	  <tags>exclude_ship</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>crypto-aes.js</files>
+      <baseline>crypto-aes.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>crypto-aes.js</files>
+      <baseline>crypto-aes.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -forceNative -off:simpleJit</compile-flags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>crypto-md5.js</files>
+      <baseline>crypto-md5.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>crypto-md5.js</files>
+      <baseline>crypto-md5.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>crypto-sha1.js</files>
+      <baseline>crypto-sha1.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>crypto-sha1.js</files>
+      <baseline>crypto-sha1.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>date-format-tofte.js</files>
+      <baseline>date-format-tofte.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>date-format-tofte.js</files>
+      <baseline>date-format-tofte.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>date-format-xparb.js</files>
+      <baseline>date-format-xparb.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>date-format-xparb.js</files>
+      <baseline>date-format-xparb.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>math-cordic.js</files>
+      <baseline>math-cordic.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>math-cordic.js</files>
+      <baseline>math-cordic.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>math-partial-sums.js</files>
+      <baseline>math-partial-sums.baseline</baseline>
+   </default>
+   <condition order="1" type="include">
+     <target>arm</target>
+     <override>
+       <baseline>math-partial-sums.arm.baseline</baseline>
+     </override>
+   </condition>
+</test>
+
+<test>
+   <default>
+      <files>math-partial-sums.js</files>
+      <baseline>math-partial-sums.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+   <condition order="1" type="include">
+     <target>arm</target>
+     <override>
+       <baseline>math-partial-sums.arm.baseline</baseline>
+     </override>
+   </condition>
+</test>
+
+<test>
+   <default>
+      <files>math-spectral-norm.js</files>
+      <baseline>math-spectral-norm.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>math-spectral-norm.js</files>
+      <baseline>math-spectral-norm.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>regexp-dna.js</files>
+      <baseline>regexp-dna.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>regexp-dna.js</files>
+      <baseline>regexp-dna.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>string-base64.js</files>
+      <baseline>string-base64.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>string-base64.js</files>
+      <baseline>string-base64.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>string-fasta.js</files>
+      <baseline>string-fasta.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>string-fasta.js</files>
+      <baseline>string-fasta.baseline</baseline>
+	  <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
+	  <tags>exclude_ship</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>string-fasta.js</files>
+      <baseline>string-fasta.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>string-tagcloud.js</files>
+      <baseline>string-tagcloud.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>string-tagcloud.js</files>
+      <baseline>string-tagcloud.baseline</baseline>
+	  <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
+	  <tags>exclude_ship</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>string-tagcloud.js</files>
+      <baseline>string-tagcloud.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>string-unpack-code.js</files>
+      <baseline>string-unpack-code.baseline</baseline>
+      <tags>fail</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>string-unpack-code.js</files>
+      <baseline>string-unpack-code.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre,fail</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>string-validate-input.js</files>
+      <baseline>string-validate-input.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>string-validate-input.js</files>
+      <baseline>string-validate-input.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
+      <tags>exclude_ship</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>string-validate-input.js</files>
+      <baseline>string-validate-input.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+   </default>
+</test>
+
+</regress-exe>

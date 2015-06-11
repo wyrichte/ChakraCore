@@ -1,0 +1,136 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 441,
+        "length": 7,
+        "text": "inner()",
+        "frameDescription": "outer"
+      },
+      {
+        "start": 817,
+        "length": 7,
+        "text": "outer()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 200,
+        "length": 16,
+        "text": "var infoo = true",
+        "frameDescription": "inner"
+      },
+      {
+        "start": 441,
+        "length": 7,
+        "text": "inner()",
+        "frameDescription": "outer"
+      },
+      {
+        "start": 817,
+        "length": 7,
+        "text": "outer()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 499,
+        "length": 7,
+        "text": "inner()",
+        "frameDescription": "outer"
+      },
+      {
+        "start": 817,
+        "length": 7,
+        "text": "outer()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 557,
+        "length": 7,
+        "text": "inner()",
+        "frameDescription": "outer"
+      },
+      {
+        "start": 817,
+        "length": 7,
+        "text": "outer()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 584,
+        "length": 11,
+        "text": "innerMost()",
+        "frameDescription": "outer"
+      },
+      {
+        "start": 817,
+        "length": 7,
+        "text": "outer()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 344,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "innerMost"
+      },
+      {
+        "start": 584,
+        "length": 11,
+        "text": "innerMost()",
+        "frameDescription": "outer"
+      },
+      {
+        "start": 817,
+        "length": 7,
+        "text": "outer()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 667,
+        "length": 7,
+        "text": "inner()",
+        "frameDescription": "outer"
+      },
+      {
+        "start": 817,
+        "length": 7,
+        "text": "outer()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 851,
+        "length": 33,
+        "text": "print(\"In jit:\", Debug.isInJit())",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

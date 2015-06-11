@@ -1,0 +1,111 @@
+USE_NOTHROW_NEW=1 
+TARGETNAME                         =   DirectAuthorCheckinTests
+TARGETTYPE                         =   DYNLINK
+TARGET_DESTINATION                 =   jscript\jsls\unittest
+
+MANAGED_CODE                       =   1
+MANAGED_PLATFORM_SPECIFIC          =   1
+TEST_CODE                          =   1
+URT_VER                            =   4.5
+
+SOURCES                            =   \
+                                       Properties\AssemblyInfo.cs \
+                                       API\AuthorHelpers.cs \
+                                       API\AuthorParameterHelp.cs \
+                                       API\CompletionSetExtensions.cs \
+                                       API\IAuthorTestContext.cs \
+                                       API\IAuthorTestFile.cs \
+                                       API\IAuthorTestSession.cs \
+                                       External\FakeCOMActivator.cs \
+                                       External\Guids.cs \
+                                       External\GuidStrings.cs \
+                                       External\NativeMethods.cs \
+                                       External\ScriptDirectAuthor.cs \
+                                       Infrastructure\AuthorTestSession.cs \
+                                       Infrastructure\COMAutoRelease.cs \
+                                       Infrastructure\CompletionsBase.cs \
+                                       Infrastructure\DirectAuthorTest.cs \
+                                       Infrastructure\Helpers.cs \
+                                       Infrastructure\HighResolutionTimer.cs \
+                                       AccessingCommentsInSignatureHelpEvent.cs \
+                                       AggressiveIntellisenseTests.cs \
+                                       ASTAsJSONTests.cs \
+                                       ASTCursorTests.cs \
+                                       ColorizerTests.cs \
+                                       CompletionHintTests.cs \
+                                       CompletionHintWithExtensions.cs \
+                                       CompletionItemCommentsTests.cs \
+                                       CompletionTests.cs \
+                                       CompletionTestsLargeMemory.cs \
+                                       CorsicaApplications.cs \
+                                       DedicatedWorkerCompletion.cs \
+                                       DeferredParsingTests.cs \
+                                       DefinitionLocationTests.cs \
+                                       DocCommentsTests.cs \
+                                       DomTraversalTests.cs \
+                                       Errors.cs \
+                                       EventArgCompletion.cs \
+                                       JsDocCommentsTests.cs \
+                                       JsDocCommentsWithExtensionTests.cs \
+                                       LabelCompletionTests.cs \
+                                       MicrosoftAjaxTests.cs \
+                                       MissingPropertyTypeTests.cs \
+                                       ParameterHelpTestsBase.cs \
+                                       ParameterHelpTests.cs \
+                                       ParameterHelpTestsWithExtensions.cs \
+                                       ParameterHelpExtensionsAdvanced.cs \
+                                       QuickInfoTests.cs \
+                                       ReferenceTests.cs \
+                                       RegressionTests.cs \
+                                       ShowPlainCommentsExtensionTests.cs \
+                                       StructureTests.cs \
+                                       UnsupportedCompletionRanges.cs \
+                                       ExtensibilityTests.cs \
+                                       TestFiles.designer.cs \
+                                       BingMapsV7.0TestFiles.Designer.cs \
+                                       Bug271685TestFiles.Designer.cs \
+                                       JQueryTestFiles.Designer.cs \
+                                       KnockoutTestFiles.Designer.cs \
+                                       SOETestFiles.Designer.cs \
+                                       TestFiles.Designer.cs \
+                                       WinJSTestFiles.Designer.cs \
+                                       Module.cs \
+
+REFERENCES                         =   $(CLR_REF_PATH)\System.metadata_dll; \
+                                       $(CLR_REF_PATH)\System.Core.metadata_dll; \
+                                       $(CLR_REF_PATH)\System.Data.metadata_dll; \
+                                       $(CLR_REF_PATH)\System.XML.metadata_dll; \
+                                       $(CLR_REF_PATH)\System.XML.Linq.metadata_dll; \
+                                       $(SDKTOOLS_REF_PATH)\vs2010\microsoft.visualstudio.qualitytools.unittestframework.metadata_dll; \
+                                       $(SDKTOOLS_REF_PATH)\wextest\cue\wex.common.managed.metadata_dll; \
+                                       $(SDKTOOLS_REF_PATH)\wextest\cue\wex.logger.interop.metadata_dll; \
+                                       $(SDKTOOLS_REF_PATH)\wextest\cue\te.managed.metadata_dll; \
+
+#     MANAGED_RESOURCE_FILES=\  
+#         ..\..\resources\foo.txt,$(O)\foo.resources \  
+#         ..\anotherComponent\resources\bar.resx,$(O)\bar.resources  
+#  
+# The MANAGED_RESOURCES macro should then reference the generated resources files  
+#  
+#     MANAGED_RESOURCES=\  
+#         $(O)\foo.resources;\  
+#         $(O)\bar.resources  
+
+RESGEN_SOURCES                     =   \
+                                       TestFiles.resx,$(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.TestFiles.resources \
+                                       BingMapsV7.0TestFiles.resx,$(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.BingMapsV7.0TestFiles.resources \
+                                       Bug271685TestFiles.resx,$(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.Bug271685TestFiles.resources \
+                                       JQueryTestFiles.resx,$(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.JQueryTestFiles.resources \
+                                       KnockoutTestFiles.resx,$(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.KnockoutTestFiles.resources \
+                                       SOETestFiles.resx,$(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.SOETestFiles.resources \
+                                       WinJSTestFiles.resx,$(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.WinJSTestFiles.resources \
+
+MANAGED_RESOURCES                  =   \
+                                       $(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.TestFiles.resources;\
+                                       $(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.BingMapsV7.0TestFiles.resources;\
+                                       $(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.Bug271685TestFiles.resources;\
+                                       $(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.JQueryTestFiles.resources;\
+                                       $(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.KnockoutTestFiles.resources;\
+                                       $(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.SOETestFiles.resources;\
+                                       $(OBJ_PATH)\$(O)\DirectAuthorCheckinTests.WinJSTestFiles.resources
+

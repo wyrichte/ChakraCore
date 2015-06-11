@@ -1,0 +1,98 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "foo": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo",
+        "prototype": "{...}"
+      },
+      "col": {
+        "__proto__": "{...}"
+      },
+      "map": {
+        "__proto__": "{...}",
+        "[Map]": "size = 1"
+      },
+      "set": {
+        "__proto__": "{...}",
+        "[Set]": "size = 1"
+      },
+      "wm": {
+        "__proto__": "{...}",
+        "[WeakMap]": "size = 1"
+      },
+      "[Globals]": {
+        "top": "<large string>",
+        "anotherExample": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 556,
+        "length": 1,
+        "text": "a",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.forEach"
+      },
+      {
+        "start": 527,
+        "length": 52,
+        "text": "a.forEach(function () {\n    a; /**bp:stack()**/\n})",
+        "frameDescription": "anotherExample"
+      },
+      {
+        "start": 450,
+        "length": 16,
+        "text": "anotherExample()",
+        "frameDescription": "top"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 661,
+        "length": 10,
+        "text": "return \"a\"",
+        "frameDescription": "a.toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 701,
+        "length": 20,
+        "text": "coll.compare(a, \"b\")",
+        "frameDescription": "anotherExample"
+      },
+      {
+        "start": 450,
+        "length": 16,
+        "text": "anotherExample()",
+        "frameDescription": "top"
+      }
+    ]
+  }
+]

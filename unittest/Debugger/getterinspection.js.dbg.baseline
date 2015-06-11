@@ -1,0 +1,73 @@
+[
+  {
+    "locals": {
+      "this": {
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "foo": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "2",
+        "name": "foo",
+        "prototype": "{...}"
+      },
+      "arr": {
+        "__proto__": "[]",
+        "length": "1",
+        "[0]": "2"
+      },
+      "desc": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "nothrow": "undefined",
+      "[Globals]": {
+        "test": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "foo": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "2",
+        "name": "foo",
+        "prototype": "{...}"
+      },
+      "arr": {
+        "__proto__": "[]",
+        "length": "3",
+        "[0]": "4",
+        "{error}": "str",
+        "[2]": "nothrowStr"
+      },
+      "desc": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "nothrow": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Globals]": {
+        "test": "<large string>"
+      }
+    }
+  }
+]

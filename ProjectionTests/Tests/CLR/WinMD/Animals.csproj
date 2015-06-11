@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <AssemblyAttributeCLSCompliant>false</AssemblyAttributeCLSCompliant>
+  </PropertyGroup>
+  <Import Project="$(NTMAKEENV)\Microsoft.Build.settings" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{728581B1-CFEA-411A-8E7B-9A3505A26A5E}</ProjectGuid>
+    <OutputType>winmdobj</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Animals</RootNamespace>
+    <AssemblyName>Animals</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <NoStdLib>True</NoStdLib>
+    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WinMdExpNoWarn>0010;0011</WinMdExpNoWarn>
+    <TestCode>true</TestCode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS_RUNTIME</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS_RUNTIME</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="*.cs" />
+    <!--Compile Include="Properties\AssemblyInfo.cs" / -->
+  </ItemGroup>
+  <ItemGroup>
+    <BinplaceCompiled Include="$(IntermediateOutputPath)$(TargetFileName)">
+      <DestinationFolder>Projection\APPX\CLR</DestinationFolder>
+    </BinplaceCompiled>
+    <BinplaceCompiled Include="$(IntermediateOutputPath)$(TargetName).pdb">
+      <DestinationFolder>Projection\APPX\CLR</DestinationFolder>
+    </BinplaceCompiled>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Fabrikam">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ObjectPath)\..\..\..\abis\custom\teachrt\winrt\idl\dll\$(ObjectDirectory)\output\fabrikam.kitchen.winmd</HintPath>
+    </Reference>
+    <Reference Include="WINDOWS_WINMD">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(PUBLIC_ROOT)\sdk\winmetadata\windows.winmd</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(CLR_REF_PATH)\System.Runtime.metadata_dll</HintPath>
+    </Reference> 
+    <Reference Include="System.Runtime.InteropServices.WindowsRuntime">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(CLR_REF_PATH)\System.Runtime.InteropServices.WindowsRuntime.metadata_dll</HintPath>
+    </Reference> 
+    <Reference Include="MSCORELIB">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(CLR_REF_PATH)\mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="SYS">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(CLR_REF_PATH)\system.runtime.windowsruntime.metadata_dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(CLR_REF_PATH)\system.metadata_dll</HintPath>
+    </Reference>
+    <Reference Include="SYS">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(NETCore45RefPath)\system.linq.metadata_dll</HintPath>
+    </Reference>    
+  </ItemGroup>  
+  <Import Project="$(NTMAKEENV)\Microsoft.Build.CSharp.targets" />
+</Project>

@@ -1,0 +1,28 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "a": "1",
+      "b": "2"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 126,
+        "length": 6,
+        "text": "a == 2",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "a": "1"
+    }
+  }
+]

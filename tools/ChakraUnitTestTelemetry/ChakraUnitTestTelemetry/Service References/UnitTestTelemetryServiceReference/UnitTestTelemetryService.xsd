@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/ChakraTelemetryWebService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ChakraTelemetryWebService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://chakrawebserver/telemetry/UnitTestTelemetryService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="UnitTestFailureInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BranchName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildArchitecture" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommandLineParameters" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Duration" type="ser:duration" />
+      <xs:element minOccurs="0" name="EndTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullCommandLine" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HostType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LogFilePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MachineName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperatingSystemVersion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SnapCheckinId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SnapJobId" type="xs:int" />
+      <xs:element minOccurs="0" name="StartTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UnitTestFileName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Variant" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WasRunInSnap" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnitTestFailureInformation" nillable="true" type="tns:UnitTestFailureInformation" />
+</xs:schema>

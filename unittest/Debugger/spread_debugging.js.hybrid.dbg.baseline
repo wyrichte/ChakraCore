@@ -1,0 +1,134 @@
+[
+  {
+    "evaluate": {
+      "a": "[123,45.01,6789,23.58]"
+    }
+  },
+  {
+    "evaluate": {
+      "[...a]": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "evaluate": {
+      "[...[123], ...[45.01, 6789], 23.58]": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 27,
+        "length": 16,
+        "text": "return x - y / z",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 243,
+        "length": 9,
+        "text": "foo(...a)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "123",
+      "y": "45.01",
+      "z": "6789",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "123",
+        "[1]": "45.01",
+        "[2]": "6789",
+        "[3]": "23.58",
+        "length": "4"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 27,
+        "length": 16,
+        "text": "return x - y / z",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 255,
+        "length": 38,
+        "text": "foo(...[123], ...[45.01, 6789], 23.58)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "123",
+      "y": "45.01",
+      "z": "6789",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "123",
+        "[1]": "45.01",
+        "[2]": "6789",
+        "[3]": "23.58",
+        "length": "4"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 27,
+        "length": 16,
+        "text": "return x - y / z",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 296,
+        "length": 28,
+        "text": "foo(123, 45.01, 6789, 23.58)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "123",
+      "y": "45.01",
+      "z": "6789",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "123",
+        "[1]": "45.01",
+        "[2]": "6789",
+        "[3]": "23.58",
+        "length": "4"
+      }
+    }
+  }
+]

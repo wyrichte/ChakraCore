@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<Data>
+  <Table Id="Table">
+      <ParameterTypes/>
+      <Row>
+        <Parameter Name="Location">Basics\Accessors</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\Array</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\ArrayConcat</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\ArrayInit</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\ArrayResize</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\Branching</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\DefProp</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\DeleteProperty1</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\DirectCall</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\equal_object</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\inlinecache</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\length</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\logical</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\ParameterOrder</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\Parameters</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\scopedaccessors</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\StringCharCodeAt</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\StringField</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\StringFromCharCode</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\StringSubstring</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\switch</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\Switch2</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\TernaryOperator</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\typeof</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\typeofcombi</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\TypePromotion</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\UndefinedVsNull</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\With2</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">Basics\WithEval</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">V8_Functionality\splay</Parameter>
+      </Row>
+      <Row>
+        <Parameter Name="Location">EH\so</Parameter>
+      </Row>
+  </Table>
+</Data>

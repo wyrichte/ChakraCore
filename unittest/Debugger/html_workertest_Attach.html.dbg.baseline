@@ -1,0 +1,47 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 817,
+        "length": 20,
+        "text": "WScript.Echo(e.data)",
+        "frameDescription": "worker1.onmessage"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "e.data": "120"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 817,
+        "length": 20,
+        "text": "WScript.Echo(e.data)",
+        "frameDescription": "worker1.onmessage"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "e.data": "140"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 817,
+        "length": 20,
+        "text": "WScript.Echo(e.data)",
+        "frameDescription": "worker1.onmessage"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "e.data": "160"
+    }
+  }
+]

@@ -1,0 +1,232 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Scope]1": {
+        "arguments": "{...}",
+        "x": "{...}",
+        "test": "undefined"
+      },
+      "[Globals]": {
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 5,
+        "text": "x.a++",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 42,
+        "length": 47,
+        "text": "eval(\"x.a++;/**bp:locals(1);stack()**/ x.b++;\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 266,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Scope]1": {
+        "arguments": "{...}",
+        "x": "{...}",
+        "test": "undefined"
+      },
+      "[Globals]": {
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 20,
+        "text": "x.c = \"test\\\"string\"",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 95,
+        "length": 66,
+        "text": "eval(\"x.c = \\\"test\\\\\\\"string\\\";/**bp:locals(1);stack()**/ x.b++;\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 266,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": {
+        "__proto__": "{...}",
+        "a": "3",
+        "b": "5",
+        "c": "test\"string"
+      },
+      "test": "undefined",
+      "[Globals]": {
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 167,
+        "length": 32,
+        "text": "var test = \"this is \\\" a string\"",
+        "frameDescription": "f"
+      },
+      {
+        "start": 266,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Scope]1": {
+        "arguments": "{...}",
+        "x": "{...}",
+        "test": "undefined"
+      },
+      "[Globals]": {
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 5,
+        "text": "x.a++",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 42,
+        "length": 47,
+        "text": "eval(\"x.a++;/**bp:locals(1);stack()**/ x.b++;\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 272,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Scope]1": {
+        "arguments": "{...}",
+        "x": "{...}",
+        "test": "undefined"
+      },
+      "[Globals]": {
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 20,
+        "text": "x.c = \"test\\\"string\"",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 95,
+        "length": 66,
+        "text": "eval(\"x.c = \\\"test\\\\\\\"string\\\";/**bp:locals(1);stack()**/ x.b++;\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 272,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": {
+        "__proto__": "{...}",
+        "a": "3",
+        "b": "5",
+        "c": "test\"string"
+      },
+      "test": "undefined",
+      "[Globals]": {
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 167,
+        "length": 32,
+        "text": "var test = \"this is \\\" a string\"",
+        "frameDescription": "f"
+      },
+      {
+        "start": 272,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

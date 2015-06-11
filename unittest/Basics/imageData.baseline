@@ -1,0 +1,5 @@
+ERROR: hr = (GetOwnProperty(obj, propertyId, value)) Hr:0x80004005
+ERROR: hr = (GetOwnProperty(obj, name, &valueVar)) Hr:0x80004005
+ERROR: hr = (pScriptDirect.GetOwnProperty(options, NAME_WIDTH, &width)) Hr:0x80004005
+ERROR: hr = (pImageData->InitFrom(options)) Hr:0x80004005
+exception: Error: 80004005 

@@ -1,0 +1,124 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "2",
+        "[0]": "{...}",
+        "[1]": "{...}"
+      },
+      "c": "baz",
+      "c1": "bazab",
+      "a": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "b": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Globals]": {
+        "Run": "<large string>",
+        "bar": "<large string>",
+        "baz": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 664,
+        "length": 22,
+        "text": "WScript.Echo('PASSED')",
+        "frameDescription": "baz"
+      },
+      {
+        "start": 258,
+        "length": 8,
+        "text": "baz(a,b)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 156,
+        "length": 6,
+        "text": "bar(a)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 694,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "b.toString = function(){return 'b1'}": "<large string>"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "{...}"
+      },
+      "b": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "a": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Globals]": {
+        "Run": "<large string>",
+        "bar": "<large string>",
+        "baz": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "a.toString = function(){return 'a1'}": "<large string>"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Globals]": {
+        "Run": "<large string>",
+        "bar": "<large string>",
+        "baz": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "c + a + b": "baza1b1"
+    }
+  }
+]

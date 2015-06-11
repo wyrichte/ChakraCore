@@ -1,0 +1,2193 @@
+WinRT DateTime and TimeSpan Marshaling tests
+
+=================================================
+Starting [Test 1: DateTime projected as Date]
+Pass: Windows.Foundation.DateTime should not be defined
+      Actual: undefined
+
+Pass: typeof dateTime0
+      Actual: object
+
+Pass: instanceof Sun Dec 31 1600 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Object.getPrototypeOf(dateTime0)
+      Actual: Invalid Date
+
+Pass: dateTime0.constructor should be defined
+      Actual: 0
+
+Pass: dateTime0.getDate should be defined
+      Actual: 1
+
+Pass: dateTime0.getDay should be defined
+      Actual: 2
+
+Pass: dateTime0.getFullYear should be defined
+      Actual: 3
+
+Pass: dateTime0.getHours should be defined
+      Actual: 4
+
+Pass: dateTime0.getMilliseconds should be defined
+      Actual: 5
+
+Pass: dateTime0.getMinutes should be defined
+      Actual: 6
+
+Pass: dateTime0.getMonth should be defined
+      Actual: 7
+
+Pass: dateTime0.getSeconds should be defined
+      Actual: 8
+
+Pass: dateTime0.getTime should be defined
+      Actual: 9
+
+Pass: dateTime0.getTimezoneOffset should be defined
+      Actual: 10
+
+Pass: dateTime0.getUTCDate should be defined
+      Actual: 11
+
+Pass: dateTime0.getUTCDay should be defined
+      Actual: 12
+
+Pass: dateTime0.getUTCFullYear should be defined
+      Actual: 13
+
+Pass: dateTime0.getUTCHours should be defined
+      Actual: 14
+
+Pass: dateTime0.getUTCMilliseconds should be defined
+      Actual: 15
+
+Pass: dateTime0.getUTCMinutes should be defined
+      Actual: 16
+
+Pass: dateTime0.getUTCMonth should be defined
+      Actual: 17
+
+Pass: dateTime0.getUTCSeconds should be defined
+      Actual: 18
+
+Pass: dateTime0.getYear should be defined
+      Actual: 19
+
+Pass: dateTime0.setDate should be defined
+      Actual: 20
+
+Pass: dateTime0.setFullYear should be defined
+      Actual: 21
+
+Pass: dateTime0.setHours should be defined
+      Actual: 22
+
+Pass: dateTime0.setMilliseconds should be defined
+      Actual: 23
+
+Pass: dateTime0.setMinutes should be defined
+      Actual: 24
+
+Pass: dateTime0.setMonth should be defined
+      Actual: 25
+
+Pass: dateTime0.setSeconds should be defined
+      Actual: 26
+
+Pass: dateTime0.setTime should be defined
+      Actual: 27
+
+Pass: dateTime0.setUTCDate should be defined
+      Actual: 28
+
+Pass: dateTime0.setUTCFullYear should be defined
+      Actual: 29
+
+Pass: dateTime0.setUTCHours should be defined
+      Actual: 30
+
+Pass: dateTime0.setUTCMilliseconds should be defined
+      Actual: 31
+
+Pass: dateTime0.setUTCMinutes should be defined
+      Actual: 32
+
+Pass: dateTime0.setUTCMonth should be defined
+      Actual: 33
+
+Pass: dateTime0.setUTCSeconds should be defined
+      Actual: 34
+
+Pass: dateTime0.setYear should be defined
+      Actual: 35
+
+Pass: dateTime0.toDateString should be defined
+      Actual: 36
+
+Pass: dateTime0.toISOString should be defined
+      Actual: 37
+
+Pass: dateTime0.toJSON should be defined
+      Actual: 38
+
+Pass: dateTime0.toLocaleDateString should be defined
+      Actual: 39
+
+Pass: dateTime0.toLocaleString should be defined
+      Actual: 40
+
+Pass: dateTime0.toLocaleTimeString should be defined
+      Actual: 41
+
+Pass: dateTime0.toString should be defined
+      Actual: 42
+
+Pass: dateTime0.toTimeString should be defined
+      Actual: 43
+
+Pass: dateTime0.toUTCString should be defined
+      Actual: 44
+
+Pass: dateTime0.toGMTString should be defined
+      Actual: 45
+
+Pass: dateTime0.valueOf should be defined
+      Actual: 46
+
+Pass: Number of members of dateTime0
+      Actual: 47
+
+Pass: dateTime0.getTime()
+      Actual: -11644473600000
+
+Pass: dateTimeJsEpoch.getTime()
+      Actual: 0
+
+Pass: testClass.verifyDateTime(date0, jsEpochTicks)
+      Actual: true
+
+Pass: testClass.verifyDateTime(dateWinRTEpoch, 0)
+      Actual: true
+
+PASS [Test 1: DateTime projected as Date]
+=================================================
+
+=================================================
+Starting [Test 2: Simple marshaling of DateTime [in] and [out]]
+Pass: testsClass.verifyDateTime(dateIn, 1756, 1, 27, 8, 24, 42, 763, 0)
+      Actual: true
+
+Pass: testClass.roundTripDateTime(dateIn).getTime()
+      Actual: -6748241717237
+
+Pass: instanceof Sat Aug 15 1215 11:31:02 GMT-0700 (Pacific Daylight Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1215
+
+Pass: Check if UTCMonth matches
+      Actual: 7
+
+Pass: Check if UTCDate matches
+      Actual: 15
+
+Pass: Check if UTCHours matches
+      Actual: 18
+
+Pass: Check if UTCMinutes matches
+      Actual: 31
+
+Pass: Check if UTCSeconds matches
+      Actual: 2
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 122
+
+Pass: testClass.verifyDateTime(dateOut, 2000, 1, 1, 0, 0, 0, 0, 1)
+      Actual: true
+
+PASS [Test 2: Simple marshaling of DateTime [in] and [out]]
+=================================================
+
+=================================================
+Starting [Test 3: Marshal invalid types as DateTime]
+Comment: Try to marshal object as DateTime[in]
+Pass: Marshal object returned (TypeError: Date object expected)
+      Actual: true
+
+Comment: Try to marshal int as DateTime[in]
+Pass: Marshal int returned (TypeError: Date object expected)
+      Actual: true
+
+Comment: Try to marshal double as DateTime[in]
+Pass: Marshal double returned (TypeError: Date object expected)
+      Actual: true
+
+Comment: Try to marshal numericString as DateTime[in]
+Pass: Marshal numericString returned (TypeError: Date object expected)
+      Actual: true
+
+Comment: Try to marshal function as DateTime[in]
+Pass: Marshal function returned (TypeError: Date object expected)
+      Actual: true
+
+Comment: Try to marshal null as DateTime[in]
+Pass: Marshal null returned (TypeError: Date object expected)
+      Actual: true
+
+Comment: Try to marshal undefined as DateTime[in]
+Pass: Marshal undefined returned (TypeError: Date object expected)
+      Actual: true
+
+Comment: Try to marshal datePrototype as DateTime[in]
+Pass: Marshal datePrototype returned (TypeError: Date object expected)
+      Actual: true
+
+Comment: Try to marshal dateArray as DateTime[in]
+Pass: Marshal dateArray returned (TypeError: Date object expected)
+      Actual: true
+
+Comment: Try to marshal dateObject as DateTime[in]
+Pass: Marshal dateObject returned (TypeError: Date object expected)
+      Actual: true
+
+PASS [Test 3: Marshal invalid types as DateTime]
+=================================================
+
+=================================================
+Starting [Test 4: Verify correctness of DateTime conversion to Date]
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: millisecond
+Pass: dateTime.getTime()
+      Actual: -11644473599999
+
+Pass: instanceof Sun Dec 31 1600 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 1
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: second
+Pass: dateTime.getTime()
+      Actual: -11644473599000
+
+Pass: instanceof Sun Dec 31 1600 16:00:01 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 1
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: minute
+Pass: dateTime.getTime()
+      Actual: -11644473540000
+
+Pass: instanceof Sun Dec 31 1600 16:01:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 1
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: hour
+Pass: dateTime.getTime()
+      Actual: -11644470000000
+
+Pass: instanceof Sun Dec 31 1600 17:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 1
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: day
+Pass: dateTime.getTime()
+      Actual: -11644387200000
+
+Pass: instanceof Mon Jan 01 1601 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 2
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: week
+Pass: dateTime.getTime()
+      Actual: -11643868800000
+
+Pass: instanceof Sun Jan 07 1601 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 8
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: month
+Pass: dateTime.getTime()
+      Actual: -11641795200000
+
+Pass: instanceof Wed Jan 31 1601 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1601
+
+Pass: Check if UTCMonth matches
+      Actual: 1
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: year
+Pass: dateTime.getTime()
+      Actual: -11612937600000
+
+Pass: instanceof Mon Dec 31 1601 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1602
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: years_2
+Pass: dateTime.getTime()
+      Actual: -11581401600000
+
+Pass: instanceof Tue Dec 31 1602 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1603
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: years_5
+Pass: dateTime.getTime()
+      Actual: -11486707200000
+
+Pass: instanceof Sat Dec 31 1605 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1606
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: years_10
+Pass: dateTime.getTime()
+      Actual: -11328940800000
+
+Pass: instanceof Fri Dec 31 1610 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1611
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: years_50
+Pass: dateTime.getTime()
+      Actual: -10066636800000
+
+Pass: instanceof Sat Dec 31 1650 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1651
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: years_100
+Pass: dateTime.getTime()
+      Actual: -8488800000000
+
+Pass: instanceof Fri Dec 31 1700 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1701
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: years_500
+Pass: dateTime.getTime()
+      Actual: 4133980800000
+
+Pass: instanceof Fri Dec 31 2100 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 2101
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: years_1000
+Pass: dateTime.getTime()
+      Actual: 19912435200000
+
+Pass: instanceof Wed Dec 31 2600 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 2601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: years_5000
+Pass: dateTime.getTime()
+      Actual: 146140243200000
+
+Pass: instanceof Wed Dec 31 6600 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 6601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: years_10000
+Pass: dateTime.getTime()
+      Actual: 303925046400000
+
+Pass: instanceof Sun Dec 31 11600 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 11601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: years_25000
+Pass: dateTime.getTime()
+      Actual: 777279283200000
+
+Pass: instanceof Wed Dec 31 26600 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 26601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a positive offset of: max
+Pass: dateTime.getTime()
+      Actual: 910692730085477
+
+Pass: instanceof Wed Sep 13 30828 19:48:05 GMT-0700 (Pacific Daylight Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 30828
+
+Pass: Check if UTCMonth matches
+      Actual: 8
+
+Pass: Check if UTCDate matches
+      Actual: 14
+
+Pass: Check if UTCHours matches
+      Actual: 2
+
+Pass: Check if UTCMinutes matches
+      Actual: 48
+
+Pass: Check if UTCSeconds matches
+      Actual: 5
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 477
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: millisecond
+Pass: dateTime.getTime()
+      Actual: -11644473600001
+
+Pass: instanceof Sun Dec 31 1600 15:59:59 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1600
+
+Pass: Check if UTCMonth matches
+      Actual: 11
+
+Pass: Check if UTCDate matches
+      Actual: 31
+
+Pass: Check if UTCHours matches
+      Actual: 23
+
+Pass: Check if UTCMinutes matches
+      Actual: 59
+
+Pass: Check if UTCSeconds matches
+      Actual: 59
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 999
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: second
+Pass: dateTime.getTime()
+      Actual: -11644473601000
+
+Pass: instanceof Sun Dec 31 1600 15:59:59 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1600
+
+Pass: Check if UTCMonth matches
+      Actual: 11
+
+Pass: Check if UTCDate matches
+      Actual: 31
+
+Pass: Check if UTCHours matches
+      Actual: 23
+
+Pass: Check if UTCMinutes matches
+      Actual: 59
+
+Pass: Check if UTCSeconds matches
+      Actual: 59
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: minute
+Pass: dateTime.getTime()
+      Actual: -11644473660000
+
+Pass: instanceof Sun Dec 31 1600 15:59:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1600
+
+Pass: Check if UTCMonth matches
+      Actual: 11
+
+Pass: Check if UTCDate matches
+      Actual: 31
+
+Pass: Check if UTCHours matches
+      Actual: 23
+
+Pass: Check if UTCMinutes matches
+      Actual: 59
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: hour
+Pass: dateTime.getTime()
+      Actual: -11644477200000
+
+Pass: instanceof Sun Dec 31 1600 15:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1600
+
+Pass: Check if UTCMonth matches
+      Actual: 11
+
+Pass: Check if UTCDate matches
+      Actual: 31
+
+Pass: Check if UTCHours matches
+      Actual: 23
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: day
+Pass: dateTime.getTime()
+      Actual: -11644560000000
+
+Pass: instanceof Sat Dec 30 1600 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1600
+
+Pass: Check if UTCMonth matches
+      Actual: 11
+
+Pass: Check if UTCDate matches
+      Actual: 31
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: week
+Pass: dateTime.getTime()
+      Actual: -11645078400000
+
+Pass: instanceof Sun Dec 24 1600 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1600
+
+Pass: Check if UTCMonth matches
+      Actual: 11
+
+Pass: Check if UTCDate matches
+      Actual: 25
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: month
+Pass: dateTime.getTime()
+      Actual: -11647152000000
+
+Pass: instanceof Thu Nov 30 1600 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1600
+
+Pass: Check if UTCMonth matches
+      Actual: 11
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: year
+Pass: dateTime.getTime()
+      Actual: -11676096000000
+
+Pass: instanceof Fri Dec 31 1599 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1600
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: years_2
+Pass: dateTime.getTime()
+      Actual: -11707632000000
+
+Pass: instanceof Thu Dec 31 1598 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1599
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: years_5
+Pass: dateTime.getTime()
+      Actual: -11802326400000
+
+Pass: instanceof Sun Dec 31 1595 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1596
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: years_10
+Pass: dateTime.getTime()
+      Actual: -11960092800000
+
+Pass: instanceof Mon Dec 31 1590 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1591
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: years_50
+Pass: dateTime.getTime()
+      Actual: -13222396800000
+
+Pass: instanceof Sun Dec 31 1550 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1551
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: years_100
+Pass: dateTime.getTime()
+      Actual: -14800233600000
+
+Pass: instanceof Mon Dec 31 1500 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1501
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: years_500
+Pass: dateTime.getTime()
+      Actual: -27423014400000
+
+Pass: instanceof Mon Dec 31 1100 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 1101
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: years_1000
+Pass: dateTime.getTime()
+      Actual: -43201468800000
+
+Pass: instanceof Wed Dec 31 600 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: 601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: years_5000
+Pass: dateTime.getTime()
+      Actual: -207360691200000
+
+Pass: instanceof Mon Dec 31 -4602 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: -4601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: years_10000
+Pass: dateTime.getTime()
+      Actual: -365145494400000
+
+Pass: instanceof Thu Dec 31 -9602 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: -9601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: years_25000
+Pass: dateTime.getTime()
+      Actual: -838499731200000
+
+Pass: instanceof Mon Dec 31 -24602 16:00:00 GMT-0800 (Pacific Standard Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: -24601
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCDate matches
+      Actual: 1
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 0
+
+Comment: Verify correctness of DateTime projected as Date with a negative offset of: min
+Pass: dateTime.getTime()
+      Actual: -933981677285477
+
+Pass: instanceof Thu Apr 19 -27627 14:11:54 GMT-0700 (Pacific Daylight Time)
+      Actual: true
+
+Pass: Check if UTCFullYear matches
+      Actual: -27627
+
+Pass: Check if UTCMonth matches
+      Actual: 3
+
+Pass: Check if UTCDate matches
+      Actual: 19
+
+Pass: Check if UTCHours matches
+      Actual: 21
+
+Pass: Check if UTCMinutes matches
+      Actual: 11
+
+Pass: Check if UTCSeconds matches
+      Actual: 54
+
+Pass: Check if UTCMilliseconds matches
+      Actual: 523
+
+PASS [Test 4: Verify correctness of DateTime conversion to Date]
+=================================================
+
+=================================================
+Starting [Test 5: Verify correctness of Date conversion to DateTime]
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: millisecond
+Pass: testClass.verifyDateTime(date, 10000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: second
+Pass: testClass.verifyDateTime(date, 10000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: minute
+Pass: testClass.verifyDateTime(date, 600000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: hour
+Pass: testClass.verifyDateTime(date, 36000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: day
+Pass: testClass.verifyDateTime(date, 864000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: week
+Pass: testClass.verifyDateTime(date, 6048000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: month
+Pass: testClass.verifyDateTime(date, 26784000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: year
+Pass: testClass.verifyDateTime(date, 315360000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: years_2
+Pass: testClass.verifyDateTime(date, 630720000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: years_5
+Pass: testClass.verifyDateTime(date, 1577664000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: years_10
+Pass: testClass.verifyDateTime(date, 3155328000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: years_50
+Pass: testClass.verifyDateTime(date, 15778368000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: years_100
+Pass: testClass.verifyDateTime(date, 31556736000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: years_500
+Pass: testClass.verifyDateTime(date, 157784544000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: years_1000
+Pass: testClass.verifyDateTime(date, 315569088000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: years_5000
+Pass: testClass.verifyDateTime(date, 1577847168000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: years_10000
+Pass: testClass.verifyDateTime(date, 3155695200000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: years_25000
+Pass: testClass.verifyDateTime(date, 7889237568000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a positive offset of: max
+Pass: testClass.verifyDateTime(date, 9223372036854770000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: millisecond
+Pass: testClass.verifyDateTime(date, -10000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: second
+Pass: testClass.verifyDateTime(date, -10000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: minute
+Pass: testClass.verifyDateTime(date, -600000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: hour
+Pass: testClass.verifyDateTime(date, -36000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: day
+Pass: testClass.verifyDateTime(date, -864000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: week
+Pass: testClass.verifyDateTime(date, -6048000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: month
+Pass: testClass.verifyDateTime(date, -26784000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: year
+Pass: testClass.verifyDateTime(date, -316224000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: years_2
+Pass: testClass.verifyDateTime(date, -631584000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: years_5
+Pass: testClass.verifyDateTime(date, -1578528000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: years_10
+Pass: testClass.verifyDateTime(date, -3156192000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: years_50
+Pass: testClass.verifyDateTime(date, -15779232000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: years_100
+Pass: testClass.verifyDateTime(date, -31557600000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: years_500
+Pass: testClass.verifyDateTime(date, -157785408000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: years_1000
+Pass: testClass.verifyDateTime(date, -315569952000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: years_5000
+Pass: testClass.verifyDateTime(date, -1957162176000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: years_10000
+Pass: testClass.verifyDateTime(date, -3535010208000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: years_25000
+Pass: testClass.verifyDateTime(date, -8268552576000000000)
+      Actual: true
+
+Comment: Verify correctness of Date projected as DateTime with a negative offset of: min
+Pass: testClass.verifyDateTime(date, -9223372036854770000)
+      Actual: true
+
+Comment: Verify exception thrown when Date projected as DateTime with an out of range offset of: maxPlus1
+Pass: Project DateTime with time: maxPlus1 returned (RangeError: Could not convert Date to Windows.Foundation.DateTime: value outside of valid range)
+      Actual: true
+
+Comment: Verify exception thrown when Date projected as DateTime with an out of range offset of: minMinus1
+Pass: Project DateTime with time: minMinus1 returned (RangeError: Could not convert Date to Windows.Foundation.DateTime: value outside of valid range)
+      Actual: true
+
+Comment: Verify exception thrown when Date projected as DateTime with an out of range offset of: year31000
+Pass: Project DateTime with time: year31000 returned (RangeError: Could not convert Date to Windows.Foundation.DateTime: value outside of valid range)
+      Actual: true
+
+Comment: Verify exception thrown when Date projected as DateTime with an out of range offset of: year28000BC
+Pass: Project DateTime with time: year28000BC returned (RangeError: Could not convert Date to Windows.Foundation.DateTime: value outside of valid range)
+      Actual: true
+
+PASS [Test 5: Verify correctness of Date conversion to DateTime]
+=================================================
+
+=================================================
+Starting [Test 6: Equality of marshaled Date/DateTime objects]
+Pass: projected DateTime(1) and DateTime(9999) are equivalent
+      Actual: Sun Dec 31 1600 16:00:00 GMT-0800 (Pacific Standard Time)
+
+Pass: projected DateTime(300) and DateTime(6734) are equivalent
+      Actual: Sun Dec 31 1600 16:00:00 GMT-0800 (Pacific Standard Time)
+
+Pass: projected DateTime(9999) and DateTime(10010) are not equivalent
+      Actual: Sun Dec 31 1600 16:00:00 GMT-0800 (Pacific Standard Time)
+
+Pass: testClass.dateTimeCmp(new Date(-jsEpochMilliseconds), new Date(-jsEpochMilliseconds))
+      Actual: 0
+
+Pass: testClass.dateTimeCmp(new Date(0), new Date(0))
+      Actual: 0
+
+Pass: testClass.dateTimeCmp(new Date(Date.UTC(2061, 6, 15, 7, 42, 21, 544)), new Date(Date.UTC(2061, 6, 15, 7, 42, 21, 544)))
+      Actual: 0
+
+Pass: testClass.dateTimeCmp(new Date(0), new Date(-jsEpochMilliseconds))
+      Actual: 116444736000000000
+
+PASS [Test 6: Equality of marshaled Date/DateTime objects]
+=================================================
+
+=================================================
+Starting [Test 7: Round trip specific tests]
+Pass: testClass.cmpDateTimeToStored(dateTime)
+      Actual: 0
+
+Pass: dateTime.getUTCMilliseconds()
+      Actual: 0
+
+Pass: testClass.cmpDateTimeToStored(dateTime)
+      Actual: 1
+
+Pass: testClass.cmpDateTimeToStored(dateTime)
+      Actual: 0
+
+Pass: dateTime.getUTCMilliseconds()
+      Actual: 0
+
+Pass: testClass.cmpDateTimeToStored(dateTime)
+      Actual: -1
+
+Pass: testClass.cmpDateTimeToStored(dateTime)
+      Actual: 0
+
+Pass: dateTime > 0
+      Actual: false
+
+Pass: testClass.cmpDateTimeToStored(dateTime)
+      Actual: 0
+
+Pass: testClass.cmpDateTimeToStored(dateTime)
+      Actual: 0
+
+Pass: dateTime.getUTCMilliseconds()
+      Actual: 0
+
+Pass: testClass.cmpDateTimeToStored(dateTime)
+      Actual: -9999984
+
+Pass: myDate.note
+      Actual: Don't Panic.
+
+Pass: testClass.roundTripDateTime(myDate)
+      Actual: Sun Dec 31 1600 16:00:00 GMT-0800 (Pacific Standard Time)
+
+Pass: myDateReturned.note should not be defined
+      Actual: undefined
+
+PASS [Test 7: Round trip specific tests]
+=================================================
+
+=================================================
+Starting [Test 8: Pass By Value]
+Pass: myDateReturned.getTime()
+      Actual: -11644473600000
+
+Pass: myDate.getTime()
+      Actual: 0
+
+Pass: testClass.dateTime.getTime()
+      Actual: 0
+
+Comment: Attempt to call testClass.dateTime.setTime(-jsEpochMilliseconds)
+Pass: testClass.dateTime.getTime()
+      Actual: 0
+
+PASS [Test 8: Pass By Value]
+=================================================
+
+=================================================
+Starting [Test 9: Identical struct still marshals as struct]
+Pass: testClass.marshalDummyDateTime({ universalTime: 0 }).universalTime
+      Actual: 0
+
+Pass: Marshal Date as struct identical to DateTime returned (TypeError: Could not convert object to struct: object missing expected property 'universalTime')
+      Actual: true
+
+Pass: typeof [object DevTests.DateTimeAndTimeSpan.DummyDateTime]
+      Actual: object
+
+Pass: instanceof [object DevTests.DateTimeAndTimeSpan.DummyDateTime]
+      Actual: true
+
+Pass: dummyDateTime.universalTime
+      Actual: 116444736000000000
+
+PASS [Test 9: Identical struct still marshals as struct]
+=================================================
+
+=================================================
+Starting [Test 10: TimeSpan projected as Number]
+Pass: Windows.Foundation.TimeSpan should not be defined
+      Actual: undefined
+
+Pass: typeof 0
+      Actual: number
+
+Pass: timeSpan0
+      Actual: 0
+
+PASS [Test 10: TimeSpan projected as Number]
+=================================================
+
+=================================================
+Starting [Test 11: Simple marshaling of TimeSpan [in] and [out]]
+Pass: testsClass.verifyTimeSpan(spanIn, jsEpochTicks)
+      Actual: true
+
+Pass: testClass.roundTripTimeSpan(spanIn)
+      Actual: 11644473600000
+
+Pass: testClass.produceTimeSpan(1090365294679 * ticksPerMillisecond)
+      Actual: 1090365294679
+
+Pass: testClass.verifyTimeSpan(spanOut, span * ticksPerMillisecond);
+      Actual: true
+
+PASS [Test 11: Simple marshaling of TimeSpan [in] and [out]]
+=================================================
+
+=================================================
+Starting [Test 12: Marshal invalid types as TimeSpan]
+Comment: Try to marshal object as TimeSpan[in]
+Pass: Marshal object returned (TypeError: Number expected)
+      Actual: true
+
+Comment: Try to marshal string as TimeSpan[in]
+Pass: Marshal string returned (TypeError: Number expected)
+      Actual: true
+
+Comment: Try to marshal function as TimeSpan[in]
+Pass: Marshal function returned (TypeError: Number expected)
+      Actual: true
+
+Comment: Try to marshal undefined as TimeSpan[in]
+Pass: Marshal undefined returned (TypeError: Number expected)
+      Actual: true
+
+Comment: Try to marshal NaN as TimeSpan[in]
+Pass: Marshal NaN returned (TypeError: Number expected)
+      Actual: true
+
+Comment: Try to marshal multiElementArray as TimeSpan[in]
+Pass: Marshal multiElementArray returned (TypeError: Number expected)
+      Actual: true
+
+Comment: Try to marshal arrayAsNumber as TimeSpan[in]
+Pass: Marshal arrayAsNumber returned (TypeError: Number expected)
+      Actual: true
+
+Comment: Try to marshal objectAsNumber as TimeSpan[in]
+Pass: Marshal objectAsNumber returned (TypeError: Number expected)
+      Actual: true
+
+Comment: Try to marshal stringAsNumber as TimeSpan[in]
+Pass: Marshal stringAsNumber returned (TypeError: Number expected)
+      Actual: true
+
+PASS [Test 12: Marshal invalid types as TimeSpan]
+=================================================
+
+=================================================
+Starting [Test 13: Marshal valid types as TimeSpan]
+Comment: Try to marshal int as TimeSpan[in]
+Pass: testClass.verifyTimeSpan(242, 2420000)
+      Actual: true
+
+Comment: Try to marshal double as TimeSpan[in]
+Pass: testClass.verifyTimeSpan(12345678.91, 123456789100)
+      Actual: true
+
+Comment: Try to marshal numericString as TimeSpan[in]
+Pass: testClass.verifyTimeSpan(11644473600000, 116444736000000000)
+      Actual: true
+
+Comment: Try to marshal singleElementArray as TimeSpan[in]
+Pass: testClass.verifyTimeSpan(30000, 300000000)
+      Actual: true
+
+Comment: Try to marshal intAsNumber as TimeSpan[in]
+Pass: testClass.verifyTimeSpan(1234567, 12345670000)
+      Actual: true
+
+Comment: Try to marshal singleElementArrayAsNumber as TimeSpan[in]
+Pass: testClass.verifyTimeSpan(30000, 300000000)
+      Actual: true
+
+Comment: Try to marshal numericStringAsNumber as TimeSpan[in]
+Pass: testClass.verifyTimeSpan(123, 1230000)
+      Actual: true
+
+Comment: Try to marshal numberPrototype as TimeSpan[in]
+Pass: testClass.verifyTimeSpan(0, 0)
+      Actual: true
+
+Comment: Try to marshal null as TimeSpan[in]
+Pass: testClass.verifyTimeSpan(null, 0)
+      Actual: true
+
+Comment: Try to marshal enumValue0 as TimeSpan[in]
+Pass: testClass.verifyTimeSpan(0, 0)
+      Actual: true
+
+Comment: Try to marshal enumValue1 as TimeSpan[in]
+Pass: testClass.verifyTimeSpan(1, 10000)
+      Actual: true
+
+PASS [Test 13: Marshal valid types as TimeSpan]
+=================================================
+
+=================================================
+Starting [Test 14: Verify correctness of TimeSpan conversion to Number]
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: millisecond
+Pass: timeSpan
+      Actual: 1
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: second
+Pass: timeSpan
+      Actual: 1000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: minute
+Pass: timeSpan
+      Actual: 60000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: hour
+Pass: timeSpan
+      Actual: 3600000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: day
+Pass: timeSpan
+      Actual: 86400000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: week
+Pass: timeSpan
+      Actual: 604800000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: month
+Pass: timeSpan
+      Actual: 2678400000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: year
+Pass: timeSpan
+      Actual: 31536000000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: years_2
+Pass: timeSpan
+      Actual: 63072000000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: years_5
+Pass: timeSpan
+      Actual: 157766400000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: years_10
+Pass: timeSpan
+      Actual: 315532800000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: years_50
+Pass: timeSpan
+      Actual: 1577836800000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: years_100
+Pass: timeSpan
+      Actual: 3155673600000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: years_500
+Pass: timeSpan
+      Actual: 15778454400000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: years_1000
+Pass: timeSpan
+      Actual: 31556908800000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: years_5000
+Pass: timeSpan
+      Actual: 157784716800000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: years_10000
+Pass: timeSpan
+      Actual: 315569520000000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: years_25000
+Pass: timeSpan
+      Actual: 788923756800000
+
+Comment: Verify correctness of TimeSpan projected as Number with a positive offset of: max
+Pass: timeSpan
+      Actual: 922337203685477.6
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: millisecond
+Pass: timeSpan
+      Actual: -1
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: second
+Pass: timeSpan
+      Actual: -1000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: minute
+Pass: timeSpan
+      Actual: -60000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: hour
+Pass: timeSpan
+      Actual: -3600000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: day
+Pass: timeSpan
+      Actual: -86400000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: week
+Pass: timeSpan
+      Actual: -604800000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: month
+Pass: timeSpan
+      Actual: -2678400000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: year
+Pass: timeSpan
+      Actual: -31622400000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: years_2
+Pass: timeSpan
+      Actual: -63158400000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: years_5
+Pass: timeSpan
+      Actual: -157852800000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: years_10
+Pass: timeSpan
+      Actual: -315619200000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: years_50
+Pass: timeSpan
+      Actual: -1577923200000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: years_100
+Pass: timeSpan
+      Actual: -3155760000000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: years_500
+Pass: timeSpan
+      Actual: -15778540800000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: years_1000
+Pass: timeSpan
+      Actual: -31556995200000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: years_5000
+Pass: timeSpan
+      Actual: -195716217600000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: years_10000
+Pass: timeSpan
+      Actual: -353501020800000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: years_25000
+Pass: timeSpan
+      Actual: -826855257600000
+
+Comment: Verify correctness of TimeSpan projected as Number with a negative offset of: min
+Pass: timeSpan
+      Actual: -922337203685477.6
+
+PASS [Test 14: Verify correctness of TimeSpan conversion to Number]
+=================================================
+
+=================================================
+Starting [Test 15: Verify correctness of Number conversion to TimeSpan]
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: millisecond
+Pass: testClass.verifyTimeSpan(date, 10000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: second
+Pass: testClass.verifyTimeSpan(date, 10000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: minute
+Pass: testClass.verifyTimeSpan(date, 600000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: hour
+Pass: testClass.verifyTimeSpan(date, 36000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: day
+Pass: testClass.verifyTimeSpan(date, 864000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: week
+Pass: testClass.verifyTimeSpan(date, 6048000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: month
+Pass: testClass.verifyTimeSpan(date, 26784000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: year
+Pass: testClass.verifyTimeSpan(date, 315360000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: years_2
+Pass: testClass.verifyTimeSpan(date, 630720000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: years_5
+Pass: testClass.verifyTimeSpan(date, 1577664000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: years_10
+Pass: testClass.verifyTimeSpan(date, 3155328000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: years_50
+Pass: testClass.verifyTimeSpan(date, 15778368000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: years_100
+Pass: testClass.verifyTimeSpan(date, 31556736000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: years_500
+Pass: testClass.verifyTimeSpan(date, 157784544000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: years_1000
+Pass: testClass.verifyTimeSpan(date, 315569088000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: years_5000
+Pass: testClass.verifyTimeSpan(date, 1577847168000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: years_10000
+Pass: testClass.verifyTimeSpan(date, 3155695200000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a positive offset of: years_25000
+Pass: testClass.verifyTimeSpan(date, 7889237568000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: millisecond
+Pass: testClass.verifyTimeSpan(date, -10000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: second
+Pass: testClass.verifyTimeSpan(date, -10000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: minute
+Pass: testClass.verifyTimeSpan(date, -600000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: hour
+Pass: testClass.verifyTimeSpan(date, -36000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: day
+Pass: testClass.verifyTimeSpan(date, -864000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: week
+Pass: testClass.verifyTimeSpan(date, -6048000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: month
+Pass: testClass.verifyTimeSpan(date, -26784000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: year
+Pass: testClass.verifyTimeSpan(date, -316224000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: years_2
+Pass: testClass.verifyTimeSpan(date, -631584000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: years_5
+Pass: testClass.verifyTimeSpan(date, -1578528000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: years_10
+Pass: testClass.verifyTimeSpan(date, -3156192000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: years_50
+Pass: testClass.verifyTimeSpan(date, -15779232000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: years_100
+Pass: testClass.verifyTimeSpan(date, -31557600000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: years_500
+Pass: testClass.verifyTimeSpan(date, -157785408000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: years_1000
+Pass: testClass.verifyTimeSpan(date, -315569952000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: years_5000
+Pass: testClass.verifyTimeSpan(date, -1957162176000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: years_10000
+Pass: testClass.verifyTimeSpan(date, -3535010208000000000)
+      Actual: true
+
+Comment: Verify correctness of Number projected as TimeSpan with a negative offset of: years_25000
+Pass: testClass.verifyTimeSpan(date, -8268552576000000000)
+      Actual: true
+
+Comment: Verify exception thrown when Number projected as TimeSpan with an out of range offset of: maxPlus1
+Pass: Project TimeSpan with time: maxPlus1 returned (RangeError: Could not convert value to Windows.Foundation.TimeSpan: value outside of valid range)
+      Actual: true
+
+Comment: Verify exception thrown when Number projected as TimeSpan with an out of range offset of: minMinus1
+Pass: Project TimeSpan with time: minMinus1 returned (RangeError: Could not convert value to Windows.Foundation.TimeSpan: value outside of valid range)
+      Actual: true
+
+Comment: Verify exception thrown when Number projected as TimeSpan with an out of range offset of: year31000
+Pass: Project TimeSpan with time: year31000 returned (RangeError: Could not convert value to Windows.Foundation.TimeSpan: value outside of valid range)
+      Actual: true
+
+Comment: Verify exception thrown when Number projected as TimeSpan with an out of range offset of: year28000BC
+Pass: Project TimeSpan with time: year28000BC returned (RangeError: Could not convert value to Windows.Foundation.TimeSpan: value outside of valid range)
+      Actual: true
+
+Comment: Verify exception thrown when Number projected as TimeSpan with an out of range offset of: fullSpan
+Pass: Project TimeSpan with time: fullSpan returned (RangeError: Could not convert value to Windows.Foundation.TimeSpan: value outside of valid range)
+      Actual: true
+
+PASS [Test 15: Verify correctness of Number conversion to TimeSpan]
+=================================================
+
+=================================================
+Starting [Test 16: Equality of marshaled TimeSpan objects]
+Pass: projected TimeSpan(1) and TimeSpan(9999) are not equivalent
+      Actual: 0.0001
+
+Pass: projected TimeSpan(300) and TimeSpan(6734) are not equivalent
+      Actual: 0.03
+
+Pass: projected TimeSpan(9999) and TimeSpan(10000) are not equivalent
+      Actual: 0.9999
+
+Pass: testClass.timeSpanCmp(0, 0)
+      Actual: 0
+
+Pass: testClass.timeSpanCmp(Date.UTC(2061, 6, 15, 7, 42, 21, 544), Date.UTC(2061, 6, 15, 7, 42, 21, 544))
+      Actual: 0
+
+Pass: testClass.timeSpanCmp(0, -jsEpochMilliseconds)
+      Actual: 116444736000000000
+
+PASS [Test 16: Equality of marshaled TimeSpan objects]
+=================================================
+
+=================================================
+Starting [Test 17: Pass By Value - TimeSpan]
+Pass: mySpanReturned
+      Actual: 0
+
+Pass: mySpan
+      Actual: 315360000000000
+
+PASS [Test 17: Pass By Value - TimeSpan]
+=================================================
+
+=================================================
+Starting [Test 18: Identical struct still marshals as struct - TimeSpan]
+Pass: testClass.marshalDummyTimeSpan({ duration: ticksPerHour }).duration
+      Actual: 36000000000
+
+Pass: Marshal Date as struct identical to TimeSpan returned (TypeError: Object expected)
+      Actual: true
+
+Pass: typeof [object DevTests.DateTimeAndTimeSpan.DummyTimeSpan]
+      Actual: object
+
+Pass: instanceof [object DevTests.DateTimeAndTimeSpan.DummyTimeSpan]
+      Actual: true
+
+Pass: dummyTimeSpan.universalTime
+      Actual: 600000000
+
+PASS [Test 18: Identical struct still marshals as struct - TimeSpan]
+=================================================
+
+=================================================
+Starting [Test 19: Struct with DateTime and TimeSpan fields]
+Pass: typeof [object DevTests.DateTimeAndTimeSpan.EventLog]
+      Actual: object
+
+Pass: instanceof [object DevTests.DateTimeAndTimeSpan.EventLog]
+      Actual: true
+
+Pass: field should be defined
+      Actual: Birthday Party
+
+Pass: myEventReturned.eventName
+      Actual: Birthday Party
+
+Pass: field should be defined
+      Actual: Wed Jun 23 1999 11:00:00 GMT-0700 (Pacific Daylight Time)
+
+Pass: myEventReturned.startTime
+      Actual: Wed Jun 23 1999 11:00:00 GMT-0700 (Pacific Daylight Time)
+
+Pass: field should be defined
+      Actual: 162000000000
+
+Pass: myEventReturned.duration
+      Actual: 162000000000
+
+PASS [Test 19: Struct with DateTime and TimeSpan fields]
+=================================================
+
+=================================================
+Starting [Test 19: FastSig Tests - +Date-String]
+Comment: Verify function produces correct result with un-modified WinRT Date
+Pass: testClass.dateInStringOut(winRTDate)
+      Actual: Happy New Year!
+
+Pass: testClass.dateInStringOut(winRTDate)
+      Actual: Not New Year's
+
+Comment: Verify function produces correct result with modified WinRT Date
+Pass: testClass.dateInStringOut(winRTDate)
+      Actual: Not New Year's
+
+Pass: testClass.dateInStringOut(winRTDate)
+      Actual: Happy New Year!
+
+Comment: Verify function produces correct result with Javascript Date
+Pass: testClass.dateInStringOut(jsDate)
+      Actual: Happy New Year!
+
+Pass: testClass.dateInStringOut(jsDate)
+      Actual: Not New Year's
+
+Comment: Verify RangeError thrown when Javascript Date out of range of DateTime
+Pass: Pass in Date with value greater than max DateTime returned (RangeError: Could not convert Date to Windows.Foundation.DateTime: value outside of valid range)
+      Actual: true
+
+Pass: Pass in Date with value less than min DateTime returned (RangeError: Could not convert Date to Windows.Foundation.DateTime: value outside of valid range)
+      Actual: true
+
+Comment: Verify RangeError thrown when modified WinRT Date out of range of DateTime
+Pass: Pass in WinRT Date with value greater than max DateTime returned (RangeError: Could not convert Date to Windows.Foundation.DateTime: value outside of valid range)
+      Actual: true
+
+Pass: Pass in WinRT Date with value less than min DateTime returned (RangeError: Could not convert Date to Windows.Foundation.DateTime: value outside of valid range)
+      Actual: true
+
+Comment: Verify TypeError thrown when non-Date type passed as DateTime
+Pass: Marshal null as DateTime returned (TypeError: Date object expected)
+      Actual: true
+
+Pass: Marshal Date.prototype as DateTime returned (TypeError: Date object expected)
+      Actual: true
+
+PASS [Test 19: FastSig Tests - +Date-String]
+=================================================
+
+Passed: 20
+Failed: 0

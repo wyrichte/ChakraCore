@@ -1,0 +1,12 @@
+TEST_CODE=1
+TARGETTYPE    = NOTARGET
+TARGET_DESTINATION = Projection\PerfAppx
+
+PASS1_BINPLACE= \
+    ..\projectionsGlue.js \
+    .\appxmanifest.xml \
+    .\default.html \
+    .\tests.js \
+    .\tile.png \
+    .\ColdStartAssets\*.html \
+    .\ColdStartAssets\*.js \

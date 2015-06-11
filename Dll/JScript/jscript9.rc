@@ -1,0 +1,17 @@
+// Copyright (C) Microsoft. All rights reserved. 
+#include <windows.h>
+
+#include <ieverp.h>
+#include "resource.h"
+
+#define VER_FILESUBTYPE                 VFT2_UNKNOWN
+#define VER_FILEDESCRIPTION_STR         L"Microsoft \x00ae JScript\0"
+#define VER_INTERNALNAME_STR            "chakra.dll"
+#define VER_FILETYPE                    VFT_DLL
+
+#include "common.ver"
+#include "jserr.rc2"
+
+#include "Microsoft-Scripting-chakraEvents.rc"
+
+

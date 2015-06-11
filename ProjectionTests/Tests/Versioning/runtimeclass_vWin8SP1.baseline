@@ -1,0 +1,1266 @@
+RuntimeClass Versioning Tests - Version NTDDI_MOCK_WIN8SP1
+
+=================================================
+Starting [Test 0: DevTests.Versioning Members]
+Pass: DevTests.Versioning should be defined
+      Actual: [object Versioning]
+
+Comment: Verifying members of DevTests.Versioning
+Pass: MarshalVersionedTypes should be defined
+      Actual: function
+
+Pass: typeof function MarshalVersionedTypes() { [native code] }
+      Actual: function
+
+Pass: MinVersionClass should be defined
+      Actual: function
+
+Pass: typeof function MinVersionClass() { [native code] }
+      Actual: function
+
+Pass: MinVersionEnum should be defined
+      Actual: object
+
+Pass: typeof [object DevTests.Versioning.MinVersionEnum]
+      Actual: object
+
+Pass: ObservableVectorInt should be defined
+      Actual: function
+
+Pass: typeof function ObservableVectorInt() { [native code] }
+      Actual: function
+
+Pass: ObservableVectorVersionedT should be defined
+      Actual: function
+
+Pass: typeof function ObservableVectorVersionedT() { [native code] }
+      Actual: function
+
+Pass: RequiresObservableVectorInt should be defined
+      Actual: function
+
+Pass: typeof function RequiresObservableVectorInt() { [native code] }
+      Actual: function
+
+Pass: RequiresVectorInt should be defined
+      Actual: function
+
+Pass: typeof function RequiresVectorInt() { [native code] }
+      Actual: function
+
+Pass: VectorInt should be defined
+      Actual: function
+
+Pass: typeof function VectorInt() { [native code] }
+      Actual: function
+
+Pass: VectorVersionedT should be defined
+      Actual: function
+
+Pass: typeof function VectorVersionedT() { [native code] }
+      Actual: function
+
+Pass: VersionedEnumFields should be defined
+      Actual: object
+
+Pass: typeof [object DevTests.Versioning.VersionedEnumFields]
+      Actual: object
+
+Pass: VersionedObservableVectorInt should be defined
+      Actual: function
+
+Pass: typeof function VersionedObservableVectorInt() { [native code] }
+      Actual: function
+
+Pass: VersionedVectorInt should be defined
+      Actual: function
+
+Pass: typeof function VersionedVectorInt() { [native code] }
+      Actual: function
+
+Pass: Win8Class should be defined
+      Actual: function
+
+Pass: typeof function Win8Class() { [native code] }
+      Actual: function
+
+Pass: Win8Enum should be defined
+      Actual: object
+
+Pass: typeof [object DevTests.Versioning.Win8Enum]
+      Actual: object
+
+Pass: Win8SP1Class should be defined
+      Actual: function
+
+Pass: typeof function Win8SP1Class() { [native code] }
+      Actual: function
+
+Pass: Win8SP1Enum should be defined
+      Actual: object
+
+Pass: typeof [object DevTests.Versioning.Win8SP1Enum]
+      Actual: object
+
+Pass: Number of members == number of members expected
+      Actual: 16
+
+Comment: Verifying fields of DevTests.Versioning.VersionedEnumFields
+Pass: min should be defined
+      Actual: 0
+
+Pass: min
+      Actual: 0
+
+Pass: win8 should be defined
+      Actual: 1
+
+Pass: win8
+      Actual: 1
+
+Pass: win8SP1 should be defined
+      Actual: 2
+
+Pass: win8SP1
+      Actual: 2
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Comment: Verifying fields of DevTests.Versioning.MinVersionEnum
+Pass: min should be defined
+      Actual: 0
+
+Pass: min
+      Actual: 0
+
+Comment: Verifying fields of DevTests.Versioning.Win8Enum
+Pass: win8 should be defined
+      Actual: 100794368
+
+Pass: win8
+      Actual: 100794368
+
+Comment: Verifying fields of DevTests.Versioning.Win8SP1Enum
+Pass: win8SP1 should be defined
+      Actual: 100794624
+
+Pass: win8SP1
+      Actual: 100794624
+
+PASS [Test 0: DevTests.Versioning Members]
+=================================================
+
+=================================================
+Starting [Test 1: Versioning behavior of MinVersionClass]
+Pass: DevTests.Versioning.MinVersionClass should be defined
+      Actual: function MinVersionClass() { [native code] }
+
+Comment: Verifying members of DevTests.Versioning.MinVersionClass
+Pass: win8SP1Version should be defined
+      Actual: number
+
+Pass: typeof 100794624
+      Actual: number
+
+Pass: Number of members == number of members expected
+      Actual: 1
+
+Pass: DevTests.Versioning.MinVersionClass.win8SP1Version
+      Actual: 100794624
+
+Pass: DevTests.Versioning.MinVersionClass instance should be defined
+      Actual: [object DevTests.Versioning.MinVersionClass]
+
+Pass: Instance was created with a factory constructor
+      Actual: 42
+
+Pass: DevTests.Versioning.MinVersionClass instance should be defined
+      Actual: [object DevTests.Versioning.MinVersionClass]
+
+Pass: Instance was created with ActivateInstance
+      Actual: 0
+
+Comment: Verifying members of [object DevTests.Versioning.MinVersionClass]
+Pass: activationValue should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: minVersion should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: Number of members == number of members expected
+      Actual: 2
+
+Pass: instance.minVersion
+      Actual: 0
+
+PASS [Test 1: Versioning behavior of MinVersionClass]
+=================================================
+
+=================================================
+Starting [Test 2: Versioning behavior of Win8Class]
+Pass: DevTests.Versioning.Win8Class should be defined
+      Actual: function Win8Class() { [native code] }
+
+Comment: Verifying members of DevTests.Versioning.Win8Class
+Pass: win8Version should be defined
+      Actual: number
+
+Pass: typeof 100794368
+      Actual: number
+
+Pass: Number of members == number of members expected
+      Actual: 1
+
+Pass: DevTests.Versioning.Win8Class.win8Version
+      Actual: 100794368
+
+Pass: Type is not simple activatable returned (Error: Win8Class: function called with too few arguments)
+      Actual: true
+
+Pass: DevTests.Versioning.Win8Class instance should be defined
+      Actual: [object DevTests.Versioning.Win8Class]
+
+Pass: Instance was created with a factory constructor
+      Actual: 42
+
+Comment: Verifying members of [object DevTests.Versioning.Win8Class]
+Pass: activationValue should be defined
+      Actual: number
+
+Pass: typeof 42
+      Actual: number
+
+Pass: minVersion should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: win8SP1Version should be defined
+      Actual: number
+
+Pass: typeof 100794624
+      Actual: number
+
+Pass: Number of members == number of members expected
+      Actual: 3
+
+Pass: instance.minVersion
+      Actual: 0
+
+Pass: instance.win8SP1Version
+      Actual: 100794624
+
+PASS [Test 2: Versioning behavior of Win8Class]
+=================================================
+
+=================================================
+Starting [Test 3: Versioning behavior of Win8SP1Class]
+Pass: DevTests.Versioning.Win8SP1Class should be defined
+      Actual: function Win8SP1Class() { [native code] }
+
+Comment: Verifying members of DevTests.Versioning.Win8SP1Class
+Pass: Number of members == number of members expected
+      Actual: 0
+
+Pass: DevTests.Versioning.Win8SP1Class instance should be defined
+      Actual: [object DevTests.Versioning.Win8SP1Class]
+
+Pass: Instance was created with ActivateInstance
+      Actual: 0
+
+Comment: Verifying members of [object DevTests.Versioning.Win8SP1Class]
+Pass: activationValue should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: minVersion should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: Number of members == number of members expected
+      Actual: 2
+
+Pass: instance.minVersion
+      Actual: 0
+
+PASS [Test 3: Versioning behavior of Win8SP1Class]
+=================================================
+
+=================================================
+Starting [Test 4: Versioning behavior of Win9Class]
+Pass: DevTests.Versioning.Win9Class should not be defined
+      Actual: undefined
+
+PASS [Test 4: Versioning behavior of Win9Class]
+=================================================
+
+=================================================
+Starting [Test 5: Versioning behavior of MaxVersionClass]
+Pass: DevTests.Versioning.MaxVersionClass should not be defined
+      Actual: undefined
+
+PASS [Test 5: Versioning behavior of MaxVersionClass]
+=================================================
+
+=================================================
+Starting [Test 6: Versioning behavior of VectorInt]
+Pass: DevTests.Versioning.VectorInt should be defined
+      Actual: function VectorInt() { [native code] }
+
+Pass: DevTests.Versioning.VectorInt instance should be defined
+      Actual: 1,2,3,4,5,6,7,8,9
+
+Comment: Verifying members of 1,2,3,4,5,6,7,8,9
+Pass: 0 should be defined
+      Actual: number
+
+Pass: typeof 1
+      Actual: number
+
+Pass: 1 should be defined
+      Actual: number
+
+Pass: typeof 2
+      Actual: number
+
+Pass: 2 should be defined
+      Actual: number
+
+Pass: typeof 3
+      Actual: number
+
+Pass: 3 should be defined
+      Actual: number
+
+Pass: typeof 4
+      Actual: number
+
+Pass: 4 should be defined
+      Actual: number
+
+Pass: typeof 5
+      Actual: number
+
+Pass: 5 should be defined
+      Actual: number
+
+Pass: typeof 6
+      Actual: number
+
+Pass: 6 should be defined
+      Actual: number
+
+Pass: typeof 7
+      Actual: number
+
+Pass: 7 should be defined
+      Actual: number
+
+Pass: typeof 8
+      Actual: number
+
+Pass: 8 should be defined
+      Actual: number
+
+Pass: typeof 9
+      Actual: number
+
+Pass: append should be defined
+      Actual: function
+
+Pass: typeof function append() { [native code] }
+      Actual: function
+
+Pass: clear should be defined
+      Actual: function
+
+Pass: typeof function clear() { [native code] }
+      Actual: function
+
+Pass: first should be defined
+      Actual: function
+
+Pass: typeof function first() { [native code] }
+      Actual: function
+
+Pass: getAt should be defined
+      Actual: function
+
+Pass: typeof function getAt() { [native code] }
+      Actual: function
+
+Pass: getMany should be defined
+      Actual: function
+
+Pass: typeof function getMany() { [native code] }
+      Actual: function
+
+Pass: getView should be defined
+      Actual: function
+
+Pass: typeof function getView() { [native code] }
+      Actual: function
+
+Pass: hasDefault should be defined
+      Actual: function
+
+Pass: typeof function hasDefault() { [native code] }
+      Actual: function
+
+Pass: indexOf should be defined
+      Actual: function
+
+Pass: typeof function indexOf() { [native code] }
+      Actual: function
+
+Pass: insertAt should be defined
+      Actual: function
+
+Pass: typeof function insertAt() { [native code] }
+      Actual: function
+
+Pass: removeAt should be defined
+      Actual: function
+
+Pass: typeof function removeAt() { [native code] }
+      Actual: function
+
+Pass: removeAtEnd should be defined
+      Actual: function
+
+Pass: typeof function removeAtEnd() { [native code] }
+      Actual: function
+
+Pass: replaceAll should be defined
+      Actual: function
+
+Pass: typeof function replaceAll() { [native code] }
+      Actual: function
+
+Pass: setAt should be defined
+      Actual: function
+
+Pass: typeof function setAt() { [native code] }
+      Actual: function
+
+Pass: size should be defined
+      Actual: number
+
+Pass: typeof 9
+      Actual: number
+
+Pass: Number of members == number of members expected
+      Actual: 23
+
+Pass: instance.hasDefault()
+      Actual: true
+
+Pass: instance.size
+      Actual: 9
+
+Pass: instance.getAt(6)
+      Actual: 7
+
+PASS [Test 6: Versioning behavior of VectorInt]
+=================================================
+
+=================================================
+Starting [Test 7: Versioning behavior of ObservableVectorInt]
+Pass: DevTests.Versioning.ObservableVectorInt should be defined
+      Actual: function ObservableVectorInt() { [native code] }
+
+Pass: DevTests.Versioning.ObservableVectorInt instance should be defined
+      Actual: 1,2,3,4,5,6,7,8,9
+
+Comment: Verifying members of 1,2,3,4,5,6,7,8,9
+Pass: 0 should be defined
+      Actual: number
+
+Pass: typeof 1
+      Actual: number
+
+Pass: 1 should be defined
+      Actual: number
+
+Pass: typeof 2
+      Actual: number
+
+Pass: 2 should be defined
+      Actual: number
+
+Pass: typeof 3
+      Actual: number
+
+Pass: 3 should be defined
+      Actual: number
+
+Pass: typeof 4
+      Actual: number
+
+Pass: 4 should be defined
+      Actual: number
+
+Pass: typeof 5
+      Actual: number
+
+Pass: 5 should be defined
+      Actual: number
+
+Pass: typeof 6
+      Actual: number
+
+Pass: 6 should be defined
+      Actual: number
+
+Pass: typeof 7
+      Actual: number
+
+Pass: 7 should be defined
+      Actual: number
+
+Pass: typeof 8
+      Actual: number
+
+Pass: 8 should be defined
+      Actual: number
+
+Pass: typeof 9
+      Actual: number
+
+Pass: addEventListener should be defined
+      Actual: function
+
+Pass: typeof function addEventListener() { [native code] }
+      Actual: function
+
+Pass: append should be defined
+      Actual: function
+
+Pass: typeof function append() { [native code] }
+      Actual: function
+
+Pass: clear should be defined
+      Actual: function
+
+Pass: typeof function clear() { [native code] }
+      Actual: function
+
+Pass: first should be defined
+      Actual: function
+
+Pass: typeof function first() { [native code] }
+      Actual: function
+
+Pass: getAt should be defined
+      Actual: function
+
+Pass: typeof function getAt() { [native code] }
+      Actual: function
+
+Pass: getMany should be defined
+      Actual: function
+
+Pass: typeof function getMany() { [native code] }
+      Actual: function
+
+Pass: getView should be defined
+      Actual: function
+
+Pass: typeof function getView() { [native code] }
+      Actual: function
+
+Pass: hasDefault should be defined
+      Actual: function
+
+Pass: typeof function hasDefault() { [native code] }
+      Actual: function
+
+Pass: indexOf should be defined
+      Actual: function
+
+Pass: typeof function indexOf() { [native code] }
+      Actual: function
+
+Pass: insertAt should be defined
+      Actual: function
+
+Pass: typeof function insertAt() { [native code] }
+      Actual: function
+
+Pass: onvectorchanged should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: removeAt should be defined
+      Actual: function
+
+Pass: typeof function removeAt() { [native code] }
+      Actual: function
+
+Pass: removeAtEnd should be defined
+      Actual: function
+
+Pass: typeof function removeAtEnd() { [native code] }
+      Actual: function
+
+Pass: removeEventListener should be defined
+      Actual: function
+
+Pass: typeof function removeEventListener() { [native code] }
+      Actual: function
+
+Pass: replaceAll should be defined
+      Actual: function
+
+Pass: typeof function replaceAll() { [native code] }
+      Actual: function
+
+Pass: setAt should be defined
+      Actual: function
+
+Pass: typeof function setAt() { [native code] }
+      Actual: function
+
+Pass: size should be defined
+      Actual: number
+
+Pass: typeof 9
+      Actual: number
+
+Pass: Number of members == number of members expected
+      Actual: 26
+
+Pass: instance.hasDefault()
+      Actual: true
+
+Pass: instance.size
+      Actual: 9
+
+Pass: instance.getAt(6)
+      Actual: 7
+
+Pass: Can access IObservableVector members
+      Actual: undefined
+
+PASS [Test 7: Versioning behavior of ObservableVectorInt]
+=================================================
+
+=================================================
+Starting [Test 8: Versioning behavior of RequiresVectorInt]
+Pass: DevTests.Versioning.RequiresVectorInt should be defined
+      Actual: function RequiresVectorInt() { [native code] }
+
+Pass: DevTests.Versioning.RequiresVectorInt instance should be defined
+      Actual: 1,2,3,4,5,6,7,8,9
+
+Comment: Verifying members of 1,2,3,4,5,6,7,8,9
+Pass: 0 should be defined
+      Actual: number
+
+Pass: typeof 1
+      Actual: number
+
+Pass: 1 should be defined
+      Actual: number
+
+Pass: typeof 2
+      Actual: number
+
+Pass: 2 should be defined
+      Actual: number
+
+Pass: typeof 3
+      Actual: number
+
+Pass: 3 should be defined
+      Actual: number
+
+Pass: typeof 4
+      Actual: number
+
+Pass: 4 should be defined
+      Actual: number
+
+Pass: typeof 5
+      Actual: number
+
+Pass: 5 should be defined
+      Actual: number
+
+Pass: typeof 6
+      Actual: number
+
+Pass: 6 should be defined
+      Actual: number
+
+Pass: typeof 7
+      Actual: number
+
+Pass: 7 should be defined
+      Actual: number
+
+Pass: typeof 8
+      Actual: number
+
+Pass: 8 should be defined
+      Actual: number
+
+Pass: typeof 9
+      Actual: number
+
+Pass: append should be defined
+      Actual: function
+
+Pass: typeof function append() { [native code] }
+      Actual: function
+
+Pass: clear should be defined
+      Actual: function
+
+Pass: typeof function clear() { [native code] }
+      Actual: function
+
+Pass: first should be defined
+      Actual: function
+
+Pass: typeof function first() { [native code] }
+      Actual: function
+
+Pass: getAt should be defined
+      Actual: function
+
+Pass: typeof function getAt() { [native code] }
+      Actual: function
+
+Pass: getMany should be defined
+      Actual: function
+
+Pass: typeof function getMany() { [native code] }
+      Actual: function
+
+Pass: getView should be defined
+      Actual: function
+
+Pass: typeof function getView() { [native code] }
+      Actual: function
+
+Pass: hasIRequiresVector should be defined
+      Actual: function
+
+Pass: typeof function hasIRequiresVector() { [native code] }
+      Actual: function
+
+Pass: indexOf should be defined
+      Actual: function
+
+Pass: typeof function indexOf() { [native code] }
+      Actual: function
+
+Pass: insertAt should be defined
+      Actual: function
+
+Pass: typeof function insertAt() { [native code] }
+      Actual: function
+
+Pass: removeAt should be defined
+      Actual: function
+
+Pass: typeof function removeAt() { [native code] }
+      Actual: function
+
+Pass: removeAtEnd should be defined
+      Actual: function
+
+Pass: typeof function removeAtEnd() { [native code] }
+      Actual: function
+
+Pass: replaceAll should be defined
+      Actual: function
+
+Pass: typeof function replaceAll() { [native code] }
+      Actual: function
+
+Pass: setAt should be defined
+      Actual: function
+
+Pass: typeof function setAt() { [native code] }
+      Actual: function
+
+Pass: size should be defined
+      Actual: number
+
+Pass: typeof 9
+      Actual: number
+
+Pass: Number of members == number of members expected
+      Actual: 23
+
+Pass: instance.hasIRequiresVector()
+      Actual: true
+
+Pass: instance.size
+      Actual: 9
+
+Pass: instance.getAt(6)
+      Actual: 7
+
+PASS [Test 8: Versioning behavior of RequiresVectorInt]
+=================================================
+
+=================================================
+Starting [Test 9: Versioning behavior of RequiresObservableVectorInt]
+Pass: DevTests.Versioning.RequiresObservableVectorInt should be defined
+      Actual: function RequiresObservableVectorInt() { [native code] }
+
+Pass: DevTests.Versioning.RequiresObservableVectorInt instance should be defined
+      Actual: 1,2,3,4,5,6,7,8,9
+
+Comment: Verifying members of 1,2,3,4,5,6,7,8,9
+Pass: 0 should be defined
+      Actual: number
+
+Pass: typeof 1
+      Actual: number
+
+Pass: 1 should be defined
+      Actual: number
+
+Pass: typeof 2
+      Actual: number
+
+Pass: 2 should be defined
+      Actual: number
+
+Pass: typeof 3
+      Actual: number
+
+Pass: 3 should be defined
+      Actual: number
+
+Pass: typeof 4
+      Actual: number
+
+Pass: 4 should be defined
+      Actual: number
+
+Pass: typeof 5
+      Actual: number
+
+Pass: 5 should be defined
+      Actual: number
+
+Pass: typeof 6
+      Actual: number
+
+Pass: 6 should be defined
+      Actual: number
+
+Pass: typeof 7
+      Actual: number
+
+Pass: 7 should be defined
+      Actual: number
+
+Pass: typeof 8
+      Actual: number
+
+Pass: 8 should be defined
+      Actual: number
+
+Pass: typeof 9
+      Actual: number
+
+Pass: addEventListener should be defined
+      Actual: function
+
+Pass: typeof function addEventListener() { [native code] }
+      Actual: function
+
+Pass: append should be defined
+      Actual: function
+
+Pass: typeof function append() { [native code] }
+      Actual: function
+
+Pass: clear should be defined
+      Actual: function
+
+Pass: typeof function clear() { [native code] }
+      Actual: function
+
+Pass: first should be defined
+      Actual: function
+
+Pass: typeof function first() { [native code] }
+      Actual: function
+
+Pass: getAt should be defined
+      Actual: function
+
+Pass: typeof function getAt() { [native code] }
+      Actual: function
+
+Pass: getMany should be defined
+      Actual: function
+
+Pass: typeof function getMany() { [native code] }
+      Actual: function
+
+Pass: getView should be defined
+      Actual: function
+
+Pass: typeof function getView() { [native code] }
+      Actual: function
+
+Pass: hasIRequiresObservableVector should be defined
+      Actual: function
+
+Pass: typeof function hasIRequiresObservableVector() { [native code] }
+      Actual: function
+
+Pass: indexOf should be defined
+      Actual: function
+
+Pass: typeof function indexOf() { [native code] }
+      Actual: function
+
+Pass: insertAt should be defined
+      Actual: function
+
+Pass: typeof function insertAt() { [native code] }
+      Actual: function
+
+Pass: onvectorchanged should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: removeAt should be defined
+      Actual: function
+
+Pass: typeof function removeAt() { [native code] }
+      Actual: function
+
+Pass: removeAtEnd should be defined
+      Actual: function
+
+Pass: typeof function removeAtEnd() { [native code] }
+      Actual: function
+
+Pass: removeEventListener should be defined
+      Actual: function
+
+Pass: typeof function removeEventListener() { [native code] }
+      Actual: function
+
+Pass: replaceAll should be defined
+      Actual: function
+
+Pass: typeof function replaceAll() { [native code] }
+      Actual: function
+
+Pass: setAt should be defined
+      Actual: function
+
+Pass: typeof function setAt() { [native code] }
+      Actual: function
+
+Pass: size should be defined
+      Actual: number
+
+Pass: typeof 9
+      Actual: number
+
+Pass: Number of members == number of members expected
+      Actual: 26
+
+Pass: instance.hasIRequiresObservableVector()
+      Actual: true
+
+Pass: instance.size
+      Actual: 9
+
+Pass: instance.getAt(6)
+      Actual: 7
+
+Pass: Can access IObservableVector members
+      Actual: undefined
+
+PASS [Test 9: Versioning behavior of RequiresObservableVectorInt]
+=================================================
+
+=================================================
+Starting [Test 10: Versioning behavior of VersionedVectorInt]
+Pass: DevTests.Versioning.VersionedVectorInt should be defined
+      Actual: function VersionedVectorInt() { [native code] }
+
+Pass: DevTests.Versioning.VersionedVectorInt instance should be defined
+      Actual: [object DevTests.Versioning.VersionedVectorInt]
+
+Comment: Verifying members of [object DevTests.Versioning.VersionedVectorInt]
+Pass: hasDefault should be defined
+      Actual: function
+
+Pass: typeof function hasDefault() { [native code] }
+      Actual: function
+
+Pass: Number of members == number of members expected
+      Actual: 1
+
+Pass: instance.hasDefault()
+      Actual: true
+
+PASS [Test 10: Versioning behavior of VersionedVectorInt]
+=================================================
+
+=================================================
+Starting [Test 11: Versioning behavior of VersionedObservableVectorInt]
+Pass: DevTests.Versioning.VersionedObservableVectorInt should be defined
+      Actual: function VersionedObservableVectorInt() { [native code] }
+
+Pass: DevTests.Versioning.VersionedObservableVectorInt instance should be defined
+      Actual: 1,2,3,4,5,6,7,8,9
+
+Comment: Verifying members of 1,2,3,4,5,6,7,8,9
+Pass: 0 should be defined
+      Actual: number
+
+Pass: typeof 1
+      Actual: number
+
+Pass: 1 should be defined
+      Actual: number
+
+Pass: typeof 2
+      Actual: number
+
+Pass: 2 should be defined
+      Actual: number
+
+Pass: typeof 3
+      Actual: number
+
+Pass: 3 should be defined
+      Actual: number
+
+Pass: typeof 4
+      Actual: number
+
+Pass: 4 should be defined
+      Actual: number
+
+Pass: typeof 5
+      Actual: number
+
+Pass: 5 should be defined
+      Actual: number
+
+Pass: typeof 6
+      Actual: number
+
+Pass: 6 should be defined
+      Actual: number
+
+Pass: typeof 7
+      Actual: number
+
+Pass: 7 should be defined
+      Actual: number
+
+Pass: typeof 8
+      Actual: number
+
+Pass: 8 should be defined
+      Actual: number
+
+Pass: typeof 9
+      Actual: number
+
+Pass: addEventListener should be defined
+      Actual: function
+
+Pass: typeof function addEventListener() { [native code] }
+      Actual: function
+
+Pass: append should be defined
+      Actual: function
+
+Pass: typeof function append() { [native code] }
+      Actual: function
+
+Pass: clear should be defined
+      Actual: function
+
+Pass: typeof function clear() { [native code] }
+      Actual: function
+
+Pass: first should be defined
+      Actual: function
+
+Pass: typeof function first() { [native code] }
+      Actual: function
+
+Pass: getAt should be defined
+      Actual: function
+
+Pass: typeof function getAt() { [native code] }
+      Actual: function
+
+Pass: getMany should be defined
+      Actual: function
+
+Pass: typeof function getMany() { [native code] }
+      Actual: function
+
+Pass: getView should be defined
+      Actual: function
+
+Pass: typeof function getView() { [native code] }
+      Actual: function
+
+Pass: hasDefault should be defined
+      Actual: function
+
+Pass: typeof function hasDefault() { [native code] }
+      Actual: function
+
+Pass: indexOf should be defined
+      Actual: function
+
+Pass: typeof function indexOf() { [native code] }
+      Actual: function
+
+Pass: insertAt should be defined
+      Actual: function
+
+Pass: typeof function insertAt() { [native code] }
+      Actual: function
+
+Pass: onvectorchanged should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: removeAt should be defined
+      Actual: function
+
+Pass: typeof function removeAt() { [native code] }
+      Actual: function
+
+Pass: removeAtEnd should be defined
+      Actual: function
+
+Pass: typeof function removeAtEnd() { [native code] }
+      Actual: function
+
+Pass: removeEventListener should be defined
+      Actual: function
+
+Pass: typeof function removeEventListener() { [native code] }
+      Actual: function
+
+Pass: replaceAll should be defined
+      Actual: function
+
+Pass: typeof function replaceAll() { [native code] }
+      Actual: function
+
+Pass: setAt should be defined
+      Actual: function
+
+Pass: typeof function setAt() { [native code] }
+      Actual: function
+
+Pass: size should be defined
+      Actual: number
+
+Pass: typeof 9
+      Actual: number
+
+Pass: Number of members == number of members expected
+      Actual: 26
+
+Pass: instance.hasDefault()
+      Actual: true
+
+Pass: instance.size
+      Actual: 9
+
+Pass: instance.getAt(6)
+      Actual: 7
+
+Pass: Can access IObservableVector members
+      Actual: undefined
+
+PASS [Test 11: Versioning behavior of VersionedObservableVectorInt]
+=================================================
+
+=================================================
+Starting [Test 12: Versioning behavior of VectorVersionedT]
+Pass: DevTests.Versioning.VectorVersionedT should be defined
+      Actual: function VectorVersionedT() { [native code] }
+
+Pass: DevTests.Versioning.VectorVersionedT instance should be defined
+      Actual: [object DevTests.Versioning.VectorVersionedT]
+
+Comment: Verifying members of [object DevTests.Versioning.VectorVersionedT]
+Pass: hasDefault should be defined
+      Actual: function
+
+Pass: typeof function hasDefault() { [native code] }
+      Actual: function
+
+Pass: Number of members == number of members expected
+      Actual: 1
+
+Pass: instance.hasDefault()
+      Actual: true
+
+PASS [Test 12: Versioning behavior of VectorVersionedT]
+=================================================
+
+=================================================
+Starting [Test 13: Versioning behavior of ObservableVectorVersionedT]
+Pass: DevTests.Versioning.ObservableVectorVersionedT should be defined
+      Actual: function ObservableVectorVersionedT() { [native code] }
+
+Pass: DevTests.Versioning.ObservableVectorVersionedT instance should be defined
+      Actual: [object DevTests.Versioning.ObservableVectorVersionedT]
+
+Comment: Verifying members of [object DevTests.Versioning.ObservableVectorVersionedT]
+Pass: hasDefault should be defined
+      Actual: function
+
+Pass: typeof function hasDefault() { [native code] }
+      Actual: function
+
+Pass: Number of members == number of members expected
+      Actual: 1
+
+Pass: instance.hasDefault()
+      Actual: true
+
+PASS [Test 13: Versioning behavior of ObservableVectorVersionedT]
+=================================================
+
+Passed: 14
+Failed: 0

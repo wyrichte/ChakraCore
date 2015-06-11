@@ -1,0 +1,25 @@
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<html>
+<head>
+<script src="./LongCallStackThrow.js"></script><script src="TrimStackTracePath.js"></script>
+<script>
+window.onerror = function(msg, url, line)
+{
+    var output = "[window.onerror] msg: " + msg;
+    output += "\n\n";
+    output += TrimStackTracePath(errorObject.stack);
+    Dump(output);
+}
+function function2()
+{
+    runtest(20, false); // this should produce all the frames
+}
+function function1()
+{
+    function2();
+}
+function1();
+</script>
+</head>
+</body>
+</html>

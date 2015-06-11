@@ -1,0 +1,73 @@
+<html>
+<body>
+<script>
+try
+{
+remoteExcel = new ActiveXObject("foo", "yongqut");
+}
+catch(e)
+{
+alert(e);
+}
+
+
+alert("create remote activexobject");
+var remoteExcel;
+try
+{
+remoteExcel = new ActiveXObject("Excel.Application", "yongqut");
+}
+catch(e)
+{
+alert(e);
+}
+
+alert(remoteExcel);
+
+localExcel = newActiveXObject("Excel.Application");
+
+try
+{
+xlApp = GetObject("", "nothing");
+}
+catch(e)
+{
+alert(e);
+}
+
+alert("local get object");
+try
+{
+xlApp = GetObject("", "Excel.Application");
+alert(xlApp);
+}
+catch(e)
+{
+alert(e);
+}
+
+try
+{
+    alert('getobject');
+    x=eval('GetObject("c:/temp/test.txt","htmlfile")');
+    setTimeout("alert(x.body.outerHTML);",2000);
+}
+catch(e)
+{
+alert(e);
+}
+
+
+try
+{
+    alert("get object without second");
+    var y=eval('GetObject("c:/temp/test.txt","")');
+    setTimeout("alert(y.body.outerHTML);",6000);
+}
+catch(e)
+{
+alert(e);
+}
+</script>
+</body>
+</html>

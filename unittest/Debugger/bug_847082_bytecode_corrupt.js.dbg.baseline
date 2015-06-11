@@ -1,0 +1,50 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1406,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "execScript"
+      },
+      {
+        "start": 1527,
+        "length": 23,
+        "text": "diag.testDebugEval(glo)",
+        "frameDescription": "Anonymous function"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1447,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "execScript"
+      },
+      {
+        "start": 1527,
+        "length": 23,
+        "text": "diag.testDebugEval(glo)",
+        "frameDescription": "Anonymous function"
+      }
+    ]
+  }
+]

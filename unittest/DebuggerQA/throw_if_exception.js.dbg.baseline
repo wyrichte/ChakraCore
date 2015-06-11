@@ -1,0 +1,24 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 156,
+        "length": 22,
+        "text": "throw \"some exception\"",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 364,
+        "length": 10,
+        "text": "foo (true)",
+        "frameDescription": "foo3"
+      },
+      {
+        "start": 382,
+        "length": 6,
+        "text": "foo3()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

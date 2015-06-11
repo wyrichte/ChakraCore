@@ -1,0 +1,1477 @@
+Delegates tests
+
+=================================================
+Starting [Test 1: OutParamInDelegate_HSTRING]
+Comment: ***HSTRING as out parameter Delegate called
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Pass: undefined
+      Actual: Wolverine
+
+PASS [Test 1: OutParamInDelegate_HSTRING]
+=================================================
+
+=================================================
+Starting [Test 2: OutParamInDelegate_int]
+Comment: ***int as out parameter Delegate called
+Pass: animal.weight
+      Actual: 50
+
+Pass: myAnimalWeight
+      Actual: 50
+
+PASS [Test 2: OutParamInDelegate_int]
+=================================================
+
+=================================================
+Starting [Test 3: OutParamInDelegate_Interface]
+Comment: ***Interface as out parameter Delegate called
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+PASS [Test 3: OutParamInDelegate_Interface]
+=================================================
+
+=================================================
+Starting [Test 4: OutParamInDelegate_Struct]
+Comment: *** Struct as out parameter Delegate called
+Pass: name
+      Actual: length
+
+Pass: length
+      Actual: 180
+
+Pass: name
+      Actual: width
+
+Pass: width
+      Actual: 360
+
+Pass: number of members
+      Actual: 2
+
+Pass: name
+      Actual: length
+
+Pass: length
+      Actual: 180
+
+Pass: name
+      Actual: width
+
+Pass: width
+      Actual: 360
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 4: OutParamInDelegate_Struct]
+=================================================
+
+=================================================
+Starting [Test 5: OutParamInDelegate_InOutMixed]
+Comment: *** In out mixed params Delegate called
+Comment: Setting animal.Weight to 40
+Pass: animal.weight
+      Actual: 50
+
+Pass: animal.weight
+      Actual: 40
+
+Pass: name
+      Actual: length
+
+Pass: length
+      Actual: 180
+
+Pass: name
+      Actual: width
+
+Pass: width
+      Actual: 360
+
+Pass: number of members
+      Actual: 2
+
+Pass: name
+      Actual: length
+
+Pass: length
+      Actual: 180
+
+Pass: name
+      Actual: width
+
+Pass: width
+      Actual: 360
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 5: OutParamInDelegate_InOutMixed]
+=================================================
+
+=================================================
+Starting [Test 6: OutParamInDelegate_MultipleOutParams]
+Comment: *** Multiple out params Delegate called
+Pass: animal.weight
+      Actual: 40
+
+Pass: animal.weight
+      Actual: 60
+
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Pass: actual.newWeight
+      Actual: 60
+
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Pass: actual.newWeight
+      Actual: 60
+
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+PASS [Test 6: OutParamInDelegate_MultipleOutParams]
+=================================================
+
+=================================================
+Starting [Test 7: MarshalParamAsDelegate_Null]
+Pass: myMessage
+      Actual: Success
+
+PASS [Test 7: MarshalParamAsDelegate_Null]
+=================================================
+
+=================================================
+Starting [Test 8: DelegateAsOutParam_JSCallback]
+Comment: *** JSCallback as out delegate param called
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Comment: *** JSCallback as out delegate param called
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Pass: myDelegateStringOut
+      Actual: Wolverine
+
+PASS [Test 8: DelegateAsOutParam_JSCallback]
+=================================================
+
+=================================================
+Starting [Test 9: DelegateAsOutParam_Null]
+Pass: outDelegate
+      Actual: null
+
+PASS [Test 9: DelegateAsOutParam_Null]
+=================================================
+
+=================================================
+Starting [Test 10: DelegateAsInParam_undefined]
+Pass: outDelegate
+      Actual: null
+
+PASS [Test 10: DelegateAsInParam_undefined]
+=================================================
+
+=================================================
+Starting [Test 11: DelegateAsInParam_undefinedVarIn]
+Pass: outDelegate
+      Actual: null
+
+PASS [Test 11: DelegateAsInParam_undefinedVarIn]
+=================================================
+
+=================================================
+Starting [Test 12: NativeDelegateAsOutParam]
+Pass: typeof myNativeDelegate
+      Actual: function
+
+Pass: myNativeDelegate
+      Actual: 
+function DelegateWithOutParam_HSTRING() {
+    [native code]
+}
+
+
+Pass: myNativeDelegate.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myNativeDelegate.length
+      Actual: 1
+
+Pass: myNativeDelegate.myExpando
+      Actual: undefined
+
+PASS [Test 12: NativeDelegateAsOutParam]
+=================================================
+
+=================================================
+Starting [Test 13: InvokeNativeDelegate]
+Pass: myNativeDelegate
+      Actual: 
+function DelegateWithOutParam_HSTRING() {
+    [native code]
+}
+
+
+Pass: undefined
+      Actual: Wolverine
+
+PASS [Test 13: InvokeNativeDelegate]
+=================================================
+
+=================================================
+Starting [Test 14: NativeDelegateAsInParam]
+Pass: myNativeDelegate
+      Actual: 
+function DelegateWithOutParam_HSTRING() {
+    [native code]
+}
+
+
+Pass: myNewCallback
+      Actual: 
+function DelegateWithOutParam_HSTRING() {
+    [native code]
+}
+
+
+Pass: myNewCallback(myAnimal)
+      Actual: Wolverine
+
+PASS [Test 14: NativeDelegateAsInParam]
+=================================================
+
+=================================================
+Starting [Test 15: NativeDelegateAsInParam]
+Pass: myNativeDelegate
+      Actual: 
+function DelegateWithOutParam_HSTRING() {
+    [native code]
+}
+
+
+Pass: e.Description
+      Actual: Type mismatch
+
+Pass: Expected exception was caught
+      Actual: true
+
+PASS [Test 15: NativeDelegateAsInParam]
+=================================================
+
+=================================================
+Starting [Test 16: ParameterisedDelegate]
+Comment: var myObservableVector = myAnimal.getObservableVector();
+Pass: myObservableVector.length
+      Actual: 9
+
+Pass: myObservableVector[0]
+      Actual: 1
+
+Pass: myObservableVector[1]
+      Actual: 2
+
+Pass: myObservableVector[2]
+      Actual: 3
+
+Pass: myObservableVector[3]
+      Actual: 4
+
+Pass: myObservableVector[4]
+      Actual: 5
+
+Pass: myObservableVector[5]
+      Actual: 6
+
+Pass: myObservableVector[6]
+      Actual: 7
+
+Pass: myObservableVector[7]
+      Actual: 8
+
+Pass: myObservableVector[8]
+      Actual: 9
+
+Comment: myObservableVector.addEventListener('vectorchanged', vectorChanged);
+Comment: myObservableVector[5] = 88;
+Comment: *** ParameterizedDelegate invoke: vectorChanged
+Comment:     newObservableVector: 1,2,3,4,5,88,7,8,9
+Comment:     vectorChangedArgs.index: 5
+Comment:     vectorChangedArgs.collectionChange: 3
+Comment: Verifying results that were received in delegate
+Pass: vectorChanged.myObservableVector.length
+      Actual: 9
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 1
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 2
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[3]
+      Actual: 4
+
+Pass: vectorChanged.myObservableVector[4]
+      Actual: 5
+
+Pass: vectorChanged.myObservableVector[5]
+      Actual: 88
+
+Pass: vectorChanged.myObservableVector[6]
+      Actual: 7
+
+Pass: vectorChanged.myObservableVector[7]
+      Actual: 8
+
+Pass: vectorChanged.myObservableVector[8]
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 5
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 3
+
+Comment: myObservableVector.insertAt(5, 1800);
+Comment: *** ParameterizedDelegate invoke: vectorChanged
+Comment:     newObservableVector: 1,2,3,4,5,1800,88,7,8,9
+Comment:     vectorChangedArgs.index: 5
+Comment:     vectorChangedArgs.collectionChange: 1
+Comment: Verifying results that were received in delegate
+Pass: vectorChanged.myObservableVector.length
+      Actual: 10
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 1
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 2
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[3]
+      Actual: 4
+
+Pass: vectorChanged.myObservableVector[4]
+      Actual: 5
+
+Pass: vectorChanged.myObservableVector[5]
+      Actual: 1800
+
+Pass: vectorChanged.myObservableVector[6]
+      Actual: 88
+
+Pass: vectorChanged.myObservableVector[7]
+      Actual: 7
+
+Pass: vectorChanged.myObservableVector[8]
+      Actual: 8
+
+Pass: vectorChanged.myObservableVector[9]
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 5
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 1
+
+Comment: myObservableVector.removeAt(5)
+Comment: *** ParameterizedDelegate invoke: vectorChanged
+Comment:     newObservableVector: 1,2,3,4,5,88,7,8,9
+Comment:     vectorChangedArgs.index: 5
+Comment:     vectorChangedArgs.collectionChange: 2
+Comment: Verifying results that were received in delegate
+Pass: vectorChanged.myObservableVector.length
+      Actual: 9
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 1
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 2
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[3]
+      Actual: 4
+
+Pass: vectorChanged.myObservableVector[4]
+      Actual: 5
+
+Pass: vectorChanged.myObservableVector[5]
+      Actual: 88
+
+Pass: vectorChanged.myObservableVector[6]
+      Actual: 7
+
+Pass: vectorChanged.myObservableVector[7]
+      Actual: 8
+
+Pass: vectorChanged.myObservableVector[8]
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 5
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 2
+
+Comment: myObservableVector.append(1800);
+Comment: *** ParameterizedDelegate invoke: vectorChanged
+Comment:     newObservableVector: 1,2,3,4,5,88,7,8,9,1800
+Comment:     vectorChangedArgs.index: 9
+Comment:     vectorChangedArgs.collectionChange: 1
+Comment: Verifying results that were received in delegate
+Pass: vectorChanged.myObservableVector.length
+      Actual: 10
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 1
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 2
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[3]
+      Actual: 4
+
+Pass: vectorChanged.myObservableVector[4]
+      Actual: 5
+
+Pass: vectorChanged.myObservableVector[5]
+      Actual: 88
+
+Pass: vectorChanged.myObservableVector[6]
+      Actual: 7
+
+Pass: vectorChanged.myObservableVector[7]
+      Actual: 8
+
+Pass: vectorChanged.myObservableVector[8]
+      Actual: 9
+
+Pass: vectorChanged.myObservableVector[9]
+      Actual: 1800
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 1
+
+Comment: myObservableVector.removeAtEnd()
+Comment: *** ParameterizedDelegate invoke: vectorChanged
+Comment:     newObservableVector: 1,2,3,4,5,88,7,8,9
+Comment:     vectorChangedArgs.index: 9
+Comment:     vectorChangedArgs.collectionChange: 2
+Comment: Verifying results that were received in delegate
+Pass: vectorChanged.myObservableVector.length
+      Actual: 9
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 1
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 2
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[3]
+      Actual: 4
+
+Pass: vectorChanged.myObservableVector[4]
+      Actual: 5
+
+Pass: vectorChanged.myObservableVector[5]
+      Actual: 88
+
+Pass: vectorChanged.myObservableVector[6]
+      Actual: 7
+
+Pass: vectorChanged.myObservableVector[7]
+      Actual: 8
+
+Pass: vectorChanged.myObservableVector[8]
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 2
+
+Comment: myObservableVector.clear()
+Comment: *** ParameterizedDelegate invoke: vectorChanged
+Comment:     newObservableVector: 
+Comment:     vectorChangedArgs.index: 0
+Comment:     vectorChangedArgs.collectionChange: 0
+Comment: Verifying results that were received in delegate
+Pass: vectorChanged.myObservableVector.length
+      Actual: 0
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 0
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 0
+
+Comment: myObservableVector.replaceAll([50, 100, 150])
+Comment: *** ParameterizedDelegate invoke: vectorChanged
+Comment:     newObservableVector: 50,100,150
+Comment:     vectorChangedArgs.index: 0
+Comment:     vectorChangedArgs.collectionChange: 0
+Comment: Verifying results that were received in delegate
+Pass: vectorChanged.myObservableVector.length
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 50
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 100
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 150
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 0
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 0
+
+Pass: myObservableVector.length
+      Actual: 3
+
+Pass: myObservableVector[0]
+      Actual: 50
+
+Pass: myObservableVector[1]
+      Actual: 100
+
+Pass: myObservableVector[2]
+      Actual: 150
+
+PASS [Test 16: ParameterisedDelegate]
+=================================================
+
+=================================================
+Starting [Test 18: Delegate returning object]
+Comment: Start
+Comment: Call
+Comment: In delegate
+Comment: Done
+PASS [Test 18: Delegate returning object]
+=================================================
+
+=================================================
+Starting [Test 19: Delegate outputing big struct]
+Comment: *** delegateWithBigStruct_Out: Invoke
+Comment: *** delegateWithBigStruct_Out: Exit
+Pass: delegateInvokeCount
+      Actual: 1
+
+Pass: result.eTypeFromStruct
+      Actual: 2
+
+Pass: result.indexFromStruct
+      Actual: 38
+
+Pass: result.previousIndexFromStruct
+      Actual: 49
+
+Pass: result.objectIdFromStruct
+      Actual: delegateWithOutParamTestCase
+
+PASS [Test 19: Delegate outputing big struct]
+=================================================
+
+=================================================
+Starting [Test 20: Delegate taking in a big struct]
+Comment: *** delegateWithBigStruct_In: Invoke
+Pass: objectId === myObjectId
+      Actual: true
+
+Pass: eType === myEventArgsType
+      Actual: true
+
+Pass: index === myIndex
+      Actual: true
+
+Pass: previousIndex == myPreviousIndex
+      Actual: true
+
+Pass: eventArgs.eType
+      Actual: 2
+
+Pass: eventArgs.index
+      Actual: 38
+
+Pass: eventArgs.previousIndex
+      Actual: 49
+
+Pass: eventArgs.objectId
+      Actual: DelegateWithInParamTestCase
+
+Comment: *** delegateWithBigStruct_In: Exit
+Pass: delegateInvokeCount
+      Actual: 1
+
+PASS [Test 20: Delegate taking in a big struct]
+=================================================
+
+=================================================
+Starting [Test 21: Delegate with in and out Packed Byte]
+Comment: *** delegatePackedByte: Invoke
+Pass: delegateInValue.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: delegateInValue.field0
+      Actual: 80
+
+Pass: delegateInValue.field0 == inValue.field0
+      Actual: true
+
+Comment: *** delegatePackedByte: Exit
+Pass: delegateInvokeCount
+      Actual: 1
+
+Pass: outValue.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: outValue.field0
+      Actual: 80
+
+Pass: outValue.field0 == inValue.field0
+      Actual: true
+
+PASS [Test 21: Delegate with in and out Packed Byte]
+=================================================
+
+=================================================
+Starting [Test 22: Delegate with  in and out Packed Booleans]
+Comment: *** delegatePackedBoolean: Invoke
+Pass: delegateInValue.toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: delegateInValue.field0
+      Actual: false
+
+Pass: delegateInValue.field1
+      Actual: true
+
+Pass: delegateInValue.field2
+      Actual: false
+
+Pass: delegateInValue.field3
+      Actual: false
+
+Pass: delegateInValue.field0 === inValue.field0
+      Actual: true
+
+Pass: delegateInValue.field1 === inValue.field1
+      Actual: true
+
+Pass: delegateInValue.field2 === inValue.field2
+      Actual: true
+
+Pass: delegateInValue.field3 === inValue.field3
+      Actual: true
+
+Comment: *** delegatePackedBoolean: Exit
+Pass: delegateInvokeCount
+      Actual: 1
+
+Pass: outValue.toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: outValue.field0
+      Actual: false
+
+Pass: outValue.field1
+      Actual: true
+
+Pass: outValue.field2
+      Actual: false
+
+Pass: outValue.field3
+      Actual: false
+
+Pass: outValue.field0 === inValue.field0
+      Actual: true
+
+Pass: outValue.field1 === inValue.field1
+      Actual: true
+
+Pass: outValue.field2 === inValue.field2
+      Actual: true
+
+Pass: outValue.field3 === inValue.field3
+      Actual: true
+
+PASS [Test 22: Delegate with  in and out Packed Booleans]
+=================================================
+
+=================================================
+Starting [Test 23: Delegate with in and out odd sized struct]
+Comment: *** delegateOddSizedStruct: Invoke
+Pass: delegateInValue.toString()
+      Actual: [object Animals.OddSizedStruct]
+
+Pass: delegateInValue.field0
+      Actual: 50
+
+Pass: delegateInValue.field1
+      Actual: 100
+
+Pass: delegateInValue.field2
+      Actual: 150
+
+Pass: delegateInValue.field0 === inValue.field0
+      Actual: true
+
+Pass: delegateInValue.field1 === inValue.field1
+      Actual: true
+
+Pass: delegateInValue.field2 === inValue.field2
+      Actual: true
+
+Comment: *** delegateOddSizedStruct: Exit
+Pass: delegateInvokeCount
+      Actual: 1
+
+Pass: outValue.toString()
+      Actual: [object Animals.OddSizedStruct]
+
+Pass: outValue.field0
+      Actual: 50
+
+Pass: outValue.field1
+      Actual: 100
+
+Pass: outValue.field2
+      Actual: 150
+
+Pass: outValue.field0 === inValue.field0
+      Actual: true
+
+Pass: outValue.field1 === inValue.field1
+      Actual: true
+
+Pass: outValue.field2 === inValue.field2
+      Actual: true
+
+PASS [Test 23: Delegate with in and out odd sized struct]
+=================================================
+
+=================================================
+Starting [Test 24: Delegate with in and out small complex struct]
+Comment: *** delegateSmallComplexStruct: Invoke
+Pass: delegateInValue.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: delegateInValue.field0
+      Actual: 50
+
+Pass: delegateInValue.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: delegateInValue.field1.field0
+      Actual: 100
+
+Pass: delegateInValue.field2
+      Actual: 150
+
+Pass: delegateInValue.field0 === inValue.field0
+      Actual: true
+
+Pass: delegateInValue.field1.field0 === inValue.field1.field0
+      Actual: true
+
+Pass: delegateInValue.field2 === inValue.field2
+      Actual: true
+
+Comment: *** delegateSmallComplexStruct: Exit
+Pass: delegateInvokeCount
+      Actual: 1
+
+Pass: outValue.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: outValue.field0
+      Actual: 50
+
+Pass: outValue.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: outValue.field1.field0
+      Actual: 100
+
+Pass: outValue.field2
+      Actual: 150
+
+Pass: outValue.field0 === inValue.field0
+      Actual: true
+
+Pass: outValue.field1.field0 === inValue.field1.field0
+      Actual: true
+
+Pass: outValue.field2 === inValue.field2
+      Actual: true
+
+PASS [Test 24: Delegate with in and out small complex struct]
+=================================================
+
+=================================================
+Starting [Test 25: Delegate with in and out big complex struct]
+Comment: *** delegateBigComplexStruct: Invoke
+Pass: delegateInValue.toString()
+      Actual: [object Animals.BigComplexStruct]
+
+Pass: delegateInValue.field0
+      Actual: 5
+
+Pass: delegateInValue.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: delegateInValue.field1.field0
+      Actual: 10
+
+Pass: delegateInValue.field2
+      Actual: 15
+
+Pass: delegateInValue.field3.toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: delegateInValue.field3.field0
+      Actual: true
+
+Pass: delegateInValue.field3.field1
+      Actual: true
+
+Pass: delegateInValue.field3.field2
+      Actual: false
+
+Pass: delegateInValue.field3.field3
+      Actual: false
+
+Pass: delegateInValue.field3.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: delegateInValue.field4.field0
+      Actual: 20
+
+Pass: delegateInValue.field4.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: delegateInValue.field4.field1.field0
+      Actual: 25
+
+Pass: delegateInValue.field4.field2
+      Actual: 30
+
+Pass: delegateInValue.field5.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: delegateInValue.field5.field0
+      Actual: 35
+
+Pass: delegateInValue.field5.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: delegateInValue.field5.field1.field0
+      Actual: 40
+
+Pass: delegateInValue.field5.field2
+      Actual: 45
+
+Pass: delegateInValue.field6
+      Actual: 50
+
+Pass: delegateInValue.field7
+      Actual: 55
+
+Pass: delegateInValue.field0 === inValue.field0
+      Actual: true
+
+Pass: delegateInValue.field1.field0 === inValue.field1.field0
+      Actual: true
+
+Pass: delegateInValue.field2 === inValue.field2
+      Actual: true
+
+Pass: delegateInValue.field3.field0 === inValue.field3.field0
+      Actual: true
+
+Pass: delegateInValue.field3.field1 === inValue.field3.field1
+      Actual: true
+
+Pass: delegateInValue.field3.field2 === inValue.field3.field2
+      Actual: true
+
+Pass: delegateInValue.field3.field3 === inValue.field3.field3
+      Actual: true
+
+Pass: delegateInValue.field4.field0 === inValue.field4.field0
+      Actual: true
+
+Pass: delegateInValue.field4.field1.field0 === inValue.field4.field1.field0
+      Actual: true
+
+Pass: delegateInValue.field4.field2 === inValue.field4.field2
+      Actual: true
+
+Pass: delegateInValue.field5.field0 === inValue.field5.field0
+      Actual: true
+
+Pass: delegateInValue.field5.field1.field0 === inValue.field5.field1.field0
+      Actual: true
+
+Pass: delegateInValue.field5.field2 === inValue.field5.field2
+      Actual: true
+
+Pass: delegateInValue.field6 === inValue.field6
+      Actual: true
+
+Pass: delegateInValue.field7 === inValue.field7
+      Actual: true
+
+Comment: *** delegateBigComplexStruct: Exit
+Pass: delegateInvokeCount
+      Actual: 1
+
+Pass: outValue.toString()
+      Actual: [object Animals.BigComplexStruct]
+
+Pass: outValue.field0
+      Actual: 5
+
+Pass: outValue.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: outValue.field1.field0
+      Actual: 10
+
+Pass: outValue.field2
+      Actual: 15
+
+Pass: outValue.field3.toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: outValue.field3.field0
+      Actual: true
+
+Pass: outValue.field3.field1
+      Actual: true
+
+Pass: outValue.field3.field2
+      Actual: false
+
+Pass: outValue.field3.field3
+      Actual: false
+
+Pass: outValue.field3.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: outValue.field4.field0
+      Actual: 20
+
+Pass: outValue.field4.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: outValue.field4.field1.field0
+      Actual: 25
+
+Pass: outValue.field4.field2
+      Actual: 30
+
+Pass: outValue.field5.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: outValue.field5.field0
+      Actual: 35
+
+Pass: outValue.field5.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: outValue.field5.field1.field0
+      Actual: 40
+
+Pass: outValue.field5.field2
+      Actual: 45
+
+Pass: outValue.field6
+      Actual: 50
+
+Pass: outValue.field7
+      Actual: 55
+
+Pass: outValue.field0 === inValue.field0
+      Actual: true
+
+Pass: outValue.field1.field0 === inValue.field1.field0
+      Actual: true
+
+Pass: outValue.field2 === inValue.field2
+      Actual: true
+
+Pass: outValue.field3.field0 === inValue.field3.field0
+      Actual: true
+
+Pass: outValue.field3.field1 === inValue.field3.field1
+      Actual: true
+
+Pass: outValue.field3.field2 === inValue.field3.field2
+      Actual: true
+
+Pass: outValue.field3.field3 === inValue.field3.field3
+      Actual: true
+
+Pass: outValue.field4.field0 === inValue.field4.field0
+      Actual: true
+
+Pass: outValue.field4.field1.field0 === inValue.field4.field1.field0
+      Actual: true
+
+Pass: outValue.field4.field2 === inValue.field4.field2
+      Actual: true
+
+Pass: outValue.field5.field0 === inValue.field5.field0
+      Actual: true
+
+Pass: outValue.field5.field1.field0 === inValue.field5.field1.field0
+      Actual: true
+
+Pass: outValue.field5.field2 === inValue.field5.field2
+      Actual: true
+
+Pass: outValue.field6 === inValue.field6
+      Actual: true
+
+Pass: outValue.field7 === inValue.field7
+      Actual: true
+
+PASS [Test 25: Delegate with in and out big complex struct]
+=================================================
+
+=================================================
+Starting [Test 26: Delegate with float as inParam]
+Comment: *** delegateInParamFloat: Invoke
+Pass: inValue
+      Actual: -107374176
+
+Comment: *** delegateInParamFloat: Exit
+Pass: Delegate invoke count
+      Actual: 1
+
+PASS [Test 26: Delegate with float as inParam]
+=================================================
+
+=================================================
+Starting [Test 27: Delegate with float as outParam]
+Comment: *** delegateOutParamFloat: Invoke
+Comment: *** delegateOutParamFloat: Exit
+Pass: Delegate invoke count
+      Actual: 1
+
+Pass: outValue
+      Actual: -107374176
+
+PASS [Test 27: Delegate with float as outParam]
+=================================================
+
+=================================================
+Starting [Test 28: Delegate with float as in out parameter mixed with other ints]
+Comment: *** delegateInOutParamFloat: Invoke
+Pass: inValue1
+      Actual: 20
+
+Pass: inValue2
+      Actual: -40
+
+Pass: inValue3
+      Actual: 60
+
+Pass: inValue4
+      Actual: 70
+
+Pass: inValue5
+      Actual: -107374168
+
+Comment: *** delegateInOutParamFloat: Exit
+Pass: Delegate invoke count
+      Actual: 1
+
+Pass: result.outValue1
+      Actual: -107374176
+
+Pass: result.outValue2
+      Actual: 107374160
+
+PASS [Test 28: Delegate with float as in out parameter mixed with other ints]
+=================================================
+
+=================================================
+Starting [Test 29: Delegate stack overflow]
+Comment: *** Valid Delegate : Invoke
+Pass: Received Float Val
+      Actual: 10
+
+Comment: *** Valid Delegate : Exit
+Pass: ValidDelegate was called
+      Actual: 1
+
+Comment: *** validRecursiveDelegate 1 : Invoke
+Pass: Received Float Val
+      Actual: 10
+
+Comment: *** validRecursiveDelegate 2 : Invoke
+Pass: Received Float Val
+      Actual: 10
+
+Comment: *** validRecursiveDelegate 3 : Invoke
+Pass: Received Float Val
+      Actual: 10
+
+Comment: *** validRecursiveDelegate 4 : Invoke
+Pass: Received Float Val
+      Actual: 10
+
+Comment: *** Valid Delegate : Invoke
+Pass: Received Float Val
+      Actual: 10
+
+Comment: *** Valid Delegate : Exit
+Comment: *** validRecursiveDelegate 5 : Exit
+Comment: *** Valid Delegate : Invoke
+Pass: Received Float Val
+      Actual: 10
+
+Comment: *** Valid Delegate : Exit
+Comment: *** validRecursiveDelegate 6 : Exit
+Comment: *** Valid Delegate : Invoke
+Pass: Received Float Val
+      Actual: 10
+
+Comment: *** Valid Delegate : Exit
+Comment: *** validRecursiveDelegate 7 : Exit
+Comment: *** Valid Delegate : Invoke
+Pass: Received Float Val
+      Actual: 10
+
+Comment: *** Valid Delegate : Exit
+Comment: *** validRecursiveDelegate 8 : Exit
+Pass: ValidDelegate was called
+      Actual: 8
+
+PASS [Test 29: Delegate stack overflow]
+=================================================
+
+=================================================
+Starting [Test Win8: 874118 - 1: RCConstructorFunctionAsDelegateInParam]
+Pass: e.Description
+      Actual: Type mismatch
+
+Pass: Expected exception was caught
+      Actual: true
+
+PASS [Test Win8: 874118 - 1: RCConstructorFunctionAsDelegateInParam]
+=================================================
+
+=================================================
+Starting [Test Win8: 874118 - 2: RCInstanceMethodAsDelegateInParam]
+Pass: e.Description
+      Actual: Type mismatch
+
+Pass: Expected exception was caught
+      Actual: true
+
+PASS [Test Win8: 874118 - 2: RCInstanceMethodAsDelegateInParam]
+=================================================
+
+=================================================
+Starting [Test Win8: 874118 - 3: RCStaticMethodAsDelegateInParam]
+Pass: e.Description
+      Actual: Type mismatch
+
+Pass: Expected exception was caught
+      Actual: true
+
+PASS [Test Win8: 874118 - 3: RCStaticMethodAsDelegateInParam]
+=================================================
+
+=================================================
+Starting [Test Win8: 891483 - 1: RCOverloadMethodAsDelegateInParam]
+Pass: e.Description
+      Actual: Type mismatch
+
+Pass: Expected exception was caught
+      Actual: true
+
+PASS [Test Win8: 891483 - 1: RCOverloadMethodAsDelegateInParam]
+=================================================
+
+=================================================
+Starting [Test Win8: 891483 - 2: RCFastPathMethodAsDelegateInParam]
+Pass: e.Description
+      Actual: Type mismatch
+
+Pass: Expected exception was caught
+      Actual: true
+
+PASS [Test Win8: 891483 - 2: RCFastPathMethodAsDelegateInParam]
+=================================================
+
+=================================================
+Starting [Test Win8: 891483 - 3: RCStaticFastPathMethodAsDelegateInParam]
+Pass: e.Description
+      Actual: Type mismatch
+
+Pass: Expected exception was caught
+      Actual: true
+
+PASS [Test Win8: 891483 - 3: RCStaticFastPathMethodAsDelegateInParam]
+=================================================
+
+=================================================
+Starting [Test Win8: 866210: Verify undefined/null return value behavior]
+Pass: Verify correct inspectable received
+      Actual: [object DevTests.Delegates.TestClass]
+
+Pass: Verify out parameters with return object: undefined
+      Actual: undefined
+
+Pass: Verify correct inspectable received
+      Actual: [object DevTests.Delegates.TestClass]
+
+Pass: Verify out parameters with return object: null
+      Actual: undefined
+
+Pass: Verify correct inspectable received
+      Actual: [object DevTests.Delegates.TestClass]
+
+Pass: Verify out parameters with return object: abc
+      Actual: undefined
+
+Pass: Verify correct inspectable received
+      Actual: [object DevTests.Delegates.TestClass]
+
+Pass: Verify out parameters with return object: [object Object]
+      Actual: undefined
+
+Pass: Verify correct inspectable received
+      Actual: [object DevTests.Delegates.TestClass]
+
+Pass: Verify out parameters with return object: [object Object]
+      Actual: undefined
+
+PASS [Test Win8: 866210: Verify undefined/null return value behavior]
+=================================================
+
+Passed: 35
+Failed: 0

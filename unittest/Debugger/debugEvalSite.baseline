@@ -1,0 +1,16 @@
+Error: 'y' is undefined
+true
+Error: The use of a keyword for an identifier is invalid
+true
+true
+Error: 1
+Error: [object Math]
+true
+Error: [object Object]
+true
+Error: Out of stack space
+true
+true
+true
+Error: 'y' is undefined
+true

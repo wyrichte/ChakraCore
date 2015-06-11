@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D5AD0293-D5D7-4686-B678-3BCF89E9431E}"
+	ProjectSection(SolutionItems) = preProject
+		beagle.js = beagle.js
+		checkin.js = checkin.js
+		CLRAutomation.js = CLRAutomation.js
+		clrRolling.js = clrRolling.js
+		clrSelfHost.js = clrSelfHost.js
+		clrtask.js = clrtask.js
+		CLRTestAutomation.js = CLRTestAutomation.js
+		CLRTestTask.js = CLRTestTask.js
+		coreclr.js = coreclr.js
+		doRun.js = doRun.js
+		dump.js = dump.js
+		dumpjs.wsf = dumpjs.wsf
+		email.js = email.js
+		EzeAutomation.js = EzeAutomation.js
+		EzeTask.js = EzeTask.js
+		fso.js = fso.js
+		integrate.js = integrate.js
+		internetExplorer.js = internetExplorer.js
+		log.js = log.js
+		optimizeNDP.js = optimizeNDP.js
+		owner.js = owner.js
+		prefastPlugins.js = prefastPlugins.js
+		privateStress.js = privateStress.js
+		proc.js = proc.js
+		productStudio.js = productStudio.js
+		queue.js = queue.js
+		retailLab.js = retailLab.js
+		rolling.js = rolling.js
+		run.js = run.js
+		user\jenh\runjs.local.js = user\jenh\runjs.local.js
+		runJScript.js = runJScript.js
+		runRemote.js = runRemote.js
+		Script56.CHM = Script56.CHM
+		SCRIPTLIB_README.DOC = SCRIPTLIB_README.DOC
+		setupBuild.js = setupBuild.js
+		shortcuts.js = shortcuts.js
+		sl_deployment.js = sl_deployment.js
+		snapsniff.js = snapsniff.js
+		snapSubmission.js = snapSubmission.js
+		sourceDepot.js = sourceDepot.js
+		symbols.js = symbols.js
+		targetedPatching.js = targetedPatching.js
+		task.js = task.js
+		testSummary.js = testSummary.js
+		tfs.js = tfs.js
+		util.js = util.js
+		xml.js = xml.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User Scripts", "User Scripts", "{E6805DFD-946F-46CD-B1FF-8CEBBA41C785}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nathanh", "nathanh", "{0ABE1BC7-EB8D-4C09-A743-66AB3EB0915E}"
+	ProjectSection(SolutionItems) = preProject
+		user\nathanh\runjs.local.js = user\nathanh\runjs.local.js
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E6805DFD-946F-46CD-B1FF-8CEBBA41C785} = {D5AD0293-D5D7-4686-B678-3BCF89E9431E}
+		{0ABE1BC7-EB8D-4C09-A743-66AB3EB0915E} = {E6805DFD-946F-46CD-B1FF-8CEBBA41C785}
+	EndGlobalSection
+EndGlobal

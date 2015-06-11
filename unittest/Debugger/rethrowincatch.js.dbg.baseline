@@ -1,0 +1,27 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 125,
+        "length": 7,
+        "text": "throw e",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 170,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "1",
+      "arguments": "{...}",
+      "e": "1",
+      "[Globals]": ""
+    }
+  }
+]

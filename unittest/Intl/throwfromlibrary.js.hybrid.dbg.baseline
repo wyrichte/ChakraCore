@@ -1,0 +1,48 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 9935,
+        "length": 77,
+        "text": "",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2632,
+        "length": 32,
+        "text": "",
+        "frameDescription": "forEach"
+      },
+      {
+        "start": 9585,
+        "length": 676,
+        "text": "",
+        "frameDescription": "CanonicalizeLocaleList"
+      },
+      {
+        "start": 30152,
+        "length": 61,
+        "text": "",
+        "frameDescription": "InitializeNumberFormat"
+      },
+      {
+        "start": 34963,
+        "length": 70,
+        "text": "",
+        "frameDescription": "Intl.NumberFormat"
+      },
+      {
+        "start": 86,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "testFirstChanceException"
+      },
+      {
+        "start": 156,
+        "length": 26,
+        "text": "testFirstChanceException()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

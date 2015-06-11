@@ -1,0 +1,12 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "HELLO",
+      "z": "test",
+      "s": "undefined",
+      "[Globals]": ""
+    }
+  }
+]

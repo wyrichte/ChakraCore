@@ -1,0 +1,1904 @@
+Marshaling into and out of IPropertyValue
+
+=================================================
+Starting [Test 1: IPropertyValue_In: null]
+Pass: testNull_IPropertyValueIn(null).isValidType
+      Actual: true
+
+PASS [Test 1: IPropertyValue_In: null]
+=================================================
+
+=================================================
+Starting [Test 2: IPropertyValue_In: undefined]
+Pass: testNull_IPropertyValueIn(undefined).isValidType
+      Actual: true
+
+PASS [Test 2: IPropertyValue_In: undefined]
+=================================================
+
+=================================================
+Starting [Test 3: IPropertyValue_In: Boolean]
+Pass: testBoolean_IPropertyValueIn(true).isValidType
+      Actual: true
+
+Pass: testBoolean_IPropertyValueIn(true).outValue
+      Actual: true
+
+Pass: testBoolean_IPropertyValueIn(false).isValidType
+      Actual: true
+
+Pass: testBoolean_IPropertyValueIn(false).outValue
+      Actual: false
+
+Pass: testBoolean_IPropertyValueIn(new Boolean(0)).isValidType
+      Actual: true
+
+Pass: testBoolean_IPropertyValueIn(new Boolean(0)).outValue
+      Actual: false
+
+Pass: testBoolean_IPropertyValueIn(new Boolean(1)).isValidType
+      Actual: true
+
+Pass: testBoolean_IPropertyValueIn(new Boolean(1)).outValue
+      Actual: true
+
+Pass: testBoolean_IPropertyValueIn(new Boolean("")).isValidType
+      Actual: true
+
+Pass: testBoolean_IPropertyValueIn(new Boolean("")).outValue
+      Actual: false
+
+Pass: testBoolean_IPropertyValueIn(new Boolean(null)).isValidType
+      Actual: true
+
+Pass: testBoolean_IPropertyValueIn(new Boolean(null)).outValue
+      Actual: false
+
+Pass: testBoolean_IPropertyValueIn(new Boolean(NaN)).isValidType
+      Actual: true
+
+Pass: testBoolean_IPropertyValueIn(new Boolean(NaN)).outValue
+      Actual: false
+
+Pass: testBoolean_IPropertyValueIn(new Boolean("false")).isValidType
+      Actual: true
+
+Pass: testBoolean_IPropertyValueIn(new Boolean("false")).outValue
+      Actual: true
+
+PASS [Test 3: IPropertyValue_In: Boolean]
+=================================================
+
+=================================================
+Starting [Test 4: IPropertyValue_In: String]
+Pass: testString_IPropertyValueIn("String1").isValidType
+      Actual: true
+
+Pass: testString_IPropertyValueIn("String1").outValue
+      Actual: String1
+
+Pass: testString_IPropertyValueIn("").isValidType
+      Actual: true
+
+Pass: testString_IPropertyValueIn("").outValue
+      Actual: 
+
+Pass: testString_IPropertyValueIn(new String("String2")).isValidType
+      Actual: true
+
+Pass: testString_IPropertyValueIn(new String("String2")).outValue
+      Actual: String2
+
+Pass: testString_IPropertyValueIn(new String("")).isValidType
+      Actual: true
+
+Pass: testString_IPropertyValueIn(new String("")).outValue
+      Actual: 
+
+PASS [Test 4: IPropertyValue_In: String]
+=================================================
+
+=================================================
+Starting [Test 5: IPropertyValue_In: Number]
+Pass: testNumber_IPropertyValueIn(15).isValidType
+      Actual: true
+
+Pass: testNumber_IPropertyValueIn(15).outValue
+      Actual: 15
+
+Pass: testNumber_IPropertyValueIn(10.2).isValidType
+      Actual: true
+
+Pass: testNumber_IPropertyValueIn(10.2).outValue
+      Actual: 10.2
+
+Pass: testNumber_IPropertyValueIn(0).isValidType
+      Actual: true
+
+Pass: testNumber_IPropertyValueIn(0).outValue
+      Actual: 0
+
+Pass: testNumber_IPropertyValueIn(new Number(15)).isValidType
+      Actual: true
+
+Pass: testNumber_IPropertyValueIn(new Number(15)).outValue
+      Actual: 15
+
+Pass: testNumber_IPropertyValueIn(new Number(10.2)).isValidType
+      Actual: true
+
+Pass: testNumber_IPropertyValueIn(new Number(10.2)).outValue
+      Actual: 10.2
+
+Pass: testNumber_IPropertyValueIn(new Number(0)).isValidType
+      Actual: true
+
+Pass: testNumber_IPropertyValueIn(new Number(0)).outValue
+      Actual: 0
+
+PASS [Test 5: IPropertyValue_In: Number]
+=================================================
+
+=================================================
+Starting [Test 6: IPropertyValue_In: Date]
+Pass: testDate_IPropertyValueIn(winrtDate).isValidType
+      Actual: true
+
+Pass: testDate_IPropertyValueIn(winrtDate).outValue
+      Actual: Sun Dec 31 16:00:00 PST 1600
+
+Pass: testDate_IPropertyValueIn(jsDate).isValidType
+      Actual: true
+
+Pass: testDate_IPropertyValueIn(jsDate).outValue
+      Actual: Sun Jun 24 11:33:00 PDT 1979
+
+PASS [Test 6: IPropertyValue_In: Date]
+=================================================
+
+=================================================
+Starting [Test 7: IPropertyValue_In: unboxed inspectable]
+Pass: testInspectable_IPropertyValueIn(myAnimal) returned (TypeError: Type mismatch)
+      Actual: true
+
+Pass: testInspectable_IPropertyValueIn(myAnimal) returned (TypeError: Type mismatch)
+      Actual: true
+
+PASS [Test 7: IPropertyValue_In: unboxed inspectable]
+=================================================
+
+=================================================
+Starting [Test 8: IPropertyValue_In: Js Arrays]
+Pass: testArray_IPropertyValueIn([true, new Date(20, 20, 20), "This is Date Entry"]).isValidType
+      Actual: true
+
+Pass: testArray_IPropertyValueIn([true, new Date(20, 20, 20), "This is Date Entry"]).outValue.length
+      Actual: 3
+
+Pass: testArray_IPropertyValueIn([true, new Date(20, 20, 20), "This is Date Entry"]).outValue[0]
+      Actual: true
+
+Pass: testArray_IPropertyValueIn([true, new Date(20, 20, 20), "This is Date Entry"]).outValue[1]
+      Actual: Tue Sep 20 00:00:00 PDT 1921
+
+Pass: testArray_IPropertyValueIn([true, new Date(20, 20, 20), "This is Date Entry"]).outValue[2]
+      Actual: This is Date Entry
+
+PASS [Test 8: IPropertyValue_In: Js Arrays]
+=================================================
+
+=================================================
+Starting [Test 9: IPropertyValue_In: ES5 Arrays]
+Pass: testArray_IPropertyValueIn(myES5Array).isValidType
+      Actual: true
+
+Pass: testArray_IPropertyValueIn(myES5Array).outValue.length
+      Actual: 3
+
+Pass: testArray_IPropertyValueIn(myES5Array).outValue[0]
+      Actual: false
+
+Pass: testArray_IPropertyValueIn(myES5Array).outValue[1]
+      Actual: 30.5
+
+Pass: testArray_IPropertyValueIn(myES5Array).outValue[2]
+      Actual: This is number Entry
+
+PASS [Test 9: IPropertyValue_In: ES5 Arrays]
+=================================================
+
+=================================================
+Starting [Test 10: IPropertyValue_In: GUID Arrays from winrt]
+Pass: testGuidArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testGuidArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 3
+
+Pass: testGuidArray_IPropertyValueIn(myArray).outValue[0]
+      Actual: 3463f772-274f-449d-8b25-822742c2b3ff
+
+Pass: testGuidArray_IPropertyValueIn(myArray).outValue[1]
+      Actual: 3b3b41bc-96e3-43fe-8ec1-7e3dde4f776c
+
+Pass: testGuidArray_IPropertyValueIn(myArray).outValue[2]
+      Actual: c1a5f085-740c-4991-9342-60b1e471beb9
+
+PASS [Test 10: IPropertyValue_In: GUID Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 11: IPropertyValue_In: Class (Animal) Arrays from winrt]
+Pass: testArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 3
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[0]
+      Actual: [object Animals.Animal]
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[0].getGreeting()
+      Actual: Animal1
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[1]
+      Actual: null
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[2]
+      Actual: [object Animals.Animal]
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[2].getGreeting()
+      Actual: Animal3
+
+PASS [Test 11: IPropertyValue_In: Class (Animal) Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 12: IPropertyValue_In: IFish Arrays from winrt]
+Pass: testArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 2
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[0]
+      Actual: [object Animals.Fish]
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[0].name
+      Actual: Nemo
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[1]
+      Actual: [object Animals.Fish]
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[1].name
+      Actual: Dori
+
+PASS [Test 12: IPropertyValue_In: IFish Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 13: IPropertyValue_In: IVector<int> Arrays from winrt]
+Pass: testArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 2
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[0]
+      Actual: 1,2,3,4,5
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[1]
+      Actual: 100,200,300,400
+
+PASS [Test 13: IPropertyValue_In: IVector<int> Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 14: IPropertyValue_In: Date Arrays from winrt]
+Pass: testDateArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testDateArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 2
+
+Pass: testDateArray_IPropertyValueIn(myArray).outValue[0]
+      Actual: Fri Feb 1 16:00:00 PST 1641
+
+Pass: testDateArray_IPropertyValueIn(myArray).outValue[1]
+      Actual: Sun Dec 31 16:00:00 PST 1600
+
+PASS [Test 14: IPropertyValue_In: Date Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 15: IPropertyValue_In: boolean Arrays from winrt]
+Pass: testBooleanArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testBooleanArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 4
+
+Pass: testBooleanArray_IPropertyValueIn(myArray).outValue[0]
+      Actual: true
+
+Pass: testBooleanArray_IPropertyValueIn(myArray).outValue[1]
+      Actual: false
+
+Pass: testBooleanArray_IPropertyValueIn(myArray).outValue[2]
+      Actual: true
+
+Pass: testBooleanArray_IPropertyValueIn(myArray).outValue[3]
+      Actual: true
+
+PASS [Test 15: IPropertyValue_In: boolean Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 16: IPropertyValue_In: string Arrays from winrt]
+Pass: testStringArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testStringArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 5
+
+Pass: testStringArray_IPropertyValueIn(myArray).outValue[0]
+      Actual: Javascript
+
+Pass: testStringArray_IPropertyValueIn(myArray).outValue[1]
+      Actual: is
+
+Pass: testStringArray_IPropertyValueIn(myArray).outValue[2]
+      Actual: present
+
+Pass: testStringArray_IPropertyValueIn(myArray).outValue[3]
+      Actual: and
+
+Pass: testStringArray_IPropertyValueIn(myArray).outValue[4]
+      Actual: future
+
+PASS [Test 16: IPropertyValue_In: string Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 17: IPropertyValue_In: inspectable Arrays from winrt]
+Pass: testArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 3
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[0]
+      Actual: [object Animals.Animal]
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[0].getGreeting()
+      Actual: Animal1
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[1]
+      Actual: null
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[2]
+      Actual: [object Animals.Fish]
+
+Pass: testArray_IPropertyValueIn(myArray).outValue[2].name
+      Actual: Nemo
+
+PASS [Test 17: IPropertyValue_In: inspectable Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 18: IPropertyValue_In: char16 Arrays from winrt]
+Pass: testChar16Array_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testChar16Array_IPropertyValueIn(myArray).outValue.length
+      Actual: 10
+
+Pass: testChar16Array(myArray)_IPropertyValueIn.outValue[0]
+      Actual: P
+
+Pass: testChar16Array(myArray)_IPropertyValueIn.outValue[1]
+      Actual: r
+
+Pass: testChar16Array(myArray)_IPropertyValueIn.outValue[2]
+      Actual: o
+
+Pass: testChar16Array(myArray)_IPropertyValueIn.outValue[3]
+      Actual: j
+
+Pass: testChar16Array(myArray)_IPropertyValueIn.outValue[4]
+      Actual: e
+
+Pass: testChar16Array(myArray)_IPropertyValueIn.outValue[5]
+      Actual: c
+
+Pass: testChar16Array(myArray)_IPropertyValueIn.outValue[6]
+      Actual: t
+
+Pass: testChar16Array(myArray)_IPropertyValueIn.outValue[7]
+      Actual: i
+
+Pass: testChar16Array(myArray)_IPropertyValueIn.outValue[8]
+      Actual: o
+
+Pass: testChar16Array(myArray)_IPropertyValueIn.outValue[9]
+      Actual: n
+
+PASS [Test 18: IPropertyValue_In: char16 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 19: IPropertyValue_In: Uint8 Arrays from winrt]
+Pass: testUInt8Array_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue.length
+      Actual: 4
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[0]
+      Actual: 0
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[1]
+      Actual: 2
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[2]
+      Actual: 32
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[3]
+      Actual: 34
+
+PASS [Test 19: IPropertyValue_In: Uint8 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 20: IPropertyValue_In: int16 Arrays from winrt]
+Pass: testInt16Array_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testInt16Array_IPropertyValueIn(myArray).outValue.length
+      Actual: 4
+
+Pass: testInt16Array_IPropertyValueIn(myArray).outValue[0]
+      Actual: 10
+
+Pass: testInt16Array_IPropertyValueIn(myArray).outValue[1]
+      Actual: -20
+
+Pass: testInt16Array_IPropertyValueIn(myArray).outValue[2]
+      Actual: 30
+
+Pass: testInt16Array_IPropertyValueIn(myArray).outValue[3]
+      Actual: -40
+
+PASS [Test 20: IPropertyValue_In: int16 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 21: IPropertyValue_In: uint16 Arrays from winrt]
+Pass: testUInt16Array_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testUInt16Array_IPropertyValueIn(myArray).outValue.length
+      Actual: 2
+
+Pass: testUInt16Array_IPropertyValueIn(myArray).outValue[0]
+      Actual: 10
+
+Pass: testUInt16Array_IPropertyValueIn(myArray).outValue[1]
+      Actual: 20
+
+PASS [Test 21: IPropertyValue_In: uint16 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 22: IPropertyValue_In: int32 Arrays from winrt]
+Pass: testInt32Array_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testInt32Array_IPropertyValueIn(myArray).outValue.length
+      Actual: 4
+
+Pass: testInt32Array_IPropertyValueIn(myArray).outValue[0]
+      Actual: 1000
+
+Pass: testInt32Array_IPropertyValueIn(myArray).outValue[1]
+      Actual: -2000
+
+Pass: testInt32Array_IPropertyValueIn(myArray).outValue[2]
+      Actual: 3000
+
+Pass: testInt32Array_IPropertyValueIn(myArray).outValue[3]
+      Actual: -4000
+
+PASS [Test 22: IPropertyValue_In: int32 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 23: IPropertyValue_In: uint32 Arrays from winrt]
+Pass: testUInt32Array_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testUInt32Array_IPropertyValueIn(myArray).outValue.length
+      Actual: 2
+
+Pass: testUInt32Array_IPropertyValueIn(myArray).outValue[0]
+      Actual: 1000
+
+Pass: testUInt32Array_IPropertyValueIn(myArray).outValue[1]
+      Actual: 2000
+
+PASS [Test 23: IPropertyValue_In: uint32 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 24: IPropertyValue_In: int64 Arrays from winrt]
+Pass: testInt64Array_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testInt64Array_IPropertyValueIn(myArray).outValue.length
+      Actual: 4
+
+Pass: testInt64Array_IPropertyValueIn(myArray).outValue[0]
+      Actual: 100000
+
+Pass: testInt64Array_IPropertyValueIn(myArray).outValue[1]
+      Actual: -200000
+
+Pass: testInt64Array_IPropertyValueIn(myArray).outValue[2]
+      Actual: 300000
+
+Pass: testInt64Array_IPropertyValueIn(myArray).outValue[3]
+      Actual: -400000
+
+PASS [Test 24: IPropertyValue_In: int64 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 25: IPropertyValue_In: uint64 Arrays from winrt]
+Pass: testUInt64Array_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testUInt64Array_IPropertyValueIn(myArray).outValue.length
+      Actual: 2
+
+Pass: testUInt64Array_IPropertyValueIn(myArray).outValue[0]
+      Actual: 100000
+
+Pass: testUInt64Array_IPropertyValueIn(myArray).outValue[1]
+      Actual: 200000
+
+PASS [Test 25: IPropertyValue_In: uint64 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 26: IPropertyValue_In: float Arrays from winrt]
+Pass: testFloatArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testFloatArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 4
+
+Pass: testFloatArray_IPropertyValueIn(myArray).outValue[0]
+      Actual: 78.30000305175781
+
+Pass: testFloatArray_IPropertyValueIn(myArray).outValue[1]
+      Actual: 67.9000015258789
+
+Pass: testFloatArray_IPropertyValueIn(myArray).outValue[2]
+      Actual: 99.4000015258789
+
+Pass: testFloatArray_IPropertyValueIn(myArray).outValue[3]
+      Actual: -32.20000076293945
+
+PASS [Test 26: IPropertyValue_In: float Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 27: IPropertyValue_In: double Arrays from winrt]
+Pass: testDoubleArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testDoubleArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 2
+
+Pass: testDoubleArray_IPropertyValueIn(myArray).outValue[0]
+      Actual: 13.4
+
+Pass: testDoubleArray_IPropertyValueIn(myArray).outValue[1]
+      Actual: 56.8
+
+PASS [Test 27: IPropertyValue_In: double Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 28: IPropertyValue_In: Struct from winrt]
+Pass: testInspectable_IPropertyValueIn(myStruct) returned (TypeError: Type mismatch)
+      Actual: true
+
+PASS [Test 28: IPropertyValue_In: Struct from winrt]
+=================================================
+
+=================================================
+Starting [Test 29: IPropertyValue_In: Enum from winrt]
+Pass: testNumber_IPropertyValueIn(Animals.Phylum.cnidaria).isValidType
+      Actual: true
+
+Pass: testNumber_IPropertyValueIn(Animals.Phylum.cnidaria).outValue
+      Actual: 8
+
+PASS [Test 29: IPropertyValue_In: Enum from winrt]
+=================================================
+
+=================================================
+Starting [Test 30: IPropertyValue_In: Delegate from winrt]
+Pass: testInspectable_IPropertyValueIn(myWinRTDelegate) returned (TypeError: Type mismatch)
+      Actual: true
+
+PASS [Test 30: IPropertyValue_In: Delegate from winrt]
+=================================================
+
+=================================================
+Starting [Test 31: IPropertyValue_In: Js Delegate from winrt]
+Pass: testInspectable_IPropertyValueIn(myJSDelegate) returned (TypeError: Type mismatch)
+      Actual: true
+
+PASS [Test 31: IPropertyValue_In: Js Delegate from winrt]
+=================================================
+
+=================================================
+Starting [Test 32: IPropertyValue_In: Struct Arrays from winrt]
+Pass: testDimensionsArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testDimensionsArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 2
+
+Pass: testDimensionsArray_IPropertyValueIn(myArray).outValue[0].length
+      Actual: 40
+
+Pass: testDimensionsArray_IPropertyValueIn(myArray).outValue[0].width
+      Actual: 40
+
+Pass: testDimensionsArray_IPropertyValueIn(myArray).outValue[1].length
+      Actual: 100
+
+Pass: testDimensionsArray_IPropertyValueIn(myArray).outValue[1].width
+      Actual: 40
+
+PASS [Test 32: IPropertyValue_In: Struct Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 33: IPropertyValue_In: Enum Arrays from winrt]
+Pass: testEnumArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testEnumArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 4
+
+Pass: testEnumArray_IPropertyValueIn(myArray).outValue[0]
+      Actual: 13
+
+Pass: testEnumArray_IPropertyValueIn(myArray).outValue[1]
+      Actual: 20
+
+Pass: testEnumArray_IPropertyValueIn(myArray).outValue[2]
+      Actual: 3
+
+Pass: testEnumArray_IPropertyValueIn(myArray).outValue[3]
+      Actual: 25
+
+PASS [Test 33: IPropertyValue_In: Enum Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 34: IPropertyValue_In: TimeSpan Arrays from winrt]
+Pass: testTimeSpanArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testTimeSpanArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 3
+
+Pass: testTimeSpanArray_IPropertyValueIn(myArray).outValue[0]
+      Actual: 1265068800000
+
+Pass: testTimeSpanArray_IPropertyValueIn(myArray).outValue[1]
+      Actual: 0
+
+Pass: testTimeSpanArray_IPropertyValueIn(myArray).outValue[2]
+      Actual: 3600000
+
+PASS [Test 34: IPropertyValue_In: TimeSpan Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 35: IPropertyValue_In: Point Arrays from winrt]
+Pass: testPointArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testPointArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 3
+
+Pass: testPointArray_IPropertyValueIn(myArray).outValue[0].x
+      Actual: 10
+
+Pass: testPointArray_IPropertyValueIn(myArray).outValue[0].y
+      Actual: 40
+
+Pass: testPointArray_IPropertyValueIn(myArray).outValue[1].x
+      Actual: 30
+
+Pass: testPointArray_IPropertyValueIn(myArray).outValue[1].y
+      Actual: 50
+
+Pass: testPointArray_IPropertyValueIn(myArray).outValue[2].x
+      Actual: 100
+
+Pass: testPointArray_IPropertyValueIn(myArray).outValue[2].y
+      Actual: 50
+
+PASS [Test 35: IPropertyValue_In: Point Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 36: IPropertyValue_In: Size Arrays from winrt]
+Pass: testSizeArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testSizeArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 3
+
+Pass: testSizeArray_IPropertyValueIn(myArray).outValue[0].height
+      Actual: 10
+
+Pass: testSizeArray_IPropertyValueIn(myArray).outValue[0].width
+      Actual: 40
+
+Pass: testSizeArray_IPropertyValueIn(myArray).outValue[1].height
+      Actual: 30
+
+Pass: testSizeArray_IPropertyValueIn(myArray).outValue[1].width
+      Actual: 50
+
+Pass: testSizeArray_IPropertyValueIn(myArray).outValue[2].height
+      Actual: 100
+
+Pass: testSizeArray_IPropertyValueIn(myArray).outValue[2].width
+      Actual: 50
+
+PASS [Test 36: IPropertyValue_In: Size Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 37: IPropertyValue_In: Rect Arrays from winrt]
+Pass: testRectArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testRectArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 3
+
+Pass: testRectArray_IPropertyValueIn(myArray).outValue[0].x
+      Actual: 10
+
+Pass: testRectArray_IPropertyValueIn(myArray).outValue[0].y
+      Actual: 40
+
+Pass: testRectArray_IPropertyValueIn(myArray).outValue[0].height
+      Actual: 10
+
+Pass: testRectArray_IPropertyValueIn(myArray).outValue[0].width
+      Actual: 40
+
+Pass: testRectArray_IPropertyValueIn(myArray).outValue[1].x
+      Actual: 30
+
+Pass: testRectArray_IPropertyValueIn(myArray).outValue[1].y
+      Actual: 50
+
+Pass: testRectArray_IPropertyValueIn(myArray).outValue[1].height
+      Actual: 30
+
+Pass: testRectArray_IPropertyValueIn(myArray).outValue[1].width
+      Actual: 50
+
+Pass: testRectArray_IPropertyValueIn(myArray).outValue[2].x
+      Actual: 100
+
+Pass: testRectArray_IPropertyValueIn(myArray).outValue[2].y
+      Actual: 50
+
+Pass: testRectArray_IPropertyValueIn(myArray).outValue[2].height
+      Actual: 100
+
+Pass: testRectArray_IPropertyValueIn(myArray).outValue[2].width
+      Actual: 50
+
+PASS [Test 37: IPropertyValue_In: Rect Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 38: IPropertyValue_In: Winrt Delegate Array from winrt]
+Pass: testDelegateArray_IPropertyValueIn(myArray, myArray).isValidType
+      Actual: true
+
+Pass: testDelegateArray_IPropertyValueIn(myArray).outValue[0] are same
+      Actual: true
+
+Pass: testDelegateArray_IPropertyValueIn(myArray).outValue[1] are same
+      Actual: true
+
+PASS [Test 38: IPropertyValue_In: Winrt Delegate Array from winrt]
+=================================================
+
+=================================================
+Starting [Test 39: IPropertyValue_In: Js Delegate Array from winrt]
+Pass: testDelegateArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 2
+
+Pass: testDelegateArray_IPropertyValueIn(myArray).outValue[0]
+      Actual: function delegate1() {
+                return "delegate1";
+            }
+
+Pass: testDelegateArray_IPropertyValueIn(myArray).outValue[1]
+      Actual: function delegate2() {
+                return "delegate2";
+            }
+
+PASS [Test 39: IPropertyValue_In: Js Delegate Array from winrt]
+=================================================
+
+=================================================
+Starting [Test 40: IPropertyValue_Out: null]
+Pass: testNull_IPropertyValueOut()
+      Actual: null
+
+PASS [Test 40: IPropertyValue_Out: null]
+=================================================
+
+=================================================
+Starting [Test 41: IPropertyValue_Out: Boolean]
+Pass: testBoolean_IPropertyValueOut(true)
+      Actual: true
+
+Pass: testBoolean_IPropertyValueOut(false)
+      Actual: false
+
+PASS [Test 41: IPropertyValue_Out: Boolean]
+=================================================
+
+=================================================
+Starting [Test 42: IPropertyValue_Out: String]
+Pass: testString_IPropertyValueOut("String1")
+      Actual: String1
+
+Pass: testString_IPropertyValueOut("")
+      Actual: 
+
+PASS [Test 42: IPropertyValue_Out: String]
+=================================================
+
+=================================================
+Starting [Test 43: IPropertyValue_Out: Char16]
+Pass: testChar16_IPropertyValueOut("S")
+      Actual: S
+
+PASS [Test 43: IPropertyValue_Out: Char16]
+=================================================
+
+=================================================
+Starting [Test 44: IPropertyValue_Out: UInt8]
+Pass: testUInt8_IPropertyValueOut(2)
+      Actual: 2
+
+PASS [Test 44: IPropertyValue_Out: UInt8]
+=================================================
+
+=================================================
+Starting [Test 45: IPropertyValue_Out: Int16]
+Pass: testInt16_IPropertyValueOut(2)
+      Actual: 2
+
+PASS [Test 45: IPropertyValue_Out: Int16]
+=================================================
+
+=================================================
+Starting [Test 46: IPropertyValue_Out: UInt16]
+Pass: testUInt16_IPropertyValueOut(2)
+      Actual: 2
+
+PASS [Test 46: IPropertyValue_Out: UInt16]
+=================================================
+
+=================================================
+Starting [Test 47: IPropertyValue_Out: Int32]
+Pass: testInt32_IPropertyValueOut(2)
+      Actual: 2
+
+PASS [Test 47: IPropertyValue_Out: Int32]
+=================================================
+
+=================================================
+Starting [Test 48: IPropertyValue_Out: UInt32]
+Pass: testUInt32_IPropertyValueOut(2)
+      Actual: 2
+
+PASS [Test 48: IPropertyValue_Out: UInt32]
+=================================================
+
+=================================================
+Starting [Test 49: IPropertyValue_Out: Int64]
+Pass: testInt64_IPropertyValueOut(2)
+      Actual: 2
+
+PASS [Test 49: IPropertyValue_Out: Int64]
+=================================================
+
+=================================================
+Starting [Test 50: IPropertyValue_Out: UInt64]
+Pass: testUInt64_IPropertyValueOut(2)
+      Actual: 2
+
+PASS [Test 50: IPropertyValue_Out: UInt64]
+=================================================
+
+=================================================
+Starting [Test 51: IPropertyValue_Out: Float]
+Pass: testFloat_IPropertyValueOut(2)
+      Actual: 2
+
+PASS [Test 51: IPropertyValue_Out: Float]
+=================================================
+
+=================================================
+Starting [Test 52: IPropertyValue_Out: Double]
+Pass: testDouble_IPropertyValueOut(2)
+      Actual: 2
+
+PASS [Test 52: IPropertyValue_Out: Double]
+=================================================
+
+=================================================
+Starting [Test 53: IPropertyValue_Out: Guid]
+Pass: testGuid_IPropertyValueOut("{10C27311-B58F-476C-BFF4-6689B8A19836}")
+      Actual: 10c27311-b58f-476c-bff4-6689b8a19836
+
+PASS [Test 53: IPropertyValue_Out: Guid]
+=================================================
+
+=================================================
+Starting [Test 54: IPropertyValue_Out: Date]
+Pass: testDate_IPropertyValueOut(winrtDate)
+      Actual: Sun Dec 31 16:00:00 PST 1600
+
+Pass: testDate_IPropertyValueOut(jsDate)
+      Actual: Sun Jun 24 11:33:00 PDT 1979
+
+PASS [Test 54: IPropertyValue_Out: Date]
+=================================================
+
+=================================================
+Starting [Test 55: IPropertyValue_Out: GUID Arrays from winrt]
+Pass: testGuidArray_IPropertyValueOut(myArray).length
+      Actual: 3
+
+Pass: testGuidArray_IPropertyValueOut(myArray)[0]
+      Actual: 3463f772-274f-449d-8b25-822742c2b3ff
+
+Pass: testGuidArray_IPropertyValueOut(myArray)[1]
+      Actual: 3b3b41bc-96e3-43fe-8ec1-7e3dde4f776c
+
+Pass: testGuidArray_IPropertyValueOut(myArray)[2]
+      Actual: c1a5f085-740c-4991-9342-60b1e471beb9
+
+PASS [Test 55: IPropertyValue_Out: GUID Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 56: IPropertyValue_Out: Date Arrays from winrt]
+Pass: testDateArray_IPropertyValueOut(myArray).length
+      Actual: 2
+
+Pass: testDateArray_IPropertyValueOut(myArray)[0]
+      Actual: Fri Feb 1 16:00:00 PST 1641
+
+Pass: testDateArray_IPropertyValueOut(myArray)[1]
+      Actual: Sun Dec 31 16:00:00 PST 1600
+
+PASS [Test 56: IPropertyValue_Out: Date Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 57: IPropertyValue_Out: Boolean Arrays from winrt]
+Pass: testBooleanArray_IPropertyValueOut(myArray).length
+      Actual: 4
+
+Pass: testBooleanArray_IPropertyValueOut(myArray)[0]
+      Actual: true
+
+Pass: testBooleanArray_IPropertyValueOut(myArray)[1]
+      Actual: false
+
+Pass: testBooleanArray_IPropertyValueOut(myArray)[2]
+      Actual: true
+
+Pass: testBooleanArray_IPropertyValueOut(myArray)[3]
+      Actual: true
+
+PASS [Test 57: IPropertyValue_Out: Boolean Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 58: IPropertyValue_Out: String Arrays from winrt]
+Pass: testStringArray_IPropertyValueOut(myArray).length
+      Actual: 5
+
+Pass: testStringArray_IPropertyValueOut(myArray)[0]
+      Actual: Javascript
+
+Pass: testStringArray_IPropertyValueOut(myArray)[1]
+      Actual: is
+
+Pass: testStringArray_IPropertyValueOut(myArray)[2]
+      Actual: present
+
+Pass: testStringArray_IPropertyValueOut(myArray)[3]
+      Actual: and
+
+Pass: testStringArray_IPropertyValueOut(myArray)[4]
+      Actual: future
+
+PASS [Test 58: IPropertyValue_Out: String Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 59: IPropertyValue_Out: Char16 Arrays from winrt]
+Pass: testChar16Array_IPropertyValueOut(myArray).length
+      Actual: 10
+
+Pass: testChar16Array_IPropertyValueOut(myArray)[0]
+      Actual: P
+
+Pass: testChar16Array_IPropertyValueOut(myArray)[1]
+      Actual: r
+
+Pass: testChar16Array_IPropertyValueOut(myArray)[2]
+      Actual: o
+
+Pass: testChar16Array_IPropertyValueOut(myArray)[3]
+      Actual: j
+
+Pass: testChar16Array_IPropertyValueOut(myArray)[4]
+      Actual: e
+
+Pass: testChar16Array_IPropertyValueOut(myArray)[5]
+      Actual: c
+
+Pass: testChar16Array_IPropertyValueOut(myArray)[6]
+      Actual: t
+
+Pass: testChar16Array_IPropertyValueOut(myArray)[7]
+      Actual: i
+
+Pass: testChar16Array_IPropertyValueOut(myArray)[8]
+      Actual: o
+
+Pass: testChar16Array_IPropertyValueOut(myArray)[9]
+      Actual: n
+
+PASS [Test 59: IPropertyValue_Out: Char16 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 60: IPropertyValue_Out: UInt8 Arrays from winrt]
+Pass: testUInt8Array_IPropertyValueOut(myArray).length
+      Actual: 4
+
+Pass: testUInt8Array_IPropertyValueOut(myArray)[0]
+      Actual: 0
+
+Pass: testUInt8Array_IPropertyValueOut(myArray)[1]
+      Actual: 2
+
+Pass: testUInt8Array_IPropertyValueOut(myArray)[2]
+      Actual: 32
+
+Pass: testUInt8Array_IPropertyValueOut(myArray)[3]
+      Actual: 34
+
+PASS [Test 60: IPropertyValue_Out: UInt8 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 61: IPropertyValue_Out: Int16 Arrays from winrt]
+Pass: testInt16Array_IPropertyValueOut(myArray).length
+      Actual: 4
+
+Pass: testInt16Array_IPropertyValueOut(myArray)[0]
+      Actual: 10
+
+Pass: testInt16Array_IPropertyValueOut(myArray)[1]
+      Actual: -20
+
+Pass: testInt16Array_IPropertyValueOut(myArray)[2]
+      Actual: 30
+
+Pass: testInt16Array_IPropertyValueOut(myArray)[3]
+      Actual: -40
+
+PASS [Test 61: IPropertyValue_Out: Int16 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 62: IPropertyValue_Out: UInt16 Arrays from winrt]
+Pass: testUInt16Array_IPropertyValueOut(myArray).length
+      Actual: 2
+
+Pass: testUInt16Array_IPropertyValueOut(myArray)[0]
+      Actual: 10
+
+Pass: testUInt16Array_IPropertyValueOut(myArray)[1]
+      Actual: 20
+
+PASS [Test 62: IPropertyValue_Out: UInt16 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 63: IPropertyValue_Out: Int32 Arrays from winrt]
+Pass: testInt32Array_IPropertyValueOut(myArray).length
+      Actual: 4
+
+Pass: testInt32Array_IPropertyValueOut(myArray)[0]
+      Actual: 1000
+
+Pass: testInt32Array_IPropertyValueOut(myArray)[1]
+      Actual: -2000
+
+Pass: testInt32Array_IPropertyValueOut(myArray)[2]
+      Actual: 3000
+
+Pass: testInt32Array_IPropertyValueOut(myArray)[3]
+      Actual: -4000
+
+PASS [Test 63: IPropertyValue_Out: Int32 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 64: IPropertyValue_Out: UInt32 Arrays from winrt]
+Pass: testUInt32Array_IPropertyValueOut(myArray).length
+      Actual: 2
+
+Pass: testUInt32Array_IPropertyValueOut(myArray)[0]
+      Actual: 1000
+
+Pass: testUInt32Array_IPropertyValueOut(myArray)[1]
+      Actual: 2000
+
+PASS [Test 64: IPropertyValue_Out: UInt32 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 65: IPropertyValue_Out: Int64 Arrays from winrt]
+Pass: testInt64Array_IPropertyValueOut(myArray).length
+      Actual: 4
+
+Pass: testInt64Array_IPropertyValueOut(myArray)[0]
+      Actual: 100000
+
+Pass: testInt64Array_IPropertyValueOut(myArray)[1]
+      Actual: -200000
+
+Pass: testInt64Array_IPropertyValueOut(myArray)[2]
+      Actual: 300000
+
+Pass: testInt64Array_IPropertyValueOut(myArray)[3]
+      Actual: -400000
+
+PASS [Test 65: IPropertyValue_Out: Int64 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 66: IPropertyValue_Out: UInt64 Arrays from winrt]
+Pass: testUInt64Array_IPropertyValueOut(myArray).length
+      Actual: 2
+
+Pass: testUInt64Array_IPropertyValueOut(myArray)[0]
+      Actual: 100000
+
+Pass: testUInt64Array_IPropertyValueOut(myArray)[1]
+      Actual: 200000
+
+PASS [Test 66: IPropertyValue_Out: UInt64 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 67: IPropertyValue_Out: Float Arrays from winrt]
+Pass: testFloatArray_IPropertyValueOut(myArray).length
+      Actual: 4
+
+Pass: testFloatArray_IPropertyValueOut(myArray)[0]
+      Actual: 78.30000305175781
+
+Pass: testFloatArray_IPropertyValueOut(myArray)[1]
+      Actual: 67.9000015258789
+
+Pass: testFloatArray_IPropertyValueOut(myArray)[2]
+      Actual: 99.4000015258789
+
+Pass: testFloatArray_IPropertyValueOut(myArray)[3]
+      Actual: -32.20000076293945
+
+PASS [Test 67: IPropertyValue_Out: Float Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 68: IPropertyValue_Out: Double Arrays from winrt]
+Pass: testDoubleArray_IPropertyValueOut(myArray).length
+      Actual: 2
+
+Pass: testDoubleArray_IPropertyValueOut(myArray)[0]
+      Actual: 13.4
+
+Pass: testDoubleArray_IPropertyValueOut(myArray)[1]
+      Actual: 56.8
+
+PASS [Test 68: IPropertyValue_Out: Double Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 69: IPropertyValue_Out: Inspectable Arrays from winrt]
+Pass: testArray_IPropertyValueOut(myArray).length
+      Actual: 3
+
+Pass: testArray_IPropertyValueOut(myArray)[0]
+      Actual: [object Animals.Animal]
+
+Pass: testArray_IPropertyValueOut(myArray)[0].getGreeting()
+      Actual: Animal1
+
+Pass: testArray_IPropertyValueOut(myArray)[1]
+      Actual: null
+
+Pass: testArray_IPropertyValueOut(myArray)[2]
+      Actual: [object Animals.Fish]
+
+Pass: testArray_IPropertyValueOut(myArray)[2].name
+      Actual: Nemo
+
+PASS [Test 69: IPropertyValue_Out: Inspectable Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 70: IPropertyValue_Out: Class (Animal) Arrays from winrt]
+Pass: testAnimalArray_IPropertyValueOut(myArray).length
+      Actual: 3
+
+Pass: testAnimalArray_IPropertyValueOut(myArray)[0]
+      Actual: [object Animals.Animal]
+
+Pass: testAnimalArray_IPropertyValueOut(myArray)[0].getGreeting()
+      Actual: Animal1
+
+Pass: testAnimalArray_IPropertyValueOut(myArray)[1]
+      Actual: null
+
+Pass: testAnimalArray_IPropertyValueOut(myArray)[2]
+      Actual: [object Animals.Animal]
+
+Pass: testAnimalArray_IPropertyValueOut(myArray)[2].getGreeting()
+      Actual: Animal3
+
+PASS [Test 70: IPropertyValue_Out: Class (Animal) Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 71: IPropertyValue_Out: IFish Arrays from winrt]
+Pass: testFishArray_IPropertyValueOut(myArray).length
+      Actual: 2
+
+Pass: testFishArray_IPropertyValueOut(myArray)[0]
+      Actual: [object Animals.Fish]
+
+Pass: testFishArray_IPropertyValueOut(myArray)[0].name
+      Actual: Nemo
+
+Pass: testFishArray_IPropertyValueOut(myArray)[1]
+      Actual: [object Animals.Fish]
+
+Pass: testFishArray_IPropertyValueOut(myArray)[1].name
+      Actual: Dori
+
+PASS [Test 71: IPropertyValue_Out: IFish Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 72: IPropertyValue_Out: IVector<int> Arrays from winrt]
+Pass: testVectorArray_IPropertyValueOut(myArray).length
+      Actual: 2
+
+Pass: testVectorArray_IPropertyValueOut(myArray)[0]
+      Actual: 1,2,3,4,5
+
+Pass: testVectorArray_IPropertyValueOut(myArray)[1]
+      Actual: 100,200,300,400
+
+PASS [Test 72: IPropertyValue_Out: IVector<int> Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 73: IPropertyValue_Out: Js Arrays that are marshaled into inspectable arrays]
+Pass: testArray_IPropertyValueOut(myArray).length
+      Actual: 3
+
+Pass: testArray_IPropertyValueOut(myArray)[0]
+      Actual: true
+
+Pass: testArray_IPropertyValueOut(myArray)[1]
+      Actual: Tue Sep 20 00:00:00 PDT 1921
+
+Pass: testArray_IPropertyValueOut(myArray)[2]
+      Actual: This is Date Entry
+
+PASS [Test 73: IPropertyValue_Out: Js Arrays that are marshaled into inspectable arrays]
+=================================================
+
+=================================================
+Starting [Test 74: IPropertyValue_Out: ES5 Arrays that are marshaled into inspectable arrays]
+Pass: testArray_IPropertyValueOut(myArray).length
+      Actual: 3
+
+Pass: testArray_IPropertyValueOut(myArray)[0]
+      Actual: false
+
+Pass: testArray_IPropertyValueOut(myArray)[1]
+      Actual: 30.5
+
+Pass: testArray_IPropertyValueOut(myArray)[2]
+      Actual: This is number Entry
+
+PASS [Test 74: IPropertyValue_Out: ES5 Arrays that are marshaled into inspectable arrays]
+=================================================
+
+=================================================
+Starting [Test 75: IPropertyValue_Out: Box inspectable in winrt]
+Pass: testBoxInspectable_IPropertyValueOut(myAnimal)
+      Actual: [object Animals.Animal]
+
+Pass: testBoxInspectable_IPropertyValueOut(myVector)
+      Actual: 1,2,3,4,5,6,7,8,9
+
+PASS [Test 75: IPropertyValue_Out: Box inspectable in winrt]
+=================================================
+
+=================================================
+Starting [Test 76: IPropertyValue_Out: IVector<IVector<int>>]
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfVector)
+      Actual: 1,2,3,4,5,100,200,300,400
+
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfVector)[0]
+      Actual: 1,2,3,4,5
+
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfVector)[1]
+      Actual: 100,200,300,400
+
+PASS [Test 76: IPropertyValue_Out: IVector<IVector<int>>]
+=================================================
+
+=================================================
+Starting [Test 77: IPropertyValue_Out: IVector<Dimensions>]
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfStruct)
+      Actual: [object Animals.Dimensions],[object Animals.Dimensions]
+
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfStruct)[0]
+      Actual: [object Animals.Dimensions]
+
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfStruct)[1]
+      Actual: [object Animals.Dimensions]
+
+PASS [Test 77: IPropertyValue_Out: IVector<Dimensions>]
+=================================================
+
+=================================================
+Starting [Test 78: IPropertyValue_Out: IMap<Dimension, IVector<HSTRING>>]
+Pass: testBoxInspectable_IPropertyValueOut(myMapOfStructAndVector)
+      Actual: [object Windows.Foundation.Collections.IMap`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: testBoxInspectable_IPropertyValueOut(myMapOfStructAndVector).toString()
+      Actual: [object Windows.Foundation.Collections.IMap`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: testBoxInspectable_IPropertyValueOut(myMapOfStructAndVector).size
+      Actual: 2
+
+Pass: testBoxInspectable_IPropertyValueOut(myMapOfStructAndVector).first().toString()
+      Actual: [object Windows.Foundation.Collections.IIterator`1<Windows.Foundation.Collections.IKeyValuePair`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>>]
+
+Pass: testBoxInspectable_IPropertyValueOut(myMapOfStructAndVector).first().current.toString()
+      Actual: [object Windows.Foundation.Collections.IKeyValuePair`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: testBoxInspectable_IPropertyValueOut(myMapOfStructAndVector).first().current.key.toString()
+      Actual: [object Animals.Dimensions]
+
+Pass: (Key: 1) myDimension.length
+      Actual: 150
+
+Pass: (Key: 1) myDimension.width
+      Actual: 100
+
+Pass: testBoxInspectable_IPropertyValueOut(myMapOfStructAndVector).first().current.value.toString()
+      Actual: Hundred And Fifty,by,Hundred
+
+Pass: (Value: 1) myVector.length
+      Actual: 3
+
+Pass: (Value: 1) myVector[0]
+      Actual: Hundred And Fifty
+
+Pass: (Value: 1) myVector[1]
+      Actual: by
+
+Pass: (Value: 1) myVector[2]
+      Actual: Hundred
+
+Pass: testBoxInspectable_IPropertyValueOut(myMapOfStructAndVector).first().current.toString()
+      Actual: [object Windows.Foundation.Collections.IKeyValuePair`2<Animals.Dimensions,Windows.Foundation.Collections.IVector`1<String>>]
+
+Pass: testBoxInspectable_IPropertyValueOut(myMapOfStructAndVector).first().current.key.toString()
+      Actual: [object Animals.Dimensions]
+
+Pass: (Key: 2) myDimension.length
+      Actual: 100
+
+Pass: (Key: 2) myDimension.width
+      Actual: 100
+
+Pass: testBoxInspectable_IPropertyValueOut(myMapOfStructAndVector).first().current.value.toString()
+      Actual: Hundred,by,Hundred
+
+Pass: (Value: 2) myVector.length
+      Actual: 3
+
+Pass: (Value: 2) myVector[0]
+      Actual: Hundred
+
+Pass: (Value: 2) myVector[1]
+      Actual: by
+
+Pass: (Value: 2) myVector[2]
+      Actual: Hundred
+
+PASS [Test 78: IPropertyValue_Out: IMap<Dimension, IVector<HSTRING>>]
+=================================================
+
+=================================================
+Starting [Test 79: IPropertyValue_Out: IVector<RCObservableVector>]
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfRCObservableVector)
+      Actual: 1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9
+
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfRCObservableVector)[0]
+      Actual: 1,2,3,4,5,6,7,8,9
+
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfRCObservableVector)[1]
+      Actual: 1,2,3,4,5,6,7,8,9
+
+PASS [Test 79: IPropertyValue_Out: IVector<RCObservableVector>]
+=================================================
+
+=================================================
+Starting [Test 80: IPropertyValue_Out: Struct from winrt]
+Pass: testDimensions_IPropertyValueOut(myStruct).length
+      Actual: 10
+
+Pass: testDimensions_IPropertyValueOut(myStruct).width
+      Actual: 40
+
+PASS [Test 80: IPropertyValue_Out: Struct from winrt]
+=================================================
+
+=================================================
+Starting [Test 81: IPropertyValue_Out: TimeSpan]
+Pass: testTimeSpan_IPropertyValueOut(winrtTimeSpan)
+      Actual: 3600000
+
+Pass: testTimeSpan_IPropertyValueOut(jsTimeSpan)
+      Actual: 86400000
+
+PASS [Test 81: IPropertyValue_Out: TimeSpan]
+=================================================
+
+=================================================
+Starting [Test 82: IPropertyValue_Out: Point]
+Pass: testPoint_IPropertyValueOut(myPoint).x
+      Actual: 10
+
+Pass: testPoint_IPropertyValueOut(myPoint).y
+      Actual: 40
+
+PASS [Test 82: IPropertyValue_Out: Point]
+=================================================
+
+=================================================
+Starting [Test 83: IPropertyValue_Out: Size]
+Pass: testSize_IPropertyValueOut(mySize).height
+      Actual: 10
+
+Pass: testSize_IPropertyValueOut(mySize).width
+      Actual: 40
+
+PASS [Test 83: IPropertyValue_Out: Size]
+=================================================
+
+=================================================
+Starting [Test 84: IPropertyValue_Out: Rect]
+Pass: testRect_IPropertyValueOut(myRect).x
+      Actual: 1000
+
+Pass: testRect_IPropertyValueOut(myRect).y
+      Actual: 3000
+
+Pass: testRect_IPropertyValueOut(myRect).height
+      Actual: 10
+
+Pass: testRect_IPropertyValueOut(myRect).width
+      Actual: 40
+
+PASS [Test 84: IPropertyValue_Out: Rect]
+=================================================
+
+=================================================
+Starting [Test 85: IPropertyValue_Out: Enum]
+Pass: testEnum_IPropertyValueOut(Animals.Phylum.phoronida)
+      Actual: 26
+
+PASS [Test 85: IPropertyValue_Out: Enum]
+=================================================
+
+=================================================
+Starting [Test 86: IPropertyValue_Out: Struct Arrays from winrt]
+Pass: testInspectable_IPropertyValueOut(myArray).length
+      Actual: 2
+
+Pass: testInspectable_IPropertyValueOut(myArray)[0].length
+      Actual: 40
+
+Pass: testInspectable_IPropertyValueOut(myArray)[0].width
+      Actual: 40
+
+Pass: testInspectable_IPropertyValueOut(myArray)[1].length
+      Actual: 100
+
+Pass: testInspectable_IPropertyValueOut(myArray)[1].width
+      Actual: 40
+
+PASS [Test 86: IPropertyValue_Out: Struct Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 87: IPropertyValue_Out: TimeSpan Arrays from winrt]
+Pass: testTimeSpanArray_IPropertyValueOut(myArray).length
+      Actual: 3
+
+Pass: testTimeSpanArray_IPropertyValueOut(myArray)[0]
+      Actual: 1265068800000
+
+Pass: testTimeSpanArray_IPropertyValueOut(myArray)[1]
+      Actual: 0
+
+Pass: testTimeSpanArray_IPropertyValueOut(myArray)[2]
+      Actual: 3600000
+
+PASS [Test 87: IPropertyValue_Out: TimeSpan Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 88: IPropertyValue_Out: Point Arrays from winrt]
+Pass: testPointArray_IPropertyValueOut(myArray).length
+      Actual: 3
+
+Pass: testPointArray_IPropertyValueOut(myArray)[0].x
+      Actual: 10
+
+Pass: testPointArray_IPropertyValueOut(myArray)[0].y
+      Actual: 40
+
+Pass: testPointArray_IPropertyValueOut(myArray)[1].x
+      Actual: 30
+
+Pass: testPointArray_IPropertyValueOut(myArray)[1].y
+      Actual: 50
+
+Pass: testPointArray_IPropertyValueOut(myArray)[2].x
+      Actual: 100
+
+Pass: testPointArray_IPropertyValueOut(myArray)[2].y
+      Actual: 50
+
+PASS [Test 88: IPropertyValue_Out: Point Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 89: IPropertyValue_Out: Size Arrays from winrt]
+Pass: testSizeArray_IPropertyValueOut(myArray).length
+      Actual: 3
+
+Pass: testSizeArray_IPropertyValueOut(myArray)[0].height
+      Actual: 10
+
+Pass: testSizeArray_IPropertyValueOut(myArray)[0].width
+      Actual: 40
+
+Pass: testSizeArray_IPropertyValueOut(myArray)[1].height
+      Actual: 30
+
+Pass: testSizeArray_IPropertyValueOut(myArray)[1].width
+      Actual: 50
+
+Pass: testSizeArray_IPropertyValueOut(myArray)[2].height
+      Actual: 100
+
+Pass: testSizeArray_IPropertyValueOut(myArray)[2].width
+      Actual: 50
+
+PASS [Test 89: IPropertyValue_Out: Size Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 90: IPropertyValue_Out: Rect Arrays from winrt]
+Pass: testRectArray_IPropertyValueOut(myArray).length
+      Actual: 3
+
+Pass: testRectArray_IPropertyValueOut(myArray)[0].x
+      Actual: 10
+
+Pass: testRectArray_IPropertyValueOut(myArray)[0].y
+      Actual: 40
+
+Pass: testRectArray_IPropertyValueOut(myArray)[0].height
+      Actual: 10
+
+Pass: testRectArray_IPropertyValueOut(myArray)[0].width
+      Actual: 40
+
+Pass: testRectArray_IPropertyValueOut(myArray)[1].x
+      Actual: 30
+
+Pass: testRectArray_IPropertyValueOut(myArray)[1].y
+      Actual: 50
+
+Pass: testRectArray_IPropertyValueOut(myArray)[1].height
+      Actual: 30
+
+Pass: testRectArray_IPropertyValueOut(myArray)[1].width
+      Actual: 50
+
+Pass: testRectArray_IPropertyValueOut(myArray)[2].x
+      Actual: 100
+
+Pass: testRectArray_IPropertyValueOut(myArray)[2].y
+      Actual: 50
+
+Pass: testRectArray_IPropertyValueOut(myArray)[2].height
+      Actual: 100
+
+Pass: testRectArray_IPropertyValueOut(myArray)[2].width
+      Actual: 50
+
+PASS [Test 90: IPropertyValue_Out: Rect Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 91: IPropertyValue_Out: Enum Arrays from winrt]
+Pass: testInspectable_IPropertyValueOut(myArray).length
+      Actual: 4
+
+Pass: testInspectable_IPropertyValueOut(myArray)[0]
+      Actual: 13
+
+Pass: testInspectable_IPropertyValueOut(myArray)[1]
+      Actual: 20
+
+Pass: testInspectable_IPropertyValueOut(myArray)[2]
+      Actual: 3
+
+Pass: testInspectable_IPropertyValueOut(myArray)[3]
+      Actual: 25
+
+PASS [Test 91: IPropertyValue_Out: Enum Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 92: IPropertyValue_Out: Js Delegate Arrays from winrt]
+Pass: testInspectable_IPropertyValueOut(myArray).length
+      Actual: 2
+
+Pass: testInspectable_IPropertyValueOut(myArray)[0]
+      Actual: function delegate1() {
+                return "delegate1";
+            }
+
+Pass: testInspectable_IPropertyValueOut(myArray)[1]
+      Actual: function delegate2() {
+                return "delegate2";
+            }
+
+PASS [Test 92: IPropertyValue_Out: Js Delegate Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 93: IPropertyValue_Out: Winrt Delegate Arrays from winrt]
+Pass: testInspectable_IPropertyValueOut(myArray).length
+      Actual: 2
+
+Pass: testInspectable_IPropertyValueOut(myArray)[0] are same
+      Actual: true
+
+Pass: testInspectable_IPropertyValueOut(myArray)[1] are same
+      Actual: true
+
+PASS [Test 93: IPropertyValue_Out: Winrt Delegate Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 94: IPropertyValue_Out: IVector<AsyncInfo>]
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfAsyncInfo)
+      Actual: [object Object]
+
+PASS [Test 94: IPropertyValue_Out: IVector<AsyncInfo>]
+=================================================
+
+=================================================
+Starting [Test 95: IPropertyValue_Out: IVector<Guid>]
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfGuid)
+      Actual: 3463f772-274f-449d-8b25-822742c2b3ff,3b3b41bc-96e3-43fe-8ec1-7e3dde4f776c,c1a5f085-740c-4991-9342-60b1e471beb9
+
+PASS [Test 95: IPropertyValue_Out: IVector<Guid>]
+=================================================
+
+=================================================
+Starting [Test 96: IPropertyValue_Out: IVector<DateTime>]
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfDate)
+      Actual: Fri Feb 1 16:00:00 PST 1641,Sun Dec 31 16:00:00 PST 1600
+
+PASS [Test 96: IPropertyValue_Out: IVector<DateTime>]
+=================================================
+
+=================================================
+Starting [Test 97: IPropertyValue_Out: IVector<Delegate>]
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfDelegate)
+      Actual: 
+function DelegateWithOutParam_HSTRING() {
+    [native code]
+}
+
+
+PASS [Test 97: IPropertyValue_Out: IVector<Delegate>]
+=================================================
+
+=================================================
+Starting [Test 98: IPropertyValue_Out: IVector<Enum>]
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfEnum)
+      Actual: 13,20,3,25
+
+PASS [Test 98: IPropertyValue_Out: IVector<Enum>]
+=================================================
+
+=================================================
+Starting [Test 99: IPropertyValue_Out: IVector<EventRegistrationToken>]
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfEventRegistration)
+      Actual: 300
+
+PASS [Test 99: IPropertyValue_Out: IVector<EventRegistrationToken>]
+=================================================
+
+=================================================
+Starting [Test 100: IPropertyValue_Out: IVector<TimeSpan>]
+Pass: testBoxInspectable_IPropertyValueOut(myVectorOfTimeSpan)
+      Actual: 1265068800000,0,3600000
+
+PASS [Test 100: IPropertyValue_Out: IVector<TimeSpan>]
+=================================================
+
+=================================================
+Starting [Test 101: IPropertyValue_Out: Box null]
+Pass: testBoxedNull_IPropertyValueOut(null)
+      Actual: null
+
+PASS [Test 101: IPropertyValue_Out: Box null]
+=================================================
+
+=================================================
+Starting [Test 102: IPropertyValue_Out: Custom PropertyValue out with GRCN as IReference<Dimensions>]
+Comment: [object Animals.Dimensions]
+Pass: testRCPV1_IPropertyValueOut().length
+      Actual: 100
+
+Pass: testRCPV1_IPropertyValueOut().width
+      Actual: 20
+
+PASS [Test 102: IPropertyValue_Out: Custom PropertyValue out with GRCN as IReference<Dimensions>]
+=================================================
+
+=================================================
+Starting [Test 103: IPropertyValue_Out: Custom PropertyValue out with GRCN as RCName]
+Pass: testRCPV2_IPropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Animals.RCPropertyValue2 is not supported as out parameter)
+      Actual: true
+
+PASS [Test 103: IPropertyValue_Out: Custom PropertyValue out with GRCN as RCName]
+=================================================
+
+=================================================
+Starting [Test 104: IPropertyValue_Out: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
+Pass: testRCPV3_IPropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Windows.Foundation.IPropertyValue is not supported as out parameter)
+      Actual: true
+
+PASS [Test 104: IPropertyValue_Out: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
+=================================================
+
+=================================================
+Starting [Test 105: IPropertyValue_Out: Custom PropertyValue out with GRCN as IReference<Char16>]
+Comment: D
+Pass: testRCPV4_IPropertyValueOut()
+      Actual: D
+
+PASS [Test 105: IPropertyValue_Out: Custom PropertyValue out with GRCN as IReference<Char16>]
+=================================================
+
+=================================================
+Starting [Test 106: IPropertyValue_Out: Custom PropertyValue out with GRCN as RCName]
+Pass: testRCPV5_IPropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Animals.RCPropertyValue5 is not supported as out parameter)
+      Actual: true
+
+PASS [Test 106: IPropertyValue_Out: Custom PropertyValue out with GRCN as RCName]
+=================================================
+
+=================================================
+Starting [Test 107: IPropertyValue_Out: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
+Pass: testRCPV6_IPropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Windows.Foundation.IPropertyValue is not supported as out parameter)
+      Actual: true
+
+PASS [Test 107: IPropertyValue_Out: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
+=================================================
+
+=================================================
+Starting [Test 108: IPropertyValue_In: Uint8 Arrays from winrt]
+Pass: testUInt8Array_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue.length
+      Actual: 8
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[0]
+      Actual: 2
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[1]
+      Actual: 3
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[2]
+      Actual: 4
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[3]
+      Actual: 5
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[4]
+      Actual: 6
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[5]
+      Actual: 7
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[6]
+      Actual: 8
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[7]
+      Actual: 9
+
+PASS [Test 108: IPropertyValue_In: Uint8 Arrays from winrt]
+=================================================
+
+=================================================
+Starting [Test 109: IPropertyValue_Out: IMap<String, Object>]
+Pass: testBoxInspectable_IPropertyValueOut(myMapOfStringAndInspectable)
+      Actual: [object Windows.Foundation.Collections.IMap`2<String,Object>]
+
+PASS [Test 109: IPropertyValue_Out: IMap<String, Object>]
+=================================================
+
+Passed: 109
+Failed: 0

@@ -1,0 +1,2 @@
+BailOut: function: Global code ( (#1.0), #1) offset: #0000 Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStep
+done

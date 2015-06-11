@@ -1,0 +1,542 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "makeArrayLength": "<large string>",
+      "bar0": "<large string>",
+      "func0": "<large string>",
+      "func1": "<large string>",
+      "func2": "<large string>",
+      "i8": "<large string>",
+      "i16": "<large string>",
+      "ui8": "<large string>",
+      "ui32": "<large string>",
+      "f32": "<large string>",
+      "f64": "<large string>",
+      "cpa8": "<large string>",
+      "floatary": "1",
+      "intfloatary": "1",
+      "__polyobj": "{...}",
+      "__loopvar1": "undefined",
+      "leaf": "<large string>",
+      "obj0": "{...}",
+      "obj1": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "intary": "[...]",
+      "c": "1",
+      "e": "1",
+      "f": "-2",
+      "g": "1",
+      "h": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3787,
+        "length": 6,
+        "text": "bar0()",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4680,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "argArr0": "[...]",
+      "argObj1": "{...}",
+      "argFunc2": "<large string>",
+      "argObj3": "{...}",
+      "[Scope]1": "test0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2475,
+        "length": 17,
+        "text": "argObj1.prop0 = 1",
+        "frameDescription": "func1"
+      },
+      {
+        "start": 3391,
+        "length": 139,
+        "text": "arguments[(((obj0.method0.call(obj1 , ary, arrObj0, leaf, obj0) >= 0 ? obj0.method0.call(obj1 , ary, arrObj0, leaf, obj0) : 0)) & 0XF)] = 1",
+        "frameDescription": "bar0"
+      },
+      {
+        "start": 3787,
+        "length": 6,
+        "text": "bar0()",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4680,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "argArr0": "[...]",
+      "argObj1": "{...}",
+      "argFunc2": "<large string>",
+      "argObj3": "{...}",
+      "[Scope]1": "test0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2475,
+        "length": 17,
+        "text": "argObj1.prop0 = 1",
+        "frameDescription": "func1"
+      },
+      {
+        "start": 3391,
+        "length": 139,
+        "text": "arguments[(((obj0.method0.call(obj1 , ary, arrObj0, leaf, obj0) >= 0 ? obj0.method0.call(obj1 , ary, arrObj0, leaf, obj0) : 0)) & 0XF)] = 1",
+        "frameDescription": "bar0"
+      },
+      {
+        "start": 3888,
+        "length": 44,
+        "text": "1 * __polyobj.polyfunc())) && __loopvar1 < 3",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4680,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "makeArrayLength": "<large string>",
+      "bar0": "<large string>",
+      "func0": "<large string>",
+      "func1": "<large string>",
+      "func2": "<large string>",
+      "i8": "<large string>",
+      "i16": "<large string>",
+      "ui8": "<large string>",
+      "ui32": "<large string>",
+      "f32": "<large string>",
+      "f64": "<large string>",
+      "cpa8": "<large string>",
+      "floatary": "1",
+      "intfloatary": "1",
+      "__polyobj": "{...}",
+      "__loopvar1": "0",
+      "leaf": "<large string>",
+      "obj0": "{...}",
+      "obj1": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "intary": "[...]",
+      "c": "1",
+      "e": "1",
+      "f": "-2",
+      "g": "1",
+      "h": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 4236,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4680,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "makeArrayLength": "<large string>",
+      "bar0": "<large string>",
+      "func0": "<large string>",
+      "func1": "<large string>",
+      "func2": "<large string>",
+      "i8": "<large string>",
+      "i16": "<large string>",
+      "ui8": "<large string>",
+      "ui32": "<large string>",
+      "f32": "<large string>",
+      "f64": "<large string>",
+      "cpa8": "<large string>",
+      "floatary": "1",
+      "intfloatary": "1",
+      "__polyobj": "{...}",
+      "__loopvar1": "undefined",
+      "leaf": "<large string>",
+      "obj0": "{...}",
+      "obj1": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "intary": "[...]",
+      "c": "1",
+      "e": "1",
+      "f": "-2",
+      "g": "1",
+      "h": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3787,
+        "length": 6,
+        "text": "bar0()",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4740,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "argArr0": "[...]",
+      "argObj1": "{...}",
+      "argFunc2": "<large string>",
+      "argObj3": "{...}",
+      "[Scope]1": "test0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2475,
+        "length": 17,
+        "text": "argObj1.prop0 = 1",
+        "frameDescription": "func1"
+      },
+      {
+        "start": 3391,
+        "length": 139,
+        "text": "arguments[(((obj0.method0.call(obj1 , ary, arrObj0, leaf, obj0) >= 0 ? obj0.method0.call(obj1 , ary, arrObj0, leaf, obj0) : 0)) & 0XF)] = 1",
+        "frameDescription": "bar0"
+      },
+      {
+        "start": 3787,
+        "length": 6,
+        "text": "bar0()",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4740,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "argArr0": "[...]",
+      "argObj1": "{...}",
+      "argFunc2": "<large string>",
+      "argObj3": "{...}",
+      "[Scope]1": "test0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2475,
+        "length": 17,
+        "text": "argObj1.prop0 = 1",
+        "frameDescription": "func1"
+      },
+      {
+        "start": 3391,
+        "length": 139,
+        "text": "arguments[(((obj0.method0.call(obj1 , ary, arrObj0, leaf, obj0) >= 0 ? obj0.method0.call(obj1 , ary, arrObj0, leaf, obj0) : 0)) & 0XF)] = 1",
+        "frameDescription": "bar0"
+      },
+      {
+        "start": 3888,
+        "length": 44,
+        "text": "1 * __polyobj.polyfunc())) && __loopvar1 < 3",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4740,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "makeArrayLength": "<large string>",
+      "bar0": "<large string>",
+      "func0": "<large string>",
+      "func1": "<large string>",
+      "func2": "<large string>",
+      "i8": "<large string>",
+      "i16": "<large string>",
+      "ui8": "<large string>",
+      "ui32": "<large string>",
+      "f32": "<large string>",
+      "f64": "<large string>",
+      "cpa8": "<large string>",
+      "floatary": "1",
+      "intfloatary": "1",
+      "__polyobj": "{...}",
+      "__loopvar1": "0",
+      "leaf": "<large string>",
+      "obj0": "{...}",
+      "obj1": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "intary": "[...]",
+      "c": "1",
+      "e": "1",
+      "f": "-2",
+      "g": "1",
+      "h": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 4236,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4740,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "makeArrayLength": "<large string>",
+      "bar0": "<large string>",
+      "func0": "<large string>",
+      "func1": "<large string>",
+      "func2": "<large string>",
+      "i8": "<large string>",
+      "i16": "<large string>",
+      "ui8": "<large string>",
+      "ui32": "<large string>",
+      "f32": "<large string>",
+      "f64": "<large string>",
+      "cpa8": "<large string>",
+      "floatary": "1",
+      "intfloatary": "1",
+      "__polyobj": "{...}",
+      "__loopvar1": "undefined",
+      "leaf": "<large string>",
+      "obj0": "{...}",
+      "obj1": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "intary": "[...]",
+      "c": "1",
+      "e": "1",
+      "f": "-2",
+      "g": "1",
+      "h": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3787,
+        "length": 6,
+        "text": "bar0()",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4811,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "argArr0": "[...]",
+      "argObj1": "{...}",
+      "argFunc2": "<large string>",
+      "argObj3": "{...}",
+      "[Scope]1": "test0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2475,
+        "length": 17,
+        "text": "argObj1.prop0 = 1",
+        "frameDescription": "func1"
+      },
+      {
+        "start": 3391,
+        "length": 139,
+        "text": "arguments[(((obj0.method0.call(obj1 , ary, arrObj0, leaf, obj0) >= 0 ? obj0.method0.call(obj1 , ary, arrObj0, leaf, obj0) : 0)) & 0XF)] = 1",
+        "frameDescription": "bar0"
+      },
+      {
+        "start": 3787,
+        "length": 6,
+        "text": "bar0()",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4811,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "argArr0": "[...]",
+      "argObj1": "{...}",
+      "argFunc2": "<large string>",
+      "argObj3": "{...}",
+      "[Scope]1": "test0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2475,
+        "length": 17,
+        "text": "argObj1.prop0 = 1",
+        "frameDescription": "func1"
+      },
+      {
+        "start": 3391,
+        "length": 139,
+        "text": "arguments[(((obj0.method0.call(obj1 , ary, arrObj0, leaf, obj0) >= 0 ? obj0.method0.call(obj1 , ary, arrObj0, leaf, obj0) : 0)) & 0XF)] = 1",
+        "frameDescription": "bar0"
+      },
+      {
+        "start": 3888,
+        "length": 44,
+        "text": "1 * __polyobj.polyfunc())) && __loopvar1 < 3",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4811,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "makeArrayLength": "<large string>",
+      "bar0": "<large string>",
+      "func0": "<large string>",
+      "func1": "<large string>",
+      "func2": "<large string>",
+      "i8": "<large string>",
+      "i16": "<large string>",
+      "ui8": "<large string>",
+      "ui32": "<large string>",
+      "f32": "<large string>",
+      "f64": "<large string>",
+      "cpa8": "<large string>",
+      "floatary": "1",
+      "intfloatary": "1",
+      "__polyobj": "{...}",
+      "__loopvar1": "0",
+      "leaf": "<large string>",
+      "obj0": "{...}",
+      "obj1": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "intary": "[...]",
+      "c": "1",
+      "e": "1",
+      "f": "-2",
+      "g": "1",
+      "h": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 4236,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4811,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 617,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.forEach"
+      },
+      {
+        "start": 588,
+        "length": 62,
+        "text": "arr.forEach(function(){\n    var a = 0;\n    return bar();\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

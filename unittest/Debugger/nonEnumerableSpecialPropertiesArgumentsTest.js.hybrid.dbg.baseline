@@ -1,0 +1,61 @@
+[
+  {
+    "evaluate": {
+      "arguments": {
+        "[Methods]": "{...}",
+        "[Methods] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_FAKE",
+            "JS_PROPERTY_METHOD",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 15
+        },
+        "__proto__": "{...}",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "length": "3",
+        "length - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[0]": "1",
+        "[0] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[1]": "2",
+        "[1] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[2]": "3",
+        "[2] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "arguments - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  }
+]

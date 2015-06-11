@@ -1,0 +1,48 @@
+AllowForWeb - Constructor tests for hosted app context
+
+=================================================
+Starting [Test 1: Verify that a class without [AllowForWeb] doesn't have any constructor function created]
+Pass: Animals.Fish === undefined
+      Actual: undefined
+
+PASS [Test 1: Verify that a class without [AllowForWeb] doesn't have any constructor function created]
+=================================================
+
+=================================================
+Starting [Test 2: Verify that a class with [AllowForWeb] is constructable through namespace]
+Pass: typeof Animals.Animal
+      Actual: function
+
+Pass: undefined
+      Actual: 12345
+
+PASS [Test 2: Verify that a class with [AllowForWeb] is constructable through namespace]
+=================================================
+
+=================================================
+Starting [Test 3: Verify that a class with [AllowForWeb] is constructable through constructor property]
+Pass: !!animalInstance
+      Actual: true
+
+Pass: animal.constructor
+      Actual: function Animal() { [native code] }
+
+Pass: undefined
+      Actual: 54321
+
+PASS [Test 3: Verify that a class with [AllowForWeb] is constructable through constructor property]
+=================================================
+
+=================================================
+Starting [Test 4: Verify that an object instance of class with [AllowForWeb] is usable (basic)]
+Pass: !!animalInstance
+      Actual: true
+
+Pass: undefined
+      Actual: 12345
+
+PASS [Test 4: Verify that an object instance of class with [AllowForWeb] is usable (basic)]
+=================================================
+
+Passed: 4
+Failed: 0

@@ -1,0 +1,12 @@
+<public:component tagName=abc>
+<attach event="oncontentready" onevent=Doc_Ready() />
+</public:component>
+
+<script>
+function Doc_Ready() {     
+	defaults.viewLink = document;	
+	defaultStatus = "default status should on windows";	
+}
+</script>
+
+<BODY>New</BODY>

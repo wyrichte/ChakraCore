@@ -1,0 +1,309 @@
+/**
+ * Copyright (C) Microsoft. All rights reserved.
+ */
+
+///
+/// IMPORTANT INFO FOR GENERATING CSS
+///
+/// Follow the instructions on http://lesscss.org/ to install the less compiler, namely:
+///   - install node.js
+///   - npm install -g less
+///   - lessc custom.less custom.css
+/// You can find more information on less at http://lesscss.org/
+///
+
+/// The notice below will appear in the generated CSS file.
+/**
+ * CUSTOM.CSS IS GENERATED FROM CUSTOM.LESS
+ * IF MODIFICATIONS ARE NECESSARY, MODIFY CUSTOM.LESS (NOT CUSTOM.CSS)
+ * CUSTOM.LESS INCLUDES INSTRUCTIONS FOR REGENERATING CUSTOM.CSS
+ */
+
+@increment: 10%;
+@full: 100%;
+
+//
+// input colors
+//
+
+@string: #B00;
+@number: #AAA;
+@address: #00F;
+
+@mute: #BBB;
+
+@source-color: #007F0E;
+@statement: @source-color;
+@source: mix(@source-color, #fff);
+
+@line-color: spin(#F2F9FF, 20);
+@line: darken(@line-color, 3%);
+@label-text: #2B91AF;
+
+@statement-highlight: lighten(@line-color, 1%);
+
+// tones
+@label-tone: #CCFFCC;
+@sym-tone: #FFB27F;
+@reg-tone: #FFE97F;
+@register-tone: spin(#309ED6, -10);
+
+// fully darkened tones
+@label-full-dark: saturate(@label-tone, @full);
+@sym-full-dark: saturate(@sym-tone, @full);
+@reg-full-dark: saturate(@reg-tone, @full);
+@register-full-dark: saturate(@register-tone, @full);
+
+// highlights
+@label: darken(@label-tone, @increment);
+@sym: @sym-tone;
+@reg: @reg-tone;
+@register: lighten(@register-tone, (@increment*3));
+
+//
+// extended colors
+//
+
+@label-lightest: lighten(@label, (@increment*2));
+@sym-lightest: lighten(@sym, (@increment*2));
+@reg-lightest: lighten(@reg, (@increment*2));
+@register-lightest: lighten(@register, (@increment*2));
+
+@label-lighter: lighten(@label, @increment);
+@sym-lighter: lighten(@sym, @increment);
+@reg-lighter: lighten(@reg, @increment);
+@register-lighter: lighten(@register, @increment);
+
+@label-darker: darken(@label, @increment);
+@sym-darker: darken(@sym, @increment);
+@reg-darker: darken(@reg, @increment);
+@register-darker: darken(@register, @increment);
+
+@label-darker-line: fadeout(@label, @increment);
+@sym-darker-line: fadeout(@sym, @increment);
+@reg-darker-line: fadeout(@reg, @increment);
+@register-darker-line: fadeout(@register, @increment);
+
+@label-darkest: darken(@label, (@increment*3));
+@sym-darkest: darken(@sym, (@increment*3));
+@reg-darkest: darken(@reg, (@increment*3));
+@register-darkest: darken(@register, (@increment*3));
+
+@label-line: fadeout(@label-lighter, @increment);
+@sym-line: fadeout(@sym-lighter, @increment);
+@reg-line: fadeout(@reg-lighter, @increment);
+@register-line: fadeout(@register-lighter, @increment);
+
+//
+// color palette
+//
+
+@display-palette: false;  // conditionally include this output (true to include the palette in the output file)
+._palette (@p) when (@p = true) {
+  ._palette {
+    line                : @line               ;
+    label-text          : @label-text         ;
+
+    /* tones */
+    label-tone          : @label-tone         ;
+    sym-tone            : @sym-tone           ;
+    reg-tone            : @reg-tone           ;
+    register-tone       : @register-tone      ;
+
+    /* fully darkened tones */
+    label-full-dark     : @label-full-dark    ;
+    sym-full-dark       : @sym-full-dark      ;
+    reg-full-dark       : @reg-full-dark      ;
+    register-full-dark  : @register-full-dark ;
+
+    /* highlights */
+    label               : @label              ;
+    sym                 : @sym                ;
+    reg                 : @reg                ;
+    register            : @register           ;
+
+    /* extended colors */
+
+    label-lighter       : @label-lighter      ;
+    sym-lighter         : @sym-lighter        ;
+    reg-lighter         : @reg-lighter        ;
+    register-lighter    : @register-lighter   ;
+
+    label-darker        : @label-darker       ;
+    sym-darker          : @sym-darker         ;
+    reg-darker          : @reg-darker         ;
+    register-darker     : @register-darker    ;
+
+    label-darkest       : @label-darkest      ;
+    sym-darkest         : @sym-darkest        ;
+    reg-darkest         : @reg-darkest        ;
+    register-darkest    : @register-darkest   ;
+
+    label-line          : @label-line         ;
+    sym-line            : @sym-line           ;
+    reg-line            : @reg-line           ;
+    register-line       : @register-line      ;
+  }
+} ._palette(@display-palette);
+
+//
+// mixins
+//
+
+.monospace() {
+  font-family: Consolas, 'Courier New', Courier, 'Liberation Mono', monospace !important;
+}
+
+.rounded-corners (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.fade(@time: 0.25s) {
+  transition: background @time ease-in-out;
+  -moz-transition: background @time ease-in-out;
+  -webkit-transition: background @time ease-in-out;
+}
+
+.invisible() {
+  visibility: hidden;
+}
+
+.visible() {
+  visibility: visible !important;
+}
+
+.hidden() {
+  display: none;
+}
+
+.shown() {
+  display: block;
+}
+
+//
+// css
+//
+
+textarea.code {
+  .monospace();
+}
+
+#editorWrapper {
+  margin-bottom: 20px;
+}
+
+// Do not display the <pre> elements which are used to display the source of the html dump
+.ir-dump-text {
+  .hidden();  // comment this line (and compile .less->.css) to show the source of the dump in-page
+}
+
+.ir-dump {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 6px 0px;
+  margin-bottom: 6px;
+
+  .rounded-corners();
+}
+
+.number () {
+  color: @number;
+}
+
+.ir-statement {
+  .fade(0.4s);
+  &:hover {
+    background-color: @statement-highlight;
+  }
+}
+
+.ir-inst {
+  .monospace();
+  font-size: 10pt;
+  line-height: 20px;
+  display: block;
+  margin: 0px;
+  padding: 0px 6px;
+  padding-bottom: 1px;
+
+  span {
+    line-height: 20px;
+    padding: 2px 0px;
+    .rounded-corners(3px);
+  }
+
+  .highlighted { font-weight: bold;
+    &.ir-label { background-color: @label; }
+    &.ir-sym { background-color: @sym; }
+    &.ir-reg { background-color: @reg; }
+    &.ir-register { background-color: @register; }
+  }
+
+  &:hover { background-color: @line;
+    .ir-label { background-color: @label-line; }
+    .ir-sym { background-color: @sym-line; }
+    .ir-reg { background-color: @reg-line; }
+    .ir-register { background-color: @register-line; }
+
+    .highlighted {
+      &.ir-label { background-color: @label;
+        &:hover { background-color: @label-darker; }}
+      &.ir-sym { background-color: @sym;
+        &:hover { background-color: @sym-darker; }}
+      &.ir-reg { background-color: @reg;
+        &:hover { background-color: @reg-darker; }}
+      &.ir-register { background-color: @register;
+        &:hover { background-color: @register-darker; }}
+    }
+
+    .preview {
+      &.ir-label { background-color: @label; }
+      &.ir-sym { background-color: @sym; }
+      &.ir-reg { background-color: @reg; }
+      &.ir-register { background-color: @register; }
+    }
+  }
+
+  // these must come after the .highlighted version because of the order rules are applied in CSS
+  .ir-label { color: @label-text;
+    &:hover { background-color: @label; }}
+  .ir-sym {
+    &:hover { background-color: @sym; }}
+  .ir-reg {
+    &:hover { background-color: @reg; }}
+  .ir-register {
+    &:hover { background-color: @register; }}
+
+  .integer, .float { .number(); }
+  .string { color: @string; }
+  .address { color: @address; }
+  .statement { color: @statement; }
+  .source { color: @source; }
+
+  .integer, .float, .string, .address, .statement, .source {
+    &.highlighted { font-weight: normal; }}
+}
+
+.preview {
+  &.ir-label { background-color: @label-lighter; }
+  &.ir-sym { background-color: @sym-lighter; }
+  &.ir-reg { background-color: @reg-lighter; }
+  &.ir-register { background-color: @register-lighter; }
+}
+
+.ir-statement-toggle-hide, .ir-statement-toggle-show {
+  color: @mute;
+  &.highlighted { font-weight: normal; }
+}
+
+.invisible {
+  .invisible();
+}
+
+.hidden {
+  .hidden();
+}

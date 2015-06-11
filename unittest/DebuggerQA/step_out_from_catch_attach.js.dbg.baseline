@@ -1,0 +1,28 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": "1",
+      "e": {
+        "__proto__": "",
+        "description": "",
+        "number": "0",
+        "stack": "<large string>"
+      },
+      "z": "1",
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>",
+        "Run": "<large string>"
+      }
+    }
+  }
+]

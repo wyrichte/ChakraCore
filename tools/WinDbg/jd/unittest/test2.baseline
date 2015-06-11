@@ -1,0 +1,7 @@
+_js_!foo ($TestPath\test2.js:4,15)
+_js_!func ($TestPath\test2.js:8,5)
+_js_!Function code (Function code:1,1)
+_js_!eval code (eval code:1,1)
+_js_!Anonymous function ($TestPath\test2.js:15,10)
+_js_!bar ($TestPath\test2.js:14,5)
+_js_!Global code ($TestPath\test2.js:1,1)

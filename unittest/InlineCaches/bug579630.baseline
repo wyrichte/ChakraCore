@@ -1,0 +1,7 @@
+protoObj0.prop0 getter
+protoObj0.prop0 getter
+protoObj0.prop0 getter
+protoObj0.prop0 getter
+TypeError: Object doesn't support property or method 'method1'
+	at Unknown script code (bug579630.js:25:10)
+	at Global code (bug579630.js:51:1)

@@ -1,0 +1,55 @@
+testCopyOnWriteObjects():
+Inline cache:
+attached copy-on-write objects:
+12
+12
+12
+12
+detached copy-on-write objects:
+12
+12
+12
+12
+33
+33
+33
+33
+
+testCopyOnWriteObjectsWithCopyOnWritePrototypes():
+Inline cache:
+attached copy-on-write objects:
+2
+2
+12
+12
+2
+2
+12
+12
+detached copy-on-write objects:
+2
+2
+12
+12
+2
+2
+12
+12
+33
+33
+33
+33
+33
+33
+33
+33
+
+testInlineAndTypePropertyCaches():
+Inline cache:
+0
+1
+
+Type property cache:
+0
+1
+

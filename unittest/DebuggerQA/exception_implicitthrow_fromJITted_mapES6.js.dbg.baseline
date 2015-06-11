@@ -1,0 +1,38 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 243,
+        "length": 26,
+        "text": "Map.prototype.has.call({})",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.forEach"
+      },
+      {
+        "start": 206,
+        "length": 95,
+        "text": "a.forEach(function () {\n            Map.prototype.has.call({}); //throws TypeError\n        })",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 364,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

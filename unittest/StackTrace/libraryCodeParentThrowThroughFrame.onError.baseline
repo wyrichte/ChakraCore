@@ -1,0 +1,3 @@
+[window.onerror] msg: 'x' is undefined
+                 relativeUrl: StackTrace/libraryCodeParentThrowThroughFrame.onError.html
+                 line: 14

@@ -1,0 +1,649 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 397,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "OneClass.Inc"
+      },
+      {
+        "start": 1417,
+        "length": 26,
+        "text": "var temp = OneClass.Inc(1)",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 503,
+        "length": 3,
+        "text": "a--",
+        "frameDescription": "OneClass[Dec]"
+      },
+      {
+        "start": 1452,
+        "length": 27,
+        "text": "var temp2 = OneClass.Dec(1)",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 608,
+        "length": 8,
+        "text": "return 1",
+        "frameDescription": "get OneClass.One"
+      },
+      {
+        "start": 1488,
+        "length": 19,
+        "text": "temp = OneClass.One",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 694,
+        "length": 1,
+        "text": "a",
+        "frameDescription": "set OneClass.One"
+      },
+      {
+        "start": 1516,
+        "length": 19,
+        "text": "OneClass.One = temp",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 776,
+        "length": 8,
+        "text": "return 2",
+        "frameDescription": "get OneClass[Two]"
+      },
+      {
+        "start": 1544,
+        "length": 19,
+        "text": "temp = OneClass.Two",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 866,
+        "length": 1,
+        "text": "a",
+        "frameDescription": "set OneClass[Two]"
+      },
+      {
+        "start": 1572,
+        "length": 19,
+        "text": "OneClass.Two = temp",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 937,
+        "length": 12,
+        "text": "return a + b",
+        "frameDescription": "OneClass.prototype.Sum"
+      },
+      {
+        "start": 1631,
+        "length": 18,
+        "text": "temp = x.Sum(1, 2)",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1023,
+        "length": 12,
+        "text": "return a - b",
+        "frameDescription": "OneClass.prototype[Diff]"
+      },
+      {
+        "start": 1658,
+        "length": 20,
+        "text": "temp2 = x.Diff(1, 2)",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1107,
+        "length": 8,
+        "text": "return 3",
+        "frameDescription": "get OneClass.prototype.three"
+      },
+      {
+        "start": 1687,
+        "length": 14,
+        "text": "temp = x.three",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1188,
+        "length": 1,
+        "text": "a",
+        "frameDescription": "set OneClass.prototype.three"
+      },
+      {
+        "start": 1710,
+        "length": 14,
+        "text": "x.three = temp",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1274,
+        "length": 8,
+        "text": "return 4",
+        "frameDescription": "get OneClass.prototype[four]"
+      },
+      {
+        "start": 1733,
+        "length": 13,
+        "text": "temp = x.four",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1358,
+        "length": 1,
+        "text": "a",
+        "frameDescription": "set OneClass.prototype[four]"
+      },
+      {
+        "start": 1755,
+        "length": 13,
+        "text": "x.four = temp",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "A": "constructor() {}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2310,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "OneClass"
+      },
+      {
+        "start": 2392,
+        "length": 1,
+        "text": "{",
+        "frameDescription": "TwoClass"
+      },
+      {
+        "start": 2441,
+        "length": 24,
+        "text": "var obj = new TwoClass()",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "super.method()": "'super' can only be accessed from a subclass method"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "super.method()": "hello world"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "super['method']()": "hello world"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "(() => super.method())()": "hello world"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "super.method()": "hello world"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "(() => super.method())()": "hello world"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "super.method()": "hello world"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "undefined",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Scope]3": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "super.method();": "hello world"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "super.method();": "hello world"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "1",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "super.method();": "hello world"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 4531,
+        "length": 27,
+        "text": "return super.staticMethod()",
+        "frameDescription": "b.staticMethod"
+      },
+      {
+        "start": 4892,
+        "length": 16,
+        "text": "b.staticMethod()",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 4929,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "constructor(...args) { super(...args); }",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "super.staticMethod();": "static"
+    }
+  }
+]

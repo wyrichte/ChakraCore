@@ -1,0 +1,86 @@
+[
+  {
+    "setnextstatement": {
+      "from": 188,
+      "to": 279,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 587,
+      "to": 502,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 587,
+      "to": 502,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 587,
+      "to": 502,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 906,
+      "to": 782,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 1160,
+      "to": 1232,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 1342,
+      "to": 1498,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 1413,
+      "to": 1568,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 1628,
+      "to": 1920,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 1717,
+      "to": 1920,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 1788,
+      "to": 2180,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 1996,
+      "to": 2180,
+      "IsAllowed": "Yes"
+    }
+  }
+]

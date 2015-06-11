@@ -1,0 +1,35 @@
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<html>
+<head>
+<script>
+function print(s)
+{
+    if (this.WScript)
+    {
+        WScript.Echo(s);
+    }
+    else
+    {
+        alert(s);
+    }
+
+}
+
+function localfoo()
+{
+    var x = { a: 1 };
+    var y = document.createElement('a'); 
+
+    for (var i in x) {
+        x[i] = new Object();
+        y[i] = new Object();
+        y['foo'] = y;
+    }
+
+    print("Success");
+}
+</script>
+</head>
+<body onload="localfoo()">
+</body>
+</html>

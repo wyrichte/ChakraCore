@@ -1,0 +1,1138 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 0,
+        "length": 48,
+        "text": "WScript.Echo(\"Test to validate NoAOOndiag flag\")",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "undefined"
+      },
+      "F1": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "F1",
+        "prototype": "{...}"
+      },
+      "F2": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "2",
+        "name": "F2",
+        "prototype": "{...}"
+      },
+      "F3": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "F3",
+        "prototype": "{...}"
+      },
+      "F4": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "F4",
+        "prototype": "{...}"
+      },
+      "F5": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "2",
+        "name": "F5",
+        "prototype": "{...}"
+      },
+      "F6": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "F6",
+        "prototype": "{...}"
+      },
+      "top": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 48,
+        "text": "WScript.Echo(\"Test to validate NoAOOndiag flag\")",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 126,
+        "length": 10,
+        "text": "return a+b",
+        "frameDescription": "F1"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "10",
+      "b": "20",
+      "c": "30",
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 126,
+        "length": 10,
+        "text": "return a+b",
+        "frameDescription": "F1"
+      },
+      {
+        "start": 142,
+        "length": 4,
+        "text": "F1()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 175,
+        "length": 9,
+        "text": "arguments",
+        "frameDescription": "F2"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "3",
+        "[0]": "2",
+        "[1]": "54",
+        "[2]": "[]"
+      },
+      "a1": "undefined",
+      "a": "2",
+      "b": "54",
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 175,
+        "length": 9,
+        "text": "arguments",
+        "frameDescription": "F2"
+      },
+      {
+        "start": 224,
+        "length": 11,
+        "text": "F2(2,54,[])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 259,
+        "length": 10,
+        "text": "var a = 10",
+        "frameDescription": "F3"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "b": "undefined",
+      "c": "undefined",
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 259,
+        "length": 10,
+        "text": "var a = 10",
+        "frameDescription": "F3"
+      },
+      {
+        "start": 335,
+        "length": 4,
+        "text": "F3()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 319,
+        "length": 10,
+        "text": "return a+b",
+        "frameDescription": "F3"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "10",
+      "b": "20",
+      "c": "30",
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 319,
+        "length": 10,
+        "text": "return a+b",
+        "frameDescription": "F3"
+      },
+      {
+        "start": 335,
+        "length": 4,
+        "text": "F3()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 363,
+        "length": 11,
+        "text": "var a1 = 10",
+        "frameDescription": "F4"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "f4": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f4",
+        "prototype": "{...}"
+      },
+      "b1": "undefined",
+      "f5": "undefined",
+      "a1": "undefined",
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 363,
+        "length": 11,
+        "text": "var a1 = 10",
+        "frameDescription": "F4"
+      },
+      {
+        "start": 610,
+        "length": 4,
+        "text": "F4()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 428,
+        "length": 11,
+        "text": "var a2 = 10",
+        "frameDescription": "f4"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a2": "undefined",
+      "[Scope]1": {
+        "a1": "11"
+      },
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 428,
+        "length": 11,
+        "text": "var a2 = 10",
+        "frameDescription": "f4"
+      },
+      {
+        "start": 461,
+        "length": 4,
+        "text": "f4()",
+        "frameDescription": "F4"
+      },
+      {
+        "start": 610,
+        "length": 4,
+        "text": "F4()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 472,
+        "length": 106,
+        "text": "var f5 = function()\n\t{\n\t\tvar a3 = new Date;\n\t\tvar a4 = \"str\";\n\t\tvar a5 = a1;\n\t\t\n\t\t\n\t\treturn a4;\n\t}",
+        "frameDescription": "F4"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "f4": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f4",
+        "prototype": "{...}"
+      },
+      "b1": "str",
+      "f5": "undefined",
+      "a1": "11",
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 472,
+        "length": 106,
+        "text": "var f5 = function()\n\t{\n\t\tvar a3 = new Date;\n\t\tvar a4 = \"str\";\n\t\tvar a5 = a1;\n\t\t\n\t\t\n\t\treturn a4;\n\t}",
+        "frameDescription": "F4"
+      },
+      {
+        "start": 610,
+        "length": 4,
+        "text": "F4()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 564,
+        "length": 9,
+        "text": "return a4",
+        "frameDescription": "f5"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a3": {
+        "__proto__": "Invalid Date"
+      },
+      "a4": "str",
+      "a5": "11",
+      "[Scope]1": {
+        "a1": "11"
+      },
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 564,
+        "length": 9,
+        "text": "return a4",
+        "frameDescription": "f5"
+      },
+      {
+        "start": 584,
+        "length": 4,
+        "text": "f5()",
+        "frameDescription": "F4"
+      },
+      {
+        "start": 610,
+        "length": 4,
+        "text": "F4()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 595,
+        "length": 9,
+        "text": "return a1",
+        "frameDescription": "F4"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "f4": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f4",
+        "prototype": "{...}"
+      },
+      "b1": "str",
+      "f5": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f5",
+        "prototype": "{...}"
+      },
+      "a1": "11",
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 595,
+        "length": 9,
+        "text": "return a1",
+        "frameDescription": "F4"
+      },
+      {
+        "start": 610,
+        "length": 4,
+        "text": "F4()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 607,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "F4"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "[Return value]": "11",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "f4": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f4",
+        "prototype": "{...}"
+      },
+      "b1": "str",
+      "f5": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f5",
+        "prototype": "{...}"
+      },
+      "a1": "11",
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 607,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "F4"
+      },
+      {
+        "start": 610,
+        "length": 4,
+        "text": "F4()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 749,
+        "length": 10,
+        "text": "F5(10, [])",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "F1": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "F1",
+        "prototype": "{...}"
+      },
+      "F2": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "2",
+        "name": "F2",
+        "prototype": "{...}"
+      },
+      "F3": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "F3",
+        "prototype": "{...}"
+      },
+      "F4": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "F4",
+        "prototype": "{...}"
+      },
+      "F5": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "2",
+        "name": "F5",
+        "prototype": "{...}"
+      },
+      "F6": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "F6",
+        "prototype": "{...}"
+      },
+      "top": {
+        "__proto__": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 749,
+        "length": 10,
+        "text": "F5(10, [])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 642,
+        "length": 11,
+        "text": "var a1 = 10",
+        "frameDescription": "F5"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "2",
+        "[0]": "10",
+        "[1]": "[]"
+      },
+      "a": "10",
+      "b": {
+        "__proto__": "[]",
+        "length": "0"
+      },
+      "a1": "undefined",
+      "f6": "undefined",
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 642,
+        "length": 11,
+        "text": "var a1 = 10",
+        "frameDescription": "F5"
+      },
+      {
+        "start": 749,
+        "length": 10,
+        "text": "F5(10, [])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 709,
+        "length": 9,
+        "text": "return b1",
+        "frameDescription": "f6"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "b1": "10",
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 709,
+        "length": 9,
+        "text": "return b1",
+        "frameDescription": "f6"
+      },
+      {
+        "start": 726,
+        "length": 4,
+        "text": "f6()",
+        "frameDescription": "F5"
+      },
+      {
+        "start": 749,
+        "length": 10,
+        "text": "F5(10, [])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 841,
+        "length": 14,
+        "text": "var inf12 = 10",
+        "frameDescription": "F6_1"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "F6_2": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "F6_2",
+        "prototype": "{...}"
+      },
+      "inf12": "undefined",
+      "[Scope]1": {
+        "i": "10"
+      },
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 841,
+        "length": 14,
+        "text": "var inf12 = 10",
+        "frameDescription": "F6_1"
+      },
+      {
+        "start": 1012,
+        "length": 6,
+        "text": "F6_1()",
+        "frameDescription": "F6"
+      },
+      {
+        "start": 1024,
+        "length": 15,
+        "text": "F6(10, \"input\")",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "language_initiated",
+      "location": {
+        "start": 939,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "F6_2"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "m": "11",
+      "[Scope]1": {
+        "i": "11"
+      },
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 939,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "F6_2"
+      },
+      {
+        "start": 992,
+        "length": 6,
+        "text": "F6_2()",
+        "frameDescription": "F6_1"
+      },
+      {
+        "start": 1012,
+        "length": 6,
+        "text": "F6_1()",
+        "frameDescription": "F6"
+      },
+      {
+        "start": 1024,
+        "length": 15,
+        "text": "F6(10, \"input\")",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 962,
+        "length": 8,
+        "text": "return m",
+        "frameDescription": "F6_2"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "m": "11",
+      "[Scope]1": {
+        "i": "11"
+      },
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 962,
+        "length": 8,
+        "text": "return m",
+        "frameDescription": "F6_2"
+      },
+      {
+        "start": 992,
+        "length": 6,
+        "text": "F6_2()",
+        "frameDescription": "F6_1"
+      },
+      {
+        "start": 1012,
+        "length": 6,
+        "text": "F6_1()",
+        "frameDescription": "F6"
+      },
+      {
+        "start": 1024,
+        "length": 15,
+        "text": "F6(10, \"input\")",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 1021,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "F6"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "2",
+        "[0]": "10",
+        "[1]": "input"
+      },
+      "F6_1": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "F6_1",
+        "prototype": "{...}"
+      },
+      "j": "20",
+      "i": "11",
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F4": "<large string>",
+        "F5": "<large string>",
+        "F6": "<large string>",
+        "top": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1021,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "F6"
+      },
+      {
+        "start": 1024,
+        "length": 15,
+        "text": "F6(10, \"input\")",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

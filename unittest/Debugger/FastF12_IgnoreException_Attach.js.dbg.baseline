@@ -1,0 +1,52 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 118,
+        "length": 17,
+        "text": "throw \"catch me!\"",
+        "frameDescription": "oldF"
+      },
+      {
+        "start": 400,
+        "length": 10,
+        "text": "oldF(true)",
+        "frameDescription": "newF"
+      },
+      {
+        "start": 420,
+        "length": 10,
+        "text": "newF(true)",
+        "frameDescription": "test1"
+      },
+      {
+        "start": 621,
+        "length": 7,
+        "text": "test1()",
+        "frameDescription": "tests"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 509,
+        "length": 20,
+        "text": "SCA.serialize(dummy)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 584,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "test2"
+      },
+      {
+        "start": 633,
+        "length": 7,
+        "text": "test2()",
+        "frameDescription": "tests"
+      }
+    ]
+  }
+]

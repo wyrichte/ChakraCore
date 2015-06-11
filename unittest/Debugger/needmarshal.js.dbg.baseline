@@ -1,0 +1,18 @@
+[
+  {
+    "evaluate": {
+      "child_get_object()": {
+        "__proto__": "{...}",
+        "a": "1"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "child_get_object()": {
+        "__proto__": "{...}",
+        "a": "1"
+      }
+    }
+  }
+]

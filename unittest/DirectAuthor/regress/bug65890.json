@@ -1,0 +1,67 @@
+{
+  "testname" : "Authoring Tokens - Test colorization tokens for a source file",
+  "owner" : "chuckj",
+  "validated" : true,
+  "timeout" : 1000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "_comment1" : "Supply a file with at least one error",
+  "_comment2" : "",
+  "runAuthoringTest" : true,
+  "commands" :
+  [
+{
+  "action": "getTokenRanges",
+  "args": [
+    "bug65890.js"
+  ],
+  "events": [
+    {
+      "lines": [
+        {
+          "line": 0,
+          "level": 0,
+          "tokens": [
+            {
+              "start": 0,
+              "end": 3,
+              "kind": "keyword"
+            },
+            {
+              "start": 4,
+              "end": 7,
+              "kind": "identifier"
+            },
+            {
+              "start": 8,
+              "end": 9,
+              "kind": "operator"
+            },
+            {
+              "start": 10,
+              "end": 15,
+              "kind": "regex"
+            },
+            {
+              "start": 15,
+              "end": 16,
+              "kind": "operator"
+            }
+          ]
+        },
+        {
+          "line": 1,
+          "level": 0,
+          "tokens": []
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

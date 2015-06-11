@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="TrimStackTracePath.js"></script>
+<script>
+window.onerror = function(msg, url, line) {
+    var file = TrimStackTracePath("(" + url).substring(1);
+    WScript.Echo("Script error at", file + "(" + line + "):", msg);
+    return true;
+};
+
+var i = 0;
+function foo()
+{
+    i++;
+    foo();
+}
+foo();
+</script>
+</body>
+</html>

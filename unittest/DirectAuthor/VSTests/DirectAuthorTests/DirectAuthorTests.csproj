@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{30F4FE63-FC81-4904-9CD2-B1C9101B219C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DirectAuthorTests</RootNamespace>
+    <AssemblyName>DirectAuthorTests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <BuildArch>x86</BuildArch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <BuildType>chk</BuildType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <BuildType>fre</BuildType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AgressiveIntellisenseTests.cs" />
+    <Compile Include="API\AuthorHelpers.cs" />
+    <Compile Include="API\AuthorParameterHelp.cs" />
+    <Compile Include="API\CompletionSetExtensions.cs" />
+    <Compile Include="API\IAuthorTestContext.cs" />
+    <Compile Include="API\IAuthorTestFile.cs" />
+    <Compile Include="API\IAuthorTestSession.cs" />
+    <Compile Include="ASTAsJSONTests.cs" />
+    <Compile Include="ASTCursorTests.cs" />
+    <Compile Include="ColorizerTests.cs" />
+    <Compile Include="DeferredParsingTests.cs" />
+    <Compile Include="DefinitionLocationTests.cs" />
+    <Compile Include="DocCommentsTests.cs" />
+    <Compile Include="ExtensibilityTests.cs" />
+    <Compile Include="Infrastructure\COMAutoRelease.cs" />
+    <Compile Include="JQueryGeneratedTests.cs" />
+    <Compile Include="JQueryTestsBase.cs" />
+    <Compile Include="MicrosoftAjaxTests.cs" />
+    <Compile Include="MissingPropertyTypeTests.cs" />
+    <Compile Include="QuickInfoTests.cs" />
+    <Compile Include="ReferenceTests.cs" />
+    <Compile Include="ReleaseMemoryTests.cs" />
+    <Compile Include="ScriptLoaderTests.cs" />
+    <Compile Include="MemoryTests.cs" />
+    <Compile Include="CompletionHintTests.cs" />
+    <Compile Include="CorsicaApplications.cs" />
+    <Compile Include="Infrastructure\AuthorTestSession.cs" />
+    <Compile Include="Infrastructure\CompletionsBase.cs" />
+    <Compile Include="Infrastructure\DirectAuthorTest.cs" />
+    <Compile Include="Infrastructure\HighResolutionTimer.cs" />
+    <Compile Include="Errors.cs" />
+    <Compile Include="External\FakeCOMActivator.cs" />
+    <Compile Include="External\Guids.cs" />
+    <Compile Include="External\GuidStrings.cs" />
+    <Compile Include="External\NativeMethods.cs" />
+    <Compile Include="External\ScriptDirectAuthor.cs" />
+    <Compile Include="Infrastructure\Helpers.cs" />
+    <Compile Include="ParameterHelpTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CompletionTests.cs" />
+    <Compile Include="RegressionTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Files\Bug214169.js" />
+    <Content Include="Files\JQuery\jquery-1.6.2.js" />
+    <Content Include="Files\JQuery\jquery-1.6.2.min.js" />
+    <Content Include="Files\JQuery\jquery-1.7.js" />
+    <Content Include="Files\JQuery\jquery-1.7.min.js" />
+    <Content Include="Files\MicrosoftAjax.js" />
+    <Content Include="Files\MicrosoftAjax.intellisense.js" />
+    <Content Include="Files\MicrosoftAjaxWebForms.debug.js" />
+    <Content Include="Files\MicrosoftAjax_Bug221337.js" />
+    <Content Include="Files\prototype.js" />
+    <Content Include="Files\scriptaculous.js" />
+    <Content Include="Files\ScriptLoaders\HeadJs\head.js" />
+    <Content Include="Files\ScriptLoaders\JsDefer\jsdefer.js" />
+    <Content Include="Files\ScriptLoaders\LabJs\lab.js" />
+    <Content Include="Files\ScriptLoaders\RequireJs\require.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\ScriptLoaders\YUILoader\yui.js" />
+    <Content Include="Files\SOE\0_SiteTypes.js" />
+    <Content Include="Files\SOE\1_OldDom.js" />
+    <Content Include="Files\SOE\2.js" />
+    <Content Include="Files\SOE\3.js" />
+    <Content Include="Files\SOE\4_JQuery.js" />
+    <Content Include="Files\SOE\4_JQuery_debug.js" />
+    <Content Include="Files\SOE\5.js" />
+    <Content Include="Files\SOE\6.js" />
+    <Content Include="Files\SOE\7_DropShadowText.js" />
+    <Content Include="Files\SOE\8.js" />
+    <Content Include="Files\SOE\primary.js" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  -->
+</Project>

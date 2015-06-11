@@ -1,0 +1,2896 @@
+//  Copyright (c) Microsoft Corporation. All rights reserved.
+//
+//  WindowsRuntimeAPISet
+
+import "oaidl.idl";
+import "ocidl.idl";
+import "hstring.idl";
+import "inspectable.idl";
+import "windows.foundation.idl";
+import "Fabrikam.idl";
+import "Windows.Foundation.idl";
+
+midl_pragma warning ( disable: 4066 )
+midl_pragma warning ( disable: 5083 )
+
+namespace MissingConstructs
+{
+#include <sdkddkver.h>
+
+    typedef boolean MissingBool;
+
+    [
+        uuid(be96174e-f438-4900-843d-75740b0a0d8a),
+        version(NTDDI_WIN8)
+    ]
+    interface IMissingInterface : IInspectable
+    {
+        HRESULT None();
+    }
+
+    [version(NTDDI_WIN8)]
+    typedef struct MissingStruct
+    {
+        int Value1;
+    } MissingStruct;
+
+    [
+        activatable(NTDDI_WIN8),
+        version(NTDDI_WIN8)
+    ]
+    runtimeclass MissingType
+    {
+        [default] interface IMissingInterface;
+    }
+
+    [version(0), uuid(1cdf302b-9eea-48df-9e76-4f3d1cd5b136)]
+    delegate HRESULT MissingDelegate([in] IMissingInterface *inInterface);
+
+    [version(NTDDI_WIN8)]
+    typedef enum MissingEnum
+    {
+        One = 1,
+        Two = 2
+    } MissingEnum;
+
+}
+
+namespace Animals {
+#define Marshal(type) HRESULT Marshal##type([in] t_##type _in, [out] t_##type* _out)
+
+#define CallDelegateWithOutParam(typeName) HRESULT CallDelegateWithOutParam_##typeName([in] DelegateWithOutParam_##typeName* onDelegateWithOut##typeName, [out] ##typeName *outParam);
+
+#define DefineDelegatewithOutParam(typeName, guidDelegate) \
+    [version(NTDDI_WIN8), object, uuid(##guidDelegate)] \
+    delegate HRESULT DelegateWithOutParam_##typeName([in] IAnimal *sender, [out] ##typeName *outParam); \
+
+[version(NTDDI_WIN8)]
+typedef enum Phylum
+{
+    First = 0,
+    Acanthocephala = 0,
+    Acoelomorpha, 
+    Annelida, 
+    Arthropoda, 
+    Brachiopoda, 
+    Bryozoa,
+    Chaetognatha,
+    Chordata,
+    Cnidaria,
+    Ctenophora,
+    Cycliophora,
+    Echinodermata,
+    Echiura,
+    Entoprocta,
+    Gastrotricha,
+    Gnathostomulida,
+    Hemichordata,
+    Kinorhyncha,
+    Loricifera,
+    Micrognathozoa,
+    Mollusca,
+    Nematoda,
+    Nematomorpha,
+    Nemertea,
+    Onychophora,
+    Orthonectida,
+    Phoronida,
+    Placozoa,
+    Platyhelminthes,
+    Porifera,
+    Priapulida,
+    Rhombozoa,
+    Rotifera,
+    Sipuncula,
+    Tardigrada,
+    Xenoturbellid,
+    Last = Xenoturbellid
+} Phylum;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct Dimensions
+{
+   int Length;
+   int Width;
+} Dimensions;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct Vector8 // 4 * 8 = 32bytes
+{
+    int Value1;
+    int Value2;
+    int Value3;
+    int Value4;
+    int Value5;
+    int Value6;
+    int Value7;
+    int Value8;
+} Vector8;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct Matrix8x8 // 32 * 8 = 256 bytes
+{
+    Vector8 Vector1;
+    Vector8 Vector2;
+    Vector8 Vector3;
+    Vector8 Vector4;
+    Vector8 Vector5;
+    Vector8 Vector6;
+    Vector8 Vector7;
+    Vector8 Vector8;
+} Matrix8x8;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct KiloStruct //256 * 4 = 1KB
+{
+    Matrix8x8 Matrix1;
+    Matrix8x8 Matrix2;
+    Matrix8x8 Matrix3;
+    Matrix8x8 Matrix4;
+} KiloStruct;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct MixedStruct
+{
+    Matrix8x8 Matrix;
+    HSTRING AString;
+    Windows.Foundation.IReference<Matrix8x8>* MatrixRef;
+    int AnInt;
+    Windows.Foundation.IReference<int>* IntRef;
+} MixedStruct;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct MixedStructResult
+{
+    boolean StructPointerEqual;
+    boolean AStringPointerEqual;
+    boolean MatrixRefPointerEqual;
+    boolean IntRefPointerEqual;
+} MixedStructResult;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct PackedByte
+{
+   byte Field0;
+} PackedByte;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct PackedBoolean4
+{
+   boolean Field0;
+   boolean Field1;
+   boolean Field2;
+   boolean Field3;
+} PackedBoolean4;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct OddSizedStruct
+{
+   byte Field0;
+   byte Field1;
+   byte Field2;
+} OddSizedStruct;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct SmallComplexStruct
+{
+   byte Field0;
+   PackedByte Field1;
+   byte Field2;
+} SmallComplexStruct;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct BigComplexStruct
+{
+   byte Field0;
+   PackedByte Field1;
+   byte Field2;
+   PackedBoolean4 Field3;
+   SmallComplexStruct Field4;
+   SmallComplexStruct Field5;
+   byte Field6;
+   int Field7;
+} BigComplexStruct;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct _InnerStruct
+{
+    int a;
+} InnerStruct;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct _OuterStruct
+{
+    InnerStruct Inner;    
+} OuterStruct;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct _Names
+{
+    HSTRING Common;    
+    HSTRING Scientific;
+    HSTRING AlsoKnownAs;
+} Names;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct _PhylumChange
+{
+    Phylum Current;    
+    Phylum Original;
+} PhylumChange;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct _StudyInfo
+{
+    HSTRING StudyName;
+    GUID SubjectID;
+} StudyInfo;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef enum CollectionChangeType
+{
+    ItemAdded,
+    ItemChanged,
+    ItemRemoved,
+} CollectionChangeType;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct CollectionChangedEventArgs
+{
+    HSTRING objectId;
+    CollectionChangeType eType;
+    UINT32 index;
+    UINT32 previousIndex;
+
+} CollectionChangedEventArgs;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct _StructForStructEvent
+{
+   int structId;
+   int structData;
+} StructForStructEvent;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct _StructForStructWithTargetEvent
+{
+   int structId;
+   int structData;
+   boolean target;
+} StructForStructWithTargetEvent;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct _SimpleIRefStruct
+{
+Windows.Foundation.IReference<int>* field1;
+Windows.Foundation.IReference<short>* field2;
+} SimpleIRefStruct;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct _SimpleMixIRefStruct
+{
+Windows.Foundation.IReference<int>* field1;
+Windows.Foundation.IReference<short>* field2;
+BYTE field3;
+} SimpleMixIRefStruct;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct _NestedIRefStruct
+{
+Windows.Foundation.IReference<int>* field1;
+Dimensions dimensions;
+} NestedIRefStruct;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct _NestedIRefNestedStruct
+{
+Windows.Foundation.IReference<int>* field1;
+Windows.Foundation.IReference<Dimensions>* dimensions;
+BYTE field3;
+} NestedIRefNestedStruct;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct _AllIRefStruct
+{
+Windows.Foundation.IReference<WCHAR>* wcharField;
+Windows.Foundation.IReference<BYTE>* byteField;
+Windows.Foundation.IReference<INT16>* int16Field;
+Windows.Foundation.IReference<INT32>* int32Field;
+Windows.Foundation.IReference<UINT16>* uint16Field;
+Windows.Foundation.IReference<UINT32>* uint32Field;
+Windows.Foundation.IReference<boolean>* booleanField;
+Windows.Foundation.IReference<float>* floatField;
+Windows.Foundation.IReference<double>* doubleField;
+} AllIRefStruct;
+
+
+// Bug 252112
+//[
+//    version(NTDDI_WIN8)
+//]
+//typedef struct _StructOfItself_Bug252112Struct
+//{
+//  struct _StructOfItself_Bug252112Struct nestedStruct;
+//} StructOfItself_Bug252112Struct; 
+// /Bug 252112
+
+// Bug 258665
+[
+    version(NTDDI_WIN8)
+]
+typedef struct Bug258665_HttpProgress
+{
+    HSTRING Stage;    
+    UINT64 BytesSent;
+    Windows.Foundation.IReference<UINT64>* TotalBytesToSend;
+    UINT64 BytesReceived;
+    Windows.Foundation.IReference<UINT64>* TotalBytesToReceive;
+    UINT32 Retries; 
+} Bug258665_HttpProgress;
+// /Bug 258665
+
+
+typedef boolean t_Bool;
+typedef byte t_UInt8;
+typedef int t_Int32;
+typedef unsigned int t_UInt32;
+typedef __int64 t_Int64;
+typedef unsigned __int64 t_UInt64;
+typedef float t_Single;
+typedef double t_Double;
+typedef wchar_t t_Char16;
+//MIDLRT bug: Win8 112810
+//typedef Dimensions t_Dimensions;
+//typedef OuterStruct t_OuterStruct;
+//Forward declarations
+interface IAnimal;
+interface IDino;
+interface IExtinct;
+interface ILikeToSwim;
+interface IFish;
+interface IAnimalFactory;
+interface IAnimalFactory2;
+interface IStaticDino;
+interface IStaticPuppy;
+interface IInterface1WithEvent;
+interface IInterface2WithEvent;
+interface IInterface3WithEvent;
+interface IInterface4WithEvent;
+interface IInterfaceWithMiscEventFormat;
+interface IEmptyGRCN;
+
+runtimeclass Animal;
+runtimeclass Dino;
+runtimeclass Fish;
+runtimeclass DodoBird;
+runtimeclass RCIObservable;
+runtimeclass RCPropertyValue1;
+runtimeclass RCPropertyValue2;
+runtimeclass RCPropertyValue3;
+runtimeclass RCPropertyValue4;
+runtimeclass RCPropertyValue5;
+runtimeclass RCPropertyValue6;
+runtimeclass MultipleIVector;
+
+interface IHiddenInterface;
+interface IRequiredHiddenInterface;
+interface IVisibleInterface;
+runtimeclass HiddenClass;
+runtimeclass VisibleClassWithHiddenInterfaceOnly;
+runtimeclass VisibleClassWithDefaultHiddenInterface;
+runtimeclass VisibleClassWithDefaultVisibleInterface;
+
+DefineDelegatewithOutParam(HSTRING, A80934E2-75F9-451C-AFEB-610930A89059)
+DefineDelegatewithOutParam(int, D0682B37-ED48-447A-8589-040BAFA0DB0B)
+
+[version(NTDDI_WIN8), object, uuid(957FADEB-5E90-4436-8D46-421D82C9AD11)]
+delegate HRESULT SimpleDelegateForEventHandler([in] IInspectable* sender, [out] int* _out);
+
+[version(0), uuid(0020000d-7422-481f-c2c3-f0a171043581)]
+delegate HRESULT BooleanOut2([out] boolean* p0, [out] boolean* p1);
+
+[version(NTDDI_WIN8), object, uuid(D7ACFAEF-C766-4185-9375-7B58494F1A8E)]
+delegate HRESULT DelegateWithOutParam_Interface([in] IAnimal *sender, [out] IAnimal** outParam);
+
+[version(NTDDI_WIN8), object, uuid(58504229-DA6A-4E6D-865F-46ABE3085A5E)]
+delegate HRESULT DelegateWithOutParam_Struct([in] IAnimal *sender, [out] Dimensions* outParam);
+
+[version(NTDDI_WIN8), object, uuid(B29D2215-9EF8-43DF-A6C2-CA6AD2DF5A96)]
+delegate HRESULT DelegateWithOutParam_InOutMixed([in] IAnimal *sender, [out] Dimensions *outParam, [in] int weight);
+
+[version(NTDDI_WIN8), object, uuid(C26121FD-F9C8-422C-83C1-29F2F0F0EDF4)]
+delegate HRESULT DelegateWithOutParam_MultipleOutParams([in] IAnimal *sender, [out] Names * names, [out] int *newWeight, [in] int weight, [out] IAnimal **outAnimal);
+
+[version(NTDDI_WIN8), object, uuid(1039CF57-59BC-4D15-9CDE-28794B07C622)]
+delegate HRESULT DelegateWithInParam_Array([in] IAnimal *sender, [in] UINT32 length, [in, size_is(length)] int myArray[]);
+
+[version(NTDDI_WIN8), object, uuid(4F5E2B65-584B-4EA2-91C5-949D560EB96F)]
+delegate HRESULT DelegateWithInOutParam_Array([in] IAnimal *sender, [in] UINT32 length, [out, size_is(length)] int myArray[]);
+
+[version(NTDDI_WIN8), object, uuid(5334EE43-8D72-46C2-885C-691D7C99EE56)]
+delegate HRESULT DelegateWithOutParam_Array([in] IAnimal *sender, [out] UINT32 *length, [out, size_is(,*length)] int **myArray);
+
+[version(NTDDI_WIN8), object, uuid(E7464C3E-5E80-42DE-B118-8621EAD8A6AD)]
+delegate HRESULT DelegateWithInParam_ArrayHSTRING([in] IAnimal *sender, [in] UINT32 length, [in, size_is(length)] HSTRING myArray[]);
+
+[version(NTDDI_WIN8), object, uuid(AA6E1AE2-5AE6-496B-A81A-637F85D4B769)]
+delegate HRESULT DelegateWithInOutParam_ArrayHSTRING([in] IAnimal *sender, [in] UINT32 length, [out, size_is(length)] HSTRING myArray[]);
+
+[version(NTDDI_WIN8), object, uuid(06D36669-2ACD-4DB8-A2C5-8586821FADAB)]
+delegate HRESULT DelegateWithOutParam_ArrayHSTRING([in] IAnimal *sender, [out] UINT32 *length, [out, size_is(,*length)] HSTRING **myArray);
+
+[version(NTDDI_WIN8), object, uuid(CAD2C37D-72E1-458C-B062-8140BFD12BFF)]
+delegate HRESULT DelegatePassArrayWithInLength([in] UINT32 length, [in, size_is(length), length_is(lengthValue)] int* value, [in] UINT32 lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(64D18A7E-2B8C-498F-A738-B71C7DD513CC)]
+delegate HRESULT DelegatePassArrayWithOutLength([in] UINT32 length, [in, size_is(length), length_is(*lengthValue)] int* value, [out] UINT32 *lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(B4D8DB9F-6B11-4CAB-B635-30BE93EAFD28)]
+delegate HRESULT DelegateFillArrayWithInLength([in] UINT32 length, [out, size_is(length), length_is(lengthValue)] int* value, [in] UINT32 lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(C607D4E2-7572-4AD7-9EC5-73F961A91C84)]
+delegate HRESULT DelegateFillArrayWithOutLength([in] UINT32 length, [out, size_is(length), length_is(*lengthValue)] int* value, [out] UINT32 *lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(CA12402F-D8F2-49A2-871A-C1188D0937C5)]
+delegate HRESULT DelegateReceiveArrayWithInLength([out] UINT32* length, [out, size_is(,*length), length_is(,lengthValue)] int** value, [in] UINT32 lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(7921132B-827F-4101-B4FD-FAEEABD75FC7)]
+delegate HRESULT DelegateReceiveArrayWithOutLength([out] UINT32* length, [out, size_is(,*length), length_is(,*lengthValue)] int** value, [out] UINT32 *lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(88DA276C-54FB-4FCC-ADB6-B6E5BF8E8FF9)]
+delegate HRESULT DelegatePassArrayWithOutLengthWithRetValLength([in] UINT32 length, [in, size_is(length), length_is(*lengthValue)] int* value, [out, retval] UINT32 *lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(0BBB42C5-F0AC-4C5A-81D6-46B998FBA399)]
+delegate HRESULT DelegatePassArrayWithOutLengthWithRetValRandomParam([in] UINT32 length, [in, size_is(length), length_is(*lengthValue)] int* value, [out] UINT32 *lengthValue, [out, retval] int *randomRetVal);
+
+[version(NTDDI_WIN8), object, uuid(6AEC6ECB-EC4F-4F15-8207-F3614C747D19)]
+delegate HRESULT DelegateFillArrayWithOutLengthWithRetValLength([in] UINT32 length, [out, size_is(length), length_is(*lengthValue)] int* value, [out, retval] UINT32 *lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(E45C5A47-6CAF-45E7-8D54-C29DF5E1A18C)]
+delegate HRESULT DelegateFillArrayWithOutLengthWithRetValRandomParam([in] UINT32 length, [out, size_is(length), length_is(*lengthValue)] int* value, [out] UINT32 *lengthValue, [out, retval] int *randomRetVal);
+
+[version(NTDDI_WIN8), object, uuid(E148DE1B-1670-4F33-9680-C4519CB89107)]
+delegate HRESULT DelegateReceiveArrayWithOutLengthWithRetValLength([out] UINT32* length, [out, size_is(,*length), length_is(,*lengthValue)] int** value, [out, retval] UINT32 *lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(55FCF12E-CF79-41FE-A157-83EB4E0569D0)]
+delegate HRESULT DelegateReceiveArrayWithOutLengthWithRetValRandomParam([out] UINT32* length, [out, size_is(,*length), length_is(,*lengthValue)] int** value, [out] UINT32 *lengthValue, [out, retval] int *randomRetVal);
+
+[version(NTDDI_WIN8), object, uuid(D29FF2E6-045C-48B8-8722-FCBEDEB04294)]
+delegate HRESULT DelegatePassArrayWithInLengthHSTRING([in] UINT32 length, [in, size_is(length), length_is(lengthValue)] HSTRING* value, [in] UINT32 lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(19F5A80B-2960-456D-811D-75D229EBB8D4)]
+delegate HRESULT DelegatePassArrayWithOutLengthHSTRING([in] UINT32 length, [in, size_is(length), length_is(*lengthValue)] HSTRING* value, [out] UINT32 *lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(4F53164D-9DBC-43C1-9FE5-4CD49C23EA69)]
+delegate HRESULT DelegateFillArrayWithInLengthHSTRING([in] UINT32 length, [out, size_is(length), length_is(lengthValue)] HSTRING* value, [in] UINT32 lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(E223CB63-0B50-4C24-9110-1AFB495672BA)]
+delegate HRESULT DelegateFillArrayWithOutLengthHSTRING([in] UINT32 length, [out, size_is(length), length_is(*lengthValue)] HSTRING* value, [out] UINT32 *lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(DF80B8FD-F625-41D0-9EDE-2367EA195D9C)]
+delegate HRESULT DelegateReceiveArrayWithInLengthHSTRING([out] UINT32* length, [out, size_is(,*length), length_is(,lengthValue)] HSTRING** value, [in] UINT32 lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(69FFD9E7-B631-4BF1-AC5A-2D7F29825391)]
+delegate HRESULT DelegateReceiveArrayWithOutLengthHSTRING([out] UINT32* length, [out, size_is(,*length), length_is(,*lengthValue)] HSTRING** value, [out] UINT32 *lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(8FFFB93F-91C0-41DD-973A-7057C0E79A8C)]
+delegate HRESULT DelegatePassArrayWithOutLengthWithRetValLengthHSTRING([in] UINT32 length, [in, size_is(length), length_is(*lengthValue)] HSTRING* value, [out, retval] UINT32 *lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(D1AD5E36-B0DB-4757-B365-3AE286F83725)]
+delegate HRESULT DelegatePassArrayWithOutLengthWithRetValRandomParamHSTRING([in] UINT32 length, [in, size_is(length), length_is(*lengthValue)] HSTRING* value, [out] UINT32 *lengthValue, [out, retval] int *randomRetVal);
+
+[version(NTDDI_WIN8), object, uuid(05D51341-7DDA-43F9-9F02-5CA4B0DC8321)]
+delegate HRESULT DelegateFillArrayWithOutLengthWithRetValLengthHSTRING([in] UINT32 length, [out, size_is(length), length_is(*lengthValue)] HSTRING* value, [out, retval] UINT32 *lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(3E6601E7-C957-4AFA-A1B2-A89A7EE53489)]
+delegate HRESULT DelegateFillArrayWithOutLengthWithRetValRandomParamHSTRING([in] UINT32 length, [out, size_is(length), length_is(*lengthValue)] HSTRING* value, [out] UINT32 *lengthValue, [out, retval] int *randomRetVal);
+
+[version(NTDDI_WIN8), object, uuid(918E4DEA-8D36-474F-BD1F-89B60F918904)]
+delegate HRESULT DelegateReceiveArrayWithOutLengthWithRetValLengthHSTRING([out] UINT32* length, [out, size_is(,*length), length_is(,*lengthValue)] HSTRING** value, [out, retval] UINT32 *lengthValue);
+
+[version(NTDDI_WIN8), object, uuid(F6694998-6E99-433B-B497-29258823C5E0)]
+delegate HRESULT DelegateReceiveArrayWithOutLengthWithRetValRandomParamHSTRING([out] UINT32* length, [out, size_is(,*length), length_is(,*lengthValue)] HSTRING** value, [out] UINT32 *lengthValue, [out, retval] int *randomRetVal);
+
+[version(NTDDI_WIN8), object, uuid(E2656B6C-4D20-43AC-9A06-81503BAD4EA7)]
+delegate HRESULT DelegateWithOutParam_Float([out] float *outValue);
+
+[version(NTDDI_WIN8), object, uuid(22DFE075-859C-460A-9159-4EBD4ADE0764)]
+delegate HRESULT DelegateWithInParam_Float([in] float inValue);
+
+[version(NTDDI_WIN8), object, uuid(455236AF-753A-4103-867A-39765D9784C5)]
+delegate HRESULT DelegateWithInOut_Float([in] int inValue1, [out] float *outValue1, [in] float inValue2, [in] int inValue3, [in] int inValue4, [in] float inValue5, [out] float *outValue2);
+
+[version(NTDDI_WIN8), object, uuid(B4B5DDA0-756D-4EBF-B570-07A3F77B468A)]
+delegate HRESULT CookiesEatenHandler([in] IStaticPuppy *sender, [in] int cookiesEaten);
+
+[version(NTDDI_WIN8), object, uuid(C0F91987-8C26-4666-AE40-6E97D4E1E51B)]
+delegate HRESULT FossilsFoundHandler([in] IStaticDino *sender, [in] int numFound);
+
+[version(NTDDI_WIN8), object, uuid(C67C2E64-85D8-40F8-9086-CF705D292C5A)]
+delegate HRESULT Interface1WithEventHandler([in] IInterface1WithEvent *sender, [in] HSTRING hString);
+
+[version(NTDDI_WIN8), object, uuid(A3B3F68B-1B40-4C2F-8202-736CAFA2A1FD)]
+delegate HRESULT Interface2WithEventHandler([in] IInterface2WithEvent *sender, [in] HSTRING hString);
+
+[version(NTDDI_WIN8), object, uuid(686FCF3C-E9ED-4497-B299-B35B0DC73F6E)]
+delegate HRESULT Interface3WithEventHandler([in] IInterface3WithEvent *sender, [in] HSTRING hString);
+
+[version(NTDDI_WIN8), object, uuid(D07565D6-D7C6-436D-8780-BEF7C7A963D4)]
+delegate HRESULT Interface4WithEventHandler([in] IInterface4WithEvent *sender, [in] HSTRING hString);
+
+[version(NTDDI_WIN8), object, uuid(050F5C8E-D7D5-4AFC-93D9-D4134EB08691)]
+delegate HRESULT DelegateWithIFish([in] IFish *inValue, [out] IFish **outValue);
+
+[version(NTDDI_WIN8), object, uuid(A02E5C45-7E5A-46AC-A109-FB2DCCC890AE)]
+delegate HRESULT DelegateWithFish([in] Fish *inValue, [out] Fish **outValue);
+
+[version(NTDDI_WIN8), object, uuid(91A48BDE-9E50-4C2E-AC32-9B67A58F8C3D)]
+delegate HRESULT DelegateWithLikeToSwim([in] ILikeToSwim *inValue, [out] ILikeToSwim **outValue);
+
+[version(NTDDI_WIN8), object, uuid(A4869503-E49E-4710-B2A5-C533B854B578)]
+delegate HRESULT DelegateWithExtinct([in] IExtinct *inValue, [out] IExtinct **outValue);
+
+[version(NTDDI_WIN8), object, uuid(D4574C6C-929E-438C-B7EB-35B48DD0E0B1)]
+delegate HRESULT DelegateWithVector([in] IVector<int> *inValue, [out] IVector<int> **outValue);
+
+[version(NTDDI_WIN8), object, uuid(A13F0281-D953-4687-AA28-B3139DA7293D)]
+delegate HRESULT DelegateWithIterable([in] IIterable<int> *inValue, [out] IIterable<int> **outValue);
+
+[version(NTDDI_WIN8), object, uuid(F322AE1C-3532-4AEB-8731-602821ABC200)]
+delegate HRESULT DelegateWithInParam_BigStruct([in] CollectionChangedEventArgs e, [in] HSTRING objectId, [in] CollectionChangeType eType, [in] UINT32 index, [in] UINT32 previousIndex);
+
+[version(NTDDI_WIN8), object, uuid(33BA47DF-757E-40D5-AAC8-D12BD5492318)]
+delegate HRESULT DelegateWithOutParam_BigStruct([out] CollectionChangedEventArgs *args, [out] HSTRING *objectId, [out] CollectionChangeType *eType, [out] UINT32 *index, [out] UINT32 *previousIndex);
+
+[version(NTDDI_WIN8), object, uuid(FFE67D26-7E97-402A-863B-B545E3A82650)]
+delegate HRESULT DelegatePackedByte([in] PackedByte inValue, [out] PackedByte *outValue);
+
+[version(NTDDI_WIN8), object, uuid(A994413E-6D09-4825-BE96-3CB86E466C66)]
+delegate HRESULT DelegatePackedBoolean([in] PackedBoolean4 inValue, [out] PackedBoolean4 *outValue);
+
+[version(NTDDI_WIN8), object, uuid(E939FD82-7687-4842-A26A-AC9B88272814)]
+delegate HRESULT DelegateOddSizedStruct([in] OddSizedStruct inValue, [out] OddSizedStruct *outValue);
+
+[version(NTDDI_WIN8), object, uuid(2EBF39F7-19EB-4931-B744-859953A2D3FA)]
+delegate HRESULT DelegateSmallComplexStruct([in] SmallComplexStruct inValue, [out] SmallComplexStruct *outValue);
+
+[version(NTDDI_WIN8), object, uuid(0A1E0F8E-B6B3-4A4D-A1CF-7094CDFA1F44)]
+delegate HRESULT DelegateBigComplexStruct([in] BigComplexStruct inValue, [out] BigComplexStruct *outValue);
+
+[version(NTDDI_WIN8), object, uuid(8C6DD6B4-2CB0-48B4-B994-B076496B061C)]
+delegate HRESULT DelegateForDelegateEvent([in] int inValue);
+
+[version(NTDDI_WIN8), object, uuid(2F3B3661-A455-4F5F-AC6B-790B3B0138A3)]
+delegate HRESULT DelegateEventHandler([in] IInterfaceWithMiscEventFormat *sender, [in] DelegateForDelegateEvent *inValue);
+
+[version(NTDDI_WIN8), object, uuid(E14D8183-6FC2-42B2-A27F-86C9903E720D)]
+delegate HRESULT StructEventHandler([in] IInterfaceWithMiscEventFormat *sender, [in] StructForStructEvent inValue);
+
+[version(NTDDI_WIN8), object, uuid(1663F0D1-F926-49EB-AAC1-7B71E7DE4192)]
+delegate HRESULT InterfaceWithTargetEventHandler([in] IInterfaceWithMiscEventFormat *sender, [in] IInterfaceWithMiscEventFormat *inValue);
+
+[version(NTDDI_WIN8), object, uuid(AD40658F-3255-4692-899C-2A6B6D81537A)]
+delegate HRESULT StructWithTargetEventHandler([in] IInterfaceWithMiscEventFormat *sender, [in] StructForStructWithTargetEvent inValue);
+
+[version(NTDDI_WIN8), object, uuid(AD4B0764-3255-48B4-B99C-2A6B6D81537A)]
+delegate HRESULT DelegateWithByRefParameter_Struct([in] const Dimensions *dimensions);
+[version(NTDDI_WIN8), object, uuid(AD4B0764-3255-48B4-B99C-2A6B6D81538A)]
+delegate HRESULT DelegateWithByRefParameter_GUID([in] const GUID *guid);
+[version(NTDDI_WIN8), object, uuid(AD4B0764-3255-48B4-B99C-2A6B6D81539A)]
+delegate HRESULT DelegateWithByRefParameter_Interface([in] const IAnimal *animal, [out, retval] boolean* success);
+[version(NTDDI_WIN8), object, uuid(AD4B0764-3255-48B4-B99C-2A6B6D8153AA)]
+delegate HRESULT DelegateWithByRefParameter_Class([in] const Animal *animal, [out, retval] boolean* success);
+[version(NTDDI_WIN8), object, uuid(AD4B0764-3255-48B4-B99C-2A6B6D8153BA)]
+delegate HRESULT DelegateWithByRefParameter_Delegate([in] const DelegateWithByRefParameter_Struct *value, [in] const Dimensions *dimensions);
+
+[
+    uuid(EBB16717-21AE-4ABF-9C59-B654DE06F596),
+    version(NTDDI_WIN8)
+]
+interface IAnimal : IInspectable
+{
+    HRESULT GetNames([out,retval] Names * names);
+
+    // Methods that will conflict with camel casing
+    HRESULT IsHungry([out, retval] boolean* hungry);
+    HRESULT isSleepy([out, retval] boolean* sleepy);
+
+    // Methods with only [in] parameters
+    HRESULT SetNumLegs([in] int numberOfLegs);
+    HRESULT SetGreeting([in] HSTRING greeting);
+
+    // Methods with only [out] parameters
+    HRESULT GetNumLegs([out] int* numberOfLegs);
+    HRESULT GetGreeting([out] HSTRING* greeting);
+    
+    [propget] HRESULT Weight([out, retval] int* value); 
+    [propput] HRESULT Weight([in] int value);
+
+    [propget] HRESULT Mother([out, retval] IAnimal ** value); 
+    [propput] HRESULT Mother([in] IAnimal * value);
+
+    [propget] HRESULT ID([out, retval] GUID* value);
+    [propput] HRESULT ID([in] GUID value);
+
+    [propget] HRESULT MyDimensions([out, retval] Dimensions *value);
+    [propput] HRESULT MyDimensions([in] Dimensions value);
+
+    [propget] HRESULT MyPhylum([out, retval] Phylum *value);
+    [propput] HRESULT MyPhylum([in] Phylum value);
+
+    HRESULT GetDimensions([out, retval] Dimensions* dimensions);
+
+
+    HRESULT FillDimensions([in] const Dimensions* dimensions);
+    HRESULT PassIDByRef([in] const GUID* value);
+    HRESULT CheckMother([in] const IAnimal *mother);
+    HRESULT CheckMotherConcrete([in] const Animal* animal);
+    HRESULT DelegateByRef_Struct([in] const DelegateWithByRefParameter_Struct* value, [in] const Dimensions* dimensions);
+    HRESULT DelegateByRef_GUID([in] const DelegateWithByRefParameter_GUID* value, [in] const GUID* guid);
+    HRESULT DelegateByRef_Interface([in] const DelegateWithByRefParameter_Interface* value, [in] const IAnimal* animal);
+    HRESULT DelegateByRef_Class([in] const DelegateWithByRefParameter_Class* value, [in] const Animal* animal);
+    HRESULT DelegateByRef_Delegate([in] const DelegateWithByRefParameter_Delegate* value, [in] const DelegateWithByRefParameter_Struct* del, [in] const Dimensions* dimensions);
+    HRESULT IsStructModified([in] const DelegateWithByRefParameter_Struct* value, [in] const Dimensions* dimensions, [out, retval] boolean *wasModified);
+    HRESULT AreDimensionPointersEqual([in] const Dimensions* one, [in] const Dimensions* two, [out, retval] boolean *areEqual);
+    HRESULT AcceptKiloStruct([in] const KiloStruct* kiloStruct);
+    HRESULT CheckByRefStruct([in] Windows.Foundation.IReference<MixedStruct>* one, [in] const MixedStruct* two, [out, retval] MixedStructResult* result);
+
+    HRESULT AddInts([in] int val1, [in] int val2, [out, retval] int* result);
+
+    HRESULT GetOuterStruct([out, retval] OuterStruct* strct);
+
+    HRESULT MarshalPhylum([in] Phylum phylum, [out, retval] Phylum* result);
+    HRESULT MarshalPhylumChange([in] PhylumChange _in, [out] PhylumChange* _out);
+    HRESULT MarshalHSTRING([in] HSTRING _in, [out] HSTRING* _out);
+    HRESULT MarshalNames([in] Names _in, [out] Names* _out);
+
+    HRESULT GetMap([in] IVector<int>* uniqueNumbersVector, [out, retval] IMap<int, HSTRING>** uniqueNumbersMap);
+
+    HRESULT LikesChef([out] Fabrikam.Kitchen.IChef **chef);
+
+            Marshal(Bool);
+            Marshal(UInt8);
+            Marshal(Int32);
+            Marshal(UInt32);
+            Marshal(Int64);
+            Marshal(UInt64);
+            Marshal(Single);
+            Marshal(Double);
+            Marshal(Char16);
+            HRESULT MarshalInt16([in] short _in, [out] short* _out);
+            HRESULT MarshalUInt16([in] unsigned short _in, [out] unsigned short* _out);
+            HRESULT MarshalHRESULT([in] HRESULT hrIn, [out] HRESULT * hrOut);
+            [propget] HRESULT ErrorCode([out,retval] HRESULT *errorCode); 
+            HRESULT MarshalDimensions([in] Dimensions _in, [out] Dimensions* _out);
+            HRESULT MarshalOuterStruct([in] OuterStruct _in, [out] OuterStruct* _out);
+            HRESULT MarshalStudyInfo([in] StudyInfo _in, [out] StudyInfo* _out);
+            HRESULT MarshalGUID([in] GUID _in, [out] GUID* _out);
+            HRESULT VerifyMarshalGUID([in] HSTRING expected, [in] GUID _in, [out] GUID* _out);
+            //MIDLRT bug: Win8 112810
+            //Marshal(Dimensions);
+            //Marshal(OuterStruct);
+
+    HRESULT GetNULLHSTRING([out] HSTRING* _out);
+
+    //Methods with Multiple [out] parameters (all basic types)
+    HRESULT MultipleOutBool([in] t_Bool a, [in] t_Bool b, [out] t_Bool* reta, [out] t_Bool* retb);
+    HRESULT MultipleOutUInt8([in] t_UInt8 a, [in] t_UInt8 b, [out] t_UInt8* reta, [out] t_UInt8* retb);
+    HRESULT MultipleOutInt32([in] t_Int32 a, [in] t_Int32 b, [out] t_Int32* reta, [out] t_Int32* retb);	 
+    HRESULT MultipleOutUInt32([in] t_UInt32 a, [in] t_UInt32 b, [out] t_UInt32* reta, [out] t_UInt32* retb);
+    HRESULT MultipleOutInt64([in] t_Int64 a, [in] t_Int64 b, [out] t_Int64* reta, [out, retval] t_Int64* retb);
+    HRESULT MultipleOutUInt64([in] t_UInt64 a, [in] t_UInt64 b, [out] t_UInt64* reta, [out] t_UInt64* retb);
+    HRESULT MultipleOutSingle([in] t_Single a, [in] t_Single b, [out] t_Single* reta, [out] t_Single* retb);
+    HRESULT MultipleOutDouble([in] t_Double a, [in] t_Double b, [out] t_Double* reta, [out] t_Double* retb);
+    HRESULT MultipleOutChar16([in] t_Char16 a, [in] t_Char16 b, [out] t_Char16* reta, [out] t_Char16* retb);
+    HRESULT MultipleOutHSTRING([in] HSTRING a, [in] HSTRING b, [out] HSTRING* reta, [out] HSTRING* retb);
+    HRESULT MultipleOutPhylum([in] Phylum a, [in] Phylum b, [out] Phylum* reta, [out] Phylum* retb);
+    HRESULT MultipleOutDimensions([in] Dimensions a, [in] Dimensions b, [out] Dimensions* reta, [out] Dimensions* retb);
+    HRESULT MultipleOutIFish([in] IFish* a, [in] IFish* b, [out] IFish** reta, [out] IFish** retb);
+    HRESULT MultipleOutFish([in] Fish* a, [in] Fish* b, [out] Fish** reta, [out] Fish** retb);    
+
+    //Methods with interspersed [in] and [out] parameters (all basic types)
+    HRESULT InterspersedInOutBool([in] t_Bool a, [out] t_Bool* reta, [in] t_Bool b, [out] t_Bool* retb);
+    HRESULT InterspersedInOutUInt8([in] t_UInt8 a, [out] t_UInt8* reta, [in] t_UInt8 b, [out] t_UInt8* retb);
+    HRESULT InterspersedInOutInt32([in] t_Int32 a, [out] t_Int32* reta, [in] t_Int32 b, [out] t_Int32* retb);
+    HRESULT InterspersedInOutUInt32([in] t_UInt32 a, [out] t_UInt32* reta, [in] t_UInt32 b, [out] t_UInt32* retb);
+    HRESULT InterspersedInOutInt64([in] t_Int64 a, [out] t_Int64* reta, [in] t_Int64 b, [out] t_Int64* retb);
+    HRESULT InterspersedInOutUInt64([in] t_UInt64 a, [out] t_UInt64* reta, [in] t_UInt64 b, [out] t_UInt64* retb);
+    HRESULT InterspersedInOutSingle([in] t_Single a, [out] t_Single* reta, [in] t_Single b, [out] t_Single* retb);
+    HRESULT InterspersedInOutDouble([in] t_Double a, [out] t_Double* reta, [in] t_Double b, [out] t_Double* retb);
+    HRESULT InterspersedInOutChar16([in] t_Char16 a, [out] t_Char16* reta, [in] t_Char16 b, [out] t_Char16* retb);
+    HRESULT InterspersedInOutHSTRING([in] HSTRING a, [in] HSTRING b, [out] HSTRING* reta, [out] HSTRING* retb);
+    HRESULT InterspersedInOutPhylum([in] Phylum a, [out] Phylum* reta, [in] Phylum b, [out] Phylum* retb);
+    HRESULT InterspersedInOutDimensions([in] Dimensions a, [out] Dimensions* reta, [in] Dimensions b, [out] Dimensions* retb);
+    HRESULT InterspersedInOutIFish([in] IFish* a, [out] IFish** reta, [in] IFish* b, [out] IFish** retb);
+    HRESULT InterspersedInOutFish([in] IFish* a, [out] IFish** reta, [in] IFish* b, [out] Fish** retb);    
+
+    //Method to ensure layout is correct for with multiple or different alignment members
+    HRESULT LayoutOfManyMembers([in] t_UInt8 a, [in] t_Int32 b, [in] t_UInt8 c, [in] t_Double d, [in] t_UInt8 e, [in] t_UInt8 f, [in] t_Double g, [in] t_Int32 h,  [in] t_Double i, 
+        [out] t_UInt8* reta, [out] t_Int32* retb, [out] t_UInt8* retc, [out] t_Double* retd, [out] t_UInt8* rete, [out] t_UInt8* retf, [out] t_Double* retg, [out] t_Int32* reth,  [out] t_Double* reti);
+
+    HRESULT LayoutStructs([in] InnerStruct a, [in] Dimensions b, [in] OuterStruct c, [in] Names d, [in] PhylumChange e, [out] InnerStruct* reta, [out] Dimensions* retb, [out] OuterStruct* retc, [out] Names* retd, [out] PhylumChange* rete);
+
+    HRESULT LayoutBasicWithStructs([in] t_UInt8 a, [in] InnerStruct b, [in] t_Int32 c, [in] t_Double d, [in] Names e, [in] t_UInt8 f, [in] t_UInt8 g, [in] Dimensions h, [in] t_Int32 i, 
+        [out] t_UInt8* reta, [out] InnerStruct* retb, [out] t_Int32* retc, [out] t_Double* retd, [out] Names* rete, [out] t_UInt8* retf, [out] t_UInt8* retg, [out] Dimensions* reth, [out] t_Int32* reti);
+
+    //Methods with multiple float/double parameters
+    HRESULT MultiFloat3([in] t_Single a, [in] t_Single b, [in] t_Single c, [out] t_Single* reta, [out] t_Single* retb, [out] t_Single* retc);	 
+    HRESULT MultiFloat4([in] t_Single a, [in] t_Single b, [in] t_Single c, [in] t_Single d, [out] t_Single* reta, [out] t_Single* retb, [out] t_Single* retc, [out] t_Single* retd);
+
+    HRESULT MultiDouble3([in] t_Double a, [in] t_Double b, [in] t_Double c, [out] t_Double* reta, [out] t_Double* retb, [out] t_Double* retc);	 	 
+    HRESULT MultiDouble4([in] t_Double a, [in] t_Double b, [in] t_Double c, [in] t_Double d, [out] t_Double* reta, [out] t_Double* retb, [out] t_Double* retc, [out] t_Double* retd);
+
+    //Methods with float/double parameters at different offsets
+    HRESULT FloatOffsetChar([in] t_Char16 a, [in] t_Single b, [out] t_Char16* reta, [out] t_Single* retb);
+    HRESULT FloatOffsetByte([in] t_UInt8 a, [in] t_Single b, [out] t_UInt8* reta, [out] t_Single* retb);
+    HRESULT FloatOffsetInt([in] t_Int32 a, [in] t_Single b, [out] t_Int32* reta, [out] t_Single* retb);
+    HRESULT FloatOffsetInt64([in] t_Int64 a, [in] t_Single b, [out] t_Int64* reta, [out] t_Single* retb);
+    HRESULT FloatOffset2Int([in] t_Int32 a, [in] t_Int32 b, [in] t_Single c, [out] t_Int32* reta, [out] t_Int32* retb, [out] t_Single* retc);
+    HRESULT FloatOffsetStruct([in] Names a, [in] t_Single b, [out] Names* reta, [out] t_Single* retb);
+    
+    HRESULT DoubleOffsetChar([in] t_Char16 a, [in] t_Double b, [out] t_Char16* reta, [out] t_Double* retb);
+    HRESULT DoubleOffsetByte([in] t_UInt8 a, [in] t_Double b, [out] t_UInt8* reta, [out] t_Double* retb);
+    HRESULT DoubleOffsetInt([in] t_Int32 a, [in] t_Double b, [out] t_Int32* reta, [out] t_Double* retb);
+    HRESULT DoubleOffsetInt64([in] t_Int64 a, [in] t_Double b, [out] t_Int64* reta, [out] t_Double* retb);
+    HRESULT DoubleOffset2Int([in] t_Int32 a, [in] t_Int32 b, [in] t_Double c, [out] t_Int32* reta, [out] t_Int32* retb, [out] t_Double* retc);
+    HRESULT DoubleOffsetStruct([in] Names a, [in] t_Double b, [out] Names* reta, [out] t_Double* retb);
+
+    HRESULT TestInSimpleIRefStruct([in] SimpleIRefStruct simpleIRefStruct);
+    HRESULT TestOutSimpleIRefStruct([in] int seedValue, [out] SimpleIRefStruct* simpleIRefStruct);
+
+    HRESULT TestInMixIRefStruct([in] SimpleMixIRefStruct mixedIRefStruct);
+    HRESULT TestOutMixIRefStruct([in] int seedValue, [out] SimpleMixIRefStruct* mixedIRefStruct);
+
+    HRESULT TestInNestedIRefStruct([in] NestedIRefStruct nestedIRefStruct);
+    HRESULT TestOutNestedIRefStruct([in] int seedValue, [out] NestedIRefStruct* nestedIRefStruct);
+
+    HRESULT TestInNestedIRefNestedStruct([in] NestedIRefNestedStruct nestedIRefStruct);
+    HRESULT TestOutNestedIRefNestedStruct([in] int seedValue, [out] NestedIRefNestedStruct* nestedIRefStruct);
+
+    HRESULT TestInAllIRefStruct([in] AllIRefStruct allIRefStruct);
+    HRESULT TestOutAllIRefStruct([in] int seedValue, [out] AllIRefStruct* allIRefStruct);
+
+    // Bug 258665
+    HRESULT TestOutBug258665_HttpProgress([in] HSTRING url, [out] Bug258665_HttpProgress* structHttpProgress);
+    HRESULT TestOutBug258665_HttpProgressAsOptEmpty([out] Windows.Foundation.IReference<Bug258665_HttpProgress>** optionalStructHttpProgress);
+    HRESULT TestOutBug258665_HttpProgressAsOptIntEmpty([out] Windows.Foundation.IReference<UINT64>** optionalUInt64);
+    // /Bug 258665
+
+    //Method to return given int as HRESULT (for error testing)
+    HRESULT TestError([in] HRESULT hr);
+
+    HRESULT DelIn_BooleanOut2([in] BooleanOut2* p0);
+    CallDelegateWithOutParam(HSTRING)
+    CallDelegateWithOutParam(int)
+    HRESULT CallDelegateWithOutParam_Interface([in] DelegateWithOutParam_Interface* onDelegateWithOutInterface, [out] IAnimal **outParam);
+    HRESULT CallDelegateWithOutParam_Struct([in] DelegateWithOutParam_Struct* onDelegateWithOutStruct, [out] Dimensions *outParam);
+    HRESULT CallDelegateWithOutParam_InOutMixed([in] DelegateWithOutParam_InOutMixed* onDelegateWithInOutMixed, [out] Dimensions *outParam, [in] int weight);
+    HRESULT CallDelegateWithMultipleOutParams([in] DelegateWithOutParam_MultipleOutParams* onDelegateWithMultipleOutParams, [out] Names * names, [out] int *newWeight, [in] int weight, [out] IAnimal **outAnimal);
+
+    HRESULT MarshalNullAsDelegate([in] DelegateWithOutParam_HSTRING* inDelegate, [out] HSTRING *outMessage);
+    HRESULT MethodDelegateAsOutParam([in] DelegateWithOutParam_HSTRING* inDelegate, [out] DelegateWithOutParam_HSTRING** outDelegate);
+
+    HRESULT GetNativeDelegateAsOutParam([out] DelegateWithOutParam_HSTRING **outDelegate);
+
+    HRESULT TestPackedByte12([in] struct PackedByte value);
+    HRESULT TestPackedBoolean1([in] struct PackedBoolean4 value);
+
+    HRESULT FastPath();
+    HRESULT FastPathIn([in] int _in);
+    HRESULT FastPathOut([out] int* _out);
+    HRESULT FastPathInOut([in] int _in, [out] int* _out);
+    HRESULT FastPathInIn([in] int _in1, [in] int _in2);
+
+    HRESULT SlowPath([in] int _in1, [in] int _in2, [in] int _in3, [in] int _in4, [in] int _in5, [in] int _in6);
+
+    [eventadd] HRESULT EventHandler([in] SimpleDelegateForEventHandler * handler, [out, retval] EventRegistrationToken * eventCookie);
+    [eventremove] HRESULT EventHandler([in] EventRegistrationToken eventCookie);
+
+    // Bug 202724
+    HRESULT TestBug202724_GetInt64([out, retval] long long * _out);
+    HRESULT TestBug202724_GetUInt64([out, retval] unsigned long long * _out);
+    // Bug 202724
+};
+
+[uuid(29B71D47-634C-4819-92A8-1E57148B177C), version(NTDDI_WIN8)]
+interface IFastSigInterface : IInspectable
+{
+    HRESULT GetOneVector([out] IVector<int> **outVal);
+    HRESULT GetNullAsVector([out] IVector<int> **outVal);
+    HRESULT GetOneObservableVector([out] IObservableVector<int> **outVal);
+    HRESULT GetNullAsObservableVector([out] IObservableVector<int> **outVal);
+    HRESULT GetOneAnimal([out] IAnimal **outVal);
+    HRESULT GetNullAsAnimal([out] IAnimal **outVal);
+    HRESULT GetOneMap([out] IMap<HSTRING, int> **outVal);
+    HRESULT GetNullAsMap([out] IMap<HSTRING, int> **outVal);
+    HRESULT GetOnePropertyValue([out] Windows.Foundation.IPropertyValue **outVal);
+    HRESULT GetNullAsPropertyValue([out] Windows.Foundation.IPropertyValue **outVal);
+    HRESULT GetOneEmptyGRCNInterface([out] IEmptyGRCN **outValue);
+    HRESULT GetOneEmptyGRCNNull([out] IEmptyGRCN **outValue);
+    HRESULT GetOneEmptyGRCNFail([out] IEmptyGRCN **outValue);
+}
+
+[uuid(57D5CC77-A6A3-46E3-B754-CDD6E2D6EF0E), version(NTDDI_WIN8)]
+interface IGetVector : IInspectable
+{
+    HRESULT CopyVector([in] IVector<int> * inVector, [out, retval] IVector<int>**outVector);
+
+    HRESULT GetStringVector([out, retval] IVector<HSTRING>** outVector);
+    HRESULT CopyStringVector([in] IVector<HSTRING> * inVector, [out, retval] IVector<HSTRING>**outVector);
+
+    HRESULT DuplicateIterable([in] IIterable<int> *inIterable, [out] IIterable<int> **outIterable);
+    HRESULT DuplicateStringIterable([in] IIterable<HSTRING> *inIterable, [out] IIterable<HSTRING> **outIterable);
+
+    HRESULT DuplicateIterator([in] IIterator<int> *inIterator, [out] IIterator<int> **outIterator);
+    HRESULT DuplicateStringIterator([in] IIterator<HSTRING> *inIterator, [out] IIterator<HSTRING> **outIterator);
+
+    HRESULT DuplicateVectorView([in] IVectorView<int> *inVectorView, [out] IVectorView<int> **outVectorView);
+    HRESULT DuplicateStringVectorView([in] IVectorView<HSTRING> *inVectorView, [out] IVectorView<HSTRING> **outVectorView);
+
+    HRESULT DuplicateVector([in] IVector<int> *inVector, [out] IVector<int> **outVector);
+    HRESULT DuplicateStringVector([in] IVector<HSTRING> *inVector, [out] IVector<HSTRING> **outVector);
+
+    HRESULT SendBackSameIterable([in] IIterable<int> *inIterable, [out] IIterable<int> **outIterable);
+    HRESULT SendBackSameStringIterable([in] IIterable<HSTRING> *inIterable, [out] IIterable<HSTRING> **outIterable);
+
+    HRESULT SendBackSameIterator([in] IIterator<int> *inIterator, [out] IIterator<int> **outIterator);
+    HRESULT SendBackSameStringIterator([in] IIterator<HSTRING> *inIterator, [out] IIterator<HSTRING> **outIterator);
+
+    HRESULT SendBackSameVectorView([in] IVectorView<int> *inVectorView, [out] IVectorView<int> **outVectorView);
+    HRESULT SendBackSameStringVectorView([in] IVectorView<HSTRING> *inVectorView, [out] IVectorView<HSTRING> **outVectorView);
+
+    HRESULT SendBackSameVector([in] IVector<int> *inVector, [out] IVector<int> **outVector);
+    HRESULT SendBackSameStringVector([in] IVector<HSTRING> *inVector, [out] IVector<HSTRING> **outVector);
+
+    HRESULT GetObservableVector([out] IObservableVector<int> **outObservableVector);
+    HRESULT GetObservableStringVector([out] IObservableVector<HSTRING> **outObservableVector);
+
+    HRESULT SendAndGetIVectorStructs([in]IVector<InnerStruct >* inVector, [out] IVector<InnerStruct >** outVector);
+
+    HRESULT CallDelegateWithVector([in] DelegateWithVector *inValue, [out] IVector<int> **outValue);
+    HRESULT CallDelegateWithIterable([in] DelegateWithIterable *inValue, [out] IIterable<int> **outValue);
+
+    [propget] HRESULT MyVector([out, retval] IVector<int> **value);
+    [propput] HRESULT MyVector([in] IVector<int> *value);
+
+    [propget] HRESULT MyIterable([out, retval] IIterable<int> **value);
+    [propput] HRESULT MyIterable([in] IIterable<int> *value);
+
+    HRESULT GetVector([out, retval] IVector<int>** uniqueNumbersVector);
+
+    HRESULT GetReadOnlyVector([in] IVector<int> *inVector, [out] IVector<int> **outVector);
+}
+
+[uuid(382652B4-F1CB-45B8-8188-8DFF92281069), version(NTDDI_WIN8)]
+interface IArrayMethods : IInspectable
+{
+    HRESULT PurePassArray([in] UINT32 length,  [in, size_is(length)] int* value);
+    HRESULT PureFillArray([in] UINT32 length, [out, size_is(length)] int* value);
+    HRESULT PureReceiveArray([out] UINT32* length, [out, size_is(,*length)] int** value);
+
+    [propget] HRESULT MyArrayProp([out] UINT32* length, [out, retval, size_is(,*length)] int** value);
+    [propput] HRESULT MyArrayProp([in] UINT32 length,  [in, size_is(length)] int* value);
+
+    [propget] HRESULT MyArrayPropHSTRING([out] UINT32* length, [out, retval, size_is(,*length)] HSTRING** value);
+    [propput] HRESULT MyArrayPropHSTRING([in] UINT32 length,  [in, size_is(length)] HSTRING* value);
+
+    HRESULT PassArray([in] UINT32 length,  [in, size_is(length)] int* value, [out] IVector<int>** outVector);
+    HRESULT FillArray([in] UINT32 length, [out, size_is(length)] int* value, [out] IVector<int>** outVector);
+    HRESULT ReceiveArray([out] UINT32* length, [out, size_is(,*length)] int** value, [out] IVector<int>** outVector);
+
+    HRESULT CallDelegatePassArray([in] DelegateWithInParam_Array* delegatePassArray);
+    HRESULT CallDelegateFillArray([in] DelegateWithInOutParam_Array* delegateFillArray);
+    HRESULT CallDelegateReceiveArray([in] DelegateWithOutParam_Array* delegateReceiveArray);
+
+    HRESULT PassArrayHSTRING([in] UINT32 length,  [in, size_is(length)] HSTRING* value, [out] IVector<HSTRING>** outVector);
+    HRESULT FillArrayHSTRING([in] UINT32 length, [out, size_is(length)] HSTRING* value, [out] IVector<HSTRING>** outVector);
+    HRESULT ReceiveArrayHSTRING([out] UINT32* length, [out, size_is(,*length)] HSTRING** value, [out] IVector<HSTRING>** outVector);
+
+    HRESULT CallDelegatePassArrayHSTRING([in] DelegateWithInParam_ArrayHSTRING* delegatePassArrayHSTRING);
+    HRESULT CallDelegateFillArrayHSTRING([in] DelegateWithInOutParam_ArrayHSTRING* delegateFillArrayHSTRING);
+    HRESULT CallDelegateReceiveArrayHSTRING([in] DelegateWithOutParam_ArrayHSTRING* delegateReceiveArrayHSTRING);
+
+    HRESULT PassArrayWithInLength([in] UINT32 length, [in, size_is(length), length_is(lengthValue)] int* value, [in] UINT32 lengthValue);
+    HRESULT PassArrayWithOutLength([in] UINT32 length, [in, size_is(length), length_is(*lengthValue)] int* value, [out] UINT32 *lengthValue);
+    HRESULT FillArrayWithInLength([in] UINT32 length, [out, size_is(length), length_is(lengthValue)] int* value, [in] UINT32 lengthValue);
+    HRESULT FillArrayWithOutLength([in] UINT32 length, [out, size_is(length), length_is(*lengthValue)] int* value, [out] UINT32 *lengthValue);
+    HRESULT ReceiveArrayWithInLength([out] UINT32* length, [out, size_is(,*length), length_is(,lengthValue)] int** value, [in] UINT32 lengthValue);
+    HRESULT ReceiveArrayWithOutLength([out] UINT32* length, [out, size_is(,*length), length_is(,*lengthValue)] int** value, [out] UINT32 *lengthValue);
+
+    HRESULT PassArrayWithOutLengthWithRetValLength([in] UINT32 length, [in, size_is(length), length_is(*lengthValue)] int* value, [out, retval] UINT32 *lengthValue);
+    HRESULT PassArrayWithOutLengthWithRetValRandomParam([in] UINT32 length, [in, size_is(length), length_is(*lengthValue)] int* value, [out] UINT32 *lengthValue, [out, retval] int *randomRetVal);
+    HRESULT FillArrayWithOutLengthWithRetValLength([in] UINT32 length, [out, size_is(length), length_is(*lengthValue)] int* value, [out, retval] UINT32 *lengthValue);
+    HRESULT FillArrayWithOutLengthWithRetValRandomParam([in] UINT32 length, [out, size_is(length), length_is(*lengthValue)] int* value, [out] UINT32 *lengthValue, [out, retval] int *randomRetVal);
+    HRESULT ReceiveArrayWithOutLengthWithRetValLength([out] UINT32* length, [out, size_is(,*length), length_is(,*lengthValue)] int** value, [out, retval] UINT32 *lengthValue);
+    HRESULT ReceiveArrayWithOutLengthWithRetValRandomParam([out] UINT32* length, [out, size_is(,*length), length_is(,*lengthValue)] int** value, [out] UINT32 *lengthValue, [out, retval] int *randomRetVal);
+
+    HRESULT CallDelegatePassArrayWithInLength([in] DelegatePassArrayWithInLength *delegateIn);
+    HRESULT CallDelegatePassArrayWithOutLength([in] DelegatePassArrayWithOutLength *delegateIn);
+    HRESULT CallDelegateFillArrayWithInLength([in] DelegateFillArrayWithInLength *delegateIn);
+    HRESULT CallDelegateFillArrayWithOutLength([in] DelegateFillArrayWithOutLength *delegateIn);
+    HRESULT CallDelegateReceiveArrayWithInLength([in] DelegateReceiveArrayWithInLength *delegateIn);
+    HRESULT CallDelegateReceiveArrayWithOutLength([in] DelegateReceiveArrayWithOutLength *delegateIn);
+
+    HRESULT CallDelegatePassArrayWithOutLengthWithRetValLength([in] DelegatePassArrayWithOutLengthWithRetValLength *delegateIn);
+    HRESULT CallDelegatePassArrayWithOutLengthWithRetValRandomParam([in] DelegatePassArrayWithOutLengthWithRetValRandomParam *delegateIn, [out, retval] int *randomRetVal);
+    HRESULT CallDelegateFillArrayWithOutLengthWithRetValLength([in] DelegateFillArrayWithOutLengthWithRetValLength *delegateIn);
+    HRESULT CallDelegateFillArrayWithOutLengthWithRetValRandomParam([in] DelegateFillArrayWithOutLengthWithRetValRandomParam *delegateIn, [out, retval] int *randomRetVal);
+    HRESULT CallDelegateReceiveArrayWithOutLengthWithRetValLength([in] DelegateReceiveArrayWithOutLengthWithRetValLength *delegateIn);
+    HRESULT CallDelegateReceiveArrayWithOutLengthWithRetValRandomParam([in] DelegateReceiveArrayWithOutLengthWithRetValRandomParam *delegateIn, [out, retval] int *randomRetVal);
+
+    HRESULT PassArrayWithInLengthHSTRING([in] UINT32 length, [in, size_is(length), length_is(lengthValue)] HSTRING* value, [in] UINT32 lengthValue);
+    HRESULT PassArrayWithOutLengthHSTRING([in] UINT32 length, [in, size_is(length), length_is(*lengthValue)] HSTRING* value, [out] UINT32 *lengthValue);
+    HRESULT FillArrayWithInLengthHSTRING([in] UINT32 length, [out, size_is(length), length_is(lengthValue)] HSTRING* value, [in] UINT32 lengthValue);
+    HRESULT FillArrayWithOutLengthHSTRING([in] UINT32 length, [out, size_is(length), length_is(*lengthValue)] HSTRING* value, [out] UINT32 *lengthValue);
+    HRESULT ReceiveArrayWithInLengthHSTRING([out] UINT32* length, [out, size_is(,*length), length_is(,lengthValue)] HSTRING** value, [in] UINT32 lengthValue);
+    HRESULT ReceiveArrayWithOutLengthHSTRING([out] UINT32* length, [out, size_is(,*length), length_is(,*lengthValue)] HSTRING** value, [out] UINT32 *lengthValue);
+
+    HRESULT PassArrayWithOutLengthWithRetValLengthHSTRING([in] UINT32 length, [in, size_is(length), length_is(*lengthValue)] HSTRING* value, [out, retval] UINT32 *lengthValue);
+    HRESULT PassArrayWithOutLengthWithRetValRandomParamHSTRING([in] UINT32 length, [in, size_is(length), length_is(*lengthValue)] HSTRING* value, [out] UINT32 *lengthValue, [out, retval] int *randomRetVal);
+    HRESULT FillArrayWithOutLengthWithRetValLengthHSTRING([in] UINT32 length, [out, size_is(length), length_is(*lengthValue)] HSTRING* value, [out, retval] UINT32 *lengthValue);
+    HRESULT FillArrayWithOutLengthWithRetValRandomParamHSTRING([in] UINT32 length, [out, size_is(length), length_is(*lengthValue)] HSTRING* value, [out] UINT32 *lengthValue, [out, retval] int *randomRetVal);
+    HRESULT ReceiveArrayWithOutLengthWithRetValLengthHSTRING([out] UINT32* length, [out, size_is(,*length), length_is(,*lengthValue)] HSTRING** value, [out, retval] UINT32 *lengthValue);
+    HRESULT ReceiveArrayWithOutLengthWithRetValRandomParamHSTRING([out] UINT32* length, [out, size_is(,*length), length_is(,*lengthValue)] HSTRING** value, [out] UINT32 *lengthValue, [out, retval] int *randomRetVal);
+
+    HRESULT CallDelegatePassArrayWithInLengthHSTRING([in] DelegatePassArrayWithInLengthHSTRING *delegateIn);
+    HRESULT CallDelegatePassArrayWithOutLengthHSTRING([in] DelegatePassArrayWithOutLengthHSTRING *delegateIn);
+    HRESULT CallDelegateFillArrayWithInLengthHSTRING([in] DelegateFillArrayWithInLengthHSTRING *delegateIn);
+    HRESULT CallDelegateFillArrayWithOutLengthHSTRING([in] DelegateFillArrayWithOutLengthHSTRING *delegateIn);
+    HRESULT CallDelegateReceiveArrayWithInLengthHSTRING([in] DelegateReceiveArrayWithInLengthHSTRING *delegateIn);
+    HRESULT CallDelegateReceiveArrayWithOutLengthHSTRING([in] DelegateReceiveArrayWithOutLengthHSTRING *delegateIn);
+
+    HRESULT CallDelegatePassArrayWithOutLengthWithRetValLengthHSTRING([in] DelegatePassArrayWithOutLengthWithRetValLengthHSTRING *delegateIn);
+    HRESULT CallDelegatePassArrayWithOutLengthWithRetValRandomParamHSTRING([in] DelegatePassArrayWithOutLengthWithRetValRandomParamHSTRING *delegateIn, [out, retval] int *randomRetVal);
+    HRESULT CallDelegateFillArrayWithOutLengthWithRetValLengthHSTRING([in] DelegateFillArrayWithOutLengthWithRetValLengthHSTRING *delegateIn);
+    HRESULT CallDelegateFillArrayWithOutLengthWithRetValRandomParamHSTRING([in] DelegateFillArrayWithOutLengthWithRetValRandomParamHSTRING *delegateIn, [out, retval] int *randomRetVal);
+    HRESULT CallDelegateReceiveArrayWithOutLengthWithRetValLengthHSTRING([in] DelegateReceiveArrayWithOutLengthWithRetValLengthHSTRING *delegateIn);
+    HRESULT CallDelegateReceiveArrayWithOutLengthWithRetValRandomParamHSTRING([in] DelegateReceiveArrayWithOutLengthWithRetValRandomParamHSTRING *delegateIn, [out, retval] int *randomRetVal);
+}
+
+[uuid(04A9106A-9621-4517-8872-B957F4F1FA6D), version(NTDDI_WIN8)]
+interface IStaticDino : IInspectable
+{
+    HRESULT LookForFossils([in] int timeSpent, [out, retval] int* fossilsFound);
+    HRESULT InspectDino([in] IDino* specimen, [out, retval] HSTRING* results);
+    [propget] HRESULT IsScary([out, retval] boolean* value);
+    [propput] HRESULT IsScary([in] boolean value);
+
+    [eventadd] HRESULT FossilsFoundEvent(
+        [in] FossilsFoundHandler * clickHandler,
+        [out, retval] EventRegistrationToken * eventCookie);
+
+    [eventremove] HRESULT FossilsFoundEvent([in] EventRegistrationToken eventCookie);
+}
+
+[uuid(8f1c0be1-7644-482f-86bd-a5f9a86b2eed), version(NTDDI_WIN8)]
+interface IDino : IInspectable
+{
+    HRESULT CanRoar([out] boolean* result);
+    HRESULT Roar([in] int numtimes);
+    [propget]
+    HRESULT Height([out,retval] int* high);
+
+    HRESULT hasTeeth([out] boolean* res);
+};
+
+
+[uuid(5d6b37bb-d2c9-45da-b0b2-dd4a1a34713e), version(NTDDI_WIN8)]
+interface IExtinct : IInspectable
+{
+    HRESULT IsExtinct([out] boolean* res);
+    HRESULT HasTeeth([out] boolean* res);
+};
+
+[
+    uuid(24c91b7e-a818-4a1f-8afd-fd3ab826eca6),
+    version(NTDDI_WIN8)
+]
+interface ILikeToSwim : IInspectable 
+{
+    HRESULT SingTheSwimmingSong([out] HSTRING * lyrics);
+};
+
+[
+    uuid(24c91b7e-a818-4a0f-89fd-fd3ab826eca6),
+    version(NTDDI_WIN8)
+]
+interface IFish : IInspectable requires ILikeToSwim
+{
+    HRESULT GetNumFins([out] int* numberOfFins);
+    HRESULT SetNumFins([in] int numberOfFins);
+    HRESULT MarshalIFish([in,unique] IFish * _in, [out] IFish ** _out);
+    HRESULT MarshalILikeToSwim([in] ILikeToSwim * _in, [out] ILikeToSwim ** _out);
+    HRESULT MarshalIFishToFish([in] IFish * _in, [out] Fish ** _outFish);
+    HRESULT MarshalILikeToSwimToFish([in] ILikeToSwim * _in, [out] ILikeToSwim ** _out);
+    [propget] HRESULT Name([out, retval] HSTRING* value);
+    [propput] HRESULT Name([in] HSTRING value);
+};
+
+[
+    uuid(9927ed9f-cee0-466a-be38-1aba01aea11f),
+    version(NTDDI_WIN8)
+]
+interface ITurkey : IInspectable requires Fabrikam.Kitchen.IBurgerMaster
+{
+    [overload("ToSandwich"), default_overload]
+    HRESULT ToSandwich1([out] BOOL * hasMayo);
+
+    [overload("ToSandwich"), default_overload]
+    HRESULT ToSandwich2(int baconSlices, [out] BOOL * hasMayo);
+
+    HRESULT GetNumFeathers([out] int* feathers);
+};
+
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass Turkey
+{
+    [default] interface ITurkey;    
+}
+
+[
+    uuid(12781df7-849c-4012-8795-49e2c576d940),
+    version(NTDDI_WIN8)
+]
+interface IAgeable : IInspectable
+{
+    HRESULT SetAge([in] Windows.Foundation.DateTime age);
+    HRESULT GetAge([out, retval] Windows.Foundation.DateTime* age);
+    HRESULT SetAgeTicks([in] t_Int64 age);
+    HRESULT GetAgeTicks([out, retval] t_Int64* age);
+    HRESULT SetTimeToGetToSixtyMPH([in] Windows.Foundation.TimeSpan timespan);
+    HRESULT GetTimeToGetToSixtyMPH([out] Windows.Foundation.TimeSpan* timespan);
+    HRESULT StartLifeNow();
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass Elephant
+{
+    [default] interface IAgeable;    
+}
+
+[
+    uuid(F1DB40AE-DF57-4A1A-960A-9C05B70A4EB0),
+    version(NTDDI_WIN8)
+]
+interface IAnimalFactory : IInspectable
+{
+    HRESULT AnimalBornWithWeight([in] IAnimal* mother, [in] int weight, [out,retval] Animal** ppAnimal);
+    HRESULT AnimalBornWithStats([in] IAnimal* mother, [in] int weight, [in] int legs1, [in] int legs2, [in] int legs3, [out,retval] Animal** ppAnimal);
+};
+
+[
+    uuid(93CB6B71-BF78-4AAA-8FB1-0D93B9FF404B),
+    version(NTDDI_WIN8)
+]
+interface IAnimalFactory2 : IInspectable
+{
+    HRESULT CreateWithLegs([in] int numberOfLegs, [out,retval] Animal** ppAnimal);
+    HRESULT CreateWithMoreLegs([in] int legs1, [in] int legs2, [in] int legs3, [out,retval] Animal** ppAnimal);
+    HRESULT CreateWithEvenMoreLegs([in] int legs1, [in] int legs2, [in] int legs3, [in] int legs4, [in] int legs5, [in] int legs6, [out,retval] Animal** ppAnimal);
+    HRESULT CreateWithMostLegs([in] int legs1, [in] int legs2, [in] int legs3, [in] int legs4, [in] int legs5, [in] int legs6, [in] int legs7, [out,retval] Animal** ppAnimal);
+};
+
+[
+    version(NTDDI_WIN8),
+    activatable(NTDDI_WIN8),
+    static(IStaticDino, NTDDI_WIN8)
+]
+runtimeclass Dino
+{
+    interface IExtinct;
+    [default] interface IDino;
+}
+
+[
+    uuid(9AC5BA4B-F3D5-4A11-BDB7-B68333A2E582),
+    version(NTDDI_WIN8)
+]
+interface IStaticAnimal : IInspectable
+{
+    [propget] HRESULT IsLovable([out, retval] boolean* value);
+    [propput] HRESULT IsLovable([in] boolean value);
+
+    HRESULT GetAnswer([out, retval] int* answer);
+
+    HRESULT TakeANap([in] int numberOfMinutes, [out, retval] boolean* isDreaming);
+
+    HRESULT DinoMarshalAs([out, retval] Dino** dino);
+    HRESULT DinoDefault([out, retval] Dino** dino);
+    HRESULT DinoDefaultVector([out, retval] IVector<Dino*>** dinoVector);
+
+    HRESULT SendBackSameIDino([in] IDino *inValue, [out] IDino **outValue);
+    HRESULT SendBackSameDino([in] Dino *inValue, [out, retval] Dino** outValue);
+    HRESULT SendBackSameExtinct([in] IExtinct *inValue, [out] IExtinct** outValue);
+
+    HRESULT CallDelegateWithExtinct([in] DelegateWithExtinct *inValue, [out] IExtinct **outValue);
+
+    [propget] HRESULT MyDino([out, retval] Dino** value);
+    [propput] HRESULT MyDino([in] Dino* value);
+
+    [propget] HRESULT MyExtinct([out, retval] IExtinct** value);
+    [propput] HRESULT MyExtinct([in] IExtinct* value);
+
+    HRESULT SendBackSameInspectableVector([in] IVector<IInspectable*> *inValue, [out] IVector<IInspectable*>** outValue);
+
+    HRESULT MethodWithInParam_BigStruct([in] CollectionChangedEventArgs inParam, [out] HSTRING *objectId, [out] CollectionChangeType *eType, [out] UINT32 *index, [out] UINT32 *previousIndex);
+    HRESULT MethodWithOutParam_BigStruct([in] HSTRING objectId, [in] CollectionChangeType eType, [in] UINT32 index, [in] UINT32 previousIndex, [out] CollectionChangedEventArgs *outParam);
+    
+    HRESULT CallDelegateWithInParam_BigStruct([in] DelegateWithInParam_BigStruct* delegateStruct, [in] HSTRING objectId, [in] CollectionChangeType eType, [in] UINT32 index, [in] UINT32 previousIndex);
+    HRESULT CallDelegateWithOutParam_BigStruct(
+        [in] DelegateWithOutParam_BigStruct* delegateStruct, 
+        [out] HSTRING *objectId, 
+        [out] CollectionChangeType *eType, 
+        [out] UINT32 *index, 
+        [out] UINT32 *previousIndex, 
+        [out] HSTRING *objectIdFromStruct, 
+        [out] CollectionChangeType *eTypeFromStruct, 
+        [out] UINT32 *indexFromStruct, 
+        [out] UINT32 *previousIndexFromStruct);
+
+    HRESULT MarshalInAndOutPackedByte([in] PackedByte inParam, [out] PackedByte *outParam);
+    HRESULT GetPackedByteArray([out] UINT32* length, [out, size_is(,*length)] PackedByte** value);
+    HRESULT CallDelegateWithInOutPackedByte([in] PackedByte inParam, [out] PackedByte *outParam, [in] DelegatePackedByte *delegateIn);
+
+    HRESULT MarshalInAndOutPackedBoolean([in] PackedBoolean4 inParam, [out] PackedBoolean4 *outParam);
+    HRESULT GetPackedBooleanArray([out] UINT32* length, [out, size_is(,*length)] PackedBoolean4** value);
+    HRESULT CallDelegateWithInOutPackedBoolean([in] PackedBoolean4 inParam, [out] PackedBoolean4 *outParam, [in] DelegatePackedBoolean *delegateIn);
+
+    HRESULT MarshalInAndOutOddSizedStruct([in] OddSizedStruct inParam, [out] OddSizedStruct *outParam);
+    HRESULT GetOddSizedStructArray([out] UINT32* length, [out, size_is(,*length)] OddSizedStruct** value);
+    HRESULT CallDelegateWithInOutOddSizedStruct([in] OddSizedStruct inParam, [out] OddSizedStruct *outParam, [in] DelegateOddSizedStruct *delegateIn);
+
+    HRESULT MarshalInAndOutSmallComplexStruct([in] SmallComplexStruct inParam, [out] SmallComplexStruct *outParam);
+    HRESULT GetSmallComplexStructArray([out] UINT32* length, [out, size_is(,*length)] SmallComplexStruct** value);
+    HRESULT CallDelegateWithInOutSmallComplexStruct([in] SmallComplexStruct inParam, [out] SmallComplexStruct *outParam, [in] DelegateSmallComplexStruct *delegateIn);
+
+    HRESULT MarshalInAndOutBigComplexStruct([in] BigComplexStruct inParam, [out] BigComplexStruct *outParam);
+    HRESULT GetBigComplexStructArray([out] UINT32* length, [out, size_is(,*length)] BigComplexStruct** value);
+    HRESULT CallDelegateWithInOutBigComplexStruct([in] BigComplexStruct inParam, [out] BigComplexStruct *outParam, [in] DelegateBigComplexStruct *delegateIn);
+
+    HRESULT CallDelegateWithInFloat([in] DelegateWithInParam_Float *inDelegate, [in] float inValue);
+    HRESULT CallDelegateWithOutFloat([in] DelegateWithOutParam_Float *inDelegate, [out] float *outValue);
+    HRESULT CallDelegateWithInOutFloat([in] DelegateWithInOut_Float *inDelegate, [in] int inValue1, [out] float *outValue1, [in] float inValue2, [in] int inValue3, [in] int inValue4, [in] float inValue5, [out] float *outValue2);
+
+    HRESULT PassUInt8Array([in] UINT32 length,  [in, size_is(length)] t_UInt8* value, [out] IVector<t_UInt8>** passedValuesVector);
+    HRESULT FillUInt8Array([in] UINT32 length, [out, size_is(length)] t_UInt8* value, [in] IVector<t_UInt8>* fillFromVector);
+
+    HRESULT StaticFastPath();
+    HRESULT StaticFastPathIn([in] int _in);
+    HRESULT StaticFastPathOut([out] int* _out);
+    HRESULT StaticFastPathInOut([in] int _in, [out] int* _out);
+    HRESULT StaticFastPathInIn([in] int _in1, [in] int _in2);
+
+    HRESULT StaticSlowPath([in] int _in1, [in] int _in2, [in] int _in3, [in] int _in4, [in] int _in5, [in] int _in6);
+}
+
+interface IDoubleIObservableMap;
+
+[
+    uuid(28ADFECB-5239-481C-ACE1-A577F89486D8),
+    version(NTDDI_WIN8)
+]
+interface IStaticAnimal2 : IInspectable
+{
+    HRESULT GetCLSID([out, retval] GUID* clsid);
+    HRESULT MultiplyNumbers([in] int value1, [in] int value2, [out, retval] int* result);
+
+    HRESULT SendBackSameIFish([in] IFish *inValue, [out] IFish **outValue);
+    HRESULT SendBackSameFish([in] Fish *inValue, [out] Fish **outValue);
+    HRESULT SendBackSameLikeToSwim([in] ILikeToSwim *inValue, [out] ILikeToSwim **outValue);
+
+    HRESULT CallDelegateWithIFish([in] DelegateWithIFish *inValue, [out] IFish **outValue);
+    HRESULT CallDelegateWithFish([in] DelegateWithFish *inValue, [out] Fish **outValue);
+    HRESULT CallDelegateWithLikeToSwim([in] DelegateWithLikeToSwim *inValue, [out] ILikeToSwim **outValue);
+
+    [propget] HRESULT MyIFish([out, retval] IFish** value);
+    [propput] HRESULT MyIFish([in] IFish* value);
+
+    [propget] HRESULT MyFish([out, retval] Fish** value);
+    [propput] HRESULT MyFish([in] Fish* value);
+    HRESULT CallMyFishMethod([in] int expected, [out] boolean* result);
+
+    [propget] HRESULT MyLikeToSwim([out, retval] ILikeToSwim** value);
+    [propput] HRESULT MyLikeToSwim([in] ILikeToSwim* value);
+
+    HRESULT GetRefCount([in] IInspectable *inValue, [out] t_UInt64 *refCount);
+    [propget] HRESULT MyFishRefCount([out, retval] t_UInt64 *refCount);
+
+    [propget] HRESULT MyToaster([out, retval] Fabrikam.Kitchen.Toaster** value);
+    [propput] HRESULT MyToaster([in] Fabrikam.Kitchen.Toaster* value);
+    [propget] HRESULT MyToasterRefCount([out, retval] t_UInt64 *refCount);
+
+    HRESULT SendBackSamePropertySet([in] Windows.Foundation.Collections.IPropertySet *inValue, [out] Windows.Foundation.Collections.IPropertySet** outValue);
+
+    [propget] 
+    HRESULT AnimalObjectSize([out, retval] int * size);
+
+    HRESULT GetStringIntegerMap([out] Windows.Foundation.Collections.IMap<HSTRING, int> **outValue);
+    HRESULT GetObservableStringIntegerMap([out] Windows.Foundation.Collections.IObservableMap<HSTRING, int> **outValue);
+    HRESULT GetDoubleObservableMap([out] IDoubleIObservableMap **outValue);
+    HRESULT GetStringHiddenTypeMap([out] Windows.Foundation.Collections.IMap<HSTRING, IHiddenInterface *> **outValue, [out] boolean *wasMethodCalled);
+
+    HRESULT GetStaticAnimalAsInspectable([out, retval] IInspectable **staticInspectableAnimal);
+    HRESULT GetStaticAnimalAsStaticInterface([out, retval] IStaticAnimal2 **staticAnimal);
+
+    HRESULT TestDefaultDino([in] Dino *inValue, [out] boolean *isSame);
+    HRESULT TestDefaultFish([in] Fish *inValue, [out] boolean *isSame);
+    HRESULT TestDefaultAnimal([in] Animal *inValue, [out] boolean *isSame);
+    HRESULT TestDefaultMultipleIVector([in] MultipleIVector *inValue, [out] boolean *isSame);
+
+    [propget] HRESULT MyStaticArrayProp([out] UINT32* length, [out, retval, size_is(,*length)] int** value);
+    [propput] HRESULT MyStaticArrayProp([in] UINT32 length,  [in, size_is(length)] int* value);
+
+    [propget] HRESULT MyStaticArrayPropHSTRING([out] UINT32* length, [out, retval, size_is(,*length)] HSTRING** value);
+    [propput] HRESULT MyStaticArrayPropHSTRING([in] UINT32 length,  [in, size_is(length)] HSTRING* value);
+}
+
+[
+    activatable(NTDDI_WIN8),
+    activatable(IAnimalFactory,NTDDI_WIN8),
+    activatable(IAnimalFactory2,NTDDI_WIN8),
+    static(IStaticAnimal2, NTDDI_WIN8),
+    static(IStaticAnimal, NTDDI_WIN8),
+    static(IFastSigInterface, NTDDI_WIN8),
+    version(NTDDI_WIN8),
+    allowforweb
+]
+runtimeclass Animal
+{
+    interface IGetVector;
+    [default] interface IAnimal;
+    interface IArrayMethods;
+} 
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass Fish
+{
+    [default] interface IFish;    
+    interface IFastSigInterface;
+}
+
+// This simple activatable type will not be registered, so every attempt to create it will fail
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass DodoBird
+{
+    [default] interface IExtinct;
+}
+
+// Have a runtimeclass which is not activatable but contains static methods
+[
+    uuid(3E82CFE3-33FD-40AC-BBEB-BE6BFBD0051C),
+    version(NTDDI_WIN8)
+]
+interface IStaticPuppy : IInspectable
+{
+    HRESULT EatCookies([in] int numberOfCookies, [out, retval] int* cookiesEaten);
+
+    [eventadd] HRESULT CookiesEatenEvent(
+        [in] CookiesEatenHandler * clickHandler,
+        [out, retval] EventRegistrationToken * eventCookie);
+
+    [eventremove] HRESULT CookiesEatenEvent([in] EventRegistrationToken eventCookie);
+}
+
+[
+    uuid(93115C4F-3D4D-41B7-AE45-D5D0E6FEBEC9),
+    version(NTDDI_WIN8)
+]
+interface IPuppy : IInspectable
+{
+    HRESULT WagTail([in] int numberOfHeadPats, [out, retval] int* numberOfWags);
+}
+
+[
+    static(IStaticPuppy, NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass Pomapoodle
+{
+    [default] interface IPuppy;  // TODO Asked Win8 what it means for a non-activatable rtc to implement an interface
+}
+
+[
+    uuid(DC503751-6DE3-4EC6-94D5-FC89EAEE0F98),
+    version(NTDDI_WIN8)
+]
+interface IEmptyFactory : IInspectable
+{
+}
+
+[
+    uuid(E9C3EB19-9859-43C4-AF26-CBFFC712CA30),
+    version(NTDDI_WIN8)
+]
+interface IEmpty : IInspectable
+{
+}
+
+[
+    activatable(IEmptyFactory, NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass EmptyClass
+{
+    [default] interface IEmpty;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass SimplestClass
+{
+    [default] interface IEmpty;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass SingleIVector
+{
+    [default] interface IVector<int>; 
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass DoubleIVector
+{
+    [default] interface IVector<int>;    
+    interface IVector<HSTRING>;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass MultipleIVector
+{
+    interface IVector<HSTRING>;
+    [default] interface IVector<int>;    
+    interface IVector<IAnimal *>;
+}
+
+[
+    uuid(5AB16561-642B-4406-B1B5-A1F3BBDE2BDD),
+    version(NTDDI_WIN8)
+]
+interface ISingleIVector : IInspectable requires IVector<int>
+{
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass InterfaceWithSingleIVector
+{
+    [default] interface ISingleIVector;    
+    interface IVectorView<float>;
+}
+
+[
+    uuid(38EDCD52-FC7E-46C7-9FF2-42D5EDDA4883),
+    version(NTDDI_WIN8)
+]
+interface IDoubleIVector : IInspectable requires IVector<int>, IVector<IAnimal *>
+{
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass InterfaceWithDoubleIVector
+{
+    [default] interface IDoubleIVector;    
+    interface IVectorView<HSTRING>;
+}
+
+[
+    uuid(B29CD666-051C-44FD-9E17-00B4EDC9009A),
+    version(NTDDI_WIN8)
+]
+interface IMultipleIVector : IInspectable requires IVector<int>, IVector<IAnimal *>, IVectorView<HSTRING>, IVectorView<GUID>
+{
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass InterfaceWithMultipleIVector
+{
+    [default] interface IMultipleIVector;    
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RCIObservable
+{
+    [default] interface IObservableVector<int>;    
+}
+
+[
+    uuid(2B00BA1A-91AE-4D96-BD87-F7C588054A7C),
+    version(NTDDI_WIN8)
+]
+interface ISingleIObservable : IInspectable requires IObservableVector<int>
+{
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RCISingleObservable
+{
+    [default] interface ISingleIObservable;
+}
+
+[
+    uuid(095E1E2B-430B-4E94-BBED-7008C0C00644),
+    version(NTDDI_WIN8)
+]
+interface IDoubleIObservable : IInspectable requires IObservableVector<int>, IObservableVector<HSTRING>
+{
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RCIDoubleObservable
+{
+    [default] interface IDoubleIObservable;
+}
+
+declare
+{
+    interface IVector<GUID>;
+    interface Windows.Foundation.IReferenceArray<Phylum>;
+    interface Windows.Foundation.IReferenceArray<Dimensions>;
+    interface Windows.Foundation.IReferenceArray<DelegateWithOutParam_HSTRING *>;
+    interface IObservableMap<GUID, IInspectable*>;
+}
+
+[
+    uuid(FCAF3BC2-EF21-4CB6-8DF5-41BF44482F16),
+    version(NTDDI_WIN8)
+]
+interface IDoubleIObservableMap : IInspectable requires IObservableMap<HSTRING, int>, IObservableMap<GUID, IInspectable*>
+{
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RCIDoubleObservableMap
+{
+    [default] interface IDoubleIObservableMap;
+}
+
+
+[
+    uuid(640C6AB4-4789-42A7-8FD4-11DE2FB30AB0),
+    version(NTDDI_WIN8)
+]
+interface IInterface1WithEvent : IInspectable
+{
+    [eventadd] HRESULT Event1(
+        [in] Interface1WithEventHandler * eventHandler,
+        [out, retval] EventRegistrationToken * eventCookie);
+
+    [eventremove] HRESULT Event1([in] EventRegistrationToken eventCookie);
+
+    HRESULT InvokeEvent_I1E1([in] HSTRING hString);
+
+    [eventadd] HRESULT Event2(
+        [in] Interface1WithEventHandler * eventHandler,
+        [out, retval] EventRegistrationToken * eventCookie);
+
+    [eventremove] HRESULT Event2([in] EventRegistrationToken eventCookie);
+
+    HRESULT InvokeEvent_I1E2([in] HSTRING hString);
+}
+
+[
+    uuid(D61445D6-891A-4829-A4CD-6111A2660D84),
+    version(NTDDI_WIN8)
+]
+interface IInterface2WithEvent : IInspectable
+{
+    [eventadd] HRESULT Event21(
+        [in] Interface2WithEventHandler * eventHandler,
+        [out, retval] EventRegistrationToken * eventCookie);
+
+    [eventremove] HRESULT Event21([in] EventRegistrationToken eventCookie);
+
+    HRESULT InvokeEvent_I2E1([in] HSTRING hString);
+
+    [eventadd] HRESULT Event3(
+        [in] Interface2WithEventHandler * eventHandler,
+        [out, retval] EventRegistrationToken * eventCookie);
+
+    [eventremove] HRESULT Event3([in] EventRegistrationToken eventCookie);
+
+    HRESULT InvokeEvent_I2E3([in] HSTRING hString);
+
+    HRESULT onevent2([in] HSTRING hString, [out] HSTRING *outString);
+
+    [propget] HRESULT Handler1([out, retval] Interface2WithEventHandler **eventhandler);
+    
+    [propget] HRESULT WasHandler1Invoked([out, retval] boolean *nativeInvoked);
+
+    HRESULT InvokeDelegate([in] Interface2WithEventHandler *eventhandler, [in] HSTRING hString);
+}
+
+[
+    uuid(B0A2A23F-3E3D-4588-BB57-1BDA930B6A0E),
+    version(NTDDI_WIN8)
+]
+interface IInterface3WithEvent : IInspectable
+{
+    [eventadd] HRESULT Event31(
+        [in] Interface3WithEventHandler * eventHandler,
+        [out, retval] EventRegistrationToken * eventCookie);
+
+    [eventremove] HRESULT Event31([in] EventRegistrationToken eventCookie);
+
+    HRESULT InvokeEvent_I3E1([in] HSTRING hString);
+
+    [eventadd] HRESULT Event5(
+        [in] Interface3WithEventHandler * eventHandler,
+        [out, retval] EventRegistrationToken * eventCookie);
+
+    [eventremove] HRESULT Event5([in] EventRegistrationToken eventCookie);
+
+    HRESULT InvokeEvent_I3E5([in] HSTRING hString);
+
+    HRESULT addEventListener([in] HSTRING hString, [out] HSTRING *outString);
+}
+
+[
+    uuid(0B020B1B-D94A-426F-80A7-1536238A9BE8),
+    version(NTDDI_WIN8)
+]
+interface IInterface4WithEvent : IInspectable requires IInterface1WithEvent, IInterface2WithEvent
+{
+    [eventadd] HRESULT Event1(
+        [in] Interface4WithEventHandler * eventHandler,
+        [out, retval] EventRegistrationToken * eventCookie);
+
+    [eventremove] HRESULT Event1([in] EventRegistrationToken eventCookie);
+
+    HRESULT InvokeEvent_I4E1([in] HSTRING hString);
+
+    HRESULT onevent1([in] HSTRING hString, [out] HSTRING *outString);
+}
+
+[
+    uuid(ECC4FE40-6D26-4869-8105-14B7F3EED882),
+    version(NTDDI_WIN8)
+]
+interface IInterfaceWithOnEvent1: IInspectable 
+{
+    HRESULT onevent1([in] HSTRING hString, [out] HSTRING *outString);
+}
+
+[
+    uuid(039ACB90-0240-4803-891A-C3697C3A64D2),
+    version(NTDDI_WIN8)
+]
+interface IInterfaceWithMiscEventFormat: IInspectable 
+{
+    [eventadd] HRESULT DelegateEvent(
+        [in] DelegateEventHandler * eventHandler,
+        [out, retval] EventRegistrationToken * eventCookie);
+
+    [eventremove] HRESULT DelegateEvent([in] EventRegistrationToken eventCookie);
+
+    HRESULT InvokeDelegateEvent([in] DelegateForDelegateEvent *inValue);
+
+    [eventadd] HRESULT StructEvent(
+        [in] StructEventHandler * eventHandler,
+        [out, retval] EventRegistrationToken * eventCookie);
+
+    [eventremove] HRESULT StructEvent([in] EventRegistrationToken eventCookie);
+
+    HRESULT InvokeStructEvent([in] StructForStructEvent inValue);
+
+    [eventadd] HRESULT InterfaceWithTargetEvent(
+        [in] InterfaceWithTargetEventHandler * eventHandler,
+        [out, retval] EventRegistrationToken * eventCookie);
+
+    [eventremove] HRESULT InterfaceWithTargetEvent([in] EventRegistrationToken eventCookie);
+
+    HRESULT InvokeInterfaceWithTargetEvent();
+
+    [eventadd] HRESULT StructWithTargetEvent(
+        [in] StructWithTargetEventHandler * eventHandler,
+        [out, retval] EventRegistrationToken * eventCookie);
+
+    [eventremove] HRESULT StructWithTargetEvent([in] EventRegistrationToken eventCookie);
+
+    HRESULT InvokeStructWithTargetEvent([in] StructForStructWithTargetEvent inValue);
+
+    HRESULT target([in] int inValue, [out] int *outValue);
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RC1WithEvent
+{
+    [default] interface IInterface1WithEvent;
+    interface IInterface2WithEvent;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    static(IInterface1WithEvent, NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RC2WithEvent
+{
+    [default] interface IInterface2WithEvent;
+}
+
+// Cannot build below one as Event has to be unique across static interfaces
+//[
+//    activatable(NTDDI_WIN8),
+//    static(IInterface1WithEvent, NTDDI_WIN8),
+//    static(IInterface2WithEvent, NTDDI_WIN8),
+//    version(NTDDI_WIN8)
+//]
+//runtimeclass RC3WithEvent
+//{
+//    interface IEmpty;
+//}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RC3WithEvent
+{
+    [default] interface IInterface3WithEvent;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RC4WithEvent
+{
+    [default] interface IInterface1WithEvent;
+    interface IInterface2WithEvent;
+    interface IInterface3WithEvent;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    static(IInterface3WithEvent, NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RC5WithEvent
+{
+    [default] interface IInterface1WithEvent;
+    interface IInterface2WithEvent;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RC6WithEvent
+{
+    [default] interface IInterface3WithEvent;
+    interface IInterface4WithEvent;
+}
+
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RC7WithEvent
+{
+    [default]interface IInterface1WithEvent;
+    interface IInterfaceWithOnEvent1;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RC8WithEvent
+{
+    [default]interface IInterfaceWithMiscEventFormat;
+}
+
+interface ICustomAsync;
+
+//Delegates
+[version(NTDDI_WIN8), uuid(06DC0392-dFB1-49ef-8149-911087D506c9)]
+delegate HRESULT CustomAsyncCompleted([in]ICustomAsync * customAsync, [in]AsyncStatus status);
+
+[version(NTDDI_WIN8), uuid(12DC0348-dFc1-49ef-8149-9110892526ca)]
+delegate HRESULT CustomAsyncProgress(ICustomAsync * customAsync, int percent);
+
+[version(NTDDI_WIN8), uuid(34F26D5A-8924-4a6a-9B4D-8EC8F14a4101)]
+interface ICustomAsync : IInspectable requires IAsyncInfo
+{
+    [propget] HRESULT Completed([out, retval] CustomAsyncCompleted ** completed);
+    [propput] HRESULT Completed([in] CustomAsyncCompleted * completed);
+
+    [propget] HRESULT Progress([out, retval] CustomAsyncProgress ** completed);
+    [propput] HRESULT Progress([in] CustomAsyncProgress * completed);
+
+    HRESULT MoveToCompleted();
+    HRESULT MoveToError();
+
+    HRESULT GetResults([out] int * result);
+} 
+
+[version(NTDDI_WIN8), uuid(224F704F-70A4-4D5D-AFB9-21005C78E1F4)]
+interface IEmptyGRCN : IInspectable
+{
+    HRESULT GetMyClassName([out] HSTRING *outValue);
+}
+
+[
+    uuid(5F34EB58-6628-4555-90D0-8A9D4C35D235),
+    version(NTDDI_WIN8)
+]
+interface ITypeReceiver: IInspectable 
+{
+    HRESULT ReceiveGuidArray([out] UINT32 *length, [out, size_is(,*length)] GUID **outValue);
+    HRESULT ReceiveAnimalArray([out] UINT32 *length, [out, size_is(,*length)] Animal ***outValue);
+    HRESULT ReceiveFishArray([out] UINT32 *length, [out, size_is(,*length)] IFish ***outValue);
+    HRESULT ReceiveVectorArray([out] UINT32 *length, [out, size_is(,*length)] IVector<int> ***outValue);
+    HRESULT ReceiveDateArray([out] UINT32 *length, [out, size_is(,*length)] Windows.Foundation.DateTime **outValue);
+    HRESULT ReceiveTimeSpanArray([out] UINT32 *length, [out, size_is(,*length)] Windows.Foundation.TimeSpan **outValue);
+    HRESULT ReceivePointArray([out] UINT32 *length, [out, size_is(,*length)] Windows.Foundation.Point **outValue);
+    HRESULT ReceiveSizeArray([out] UINT32 *length, [out, size_is(,*length)]  Windows.Foundation.Size **outValue);
+    HRESULT ReceiveRectArray([out] UINT32 *length, [out, size_is(,*length)]  Windows.Foundation.Rect **outValue);
+    HRESULT ReceiveBooleanArray([out] UINT32 *length, [out, size_is(,*length)] boolean **outValue);
+    HRESULT ReceiveStringArray([out] UINT32 *length, [out, size_is(,*length)] HSTRING **outValue);
+    HRESULT ReceiveInspectableArray([out] UINT32 *length, [out, size_is(,*length)] IInspectable ***outValue);
+    HRESULT ReceiveChar16Array([out] UINT32 *length, [out, size_is(,*length)] wchar_t **outValue);
+    HRESULT ReceiveUInt8Array([out] UINT32 *length, [out, size_is(,*length)] byte **outValue);
+    HRESULT ReceiveInt16Array([out] UINT32 *length, [out, size_is(,*length)] short **outValue);
+    HRESULT ReceiveUInt16Array([out] UINT32 *length, [out, size_is(,*length)] unsigned short **outValue);
+    HRESULT ReceiveInt32Array([out] UINT32 *length, [out, size_is(,*length)] INT32 **outValue);
+    HRESULT ReceiveUInt32Array([out] UINT32 *length, [out, size_is(,*length)] UINT32 **outValue);
+    HRESULT ReceiveInt64Array([out] UINT32 *length, [out, size_is(,*length)] INT64 **outValue);
+    HRESULT ReceiveUInt64Array([out] UINT32 *length, [out, size_is(,*length)] UINT64 **outValue);
+    HRESULT ReceiveFloatArray([out] UINT32 *length, [out, size_is(,*length)] float **outValue);
+    HRESULT ReceiveDoubleArray([out] UINT32 *length, [out, size_is(,*length)] double **outValue);
+    HRESULT ReceiveStructArray([out] UINT32 *length, [out, size_is(,*length)] Dimensions **outValue);
+    HRESULT ReceiveEnumArray([out] UINT32 *length, [out, size_is(,*length)] Phylum **outValue);
+    HRESULT ReceiveWinrtDelegateArray([out] UINT32 *length, [out, size_is(,*length)] DelegateWithOutParam_HSTRING ***outValue);
+    HRESULT ReceiveJSDelegateArray([in] DelegateWithOutParam_HSTRING *delegate1, [in] DelegateWithOutParam_HSTRING *delegate2, [out] UINT32 *length, [out, size_is(,*length)] DelegateWithOutParam_HSTRING ***outValue);
+
+    HRESULT ReceiveVectorOfVector([out] IVector<IVector<int> *> **outValue);
+    HRESULT ReceiveVectorOfStruct([out] IVector<Dimensions> **outValue);
+    HRESULT ReceiveMapOfStructAndVector([out] IMap<Dimensions, IVector<HSTRING> *> **outValue);
+    HRESULT ReceiveVectorOfRCObservableVector([out] IVector<RCIObservable *> **outValue);
+    //HRESULT ReceiveVectorOfHRESULT([out] IVector<HRESULT> **outValue); -- gives error while compiling
+    HRESULT ReceiveVectorOfGuid([out] IVector<GUID> **outValue);
+    HRESULT ReceiveVectorOfDate([out] IVector<Windows.Foundation.DateTime> **outValue);
+    HRESULT ReceiveVectorOfTimeSpan([out] IVector<Windows.Foundation.TimeSpan> **outValue);
+    HRESULT ReceiveVectorOfEnum([out] IVector<Phylum> **outValue);
+    HRESULT ReceiveVectorOfDelegate([out] IVector<DelegateWithOutParam_HSTRING *> **outValue);
+    HRESULT ReceiveVectorOfAsyncInfo([out] IVector<IAsyncInfo *> **outValue);
+    HRESULT ReceiveVectorOfEventRegistration([out] IVector<EventRegistrationToken> **outValue);
+    HRESULT ReceiveMapOfStringAndInspectable([out] IMap<HSTRING, IInspectable *> **outValue);
+
+    HRESULT ReceiveVectorOfVector_InspectableOut([out] IInspectable **outValue);
+    HRESULT ReceiveVectorOfStruct_InspectableOut([out] IInspectable **outValue);
+    HRESULT ReceiveMapOfStructAndVector_InspectableOut([out] IInspectable **outValue);
+    HRESULT ReceiveVectorOfRCObservableVector_InspectableOut([out] IInspectable **outValue);
+    //HRESULT ReceiveVectorOfHRESULT_InspectableOut([out] IInspectable **outValue);
+    HRESULT ReceiveVectorOfGuid_InspectableOut([out] IInspectable **outValue);
+    HRESULT ReceiveVectorOfDate_InspectableOut([out] IInspectable **outValue);
+    HRESULT ReceiveVectorOfTimeSpan_InspectableOut([out] IInspectable **outValue);
+    HRESULT ReceiveVectorOfEnum_InspectableOut([out] IInspectable **outValue);
+    HRESULT ReceiveVectorOfDelegate_InspectableOut([out] IInspectable **outValue);
+    HRESULT ReceiveVectorOfAsyncInfo_InspectableOut([out] IInspectable **outValue);
+    HRESULT ReceiveVectorOfEventRegistration_InspectableOut([out] IInspectable **outValue);
+    HRESULT ReceiveMapOfStringAndInspectable_InspectableOut([out] IInspectable **outValue);
+
+    HRESULT IsSameDelegate([in] DelegateWithOutParam_HSTRING *inValue1, [in] DelegateWithOutParam_HSTRING *inValue2, [out] boolean *isSame);
+
+}
+
+[
+    uuid(D99DBEE4-9967-4EE2-A556-7D1E1A5F2200),
+    version(NTDDI_WIN8)
+]
+interface IInspectableTests: IInspectable 
+{
+    // Inspectable In
+    HRESULT TestNull_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] IInspectable **outValue);
+    HRESULT TestBoolean_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] boolean *outValue);
+    HRESULT TestString_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] HSTRING *outValue);
+    HRESULT TestNumber_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] double *outValue);
+    HRESULT TestDate_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] Windows.Foundation.DateTime *outValue);
+    HRESULT TestInspectable_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] IInspectable **outValue);
+    HRESULT TestArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] IInspectable ***outValue);
+    HRESULT TestGuidArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] GUID **outValue);
+    HRESULT TestDateArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Windows.Foundation.DateTime **outValue);
+    HRESULT TestDimensionsArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Dimensions **outValue);
+    HRESULT TestTimeSpanArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Windows.Foundation.TimeSpan **outValue);
+    HRESULT TestPointArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Windows.Foundation.Point **outValue);
+    HRESULT TestSizeArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Windows.Foundation.Size **outValue);
+    HRESULT TestRectArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Windows.Foundation.Rect **outValue);
+    HRESULT TestEnumArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Phylum **outValue);
+    HRESULT TestBooleanArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] boolean **outValue);
+    HRESULT TestStringArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] HSTRING **outValue);
+    HRESULT TestChar16Array_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] wchar_t **outValue);
+    HRESULT TestUInt8Array_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] byte **outValue);
+    HRESULT TestInt16Array_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] short **outValue);
+    HRESULT TestUInt16Array_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] unsigned short **outValue);
+    HRESULT TestInt32Array_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] INT32 **outValue);
+    HRESULT TestUInt32Array_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] UINT32 **outValue);
+    HRESULT TestInt64Array_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] INT64 **outValue);
+    HRESULT TestUInt64Array_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] UINT64 **outValue);
+    HRESULT TestFloatArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] float **outValue);
+    HRESULT TestDoubleArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] double **outValue);
+    HRESULT TestDelegateArray_InspectableIn([in] IInspectable *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] DelegateWithOutParam_HSTRING ***outValue);
+
+    // Inspectable Out
+    HRESULT TestNull_InspectableOut([out] IInspectable **outValue);
+    HRESULT TestBoolean_InspectableOut([in] boolean inValue, [out] IInspectable **outValue);
+    HRESULT TestString_InspectableOut([in] HSTRING inValue, [out] IInspectable **outValue);
+    HRESULT TestChar16_InspectableOut([in] wchar_t inValue, [out] IInspectable **outValue);
+    HRESULT TestUInt8_InspectableOut([in] byte inValue, [out] IInspectable **outValue);
+    HRESULT TestInt16_InspectableOut([in] short inValue, [out] IInspectable **outValue);
+    HRESULT TestUInt16_InspectableOut([in] unsigned short inValue, [out] IInspectable **outValue);
+    HRESULT TestInt32_InspectableOut([in] INT32 inValue, [out] IInspectable **outValue);
+    HRESULT TestUInt32_InspectableOut([in] UINT32 inValue, [out] IInspectable **outValue);
+    HRESULT TestInt64_InspectableOut([in] INT64 inValue, [out] IInspectable **outValue);
+    HRESULT TestUInt64_InspectableOut([in] UINT64 inValue, [out] IInspectable **outValue);
+    HRESULT TestFloat_InspectableOut([in] float inValue, [out] IInspectable **outValue);
+    HRESULT TestDouble_InspectableOut([in] double inValue, [out] IInspectable **outValue);
+    HRESULT TestGuid_InspectableOut([in] GUID inValue, [out] IInspectable **outValue);
+    HRESULT TestDate_InspectableOut([in] Windows.Foundation.DateTime inValue, [out] IInspectable **outValue);
+    HRESULT TestDimensions_InspectableOut([in] Windows.Foundation.IReference<Dimensions> *inValue, [out] IInspectable **outValue);
+    HRESULT TestTimeSpan_InspectableOut([in] Windows.Foundation.TimeSpan inValue, [out] IInspectable **outValue);
+    HRESULT TestPoint_InspectableOut([in] Windows.Foundation.Point inValue, [out] IInspectable **outValue);
+    HRESULT TestSize_InspectableOut([in] Windows.Foundation.Size inValue, [out] IInspectable **outValue);
+    HRESULT TestRect_InspectableOut([in] Windows.Foundation.Rect inValue, [out] IInspectable **outValue);
+    HRESULT TestEnum_InspectableOut([in] Windows.Foundation.IReference<Phylum> *inValue, [out] IInspectable **outValue);
+    HRESULT TestRCPV1_InspectableOut([out] IInspectable **outValue);
+    HRESULT TestRCPV2_InspectableOut([out] IInspectable **outValue);
+    HRESULT TestRCPV3_InspectableOut([out] IInspectable **outValue);
+    HRESULT TestRCPV4_InspectableOut([out] IInspectable **outValue);
+    HRESULT TestRCPV5_InspectableOut([out] IInspectable **outValue);
+    HRESULT TestRCPV6_InspectableOut([out] IInspectable **outValue);
+    HRESULT TestGuidArray_InspectableOut([in] UINT32 length, [in, size_is(length)] GUID *inValue, [out] IInspectable **outValue);
+    HRESULT TestDateArray_InspectableOut([in] UINT32 length, [in, size_is(length)] Windows.Foundation.DateTime *inValue, [out] IInspectable **outValue);
+    HRESULT TestTimeSpanArray_InspectableOut([in] UINT32 length, [in, size_is(length)] Windows.Foundation.TimeSpan *inValue, [out] IInspectable **outValue);
+    HRESULT TestPointArray_InspectableOut([in] UINT32 length, [in, size_is(length)] Windows.Foundation.Point *inValue, [out] IInspectable **outValue);
+    HRESULT TestSizeArray_InspectableOut([in] UINT32 length, [in, size_is(length)] Windows.Foundation.Size *inValue, [out] IInspectable **outValue);
+    HRESULT TestRectArray_InspectableOut([in] UINT32 length, [in, size_is(length)] Windows.Foundation.Rect *inValue, [out] IInspectable **outValue);
+    HRESULT TestBooleanArray_InspectableOut([in] UINT32 length, [in, size_is(length)] boolean *inValue, [out] IInspectable **outValue);
+    HRESULT TestStringArray_InspectableOut([in] UINT32 length, [in, size_is(length)] HSTRING *inValue, [out] IInspectable **outValue);
+    HRESULT TestChar16Array_InspectableOut([in] UINT32 length, [in, size_is(length)] wchar_t *inValue, [out] IInspectable **outValue);
+    HRESULT TestUInt8Array_InspectableOut([in] UINT32 length, [in, size_is(length)] byte *inValue, [out] IInspectable **outValue);
+    HRESULT TestInt16Array_InspectableOut([in] UINT32 length, [in, size_is(length)] short *inValue, [out] IInspectable **outValue);
+    HRESULT TestUInt16Array_InspectableOut([in] UINT32 length, [in, size_is(length)] unsigned short *inValue, [out] IInspectable **outValue);
+    HRESULT TestInt32Array_InspectableOut([in] UINT32 length, [in, size_is(length)] INT32 *inValue, [out] IInspectable **outValue);
+    HRESULT TestUInt32Array_InspectableOut([in] UINT32 length, [in, size_is(length)] UINT32 *inValue, [out] IInspectable **outValue);
+    HRESULT TestInt64Array_InspectableOut([in] UINT32 length, [in, size_is(length)] INT64 *inValue, [out] IInspectable **outValue);
+    HRESULT TestUInt64Array_InspectableOut([in] UINT32 length, [in, size_is(length)] UINT64 *inValue, [out] IInspectable **outValue);
+    HRESULT TestFloatArray_InspectableOut([in] UINT32 length, [in, size_is(length)] float *inValue, [out] IInspectable **outValue);
+    HRESULT TestDoubleArray_InspectableOut([in] UINT32 length, [in, size_is(length)] double *inValue, [out] IInspectable **outValue);
+    HRESULT TestArray_InspectableOut([in] UINT32 length, [in, size_is(length)] IInspectable **inValue, [out] IInspectable **outValue);
+    HRESULT TestAnimalArray_InspectableOut([in] UINT32 length, [in, size_is(length)] Animal **inValue, [out] IInspectable **outValue);
+    HRESULT TestFishArray_InspectableOut([in] UINT32 length, [in, size_is(length)] IFish **inValue, [out] IInspectable **outValue);
+    HRESULT TestVectorArray_InspectableOut([in] UINT32 length, [in, size_is(length)] IVector<int> **inValue, [out] IInspectable **outValue);
+
+    HRESULT TestBoxInspectable_InspectableOut([in] IInspectable *inValue, [out] IInspectable **outValue);
+    HRESULT TestInspectable_InspectableOut([in] IInspectable *inValue, [out] IInspectable **outValue);
+    HRESULT TestBoxedNull_InspectableOut([out] IInspectable **outValue);
+
+    HRESULT TestIterable_InspectableOut([in] IIterable<int> *inValue, [out] IInspectable **outValue);
+    HRESULT TestIterator_InspectableOut([in] IIterator<int> *inValue, [out] IInspectable **outValue);
+    HRESULT TestIVector_InspectableOut([in] IVector<int> *inValue, [out] IInspectable **outValue);
+    HRESULT TestIVectorView_InspectableOut([in] IVectorView<int> *inValue, [out] IInspectable **outValue);
+
+    HRESULT TestBoxIterable_InspectableOut([in] IIterable<int> *inValue, [out] IInspectable **outValue);
+    HRESULT TestBoxIterator_InspectableOut([in] IIterator<int> *inValue, [out] IInspectable **outValue);
+    HRESULT TestBoxIVector_InspectableOut([in] IVector<int> *inValue, [out] IInspectable **outValue);
+    HRESULT TestBoxIVectorView_InspectableOut([in] IVectorView<int> *inValue, [out] IInspectable **outValue);
+
+    HRESULT GetRuntimeClassWithEmptyString([out] IInspectable **inspectable);
+    HRESULT VerifyRuntimeClassWithEmptyString([in] IInspectable *inspectable, [out] boolean *isSame);
+
+    HRESULT GetRuntimeClassWithFailingGRCN([out] IInspectable **inspectable);
+    HRESULT GetRuntimeClassWithEmptyStringAsInterface([out] IEmptyGRCN **outValue);
+
+    HRESULT TestFailingRuntimeClassNameWithAnotherInterface([in] IInspectable *inValue, [out] IInspectable **outFailingValue, [out] IInspectable **outValue); 
+}
+
+[
+    uuid(8441E537-ECA7-4E06-B86D-A6C6229CF466),
+    version(NTDDI_WIN8)
+]
+interface IIPropertyValueTests: IInspectable 
+{
+    // IPropertyvalue In
+    HRESULT TestNull_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestBoolean_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] boolean *outValue);
+    HRESULT TestString_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] HSTRING *outValue);
+    HRESULT TestNumber_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] double *outValue);
+    HRESULT TestDate_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] Windows.Foundation.DateTime *outValue);
+    HRESULT TestInspectable_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] IInspectable **outValue);
+    HRESULT TestArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] IInspectable ***outValue);
+    HRESULT TestGuidArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] GUID **outValue);
+    HRESULT TestDateArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Windows.Foundation.DateTime **outValue);
+    HRESULT TestDimensionsArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Dimensions **outValue);
+    HRESULT TestTimeSpanArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Windows.Foundation.TimeSpan **outValue);
+    HRESULT TestPointArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Windows.Foundation.Point **outValue);
+    HRESULT TestSizeArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Windows.Foundation.Size **outValue);
+    HRESULT TestRectArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Windows.Foundation.Rect **outValue);
+    HRESULT TestEnumArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] Phylum **outValue);
+    HRESULT TestBooleanArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] boolean **outValue);
+    HRESULT TestStringArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] HSTRING **outValue);
+    HRESULT TestChar16Array_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] wchar_t **outValue);
+    HRESULT TestUInt8Array_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] byte **outValue);
+    HRESULT TestInt16Array_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] short **outValue);
+    HRESULT TestUInt16Array_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] unsigned short **outValue);
+    HRESULT TestInt32Array_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] INT32 **outValue);
+    HRESULT TestUInt32Array_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] UINT32 **outValue);
+    HRESULT TestInt64Array_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] INT64 **outValue);
+    HRESULT TestUInt64Array_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] UINT64 **outValue);
+    HRESULT TestFloatArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] float **outValue);
+    HRESULT TestDoubleArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] double **outValue);
+    HRESULT TestDelegateArray_IPropertyValueIn([in] Windows.Foundation.IPropertyValue *inValue, [out] boolean *isValidType, [out] UINT32 *length, [out, size_is(,*length)] DelegateWithOutParam_HSTRING ***outValue);
+
+    // IPropertyValue Out
+    HRESULT TestNull_IPropertyValueOut([out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestBoolean_IPropertyValueOut([in] boolean inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestString_IPropertyValueOut([in] HSTRING inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestChar16_IPropertyValueOut([in] wchar_t inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestUInt8_IPropertyValueOut([in] byte inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestInt16_IPropertyValueOut([in] short inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestUInt16_IPropertyValueOut([in] unsigned short inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestInt32_IPropertyValueOut([in] INT32 inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestUInt32_IPropertyValueOut([in] UINT32 inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestInt64_IPropertyValueOut([in] INT64 inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestUInt64_IPropertyValueOut([in] UINT64 inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestFloat_IPropertyValueOut([in] float inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestDouble_IPropertyValueOut([in] double inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestGuid_IPropertyValueOut([in] GUID inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestDate_IPropertyValueOut([in] Windows.Foundation.DateTime inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestDimensions_IPropertyValueOut([in] Windows.Foundation.IReference<Dimensions> *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestTimeSpan_IPropertyValueOut([in] Windows.Foundation.TimeSpan inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestPoint_IPropertyValueOut([in] Windows.Foundation.Point inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestSize_IPropertyValueOut([in] Windows.Foundation.Size inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestRect_IPropertyValueOut([in] Windows.Foundation.Rect inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestEnum_IPropertyValueOut([in] Windows.Foundation.IReference<Phylum> *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestRCPV1_IPropertyValueOut([out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestRCPV2_IPropertyValueOut([out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestRCPV3_IPropertyValueOut([out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestRCPV4_IPropertyValueOut([out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestRCPV5_IPropertyValueOut([out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestRCPV6_IPropertyValueOut([out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestGuidArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] GUID *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestDateArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] Windows.Foundation.DateTime *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestTimeSpanArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] Windows.Foundation.TimeSpan *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestPointArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] Windows.Foundation.Point *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestSizeArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] Windows.Foundation.Size *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestRectArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] Windows.Foundation.Rect *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestBooleanArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] boolean *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestStringArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] HSTRING *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestChar16Array_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] wchar_t *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestUInt8Array_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] byte *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestInt16Array_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] short *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestUInt16Array_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] unsigned short *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestInt32Array_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] INT32 *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestUInt32Array_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] UINT32 *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestInt64Array_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] INT64 *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestUInt64Array_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] UINT64 *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestFloatArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] float *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestDoubleArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] double *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] IInspectable **inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestAnimalArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] Animal **inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestFishArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] IFish **inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestVectorArray_IPropertyValueOut([in] UINT32 length, [in, size_is(length)] IVector<int> **inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestBoxInspectable_IPropertyValueOut([in] IInspectable *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestInspectable_IPropertyValueOut([in] IInspectable *inValue, [out] Windows.Foundation.IPropertyValue **outValue);
+    HRESULT TestBoxedNull_IPropertyValueOut([out] Windows.Foundation.IPropertyValue **outValue);
+
+    [propget] HRESULT MyPropertyValue([out, retval] Windows.Foundation.IPropertyValue **value);
+    [propput] HRESULT MyPropertyValue([in] Windows.Foundation.IPropertyValue *value);
+}
+
+[
+    uuid(D2736222-FED0-46C2-858F-17BAC2AC04BA),
+    version(NTDDI_WIN8)
+]
+interface IPropertyValueTests: IInspectable 
+{
+    // PropertyValue in
+    HRESULT TestRCPV1_PropertyValueIn([in] RCPropertyValue1 *inValue);
+    HRESULT TestRCPV2_PropertyValueIn([in] RCPropertyValue2 *inValue);
+    HRESULT TestRCPV3_PropertyValueIn([in] RCPropertyValue3 *inValue);
+    HRESULT TestRCPV4_PropertyValueIn([in] RCPropertyValue4 *inValue);
+    HRESULT TestRCPV5_PropertyValueIn([in] RCPropertyValue5 *inValue);
+    HRESULT TestRCPV6_PropertyValueIn([in] RCPropertyValue6 *inValue);
+
+    // PropertyValue Out
+    HRESULT TestRCPV1_PropertyValueOut([out] RCPropertyValue1 **outValue);
+    HRESULT TestRCPV2_PropertyValueOut([out] RCPropertyValue2 **outValue);
+    HRESULT TestRCPV3_PropertyValueOut([out] RCPropertyValue3 **outValue);
+    HRESULT TestRCPV4_PropertyValueOut([out] RCPropertyValue4 **outValue);
+    HRESULT TestRCPV5_PropertyValueOut([out] RCPropertyValue5 **outValue);
+    HRESULT TestRCPV6_PropertyValueOut([out] RCPropertyValue6 **outValue);
+}
+
+[
+    uuid(F95AEE27-F00C-4D41-AFDE-792872551300),
+    version(NTDDI_WIN8)
+]
+interface IReferenceTests: IInspectable 
+{
+    // IReference<T> __in
+    HRESULT TestBoolean_ReferenceIn([in] Windows.Foundation.IReference<boolean> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] boolean *outValue);
+    HRESULT TestChar16_ReferenceIn([in] Windows.Foundation.IReference<wchar_t> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] wchar_t *outValue);
+    HRESULT TestUInt8_ReferenceIn([in] Windows.Foundation.IReference<byte> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] byte *outValue);
+    HRESULT TestInt16_ReferenceIn([in] Windows.Foundation.IReference<short> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] short *outValue);
+    HRESULT TestUInt16_ReferenceIn([in] Windows.Foundation.IReference<unsigned short> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] unsigned short *outValue);
+    HRESULT TestInt32_ReferenceIn([in] Windows.Foundation.IReference<INT32> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] INT32 *outValue);
+    HRESULT TestUInt32_ReferenceIn([in] Windows.Foundation.IReference<UINT32> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] UINT32 *outValue);
+    HRESULT TestInt64_ReferenceIn([in] Windows.Foundation.IReference<INT64> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] INT64 *outValue);
+    HRESULT TestUInt64_ReferenceIn([in] Windows.Foundation.IReference<UINT64> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] UINT64 *outValue);
+    HRESULT TestFloat_ReferenceIn([in] Windows.Foundation.IReference<float> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] float *outValue);
+    HRESULT TestDouble_ReferenceIn([in] Windows.Foundation.IReference<double> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] double *outValue);    
+    HRESULT TestGuid_ReferenceIn([in] Windows.Foundation.IReference<GUID> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] GUID *outValue);
+    HRESULT TestDate_ReferenceIn([in] Windows.Foundation.IReference<Windows.Foundation.DateTime> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] Windows.Foundation.DateTime *outValue);
+    HRESULT TestDimensions_ReferenceIn([in] Windows.Foundation.IReference<Dimensions> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] Dimensions *outValue);
+    HRESULT TestTimeSpan_ReferenceIn([in] Windows.Foundation.IReference<Windows.Foundation.TimeSpan> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] Windows.Foundation.TimeSpan *outValue);
+    HRESULT TestPoint_ReferenceIn([in] Windows.Foundation.IReference<Windows.Foundation.Point> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] Windows.Foundation.Point *outValue);
+    HRESULT TestSize_ReferenceIn([in] Windows.Foundation.IReference<Windows.Foundation.Size> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] Windows.Foundation.Size *outValue);
+    HRESULT TestRect_ReferenceIn([in] Windows.Foundation.IReference<Windows.Foundation.Rect> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] Windows.Foundation.Rect *outValue);
+    HRESULT TestEnum_ReferenceIn([in] Windows.Foundation.IReference<Phylum> *inValue, [out] boolean *isNull, [out] boolean *isValidType, [out] Phylum *outValue);
+
+    // IReference<T> __out
+    HRESULT TestBoolean_ReferenceOut([out] Windows.Foundation.IReference<boolean> **outValue, [in] boolean inValue);
+    HRESULT TestChar16_ReferenceOut([out] Windows.Foundation.IReference<wchar_t> **outValue, [in] wchar_t inValue);
+    HRESULT TestUInt8_ReferenceOut([out] Windows.Foundation.IReference<byte> **outValue, [in] byte inValue);
+    HRESULT TestInt16_ReferenceOut([out] Windows.Foundation.IReference<short> **outValue, [in] short inValue);
+    HRESULT TestUInt16_ReferenceOut([out] Windows.Foundation.IReference<unsigned short> **outValue, [in] unsigned short inValue);
+    HRESULT TestInt32_ReferenceOut([out] Windows.Foundation.IReference<INT32> **outValue, [in] INT32 inValue);
+    HRESULT TestUInt32_ReferenceOut([out] Windows.Foundation.IReference<UINT32> **outValue, [in] UINT32 inValue);
+    HRESULT TestInt64_ReferenceOut([out] Windows.Foundation.IReference<INT64> **outValue, [in] INT64 inValue);
+    HRESULT TestUInt64_ReferenceOut([out] Windows.Foundation.IReference<UINT64> **outValue, [in] UINT64 inValue);
+    HRESULT TestFloat_ReferenceOut([out] Windows.Foundation.IReference<float> **outValue, [in] float inValue);
+    HRESULT TestDouble_ReferenceOut([out] Windows.Foundation.IReference<double> **outValue, [in] double inValue);    
+    HRESULT TestGuid_ReferenceOut([out] Windows.Foundation.IReference<GUID> **outValue, [in] GUID inValue);
+    HRESULT TestDate_ReferenceOut([out] Windows.Foundation.IReference<Windows.Foundation.DateTime> **outValue, [in] Windows.Foundation.DateTime inValue);
+    HRESULT TestDimensions_ReferenceOut([out] Windows.Foundation.IReference<Dimensions> **outValue, [in] Windows.Foundation.IReference<Dimensions> *inValue);
+    HRESULT TestTimeSpan_ReferenceOut([out] Windows.Foundation.IReference<Windows.Foundation.TimeSpan> **outValue, [in] Windows.Foundation.TimeSpan inValue);
+    HRESULT TestPoint_ReferenceOut([out] Windows.Foundation.IReference<Windows.Foundation.Point> **outValue, [in] Windows.Foundation.Point inValue);
+    HRESULT TestSize_ReferenceOut([out] Windows.Foundation.IReference<Windows.Foundation.Size> **outValue, [in] Windows.Foundation.Size inValue);
+    HRESULT TestRect_ReferenceOut([out] Windows.Foundation.IReference<Windows.Foundation.Rect> **outValue, [in] Windows.Foundation.Rect inValue);
+    HRESULT TestEnum_ReferenceOut([out] Windows.Foundation.IReference<Phylum> **outValue, [in] Windows.Foundation.IReference<Phylum> *inValue);
+
+    [propget] HRESULT MyDimensionsReference([out, retval] Windows.Foundation.IReference<Dimensions> **value);
+    [propput] HRESULT MyDimensionsReference([in] Windows.Foundation.IReference<Dimensions> *value);
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass PropertyValueTests
+{
+    [default]interface ITypeReceiver;
+    interface IInspectableTests;
+    interface IIPropertyValueTests;
+    interface IPropertyValueTests;
+    interface IReferenceTests;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RCPropertyValue1
+{
+    // This class would GRCN as IReferece<Struct>
+    [default]interface Windows.Foundation.IPropertyValue;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RCPropertyValue2
+{
+    // This class would create a GRCN as RCPropertyValue2
+    [default]interface Windows.Foundation.IPropertyValue;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RCPropertyValue3
+{
+    // This class would create a GRCN as IPropertyValue
+    [default]interface Windows.Foundation.IPropertyValue;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RCPropertyValue4
+{
+    // This class would GRCN as IReferece<Char16>
+    [default]interface Windows.Foundation.IPropertyValue;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RCPropertyValue5
+{
+    // This class would create a GRCN as RCPropertyValue5
+    [default]interface Windows.Foundation.IPropertyValue;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass RCPropertyValue6
+{
+    // This class would create a GRCN as IPropertyValue
+    [default]interface Windows.Foundation.IPropertyValue;
+}
+
+[
+    webhosthidden,
+    version(NTDDI_WIN8)
+]
+typedef struct _HiddenStruct
+{
+    int HiddenStructMember;
+} HiddenStruct;
+
+[
+    version(NTDDI_WIN8)
+]
+typedef struct _StructWithHiddenInnerStruct
+{
+    int VisibleStructMember;
+    HiddenStruct HiddenInnerStruct;    
+} StructWithHiddenInnerStruct;
+
+[version(0), uuid(73B729C7-B88A-4292-A03F-E1DC6A5D3947)]
+delegate HRESULT DelegateUsing_HiddenInterface_Out([out] IHiddenInterface** value);
+
+[version(0), uuid(1E85C38B-8DA7-4D8F-A828-DA13F2E22B87)]
+delegate HRESULT DelegateUsing_HiddenClass_Out([out] HiddenClass** value);
+
+[version(0), uuid(DD2E1B60-DA01-42AE-90A4-53E2EA61BCB8)]
+delegate HRESULT DelegateUsing_VisibleClassWithHiddenInterfaceOnly_Out([out] VisibleClassWithHiddenInterfaceOnly** value);
+
+[version(0), uuid(CA99C57B-E296-47EC-AD27-975D5374B506)]
+delegate HRESULT DelegateUsing_VisibleClassWithDefaultHiddenInterface_Out([out] VisibleClassWithDefaultHiddenInterface** value);
+
+[version(0), uuid(9CAC1D02-9452-403B-8D82-37E8A7F6249A)]
+delegate HRESULT DelegateUsing_HiddenInterface_In([in] IHiddenInterface* value);
+
+[version(0), uuid(CC430D7E-3158-4CC5-B3D3-25DC56E37F06)]
+delegate HRESULT DelegateUsing_HiddenClass_In([in] HiddenClass* value);
+
+[version(0), uuid(26D6EABC-C8CD-4102-93F7-6BE2569B0DCD)]
+delegate HRESULT DelegateUsing_VisibleClassWithHiddenInterfaceOnly_In([in] VisibleClassWithHiddenInterfaceOnly* value);
+
+[version(0), uuid(50973618-FF34-4D31-9326-EFA24481CB1E)]
+delegate HRESULT DelegateUsing_VisibleClassWithDefaultHiddenInterface_In([in] VisibleClassWithDefaultHiddenInterface* value);
+
+[version(0), uuid(1B86BA03-3A22-48C2-AF92-DD6397D0C731), webhosthidden]
+delegate HRESULT HiddenDelegate([in] int value);
+
+[version(NTDDI_WIN8), webhosthidden]
+typedef enum HiddenEnum
+{
+    First = 0,
+    Second,
+    Third
+} HiddenEnum;
+
+[
+    webhosthidden,
+    uuid(428431A4-1731-47F6-A8BA-4F44B850208A),
+    version(NTDDI_WIN8)
+]
+interface IHiddenInterface : IInspectable
+{
+    HRESULT HiddenMethod();
+
+    [propget] HRESULT Prop1([out, retval] int *value);
+    [propput] HRESULT Prop1([in] int value);
+}
+
+[
+    webhosthidden,
+    uuid(D8574C93-A3DB-4795-99B0-195F59FACCC4),
+    version(NTDDI_WIN8)
+]
+interface IRequiredHiddenInterface : IInspectable
+{
+    HRESULT RequiredHiddenMethod();
+    [propget] HRESULT Prop2([out, retval] int *value);
+    [propput] HRESULT Prop2([in] int value);
+}
+
+[
+    uuid(2F65AC91-99A8-44E7-927A-641FDA7D3666),
+    version(NTDDI_WIN8)
+]
+interface IVisibleInterface : IInspectable requires IRequiredHiddenInterface
+{
+    HRESULT VisibleMethod();
+
+    HRESULT MethodUsing_HiddenInterface_In([in] IHiddenInterface* hiddenInterface); // This should fail from JS
+    HRESULT MethodUsing_HiddenClass_In([in] HiddenClass* hiddenInterface); // This should fail from JS
+    HRESULT MethodUsing_VisibleClassWithHiddenInterfaceOnly_In([in] VisibleClassWithHiddenInterfaceOnly* hiddenInterface); // This should fail from JS
+    HRESULT MethodUsing_VisibleClassWithDefaultHiddenInterface_In([in] VisibleClassWithDefaultHiddenInterface* hiddenInterface); // This should fail from JS
+    HRESULT MethodUsing_VisibleClassWithDefaultVisibleInterface_In([in] VisibleClassWithDefaultVisibleInterface* visibleInterface); // This should succeed from JS
+
+    HRESULT MethodUsing_HiddenInterface_Out([out] IHiddenInterface** hiddenInterface); // This should fail from JS
+    HRESULT MethodUsing_HiddenClass_Out([out] HiddenClass** hiddenInterface); // This should fail from JS
+    HRESULT MethodUsing_VisibleClassWithHiddenInterfaceOnly_Out([out] VisibleClassWithHiddenInterfaceOnly** hiddenInterface); // This should fail from JS
+    HRESULT MethodUsing_VisibleClassWithDefaultHiddenInterface_Out([out] VisibleClassWithDefaultHiddenInterface** hiddenInterface); // This should fail from JS
+    HRESULT MethodUsing_VisibleClassWithDefaultVisibleInterface_Out([out] VisibleClassWithDefaultVisibleInterface** visibleInterface); // This should succeed from JS
+
+    [propget] HRESULT Property_HiddenInterface([out, retval] IHiddenInterface** value);
+    [propput] HRESULT Property_HiddenInterface([in] IHiddenInterface* value);
+    [propget] HRESULT Property_HiddenClass([out, retval] HiddenClass** value);
+    [propput] HRESULT Property_HiddenClass([in] HiddenClass* value);
+    [propget] HRESULT Property_VisibleClassWithHiddenInterfaceOnly([out, retval] VisibleClassWithHiddenInterfaceOnly** value);
+    [propput] HRESULT Property_VisibleClassWithHiddenInterfaceOnly([in] VisibleClassWithHiddenInterfaceOnly* value);
+    [propget] HRESULT Property__VisibleClassWithDefaultHiddenInterface([out, retval] VisibleClassWithDefaultHiddenInterface** value);
+    [propput] HRESULT Property__VisibleClassWithDefaultHiddenInterface([in] VisibleClassWithDefaultHiddenInterface* value);
+    [propget] HRESULT Property__VisibleClassWithDefaultVisibleInterface([out, retval] VisibleClassWithDefaultVisibleInterface** value);
+    [propput] HRESULT Property__VisibleClassWithDefaultVisibleInterface([in] VisibleClassWithDefaultVisibleInterface* value);
+
+    HRESULT Vector_HiddenInterface_In([in] IVector<IHiddenInterface*> * value);
+    HRESULT Vector_HiddenClass_In([in] IVector<HiddenClass*> * value);
+    HRESULT Vector_VisibleClassWithHiddenInterfaceOnly_In([in] IVector<VisibleClassWithHiddenInterfaceOnly*> * value);
+    HRESULT Vector_VisibleClassWithDefaultHiddenInterface_In([in] IVector<VisibleClassWithDefaultHiddenInterface*> * value);
+    HRESULT Vector_VisibleClassWithDefaultVisibleInterface_In([in] IVector<VisibleClassWithDefaultVisibleInterface*> * value);
+
+    HRESULT Vector_HiddenInterface_Out([out] IVector<IHiddenInterface*> ** value);
+    HRESULT Vector_HiddenClass_Out([out] IVector<HiddenClass*> ** value);
+    HRESULT Vector_VisibleClassWithHiddenInterfaceOnly_Out([out] IVector<VisibleClassWithHiddenInterfaceOnly*> ** value);
+    HRESULT Vector_VisibleClassWithDefaultHiddenInterface_Out([out] IVector<VisibleClassWithDefaultHiddenInterface*> ** value);
+    HRESULT Vector_VisibleClassWithDefaultVisibleInterface_Out([out] IVector<VisibleClassWithDefaultVisibleInterface*> ** value);
+
+    HRESULT PassArray_HiddenInterface([in] UINT32 length,  [in, size_is(length)] IHiddenInterface** value);
+    HRESULT FillArray_HiddenInterface([in] UINT32 length, [out, size_is(length)] IHiddenInterface** value);
+    HRESULT ReceiveArray_HiddenInterface([out] UINT32* length, [out, size_is(,*length)] IHiddenInterface*** value);
+
+    HRESULT PassArray_HiddenClass([in] UINT32 length,  [in, size_is(length)] HiddenClass** value);
+    HRESULT FillArray_HiddenClass([in] UINT32 length, [out, size_is(length)] HiddenClass** value);
+    HRESULT ReceiveArray_HiddenClass([out] UINT32* length, [out, size_is(,*length)] HiddenClass*** value);
+
+    HRESULT PassArray_VisibleClassWithHiddenInterfaceOnly([in] UINT32 length,  [in, size_is(length)] VisibleClassWithHiddenInterfaceOnly** value);
+    HRESULT FillArray_VisibleClassWithHiddenInterfaceOnly([in] UINT32 length, [out, size_is(length)] VisibleClassWithHiddenInterfaceOnly** value);
+    HRESULT ReceiveArray_VisibleClassWithHiddenInterfaceOnly([out] UINT32* length, [out, size_is(,*length)] VisibleClassWithHiddenInterfaceOnly*** value);
+    
+    HRESULT PassArray_VisibleClassWithDefaultHiddenInterface([in] UINT32 length,  [in, size_is(length)] VisibleClassWithDefaultHiddenInterface** value);
+    HRESULT FillArray_VisibleClassWithDefaultHiddenInterface([in] UINT32 length, [out, size_is(length)] VisibleClassWithDefaultHiddenInterface** value);
+    HRESULT ReceiveArray_VisibleClassWithDefaultHiddenInterface([out] UINT32* length, [out, size_is(,*length)] VisibleClassWithDefaultHiddenInterface*** value);
+
+    HRESULT PassArray_VisibleClassWithDefaultVisibleInterface([in] UINT32 length,  [in, size_is(length)] VisibleClassWithDefaultVisibleInterface** value);
+    HRESULT FillArray_VisibleClassWithDefaultVisibleInterface([in] UINT32 length, [out, size_is(length)] VisibleClassWithDefaultVisibleInterface** value);
+    HRESULT ReceiveArray_VisibleClassWithDefaultVisibleInterface([out] UINT32* length, [out, size_is(,*length)] VisibleClassWithDefaultVisibleInterface*** value);
+
+    HRESULT HiddenStruct_In([in] HiddenStruct value);
+    HRESULT HiddenStruct_Out([out, retval] HiddenStruct* value);
+    HRESULT StructWithHiddenInnerStruct_In([in] StructWithHiddenInnerStruct value);
+    HRESULT StructWithHiddenInnerStruct_Out([out] StructWithHiddenInnerStruct* value);
+
+    HRESULT Call_DelegateUsing_HiddenInterface_Out([in] DelegateUsing_HiddenInterface_Out* value);
+    HRESULT Call_DelegateUsing_HiddenClass_Out([in] DelegateUsing_HiddenClass_Out* value);
+    HRESULT Call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_Out([in] DelegateUsing_VisibleClassWithHiddenInterfaceOnly_Out* value);
+    HRESULT Call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_Out([in] DelegateUsing_VisibleClassWithDefaultHiddenInterface_Out* value);
+    HRESULT Call_DelegateUsing_HiddenInterface_In([in] DelegateUsing_HiddenInterface_In* value);
+    HRESULT Call_DelegateUsing_HiddenClass_In([in] DelegateUsing_HiddenClass_In* value);
+    HRESULT Call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_In([in] DelegateUsing_VisibleClassWithHiddenInterfaceOnly_In* value);
+    HRESULT Call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_In([in] DelegateUsing_VisibleClassWithDefaultHiddenInterface_In* value);
+
+    HRESULT Call_HiddenDelegate([in] HiddenDelegate* value);
+    HRESULT Get_HiddenDelegate([out] HiddenDelegate** value);
+
+    HRESULT HiddenEnum_In([in] HiddenEnum value);
+    HRESULT HiddenEnum_Out([out] HiddenEnum* value);
+
+    [overload("HiddenOverload"), default_overload]
+    HRESULT HiddenOverload1([out] HiddenEnum* value);
+    
+    [overload("HiddenOverload"), default_overload]
+    HRESULT HiddenOverload2([in] int inValue, [out] int* outValue);
+}
+
+[
+    webhosthidden,
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass HiddenClass // This is not constructable in JS
+{
+    [default] interface IHiddenInterface;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass VisibleClassWithHiddenInterfaceOnly // This is not constructable in JS
+{
+    [default] interface IHiddenInterface;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass VisibleClassWithDefaultHiddenInterface // This is not constructable in JS
+{
+    interface IVisibleInterface;
+    [default] interface IHiddenInterface;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8)
+]
+runtimeclass VisibleClassWithDefaultVisibleInterface // This is constructable in JS, but only IVisibleInterface will be projected
+{
+    [default] interface IVisibleInterface;
+    interface IHiddenInterface;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8),
+    static(IHiddenInterface, NTDDI_WIN8)
+]
+runtimeclass VisibleClassWithVisibleInterfaceAndHiddenStaticInterface
+{
+    [default] interface IVisibleInterface;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8),
+]
+runtimeclass RCStringMap
+{
+    [default] interface Windows.Foundation.Collections.IMap<HSTRING, int>;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8),
+]
+runtimeclass RCStringMapWithIterable
+{
+    [default] interface Windows.Foundation.Collections.IMap<HSTRING, int>;
+    interface Windows.Foundation.Collections.IIterable<HSTRING>;
+}
+
+[
+    activatable(NTDDI_WIN8),
+    version(NTDDI_WIN8),
+]
+runtimeclass RCStringMapWithDefaultIterable
+{
+    [default] interface Windows.Foundation.Collections.IIterable<HSTRING>;
+    interface Windows.Foundation.Collections.IMap<HSTRING, int>;
+}
+
+namespace VariableProjection {
+    runtimeclass PartialAndMissingInterfaceClass;
+    runtimeclass MissingAndPartialInterfaceClass;
+    runtimeclass ExtendsInterfaceClass;
+    runtimeclass ExtendsReverseInterfaceClass;
+    runtimeclass CombinedAndMissingInterfaceClass;
+    runtimeclass MissingAndCombinedInterfaceClass;
+
+    [
+        version(NTDDI_WIN8)
+    ]
+    typedef struct PartialStruct
+    {
+        int Value1;
+        MissingConstructs.MissingStruct Struct;
+    } PartialStruct;
+
+    [
+        version(NTDDI_WIN8)
+    ]
+    typedef struct PartialStructWithEnum
+    {
+        int Value1;
+        MissingConstructs.MissingEnum Enum;
+    } PartialStructWithEnum;
+
+    [
+        uuid(be96174e-f438-4900-843d-75740b0aAd8a),
+        version(NTDDI_WIN8)
+    ]
+    interface IPartialInterface : IInspectable
+    {
+        HRESULT PartialStructMethod([in] PartialStruct value);
+        HRESULT Add([in] int a, [in] int b, [out, retval] int *c);
+
+        [propget] HRESULT MissingTypeProp([out, retval] MissingConstructs.MissingType **value);
+        [propput] HRESULT MissingTypeProp([in] MissingConstructs.MissingType* value);
+
+        [propget] HRESULT MissingInterfaceProp([out, retval] MissingConstructs.IMissingInterface** value);
+        [propput] HRESULT MissingInterfaceProp([in] MissingConstructs.IMissingInterface* value);
+    }
+
+    [
+        uuid(f5145f79-e52d-4f42-9536-8cb37969f0c4),
+        version(NTDDI_WIN8)
+    ]
+    interface IExtendsPartialInterface : IInspectable requires IPartialInterface
+    {
+        HRESULT Divide([in] int a, [in] int b, [out, retval] int *c);
+    }
+
+    [
+        uuid(b2d198b7-4703-485e-aa55-dc5f60acada7),
+        version(NTDDI_WIN8)
+    ]
+    interface IExtendsMissingInterface : IInspectable requires MissingConstructs.IMissingInterface
+    {
+        HRESULT Subtract([in] int a, [in] int b, [out, retval] int *c);
+    }
+
+    [
+        uuid(ce94ab7b-9eb9-4531-838c-5329b0975a83),
+        version(NTDDI_WIN8)
+    ]
+    interface ICombinedMissingInterface : IInspectable
+    {
+        HRESULT Add([in] int a, [in] int b, [out, retval] int *c);
+
+        HRESULT CheckPartialInterface([in] IPartialInterface* value);
+        HRESULT CheckOutPartialInterface([out, retval] IPartialInterface** value);
+        [propget] HRESULT PartialInterfaceProp([out, retval] IPartialInterface**value);
+        [propput] HRESULT PartialInterfaceProp([in] IPartialInterface* value);
+
+        HRESULT CheckExtendsPartialInterface([in] IExtendsPartialInterface* value);
+        HRESULT CheckOutExtendsPartialInterface([out, retval] IExtendsPartialInterface** value);
+        [propget] HRESULT ExtendsPartialInterfaceProp([out, retval] IExtendsPartialInterface**value);
+        [propput] HRESULT ExtendsPartialInterfaceProp([in] IExtendsPartialInterface* value);
+
+        HRESULT CheckExtendsMissingInterface([in] IExtendsMissingInterface* value);
+        HRESULT CheckOutExtendsMissingInterface([out, retval] IExtendsMissingInterface** value);
+        [propget] HRESULT ExtendsMissingInterfaceProp([out, retval] IExtendsMissingInterface**value);
+        [propput] HRESULT ExtendsMissingInterfaceProp([in] IExtendsMissingInterface* value);
+
+        HRESULT CheckMissingInterface([in] MissingConstructs.IMissingInterface* value);
+        HRESULT CheckOutMissingInterface([out, retval] MissingConstructs.IMissingInterface** value);
+        [propget] HRESULT MissingInterfaceProp([out, retval] MissingConstructs.IMissingInterface**value);
+        [propput] HRESULT MissingInterfaceProp([in] MissingConstructs.IMissingInterface* value);
+    };
+
+    [
+        activatable(NTDDI_WIN8),
+        version(NTDDI_WIN8),
+    ]
+    runtimeclass PartialAndMissingInterfaceClass
+    {
+        [default] interface IPartialInterface;
+        interface MissingConstructs.IMissingInterface;
+    }
+
+    [
+        activatable(NTDDI_WIN8),
+        version(NTDDI_WIN8),
+    ]
+    runtimeclass MissingAndPartialInterfaceClass
+    {
+        [default] interface MissingConstructs.IMissingInterface;
+        interface IPartialInterface;
+    }
+
+    [
+        activatable(NTDDI_WIN8),
+        version(NTDDI_WIN8),
+    ]
+    runtimeclass ExtendsInterfaceClass
+    {
+        [default] interface IExtendsPartialInterface;
+        interface IExtendsMissingInterface;
+        interface MissingConstructs.IMissingInterface;
+    }
+
+    [
+        activatable(NTDDI_WIN8),
+        version(NTDDI_WIN8),
+    ]
+    runtimeclass ExtendsReverseInterfaceClass
+    {
+        [default] interface IExtendsMissingInterface;
+        interface IExtendsPartialInterface;
+        interface MissingConstructs.IMissingInterface;
+    }
+    
+    //Things used as part of WinRT Deferral testing
+    [version(0), uuid(daf52d50-2d0d-45ee-b32e-6392776132fe)]
+    delegate HRESULT DelegateWithMissingBoolOutParameter([out] MissingConstructs.MissingBool* value, [out, retval] MissingConstructs.MissingBool* returnValue);
+
+    [version(0), uuid(caa32b5e-9722-4104-bfe6-ee101ee2728a)]
+    delegate HRESULT DelegateWithMissingBoolInParameter([in] MissingConstructs.MissingBool value);
+
+    [version(0), uuid(daf52d50-2d0d-45ee-b32e-6392776131fe)]
+    delegate HRESULT DelegateWithMissingEnumOutParameter([out] MissingConstructs.MissingEnum* value, [out, retval] MissingConstructs.MissingEnum* returnValue);
+
+    [version(0), uuid(caa32b5e-9722-4104-bfe6-ee101ee2798a)]
+    delegate HRESULT DelegateWithMissingEnumInParameter([in] MissingConstructs.MissingEnum value);
+
+    [version(0), uuid(daf52d50-2d0d-45ee-b3ae-639f776131fe)]
+    delegate HRESULT DelegateWithMissingTypeOutParameter([out] MissingConstructs.MissingType** value, [out, retval] MissingConstructs.MissingType** returnValue);
+
+    [version(0), uuid(caa3ab5e-9722-4104-bfe6-ee101eeb798a)]
+    delegate HRESULT DelegateWithMissingTypeInParameter([in] MissingConstructs.MissingType* value);
+
+    [version(0), uuid(caa3aa5e-9732-4104-bfe6-ee101eeb798a)]
+    delegate HRESULT DelegateWithMissingStructInParameter([in] MissingConstructs.MissingStruct value);
+
+    [version(0), uuid(e6266058-4691-46fd-90a4-e0dc53d1a247)]
+    delegate HRESULT DelegateWithPartialStructOutParameter([out] PartialStruct* value, [out, retval] PartialStruct* returnValue);
+
+    [version(0), uuid(29f8aad3-ca3f-44f9-827b-317a28508c60)]
+    delegate HRESULT DelegateWithPartialStructInParameter([in] PartialStruct value);
+
+    [version(0), uuid(76e53da6-b92c-4065-a2a7-bd7ec1dd68b6)]
+    delegate HRESULT DelegateWithPartialStructInRefParameter([in] const PartialStruct* value);
+
+    [version(0), uuid(4d741e81-2375-4bc4-a9c6-d78604682394)]
+    delegate HRESULT DelegateWithPartialInterfaceOutParameter([out] IPartialInterface** value, [out, retval] IPartialInterface** returnValue);
+
+    [version(0), uuid(9a6ea140-a9fc-434c-bf48-2faf8ca05018)]
+    delegate HRESULT DelegateWithPartialInterfaceInParameter([in] IPartialInterface* value);
+
+    [version(0), uuid(25d443e0-a191-4c13-85e2-9feecc1cfb95)]
+    delegate HRESULT DelegateWithExtendsPartialInterfaceOutParameter([out] IExtendsPartialInterface** value, [out, retval] IExtendsPartialInterface** returnValue);
+
+    [version(0), uuid(32596c42-bf23-40a1-8772-67ff95858bf9)]
+    delegate HRESULT DelegateWithExtendsPartialInterfaceInParameter([in] IExtendsPartialInterface* value);
+
+    [version(0), uuid(58907a88-9a1b-40db-bad1-ae60272218a8)]
+    delegate HRESULT DelegateWithExtendsMissingInterfaceOutParameter([out] IExtendsMissingInterface** value, [out, retval] IExtendsMissingInterface** returnValue);
+
+    [version(0), uuid(02c8242b-4169-4a02-8696-79dd659c9e17)]
+    delegate HRESULT DelegateWithExtendsMissingInterfaceInParameter([in] IExtendsMissingInterface* value);
+
+    [version(0), uuid(cf31b162-a5a5-4551-b857-8c56879dec22)]
+    delegate HRESULT DelegateWithPartialAndMissingInterfaceClassOutParameter([out] PartialAndMissingInterfaceClass** value, [out, retval] PartialAndMissingInterfaceClass** returnValue);
+
+    [version(0), uuid(7cd3b0b8-f1d0-4e41-b4c4-49e22a540724)]
+    delegate HRESULT DelegateWithPartialAndMissingInterfaceClassInParameter([in] PartialAndMissingInterfaceClass* value);
+
+    [version(0), uuid(f87cd478-7b72-43d6-bdd4-d6efe7d9baab)]
+    delegate HRESULT DelegateWithMissingAndPartialInterfaceClassOutParameter([out] MissingAndPartialInterfaceClass** value, [out, retval] MissingAndPartialInterfaceClass** returnValue);
+
+    [version(0), uuid(3a3a85c9-ebff-4f0b-8747-956e9ef3ecf1)]
+    delegate HRESULT DelegateWithMissingAndPartialInterfaceClassInParameter([in] MissingAndPartialInterfaceClass* value);
+
+    [version(0), uuid(ca7f9183-9861-48b5-b3ba-5f9fd1d99795)]
+    delegate HRESULT DelegateWithExtendsInterfaceClassOutParameter([out] ExtendsInterfaceClass** value, [out, retval] ExtendsInterfaceClass** returnValue);
+
+    [version(0), uuid(1bbdbcff-3b91-4d6e-b6b8-a2d283f03a59)]
+    delegate HRESULT DelegateWithExtendsInterfaceClassInParameter([in] ExtendsInterfaceClass* value);
+
+    [version(0), uuid(21eefcd6-5d10-4e42-a6bd-797f8cdcdd82)]
+    delegate HRESULT DelegateWithExtendsReverseInterfaceClassOutParameter([out] ExtendsReverseInterfaceClass** value, [out, retval] ExtendsReverseInterfaceClass** returnValue);
+
+    [version(0), uuid(876e12df-9074-49ea-93bb-2cc010c80b42)]
+    delegate HRESULT DelegateWithExtendsReverseInterfaceClassInParameter([in] ExtendsReverseInterfaceClass* value);
+
+    [version(0), uuid(876e13df-9074-49ea-93bb-2cc010c80b43)]
+    delegate HRESULT DelegateWithPartialStructWithEnumInParameter([in] PartialStructWithEnum value);
+
+    [version(0), uuid(874e12df-9074-49ea-93bb-2cc010c80b44)]
+    delegate HRESULT DelegateWithPartialStructWithEnumOutParameter([out] PartialStructWithEnum* value, [out, retval] PartialStructWithEnum* returnValue);
+
+    [version(0), uuid(876e13df-9074-F9ea-93bb-2cc010cE0b43)]
+    delegate HRESULT DelegateWithMissingInterfaceInParameter([in] MissingConstructs.IMissingInterface* value);
+
+    [version(0), uuid(874e12df-9074-F9ea-93bb-2cc010c80b44)]
+    delegate HRESULT DelegateWithMissingInterfaceOutParameter([out] MissingConstructs.IMissingInterface** value, [out, retval] MissingConstructs.IMissingInterface** returnValue);
+
+    [version(0), uuid(876e13df-9074-49eF-93bb-2cc010c80b43)]
+    delegate HRESULT DelegateWithMissingDelegateInParameter([in] MissingConstructs.MissingDelegate* value);
+
+    [version(0), uuid(874e12df-9074-49eF-93bb-2cc010c80b40)]
+    delegate HRESULT DelegateWithMissingDelegateOutParameter([out] MissingConstructs.MissingDelegate** value, [out, retval] MissingConstructs.MissingDelegate** returnValue);
+    
+    [
+        uuid(064c1ea6-d33f-471b-af53-ee4348fea03d),
+        version(NTDDI_WIN8)
+    ]
+    interface ITestRuntimeClasses : IInspectable
+    {
+        HRESULT CheckMissingStruct([in] MissingConstructs.MissingStruct value);
+        HRESULT CheckMissingStructOut([out, retval] MissingConstructs.MissingStruct* value);
+        [propget] HRESULT MissingStructProp([out, retval] MissingConstructs.MissingStruct* value);
+        [propput] HRESULT MissingStructProp([in] MissingConstructs.MissingStruct value);
+        [eventadd] HRESULT MissingStructEvent([in] DelegateWithMissingStructInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT MissingStructEvent([in] EventRegistrationToken eventCookie);
+        HRESULT CheckMissingStructByRef([in] const MissingConstructs.MissingStruct* value);
+
+        HRESULT CheckPartialStruct([in] PartialStruct value);
+        HRESULT CheckPartialStructOut([out, retval] PartialStruct* value);
+        [propget] HRESULT PartialStructProp([out, retval] PartialStruct* value);
+        [propput] HRESULT PartialStructProp([in] PartialStruct value);
+        [eventadd] HRESULT PartialStructEvent([in] DelegateWithPartialStructInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT PartialStructEvent([in] EventRegistrationToken eventCookie);
+        HRESULT CheckPartialStructByRef([in] const PartialStruct* value);
+
+        HRESULT CheckPartialStructWithEnum([in] PartialStructWithEnum value);
+        HRESULT CheckPartialStructWithEnumOut([out, retval] PartialStructWithEnum* value);
+        [propget] HRESULT PartialStructWithEnumProp([out, retval] PartialStructWithEnum* value);
+        [propput] HRESULT PartialStructWithEnumProp([in] PartialStructWithEnum value);
+        [eventadd] HRESULT PartialStructWithEnumEvent([in] DelegateWithPartialStructWithEnumInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT PartialStructWithEnumEvent([in] EventRegistrationToken eventCookie);
+        HRESULT CheckPartialStructWithEnumByRef([in] const PartialStructWithEnum* value);
+        
+        HRESULT CheckMissingBool([in] MissingConstructs.MissingBool value);
+        HRESULT CheckMissingBoolOut([out, retval] MissingConstructs.MissingBool* value);
+        [propget] HRESULT MissingBoolProp([out, retval] MissingConstructs.MissingBool* value);
+        [propput] HRESULT MissingBoolProp([in] MissingConstructs.MissingBool value);
+        [eventadd] HRESULT MissingBoolEvent([in] DelegateWithMissingBoolInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT MissingBoolEvent([in] EventRegistrationToken eventCookie);
+
+        HRESULT CheckMissingEnum([in] MissingConstructs.MissingEnum value);
+        HRESULT CheckMissingEnumOut([out, retval] MissingConstructs.MissingEnum* value);
+        [propget] HRESULT MissingEnumProp([out, retval] MissingConstructs.MissingEnum* value);
+        [propput] HRESULT MissingEnumProp([in] MissingConstructs.MissingEnum value);
+        [eventadd] HRESULT MissingEnumEvent([in] DelegateWithMissingEnumInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT MissingEnumEvent([in] EventRegistrationToken eventCookie);
+
+        HRESULT CheckPartialAndMissingInterfaceClass([in] PartialAndMissingInterfaceClass* value);
+        HRESULT CheckPartialAndMissingInterfaceClassOut([out, retval] PartialAndMissingInterfaceClass** value);
+        [propget] HRESULT PartialAndMissingInterfaceClassProp([out, retval] PartialAndMissingInterfaceClass** value);
+        [propput] HRESULT PartialAndMissingInterfaceClassProp([in] PartialAndMissingInterfaceClass* value);
+        [eventadd] HRESULT PartialAndMissingInterfaceClassEvent([in] DelegateWithPartialAndMissingInterfaceClassInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT PartialAndMissingInterfaceClassEvent([in] EventRegistrationToken eventCookie);
+
+        HRESULT CheckMissingAndPartialInterfaceClass([in] MissingAndPartialInterfaceClass* value);
+        HRESULT CheckMissingAndPartialInterfaceClassOut([out, retval] MissingAndPartialInterfaceClass** value);
+        [propget] HRESULT MissingAndPartialInterfaceClassProp([out, retval] MissingAndPartialInterfaceClass** value);
+        [propput] HRESULT MissingAndPartialInterfaceClassProp([in] MissingAndPartialInterfaceClass* value);
+        [eventadd] HRESULT MissingAndPartialInterfaceClassEvent([in] DelegateWithMissingAndPartialInterfaceClassInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT MissingAndPartialInterfaceClassEvent([in] EventRegistrationToken eventCookie);
+
+        HRESULT CheckPartialInterface([in] IPartialInterface* value);
+        HRESULT CheckPartialInterfaceOut([out, retval] IPartialInterface** value);
+        [propget] HRESULT PartialInterfaceProp([out, retval] IPartialInterface** value);
+        [propput] HRESULT PartialInterfaceProp([in] IPartialInterface* value);
+        [eventadd] HRESULT PartialInterfaceEvent([in] DelegateWithPartialInterfaceInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT PartialInterfaceEvent([in] EventRegistrationToken eventCookie);
+
+        HRESULT CheckMissingInterface([in] MissingConstructs.IMissingInterface* value);
+        HRESULT CheckMissingInterfaceOut([out, retval] MissingConstructs.IMissingInterface** value);
+        [propget] HRESULT MissingInterfaceProp([out, retval] MissingConstructs.IMissingInterface** value);
+        [propput] HRESULT MissingInterfaceProp([in] MissingConstructs.IMissingInterface* value);
+        [eventadd] HRESULT MissingInterfaceEvent([in] DelegateWithMissingInterfaceInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT MissingInterfaceEvent([in] EventRegistrationToken eventCookie);
+
+        HRESULT CheckExtendsPartialInterface([in] IExtendsPartialInterface* value);
+        HRESULT CheckExtendsPartialInterfaceOut([out, retval] IExtendsPartialInterface** value);
+        [propget] HRESULT ExtendsPartialInterfaceProp([out, retval] IExtendsPartialInterface** value);
+        [propput] HRESULT ExtendsPartialInterfaceProp([in] IExtendsPartialInterface* value);
+        [eventadd] HRESULT ExtendsPartialInterfaceEvent([in] DelegateWithExtendsPartialInterfaceInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT ExtendsPartialInterfaceEvent([in] EventRegistrationToken eventCookie);
+
+        HRESULT CheckExtendsMissingInterface([in] IExtendsMissingInterface* value);
+        HRESULT CheckExtendsMissingInterfaceOut([out, retval] IExtendsMissingInterface** value);
+        [propget] HRESULT ExtendsMissingInterfaceProp([out, retval] IExtendsMissingInterface** value);
+        [propput] HRESULT ExtendsMissingInterfaceProp([in] IExtendsMissingInterface* value);
+        [eventadd] HRESULT ExtendsMissingInterfaceEvent([in] DelegateWithExtendsMissingInterfaceInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT ExtendsMissingInterfaceEvent([in] EventRegistrationToken eventCookie);
+
+        HRESULT CheckExtendsInterfaceClass([in] ExtendsInterfaceClass* value);
+        HRESULT CheckExtendsInterfaceClassOut([out, retval] ExtendsInterfaceClass** value);
+        [propget] HRESULT ExtendsInterfaceClassProp([out, retval] ExtendsInterfaceClass** value);
+        [propput] HRESULT ExtendsInterfaceClassProp([in] ExtendsInterfaceClass* value);
+        [eventadd] HRESULT ExtendsInterfaceClassEvent([in] DelegateWithExtendsInterfaceClassInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT ExtendsInterfaceClassEvent([in] EventRegistrationToken eventCookie);
+
+        HRESULT CheckExtendsReverseInterfaceClass([in] ExtendsReverseInterfaceClass* value);
+        HRESULT CheckExtendsReverseInterfaceClassOut([out, retval] ExtendsReverseInterfaceClass** value);
+        [propget] HRESULT ExtendsReverseInterfaceClassProp([out, retval] ExtendsReverseInterfaceClass** value);
+        [propput] HRESULT ExtendsReverseInterfaceClassProp([in] ExtendsReverseInterfaceClass* value);
+        [eventadd] HRESULT ExtendsReverseInterfaceClassEvent([in] DelegateWithExtendsReverseInterfaceClassInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT ExtendsReverseInterfaceClassEvent([in] EventRegistrationToken eventCookie);
+        //Overload
+        //HRESULT CheckExtendsReverseInterfaceClass([in] MissingConstructs.IMissingInterface* value);
+        //HRESULT CheckExtendsReverseInterfaceClassOut([out, retval] MissingConstructs.IMissingInterface** value);
+        //[propget] HRESULT ExtendsReverseInterfaceClassProp([out, retval] MissingConstructs.IMissingInterface** value);
+        //[propput] HRESULT ExtendsReverseInterfaceClassProp([in] MissingConstructs.IMissingInterface* value);
+
+        HRESULT CheckMissingDelegate([in] MissingConstructs.MissingDelegate* value);
+        HRESULT CheckMissingDelegateOut([out, retval] MissingConstructs.MissingDelegate** value);
+        [propget] HRESULT MissingDelegateProp([out, retval] MissingConstructs.MissingDelegate** value);
+        [propput] HRESULT MissingDelegateProp([in] MissingConstructs.MissingDelegate* value);
+        [eventadd] HRESULT MissingDelegateEvent([in] DelegateWithMissingDelegateInParameter* clickHandler, [out, retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT MissingDelegateEvent([in] EventRegistrationToken eventCookie);
+        //Overload
+        //HRESULT CheckMissingDelegate([in] MissingConstructs.IMissingInterface* value);
+        //HRESULT CheckMissingDelegateOut([out, retval] MissingConstructs.IMissingInterface** value);
+        //[propget] HRESULT MissingDelegateProp([out, retval] MissingConstructs.IMissingInterface** value);
+        //[propput] HRESULT MissingDelegateProp([in] MissingConstructs.IMissingInterface* value);
+
+        HRESULT CheckDelegateWithMissingInterfaceInParameter([in] DelegateWithMissingInterfaceInParameter* value);
+        HRESULT CheckDelegateWithMissingInterfaceInParameterOut([out, retval] DelegateWithMissingInterfaceInParameter** value);
+        [propget] HRESULT DelegateWithMissingInterfaceInParameterProp([out, retval] DelegateWithMissingInterfaceInParameter** value);
+        [propput] HRESULT DelegateWithMissingInterfaceInParameterProp([in] DelegateWithMissingInterfaceInParameter* value);
+    }
+
+    [
+        uuid(541f77d7-d333-47a4-a530-3c68d8c85d84),
+        version(NTDDI_WIN8)
+    ]
+    interface ITestDelegates : IInspectable
+    {
+        HRESULT TestDelegateWithMissingBoolOutParameter([in] DelegateWithMissingBoolOutParameter* inDelegate, [out] DelegateWithMissingBoolOutParameter** outDelegate, [out, retval] DelegateWithMissingBoolOutParameter** retDelegate);
+        HRESULT TestDelegateWithMissingBoolInParameter([in] DelegateWithMissingBoolInParameter* inDelegate, [out] DelegateWithMissingBoolInParameter** outDelegate, [out, retval] DelegateWithMissingBoolInParameter** retDelegate);
+        HRESULT TestDelegateWithMissingEnumOutParameter([in] DelegateWithMissingEnumOutParameter* inDelegate, [out] DelegateWithMissingEnumOutParameter** outDelegate, [out, retval] DelegateWithMissingEnumOutParameter** retDelegate);
+        HRESULT TestDelegateWithMissingEnumInParameter([in] DelegateWithMissingEnumInParameter* inDelegate, [out] DelegateWithMissingEnumInParameter** outDelegate, [out, retval] DelegateWithMissingEnumInParameter** retDelegate);
+		HRESULT TestDelegateWithMissingTypeOutParameter([in] DelegateWithMissingTypeOutParameter* inDelegate, [out] DelegateWithMissingTypeOutParameter** outDelegate, [out, retval] DelegateWithMissingTypeOutParameter** retDelegate);
+		HRESULT TestDelegateWithMissingTypeInParameter([in] DelegateWithMissingTypeInParameter* inDelegate, [out] DelegateWithMissingTypeInParameter** outDelegate, [out, retval] DelegateWithMissingTypeInParameter** retDelegate);
+		HRESULT TestDelegateWithPartialStructOutParameter([in] DelegateWithPartialStructOutParameter* inDelegate, [out] DelegateWithPartialStructOutParameter** outDelegate, [out, retval] DelegateWithPartialStructOutParameter** retDelegate);
+		HRESULT TestDelegateWithPartialStructInParameter([in] DelegateWithPartialStructInParameter* inDelegate, [out] DelegateWithPartialStructInParameter** outDelegate, [out, retval] DelegateWithPartialStructInParameter** retDelegate);
+		HRESULT TestDelegateWithPartialStructInRefParameter([in] DelegateWithPartialStructInRefParameter* inDelegate, [out] DelegateWithPartialStructInRefParameter** outDelegate, [out, retval] DelegateWithPartialStructInRefParameter** retDelegate);
+		HRESULT TestDelegateWithPartialInterfaceOutParameter([in] DelegateWithPartialInterfaceOutParameter* inDelegate, [out] DelegateWithPartialInterfaceOutParameter** outDelegate, [out, retval] DelegateWithPartialInterfaceOutParameter** retDelegate);
+		HRESULT TestDelegateWithPartialInterfaceInParameter([in] DelegateWithPartialInterfaceInParameter* inDelegate, [out] DelegateWithPartialInterfaceInParameter** outDelegate, [out, retval] DelegateWithPartialInterfaceInParameter** retDelegate);
+		HRESULT TestDelegateWithExtendsPartialInterfaceOutParameter([in] DelegateWithExtendsPartialInterfaceOutParameter* inDelegate, [out] DelegateWithExtendsPartialInterfaceOutParameter** outDelegate, [out, retval] DelegateWithExtendsPartialInterfaceOutParameter** retDelegate);
+		HRESULT TestDelegateWithExtendsPartialInterfaceInParameter([in] DelegateWithExtendsPartialInterfaceInParameter* inDelegate, [out] DelegateWithExtendsPartialInterfaceInParameter** outDelegate, [out, retval] DelegateWithExtendsPartialInterfaceInParameter** retDelegate);
+		HRESULT TestDelegateWithExtendsMissingInterfaceOutParameter([in] DelegateWithExtendsMissingInterfaceOutParameter* inDelegate, [out] DelegateWithExtendsMissingInterfaceOutParameter** outDelegate, [out, retval] DelegateWithExtendsMissingInterfaceOutParameter** retDelegate);
+		HRESULT TestDelegateWithExtendsMissingInterfaceInParameter([in] DelegateWithExtendsMissingInterfaceInParameter* inDelegate, [out] DelegateWithExtendsMissingInterfaceInParameter** outDelegate, [out, retval] DelegateWithExtendsMissingInterfaceInParameter** retDelegate);
+		HRESULT TestDelegateWithPartialAndMissingInterfaceClassOutParameter([in] DelegateWithPartialAndMissingInterfaceClassOutParameter* inDelegate, [out] DelegateWithPartialAndMissingInterfaceClassOutParameter** outDelegate, [out, retval] DelegateWithPartialAndMissingInterfaceClassOutParameter** retDelegate);
+		HRESULT TestDelegateWithPartialAndMissingInterfaceClassInParameter([in] DelegateWithPartialAndMissingInterfaceClassInParameter* inDelegate, [out] DelegateWithPartialAndMissingInterfaceClassInParameter** outDelegate, [out, retval] DelegateWithPartialAndMissingInterfaceClassInParameter** retDelegate);
+		HRESULT TestDelegateWithMissingAndPartialInterfaceClassOutParameter([in] DelegateWithMissingAndPartialInterfaceClassOutParameter* inDelegate, [out] DelegateWithMissingAndPartialInterfaceClassOutParameter** outDelegate, [out, retval] DelegateWithMissingAndPartialInterfaceClassOutParameter** retDelegate);
+		HRESULT TestDelegateWithMissingAndPartialInterfaceClassInParameter([in] DelegateWithMissingAndPartialInterfaceClassInParameter* inDelegate, [out] DelegateWithMissingAndPartialInterfaceClassInParameter** outDelegate, [out, retval] DelegateWithMissingAndPartialInterfaceClassInParameter** retDelegate);
+		HRESULT TestDelegateWithExtendsInterfaceClassOutParameter([in] DelegateWithExtendsInterfaceClassOutParameter* inDelegate, [out] DelegateWithExtendsInterfaceClassOutParameter** outDelegate, [out, retval] DelegateWithExtendsInterfaceClassOutParameter** retDelegate);
+		HRESULT TestDelegateWithExtendsInterfaceClassInParameter([in] DelegateWithExtendsInterfaceClassInParameter* inDelegate, [out] DelegateWithExtendsInterfaceClassInParameter** outDelegate, [out, retval] DelegateWithExtendsInterfaceClassInParameter** retDelegate);
+		HRESULT TestDelegateWithExtendsReverseInterfaceClassOutParameter([in] DelegateWithExtendsReverseInterfaceClassOutParameter* inDelegate, [out] DelegateWithExtendsReverseInterfaceClassOutParameter** outDelegate, [out, retval] DelegateWithExtendsReverseInterfaceClassOutParameter** retDelegate);
+		HRESULT TestDelegateWithExtendsReverseInterfaceClassInParameter([in] DelegateWithExtendsReverseInterfaceClassInParameter* inDelegate, [out] DelegateWithExtendsReverseInterfaceClassInParameter** outDelegate, [out, retval] DelegateWithExtendsReverseInterfaceClassInParameter** retDelegate);
+    }
+    /*[version(0), uuid(876e13df-9074-49ea-93bb-2cc010c80b43)]
+    delegate HRESULT DelegateWithPartialStructWithEnumInParameter([in] PartialStructWithEnum value);
+
+    [version(0), uuid(874e12df-9074-49ea-93bb-2cc010c80b44)]
+    delegate HRESULT DelegateWithPartialStructWithEnumOutParameter([out] PartialStructWithEnum* value, [out, retval] PartialStructWithEnum* returnValue);
+
+    [version(0), uuid(876e13df-9074-49ea-93bb-2cc010c80b43)]
+    delegate HRESULT DelegateWithMissingInterfaceInParameter([in] MissingConstructs.IMissingInterface value);
+
+    [version(0), uuid(874e12df-9074-49ea-93bb-2cc010c80b44)]
+    delegate HRESULT DelegateWithMissingInterfaceOutParameter([out] MissingConstructs.IMissingInterface* value, [out, retval] MissingConstructs.IMissingInterface* returnValue);*/
+
+    //[version(0), uuid(876e13df-9074-49ea-93bb-2cc010c80b43)]
+    //delegate HRESULT DelegateWithMissingDelegateInParameter([in] MissingConstructs.MissingDelegate* value);
+
+    //[version(0), uuid(874e12df-9074-49ea-93bb-2cc010c80b44)]
+    //delegate HRESULT DelegateWithMissingDelegateOutParameter([out] MissingConstructs.MissingDelegate** value, [out, retval] MissingConstructs.MissingDelegate** returnValue);
+    [
+        activatable(NTDDI_WIN8),
+        version(NTDDI_WIN8)
+    ]
+    runtimeclass TestingClass
+    {
+        [default] interface ITestRuntimeClasses;
+        interface ITestDelegates;
+    }
+}
+}

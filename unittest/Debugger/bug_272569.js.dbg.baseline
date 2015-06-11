@@ -1,0 +1,18 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 233,
+        "length": 48,
+        "text": "SCA.serialize(SomeNonExistingVarToGenerateError)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 354,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "testExceptionFromInsideStartCall"
+      }
+    ]
+  }
+]

@@ -1,0 +1,556 @@
+--------Case 01--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: true
+configurable: true
+
+
+--------Case 02--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: foo
+value: foo
+writable: true
+enumerable: true
+configurable: true
+
+
+--------Case 03--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: /(?:)/
+value: /(?:)/
+writable: true
+enumerable: true
+configurable: true
+
+
+--------Case 04--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: false
+configurable: true
+
+
+--------Case 05--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: false
+configurable: true
+
+newProperty2: 3.14
+value: 3.14
+writable: true
+enumerable: true
+configurable: true
+
+
+--------Case 06--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: false
+configurable: true
+
+newProperty2: 3.14
+value: 3.14
+writable: true
+enumerable: true
+configurable: true
+
+
+--------Case 07--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: false
+configurable: true
+
+newProperty2: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+
+--------Case 08--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: false
+configurable: true
+
+newProperty2: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+newProperty3: 3.14
+value: 3.14
+writable: true
+enumerable: true
+configurable: true
+
+
+--------Case 09--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: false
+configurable: true
+
+newProperty2: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+newProperty3: 3.14
+value: 3.14
+writable: true
+enumerable: true
+configurable: true
+
+
+--------Case 10--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: false
+configurable: true
+
+newProperty2: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+newProperty3: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+
+--------Case 11--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: false
+configurable: true
+
+newProperty2: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+newProperty3: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty4: inital getter setter value
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+
+--------Case 12--------
+>>>In setter
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: false
+configurable: true
+
+newProperty2: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+newProperty3: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty4: bar
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+
+bar
+--------Case 13--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: false
+configurable: true
+
+newProperty2: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+newProperty3: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty4: bar
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty5: inital getter setter value
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+
+--------Case 14--------
+>>>In setter
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: false
+configurable: true
+
+newProperty2: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+newProperty3: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty4: bar
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty5: baz
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+
+baz
+--------Case 15--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: true
+configurable: false
+
+newProperty2: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+newProperty3: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty4: bar
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty5: baz
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+
+--------Case 16--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: true
+configurable: false
+
+newProperty2: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+newProperty3: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty4: bar
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty5: baz
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+
+--------Case 17--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: true
+configurable: false
+
+newProperty2: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+newProperty3: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty4: bar
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty5: baz
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+newProperty6: Thu Mar 31 2011 00:00:00 GMT-0700 (Pacific Daylight Time)
+value: Thu Mar 31 2011 00:00:00 GMT-0700 (Pacific Daylight Time)
+writable: true
+enumerable: true
+configurable: true
+
+
+--------Case 18--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: true
+configurable: false
+
+newProperty2: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+newProperty3: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty4: bar
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty5: baz
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+newProperty6: Thu Mar 31 2011 17:36:00 GMT-0700 (Pacific Daylight Time)
+value: Thu Mar 31 2011 17:36:00 GMT-0700 (Pacific Daylight Time)
+writable: true
+enumerable: true
+configurable: true
+
+
+--------Case 19--------
+p1: blah
+value: blah
+writable: true
+enumerable: true
+configurable: true
+
+newProperty1: test
+value: test
+writable: true
+enumerable: true
+configurable: false
+
+newProperty2: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+newProperty3: 2.718281828459045
+value: 2.718281828459045
+writable: true
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty4: bar
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+>>>In getter
+newProperty5: baz
+get: function getter() { WScript.Echo(">>>In getter"); return getterSetterValue; }
+set: function setter(value) { WScript.Echo(">>>In setter"); getterSetterValue = value; }
+enumerable: true
+configurable: true
+
+

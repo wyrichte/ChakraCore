@@ -1,0 +1,363 @@
+
+
+Running Int64 Tests
+
+Values are not equal, comparing "-1" and "18446744073709552000"!
+Values are not equal, comparing "2147483647" and "18446744071562067000"!
+Values are equal, comparing "2147483647" and "2147483647"!
+test int64
+test case 0 first
+undefined
+test case 1 succeeded
+test case 2 succeeded
+test case 3 succeeded
+test case 4 succeeded
+test case 5 succeeded
+test case 6 succeeded
+test case 7 succeeded
+test case 8 succeeded
+test case 9 succeeded
+test case 10 succeeded
+test case 11 succeeded
+test case 12 succeeded
+test case 13 succeeded
+test case 14 succeeded
+test case 15 succeeded
+test case 16 succeeded
+test case 17 succeeded
+test case 18 succeeded
+test case 19 succeeded
+test case 20 succeeded
+test case 21 succeeded
+test case 22 succeeded
+test case 23 succeeded
+test case 24 succeeded
+test case 25 succeeded
+test case 26 succeeded
+test case 27 succeeded
+test case 28 succeeded
+test case 29 succeeded
+test case 30 succeeded
+test case 31 succeeded
+test case 32 succeeded
+test case 33 succeeded
+test case 34 succeeded
+test case 35 succeeded
+test case 36 succeeded
+test case 37 succeeded
+test case 38 succeeded
+test case 39 succeeded
+test case 40 succeeded
+test case 41 succeeded
+test case 42 succeeded
+test case 43 succeeded
+test case 44 succeeded
+test case 45 succeeded
+test case 46 succeeded
+test case 47 succeeded
+test case 48 succeeded
+test case 49 succeeded
+test case 50 succeeded
+test case 51 succeeded
+test case 52 succeeded
+test case 53 succeeded
+test case 54 succeeded
+test case 55 succeeded
+test case 56 succeeded
+test case 57 succeeded
+test case 58 succeeded
+test case 59 succeeded
+test case 60 succeeded
+test case 61 succeeded
+test case 62 succeeded
+test case 63 succeeded
+test case 64 succeeded
+test case 65 succeeded
+test case 66 succeeded
+test case 67 succeeded
+test case 68 succeeded
+test case 69 succeeded
+test case 70 succeeded
+test case 71 succeeded
+test case 72 succeeded
+test case 73 succeeded
+test case 74 succeeded
+test case 75 succeeded
+test case 76 succeeded
+test case 77 succeeded
+test round trip
+test case 0 
+test case 1 
+test case 2 
+test case 3 
+test case 4 
+test case 5 
+test case 6 
+test case 7 
+test case 8 
+test case 9 
+test case 10 
+test case 11 
+test case 12 
+test case 13 
+test case 14 
+test case 15 
+test case 16 
+test case 17 
+test case 18 
+test case 19 
+test case 20 
+test case 21 
+test case 22 
+test case 23 
+test case 24 
+test case 25 
+test case 26 
+test case 27 
+test case 28 
+test case 29 
+test case 30 
+test case 31 
+test case 32 
+test case 33 
+test case 34 
+test case 35 
+test case 36 
+test case 37 
+test case 38 
+test case 39 
+test case 40 
+test case 41 
+test case 42 
+test case 43 
+test case 44 
+test case 45 
+test case 46 
+test case 47 
+test case 48 
+test case 49 
+test case 50 
+test case 51 
+test case 52 
+test case 53 
+test case 54 
+test case 55 
+test case 56 
+test case 57 
+test case 58 
+test case 59 
+test case 60 
+test case 61 
+test case 62 
+test case 63 
+test case 64 
+test case 65 
+test case 66 
+test case 67 
+test case 68 
+test case 69 
+test converting to VARIANT
+int64 convert back to r8 is 0xffffffffff
+uint64 convert back to r8 is 0x80000000000
+buildin test case 0 constructor
+toExponential
+toFixed
+toPrecision
+toLocaleString
+toString
+valueOf
+foo
+0
+0e+0
+0
+0
+0
+0
+0
+undefined
+undefined
+0
+6.5536e+4
+65536
+65536
+65,536
+65536
+65536
+undefined
+undefined
+0
+4.294967295e+9
+4294967295
+4294967295
+4,294,967,295
+4294967295
+4294967295
+undefined
+undefined
+0
+1.073741823e+9
+1073741823
+1073741823
+1,073,741,823
+1073741823
+1073741823
+undefined
+undefined
+0
+6.8719476735e+10
+68719476735
+68719476735
+68,719,476,735
+68719476735
+68719476735
+undefined
+undefined
+0
+7.205759403792794e+16
+72057594037927940
+72057594037927935
+72,057,594,037,927,900
+72057594037927940
+72057594037927935
+undefined
+undefined
+0
+1.152921504606847e+18
+1152921504606847000
+1152921504606846975
+1,152,921,504,606,850,000
+1152921504606847000
+1152921504606846975
+undefined
+undefined
+0
+1.1529215046067945e+18
+1152921504606794500
+1152921504606794547
+1,152,921,504,606,790,000
+1152921504606794500
+1152921504606794547
+undefined
+undefined
+0
+9.223372036854776e+18
+9223372036854776000
+9223372036854775807
+9,223,372,036,854,780,000
+9223372036854776000
+9223372036854775807
+undefined
+undefined
+0
+-9.223372036854776e+18
+-9223372036854776000
+-9223372036854775808
+-9,223,372,036,854,780,000
+-9223372036854776000
+-9223372036854775808
+undefined
+undefined
+buildin test case 1 constructor
+toExponential
+toFixed
+toPrecision
+toLocaleString
+toString
+valueOf
+foo
+0
+0e+0
+0
+0
+0
+0
+0
+undefined
+undefined
+0
+6.5536e+4
+65536
+65536
+65,536
+65536
+65536
+undefined
+undefined
+0
+4.294967295e+9
+4294967295
+4294967295
+4,294,967,295
+4294967295
+4294967295
+undefined
+undefined
+0
+1.073741823e+9
+1073741823
+1073741823
+1,073,741,823
+1073741823
+1073741823
+undefined
+undefined
+0
+6.8719476735e+10
+68719476735
+68719476735
+68,719,476,735
+68719476735
+68719476735
+undefined
+undefined
+0
+7.205759403792794e+16
+72057594037927940
+72057594037927935
+72,057,594,037,927,900
+72057594037927940
+72057594037927935
+undefined
+undefined
+0
+1.152921504606847e+18
+1152921504606847000
+1152921504606846975
+1,152,921,504,606,850,000
+1152921504606847000
+1152921504606846975
+undefined
+undefined
+0
+1.1529215046067945e+18
+1152921504606794500
+1152921504606794547
+1,152,921,504,606,790,000
+1152921504606794500
+1152921504606794547
+undefined
+undefined
+0
+9.223372036854776e+18
+9223372036854776000
+9223372036854775807
+9,223,372,036,854,780,000
+9223372036854776000
+9223372036854775807
+undefined
+undefined
+0
+-9.223372036854776e+18
+-9223372036854776000
+-9223372036854775808
+-9,223,372,036,854,780,000
+-9223372036854776000
+-9223372036854775808
+undefined
+undefined
+int64 test succeeded
+Total Test Cases  0
+Passed:  0
+Failed   0
+
+

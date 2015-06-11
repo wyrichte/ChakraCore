@@ -1,0 +1,6 @@
+!include ..\sources.inc
+TARGET_DESTINATION=Projection_mc\WinRt:Projection_mc\APPX
+
+TARGETLIBS=$(TARGETLIBS)\
+    $(SDK_LIB_PATH)\mincore.lib \
+    

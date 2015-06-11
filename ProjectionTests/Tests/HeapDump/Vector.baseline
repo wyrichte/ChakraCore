@@ -1,0 +1,320 @@
+
+
+===========>Starting Heap Dump for new objects only<===============
+
+ type: Windows.Foundation.Collections.IVector`1<Int32> flags: (new_state_unavailable root WinRT_Instance external_unknown size_unavailable) optional info records (1)
+ |  [Internal property] type: ArrayObject flags: (old) optional info records (2)
+ |  |    [Prototype] type: ArrayObject flags: (old) optional info records (2)
+ |  |    |  [Prototype] type: ObjectObject flags: (old) optional info records (2)
+ |  |    |  |  [Prototype] type: Null flags: (old) optional info records (0)
+ |  |    |  |  [Properties] count: 13
+ |  |    |  |  | 0 constructor: type: FunctionObject flags: (old) optional info records (1)
+ |  |    |  |  |    [Prototype] type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    |  [Prototype] type: ObjectObject (seen)
+ |  |    |  |  |    |  [Properties] count: 6
+ |  |    |  |  |    |  | 0 constructor: type: FunctionObject flags: (old) optional info records (1)
+ |  |    |  |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    |  | 1 length: value: 0.000000
+ |  |    |  |  |    |  | 2 apply: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    |  |    [Properties] count: 1
+ |  |    |  |  |    |  |    | 0 length: value: 2.000000
+ |  |    |  |  |    |  | 3 bind: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    |  |    [Properties] count: 1
+ |  |    |  |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  |  |    |  | 4 call: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    |  |    [Properties] count: 1
+ |  |    |  |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  |  |    |  | 5 toString: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    |  |    [Properties] count: 1
+ |  |    |  |  |    |  |    | 0 length: value: 0.000000
+ |  |    |  |  | 1 hasOwnProperty: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 1
+ |  |    |  |  |    | 0 length: value: 1.000000
+ |  |    |  |  | 2 propertyIsEnumerable: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 1
+ |  |    |  |  |    | 0 length: value: 1.000000
+ |  |    |  |  | 3 isPrototypeOf: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 1
+ |  |    |  |  |    | 0 length: value: 1.000000
+ |  |    |  |  | 4 toLocaleString: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 1
+ |  |    |  |  |    | 0 length: value: 0.000000
+ |  |    |  |  | 5 toString: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 1
+ |  |    |  |  |    | 0 length: value: 0.000000
+ |  |    |  |  | 6 valueOf: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 1
+ |  |    |  |  |    | 0 length: value: 0.000000
+ |  |    |  |  | 7 __proto__: rsFlags: getter type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 2
+ |  |    |  |  |    | 0 prototype: type: ObjectObject flags: (old) optional info records (2)
+ |  |    |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |    |  |  |    |    [Properties] count: 1
+ |  |    |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |    |  |  |    | 1 length: value: 0.000000
+ |  |    |  |  | 8 __proto__: rsFlags: setter type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 2
+ |  |    |  |  |    | 0 prototype: type: ObjectObject flags: (old) optional info records (2)
+ |  |    |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |    |  |  |    |    [Properties] count: 1
+ |  |    |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |    |  |  |    | 1 length: value: 1.000000
+ |  |    |  |  | 9 __defineGetter__: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 1
+ |  |    |  |  |    | 0 length: value: 2.000000
+ |  |    |  |  | 10 __defineSetter__: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 1
+ |  |    |  |  |    | 0 length: value: 2.000000
+ |  |    |  |  | 11 __lookupGetter__: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 1
+ |  |    |  |  |    | 0 length: value: 1.000000
+ |  |    |  |  | 12 __lookupSetter__: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 1
+ |  |    |  |  |    | 0 length: value: 1.000000
+ |  |    |  [Properties] count: 22
+ |  |    |  | 0 constructor: type: FunctionObject flags: (old) optional info records (1)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  | 1 push: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 2 concat: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 3 join: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 4 pop: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 0.000000
+ |  |    |  | 5 reverse: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 0.000000
+ |  |    |  | 6 shift: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 0.000000
+ |  |    |  | 7 slice: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 2.000000
+ |  |    |  | 8 sort: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 9 splice: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 2.000000
+ |  |    |  | 10 toLocaleString: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 0.000000
+ |  |    |  | 11 toString: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 0.000000
+ |  |    |  | 12 unshift: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 13 indexOf: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 14 every: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 15 filter: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 16 forEach: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 17 lastIndexOf: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 18 map: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 19 reduce: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 20 reduceRight: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 21 some: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    [Array elements] count: 3
+ |  |    | 0: value: 1.000000
+ |  |    | 1: value: 2.000000
+ |  |    | 2: value: 3.000000
+
+ type: Windows.Foundation.Collections.IVector`1<Int32> flags: (new WinRT_Instance) optional info records (3)
+ |  [Prototype] type: ObjectObject flags: (new) optional info records (2)
+ |  |  [Prototype] type: ArrayObject (seen)
+ |  |  [Properties] count: 15
+ |  |  | 0 append: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 1 clear: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 0.000000
+ |  |  | 2 first: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 0.000000
+ |  |  | 3 getAt: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 4 getMany: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 2.000000
+ |  |  | 5 getView: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 0.000000
+ |  |  | 6 indexOf: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 7 insertAt: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 2.000000
+ |  |  | 8 removeAt: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 9 removeAtEnd: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 0.000000
+ |  |  | 10 replaceAll: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 11 setAt: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 2.000000
+ |  |  | 12 size: rsFlags: getter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 13 size: rsFlags: setter type: FunctionObject flags: (old) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 14 constructor: type: Windows.Foundation.Collections.IVector`1<Int32> flags: (new WinRT_RuntimeClass) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject (seen)
+ |  |  |    | 1 length: value: 0.000000
+ |  [Properties] count: 2
+ |  | 0 length: rsFlags: getter type: FunctionObject flags: (new) optional info records (1)
+ |  |    [Prototype] type: FunctionObject (seen)
+ |  | 1 length: rsFlags: setter type: FunctionObject flags: (new) optional info records (1)
+ |  |    [Prototype] type: FunctionObject (seen)
+ |  [Internal property] type: Windows.Foundation.Collections.IVector`1<Int32> (seen)
+
+ type: Animals.Animal flags: (new_state_unavailable WinRT_Instance external_unknown size_unavailable) optional info records (1)
+ |  [Events] count: 0
+
+ type: Windows.Foundation.Collections.IVector`1<Int32> (seen)
+
+ type: Animals.Animal flags: (new_state_unavailable WinRT_RuntimeClass external_unknown size_unavailable) optional info records (1)
+ |  [Events] count: 0
+
+==========>End Heap Dump<===============
+
+
+Pass: vector.length
+      Actual: 3
+
+Pass: vector[0]
+      Actual: 1
+
+Pass: vector[1]
+      Actual: 2
+
+Pass: vector[2]
+      Actual: 3
+

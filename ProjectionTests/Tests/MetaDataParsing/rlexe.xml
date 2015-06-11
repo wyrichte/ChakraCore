@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<regress-exe>
+<!-- Directory never ran, don't know if below work
+<test>
+   <default>
+      <files>Animal.js</files>
+      <baseline>Animal-win7.baseline</baseline>
+      <compile-flags>-TraceMetaDataParsing</compile-flags>
+      <tags>exclude_win8</tags>
+   </default>
+</test>
+
+
+<test>
+   <default>
+      <files>Animal.js</files>
+      <baseline>Animal.baseline</baseline>
+      <compile-flags>-TraceMetaDataParsing</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+
+
+<test>
+   <default>
+      <files>Chef.js</files>
+      <baseline>Chef.baseline</baseline>
+      <compile-flags>-TraceMetaDataParsing</compile-flags>
+      <tags>exclude_win7</tags>
+   </default>
+</test>
+-->
+
+  <test>
+    <default>
+      <files>VariableProjection.js</files>
+      <baseline>VariableProjection.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WinRTAdaptiveApps</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>VariableProjection.js</files>
+      <baseline>VariableProjection.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -WinRTAdaptiveApps -NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+</regress-exe>
+

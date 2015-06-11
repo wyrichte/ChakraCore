@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+  <test>
+    <default>
+      <files>runtimeclass_v0.js</files>
+      <baseline>runtimeclass_v0.baseline</baseline>
+      <compile-flags>-EnableVersioningAllAssemblies -TargetWinRTVersion:0</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>runtimeclass_vWin8.js</files>
+      <baseline>runtimeclass_vWin8.baseline</baseline>
+      <compile-flags>-EnableVersioningAllAssemblies -TargetWinRTVersion:1</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>runtimeclass_vWin8SP1.js</files>
+      <baseline>runtimeclass_vWin8SP1.baseline</baseline>
+      <compile-flags>-EnableVersioningAllAssemblies -TargetWinRTVersion:2</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>runtimeclass_vWin9.js</files>
+      <baseline>runtimeclass_vWin9.baseline</baseline>
+      <compile-flags>-EnableVersioningAllAssemblies -TargetWinRTVersion:3</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>runtimeclass_vMax.js</files>
+      <baseline>runtimeclass_vMax.baseline</baseline>
+      <compile-flags>-EnableVersioningAllAssemblies -TargetWinRTVersion:4</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>MarshalingVersionedTypes_v0.js</files>
+      <baseline>MarshalingVersionedTypes_v0.baseline</baseline>
+      <compile-flags>-EnableVersioningAllAssemblies -TargetWinRTVersion:0</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>MarshalingVersionedTypes_vWin8.js</files>
+      <baseline>MarshalingVersionedTypes_vWin8.baseline</baseline>
+      <compile-flags>-EnableVersioningAllAssemblies -TargetWinRTVersion:1</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>MarshalingVersionedTypes_vWin8SP1.js</files>
+      <baseline>MarshalingVersionedTypes_vWin8SP1.baseline</baseline>
+      <compile-flags>-EnableVersioningAllAssemblies -TargetWinRTVersion:2</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>MarshalingVersionedTypes_vWin9.js</files>
+      <baseline>MarshalingVersionedTypes_vWin9.baseline</baseline>
+      <compile-flags>-EnableVersioningAllAssemblies -TargetWinRTVersion:3</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>MarshalingVersionedTypes_vMax.js</files>
+      <baseline>MarshalingVersionedTypes_vMax.baseline</baseline>
+      <compile-flags>-EnableVersioningAllAssemblies -TargetWinRTVersion:4</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>runtimeclass_v0_FirstPartyVersioned.js</files>
+      <baseline>runtimeclass_v0_FirstPartyVersioned.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:0</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>runtimeclass_vMax.js</files>
+      <baseline>runtimeclass_vMax.win8.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:1</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>MarshalingVersionedTypes_v0_FirstPartyVersioned.js</files>
+      <baseline>MarshalingVersionedTypes_v0_FirstPartyVersioned.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:0</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>MarshalingVersionedTypes_vMax.js</files>
+      <baseline>MarshalingVersionedTypes_vMax.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>versioning_Misc.js</files>
+      <baseline>versioning_Misc.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:2 -EnableVersioningAllAssemblies</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+</regress-exe>

@@ -1,0 +1,77 @@
+<HTML>
+<BODY>
+
+<DIV ID=Introduction>
+	This tool is used for submitting private stress run requests. You should
+	have an enlistment on your machine, and launch the tool from a Razzel
+	window. When you submit the form, the specified build flavor(s) will be
+	built on your machine, and then copied to a network share. You will be
+	notified of the results. You may also track status at <a href='http://clrbuckets:8080/' target=_blank> Stress Run Status Monitor</a>.
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=BuildFlavors_helpSec>
+<A NAME=BuildFlavors_help> <DT> <B> Build Flavors </B> </DT> 
+<DD>
+    The build flavor(s) you want to generate and run stress on. The default is
+    x86chk, x86ret, amd64chk, and amd64ret.
+</DD>
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=TestMixes_helpSec>
+<A NAME=TestMixes_help> <DT> <B> Test Mixes </B></DT>
+<DD>
+    Specific stress test mix(es) you want to run. If not specified, they will be selected
+    at random.
+</DD>
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=GFlagsOptions_helpSec>
+<A NAME=GFlagsOptions_help> <DT> <B> GFlags Options </B></DT>
+<DD>
+    See <A HREF='http://www.osronline.com/ddkx/ddtools/gflags_7cs3.htm' TARGET=_blank> GFlags Help</A>
+    for more information.
+</DD>
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=MDAsOptions_helpSec>
+<A NAME=MDAsOptions_help> <DT> <B> MDAs Options </B> </DT>
+<DD>
+    Managed debugging assistants (MDAs) you want to enable during stress runs.
+    Some MDAs are implicitly activated when a managed or unmanaged executable is
+    started under a debugger.
+    
+    See <A HREF='http://msdn.microsoft.com/en-us/library/d21c150d.aspx' TARGET=_blank> MDAs User's Guide</A>
+    for more information.
+</DD>
+</DL>
+</A>
+</DIV>
+
+<!-- --------------------------------------------------------------------- -->
+<DL>
+<DIV ID=EnvironmentVariables_helpSec>
+<A NAME=EnvironmentVariables_help> <DT> <B> Environment Variables </B> </DT> 
+<DD>
+    And additional environment variables you want to specify, separated by semi-colon.
+    For example, "COMPlus_GCStress=3;COMPlus_HeapVerify=1".
+</DD>
+</DL>
+</A>
+</DIV>
+
+</BODY>
+</HTML>

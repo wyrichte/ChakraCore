@@ -1,0 +1,6 @@
+USE_NOTHROW_NEW=1 
+!include ..\sources_common.inc
+
+
+
+PASS2_BINPLACE= -:DEST mobilecore $(OBJ_PATH)\$(O)\jc.exe

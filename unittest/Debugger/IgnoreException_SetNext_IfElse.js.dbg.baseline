@@ -1,0 +1,31 @@
+[
+  {
+    "setnextstatement": {
+      "from": 234,
+      "to": 368,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 368,
+        "length": 25,
+        "text": "WScript.Echo(\"foo2.else\")",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 439,
+        "length": 9,
+        "text": "foo(true)",
+        "frameDescription": "foo1"
+      },
+      {
+        "start": 456,
+        "length": 6,
+        "text": "foo1()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

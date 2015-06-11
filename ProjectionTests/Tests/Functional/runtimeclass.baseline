@@ -1,0 +1,1151 @@
+RunTimeClass tests
+
+=================================================
+Starting [Test 1: Fish]
+Comment: typeof object: object
+Comment: Dump of properties : 
+    var objectMembers = [
+        ['getNullAsAnimal', 'function', getFunctionString('getNullAsAnimal'), 0],
+        ['getNullAsMap', 'function', getFunctionString('getNullAsMap'), 0],
+        ['getNullAsObservableVector', 'function', getFunctionString('getNullAsObservableVector'), 0],
+        ['getNullAsPropertyValue', 'function', getFunctionString('getNullAsPropertyValue'), 0],
+        ['getNullAsVector', 'function', getFunctionString('getNullAsVector'), 0],
+        ['getNumFins', 'function', getFunctionString('getNumFins'), 0],
+        ['getOneAnimal', 'function', getFunctionString('getOneAnimal'), 0],
+        ['getOneEmptyGRCNFail', 'function', getFunctionString('getOneEmptyGRCNFail'), 0],
+        ['getOneEmptyGRCNInterface', 'function', getFunctionString('getOneEmptyGRCNInterface'), 0],
+        ['getOneEmptyGRCNNull', 'function', getFunctionString('getOneEmptyGRCNNull'), 0],
+        ['getOneMap', 'function', getFunctionString('getOneMap'), 0],
+        ['getOneObservableVector', 'function', getFunctionString('getOneObservableVector'), 0],
+        ['getOnePropertyValue', 'function', getFunctionString('getOnePropertyValue'), 0],
+        ['getOneVector', 'function', getFunctionString('getOneVector'), 0],
+        ['marshalIFish', 'function', getFunctionString('marshalIFish'), 1],
+        ['marshalIFishToFish', 'function', getFunctionString('marshalIFishToFish'), 1],
+        ['marshalILikeToSwim', 'function', getFunctionString('marshalILikeToSwim'), 1],
+        ['marshalILikeToSwimToFish', 'function', getFunctionString('marshalILikeToSwimToFish'), 1],
+        ['name', 'string', getFunctionString('name'), 0 ],
+        ['setNumFins', 'function', getFunctionString('setNumFins'), 1],
+        ['singTheSwimmingSong', 'function', getFunctionString('singTheSwimmingSong'), 0],
+        ['toString', 'function', getFunctionString('toString'), 0],
+    ];
+Pass: type
+      Actual: object
+
+Pass: name
+      Actual: getNullAsAnimal
+
+Pass: typeof [object Animals.Fish][getNullAsAnimal]
+      Actual: function
+
+Pass: getNullAsAnimal
+      Actual: function getNullAsAnimal() { [native code] }
+
+Pass: getNullAsAnimal.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsAnimal.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsMap
+
+Pass: typeof [object Animals.Fish][getNullAsMap]
+      Actual: function
+
+Pass: getNullAsMap
+      Actual: function getNullAsMap() { [native code] }
+
+Pass: getNullAsMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsObservableVector
+
+Pass: typeof [object Animals.Fish][getNullAsObservableVector]
+      Actual: function
+
+Pass: getNullAsObservableVector
+      Actual: function getNullAsObservableVector() { [native code] }
+
+Pass: getNullAsObservableVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsObservableVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsPropertyValue
+
+Pass: typeof [object Animals.Fish][getNullAsPropertyValue]
+      Actual: function
+
+Pass: getNullAsPropertyValue
+      Actual: function getNullAsPropertyValue() { [native code] }
+
+Pass: getNullAsPropertyValue.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsPropertyValue.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsVector
+
+Pass: typeof [object Animals.Fish][getNullAsVector]
+      Actual: function
+
+Pass: getNullAsVector
+      Actual: function getNullAsVector() { [native code] }
+
+Pass: getNullAsVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getNumFins
+
+Pass: typeof [object Animals.Fish][getNumFins]
+      Actual: function
+
+Pass: getNumFins
+      Actual: function getNumFins() { [native code] }
+
+Pass: getNumFins.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNumFins.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneAnimal
+
+Pass: typeof [object Animals.Fish][getOneAnimal]
+      Actual: function
+
+Pass: getOneAnimal
+      Actual: function getOneAnimal() { [native code] }
+
+Pass: getOneAnimal.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneAnimal.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNFail
+
+Pass: typeof [object Animals.Fish][getOneEmptyGRCNFail]
+      Actual: function
+
+Pass: getOneEmptyGRCNFail
+      Actual: function getOneEmptyGRCNFail() { [native code] }
+
+Pass: getOneEmptyGRCNFail.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNFail.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNInterface
+
+Pass: typeof [object Animals.Fish][getOneEmptyGRCNInterface]
+      Actual: function
+
+Pass: getOneEmptyGRCNInterface
+      Actual: function getOneEmptyGRCNInterface() { [native code] }
+
+Pass: getOneEmptyGRCNInterface.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNInterface.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNNull
+
+Pass: typeof [object Animals.Fish][getOneEmptyGRCNNull]
+      Actual: function
+
+Pass: getOneEmptyGRCNNull
+      Actual: function getOneEmptyGRCNNull() { [native code] }
+
+Pass: getOneEmptyGRCNNull.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNNull.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneMap
+
+Pass: typeof [object Animals.Fish][getOneMap]
+      Actual: function
+
+Pass: getOneMap
+      Actual: function getOneMap() { [native code] }
+
+Pass: getOneMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneObservableVector
+
+Pass: typeof [object Animals.Fish][getOneObservableVector]
+      Actual: function
+
+Pass: getOneObservableVector
+      Actual: function getOneObservableVector() { [native code] }
+
+Pass: getOneObservableVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneObservableVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getOnePropertyValue
+
+Pass: typeof [object Animals.Fish][getOnePropertyValue]
+      Actual: function
+
+Pass: getOnePropertyValue
+      Actual: function getOnePropertyValue() { [native code] }
+
+Pass: getOnePropertyValue.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOnePropertyValue.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneVector
+
+Pass: typeof [object Animals.Fish][getOneVector]
+      Actual: function
+
+Pass: getOneVector
+      Actual: function getOneVector() { [native code] }
+
+Pass: getOneVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneVector.length
+      Actual: 0
+
+Pass: name
+      Actual: marshalIFish
+
+Pass: typeof [object Animals.Fish][marshalIFish]
+      Actual: function
+
+Pass: marshalIFish
+      Actual: function marshalIFish() { [native code] }
+
+Pass: marshalIFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalIFish.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalIFishToFish
+
+Pass: typeof [object Animals.Fish][marshalIFishToFish]
+      Actual: function
+
+Pass: marshalIFishToFish
+      Actual: function marshalIFishToFish() { [native code] }
+
+Pass: marshalIFishToFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalIFishToFish.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalILikeToSwim
+
+Pass: typeof [object Animals.Fish][marshalILikeToSwim]
+      Actual: function
+
+Pass: marshalILikeToSwim
+      Actual: function marshalILikeToSwim() { [native code] }
+
+Pass: marshalILikeToSwim.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalILikeToSwim.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalILikeToSwimToFish
+
+Pass: typeof [object Animals.Fish][marshalILikeToSwimToFish]
+      Actual: function
+
+Pass: marshalILikeToSwimToFish
+      Actual: function marshalILikeToSwimToFish() { [native code] }
+
+Pass: marshalILikeToSwimToFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalILikeToSwimToFish.length
+      Actual: 1
+
+Pass: name
+      Actual: name
+
+Pass: typeof [object Animals.Fish][name]
+      Actual: string
+
+Pass: name
+      Actual: setNumFins
+
+Pass: typeof [object Animals.Fish][setNumFins]
+      Actual: function
+
+Pass: setNumFins
+      Actual: function setNumFins() { [native code] }
+
+Pass: setNumFins.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: setNumFins.length
+      Actual: 1
+
+Pass: name
+      Actual: singTheSwimmingSong
+
+Pass: typeof [object Animals.Fish][singTheSwimmingSong]
+      Actual: function
+
+Pass: singTheSwimmingSong
+      Actual: function singTheSwimmingSong() { [native code] }
+
+Pass: singTheSwimmingSong.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: singTheSwimmingSong.length
+      Actual: 0
+
+Pass: name
+      Actual: toString
+
+Pass: typeof [object Animals.Fish][toString]
+      Actual: function
+
+Pass: toString
+      Actual: function toString() { [native code] }
+
+Pass: toString.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: toString.length
+      Actual: 0
+
+Pass: number of members
+      Actual: 22
+
+PASS [Test 1: Fish]
+=================================================
+
+=================================================
+Starting [Test 2: Dino]
+Comment: typeof object: object
+Comment: Dump of properties : 
+    var objectMembers = [
+        ['Animals.IDino.hasTeeth', 'function', getFunctionString('Animals.IDino.hasTeeth'), 0],
+        ['Animals.IExtinct.hasTeeth', 'function', getFunctionString('Animals.IExtinct.hasTeeth'), 0],
+        ['canRoar', 'function', getFunctionString('canRoar'), 0],
+        ['height', 'number', getFunctionString('height'), 0 ],
+        ['isExtinct', 'function', getFunctionString('isExtinct'), 0],
+        ['roar', 'function', getFunctionString('roar'), 1],
+        ['toString', 'function', getFunctionString('toString'), 0],
+    ];
+Pass: type
+      Actual: object
+
+Pass: name
+      Actual: Animals.IDino.hasTeeth
+
+Pass: typeof [object Animals.Dino][Animals.IDino.hasTeeth]
+      Actual: function
+
+Pass: Animals.IDino.hasTeeth
+      Actual: function Animals.IDino.hasTeeth() { [native code] }
+
+Pass: Animals.IDino.hasTeeth.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: Animals.IDino.hasTeeth.length
+      Actual: 0
+
+Pass: name
+      Actual: Animals.IExtinct.hasTeeth
+
+Pass: typeof [object Animals.Dino][Animals.IExtinct.hasTeeth]
+      Actual: function
+
+Pass: Animals.IExtinct.hasTeeth
+      Actual: function Animals.IExtinct.hasTeeth() { [native code] }
+
+Pass: Animals.IExtinct.hasTeeth.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: Animals.IExtinct.hasTeeth.length
+      Actual: 0
+
+Pass: name
+      Actual: canRoar
+
+Pass: typeof [object Animals.Dino][canRoar]
+      Actual: function
+
+Pass: canRoar
+      Actual: function canRoar() { [native code] }
+
+Pass: canRoar.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: canRoar.length
+      Actual: 0
+
+Pass: name
+      Actual: height
+
+Pass: typeof [object Animals.Dino][height]
+      Actual: number
+
+Pass: name
+      Actual: isExtinct
+
+Pass: typeof [object Animals.Dino][isExtinct]
+      Actual: function
+
+Pass: isExtinct
+      Actual: function isExtinct() { [native code] }
+
+Pass: isExtinct.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: isExtinct.length
+      Actual: 0
+
+Pass: name
+      Actual: roar
+
+Pass: typeof [object Animals.Dino][roar]
+      Actual: function
+
+Pass: roar
+      Actual: function roar() { [native code] }
+
+Pass: roar.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: roar.length
+      Actual: 1
+
+Pass: name
+      Actual: toString
+
+Pass: typeof [object Animals.Dino][toString]
+      Actual: function
+
+Pass: toString
+      Actual: function toString() { [native code] }
+
+Pass: toString.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: toString.length
+      Actual: 0
+
+Pass: number of members
+      Actual: 7
+
+PASS [Test 2: Dino]
+=================================================
+
+=================================================
+Starting [Test 3: DinoPrototype]
+Comment: typeof object: object
+Comment: Dump of properties : 
+    var objectMembers = [
+        ['Animals.IDino.hasTeeth', 'function', getFunctionString('Animals.IDino.hasTeeth'), 0],
+        ['Animals.IExtinct.hasTeeth', 'function', getFunctionString('Animals.IExtinct.hasTeeth'), 0],
+        ['canRoar', 'function', getFunctionString('canRoar'), 0],
+        ['height', 'undefined', getFunctionString('height'), 0 ],
+        ['isExtinct', 'function', getFunctionString('isExtinct'), 0],
+        ['roar', 'function', getFunctionString('roar'), 1],
+        ['toString', 'function', getFunctionString('toString'), 0],
+    ];
+Pass: type
+      Actual: object
+
+Pass: name
+      Actual: Animals.IDino.hasTeeth
+
+Pass: typeof [object Object][Animals.IDino.hasTeeth]
+      Actual: function
+
+Pass: Animals.IDino.hasTeeth
+      Actual: function Animals.IDino.hasTeeth() { [native code] }
+
+Pass: Animals.IDino.hasTeeth.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: Animals.IDino.hasTeeth.length
+      Actual: 0
+
+Pass: name
+      Actual: Animals.IExtinct.hasTeeth
+
+Pass: typeof [object Object][Animals.IExtinct.hasTeeth]
+      Actual: function
+
+Pass: Animals.IExtinct.hasTeeth
+      Actual: function Animals.IExtinct.hasTeeth() { [native code] }
+
+Pass: Animals.IExtinct.hasTeeth.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: Animals.IExtinct.hasTeeth.length
+      Actual: 0
+
+Pass: name
+      Actual: canRoar
+
+Pass: typeof [object Object][canRoar]
+      Actual: function
+
+Pass: canRoar
+      Actual: function canRoar() { [native code] }
+
+Pass: canRoar.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: canRoar.length
+      Actual: 0
+
+Pass: name
+      Actual: height
+
+Pass: typeof [object Object][height]
+      Actual: undefined
+
+Pass: height
+      Actual: function get_Height() { [native code] }
+
+Pass: height.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: height.length
+      Actual: 0
+
+Pass: name
+      Actual: isExtinct
+
+Pass: typeof [object Object][isExtinct]
+      Actual: function
+
+Pass: isExtinct
+      Actual: function isExtinct() { [native code] }
+
+Pass: isExtinct.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: isExtinct.length
+      Actual: 0
+
+Pass: name
+      Actual: roar
+
+Pass: typeof [object Object][roar]
+      Actual: function
+
+Pass: roar
+      Actual: function roar() { [native code] }
+
+Pass: roar.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: roar.length
+      Actual: 1
+
+Pass: name
+      Actual: toString
+
+Pass: typeof [object Object][toString]
+      Actual: function
+
+Pass: toString
+      Actual: function toString() { [native code] }
+
+Pass: toString.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: toString.length
+      Actual: 0
+
+Pass: number of members
+      Actual: 7
+
+PASS [Test 3: DinoPrototype]
+=================================================
+
+=================================================
+Starting [Test 4: FishPrototype]
+Comment: typeof object: object
+Comment: Dump of properties : 
+    var objectMembers = [
+        ['getNullAsAnimal', 'function', getFunctionString('getNullAsAnimal'), 0],
+        ['getNullAsMap', 'function', getFunctionString('getNullAsMap'), 0],
+        ['getNullAsObservableVector', 'function', getFunctionString('getNullAsObservableVector'), 0],
+        ['getNullAsPropertyValue', 'function', getFunctionString('getNullAsPropertyValue'), 0],
+        ['getNullAsVector', 'function', getFunctionString('getNullAsVector'), 0],
+        ['getNumFins', 'function', getFunctionString('getNumFins'), 0],
+        ['getOneAnimal', 'function', getFunctionString('getOneAnimal'), 0],
+        ['getOneEmptyGRCNFail', 'function', getFunctionString('getOneEmptyGRCNFail'), 0],
+        ['getOneEmptyGRCNInterface', 'function', getFunctionString('getOneEmptyGRCNInterface'), 0],
+        ['getOneEmptyGRCNNull', 'function', getFunctionString('getOneEmptyGRCNNull'), 0],
+        ['getOneMap', 'function', getFunctionString('getOneMap'), 0],
+        ['getOneObservableVector', 'function', getFunctionString('getOneObservableVector'), 0],
+        ['getOnePropertyValue', 'function', getFunctionString('getOnePropertyValue'), 0],
+        ['getOneVector', 'function', getFunctionString('getOneVector'), 0],
+        ['marshalIFish', 'function', getFunctionString('marshalIFish'), 1],
+        ['marshalIFishToFish', 'function', getFunctionString('marshalIFishToFish'), 1],
+        ['marshalILikeToSwim', 'function', getFunctionString('marshalILikeToSwim'), 1],
+        ['marshalILikeToSwimToFish', 'function', getFunctionString('marshalILikeToSwimToFish'), 1],
+        ['name', 'undefined', getFunctionString('name'), 0 ],
+        ['setNumFins', 'function', getFunctionString('setNumFins'), 1],
+        ['singTheSwimmingSong', 'function', getFunctionString('singTheSwimmingSong'), 0],
+        ['toString', 'function', getFunctionString('toString'), 0],
+    ];
+Pass: type
+      Actual: object
+
+Pass: name
+      Actual: getNullAsAnimal
+
+Pass: typeof [object Object][getNullAsAnimal]
+      Actual: function
+
+Pass: getNullAsAnimal
+      Actual: function getNullAsAnimal() { [native code] }
+
+Pass: getNullAsAnimal.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsAnimal.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsMap
+
+Pass: typeof [object Object][getNullAsMap]
+      Actual: function
+
+Pass: getNullAsMap
+      Actual: function getNullAsMap() { [native code] }
+
+Pass: getNullAsMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsObservableVector
+
+Pass: typeof [object Object][getNullAsObservableVector]
+      Actual: function
+
+Pass: getNullAsObservableVector
+      Actual: function getNullAsObservableVector() { [native code] }
+
+Pass: getNullAsObservableVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsObservableVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsPropertyValue
+
+Pass: typeof [object Object][getNullAsPropertyValue]
+      Actual: function
+
+Pass: getNullAsPropertyValue
+      Actual: function getNullAsPropertyValue() { [native code] }
+
+Pass: getNullAsPropertyValue.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsPropertyValue.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsVector
+
+Pass: typeof [object Object][getNullAsVector]
+      Actual: function
+
+Pass: getNullAsVector
+      Actual: function getNullAsVector() { [native code] }
+
+Pass: getNullAsVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getNumFins
+
+Pass: typeof [object Object][getNumFins]
+      Actual: function
+
+Pass: getNumFins
+      Actual: function getNumFins() { [native code] }
+
+Pass: getNumFins.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNumFins.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneAnimal
+
+Pass: typeof [object Object][getOneAnimal]
+      Actual: function
+
+Pass: getOneAnimal
+      Actual: function getOneAnimal() { [native code] }
+
+Pass: getOneAnimal.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneAnimal.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNFail
+
+Pass: typeof [object Object][getOneEmptyGRCNFail]
+      Actual: function
+
+Pass: getOneEmptyGRCNFail
+      Actual: function getOneEmptyGRCNFail() { [native code] }
+
+Pass: getOneEmptyGRCNFail.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNFail.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNInterface
+
+Pass: typeof [object Object][getOneEmptyGRCNInterface]
+      Actual: function
+
+Pass: getOneEmptyGRCNInterface
+      Actual: function getOneEmptyGRCNInterface() { [native code] }
+
+Pass: getOneEmptyGRCNInterface.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNInterface.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNNull
+
+Pass: typeof [object Object][getOneEmptyGRCNNull]
+      Actual: function
+
+Pass: getOneEmptyGRCNNull
+      Actual: function getOneEmptyGRCNNull() { [native code] }
+
+Pass: getOneEmptyGRCNNull.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNNull.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneMap
+
+Pass: typeof [object Object][getOneMap]
+      Actual: function
+
+Pass: getOneMap
+      Actual: function getOneMap() { [native code] }
+
+Pass: getOneMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneObservableVector
+
+Pass: typeof [object Object][getOneObservableVector]
+      Actual: function
+
+Pass: getOneObservableVector
+      Actual: function getOneObservableVector() { [native code] }
+
+Pass: getOneObservableVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneObservableVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getOnePropertyValue
+
+Pass: typeof [object Object][getOnePropertyValue]
+      Actual: function
+
+Pass: getOnePropertyValue
+      Actual: function getOnePropertyValue() { [native code] }
+
+Pass: getOnePropertyValue.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOnePropertyValue.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneVector
+
+Pass: typeof [object Object][getOneVector]
+      Actual: function
+
+Pass: getOneVector
+      Actual: function getOneVector() { [native code] }
+
+Pass: getOneVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneVector.length
+      Actual: 0
+
+Pass: name
+      Actual: marshalIFish
+
+Pass: typeof [object Object][marshalIFish]
+      Actual: function
+
+Pass: marshalIFish
+      Actual: function marshalIFish() { [native code] }
+
+Pass: marshalIFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalIFish.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalIFishToFish
+
+Pass: typeof [object Object][marshalIFishToFish]
+      Actual: function
+
+Pass: marshalIFishToFish
+      Actual: function marshalIFishToFish() { [native code] }
+
+Pass: marshalIFishToFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalIFishToFish.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalILikeToSwim
+
+Pass: typeof [object Object][marshalILikeToSwim]
+      Actual: function
+
+Pass: marshalILikeToSwim
+      Actual: function marshalILikeToSwim() { [native code] }
+
+Pass: marshalILikeToSwim.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalILikeToSwim.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalILikeToSwimToFish
+
+Pass: typeof [object Object][marshalILikeToSwimToFish]
+      Actual: function
+
+Pass: marshalILikeToSwimToFish
+      Actual: function marshalILikeToSwimToFish() { [native code] }
+
+Pass: marshalILikeToSwimToFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalILikeToSwimToFish.length
+      Actual: 1
+
+Pass: name
+      Actual: name
+
+Pass: typeof [object Object][name]
+      Actual: undefined
+
+Pass: name
+      Actual: function get_Name() { [native code] }
+
+Pass: name.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: name.length
+      Actual: 0
+
+Pass: name
+      Actual: setNumFins
+
+Pass: typeof [object Object][setNumFins]
+      Actual: function
+
+Pass: setNumFins
+      Actual: function setNumFins() { [native code] }
+
+Pass: setNumFins.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: setNumFins.length
+      Actual: 1
+
+Pass: name
+      Actual: singTheSwimmingSong
+
+Pass: typeof [object Object][singTheSwimmingSong]
+      Actual: function
+
+Pass: singTheSwimmingSong
+      Actual: function singTheSwimmingSong() { [native code] }
+
+Pass: singTheSwimmingSong.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: singTheSwimmingSong.length
+      Actual: 0
+
+Pass: name
+      Actual: toString
+
+Pass: typeof [object Object][toString]
+      Actual: function
+
+Pass: toString
+      Actual: function toString() { [native code] }
+
+Pass: toString.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: toString.length
+      Actual: 0
+
+Pass: number of members
+      Actual: 22
+
+PASS [Test 4: FishPrototype]
+=================================================
+
+=================================================
+Starting [Test 5: InvokeFishMethods]
+Pass: getNullAsAnimal
+      Actual: null
+
+Pass: getNullAsMap
+      Actual: null
+
+Pass: getNullAsObservableVector
+      Actual: null
+
+Pass: getNullAsPropertyValue
+      Actual: null
+
+Pass: getNullAsVector
+      Actual: null
+
+Pass: getNumFins
+      Actual: 5
+
+Pass: getOneAnimal
+      Actual: [object Animals.Animal]
+
+Pass: getOneEmptyGRCNFail
+      Actual: [object Animals.IEmptyGRCN]
+
+Pass: getOneEmptyGRCNInterface
+      Actual: [object Animals.IEmptyGRCN]
+
+Pass: getOneEmptyGRCNNull
+      Actual: [object Animals.IEmptyGRCN]
+
+Pass: getOneMap
+      Actual: [object Windows.Foundation.Collections.IMap`2<String,Int32>]
+
+Pass: getOneObservableVector
+      Actual: 1,2,3,4
+
+Pass: getOnePropertyValue
+      Actual: 10.5
+
+Pass: getOneVector
+      Actual: 1,2,3
+
+Pass: marshalIFish
+      Actual: Error: marshalIFish: function called with too few arguments
+
+Pass: marshalIFishToFish
+      Actual: Error: marshalIFishToFish: function called with too few arguments
+
+Pass: marshalILikeToSwim
+      Actual: Error: marshalILikeToSwim: function called with too few arguments
+
+Pass: marshalILikeToSwimToFish
+      Actual: Error: marshalILikeToSwimToFish: function called with too few arguments
+
+Pass: name
+      Actual: TypeError: The value of the property 'name' is not a Function object
+
+Pass: setNumFins
+      Actual: Error: setNumFins: function called with too few arguments
+
+Pass: singTheSwimmingSong
+      Actual: I feed from the bottom, you feed from the top 
+I live upon morsels you happen to drop 
+And coffee that somehow leaks out of your cup 
+If nothing comes down then I'm forced to swim up 
+
+
+Pass: toString
+      Actual: [object Animals.Fish]
+
+PASS [Test 5: InvokeFishMethods]
+=================================================
+
+=================================================
+Starting [Test 6: InvokeDinoMethods]
+Pass: Animals.IDino.hasTeeth
+      Actual: true
+
+Pass: Animals.IExtinct.hasTeeth
+      Actual: false
+
+Pass: canRoar
+      Actual: false
+
+Pass: height
+      Actual: TypeError: The value of the property 'height' is not a Function object
+
+Pass: isExtinct
+      Actual: true
+
+Pass: roar
+      Actual: Error: roar: function called with too few arguments
+
+Pass: toString
+      Actual: [object Animals.Dino]
+
+PASS [Test 6: InvokeDinoMethods]
+=================================================
+
+=================================================
+Starting [Test 7: RuntimeClass as in parameter]
+Pass: mySameFish
+      Actual: [object Animals.Fish]
+
+Pass: mySameNullFish
+      Actual: null
+
+Pass: mySameUndefinedFish
+      Actual: null
+
+Pass: var myMismatchFish = Animals.Animal.sendBackSameFish(Animals.Animal); returned (TypeError: Type mismatch)
+      Actual: true
+
+Pass: var myMismatchFish = Animals.Animal.sendBackSameFish(new Animals.Animal(10)); returned (TypeError: Type mismatch)
+      Actual: true
+
+PASS [Test 7: RuntimeClass as in parameter]
+=================================================
+
+Passed: 7
+Failed: 0

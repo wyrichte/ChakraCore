@@ -1,0 +1,9 @@
+DIRS=\
+    common{noncrit} \
+    engine{noncrit} \
+    API{noncrit} \
+    RentalThreading{noncrit} \
+    MemoryPolicy{noncrit} \
+    ComProjection{noncrit} \
+    ThreadService{noncrit} \
+    WinRT{noncrit} \

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<regress-exe>
+<test>
+   <default>
+      <files>ftl.js</files>
+      <baseline>ftl.baseline</baseline>
+   </default>
+</test>
+<test>
+   <default>
+      <files>ftl.js</files>
+	<compile-flags>-off:InlineHostCandidate</compile-flags>
+      <baseline>ftl.baseline</baseline>
+   </default>
+</test>
+<test>
+   <default>
+      <files>ftl2.js</files>
+      <baseline/>
+   </default>
+</test>
+<test>
+   <default>
+      <files>ftl2.js</files>
+	<compile-flags>-off:InlineHostCandidate</compile-flags>
+      <baseline/>
+   </default>
+</test>
+<test>
+   <default>
+      <files>ftl1.js</files>
+      <baseline>ftl1.baseline</baseline>
+   </default>
+</test>
+<test>
+   <default>
+      <files>shadow.js</files>
+      <baseline>shadow.baseline</baseline>
+   </default>
+</test>
+<test>
+   <default>
+      <files>marshalproto.js</files>
+      <baseline>marshalproto.baseline</baseline>
+   </default>
+</test>
+</regress-exe>

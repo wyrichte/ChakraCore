@@ -1,0 +1,54 @@
+IStringable tests
+
+=================================================
+Starting [Test 1: Non-IStringable class and proto]
+Comment: 
+Implicit new Animals.Animal(1).toString(): 
+[object Animals.Animal]
+Explicit new Animals.Animal(1).toString(): 
+[object Animals.Animal]
+Comment: 
+Implicit new Animals.Animal(1).__proto__.toString(): 
+[object Object]
+Explicit new Animals.Animal(1).__proto__.toString(): 
+[object Object]
+Comment: 
+Implicit Animals.Animal.toString(): 
+function Animal() { [native code] }
+Explicit Animals.Animal.toString(): 
+function Animal() { [native code] }
+Comment: 
+Implicit Animals.Animal.prototype.toString(): 
+[object Object]
+Explicit Animals.Animal.prototype.toString(): 
+[object Object]
+PASS [Test 1: Non-IStringable class and proto]
+=================================================
+
+=================================================
+Starting [Test 2: IStringable class and proto]
+Comment: 
+Implicit new DevTests.Repros.Stringables.SimpleStringable().toString(): 
+DevTests.Repros.Stringables.SimpleStringable
+Explicit new DevTests.Repros.Stringables.SimpleStringable().toString(): 
+DevTests.Repros.Stringables.SimpleStringable
+Comment: 
+Implicit new DevTests.Repros.Stringables.SimpleStringable().__proto__.toString(): 
+Error: toString: 'this' is not an Inspectable Object
+Explicit new DevTests.Repros.Stringables.SimpleStringable().__proto__.toString(): 
+Error: toString: 'this' is not an Inspectable Object
+Comment: 
+Implicit DevTests.Repros.Stringables.SimpleStringable.toString(): 
+function SimpleStringable() { [native code] }
+Explicit DevTests.Repros.Stringables.SimpleStringable.toString(): 
+function SimpleStringable() { [native code] }
+Comment: 
+Implicit DevTests.Repros.Stringables.SimpleStringable.prototype.toString(): 
+Error: toString: 'this' is not an Inspectable Object
+Explicit DevTests.Repros.Stringables.SimpleStringable.prototype.toString(): 
+Error: toString: 'this' is not an Inspectable Object
+PASS [Test 2: IStringable class and proto]
+=================================================
+
+Passed: 2
+Failed: 0

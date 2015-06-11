@@ -1,0 +1,27 @@
+Script Profiler starts
+Dumping sorted function compiled events
+[FunctionCompiled]: Function: Anonymous function[2], Line: 46, Column: 18, Character Position: 692
+[FunctionCompiled]: Function: Foo, Line: 80, Column: 11, Character Position: 1282
+[FunctionCompiled]: Function: Global code, Line: 3, Column: 1, Character Position: 64
+[FunctionCompiled]: Function: OneClass, Line: 96, Column: 5, Character Position: 1563
+[FunctionCompiled]: Function: OneClass.method1, Line: 99, Column: 12, Character Position: 1624
+[FunctionCompiled]: Function: OneClass.prototype.method, Line: 103, Column: 5, Character Position: 1697
+[FunctionCompiled]: Function: f2, Line: 55, Column: 10, Character Position: 847
+[FunctionCompiled]: Function: f2.prototype.subF1, Line: 58, Column: 17, Character Position: 894
+[FunctionCompiled]: Function: f2.prototype.subF2, Line: 62, Column: 17, Character Position: 994
+[FunctionCompiled]: Function: f2.prototype.subF3.subSubF3, Line: 73, Column: 39, Character Position: 1143
+[FunctionCompiled]: Function: get OneClass.prototype.method2, Line: 107, Column: 9, Character Position: 1758
+[FunctionCompiled]: Function: k, Line: 4, Column: 9, Character Position: 77
+[FunctionCompiled]: Function: k.subF1, Line: 10, Column: 11, Character Position: 139
+[FunctionCompiled]: Function: k.subF1.subsubF1, Line: 15, Column: 20, Character Position: 207
+[FunctionCompiled]: Function: k.subF2, Line: 22, Column: 20, Character Position: 309
+[FunctionCompiled]: Function: k3, Line: 29, Column: 16, Character Position: 407
+[FunctionCompiled]: Function: obj1[0], Line: 36, Column: 11, Character Position: 501
+[FunctionCompiled]: Function: obj1[0][0], Line: 51, Column: 14, Character Position: 771
+[FunctionCompiled]: Function: obj1[test], Line: 40, Column: 16, Character Position: 571
+[FunctionCompiled]: Function: returnObj, Line: 45, Column: 1, Character Position: 653
+[FunctionCompiled]: Function: set OneClass.prototype.method2, Line: 113, Column: 9, Character Position: 1887
+[FunctionCompiled]: Function: subF1, Line: 81, Column: 18, Character Position: 1307
+[FunctionCompiled]: Function: subF2, Line: 85, Column: 18, Character Position: 1409
+Passed: Validation
+Script Profiler ends

@@ -1,0 +1,34 @@
+Removing prior CompleteJsGen.js file
+Writing CompleteJsGen.js
+ JsGen Animals.winmd
+/JsGen Animals.winmd
+ JsHost Animals.winmd
+/JsHost Animals.winmd
+ JsGen DevTests.CamelCasing.winmd
+/JsGen DevTests.CamelCasing.winmd
+ JsHost DevTests.CamelCasing.winmd
+/JsHost DevTests.CamelCasing.winmd
+ JsGen DevTests.Repros.winmd
+/JsGen DevTests.Repros.winmd
+ JsHost DevTests.Repros.winmd
+/JsHost DevTests.Repros.winmd
+ JsGen DevTests.winmd
+/JsGen DevTests.winmd
+ JsHost DevTests.winmd
+/JsHost DevTests.winmd
+ JsGen Fabrikam.Kitchen.winmd
+/JsGen Fabrikam.Kitchen.winmd
+ JsHost Fabrikam.Kitchen.winmd
+/JsHost Fabrikam.Kitchen.winmd
+ JsGen windows.winmd
+/JsGen windows.winmd
+ JsHost windows.winmd
+/JsHost windows.winmd
+ JsGen Winery.winmd
+/JsGen Winery.winmd
+ JsHost Winery.winmd
+/JsHost Winery.winmd
+JsGen CompleteJsGen.js
+Checking for existence of CompleteJsGen.js
+JsHost CompleteJsGen.js
+Done

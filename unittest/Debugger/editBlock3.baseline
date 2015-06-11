@@ -1,0 +1,25 @@
+=== Before change ===
+1
+ENC: QueryEdit: 1 requests
+ENC: editblock3.js (297,496):
+/**edit(test)**/
+            if (true) {
+                let ...
+===>
+ if (true) {
+     let x2 = 2;
+     function dummy() { x2; }
+...
+ENC: === AST Diffing ===
+ENC: Update: FuncDecl function g() {..    if (true) { -> FuncDecl function g() {..    if (true) {
+ENC: === Semantic Changes ===
+ENC: UpdateFunction: FuncDecl function g() {..    if (true) { -> FuncDecl function g() {..    if (true) {
+ENC:     Old functionBody: g
+ENC: MoveFunction: FuncDecl function dummy() { x2; } -> FuncDecl function dummy() { x2; }
+ENC:     Old functionBody: dummy
+ENC: MoveFunction: FuncDecl function f() {..                -> FuncDecl function f() {..     return x0 
+ENC:     Old functionBody: f
+ENC: MoveFunction: FuncDecl function test() {..    WScript. -> FuncDecl function test() {..    WScript.
+ENC:     Old functionBody: test
+=== After change ===
+3

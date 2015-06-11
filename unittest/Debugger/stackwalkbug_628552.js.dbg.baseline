@@ -1,0 +1,24 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 59,
+        "length": 3,
+        "text": "k++",
+        "frameDescription": "handle"
+      },
+      {
+        "start": 90,
+        "length": 28,
+        "text": "WScript.CallFunction(handle)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 124,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

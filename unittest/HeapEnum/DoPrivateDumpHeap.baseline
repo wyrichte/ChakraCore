@@ -1,0 +1,18 @@
+
+
+Running HeapEnum Tests
+
+
+
+===========>Starting Heap Dump for old objects only<===============
+
+==========>End Heap Dump<===============
+
+
+Running test: DoPrivateDumpHeap
+
+Total Test Cases  1
+Passed:  1
+Failed   0
+
+

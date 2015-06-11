@@ -1,0 +1,6 @@
+
+Printing stacktrace..
+f (inlinesamefunc.js:4,5)
+f (inlinesamefunc.js:6,5)
+f (inlinesamefunc.js:6,5)
+Global code (inlinesamefunc.js:10,1)

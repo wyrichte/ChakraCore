@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<regress-exe>
+<test>
+    <default>
+        <tags>exclude_dynapogo,exclude_ship</tags>	
+        <compile-flags>-on:asmjs -simdjs -AsmJsStopOnError</compile-flags>
+        <files>MathBuiltinAllApis.js</files>
+        <baseline>MathBuiltinAllApis.baseline</baseline>
+    </default>
+</test>
+<test>
+    <default>
+        <tags>exclude_dynapogo,exclude_ship</tags>	
+        <compile-flags>-on:asmjs -simdjs -AsmJsStopOnError</compile-flags>
+        <files>MathBuiltinOverrideConstants.js</files>
+        <baseline>MathBuiltinOverrideConstants.baseline</baseline>
+    </default>
+</test>
+<test>
+    <default>
+        <tags>exclude_dynapogo,exclude_ship</tags>	
+        <compile-flags>-on:asmjs -simdjs -AsmJsStopOnError</compile-flags>
+        <files>MathBuiltinOverrideFunction.js</files>
+        <baseline>MathBuiltinOverrideFunction.baseline</baseline>
+    </default>
+</test>
+<test>
+    <default>
+        <tags>exclude_dynapogo,exclude_ship</tags>	
+        <compile-flags>-on:asmjs -simdjs -AsmJsStopOnError</compile-flags>
+        <files>MathBuiltinOverrideMathObject.js</files>
+        <baseline>MathBuiltinOverrideMathObject.baseline</baseline>
+    </default>
+</test>
+<test>
+    <default>
+        <tags>exclude_dynapogo,exclude_ship</tags>	
+        <compile-flags>-on:asmjs -simdjs -AsmJsStopOnError</compile-flags>
+        <files>getteronFunctionImport.js</files>
+        <baseline>getteronFunctionImport.baseline</baseline>
+    </default>
+</test>
+<test>
+    <default>
+        <tags>exclude_dynapogo,exclude_ship</tags>	
+        <compile-flags>-on:asmjs -simdjs -AsmJsStopOnError</compile-flags>
+        <files>getteronVarImport.js</files>
+        <baseline>getteronVarImport.baseline</baseline>
+    </default>
+</test>
+<test>
+    <default>
+        <tags>exclude_dynapogo,exclude_ship</tags>	
+        <compile-flags>-on:asmjs -simdjs -AsmJsStopOnError</compile-flags>
+        <files>valueOfToString.js</files>
+        <baseline>valueOfToString.baseline</baseline>
+    </default>
+</test>
+</regress-exe>
+

@@ -1,0 +1,178 @@
+*** Running test #1 (0): basic seal
+PASSED
+*** Running test #2 (1): basic isfrozen/issealed
+PASSED
+*** Running test #3 (2): isFrozen trap
+isExtensible trap
+PASSED
+*** Running test #4 (3): isFrozen trap#2
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #5 (4): isFrozen trap#3
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #6 (5): isSealed trap
+isExtensible trap
+PASSED
+*** Running test #7 (6): isSealed trap#2
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #8 (7): freeze trap
+preventExtensions trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+defineProperty trap bar
+getOwnPropertyDescriptor trap foo
+defineProperty trap foo
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #9 (8): seal trap
+preventExtensions trap
+ownKey trap
+defineProperty trap bar
+defineProperty trap foo
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #10 (9): seal throws
+preventExtensions trap
+ownKey trap
+defineProperty trap bar
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #11 (10): seal multiple throw
+preventExtensions trap
+ownKey trap
+defineProperty trap bar
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #12 (11): freeze throws
+preventExtensions trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+defineProperty trap bar
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #13 (12): freeze multiple throw
+preventExtensions trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+defineProperty trap bar
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+Summary of tests: total executed: 13; passed: 13; failed: 0
+*** Running test #14 (0): basic seal
+PASSED
+*** Running test #15 (1): basic isfrozen/issealed
+PASSED
+*** Running test #16 (2): isFrozen trap
+isExtensible trap
+PASSED
+*** Running test #17 (3): isFrozen trap#2
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #18 (4): isFrozen trap#3
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #19 (5): isSealed trap
+isExtensible trap
+PASSED
+*** Running test #20 (6): isSealed trap#2
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #21 (7): freeze trap
+preventExtensions trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+defineProperty trap bar
+getOwnPropertyDescriptor trap foo
+defineProperty trap foo
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #22 (8): seal trap
+preventExtensions trap
+ownKey trap
+defineProperty trap bar
+defineProperty trap foo
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #23 (9): seal throws
+preventExtensions trap
+ownKey trap
+defineProperty trap bar
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #24 (10): seal multiple throw
+preventExtensions trap
+ownKey trap
+defineProperty trap bar
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #25 (11): freeze throws
+preventExtensions trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+defineProperty trap bar
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+*** Running test #26 (12): freeze multiple throw
+preventExtensions trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+defineProperty trap bar
+isExtensible trap
+ownKey trap
+getOwnPropertyDescriptor trap bar
+getOwnPropertyDescriptor trap foo
+PASSED
+Summary of tests: total executed: 26; passed: 26; failed: 0

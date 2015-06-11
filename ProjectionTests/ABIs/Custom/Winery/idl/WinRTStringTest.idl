@@ -1,0 +1,115 @@
+//  Copyright (c) Microsoft Corporation. All rights reserved.
+//
+//  WindowsRuntimeAPISet
+
+//
+// Sample RIDL file for the Coordinate test type and its factories
+//
+
+import "Inspectable.idl";
+import "hstring.idl";
+import "oaidl.idl";
+
+#include <sdkddkver.h>
+
+namespace Microsoft.Clr.Test
+{
+   // runtimeclass HStringTest;
+
+    [version(NTDDI_WIN8)]
+    typedef struct HStringStruct
+    {
+		int stringId;
+		HSTRING hstring;
+    } HStringStruct;
+
+	[version(NTDDI_WIN8)]
+    [uuid(88905C1F-33F5-4B30-AA9E-CE1427C5AEC2)]
+    interface IHStringStructTest : IInspectable
+    {
+        HRESULT CheckInStructField([in] HStringStruct hstring, [out, retval] boolean* pass);
+        HRESULT CheckInOutStructField([in, out] HStringStruct *pHstring, [out, retval] boolean* pass);
+        HRESULT CheckOutStructField(int stringId,[out] HStringStruct *pHstring, [out, retval] boolean* pass);
+        HRESULT CheckReturnStructField(int stringId, [out, retval] HStringStruct *pHString);
+    }
+
+/*
+	//Delegate Params
+    [version(NTDDI_WIN8), object, uuid(C2969913-53E8-478B-B765-AEC39B0C8872)]
+    delegate HRESULT Delegate_StringIn(int stringId,[in] HSTRING hstring);
+
+	[version(NTDDI_WIN8), object, uuid(822092BD-26C2-4CA3-B8B3-749D06EE84A7)]
+    delegate HRESULT Delegate_StringInOut([in, out] int *pStringId,[in,out] HSTRING *pHstring);
+
+	[version(NTDDI_WIN8), object, uuid(2C7145FC-3AAA-4ABA-A959-7FDD5F7E4CB9)]
+    delegate HRESULT Delegate_StringOut(int stringId,[out] HSTRING *pHstring);
+
+	[version(NTDDI_WIN8), object, uuid(903F6B0B-4097-4393-88C6-81E5AFC8A3AA)]
+    delegate HRESULT Delegate_StringReturn(int stringId,[out,retval] HSTRING *pHstring);
+
+    [version(NTDDI_WIN8), object, uuid(2EF307B4-304F-40D4-96D0-5240FBFBEF1E)]
+    delegate HRESULT Delegate_CallBackStringIn(int stringId,[in] HSTRING hstring,[out, retval] boolean* pass);
+
+	[version(NTDDI_WIN8), object, uuid(17227F57-3343-4621-98A2-3B7162978191)]
+    delegate HRESULT Delegate_CallBackStringInOut([in, out] int *pStringId,[in,out] HSTRING *pHstring, [out, retval] boolean* pass);
+
+	[version(NTDDI_WIN8), object, uuid(BD4499A4-E95C-4D81-9191-2667EC7C205C)]
+    delegate HRESULT Delegate_CallBackStringOut(int stringId,[out] HSTRING *pHstring, [out, retval] boolean* pass);
+
+	[version(NTDDI_WIN8), object, uuid(ADC38F2A-EFBC-43AA-AAA3-222EE3E0981C)]
+    delegate HRESULT Delegate_CallBackStringReturn(int stringId,[out,retval] HSTRING *pHstring);
+
+    [version(NTDDI_WIN8)]
+    [uuid(5f72096e-db7f-41c4-b7d2-707c6757401f)]
+    interface IHStringTest : IInspectable
+    {
+        HRESULT CheckIn(int stringId, [in] HSTRING hstring, [out, retval] boolean* pass);
+        HRESULT CheckInOut([in, out] int *pStringId, [in, out] HSTRING *pHstring, [out, retval] boolean* pass);
+        HRESULT CheckOut(int stringId, [out] HSTRING *pHstring, [out, retval] boolean* pass);
+        HRESULT CheckReturn(int stringId, [out, retval] HSTRING *pHString);
+	}
+
+    [version(NTDDI_WIN8)]
+    [uuid(39B51105-44EF-4D0B-BBB0-CB49F778E1EA)]
+    interface IHStringDelegateTest : IInspectable
+    {
+     	//Delegate param case
+		HRESULT CheckInDelegateParam(int stringId,[in]Delegate_StringIn *StringChecker);
+		HRESULT CheckInOutDelegateParam([in, out] int *pStringId, [in]Delegate_StringInOut *StringChecker);
+		HRESULT CheckOutDelegateParam(int stringId, [in]Delegate_StringOut *StringChecker);
+		HRESULT CheckReturnDelegateParam(int stringId, [in]Delegate_StringReturn *StringChecker);
+
+		HRESULT CheckCallBackDelegateInParam([out, retval] Delegate_CallBackStringIn **StringChecker);
+		HRESULT CheckCallBackDelegateInOutParam([out, retval] Delegate_CallBackStringInOut **StringChecker);
+		HRESULT CheckCallBackDelegateOutParam([out, retval] Delegate_CallBackStringOut **StringChecker);
+		HRESULT CheckCallBackDelegateReturnParam([out, retval] Delegate_CallBackStringReturn **StringChecker);
+
+	}
+	
+    [version(NTDDI_WIN8)]
+    [uuid(88905C1F-33F5-4B30-AA9E-CE1427C5AEC2)]
+    interface IHStringStructTest : IInspectable
+    {
+        HRESULT CheckInStructField([in] HStringStruct hstring, [out, retval] boolean* pass);
+        HRESULT CheckInOutStructField([in, out] HStringStruct *pHstring, [out, retval] boolean* pass);
+        HRESULT CheckOutStructField(int stringId,[out] HStringStruct *pHstring, [out, retval] boolean* pass);
+        HRESULT CheckReturnStructField(int stringId, [out, retval] HStringStruct *pHString);
+	}
+
+    [version(NTDDI_WIN8), uuid(C69A2C50-9426-4B85-B0B8-3A163DA59DB4)] 
+    interface IProfile : IInspectable
+    {
+        [propget] HRESULT Name([out, retval] HSTRING* value); 
+        [propput] HRESULT Name([in] HSTRING value);
+    }
+
+    [version(NTDDI_WIN8)]
+    [activatable(NTDDI_WIN8)]
+    runtimeclass HStringTest
+    {
+        interface IHStringTest;
+	interface IHStringDelegateTest;
+	interface IHStringStructTest;
+	interface IProfile ;
+    }*/
+}

@@ -1,0 +1,2 @@
+function a.b.c(){} -  compile failure in ES5 SyntaxError: Syntax error
+function a.b.c::x(){} -  compile failure in ES5 TypeError: Object expected

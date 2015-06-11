@@ -1,0 +1,104 @@
+Release Memory Tracing Tests
+
+=================================================
+Starting [Test 1: Verify ref count after release is decreased]
+MemoryTrace: Created Projection Object: 0    UnknownRefCount = 3
+Pass: Animals.Animal.myFishRefCount
+      Actual: 3
+
+MemoryTrace: Explicit release of projection object (msReleaseWinRTObject)
+MemoryTrace: Zombied Projection Object: 0    UnknownRefCount = 1    isZombied = true
+Pass: Animals.Animal.myFishRefCount
+      Actual: 1
+
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+MemoryTrace: Collected Projection Object: 0    UnknownRefCount = 1    isZombied = true
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 0  
+ProjectionObjects  Deleted : 0  
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 1: Verify ref count after release is decreased]
+=================================================
+
+Passed: 1
+Failed: 0
+
+MemoryTrace: Stats after ProjectionContextClose
+ProjectionObjects  Created : 
+ProjectionObjects  Deleted : 
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: ScriptContext Close
+
+MemoryTrace: Stats after scriptSite close
+ProjectionObjects  Created : 
+ProjectionObjects  Deleted : 
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+
+
+ProjectionObjects status:
+
+Id		Status		CreationUnkRef
+0		Destroyed	3				
+
+Alive: 0		Dead: 1
+
+
+
+Unknowns status:
+
+Id		Status		Type
+
+Alive: 0		Dead: 0
+
+
+
+FinalizableArrayBuffer status:
+
+Id		Status		NumberOfElements		BufferAllocatedUsing
+
+Alive: 0		Dead: 0
+
+MemoryTrace: Stats while destroying thread
+ProjectionObjects  Created : 
+ProjectionObjects  Deleted : 
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+
+
+ProjectionObjects status:
+
+Id		Status		CreationUnkRef
+0		Destroyed	3				
+
+Alive: 0		Dead: 1
+
+
+
+Unknowns status:
+
+Id		Status		Type
+
+Alive: 0		Dead: 0
+
+
+
+FinalizableArrayBuffer status:
+
+Id		Status		NumberOfElements		BufferAllocatedUsing
+
+Alive: 0		Dead: 0

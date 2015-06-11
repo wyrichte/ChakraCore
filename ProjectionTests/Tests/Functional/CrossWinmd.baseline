@@ -1,0 +1,14 @@
+Cross Winmd tests
+
+=================================================
+Starting [Test 1: AccessOutInterfaceFromAnotherWinmd]
+Comment: var myAnimal = new Animals.Animal(1);
+Comment: var chef = myAnimal.likesChef()
+Pass: chef.name
+      Actual: Aarti Sequeira
+
+PASS [Test 1: AccessOutInterfaceFromAnotherWinmd]
+=================================================
+
+Passed: 1
+Failed: 0

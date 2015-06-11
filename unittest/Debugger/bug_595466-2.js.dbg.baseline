@@ -1,0 +1,8 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "test": "<large string>"
+    }
+  }
+]

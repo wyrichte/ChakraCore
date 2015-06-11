@@ -1,0 +1,13 @@
+<html>
+<body>
+<script type="text/javascript">
+    var trueThis = this;
+    var func = function () { WScript.Echo(this); WScript.Echo(this === trueThis); };
+</script>
+<script type="text/javascript">
+    "use strict"
+    func.call(this);
+    eval("func.call(this);");
+</script>
+</body>
+</html>

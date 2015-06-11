@@ -1,0 +1,99 @@
+*** Running test #1 (0): basic set test
+set trap test1
+getOwnPropertyDescriptor trap test1
+defineProperty trap test1
+PASSED
+*** Running test #2 (1): set argument shape
+set trap test2
+PASSED
+*** Running test #3 (2): basic delete test
+delete trap test1
+get trap test1 on function receiver function
+PASSED
+*** Running test #4 (3): set in eval
+set trap testEval
+getOwnPropertyDescriptor trap testEval
+defineProperty trap testEval
+PASSED
+*** Running test #5 (4): set in with
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.testWith
+set trap testWith
+getOwnPropertyDescriptor trap testWith
+defineProperty trap testWith
+PASSED
+*** Running test #6 (5): set in with1
+get trap Symbol(Symbol.unscopables) on function receiver function
+has trap function.testWith1
+PASSED
+*** Running test #7 (6): set element i #1
+set trap 1
+getOwnPropertyDescriptor trap 1
+defineProperty trap 1
+PASSED
+*** Running test #8 (7): set element i #2
+set trap test5
+getOwnPropertyDescriptor trap test5
+defineProperty trap test5
+PASSED
+*** Running test #9 (8): set readonly
+set trap readOnly
+PASSED
+*** Running test #10 (9): set inconsistent value
+set trap readOnly
+PASSED
+*** Running test #11 (10): set with readonly property on proto
+set trap proReadOnly
+PASSED
+*** Running test #12 (11): set with setter
+set trap mySetter
+PASSED
+*** Running test #13 (12): set with setter only
+set trap mySetter1
+PASSED
+*** Running test #14 (13): set with configurable getter only
+set trap mySetter2
+PASSED
+*** Running test #15 (14): set with getter only
+set trap mySetter3
+PASSED
+*** Running test #16 (15): set on number
+getPrototypeOf trap
+set trap foo
+set trap a
+set trap b
+PASSED
+*** Running test #17 (16): set on proxy in forin of i
+set trap a
+getOwnPropertyDescriptor trap a
+defineProperty trap a
+set trap b
+getOwnPropertyDescriptor trap b
+defineProperty trap b
+PASSED
+*** Running test #18 (17): change set value
+set trap test10
+get trap test10 on function receiver function
+PASSED
+*** Running test #19 (18): don't trap set
+defineProperty trap test12
+get trap test12 on function receiver function
+get trap test12 on function receiver function
+get trap test12 on function receiver function
+get trap test12 on function receiver function
+get trap test12 on function receiver function
+get trap test12 on function receiver function
+get trap test12 on function receiver function
+get trap test12 on function receiver function
+get trap test12 on function receiver function
+get trap test12 on function receiver function
+PASSED
+*** Running test #20 (19): change set value to getter
+set trap test11
+get trap test10 on function receiver function
+PASSED
+*** Running test #21 (20): delete unexisting
+delete trap nonExisting
+delete trap mySetter3
+PASSED
+Summary of tests: total executed: 21; passed: 21; failed: 0

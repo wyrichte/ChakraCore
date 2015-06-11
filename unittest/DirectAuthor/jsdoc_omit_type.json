@@ -1,0 +1,73 @@
+{
+  "testname" : "JsDoc with type omitted",
+  "owner" : "andrewau",
+  "validated" : false,
+  "timeout" : 5000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "_comment1" : "",
+  "_comment2" : "",
+  "runAuthoringTest" : true,
+  "commands" :
+  [
+{
+  "action": "getFunctionHelp",
+  "args": [
+    "jsdoc_omit_type.js"
+  ],
+  "events": [
+    {
+      "functionHelpTests": [
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 153,
+          "extentLength": 15,
+          "functionHelp": {
+            "functionName": "sampleFunction",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Object",
+                  "description": "just an untyped return",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "first parameter",
+                    "type": "Object",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "b",
+                    "description": "second parameter",
+                    "type": "Object",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

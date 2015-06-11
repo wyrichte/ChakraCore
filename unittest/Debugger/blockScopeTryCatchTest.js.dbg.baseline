@@ -1,0 +1,42 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "1",
+      "bConst": "2",
+      "ex": "Exception!",
+      "[Globals]": {
+        "blockScopeTryCatchTestFunc": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "c": "3",
+      "dConst": "4",
+      "a": "1",
+      "bConst": "2",
+      "ex": "Exception!",
+      "[Globals]": {
+        "blockScopeTryCatchTestFunc": "<large string>"
+      }
+    }
+  }
+]

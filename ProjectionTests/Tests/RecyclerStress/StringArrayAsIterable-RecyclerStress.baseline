@@ -1,0 +1,222 @@
+RecyclerStress scenario for array as iterable
+
+=================================================
+Starting [Test 1: MarshalInArrayAsIterable]
+Comment: var myArray = ["Pink", "Yellow", "Blue", "Red", "Green", "Brown", "Tan", "Black", "White"];
+Comment: var myIterable = (new Animals.Animal(1)).duplicateStringIterable(myArray);
+Comment: verifyIterable("myIterable", myIterable, ["Pink", "Yellow", "Blue", "Red", "Green", "Brown", "Tan", "Black", "White"])
+Comment: typeof myIterable: object
+Comment: Dump of properties : 
+    var myIterableMembers = [
+        ['first', 'function', 0],
+    ];
+Pass: typeof myIterable
+      Actual: object
+
+Pass: myIterable's property
+      Actual: first
+
+Pass: typeof myIterable["first"]
+      Actual: function
+
+Pass: myIterable["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["first"].length
+      Actual: 0
+
+Pass: number of properties of myIterable
+      Actual: 1
+
+Comment: var myIterator = myIterable.first()
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'string'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: string
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 4
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Pink
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Yellow
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Blue
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Red
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Green
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Brown
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Tan
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Black
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: White
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Comment: Iterator with getMany
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Pink
+
+Pass: manyItems[1]
+      Actual: Yellow
+
+Pass: manyItems[2]
+      Actual: Blue
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Red
+
+Pass: manyItems[1]
+      Actual: Green
+
+Pass: manyItems[2]
+      Actual: Brown
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Tan
+
+Pass: manyItems[1]
+      Actual: Black
+
+Pass: manyItems[2]
+      Actual: White
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+PASS [Test 1: MarshalInArrayAsIterable]
+=================================================
+
+Passed: 1
+Failed: 0

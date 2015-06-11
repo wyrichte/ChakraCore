@@ -1,0 +1,101 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 30,
+        "length": 10,
+        "text": "var c = {}",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "bar": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "bar",
+        "prototype": "{...}"
+      },
+      "c": "undefined",
+      "a1": "undefined",
+      "b1": "undefined",
+      "[Globals]": {
+        "foo": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 30,
+        "length": 10,
+        "text": "var c = {}",
+        "frameDescription": "foo"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 170,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "bar": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "bar",
+        "prototype": "{...}"
+      },
+      "c": {
+        "__proto__": "[x]",
+        "[0]": "20"
+      },
+      "a1": "undefined",
+      "b1": "undefined",
+      "[Globals]": {
+        "foo": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 170,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "foo"
+      }
+    ]
+  }
+]

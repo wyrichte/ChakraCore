@@ -1,0 +1,2535 @@
+Camel Casing tests
+
+=================================================
+Starting [Test 1: String variations of Runtime Class members]
+Comment: Verifying members of [object DevTests.CamelCasing.StringVariations]
+Pass: _IInterfacePrivateMethod should be defined
+      Actual: function
+
+Pass: typeof function _IInterfacePrivateMethod() { [native code] }
+      Actual: function
+
+Pass: _IInterfacePrivateProperty should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.IPrivate._IInterfacePrivateProperty
+      Actual: string
+
+Pass: _PRIVATEUPPERCASEMETHOD should be defined
+      Actual: function
+
+Pass: typeof function _PRIVATEUPPERCASEMETHOD() { [native code] }
+      Actual: function
+
+Pass: _PRIVATEUPPERCASEPROPERTYWRITABLE should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: _PrivatePascalMethod should be defined
+      Actual: function
+
+Pass: typeof function _PrivatePascalMethod() { [native code] }
+      Actual: function
+
+Pass: _PrivatePascalProperty should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.IPrivate._PrivatePascalProperty
+      Actual: string
+
+Pass: _privateCamelMethod should be defined
+      Actual: function
+
+Pass: typeof function _privateCamelMethod() { [native code] }
+      Actual: function
+
+Pass: _privateCamelPropertyWritable should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: addEventListener should be defined
+      Actual: function
+
+Pass: typeof function addEventListener() { [native code] }
+      Actual: function
+
+Pass: aiTwoLetterAcronymMethod should be defined
+      Actual: function
+
+Pass: typeof function aiTwoLetterAcronymMethod() { [native code] }
+      Actual: function
+
+Pass: alluppercasemethod should be defined
+      Actual: function
+
+Pass: typeof function alluppercasemethod() { [native code] }
+      Actual: function
+
+Pass: alluppercaseproperty should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.ICasing.ALLUPPERCASEPROPERTY
+      Actual: string
+
+Pass: camelCaseMethod should be defined
+      Actual: function
+
+Pass: typeof function camelCaseMethod() { [native code] }
+      Actual: function
+
+Pass: camelProperty should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.ICasing.camelProperty
+      Actual: string
+
+Pass: f5 should be defined
+      Actual: function
+
+Pass: typeof function f5() { [native code] }
+      Actual: function
+
+Pass: fireEvent should be defined
+      Actual: function
+
+Pass: typeof function fireEvent() { [native code] }
+      Actual: function
+
+Pass: hd720p should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.ICasing.HD720p
+      Actual: string
+
+Pass: iinterfaceMethod should be defined
+      Actual: function
+
+Pass: typeof function iinterfaceMethod() { [native code] }
+      Actual: function
+
+Pass: iinterfacePropertyWritable should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: noncased_CHAR should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: on_iinterfaceprivateevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: on_privatecamelevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: on_privatepascalevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: on_privateuppercaseevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: oncamelevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: onecdh521event should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: onf8event should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: oniinterfaceevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: onnoncased_event should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: onpascalevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: onuint16event should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: onuitwoletteracronymevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: onuppercaseevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: pascalNotationMethod should be defined
+      Actual: function
+
+Pass: typeof function pascalNotationMethod() { [native code] }
+      Actual: function
+
+Pass: pascalProperty should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.ICasing.PascalProperty
+      Actual: string
+
+Pass: pascalPropertyWritable should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: removeEventListener should be defined
+      Actual: function
+
+Pass: typeof function removeEventListener() { [native code] }
+      Actual: function
+
+Pass: sp80056aConcatMd5 should be defined
+      Actual: function
+
+Pass: typeof function sp80056aConcatMd5() { [native code] }
+      Actual: function
+
+Pass: struct should be defined
+      Actual: object
+
+Pass: typeof [object DevTests.CamelCasing.StructStringVariations]
+      Actual: object
+
+Pass: uint8Array should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.ICasing.UInt8Array
+      Actual: string
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+Pass: stringVariations.pascalProperty
+      Actual: DevTests.CamelCasing.ICasing.PascalProperty
+
+Pass: stringVariations.pascalPropertyWritable
+      Actual: 0
+
+Pass: stringVariations.pascalPropertyWritable
+      Actual: 21
+
+Pass: stringVariations.alluppercaseproperty
+      Actual: DevTests.CamelCasing.ICasing.ALLUPPERCASEPROPERTY
+
+Pass: stringVariations.iinterfacePropertyWritable
+      Actual: 0
+
+Pass: stringVariations.iinterfacePropertyWritable
+      Actual: 3
+
+Pass: stringVariations.camelProperty
+      Actual: DevTests.CamelCasing.ICasing.camelProperty
+
+Pass: stringVariations._PrivatePascalProperty
+      Actual: DevTests.CamelCasing.IPrivate._PrivatePascalProperty
+
+Pass: stringVariations._PRIVATEUPPERCASEPROPERTYWRITABLE
+      Actual: 0
+
+Pass: stringVariations._PRIVATEUPPERCASEPROPERTYWRITABLE
+      Actual: 1024
+
+Pass: stringVariations._IInterfacePrivateProperty
+      Actual: DevTests.CamelCasing.IPrivate._IInterfacePrivateProperty
+
+Pass: stringVariations._privateCamelPropertyWritable
+      Actual: 0
+
+Pass: stringVariations._privateCamelPropertyWritable
+      Actual: 121
+
+Pass: stringVariations.pascalNotationMethod()
+      Actual: DevTests.CamelCasing.ICasing.PascalNotationMethod() Called
+
+Pass: stringVariations.alluppercasemethod()
+      Actual: DevTests.CamelCasing.ICasing.ALLUPPERCASEMETHOD() Called
+
+Pass: stringVariations.iinterfaceMethod()
+      Actual: DevTests.CamelCasing.ICasing.IInterfaceMethod() Called
+
+Pass: stringVariations.camelCaseMethod()
+      Actual: DevTests.CamelCasing.ICasing.camelCaseMethod() Called
+
+Pass: stringVariations._PrivatePascalMethod()
+      Actual: DevTests.CamelCasing.IPrivate._PrivatePascalMethod() Called
+
+Pass: stringVariations._privateCamelMethod()
+      Actual: DevTests.CamelCasing.IPrivate._privateCamelMethod() Called
+
+Pass: stringVariations._PRIVATEUPPERCASEMETHOD()
+      Actual: DevTests.CamelCasing.IPrivate._PRIVATEUPPERCASEMETHOD() Called
+
+Pass: stringVariations._IInterfacePrivateMethod()
+      Actual: DevTests.CamelCasing.IPrivate._IInterfacePrivateMethod() Called
+
+Pass: stringVariations.f5()
+      Actual: DevTests.CamelCasing.ICasing.F5() Called
+
+Pass: stringVariations.hd720p
+      Actual: DevTests.CamelCasing.ICasing.HD720p
+
+Pass: stringVariations.sp80056aConcatMd5()
+      Actual: DevTests.CamelCasing.ICasing.SP80056aConcatMd5() Called
+
+Pass: stringVariations.uint8Array
+      Actual: DevTests.CamelCasing.ICasing.UInt8Array
+
+Pass: stringVariations.noncased_CHAR
+      Actual: 0
+
+Pass: stringVariations.noncased_CHAR
+      Actual: 976
+
+Pass: stringVariations.aiTwoLetterAcronymMethod()
+      Actual: DevTests.CamelCasing.ICasing.AITwoLetterAcronymMethod() Called
+
+Comment: Verifying fields of stringVariations.struct
+Pass: pascalField should be defined
+      Actual: StructStringVariations.PascalField
+
+Pass: pascalField
+      Actual: StructStringVariations.PascalField
+
+Pass: uppercasefield should be defined
+      Actual: StructStringVariations.UPPERCASEFIELD
+
+Pass: uppercasefield
+      Actual: StructStringVariations.UPPERCASEFIELD
+
+Pass: iinterfaceField should be defined
+      Actual: StructStringVariations.IInterfaceField
+
+Pass: iinterfaceField
+      Actual: StructStringVariations.IInterfaceField
+
+Pass: camelField should be defined
+      Actual: StructStringVariations.camelField
+
+Pass: camelField
+      Actual: StructStringVariations.camelField
+
+Pass: _PrivatePascalField should be defined
+      Actual: StructStringVariations._PrivatePascalField
+
+Pass: _PrivatePascalField
+      Actual: StructStringVariations._PrivatePascalField
+
+Pass: _PRIVATEUPPERCASEFIELD should be defined
+      Actual: StructStringVariations._PRIVATEUPPERCASEFIELD
+
+Pass: _PRIVATEUPPERCASEFIELD
+      Actual: StructStringVariations._PRIVATEUPPERCASEFIELD
+
+Pass: _IInterfacePrivateField should be defined
+      Actual: StructStringVariations._IInterfacePrivateField
+
+Pass: _IInterfacePrivateField
+      Actual: StructStringVariations._IInterfacePrivateField
+
+Pass: _privateCamelField should be defined
+      Actual: StructStringVariations._privateCamelField
+
+Pass: _privateCamelField
+      Actual: StructStringVariations._privateCamelField
+
+Pass: f12 should be defined
+      Actual: StructStringVariations.F12
+
+Pass: f12
+      Actual: StructStringVariations.F12
+
+Pass: hd1080p should be defined
+      Actual: StructStringVariations.HD1080p
+
+Pass: hd1080p
+      Actual: StructStringVariations.HD1080p
+
+Pass: sp800108CtrHmacMd5 should be defined
+      Actual: StructStringVariations.SP800108CtrHmacMd5
+
+Pass: sp800108CtrHmacMd5
+      Actual: StructStringVariations.SP800108CtrHmacMd5
+
+Pass: uint32 should be defined
+      Actual: StructStringVariations.UInt32
+
+Pass: uint32
+      Actual: StructStringVariations.UInt32
+
+Pass: noncased_CHAR should be defined
+      Actual: StructStringVariations.NONCASED_CHAR
+
+Pass: noncased_CHAR
+      Actual: StructStringVariations.NONCASED_CHAR
+
+Pass: ipTwoLetterAcronym should be defined
+      Actual: StructStringVariations.IPTwoLetterAcronym
+
+Pass: ipTwoLetterAcronym
+      Actual: StructStringVariations.IPTwoLetterAcronym
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+PASS [Test 1: String variations of Runtime Class members]
+=================================================
+
+=================================================
+Starting [Test 2: String variations of Static Runtime Class members]
+Comment: Verifying members of DevTests.CamelCasing.StringVariations
+Pass: _IInterfacePrivateStaticMethod should be defined
+      Actual: function
+
+Pass: typeof function _IInterfacePrivateStaticMethod() { [native code] }
+      Actual: function
+
+Pass: _IInterfacePrivateStaticPropertyWritable should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: _PRIVATEUPPERCASESTATICMETHOD should be defined
+      Actual: function
+
+Pass: typeof function _PRIVATEUPPERCASESTATICMETHOD() { [native code] }
+      Actual: function
+
+Pass: _PRIVATEUPPERCASESTATICPROPERTY should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.IPrivateStatic._PRIVATEUPPERCASESTATICPROPERTY
+      Actual: string
+
+Pass: _PrivatePascalStaticMethod should be defined
+      Actual: function
+
+Pass: typeof function _PrivatePascalStaticMethod() { [native code] }
+      Actual: function
+
+Pass: _PrivatePascalStaticPropertyWritable should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: _privateCamelStaticMethod should be defined
+      Actual: function
+
+Pass: typeof function _privateCamelStaticMethod() { [native code] }
+      Actual: function
+
+Pass: _privateCamelStaticProperty should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.IPrivateStatic._privateCamelStaticProperty
+      Actual: string
+
+Pass: addEventListener should be defined
+      Actual: function
+
+Pass: typeof function addEventListener() { [native code] }
+      Actual: function
+
+Pass: alluppercasestaticmethod should be defined
+      Actual: function
+
+Pass: typeof function alluppercasestaticmethod() { [native code] }
+      Actual: function
+
+Pass: alluppercasestaticpropertywritable should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: camelStaticMethod should be defined
+      Actual: function
+
+Pass: typeof function camelStaticMethod() { [native code] }
+      Actual: function
+
+Pass: camelStaticPropertyWritable should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: f11 should be defined
+      Actual: function
+
+Pass: typeof function f11() { [native code] }
+      Actual: function
+
+Pass: iinterfaceStaticMethod should be defined
+      Actual: function
+
+Pass: typeof function iinterfaceStaticMethod() { [native code] }
+      Actual: function
+
+Pass: iinterfaceStaticProperty should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.ICasingStatic.IInterfaceStaticProperty
+      Actual: string
+
+Pass: msTwoLetterAcronymMethod should be defined
+      Actual: function
+
+Pass: typeof function msTwoLetterAcronymMethod() { [native code] }
+      Actual: function
+
+Pass: noncased_CHARSTATIC should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: on_iinterfaceprivatestaticevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: on_privatecamelstaticevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: on_privatepascalstaticevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: on_privateuppercasestaticevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: oncamelstaticevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: oniinterfacestaticevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: onpascalstaticevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: onuppercasestaticevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: pascalStaticMethod should be defined
+      Actual: function
+
+Pass: typeof function pascalStaticMethod() { [native code] }
+      Actual: function
+
+Pass: pascalStaticProperty should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.ICasingStatic.PascalStaticProperty
+      Actual: string
+
+Pass: pascalStaticPropertyWritable should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: removeEventListener should be defined
+      Actual: function
+
+Pass: typeof function removeEventListener() { [native code] }
+      Actual: function
+
+Pass: smsreceived should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.ICasingStatic.SMSReceived
+      Actual: string
+
+Pass: staticFireEvent should be defined
+      Actual: function
+
+Pass: typeof function staticFireEvent() { [native code] }
+      Actual: function
+
+Pass: utf8 should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.ICasingStatic.UTF8
+      Actual: string
+
+Pass: y4Cb2Cr0 should be defined
+      Actual: function
+
+Pass: typeof function y4Cb2Cr0() { [native code] }
+      Actual: function
+
+Pass: stringVariationsStatic.pascalStaticProperty
+      Actual: DevTests.CamelCasing.ICasingStatic.PascalStaticProperty
+
+Pass: stringVariationsStatic.pascalStaticPropertyWritable
+      Actual: 0
+
+Pass: stringVariationsStatic.pascalStaticPropertyWritable
+      Actual: 21
+
+Pass: stringVariationsStatic.alluppercasestaticpropertywritable
+      Actual: 0
+
+Pass: stringVariationsStatic.alluppercasestaticpropertywritable
+      Actual: 56
+
+Pass: stringVariationsStatic.iinterfaceStaticProperty
+      Actual: DevTests.CamelCasing.ICasingStatic.IInterfaceStaticProperty
+
+Pass: stringVariationsStatic.camelStaticPropertyWritable
+      Actual: 0
+
+Pass: stringVariationsStatic.camelStaticPropertyWritable
+      Actual: 43
+
+Pass: stringVariationsStatic._PrivatePascalStaticPropertyWritable
+      Actual: 0
+
+Pass: stringVariationsStatic._PrivatePascalStaticPropertyWritable
+      Actual: 1
+
+Pass: stringVariationsStatic._PRIVATEUPPERCASEPROPERTYWRITABLE
+      Actual: DevTests.CamelCasing.IPrivateStatic._PRIVATEUPPERCASESTATICPROPERTY
+
+Pass: stringVariationsStatic._IInterfacePrivateStaticPropertyWritable
+      Actual: 0
+
+Pass: stringVariationsStatic._IInterfacePrivateStaticPropertyWritable
+      Actual: 77
+
+Pass: stringVariationsStatic._privateCamelStaticProperty
+      Actual: DevTests.CamelCasing.IPrivateStatic._privateCamelStaticProperty
+
+Pass: stringVariationsStatic.pascalStaticMethod()
+      Actual: DevTests.CamelCasing.ICasingStatic.PascalStaticMethod() Called
+
+Pass: stringVariationsStatic.alluppercasestaticmethod()
+      Actual: DevTests.CamelCasing.ICasingStatic.ALLUPPERCASESTATICMETHOD() Called
+
+Pass: stringVariationsStatic.iinterfaceStaticMethod()
+      Actual: DevTests.CamelCasing.ICasingStatic.IInterfaceStaticMethod() Called
+
+Pass: stringVariationsStatic.camelStaticMethod()
+      Actual: DevTests.CamelCasing.ICasingStatic.camelStaticMethod() Called
+
+Pass: stringVariationsStatic._PrivatePascalStaticMethod()
+      Actual: DevTests.CamelCasing.IPrivateStatic._PrivatePascalStaticMethod() Called
+
+Pass: stringVariationsStatic._privateCamelStaticMethod()
+      Actual: DevTests.CamelCasing.IPrivateStatic._privateCamelStaticMethod() Called
+
+Pass: stringVariationsStatic._PRIVATEUPPERCASESTATICMETHOD()
+      Actual: DevTests.CamelCasing.IPrivateStatic._PRIVATEUPPERCASESTATICMETHOD() Called
+
+Pass: stringVariationsStatic._IInterfacePrivateStaticMethod()
+      Actual: DevTests.CamelCasing.IPrivateStatic._IInterfacePrivateStaticMethod() Called
+
+Pass: stringVariationsStatic.f11()
+      Actual: DevTests.CamelCasing.ICasingStatic.F11() Called
+
+Pass: stringVariationsStatic.smsreceived
+      Actual: DevTests.CamelCasing.ICasingStatic.SMSReceived
+
+Pass: stringVariationsStatic.y4Cb2Cr0()
+      Actual: DevTests.CamelCasing.ICasingStatic.Y4Cb2Cr0() Called
+
+Pass: stringVariationsStatic.utf8
+      Actual: DevTests.CamelCasing.ICasingStatic.UTF8
+
+Pass: stringVariationsStatic.noncased_CHARSTATIC
+      Actual: 0
+
+Pass: stringVariationsStatic.noncased_CHARSTATIC
+      Actual: 2016
+
+Pass: stringVariationsStatic.msTwoLetterAcronymMethod()
+      Actual: DevTests.CamelCasing.ICasingStatic.MSTwoLetterAcronymMethod() Called
+
+PASS [Test 2: String variations of Static Runtime Class members]
+=================================================
+
+=================================================
+Starting [Test 3: String variations of Overload names]
+Comment: Verifying members of [object DevTests.CamelCasing.OverloadStringVariations]
+Pass: _IInterfacePrivateOverload should be defined
+      Actual: function
+
+Pass: typeof function _IInterfacePrivateOverload() { [native code] }
+      Actual: function
+
+Pass: _PRIVATEUPPERCASEOVERLOAD should be defined
+      Actual: function
+
+Pass: typeof function _PRIVATEUPPERCASEOVERLOAD() { [native code] }
+      Actual: function
+
+Pass: _PrivatePascalOverload should be defined
+      Actual: function
+
+Pass: typeof function _PrivatePascalOverload() { [native code] }
+      Actual: function
+
+Pass: _privateCamelOverload should be defined
+      Actual: function
+
+Pass: typeof function _privateCamelOverload() { [native code] }
+      Actual: function
+
+Pass: alluppercaseoverload should be defined
+      Actual: function
+
+Pass: typeof function alluppercaseoverload() { [native code] }
+      Actual: function
+
+Pass: camelCaseOverload should be defined
+      Actual: function
+
+Pass: typeof function camelCaseOverload() { [native code] }
+      Actual: function
+
+Pass: iinterfaceOverload should be defined
+      Actual: function
+
+Pass: typeof function iinterfaceOverload() { [native code] }
+      Actual: function
+
+Pass: pascalNotationOverload should be defined
+      Actual: function
+
+Pass: typeof function pascalNotationOverload() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+Pass: overloadVariations.pascalNotationOverload()
+      Actual: DevTests.CamelCasing.IOverloadCasing.PascalNotationOverload() Called
+
+Pass: overloadVariations.alluppercaseoverload()
+      Actual: DevTests.CamelCasing.IOverloadCasing.ALLUPPERCASEOVERLOAD() Called
+
+Pass: overloadVariations.iinterfaceOverload()
+      Actual: DevTests.CamelCasing.IOverloadCasing.IInterfaceOverload() Called
+
+Pass: overloadVariations.camelCaseOverload()
+      Actual: DevTests.CamelCasing.IOverloadCasing.camelCaseOverload() Called
+
+Pass: overloadVariations._PrivatePascalOverload()
+      Actual: DevTests.CamelCasing.IPrivateOverloads._PrivatePascalOverload() Called
+
+Pass: overloadVariations._privateCamelOverload()
+      Actual: DevTests.CamelCasing.IPrivateOverloads._privateCamelOverload() Called
+
+Pass: overloadVariations._PRIVATEUPPERCASEOVERLOAD()
+      Actual: DevTests.CamelCasing.IPrivateOverloads._PRIVATEUPPERCASEOVERLOAD() Called
+
+Pass: overloadVariations._IInterfacePrivateOverload()
+      Actual: DevTests.CamelCasing.IPrivateOverloads._IInterfacePrivateOverload() Called
+
+PASS [Test 3: String variations of Overload names]
+=================================================
+
+=================================================
+Starting [Test 4: String variations of Overload names on static interfaces]
+Comment: Verifying members of DevTests.CamelCasing.OverloadStringVariations
+Pass: _IInterfacePrivateStaticOverload should be defined
+      Actual: function
+
+Pass: typeof function _IInterfacePrivateStaticOverload() { [native code] }
+      Actual: function
+
+Pass: _PRIVATEUPPERCASESTATICOVERLOAD should be defined
+      Actual: function
+
+Pass: typeof function _PRIVATEUPPERCASESTATICOVERLOAD() { [native code] }
+      Actual: function
+
+Pass: _PrivatePascalStaticOverload should be defined
+      Actual: function
+
+Pass: typeof function _PrivatePascalStaticOverload() { [native code] }
+      Actual: function
+
+Pass: _privateCamelStaticOverload should be defined
+      Actual: function
+
+Pass: typeof function _privateCamelStaticOverload() { [native code] }
+      Actual: function
+
+Pass: camelStaticOverload should be defined
+      Actual: function
+
+Pass: typeof function camelStaticOverload() { [native code] }
+      Actual: function
+
+Pass: iinterfaceStaticOverload should be defined
+      Actual: function
+
+Pass: typeof function iinterfaceStaticOverload() { [native code] }
+      Actual: function
+
+Pass: pascalStaticOverload should be defined
+      Actual: function
+
+Pass: typeof function pascalStaticOverload() { [native code] }
+      Actual: function
+
+Pass: uppercasestaticoverload should be defined
+      Actual: function
+
+Pass: typeof function uppercasestaticoverload() { [native code] }
+      Actual: function
+
+Pass: overloadVariationsStatic.pascalStaticOverload()
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload() Called
+
+Pass: overloadVariationsStatic.uppercasestaticoverload()
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.UPPERCASESTATICOVERLOAD() Called
+
+Pass: overloadVariationsStatic.iinterfaceStaticOverload()
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.IInterfaceStaticOverload() Called
+
+Pass: overloadVariationsStatic.camelStaticOverload()
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.camelStaticOverload() Called
+
+Pass: overloadVariationsStatic._PrivatePascalStaticOverload()
+      Actual: DevTests.CamelCasing.IPrivateOverloadsStatic._PrivatePascalStaticOverload() Called
+
+Pass: overloadVariationsStatic._privateCamelStaticOverload()
+      Actual: DevTests.CamelCasing.IPrivateOverloadsStatic._privateCamelStaticOverload() Called
+
+Pass: overloadVariationsStatic._PRIVATEUPPERCASESTATICOVERLOAD()
+      Actual: DevTests.CamelCasing.IPrivateOverloadsStatic._PRIVATEUPPERCASESTATICOVERLOAD() Called
+
+Pass: overloadVariationsStatic._IInterfacePrivateStaticOverload()
+      Actual: DevTests.CamelCasing.IPrivateOverloadsStatic._IInterfacePrivateStaticOverload() Called
+
+PASS [Test 4: String variations of Overload names on static interfaces]
+=================================================
+
+=================================================
+Starting [Test 5: Simple Name Collision Cases]
+Comment: Verifying fields of DevTests.CamelCasing.SimpleNameCollisions.ConflictingEvents
+Pass: internalPascalEvent should be defined
+      Actual: 0
+
+Pass: internalPascalEvent
+      Actual: 0
+
+Pass: internalCamelEvent should be defined
+      Actual: 1
+
+Pass: internalCamelEvent
+      Actual: 1
+
+Pass: externalEvent should be defined
+      Actual: 2
+
+Pass: externalEvent
+      Actual: 2
+
+Pass: externalCamelEvent should be defined
+      Actual: 3
+
+Pass: externalCamelEvent
+      Actual: 3
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Comment: Verifying fields of DevTests.CamelCasing.SimpleNameCollisions.EnumInternalConflict
+Pass: conflictingField should be defined
+      Actual: 0
+
+Pass: conflictingField
+      Actual: 0
+
+Comment: Verifying members of [object DevTests.CamelCasing.SimpleNameCollisions.InternalConflict]
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IInternalEventConflict.addEventListener should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.SimpleNameCollisions.IInternalEventConflict.addEventListener() { [native code] }
+      Actual: function
+
+Pass: RemoveEventListener should be defined
+      Actual: function
+
+Pass: typeof function RemoveEventListener() { [native code] }
+      Actual: function
+
+Pass: addEventListener should be defined
+      Actual: function
+
+Pass: typeof function addEventListener() { [native code] }
+      Actual: function
+
+Pass: conflictingMethod should be defined
+      Actual: function
+
+Pass: typeof function conflictingMethod() { [native code] }
+      Actual: function
+
+Pass: conflictingProperty should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: fireEvent should be defined
+      Actual: function
+
+Pass: typeof function fireEvent() { [native code] }
+      Actual: function
+
+Pass: onconflictingevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: removeEventListener should be defined
+      Actual: function
+
+Pass: typeof function removeEventListener() { [native code] }
+      Actual: function
+
+Pass: structConflict should be defined
+      Actual: object
+
+Pass: typeof [object DevTests.CamelCasing.SimpleNameCollisions.StructInternalConflict]
+      Actual: object
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+Pass: internalConflict.conflictingMethod(1)
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IInternalConflict.ConflictingMethod(int) Called
+
+Pass: internalConflict['DevTests.CamelCasing.SimpleNameCollisions.IInternalEventConflict.addEventListener']()
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IInternalEventConflict.addEventListener() called
+
+Pass: internalConflict.RemoveEventListener()
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IInternalEventConflict.RemoveEventListener() called
+
+Comment: Verifying members of [object DevTests.CamelCasing.SimpleNameCollisions.StructInternalConflict]
+Pass: conflictingField should be defined
+      Actual: number
+
+Pass: typeof 256
+      Actual: number
+
+Pass: structConflict.conflictingField
+      Actual: 256
+
+Comment: Set structConflict = { conflictingField: 3 }
+Comment: Verifying members of [object DevTests.CamelCasing.SimpleNameCollisions.StructInternalConflict]
+Pass: conflictingField should be defined
+      Actual: number
+
+Pass: typeof 3
+      Actual: number
+
+Pass: structConflict.conflictingField
+      Actual: 3
+
+Pass: Event fired
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IInternalEventConflict.ConflictingEvent
+
+Pass: Total number of callbacks
+      Actual: 1
+
+Comment: Verifying members of [object DevTests.CamelCasing.SimpleNameCollisions.ExternalConflictSameCase]
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.conflictingProperty should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.ConflictingProperty
+      Actual: string
+
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IExternalPascalConflict.conflictingProperty should be defined
+      Actual: number
+
+Pass: typeof 1024
+      Actual: number
+
+Pass: conflictingMethod should be defined
+      Actual: function
+
+Pass: typeof function conflictingMethod() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+Pass: externalSameCase.conflictingMethod('a', 'b')
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.ConflictingMethod(HSTRING, HSTRING) Called
+
+Pass: externalSameCase.conflictingMethod(1)
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IExternalPascalConflict.ConflictingMethod(int) Called
+
+Comment: Verifying members of [object DevTests.CamelCasing.SimpleNameCollisions.ExternalConflictDifferentCase]
+Pass: AddEventListener should be defined
+      Actual: function
+
+Pass: typeof function AddEventListener() { [native code] }
+      Actual: function
+
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IEventMethodConflict.removeEventListener should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.SimpleNameCollisions.IEventMethodConflict.removeEventListener
+      Actual: string
+
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IExternalCamelConflict.conflictingMethod should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.SimpleNameCollisions.IExternalCamelConflict.conflictingMethod() { [native code] }
+      Actual: function
+
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IExternalCamelConflict.conflictingProperty should be defined
+      Actual: number
+
+Pass: typeof 3
+      Actual: number
+
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IExternalCamelEventConflict.onconflictingevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.conflictingMethod should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.conflictingMethod() { [native code] }
+      Actual: function
+
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.conflictingProperty should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.ConflictingProperty
+      Actual: string
+
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IExternalEventConflict.onconflictingevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: addEventListener should be defined
+      Actual: function
+
+Pass: typeof function addEventListener() { [native code] }
+      Actual: function
+
+Pass: fireEvent should be defined
+      Actual: function
+
+Pass: typeof function fireEvent() { [native code] }
+      Actual: function
+
+Pass: removeEventListener should be defined
+      Actual: function
+
+Pass: typeof function removeEventListener() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+Pass: externalDiffCase['DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.conflictingMethod']('a', 'b')
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.ConflictingMethod(HSTRING, HSTRING) Called
+
+Pass: externalDiffCase['DevTests.CamelCasing.SimpleNameCollisions.IExternalCamelConflict.conflictingMethod'](1)
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IExternalCamelConflict.ConflictingMethod(int) Called
+
+Pass: externalDiffCase.AddEventListener()
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IEventMethodConflict.AddEventListener() called
+
+Pass: externalDiffCase['DevTests.CamelCasing.SimpleNameCollisions.IEventMethodConflict.removeEventListener']
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IEventMethodConflict.removeEventListener
+
+Pass: Event fired
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IExternalEventConflict.ConflictingEvent
+
+Pass: Event fired
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IExternalCamelEventConflict.conflictingEvent
+
+Pass: Total number of callbacks
+      Actual: 2
+
+Comment: Verifying members of [object DevTests.CamelCasing.SimpleNameCollisions.InternalConflictWithExternalConflict]
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.conflictingProperty should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.ConflictingProperty
+      Actual: string
+
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IInternalConflict.conflictingProperty should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: conflictingMethod should be defined
+      Actual: function
+
+Pass: typeof function conflictingMethod() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+Pass: internalAndExternal.conflictingMethod(1)
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IInternalConflict.ConflictingMethod(int) Called
+
+Pass: internalAndExternal.conflictingMethod('a', 'b')
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.ConflictingMethod(HSTRING, HSTRING) Called
+
+PASS [Test 5: Simple Name Collision Cases]
+=================================================
+
+=================================================
+Starting [Test 6: Static Name Collision Cases]
+Comment: Verifying fields of DevTests.CamelCasing.SimpleNameCollisions.ConflictingEvents
+Pass: internalPascalEvent should be defined
+      Actual: 0
+
+Pass: internalPascalEvent
+      Actual: 0
+
+Pass: internalCamelEvent should be defined
+      Actual: 1
+
+Pass: internalCamelEvent
+      Actual: 1
+
+Pass: externalEvent should be defined
+      Actual: 2
+
+Pass: externalEvent
+      Actual: 2
+
+Pass: externalCamelEvent should be defined
+      Actual: 3
+
+Pass: externalCamelEvent
+      Actual: 3
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Comment: Verifying members of DevTests.CamelCasing.SimpleNameCollisions.StaticInternalConflict
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IInternalEventConflict.addEventListener should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.SimpleNameCollisions.IInternalEventConflict.addEventListener() { [native code] }
+      Actual: function
+
+Pass: RemoveEventListener should be defined
+      Actual: function
+
+Pass: typeof function RemoveEventListener() { [native code] }
+      Actual: function
+
+Pass: addEventListener should be defined
+      Actual: function
+
+Pass: typeof function addEventListener() { [native code] }
+      Actual: function
+
+Pass: conflictingMethod should be defined
+      Actual: function
+
+Pass: typeof function conflictingMethod() { [native code] }
+      Actual: function
+
+Pass: conflictingProperty should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: fireEvent should be defined
+      Actual: function
+
+Pass: typeof function fireEvent() { [native code] }
+      Actual: function
+
+Pass: onconflictingevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: removeEventListener should be defined
+      Actual: function
+
+Pass: typeof function removeEventListener() { [native code] }
+      Actual: function
+
+Pass: staticInternalConflict.conflictingMethod(1)
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IInternalConflict.ConflictingMethod(int) Called
+
+Pass: staticInternalConflict['DevTests.CamelCasing.SimpleNameCollisions.IInternalEventConflict.addEventListener']()
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IInternalEventConflict.addEventListener() called
+
+Pass: staticInternalConflict.RemoveEventListener()
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IInternalEventConflict.RemoveEventListener() called
+
+Pass: Event fired
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IInternalEventConflict.ConflictingEvent
+
+Pass: Total number of callbacks
+      Actual: 1
+
+Comment: Verifying members of DevTests.CamelCasing.SimpleNameCollisions.StaticExternalConflictDifferentCase
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IEventMethodConflict.addEventListener should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.SimpleNameCollisions.IEventMethodConflict.addEventListener() { [native code] }
+      Actual: function
+
+Pass: DevTests.CamelCasing.SimpleNameCollisions.IEventMethodConflict.removeEventListener should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.SimpleNameCollisions.IEventMethodConflict.removeEventListener
+      Actual: string
+
+Pass: addEventListener should be defined
+      Actual: function
+
+Pass: typeof function addEventListener() { [native code] }
+      Actual: function
+
+Pass: conflictingMethod should be defined
+      Actual: function
+
+Pass: typeof function conflictingMethod() { [native code] }
+      Actual: function
+
+Pass: conflictingProperty should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.ConflictingProperty
+      Actual: string
+
+Pass: fireEvent should be defined
+      Actual: function
+
+Pass: typeof function fireEvent() { [native code] }
+      Actual: function
+
+Pass: onconflictingevent should be defined
+      Actual: object
+
+Pass: typeof null
+      Actual: object
+
+Pass: removeEventListener should be defined
+      Actual: function
+
+Pass: typeof function removeEventListener() { [native code] }
+      Actual: function
+
+Pass: staticExternalDiffCase['conflictingMethod']('a', 'b')
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IExternalConflict.ConflictingMethod(HSTRING, HSTRING) Called
+
+Pass: staticExternalDiffCase['DevTests.CamelCasing.SimpleNameCollisions.IEventMethodConflict.addEventListener']()
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IEventMethodConflict.AddEventListener() called
+
+Pass: staticExternalDiffCase['DevTests.CamelCasing.SimpleNameCollisions.IEventMethodConflict.removeEventListener']
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IEventMethodConflict.removeEventListener
+
+Pass: Event fired
+      Actual: DevTests.CamelCasing.SimpleNameCollisions.IExternalEventConflict.ConflictingEvent
+
+Pass: Total number of callbacks
+      Actual: 1
+
+PASS [Test 6: Static Name Collision Cases]
+=================================================
+
+=================================================
+Starting [Test 7: Event name string variations]
+Pass: stringVariations.addEventListener should be defined
+      Actual: function addEventListener() { [native code] }
+
+Pass: stringVariations.removeEventListener should be defined
+      Actual: function removeEventListener() { [native code] }
+
+Comment: Verifying fields of DevTests.CamelCasing.StringVariationsEvent
+Pass: pascalEvent should be defined
+      Actual: 0
+
+Pass: pascalEvent
+      Actual: 0
+
+Pass: uppercaseevent should be defined
+      Actual: 1
+
+Pass: uppercaseevent
+      Actual: 1
+
+Pass: iinterfaceEvent should be defined
+      Actual: 2
+
+Pass: iinterfaceEvent
+      Actual: 2
+
+Pass: camelEvent should be defined
+      Actual: 3
+
+Pass: camelEvent
+      Actual: 3
+
+Pass: _PrivatePascalEvent should be defined
+      Actual: 4
+
+Pass: _PrivatePascalEvent
+      Actual: 4
+
+Pass: _PRIVATEUPPERCASEEVENT should be defined
+      Actual: 5
+
+Pass: _PRIVATEUPPERCASEEVENT
+      Actual: 5
+
+Pass: _IInterfacePrivateEvent should be defined
+      Actual: 6
+
+Pass: _IInterfacePrivateEvent
+      Actual: 6
+
+Pass: _privateCamelEvent should be defined
+      Actual: 7
+
+Pass: _privateCamelEvent
+      Actual: 7
+
+Pass: f8Event should be defined
+      Actual: 8
+
+Pass: f8Event
+      Actual: 8
+
+Pass: ecdh521Event should be defined
+      Actual: 9
+
+Pass: ecdh521Event
+      Actual: 9
+
+Pass: uint16Event should be defined
+      Actual: 10
+
+Pass: uint16Event
+      Actual: 10
+
+Pass: noncased_EVENT should be defined
+      Actual: 11
+
+Pass: noncased_EVENT
+      Actual: 11
+
+Pass: uiTwoLetterAcronymEvent should be defined
+      Actual: 12
+
+Pass: uiTwoLetterAcronymEvent
+      Actual: 12
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: Event fired
+      Actual: PascalEvent
+
+Pass: Event fired
+      Actual: UPPERCASEEVENT
+
+Pass: Event fired
+      Actual: IInterfaceEvent
+
+Pass: Event fired
+      Actual: camelEvent
+
+Pass: Event fired
+      Actual: _PrivatePascalEvent
+
+Pass: Event fired
+      Actual: _PRIVATEUPPERCASEEVENT
+
+Pass: Event fired
+      Actual: _IInterfacePrivateEvent
+
+Pass: Event fired
+      Actual: _privateCamelEvent
+
+Pass: Event fired
+      Actual: F8Event
+
+Pass: Event fired
+      Actual: ECDH521Event
+
+Pass: Event fired
+      Actual: UInt16Event
+
+Pass: Event fired
+      Actual: NONCASED_EVENT
+
+Pass: Event fired
+      Actual: UITwoLetterAcronymEvent
+
+Pass: Total number of callbacks
+      Actual: 13
+
+PASS [Test 7: Event name string variations]
+=================================================
+
+=================================================
+Starting [Test 8: Static event name string variations]
+Pass: stringVariationsStatic.addEventListener should be defined
+      Actual: function addEventListener() { [native code] }
+
+Pass: stringVariationsStatic.removeEventListener should be defined
+      Actual: function removeEventListener() { [native code] }
+
+Comment: Verifying fields of DevTests.CamelCasing.StaticStringVariationsEvent
+Pass: pascalStaticEvent should be defined
+      Actual: 0
+
+Pass: pascalStaticEvent
+      Actual: 0
+
+Pass: uppercasestaticevent should be defined
+      Actual: 1
+
+Pass: uppercasestaticevent
+      Actual: 1
+
+Pass: iinterfaceStaticEvent should be defined
+      Actual: 2
+
+Pass: iinterfaceStaticEvent
+      Actual: 2
+
+Pass: camelStaticEvent should be defined
+      Actual: 3
+
+Pass: camelStaticEvent
+      Actual: 3
+
+Pass: _PrivatePascalStaticEvent should be defined
+      Actual: 4
+
+Pass: _PrivatePascalStaticEvent
+      Actual: 4
+
+Pass: _PRIVATEUPPERCASESTATICEVENT should be defined
+      Actual: 5
+
+Pass: _PRIVATEUPPERCASESTATICEVENT
+      Actual: 5
+
+Pass: _IInterfacePrivateStaticEvent should be defined
+      Actual: 6
+
+Pass: _IInterfacePrivateStaticEvent
+      Actual: 6
+
+Pass: _privateCamelStaticEvent should be defined
+      Actual: 7
+
+Pass: _privateCamelStaticEvent
+      Actual: 7
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: Event fired
+      Actual: PascalStaticEvent
+
+Pass: Event fired
+      Actual: UPPERCASESTATICEVENT
+
+Pass: Event fired
+      Actual: IInterfaceStaticEvent
+
+Pass: Event fired
+      Actual: camelStaticEvent
+
+Pass: Event fired
+      Actual: _PrivatePascalStaticEvent
+
+Pass: Event fired
+      Actual: _PRIVATEUPPERCASESTATICEVENT
+
+Pass: Event fired
+      Actual: _IInterfacePrivateStaticEvent
+
+Pass: Event fired
+      Actual: _privateCamelStaticEvent
+
+Pass: Total number of callbacks
+      Actual: 8
+
+PASS [Test 8: Static event name string variations]
+=================================================
+
+=================================================
+Starting [Test 9: Collisions between member types]
+Comment: Verifying members of [object DevTests.CamelCasing.CrossMemberCollisions.InternalCrossMemberConflict]
+Pass: conflicting should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting
+      Actual: string
+
+Pass: conflictingMethod should be defined
+      Actual: function
+
+Pass: typeof function conflictingMethod() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+Pass: internalCMCollison.conflicting
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting
+
+Pass: internalCMCollison.conflictingMethod(1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.ConflictingMethod(int) Called
+
+Comment: Verifying members of [object DevTests.CamelCasing.CrossMemberCollisions.ExternalPropPropConflict]
+Pass: DevTests.CamelCasing.CrossMemberCollisions.IExternalPropertyConflict.conflicting should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting
+      Actual: string
+
+Pass: conflictingMethod should be defined
+      Actual: function
+
+Pass: typeof function conflictingMethod() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+Pass: externalPPConflict.conflictingMethod(1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.ConflictingMethod(int) Called
+
+Pass: externalPPConflict['DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting']
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting
+
+Pass: externalPPConflict['DevTests.CamelCasing.CrossMemberCollisions.IExternalPropertyConflict.conflicting']
+      Actual: 0
+
+Pass: externalPPConflict['DevTests.CamelCasing.CrossMemberCollisions.IExternalPropertyConflict.conflicting']
+      Actual: 42
+
+Comment: Verifying members of [object DevTests.CamelCasing.CrossMemberCollisions.ExternalPropMethodConflict]
+Pass: DevTests.CamelCasing.CrossMemberCollisions.IExternalMethodConflict.conflicting should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.CrossMemberCollisions.IExternalMethodConflict.conflicting() { [native code] }
+      Actual: function
+
+Pass: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting
+      Actual: string
+
+Pass: conflictingMethod should be defined
+      Actual: function
+
+Pass: typeof function conflictingMethod() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+Pass: externalPMConflict.conflictingMethod(1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.ConflictingMethod(int) Called
+
+Pass: externalPMConflict['DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting']
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting
+
+Pass: externalPMConflict['DevTests.CamelCasing.CrossMemberCollisions.IExternalMethodConflict.conflicting']('a', 'b')
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IExternalMethodConflict.Conflicting(HSTRING,HSTRING) Called
+
+Comment: Verifying members of [object DevTests.CamelCasing.CrossMemberCollisions.ExternalMethodMethodConflict]
+Pass: DevTests.CamelCasing.CrossMemberCollisions.IExternalMethodConflict.conflicting should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.CrossMemberCollisions.IExternalMethodConflict.conflicting() { [native code] }
+      Actual: function
+
+Pass: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.conflicting should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.conflicting() { [native code] }
+      Actual: function
+
+Pass: conflictingProp should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.ConflictingProp
+      Actual: string
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+Pass: externalMMConflict.conflictingProp
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.ConflictingProp
+
+Pass: externalMMConflict['DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.conflicting'](1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.conflicting(int) Called
+
+Pass: externalMMConflict['DevTests.CamelCasing.CrossMemberCollisions.IExternalMethodConflict.conflicting']('a', 'b')
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IExternalMethodConflict.Conflicting(HSTRING,HSTRING) Called
+
+Comment: Verifying members of [object DevTests.CamelCasing.CrossMemberCollisions.ExternalMethodPropConflict]
+Pass: DevTests.CamelCasing.CrossMemberCollisions.IExternalPropertyConflict.conflicting should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.conflicting should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.conflicting() { [native code] }
+      Actual: function
+
+Pass: conflictingProp should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.ConflictingProp
+      Actual: string
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+Pass: externalMPConflict.conflictingProp
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.ConflictingProp
+
+Pass: externalMPConflict['DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.conflicting'](1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.conflicting(int) Called
+
+Pass: externalMPConflict['DevTests.CamelCasing.CrossMemberCollisions.IExternalPropertyConflict.conflicting']
+      Actual: 0
+
+Pass: externalMPConflict['DevTests.CamelCasing.CrossMemberCollisions.IExternalPropertyConflict.conflicting']
+      Actual: 42
+
+Comment: Verifying members of [object DevTests.CamelCasing.CrossMemberCollisions.DoubleCrossMemberConflict]
+Pass: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting
+      Actual: string
+
+Pass: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.conflicting should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.conflicting() { [native code] }
+      Actual: function
+
+Pass: conflictingMethod should be defined
+      Actual: function
+
+Pass: typeof function conflictingMethod() { [native code] }
+      Actual: function
+
+Pass: conflictingProp should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.ConflictingProp
+      Actual: string
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+Pass: doubleCMConflict['DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting']
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.conflicting
+
+Pass: doubleCMConflict['conflictingMethod'](1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict.ConflictingMethod(int) Called
+
+Pass: doubleCMConflict['DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.conflicting'](1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.conflicting(int) Called
+
+Pass: doubleCMConflict['conflictingProp']
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IInternalCrossMemberConflict2.ConflictingProp
+
+PASS [Test 9: Collisions between member types]
+=================================================
+
+=================================================
+Starting [Test 10: Collisions with built in properties]
+Comment: Verifying fields of DevTests.CamelCasing.CrossMemberCollisions.ConflictsWithBuiltIns
+Pass: apply should be defined
+      Actual: 0
+
+Pass: apply
+      Actual: 0
+
+Pass: call should be defined
+      Actual: 1
+
+Pass: call
+      Actual: 1
+
+Pass: Constructor should be defined
+      Actual: 2
+
+Pass: Constructor
+      Actual: 2
+
+Pass: hasOwnProperty should be defined
+      Actual: 3
+
+Pass: hasOwnProperty
+      Actual: 3
+
+Pass: isPrototypeOf should be defined
+      Actual: 4
+
+Pass: isPrototypeOf
+      Actual: 4
+
+Pass: propertyIsEnumerable should be defined
+      Actual: 5
+
+Pass: propertyIsEnumerable
+      Actual: 5
+
+Pass: DevTests.CamelCasing.CrossMemberCollisions.ConflictsWithBuiltIns.prototype should be defined
+      Actual: 6
+
+Pass: DevTests.CamelCasing.CrossMemberCollisions.ConflictsWithBuiltIns.prototype
+      Actual: 6
+
+Pass: toLocalString should be defined
+      Actual: 7
+
+Pass: toLocalString
+      Actual: 7
+
+Pass: toString should be defined
+      Actual: 8
+
+Pass: toString
+      Actual: 8
+
+Pass: valueOf should be defined
+      Actual: 9
+
+Pass: valueOf
+      Actual: 9
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: toString of object not a function returned (TypeError: Object doesn't support this property or method)
+      Actual: true
+
+Comment: Verifying members of [object DevTests.CamelCasing.CrossMemberCollisions.BuiltInConflicts]
+Pass: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.constructor should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.constructor() { [native code] }
+      Actual: function
+
+Pass: Prototype should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Prototype
+      Actual: string
+
+Pass: apply should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Apply
+      Actual: string
+
+Pass: call should be defined
+      Actual: function
+
+Pass: typeof function call() { [native code] }
+      Actual: function
+
+Pass: hasOwnProperty should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: isPrototypeOf should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.isPrototypeOf
+      Actual: string
+
+Pass: length should be defined
+      Actual: function
+
+Pass: typeof function length() { [native code] }
+      Actual: function
+
+Pass: propertyIsEnumerable should be defined
+      Actual: function
+
+Pass: typeof function propertyIsEnumerable() { [native code] }
+      Actual: function
+
+Pass: structBuiltInConflict should be defined
+      Actual: object
+
+Pass: typeof [object DevTests.CamelCasing.CrossMemberCollisions.StructBuiltInConflict]
+      Actual: object
+
+Pass: toLocalString should be defined
+      Actual: function
+
+Pass: typeof function toLocalString() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: valueOf should be defined
+      Actual: function
+
+Pass: typeof function valueOf() { [native code] }
+      Actual: function
+
+Pass: builtInConflicts.apply
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Apply
+
+Pass: builtInConflicts['hasOwnProperty']
+      Actual: 0
+
+Pass: builtInConflicts['hasOwnProperty']
+      Actual: 125
+
+Pass: builtInConflicts.isPrototypeOf
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.isPrototypeOf
+
+Pass: builtInConflicts.Prototype
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Prototype
+
+Pass: builtInConflicts.toString
+      Actual: 0
+
+Pass: builtInConflicts.toString
+      Actual: 24
+
+Pass: builtInConflicts.call(1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Call(int) Called
+
+Pass: builtInConflicts['DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.constructor'](1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.constructor(int) Called
+
+Pass: builtInConflicts.propertyIsEnumerable(1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.PropertyIsEnumerable(int) Called
+
+Pass: builtInConflicts['toLocalString'](1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.toLocalString(int) Called
+
+Pass: builtInConflicts.valueOf(1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.ValueOf(int) Called
+
+Pass: builtInConflicts.length(1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Length(int) Called
+
+Comment: Verifying members of [object DevTests.CamelCasing.CrossMemberCollisions.StructBuiltInConflict]
+Pass: apply should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: call should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: DevTests.CamelCasing.CrossMemberCollisions.StructBuiltInConflict.constructor should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: hasOwnProperty should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: isPrototypeOf should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: propertyIsEnumerable should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: Prototype should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: toLocalString should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: valueOf should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: structConflict['apply']
+      Actual: 0
+
+Pass: structConflict['DevTests.CamelCasing.CrossMemberCollisions.StructBuiltInConflict.constructor']
+      Actual: 0
+
+Pass: structConflict['isPrototypeOf']
+      Actual: 0
+
+Pass: structConflict['Prototype']
+      Actual: 0
+
+Pass: structConflict.call
+      Actual: 0
+
+Pass: structConflict.hasOwnProperty
+      Actual: 0
+
+Pass: structConflict.propertyIsEnumerable
+      Actual: 0
+
+Pass: structConflict.toLocalString
+      Actual: 0
+
+Pass: structConflict.valueOf
+      Actual: 0
+
+Pass: structConflict['apply']
+      Actual: 42
+
+Pass: structConflict['DevTests.CamelCasing.CrossMemberCollisions.StructBuiltInConflict.constructor']
+      Actual: 23
+
+Pass: structConflict['isPrototypeOf']
+      Actual: 156
+
+Pass: structConflict['Prototype']
+      Actual: 74
+
+Pass: structConflict.call
+      Actual: 99
+
+Pass: structConflict.hasOwnProperty
+      Actual: 3
+
+Pass: structConflict.propertyIsEnumerable
+      Actual: 1000
+
+Pass: structConflict.toLocalString
+      Actual: 51
+
+Pass: structConflict.valueOf
+      Actual: 1
+
+PASS [Test 10: Collisions with built in properties]
+=================================================
+
+=================================================
+Starting [Test 11: Static collisions with built in properties]
+Comment: Verifying members of DevTests.CamelCasing.CrossMemberCollisions.BuiltInConflicts()
+Pass: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.constructor should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.constructor() { [native code] }
+      Actual: function
+
+Pass: Length should be defined
+      Actual: function
+
+Pass: typeof function Length() { [native code] }
+      Actual: function
+
+Pass: Prototype should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Prototype
+      Actual: string
+
+Pass: apply should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Apply
+      Actual: string
+
+Pass: call should be defined
+      Actual: function
+
+Pass: typeof function call() { [native code] }
+      Actual: function
+
+Pass: hasOwnProperty should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: isPrototypeOf should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.isPrototypeOf
+      Actual: string
+
+Pass: propertyIsEnumerable should be defined
+      Actual: function
+
+Pass: typeof function propertyIsEnumerable() { [native code] }
+      Actual: function
+
+Pass: toLocalString should be defined
+      Actual: function
+
+Pass: typeof function toLocalString() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: valueOf should be defined
+      Actual: function
+
+Pass: typeof function valueOf() { [native code] }
+      Actual: function
+
+Pass: staticBuiltInConflicts.apply
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Apply
+
+Pass: staticBuiltInConflicts['hasOwnProperty']
+      Actual: 0
+
+Pass: staticBuiltInConflicts['hasOwnProperty']
+      Actual: 125
+
+Pass: staticBuiltInConflicts.isPrototypeOf
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.isPrototypeOf
+
+Pass: staticBuiltInConflicts.Prototype
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Prototype
+
+Pass: staticBuiltInConflicts.toString
+      Actual: 0
+
+Pass: staticBuiltInConflicts.toString
+      Actual: 24
+
+Pass: staticBuiltInConflicts.call(1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Call(int) Called
+
+Pass: staticBuiltInConflicts['DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.constructor'](1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.constructor(int) Called
+
+Pass: staticBuiltInConflicts.propertyIsEnumerable(1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.PropertyIsEnumerable(int) Called
+
+Pass: staticBuiltInConflicts['toLocalString'](1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.toLocalString(int) Called
+
+Pass: staticBuiltInConflicts.valueOf(1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.ValueOf(int) Called
+
+Pass: staticBuiltInConflicts.Length(1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Length(int) Called
+
+Pass: staticBuiltInConflicts.length
+      Actual: 0
+
+PASS [Test 11: Static collisions with built in properties]
+=================================================
+
+=================================================
+Starting [Test 12: Length property conflicts]
+Comment: 'Length' prototype member conflicting with vector length
+Comment: Verifying members of [object DevTests.CamelCasing.CrossMemberCollisions.VectorLengthConflict]
+Pass: 0 should be defined
+      Actual: number
+
+Pass: typeof 1
+      Actual: number
+
+Pass: 1 should be defined
+      Actual: number
+
+Pass: typeof 2
+      Actual: number
+
+Pass: 2 should be defined
+      Actual: number
+
+Pass: typeof 3
+      Actual: number
+
+Pass: 3 should be defined
+      Actual: number
+
+Pass: typeof 4
+      Actual: number
+
+Pass: 4 should be defined
+      Actual: number
+
+Pass: typeof 5
+      Actual: number
+
+Pass: 5 should be defined
+      Actual: number
+
+Pass: typeof 6
+      Actual: number
+
+Pass: 6 should be defined
+      Actual: number
+
+Pass: typeof 7
+      Actual: number
+
+Pass: 7 should be defined
+      Actual: number
+
+Pass: typeof 8
+      Actual: number
+
+Pass: 8 should be defined
+      Actual: number
+
+Pass: typeof 9
+      Actual: number
+
+Pass: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.constructor should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.constructor() { [native code] }
+      Actual: function
+
+Pass: Prototype should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Prototype
+      Actual: string
+
+Pass: append should be defined
+      Actual: function
+
+Pass: typeof function append() { [native code] }
+      Actual: function
+
+Pass: apply should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Apply
+      Actual: string
+
+Pass: call should be defined
+      Actual: function
+
+Pass: typeof function call() { [native code] }
+      Actual: function
+
+Pass: clear should be defined
+      Actual: function
+
+Pass: typeof function clear() { [native code] }
+      Actual: function
+
+Pass: first should be defined
+      Actual: function
+
+Pass: typeof function first() { [native code] }
+      Actual: function
+
+Pass: getAt should be defined
+      Actual: function
+
+Pass: typeof function getAt() { [native code] }
+      Actual: function
+
+Pass: getMany should be defined
+      Actual: function
+
+Pass: typeof function getMany() { [native code] }
+      Actual: function
+
+Pass: getView should be defined
+      Actual: function
+
+Pass: typeof function getView() { [native code] }
+      Actual: function
+
+Pass: hasOwnProperty should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: indexOf should be defined
+      Actual: function
+
+Pass: typeof function indexOf() { [native code] }
+      Actual: function
+
+Pass: insertAt should be defined
+      Actual: function
+
+Pass: typeof function insertAt() { [native code] }
+      Actual: function
+
+Pass: isPrototypeOf should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.isPrototypeOf
+      Actual: string
+
+Pass: propertyIsEnumerable should be defined
+      Actual: function
+
+Pass: typeof function propertyIsEnumerable() { [native code] }
+      Actual: function
+
+Pass: removeAt should be defined
+      Actual: function
+
+Pass: typeof function removeAt() { [native code] }
+      Actual: function
+
+Pass: removeAtEnd should be defined
+      Actual: function
+
+Pass: typeof function removeAtEnd() { [native code] }
+      Actual: function
+
+Pass: replaceAll should be defined
+      Actual: function
+
+Pass: typeof function replaceAll() { [native code] }
+      Actual: function
+
+Pass: setAt should be defined
+      Actual: function
+
+Pass: typeof function setAt() { [native code] }
+      Actual: function
+
+Pass: size should be defined
+      Actual: number
+
+Pass: typeof 9
+      Actual: number
+
+Pass: toLocalString should be defined
+      Actual: function
+
+Pass: typeof function toLocalString() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: valueOf should be defined
+      Actual: function
+
+Pass: typeof function valueOf() { [native code] }
+      Actual: function
+
+Pass: vectorLengthConflictPrototype.length.call(vectorLengthConflict, 1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IBuiltInConflicts.Length(int) Called
+
+Pass: vectorLengthConflict.length
+      Actual: 9
+
+Comment: 'length' static member conflicting with constructor length
+Comment: Verifying members of DevTests.CamelCasing.CrossMemberCollisions.CamelLengthConflict()
+Pass: DevTests.CamelCasing.CrossMemberCollisions.ICamelLengthConflict.length should be defined
+      Actual: function
+
+Pass: typeof function DevTests.CamelCasing.CrossMemberCollisions.ICamelLengthConflict.length() { [native code] }
+      Actual: function
+
+Pass: camelLengthConflictStatic['DevTests.CamelCasing.CrossMemberCollisions.ICamelLengthConflict.length'](1)
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.ICamelLengthConflict.length(int) Called
+
+Pass: typeof 0
+      Actual: number
+
+Pass: camelLengthConflictStatic.length
+      Actual: 0
+
+Comment: 'Length' static member conflicting with constructor length
+Comment: Verifying members of DevTests.CamelCasing.CrossMemberCollisions.PascalLengthConflict()
+Pass: Length should be defined
+      Actual: string
+
+Pass: typeof DevTests.CamelCasing.CrossMemberCollisions.IPascalLengthConflict.Length
+      Actual: string
+
+Pass: pascalLengthConflictStatic.Length
+      Actual: DevTests.CamelCasing.CrossMemberCollisions.IPascalLengthConflict.Length
+
+Pass: typeof 0
+      Actual: number
+
+Pass: pascalLengthConflictStatic.length
+      Actual: 0
+
+PASS [Test 12: Length property conflicts]
+=================================================
+
+Passed: 12
+Failed: 0

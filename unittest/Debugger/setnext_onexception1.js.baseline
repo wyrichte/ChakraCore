@@ -1,0 +1,3 @@
+foo : isInJit : true
+foo : isInJit : false
+pass

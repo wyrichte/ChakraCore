@@ -1,0 +1,18 @@
+DIRS=\
+    Functional{Test,noncrit} \
+    Perf{Test,noncrit} \
+    Generated{Test,noncrit} \
+    MetaDataParsing{Test,noncrit} \
+    NoWinRTFastSig{Test,noncrit} \
+    MemoryTracing{Test,noncrit} \
+    HeapDump{Test,noncrit} \
+    HeapDumpGCPressure{Test,noncrit} \
+    RecyclerStress{Test,noncrit} \
+    ScriptErrorTests{Test,noncrit} \
+    Scripts{Test} \
+    Snap{Test,noncrit} \
+    DevAppx{Test,noncrit} \
+    CLR{Test} \
+    PhoneDevTestPkg{Test,noncrit} \
+    TaefDataSource{Test,noncrit} \
+    

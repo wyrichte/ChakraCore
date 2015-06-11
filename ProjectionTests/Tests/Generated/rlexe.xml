@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+<test>
+   <default>
+      <files>ZooTest.js</files>
+      <baseline>ZooTest.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>fail,exclude_snap</tags>
+   </default>
+</test>
+
+</regress-exe>

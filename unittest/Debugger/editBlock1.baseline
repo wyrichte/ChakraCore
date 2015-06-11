@@ -1,0 +1,22 @@
+=== Before change ===
+function Timer() { }
+ENC: QueryEdit: 1 requests
+ENC: editblock1.js (122,127):
+/**edit(test)**/
+        /// function dummy(){};
+        /// ...
+===>
+ function dummy(){};
+ function dummy2() { return dummy; }
+...
+ENC: === AST Diffing ===
+ENC: Update: FuncDecl function g() {..    if (true) { -> FuncDecl function g() {..    if (true) {
+ENC: Insert: FuncDecl function dummy(){}
+ENC: Insert: FuncDecl function dummy2() { return dumm
+ENC: === Semantic Changes ===
+ENC: UpdateFunction: FuncDecl function g() {..    if (true) { -> FuncDecl function g() {..    if (true) {
+ENC:     Old functionBody: g
+ENC: MoveFunction: FuncDecl function test() {..    WScript. -> FuncDecl function test() {..    WScript.
+ENC:     Old functionBody: test
+=== After change ===
+function Timer() { }

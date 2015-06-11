@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body onload="test()">
+<script src="TrimStackTracePath.js"></script>
+<script src="LongCallStackThrow.js"></script>
+<script>
+function doCalls(parent, child) {
+    Dump("-- Parent Error.stackTraceLimit: " + parent.Error.stackTraceLimit
+            + ", child Error.stackTraceLimit: " + child.Error.stackTraceLimit);
+    Dump("-- Parent");
+    parent.runtest(30);
+    Dump("-- Child");
+    child.runtest(30);
+    Dump("");
+}
+
+function test() {
+    var child = this.frames["frame1"].contentWindow;
+
+    Error.stackTraceLimit = 5;
+    doCalls(this, child);
+
+    child.Error.stackTraceLimit = Infinity;
+    doCalls(this, child);
+
+    Error.stackTraceLimit = Infinity;
+    child.Error.stackTraceLimit = 3;
+    doCalls(this, child);
+}
+</script>
+<iframe id="frame1" src="StackTraceLimitChild.html">
+</body>
+</html>

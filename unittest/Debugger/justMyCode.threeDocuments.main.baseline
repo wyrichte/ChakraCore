@@ -1,0 +1,11 @@
+Main() - IsInJitMode() == false
+Start!
+DO() - IsInJitMode() == false
+Print() - IsInJitMode() == false
+PrintInner() - IsInJitMode() == false
+foo to inner document!
+/PrintInner() - IsInJitMode() == false
+/Print() - IsInJitMode() == false
+/DO() - IsInJitMode() == false
+Completed!
+/Main() - IsInJitMode() == false

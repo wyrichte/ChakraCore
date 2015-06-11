@@ -1,0 +1,193 @@
+[
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "debugevalparamstest.js"
+        },
+        {
+          "Name": "debugevalparamstest_child.js"
+        }
+      ]
+    }
+  },
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "debugevalparamstest.js"
+        },
+        {
+          "Name": "debugevalparamstest_child.js"
+        }
+      ]
+    }
+  },
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "debugevalparamstest.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "var x2 = 2;"
+            }
+          ]
+        },
+        {
+          "Name": "debugevalparamstest_child.js"
+        }
+      ]
+    }
+  },
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "debugevalparamstest.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "var x2 = 2;"
+            }
+          ]
+        },
+        {
+          "Name": "debugevalparamstest_child.js"
+        }
+      ]
+    }
+  },
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "debugevalparamstest.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "var x2 = 2;"
+            }
+          ]
+        },
+        {
+          "Name": "debugevalparamstest_child.js"
+        }
+      ]
+    }
+  },
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "debugevalparamstest.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "var x2 = 2;"
+            },
+            {
+              "Name": "eval code (2)",
+              "Text": "var x5 = 5;"
+            }
+          ]
+        },
+        {
+          "Name": "debugevalparamstest_child.js"
+        }
+      ]
+    }
+  },
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "debugevalparamstest.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "var x2 = 2;"
+            },
+            {
+              "Name": "eval code (2)",
+              "Text": "var x5 = 5;"
+            }
+          ]
+        },
+        {
+          "Name": "debugevalparamstest_child.js"
+        }
+      ]
+    }
+  },
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "debugevalparamstest.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "var x2 = 2;"
+            },
+            {
+              "Name": "eval code (2)",
+              "Text": "var x5 = 5;"
+            },
+            {
+              "Name": "eval code (3)",
+              "Text": "var obj2 = {};ob"
+            },
+            {
+              "Name": "eval code (4)",
+              "Text": "var obj3 = {};ob"
+            }
+          ]
+        },
+        {
+          "Name": "debugevalparamstest_child.js"
+        }
+      ]
+    }
+  },
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "debugevalparamstest.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "var x2 = 2;"
+            },
+            {
+              "Name": "eval code (2)",
+              "Text": "var x5 = 5;"
+            },
+            {
+              "Name": "eval code (3)",
+              "Text": "var obj2 = {};ob"
+            },
+            {
+              "Name": "eval code (4)",
+              "Text": "var obj3 = {};ob"
+            }
+          ]
+        },
+        {
+          "Name": "debugevalparamstest_child.js"
+        }
+      ]
+    }
+  }
+]

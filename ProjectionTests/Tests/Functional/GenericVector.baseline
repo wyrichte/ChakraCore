@@ -1,0 +1,1708 @@
+Generic Vector tests
+
+=================================================
+Starting [Test 1: MarshalVectorOut]
+Comment: typeof myVector: object
+Comment: Dump of properties : 
+    var myVectorMembers = [
+        ['0', 'number'],
+        ['1', 'number'],
+        ['2', 'number'],
+        ['3', 'number'],
+        ['4', 'number'],
+        ['5', 'number'],
+        ['6', 'number'],
+        ['7', 'number'],
+        ['8', 'number'],
+        ['append', 'function', 1],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['getView', 'function', 0],
+        ['indexOf', 'function', 1],
+        ['insertAt', 'function', 2],
+        ['removeAt', 'function', 1],
+        ['removeAtEnd', 'function', 0],
+        ['replaceAll', 'function', 1],
+        ['setAt', 'function', 2],
+        ['size', 'number'],
+    ];
+Pass: typeof myVector
+      Actual: object
+
+Pass: myVector's property
+      Actual: 0
+
+Pass: typeof myVector["0"]
+      Actual: number
+
+Pass: myVector["0"]
+      Actual: 1
+
+Pass: myVector's property
+      Actual: 1
+
+Pass: typeof myVector["1"]
+      Actual: number
+
+Pass: myVector["1"]
+      Actual: 2
+
+Pass: myVector's property
+      Actual: 2
+
+Pass: typeof myVector["2"]
+      Actual: number
+
+Pass: myVector["2"]
+      Actual: 3
+
+Pass: myVector's property
+      Actual: 3
+
+Pass: typeof myVector["3"]
+      Actual: number
+
+Pass: myVector["3"]
+      Actual: 4
+
+Pass: myVector's property
+      Actual: 4
+
+Pass: typeof myVector["4"]
+      Actual: number
+
+Pass: myVector["4"]
+      Actual: 5
+
+Pass: myVector's property
+      Actual: 5
+
+Pass: typeof myVector["5"]
+      Actual: number
+
+Pass: myVector["5"]
+      Actual: 6
+
+Pass: myVector's property
+      Actual: 6
+
+Pass: typeof myVector["6"]
+      Actual: number
+
+Pass: myVector["6"]
+      Actual: 7
+
+Pass: myVector's property
+      Actual: 7
+
+Pass: typeof myVector["7"]
+      Actual: number
+
+Pass: myVector["7"]
+      Actual: 8
+
+Pass: myVector's property
+      Actual: 8
+
+Pass: typeof myVector["8"]
+      Actual: number
+
+Pass: myVector["8"]
+      Actual: 9
+
+Pass: myVector's property
+      Actual: append
+
+Pass: typeof myVector["append"]
+      Actual: function
+
+Pass: myVector["append"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector["append"].length
+      Actual: 1
+
+Pass: myVector's property
+      Actual: clear
+
+Pass: typeof myVector["clear"]
+      Actual: function
+
+Pass: myVector["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector["clear"].length
+      Actual: 0
+
+Pass: myVector's property
+      Actual: first
+
+Pass: typeof myVector["first"]
+      Actual: function
+
+Pass: myVector["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector["first"].length
+      Actual: 0
+
+Pass: myVector's property
+      Actual: getAt
+
+Pass: typeof myVector["getAt"]
+      Actual: function
+
+Pass: myVector["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector["getAt"].length
+      Actual: 1
+
+Pass: myVector's property
+      Actual: getMany
+
+Pass: typeof myVector["getMany"]
+      Actual: function
+
+Pass: myVector["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector["getMany"].length
+      Actual: 2
+
+Pass: myVector's property
+      Actual: getView
+
+Pass: typeof myVector["getView"]
+      Actual: function
+
+Pass: myVector["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector["getView"].length
+      Actual: 0
+
+Pass: myVector's property
+      Actual: indexOf
+
+Pass: typeof myVector["indexOf"]
+      Actual: function
+
+Pass: myVector["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector["indexOf"].length
+      Actual: 1
+
+Pass: myVector's property
+      Actual: insertAt
+
+Pass: typeof myVector["insertAt"]
+      Actual: function
+
+Pass: myVector["insertAt"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector["insertAt"].length
+      Actual: 2
+
+Pass: myVector's property
+      Actual: removeAt
+
+Pass: typeof myVector["removeAt"]
+      Actual: function
+
+Pass: myVector["removeAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector["removeAt"].length
+      Actual: 1
+
+Pass: myVector's property
+      Actual: removeAtEnd
+
+Pass: typeof myVector["removeAtEnd"]
+      Actual: function
+
+Pass: myVector["removeAtEnd"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector["removeAtEnd"].length
+      Actual: 0
+
+Pass: myVector's property
+      Actual: replaceAll
+
+Pass: typeof myVector["replaceAll"]
+      Actual: function
+
+Pass: myVector["replaceAll"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector["replaceAll"].length
+      Actual: 1
+
+Pass: myVector's property
+      Actual: setAt
+
+Pass: typeof myVector["setAt"]
+      Actual: function
+
+Pass: myVector["setAt"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector["setAt"].length
+      Actual: 2
+
+Pass: myVector's property
+      Actual: size
+
+Pass: typeof myVector["size"]
+      Actual: number
+
+Pass: number of properties of myVector
+      Actual: 22
+
+PASS [Test 1: MarshalVectorOut]
+=================================================
+
+=================================================
+Starting [Test 2: VectorGetAt_VectorSize]
+Pass: myVector.size
+      Actual: 9
+
+Pass: myVector.getAt(0)
+      Actual: 1
+
+Pass: myVector.getAt(1)
+      Actual: 2
+
+Pass: myVector.getAt(2)
+      Actual: 3
+
+Pass: myVector.getAt(3)
+      Actual: 4
+
+Pass: myVector.getAt(4)
+      Actual: 5
+
+Pass: myVector.getAt(5)
+      Actual: 6
+
+Pass: myVector.getAt(6)
+      Actual: 7
+
+Pass: myVector.getAt(7)
+      Actual: 8
+
+Pass: myVector.getAt(8)
+      Actual: 9
+
+Pass: number of members
+      Actual: 9
+
+PASS [Test 2: VectorGetAt_VectorSize]
+=================================================
+
+=================================================
+Starting [Test 3: VectorSetAt]
+Pass: myVector.getAt(2)
+      Actual: 3
+
+Pass: myVector.getAt(5)
+      Actual: 6
+
+Comment: myVector.setAt(5) with myVector.getAt(2))
+Pass: myVector.getAt(2)
+      Actual: 3
+
+Pass: myVector.getAt(5)
+      Actual: 3
+
+PASS [Test 3: VectorSetAt]
+=================================================
+
+=================================================
+Starting [Test 4: VectorRemoveAt]
+Comment: myVector.removeAt(6)
+Pass: myVector.size
+      Actual: 8
+
+Pass: myVector.getAt(0)
+      Actual: 1
+
+Pass: myVector.getAt(1)
+      Actual: 2
+
+Pass: myVector.getAt(2)
+      Actual: 3
+
+Pass: myVector.getAt(3)
+      Actual: 4
+
+Pass: myVector.getAt(4)
+      Actual: 5
+
+Pass: myVector.getAt(5)
+      Actual: 6
+
+Pass: myVector.getAt(6)
+      Actual: 8
+
+Pass: myVector.getAt(7)
+      Actual: 9
+
+Pass: number of members
+      Actual: 8
+
+PASS [Test 4: VectorRemoveAt]
+=================================================
+
+=================================================
+Starting [Test 5: VectorInsertAt]
+Comment: myVector.insertAt(1, 1111)
+Pass: myVector.size
+      Actual: 10
+
+Pass: myVector.getAt(0)
+      Actual: 1
+
+Pass: myVector.getAt(1)
+      Actual: 1111
+
+Pass: myVector.getAt(2)
+      Actual: 2
+
+Pass: myVector.getAt(3)
+      Actual: 3
+
+Pass: myVector.getAt(4)
+      Actual: 4
+
+Pass: myVector.getAt(5)
+      Actual: 5
+
+Pass: myVector.getAt(6)
+      Actual: 6
+
+Pass: myVector.getAt(7)
+      Actual: 7
+
+Pass: myVector.getAt(8)
+      Actual: 8
+
+Pass: myVector.getAt(9)
+      Actual: 9
+
+Pass: number of members
+      Actual: 10
+
+PASS [Test 5: VectorInsertAt]
+=================================================
+
+=================================================
+Starting [Test 6: VectorRemoveAtEnd]
+Comment: myVector.removeAtEnd()
+Pass: myVector.size
+      Actual: 8
+
+Pass: myVector.getAt(0)
+      Actual: 1
+
+Pass: myVector.getAt(1)
+      Actual: 2
+
+Pass: myVector.getAt(2)
+      Actual: 3
+
+Pass: myVector.getAt(3)
+      Actual: 4
+
+Pass: myVector.getAt(4)
+      Actual: 5
+
+Pass: myVector.getAt(5)
+      Actual: 6
+
+Pass: myVector.getAt(6)
+      Actual: 7
+
+Pass: myVector.getAt(7)
+      Actual: 8
+
+Pass: number of members
+      Actual: 8
+
+PASS [Test 6: VectorRemoveAtEnd]
+=================================================
+
+=================================================
+Starting [Test 7: VectorIndexOf]
+Pass: index of myVector.indexOf(2)
+      Actual: 1
+
+Pass: returnValue of myVector.indexOf(2)
+      Actual: true
+
+Pass: returnValue of myVector.indexOf(10)
+      Actual: false
+
+PASS [Test 7: VectorIndexOf]
+=================================================
+
+=================================================
+Starting [Test 8: VectorClear]
+Comment: myVector.clear()
+Pass: myVector.size
+      Actual: 0
+
+Pass: number of members
+      Actual: 0
+
+PASS [Test 8: VectorClear]
+=================================================
+
+=================================================
+Starting [Test 9: VectorAppend]
+Pass: myVector.size
+      Actual: 18
+
+Pass: myVector.getAt(0)
+      Actual: 1
+
+Pass: myVector.getAt(1)
+      Actual: 2
+
+Pass: myVector.getAt(2)
+      Actual: 3
+
+Pass: myVector.getAt(3)
+      Actual: 4
+
+Pass: myVector.getAt(4)
+      Actual: 5
+
+Pass: myVector.getAt(5)
+      Actual: 6
+
+Pass: myVector.getAt(6)
+      Actual: 7
+
+Pass: myVector.getAt(7)
+      Actual: 8
+
+Pass: myVector.getAt(8)
+      Actual: 9
+
+Pass: myVector.getAt(9)
+      Actual: 11
+
+Pass: myVector.getAt(10)
+      Actual: 22
+
+Pass: myVector.getAt(11)
+      Actual: 33
+
+Pass: myVector.getAt(12)
+      Actual: 44
+
+Pass: myVector.getAt(13)
+      Actual: 55
+
+Pass: myVector.getAt(14)
+      Actual: 66
+
+Pass: myVector.getAt(15)
+      Actual: 77
+
+Pass: myVector.getAt(16)
+      Actual: 88
+
+Pass: myVector.getAt(17)
+      Actual: 99
+
+Pass: number of members
+      Actual: 18
+
+PASS [Test 9: VectorAppend]
+=================================================
+
+=================================================
+Starting [Test 10: VectorIterableFirst]
+Comment: typeof myVectorIterator: object
+Comment: Dump of properties : 
+    var myVectorIteratorMembers = [
+        ['current', 'number'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myVectorIterator
+      Actual: object
+
+Pass: myVectorIterator's property
+      Actual: current
+
+Pass: typeof myVectorIterator["current"]
+      Actual: number
+
+Pass: myVectorIterator's property
+      Actual: getMany
+
+Pass: typeof myVectorIterator["getMany"]
+      Actual: function
+
+Pass: myVectorIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorIterator["getMany"].length
+      Actual: 1
+
+Pass: myVectorIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myVectorIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myVectorIterator's property
+      Actual: moveNext
+
+Pass: typeof myVectorIterator["moveNext"]
+      Actual: function
+
+Pass: myVectorIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorIterator["moveNext"].length
+      Actual: 0
+
+Pass: myVectorIterator's property
+      Actual: toString
+
+Pass: typeof myVectorIterator["toString"]
+      Actual: function
+
+Pass: myVectorIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myVectorIterator
+      Actual: 5
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 1
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 2
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 3
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 4
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 5
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 6
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 7
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 8
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 9
+
+Pass: iterator.moveNext()
+      Actual: false
+
+Pass: iterator.hasCurrent
+      Actual: false
+
+Pass: number of members
+      Actual: 9
+
+Comment: Iterator::getMany
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 1
+
+Pass: manyItems[1]
+      Actual: 2
+
+Pass: manyItems[2]
+      Actual: 3
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 4
+
+Pass: manyItems[1]
+      Actual: 5
+
+Pass: manyItems[2]
+      Actual: 6
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 7
+
+Pass: manyItems[1]
+      Actual: 8
+
+Pass: manyItems[2]
+      Actual: 9
+
+Pass: myNewIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+PASS [Test 10: VectorIterableFirst]
+=================================================
+
+=================================================
+Starting [Test 11: VectorGetView]
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'number'],
+        ['1', 'number'],
+        ['2', 'number'],
+        ['3', 'number'],
+        ['4', 'number'],
+        ['5', 'number'],
+        ['6', 'number'],
+        ['7', 'number'],
+        ['8', 'number'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: number
+
+Pass: myVectorView["0"]
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: number
+
+Pass: myVectorView["1"]
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: number
+
+Pass: myVectorView["2"]
+      Actual: 3
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: number
+
+Pass: myVectorView["3"]
+      Actual: 4
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: number
+
+Pass: myVectorView["4"]
+      Actual: 5
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: number
+
+Pass: myVectorView["5"]
+      Actual: 6
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: number
+
+Pass: myVectorView["6"]
+      Actual: 7
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: number
+
+Pass: myVectorView["7"]
+      Actual: 8
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: number
+
+Pass: myVectorView["8"]
+      Actual: 9
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 14
+
+Comment: myVectorView::getAt and myVectorView::size
+Pass: myVector.size
+      Actual: 9
+
+Pass: myVector.getAt(0)
+      Actual: 1
+
+Pass: myVector.getAt(1)
+      Actual: 2
+
+Pass: myVector.getAt(2)
+      Actual: 3
+
+Pass: myVector.getAt(3)
+      Actual: 4
+
+Pass: myVector.getAt(4)
+      Actual: 5
+
+Pass: myVector.getAt(5)
+      Actual: 6
+
+Pass: myVector.getAt(6)
+      Actual: 7
+
+Pass: myVector.getAt(7)
+      Actual: 8
+
+Pass: myVector.getAt(8)
+      Actual: 9
+
+Pass: number of members
+      Actual: 9
+
+Comment: myVectorView::indexOf
+Pass: index of myVectorView.indexOf(2)
+      Actual: 1
+
+Pass: returnValue of myVectorView.indexOf(2)
+      Actual: true
+
+Pass: returnValue of myVectorView.indexOf(11)
+      Actual: false
+
+Comment: myVectorView::first
+Comment: typeof myVectorViewIterator: object
+Comment: Dump of properties : 
+    var myVectorViewIteratorMembers = [
+        ['current', 'number'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myVectorViewIterator
+      Actual: object
+
+Pass: myVectorViewIterator's property
+      Actual: current
+
+Pass: typeof myVectorViewIterator["current"]
+      Actual: number
+
+Pass: myVectorViewIterator's property
+      Actual: getMany
+
+Pass: typeof myVectorViewIterator["getMany"]
+      Actual: function
+
+Pass: myVectorViewIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorViewIterator["getMany"].length
+      Actual: 1
+
+Pass: myVectorViewIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myVectorViewIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myVectorViewIterator's property
+      Actual: moveNext
+
+Pass: typeof myVectorViewIterator["moveNext"]
+      Actual: function
+
+Pass: myVectorViewIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorViewIterator["moveNext"].length
+      Actual: 0
+
+Pass: myVectorViewIterator's property
+      Actual: toString
+
+Pass: typeof myVectorViewIterator["toString"]
+      Actual: function
+
+Pass: myVectorViewIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorViewIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myVectorViewIterator
+      Actual: 5
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 1
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 2
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 3
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 4
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 5
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 6
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 7
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 8
+
+Pass: iterator.moveNext()
+      Actual: true
+
+Pass: iterator.hasCurrent
+      Actual: true
+
+Pass: iterator.current
+      Actual: 9
+
+Pass: iterator.moveNext()
+      Actual: false
+
+Pass: iterator.hasCurrent
+      Actual: false
+
+Pass: number of members
+      Actual: 9
+
+Comment: myVectorView::getMany
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 6
+
+Pass: manyItems[1]
+      Actual: 7
+
+Pass: manyItems[2]
+      Actual: 8
+
+PASS [Test 11: VectorGetView]
+=================================================
+
+=================================================
+Starting [Test 12: PassVectorAsInParam]
+Comment: var myDuplicateVector =  myAnimal.copyVector(myVector)
+Comment: typeof myDuplicateVector: object
+Comment: Dump of properties : 
+    var myDuplicateVectorMembers = [
+        ['0', 'number'],
+        ['1', 'number'],
+        ['2', 'number'],
+        ['3', 'number'],
+        ['4', 'number'],
+        ['5', 'number'],
+        ['6', 'number'],
+        ['7', 'number'],
+        ['8', 'number'],
+        ['append', 'function', 1],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['getView', 'function', 0],
+        ['indexOf', 'function', 1],
+        ['insertAt', 'function', 2],
+        ['removeAt', 'function', 1],
+        ['removeAtEnd', 'function', 0],
+        ['replaceAll', 'function', 1],
+        ['setAt', 'function', 2],
+        ['size', 'number'],
+    ];
+Pass: typeof myDuplicateVector
+      Actual: object
+
+Pass: myDuplicateVector's property
+      Actual: 0
+
+Pass: typeof myDuplicateVector["0"]
+      Actual: number
+
+Pass: myDuplicateVector["0"]
+      Actual: 1
+
+Pass: myDuplicateVector's property
+      Actual: 1
+
+Pass: typeof myDuplicateVector["1"]
+      Actual: number
+
+Pass: myDuplicateVector["1"]
+      Actual: 2
+
+Pass: myDuplicateVector's property
+      Actual: 2
+
+Pass: typeof myDuplicateVector["2"]
+      Actual: number
+
+Pass: myDuplicateVector["2"]
+      Actual: 3
+
+Pass: myDuplicateVector's property
+      Actual: 3
+
+Pass: typeof myDuplicateVector["3"]
+      Actual: number
+
+Pass: myDuplicateVector["3"]
+      Actual: 4
+
+Pass: myDuplicateVector's property
+      Actual: 4
+
+Pass: typeof myDuplicateVector["4"]
+      Actual: number
+
+Pass: myDuplicateVector["4"]
+      Actual: 5
+
+Pass: myDuplicateVector's property
+      Actual: 5
+
+Pass: typeof myDuplicateVector["5"]
+      Actual: number
+
+Pass: myDuplicateVector["5"]
+      Actual: 6
+
+Pass: myDuplicateVector's property
+      Actual: 6
+
+Pass: typeof myDuplicateVector["6"]
+      Actual: number
+
+Pass: myDuplicateVector["6"]
+      Actual: 7
+
+Pass: myDuplicateVector's property
+      Actual: 7
+
+Pass: typeof myDuplicateVector["7"]
+      Actual: number
+
+Pass: myDuplicateVector["7"]
+      Actual: 8
+
+Pass: myDuplicateVector's property
+      Actual: 8
+
+Pass: typeof myDuplicateVector["8"]
+      Actual: number
+
+Pass: myDuplicateVector["8"]
+      Actual: 9
+
+Pass: myDuplicateVector's property
+      Actual: append
+
+Pass: typeof myDuplicateVector["append"]
+      Actual: function
+
+Pass: myDuplicateVector["append"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDuplicateVector["append"].length
+      Actual: 1
+
+Pass: myDuplicateVector's property
+      Actual: clear
+
+Pass: typeof myDuplicateVector["clear"]
+      Actual: function
+
+Pass: myDuplicateVector["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDuplicateVector["clear"].length
+      Actual: 0
+
+Pass: myDuplicateVector's property
+      Actual: first
+
+Pass: typeof myDuplicateVector["first"]
+      Actual: function
+
+Pass: myDuplicateVector["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDuplicateVector["first"].length
+      Actual: 0
+
+Pass: myDuplicateVector's property
+      Actual: getAt
+
+Pass: typeof myDuplicateVector["getAt"]
+      Actual: function
+
+Pass: myDuplicateVector["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDuplicateVector["getAt"].length
+      Actual: 1
+
+Pass: myDuplicateVector's property
+      Actual: getMany
+
+Pass: typeof myDuplicateVector["getMany"]
+      Actual: function
+
+Pass: myDuplicateVector["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myDuplicateVector["getMany"].length
+      Actual: 2
+
+Pass: myDuplicateVector's property
+      Actual: getView
+
+Pass: typeof myDuplicateVector["getView"]
+      Actual: function
+
+Pass: myDuplicateVector["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDuplicateVector["getView"].length
+      Actual: 0
+
+Pass: myDuplicateVector's property
+      Actual: indexOf
+
+Pass: typeof myDuplicateVector["indexOf"]
+      Actual: function
+
+Pass: myDuplicateVector["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDuplicateVector["indexOf"].length
+      Actual: 1
+
+Pass: myDuplicateVector's property
+      Actual: insertAt
+
+Pass: typeof myDuplicateVector["insertAt"]
+      Actual: function
+
+Pass: myDuplicateVector["insertAt"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myDuplicateVector["insertAt"].length
+      Actual: 2
+
+Pass: myDuplicateVector's property
+      Actual: removeAt
+
+Pass: typeof myDuplicateVector["removeAt"]
+      Actual: function
+
+Pass: myDuplicateVector["removeAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDuplicateVector["removeAt"].length
+      Actual: 1
+
+Pass: myDuplicateVector's property
+      Actual: removeAtEnd
+
+Pass: typeof myDuplicateVector["removeAtEnd"]
+      Actual: function
+
+Pass: myDuplicateVector["removeAtEnd"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDuplicateVector["removeAtEnd"].length
+      Actual: 0
+
+Pass: myDuplicateVector's property
+      Actual: replaceAll
+
+Pass: typeof myDuplicateVector["replaceAll"]
+      Actual: function
+
+Pass: myDuplicateVector["replaceAll"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDuplicateVector["replaceAll"].length
+      Actual: 1
+
+Pass: myDuplicateVector's property
+      Actual: setAt
+
+Pass: typeof myDuplicateVector["setAt"]
+      Actual: function
+
+Pass: myDuplicateVector["setAt"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myDuplicateVector["setAt"].length
+      Actual: 2
+
+Pass: myDuplicateVector's property
+      Actual: size
+
+Pass: typeof myDuplicateVector["size"]
+      Actual: number
+
+Pass: number of properties of myDuplicateVector
+      Actual: 22
+
+Pass: myVector.size
+      Actual: 9
+
+Pass: myVector.getAt(0)
+      Actual: 1
+
+Pass: myVector.getAt(1)
+      Actual: 2
+
+Pass: myVector.getAt(2)
+      Actual: 3
+
+Pass: myVector.getAt(3)
+      Actual: 4
+
+Pass: myVector.getAt(4)
+      Actual: 5
+
+Pass: myVector.getAt(5)
+      Actual: 6
+
+Pass: myVector.getAt(6)
+      Actual: 7
+
+Pass: myVector.getAt(7)
+      Actual: 8
+
+Pass: myVector.getAt(8)
+      Actual: 9
+
+Pass: number of members
+      Actual: 9
+
+PASS [Test 12: PassVectorAsInParam]
+=================================================
+
+=================================================
+Starting [Test 13: VectorGetMany]
+Comment: fill the manyItems by calling getMany
+Pass: gotManyItems
+      Actual: 5
+
+Pass: manyItems[0]
+      Actual: 3
+
+Pass: manyItems[1]
+      Actual: 4
+
+Pass: manyItems[2]
+      Actual: 5
+
+Pass: manyItems[3]
+      Actual: 6
+
+Pass: manyItems[4]
+      Actual: 7
+
+Comment: fill the manyItems by calling getMany with null
+Pass: gotManyItems
+      Actual: 0
+
+Comment: fill the manyItems by calling getMany with array of 0 length
+Pass: gotManyItems
+      Actual: 0
+
+Pass: manyItems.length
+      Actual: 0
+
+PASS [Test 13: VectorGetMany]
+=================================================
+
+=================================================
+Starting [Test 14: VectorReplaceAll]
+Comment: replace the vector by new array
+Comment: typeof myVector: object
+Comment: Dump of properties : 
+    var myVectorMembers = [
+        ['0', 'number'],
+        ['1', 'number'],
+        ['2', 'number'],
+        ['3', 'number'],
+        ['append', 'function', 1],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['getView', 'function', 0],
+        ['indexOf', 'function', 1],
+        ['insertAt', 'function', 2],
+        ['removeAt', 'function', 1],
+        ['removeAtEnd', 'function', 0],
+        ['replaceAll', 'function', 1],
+        ['setAt', 'function', 2],
+        ['size', 'number'],
+    ];
+Pass: typeof myVector
+      Actual: object
+
+Pass: myVector's property
+      Actual: 0
+
+Pass: typeof myVector["0"]
+      Actual: number
+
+Pass: myVector["0"]
+      Actual: 50
+
+Pass: myVector's property
+      Actual: 1
+
+Pass: typeof myVector["1"]
+      Actual: number
+
+Pass: myVector["1"]
+      Actual: 100
+
+Pass: myVector's property
+      Actual: 2
+
+Pass: typeof myVector["2"]
+      Actual: number
+
+Pass: myVector["2"]
+      Actual: 150
+
+Pass: myVector's property
+      Actual: 3
+
+Pass: typeof myVector["3"]
+      Actual: number
+
+Pass: myVector["3"]
+      Actual: 200
+
+Pass: myVector's property
+      Actual: append
+
+Pass: typeof myVector["append"]
+      Actual: function
+
+Pass: myVector["append"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector["append"].length
+      Actual: 1
+
+Pass: myVector's property
+      Actual: clear
+
+Pass: typeof myVector["clear"]
+      Actual: function
+
+Pass: myVector["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector["clear"].length
+      Actual: 0
+
+Pass: myVector's property
+      Actual: first
+
+Pass: typeof myVector["first"]
+      Actual: function
+
+Pass: myVector["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector["first"].length
+      Actual: 0
+
+Pass: myVector's property
+      Actual: getAt
+
+Pass: typeof myVector["getAt"]
+      Actual: function
+
+Pass: myVector["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector["getAt"].length
+      Actual: 1
+
+Pass: myVector's property
+      Actual: getMany
+
+Pass: typeof myVector["getMany"]
+      Actual: function
+
+Pass: myVector["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector["getMany"].length
+      Actual: 2
+
+Pass: myVector's property
+      Actual: getView
+
+Pass: typeof myVector["getView"]
+      Actual: function
+
+Pass: myVector["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector["getView"].length
+      Actual: 0
+
+Pass: myVector's property
+      Actual: indexOf
+
+Pass: typeof myVector["indexOf"]
+      Actual: function
+
+Pass: myVector["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector["indexOf"].length
+      Actual: 1
+
+Pass: myVector's property
+      Actual: insertAt
+
+Pass: typeof myVector["insertAt"]
+      Actual: function
+
+Pass: myVector["insertAt"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector["insertAt"].length
+      Actual: 2
+
+Pass: myVector's property
+      Actual: removeAt
+
+Pass: typeof myVector["removeAt"]
+      Actual: function
+
+Pass: myVector["removeAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector["removeAt"].length
+      Actual: 1
+
+Pass: myVector's property
+      Actual: removeAtEnd
+
+Pass: typeof myVector["removeAtEnd"]
+      Actual: function
+
+Pass: myVector["removeAtEnd"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector["removeAtEnd"].length
+      Actual: 0
+
+Pass: myVector's property
+      Actual: replaceAll
+
+Pass: typeof myVector["replaceAll"]
+      Actual: function
+
+Pass: myVector["replaceAll"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector["replaceAll"].length
+      Actual: 1
+
+Pass: myVector's property
+      Actual: setAt
+
+Pass: typeof myVector["setAt"]
+      Actual: function
+
+Pass: myVector["setAt"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector["setAt"].length
+      Actual: 2
+
+Pass: myVector's property
+      Actual: size
+
+Pass: typeof myVector["size"]
+      Actual: number
+
+Pass: number of properties of myVector
+      Actual: 17
+
+PASS [Test 14: VectorReplaceAll]
+=================================================
+
+Passed: 14
+Failed: 0

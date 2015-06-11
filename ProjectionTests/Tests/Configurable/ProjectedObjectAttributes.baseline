@@ -1,0 +1,1069 @@
+Projected Object Attributes Tests
+
+=================================================
+Starting [Test 1: Struct Instance Attributes -- simple struct]
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: Object ([object Animals.Dimensions]) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: width
+      Actual: true
+
+Pass: Able to write to property: length
+      Actual: true
+
+Comment: addAndCheckProperty(dimensionsStruct): {"value":{"ak":1},"writable":true,"enumerable":true,"configurable":true}
+Comment: addAndCheckProperty(width): {"value":56,"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: width
+      Actual: true
+
+Comment: addAndCheckProperty(myFavoriteAnimal): {"value":{"ak":1},"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: myFavoriteAnimal
+      Actual: true
+
+Pass: Able to write to property: myField
+      Actual: true
+
+Pass: Object has property [length]
+      Actual: true
+
+Pass: Able to delete property: length
+      Actual: true
+
+Pass: Able to write to property: length
+      Actual: true
+
+PASS [Test 1: Struct Instance Attributes -- simple struct]
+=================================================
+
+=================================================
+Starting [Test 2: Promises Attributes -- promises instance]
+Comment: winery.prototype = [object Object]
+Comment: addAndCheckProperty(winery.asyncOperationOut): {"writable":true,"enumerable":true,"configurable":true}
+Comment: got promise
+Comment: addAndCheckProperty(promise.cancel): {"writable":false,"enumerable":true,"configurable":false}
+Pass: Object (promise) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: cancel
+      Actual: false
+
+Comment: addAndCheckProperty(then): {"writable":false,"enumerable":true,"configurable":false}
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot redefine non-configurable property 'then'
+Pass: Able to add property: then
+      Actual: false
+
+Comment: addAndCheckProperty(myPromisesMethod): adding empty property
+Comment: addAndCheckProperty(myPromisesMethod): undefined
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property 'myPromisesMethod': object is not extensible
+Pass: Able to add property: myPromisesMethod
+      Actual: false
+
+Pass: Able to write to property: myProperty
+      Actual: false
+
+Pass: Object has property [operation]
+      Actual: true
+
+Pass: Able to delete property: operation
+      Actual: false
+
+Pass: Object (promise.operation) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: cancel
+      Actual: true
+
+Pass: Able to write to property: id
+      Actual: false
+
+Pass: Able to write to property: progress
+      Actual: true
+
+Comment: got exception when calling setAndCheckProperty: TypeError: Function expected
+Pass: Able to write to property: completed
+      Actual: false
+
+Comment: addAndCheckProperty(getResults): adding empty property
+Comment: addAndCheckProperty(getResults): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: getResults
+      Actual: true
+
+Comment: addAndCheckProperty(myOperationMethod): adding empty property
+Comment: addAndCheckProperty(myOperationMethod): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: myOperationMethod
+      Actual: true
+
+Pass: Able to write to property: myProperty
+      Actual: true
+
+Pass: Object has property [status]
+      Actual: true
+
+Pass: Able to delete property: status
+      Actual: false
+
+Pass: Object (promise.then()) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: cancel
+      Actual: false
+
+Comment: addAndCheckProperty(then): {"writable":false,"enumerable":true,"configurable":false}
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot redefine non-configurable property 'then'
+Pass: Able to add property: then
+      Actual: false
+
+Comment: addAndCheckProperty(myPromisesMethod): adding empty property
+Comment: addAndCheckProperty(myPromisesMethod): undefined
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property 'myPromisesMethod': object is not extensible
+Pass: Able to add property: myPromisesMethod
+      Actual: false
+
+Pass: Able to write to property: myProperty
+      Actual: false
+
+Pass: Object has property [cancel]
+      Actual: true
+
+Pass: Able to delete property: cancel
+      Actual: false
+
+Pass: Object (promise.then) has enumerable properties
+      Actual: false
+
+Comment: addAndCheckProperty(myPromisesMethod): adding empty property
+Comment: addAndCheckProperty(myPromisesMethod): undefined
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property 'myPromisesMethod': object is not extensible
+Pass: Able to add property: myPromisesMethod
+      Actual: false
+
+Pass: Able to write to property: myProperty
+      Actual: false
+
+Pass: Object (promise.cancel) has enumerable properties
+      Actual: false
+
+Comment: addAndCheckProperty(myPromisesMethod): adding empty property
+Comment: addAndCheckProperty(myPromisesMethod): undefined
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property 'myPromisesMethod': object is not extensible
+Pass: Able to add property: myPromisesMethod
+      Actual: false
+
+Pass: Able to write to property: myProperty
+      Actual: false
+
+PASS [Test 2: Promises Attributes -- promises instance]
+=================================================
+
+=================================================
+Starting [Test 3: Promises Attributes -- promises prototypes]
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: Object.getPrototypeOf(promise.then) === Function.prototype
+      Actual: true
+
+Pass: Object.getPrototypeOf(promise.cancel) === Function.prototype
+      Actual: true
+
+Pass: Object.getPrototypeOf(promise.then()) === Function.prototype
+      Actual: false
+
+Pass: Object.getPrototypeOf(promise.then()) === Object.prototype
+      Actual: false
+
+Pass: Object.getPrototypeOf(promise) === Object.prototype
+      Actual: false
+
+Pass: Object.getPrototypeOf(promise.operation)
+      Actual: [object Object]
+
+Pass: Object (Object.getPrototypeOf(promise.operation)) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: cancel
+      Actual: true
+
+Comment: got exception when calling setAndCheckProperty: TypeError: get_Id: 'this' is not an Inspectable Object
+Pass: Able to write to property: id
+      Actual: false
+
+Comment: got exception when calling setAndCheckProperty: TypeError: put_Progress: 'this' is not an Inspectable Object
+Pass: Able to write to property: progress
+      Actual: false
+
+Comment: got exception when calling setAndCheckProperty: TypeError: put_Completed: 'this' is not an Inspectable Object
+Pass: Able to write to property: completed
+      Actual: false
+
+Comment: addAndCheckProperty(getResults): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: getResults
+      Actual: true
+
+Comment: addAndCheckProperty(myOperationMethod): adding empty property
+Comment: addAndCheckProperty(myOperationMethod): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: myOperationMethod
+      Actual: true
+
+Pass: Able to write to property: myProperty
+      Actual: true
+
+Pass: Object has property [status]
+      Actual: true
+
+Pass: Able to delete property: status
+      Actual: true
+
+Pass: Object (Object.getPrototypeOf(promise)) has enumerable properties
+      Actual: false
+
+Comment: addAndCheckProperty(myPromiseMethod): adding empty property
+Comment: addAndCheckProperty(myPromiseMethod): undefined
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property 'myPromiseMethod': object is not extensible
+Pass: Able to add property: myPromiseMethod
+      Actual: false
+
+Pass: Able to write to property: myProperty
+      Actual: false
+
+Pass: Object (Object.getPrototypeOf(promise.then())) has enumerable properties
+      Actual: false
+
+Comment: addAndCheckProperty(myPromiseMethod): adding empty property
+Comment: addAndCheckProperty(myPromiseMethod): undefined
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property 'myPromiseMethod': object is not extensible
+Pass: Able to add property: myPromiseMethod
+      Actual: false
+
+Pass: Able to write to property: myProperty
+      Actual: false
+
+PASS [Test 3: Promises Attributes -- promises prototypes]
+=================================================
+
+=================================================
+Starting [Test 4: RuntimeClass Constructor Attributes]
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: Object (Animals.Animal) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: prototype
+      Actual: true
+
+Pass: Object has property [prototype]
+      Actual: true
+
+Pass: Able to delete property: prototype
+      Actual: true
+
+Pass: Able to write to property: length
+      Actual: false
+
+Pass: Object has property [length]
+      Actual: true
+
+Pass: Able to delete property: length
+      Actual: false
+
+Pass: Able to write to property: takeANap
+      Actual: true
+
+Pass: Able to write to property: isLovable
+      Actual: true
+
+Pass: Able to write to property: isLovable
+      Actual: true
+
+Pass: Able to write to property: isLovable
+      Actual: false
+
+Pass: Able to write to property: myFishRefCount
+      Actual: false
+
+Comment: addAndCheckProperty(getAnswer): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: getAnswer
+      Actual: true
+
+Comment: addAndCheckProperty(myFavoriteAnimal): adding empty property
+Comment: addAndCheckProperty(myFavoriteAnimal): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: myFavoriteAnimal
+      Actual: true
+
+Pass: Able to write to property: myProperty
+      Actual: true
+
+Pass: Object has property [multiplyNumbers]
+      Actual: true
+
+Pass: Able to delete property: multiplyNumbers
+      Actual: true
+
+PASS [Test 4: RuntimeClass Constructor Attributes]
+=================================================
+
+=================================================
+Starting [Test 5: Non-activatable RuntimeClass Constructor Attributes]
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: Object (Animals.Pomapoodle) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: prototype
+      Actual: true
+
+Pass: Object has property [prototype]
+      Actual: true
+
+Pass: Able to delete property: prototype
+      Actual: true
+
+Pass: Able to write to property: length
+      Actual: false
+
+Pass: Object has property [length]
+      Actual: true
+
+Pass: Able to delete property: length
+      Actual: false
+
+Pass: Able to write to property: eatCookies
+      Actual: true
+
+Comment: addAndCheckProperty(eatCookies): {"value":"Eat cookies.","writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: eatCookies
+      Actual: true
+
+Comment: addAndCheckProperty(myFavoriteToy): adding empty property
+Comment: addAndCheckProperty(myFavoriteToy): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: myFavoriteToy
+      Actual: true
+
+Pass: Able to write to property: myProperty
+      Actual: true
+
+Pass: Object has property [eatCookies]
+      Actual: true
+
+Pass: Able to delete property: eatCookies
+      Actual: true
+
+PASS [Test 5: Non-activatable RuntimeClass Constructor Attributes]
+=================================================
+
+=================================================
+Starting [Test 6: RuntimeClass Prototype Attributes -- Prototype from constructor]
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: Object (Animals.Animal.prototype) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: getNumLegs
+      Actual: true
+
+Comment: got exception when calling setAndCheckProperty: TypeError: put_Weight: 'this' is not an Inspectable Object
+Pass: Able to write to property: weight
+      Actual: false
+
+Comment: got exception when calling setAndCheckProperty: TypeError: put_Weight: 'this' is not an Inspectable Object
+Pass: Able to write to property: weight
+      Actual: false
+
+Comment: got exception when calling setAndCheckProperty: TypeError: put_Mother: 'this' is not an Inspectable Object
+Pass: Able to write to property: mother
+      Actual: false
+
+Comment: addAndCheckProperty(getDimensions): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: getDimensions
+      Actual: true
+
+Comment: addAndCheckProperty(myFavoriteAnimal): adding empty property
+Comment: addAndCheckProperty(myFavoriteAnimal): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: myFavoriteAnimal
+      Actual: true
+
+Pass: Able to write to property: myProperty
+      Actual: true
+
+Pass: Object has property [myPhylum]
+      Actual: true
+
+Pass: Able to delete property: myPhylum
+      Actual: true
+
+PASS [Test 6: RuntimeClass Prototype Attributes -- Prototype from constructor]
+=================================================
+
+=================================================
+Starting [Test 7: RuntimeClass Prototype Attributes -- Prototype from instance]
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: Object (Object.getPrototypeOf(animalInstance)) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: getNumLegs
+      Actual: true
+
+Comment: got exception when calling setAndCheckProperty: TypeError: put_Weight: 'this' is not an Inspectable Object
+Pass: Able to write to property: weight
+      Actual: false
+
+Comment: got exception when calling setAndCheckProperty: TypeError: put_Weight: 'this' is not an Inspectable Object
+Pass: Able to write to property: weight
+      Actual: false
+
+Comment: got exception when calling setAndCheckProperty: TypeError: put_Mother: 'this' is not an Inspectable Object
+Pass: Able to write to property: mother
+      Actual: false
+
+Comment: addAndCheckProperty(getDimensions): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: getDimensions
+      Actual: true
+
+Comment: addAndCheckProperty(myFavoriteAnimal): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: myFavoriteAnimal
+      Actual: true
+
+Pass: Able to write to property: myProperty
+      Actual: true
+
+Pass: Object has property [id]
+      Actual: true
+
+Pass: Able to delete property: id
+      Actual: true
+
+PASS [Test 7: RuntimeClass Prototype Attributes -- Prototype from instance]
+=================================================
+
+=================================================
+Starting [Test 8: RuntimeClass Instance Attributes]
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: Object ([object Animals.Animal]) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: getNumLegs
+      Actual: true
+
+Pass: Able to write to property: weight
+      Actual: true
+
+Pass: Able to write to property: weight
+      Actual: true
+
+Comment: got exception when calling setAndCheckProperty: TypeError: Type mismatch
+Pass: Able to write to property: mother
+      Actual: false
+
+Comment: addAndCheckProperty(getDimensions): adding empty property
+Comment: addAndCheckProperty(getDimensions): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: getDimensions
+      Actual: true
+
+Comment: addAndCheckProperty(myFavoriteAnimal): adding empty property
+Comment: addAndCheckProperty(myFavoriteAnimal): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: myFavoriteAnimal
+      Actual: true
+
+Pass: Able to write to property: myProperty
+      Actual: true
+
+Pass: Object has property [myVector]
+      Actual: true
+
+Pass: Able to delete property: myVector
+      Actual: false
+
+PASS [Test 8: RuntimeClass Instance Attributes]
+=================================================
+
+=================================================
+Starting [Test 9: Enum Object Attributes]
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: Object ([object Animals.Phylum]) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: nematomorpha
+      Actual: true
+
+Pass: Able to write to property: echinodermata
+      Actual: true
+
+Comment: addAndCheckProperty(brachiopoda): {"value":4,"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: brachiopoda
+      Actual: true
+
+Comment: addAndCheckProperty(myFavoriteAnimal): adding empty property
+Comment: addAndCheckProperty(myFavoriteAnimal): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: myFavoriteAnimal
+      Actual: true
+
+Pass: Able to write to property: myField
+      Actual: true
+
+Pass: Object has property [tardigrada]
+      Actual: true
+
+Pass: Able to delete property: tardigrada
+      Actual: true
+
+PASS [Test 9: Enum Object Attributes]
+=================================================
+
+=================================================
+Starting [Test 10: Struct Instance Attributes -- nested struct]
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: Object ([object Animals.BigComplexStruct]) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: field0
+      Actual: true
+
+Pass: Able to write to property: field1
+      Actual: true
+
+Comment: addAndCheckProperty(field3): {"value":{"field0":true,"field1":false,"field2":false,"field3":true},"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: field3
+      Actual: true
+
+Comment: addAndCheckProperty(myFavoriteAnimal): adding empty property
+Comment: addAndCheckProperty(myFavoriteAnimal): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: myFavoriteAnimal
+      Actual: true
+
+Pass: Able to write to property: myField
+      Actual: true
+
+Pass: Object has property [field4]
+      Actual: true
+
+Pass: Able to delete property: field4
+      Actual: true
+
+Pass: Able to write to property: field4
+      Actual: true
+
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: Object ([object Animals.SmallComplexStruct]) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: field0
+      Actual: true
+
+Pass: Able to write to property: field1
+      Actual: true
+
+Comment: addAndCheckProperty(field2): {"value":222,"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: field2
+      Actual: true
+
+Comment: addAndCheckProperty(myFavoriteAnimal): adding empty property
+Comment: addAndCheckProperty(myFavoriteAnimal): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: myFavoriteAnimal
+      Actual: true
+
+Pass: Able to write to property: myField
+      Actual: true
+
+Pass: Object has property [field0]
+      Actual: true
+
+Pass: Able to delete property: field0
+      Actual: true
+
+Pass: Able to write to property: field0
+      Actual: true
+
+PASS [Test 10: Struct Instance Attributes -- nested struct]
+=================================================
+
+=================================================
+Starting [Test 11: Return Object Attributes -- multiple [out] parameters]
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: Object ([object Object]) has enumerable properties
+      Actual: true
+
+Pass: Able to write to property: reta
+      Actual: true
+
+Pass: Able to write to property: retb
+      Actual: true
+
+Comment: addAndCheckProperty(retd): {"value":54.3,"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: retd
+      Actual: true
+
+Comment: addAndCheckProperty(myFavoriteAnimal): adding empty property
+Comment: addAndCheckProperty(myFavoriteAnimal): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: myFavoriteAnimal
+      Actual: true
+
+Pass: Able to write to property: myField
+      Actual: true
+
+Pass: Object has property [reth]
+      Actual: true
+
+Pass: Able to delete property: reth
+      Actual: true
+
+Pass: Able to write to property: reth
+      Actual: true
+
+PASS [Test 11: Return Object Attributes -- multiple [out] parameters]
+=================================================
+
+=================================================
+Starting [Test 12: Namespace Attributes -- non-extensible]
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: Object (Global object) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (Fabrikam) when enumerating over Global object
+      Actual: true
+
+Comment: Verify order of enumeration over Fabrikam
+Pass: property: 0
+      Actual: Kitchen
+
+Pass: Total number of properties enumerated
+      Actual: 1
+
+Pass: Object (Fabrikam) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (Kitchen) when enumerating over Fabrikam
+      Actual: true
+
+Pass: Object has property: Kitchen
+      Actual: true
+
+Pass: Able to write to property: Kitchen
+      Actual: true
+
+Pass: Able to write to property: Kitchen
+      Actual: true
+
+Pass: Object has property: Chef
+      Actual: true
+
+Pass: Object has property: Toaster
+      Actual: true
+
+Pass: Object (Fabrikam) has enumerable properties
+      Actual: true
+
+Pass: Object (Fabrikam.Kitchen) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (CookieDoneness) when enumerating over Fabrikam.Kitchen
+      Actual: true
+
+Pass: Object (Fabrikam.Kitchen) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (Dimensions) when enumerating over Fabrikam.Kitchen
+      Actual: false
+
+Comment: addAndCheckProperty(Fabrikam): {"value":{"Kitchen":{"ChefCapabilities":{"canSlice":0,"canDice":1},"ChefRole":{"headChef":0,"assistantChef":1},"CookieDoneness":{"raw":0,"gooey":1,"golden":2,"burnt":3},"Kitchen":"my Kitchen class"}},"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: Fabrikam
+      Actual: false
+
+Comment: addAndCheckProperty(Kitchen): {"value":{"ChefCapabilities":{"canSlice":0,"canDice":1},"ChefRole":{"headChef":0,"assistantChef":1},"CookieDoneness":{"raw":0,"gooey":1,"golden":2,"burnt":3},"Kitchen":"my Kitchen class"},"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: Kitchen
+      Actual: false
+
+Comment: addAndCheckProperty(Chef): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: Chef
+      Actual: false
+
+Comment: addAndCheckProperty(Bedroom): adding empty property
+Comment: addAndCheckProperty(Bedroom): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: Bedroom
+      Actual: true
+
+Comment: addAndCheckProperty(Utensils): adding empty property
+Comment: addAndCheckProperty(Utensils): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: Utensils
+      Actual: true
+
+Pass: Able to write to property: LivingRoom
+      Actual: true
+
+Pass: Able to write to property: size
+      Actual: true
+
+Pass: Object has property [Fabrikam]
+      Actual: true
+
+Pass: Able to delete property: Fabrikam
+      Actual: true
+
+Pass: Object (Global object) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (Fabrikam) when enumerating over Global object
+      Actual: true
+
+Pass: Object has property [Kitchen]
+      Actual: true
+
+Pass: Able to delete property: Kitchen
+      Actual: true
+
+Pass: deleted property
+      Actual: undefined
+
+Pass: un-deleted property
+      Actual: [object Kitchen]
+
+Comment: Fabrikam.Kitchen.Toaster: {"writable":true,"enumerable":true,"configurable":true}
+Pass: Object has property [Toaster]
+      Actual: true
+
+Pass: Able to delete property: Toaster
+      Actual: true
+
+Pass: deleted property
+      Actual: undefined
+
+Pass: un-deleted property
+      Actual: [object Kitchen]
+
+Pass: Object has property: Cookie
+      Actual: false
+
+PASS [Test 12: Namespace Attributes -- non-extensible]
+=================================================
+
+=================================================
+Starting [Test 13: Namespace Attributes -- extensible]
+Pass: prototype.isPrototypeOf(obj)
+      Actual: true
+
+Pass: Object (Global object) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (DevTests) when enumerating over Global object
+      Actual: true
+
+Comment: Verify order of enumeration over DevTests
+Pass: property: 0
+      Actual: Arm
+
+Pass: property: 1
+      Actual: CamelCasing
+
+Pass: property: 2
+      Actual: DateTimeAndTimeSpan
+
+Pass: property: 3
+      Actual: Delegates
+
+Pass: property: 4
+      Actual: GCPressure
+
+Pass: property: 5
+      Actual: Repros
+
+Pass: property: 6
+      Actual: SimpleTestNamespace
+
+Pass: property: 7
+      Actual: Versioning
+
+Pass: Total number of properties enumerated
+      Actual: 8
+
+Pass: Object (DevTests) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (Arm) when enumerating over DevTests
+      Actual: true
+
+Pass: Object has property: CamelCasing
+      Actual: true
+
+Pass: Able to write to property: CamelCasing
+      Actual: true
+
+Pass: Able to write to property: DateTimeAndTimeSpan
+      Actual: true
+
+Pass: Object has property: StringVariations
+      Actual: true
+
+Pass: Object has property: CrossMemberCollisions
+      Actual: true
+
+Pass: Object has property: SimpleNameCollisions
+      Actual: true
+
+Pass: Object (DevTests) has enumerable properties
+      Actual: true
+
+Pass: Object (DevTests.CamelCasing) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (StringVariations) when enumerating over DevTests.CamelCasing
+      Actual: true
+
+Pass: Object (DevTests.CamelCasing) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (CamelCasingHandler) when enumerating over DevTests.CamelCasing
+      Actual: false
+
+Comment: addAndCheckProperty(constantValue): adding empty property
+Comment: addAndCheckProperty(constantValue): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: constantValue
+      Actual: true
+
+Comment: addAndCheckProperty(samples): adding empty property
+Comment: addAndCheckProperty(samples): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: samples
+      Actual: true
+
+Comment: addAndCheckProperty(lastUsedNamespace): adding empty property
+Comment: addAndCheckProperty(lastUsedNamespace): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: lastUsedNamespace
+      Actual: true
+
+Comment: addAndCheckProperty(colors): adding empty property
+Comment: addAndCheckProperty(colors): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: colors
+      Actual: true
+
+Comment: addAndCheckProperty(storedData): adding empty property
+Comment: addAndCheckProperty(storedData): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: storedData
+      Actual: true
+
+Pass: Able to write to property: testHelpers
+      Actual: true
+
+Pass: Able to write to property: numTests
+      Actual: true
+
+Pass: Object (DevTests) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (lastUsedNamespace) when enumerating over DevTests
+      Actual: true
+
+Pass: Object (DevTests.CamelCasing) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (numTests) when enumerating over DevTests.CamelCasing
+      Actual: true
+
+Pass: Object (DevTests.DateTimeAndTimeSpan) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (samples) when enumerating over DevTests.DateTimeAndTimeSpan
+      Actual: true
+
+Pass: Object (DevTests) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (CamelCasing) when enumerating over DevTests
+      Actual: true
+
+Pass: Object (DevTests.DateTimeAndTimeSpan) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (Tests) when enumerating over DevTests.DateTimeAndTimeSpan
+      Actual: true
+
+Pass: Object (DevTests) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (constantValue) when enumerating over DevTests
+      Actual: false
+
+Pass: Object (DevTests.CamelCasing) has enumerable properties
+      Actual: true
+
+Pass: Found expected object property (colors) when enumerating over DevTests.CamelCasing
+      Actual: false
+
+Comment: addAndCheckProperty(DevTests): {"value":{"Arm":{},"CamelCasing":{"CrossMemberCollisions":{"ConflictsWithBuiltIns":{"apply":0,"call":1,"Constructor":2,"hasOwnProperty":3,"isPrototypeOf":4,"propertyIsEnumerable":5,"DevTests.CamelCasing.CrossMemberCollisions.ConflictsWithBuiltIns.prototype":6,"toLocalString":7,"toString":8,"valueOf":9}},"SimpleNameCollisions":{"ConflictingEvents":{"internalPascalEvent":0,"internalCamelEvent":1,"externalEvent":2,"externalCamelEvent":3},"EnumInternalConflict":{"conflictingField":0}},"StaticStringVariationsEvent":{"pascalStaticEvent":0,"uppercasestaticevent":1,"iinterfaceStaticEvent":2,"camelStaticEvent":3,"_PrivatePascalStaticEvent":4,"_PRIVATEUPPERCASESTATICEVENT":5,"_IInterfacePrivateStaticEvent":6,"_privateCamelStaticEvent":7},"StringVariationsEvent":{"pascalEvent":0,"uppercaseevent":1,"iinterfaceEvent":2,"camelEvent":3,"_PrivatePascalEvent":4,"_PRIVATEUPPERCASEEVENT":5,"_IInterfacePrivateEvent":6,"_privateCamelEvent":7,"f8Event":8,"ecdh521Event":9,"uint16Event":10,"noncased_EVENT":11,"uiTwoLetterAcronymEvent":12},"storedData":"data","numTests":200},"DateTimeAndTimeSpan":{"samples":{}},"Delegates":{"FailureCondition":{"jsException":0,"failToMarshal":1,"nullOutParam":2},"Params":{"none":0,"str":1,"num":2,"input":4,"class":8,"iface":16}},"GCPressure":{},"Repros":{"InterfaceOutFastPath":{},"Performance":{},"Stringables":{},"VersionedProperties":{},"WebUI":{}},"SimpleTestNamespace":{},"Versioning":{"MaxVersionEnum":{"max":4294967294},"MinVersionEnum":{"min":0},"VersionedEnumFields":{"min":0,"win8":1,"win8SP1":2,"win9":3,"max":4},"Win8Enum":{"win8":100794368},"Win8SP1Enum":{"win8SP1":100794624},"Win9Enum":{"win9":100859904}},"testHelpers":{}},"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: DevTests
+      Actual: false
+
+Comment: addAndCheckProperty(DateTimeAndTimeSpan): {"value":{"samples":{}},"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: DateTimeAndTimeSpan
+      Actual: false
+
+Comment: addAndCheckProperty(SimpleNameCollisions): {"value":{"ConflictingEvents":{"internalPascalEvent":0,"internalCamelEvent":1,"externalEvent":2,"externalCamelEvent":3},"EnumInternalConflict":{"conflictingField":0}},"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: SimpleNameCollisions
+      Actual: false
+
+Pass: Able to write to property: lastUsedNamespace
+      Actual: true
+
+Pass: Able to write to property: samples
+      Actual: true
+
+Pass: Able to write to property: constantValue
+      Actual: false
+
+Pass: Able to write to property: colors
+      Actual: false
+
+Comment: addAndCheckProperty(testHelpers): {"value":{},"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: testHelpers
+      Actual: true
+
+Comment: addAndCheckProperty(samples): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: samples
+      Actual: true
+
+Comment: addAndCheckProperty(constantValue): {"value":42,"writable":false,"enumerable":false,"configurable":false}
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot redefine non-configurable property 'constantValue'
+Pass: Able to add property: constantValue
+      Actual: false
+
+Comment: addAndCheckProperty(storedData): {"value":"data","writable":true,"enumerable":true,"configurable":false}
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot redefine non-configurable property 'storedData'
+Pass: Able to add property: storedData
+      Actual: false
+
+Pass: Object has property [testHelpers]
+      Actual: true
+
+Pass: Able to delete property: testHelpers
+      Actual: true
+
+Pass: Object has property [colors]
+      Actual: true
+
+Pass: Able to delete property: colors
+      Actual: true
+
+Pass: Object has property [lastUsedNamespace]
+      Actual: true
+
+Pass: Able to delete property: lastUsedNamespace
+      Actual: false
+
+Pass: Object has property [storedData]
+      Actual: true
+
+Pass: Able to delete property: storedData
+      Actual: false
+
+Pass: Object has property [DevTests]
+      Actual: true
+
+Pass: Able to delete property: DevTests
+      Actual: true
+
+Pass: Object has property [DateTimeAndTimeSpan]
+      Actual: true
+
+Pass: Able to delete property: DateTimeAndTimeSpan
+      Actual: true
+
+Pass: Object has property [StringVariations]
+      Actual: true
+
+Pass: Able to delete property: StringVariations
+      Actual: true
+
+Pass: deleted property
+      Actual: undefined
+
+Pass: deleted property
+      Actual: function StringVariations() { [native code] }
+
+Pass: Object has property: OverloadStringVariations
+      Actual: false
+
+PASS [Test 13: Namespace Attributes -- extensible]
+=================================================
+
+=================================================
+Starting [Test 14: Overwrite WinRT functionality]
+Pass: Successfully overwrote a WinRT addEventListener
+      Actual: 1
+
+Pass: Successfully overwrote a WinRT onevent method
+      Actual: 2
+
+Pass: Successfully overwrote a WinRT method
+      Actual: I am an attribute!
+
+PASS [Test 14: Overwrite WinRT functionality]
+=================================================
+
+=================================================
+Starting [Test 15: Modifications do not affect native functionality]
+Pass: myFish.getNumFins()
+      Actual: 102
+
+Pass: myFish.getNumFins()
+      Actual: hello
+
+Pass: Animals.Animal.callMyFishMethod(102)
+      Actual: true
+
+Pass: Animals.Animal.myFish.getNumFins()
+      Actual: hello
+
+PASS [Test 15: Modifications do not affect native functionality]
+=================================================
+
+=================================================
+Starting [Test 16: Modifications persisted when round-tripped through WinRT]
+Pass: myFish.getNumFins
+      Actual: 23
+
+Pass: Animals.Animal.myFish === myFish
+      Actual: [object Animals.Fish]
+
+Pass: typeof 23
+      Actual: number
+
+Pass: Animals.Animal.myFish.getNumFins
+      Actual: 23
+
+Pass: typeof 23
+      Actual: number
+
+Pass: Animals.Animal.myFish.getNumFins
+      Actual: 23
+
+PASS [Test 16: Modifications persisted when round-tripped through WinRT]
+=================================================
+
+Passed: 16
+Failed: 0

@@ -1,0 +1,32 @@
+[
+  {
+    "evaluate": {
+      "x": "1"
+    }
+  },
+  {
+    "evaluate": {
+      "z": "{...}"
+    }
+  },
+  {
+    "evaluate": {
+      "z.m": "{...}"
+    }
+  },
+  {
+    "evaluate": {
+      "z.m.n": "1"
+    }
+  },
+  {
+    "evaluate": {
+      "z.p": "2"
+    }
+  },
+  {
+    "evaluate": {
+      "a.value": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  }
+]

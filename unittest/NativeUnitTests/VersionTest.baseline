@@ -1,0 +1,13 @@
+
+
+Running version tests
+
+PASSED 
+
+It is necessary to update GUID version in byteCodeCacheReleaseFileVersion with every code change in the jscript directory.
+
+Total Test Cases  0
+Passed:  0
+Failed   0
+
+

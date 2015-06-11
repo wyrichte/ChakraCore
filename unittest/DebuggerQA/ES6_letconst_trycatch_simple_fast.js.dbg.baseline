@@ -1,0 +1,51 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callcount": "3"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "z": "2",
+      "z#1": "1",
+      "[Globals]": {
+        "Call": "<large string>",
+        "bar": "<large string>",
+        "Run": "<large string>",
+        "callcount": "3"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callcount": "3"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "e": {
+        "__proto__": "",
+        "description": "",
+        "number": "0",
+        "stack": "<large string>"
+      },
+      "z": "2",
+      "[Globals]": {
+        "Call": "<large string>",
+        "bar": "<large string>",
+        "Run": "<large string>",
+        "callcount": "3"
+      }
+    }
+  }
+]

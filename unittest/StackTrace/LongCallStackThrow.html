@@ -1,0 +1,19 @@
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<html>
+<head>
+<script src="./LongCallStackThrow.js"></script><script src="TrimStackTracePath.js"></script>
+<script>
+function function2()
+{
+    runtest(5);
+    runtest(10); // this should produce maximum of 10 frames
+}
+function function1()
+{
+    function2();
+}
+function1();
+</script>
+</head>
+</body>
+</html>

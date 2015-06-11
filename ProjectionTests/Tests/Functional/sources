@@ -1,0 +1,22 @@
+TEST_CODE=1
+TARGETTYPE=NOTARGET
+TARGET_DESTINATION=Projection\DevTests
+
+NTTARGETFILE2=DoBinplaceTestFiles
+
+PASS1_BINPLACE=\
+    .\CompleteJsGen.cmd \
+    -:DEST Projection\DevTests\Configs jsgen.exe.config \
+    .\run.cmd \
+    .\runonly.cmd \
+    -:DEST Projection\SNAP\Functional dotest.cmd \
+    .\registerABIs.cmd \
+    .\LanguageService.rsp \
+    .\rlexe.xml \
+    -:DEST Projection\WinRT ..\projectionsglue.js \
+
+# For non-official build machines, below will match only a single dummy file.
+PASS2_BINPLACE=\
+    $(OBJ_PATH)\$O\*.js \
+    $(OBJ_PATH)\$O\*.baseline \
+    -:DEST Projection\APPX $(OBJ_PATH)\$O\*.js \

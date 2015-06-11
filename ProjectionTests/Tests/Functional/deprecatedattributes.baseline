@@ -1,0 +1,55 @@
+deprecated tests
+The class Winery.RWinery has been deprecated. winery is getting old.
+
+=================================================
+Starting [Test 1: Deprecated attributes]
+calling getDeprecatedAttribute
+The method Winery.INameTopologies.getDeprecatedAttributes has been deprecated. Not nearly fantastic enough.
+The method Winery.INameTopologies.getDeprecatedAttributes has been deprecated. Apparently not fantastic enough.
+calling amazingMethods
+The method Winery.Overloading.DeprecatedAttributes.IAmazingInterface.amazingMethod has been deprecated. I reign supreme.
+calling exceptionalMethod
+get exceptionProp
+The method Winery.Overloading.DeprecatedAttributes.IExceptionalInterface.get_ExceptionalProp has been deprecated. Actually, don't even use the prop at all.
+The method Winery.Overloading.DeprecatedAttributes.IExceptionalInterface.put_ExceptionalProp has been deprecated. Changed my mind; "don't put this prop.
+PASS [Test 1: Deprecated attributes]
+=================================================
+
+=================================================
+Starting [Test 2: Deprecated runtimeclass]
+PASS [Test 2: Deprecated runtimeclass]
+=================================================
+
+=================================================
+Starting [Test 3: IProductionLine]
+The event Winery.IProductionLine.add_AgeCompleteEvent has been deprecated. add winery age is old.
+The delegate Winery.AgeCompleteHandler has been deprecated. winery age is old.
+The event Winery.IProductionLine.remove_AgeCompleteEvent has been deprecated. remove winery age is old.
+Pass: Number of events handled
+      Actual: 1
+
+PASS [Test 3: IProductionLine]
+=================================================
+
+=================================================
+Starting [Test 4: Deprecated propget]
+The property DevTests.Delegates.StaticTestClass.ExceptionalPropStatic has been deprecated. Actually, don't even use the prop at all.
+hello
+PASS [Test 4: Deprecated propget]
+=================================================
+
+=================================================
+Starting [Test 5: Deprecated propset]
+The property DevTests.Delegates.StaticTestClass.ExceptionalPropStatic has been deprecated. Changed my mind; "don't put this prop.
+PASS [Test 5: Deprecated propset]
+=================================================
+
+=================================================
+Starting [Test 6: Deprecated static]
+The method DevTests.Delegates.StaticTestClass.operationOutStatic has been deprecated. devtest is getting old.
+20
+PASS [Test 6: Deprecated static]
+=================================================
+
+Passed: 6
+Failed: 0

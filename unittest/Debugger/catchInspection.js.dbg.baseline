@@ -1,0 +1,756 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "startTest": "undefined",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "in2": "1",
+      "[Scope]1": {
+        "in1": "0"
+      },
+      "[Scope]2": {
+        "arg1": "111",
+        "m": "111"
+      },
+      "[Scope]3": {
+        "e": "<large string>"
+      },
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "undefined"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "startTest": "undefined",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "in2": "1",
+      "[Scope]1": {
+        "in1": "0"
+      },
+      "[Scope]2": {
+        "arg1": "undefined",
+        "m": "undefined"
+      },
+      "[Scope]3": {
+        "e": "<large string>"
+      },
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "undefined"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "e": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "j1": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "j1",
+        "prototype": "{...}"
+      },
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {
+        "e": "<large string>"
+      },
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "ex": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "[Scope]1": {
+        "k": "10"
+      },
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "ex": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "in1": "10",
+      "[Scope]1": {
+        "k": "10"
+      },
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "ex": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "in1": "10",
+      "[Scope]1": {
+        "k": "10"
+      },
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "ex": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "ex": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "ex": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "ex": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "m1": "10",
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "ex": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "bar": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "bar",
+        "prototype": "{...}"
+      },
+      "bar2": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "bar2",
+        "prototype": "{...}"
+      },
+      "foo": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo",
+        "prototype": "{...}"
+      },
+      "foo1": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo1",
+        "prototype": "{...}"
+      },
+      "foo10": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo10",
+        "prototype": "{...}"
+      },
+      "foo11": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo11",
+        "prototype": "{...}"
+      },
+      "foo2": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo2",
+        "prototype": "{...}"
+      },
+      "foo3": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo3",
+        "prototype": "{...}"
+      },
+      "foo5": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo5",
+        "prototype": "{...}"
+      },
+      "foo6": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo6",
+        "prototype": "{...}"
+      },
+      "foo7": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo7",
+        "prototype": "{...}"
+      },
+      "top": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "startTest": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "startTest",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "j.x": "20"
+    }
+  },
+  {
+    "evaluate": {
+      "j": {
+        "__proto__": "{...}",
+        "x": "20",
+        "y": "[30,40]"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "ex": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "ex": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "ex1": "<large string>"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3455,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "g"
+      },
+      {
+        "start": 3327,
+        "length": 132,
+        "text": "function g() {\n            var ga = 40;\n            fa; ga;\n            e1;\n            /**bp:stack();locals(1)**/\n        })()",
+        "frameDescription": "f"
+      },
+      {
+        "start": 3180,
+        "length": 293,
+        "text": "function f() { // slot array scope\n    var fa = 123;\n    try {\n        throw -1;\n    }\n    catch (e1) { // catch scope\n        e1;\n        (function g() {\n            var ga = 40;\n            fa; ga;\n            e1;\n            /**bp:stack();locals(1)**/\n        })();\n    }\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "ga": "40",
+      "[Scope]1": {
+        "e1": "-1"
+      },
+      "[Scope]2": {
+        "fa": "123"
+      },
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3688,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "g"
+      },
+      {
+        "start": 3607,
+        "length": 85,
+        "text": "function g() {\n            e1;\n            /**bp:stack();locals(1)**/\n        })()",
+        "frameDescription": "f"
+      },
+      {
+        "start": 3479,
+        "length": 227,
+        "text": "function f() { // null dummy scope\n    try {\n        throw -1;\n    }\n    catch (e1) { // catch scope\n        e1;\n        (function g() {\n            e1;\n            /**bp:stack();locals(1)**/\n        })();\n    }\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {
+        "e1": "-1"
+      },
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 4043,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "g"
+      },
+      {
+        "start": 3950,
+        "length": 97,
+        "text": "function g() {\n                e1;\n                /**bp:stack();locals(1)**/\n            })()",
+        "frameDescription": "f"
+      },
+      {
+        "start": 4072,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 3712,
+        "length": 370,
+        "text": "function foo() { // slot array scope\n    var foo0 = 12;\n    function f() { // null dummy scope\n        try {\n            throw new Error(\"1 Error\");\n        }\n        catch (e1) { // catch scope\n            e1; foo0;\n            (function g() {\n                e1;\n                /**bp:stack();locals(1)**/\n            })();\n        }\n    }\n    f();\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {
+        "e1": "1 Error"
+      },
+      "[Scope]2": {
+        "foo0": "12"
+      },
+      "[Globals]": {
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>",
+        "top": "{...}",
+        "startTest": "<large string>"
+      }
+    }
+  }
+]

@@ -1,0 +1,125 @@
+test0 - Array segment length load elimination
+TypeError: The ArrayBuffer is detached.
+TypeError: The ArrayBuffer is detached.
+Testtrace: ArraySegmentHoist function test0 ( (#1.4), #5): Separating array segment load
+Testtrace: ArraySegmentHoist function test0 ( (#1.4), #5): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test0 ( (#1.4), #5): Eliminating array head segment load
+TypeError: The ArrayBuffer is detached.
+
+test1 - Array segment length load elimination, CSE
+TypeError: The ArrayBuffer is detached.
+TypeError: The ArrayBuffer is detached.
+Testtrace: ArraySegmentHoist function test1 ( (#1.5), #6): Separating array segment load
+Testtrace: ArraySegmentHoist function test1 ( (#1.5), #6): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test1 ( (#1.5), #6): Eliminating array head segment load
+TypeError: The ArrayBuffer is detached.
+
+test2 - Array segment length hoisting
+TypeError: The ArrayBuffer is detached.
+TypeError: The ArrayBuffer is detached.
+Testtrace: ArraySegmentHoist function test2 ( (#1.6), #7): Separating array segment length load
+Testtrace: ArraySegmentHoist function test2 ( (#1.6), #7): Separating array segment load
+Testtrace: ArraySegmentHoist function test2 ( (#1.6), #7): Hoisting array segment load out of loop
+Testtrace: ArraySegmentHoist function test2 ( (#1.6), #7): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test2 ( (#1.6), #7): Eliminating array head segment length load
+TypeError: The ArrayBuffer is detached.
+
+test3 - Call, array segment length load elimination
+TypeError: The ArrayBuffer is detached.
+TypeError: The ArrayBuffer is detached.
+Testtrace: ArraySegmentHoist function test3 ( (#1.7), #8): Separating array segment load
+Testtrace: ArraySegmentHoist function test3 ( (#1.7), #8): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test3 ( (#1.7), #8): Eliminating array head segment load
+TypeError: The ArrayBuffer is detached.
+
+test4 - Call, array segment length load elimination, CSE
+TypeError: The ArrayBuffer is detached.
+TypeError: The ArrayBuffer is detached.
+Testtrace: ArraySegmentHoist function test4 ( (#1.8), #9): Separating array segment load
+Testtrace: ArraySegmentHoist function test4 ( (#1.8), #9): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test4 ( (#1.8), #9): Eliminating array head segment load
+TypeError: The ArrayBuffer is detached.
+
+test5 - Call, array segment length hoisting
+TypeError: The ArrayBuffer is detached.
+TypeError: The ArrayBuffer is detached.
+Testtrace: ArraySegmentHoist function test5 ( (#1.9), #10): Separating array segment length load
+Testtrace: ArraySegmentHoist function test5 ( (#1.9), #10): Separating array segment load
+Testtrace: ArraySegmentHoist function test5 ( (#1.9), #10): Hoisting array segment load out of loop
+Testtrace: ArraySegmentHoist function test5 ( (#1.9), #10): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test5 ( (#1.9), #10): Eliminating array head segment length load
+TypeError: The ArrayBuffer is detached.
+
+test6 - Known implicit call, array segment length load elimination
+TypeError: The ArrayBuffer is detached.
+TypeError: The ArrayBuffer is detached.
+Testtrace: ArraySegmentHoist function test6 ( (#1.10), #11): Separating array segment load
+Testtrace: ArraySegmentHoist function test6 ( (#1.10), #11): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test6 ( (#1.10), #11): Eliminating array head segment load
+TypeError: The ArrayBuffer is detached.
+
+test7 - Known implicit call, array segment length load elimination, CSE
+TypeError: The ArrayBuffer is detached.
+TypeError: The ArrayBuffer is detached.
+Testtrace: ArraySegmentHoist function test7 ( (#1.11), #12): Separating array segment load
+Testtrace: ArraySegmentHoist function test7 ( (#1.11), #12): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test7 ( (#1.11), #12): Eliminating array head segment load
+TypeError: The ArrayBuffer is detached.
+
+test8 - Known implicit call, array segment length hoisting
+TypeError: The ArrayBuffer is detached.
+TypeError: The ArrayBuffer is detached.
+Testtrace: ArraySegmentHoist function test8 ( (#1.12), #13): Separating array segment load
+Testtrace: ArraySegmentHoist function test8 ( (#1.12), #13): Hoisting array segment load out of loop
+Testtrace: ArraySegmentHoist function test8 ( (#1.12), #13): Eliminating array head segment load
+TypeError: The ArrayBuffer is detached.
+
+test9 - Unknown implicit call, array segment length load elimination
+1,2
+10,2
+Testtrace: ArraySegmentHoist function test9 ( (#1.13), #14): Separating array segment length load
+Testtrace: ArraySegmentHoist function test9 ( (#1.13), #14): Separating array segment load
+Testtrace: ArraySegmentHoist function test9 ( (#1.13), #14): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test9 ( (#1.13), #14): Eliminating array head segment length load
+Testtrace: ArraySegmentHoist function test9 ( (#1.13), #14): Separating array segment load
+Testtrace: ArraySegmentHoist function test9 ( (#1.13), #14): Separating array segment length load
+Testtrace: ArraySegmentHoist function test9 ( (#1.13), #14): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test9 ( (#1.13), #14): Eliminating array head segment length load
+Testtrace: ArraySegmentHoist function test9 ( (#1.13), #14): Separating array segment length load
+Testtrace: ArraySegmentHoist function test9 ( (#1.13), #14): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test9 ( (#1.13), #14): Eliminating array head segment length load
+TypeError: The ArrayBuffer is detached.
+
+test10 - Unknown implicit call, array segment length load elimination, CSE
+1,1
+10,1
+Testtrace: ArraySegmentHoist function test10 ( (#1.14), #15): Separating array segment length load
+Testtrace: ArraySegmentHoist function test10 ( (#1.14), #15): Separating array segment load
+Testtrace: ArraySegmentHoist function test10 ( (#1.14), #15): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test10 ( (#1.14), #15): Eliminating array head segment length load
+Testtrace: ArraySegmentHoist function test10 ( (#1.14), #15): Separating array segment load
+Testtrace: ArraySegmentHoist function test10 ( (#1.14), #15): Separating array segment length load
+Testtrace: ArraySegmentHoist function test10 ( (#1.14), #15): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test10 ( (#1.14), #15): Eliminating array head segment length load
+Testtrace: ArraySegmentHoist function test10 ( (#1.14), #15): Separating array segment length load
+Testtrace: ArraySegmentHoist function test10 ( (#1.14), #15): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test10 ( (#1.14), #15): Eliminating array head segment length load
+TypeError: The ArrayBuffer is detached.
+
+test11 - Unknown implicit call, array segment length hoisting
+3,2
+1020,2
+Testtrace: ArraySegmentHoist function test11 ( (#1.15), #16): Separating array segment length load
+Testtrace: ArraySegmentHoist function test11 ( (#1.15), #16): Separating array segment load
+Testtrace: ArraySegmentHoist function test11 ( (#1.15), #16): Hoisting array segment load out of loop
+Testtrace: ArraySegmentHoist function test11 ( (#1.15), #16): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test11 ( (#1.15), #16): Eliminating array head segment length load
+Testtrace: ArraySegmentHoist function test11 ( (#1.15), #16): Separating array segment load
+Testtrace: ArraySegmentHoist function test11 ( (#1.15), #16): Separating array segment length load
+Testtrace: ArraySegmentHoist function test11 ( (#1.15), #16): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test11 ( (#1.15), #16): Eliminating array head segment length load
+Testtrace: ArraySegmentHoist function test11 ( (#1.15), #16): Separating array segment length load
+Testtrace: ArraySegmentHoist function test11 ( (#1.15), #16): Eliminating array head segment load
+Testtrace: ArraySegmentHoist function test11 ( (#1.15), #16): Eliminating array head segment length load
+TypeError: The ArrayBuffer is detached.
+

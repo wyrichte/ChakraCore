@@ -1,0 +1,29 @@
+[
+  {
+    "setnextstatement": {
+      "from": 114,
+      "to": 170,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "m": "0",
+      "m1": "0",
+      "i1": "undefined"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 286,
+      "to": 355,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "evaluate": {
+      "i1": "undefined"
+    }
+  }
+]

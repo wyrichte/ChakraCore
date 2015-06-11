@@ -1,0 +1,22 @@
+[
+  {
+    "evaluate": {
+      "$newValue$.x.y == 1": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "$newValue$[0] == 1": "false"
+    }
+  },
+  {
+    "evaluate": {
+      "$newValue$.x.y == 1": "Unable to get property 'y' of undefined or null reference"
+    }
+  },
+  {
+    "evaluate": {
+      "$newValue$[0] == 1": "true"
+    }
+  }
+]

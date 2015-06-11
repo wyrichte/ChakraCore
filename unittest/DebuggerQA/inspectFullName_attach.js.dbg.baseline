@@ -1,0 +1,41 @@
+[
+  {
+    "evaluate": {
+      "a": {
+        "[Methods]": "{...}",
+        "a.__proto__": "{...}",
+        "a.sample": "1"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "arguments": {
+        "[Methods]": "{...}",
+        "arguments.__proto__": "{...}",
+        "arguments.length": "0"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "foo": {
+        "foo.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "foo.arguments": "null",
+        "foo.caller": "null",
+        "foo.length": "0",
+        "foo.name": "foo",
+        "foo.prototype": "{...}",
+        "foo.x": "2"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "__foo": {
+        "__foo.__proto__": "{...}",
+        "__foo.x": "1"
+      }
+    }
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "log": "tryBlock"
+  },
+  {
+    "callstack": [
+      {
+        "start": 68,
+        "length": 12,
+        "text": "var foo = 12",
+        "frameDescription": "Global code",
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+          "DBGPROP_ATTRIB_FRAME_INTRYBLOCK"
+        ],
+        "flagsAsValue": 16777232
+      }
+    ]
+  }
+]

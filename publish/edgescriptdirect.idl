@@ -1,0 +1,1441 @@
+/********************************************************
+*                                                       *
+*   Copyright (C) Microsoft. All rights reserved.       *
+*                                                       *
+********************************************************/
+
+cpp_quote("// Disable /W4 compiler warning C4201: nameless struct/union")
+cpp_quote("#pragma warning(push)")
+cpp_quote("#pragma warning(disable:4201)  // Disable C4201: nameless struct/union")
+cpp_quote("  ")   // Blank space
+
+import "oaidl.idl";
+import "ocidl.idl";
+import "dispex.idl";
+import "activprof.idl";
+import "activdbg100.idl";
+import "scaformat.idl";
+import "EdgeJavascriptTypeId.h";
+import "scriptDirectHost.idl";
+
+interface IActiveScriptByteCodeSource;
+
+#define MAX_ADDITIONAL_OBJECT_BYTES 768
+
+typedef int StringId;
+typedef int PropertyId;
+typedef void* HTYPE;
+
+const JavascriptTypeId TypeId_Unspecified = (JavascriptTypeId)-1;
+
+const USHORT JSCRIPT_FULL_STACKTRACE = (USHORT)-1;
+
+typedef[v1_enum] enum ScriptType
+{
+    ScriptType_Undefined,
+    ScriptType_Number,
+    ScriptType_Int,
+    ScriptType_String,
+    ScriptType_Bool,
+    ScriptType_Object,
+    ScriptType_RegularExpression,
+    ScriptType_Null,
+    ScriptType_Int64,
+    ScriptType_UInt64,
+    ScriptType_Date,
+    ScriptType_Symbol
+} ScriptType;
+
+cpp_quote("#define SCRIPT_DIRECT_TYPE")
+typedef [v1_enum] enum JsNativeValueType
+{
+    JsInt8Type,
+    JsUint8Type,
+    JsInt16Type,
+    JsUint16Type,
+    JsInt32Type,
+    JsUint32Type,
+    JsInt64Type,
+    JsUint64Type,
+    JsFloatType,
+    JsDoubleType,
+    JsNativeStringType
+} JsNativeValueType;
+
+typedef struct JsNativeString
+{
+    unsigned int length;
+    LPCWSTR str;
+} JsNativeString;
+
+typedef[v1_enum] enum TypedArrayType
+{
+    Int8Array,
+    Uint8Array,
+    Uint8ClampedArray,
+    Int16Array,
+    Uint16Array,
+    Int32Array,
+    Uint32Array,
+    Float32Array,
+    Float64Array
+} TypedArrayType;
+
+// List of well known types the host may register with us for special-behavior.
+typedef[v1_enum] enum WellKnownType
+{
+    WellKnownType_HTMLAllCollection     = 0,
+    WellKnownType_Last                  = WellKnownType_HTMLAllCollection,
+    WellKnownType_Invalid               = WellKnownType_Last+1
+} WellKnownType;
+
+typedef [v1_enum] enum CallFlags
+{
+    CallFlags_None = 0,
+    CallFlags_New = 1,
+    CallFlags_Value = 2,
+    CallFlags_Eval = 4,
+    CallFlags_CallEval = 8,
+    CallFlags_NotUsed = 0x10,
+    CallFlags_Wrapped = 0x20,
+    CallFlags_CallPut = 0x40
+} CallFlags;
+
+typedef [v1_enum] enum DescriptorFlags
+{
+    DescriptorFlags_None = 0x0,      // No data/accessor descriptor
+    DescriptorFlags_Accessor = 0x1,  // An accessor descriptor is present
+    DescriptorFlags_Data = 0x2,      // A data descriptor is present
+    DescriptorFlags_Writable = 0x4  // Data descriptor is writable
+} DescriptorFlags;
+
+
+typedef [v1_enum] enum FinalizeMode
+{
+    FinalizeMode_Finalize = 1,
+    FinalizeMode_Dispose = 2
+} FinalizeMode;
+
+typedef [v1_enum] enum OperationFlags
+{
+    OperationFlag_getNamespaceParent=0x1,
+    OperationFlag_hasOwnProperty=0x2,
+    OperationFlag_getOwnProperty=0x4,
+    OperationFlag_setProperty=0x8,
+    OperationFlag_deleteProperty=0x10,
+    OperationFlag_getOwnItem=0x20,
+    OperationFlag_setItem=0x40,
+    OperationFlag_deleteItem=0x80,
+    OperationFlag_getEnumerator=0x100,
+    OperationFlag_isEnumerable=0x200,
+    OperationFlag_setEnumerable=0x400,
+    OperationFlag_isWritable=0x800,
+    OperationFlag_setWritable=0x1000,
+    OperationFlag_isConfigurable=0x2000,
+    OperationFlag_setConfigurable=0x4000,
+    OperationFlag_setAccessors=0x8000,
+    OperationFlag_getSetter=0x10000,
+    OperationFlag_Equals=0x20000,
+    OperationFlag_hasInstance=0x40000,
+    OperationFlag_StrictEquals=0x80000,
+    OperationFlag_getPropertyReference=0x100000,
+    OperationFlag_getAccessors=0x200000,
+    OperationFlag_crossDomainCheck=0x400000,
+    OperationFlag_hasOwnItem=0x800000,
+    OperationFlag_getItemSetter=0x1000000,
+    OperationFlag_setPropertyWithAttributes=0x2000000,
+    OperationFlag_all=0x3FFFFFF,
+    OperationFlag_none=0
+} OperationFlags;
+
+typedef [v1_enum] enum OperationFlagsForNamespaceOrdering {
+    OperationFlagsForNamespaceOrdering_allGetPropertyOperations=0x1,
+    OperationFlagsForNamespaceOrdering_all=0x1,
+    OperationFlagsForNamespaceOrdering_none=0
+} OperationFlagsForNamespaceOrdering;
+
+
+typedef struct OperationUsage {
+    OperationFlags useAlways;
+    OperationFlags useWhenPropertyNotPresent;
+    OperationFlagsForNamespaceOrdering useWhenPropertyNotPresentInPrototypeChain;
+} OperationUsage;
+
+typedef struct CallInfo
+{
+    unsigned Count : 24;
+    unsigned Flags : 8;
+} CallInfo;
+
+typedef [v1_enum] enum PropertyAttributes
+{
+    PropertyAttributes_None         = 0x0,
+    PropertyAttributes_Enumerable   = 0x1,
+    PropertyAttributes_Configurable = 0x2,
+    PropertyAttributes_Writable     = 0x4,
+    PropertyAttributes_Default      = 0x7,
+    PropertyAttributes_All          = 0x7,
+} PropertyAttributes;
+
+typedef [v1_enum] enum SideEffects
+{
+   SideEffects_None     = 0x0,
+   SideEffects_MathFunc = 0x1,
+   SideEffects_ValueOf  = 0x2,
+   SideEffects_ToString = 0x4,
+   SideEffects_Accessor = 0x8,
+   SideEffects_Any      = 0x15,
+} SideEffects;
+
+typedef [v1_enum] enum CollectGarbageCallBackFlags
+{
+    CollectGarbage_Begin                    = 0x01,
+    CollectGarbage_Begin_Concurrent         = 0x11,
+    CollectGarbage_Begin_Partial            = 0x21,
+    CollectGarbage_Begin_Concurrent_Partial = CollectGarbage_Begin_Concurrent | CollectGarbage_Begin_Partial,
+    CollectGarbage_End                      = 0x02,
+    CollectGarbage_Wait                     = 0x04,     // Callback with this flag comes from a different thread
+} CollectGarbageCallBackFlags;
+
+typedef [v1_enum] enum RegexFlags
+{
+    RegexFlags_None         = 0,
+    RegexFlags_IgnoreCase   = 1 << 0,
+    RegexFlags_Global       = 1 << 1,
+    RegexFlags_Multiline    = 1 << 2,
+    RegexFlags_Unicode      = 1 << 3,
+    RegexFlags_Sticky       = 1 << 4,
+    RegexFlags_All          = (1 << 5) - 1
+} RegexFlags;
+
+typedef [v1_enum] enum TypedArrayBufferAllocationType
+{
+    TypedArrayBufferAllocationType_Heap     = 0x0,
+    TypedArrayBufferAllocationType_CoTask = 0x1,
+    TypedArrayBufferAllocationType_MemAlloc = 0x2
+} TypedArrayBufferAllocationType;
+
+typedef Var (__cdecl *ScriptMethod)(Var method, CallInfo callInfo, Var _this, ...);
+typedef void (__cdecl *FinalizeMethod)(void* address, FinalizeMode mode);
+typedef HRESULT (__cdecl *InitializeMethod)(Var instance);
+typedef void (__cdecl *CollectGarbageCallBack)(void * context, CollectGarbageCallBackFlags flags);
+typedef void * CollectGarbageCallBackHandle;
+
+[
+    object,
+    uuid(79D57FFB-9F0D-4996-8BC8-9CBAA0DF58C0),
+    helpstring("IVarEnumerator Interface"),
+    local,
+    pointer_default(unique)
+]
+interface IVarEnumerator : IUnknown
+{
+    // move to the next item.
+    HRESULT MoveNext([out] BOOL* itemsAvailable, [out, optional] PropertyAttributes* attributes);
+
+    // return current property name.
+    HRESULT GetCurrentName([out] Var* itemName);
+};
+
+interface IActiveScriptDirect;
+
+[
+    object,
+    uuid(13AFA238-C31E-4B81-837A-7B81FB7CE48F),
+    helpstring("IVarEnumerator2 Interface"),
+    local,
+    pointer_default(unique)
+]
+interface IVarEnumerator2 : IVarEnumerator
+{
+    // Return the javascript enumerator this IVarEnumerator is based on, if it is  a plain javascript enumerator
+    HRESULT GetJavascriptEnumerator([out] Var* enumerator);
+};
+
+
+typedef [v1_enum] enum ProfilerHeapObjectInfoFlags
+{
+    ProfilerHeapObjectInfoSizeOnly,
+    ProfilerHeapObjectInfoFull
+} ProfilerHeapObjectInfoFlags;
+
+// This structure is slightly different from PROFILER_HEAP_OBJECT_OPTIONAL_INFO in activprof.idl
+// in that the memory for dynamically-sized elements is embedded in the structure whereas PROFILER_HEAP_OBJECT_OPTIONAL_INFO
+// is pointers to these elements. We don't copy directly from on to the other anyway so no risk of inconsistency.
+typedef struct ProfilerHeapObjectOptionalInfo
+{
+    PROFILER_HEAP_OBJECT_OPTIONAL_INFO_TYPE infoType;
+    [switch_type(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_TYPE), switch_is(infoType)] union
+    {
+        [case(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_PROTOTYPE)] PROFILER_HEAP_OBJECT_ID prototype;
+        [case(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_FUNCTION_NAME)] LPCWSTR functionName;
+        [case(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_SCOPE_LIST)] PROFILER_HEAP_OBJECT_SCOPE_LIST scopeList;
+        [case(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_INTERNAL_PROPERTY)] PROFILER_HEAP_OBJECT_RELATIONSHIP internalProperty;
+        [case(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_NAME_PROPERTIES)] PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST namePropertyList;
+        [case(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_INDEX_PROPERTIES)] PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST indexPropertyList;
+        [case(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_ELEMENT_ATTRIBUTES_SIZE)] UINT elementAttributesSize;
+        [case(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_ELEMENT_TEXT_CHILDREN_SIZE)] UINT elementTextChildrenSize;
+        [case(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_RELATIONSHIPS)] PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST relationshipList;
+        [case(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_WINRTEVENTS)] PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST eventList;
+        [case(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_WEAKMAP_COLLECTION_LIST)] PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST weakMapCollectionList;
+        [case(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_MAP_COLLECTION_LIST)] PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST mapCollectionList;
+        [case(PROFILER_HEAP_OBJECT_OPTIONAL_INFO_SET_COLLECTION_LIST)] PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST setCollectionList;
+    };
+} ProfilerHeapObjectOptionalInfo;
+
+typedef struct HostProfilerHeapObject
+{
+    UINT size;
+    union {
+        PROFILER_HEAP_OBJECT_ID objectId;
+        PROFILER_EXTERNAL_OBJECT_ADDRESS externalAddress;
+    };
+    PROFILER_HEAP_OBJECT_NAME_ID typeNameId;
+    ULONG flags; // PROFILER_HEAP_OBJECT_FLAGS
+    USHORT unused;
+    USHORT externalObjectCount;
+    // for each externalAddress supplied in any of the optional information, CoTaskMemAllocate and return
+    // a HostProfilerHeapObject whose externalAddress matches that externalAddress. Caller will assume
+    // ownership of the memory.
+    [size_is(externalObjectCount)] struct HostProfilerHeapObject** externalObjects;
+    USHORT optionalInfoCount;
+    [size_is(optionalInfoCount)] ProfilerHeapObjectOptionalInfo* optionalInfo;
+} HostProfilerHeapObject;
+
+typedef [v1_enum] enum HeapDumperObjectToDumpFlag
+{
+    HeapDumperDumpNew = 0,
+    HeapDumperDumpOld = 1,
+    HeapDumperDumpAll = 2,
+    HeapDumperNoDumpRegisterOnly = 3,
+} HeapDumperObjectToDumpFlag;
+
+[
+    object,
+    uuid(EAB71157-26CF-4D11-809E-FFCEB9FC2A8B),
+    helpstring("IHeapDumper Interface"),
+    local,
+    pointer_default(unique)
+]
+interface IHeapDumper : IUnknown
+{
+    // Private interface to provide functional equivalent of Debug.DumpHeap
+    HRESULT DumpHeap(const WCHAR* outputFile, HeapDumperObjectToDumpFlag objectsToDump, BOOL minimalDump, BOOL);
+};
+
+typedef [v1_enum] enum HeapObjectInfoReturnResult
+{
+    // Indicates that the call was successful and the results were populated in the out parameter.
+    HeapObjectInfoReturnResult_Success,
+
+    // Indicates that the call was successful but no results were retrieved.
+    HeapObjectInfoReturnResult_NoResult,
+} HeapObjectInfoReturnResult;
+
+[
+    object,
+    uuid(8fa4e311-7937-493a-a761-69da8273621e),
+    helpstring("ITypeOperations Interface"),
+    local,
+    pointer_default(unique)
+]
+interface ITypeOperations : IUnknown
+{
+    /// Get the list of supported operations from the underlying type operations.
+    HRESULT GetOperationUsage([out] OperationUsage* usage);
+    /// Return true if 'instance' has the property specified by 'propertyId.'
+    HRESULT HasOwnProperty([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId,[out] BOOL* result);
+    /// Get the value of the property specified by 'propertyId.'
+    HRESULT GetOwnProperty([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [out] Var* value, [out] BOOL* propertyPresent);
+    /// Get the reference of the property specified by 'propertyId.'
+    HRESULT GetPropertyReference([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [out] Var* value, [out] BOOL* propertyPresent);
+    /// Set the value of the property specified by 'propertyId.'
+    HRESULT SetProperty([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [in] Var value, [out] BOOL* result);
+    /// Set the property specified by 'propertyId' and initilize its attributes and side effects
+    HRESULT SetPropertyWithAttributes([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [in] Var value, [in] PropertyAttributes attributes, [in] SideEffects effects, [out] BOOL* result);
+    /// Delete the property specified by 'propertyId.'
+    HRESULT DeleteProperty([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [out] BOOL* result);
+    /// Return true if 'instance' has the property specified by 'index'. Typically index is an integer and 'instance' represents an array.
+    HRESULT HasOwnItem([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] Var index, [out] BOOL* result);
+    /// Get the property specified by 'index.'  Typically index is an integer and 'instance' represents an array.
+    HRESULT GetOwnItem([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] Var index, [out] Var* value, [out] BOOL* itemPresent);
+    /// Set the property specified by 'index.'  Typically index is an integer and 'instance' represents an array.
+    HRESULT SetItem([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] Var index, [in] Var value,[out] BOOL* result);
+    /// Delete the property specified by 'index.'  Typically index is an integer and 'instance' represents an array.
+    HRESULT DeleteItem([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] Var index, [out] BOOL* result);
+    /// Get an enumerator for the enumerable properties of 'instance.'
+    HRESULT GetEnumerator([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] BOOL enumNonEnumerable, [in] BOOL enumSymbols, [out] IVarEnumerator** enumerator);
+    /// Return true if the property specified by 'propertyId' is enumerable.
+    HRESULT IsEnumerable([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [out] BOOL* result);
+    /// Return true if the property specified by 'propertyId' is writable.
+    HRESULT IsWritable([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [out] BOOL* result);
+    /// Return true if the property specified by 'propertyId' is configurable.
+    HRESULT IsConfigurable([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [out] BOOL* result);
+    /// Specify whether the property specified by 'propertyId' is enumerable.
+    HRESULT SetEnumerable([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [in] BOOL value);
+    /// Specify whether the property specified by 'propertyId' is writable.
+    HRESULT SetWritable([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [in] BOOL value);
+    /// Specify whether the property specified by 'propertyId' is configurable.
+    HRESULT SetConfigurable([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [in] BOOL value);
+    /// Set accessor methods for the property specified by 'propertyId.'
+    HRESULT SetAccessors([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [in] Var getter, [in] Var setter);
+    /// Get accessor methods for the property specified by 'propertyId'.
+    HRESULT GetAccessors([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [out] Var* getter, [out] Var* setter, [out] BOOL* result);
+    /// Retrieve setter in the proprotype lookup chain.
+    HRESULT GetSetter([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [out] Var* setter, [out] DescriptorFlags* flag);
+    /// Retrieve setter in the proprotype lookup chain. 'index' is an integer index.
+    HRESULT GetItemSetter([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] Var index, [out] Var* setter, [out] DescriptorFlags* flag);
+    /// Determines object equality using == syntax. This should be object equality allowing conversion.
+    HRESULT Equals([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] Var other, [out] BOOL* result);
+    /// Determines object equality using the === syntax. This should be closer to pointer equality, no conversions.
+    HRESULT StrictEquals([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] Var other, [out] BOOL* result);
+    /// Queries the underlying object for a given COM interface.
+    HRESULT QueryObjectInterface([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] REFIID riid, [out] void **ppvObj);
+    /// Provides access to a defer initialization method. This method is called the first time the type is accessed.
+    ///   initSlotCapacity:         Pre-initializes the type to the specified size. Useful for performance optimization.
+    ///   hasAccessors:             Determines if the type has complex accessors. A simpler storage structure can be used for types without accessors.
+    HRESULT GetInitializer([out] InitializeMethod * initializer, [out] int * initSlotCapacity, [out] BOOL * hasAccessors);
+    /// Get the finalizer that will be call when this object is collected;
+    HRESULT GetFinalizer([out] FinalizeMethod * finalizer);
+    /// Return true if instance is instance of constructor
+    HRESULT HasInstance([in] IActiveScriptDirect* scriptDirect, [in] Var constructor, [in] Var instance, [out] BOOL* result);
+    /// Get the Parent namespace for given object
+    HRESULT GetNamespaceParent([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [out] Var* namespaceParent);
+    /// Determine if we should wrap due to a crossDomainCheck
+    HRESULT CrossDomainCheck([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [out] BOOL* result);
+    /// Get information about the object for heap enumeration.  If a failure HRESULT value is returned, the return value in returnResult can be ignored.
+    HRESULT GetHeapObjectInfo([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] ProfilerHeapObjectInfoFlags flags, [out] HostProfilerHeapObject** result, [out] HeapObjectInfoReturnResult* returnResult);
+};
+
+
+[
+    object,
+    local,
+    uuid(8557A3D3-C557-4328-BAFC-F1AE60327E17),
+    helpstring("IJavascriptOperations Interface"),
+    pointer_default(unique)
+]
+interface IJavascriptOperations : IUnknown
+{
+    /// Return true if 'instance' or its prototype chain has the property specified by 'propertyId';
+    HRESULT HasProperty([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId,[out] BOOL* result);
+    /// Get the value of the property specified by 'propertyId,' including a search of the prototype chain.
+    HRESULT GetProperty([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [out] Var* value);
+    /// Set the property specified by 'propertyId' to the given value
+    HRESULT SetProperty([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId, [in] Var value);
+    /// Delete the property specified by 'propertyId'
+    HRESULT DeleteProperty([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] PropertyId propertyId);
+    /// Return true if 'instance' or its prototype chain has the property specified by 'index'.
+    HRESULT HasItem([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] Var index, [out] BOOL* result);
+    /// Get the value of the item specified by 'index,' including a search of the prototype chain.
+    HRESULT GetItem([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] Var index, [out] Var* value);
+    /// Set the item specified by 'index' to the given value
+    HRESULT SetItem([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] Var index, [in] Var value);
+    /// Delete the item specified by 'index'
+    HRESULT DeleteItem([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] Var index);
+    /// Compare two instances for equality.
+    HRESULT Equals([in] IActiveScriptDirect* scriptDirect, [in] Var a,[in] Var b,[out] BOOL* result);
+    /// Compare two instances using Javascript === operator
+    HRESULT StrictEquals([in] IActiveScriptDirect* scriptDirect, [in] Var a,[in] Var b,[out] BOOL* result);
+    /// Throws an exception with the specified exception object
+    HRESULT ThrowException([in] IActiveScriptDirect* scriptDirect, [in] Var exceptionObject, [in] BOOL release);
+    /// Queries the underlying object for a given COM interface.
+    HRESULT QueryObjectInterface([in] IActiveScriptDirect* scriptDirect, [in] Var instance, [in] REFIID riid, [out] void **ppvObj);
+};
+
+[
+    object,
+    local,
+    uuid(7E733080-DB74-48D4-9F9B-C386D1E6C007),
+    helpstring("IActiveScriptDirectGarbageCollector Interface"),
+    pointer_default(unique)
+]
+interface IActiveScriptDirectGarbageCollector : IUnknown
+{
+    /// Register a callback for use when the garbage collector complets a recycling operation.
+    HRESULT AddCallBack([in] CollectGarbageCallBack gccallback, [in] void * context, [out] CollectGarbageCallBackHandle * callBackHandle);
+    /// Remove a previously registered callback.
+    HRESULT RemoveCallBack([in] CollectGarbageCallBackHandle callBackHandle);
+};
+
+
+// This enum should map to Windows::Foundation::Diagnostics::CausalityTraceLevel.
+// We do not use that enum here to avoid taking a dependency on WinRT in script direct.
+typedef [v1_enum] enum AsyncCausality_LogLevel
+{
+    AsyncCausality_LogLevel_Required                   = 0,
+    AsyncCausality_LogLevel_Important                  = 1,
+    AsyncCausality_LogLevel_Verbose                    = 2,
+    AsyncCausality_LogLevel_Last                       = AsyncCausality_LogLevel_Verbose,
+    AsyncCausality_LogLevel_Invalid                    = AsyncCausality_LogLevel_Last+1
+} AsyncCausality_LogLevel;
+
+// This enum should map to Windows::Foundation::Diagnostics::CausalityRelation.
+// We do not use that enum here to avoid taking a dependency on WinRT in script direct.
+typedef [v1_enum] enum AsyncCausality_RelationType
+{
+    AsyncCausality_RelationType_AssignDelegate       = 0,
+    AsyncCausality_RelationType_Join                 = 1,
+    AsyncCausality_RelationType_ChooseAny            = 2,
+    AsyncCausality_RelationType_Cancel               = 3,
+    AsyncCausality_RelationType_Error                = 4,
+    AsyncCausality_RelationType_Last                 = AsyncCausality_RelationType_Error,
+    AsyncCausality_RelationType_Invalid              = AsyncCausality_RelationType_Last+1
+}AsyncCausality_RelationType;
+
+// This enum should map to Windows::Foundation::Diagnostics::CausalitySynchronousWork.
+// We do not use that enum here to avoid taking a dependency on WinRT in script direct.
+typedef [v1_enum] enum AsyncCausality_CallbackType
+{
+    AsyncCausality_CallbackType_Completion             = 0,
+    AsyncCausality_CallbackType_Progress               = 1,
+    AsyncCausality_CallbackType_Execution              = 2,
+    AsyncCausality_CallbackType_Last                   = AsyncCausality_CallbackType_Execution,
+    AsyncCausality_CallbackType_Invalid                = AsyncCausality_CallbackType_Last+1
+}AsyncCausality_CallbackType;
+
+// This enum should map to Windows::Foundation::AsyncStatus.
+// We do not use that enum here to avoid taking a dependency on WinRT in script direct.
+typedef [v1_enum] enum AsyncCausality_OperationStatus
+{
+    AsyncCausality_OperationStatus_Started             = 0,
+    AsyncCausality_OperationStatus_Completed           = 1,
+    AsyncCausality_OperationStatus_Canceled            = 2,
+    AsyncCausality_OperationStatus_Error               = 3,
+    AsyncCausality_OperationStatus_Last                = AsyncCausality_OperationStatus_Error,
+    AsyncCausality_OperationStatus_Invalid             = AsyncCausality_OperationStatus_Last+1
+}AsyncCausality_OperationStatus;
+
+// The IActiveScriptDirectAsyncCausality interface allows one to call
+// into the system-level async-causality API via chakra.
+[
+    object,
+    local,
+    uuid(82862DDB-0708-4D60-8D40-C924F9B51D3D),
+    helpstring("IActiveScriptDirectAsyncCausality Interface"),
+    pointer_default(unique)
+]
+interface IActiveScriptDirectAsyncCausality : IUnknown
+{
+    // Name:        TraceAsyncOperationStarting
+    // Info:        Initiates an async operation, which creates a token that can be used to relate subsequent
+    //              work back to the current operation. This corresponds to the "asynchronous operation" as
+    //              used in the taxonomy of the Windows spec.
+    // Parameters:  platformId - A GUID identifying a unique platform ID, which should be passed to the
+    //              underlying API. If this pointer is NULL, the GUID for the Chakra platform will be
+    //              passed to the underlying API.
+    //              operationName - A null-terminated wide-character string that will be used to identify the
+    //              operation in progress and which will be shown to the debugger. It is not necessary to make
+    //              this value unique, but it might assist the developer with debugging. [Optional - pass NULL]
+    //              logLevel - The desired logging level of this message.
+    //              operationId - A number-typed value containing the unique token for this async operation.
+    //              It should be used as the operationId for subsequent API calls.
+    // Returns:     S_OK or the hr returned from the underlying API.
+    HRESULT TraceAsyncOperationStarting(
+        [in] GUID* platformId,
+        [in] LPCWSTR operationName,
+        [in] AsyncCausality_LogLevel logLevel,
+        [out, retval] UINT64* pOperationId);
+
+    // Name:        TraceAsyncCallbackStarting
+    // Info:        Associates the current synchronous callback stack with the asynchronous operation previously
+    //              begun. This corresponds to a "synchronous work item" in the taxonomy of the Windows spec.
+    // Parameters:  platformId - A GUID identifying a unique platform ID, which should be passed to the
+    //              underlying API. If this pointer is NULL, the GUID for the Chakra platform will be
+    //              passed to the underlying API.
+    //              operationId - A value returned from a previous call to IActiveScriptContextAsyncCausality:: BeginAsyncOperation.
+    //              workType - A hint indicating the type of work being performed.
+    //              logLevel - The desired logging level of this message.
+    // Returns:     S_OK or the hr returned from the underlying API.
+    HRESULT TraceAsyncCallbackStarting(
+        [in] GUID* platformId,
+        [in] UINT64 operationId,
+        [in] AsyncCausality_CallbackType workType,
+        [in] AsyncCausality_LogLevel logLevel);
+
+    // Name:        TraceAsyncCallbackCompleted
+    // Info:        Indicates that the current synchronous callback stack corresponding to a previous asynchronous
+    //              operation has completed. The operation ID is inferred from the stack of pending async operations
+    //              for the current thread.
+    // Parameters:  workType - A hint indicating the type of work being performed.
+    //              logLevel - The desired logging level of this message.
+    // Returns:     S_OK or the hr returned from the underlying API.
+    HRESULT TraceAsyncCallbackCompleted(
+        [in] AsyncCausality_CallbackType workType,
+        [in] AsyncCausality_LogLevel logLevel);
+
+    // Name:        UpdateAsyncCallbackRelation
+    // Info:        Updates the latest status of a task related to a synchronous callback to indicate that the state
+    //              has changed (for example, to indicate an error or shape change).
+    // Parameters:  platformId - A GUID identifying a unique platform ID, which should be passed to the
+    //              underlying API. If this pointer is NULL, the GUID for the Chakra platform will be
+    //              passed to the underlying API.
+    //              operationId - A value returned from a previous call to IActiveScriptContextAsyncCausality:: BeginAsyncOperation.
+    //              relation - Type of relation to link to operationId.
+    //              logLevel - The desired logging level of this message.
+    // Returns:     S_OK or the hr returned from the underlying API.
+    HRESULT UpdateAsyncCallbackRelation(
+        [in] GUID* platformId,
+        [in] UINT64 operationId,
+        [in] AsyncCausality_RelationType relation,
+        [in] AsyncCausality_LogLevel logLevel);
+
+    // Name:        TraceAsyncOperationCompleted
+    // Info:        Updates the status of an outstanding asynchronous operation to completed.  Subsequent calls to
+    //              the "Synchronous Work Item" APIs using asyncOperationID with the value passed into this method have
+    //              undefined behavior.
+    // Parameters:  platformId - A GUID identifying a unique platform ID, which should be passed to the
+    //              underlying API. If this pointer is NULL, the GUID for the Chakra platform will be
+    //              passed to the underlying API.
+    //              operationId - A value returned from a previous call to IActiveScriptContextAsyncCausality:: BeginAsyncOperation.
+    //              status - State of the operation.
+    //              logLevel - The desired logging level of this message.
+    // Returns:     S_OK or the hr returned from the underlying API.
+    HRESULT TraceAsyncOperationCompleted(
+        [in] GUID* platformId,
+        [in] UINT64 operationId,
+        [in] AsyncCausality_OperationStatus status,
+        [in] AsyncCausality_LogLevel logLevel);
+};
+
+// SCA Serialization/deserialization context we can use for potential optimization.
+typedef [v1_enum] enum SCAContextType
+{
+    SCAContext_SameThread,
+    SCAContext_CrossThread,
+    SCAContext_CrossProcess,
+    SCAContext_Persist
+} SCAContextType;
+
+// SCA context info interface implemented by the host.
+[
+    object,
+    local,
+    uuid(4946FCEE-432C-4218-e2FB-363778273257),
+    helpstring("ISCAContext Interface"),
+    pointer_default(unique)
+]
+interface ISCAContext: IUnknown
+{
+    HRESULT GetContext([out] SCAContextType* pContext);
+    HRESULT GetTarget([out] IUnknown** ppTarget);
+
+    // Will be used to give temporary ownership of objects being transferred, returns failure if already set
+    // obj                  : Object to hold on to for the duration of the transfer
+    HRESULT SetDependentObject([in] IUnknown *obj);
+
+    // Returns the object previously set through SetDependentObject, does *not* call Release or clear it
+    // obj                  : Set to the object previously given through SetDependentObject
+    HRESULT GetDependentObject([out] IUnknown **obj);
+};
+
+[
+    object,
+    local,
+    uuid(f5308e21-023f-4724-9597-60c859a7fa04),
+    helpstring("IActiveScriptDirect Interface"),
+    pointer_default(unique)
+]
+interface IActiveScriptDirect : IUnknown
+{
+    /// Sets the host object to use for global property resolution
+    ///   hostObject        : Internally visible to the script engine for property lookups
+    ///   secureHostObject  : Can be passed around using the "this" pointer from Global. Wraps the hostObject and provides the cross domain security model.
+    HRESULT SetHostObject([in] Var hostObject, [in] Var secureHostObject);
+
+    /// Gets the host object to use for global property resolution
+    HRESULT GetHostObject([out] Var* hostObject);
+
+    /// Reserves the specified property on the global object to prevent local shadowing/hiding
+    HRESULT ReserveGlobalProperty([in] PropertyId propertyId);
+
+    /// Gets the property id associated with 'name'. If there is no associated id, adds one and returns it.
+    ///   name              : Identifier name for the given property. Identifier may consist of only digits.
+    ///   id                ; The unique PropertyId on this thread for the given identifier. Used by all other APIs.
+    HRESULT GetOrAddPropertyId([in] LPCWSTR name, [out] PropertyId* id);
+
+    /// Returns the name associated with 'id.'
+    ///   id                : PropertyId previously retrieved through GetOrAddPropertyId or passed through an ITypeOperations callback.
+    ///   name              : Identifier name which represents this property id.
+    HRESULT GetPropertyName([in] PropertyId id, [out] LPCWSTR* name);
+
+    /// Parse a script function
+    HRESULT Parse([in] LPWSTR scriptText, [out] Var* scriptFunc);
+
+    /// Execute the given instance. If this is a function it will be called. If it bears the [[Callable]] attribute then its referenced function will be called.
+    /// Exceptions will be propagated through the HRESULT.
+    ///   instance          : A JavascriptFunction or an instance object which is Callable.
+    ///   callInfo          : Specifies calling flags and parameter counts
+    ///   parameters        : Specifies parameters to be passed, including the this pointer. The first parameter is always this and is almost always required.
+    ///   serviceProvider   : Caller's service provider - used for exception propagation etc.
+    ///   varResult         : The Var representing the result. Could be 'undefined' or 'null' in addition to a real return value.
+    HRESULT Execute([in] Var instance, [in] CallInfo callInfo, [in, annotation("__in_xcount(callInfo.Count)")] Var* parameters, [in] IServiceProvider* serviceProvider, [out] Var* varResult);
+
+    /// Similar to GetHostObject, but returns only the Global Object instance. Generally you want the host object instead. This is primarily used for hosts
+    /// to get the global object to be used in conjunction with their host object.
+    HRESULT GetGlobalObject([out] Var* globalObject);
+
+    /// Returns an ITypeOperations interface which is usable in conjunction with custom types. When called on a custom type this interface will interrogate only
+    /// the underlying dynamic object and not cause re-entrancy with the ITypeOperations of the custom type itself.
+    HRESULT GetDefaultTypeOperations([out] ITypeOperations** operations);
+
+    /// Get the set of Javascript language operations. Unlike type operations these should not be used within the implementation of a custom type's ITypeOperations.
+    /// Calling on this interface may cause re-entrancy back into the custom type.
+    HRESULT GetJavascriptOperations([out] IJavascriptOperations** jsOperations);
+
+    /// Methods for creating objects, extending the behavior of
+    /// operations on objects, and adding extra information to objects.
+
+    /// Gets the unique identifier for the specified type
+    HRESULT GetTypeIdForType([in] HTYPE type, [out] JavascriptTypeId* typeIdRef);
+
+    /// Gets the unique identifier of the type of the specified object
+    HRESULT GetTypeIdForVar([in] Var instance, [out] JavascriptTypeId* typeIdRef);
+
+    /// For use by the initial hosting infrastructure to reserve a fixed, contiguous range of type id's.
+    HRESULT ReserveStaticTypeIds([in] int first, [in] int last);
+
+    /// For use by IActiveScriptDirect clients to reserve a range of type ids for use by their types.
+    HRESULT ReserveTypeIds([in] int count, [out] JavascriptTypeId* firstTypeId);
+
+    /// Creates a simple object (eg. jscript:new Object())
+    HRESULT CreateObject([out] Var* instance);
+
+    /// Creates a constructor object (eg. jscript:function Foo() { (native) })
+    ///   objectPrototype : the object used as the value for the ctor.prototype property; may be null
+    ///   entryPoint      : the function called on call or new; may be null
+    ///   nameId          : the proprtyId of name to be return in toString call. Output format is "function <class>() {\n\t[native code]\n}"
+    ///   bindReference   : The returned instance will live for the lifetime of the script engine (until Close()) and does not have to be managed using VarAddRef/VarRelease
+    ///   instance        : The Var representing the created constructor.
+    HRESULT CreateConstructor([in, unique] Var objectPrototype, [in] ScriptMethod entryPoint, [in] PropertyId nameId, [in] BOOL bindReference, [out] Var* instance);
+
+    /// Creates a constructor object (eg. jscript:function Foo() { (native) })
+    ///   entryPoint      : the function called on call or new; may be null
+    ///   nameId          : the proprtyId of name to be return in toString call. Output format is "function <class>() {\n\t[native code]\n}"
+    ///   initializer     : the method called the first time the constructor is accessed
+    ///   deferredTypeSlots     : the number of initial slots allocated for the type to optimize memory allocation
+    ///   hasAccessors    : true if we expect to have properties so we can use a simpler type handler in the false case.
+    ///   bindReference   : The returned instance will live for the lifetime of the script engine (until Close()) and does not have to be managed using VarAddRef/VarRelease
+    ///   instance        : The Var representing the created constructor.
+    HRESULT CreateDeferredConstructor([in, unique] ScriptMethod entryPoint, [in] PropertyId nameId, [in] InitializeMethod initializer, [in] unsigned short deferredTypeSlots, [in] BOOL hasAccessors, [in] BOOL bindReference, [out] Var* instance);
+
+    /// Creates a static type.
+    ///   typeId          : A TypeID previously reserved using ReserveStaticTypeIds or ReserveTypeIds.
+    ///   prototype       : the prototype value used to populate the internal [[prototype]] property of the object; may be null
+    ///   entryPoint      : the function called on call or new; may be null
+    ///   operations      : the set of custom operations to call in place of the default object behavior; may be null
+    ///   fDeferred       : Determines if the type operations contains a deferred initializer which should be called to populate the type on first access.
+    ///   nameId          : the proprtyId of name to be return in toString call for objects created from this type. Output format is "[object <name>]"
+    ///   bindReference   : The returned instance will live for the lifetime of the script engine (until Close()) and does not have to be managed using VarAddRef/VarRelease
+    ///   typeRef         : The type handle to be use in calls to CreateTypedObject
+    HRESULT CreateType([in] JavascriptTypeId typeId, [in, unique] Var prototype, [in, unique] ScriptMethod entryPoint, [in, unique] ITypeOperations* operations, [in] BOOL fDeferred, [in] PropertyId nameId, [in] BOOL bindReference, [out] HTYPE* typeRef);
+
+    /// Creates a constructor object (eg. jscript:function Foo() { (native) })
+    ///   type            : a handle to the type of object to create; required
+    ///   byteCount       : the size of the additional bytes to be allocated; will be adjusted to be 8 byte aligned in length.
+    ///   bindReference   : The returned instance will live for the lifetime of the script engine (until Close()) and does not have to be managed using VarAddRef/VarRelease
+    ///   instance        : The Var which represents a new object of the type specified by the type handle.
+    HRESULT CreateTypedObject([in] HTYPE type, [in] int byteCount, [in] BOOL bindReference, [out] Var* instance);
+
+    /// Create a javascript object that is internally an array.
+    ///   length          : the initial length of the array.
+    ///   instance        : The Var which represents the newly allocated Array object.
+    HRESULT CreateArrayObject([in] UINT length, [out] Var* instance);
+
+    /// Check if a javascript object is internally an array
+    HRESULT IsArrayObject([in] Var instance, [out] BOOL* isArray);
+
+    /// Methods for converting to and from script types, and for comparing script values.
+    /// Convert an instance to a VARIANT according the speicified VARTYPE.
+    HRESULT ChangeTypeFromVar([in] Var instance, [in] VARTYPE varType, [out] VARIANT* outVariant);
+
+    // Convert specified VARIANT to a script instance.
+    HRESULT ChangeTypeToVar([in] VARIANT* inVariant, [out] Var* instance);
+
+    HRESULT VarToDouble([in] Var instance, [out] double* value);
+    HRESULT DoubleToVar([in] double value, [out] Var* instance);
+
+    HRESULT DateToVar([in] double value, [out] Var* instance);
+
+    HRESULT VarToInt([in] Var instance, [out] int* value);
+    HRESULT IntToVar([in] int value, [out] Var* instance);
+
+    HRESULT VarToBOOL([in] Var instance, [out] BOOL* value);
+    HRESULT BOOLToVar([in] BOOL value, [out] Var* instance);
+
+    /// Converts a Var instance into an allocated string
+    ///   instance          : A string or object which can be converted to a string.
+    ///   value             : An allocated BSTR which must be free'd by the caller.
+    HRESULT VarToString([in] Var instance, [out] BSTR* value);
+    /// Converts a Var instance into a string reference
+    ///   instance          : A string or object which can be converted to a string.
+    ///   value             : A const reference to the internal representation of the string. Must be used directly, can't be stored.
+    ///   length            : The strings length which takes into account embedded '\0' characters.
+    HRESULT VarToRawString([in] Var instance, [out, annotation("__deref_out_ecount(*length)")] const WCHAR** value, [out] unsigned int* length);
+    /// Converts an existing BSTR or LPCWSTR to a Var
+    ///   value             : An LPCWSTR or BSTR representing the string to be converted.
+    ///   length            : Either a simple string length or SysStringLen result.
+    ///   instance          : The Var which represents the converted string.
+    HRESULT StringToVar([in, size_is(length)] const WCHAR* value, [in] int length, [out] Var* instance);
+
+    /// Converts between a Var and it's embedded memory. Used for custom types which need to store data on the Var.
+    /// For security the embedded memory should only be used if the typeId returned is known to the caller.
+    ///   instance          : A Var pointing to a custom typed object.
+    ///   value             : A pointer to the embedded memory requesting when instantiating the instance.
+    ///   typeIdRef         : The TypeId of the custom typed object which can be used to validate the memory buffer.
+    HRESULT VarToExtension([in] Var instance, [out, annotation("__deref_out_xcount(\" \")")] void** value, [out] JavascriptTypeId* typeIdRef);
+    HRESULT ExtensionToVar([in] void* value, [out] Var* instance);
+
+    HRESULT DispExToVar([in] IDispatchEx* pdispex, [out] Var* instance);
+    HRESULT VarToDispEx([in] Var instance, [out]IDispatchEx** pdispex);
+    HRESULT VarToInt64([in] Var instance, [out] __int64* value);
+    HRESULT Int64ToVar([in] __int64 value, [out] Var* instance);
+    HRESULT VarToUInt64([in] Var instance, [out] unsigned __int64* value);
+    HRESULT UInt64ToVar([in] unsigned __int64 value, [out] Var* instance);
+
+    /// Converts a pointer to an IInspectable (passed as an IUnknown) to a Var
+    ///   unknown       : A pointer to the IInspectable object
+    ///   instance      : The resulting Var representing that object
+    HRESULT InspectableUnknownToVar([in] IUnknown * unknown, [out] Var * instance);
+
+    /// Get the script type of an instance.
+    HRESULT GetScriptType([in] Var instance, [out] ScriptType* scriptType);
+
+    /// Get the service provider of the calling context.
+    HRESULT GetServiceProvider([out] IServiceProvider** serviceProvider);
+
+    /// Get and release the service provider of the calling context and use it for IDispatchEx::InvokeEx
+    HRESULT GetServiceProviderOfCaller([out] IServiceProvider** serviceProvider);
+    HRESULT ReleaseServiceProviderOfCaller([in] IServiceProvider* serviceProvider);
+
+    /// Get the 'null' Var.
+    HRESULT GetNull([out] Var* nullValue);
+    /// Get the 'undefined' Var.
+    HRESULT GetUndefined([out] Var* undefinedValue);
+
+    /// Returns true if the given IDispatch is for a function object.
+    HRESULT IsFunctionObject([in] IDispatch* pdisp, [out] BOOL* result);
+
+    /// Returns true if the given var is a HostDispatch wrapper.
+    HRESULT IsHostDispatch([in] Var instance, [out] BOOL* result);
+
+    /// Build a direct Javascript function
+    ///   signature         : must be NULL.
+    ///   entryPoint        : specifies the entry point for the generated javascript function. Must not be NULL
+    ///   nameId            : the proprtyId of name to be return in toString call. Output format is "function <class>() {\n\t[native code]\n}"
+    ///   jsFunction        : A Var representing a callable function which can be used with Execute or ITypeOperations.
+    HRESULT BuildDirectFunction([in, unique] Var signature,[in] void* entryPoint, [in] PropertyId nameId, [out] Var* jsFunction);
+
+    /// Create an error object with specified information which can be thrown using IJavascriptOperations::ThrowException
+    ///   errorType         : Specifies the basic type of the exception
+    ///   hCode             : Specifies the HRESULT to be used for determining message information.
+    ///   message           : An optional message if the HRESULT is not specified as having a verbose message.
+    ///   errorObject       : The Var which can be thrown. May be an OOM exception object if the result of the call could not be allocated.
+    HRESULT CreateErrorObject([in] JsErrorType errorType, [in] HRESULT hCode, [in] LPCWSTR message, [out] Var* errorObject);
+
+    /// Changes the underlying type of an object. This is normally done for objects which outlive a script engine and get transitioned to a new one.
+    ///   instance          : The Var instance to be reinitialized to the new type.
+    ///   type              : The handle to a type in the engine and type system where you want the Var to be reinitialized.
+    ///   keepProperties    : If true, transitions expando properties from the old engine to the new engine.
+    HRESULT ReinitializeObject([in] Var instance, [in] HTYPE type, [in] BOOL keepProperties);
+
+    /// Clear out the global object associated with this script engine
+    HRESULT UnrootScriptEngine();
+
+    /// Rethrow an recorded exception if there is one, release the current IActiveScriptDirect before rethrow
+    HRESULT ReleaseAndRethrowException([in] HRESULT hr);
+
+    /// Creates a fixed size pixel array with custom packing and range restrictions.
+    ///   length            : The number of entries in this custom pixel array.
+    ///   instance          : The instance representing the new allocated custom pixel array.
+    HRESULT CreatePixelArray([in] UINT length, [out] Var* instance);
+
+    /// Obtains the underlying memory buffer used by the pixel array.
+    ///   instance          : The custom pixel array instance for which a buffer is needed.
+    ///   ppBuffer          : A pointer to the byte buffer.
+    ///   pBufferLength     : The number of bytes which can be written to the underlying buffer.
+    HRESULT GetPixelArrayBuffer([in] Var instance, [out, size_is(,*pBufferLength)] BYTE** ppBuffer, [out] UINT* pBufferLength);
+
+    /// Creates a fixed size ArrayBuffer
+    ///   length            : The number of bytes in the ArrayBuffer
+    ///   instance          : The instance representing the new allocated ArrayBuffer
+    HRESULT CreateArrayBuffer([in] UINT length, [out] Var* instance);
+
+    /// Creates a typed array
+    ///   typedArrayType    : the type of the typed array to be created.
+    ///   length            : The number of elements in the typed array. The value needs to be 0 if arrayBuffer field is not NULL.
+    ///   sourceVar           : The base object of the typed array.
+    ///                         if length is not 0, the sourceVar parameter must be NULL.
+    ///                         if sourceVar is ArrayBuffer, a new instance of typed array is created using the provided ArrayBuffer
+    ///                         if sourceVar is another TypeArray, the new TypeArray is created with the sourceVar length, with
+    ///                             array content copied to the new array.
+    ///                         if sourceVar is a Javascript Array, the new TypeArray is created with the sourceVar length, with
+    ///                             array content copied to the new array.
+    ///                         the method failes with E_INVALIDARG if sourceVar is not one of the above type.
+    ///   instance          : The instance representing the new allocated typed array
+    HRESULT CreateTypedArray([in] TypedArrayType typedArrayType, [in, unique] Var sourceVar, [in] UINT length, [out] Var* instance);
+
+    /// Obtains the underlying memory buffer used by the typed array.
+    ///   instance          : The typed array instance for which a buffer is needed.
+    ///   ppBuffer          : A pointer to the byte buffer. The script engine owns the buffer and it can be reclaimed after the call is
+    ///                         finished. Callee needs to make a copy if the buffer is needed pass the lifetime of the call.
+    ///   pBufferLength     : The number of bytes which can be written to the underlying buffer.
+    ///   typedArrayType    : The typed array type if the input is a typed array. It's set to -1 if input is an arraybuffer.
+    ///   elementSize       : The element size of the input typed array. It's set to -1 if input is an arraybuffer.
+    HRESULT GetTypedArrayBuffer(
+        [in] Var instance,
+        [out,  size_is(,*pBufferLength)] BYTE** ppBuffer,
+        [out] UINT* pBufferLength,
+        [out, annotation("__out_opt")] TypedArrayType* typedArrayType,
+        [out, annotation("__out_opt")] INT* elementSize);
+
+    /// Detaches and returns the backing memory buffer from a JavaScript ArrayBuffer instance. Notes:
+    ///     - After this call, code in JavaScript will see the ArrayBuffer as empty and will not be able to use it.
+    ///     - In order to clean up the memory buffer when it's no longer needed, FreeDetachedTypedArrayBuffer must be called.
+    ///   instance          : The JavaScript ArrayBuffer or typed array instance from which to detach a buffer
+    ///   ppBuffer          : A pointer to the byte buffer. The script engine owns the buffer and it can be reclaimed after the call is
+    ///                         finished. Callee needs to make a copy if the buffer is needed pass the lifetime of the call.
+    ///   pBufferLength     : The number of bytes which can be written to the underlying buffer.
+    ///   pAllocationType   : The type of allocation that was used for the memory buffer, this is needed by the engine to free the buffer after.
+    ///   typedArrayType    : The typed array type if the input is a typed array. It's set to -1 if input is an arraybuffer.
+    ///   elementSize       : The element size of the input typed array. It's set to -1 if input is an arraybuffer.
+    ///
+    /// Errors:
+    ///     E_FAIL - If the JavaScript ArrayBuffer has already been detached
+    HRESULT DetachTypedArrayBuffer(
+        [in] Var instance,
+        [out, size_is(, *pBufferLength)] BYTE** ppBuffer,
+        [out] UINT* pBufferLength,
+        [out] TypedArrayBufferAllocationType * pAllocationType,
+        [out, annotation("__out_opt")] TypedArrayType* typedArrayType,
+        [out, annotation("__out_opt")] INT* elementSize);
+
+
+    /// Frees the memory buffer obtained by calling DetachTypedArrayBuffer.
+    ///   pBuffer           : The memory buffer
+    ///   bufferLength      : The length of the memory buffer
+    ///   allocationType    : The type of allocation that was used for the memory buffer, this is returned out by DetachTypedArrayBuffer
+    HRESULT FreeDetachedTypedArrayBuffer([in] BYTE * pBuffer, [in] UINT bufferLength, [in]TypedArrayBufferAllocationType allocationType);
+
+
+    // Compiles the regular expression pattern and provides an object wrapping it.
+    //   pattern            : Regular expression pattern
+    //   patternLength      : Length of 'pattern' in characters
+    //   flags              : Flags to customizing pattern matching behavior
+    //   regex              : Object wrapping the compiled regular expression that can be used for matching. The object's
+    //                        lifetime is managed through JsVarAddRef and JsVarRelease. Initially, the object has no references
+    //                        (except the reference from the stack), so callers should use JsVarAddRef if they intend on storing
+    //                        the object for later use, and JsVarRelease to release it for collection.
+    HRESULT CreateRegex([in] LPCWSTR pattern, [in] UINT patternLength, [in] RegexFlags flags, [out] Var *regex);
+
+    // Tests a regular expression against a string.
+    //   regex                  : Object obtained from CreateRegex
+    //   input                  : String against which to test the regular expression pattern
+    //   inputLength            : Length of 'input' in characters
+    //   mustMatchEntireInput   : In considering whether the regular expression pattern matches the input string, TRUE specifies
+    //                            that the pattern must match the entire input string and FALSE specifies that the pattern may
+    //                            match a substring. The 'global' flag (RegexFlags_Global) is ignored when TRUE, and the
+    //                            lastIndex property of the regex object is not changed.
+    //   matched                : TRUE if the regular expression matched the input string (substring or the entire string, as
+    //                            specified by 'mustMatchEntireInput'), FALSE otherwise
+    HRESULT RegexTest([in] Var regex, [in] LPCWSTR input, [in] UINT inputLength, [in] BOOL mustMatchEntireInput, [out] BOOL *matched);
+
+    // Serialize a var and write result to stream.
+    //  context             : Contains serialization context info.
+    //  instance            : The root var that'll be serialized into SCA serialization format.
+    //  transferableVars    : An array of vars for transferable objects unpacked from the second argument of the "worker.postMessage" call.
+    //  cTransferableVars   : Number of vars in transferableVars array
+    //  pOutStream          : The output stream to receive serialized data. Supports sequential write.
+    //  serviceProvider     : Caller's service provider - used for exception propagation etc.
+    //
+    // SCA error results
+    //  E_SCA_UNSUPPORTED   : The instance or a descendent property type is unsupported by SCA.
+    HRESULT Serialize([in] ISCAContext* context, [in] Var instance, [in, annotation("__in_xcount(cTransferableVars)")] Var* transferableVars, [in] UINT cTransferableVars, [in] IStream* pOutSteam, [in] IServiceProvider* serviceProvider);
+
+    // Read from a stream and deserialize into a var.
+    //  context             : Contains deserialization context info.
+    //  pInStream           : The input stream to read data from. Supports sequential read.
+    //  serviceProvider     : Caller's service provider - used for exception propagation etc.
+    //  pValue              : Contains deserialized root var if deserialization is successful.
+    //
+    // SCA error results
+    //  E_SCA_UNSUPPORTED   : The stream contains host objects but the host doesn't support ISCAHost.
+    //  E_SCA_NEWVERSION    : The SCA layout format is of newer version.
+    //  E_SCA_DATACORRUPT   : The SCA layout format contains unexpected data, indicating data corruption.
+    HRESULT Deserialize([in] ISCAContext* context, [in] IStream* pInSteam, [in] IServiceProvider* serviceProvider, [out] Var* pValue);
+
+    // Read from a stream and discard any data that needs destruction
+    //  context             : Contains discard context info.
+    //  pInStream           : The input stream to read and subsequently discard data from. Supports sequential read.
+    //  serviceProvider     : Caller's service provider - used for exception propagation etc.
+    HRESULT Discard([in] ISCAContext* context, [in] IStream* pInSteam, [in] IServiceProvider* serviceProvider);
+
+    /// Returns true if the given var is for a function object.
+    HRESULT IsVarFunctionObject([in] Var instance, [out] BOOL* result);
+
+    /// Get the time value of a JavascriptDate instance.
+    /// TODO: Move this entry up to DateToVar. Leaving it here temporarily to be compatible with existing binaries.
+    HRESULT VarToDate([in] Var instance, [out] double* value);
+
+    /// Returns true if a given instance is primitive undefined/null/boolean/number/string.
+    HRESULT IsPrimitiveType([in] Var instance, [out] BOOL* result);
+
+    /// Converts between SYSTEMTIME structures and JavaScriptDate instances. No local/UTC time conversions take place.
+    HRESULT SYSTEMTIMEToVar([in] SYSTEMTIME* pst, [out] Var* instance);
+
+    /// Get simple getter/setter for given slot
+    ///   typeId           : The TypeId for the type specified.
+    ///   slotIndex        : specifies the slot index for the getter/setter to be retrieved. It is the slot offset
+    ///                      for objects created from CreateTypedObject. The object must be created with the extended size
+    ///                      larger than or equal to (slotIndex+1)*sizeof(Var)
+    HRESULT GetTypedObjectSlotAccessor([in] JavascriptTypeId allowedTypeId, [in] PropertyId nameId, [in] unsigned int slotIndex, [out] Var* getter, [out] Var* setter);
+
+    HRESULT VerifyBinaryConsistency([in] void* dataContext);
+
+    /// TODO: Move this entry up to SYSTEMTIMEToVar. Leaving it here temporarily to be compatible with existing binaries.
+    HRESULT VarToSYSTEMTIME([in] Var instance, [out] SYSTEMTIME* result);
+
+    /// Register one of the well known types by linking it to a type id.
+    ///   wellKnownType   : the well known type to register
+    ///   typeId          : a type id in the range previously reserved via ReserveStaticTypeIds or ReserveTypeIds
+    HRESULT RegisterWellKnownTypeId([in] WellKnownType wellKnownType, [in] JavascriptTypeId typeId);
+
+    HRESULT IsObjectCallable([in] Var obj, [out] BOOL* isCallable);
+
+    /// Mark external host objects as inaccessible. This is different from the site being closed which occurs
+    /// later once all of the references to the engine have been released.
+    HRESULT InvalidateHostObjects();
+
+    /// Get current caller script source info. For IE11, this method should only be used by WebGL.
+    ///   url               : Receives a reference to the internal script source url string. NULL if dynamic script. Note: The returned internal
+    ///                       reference cannot be stored. It might be released by the script engine later on.
+    ///   line              : Receives 0-based line number of caller script.
+    ///   column            : Receives 0-based column number of caller script.
+    HRESULT GetCurrentSourceInfo([out] LPCWSTR* url, [out] ULONG* line, [out] ULONG* column);
+
+    /// Clear stored exception. There are times caller does not want to propagate previously thrown exception to the caller,
+    /// even when the caller is capable of handling it. Clear the stored exception.
+    HRESULT ClearRecordedException();
+
+    /// If the ETW provider is enabled, this API will do stack walk and write the stack trace payload to the
+    /// JSCRIPT_STACKTRACE ETW event
+
+    /// Params:
+    /// operationID : An ID (or cookie), which will be emitted in the stack trace payload.
+    ///             Chakra will not validate the uniqueness of this ID
+    /// maxFrameCount : This param limits the number of frames to walked. (To get full stack trace pass JSCRIPT_FULL_STACKTRACE).
+    /// Returns S_OK on success.
+    HRESULT EmitStackTraceEvent([in] UINT64 operationID, [in] USHORT maxFrameCount);
+
+    /// Creates an ArrayBuffer with an existing buffer.  The ArrayBuffer will be responsible calling CoTaskMemFree on the
+    /// buffer after creation
+    ///   buffer            : The buffer allocated with CoTaskMemAlloc
+    ///   length            : The number of bytes in the ArrayBuffer
+    ///   instance          : The instance representing the new allocated ArrayBuffer
+    HRESULT CreateArrayBufferFromBuffer([in] BYTE * buffer, [in] UINT length, [out] Var* instance);
+
+    /// Creates a Promise object
+    ///   promise          : The instance representing the new allocated Promise
+    ///   resolveFunc      : The function object representing the resolve operation.
+    ///                      Note: Executing this function with a value will resolve the paired promise
+    ///                            returned via this API call with the value passed.
+    ///   rejectFunc       : The function object representing the reject operation.
+    ///                      Note: Executing this function with a value will reject the paired promise
+    ///                            returned via this API call with the value passed. (Values passed to
+    ///                            rejection handlers are typically JavascriptError objects)
+    HRESULT CreatePromise([out] Var* promise, [out] Var* resolveFunc, [out] Var* rejectFunc);
+
+    /// Parse JSON text to var, when exception happens, swallow it and fill var as nullVar, and return the translated HRESULT for the exception
+    /// str                : The JSON text to be parsed
+    /// length             : Length of str
+    /// var                : Result var, when resulting var is null JavaScript object, check HRESULT for internal parse error
+    HRESULT ParseJson([in, size_is(length)] LPCWSTR str, [in] UINT length, [out] Var* var);
+
+    /// Set ActivityID on Chakra. This is used for Telemetry purposes.
+    ///   activityId         : GUID set from Trident.
+    HRESULT SetActivityId([in] const GUID* activityId);
+
+    /// Convert a Var to a native array with given type. The algorithm is like:
+    /// ulong length = ToLength(arrayObject); for (i = 0; i < length; i++) {arraybuffer[i] = ToGivenType(arrayObject[i], valueType); }
+    /// arrayObject         : The object to be treated as an array. It needs to have length property.
+    /// valueType           : The target native value type each element is to be converted to.
+    /// contentBuffer       : The content buffer holding all the converted objects. It's allocated using CoTaskMemAlloc. caller needs to free it.
+    /// length              : The length of the input object.
+    HRESULT VarToNativeArray([in] Var arayObject, [in] JsNativeValueType valueType, [out, annotation("__deref_out_bcount_opt(*length*(*elementSize))")] byte** contentBuffer, [out] UINT* length, [out] UINT* elementSize);
+
+    /// Throws an exception with the specified exception object
+    HRESULT ThrowException([in] Var exceptionObject);
+};
+
+/// Return an IActiveScriptDirect interface which respresnts the given instance.
+HRESULT __stdcall JsVarToScriptDirect(Var instance, IActiveScriptDirect** scriptDirectRef);
+/// AddRef the specified instance in the recycler so it will be not reclaimed.
+HRESULT __stdcall JsVarAddRef(Var instance);
+/// Release the ref count of the instance in the recycler. The object can be recycled when refcount goes to 0.
+HRESULT __stdcall JsVarRelease(Var instance);
+/// Return a pointer to the instance allocated memory
+HRESULT __stdcall JsVarToExtension(Var instance, void** extensionRef);
+
+
+//******************************************************************************
+// Host object SCA serialization
+//******************************************************************************
+[
+    object,
+    local,
+    uuid(710086DD-5D49-41DF-A892-7BE8E837B4D6),
+    helpstring("ISCAPropBag Interface"),
+    pointer_default(unique)
+]
+interface ISCAPropBag: IUnknown
+{
+    // Add a property "name:value" pair to the property bag for serialization.
+    HRESULT Add([in] LPCWSTR name, [in] Var value);
+
+    // Get a property "name:value" pair from the property bag during deserialization.
+    HRESULT Get([in] LPCWSTR name, [out] Var* pValue);
+};
+
+[
+    object,
+    local,
+    uuid(4CE929B9-E802-419F-807C-A282EA49E891),
+    helpstring("ISCASerializable Interface"),
+    pointer_default(unique)
+]
+interface ISCASerializable: IUnknown
+{
+    // Get the host object data for serialization.
+    //  context             : SCA context info
+    //  typeId              : The SCA TypeId for the host object
+    //  propbag             : A property bag to fill with host object properties
+    HRESULT GetObjectData(
+        [in] ISCAContext* context, [out] SCATypeId* typeId, [in] ISCAPropBag* propbag);
+
+    // Initialize a previously created blank host object for deserialization.
+    //  context             : SCA context info
+    //  propbag             : A property bag containing the host object properties
+    HRESULT InitializeObject([in] ISCAContext* context, [in] ISCAPropBag* propbag);
+};
+
+[
+    object,
+    local,
+    uuid(5191F9F7-422D-49AE-ADF9-3F6AEB55BB41),
+    helpstring("ISCAHost Interface"),
+    pointer_default(unique)
+]
+interface ISCAHost: IUnknown
+{
+    // Create a new blank host object of the given SCA TypeId.
+    //  context             : SCA context info
+    //  typeId              : The SCA TypeId for the new host object to be created
+    //  instance            : Result new host object
+    HRESULT CreateObject([in] ISCAContext* context, [in] SCATypeId typeId, [out] Var* instance);
+
+    // For an SCA clone of type typeId with context, discard properties as necessary
+    //  context             : SCA context info
+    //  typeId              : The SCA TypeId for the type of host object being discarded
+    //  propbag             : Bag of properties to potentially discard
+    HRESULT DiscardProperties([in] ISCAContext* context, [in] SCATypeId typeId, [in] ISCAPropBag* propbag);
+};
+
+[
+    object,
+    local,
+    uuid(1BF37788-7C1F-40E4-BC06-82C07E15479A),
+    helpstring("IHeapEnumHost Interface"),
+    pointer_default(unique)
+]
+interface IHeapEnumHost: IUnknown
+{
+    // Called before each enumeration takes place
+    HRESULT BeginEnumeration();
+};
+
+//
+//******************************************************************************
+// Debug helper
+//******************************************************************************
+
+// IScriptDebugSite interface is implemented by a debugger to help decode script symbols.
+[
+    object,
+    local,
+    uuid(8F7F7EF3-E7DB-4A5F-A6B8-C29C194B8A70),
+    helpstring("IScriptDebugSite Interface"),
+    pointer_default(unique)
+]
+interface IScriptDebugSite: IUnknown
+{
+    // Send output to debugger.
+    HRESULT Out([in] LPCWSTR msg);
+
+    // Find a symbol location in the debugging target's memory.
+    HRESULT FindSymbol([in] LPCWSTR name, [out] const void** addr);
+
+    // Read memory from the debugging target's virtual address space.
+    //  addr                : The starting address to read from.
+    //  buffer              : Specifies the buffer to read the memory into.
+    //  bufferSize          : Specifies the size of the buffer in bytes. This is also the number of
+    //                        bytes being requested.
+    //  bytesRead           : Receives the number of bytes that were read.
+    HRESULT ReadVirtual([in] const void* addr, [out, size_is(bufferSize)] void* buffer, [in] ULONG bufferSize, [out, optional] ULONG* bytesRead);
+
+    // Read a NULL terminated string from the debugging target's memory. If the actual string contains
+    // more characters than bufferSize, fill buffer with a null-terminated truncated string and returns
+    // S_FALSE.
+    //  addr                : The address of the string to read.
+    //  buffer              : Receives the string from the target.
+    //  bufferSize          : Specifies the size of buffer in characters.
+    HRESULT ReadString([in] const void* addr, [out, size_is(bufferSize)] LPWSTR buffer, [in] ULONG bufferSize);
+
+    // Add a synthetic module.
+    //  addr                : Specifies the base of the synthetic module.
+    //  size                : Specifies the size of the synthetic module in in bytes.
+    HRESULT AddSyntheticModule([in] const void* addr, [in] ULONG size);
+
+    // Add a synthetic symbol.
+    //  addr                : Specifies the starting address of the synthetic symbol.
+    //  size                : Specifies the size of the synthetic module in in bytes.
+    //  name                : Specifies the name of the synthetic symbol.
+    HRESULT AddSyntheticSymbol([in] const void* addr, [in] ULONG size, [in] LPCWSTR name);
+};
+
+// IScriptDAC interface is implemented by the script engine to read and interpret target memory
+// for script symbols.
+[
+    object,
+    local,
+    uuid(6E31A3AD-E399-4FB0-ADB7-F323861FFCF9),
+    helpstring("IScriptDAC Interface"),
+    pointer_default(unique)
+]
+interface IScriptDAC: IUnknown
+{
+    // Load script symbols into a script debug site.
+    HRESULT LoadScriptSymbols([in] IScriptDebugSite* debugSite);
+};
+
+// IDiagHook interface is implemented by the script engine to let jscript9diag.dll hook into jscript9.dll.
+[
+    object,
+    local,
+    uuid(15F6F02C-6441-412A-B6F9-D08C7673E7DE),
+    helpstring("IDiagHook Interface"),
+    pointer_default(unique)
+]
+interface IDiagHook: IUnknown
+{
+    // Returns an array of relative offset from base address of static global fields in the runtime
+    HRESULT GetGlobals([out, size_is(globalsCount)] void** globals, [in] ULONG globalsCount);
+
+    HRESULT GetVTables([out, size_is(bufferSize)] void** vtables, [in] ULONG bufferSize);
+
+    // Get a runtime error message resource string
+    HRESULT GetErrorString([in] HRESULT errorCode, [out] BSTR* bsResource);
+};
+
+
+cpp_quote("#define SCRIPT_E_INVALID_NATIVE_CODE 0x80020203L")
+
+[
+    object,
+    uuid(6E8F97E0-28B6-4ECA-87A3-B4699D81F7EA),
+    pointer_default(unique)
+]
+interface IActiveScriptNativeCode : IUnknown
+{
+    HRESULT GenerateNativeCodeBuffer(
+            [in] DWORD dwSourceCodeLength,
+            [in, size_is(dwSourceCodeLength)] BYTE * utf8Code,
+            [in] DWORD dwFunctionTableLength,
+            [in, size_is(dwFunctionTableLength)] BYTE * functionTable,
+            [in] IUnknown  *punkContext,
+            [in] DWORD_PTR dwSourceContext,
+            [in] EXCEPINFO *pexcepinfo,
+            [out, size_is(,*pdwNativeCodeSize)] BYTE ** nativeCode,
+            [out] DWORD * pdwNativeCodeSize
+        );
+
+    HRESULT ExecuteNativeCodeInMemoryBuffer(
+            [in] DWORD dwNativeCodeSize,
+            [in, size_is(dwNativeCodeSize)] BYTE * nativeCode,
+            [in] IUnknown  *punkContext,
+            [in] DWORD_PTR dwSourceContext,
+            [out] EXCEPINFO *pexcepinfo
+        );
+
+    HRESULT ExecuteNativeCodeModule(
+            [in] LPCWSTR moduleName,
+            [in] IUnknown  *punkContext,
+            [in] DWORD_PTR dwSourceContext,
+            [out] EXCEPINFO *pexcepinfo
+        );
+}
+
+[
+    object,
+    local,
+    uuid(7E7519DE-FA9D-4FD2-B9EB-5D90ECB9F451),
+    helpstring("IDiagnosticsContextHelper Interface"),
+    pointer_default(unique)
+]
+interface IDiagnosticsContextHelper : IUnknown
+{
+    /// Get the function's name
+    //  Params :
+    //         instance  : This should be a Js::JavascriptFunction type, otherwise E_INVALIDARG will be returned
+    //         pBstrName : Name of the function, populated at callee side. NULL will be returned for Anonymous function
+
+    // Return S_OK upon success
+
+    HRESULT GetFunctionName([in, annotation("_In_")] Var instance, [out, annotation("_Out_")] BSTR * pBstrName);
+
+    /// Get the function's debugContext (QI for IDebugDocumentContext).
+    //  Params :
+    //         instance  : This should be a Js::JavascriptFunction type, otherwise E_INVALIDARG will be returned
+    //         pDebugDocumentContext : Instance of IDebugDocumentContext, this context is bound to first statement of the function body.
+
+    // Return S_OK upon success
+    HRESULT GetFunctionContext([in, annotation("_In_")] Var instance, [out, annotation("_Out_")] IUnknown ** ppDebugDocumentContext);
+
+    HRESULT GetFunctionIds(
+        [in, annotation("_In_")] Var instance,
+        [out, annotation("_Out_")] UINT32* pFunctionId,
+        [out, annotation("_Out_")] DWORD_PTR* pScriptContextId);
+
+    HRESULT GetFunctionInfo(
+        [in, annotation("_In_")] Var instance,
+        [out, annotation("_Out_opt_")] BSTR* pBstrName,
+        [out, annotation("_Out_opt_")] UINT32* pLine,
+        [out, annotation("_Out_opt_")] UINT32* pColumn,
+        [out, annotation("_Out_opt_")] UINT32* pCchLength);
+
+};
+
+[
+    object,
+    local,
+    uuid(9a8b555e-42db-4e5e-b102-e45bfa6a63d4),
+    pointer_default(unique)
+]
+interface IActiveScriptDirectHost : IUnknown
+{
+    // Validate if it's allowed to call from source site to target side.
+    // S_OK if the call can go through.
+    // E_ACCESSDENIED otherise.
+    HRESULT ValidateCall([in] IActiveScriptSite* src, [in] IActiveScriptSite* dest, [in] Var instance);
+};
+
+typedef struct tagSourceContextPair
+{
+    //
+    // The variables dwHostSourceContext and ulCharOffset together will be used to identify a script block.
+    //
+    DWORD_PTR dwHostSourceContext;
+    ULONG     ulCharOffset;
+
+    DWORD_PTR dwDebugHostSourceContext;
+} SourceContextPair;
+
+//
+// An interface, which is implemented by the script engine to get the call from the host when the debugger gets attached.
+
+[
+    object,
+    local,
+    uuid(79810C4D-8CBF-49B8-9130-F15A1F02AEEC),
+    helpstring("IActiveScriptDebugAttach Interface"),
+    pointer_default(unique)
+]
+interface IActiveScriptDebugAttach: IUnknown
+{
+    // Tells the script engine that the debugger is attached which furthermore put the current script engine into debug mode.
+    // (Soon to have parameters removed as part of change #552121).
+    //
+    // Params :
+    //      pSourceContextPairs : An array of pairs, which is allocated at the host, contains the old cookie/sourcecontext and its corresponding new cookie/sourcecookie for each script block.
+    //      pairCount          : size of the pSourceCookiePairs
+    // Return S_OK upon success
+    //
+    // Remark : Host will require to pass the pairs for the host managed sources (ie. SCRIPTPROC_HOSTMANAGESSOURCE) only.
+    HRESULT OnDebuggerAttached([in] ULONG pairCount, [in, size_is(pairCount)] SourceContextPair * pSourceContextPairs);
+
+    // Tells the script engine that the debugger is detached
+    // Return S_OK upon success
+    HRESULT OnDebuggerDetached();
+
+    // Tells the script engine to perform a rundown of sources and enter source rundown mode.
+    // This method may only be called once per ScriptEngine instance.
+    //
+    // Params :
+    //      pairCount           : Size of the pSourceContextPairs array.
+    //
+    //      pSourceContextPairs : An array of pairs, which is allocated at the host and contains the old cookie/sourcecontext
+    //                            and its corresponding new cookie/sourcecookie for each script block.
+    //
+    // Returns S_OK upon success (currently returns E_NOTIMPL).
+    //
+    // Remark : The host is required to pass the pairs for the host managed sources (ie. SCRIPTPROC_HOSTMANAGESSOURCE) only.
+    HRESULT PerformSourceRundown([in] ULONG pairCount, [in, size_is(pairCount)] SourceContextPair * pSourceContextPairs);
+};
+
+///
+/// This interface is implemented by Jscript9 (chakra) and consumed by the host (trident, for example).
+/// This interface is used for pushing metadata (or context) for a script invocation (for example an event, setTimeout etc). That context will be used and passed
+/// when chakra gives stack frames to the debugger. The callstack will be augmented with a pseudo (or virtual) frame when such invocation context information
+/// is available to chakra
+/// Chakra will pass the context object to the debugger, when the debugger asks that for that particular frame.
+///
+[
+    object,
+    local,
+    uuid(4F0C2DE3-B3EC-4568-BC6A-F85A40B1004F),
+    helpstring("IScriptInvocationContextSubscriber Interface"),
+    pointer_default(unique)
+]
+interface IScriptInvocationContextSubscriber: IUnknown
+{
+    // Trident calls this API to pass on the invocation context information.
+    // contextType : Mentions the reason of the invocation (look at activdbg100.idl for more details about the list of all type)
+    // pContextObject : An object of the context, the sementic of this param depends on the contextType passed in first param.
+    //                  for expample, SICT_Event, this will be an IDOMEvent object. Eventually this object will be passed to the debugger (such as F12) for further use.
+    // contextDescription : the description of the context (this will eventually become the frame name)
+    // pCookie : populated by chakra.
+    // Returns : S_OK on success.
+    HRESULT PushInvocationContext([in] SCRIPT_INVOCATION_CONTEXT_TYPE contextType,
+                                  [in, annotation("__in_opt")] IUnknown * pContextObject,
+                                  [in, annotation("__in_opt")] LPCWSTR contextDescription,
+                                  [out] DWORD * pCookie);
+
+    // This API will be called to pop-up the invocation context once the event is completed its course.
+    // Returns S_OK on success, E_FAIL if the cookie does not belong to the top frame.
+    HRESULT PopInvocationContext([in] DWORD cookie);
+};
+
+[
+    object,
+    local,
+    uuid(3F4C2C5B-C8A5-486f-9073-FAB714F90987),
+    helpstring("IActiveScriptDirectSite Interface"),
+    pointer_default(unique)
+]
+interface IActiveScriptDirectSite : IUnknown
+{
+    // Checks if execution of eval is allowed, HRESULT return cases:
+    //  - S_OK  -> Eval is allowed
+    //  - *     -> Anything else returned will be passed to HostExceptionFromHRESULT, so it should be a DOM Exception
+    HRESULT CheckEvalRestriction();
+
+    // This method constructs and returns a DOM Exception object based on a given DOM HRESULT.
+    // If the HRESULT is not a valid DOM HRESULT error code, this will return an error.
+    // This method will return S_OK if the error object was succesfully constructed
+    HRESULT HostExceptionFromHRESULT([in] HRESULT domHRErrorCode, [out] Var *domExceptionObject);
+};
+
+//
+// Restore the previous setting for C4201 compiler warning
+//
+cpp_quote("// Restore the previous setting for C4201 compiler warning")
+cpp_quote("#pragma warning(pop)")

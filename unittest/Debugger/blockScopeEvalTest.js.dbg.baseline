@@ -1,0 +1,10 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "b": "[Uninitialized block variable]",
+      "[Scope]1": "blockScopeEvalTestFunc",
+      "[Globals]": ""
+    }
+  }
+]

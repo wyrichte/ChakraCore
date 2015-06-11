@@ -1,0 +1,105 @@
+{
+  "testname" : "JS Completions - Test an unterminated string",
+  "owner" : "chuckj",
+  "validated" : false,
+  "timeout" : 1000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "_comment1" : "Put an underscore \"_\" prefix to comment out a header field.",
+  "_comment2" : "No field in the schema uses the underscore prefix",
+  "runAuthoringTest" : true,
+  "commands" :
+  [
+{
+  "action": "getCompletions",
+  "args": [
+    "unterm_string.js"
+  ],
+  "events": [
+    {
+      "completions": [
+        {
+          "extent": {
+            "offset": 108,
+            "length": 0
+          },
+          "completions": [
+            {
+              "kind": "reserved word",
+              "name": "if",
+              "displayText": "if",
+              "insertionText": "if"
+            },
+            {
+              "kind": "reserved word",
+              "name": "while",
+              "displayText": "while",
+              "insertionText": "while"
+            },
+            {
+              "kind": "reserved word",
+              "name": "switch",
+              "displayText": "switch",
+              "insertionText": "switch"
+            },
+            {
+              "kind": "field",
+              "name": "crash",
+              "displayText": "crash",
+              "insertionText": "crash"
+            },
+            {
+              "kind": "field",
+              "name": "n",
+              "displayText": "n",
+              "insertionText": "n"
+            },
+            {
+              "kind": "field",
+              "name": "a",
+              "displayText": "a",
+              "insertionText": "a"
+            },
+            {
+              "kind": "field",
+              "name": "b",
+              "displayText": "b",
+              "insertionText": "b"
+            },
+            {
+              "kind": "field",
+              "name": "c",
+              "displayText": "c",
+              "insertionText": "c"
+            },
+            {
+              "kind": "field",
+              "name": "var",
+              "displayText": "var",
+              "insertionText": "var"
+            },
+            {
+              "kind": "field",
+              "name": "d",
+              "displayText": "d",
+              "insertionText": "d"
+            },
+            {
+              "kind": "field",
+              "name": "Error",
+              "displayText": "Error",
+              "insertionText": "Error"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

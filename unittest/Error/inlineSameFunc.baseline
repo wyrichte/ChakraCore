@@ -1,0 +1,5 @@
+Error: abc
+   at f (inlinesamefunc.js:6:5)
+   at f (inlinesamefunc.js:8:5)
+   at f (inlinesamefunc.js:8:5)
+   at Global code (inlinesamefunc.js:14:4)

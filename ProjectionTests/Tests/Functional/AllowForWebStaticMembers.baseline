@@ -1,0 +1,689 @@
+AllowForWeb - Static Members tests
+
+=================================================
+Starting [Test 1: Verify that static members of a class with [AllowForWeb] aren't accessible through object instance]
+Pass: !!animalInstance
+      Actual: true
+
+Pass: type
+      Actual: object
+
+Pass: animalObjectSize
+      Actual: undefined
+
+Pass: callDelegateWithExtinct
+      Actual: undefined
+
+Pass: callDelegateWithFish
+      Actual: undefined
+
+Pass: callDelegateWithIFish
+      Actual: undefined
+
+Pass: callDelegateWithInFloat
+      Actual: undefined
+
+Pass: callDelegateWithInOutBigComplexStruct
+      Actual: undefined
+
+Pass: callDelegateWithInOutFloat
+      Actual: undefined
+
+Pass: callDelegateWithInOutOddSizedStruct
+      Actual: undefined
+
+Pass: callDelegateWithInOutPackedBoolean
+      Actual: undefined
+
+Pass: callDelegateWithInOutPackedByte
+      Actual: undefined
+
+Pass: callDelegateWithInOutSmallComplexStruct
+      Actual: undefined
+
+Pass: callDelegateWithInParam_BigStruct
+      Actual: undefined
+
+Pass: callDelegateWithLikeToSwim
+      Actual: undefined
+
+Pass: callDelegateWithOutFloat
+      Actual: undefined
+
+Pass: callDelegateWithOutParam_BigStruct
+      Actual: undefined
+
+Pass: callMyFishMethod
+      Actual: undefined
+
+Pass: dinoDefault
+      Actual: undefined
+
+Pass: dinoDefaultVector
+      Actual: undefined
+
+Pass: dinoMarshalAs
+      Actual: undefined
+
+Pass: fillUInt8Array
+      Actual: undefined
+
+Pass: getAnswer
+      Actual: undefined
+
+Pass: getBigComplexStructArray
+      Actual: undefined
+
+Pass: getCLSID
+      Actual: undefined
+
+Pass: getDoubleObservableMap
+      Actual: undefined
+
+Pass: getNullAsAnimal
+      Actual: undefined
+
+Pass: getNullAsMap
+      Actual: undefined
+
+Pass: getNullAsObservableVector
+      Actual: undefined
+
+Pass: getNullAsPropertyValue
+      Actual: undefined
+
+Pass: getNullAsVector
+      Actual: undefined
+
+Pass: getObservableStringIntegerMap
+      Actual: undefined
+
+Pass: getOddSizedStructArray
+      Actual: undefined
+
+Pass: getOneAnimal
+      Actual: undefined
+
+Pass: getOneEmptyGRCNFail
+      Actual: undefined
+
+Pass: getOneEmptyGRCNInterface
+      Actual: undefined
+
+Pass: getOneEmptyGRCNNull
+      Actual: undefined
+
+Pass: getOneMap
+      Actual: undefined
+
+Pass: getOneObservableVector
+      Actual: undefined
+
+Pass: getOnePropertyValue
+      Actual: undefined
+
+Pass: getOneVector
+      Actual: undefined
+
+Pass: getPackedBooleanArray
+      Actual: undefined
+
+Pass: getPackedByteArray
+      Actual: undefined
+
+Pass: getRefCount
+      Actual: undefined
+
+Pass: getSmallComplexStructArray
+      Actual: undefined
+
+Pass: getStaticAnimalAsInspectable
+      Actual: undefined
+
+Pass: getStaticAnimalAsStaticInterface
+      Actual: undefined
+
+Pass: getStringHiddenTypeMap
+      Actual: undefined
+
+Pass: getStringIntegerMap
+      Actual: undefined
+
+Pass: isLovable
+      Actual: undefined
+
+Pass: marshalInAndOutBigComplexStruct
+      Actual: undefined
+
+Pass: marshalInAndOutOddSizedStruct
+      Actual: undefined
+
+Pass: marshalInAndOutPackedBoolean
+      Actual: undefined
+
+Pass: marshalInAndOutPackedByte
+      Actual: undefined
+
+Pass: marshalInAndOutSmallComplexStruct
+      Actual: undefined
+
+Pass: methodWithInParam_BigStruct
+      Actual: undefined
+
+Pass: methodWithOutParam_BigStruct
+      Actual: undefined
+
+Pass: multiplyNumbers
+      Actual: undefined
+
+Pass: myDino
+      Actual: undefined
+
+Pass: myExtinct
+      Actual: undefined
+
+Pass: myFish
+      Actual: undefined
+
+Pass: myFishRefCount
+      Actual: undefined
+
+Pass: myIFish
+      Actual: undefined
+
+Pass: myLikeToSwim
+      Actual: undefined
+
+Pass: myStaticArrayProp
+      Actual: undefined
+
+Pass: myStaticArrayPropHSTRING
+      Actual: undefined
+
+Pass: myToaster
+      Actual: undefined
+
+Pass: myToasterRefCount
+      Actual: undefined
+
+Pass: passUInt8Array
+      Actual: undefined
+
+Pass: sendBackSameDino
+      Actual: undefined
+
+Pass: sendBackSameExtinct
+      Actual: undefined
+
+Pass: sendBackSameFish
+      Actual: undefined
+
+Pass: sendBackSameIDino
+      Actual: undefined
+
+Pass: sendBackSameIFish
+      Actual: undefined
+
+Pass: sendBackSameInspectableVector
+      Actual: undefined
+
+Pass: sendBackSameLikeToSwim
+      Actual: undefined
+
+Pass: sendBackSamePropertySet
+      Actual: undefined
+
+Pass: takeANap
+      Actual: undefined
+
+Pass: testDefaultAnimal
+      Actual: undefined
+
+Pass: testDefaultDino
+      Actual: undefined
+
+Pass: testDefaultFish
+      Actual: undefined
+
+Pass: testDefaultMultipleIVector
+      Actual: undefined
+
+Pass: type
+      Actual: object
+
+Pass: animalObjectSize
+      Actual: undefined
+
+Pass: callDelegateWithFish
+      Actual: undefined
+
+Pass: callDelegateWithIFish
+      Actual: undefined
+
+Pass: callDelegateWithLikeToSwim
+      Actual: undefined
+
+Pass: callMyFishMethod
+      Actual: undefined
+
+Pass: getCLSID
+      Actual: undefined
+
+Pass: getDoubleObservableMap
+      Actual: undefined
+
+Pass: getObservableStringIntegerMap
+      Actual: undefined
+
+Pass: getRefCount
+      Actual: undefined
+
+Pass: getStaticAnimalAsInspectable
+      Actual: undefined
+
+Pass: getStaticAnimalAsStaticInterface
+      Actual: undefined
+
+Pass: getStringHiddenTypeMap
+      Actual: undefined
+
+Pass: getStringIntegerMap
+      Actual: undefined
+
+Pass: multiplyNumbers
+      Actual: undefined
+
+Pass: myFish
+      Actual: undefined
+
+Pass: myFishRefCount
+      Actual: undefined
+
+Pass: myIFish
+      Actual: undefined
+
+Pass: myLikeToSwim
+      Actual: undefined
+
+Pass: myStaticArrayProp
+      Actual: undefined
+
+Pass: myStaticArrayPropHSTRING
+      Actual: undefined
+
+Pass: myToaster
+      Actual: undefined
+
+Pass: myToasterRefCount
+      Actual: undefined
+
+Pass: sendBackSameFish
+      Actual: undefined
+
+Pass: sendBackSameIFish
+      Actual: undefined
+
+Pass: sendBackSameLikeToSwim
+      Actual: undefined
+
+Pass: sendBackSamePropertySet
+      Actual: undefined
+
+Pass: testDefaultAnimal
+      Actual: undefined
+
+Pass: testDefaultDino
+      Actual: undefined
+
+Pass: testDefaultFish
+      Actual: undefined
+
+Pass: testDefaultMultipleIVector
+      Actual: undefined
+
+PASS [Test 1: Verify that static members of a class with [AllowForWeb] aren't accessible through object instance]
+=================================================
+
+=================================================
+Starting [Test 2: Verify that static members of a class with [AllowForWeb] aren't accessible from constructor]
+Pass: type
+      Actual: function
+
+Pass: animalObjectSize
+      Actual: undefined
+
+Pass: callDelegateWithExtinct
+      Actual: undefined
+
+Pass: callDelegateWithFish
+      Actual: undefined
+
+Pass: callDelegateWithIFish
+      Actual: undefined
+
+Pass: callDelegateWithInFloat
+      Actual: undefined
+
+Pass: callDelegateWithInOutBigComplexStruct
+      Actual: undefined
+
+Pass: callDelegateWithInOutFloat
+      Actual: undefined
+
+Pass: callDelegateWithInOutOddSizedStruct
+      Actual: undefined
+
+Pass: callDelegateWithInOutPackedBoolean
+      Actual: undefined
+
+Pass: callDelegateWithInOutPackedByte
+      Actual: undefined
+
+Pass: callDelegateWithInOutSmallComplexStruct
+      Actual: undefined
+
+Pass: callDelegateWithInParam_BigStruct
+      Actual: undefined
+
+Pass: callDelegateWithLikeToSwim
+      Actual: undefined
+
+Pass: callDelegateWithOutFloat
+      Actual: undefined
+
+Pass: callDelegateWithOutParam_BigStruct
+      Actual: undefined
+
+Pass: callMyFishMethod
+      Actual: undefined
+
+Pass: dinoDefault
+      Actual: undefined
+
+Pass: dinoDefaultVector
+      Actual: undefined
+
+Pass: dinoMarshalAs
+      Actual: undefined
+
+Pass: fillUInt8Array
+      Actual: undefined
+
+Pass: getAnswer
+      Actual: undefined
+
+Pass: getBigComplexStructArray
+      Actual: undefined
+
+Pass: getCLSID
+      Actual: undefined
+
+Pass: getDoubleObservableMap
+      Actual: undefined
+
+Pass: getNullAsAnimal
+      Actual: undefined
+
+Pass: getNullAsMap
+      Actual: undefined
+
+Pass: getNullAsObservableVector
+      Actual: undefined
+
+Pass: getNullAsPropertyValue
+      Actual: undefined
+
+Pass: getNullAsVector
+      Actual: undefined
+
+Pass: getObservableStringIntegerMap
+      Actual: undefined
+
+Pass: getOddSizedStructArray
+      Actual: undefined
+
+Pass: getOneAnimal
+      Actual: undefined
+
+Pass: getOneEmptyGRCNFail
+      Actual: undefined
+
+Pass: getOneEmptyGRCNInterface
+      Actual: undefined
+
+Pass: getOneEmptyGRCNNull
+      Actual: undefined
+
+Pass: getOneMap
+      Actual: undefined
+
+Pass: getOneObservableVector
+      Actual: undefined
+
+Pass: getOnePropertyValue
+      Actual: undefined
+
+Pass: getOneVector
+      Actual: undefined
+
+Pass: getPackedBooleanArray
+      Actual: undefined
+
+Pass: getPackedByteArray
+      Actual: undefined
+
+Pass: getRefCount
+      Actual: undefined
+
+Pass: getSmallComplexStructArray
+      Actual: undefined
+
+Pass: getStaticAnimalAsInspectable
+      Actual: undefined
+
+Pass: getStaticAnimalAsStaticInterface
+      Actual: undefined
+
+Pass: getStringHiddenTypeMap
+      Actual: undefined
+
+Pass: getStringIntegerMap
+      Actual: undefined
+
+Pass: isLovable
+      Actual: undefined
+
+Pass: marshalInAndOutBigComplexStruct
+      Actual: undefined
+
+Pass: marshalInAndOutOddSizedStruct
+      Actual: undefined
+
+Pass: marshalInAndOutPackedBoolean
+      Actual: undefined
+
+Pass: marshalInAndOutPackedByte
+      Actual: undefined
+
+Pass: marshalInAndOutSmallComplexStruct
+      Actual: undefined
+
+Pass: methodWithInParam_BigStruct
+      Actual: undefined
+
+Pass: methodWithOutParam_BigStruct
+      Actual: undefined
+
+Pass: multiplyNumbers
+      Actual: undefined
+
+Pass: myDino
+      Actual: undefined
+
+Pass: myExtinct
+      Actual: undefined
+
+Pass: myFish
+      Actual: undefined
+
+Pass: myFishRefCount
+      Actual: undefined
+
+Pass: myIFish
+      Actual: undefined
+
+Pass: myLikeToSwim
+      Actual: undefined
+
+Pass: myStaticArrayProp
+      Actual: undefined
+
+Pass: myStaticArrayPropHSTRING
+      Actual: undefined
+
+Pass: myToaster
+      Actual: undefined
+
+Pass: myToasterRefCount
+      Actual: undefined
+
+Pass: passUInt8Array
+      Actual: undefined
+
+Pass: sendBackSameDino
+      Actual: undefined
+
+Pass: sendBackSameExtinct
+      Actual: undefined
+
+Pass: sendBackSameFish
+      Actual: undefined
+
+Pass: sendBackSameIDino
+      Actual: undefined
+
+Pass: sendBackSameIFish
+      Actual: undefined
+
+Pass: sendBackSameInspectableVector
+      Actual: undefined
+
+Pass: sendBackSameLikeToSwim
+      Actual: undefined
+
+Pass: sendBackSamePropertySet
+      Actual: undefined
+
+Pass: takeANap
+      Actual: undefined
+
+Pass: testDefaultAnimal
+      Actual: undefined
+
+Pass: testDefaultDino
+      Actual: undefined
+
+Pass: testDefaultFish
+      Actual: undefined
+
+Pass: testDefaultMultipleIVector
+      Actual: undefined
+
+Pass: type
+      Actual: function
+
+Pass: animalObjectSize
+      Actual: undefined
+
+Pass: callDelegateWithFish
+      Actual: undefined
+
+Pass: callDelegateWithIFish
+      Actual: undefined
+
+Pass: callDelegateWithLikeToSwim
+      Actual: undefined
+
+Pass: callMyFishMethod
+      Actual: undefined
+
+Pass: getCLSID
+      Actual: undefined
+
+Pass: getDoubleObservableMap
+      Actual: undefined
+
+Pass: getObservableStringIntegerMap
+      Actual: undefined
+
+Pass: getRefCount
+      Actual: undefined
+
+Pass: getStaticAnimalAsInspectable
+      Actual: undefined
+
+Pass: getStaticAnimalAsStaticInterface
+      Actual: undefined
+
+Pass: getStringHiddenTypeMap
+      Actual: undefined
+
+Pass: getStringIntegerMap
+      Actual: undefined
+
+Pass: multiplyNumbers
+      Actual: undefined
+
+Pass: myFish
+      Actual: undefined
+
+Pass: myFishRefCount
+      Actual: undefined
+
+Pass: myIFish
+      Actual: undefined
+
+Pass: myLikeToSwim
+      Actual: undefined
+
+Pass: myStaticArrayProp
+      Actual: undefined
+
+Pass: myStaticArrayPropHSTRING
+      Actual: undefined
+
+Pass: myToaster
+      Actual: undefined
+
+Pass: myToasterRefCount
+      Actual: undefined
+
+Pass: sendBackSameFish
+      Actual: undefined
+
+Pass: sendBackSameIFish
+      Actual: undefined
+
+Pass: sendBackSameLikeToSwim
+      Actual: undefined
+
+Pass: sendBackSamePropertySet
+      Actual: undefined
+
+Pass: testDefaultAnimal
+      Actual: undefined
+
+Pass: testDefaultDino
+      Actual: undefined
+
+Pass: testDefaultFish
+      Actual: undefined
+
+Pass: testDefaultMultipleIVector
+      Actual: undefined
+
+PASS [Test 2: Verify that static members of a class with [AllowForWeb] aren't accessible from constructor]
+=================================================
+
+Passed: 2
+Failed: 0

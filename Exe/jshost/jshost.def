@@ -1,0 +1,4 @@
+NAME JSHOST
+
+EXPORTS
+    OnJScript9LoadedEntry

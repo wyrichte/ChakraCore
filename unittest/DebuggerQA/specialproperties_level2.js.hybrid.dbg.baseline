@@ -1,0 +1,72 @@
+[
+  {
+    "evaluate": {
+      "c.length": "2"
+    }
+  },
+  {
+    "evaluate": {
+      "c": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "2",
+        "name": "c",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "200"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "d": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "200"
+        },
+        "length": "100"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "a": {
+        "__proto__": {
+          "__proto__": "[]",
+          "length": "2",
+          "[0]": "1",
+          "[1]": "2"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "b": {
+        "__proto__": {
+          "__proto__": "\nfunction() {\n    [native code]\n}\n",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "anonymous",
+          "prototype": "{...}"
+        },
+        "length": "4",
+        "[1]": "1",
+        "[2]": "2",
+        "[3]": "3"
+      }
+    }
+  }
+]

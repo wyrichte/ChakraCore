@@ -1,0 +1,6 @@
+#include "stdafx.h"
+#include "WebUIRepro.h"
+#include "PerformanceRepro.h"
+#include "InterfaceOutRepro.h"
+#include "VersionedPropertiesRepro.h"
+#include "Stringables.h"

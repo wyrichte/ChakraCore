@@ -1,0 +1,602 @@
+AllowForWeb - Promises tests
+
+=================================================
+Starting [Test 1: AsyncOut]
+PASS [Test 1: AsyncOut]
+=================================================
+
+=================================================
+Starting [Test 2: CompleteSuccessfully]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:74:17)
+   at Promise.onSuccess (native code)
+PASS [Test 2: CompleteSuccessfully]
+=================================================
+
+=================================================
+Starting [Test 2-done: CompleteSuccessfully]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:99:17)
+   at Promise.onSuccess (native code)
+PASS [Test 2-done: CompleteSuccessfully]
+=================================================
+
+=================================================
+Starting [Test 2.1: CompleteSuccessfully-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:123:17)
+   at Promise.onSuccess (native code)
+PASS [Test 2.1: CompleteSuccessfully-null]
+=================================================
+
+=================================================
+Starting [Test 2.1-done: CompleteSuccessfully-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:147:17)
+   at Promise.onSuccess (native code)
+PASS [Test 2.1-done: CompleteSuccessfully-null]
+=================================================
+
+=================================================
+Starting [Test 3: CompleteWithCancel]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:173:21)
+   at Promise.onError (native code)
+PASS [Test 3: CompleteWithCancel]
+=================================================
+
+=================================================
+Starting [Test 3-done: CompleteWithCancel]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:214:21)
+   at Promise.onError (native code)
+PASS [Test 3-done: CompleteWithCancel]
+=================================================
+
+=================================================
+Starting [Test 4: CompleteWithError]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:255:21)
+   at Promise.onError (native code)
+PASS [Test 4: CompleteWithError]
+=================================================
+
+=================================================
+Starting [Test 4-done: CompleteWithError]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:290:21)
+   at Promise.onError (native code)
+PASS [Test 4-done: CompleteWithError]
+=================================================
+
+=================================================
+Starting [Test 5: TwoThensFollowedByCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:322:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:327:17)
+   at Promise.onSuccess (native code)
+PASS [Test 5: TwoThensFollowedByCompleted]
+=================================================
+
+=================================================
+Starting [Test 5-done: TwoDonesFollowedByCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:348:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:353:17)
+   at Promise.onSuccess (native code)
+PASS [Test 5-done: TwoDonesFollowedByCompleted]
+=================================================
+
+=================================================
+Starting [Test 5.1: TwoThensFollowedByCompleted-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:375:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:380:17)
+   at Promise.onSuccess (native code)
+PASS [Test 5.1: TwoThensFollowedByCompleted-null]
+=================================================
+
+=================================================
+Starting [Test 5.1-done: TwoDonesFollowedByCompleted-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:401:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:406:17)
+   at Promise.onSuccess (native code)
+PASS [Test 5.1-done: TwoDonesFollowedByCompleted-null]
+=================================================
+
+=================================================
+Starting [Test 6: ThensFollowedByCompletedFollowedByThen]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:427:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:433:21)
+   at Promise.onSuccess (native code)
+   at test (allowforwebpromises.js:430:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+PASS [Test 6: ThensFollowedByCompletedFollowedByThen]
+=================================================
+
+=================================================
+Starting [Test 6-done: DoneFollowedByCompletedFollowedByDone]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:454:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:460:21)
+   at Promise.onSuccess (native code)
+   at test (allowforwebpromises.js:457:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+PASS [Test 6-done: DoneFollowedByCompletedFollowedByDone]
+=================================================
+
+=================================================
+Starting [Test 6.1: ThensFollowedByCompletedFollowedByThen-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:481:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:487:21)
+   at Promise.onSuccess (native code)
+   at test (allowforwebpromises.js:484:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+PASS [Test 6.1: ThensFollowedByCompletedFollowedByThen-null]
+=================================================
+
+=================================================
+Starting [Test 6.1-done: DoneFollowedByCompletedFollowedByDone-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:508:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:514:21)
+   at Promise.onSuccess (native code)
+   at test (allowforwebpromises.js:511:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+PASS [Test 6.1-done: DoneFollowedByCompletedFollowedByDone-null]
+=================================================
+
+=================================================
+Starting [Test 7: ThensFollowedByErrorFollowedByThen]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:537:21)
+   at Promise.onError (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:545:21)
+   at Promise.onError (native code)
+   at test (allowforwebpromises.js:541:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+PASS [Test 7: ThensFollowedByErrorFollowedByThen]
+=================================================
+
+=================================================
+Starting [Test 7-done: DoneFollowedByErrorFollowedByDone]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:573:21)
+   at Promise.onError (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:583:21)
+   at Promise.onError (native code)
+   at test (allowforwebpromises.js:577:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+PASS [Test 7-done: DoneFollowedByErrorFollowedByDone]
+=================================================
+
+=================================================
+Starting [Test 8: ChainedThensFollowedByCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:607:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:611:21)
+   at Promise.onSuccess (native code)
+   at Promise.onSuccess (native code)
+PASS [Test 8: ChainedThensFollowedByCompleted]
+=================================================
+
+=================================================
+Starting [Test 8-done: ThenDoneFollowedByCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:633:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:637:21)
+   at Promise.onSuccess (native code)
+   at Promise.onSuccess (native code)
+PASS [Test 8-done: ThenDoneFollowedByCompleted]
+=================================================
+
+=================================================
+Starting [Test 8.1: ChainedThensFollowedByCompleted-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:659:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:663:21)
+   at Promise.onSuccess (native code)
+   at Promise.onSuccess (native code)
+PASS [Test 8.1: ChainedThensFollowedByCompleted-null]
+=================================================
+
+=================================================
+Starting [Test 8.1-done: ThenDoneFollowedByCompleted-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:685:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:689:21)
+   at Promise.onSuccess (native code)
+   at Promise.onSuccess (native code)
+PASS [Test 8.1-done: ThenDoneFollowedByCompleted-null]
+=================================================
+
+=================================================
+Starting [Test 9: ChainedThensFollowedByCancel]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:711:21)
+   at Promise.onError (native code)
+PASS [Test 9: ChainedThensFollowedByCancel]
+=================================================
+
+=================================================
+Starting [Test 9-null: ThenDoneFollowedByCancel]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:736:21)
+   at Promise.onError (native code)
+PASS [Test 9-null: ThenDoneFollowedByCancel]
+=================================================
+
+=================================================
+Starting [Test 10: ExceptionThrownFromOnCompleteHandler]
+PASS [Test 10: ExceptionThrownFromOnCompleteHandler]
+=================================================
+
+=================================================
+Starting [Test 10-done: ExceptionThrownFromOnCompleteHandler-done]
+PASS [Test 10-done: ExceptionThrownFromOnCompleteHandler-done]
+=================================================
+
+=================================================
+Starting [Test 10.1: ExceptionThrownFromOnCompleteHandler-null]
+PASS [Test 10.1: ExceptionThrownFromOnCompleteHandler-null]
+=================================================
+
+=================================================
+Starting [Test 10.1-done: ExceptionThrownFromOnCompleteHandler-done-null]
+PASS [Test 10.1-done: ExceptionThrownFromOnCompleteHandler-done-null]
+=================================================
+
+=================================================
+Starting [Test 11: ExceptionThrownFromOnErrorHandler]
+PASS [Test 11: ExceptionThrownFromOnErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 11-done: ExceptionThrownFromOnErrorHandler]
+PASS [Test 11-done: ExceptionThrownFromOnErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 12: ProgressThenCancel]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:938:107)
+   at Promise.onProgress (native code)
+   at test (allowforwebpromises.js:942:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:938:107)
+   at Promise.onProgress (native code)
+   at test (allowforwebpromises.js:943:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:938:107)
+   at Promise.onProgress (native code)
+   at test (allowforwebpromises.js:944:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:937:96)
+   at Promise.onError (native code)
+PASS [Test 12: ProgressThenCancel]
+=================================================
+
+=================================================
+Starting [Test 12-done: ProgressThenCancel]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:977:107)
+   at Promise.onProgress (native code)
+   at test (allowforwebpromises.js:981:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:977:107)
+   at Promise.onProgress (native code)
+   at test (allowforwebpromises.js:982:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:977:107)
+   at Promise.onProgress (native code)
+   at test (allowforwebpromises.js:983:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:976:96)
+   at Promise.onError (native code)
+PASS [Test 12-done: ProgressThenCancel]
+=================================================
+
+=================================================
+Starting [Test 13: ExceptionFromProgress]
+PASS [Test 13: ExceptionFromProgress]
+=================================================
+
+=================================================
+Starting [Test 13-done: ExceptionFromProgress]
+PASS [Test 13-done: ExceptionFromProgress]
+=================================================
+
+=================================================
+Starting [Test 14: ExamineThen]
+Comment: then
+Comment: cancel
+Comment: done
+PASS [Test 14: ExamineThen]
+=================================================
+
+=================================================
+Starting [Test 14-done: ExamineDone]
+Comment: then
+Comment: cancel
+Comment: done
+PASS [Test 14-done: ExamineDone]
+=================================================
+
+=================================================
+Starting [Test 15: ErrorBeforeDoneWithNoErrorHandler]
+PASS [Test 15: ErrorBeforeDoneWithNoErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 16: CancelBeforeDoneWithNoErrorHandler]
+PASS [Test 16: CancelBeforeDoneWithNoErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 17: CancelAfterDoneWithNoErrorHandler]
+PASS [Test 17: CancelAfterDoneWithNoErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 18: ErrorAfterDoneWithNoErrorHandler]
+PASS [Test 18: ErrorAfterDoneWithNoErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 413280: Verify that we get an error from a chained promise]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:1205:21)
+   at Promise.onProgress (native code)
+   at Promise.onProgress (native code)
+   at test (allowforwebpromises.js:1212:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+Pass: Expected E_OUTOFMEMORY error
+      Actual: Not enough storage is available to complete this operation.
+
+
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:1203:21)
+   at Promise.onError (native code)
+   at Promise.onError (native code)
+PASS [Test 413280: Verify that we get an error from a chained promise]
+=================================================
+
+=================================================
+Starting [Test 20: GetResultsReturnsErrorOnCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:1242:21)
+   at Promise.onError (native code)
+PASS [Test 20: GetResultsReturnsErrorOnCompleted]
+=================================================
+
+=================================================
+Starting [Test 20-done: GetResultsReturnsErrorOnCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:1281:21)
+   at Promise.onError (native code)
+PASS [Test 20-done: GetResultsReturnsErrorOnCompleted]
+=================================================
+
+=================================================
+Starting [Test 21: CancelReturnsError]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:1320:21)
+   at Promise.onError (native code)
+   at test (allowforwebpromises.js:1324:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+PASS [Test 21: CancelReturnsError]
+=================================================
+
+=================================================
+Starting [Test 21-done: CancelReturnsError]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:1359:21)
+   at Promise.onError (native code)
+   at test (allowforwebpromises.js:1363:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (allowforwebpromises.js:1644:112)
+PASS [Test 21-done: CancelReturnsError]
+=================================================
+
+=================================================
+Starting [Test 22: GetResultsSucceedsOnError]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:1398:21)
+   at Promise.onError (native code)
+PASS [Test 22: GetResultsSucceedsOnError]
+=================================================
+
+=================================================
+Starting [Test 22-done: GetResultsSucceedsOnError]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:1441:21)
+   at Promise.onError (native code)
+PASS [Test 22-done: GetResultsSucceedsOnError]
+=================================================
+
+=================================================
+Starting [Test 23: InvalidStatusPassedToCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:1484:21)
+   at Promise.onError (native code)
+PASS [Test 23: InvalidStatusPassedToCompleted]
+=================================================
+
+=================================================
+Starting [Test 23-done: InvalidStatusPassedToCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:1527:21)
+   at Promise.onError (native code)
+PASS [Test 23-done: InvalidStatusPassedToCompleted]
+=================================================
+
+=================================================
+Starting [Test 24: InvalidSenderPassedToCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:1570:21)
+   at Promise.onError (native code)
+PASS [Test 24: InvalidSenderPassedToCompleted]
+=================================================
+
+=================================================
+Starting [Test 24-done: InvalidSenderPassedToCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (allowforwebpromises.js:11:13)
+   at Anonymous function (allowforwebpromises.js:1613:21)
+   at Promise.onError (native code)
+PASS [Test 24-done: InvalidSenderPassedToCompleted]
+=================================================
+
+Passed: 52
+Failed: 0

@@ -1,0 +1,40 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "x": "undefined"
+      },
+      "x": "undefined"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "x": "1"
+      },
+      "baz": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "baz",
+        "prototype": "{...}"
+      },
+      "x": "1"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "x": "1"
+      },
+      "x": "1"
+    }
+  }
+]

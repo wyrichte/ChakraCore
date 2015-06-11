@@ -1,0 +1,3 @@
+{"testNull":null,"testObject":{"p1":"blah"},"testBoolean":true,"testBooleanObject":true,"testDate":"2011-04-24T19:49:15.478Z","testNumber1":3.14,"testNumber2":8,"testNumber3":18446744073709552000,"testNumberObject1":3.14,"testNumberObject2":8,"testNumberObject3":18446744073709552000,"testRegExp":{},"testArray":[1,2,3],"testString":"Blah blah blah","testStringObject":"Blah blah blah"}
+
+{"testNull":null,"testObject":{"p1":"blah"},"testBoolean":true,"testBooleanObject":true,"testDate":"2011-04-24T19:49:15.478Z","testNumber1":3.14,"testNumber2":8,"testNumber3":18446744073709552000,"testNumberObject1":3.14,"testNumberObject2":8,"testNumberObject3":18446744073709552000,"testRegExp":{},"testArray":[1,2,3],"testString":"Blah blah blah","testStringObject":"Blah blah blah"}

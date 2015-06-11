@@ -1,0 +1,27 @@
+
+
+Running ParseJson tests
+
+Test basic IActiveScriptDirect::ParseJson functionality...
+JSON Text:, HR:800a03ea, Var:<Var>
+Done.
+Test basic IActiveScriptDirect::ParseJson functionality...
+JSON Text:{"a":1}, HR:0, Var:<Var>
+Done.
+Test basic IActiveScriptDirect::ParseJson functionality...
+JSON Text:adsfa, HR:800a03f6, Var:<Var>
+Done.
+Test basic IActiveScriptDirect::ParseJson functionality...
+JSON Text:<nullptr>, HR:80070057, Var:<Var>
+Done.
+Test basic IActiveScriptDirect::ParseJson functionality...
+JSON Text:{a:0}, HR:80070057, Var:<nullptr>
+Done.
+Test basic IActiveScriptDirect::ParseJson functionality...
+JSON Text:{"a":1}}}}}, HR:0, Var:<Var>
+Done.
+Total Test Cases  6
+Passed:  6
+Failed   0
+
+

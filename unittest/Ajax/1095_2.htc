@@ -1,0 +1,17 @@
+<component urn=urn1 name=Bhav1>
+
+<public:property name="Prop1" internalname=mProp1 />
+
+<public:method name="Meth1" />
+
+</component>
+
+<script>
+
+function Meth1()
+{
+    mProp1 = "Behaviour: mProp1 value";
+    globalValue1 = "Behaviour: globalValue1";
+}
+
+</script>

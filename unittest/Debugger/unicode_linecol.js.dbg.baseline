@@ -1,0 +1,57 @@
+[
+  {
+    "log": "stack"
+  },
+  {
+    "callstack": [
+      {
+        "start": 742,
+        "length": 55,
+        "text": "if(unicodeVar.length == 39 && unicodeVar2.length == 45)",
+        "frameDescription": "Global code",
+        "line": 9,
+        "column": 1
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1215,
+        "length": 16,
+        "text": "throw Error(msg)",
+        "frameDescription": "testStack",
+        "line": 24,
+        "column": 5
+      },
+      {
+        "start": 803,
+        "length": 84,
+        "text": "if (testStack(unicodeVar, expectedError1) && testStack(unicodeVar2, expectedError2))",
+        "frameDescription": "Global code",
+        "line": 10,
+        "column": 3
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1215,
+        "length": 16,
+        "text": "throw Error(msg)",
+        "frameDescription": "testStack",
+        "line": 24,
+        "column": 5
+      },
+      {
+        "start": 803,
+        "length": 84,
+        "text": "if (testStack(unicodeVar, expectedError1) && testStack(unicodeVar2, expectedError2))",
+        "frameDescription": "Global code",
+        "line": 10,
+        "column": 3
+      }
+    ]
+  }
+]

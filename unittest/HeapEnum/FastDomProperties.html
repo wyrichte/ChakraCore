@@ -1,0 +1,16 @@
+<html>
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<body>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    HETest = {};
+    window.document.dynamicObjectProperty = "my dynamic property";
+    HETest.prop1 = window.document;
+    HETest.prop2 = window.frames;
+    HETest.prop3 = window.screenLeft;
+    Debug.dumpHeap(0, true, false);
+});
+</script>
+<div id="div1"></div>
+</body>
+</html>

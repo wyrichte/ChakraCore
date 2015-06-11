@@ -1,0 +1,40 @@
+GetStructure : getting all nodes
+Total nodes : 18
+{ asnkGlobal, containerName : , itemName : , range : {0 : 1036}, HasChildren : yes }
+{ asnkVariable, containerName : , itemName : Namespace, range : {118 : 136}, HasChildren : no }
+{ asnkObjectLiteral, containerName : Namespace.Manager, itemName : , range : {210 : 627}, HasChildren : yes }
+{ asnkRegion, containerName : , itemName : , range : {190 : 627}, HasChildren : no }
+{ asnkFunction, containerName : , itemName : Namespace.Manager.Register(namespace), range : {227 : 624}, HasChildren : yes }
+{ asnkRegion, containerName : , itemName : , range : {217 : 624}, HasChildren : no }
+{ asnkFunction, containerName : , itemName : PietschSoft.Utility.Class.Triplet(one, two, three), range : {812 : 915}, HasChildren : yes }
+{ asnkRegion, containerName : , itemName : , range : {776 : 915}, HasChildren : no }
+{ asnkVariable, containerName : , itemName : myTriplet, range : {963 : 1031}, HasChildren : no }
+{ asnkNamespace, containerName : Namespace, itemName : , range : {0 : 0}, HasChildren : yes }
+{ asnkNamespace, containerName : Manager, itemName : , range : {210 : 627}, HasChildren : yes }
+{ asnkFunction, containerName : , itemName : Register(namespace), range : {227 : 624}, HasChildren : yes }
+{ asnkRegion, containerName : , itemName : , range : {217 : 624}, HasChildren : no }
+{ asnkNamespace, containerName : PietschSoft, itemName : , range : {0 : 0}, HasChildren : yes }
+{ asnkNamespace, containerName : Utility, itemName : , range : {0 : 0}, HasChildren : yes }
+{ asnkNamespace, containerName : Class, itemName : , range : {0 : 0}, HasChildren : yes }
+{ asnkFunction, containerName : , itemName : Triplet(one, two, three), range : {812 : 915}, HasChildren : yes }
+{ asnkRegion, containerName : , itemName : , range : {776 : 915}, HasChildren : no }
+GetStructure : Displaying structure graph
+asnkGlobal
+    Namespace
+    Namespace.Manager
+        asnkRegion
+        Namespace.Manager.Register(namespace)
+            asnkRegion
+    PietschSoft.Utility.Class.Triplet(one, two, three)
+        asnkRegion
+    myTriplet
+Namespace
+    Manager
+        Register(namespace)
+            asnkRegion
+PietschSoft
+    Utility
+        Class
+            Triplet(one, two, three)
+                asnkRegion
+Passed

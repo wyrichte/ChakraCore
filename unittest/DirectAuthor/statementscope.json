@@ -1,0 +1,2589 @@
+{
+  "testname" : "JS Completions - Test completions",
+  "owner" : "cmurdoch",
+  "validated" : false,
+  "timeout" : 1000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "_comment1" : "Put an underscore \"_\" prefix to comment out a header field.",
+  "_comment2" : "No field in the schema uses the underscore prefix",
+  "runAuthoringTest" : true,
+  "commands" :
+  [
+{
+  "action": "processCompletionsSession",
+  "args": [
+    "statementScope.js"
+  ],
+  "events": [
+    {
+      "session": [
+        {
+          "extent": {
+            "offset": 233,
+            "length": 0
+          },
+          "kind": "statement",
+          "completions": [
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p5",
+              "displayText": "p5",
+              "insertionText": "p5"
+            },
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p6",
+              "displayText": "p6",
+              "insertionText": "p6"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "arguments",
+              "displayText": "arguments",
+              "insertionText": "arguments"
+            },
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p3",
+              "displayText": "p3",
+              "insertionText": "p3"
+            },
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p4",
+              "displayText": "p4",
+              "insertionText": "p4"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "g",
+              "displayText": "g",
+              "insertionText": "g"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "h",
+              "displayText": "h",
+              "insertionText": "h"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "scope3",
+              "displayText": "scope3",
+              "insertionText": "scope3"
+            },
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p1",
+              "displayText": "p1",
+              "insertionText": "p1"
+            },
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p2",
+              "displayText": "p2",
+              "insertionText": "p2"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "c",
+              "displayText": "c",
+              "insertionText": "c"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "d",
+              "displayText": "d",
+              "insertionText": "d"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "e",
+              "displayText": "e",
+              "insertionText": "e"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "f",
+              "displayText": "f",
+              "insertionText": "f"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "scope2",
+              "displayText": "scope2",
+              "insertionText": "scope2"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "NaN",
+              "displayText": "NaN",
+              "insertionText": "NaN"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Infinity",
+              "displayText": "Infinity",
+              "insertionText": "Infinity"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "undefined",
+              "displayText": "undefined",
+              "insertionText": "undefined"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "eval",
+              "displayText": "eval",
+              "insertionText": "eval"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "parseInt",
+              "displayText": "parseInt",
+              "insertionText": "parseInt"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "parseFloat",
+              "displayText": "parseFloat",
+              "insertionText": "parseFloat"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "isNaN",
+              "displayText": "isNaN",
+              "insertionText": "isNaN"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "isFinite",
+              "displayText": "isFinite",
+              "insertionText": "isFinite"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "decodeURI",
+              "displayText": "decodeURI",
+              "insertionText": "decodeURI"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "decodeURIComponent",
+              "displayText": "decodeURIComponent",
+              "insertionText": "decodeURIComponent"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "encodeURI",
+              "displayText": "encodeURI",
+              "insertionText": "encodeURI"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "encodeURIComponent",
+              "displayText": "encodeURIComponent",
+              "insertionText": "encodeURIComponent"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "escape",
+              "displayText": "escape",
+              "insertionText": "escape"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "unescape",
+              "displayText": "unescape",
+              "insertionText": "unescape"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngine",
+              "displayText": "ScriptEngine",
+              "insertionText": "ScriptEngine"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineMajorVersion",
+              "displayText": "ScriptEngineMajorVersion",
+              "insertionText": "ScriptEngineMajorVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineMinorVersion",
+              "displayText": "ScriptEngineMinorVersion",
+              "insertionText": "ScriptEngineMinorVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineBuildVersion",
+              "displayText": "ScriptEngineBuildVersion",
+              "insertionText": "ScriptEngineBuildVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "CollectGarbage",
+              "displayText": "CollectGarbage",
+              "insertionText": "CollectGarbage"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Object",
+              "displayText": "Object",
+              "insertionText": "Object"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Array",
+              "displayText": "Array",
+              "insertionText": "Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Boolean",
+              "displayText": "Boolean",
+              "insertionText": "Boolean"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Symbol",
+              "displayText": "Symbol",
+              "insertionText": "Symbol"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Proxy",
+              "displayText": "Proxy",
+              "insertionText": "Proxy"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Reflect",
+              "displayText": "Reflect",
+              "insertionText": "Reflect"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Promise",
+              "displayText": "Promise",
+              "insertionText": "Promise"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Date",
+              "displayText": "Date",
+              "insertionText": "Date"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Function",
+              "displayText": "Function",
+              "insertionText": "Function"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Math",
+              "displayText": "Math",
+              "insertionText": "Math"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Number",
+              "displayText": "Number",
+              "insertionText": "Number"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "String",
+              "displayText": "String",
+              "insertionText": "String"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "RegExp",
+              "displayText": "RegExp",
+              "insertionText": "RegExp"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ArrayBuffer",
+              "displayText": "ArrayBuffer",
+              "insertionText": "ArrayBuffer"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "DataView",
+              "displayText": "DataView",
+              "insertionText": "DataView"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int8Array",
+              "displayText": "Int8Array",
+              "insertionText": "Int8Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint8Array",
+              "displayText": "Uint8Array",
+              "insertionText": "Uint8Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint8ClampedArray",
+              "displayText": "Uint8ClampedArray",
+              "insertionText": "Uint8ClampedArray"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int16Array",
+              "displayText": "Int16Array",
+              "insertionText": "Int16Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint16Array",
+              "displayText": "Uint16Array",
+              "insertionText": "Uint16Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int32Array",
+              "displayText": "Int32Array",
+              "insertionText": "Int32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint32Array",
+              "displayText": "Uint32Array",
+              "insertionText": "Uint32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Float32Array",
+              "displayText": "Float32Array",
+              "insertionText": "Float32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Float64Array",
+              "displayText": "Float64Array",
+              "insertionText": "Float64Array"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "JSON",
+              "displayText": "JSON",
+              "insertionText": "JSON"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Map",
+              "displayText": "Map",
+              "insertionText": "Map"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Set",
+              "displayText": "Set",
+              "insertionText": "Set"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "WeakMap",
+              "displayText": "WeakMap",
+              "insertionText": "WeakMap"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "WeakSet",
+              "displayText": "WeakSet",
+              "insertionText": "WeakSet"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Error",
+              "displayText": "Error",
+              "insertionText": "Error"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "EvalError",
+              "displayText": "EvalError",
+              "insertionText": "EvalError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "RangeError",
+              "displayText": "RangeError",
+              "insertionText": "RangeError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ReferenceError",
+              "displayText": "ReferenceError",
+              "insertionText": "ReferenceError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "SyntaxError",
+              "displayText": "SyntaxError",
+              "insertionText": "SyntaxError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "TypeError",
+              "displayText": "TypeError",
+              "insertionText": "TypeError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "URIError",
+              "displayText": "URIError",
+              "insertionText": "URIError"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Intl",
+              "displayText": "Intl",
+              "insertionText": "Intl"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global1",
+              "displayText": "global1",
+              "insertionText": "global1"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global2",
+              "displayText": "global2",
+              "insertionText": "global2"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "scope1",
+              "displayText": "scope1",
+              "insertionText": "scope1"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global3",
+              "displayText": "global3",
+              "insertionText": "global3"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "a",
+              "displayText": "a",
+              "insertionText": "a"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "b",
+              "displayText": "b",
+              "insertionText": "b"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "i",
+              "displayText": "i",
+              "insertionText": "i"
+            }
+          ]
+        },
+        {
+          "extent": {
+            "offset": 248,
+            "length": 0
+          },
+          "kind": "statement",
+          "completions": [
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p3",
+              "displayText": "p3",
+              "insertionText": "p3"
+            },
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p4",
+              "displayText": "p4",
+              "insertionText": "p4"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "arguments",
+              "displayText": "arguments",
+              "insertionText": "arguments"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "g",
+              "displayText": "g",
+              "insertionText": "g"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "h",
+              "displayText": "h",
+              "insertionText": "h"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "scope3",
+              "displayText": "scope3",
+              "insertionText": "scope3"
+            },
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p1",
+              "displayText": "p1",
+              "insertionText": "p1"
+            },
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p2",
+              "displayText": "p2",
+              "insertionText": "p2"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "c",
+              "displayText": "c",
+              "insertionText": "c"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "d",
+              "displayText": "d",
+              "insertionText": "d"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "e",
+              "displayText": "e",
+              "insertionText": "e"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "f",
+              "displayText": "f",
+              "insertionText": "f"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "scope2",
+              "displayText": "scope2",
+              "insertionText": "scope2"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "NaN",
+              "displayText": "NaN",
+              "insertionText": "NaN"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Infinity",
+              "displayText": "Infinity",
+              "insertionText": "Infinity"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "undefined",
+              "displayText": "undefined",
+              "insertionText": "undefined"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "eval",
+              "displayText": "eval",
+              "insertionText": "eval"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "parseInt",
+              "displayText": "parseInt",
+              "insertionText": "parseInt"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "parseFloat",
+              "displayText": "parseFloat",
+              "insertionText": "parseFloat"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "isNaN",
+              "displayText": "isNaN",
+              "insertionText": "isNaN"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "isFinite",
+              "displayText": "isFinite",
+              "insertionText": "isFinite"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "decodeURI",
+              "displayText": "decodeURI",
+              "insertionText": "decodeURI"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "decodeURIComponent",
+              "displayText": "decodeURIComponent",
+              "insertionText": "decodeURIComponent"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "encodeURI",
+              "displayText": "encodeURI",
+              "insertionText": "encodeURI"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "encodeURIComponent",
+              "displayText": "encodeURIComponent",
+              "insertionText": "encodeURIComponent"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "escape",
+              "displayText": "escape",
+              "insertionText": "escape"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "unescape",
+              "displayText": "unescape",
+              "insertionText": "unescape"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngine",
+              "displayText": "ScriptEngine",
+              "insertionText": "ScriptEngine"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineMajorVersion",
+              "displayText": "ScriptEngineMajorVersion",
+              "insertionText": "ScriptEngineMajorVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineMinorVersion",
+              "displayText": "ScriptEngineMinorVersion",
+              "insertionText": "ScriptEngineMinorVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineBuildVersion",
+              "displayText": "ScriptEngineBuildVersion",
+              "insertionText": "ScriptEngineBuildVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "CollectGarbage",
+              "displayText": "CollectGarbage",
+              "insertionText": "CollectGarbage"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Object",
+              "displayText": "Object",
+              "insertionText": "Object"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Array",
+              "displayText": "Array",
+              "insertionText": "Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Boolean",
+              "displayText": "Boolean",
+              "insertionText": "Boolean"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Symbol",
+              "displayText": "Symbol",
+              "insertionText": "Symbol"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Proxy",
+              "displayText": "Proxy",
+              "insertionText": "Proxy"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Reflect",
+              "displayText": "Reflect",
+              "insertionText": "Reflect"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Promise",
+              "displayText": "Promise",
+              "insertionText": "Promise"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Date",
+              "displayText": "Date",
+              "insertionText": "Date"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Function",
+              "displayText": "Function",
+              "insertionText": "Function"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Math",
+              "displayText": "Math",
+              "insertionText": "Math"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Number",
+              "displayText": "Number",
+              "insertionText": "Number"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "String",
+              "displayText": "String",
+              "insertionText": "String"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "RegExp",
+              "displayText": "RegExp",
+              "insertionText": "RegExp"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ArrayBuffer",
+              "displayText": "ArrayBuffer",
+              "insertionText": "ArrayBuffer"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "DataView",
+              "displayText": "DataView",
+              "insertionText": "DataView"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int8Array",
+              "displayText": "Int8Array",
+              "insertionText": "Int8Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint8Array",
+              "displayText": "Uint8Array",
+              "insertionText": "Uint8Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint8ClampedArray",
+              "displayText": "Uint8ClampedArray",
+              "insertionText": "Uint8ClampedArray"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int16Array",
+              "displayText": "Int16Array",
+              "insertionText": "Int16Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint16Array",
+              "displayText": "Uint16Array",
+              "insertionText": "Uint16Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int32Array",
+              "displayText": "Int32Array",
+              "insertionText": "Int32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint32Array",
+              "displayText": "Uint32Array",
+              "insertionText": "Uint32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Float32Array",
+              "displayText": "Float32Array",
+              "insertionText": "Float32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Float64Array",
+              "displayText": "Float64Array",
+              "insertionText": "Float64Array"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "JSON",
+              "displayText": "JSON",
+              "insertionText": "JSON"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Map",
+              "displayText": "Map",
+              "insertionText": "Map"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Set",
+              "displayText": "Set",
+              "insertionText": "Set"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "WeakMap",
+              "displayText": "WeakMap",
+              "insertionText": "WeakMap"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "WeakSet",
+              "displayText": "WeakSet",
+              "insertionText": "WeakSet"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Error",
+              "displayText": "Error",
+              "insertionText": "Error"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "EvalError",
+              "displayText": "EvalError",
+              "insertionText": "EvalError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "RangeError",
+              "displayText": "RangeError",
+              "insertionText": "RangeError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ReferenceError",
+              "displayText": "ReferenceError",
+              "insertionText": "ReferenceError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "SyntaxError",
+              "displayText": "SyntaxError",
+              "insertionText": "SyntaxError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "TypeError",
+              "displayText": "TypeError",
+              "insertionText": "TypeError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "URIError",
+              "displayText": "URIError",
+              "insertionText": "URIError"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Intl",
+              "displayText": "Intl",
+              "insertionText": "Intl"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global1",
+              "displayText": "global1",
+              "insertionText": "global1"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global2",
+              "displayText": "global2",
+              "insertionText": "global2"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "scope1",
+              "displayText": "scope1",
+              "insertionText": "scope1"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global3",
+              "displayText": "global3",
+              "insertionText": "global3"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "a",
+              "displayText": "a",
+              "insertionText": "a"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "b",
+              "displayText": "b",
+              "insertionText": "b"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "i",
+              "displayText": "i",
+              "insertionText": "i"
+            }
+          ]
+        },
+        {
+          "extent": {
+            "offset": 259,
+            "length": 0
+          },
+          "kind": "statement",
+          "completions": [
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p1",
+              "displayText": "p1",
+              "insertionText": "p1"
+            },
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p2",
+              "displayText": "p2",
+              "insertionText": "p2"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "arguments",
+              "displayText": "arguments",
+              "insertionText": "arguments"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "c",
+              "displayText": "c",
+              "insertionText": "c"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "d",
+              "displayText": "d",
+              "insertionText": "d"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "e",
+              "displayText": "e",
+              "insertionText": "e"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "f",
+              "displayText": "f",
+              "insertionText": "f"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "scope2",
+              "displayText": "scope2",
+              "insertionText": "scope2"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "NaN",
+              "displayText": "NaN",
+              "insertionText": "NaN"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Infinity",
+              "displayText": "Infinity",
+              "insertionText": "Infinity"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "undefined",
+              "displayText": "undefined",
+              "insertionText": "undefined"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "eval",
+              "displayText": "eval",
+              "insertionText": "eval"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "parseInt",
+              "displayText": "parseInt",
+              "insertionText": "parseInt"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "parseFloat",
+              "displayText": "parseFloat",
+              "insertionText": "parseFloat"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "isNaN",
+              "displayText": "isNaN",
+              "insertionText": "isNaN"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "isFinite",
+              "displayText": "isFinite",
+              "insertionText": "isFinite"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "decodeURI",
+              "displayText": "decodeURI",
+              "insertionText": "decodeURI"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "decodeURIComponent",
+              "displayText": "decodeURIComponent",
+              "insertionText": "decodeURIComponent"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "encodeURI",
+              "displayText": "encodeURI",
+              "insertionText": "encodeURI"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "encodeURIComponent",
+              "displayText": "encodeURIComponent",
+              "insertionText": "encodeURIComponent"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "escape",
+              "displayText": "escape",
+              "insertionText": "escape"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "unescape",
+              "displayText": "unescape",
+              "insertionText": "unescape"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngine",
+              "displayText": "ScriptEngine",
+              "insertionText": "ScriptEngine"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineMajorVersion",
+              "displayText": "ScriptEngineMajorVersion",
+              "insertionText": "ScriptEngineMajorVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineMinorVersion",
+              "displayText": "ScriptEngineMinorVersion",
+              "insertionText": "ScriptEngineMinorVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineBuildVersion",
+              "displayText": "ScriptEngineBuildVersion",
+              "insertionText": "ScriptEngineBuildVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "CollectGarbage",
+              "displayText": "CollectGarbage",
+              "insertionText": "CollectGarbage"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Object",
+              "displayText": "Object",
+              "insertionText": "Object"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Array",
+              "displayText": "Array",
+              "insertionText": "Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Boolean",
+              "displayText": "Boolean",
+              "insertionText": "Boolean"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Symbol",
+              "displayText": "Symbol",
+              "insertionText": "Symbol"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Proxy",
+              "displayText": "Proxy",
+              "insertionText": "Proxy"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Reflect",
+              "displayText": "Reflect",
+              "insertionText": "Reflect"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Promise",
+              "displayText": "Promise",
+              "insertionText": "Promise"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Date",
+              "displayText": "Date",
+              "insertionText": "Date"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Function",
+              "displayText": "Function",
+              "insertionText": "Function"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Math",
+              "displayText": "Math",
+              "insertionText": "Math"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Number",
+              "displayText": "Number",
+              "insertionText": "Number"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "String",
+              "displayText": "String",
+              "insertionText": "String"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "RegExp",
+              "displayText": "RegExp",
+              "insertionText": "RegExp"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ArrayBuffer",
+              "displayText": "ArrayBuffer",
+              "insertionText": "ArrayBuffer"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "DataView",
+              "displayText": "DataView",
+              "insertionText": "DataView"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int8Array",
+              "displayText": "Int8Array",
+              "insertionText": "Int8Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint8Array",
+              "displayText": "Uint8Array",
+              "insertionText": "Uint8Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint8ClampedArray",
+              "displayText": "Uint8ClampedArray",
+              "insertionText": "Uint8ClampedArray"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int16Array",
+              "displayText": "Int16Array",
+              "insertionText": "Int16Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint16Array",
+              "displayText": "Uint16Array",
+              "insertionText": "Uint16Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int32Array",
+              "displayText": "Int32Array",
+              "insertionText": "Int32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint32Array",
+              "displayText": "Uint32Array",
+              "insertionText": "Uint32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Float32Array",
+              "displayText": "Float32Array",
+              "insertionText": "Float32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Float64Array",
+              "displayText": "Float64Array",
+              "insertionText": "Float64Array"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "JSON",
+              "displayText": "JSON",
+              "insertionText": "JSON"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Map",
+              "displayText": "Map",
+              "insertionText": "Map"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Set",
+              "displayText": "Set",
+              "insertionText": "Set"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "WeakMap",
+              "displayText": "WeakMap",
+              "insertionText": "WeakMap"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "WeakSet",
+              "displayText": "WeakSet",
+              "insertionText": "WeakSet"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Error",
+              "displayText": "Error",
+              "insertionText": "Error"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "EvalError",
+              "displayText": "EvalError",
+              "insertionText": "EvalError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "RangeError",
+              "displayText": "RangeError",
+              "insertionText": "RangeError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ReferenceError",
+              "displayText": "ReferenceError",
+              "insertionText": "ReferenceError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "SyntaxError",
+              "displayText": "SyntaxError",
+              "insertionText": "SyntaxError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "TypeError",
+              "displayText": "TypeError",
+              "insertionText": "TypeError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "URIError",
+              "displayText": "URIError",
+              "insertionText": "URIError"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Intl",
+              "displayText": "Intl",
+              "insertionText": "Intl"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global1",
+              "displayText": "global1",
+              "insertionText": "global1"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global2",
+              "displayText": "global2",
+              "insertionText": "global2"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "scope1",
+              "displayText": "scope1",
+              "insertionText": "scope1"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global3",
+              "displayText": "global3",
+              "insertionText": "global3"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "a",
+              "displayText": "a",
+              "insertionText": "a"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "b",
+              "displayText": "b",
+              "insertionText": "b"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "i",
+              "displayText": "i",
+              "insertionText": "i"
+            }
+          ]
+        },
+        {
+          "extent": {
+            "offset": 291,
+            "length": 0
+          },
+          "kind": "statement",
+          "completions": [
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p1",
+              "displayText": "p1",
+              "insertionText": "p1"
+            },
+            {
+              "kind": "parameter",
+              "group": "members",
+              "name": "p2",
+              "displayText": "p2",
+              "insertionText": "p2"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "arguments",
+              "displayText": "arguments",
+              "insertionText": "arguments"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "c",
+              "displayText": "c",
+              "insertionText": "c"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "d",
+              "displayText": "d",
+              "insertionText": "d"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "e",
+              "displayText": "e",
+              "insertionText": "e"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "f",
+              "displayText": "f",
+              "insertionText": "f"
+            },
+            {
+              "kind": "variable",
+              "group": "members",
+              "name": "scope2",
+              "displayText": "scope2",
+              "insertionText": "scope2"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "NaN",
+              "displayText": "NaN",
+              "insertionText": "NaN"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Infinity",
+              "displayText": "Infinity",
+              "insertionText": "Infinity"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "undefined",
+              "displayText": "undefined",
+              "insertionText": "undefined"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "eval",
+              "displayText": "eval",
+              "insertionText": "eval"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "parseInt",
+              "displayText": "parseInt",
+              "insertionText": "parseInt"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "parseFloat",
+              "displayText": "parseFloat",
+              "insertionText": "parseFloat"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "isNaN",
+              "displayText": "isNaN",
+              "insertionText": "isNaN"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "isFinite",
+              "displayText": "isFinite",
+              "insertionText": "isFinite"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "decodeURI",
+              "displayText": "decodeURI",
+              "insertionText": "decodeURI"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "decodeURIComponent",
+              "displayText": "decodeURIComponent",
+              "insertionText": "decodeURIComponent"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "encodeURI",
+              "displayText": "encodeURI",
+              "insertionText": "encodeURI"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "encodeURIComponent",
+              "displayText": "encodeURIComponent",
+              "insertionText": "encodeURIComponent"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "escape",
+              "displayText": "escape",
+              "insertionText": "escape"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "unescape",
+              "displayText": "unescape",
+              "insertionText": "unescape"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngine",
+              "displayText": "ScriptEngine",
+              "insertionText": "ScriptEngine"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineMajorVersion",
+              "displayText": "ScriptEngineMajorVersion",
+              "insertionText": "ScriptEngineMajorVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineMinorVersion",
+              "displayText": "ScriptEngineMinorVersion",
+              "insertionText": "ScriptEngineMinorVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineBuildVersion",
+              "displayText": "ScriptEngineBuildVersion",
+              "insertionText": "ScriptEngineBuildVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "CollectGarbage",
+              "displayText": "CollectGarbage",
+              "insertionText": "CollectGarbage"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Object",
+              "displayText": "Object",
+              "insertionText": "Object"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Array",
+              "displayText": "Array",
+              "insertionText": "Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Boolean",
+              "displayText": "Boolean",
+              "insertionText": "Boolean"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Symbol",
+              "displayText": "Symbol",
+              "insertionText": "Symbol"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Proxy",
+              "displayText": "Proxy",
+              "insertionText": "Proxy"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Reflect",
+              "displayText": "Reflect",
+              "insertionText": "Reflect"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Promise",
+              "displayText": "Promise",
+              "insertionText": "Promise"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Date",
+              "displayText": "Date",
+              "insertionText": "Date"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Function",
+              "displayText": "Function",
+              "insertionText": "Function"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Math",
+              "displayText": "Math",
+              "insertionText": "Math"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Number",
+              "displayText": "Number",
+              "insertionText": "Number"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "String",
+              "displayText": "String",
+              "insertionText": "String"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "RegExp",
+              "displayText": "RegExp",
+              "insertionText": "RegExp"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ArrayBuffer",
+              "displayText": "ArrayBuffer",
+              "insertionText": "ArrayBuffer"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "DataView",
+              "displayText": "DataView",
+              "insertionText": "DataView"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int8Array",
+              "displayText": "Int8Array",
+              "insertionText": "Int8Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint8Array",
+              "displayText": "Uint8Array",
+              "insertionText": "Uint8Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint8ClampedArray",
+              "displayText": "Uint8ClampedArray",
+              "insertionText": "Uint8ClampedArray"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int16Array",
+              "displayText": "Int16Array",
+              "insertionText": "Int16Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint16Array",
+              "displayText": "Uint16Array",
+              "insertionText": "Uint16Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int32Array",
+              "displayText": "Int32Array",
+              "insertionText": "Int32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint32Array",
+              "displayText": "Uint32Array",
+              "insertionText": "Uint32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Float32Array",
+              "displayText": "Float32Array",
+              "insertionText": "Float32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Float64Array",
+              "displayText": "Float64Array",
+              "insertionText": "Float64Array"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "JSON",
+              "displayText": "JSON",
+              "insertionText": "JSON"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Map",
+              "displayText": "Map",
+              "insertionText": "Map"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Set",
+              "displayText": "Set",
+              "insertionText": "Set"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "WeakMap",
+              "displayText": "WeakMap",
+              "insertionText": "WeakMap"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "WeakSet",
+              "displayText": "WeakSet",
+              "insertionText": "WeakSet"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Error",
+              "displayText": "Error",
+              "insertionText": "Error"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "EvalError",
+              "displayText": "EvalError",
+              "insertionText": "EvalError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "RangeError",
+              "displayText": "RangeError",
+              "insertionText": "RangeError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ReferenceError",
+              "displayText": "ReferenceError",
+              "insertionText": "ReferenceError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "SyntaxError",
+              "displayText": "SyntaxError",
+              "insertionText": "SyntaxError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "TypeError",
+              "displayText": "TypeError",
+              "insertionText": "TypeError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "URIError",
+              "displayText": "URIError",
+              "insertionText": "URIError"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Intl",
+              "displayText": "Intl",
+              "insertionText": "Intl"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global1",
+              "displayText": "global1",
+              "insertionText": "global1"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global2",
+              "displayText": "global2",
+              "insertionText": "global2"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "scope1",
+              "displayText": "scope1",
+              "insertionText": "scope1"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global3",
+              "displayText": "global3",
+              "insertionText": "global3"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "a",
+              "displayText": "a",
+              "insertionText": "a"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "b",
+              "displayText": "b",
+              "insertionText": "b"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "i",
+              "displayText": "i",
+              "insertionText": "i"
+            }
+          ]
+        },
+        {
+          "extent": {
+            "offset": 298,
+            "length": 0
+          },
+          "kind": "statement",
+          "completions": [
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "NaN",
+              "displayText": "NaN",
+              "insertionText": "NaN"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Infinity",
+              "displayText": "Infinity",
+              "insertionText": "Infinity"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "undefined",
+              "displayText": "undefined",
+              "insertionText": "undefined"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "eval",
+              "displayText": "eval",
+              "insertionText": "eval"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "parseInt",
+              "displayText": "parseInt",
+              "insertionText": "parseInt"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "parseFloat",
+              "displayText": "parseFloat",
+              "insertionText": "parseFloat"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "isNaN",
+              "displayText": "isNaN",
+              "insertionText": "isNaN"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "isFinite",
+              "displayText": "isFinite",
+              "insertionText": "isFinite"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "decodeURI",
+              "displayText": "decodeURI",
+              "insertionText": "decodeURI"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "decodeURIComponent",
+              "displayText": "decodeURIComponent",
+              "insertionText": "decodeURIComponent"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "encodeURI",
+              "displayText": "encodeURI",
+              "insertionText": "encodeURI"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "encodeURIComponent",
+              "displayText": "encodeURIComponent",
+              "insertionText": "encodeURIComponent"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "escape",
+              "displayText": "escape",
+              "insertionText": "escape"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "unescape",
+              "displayText": "unescape",
+              "insertionText": "unescape"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngine",
+              "displayText": "ScriptEngine",
+              "insertionText": "ScriptEngine"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineMajorVersion",
+              "displayText": "ScriptEngineMajorVersion",
+              "insertionText": "ScriptEngineMajorVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineMinorVersion",
+              "displayText": "ScriptEngineMinorVersion",
+              "insertionText": "ScriptEngineMinorVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ScriptEngineBuildVersion",
+              "displayText": "ScriptEngineBuildVersion",
+              "insertionText": "ScriptEngineBuildVersion"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "CollectGarbage",
+              "displayText": "CollectGarbage",
+              "insertionText": "CollectGarbage"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Object",
+              "displayText": "Object",
+              "insertionText": "Object"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Array",
+              "displayText": "Array",
+              "insertionText": "Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Boolean",
+              "displayText": "Boolean",
+              "insertionText": "Boolean"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Symbol",
+              "displayText": "Symbol",
+              "insertionText": "Symbol"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Proxy",
+              "displayText": "Proxy",
+              "insertionText": "Proxy"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Reflect",
+              "displayText": "Reflect",
+              "insertionText": "Reflect"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Promise",
+              "displayText": "Promise",
+              "insertionText": "Promise"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Date",
+              "displayText": "Date",
+              "insertionText": "Date"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Function",
+              "displayText": "Function",
+              "insertionText": "Function"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Math",
+              "displayText": "Math",
+              "insertionText": "Math"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Number",
+              "displayText": "Number",
+              "insertionText": "Number"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "String",
+              "displayText": "String",
+              "insertionText": "String"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "RegExp",
+              "displayText": "RegExp",
+              "insertionText": "RegExp"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ArrayBuffer",
+              "displayText": "ArrayBuffer",
+              "insertionText": "ArrayBuffer"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "DataView",
+              "displayText": "DataView",
+              "insertionText": "DataView"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int8Array",
+              "displayText": "Int8Array",
+              "insertionText": "Int8Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint8Array",
+              "displayText": "Uint8Array",
+              "insertionText": "Uint8Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint8ClampedArray",
+              "displayText": "Uint8ClampedArray",
+              "insertionText": "Uint8ClampedArray"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int16Array",
+              "displayText": "Int16Array",
+              "insertionText": "Int16Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint16Array",
+              "displayText": "Uint16Array",
+              "insertionText": "Uint16Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Int32Array",
+              "displayText": "Int32Array",
+              "insertionText": "Int32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Uint32Array",
+              "displayText": "Uint32Array",
+              "insertionText": "Uint32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Float32Array",
+              "displayText": "Float32Array",
+              "insertionText": "Float32Array"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Float64Array",
+              "displayText": "Float64Array",
+              "insertionText": "Float64Array"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "JSON",
+              "displayText": "JSON",
+              "insertionText": "JSON"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Map",
+              "displayText": "Map",
+              "insertionText": "Map"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Set",
+              "displayText": "Set",
+              "insertionText": "Set"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "WeakMap",
+              "displayText": "WeakMap",
+              "insertionText": "WeakMap"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "WeakSet",
+              "displayText": "WeakSet",
+              "insertionText": "WeakSet"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "Error",
+              "displayText": "Error",
+              "insertionText": "Error"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "EvalError",
+              "displayText": "EvalError",
+              "insertionText": "EvalError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "RangeError",
+              "displayText": "RangeError",
+              "insertionText": "RangeError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "ReferenceError",
+              "displayText": "ReferenceError",
+              "insertionText": "ReferenceError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "SyntaxError",
+              "displayText": "SyntaxError",
+              "insertionText": "SyntaxError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "TypeError",
+              "displayText": "TypeError",
+              "insertionText": "TypeError"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "URIError",
+              "displayText": "URIError",
+              "insertionText": "URIError"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "Intl",
+              "displayText": "Intl",
+              "insertionText": "Intl"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global1",
+              "displayText": "global1",
+              "insertionText": "global1"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global2",
+              "displayText": "global2",
+              "insertionText": "global2"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "scope1",
+              "displayText": "scope1",
+              "insertionText": "scope1"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "global3",
+              "displayText": "global3",
+              "insertionText": "global3"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "a",
+              "displayText": "a",
+              "insertionText": "a"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "b",
+              "displayText": "b",
+              "insertionText": "b"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "i",
+              "displayText": "i",
+              "insertionText": "i"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

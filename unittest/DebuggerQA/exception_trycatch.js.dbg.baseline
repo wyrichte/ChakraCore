@@ -1,0 +1,42 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 211,
+        "length": 20,
+        "text": "return nonexistent++",
+        "frameDescription": "y.toString"
+      },
+      {
+        "start": 363,
+        "length": 10,
+        "text": "\"\" + e + y",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 449,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "e": "3",
+      "y": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

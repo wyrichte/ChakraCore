@@ -1,0 +1,1643 @@
+
+
+Running GetExtendedExceptionInfo Tests
+
+PASS: TestCreateErrorObjectSucceedsWithValidErrorType
+
+PASS: TestCreateErrorObjectFailsWithInvalidErrorType
+
+    Executing: 
+	    throw new Error
+
+PASS: TestOnScriptErrorCalled
+
+    Executing: 
+	    throw new Error
+
+PASS: TestOnScriptErrorCanQIForOSEEx
+
+    Executing: 
+	    function foo() 
+            {
+                foo2(); 
+            }
+            function foo2() 
+            {
+                foo3(); 
+            }
+            function foo3() 
+            {
+                baz(); 
+            }
+             function baz() 
+            {
+                var tttt;  throw new Error('Thrown from baz');
+            }
+            foo();
+
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Thrown from baz
+	exInfo.scode: 800a139e
+PASS: TestOnScriptErrorGetExceptionInfo
+
+    Executing: 
+	    function g(x) {
+                f(null, undefined, NaN, true, 1, 'a', { as: 3 }, 23.23, 1e-4, 1, 1, 1, 1, 1, 1, 1);
+            }
+            function f(x) {
+                throw Error('mm');
+            }
+            function h() {
+                g();
+            }
+            var s = new String('qqq');
+            eval('h(s, 123);');
+            
+
+    Uncaught exception:
+	Call stack: 
+	    f(null, undefined, NaN, boolean, number, string, object, number, number, number, number, number, number, number, number, number)(4, 4)
+	    g()(1, 4)
+	    h(object, number)(7, 4)
+	    eval code(0, 0)
+	    Global code(10, 0)
+
+
+	exInfo.bstrDescription: mm
+	expected stack frame count 5, got: 5
+
+PASS: TestOnScriptErrorGetExceptionInfoWithArguments
+
+    Executing: 
+	    function a() {
+                b(1);
+            }
+            function b(x, y, z) {
+                c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+            }
+            function c() {
+                d(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+            }
+            function d() {
+                e(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
+            }
+            function e() {
+                f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);
+            }
+            function f() {
+                g(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30);
+            }
+            function g() {
+                h(NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true, NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true);
+            }
+            function h(a,b,c,d,e,f,g,h,i,j,k,l) {
+                throw new Error('Error inside of fucntions with a lot of arguments which has to be displayed');
+            }
+            a();
+            
+
+    Uncaught exception:
+	Call stack: 
+	    h(NaN, null, undefined, string, number, number, number, object, object, object, boolean, NaN, null, undefined, string, number, number, number, object, object, ...)(22, 4)
+	    g(number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, ...)(19, 4)
+	    f(number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, ...)(16, 4)
+	    e(number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number)(13, 4)
+	    d(number, number, number, number, number, number, number, number, number, number, number)(10, 4)
+	    c(number, number, number, number, number, number, number, number, number, number)(7, 4)
+	    b(number)(4, 4)
+	    a()(1, 4)
+	    Global code(24, 0)
+
+
+	exInfo.bstrDescription: Error inside of fucntions with a lot of arguments which has to be displayed
+	expected stack frame count 9, got: 9
+
+PASS: TestOnScriptErrorGetExceptionInfoWithArguments2
+
+    Executing: 
+	    function g(x) {
+                f(null, undefined, NaN, true, 1, 'a', { as: 3 }, 23.23, 1e-4, 1, 1, 1, 1, 1, 1, 1);
+            }
+            function f(x) {
+                throw Error('mm');
+            }
+            function h() {
+                g();
+            }
+            var s = new String('qqq');
+            eval('h(s, 123);');
+            
+
+unhandled exception info
+result.description=mm
+result.stack=Error: mm
+   at f (:5:5)
+   at g (:2:5)
+   at h (:8:5)
+   at eval code (eval code:1:1)
+   at Global code (:11:1)
+    Uncaught exception:
+	Call stack: 
+	    f(null, undefined, NaN, boolean, number, string, object, number, number, number, number, number, number, number, number, number)(4, 4)
+	    g()(1, 4)
+	    h(object, number)(7, 4)
+	    eval code(0, 0)
+	    Global code(10, 0)
+
+
+	exInfo.bstrDescription: mm
+	expected stack frame count 5, got: 5
+
+PASS: TestOnScriptErrorGetExceptionInfoWithArguments
+
+    Executing: 
+	    function a() {
+                b(1);
+            }
+            function b(x, y, z) {
+                c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+            }
+            function c() {
+                d(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+            }
+            function d() {
+                e(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
+            }
+            function e() {
+                f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);
+            }
+            function f() {
+                g(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30);
+            }
+            function g() {
+                h(NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true, NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true);
+            }
+            function h(a,b,c,d,e,f,g,h,i,j,k,l) {
+                throw new Error('Error inside of fucntions with a lot of arguments which has to be displayed');
+            }
+            a();
+            
+
+unhandled exception info
+result.description=Error inside of fucntions with a lot of arguments which has to be displayed
+result.stack=Error: Error inside of fucntions with a lot of arguments which has to be displayed
+   at h (:23:5)
+   at g (:20:5)
+   at f (:17:5)
+   at e (:14:5)
+   at d (:11:5)
+   at c (:8:5)
+   at b (:5:5)
+   at a (:2:5)
+   at Global code (:25:1)
+    Uncaught exception:
+	Call stack: 
+	    h(NaN, null, undefined, string, number, number, number, object, object, object, boolean, NaN, null, undefined, string, number, number, number, object, object, ...)(22, 4)
+	    g(number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, ...)(19, 4)
+	    f(number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, ...)(16, 4)
+	    e(number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number, number)(13, 4)
+	    d(number, number, number, number, number, number, number, number, number, number, number)(10, 4)
+	    c(number, number, number, number, number, number, number, number, number, number)(7, 4)
+	    b(number)(4, 4)
+	    a()(1, 4)
+	    Global code(24, 0)
+
+
+	exInfo.bstrDescription: Error inside of fucntions with a lot of arguments which has to be displayed
+	expected stack frame count 9, got: 9
+
+PASS: TestOnScriptErrorGetExceptionInfoWithArguments2
+
+    Executing: 
+	    var e = 'string;
+
+Compile Error:
+	exInfo.errorType.typeNumber: 9
+	exInfo.errorType.typeText: Parse error
+	exInfo.callStack.frameCount: 0
+	exInfo.callStack.frames: NULL
+	exInfo.bstrSource: JavaScript compilation error
+	exInfo.bstrDescription: Unterminated string constant
+	exInfo.scode: 800a03f7
+
+
+PASS: TestOnScriptErrorGetNoExceptionInfoOnCompileError
+
+    Executing: 
+	    var e = 'string;
+
+Compile Error:
+	exInfo.errorType.typeNumber: 9
+	exInfo.errorType.typeText: Parse error
+	exInfo.callStack.frameCount: 0
+	exInfo.callStack.frames: NULL
+	exInfo.bstrSource: JavaScript compilation error
+	exInfo.bstrDescription: Unterminated string constant
+	exInfo.scode: 800a03f7
+
+
+PASS: TestOnScriptErrorGetNoExceptionInfoOnCompileError
+
+    Executing: 
+	    var a = new Array(); 
+            a[0] = 'string'; 
+            a[1] = 'aaa'; 
+            for (var i=2; ; i++ ) 
+            { 
+                a[i] = a[i-1] + a[i-2];
+            }
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 0
+	exInfo.errorType.typeText: Generic error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Out of memory
+	exInfo.scode: 800a0007
+
+	expected error type 0, got: 0 (Generic error: Out of memory)
+
+PASS: TestOnScriptErrorGetsExpectedErrorOnOOM
+
+    Executing: 
+	    function foo() 
+            {
+                foo(); 
+            }
+            foo();
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 0
+	exInfo.errorType.typeText: Generic error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Out of stack space
+	exInfo.scode: 800a001c
+
+	expected error type 0, got: 0 (Generic error: Out of stack space)
+
+PASS: TestOnScriptErrorGetsExpectedErrorOnStackOverflow
+
+    Executing: 
+	    var a = new Array(); 
+            a[0] = 'string'; 
+            a[1] = 'aaa'; 
+            for (var i=2; ; i++ ) 
+            { 
+                a[i] = a[i-1] + a[i-2];
+            }
+
+unhandled exception info
+result.description=Out of memory
+result.number=-2146828281
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 0
+	exInfo.errorType.typeText: Generic error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Out of memory
+	exInfo.scode: 800a0007
+
+	expected error type 0, got: 0 (Generic error: Out of memory)
+
+PASS: TestOnScriptErrorGetsExpectedErrorOnOOM
+
+    Executing: 
+	    function foo() 
+            {
+                foo(); 
+            }
+            foo();
+
+unhandled exception info
+Out of stack space
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 0
+	exInfo.errorType.typeText: Generic error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Out of stack space
+	exInfo.scode: 800a001c
+
+	expected error type 0, got: 0 (Generic error: Out of stack space)
+
+PASS: TestOnScriptErrorGetsExpectedErrorOnStackOverflow
+
+    Executing: 
+	    throw new Error
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 0
+	exInfo.errorType.typeText: Generic error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: 
+	exInfo.scode: 80004005
+
+	expected error type 0, got: 0 (Generic error: )
+
+PASS: TestOnScriptErrorGetsExpectedErrorOnExplicitThrow
+
+    Executing: 
+	    throw new EvalError
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 1
+	exInfo.errorType.typeText: Eval error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Exception thrown and not caught
+	exInfo.scode: 800a139e
+
+	expected error type 1, got: 1 (Eval error: Exception thrown and not caught)
+
+PASS: TestOnScriptErrorGetsExpectedEvalErrorOnExplicitThrow
+
+    Executing: 
+	    throw new RangeError
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 2
+	exInfo.errorType.typeText: Range error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Exception thrown and not caught
+	exInfo.scode: 800a139e
+
+	expected error type 2, got: 2 (Range error: Exception thrown and not caught)
+
+PASS: TestOnScriptErrorGetsExpectedRangeErrorOnExplicitThrow
+
+    Executing: 
+	    var a = new Array(); a.length = -1;
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 2
+	exInfo.errorType.typeText: Range error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Array length must be assigned a finite positive number
+	exInfo.scode: 800a13a6
+
+	expected error type 2, got: 2 (Range error: Array length must be assigned a finite positive number)
+
+PASS: TestOnScriptErrorGetsExpectedRangeErrorOnArrayLengthSetNegative
+
+    Executing: 
+	    throw new ReferenceError
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 3
+	exInfo.errorType.typeText: Reference error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Exception thrown and not caught
+	exInfo.scode: 800a139e
+
+	expected error type 3, got: 3 (Reference error: Exception thrown and not caught)
+
+PASS: TestOnScriptErrorGetsExpectedReferenceErrorOnExplicitThrow
+
+    Executing: 
+	    throw new SyntaxError
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 4
+	exInfo.errorType.typeText: Syntax error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Exception thrown and not caught
+	exInfo.scode: 800a139e
+
+	expected error type 4, got: 4 (Syntax error: Exception thrown and not caught)
+
+PASS: TestOnScriptErrorGetsExpectedSyntaxErrorOnExplicitThrow
+
+    Executing: 
+	    eval('var function a=1');
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 4
+	exInfo.errorType.typeText: Syntax error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: The use of a keyword for an identifier is invalid
+	exInfo.scode: 800a0418
+
+	expected error type 4, got: 4 (Syntax error: The use of a keyword for an identifier is invalid)
+
+PASS: TestOnScriptErrorGetsExpectedSyntaxErrorOnBadInput
+
+    Executing: 
+	    throw new TypeError
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 5
+	exInfo.errorType.typeText: Type error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Exception thrown and not caught
+	exInfo.scode: 800a139e
+
+	expected error type 5, got: 5 (Type error: Exception thrown and not caught)
+
+PASS: TestOnScriptErrorGetsExpectedTypeErrorOnExplicitThrow
+
+    Executing: 
+	    throw new URIError
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 6
+	exInfo.errorType.typeText: URI error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Exception thrown and not caught
+	exInfo.scode: 800a139e
+
+	expected error type 6, got: 6 (URI error: Exception thrown and not caught)
+
+PASS: TestOnScriptErrorGetsExpectedURIErrorOnExplicitThrow
+
+    Executing: 
+	    throw 'Custom error'
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 7
+	exInfo.errorType.typeText: Custom error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Custom error
+	exInfo.scode: 800a139e
+
+	expected error type 7, got: 7 (Custom error: Custom error)
+
+PASS: TestOnScriptErrorGetsExpectedCustomErrorOnThrowString
+
+    Executing: 
+	    throw {a: 'aaa', b: 'bbb'}
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 7
+	exInfo.errorType.typeText: Custom error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: [object Object]
+	exInfo.scode: 800a139e
+
+	expected error type 7, got: 7 (Custom error: [object Object])
+
+PASS: TestOnScriptErrorGetsExpectedCustomErrorOnThrowString
+
+    Executing: 
+	    throw new Error
+
+unhandled exception info
+result.number=0
+result.description=
+result.stack=Error
+   at Global code (:1:1)
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 0
+	exInfo.errorType.typeText: Generic error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: 
+	exInfo.scode: 80004005
+
+	expected error type 0, got: 0 (Generic error: )
+
+PASS: TestOnScriptErrorGetsExpectedErrorOnExplicitThrow
+
+    Executing: 
+	    throw new EvalError
+
+unhandled exception info
+result.stack=EvalError
+   at Global code (:1:1)
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 1
+	exInfo.errorType.typeText: Eval error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Exception thrown and not caught
+	exInfo.scode: 800a139e
+
+	expected error type 1, got: 1 (Eval error: Exception thrown and not caught)
+
+PASS: TestOnScriptErrorGetsExpectedEvalErrorOnExplicitThrow
+
+    Executing: 
+	    throw new RangeError
+
+unhandled exception info
+result.stack=RangeError
+   at Global code (:1:1)
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 2
+	exInfo.errorType.typeText: Range error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Exception thrown and not caught
+	exInfo.scode: 800a139e
+
+	expected error type 2, got: 2 (Range error: Exception thrown and not caught)
+
+PASS: TestOnScriptErrorGetsExpectedRangeErrorOnExplicitThrow
+
+    Executing: 
+	    var a = new Array(); a.length = -1;
+
+unhandled exception info
+result.description=Array length must be assigned a finite positive number
+result.number=-2146823258
+result.stack=RangeError: Array length must be assigned a finite positive number
+   at Global code (:1:22)
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 2
+	exInfo.errorType.typeText: Range error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Array length must be assigned a finite positive number
+	exInfo.scode: 800a13a6
+
+	expected error type 2, got: 2 (Range error: Array length must be assigned a finite positive number)
+
+PASS: TestOnScriptErrorGetsExpectedRangeErrorOnArrayLengthSetNegative
+
+    Executing: 
+	    throw new ReferenceError
+
+unhandled exception info
+result.stack=ReferenceError
+   at Global code (:1:1)
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 3
+	exInfo.errorType.typeText: Reference error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Exception thrown and not caught
+	exInfo.scode: 800a139e
+
+	expected error type 3, got: 3 (Reference error: Exception thrown and not caught)
+
+PASS: TestOnScriptErrorGetsExpectedReferenceErrorOnExplicitThrow
+
+    Executing: 
+	    throw new SyntaxError
+
+unhandled exception info
+result.stack=SyntaxError
+   at Global code (:1:1)
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 4
+	exInfo.errorType.typeText: Syntax error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Exception thrown and not caught
+	exInfo.scode: 800a139e
+
+	expected error type 4, got: 4 (Syntax error: Exception thrown and not caught)
+
+PASS: TestOnScriptErrorGetsExpectedSyntaxErrorOnExplicitThrow
+
+    Executing: 
+	    eval('var function a=1');
+
+unhandled exception info
+result.description=The use of a keyword for an identifier is invalid
+result.number=-2146827240
+result.stack=SyntaxError: The use of a keyword for an identifier is invalid
+   at Global code (:1:1)
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 4
+	exInfo.errorType.typeText: Syntax error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: The use of a keyword for an identifier is invalid
+	exInfo.scode: 800a0418
+
+	expected error type 4, got: 4 (Syntax error: The use of a keyword for an identifier is invalid)
+
+PASS: TestOnScriptErrorGetsExpectedSyntaxErrorOnBadInput
+
+    Executing: 
+	    throw new TypeError
+
+unhandled exception info
+result.stack=TypeError
+   at Global code (:1:1)
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 5
+	exInfo.errorType.typeText: Type error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Exception thrown and not caught
+	exInfo.scode: 800a139e
+
+	expected error type 5, got: 5 (Type error: Exception thrown and not caught)
+
+PASS: TestOnScriptErrorGetsExpectedTypeErrorOnExplicitThrow
+
+    Executing: 
+	    throw new URIError
+
+unhandled exception info
+result.stack=URIError
+   at Global code (:1:1)
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 6
+	exInfo.errorType.typeText: URI error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Exception thrown and not caught
+	exInfo.scode: 800a139e
+
+	expected error type 6, got: 6 (URI error: Exception thrown and not caught)
+
+PASS: TestOnScriptErrorGetsExpectedURIErrorOnExplicitThrow
+
+    Executing: 
+	    throw 'Custom error'
+
+unhandled exception info
+result.0=C
+result.1=u
+result.2=s
+result.3=t
+result.4=o
+result.5=m
+result.6= 
+result.7=e
+result.8=r
+result.9=r
+result.10=o
+result.11=r
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 7
+	exInfo.errorType.typeText: Custom error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Custom error
+	exInfo.scode: 800a139e
+
+	expected error type 7, got: 7 (Custom error: Custom error)
+
+PASS: TestOnScriptErrorGetsExpectedCustomErrorOnThrowString
+
+    Executing: 
+	    throw {a: 'aaa', b: 'bbb'}
+
+unhandled exception info
+result.a=aaa
+result.b=bbb
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 7
+	exInfo.errorType.typeText: Custom error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: [object Object]
+	exInfo.scode: 800a139e
+
+	expected error type 7, got: 7 (Custom error: [object Object])
+
+PASS: TestOnScriptErrorGetsExpectedCustomErrorOnThrowString
+
+    Executing: 
+	    function foo() 
+            {
+                foo2(); 
+            }
+            function foo2() 
+            {
+                foo3(); 
+            }
+            function foo3() 
+            {
+                baz(); 
+            }
+             function baz() 
+            {
+                var tttt;  throw new Error('Thrown from baz');
+            }
+            foo();
+
+    Uncaught exception:
+	Call stack: 
+	    baz()(14, 15)
+	    foo3()(10, 4)
+	    foo2()(6, 4)
+	    foo()(2, 4)
+	    Global code(16, 0)
+
+
+	exInfo.bstrDescription: Thrown from baz
+	expected stack frame count 5, got: 5
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnNestedThrow
+
+    Executing: 
+	    function foo() 
+            {
+                foo2(); 
+            }
+            
+            function foo2() 
+            {
+                
+                try
+                {
+                    foo3();
+                }
+                finally
+                {
+                    var a=5;
+                }
+            }
+            
+            function foo3() 
+            {
+                baz(); 
+            }
+             function baz() 
+            {
+                var tttt;  throw new Error('Thrown from baz');
+            }
+            foo();
+
+    Uncaught exception:
+	Call stack: 
+	    baz()(24, 15)
+	    foo3()(20, 4)
+	    foo2()(10, 8)
+	    foo()(2, 4)
+	    Global code(26, 0)
+
+
+	exInfo.bstrDescription: Thrown from baz
+	expected stack frame count 5, got: 5
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnNestedThrowWithFinally
+
+    Executing: 
+	    function foo() 
+            {
+                foo2(); 
+            }
+            function foo2() 
+            {
+                foo3(); 
+            }
+            function foo3() 
+            {
+                try
+                {
+                    baz();
+                }
+                    catch(e)
+                {
+                    throw e;
+                }
+            }
+             function baz() 
+            {
+                var tttt;  throw new Error('Thrown from baz');
+            }
+            foo();
+
+    Uncaught exception:
+	Call stack: 
+	    baz(21, 15)
+	    foo3(12, 8)
+	    foo2(6, 4)
+	    foo(2, 4)
+	    Global code(23, 0)
+	    [Throw Stack Follows](0, 0)
+	    foo3()(16, 8)
+	    foo2()(6, 4)
+	    foo()(2, 4)
+	    Global code(23, 0)
+
+
+	exInfo.bstrDescription: Thrown from baz
+	expected stack frame count 10, got: 10
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnReThrow
+
+    Executing: 
+	    function foo() 
+            {
+                foo2(); 
+            }
+            function foo2() 
+            {
+                try
+                {
+                foo3(); 
+                }
+                    catch(e)
+                {
+                    throw e;
+                }
+            }
+            function foo3() 
+            {
+                try
+                {
+                    baz();
+                }
+                    catch(e)
+                {
+                    throw e;
+                }
+            }
+             function baz() 
+            {
+                var tttt;  throw new Error('reThrown from baz');
+            }
+            foo();
+
+    Uncaught exception:
+	Call stack: 
+	    baz(28, 15)
+	    foo3(19, 8)
+	    foo2(8, 4)
+	    foo(2, 4)
+	    Global code(30, 0)
+	    [Throw Stack Follows](0, 0)
+	    foo2()(12, 8)
+	    foo()(2, 4)
+	    Global code(30, 0)
+
+
+	exInfo.bstrDescription: reThrown from baz
+	expected stack frame count 9, got: 9
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnNestedReThrow
+
+    Executing: 
+	    try {
+             function foo() 
+            {
+                foo(); 
+            }
+            foo(); } 
+             catch(e) {
+             throw e};
+             
+
+    Uncaught exception:
+	Call stack: 
+	    Global code(7, 1)
+	    Recurring functions on call stack truncated due to stack overflow(0, 0)
+
+
+	exInfo.bstrDescription: Out of stack space
+	expected stack frame count 2, got: 2
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnReThrowSO
+
+    Executing: 
+	    function foo() 
+            { 
+                baz(); 
+            }
+            function baz() 
+            { 
+                eval('function evalbar() { throw new RangeError(); } function evalfoo() { evalbar(); } evalfoo();');
+            }
+            foo();
+
+    Uncaught exception:
+	Call stack: 
+	    evalbar()(0, 21)
+	    evalfoo()(0, 68)
+	    eval code(0, 81)
+	    baz()(6, 4)
+	    foo()(2, 4)
+	    Global code(8, 0)
+
+
+	exInfo.bstrDescription: Exception thrown and not caught
+	expected stack frame count 6, got: 6
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnNestedEvalThrow
+
+    Executing: 
+	    function foo() 
+            {
+                foo(); 
+            }
+            foo();
+
+    Uncaught exception:
+	Call stack: 
+	    Recurring functions on call stack truncated due to stack overflow(0, 0)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    Global code(4, 0)
+
+
+	exInfo.bstrDescription: Out of stack space
+	expected stack frame count 12, got: 12
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnSO
+
+    Executing: 
+	    function foobaz()
+            {
+                foo();
+            }
+            function baz()
+            {
+                foobaz();
+            }
+            function foo()
+            {
+                baz();
+            }
+            foo();
+
+    Uncaught exception:
+	exInfo.bstrDescription: Out of stack space
+	expected stack frame count < 33, got: no more than that
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnSO2a
+
+    Executing: 
+	    function foobaz()
+            {
+                foo();
+            }
+            function baz()
+            {
+                foobaz();
+            }
+            function foo()
+            {
+                baz();
+            }
+            foo();
+
+    Uncaught exception:
+	exInfo.bstrDescription: Out of stack space
+	expected stack frame count > 29, got: at least that
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnSO2b
+
+    Executing: 
+	    function bigStack()
+            {
+                var i = 0;
+                function inner()
+                {
+                    if (i == 30) return
+                    ++i;
+                    inner();
+                }
+                inner();
+            }
+            function foobaz()
+            {
+                bigStack();
+                foo();
+            }
+            function baz()
+            {
+                foobaz();
+            }
+            function foo()
+            {
+                baz();
+            }
+            foo();
+
+    Uncaught exception:
+	exInfo.bstrDescription: Out of stack space
+	expected stack frame count > 29, got: at least that
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnSO3
+
+    Executing: 
+	    var a = new Array(); 
+            a[0] = 'string'; 
+            a[1] = 'aaa'; 
+            for (var i=2; ; i++ ) 
+            { 
+                a[i] = a[i-1] + a[i-2];
+            }
+
+    Uncaught exception:
+	exInfo.bstrDescription: Out of memory
+	expected stack frame count 1, got: 1
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnOOM
+
+    Executing: 
+	    var callCount = 0;
+            var unwindCount = 0;
+            var throwOOM = true;
+            function OOM()
+            {
+                unwindCount++;
+                if (!throwOOM || (callCount - unwindCount > 30 && unwindCount < 500))
+                    return;
+                throwOOM = false;
+                var a = new Array(); 
+                a[0] = 'string'; 
+                a[1] = 'aaa'; 
+                for (var i=2; ; i++ ) 
+                { 
+                    a[i] = a[i-1] + a[i-2];
+                }
+            }
+            function foo() 
+            {
+                try 
+                {
+                    callCount++;
+                    foo(); 
+                }
+                finally
+                {
+                    OOM();
+                }
+            }
+            foo();
+
+    Uncaught exception:
+	exInfo.bstrDescription: Out of memory
+	expected stack frame count > 20, got: at least that
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnOOMSO2
+
+    Executing: 
+	    function foo() 
+            {
+                foo2(); 
+            }
+            function foo2() 
+            {
+                foo3(); 
+            }
+            function foo3() 
+            {
+                baz(); 
+            }
+             function baz() 
+            {
+                var tttt;  throw new Error('Thrown from baz');
+            }
+            foo();
+
+unhandled exception info
+result.description=Thrown from baz
+result.stack=Error: Thrown from baz
+   at baz (:15:16)
+   at foo3 (:11:5)
+   at foo2 (:7:5)
+   at foo (:3:5)
+   at Global code (:17:1)
+    Uncaught exception:
+	Call stack: 
+	    baz()(14, 15)
+	    foo3()(10, 4)
+	    foo2()(6, 4)
+	    foo()(2, 4)
+	    Global code(16, 0)
+
+
+	exInfo.bstrDescription: Thrown from baz
+	expected stack frame count 5, got: 5
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnNestedThrow
+
+    Executing: 
+	    function foo() 
+            {
+                foo2(); 
+            }
+            
+            function foo2() 
+            {
+                
+                try
+                {
+                    foo3();
+                }
+                finally
+                {
+                    var a=5;
+                }
+            }
+            
+            function foo3() 
+            {
+                baz(); 
+            }
+             function baz() 
+            {
+                var tttt;  throw new Error('Thrown from baz');
+            }
+            foo();
+
+unhandled exception info
+result.description=Thrown from baz
+result.stack=Error: Thrown from baz
+   at baz (:25:16)
+   at foo3 (:21:5)
+   at foo2 (:11:9)
+   at foo (:3:5)
+   at Global code (:27:1)
+    Uncaught exception:
+	Call stack: 
+	    baz()(24, 15)
+	    foo3()(20, 4)
+	    foo2()(10, 8)
+	    foo()(2, 4)
+	    Global code(26, 0)
+
+
+	exInfo.bstrDescription: Thrown from baz
+	expected stack frame count 5, got: 5
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnNestedThrowWithFinally
+
+    Executing: 
+	    function foo() 
+            {
+                foo2(); 
+            }
+            function foo2() 
+            {
+                foo3(); 
+            }
+            function foo3() 
+            {
+                try
+                {
+                    baz();
+                }
+                    catch(e)
+                {
+                    throw e;
+                }
+            }
+             function baz() 
+            {
+                var tttt;  throw new Error('Thrown from baz');
+            }
+            foo();
+
+unhandled exception info
+result.description=Thrown from baz
+result.stack=Error: Thrown from baz
+   at baz (:22:16)
+   at foo3 (:13:9)
+   at foo2 (:7:5)
+   at foo (:3:5)
+   at Global code (:24:1)
+    Uncaught exception:
+	Call stack: 
+	    baz(21, 15)
+	    foo3(12, 8)
+	    foo2(6, 4)
+	    foo(2, 4)
+	    Global code(23, 0)
+	    [Throw Stack Follows](0, 0)
+	    foo3()(16, 8)
+	    foo2()(6, 4)
+	    foo()(2, 4)
+	    Global code(23, 0)
+
+
+	exInfo.bstrDescription: Thrown from baz
+	expected stack frame count 10, got: 10
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnReThrow
+
+    Executing: 
+	    function foo() 
+            {
+                foo2(); 
+            }
+            function foo2() 
+            {
+                try
+                {
+                foo3(); 
+                }
+                    catch(e)
+                {
+                    throw e;
+                }
+            }
+            function foo3() 
+            {
+                try
+                {
+                    baz();
+                }
+                    catch(e)
+                {
+                    throw e;
+                }
+            }
+             function baz() 
+            {
+                var tttt;  throw new Error('reThrown from baz');
+            }
+            foo();
+
+unhandled exception info
+result.description=reThrown from baz
+result.stack=Error: reThrown from baz
+   at baz (:29:16)
+   at foo3 (:20:9)
+   at foo2 (:9:5)
+   at foo (:3:5)
+   at Global code (:31:1)
+    Uncaught exception:
+	Call stack: 
+	    baz(28, 15)
+	    foo3(19, 8)
+	    foo2(8, 4)
+	    foo(2, 4)
+	    Global code(30, 0)
+	    [Throw Stack Follows](0, 0)
+	    foo2()(12, 8)
+	    foo()(2, 4)
+	    Global code(30, 0)
+
+
+	exInfo.bstrDescription: reThrown from baz
+	expected stack frame count 9, got: 9
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnNestedReThrow
+
+    Executing: 
+	    try {
+             function foo() 
+            {
+                foo(); 
+            }
+            foo(); } 
+             catch(e) {
+             throw e};
+             
+
+unhandled exception info
+Out of stack space
+    Uncaught exception:
+	Call stack: 
+	    Global code(7, 1)
+	    Recurring functions on call stack truncated due to stack overflow(0, 0)
+
+
+	exInfo.bstrDescription: Out of stack space
+	expected stack frame count 2, got: 2
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnReThrowSO
+
+    Executing: 
+	    function foo() 
+            { 
+                baz(); 
+            }
+            function baz() 
+            { 
+                eval('function evalbar() { throw new RangeError(); } function evalfoo() { evalbar(); } evalfoo();');
+            }
+            foo();
+
+unhandled exception info
+result.stack=RangeError
+   at evalbar (eval code:1:22)
+   at evalfoo (eval code:1:69)
+   at eval code (eval code:1:82)
+   at baz (:7:5)
+   at foo (:3:5)
+   at Global code (:9:1)
+    Uncaught exception:
+	Call stack: 
+	    evalbar()(0, 21)
+	    evalfoo()(0, 68)
+	    eval code(0, 81)
+	    baz()(6, 4)
+	    foo()(2, 4)
+	    Global code(8, 0)
+
+
+	exInfo.bstrDescription: Exception thrown and not caught
+	expected stack frame count 6, got: 6
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnNestedEvalThrow
+
+    Executing: 
+	    function foo() 
+            {
+                foo(); 
+            }
+            foo();
+
+unhandled exception info
+Out of stack space
+    Uncaught exception:
+	Call stack: 
+	    Recurring functions on call stack truncated due to stack overflow(0, 0)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    foo()(2, 4)
+	    Global code(4, 0)
+
+
+	exInfo.bstrDescription: Out of stack space
+	expected stack frame count 12, got: 12
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnSO
+
+    Executing: 
+	    function foobaz()
+            {
+                foo();
+            }
+            function baz()
+            {
+                foobaz();
+            }
+            function foo()
+            {
+                baz();
+            }
+            foo();
+
+unhandled exception info
+Out of stack space
+    Uncaught exception:
+	exInfo.bstrDescription: Out of stack space
+	expected stack frame count < 33, got: no more than that
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnSO2a
+
+    Executing: 
+	    function foobaz()
+            {
+                foo();
+            }
+            function baz()
+            {
+                foobaz();
+            }
+            function foo()
+            {
+                baz();
+            }
+            foo();
+
+unhandled exception info
+Out of stack space
+    Uncaught exception:
+	exInfo.bstrDescription: Out of stack space
+	expected stack frame count > 29, got: at least that
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnSO2b
+
+    Executing: 
+	    function bigStack()
+            {
+                var i = 0;
+                function inner()
+                {
+                    if (i == 30) return
+                    ++i;
+                    inner();
+                }
+                inner();
+            }
+            function foobaz()
+            {
+                bigStack();
+                foo();
+            }
+            function baz()
+            {
+                foobaz();
+            }
+            function foo()
+            {
+                baz();
+            }
+            foo();
+
+unhandled exception info
+Out of stack space
+    Uncaught exception:
+	exInfo.bstrDescription: Out of stack space
+	expected stack frame count > 29, got: at least that
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnSO3
+
+    Executing: 
+	    var a = new Array(); 
+            a[0] = 'string'; 
+            a[1] = 'aaa'; 
+            for (var i=2; ; i++ ) 
+            { 
+                a[i] = a[i-1] + a[i-2];
+            }
+
+unhandled exception info
+result.description=Out of memory
+result.number=-2146828281
+    Uncaught exception:
+	exInfo.bstrDescription: Out of memory
+	expected stack frame count 1, got: 1
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnOOM
+
+    Executing: 
+	    var callCount = 0;
+            var unwindCount = 0;
+            var throwOOM = true;
+            function OOM()
+            {
+                unwindCount++;
+                if (!throwOOM || (callCount - unwindCount > 30 && unwindCount < 500))
+                    return;
+                throwOOM = false;
+                var a = new Array(); 
+                a[0] = 'string'; 
+                a[1] = 'aaa'; 
+                for (var i=2; ; i++ ) 
+                { 
+                    a[i] = a[i-1] + a[i-2];
+                }
+            }
+            function foo() 
+            {
+                try 
+                {
+                    callCount++;
+                    foo(); 
+                }
+                finally
+                {
+                    OOM();
+                }
+            }
+            foo();
+
+unhandled exception info
+result.description=Out of memory
+result.number=-2146828281
+    Uncaught exception:
+	exInfo.bstrDescription: Out of memory
+	expected stack frame count > 20, got: at least that
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnOOMSO2
+
+    Executing: 
+	    var OOM = (function() {
+                var a = new Array();
+                a[0] = 'string';
+                a[1] = 'aaa';
+                var i = 2;
+                return function() {
+                    for (;;i++) {
+                        a[i] = a[i-1] + a[i-2];
+                    }
+                };
+            })();
+            
+            function foo() 
+            {
+                try 
+                {
+                    foo(); 
+                }
+                finally
+                {
+                    OOM();
+                }
+            }
+            foo();
+
+    Uncaught exception:
+	exInfo.errorType.typeNumber: 0
+	exInfo.errorType.typeText: Generic error
+	exInfo.bstrSource: JavaScript runtime error
+	exInfo.bstrDescription: Out of memory
+	exInfo.scode: 800a0007
+
+	expected error type 0, got: 0 (Generic error: Out of memory)
+
+PASS: TestOnScriptErrorGetsExpectedErrorOnOOMSO1
+
+    Uncaught exception:
+	exInfo.bstrDescription: Out of memory
+	expected stack frame count 3, got: 3
+
+PASS: TestOnScriptErrorGetsExpectedStackTraceOnOOMSO1
+
+    Executing: 
+	    try 
+            {
+                foo(); 
+            } 
+            catch(e) 
+            {
+                
+            }
+
+PASS: TestOnScriptNoErrorWithCatchInPlaceSimple
+
+    Executing: 
+	    try 
+            { 
+                foo();
+            } 
+            catch(e) 
+            {
+               
+            }
+            function foo() 
+            {
+                try
+                { 
+                    throw new Error;
+                }
+                catch(e) 
+                {
+               
+                }
+                throw new Error;
+            }
+
+PASS: TestOnScriptNoErrorWithCatchInPlaceNested
+
+    Executing: 
+	    throw new Error
+
+	expected line:col 0:0, got 0:0
+
+PASS: TestOnScriptErrorGetsExpectedLineColOnSimpleThrow
+
+    Executing: 
+	    
+             throw Error
+
+	expected line:col 1:1, got 1:1
+
+PASS: TestOnScriptErrorGetsExpectedLineColOnSimpleThrowPrecedingNL
+
+    Executing: 
+	    
+            
+             var a;throw new Error
+
+	expected line:col 2:7, got 2:7
+
+PASS: TestOnScriptErrorGetsExpectedLineColOnSimpleThrowWithNLs
+
+    Executing: 
+	    function foo() 
+            {
+                foo2(); 
+            }
+            function foo2() 
+            {
+                foo3(); 
+            }
+            function foo3() 
+            {
+                baz(); 
+            }
+             function baz() 
+            {
+                var tttt;  throw new Error('Thrown from baz');
+            }
+            foo();
+
+	expected line:col 14:15, got 14:15
+
+PASS: TestOnScriptErrorGetsExpectedLineColOnNestedThrow
+
+    Executing: 
+	    function foo() 
+            { 
+                baz(); 
+            }
+            function baz() 
+            { 
+                eval('function evalbar() { throw new RangeError(); } function evalfoo() { evalbar(); } evalfoo();');
+            }
+            foo();
+
+	expected line:col 0:21, got 0:21
+
+PASS: TestOnScriptErrorGetsExpectedLineColOnThrowFromEval
+
+    Executing: 
+	    function foo() 
+            {
+                foo(); 
+            }
+            foo();
+
+	expected line:col 2:4, got 2:4
+
+PASS: TestOnScriptErrorGetsExpectedLineColOnStackOverflow
+
+Total Test Cases  71
+Passed:  71
+Failed   0
+
+

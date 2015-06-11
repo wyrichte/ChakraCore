@@ -1,0 +1,3 @@
+ReferenceError: 'abc' is undefined
+   at get genError (qualified_names4.js:53:49)
+   at Global code (qualified_names4.js:61:1)

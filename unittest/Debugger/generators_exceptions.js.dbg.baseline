@@ -1,0 +1,80 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 63,
+        "length": 7,
+        "text": "yield 1",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.throw"
+      },
+      {
+        "start": 170,
+        "length": 10,
+        "text": "g.throw(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 63,
+        "length": 7,
+        "text": "yield 1",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.throw"
+      },
+      {
+        "start": 127,
+        "length": 12,
+        "text": "yield* gf1()",
+        "frameDescription": "gf2"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.throw"
+      },
+      {
+        "start": 209,
+        "length": 10,
+        "text": "g.throw(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 127,
+        "length": 12,
+        "text": "yield* gf1()",
+        "frameDescription": "gf2"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.throw"
+      },
+      {
+        "start": 209,
+        "length": 10,
+        "text": "g.throw(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

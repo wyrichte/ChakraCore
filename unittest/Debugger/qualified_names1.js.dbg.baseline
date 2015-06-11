@@ -1,0 +1,146 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 85,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "k"
+      },
+      {
+        "start": 110,
+        "length": 3,
+        "text": "k()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 157,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "k.subF1"
+      },
+      {
+        "start": 182,
+        "length": 9,
+        "text": "k.subF1()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 242,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "k.subF1.subsubF1"
+      },
+      {
+        "start": 298,
+        "length": 3,
+        "text": "m()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 361,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "k.subF2"
+      },
+      {
+        "start": 390,
+        "length": 4,
+        "text": "k2()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 463,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "k3"
+      },
+      {
+        "start": 490,
+        "length": 4,
+        "text": "k3()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 551,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "obj1[0]"
+      },
+      {
+        "start": 576,
+        "length": 9,
+        "text": "obj1[0]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 630,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "obj1[test]"
+      },
+      {
+        "start": 655,
+        "length": 14,
+        "text": "obj1[\"test\"]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 757,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "Anonymous function[2]"
+      },
+      {
+        "start": 782,
+        "length": 9,
+        "text": "obj1[2]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 836,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "obj1[0][0]"
+      },
+      {
+        "start": 861,
+        "length": 12,
+        "text": "obj1[0][0]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

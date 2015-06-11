@@ -1,0 +1,49 @@
+[
+  {
+    "evaluate": {
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "3",
+        "[0]": "1",
+        "[1]": "2",
+        "[2]": "3"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "arguments.callee": {
+        "[Methods]": "{...}",
+        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "arguments": "{...}",
+        "length": "3",
+        "name": "test",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "arguments.callee.caller": {
+        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "arguments": "{...}",
+        "caller": "null",
+        "length": "0",
+        "name": "bar",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "arrow": {
+        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "arrow"
+      }
+    }
+  }
+]

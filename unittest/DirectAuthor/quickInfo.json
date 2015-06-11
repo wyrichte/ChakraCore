@@ -1,0 +1,283 @@
+{
+  "testname" : "Authoring Regions - Test collecting regions",
+  "owner" : "chuckj",
+  "validated" : true,
+  "timeout" : 1000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "_comment1" : "Supply a file with at least one function",
+  "_comment2" : "",
+  "runAuthoringTest" : true,
+  "commands" :
+  [
+{
+  "action": "getQuickInfo",
+  "args": [
+    "quickInfo.js"
+  ],
+  "events": [
+    {
+      "quickInfos": [
+        {
+          "offset": 67
+        },
+        {
+          "offset": 211,
+          "extentOffset": 203,
+          "extentLength": 12,
+          "Name": "localNumProp",
+          "Type": "atNumber",
+          "TypeName": "",
+          "Scope": "ascopeMember",
+          "functionHelp": {}
+        },
+        {
+          "offset": 311,
+          "extentOffset": 309,
+          "extentLength": 3,
+          "Name": "arr",
+          "Type": "atArray",
+          "TypeName": "",
+          "Scope": "ascopeLocal",
+          "functionHelp": {}
+        },
+        {
+          "offset": 415,
+          "extentOffset": 410,
+          "extentLength": 9,
+          "Name": "localFunc",
+          "Type": "atFunction",
+          "TypeName": "",
+          "Scope": "ascopeLocal",
+          "functionHelp": {
+            "functionName": "localFunc",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "v",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "offset": 864,
+          "extentOffset": 862,
+          "extentLength": 4,
+          "Name": "size",
+          "Type": "atFunction",
+          "TypeName": "",
+          "Scope": "ascopeMember",
+          "functionHelp": {
+            "functionName": "size",
+            "signatures": [
+              {
+                "description": "The number of elements currently matched.",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Number",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "offset": 875,
+          "extentOffset": 873,
+          "extentLength": 7,
+          "Name": "toArray",
+          "Type": "atFunction",
+          "TypeName": "",
+          "Scope": "ascopeMember",
+          "functionHelp": {
+            "functionName": "toArray",
+            "signatures": [
+              {
+                "description": "Retrieve all the DOM elements contained in the jQuery set, as an array.",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Array",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "offset": 945,
+          "extentOffset": 944,
+          "extentLength": 3,
+          "Name": "num",
+          "Type": "atNumber",
+          "TypeName": "",
+          "Scope": "ascopeGlobal",
+          "functionHelp": {}
+        },
+        {
+          "offset": 1052,
+          "extentOffset": 1046,
+          "extentLength": 8,
+          "Name": "localnum",
+          "Type": "atNumber",
+          "TypeName": "",
+          "Scope": "ascopeLocal",
+          "functionHelp": {}
+        },
+        {
+          "offset": 1147,
+          "extentOffset": 1146,
+          "extentLength": 8,
+          "Name": "localarg",
+          "Type": "atUnknown",
+          "TypeName": "",
+          "Scope": "ascopeParameter",
+          "functionHelp": {}
+        },
+        {
+          "offset": 1311,
+          "extentOffset": 1304,
+          "extentLength": 8,
+          "Name": "localnum",
+          "Type": "atNumber",
+          "TypeName": "",
+          "Scope": "ascopeLocal",
+          "functionHelp": {}
+        },
+        {
+          "offset": 1423,
+          "extentOffset": 1418,
+          "extentLength": 8,
+          "Name": "localObj",
+          "Type": "atObject",
+          "TypeName": "",
+          "Scope": "ascopeLocal",
+          "functionHelp": {}
+        },
+        {
+          "offset": 1516,
+          "extentOffset": 1515,
+          "extentLength": 3,
+          "Name": "fnc",
+          "Type": "atFunction",
+          "TypeName": "",
+          "Scope": "ascopeParameter",
+          "functionHelp": {
+            "functionName": "fnc",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "b",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "offset": 1669,
+          "extentOffset": 1662,
+          "extentLength": 12,
+          "Name": "undetermined",
+          "Type": "atUnknown",
+          "TypeName": "",
+          "Scope": "ascopeParameter",
+          "functionHelp": {}
+        },
+        {
+          "offset": 1803,
+          "extentOffset": 1790,
+          "extentLength": 16,
+          "Name": "globalClosureVar",
+          "Type": "atString",
+          "TypeName": "",
+          "Scope": "ascopeGlobal",
+          "functionHelp": {}
+        },
+        {
+          "offset": 1953,
+          "extentOffset": 1946,
+          "extentLength": 10,
+          "Name": "closureVar",
+          "Type": "atString",
+          "TypeName": "",
+          "Scope": "ascopeLocal",
+          "functionHelp": {}
+        },
+        {
+          "offset": 2145,
+          "extentOffset": 2129,
+          "extentLength": 21,
+          "Name": "globalClosureVarInner",
+          "Type": "atString",
+          "TypeName": "",
+          "Scope": "ascopeGlobal",
+          "functionHelp": {}
+        },
+        {
+          "offset": 2306
+        },
+        {
+          "offset": 2370
+        },
+        {
+          "offset": 2470
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

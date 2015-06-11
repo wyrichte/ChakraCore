@@ -1,0 +1,50 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "argFunc0": "1",
+      "argMath1": "1",
+      "argArr2": "1",
+      "[Scope]1": "test0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "this.prop0": "NaN"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "argFunc0": "1",
+      "argMath1": "1",
+      "argArr2": "1",
+      "[Scope]1": "test0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "this.prop0": "NaN"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "argFunc0": "1",
+      "argMath1": "1",
+      "argArr2": "1",
+      "[Scope]1": "test0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "this.prop0": "NaN"
+    }
+  }
+]

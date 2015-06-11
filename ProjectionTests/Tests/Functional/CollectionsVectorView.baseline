@@ -1,0 +1,2783 @@
+Collections Vector View test
+Comment: animalFactory = Animals.Animal
+Comment: myAnimal = new animalFactory(1)
+Comment: 
+function IsLessThan5(x)
+{
+    if (x < 5)
+    {
+        return true;
+    }
+    return false;
+}
+Comment: 
+function IsLessThan7(x)
+{
+    if (x < 7)
+    {
+        return true;
+    }
+    return false;
+}
+Comment: 
+function IsLessThan10(x)
+{
+    if (x < 10)
+    {
+        return true;
+    }
+    return false;
+}
+Comment: 
+function IsGreaterThan10(x)
+{
+    if (x > 10)
+    {
+        return true;
+    }
+    return false;
+}
+
+=================================================
+Starting [Test 1: MarshalVectorViewOut]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: typeof myVector: object
+Comment: Dump of properties : 
+    var myVectorMembers = [
+        ['0', 'number'],
+        ['1', 'number'],
+        ['2', 'number'],
+        ['3', 'number'],
+        ['4', 'number'],
+        ['5', 'number'],
+        ['6', 'number'],
+        ['7', 'number'],
+        ['8', 'number'],
+        ['append', 'function', 1],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['getView', 'function', 0],
+        ['indexOf', 'function', 1],
+        ['insertAt', 'function', 2],
+        ['removeAt', 'function', 1],
+        ['removeAtEnd', 'function', 0],
+        ['replaceAll', 'function', 1],
+        ['setAt', 'function', 2],
+        ['size', 'number'],
+    ];
+Pass: typeof myVector
+      Actual: object
+
+Pass: myVector : property 0
+      Actual: 0
+
+Pass: typeof myVector[0]
+      Actual: number
+
+Pass: myVector : property 1
+      Actual: 1
+
+Pass: typeof myVector[1]
+      Actual: number
+
+Pass: myVector : property 2
+      Actual: 2
+
+Pass: typeof myVector[2]
+      Actual: number
+
+Pass: myVector : property 3
+      Actual: 3
+
+Pass: typeof myVector[3]
+      Actual: number
+
+Pass: myVector : property 4
+      Actual: 4
+
+Pass: typeof myVector[4]
+      Actual: number
+
+Pass: myVector : property 5
+      Actual: 5
+
+Pass: typeof myVector[5]
+      Actual: number
+
+Pass: myVector : property 6
+      Actual: 6
+
+Pass: typeof myVector[6]
+      Actual: number
+
+Pass: myVector : property 7
+      Actual: 7
+
+Pass: typeof myVector[7]
+      Actual: number
+
+Pass: myVector : property 8
+      Actual: 8
+
+Pass: typeof myVector[8]
+      Actual: number
+
+Pass: myVector : property append
+      Actual: append
+
+Pass: typeof myVector[append]
+      Actual: function
+
+Pass: myVector[append].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector[append].length
+      Actual: 1
+
+Pass: myVector : property clear
+      Actual: clear
+
+Pass: typeof myVector[clear]
+      Actual: function
+
+Pass: myVector[clear].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector[clear].length
+      Actual: 0
+
+Pass: myVector : property first
+      Actual: first
+
+Pass: typeof myVector[first]
+      Actual: function
+
+Pass: myVector[first].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector[first].length
+      Actual: 0
+
+Pass: myVector : property getAt
+      Actual: getAt
+
+Pass: typeof myVector[getAt]
+      Actual: function
+
+Pass: myVector[getAt].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector[getAt].length
+      Actual: 1
+
+Pass: myVector : property getMany
+      Actual: getMany
+
+Pass: typeof myVector[getMany]
+      Actual: function
+
+Pass: myVector[getMany].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector[getMany].length
+      Actual: 2
+
+Pass: myVector : property getView
+      Actual: getView
+
+Pass: typeof myVector[getView]
+      Actual: function
+
+Pass: myVector[getView].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector[getView].length
+      Actual: 0
+
+Pass: myVector : property indexOf
+      Actual: indexOf
+
+Pass: typeof myVector[indexOf]
+      Actual: function
+
+Pass: myVector[indexOf].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector[indexOf].length
+      Actual: 1
+
+Pass: myVector : property insertAt
+      Actual: insertAt
+
+Pass: typeof myVector[insertAt]
+      Actual: function
+
+Pass: myVector[insertAt].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector[insertAt].length
+      Actual: 2
+
+Pass: myVector : property removeAt
+      Actual: removeAt
+
+Pass: typeof myVector[removeAt]
+      Actual: function
+
+Pass: myVector[removeAt].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector[removeAt].length
+      Actual: 1
+
+Pass: myVector : property removeAtEnd
+      Actual: removeAtEnd
+
+Pass: typeof myVector[removeAtEnd]
+      Actual: function
+
+Pass: myVector[removeAtEnd].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector[removeAtEnd].length
+      Actual: 0
+
+Pass: myVector : property replaceAll
+      Actual: replaceAll
+
+Pass: typeof myVector[replaceAll]
+      Actual: function
+
+Pass: myVector[replaceAll].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector[replaceAll].length
+      Actual: 1
+
+Pass: myVector : property setAt
+      Actual: setAt
+
+Pass: typeof myVector[setAt]
+      Actual: function
+
+Pass: myVector[setAt].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector[setAt].length
+      Actual: 2
+
+Pass: myVector : property size
+      Actual: size
+
+Pass: typeof myVector[size]
+      Actual: number
+
+Pass: number of members of myVector
+      Actual: 22
+
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'number'],
+        ['1', 'number'],
+        ['2', 'number'],
+        ['3', 'number'],
+        ['4', 'number'],
+        ['5', 'number'],
+        ['6', 'number'],
+        ['7', 'number'],
+        ['8', 'number'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView : property 0
+      Actual: 0
+
+Pass: typeof myVectorView[0]
+      Actual: number
+
+Pass: myVectorView : property 1
+      Actual: 1
+
+Pass: typeof myVectorView[1]
+      Actual: number
+
+Pass: myVectorView : property 2
+      Actual: 2
+
+Pass: typeof myVectorView[2]
+      Actual: number
+
+Pass: myVectorView : property 3
+      Actual: 3
+
+Pass: typeof myVectorView[3]
+      Actual: number
+
+Pass: myVectorView : property 4
+      Actual: 4
+
+Pass: typeof myVectorView[4]
+      Actual: number
+
+Pass: myVectorView : property 5
+      Actual: 5
+
+Pass: typeof myVectorView[5]
+      Actual: number
+
+Pass: myVectorView : property 6
+      Actual: 6
+
+Pass: typeof myVectorView[6]
+      Actual: number
+
+Pass: myVectorView : property 7
+      Actual: 7
+
+Pass: typeof myVectorView[7]
+      Actual: number
+
+Pass: myVectorView : property 8
+      Actual: 8
+
+Pass: typeof myVectorView[8]
+      Actual: number
+
+Pass: myVectorView : property first
+      Actual: first
+
+Pass: typeof myVectorView[first]
+      Actual: function
+
+Pass: myVectorView[first].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView[first].length
+      Actual: 0
+
+Pass: myVectorView : property getAt
+      Actual: getAt
+
+Pass: typeof myVectorView[getAt]
+      Actual: function
+
+Pass: myVectorView[getAt].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView[getAt].length
+      Actual: 1
+
+Pass: myVectorView : property getMany
+      Actual: getMany
+
+Pass: typeof myVectorView[getMany]
+      Actual: function
+
+Pass: myVectorView[getMany].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView[getMany].length
+      Actual: 2
+
+Pass: myVectorView : property indexOf
+      Actual: indexOf
+
+Pass: typeof myVectorView[indexOf]
+      Actual: function
+
+Pass: myVectorView[indexOf].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView[indexOf].length
+      Actual: 1
+
+Pass: myVectorView : property size
+      Actual: size
+
+Pass: typeof myVectorView[size]
+      Actual: number
+
+Pass: number of members of myVectorView
+      Actual: 14
+
+PASS [Test 1: MarshalVectorViewOut]
+=================================================
+
+=================================================
+Starting [Test 2: VectorViewArray_Index_length]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView[2] = 78;
+Pass: myVectorView[2] = 78;
+      Actual: undefined
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView[9] = 10;
+Pass: myVectorView[9] = 10;
+      Actual: undefined
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: var n = delete myVectorView[5]
+Pass: n
+      Actual: false
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: n = delete myVectorView[12]
+Pass: n
+      Actual: false
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: n = delete myVectorView
+Pass: n
+      Actual: false
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView[12] = 12
+Pass: myVectorView[12] = 12
+      Actual: undefined
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Pass: myVectorView[12]
+      Actual: undefined
+
+Comment: myVectorView.length = 10
+Pass: myVectorView.length = 10 returned (Error: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView.length = 5
+Pass: myVectorView.length = 5 returned (Error: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView.length = 30;
+Pass: myVectorView.length = 30; returned (Error: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView.length = 'abc';
+Pass: myVectorView.length = 'abc'; returned (Error: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView.length = 0;
+Pass: myVectorView.length = 0; returned (Error: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+PASS [Test 2: VectorViewArray_Index_length]
+=================================================
+
+=================================================
+Starting [Test 3: VectorViewAsArray_Push_Pop]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: var n = myVectorView.pop()
+Pass: var n = myVectorView.pop() returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView.push(11)
+Pass: myVectorView.push(11) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView.push(22)
+Pass: myVectorView.push(22) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView.push(33)
+Pass: myVectorView.push(33) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView.push(44)
+Pass: myVectorView.push(44) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView.push(55)
+Pass: myVectorView.push(55) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView.push(66)
+Pass: myVectorView.push(66) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView.push(77)
+Pass: myVectorView.push(77) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView.push(11, 22, 33, 44, 55, 66)
+Pass: myVectorView.push(11, 22, 33, 44, 55, 66) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: Array.prototype.push.call(myVectorView, 100)
+Pass: Array.prototype.push.call(myVectorView, 100) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: n = myVectorView.pop()
+Pass: n = myVectorView.pop() returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: n = Array.prototype.pop.call(myVectorView);
+Pass: n = Array.prototype.pop.call(myVectorView); returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+PASS [Test 3: VectorViewAsArray_Push_Pop]
+=================================================
+
+=================================================
+Starting [Test 4: VectorViewAsArray_Shift_Unshift]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myVectorView.shift()
+Pass: myVectorView.shift() returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView.unshift()
+Pass: myVectorView.unshift() returned (Error: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView.unshift(0)
+Pass: myVectorView.unshift(0) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView.unshift(25, 50, 100)
+Pass: myVectorView.unshift(25, 50, 100) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+PASS [Test 4: VectorViewAsArray_Shift_Unshift]
+=================================================
+
+=================================================
+Starting [Test 5: VectorViewAsArray_Slice]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.slice()
+      Actual: 1,2,3,4,5,6,7,8,9
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Pass: myVectorView.slice(5, 2)
+      Actual: 
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Pass: myVectorView.slice(5, 8)
+      Actual: 6,7,8
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Pass: myVectorView.slice(5)
+      Actual: 6,7,8,9
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Pass: myVectorView.slice(-2)
+      Actual: 8,9
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Pass: myVectorView.slice(-7, -2)
+      Actual: 3,4,5,6,7
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+PASS [Test 5: VectorViewAsArray_Slice]
+=================================================
+
+=================================================
+Starting [Test 6: VectorViewAsArray_Splice]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myVectorView.splice()
+Pass: myVectorView.splice() returned (Error: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView.splice(5, 0)
+Pass: myVectorView.splice(5, 0) returned (Error: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView.splice(5, 2)
+Pass: myVectorView.splice(5, 2) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView.splice(2, 2, 14, 98, 54)
+Pass: myVectorView.splice(2, 2, 14, 98, 54) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: myVectorView.splice(4, 0, 32, 83)
+Pass: myVectorView.splice(4, 0, 32, 83) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+PASS [Test 6: VectorViewAsArray_Splice]
+=================================================
+
+=================================================
+Starting [Test 7: VectorViewAsArray_Every]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.every(IsLessThan7)
+      Actual: false
+
+Pass: myVectorView.every(IsLessThan10)
+      Actual: true
+
+PASS [Test 7: VectorViewAsArray_Every]
+=================================================
+
+=================================================
+Starting [Test 8: VectorViewAsArray_Some]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.some(IsLessThan7)
+      Actual: true
+
+Pass: myVectorView.some(IsGreaterThan10)
+      Actual: false
+
+PASS [Test 8: VectorViewAsArray_Some]
+=================================================
+
+=================================================
+Starting [Test 9: VectorViewAsArray_Filter]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.filter(IsLessThan5)
+      Actual: 1,2,3,4
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Pass: myVectorView.filter(IsGreaterThan10)
+      Actual: 
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+PASS [Test 9: VectorViewAsArray_Filter]
+=================================================
+
+=================================================
+Starting [Test 10: VectorViewAsArray_ForEach]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: 
+function forEachMethod(x, idx)
+{
+    print('[' + idx + ']', '=', x);
+}
+Comment: myVectorView.forEach(forEachMethod);
+Comment: [0]
+Comment: [1]
+Comment: [2]
+Comment: [3]
+Comment: [4]
+Comment: [5]
+Comment: [6]
+Comment: [7]
+Comment: [8]
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+PASS [Test 10: VectorViewAsArray_ForEach]
+=================================================
+
+=================================================
+Starting [Test 11: VectorViewAsArray_Map]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: 
+function mapMethod(x)
+{
+    if (IsLessThan5(x))
+    {
+        return x;
+    }
+    return -1;
+}
+Pass: myVectorView.map(mapMethod)
+      Actual: 1,2,3,4,-1,-1,-1,-1,-1
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+PASS [Test 11: VectorViewAsArray_Map]
+=================================================
+
+=================================================
+Starting [Test 12: VectorViewAsArray_Reduce_ReduceRight]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: 
+function doTotal(a, b)
+{
+    return a + b;
+}
+Pass: myVectorView.reduce(doTotal)
+      Actual: 45
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Pass: myVectorView.reduceRight(doTotal)
+      Actual: 45
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+PASS [Test 12: VectorViewAsArray_Reduce_ReduceRight]
+=================================================
+
+=================================================
+Starting [Test 13: VectorViewAsArray_Reverse_Sort]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: var a = myVectorView.sort()
+Pass: var a = myVectorView.sort() returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: var a = myVectorView.reverse()
+Pass: var a = myVectorView.reverse() returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: a = Array.prototype.sort.call(myVectorView)
+Pass: a = Array.prototype.sort.call(myVectorView) returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: a = Array.prototype.reverse.call(myVectorView);
+Pass: a = Array.prototype.reverse.call(myVectorView); returned (TypeError: Object doesn't support this action)
+      Actual: true
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+PASS [Test 13: VectorViewAsArray_Reverse_Sort]
+=================================================
+
+=================================================
+Starting [Test 14: VectorViewAsArray_Concat]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.concat([1,2,3])
+      Actual: 1,2,3,4,5,6,7,8,9,1,2,3
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: var mySecondVector = myAnimal.getVector()
+Comment: var mySecondVectorView = mySecondVector.getView();
+Comment: mySecondVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: mySecondVectorView.length
+      Actual: 9
+
+Pass: mySecondVectorView[0]
+      Actual: 1
+
+Pass: mySecondVectorView[1]
+      Actual: 2
+
+Pass: mySecondVectorView[2]
+      Actual: 3
+
+Pass: mySecondVectorView[3]
+      Actual: 4
+
+Pass: mySecondVectorView[4]
+      Actual: 5
+
+Pass: mySecondVectorView[5]
+      Actual: 6
+
+Pass: mySecondVectorView[6]
+      Actual: 7
+
+Pass: mySecondVectorView[7]
+      Actual: 8
+
+Pass: mySecondVectorView[8]
+      Actual: 9
+
+Pass: myVectorView.concat(mySecondVectorView)
+      Actual: 1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: mySecondVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: mySecondVectorView.length
+      Actual: 9
+
+Pass: mySecondVectorView[0]
+      Actual: 1
+
+Pass: mySecondVectorView[1]
+      Actual: 2
+
+Pass: mySecondVectorView[2]
+      Actual: 3
+
+Pass: mySecondVectorView[3]
+      Actual: 4
+
+Pass: mySecondVectorView[4]
+      Actual: 5
+
+Pass: mySecondVectorView[5]
+      Actual: 6
+
+Pass: mySecondVectorView[6]
+      Actual: 7
+
+Pass: mySecondVectorView[7]
+      Actual: 8
+
+Pass: mySecondVectorView[8]
+      Actual: 9
+
+Comment: var jsArray = [1,2,3];
+Pass: jsArray.concat(myVectorView)
+      Actual: 1,2,3,1,2,3,4,5,6,7,8,9
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Pass: jsArray
+      Actual: 1,2,3
+
+Pass: myVectorView.concat(1,2,3,4)
+      Actual: 1,2,3,4,5,6,7,8,9,1,2,3,4
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+PASS [Test 14: VectorViewAsArray_Concat]
+=================================================
+
+=================================================
+Starting [Test 15: VectorViewAsArray_Join]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.join(' , ')
+      Actual: 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Pass: myVectorView.join([9,'b','c'])
+      Actual: 19,b,c29,b,c39,b,c49,b,c59,b,c69,b,c79,b,c89,b,c9
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: var mySecondVector = myAnimal.getVector()
+Comment: var mySecondVectorView = mySecondVector.getView();
+Comment: mySecondVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: mySecondVectorView.length
+      Actual: 9
+
+Pass: mySecondVectorView[0]
+      Actual: 1
+
+Pass: mySecondVectorView[1]
+      Actual: 2
+
+Pass: mySecondVectorView[2]
+      Actual: 3
+
+Pass: mySecondVectorView[3]
+      Actual: 4
+
+Pass: mySecondVectorView[4]
+      Actual: 5
+
+Pass: mySecondVectorView[5]
+      Actual: 6
+
+Pass: mySecondVectorView[6]
+      Actual: 7
+
+Pass: mySecondVectorView[7]
+      Actual: 8
+
+Pass: mySecondVectorView[8]
+      Actual: 9
+
+Pass: myVectorView.join(mySecondVector)
+      Actual: 11,2,3,4,5,6,7,8,921,2,3,4,5,6,7,8,931,2,3,4,5,6,7,8,941,2,3,4,5,6,7,8,951,2,3,4,5,6,7,8,961,2,3,4,5,6,7,8,971,2,3,4,5,6,7,8,981,2,3,4,5,6,7,8,99
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Comment: mySecondVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: mySecondVectorView.length
+      Actual: 9
+
+Pass: mySecondVectorView[0]
+      Actual: 1
+
+Pass: mySecondVectorView[1]
+      Actual: 2
+
+Pass: mySecondVectorView[2]
+      Actual: 3
+
+Pass: mySecondVectorView[3]
+      Actual: 4
+
+Pass: mySecondVectorView[4]
+      Actual: 5
+
+Pass: mySecondVectorView[5]
+      Actual: 6
+
+Pass: mySecondVectorView[6]
+      Actual: 7
+
+Pass: mySecondVectorView[7]
+      Actual: 8
+
+Pass: mySecondVectorView[8]
+      Actual: 9
+
+Comment: var jsArray = [1,2,3];
+Pass: jsArray.join(myVectorView)
+      Actual: 11,2,3,4,5,6,7,8,921,2,3,4,5,6,7,8,93
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Pass: jsArray
+      Actual: 1,2,3
+
+PASS [Test 15: VectorViewAsArray_Join]
+=================================================
+
+=================================================
+Starting [Test 16: VectorViewAsArray_IndexOf]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Pass: Array.prototype.indexOf.call(myVectorView, 5)
+      Actual: 4
+
+Pass: Array.prototype.indexOf.call(myVectorView, 786)
+      Actual: -1
+
+Pass: Array.prototype.indexOf.call(myVectorView, 5, 5)
+      Actual: -1
+
+Pass: Array.prototype.indexOf.call(myVectorView, 5, 2)
+      Actual: 4
+
+Pass: myVectorView.indexOf(5)
+      Actual: 4
+
+Pass: myVectorView.indexOf(786)
+      Actual: false
+
+PASS [Test 16: VectorViewAsArray_IndexOf]
+=================================================
+
+=================================================
+Starting [Test 17: VectorViewAsArray_LastIndexOf]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.lastIndexOf(5)
+      Actual: 4
+
+Pass: myVectorView.lastIndexOf(786)
+      Actual: -1
+
+Pass: myVectorView.lastIndexOf(2, 3)
+      Actual: 1
+
+Pass: myVectorView.lastIndexOf(5, 4)
+      Actual: 4
+
+Pass: myVectorView.lastIndexOf(5, 2)
+      Actual: -1
+
+PASS [Test 17: VectorViewAsArray_LastIndexOf]
+=================================================
+
+=================================================
+Starting [Test 18: VectorViewArray_IsArray_Apply]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Pass: Array.isArray(myVectorView)
+      Actual: false
+
+Pass: Array.apply(this, myVectorView)
+      Actual: 1,2,3,4,5,6,7,8,9
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+Pass: new Array(myVectorView)
+      Actual: 1,2,3,4,5,6,7,8,9
+
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVectorView.length
+      Actual: 9
+
+Pass: myVectorView[0]
+      Actual: 1
+
+Pass: myVectorView[1]
+      Actual: 2
+
+Pass: myVectorView[2]
+      Actual: 3
+
+Pass: myVectorView[3]
+      Actual: 4
+
+Pass: myVectorView[4]
+      Actual: 5
+
+Pass: myVectorView[5]
+      Actual: 6
+
+Pass: myVectorView[6]
+      Actual: 7
+
+Pass: myVectorView[7]
+      Actual: 8
+
+Pass: myVectorView[8]
+      Actual: 9
+
+PASS [Test 18: VectorViewArray_IsArray_Apply]
+=================================================
+
+=================================================
+Starting [Test 19: VectorViewArray_PropertyOperations]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: Enumerating over: myVectorView
+Comment: 	0
+Comment: 	1
+Comment: 	2
+Comment: 	3
+Comment: 	4
+Comment: 	5
+Comment: 	6
+Comment: 	7
+Comment: 	8
+Comment: 	first
+Comment: 	getAt
+Comment: 	getMany
+Comment: 	indexOf
+Comment: 	size
+Pass: Enumerate children
+      Actual: true
+
+Comment: Checking if object has property: 3
+Pass: Object has property: 3
+      Actual: true
+
+Comment: Checking if object has property: 11
+Pass: Object has property: 11
+      Actual: false
+
+Comment: Attempting to set property (6) to: [88]
+Pass: Able to write to property: 6
+      Actual: false
+
+Comment: Attempting to set property (11) to: [11]
+Pass: Able to write to property: 11
+      Actual: false
+
+Comment: Attempting to set property (9) to: [111]
+Pass: Able to write to property: 9
+      Actual: false
+
+Comment: Attempting to add property: 4
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot redefine non-configurable property '4'
+Pass: Able to add property: 4
+      Actual: false
+
+Comment: Attempting to add property: 10
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property '10': object is not extensible
+Pass: Able to add property: 10
+      Actual: false
+
+Comment: Attempting to add property: 9
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property '9': object is not extensible
+Pass: Able to add property: 9
+      Actual: false
+
+Comment: Attempting to delete property: 4
+Pass: Object has property [4]
+      Actual: true
+
+Pass: Able to delete property: 4
+      Actual: false
+
+Comment: Attempting to add property: FavoriteRecipe
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property 'FavoriteRecipe': object is not extensible
+Pass: Able to add property: FavoriteRecipe
+      Actual: false
+
+Comment: Attempting to set property (FavoriteRecipe) to: [Almond Cake]
+Pass: Able to write to property: FavoriteRecipe
+      Actual: false
+
+PASS [Test 19: VectorViewArray_PropertyOperations]
+=================================================
+
+=================================================
+Starting [Test 20: VectorViewArray_Prototype]
+Comment: var myVectorView = myAnimal.getVector()
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
+Comment: var mySecondVector = myAnimal.getVector()
+Comment: var mySecondVectorView = mySecondVector.getView();
+Comment: myVectorView: 1,2,3,4,5,6,7,8,9
+Comment: mySecondVectorView: 1,2,3,4,5,6,7,8,9
+Pass: Object.getPrototypeOf(myVectorView) === Object.getPrototypeOf(mySecondVectorView)
+      Actual: true
+
+Comment: Array.prototype.arrayTestProperty = "Array's Array Test Property"
+Comment: Object.prototype.arrayTestProperty = "Object's Array Test Property"
+Comment: Object.prototype.objectTestProperty = "Object's Object Test Property";
+Pass: myVectorView.arrayTestProperty
+      Actual: Array's Array Test Property
+
+Pass: myVectorView.objectTestProperty
+      Actual: Object's Object Test Property
+
+Pass: mySecondVectorView.arrayTestProperty
+      Actual: Array's Array Test Property
+
+Pass: mySecondVectorView.objectTestProperty
+      Actual: Object's Object Test Property
+
+Comment: delete Array.prototype.arrayTestProperty
+Comment: delete Object.prototype.arrayTestProperty
+Comment: delete Object.prototype.objectTestProperty
+PASS [Test 20: VectorViewArray_Prototype]
+=================================================
+
+Passed: 20
+Failed: 0

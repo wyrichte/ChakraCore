@@ -1,0 +1,112 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "obj": "{...}",
+        "sneakers": "{...}"
+      },
+      "[Pending Mutation]": {
+        "discount [Changing]": "0",
+        "[New Value]": "50",
+        "[Property container sneakers]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": "1",
+      "[Globals]": {
+        "Product": "<large string>",
+        "attach": "<large string>",
+        "sneakers": "{...}",
+        "obj": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 680,
+        "length": 22,
+        "text": "sneakers.discount = 50",
+        "frameDescription": "attach"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "obj": "{...}",
+        "sneakers": "{...}"
+      },
+      "[Pending Mutation]": {
+        "discount [Deleting]": "50",
+        "[Property container sneakers]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": "1",
+      "[Globals]": {
+        "Product": "<large string>",
+        "attach": "<large string>",
+        "sneakers": "{...}",
+        "obj": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 709,
+        "length": 24,
+        "text": "delete sneakers.discount",
+        "frameDescription": "attach"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "obj": "{...}",
+        "sneakers": "{...}"
+      },
+      "[Pending Mutation]": {
+        "newDataProperty [Changing]": "1",
+        "[New Value]": "2",
+        "[Property container obj]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": "1",
+      "[Globals]": {
+        "Product": "<large string>",
+        "attach": "<large string>",
+        "sneakers": "{...}",
+        "obj": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 872,
+        "length": 23,
+        "text": "obj.newDataProperty = 2",
+        "frameDescription": "attach"
+      }
+    ]
+  }
+]

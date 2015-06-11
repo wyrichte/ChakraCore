@@ -1,0 +1,10 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "test1": "<large string>",
+      "[Globals]": ""
+    }
+  }
+]

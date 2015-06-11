@@ -1,0 +1,21 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 71,
+        "length": 3,
+        "text": "x++",
+        "frameDescription": "foo"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "a": "100",
+      "[Globals]": ""
+    }
+  }
+]

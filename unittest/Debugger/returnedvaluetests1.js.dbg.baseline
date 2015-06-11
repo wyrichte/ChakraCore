@@ -1,0 +1,160 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "formatter": "undefined",
+      "[Scope]1": "Run",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[Anonymous function returned]": "undefined",
+      "[Intl.NumberFormat returned]": "{...}",
+      "arguments": "{...}",
+      "formatter": "{...}",
+      "[Scope]1": "Run",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "m": "undefined",
+      "coll": "undefined",
+      "[Scope]1": "Run",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 47,
+        "length": 10,
+        "text": "var m = 31",
+        "frameDescription": "f1"
+      },
+      {
+        "start": 424,
+        "length": 23,
+        "text": "f1(new Intl.Collator())",
+        "frameDescription": "test6"
+      },
+      {
+        "start": 582,
+        "length": 7,
+        "text": "test6()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[f1 returned]": "132",
+      "arguments": "{...}",
+      "formatter": "{...}",
+      "[Scope]1": "Run",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 458,
+        "length": 9,
+        "text": "formatter",
+        "frameDescription": "test6"
+      },
+      {
+        "start": 582,
+        "length": 7,
+        "text": "test6()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "formatter": "{...}",
+      "[Scope]1": "Run",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[Intl.NumberFormat returned]": "{...}",
+      "[Return value]": "undefined",
+      "arguments": "{...}",
+      "formatter": "{...}",
+      "[Scope]1": "Run",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "test7": "<large string>",
+      "[Scope]1": "Run",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "d": "undefined",
+      "[Scope]1": "Run",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[Anonymous function returned]": "<large string>",
+      "[forEach returned]": "undefined",
+      "arguments": "{...}",
+      "d": "<large string>",
+      "[Scope]1": "Run",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 870,
+        "length": 8,
+        "text": "return d",
+        "frameDescription": "test7"
+      },
+      {
+        "start": 900,
+        "length": 7,
+        "text": "test7()",
+        "frameDescription": "test8"
+      },
+      {
+        "start": 988,
+        "length": 7,
+        "text": "test8()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "k1": "undefined",
+      "[Scope]1": "Run",
+      "[Globals]": ""
+    }
+  }
+]

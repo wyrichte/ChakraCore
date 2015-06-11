@@ -1,0 +1,94 @@
+    name
+    length
+    prototype
+    revocable
+    caller
+    arguments
+    constructor
+    apply
+    bind
+    call
+    toString
+    toMethod
+    hasOwnProperty
+    propertyIsEnumerable
+    isPrototypeOf
+    toLocaleString
+    valueOf
+    __proto__
+    __defineGetter__
+    __defineSetter__
+    __lookupGetter__
+    __lookupSetter__
+Passed
+    target, handler
+Passed
+    target, handler
+Passed
+    defineProperty
+    deleteProperty
+    enumerate
+    get
+    getOwnPropertyDescriptor
+    getPrototypeOf
+    has
+    isExtensible
+    ownKeys
+    preventExtensions
+    set
+    setPrototypeOf
+    apply
+    construct
+    constructor
+    hasOwnProperty
+    propertyIsEnumerable
+    isPrototypeOf
+    toLocaleString
+    toString
+    valueOf
+    __proto__
+    __defineGetter__
+    __defineSetter__
+    __lookupGetter__
+    __lookupSetter__
+Passed
+Passed
+    target, argumentsList
+Passed
+    target, propertyKey
+Passed
+    target, propertyKey
+Passed
+    constructor
+    hasOwnProperty
+    propertyIsEnumerable
+    isPrototypeOf
+    toLocaleString
+    toString
+    valueOf
+    __proto__
+    __defineGetter__
+    __defineSetter__
+    __lookupGetter__
+    __lookupSetter__
+Passed
+    target
+Passed
+    target, thisArgument, receiver
+Passed
+    target, propertyKey
+Passed
+    target
+Passed
+    target, propertyKey
+Passed
+    target
+Passed
+    target
+Passed
+    target
+Passed
+    target, propertyKey, receiver
+Passed
+    target, proto
+Passed

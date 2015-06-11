@@ -1,0 +1,50 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 143,
+        "length": 4,
+        "text": "comp",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 58,
+        "length": 292,
+        "text": "function () {\n    var comp = Intl.Collator();/**bp:resume('step_into');stack()**/\n\tcomp;\n    var numFormat = Intl.Collator();/**bp:resume('step_into');stack()**/\n\tnumFormat;\n    var date = Intl.Collator();/**bp:resume('step_into');stack()**/\n    date;\n    WScript.Echo('PASSED');\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 225,
+        "length": 9,
+        "text": "numFormat",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 58,
+        "length": 292,
+        "text": "function () {\n    var comp = Intl.Collator();/**bp:resume('step_into');stack()**/\n\tcomp;\n    var numFormat = Intl.Collator();/**bp:resume('step_into');stack()**/\n\tnumFormat;\n    var date = Intl.Collator();/**bp:resume('step_into');stack()**/\n    date;\n    WScript.Echo('PASSED');\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 310,
+        "length": 4,
+        "text": "date",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 58,
+        "length": 292,
+        "text": "function () {\n    var comp = Intl.Collator();/**bp:resume('step_into');stack()**/\n\tcomp;\n    var numFormat = Intl.Collator();/**bp:resume('step_into');stack()**/\n\tnumFormat;\n    var date = Intl.Collator();/**bp:resume('step_into');stack()**/\n    date;\n    WScript.Echo('PASSED');\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

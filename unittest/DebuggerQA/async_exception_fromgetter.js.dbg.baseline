@@ -1,0 +1,63 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 69,
+        "length": 12,
+        "text": "return x_a++",
+        "frameDescription": "set a.value"
+      },
+      {
+        "start": 356,
+        "length": 23,
+        "text": "WScript.Echo(a.value++)",
+        "frameDescription": "Anonymous function"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "val": "2",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 243,
+        "length": 5,
+        "text": "x_b++",
+        "frameDescription": "Anonymous function"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 243,
+        "length": 5,
+        "text": "x_b++",
+        "frameDescription": "Anonymous function"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

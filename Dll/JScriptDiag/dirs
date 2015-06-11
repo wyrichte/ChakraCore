@@ -1,0 +1,5 @@
+DIRS=\
+    release{!EXCLUDE_IE_MAIN} \
+    test{!EXCLUDE_IE_MAIN,noncrit} \
+    lib{!EXCLUDE_IE_MAIN,noncrit} \
+    dump{!EXCLUDE_IE_MAIN} \

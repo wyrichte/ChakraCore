@@ -1,0 +1,214 @@
+
+
+Running TypedArray Tests
+
+Test TypedArray functionality...
+testing testArrays type 0, size 0
+testing testArrays type 0, size 1
+testing testArrays type 0, size 4
+testing testArrays type 0, size 16
+testing testArrays type 0, size 32
+testing testArrays type 0, size 100000
+testing testArrays type 0, size 16777216
+testing testArrays type 1, size 0
+testing testArrays type 1, size 1
+testing testArrays type 1, size 4
+testing testArrays type 1, size 16
+testing testArrays type 1, size 32
+testing testArrays type 1, size 100000
+testing testArrays type 1, size 16777216
+testing testArrays type 3, size 0
+testing testArrays type 3, size 1
+testing testArrays type 3, size 4
+testing testArrays type 3, size 16
+testing testArrays type 3, size 32
+testing testArrays type 3, size 100000
+testing testArrays type 3, size 16777216
+testing testArrays type 4, size 0
+testing testArrays type 4, size 1
+testing testArrays type 4, size 4
+testing testArrays type 4, size 16
+testing testArrays type 4, size 32
+testing testArrays type 4, size 100000
+testing testArrays type 4, size 16777216
+testing testArrays type 5, size 0
+testing testArrays type 5, size 1
+testing testArrays type 5, size 4
+testing testArrays type 5, size 16
+testing testArrays type 5, size 32
+testing testArrays type 5, size 100000
+testing testArrays type 5, size 16777216
+testing testArrays type 6, size 0
+testing testArrays type 6, size 1
+testing testArrays type 6, size 4
+testing testArrays type 6, size 16
+testing testArrays type 6, size 32
+testing testArrays type 6, size 100000
+testing testArrays type 6, size 16777216
+testing testArrays type 7, size 0
+testing testArrays type 7, size 1
+testing testArrays type 7, size 4
+testing testArrays type 7, size 16
+testing testArrays type 7, size 32
+testing testArrays type 7, size 100000
+testing testArrays type 7, size 16777216
+testing testArrays type 8, size 0
+testing testArrays type 8, size 1
+testing testArrays type 8, size 4
+testing testArrays type 8, size 16
+testing testArrays type 8, size 32
+testing testArrays type 8, size 100000
+testing testArrays type 8, size 16777216
+testing testArrays type 0, size 0
+testing testArrays type 0, size 1
+testing testArrays type 0, size 4
+testing testArrays type 0, size 16
+testing testArrays type 0, size 32
+testing testArrays type 0, size 100000
+testing testArrays type 0, size 16777216
+testing testArrays type 1, size 0
+testing testArrays type 1, size 1
+testing testArrays type 1, size 4
+testing testArrays type 1, size 16
+testing testArrays type 1, size 32
+testing testArrays type 1, size 100000
+testing testArrays type 1, size 16777216
+testing testArrays type 3, size 0
+testing testArrays type 3, size 1
+RangeError: Invalid offset/length when creating typed array
+testing testArrays type 3, size 4
+testing testArrays type 3, size 16
+testing testArrays type 3, size 32
+testing testArrays type 3, size 100000
+testing testArrays type 3, size 16777216
+testing testArrays type 4, size 0
+testing testArrays type 4, size 1
+RangeError: Invalid offset/length when creating typed array
+testing testArrays type 4, size 4
+testing testArrays type 4, size 16
+testing testArrays type 4, size 32
+testing testArrays type 4, size 100000
+testing testArrays type 4, size 16777216
+testing testArrays type 5, size 0
+testing testArrays type 5, size 1
+RangeError: Invalid offset/length when creating typed array
+testing testArrays type 5, size 4
+testing testArrays type 5, size 16
+testing testArrays type 5, size 32
+testing testArrays type 5, size 100000
+testing testArrays type 5, size 16777216
+testing testArrays type 6, size 0
+testing testArrays type 6, size 1
+RangeError: Invalid offset/length when creating typed array
+testing testArrays type 6, size 4
+testing testArrays type 6, size 16
+testing testArrays type 6, size 32
+testing testArrays type 6, size 100000
+testing testArrays type 6, size 16777216
+testing testArrays type 7, size 0
+testing testArrays type 7, size 1
+RangeError: Invalid offset/length when creating typed array
+testing testArrays type 7, size 4
+testing testArrays type 7, size 16
+testing testArrays type 7, size 32
+testing testArrays type 7, size 100000
+testing testArrays type 7, size 16777216
+testing testArrays type 8, size 0
+testing testArrays type 8, size 1
+RangeError: Invalid offset/length when creating typed array
+testing testArrays type 8, size 4
+RangeError: Invalid offset/length when creating typed array
+testing testArrays type 8, size 16
+testing testArrays type 8, size 32
+testing testArrays type 8, size 100000
+testing testArrays type 8, size 16777216
+test GetArrayBuffer 0 0
+test GetArrayBuffer 0 1
+test GetArrayBuffer 0 4
+test GetArrayBuffer 0 16
+test GetArrayBuffer 0 32
+test GetArrayBuffer 0 100000
+test GetArrayBuffer 0 16777216
+test GetArrayBuffer 1 0
+test GetArrayBuffer 1 1
+test GetArrayBuffer 1 4
+test GetArrayBuffer 1 16
+test GetArrayBuffer 1 32
+test GetArrayBuffer 1 100000
+test GetArrayBuffer 1 16777216
+test GetArrayBuffer 3 0
+test GetArrayBuffer 3 1
+test GetArrayBuffer 3 4
+test GetArrayBuffer 3 16
+test GetArrayBuffer 3 32
+test GetArrayBuffer 3 100000
+test GetArrayBuffer 3 16777216
+test GetArrayBuffer 4 0
+test GetArrayBuffer 4 1
+test GetArrayBuffer 4 4
+test GetArrayBuffer 4 16
+test GetArrayBuffer 4 32
+test GetArrayBuffer 4 100000
+test GetArrayBuffer 4 16777216
+test GetArrayBuffer 5 0
+test GetArrayBuffer 5 1
+test GetArrayBuffer 5 4
+test GetArrayBuffer 5 16
+test GetArrayBuffer 5 32
+test GetArrayBuffer 5 100000
+test GetArrayBuffer 5 16777216
+test GetArrayBuffer 6 0
+test GetArrayBuffer 6 1
+test GetArrayBuffer 6 4
+test GetArrayBuffer 6 16
+test GetArrayBuffer 6 32
+test GetArrayBuffer 6 100000
+test GetArrayBuffer 6 16777216
+test GetArrayBuffer 7 0
+test GetArrayBuffer 7 1
+test GetArrayBuffer 7 4
+test GetArrayBuffer 7 16
+test GetArrayBuffer 7 32
+test GetArrayBuffer 7 100000
+test GetArrayBuffer 7 16777216
+test GetArrayBuffer 8 0
+test GetArrayBuffer 8 1
+test GetArrayBuffer 8 4
+test GetArrayBuffer 8 16
+test GetArrayBuffer 8 32
+test GetArrayBuffer 8 100000
+test GetArrayBuffer 8 16777216
+Done
+Test TypedArray Error cases...
+CreatePixelArray is expected to fail with length 3
+CreatePixelArray is expected to fail with large length
+CreateArrayBuffer is expected to fail with large length
+Done
+Test GetTypedArrayBuffer functionality...
+testcase 0, buffer length is 40, arrayType -1, elementSize -1
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+testcase 1, buffer length is 8, arrayType 0, elementSize 1
+20, 0, 0, 0, 0, 0, 0, 0, 
+testcase 2, buffer length is 8, arrayType 1, elementSize 1
+20, 0, 0, 0, 0, 0, 0, 0, 
+testcase 3, buffer length is 8, arrayType 3, elementSize 2
+20, 0, 0, 0, 0, 0, 0, 0, 
+testcase 4, buffer length is 8, arrayType 4, elementSize 2
+20, 0, 0, 0, 0, 0, 0, 0, 
+testcase 5, buffer length is 16, arrayType 5, elementSize 4
+20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+testcase 6, buffer length is 16, arrayType 6, elementSize 4
+20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+testcase 7, buffer length is 16, arrayType 7, elementSize 4
+0, 0, 160, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+testcase 8, buffer length is 16, arrayType 8, elementSize 8
+0, 0, 0, 0, 0, 0, 52, 64, 0, 0, 0, 0, 0, 0, 0, 0, 
+testcase 9, buffer length is 80, arrayType -1, elementSize -1
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+GetTypedArrayBuffer test succeeded
+Done
+Total Test Cases  3
+Passed:  3
+Failed   0
+
+

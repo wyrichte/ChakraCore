@@ -1,0 +1,3 @@
+// Copyright (C) Microsoft. All rights reserved.
+// This file is necessary for Razzle build, as it will append the manifest file as part of unmanaged resources
+

@@ -1,0 +1,78 @@
+TeachRT tests
+
+=================================================
+Starting [Test 1: CreateChef]
+Pass: chef.name
+      Actual: Sen
+
+PASS [Test 1: CreateChef]
+=================================================
+
+=================================================
+Starting [Test 2: GetSetChefRole]
+Pass: chef.role
+      Actual: 1
+
+Pass: chef.role
+      Actual: 0
+
+PASS [Test 2: GetSetChefRole]
+=================================================
+
+=================================================
+Starting [Test 3: GetSetChefCapabilities]
+Pass: chef.capabilities
+      Actual: 0
+
+Pass: chef.capabilities
+      Actual: 1
+
+PASS [Test 3: GetSetChefCapabilities]
+=================================================
+
+=================================================
+Starting [Test 4: MakeBreakfastToaster]
+Pass: cost from MakeBreakfastToaster
+      Actual: 10
+
+PASS [Test 4: MakeBreakfastToaster]
+=================================================
+
+=================================================
+Starting [Test 5: MakeBreakfastToasterInt]
+Pass: cost from MakeBreakfastToasterInt
+      Actual: 50
+
+PASS [Test 5: MakeBreakfastToasterInt]
+=================================================
+
+=================================================
+Starting [Test 6: MakeBreakfastToasterDouble]
+Pass: cost from MakeBreakfastToasterDouble
+      Actual: 80
+
+PASS [Test 6: MakeBreakfastToasterDouble]
+=================================================
+
+=================================================
+Starting [Test 7: ToastCompleteEvent]
+Pass: ev.message
+      Actual: Toast0
+
+Pass: ev.message
+      Actual: Toast1
+
+Pass: Number of events handled
+      Actual: 2
+
+PASS [Test 7: ToastCompleteEvent]
+=================================================
+
+=================================================
+Starting [Test 8: OvenTest]
+Comment: Finished calling aysnc operations
+PASS [Test 8: OvenTest]
+=================================================
+
+Passed: 8
+Failed: 0

@@ -1,0 +1,83 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a": "undefined"
+      },
+      "[Pending Mutation]": {
+        "a [Changing]": "0",
+        "[New Value]": "10",
+        "[Property container obj]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {
+        "obj": "{...}"
+      },
+      "[Globals]": {
+        "noop": "<large string>",
+        "test4": "<large string>",
+        "a": "undefined"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a": "undefined"
+      },
+      "[Pending Mutation]": {
+        "a [Changing]": "x",
+        "[New Value]": "65",
+        "[Property container obj]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {
+        "obj": "{...}"
+      },
+      "[Globals]": {
+        "noop": "<large string>",
+        "test4": "<large string>",
+        "a": "undefined"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a": "undefined"
+      },
+      "[Pending Mutation]": {
+        "b [Changing]": "{...}",
+        "[New Value]": "100",
+        "[Property container obj]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {
+        "obj": "{...}"
+      },
+      "[Globals]": {
+        "noop": "<large string>",
+        "test4": "<large string>",
+        "a": "undefined"
+      }
+    }
+  }
+]

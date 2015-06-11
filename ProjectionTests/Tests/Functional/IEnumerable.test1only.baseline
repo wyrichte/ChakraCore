@@ -1,0 +1,206 @@
+IEnumerable_test1only
+
+=================================================
+Starting [Test 1: IEnumerable<Interface> - not reproing bug BLUE#183883/155545]
+Comment: getEnumerableOfDefaultInterface: [object Winery.IEnumerable.EnumerableOfDefaultInterface.RTC]
+Comment: JSON: {}
+Comment: Dump of properties: EnumerableOfDefaultInterface.RTC instance
+Comment: typeof EnumerableOfDefaultInterface.RTC instance: object
+Comment: Properties : 
+    var EnumerableOfDefaultInterface.RTC instanceMembers = [
+        ['first', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Comment: /Dump of properties: EnumerableOfDefaultInterface.RTC instance
+
+Comment: JSON cIterable: {}
+Comment: Dump of properties: EnumerableOfDefaultInterface.RTC.First() instance
+Comment: typeof EnumerableOfDefaultInterface.RTC.First() instance: object
+Comment: Properties : 
+    var EnumerableOfDefaultInterface.RTC.First() instanceMembers = [
+        ['current', 'object'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Comment: /Dump of properties: EnumerableOfDefaultInterface.RTC.First() instance
+
+Comment: Dump of properties: EnumerableOfDefaultInterface.RTC.First()[0] instance
+Comment: typeof EnumerableOfDefaultInterface.RTC.First()[0] instance: object
+Comment: Properties : 
+    var EnumerableOfDefaultInterface.RTC.First()[0] instanceMembers = [
+        ['helloWorld', 'function', 0],
+        ['setIndex', 'function', 1],
+        ['toString', 'function', 0],
+    ];
+Comment: /Dump of properties: EnumerableOfDefaultInterface.RTC.First()[0] instance
+
+Comment: Get (item by item) test
+Comment: Dump of properties: myIterator
+Comment: typeof myIterator: object
+Comment: Properties : 
+    var myIteratorMembers = [
+        ['current', 'object'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Comment: /Dump of properties: myIterator
+
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: object
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Comment: iterator.current = [object Winery.IEnumerable.EnumerableOfDefaultInterface.IMethod]
+Pass: methodOnIterator helloWorld present on iterator myIterator
+      Actual: function
+
+Comment: Dump of properties: iterator.current (index = 0)
+Comment: typeof iterator.current (index = 0): object
+Comment: Properties : 
+    var iterator.current (index = 0)Members = [
+        ['helloWorld', 'function', 0],
+        ['setIndex', 'function', 1],
+        ['toString', 'function', 0],
+    ];
+Comment: /Dump of properties: iterator.current (index = 0)
+
+Comment: HW function: IMethod.HelloWorld(int) called with index=1
+Pass: myIterator.current.helloWorld()
+      Actual: IMethod.HelloWorld(int) called with index=1
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Comment: iterator.current = [object Winery.IEnumerable.EnumerableOfDefaultInterface.IMethod]
+Pass: methodOnIterator helloWorld present on iterator myIterator
+      Actual: function
+
+Comment: Dump of properties: iterator.current (index = 1)
+Comment: typeof iterator.current (index = 1): object
+Comment: Properties : 
+    var iterator.current (index = 1)Members = [
+        ['helloWorld', 'function', 0],
+        ['setIndex', 'function', 1],
+        ['toString', 'function', 0],
+    ];
+Comment: /Dump of properties: iterator.current (index = 1)
+
+Comment: HW function: IMethod.HelloWorld(int) called with index=2
+Pass: myIterator.current.helloWorld()
+      Actual: IMethod.HelloWorld(int) called with index=2
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Comment: iterator.current = [object Winery.IEnumerable.EnumerableOfDefaultInterface.IMethod]
+Pass: methodOnIterator helloWorld present on iterator myIterator
+      Actual: function
+
+Comment: Dump of properties: iterator.current (index = 2)
+Comment: typeof iterator.current (index = 2): object
+Comment: Properties : 
+    var iterator.current (index = 2)Members = [
+        ['helloWorld', 'function', 0],
+        ['setIndex', 'function', 1],
+        ['toString', 'function', 0],
+    ];
+Comment: /Dump of properties: iterator.current (index = 2)
+
+Comment: HW function: IMethod.HelloWorld(int) called with index=3
+Pass: myIterator.current.helloWorld()
+      Actual: IMethod.HelloWorld(int) called with index=3
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 3
+
+Comment: GetMany test
+Comment: gotManyItems: 2
+Pass: gotManyItems
+      Actual: 2
+
+Pass: manyItems[i] helloWorld present
+      Actual: function
+
+Pass: manyItems[0]
+      Actual: IMethod.HelloWorld(int) called with index=1
+
+Pass: manyItems[i] helloWorld present
+      Actual: function
+
+Pass: manyItems[1]
+      Actual: IMethod.HelloWorld(int) called with index=2
+
+Comment: gotManyItems: 1
+Pass: gotManyItems
+      Actual: 1
+
+Pass: manyItems[i] helloWorld present
+      Actual: function
+
+Pass: manyItems[0]
+      Actual: IMethod.HelloWorld(int) called with index=3
+
+Pass: myIteratorWithGetMany.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 3
+
+Comment: GetMany test (end of iterator)
+Comment: gotManyItems: 0
+Comment: EMPTY many items
+PASS [Test 1: IEnumerable<Interface> - not reproing bug BLUE#183883/155545]
+=================================================
+
+Passed: 1
+Failed: 0

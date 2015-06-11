@@ -1,0 +1,30 @@
+[
+  {
+    "evaluate": {
+      "str": {
+        "__proto__": "",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING"
+          ],
+          "flagsAsValue": 1040
+        },
+        "length": "6",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        }
+      },
+      "str - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+          "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING"
+        ],
+        "flagsAsValue": 1040
+      }
+    }
+  }
+]

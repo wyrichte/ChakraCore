@@ -1,0 +1,203 @@
+[
+  {
+    "evaluate": {
+      "a1": {
+        "__proto__": {
+          "[Methods]": {
+            "anchor": "<large string>",
+            "big": "<large string>",
+            "blink": "<large string>",
+            "bold": "<large string>",
+            "charAt": "<large string>",
+            "charCodeAt": "<large string>",
+            "codePointAt": "<large string>",
+            "concat": "<large string>",
+            "constructor": "<large string>",
+            "endsWith": "<large string>",
+            "fixed": "<large string>",
+            "fontcolor": "<large string>",
+            "fontsize": "<large string>",
+            "includes": "<large string>",
+            "indexOf": "<large string>",
+            "italics": "<large string>",
+            "lastIndexOf": "<large string>",
+            "link": "<large string>",
+            "localeCompare": "<large string>",
+            "match": "<large string>",
+            "normalize": "<large string>",
+            "repeat": "<large string>",
+            "replace": "<large string>",
+            "search": "<large string>",
+            "slice": "<large string>",
+            "small": "<large string>",
+            "split": "<large string>",
+            "startsWith": "<large string>",
+            "strike": "<large string>",
+            "sub": "<large string>",
+            "substr": "<large string>",
+            "substring": "<large string>",
+            "sup": "<large string>",
+            "Symbol.iterator": "<large string>",
+            "toLocaleLowerCase": "<large string>",
+            "toLocaleUpperCase": "<large string>",
+            "toLowerCase": "<large string>",
+            "toString": "<large string>",
+            "toUpperCase": "<large string>",
+            "trim": "<large string>",
+            "trimLeft": "<large string>",
+            "trimRight": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "length": "0"
+        },
+        "length": "0",
+        "[1]": "search1",
+        "[2]": "search2"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "a1": {
+        "__proto__": {
+          "__proto__": {
+            "[Methods]": {
+              "concat": "<large string>",
+              "constructor": "<large string>",
+              "copyWithin": "<large string>",
+              "entries": "<large string>",
+              "every": "<large string>",
+              "fill": "<large string>",
+              "filter": "<large string>",
+              "find": "<large string>",
+              "findIndex": "<large string>",
+              "forEach": "<large string>",
+              "indexOf": "<large string>",
+              "join": "<large string>",
+              "keys": "<large string>",
+              "lastIndexOf": "<large string>",
+              "map": "<large string>",
+              "pop": "<large string>",
+              "push": "<large string>",
+              "reduce": "<large string>",
+              "reduceRight": "<large string>",
+              "reverse": "<large string>",
+              "shift": "<large string>",
+              "slice": "<large string>",
+              "some": "<large string>",
+              "sort": "<large string>",
+              "splice": "<large string>",
+              "Symbol.iterator": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "unshift": "<large string>",
+              "values": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            },
+            "length": "0",
+            "Symbol.unscopables": {
+              "__proto__": "{...}",
+              "copyWithin": "true",
+              "entries": "true",
+              "fill": "true",
+              "find": "true",
+              "findIndex": "true",
+              "keys": "true",
+              "values": "true"
+            }
+          },
+          "length": "0"
+        },
+        "length": "0",
+        "[1]": "search1",
+        "[2]": "search2"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "a1": {
+        "__proto__": {
+          "__proto__": {
+            "__proto__": {
+              "__proto__": "{...}",
+              "y": "2"
+            }
+          },
+          "length": "0"
+        },
+        "length": "0",
+        "[1]": "search1",
+        "[2]": "search2"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "a1": {
+        "__proto__": {
+          "__proto__": {
+            "[Methods]": {
+              "concat": "<large string>",
+              "constructor": "<large string>",
+              "copyWithin": "<large string>",
+              "entries": "<large string>",
+              "every": "<large string>",
+              "fill": "<large string>",
+              "filter": "<large string>",
+              "find": "<large string>",
+              "findIndex": "<large string>",
+              "forEach": "<large string>",
+              "indexOf": "<large string>",
+              "join": "<large string>",
+              "keys": "<large string>",
+              "lastIndexOf": "<large string>",
+              "map": "<large string>",
+              "pop": "<large string>",
+              "push": "<large string>",
+              "reduce": "<large string>",
+              "reduceRight": "<large string>",
+              "reverse": "<large string>",
+              "shift": "<large string>",
+              "slice": "<large string>",
+              "some": "<large string>",
+              "sort": "<large string>",
+              "splice": "<large string>",
+              "Symbol.iterator": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "unshift": "<large string>",
+              "values": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            },
+            "length": "0",
+            "Symbol.unscopables": {
+              "__proto__": "{...}",
+              "copyWithin": "true",
+              "entries": "true",
+              "fill": "true",
+              "find": "true",
+              "findIndex": "true",
+              "keys": "true",
+              "values": "true"
+            }
+          },
+          "length": "0"
+        },
+        "length": "0",
+        "[1]": "search1",
+        "[2]": "search2"
+      }
+    }
+  }
+]

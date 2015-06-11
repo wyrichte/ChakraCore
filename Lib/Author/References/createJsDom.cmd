@@ -1,0 +1,3 @@
+perl createJsDom.pl web %SDXROOT%\inetcore\mshtml\types\ie9.specidl %SDXROOT%\inetcore\mshtml\types\ie10.specidl %SDXROOT%\inetcore\mshtml\types\ie11.specidl %SDXROOT%\inetcore\mshtml\types\webgl.specidl > domWeb.js
+perl createJsDom.pl windows %SDXROOT%\inetcore\mshtml\types\ie9.specidl %SDXROOT%\inetcore\mshtml\types\ie10.specidl %SDXROOT%\inetcore\mshtml\types\ie11.specidl %SDXROOT%\inetcore\mshtml\types\webgl.specidl > domWindows_8.1.js
+perl createJsDom.pl worker %SDXROOT%\inetcore\mshtml\types\webworkers.specidl %SDXROOT%\inetcore\mshtml\types\ie9.specidl %SDXROOT%\inetcore\mshtml\types\ie10.specidl %SDXROOT%\inetcore\mshtml\types\ie11.specidl > dedicatedworker.js

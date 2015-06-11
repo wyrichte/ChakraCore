@@ -1,0 +1,9 @@
+EXPORTS
+JsThunk_AllocateData
+JsThunk_InitData
+JsThunk_DataToCode
+JsThunk_Cleanup
+JsThunk_GetSize
+JsThunk_Is
+JsThunk_CleanupDefer
+JsThunk_CleanupFinish

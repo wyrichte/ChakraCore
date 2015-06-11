@@ -1,0 +1,5 @@
+DIRS=\
+    ABIs{Test} \
+    JsHost{Test,noncrit} \
+    Registration{Test,noncrit} \
+    Tests{Test} \

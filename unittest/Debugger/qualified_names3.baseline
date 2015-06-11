@@ -1,0 +1,8 @@
+ReferenceError: 'abc' is undefined
+   at obj.bar (qualified_names3.js:20:21)
+   at f1.sub (qualified_names3.js:12:5)
+   at Global code (qualified_names3.js:28:1)
+ReferenceError: 'abc' is undefined
+   at obj.bar (qualified_names3.js:20:21)
+   at f1.sub (qualified_names3.js:12:5)
+   at Run (qualified_names3.js:30:5)

@@ -1,0 +1,88 @@
+[
+  {
+    "setnextstatement": {
+      "from": 147,
+      "to": 215,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "1",
+      "b": "[Uninitialized block variable]",
+      "foo": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo",
+        "prototype": "{...}"
+      },
+      "x": "1",
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 292,
+      "to": 451,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "b": "[Uninitialized block variable]",
+      "a": "1",
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 377,
+      "to": 451,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": "undefined",
+      "[Scope]1": {
+        "a": "2"
+      },
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  }
+]

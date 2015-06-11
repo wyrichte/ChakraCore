@@ -1,0 +1,64 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 382,
+        "length": 17,
+        "text": "throw new Error()",
+        "frameDescription": "baz1"
+      },
+      {
+        "start": 263,
+        "length": 6,
+        "text": "baz1()",
+        "frameDescription": "foo1"
+      },
+      {
+        "start": 223,
+        "length": 6,
+        "text": "foo1()",
+        "frameDescription": "baz"
+      },
+      {
+        "start": 185,
+        "length": 5,
+        "text": "baz()",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 149,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callcount": "3"
+      },
+      "{exception}": {
+        "__proto__": "",
+        "description": "",
+        "number": "0",
+        "stack": "<large string>"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "Run": "<large string>",
+        "bar": "<large string>",
+        "baz": "<large string>",
+        "foo1": "<large string>",
+        "baz1": "<large string>",
+        "callcount": "3"
+      }
+    }
+  }
+]

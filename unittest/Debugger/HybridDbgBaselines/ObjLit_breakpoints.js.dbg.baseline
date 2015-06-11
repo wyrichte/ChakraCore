@@ -1,0 +1,1481 @@
+[
+  {
+    "log": "BP1"
+  },
+  {
+    "callstack": [
+      {
+        "start": 216,
+        "length": 2,
+        "text": "a1",
+        "frameDescription": "breaking_on_sub_expression"
+      },
+      {
+        "start": 655,
+        "length": 28,
+        "text": "breaking_on_sub_expression()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "obj": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "log": "BP2"
+  },
+  {
+    "callstack": [
+      {
+        "start": 311,
+        "length": 10,
+        "text": "b: a1 + 20",
+        "frameDescription": "breaking_on_sub_expression"
+      },
+      {
+        "start": 655,
+        "length": 28,
+        "text": "breaking_on_sub_expression()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "obj": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a1 = 33": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "log": "BP3"
+  },
+  {
+    "callstack": [
+      {
+        "start": 452,
+        "length": 9,
+        "text": "cb: foo()",
+        "frameDescription": "breaking_on_sub_expression"
+      },
+      {
+        "start": 655,
+        "length": 28,
+        "text": "breaking_on_sub_expression()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "obj": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "log": "BP4"
+  },
+  {
+    "callstack": [
+      {
+        "start": 566,
+        "length": 33,
+        "text": "WScript.Echo(JSON.stringify(obj))",
+        "frameDescription": "breaking_on_sub_expression"
+      },
+      {
+        "start": 655,
+        "length": 28,
+        "text": "breaking_on_sub_expression()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "breaking_on_sub_expression": "<large string>",
+          "breaking_on_sub_expression_arguments": "<large string>",
+          "breaking_on_sub_expression_try": "<large string>",
+          "foo": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a1": "10",
+        "arr": "undefined",
+        "obj2": "undefined"
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "obj": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a": "10",
+        "b": "30",
+        "c": {
+          "__proto__": "{...}",
+          "ca": "20",
+          "cb": "50",
+          "cc": "10"
+        }
+      },
+      "[Globals]": {
+        "foo": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "foo",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression_arguments": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "1",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression_try": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "a1": "10",
+        "obj2": "undefined",
+        "arr": "undefined"
+      }
+    }
+  },
+  {
+    "log": "BP5"
+  },
+  {
+    "callstack": [
+      {
+        "start": 903,
+        "length": 10,
+        "text": "b: a1 + 20",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "foo": "<large string>",
+      "breaking_on_sub_expression": "<large string>",
+      "breaking_on_sub_expression_arguments": "<large string>",
+      "breaking_on_sub_expression_try": "<large string>",
+      "a1": "10",
+      "obj2": "undefined",
+      "arr": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "a1 = 22": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "log": "BP6"
+  },
+  {
+    "callstack": [
+      {
+        "start": 1044,
+        "length": 9,
+        "text": "cb: foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "foo": "<large string>",
+      "breaking_on_sub_expression": "<large string>",
+      "breaking_on_sub_expression_arguments": "<large string>",
+      "breaking_on_sub_expression_try": "<large string>",
+      "a1": "10",
+      "obj2": "undefined",
+      "arr": "undefined"
+    }
+  },
+  {
+    "log": "BP7"
+  },
+  {
+    "callstack": [
+      {
+        "start": 746,
+        "length": 33,
+        "text": "WScript.Echo(JSON.stringify(obj))",
+        "frameDescription": "breaking_on_sub_expression_arguments"
+      },
+      {
+        "start": 835,
+        "length": 314,
+        "text": "breaking_on_sub_expression_arguments( { \n        a: a1,  \n        b: a1 + 20, /**bp: logJson('BP5'); stack(); locals(); evaluate('a1 = 22'); **/\n        c:  {\n                ca: a1 * 2, \n                cb: foo(), /**bp: logJson('BP6'); stack(); locals(); **/\n                cc: a1\n            }\n    }\n)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "breaking_on_sub_expression": "<large string>",
+          "breaking_on_sub_expression_arguments": "<large string>",
+          "breaking_on_sub_expression_try": "<large string>",
+          "foo": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a1": "10",
+        "arr": "undefined",
+        "obj2": "undefined"
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "1",
+        "[0]": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        }
+      },
+      "obj": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a": "10",
+        "b": "30",
+        "c": {
+          "__proto__": "{...}",
+          "ca": "20",
+          "cb": "50",
+          "cc": "10"
+        }
+      },
+      "[Globals]": {
+        "foo": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "foo",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression_arguments": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "1",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression_try": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "a1": "10",
+        "obj2": "undefined",
+        "arr": "undefined"
+      }
+    }
+  },
+  {
+    "log": "BP8"
+  },
+  {
+    "callstack": [
+      {
+        "start": 1173,
+        "length": 5,
+        "text": "a: a1",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "foo": "<large string>",
+      "breaking_on_sub_expression": "<large string>",
+      "breaking_on_sub_expression_arguments": "<large string>",
+      "breaking_on_sub_expression_try": "<large string>",
+      "a1": "10",
+      "obj2": "undefined",
+      "arr": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "a1 = 11": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "log": "BP9"
+  },
+  {
+    "callstack": [
+      {
+        "start": 1368,
+        "length": 10,
+        "text": "da: a1 * 3",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "foo": "<large string>",
+      "breaking_on_sub_expression": "<large string>",
+      "breaking_on_sub_expression_arguments": "<large string>",
+      "breaking_on_sub_expression_try": "<large string>",
+      "a1": "10",
+      "obj2": "undefined",
+      "arr": "undefined"
+    }
+  },
+  {
+    "log": "BP10"
+  },
+  {
+    "callstack": [
+      {
+        "start": 1486,
+        "length": 34,
+        "text": "WScript.Echo(JSON.stringify(obj2))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "breaking_on_sub_expression": "<large string>",
+          "breaking_on_sub_expression_arguments": "<large string>",
+          "breaking_on_sub_expression_try": "<large string>",
+          "foo": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a1": "10",
+        "arr": "undefined",
+        "obj2": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        }
+      },
+      "foo": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "breaking_on_sub_expression": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "<large string>",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "breaking_on_sub_expression_arguments": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "1",
+        "name": "<large string>",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "breaking_on_sub_expression_try": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "<large string>",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "a1": "10",
+      "obj2": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a": "10",
+        "b": "30",
+        "c": {
+          "__proto__": "{...}",
+          "ca": "20",
+          "cb": "50",
+          "cc": "{...}"
+        }
+      },
+      "arr": "undefined"
+    }
+  },
+  {
+    "log": "BP11"
+  },
+  {
+    "callstack": [
+      {
+        "start": 1623,
+        "length": 2,
+        "text": "a1",
+        "frameDescription": "breaking_on_sub_expression_try"
+      },
+      {
+        "start": 3057,
+        "length": 32,
+        "text": "breaking_on_sub_expression_try()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "obj": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "log": "BP12"
+  },
+  {
+    "callstack": [
+      {
+        "start": 1742,
+        "length": 10,
+        "text": "b: a1 + 20",
+        "frameDescription": "breaking_on_sub_expression_try"
+      },
+      {
+        "start": 3057,
+        "length": 32,
+        "text": "breaking_on_sub_expression_try()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "obj": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a1 = 44": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "log": "BP13"
+  },
+  {
+    "callstack": [
+      {
+        "start": 1896,
+        "length": 9,
+        "text": "cb: foo()",
+        "frameDescription": "breaking_on_sub_expression_try"
+      },
+      {
+        "start": 3057,
+        "length": 32,
+        "text": "breaking_on_sub_expression_try()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "obj": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "log": "BP14"
+  },
+  {
+    "callstack": [
+      {
+        "start": 2027,
+        "length": 33,
+        "text": "WScript.Echo(JSON.stringify(obj))",
+        "frameDescription": "breaking_on_sub_expression_try"
+      },
+      {
+        "start": 3057,
+        "length": 32,
+        "text": "breaking_on_sub_expression_try()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "breaking_on_sub_expression": "<large string>",
+          "breaking_on_sub_expression_arguments": "<large string>",
+          "breaking_on_sub_expression_try": "<large string>",
+          "foo": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a1": "10",
+        "arr": "undefined",
+        "obj2": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "obj": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a": "10",
+        "b": "30",
+        "c": {
+          "__proto__": "{...}",
+          "ca": "20",
+          "cb": "50",
+          "cc": "10"
+        }
+      },
+      "[Globals]": {
+        "foo": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "foo",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression_arguments": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "1",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression_try": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "a1": "10",
+        "obj2": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        },
+        "arr": "undefined"
+      }
+    }
+  },
+  {
+    "log": "BP15"
+  },
+  {
+    "callstack": [
+      {
+        "start": 2227,
+        "length": 10,
+        "text": "b: a1 + 20",
+        "frameDescription": "breaking_on_sub_expression_try"
+      },
+      {
+        "start": 3057,
+        "length": 32,
+        "text": "breaking_on_sub_expression_try()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "ex": "<large string>",
+      "obj": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a1 = 55": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "log": "BP16"
+  },
+  {
+    "callstack": [
+      {
+        "start": 2381,
+        "length": 9,
+        "text": "cb: foo()",
+        "frameDescription": "breaking_on_sub_expression_try"
+      },
+      {
+        "start": 3057,
+        "length": 32,
+        "text": "breaking_on_sub_expression_try()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "ex": "<large string>",
+      "obj": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "log": "BP17"
+  },
+  {
+    "callstack": [
+      {
+        "start": 2512,
+        "length": 33,
+        "text": "WScript.Echo(JSON.stringify(obj))",
+        "frameDescription": "breaking_on_sub_expression_try"
+      },
+      {
+        "start": 3057,
+        "length": 32,
+        "text": "breaking_on_sub_expression_try()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "breaking_on_sub_expression": "<large string>",
+          "breaking_on_sub_expression_arguments": "<large string>",
+          "breaking_on_sub_expression_try": "<large string>",
+          "foo": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a1": "10",
+        "arr": "undefined",
+        "obj2": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "ex": "<large string>",
+      "obj": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a": "10",
+        "b": "30",
+        "c": {
+          "__proto__": "{...}",
+          "ca": "20",
+          "cb": "50",
+          "cc": "10"
+        }
+      },
+      "[Globals]": {
+        "foo": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "foo",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression_arguments": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "1",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression_try": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "a1": "10",
+        "obj2": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        },
+        "arr": "undefined"
+      }
+    }
+  },
+  {
+    "log": "BP18"
+  },
+  {
+    "callstack": [
+      {
+        "start": 2675,
+        "length": 10,
+        "text": "b: a1 + 20",
+        "frameDescription": "breaking_on_sub_expression_try"
+      },
+      {
+        "start": 3057,
+        "length": 32,
+        "text": "breaking_on_sub_expression_try()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "obj": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a1 = 66": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "log": "BP19"
+  },
+  {
+    "callstack": [
+      {
+        "start": 2829,
+        "length": 9,
+        "text": "cb: foo()",
+        "frameDescription": "breaking_on_sub_expression_try"
+      },
+      {
+        "start": 3057,
+        "length": 32,
+        "text": "breaking_on_sub_expression_try()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "obj": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "log": "BP20"
+  },
+  {
+    "callstack": [
+      {
+        "start": 2960,
+        "length": 33,
+        "text": "WScript.Echo(JSON.stringify(obj))",
+        "frameDescription": "breaking_on_sub_expression_try"
+      },
+      {
+        "start": 3057,
+        "length": 32,
+        "text": "breaking_on_sub_expression_try()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "breaking_on_sub_expression": "<large string>",
+          "breaking_on_sub_expression_arguments": "<large string>",
+          "breaking_on_sub_expression_try": "<large string>",
+          "foo": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a1": "10",
+        "arr": "undefined",
+        "obj2": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "obj": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a": "10",
+        "b": "30",
+        "c": {
+          "__proto__": "{...}",
+          "ca": "20",
+          "cb": "50",
+          "cc": "10"
+        }
+      },
+      "[Globals]": {
+        "foo": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "foo",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression_arguments": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "1",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "breaking_on_sub_expression_try": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "name": "<large string>",
+          "prototype": "{...}"
+        },
+        "a1": "10",
+        "obj2": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        },
+        "arr": "undefined"
+      }
+    }
+  },
+  {
+    "log": "BP21"
+  },
+  {
+    "callstack": [
+      {
+        "start": 3144,
+        "length": 10,
+        "text": "b: a1 + 20",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "foo": "<large string>",
+      "breaking_on_sub_expression": "<large string>",
+      "breaking_on_sub_expression_arguments": "<large string>",
+      "breaking_on_sub_expression_try": "<large string>",
+      "a1": "10",
+      "obj2": "{...}",
+      "arr": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "a1 = 77": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "log": "BP22"
+  },
+  {
+    "callstack": [
+      {
+        "start": 3298,
+        "length": 9,
+        "text": "cb: foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "foo": "<large string>",
+      "breaking_on_sub_expression": "<large string>",
+      "breaking_on_sub_expression_arguments": "<large string>",
+      "breaking_on_sub_expression_try": "<large string>",
+      "a1": "10",
+      "obj2": "{...}",
+      "arr": "undefined"
+    }
+  },
+  {
+    "log": "BP23"
+  },
+  {
+    "callstack": [
+      {
+        "start": 3471,
+        "length": 10,
+        "text": "b: a1 + 20",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "foo": "<large string>",
+      "breaking_on_sub_expression": "<large string>",
+      "breaking_on_sub_expression_arguments": "<large string>",
+      "breaking_on_sub_expression_try": "<large string>",
+      "a1": "10",
+      "obj2": "{...}",
+      "arr": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3471,
+        "length": 10,
+        "text": "b: a1 + 20",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "a1 = 88": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "log": "BP24"
+  },
+  {
+    "callstack": [
+      {
+        "start": 3634,
+        "length": 9,
+        "text": "cb: foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "foo": "<large string>",
+      "breaking_on_sub_expression": "<large string>",
+      "breaking_on_sub_expression_arguments": "<large string>",
+      "breaking_on_sub_expression_try": "<large string>",
+      "a1": "10",
+      "obj2": "{...}",
+      "arr": "undefined"
+    }
+  },
+  {
+    "log": "BP25"
+  },
+  {
+    "callstack": [
+      {
+        "start": 3773,
+        "length": 36,
+        "text": "WScript.Echo(JSON.stringify(arr[0]))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "breaking_on_sub_expression": "<large string>",
+          "breaking_on_sub_expression_arguments": "<large string>",
+          "breaking_on_sub_expression_try": "<large string>",
+          "foo": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a1": "10",
+        "arr": {
+          "__proto__": "[]",
+          "length": "2",
+          "[0]": "{...}",
+          "[1]": "{...}"
+        },
+        "obj2": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        }
+      },
+      "foo": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "breaking_on_sub_expression": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "<large string>",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "breaking_on_sub_expression_arguments": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "1",
+        "name": "<large string>",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "breaking_on_sub_expression_try": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "<large string>",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "a1": "10",
+      "obj2": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a": "10",
+        "b": "30",
+        "c": {
+          "__proto__": "{...}",
+          "ca": "20",
+          "cb": "50",
+          "cc": "{...}"
+        }
+      },
+      "arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "0",
+          "Symbol.unscopables": "{...}"
+        },
+        "length": "2",
+        "[0]": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        },
+        "[1]": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        }
+      }
+    }
+  },
+  {
+    "log": "BP26"
+  },
+  {
+    "callstack": [
+      {
+        "start": 3861,
+        "length": 36,
+        "text": "WScript.Echo(JSON.stringify(arr[1]))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "breaking_on_sub_expression": "<large string>",
+          "breaking_on_sub_expression_arguments": "<large string>",
+          "breaking_on_sub_expression_try": "<large string>",
+          "foo": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a1": "10",
+        "arr": {
+          "__proto__": "[]",
+          "length": "2",
+          "[0]": "{...}",
+          "[1]": "{...}"
+        },
+        "obj2": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        }
+      },
+      "foo": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "breaking_on_sub_expression": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "<large string>",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "breaking_on_sub_expression_arguments": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "1",
+        "name": "<large string>",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "breaking_on_sub_expression_try": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "<large string>",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "a1": "10",
+      "obj2": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a": "10",
+        "b": "30",
+        "c": {
+          "__proto__": "{...}",
+          "ca": "20",
+          "cb": "50",
+          "cc": "{...}"
+        }
+      },
+      "arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "0",
+          "Symbol.unscopables": "{...}"
+        },
+        "length": "2",
+        "[0]": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        },
+        "[1]": {
+          "__proto__": "{...}",
+          "a": "10",
+          "b": "30",
+          "c": "{...}"
+        }
+      }
+    }
+  }
+]

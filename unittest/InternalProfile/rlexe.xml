@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<regress-exe>
+  <test>
+    <default>
+      <tags>exclude_fre</tags>
+      <files>DocumentWrite.html</files>
+      <compile-flags>-profilememory</compile-flags>
+      <baseline>DocumentWrite.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>exclude_fre</tags>
+      <files>DocumentWrite.html</files>
+      <compile-flags>-tracememory</compile-flags>
+      <baseline></baseline>
+    </default>
+  </test>
+</regress-exe>

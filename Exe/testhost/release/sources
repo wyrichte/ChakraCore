@@ -1,0 +1,7 @@
+!include ..\sources_common.inc
+
+MUI_VERIFY_NO_LOC_RESOURCE=1 
+
+
+PASS2_BINPLACE=-:DEST retail:mobilecore $(OBJ_PATH)\$(O)\$(TARGETNAME).exe \
+               -:DEST symbols.pri\jscript\exe $(OBJ_PATH)\$(O)\$(TARGETNAME).pdb

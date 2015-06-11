@@ -1,0 +1,295 @@
+{
+  "testname" : "Authoring Errors - Test error collection",
+  "owner" : "chuckj",
+  "validated" : true,
+  "timeout" : 1000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "_comment1" : "Supply a file with at least one error",
+  "_comment2" : "",
+  "runAuthoringTest" : true,
+  "commands" :
+  [
+{
+  "action": "getErrors",
+  "args": [
+    "errors.js"
+  ],
+  "events": [
+    {
+      "errors": [
+        {
+          "position": 11,
+          "length": 4,
+          "message": "Syntax error",
+          "messageID": 1002
+        },
+        {
+          "position": 16,
+          "length": 3,
+          "message": "Expected '/'",
+          "messageID": 1012
+        },
+        {
+          "position": 73,
+          "length": 5,
+          "message": "Expected identifier",
+          "messageID": 1010
+        },
+        {
+          "position": 144,
+          "length": 1,
+          "message": "Expected identifier, string or number",
+          "messageID": 1028
+        },
+        {
+          "position": 207,
+          "length": 1,
+          "message": "Expected identifier, string or number",
+          "messageID": 1028
+        },
+        {
+          "position": 269,
+          "length": 2,
+          "message": "Expected ':'",
+          "messageID": 1003
+        },
+        {
+          "position": 338,
+          "length": 1,
+          "message": "Expected ')'",
+          "messageID": 1006
+        },
+        {
+          "position": 398,
+          "length": 2,
+          "message": "Expected identifier",
+          "messageID": 1010
+        },
+        {
+          "position": 461,
+          "length": 1,
+          "message": "Expected ')'",
+          "messageID": 1006
+        },
+        {
+          "position": 515,
+          "length": 1,
+          "message": "Syntax error",
+          "messageID": 1002
+        },
+        {
+          "position": 566,
+          "length": 2,
+          "message": "Expected identifier",
+          "messageID": 1010
+        },
+        {
+          "position": 628,
+          "length": 1,
+          "message": "Expected '{'",
+          "messageID": 1008
+        },
+        {
+          "position": 702,
+          "length": 1,
+          "message": "Expected '{'",
+          "messageID": 1008
+        },
+        {
+          "position": 763,
+          "length": 1,
+          "message": "Expected identifier",
+          "messageID": 1010
+        },
+        {
+          "position": 765,
+          "length": 1,
+          "message": "Expected ')'",
+          "messageID": 1006
+        },
+        {
+          "position": 826,
+          "length": 1,
+          "message": "Expected '{'",
+          "messageID": 1008
+        },
+        {
+          "position": 885,
+          "length": 2,
+          "message": "Syntax error",
+          "messageID": 1002
+        },
+        {
+          "position": 953,
+          "length": 1,
+          "message": "Expected ';'",
+          "messageID": 1004
+        },
+        {
+          "position": 1017,
+          "length": 7,
+          "message": "'default' can only appear once in a 'switch' statement",
+          "messageID": 1027
+        },
+        {
+          "position": 1081,
+          "length": 1,
+          "message": "Can't have 'continue' outside of loop",
+          "messageID": 1020
+        },
+        {
+          "position": 1153,
+          "length": 6,
+          "message": "Label not found",
+          "messageID": 1026
+        },
+        {
+          "position": 1192,
+          "length": 1,
+          "message": "Can't have 'continue' outside of loop",
+          "messageID": 1020
+        },
+        {
+          "position": 1254,
+          "length": 1,
+          "message": "Can't have 'break' outside of loop",
+          "messageID": 1019
+        },
+        {
+          "position": 1311,
+          "length": 6,
+          "message": "'return' statement outside of function",
+          "messageID": 1018
+        },
+        {
+          "position": 1376,
+          "length": 1,
+          "message": "Expected ';'",
+          "messageID": 1004
+        },
+        {
+          "position": 1494,
+          "length": 4,
+          "message": "Invalid usage of 'eval' in strict mode",
+          "messageID": 1041
+        },
+        {
+          "position": 1557,
+          "length": 9,
+          "message": "Invalid usage of 'arguments' in strict mode",
+          "messageID": 1042
+        },
+        {
+          "position": 1615,
+          "length": 4,
+          "message": "Invalid usage of 'eval' in strict mode",
+          "messageID": 1041
+        },
+        {
+          "position": 1678,
+          "length": 9,
+          "message": "Invalid usage of 'arguments' in strict mode",
+          "messageID": 1042
+        },
+        {
+          "position": 1745,
+          "length": 2,
+          "message": "Octal numeric literals and escape characters not allowed in strict mode",
+          "messageID": 1039
+        },
+        {
+          "position": 1809,
+          "length": 20,
+          "message": "Octal numeric literals and escape characters not allowed in strict mode",
+          "messageID": 1039
+        },
+        {
+          "position": 1873,
+          "length": 5,
+          "message": "Octal numeric literals and escape characters not allowed in strict mode",
+          "messageID": 1039
+        },
+        {
+          "position": 1943,
+          "length": 5,
+          "message": "Octal numeric literals and escape characters not allowed in strict mode",
+          "messageID": 1039
+        },
+        {
+          "position": 2007,
+          "length": 2,
+          "message": "Octal numeric literals and escape characters not allowed in strict mode",
+          "messageID": 1039
+        },
+        {
+          "position": 2071,
+          "length": 20,
+          "message": "Octal numeric literals and escape characters not allowed in strict mode",
+          "messageID": 1039
+        },
+        {
+          "position": 2131,
+          "length": 5,
+          "message": "Octal numeric literals and escape characters not allowed in strict mode",
+          "messageID": 1039
+        },
+        {
+          "position": 2195,
+          "length": 2,
+          "message": "Octal numeric literals and escape characters not allowed in strict mode",
+          "messageID": 1039
+        },
+        {
+          "position": 2259,
+          "length": 20,
+          "message": "Octal numeric literals and escape characters not allowed in strict mode",
+          "messageID": 1039
+        },
+        {
+          "position": 2329,
+          "length": 1,
+          "message": "Duplicate formal parameter names not allowed in strict mode",
+          "messageID": 1038
+        },
+        {
+          "position": 2385,
+          "length": 1,
+          "message": "Calling delete on expression not allowed in strict mode",
+          "messageID": 1045
+        },
+        {
+          "position": 2457,
+          "length": 4,
+          "message": "Invalid usage of 'eval' in strict mode",
+          "messageID": 1041
+        },
+        {
+          "position": 2520,
+          "length": 9,
+          "message": "Invalid usage of 'arguments' in strict mode",
+          "messageID": 1042
+        },
+        {
+          "position": 2570,
+          "length": 4,
+          "message": "'with' statements are not allowed in strict mode",
+          "messageID": 1037
+        },
+        {
+          "position": 2650,
+          "length": 5,
+          "message": "Octal numeric literals and escape characters not allowed in strict mode",
+          "messageID": 1039
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

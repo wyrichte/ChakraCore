@@ -1,0 +1,25 @@
+[
+  {
+    "setnextstatement": {
+      "from": 206,
+      "to": 301,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 301,
+        "length": 29,
+        "text": "for (var i of (count++, [1]))",
+        "frameDescription": "foo1"
+      },
+      {
+        "start": 417,
+        "length": 6,
+        "text": "foo1()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

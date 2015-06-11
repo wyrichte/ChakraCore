@@ -1,0 +1,99 @@
+[
+  {
+    "log": "Cannot set mutation breakpoint setOnObject 0, type 2, ID MB1"
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Pending Mutation]": {
+        "b [Adding]": "1",
+        "[Property container obj]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "a": "1"
+      },
+      "x": "1",
+      "[Globals]": {
+        "foo1": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo4": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 365,
+        "length": 9,
+        "text": "obj.b = 1",
+        "frameDescription": "foo2"
+      },
+      {
+        "start": 380,
+        "length": 15,
+        "text": "foo2({ a : 1 })",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "Cannot set mutation breakpoint setOnObject 0, type 4, ID MB3"
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Pending Mutation]": {
+        "b [Deleting]": "{...}",
+        "[Property container obj]": "{...}"
+      },
+      "x": "1",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "a": "1",
+        "b": "{...}"
+      },
+      "[Globals]": {
+        "foo1": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo4": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 690,
+        "length": 21,
+        "text": "delete arguments[0].b",
+        "frameDescription": "foo4"
+      },
+      {
+        "start": 717,
+        "length": 23,
+        "text": "foo4({ a : 1, b : {} })",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

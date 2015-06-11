@@ -1,0 +1,6 @@
+!include ..\sources.inc
+TARGET_DESTINATION=Projection\WinRt:Projection\APPX
+
+TARGETLIBS=$(TARGETLIBS)\
+    $(SDK_LIB_PATH)\kernel32.lib \
+    

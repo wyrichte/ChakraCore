@@ -1,0 +1,12 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 66,
+        "length": 30,
+        "text": "var t = d.toLocaleTimeString()",
+        "frameDescription": "dateToString"
+      }
+    ]
+  }
+]

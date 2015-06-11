@@ -1,0 +1,45 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "k": "undefined",
+      "[Globals]": {
+        "test": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "test();": "undefined"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "ttt1": "31"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "k": "undefined",
+      "[Globals]": {
+        "test": "<large string>",
+        "bar": "<large string>",
+        "ttt1": "31"
+      }
+    }
+  }
+]

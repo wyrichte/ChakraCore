@@ -1,0 +1,28 @@
+How to Use CodeMarkers:
+
+1. Official DevDiv CodeMarkers page:
+http://devdiv/sites/wikis/perf/Wiki%20Pages/CodeMarkers%20in%20DevDiv.aspx
+
+
+2. Update CodeMarkers files:
+
+Source location: \\cpvsbuild\DROPS\dev10\RTMRel\raw\30319.326\binaries.x86ret\bin\i386  (Dev10 RTM)
+
+Destination: %sdxroot%\inetcore\jscript\Dll\JScript\CodeMarkers
+
+Files needed:
+- CodeMarkers.h
+- Microsoft.Internal.Performance.CodeMarkerValues.h
+- CodeMarkers.lib
+- codemarkers.pdb
+
+To define new marker codes, follow steps in: http://devdiv/sites/wikis/perf/Wiki%20Pages/How%20to%20add%20new%20CodeMarker%20values.aspx
+
+
+3. Test CodeMarkers:
+
+- The binary is dropped with the product, e.g. \\cpvsbuild\DROPS\dev10\RTMRel\raw\30319.326\binaries.x86ret\bin\i386\CodeMarkerSink.exe 
+- Copy CodeMarkerSink.exe and CodeMarkerListener.dll locally 
+- Copy the following file to your System32 or SysWOW64: \\cpvsbuild\DROPS\dev10\RTMRel\raw\30319.326\binaries.x86ret\bin\i386\Microsoft.Internal.Performance.CodeMarkers.dll 
+- Add the following registry entry: \\cpvsbuild\DROPS\dev10\RTMRel\raw\30319.326\binaries.x86ret\bin\i386\CodeMarkerEnable.reg
+- Start CodeMarkerSink.exe from a non-elevated command prompt (if you use elevated then non-elevated VS sessions cannot write to CodeMarkerSink).

@@ -1,0 +1,66 @@
+[
+  {
+    "evaluate": {
+      "m": {
+        "[Methods]": {
+          "clear": "function clear() { [native code] }",
+          "constructor": "function Map() { [native code] }",
+          "delete": "function delete() { [native code] }",
+          "entries": "function entries() { [native code] }",
+          "forEach": "function forEach() { [native code] }",
+          "get": "function get() { [native code] }",
+          "has": "function has() { [native code] }",
+          "keys": "function keys() { [native code] }",
+          "set": "function set() { [native code] }",
+          "Symbol.iterator": "function entries() { [native code] }",
+          "values": "function values() { [native code] }"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "size": {
+          "__proto__": "",
+          "description": "Map.prototype.size: 'this' is not a Map object",
+          "message": "Map.prototype.size: 'this' is not a Map object",
+          "number": "-2146823172",
+          "stack": "<large string>"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "bar": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": {
+          "__proto__": "",
+          "description": "Accessing the 'arguments' property of a function is not allowed in strict mode",
+          "message": "Accessing the 'arguments' property of a function is not allowed in strict mode",
+          "number": "-2146823193",
+          "stack": "<large string>"
+        },
+        "caller": {
+          "__proto__": "",
+          "description": "Accessing the 'caller' property of a function or arguments object is not allowed in strict mode",
+          "message": "Accessing the 'caller' property of a function or arguments object is not allowed in strict mode",
+          "number": "-2146823245",
+          "stack": "<large string>"
+        },
+        "length": "0",
+        "name": "bar",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      }
+    }
+  }
+]

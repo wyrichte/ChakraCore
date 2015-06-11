@@ -1,0 +1,633 @@
+(function () {
+var rootNamespace=this,dp=null,dpg=null,shadowableMembers=['apply','call','hasOwnProperty','isPrototypeOf','propertyIsEnumerable','toLocalString','toString','valueOf'];shadowableMembers.contains=function(b){for(var a=0;a<shadowableMembers.length;a++)if(shadowableMembers[a]==b)return true;return false};if(Object.defineProperty==undefined){dp=function(b,a,c){b[a]!=undefined&&!shadowableMembers.contains(a)&&WScript.Echo('Attempted redefinition of property '+a);b[a]=c};dpg=function(b,a){b[a]!=undefined&&!shadowableMembers.contains(a)&&WScript.Echo('Attempted redefinition of property '+a);b[a]={}}}else{dp=function(b,a,c){Object.defineProperty(b,a,{writable:false,enumerable:true,configurable:false,value:c})};dpg=function(c,a,b){Object.defineProperty(c,a,{enumerable:true,configurable:false,'get':b})}}var preventExtensions=null;if(Object.preventExtensions==undefined)preventExtensions=function(a){return a};else preventExtensions=function(a){return Object.preventExtensions(a)};function doComplete(a,b){if(a._state!==state_working)return;a._value=b;if(typeof b==='object'&&typeof b.then==='function'){a._state=state_waiting;b.then(function(b){a._state=state_working;doComplete(a,b)},function(b){a._state=state_working;doError(a,b)},function(b){doProgress(a,b)})}else{a._state=state_fulfilled_success;doNotify(a);a._cleanup()}}function doError(a,b){if(a._state!==state_working)return;a._value=b;a._state=state_fulfilled_error;doNotify(a);a._cleanup()}function doProgress(a,d){if(a._listeners)for(var b=0,e=a._listeners.length;b<e;b++){var c=a._listeners[b].onProgress;try{c&&c(d)}catch(f){}}}function notifySuccess(d,f){for(var b=0,g=d.length;b<g;b++){var e=d[b],a=e.carrier,c=e.onComplete;try{if(c)doComplete(a,c(f));else doComplete(a,f)}catch(h){doError(a,h)}}}function notifyError(c,f){for(var b=0,g=c.length;b<g;b++){var d=c[b],a=d.carrier,e=d.onError;try{if(e)doComplete(a,e(f));else doError(a,f)}catch(h){doError(a,h)}}}var state_working=0,state_waiting=1,state_fulfilled_error=2,state_fulfilled_success=3;function doCancel(a){if(a._state===state_waiting)typeof a._value.cancel==='function'&&a._value.cancel();a._cleanup()}function doNotify(b){var a=b._listeners;b._listeners=null;if(a){notifySuccess(a,b._value);notifyError(a,new Error)}}function doThen(a,e,g,f,c){a._listeners=a._listeners||[];var b=createThenPromise(c);a._listeners.push({promise:b.promise,carrier:b.carrier,onComplete:e,onError:g,onProgress:f});var d=100;doProgress(a,d);a._state>state_waiting&&doNotify(a);return b.promise}var AsyncOpPromise=function(a){var c=this,b={_listeners:null,_state:state_working,_value:null,_cleanup:function(){a=null}};this.cancel=function(){a&&a.cancel();doCancel(b)};this.then=function(a,e,d){return doThen(b,a,e,d,c)};doComplete(b,a.getResults())};AsyncOpPromise.prototype={};var thenPromisePrototype={};preventExtensions(thenPromisePrototype);var createThenPromise=function(b){var a={_listeners:null,_state:state_working,_value:null,_cleanup:function(){b=null}},c=Object.create(thenPromisePrototype,{then:{writable:false,enumerable:true,configurable:false,value:function(b,d,c){return doThen(a,b,d,c,this)}},cancel:{writable:false,enumerable:true,configurable:false,value:function(){b&&b.cancel();doCancel(a)}}});preventExtensions(c);return {promise:c,carrier:a}},asyncOpWrapperPrototype={};preventExtensions(asyncOpWrapperPrototype);function AsyncOpWrapper(e){var a=null,c=function(b,d,c){a=a||new AsyncOpPromise(this.operation);return a.then(b,d,c)};preventExtensions(c);var b=function(){a=a||new AsyncOpPromise(this.operation);a.cancel()};preventExtensions(b);var d=Object.create(asyncOpWrapperPrototype,{operation:{writable:false,enumerable:true,configurable:false,value:e},then:{writable:false,enumerable:true,configurable:false,value:c},cancel:{writable:false,enumerable:true,configurable:false,value:b}});preventExtensions(d);return d}
+// Begin Pass 1 ----------------------------------------------------------------------
+if(this.Animals==undefined) {this.Animals = {};}
+dp(rootNamespace['Animals'],'Animal', /* runtime constructor-1 */function()
+ {
+    /// <signature externalid='M:Animals.Animal.#ctor' externalfile='animal.xml' helpkeyword='Animals.Animal.#ctor'>
+    /// <returns type='Animals.Animal' externalid='T:Animals.Animal' externalfile='animal.xml'/>
+    /// </signature>
+    /// <field name='weight' type='Number' externalid='P:Animals.Animal.Weight' externalfile='animal.xml' helpkeyword='Animals.Animal.Weight'/>
+    function make() { return this; };
+dp(make['prototype'],'addInts', function(val1,val2)
+ {
+    /// <signature externalid='M:Animals.Animal.AddInts(System.Int32,System.Int32)' externalfile='animal.xml' helpkeyword='Animals.Animal.AddInts'>
+    /// <param name='val1' type='Number'/>
+    /// <param name='val2' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'getDimensions', function()
+ {
+    /// <signature externalid='M:Animals.Animal.GetDimensions' externalfile='animal.xml' helpkeyword='Animals.Animal.GetDimensions'>
+    /// <returns type='Animals._Dimensions' externalid='T:Animals._Dimensions' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_Dimensions']();});
+dp(make['prototype'],'getNumLegs', function()
+ {
+    /// <signature externalid='M:Animals.Animal.GetNumLegs' externalfile='animal.xml' helpkeyword='Animals.Animal.GetNumLegs'>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'getOuterStruct', function()
+ {
+    /// <signature externalid='M:Animals.Animal.GetOuterStruct' externalfile='animal.xml' helpkeyword='Animals.Animal.GetOuterStruct'>
+    /// <returns type='Animals._OuterStruct' externalid='T:Animals._OuterStruct' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_OuterStruct']();});
+dp(make['prototype'],'marshalBool', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalBool(System.Boolean)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalBool'>
+    /// <param name='_in' type='Boolean'/>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+dp(make['prototype'],'marshalChar16', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalChar16(System.Char)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalChar16'>
+    /// <param name='_in' type='String'/>
+    /// <returns type='String'/>
+    /// </signature>
+ return '_';});
+dp(make['prototype'],'marshalDimensions', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalDimensions(Animals._Dimensions)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalDimensions'>
+    /// <param name='_in' type='Animals._Dimensions'/>
+    /// <returns type='Animals._Dimensions' externalid='T:Animals._Dimensions' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_Dimensions']();});
+dp(make['prototype'],'marshalDouble', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalDouble(System.Double)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalDouble'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 1.1;});
+dp(make['prototype'],'marshalInt32', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalInt32(System.Int32)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalInt32'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'marshalInt64', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalInt64(System.Int64)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalInt64'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'marshalOuterStruct', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalOuterStruct(Animals._OuterStruct)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalOuterStruct'>
+    /// <param name='_in' type='Animals._OuterStruct'/>
+    /// <returns type='Animals._OuterStruct' externalid='T:Animals._OuterStruct' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_OuterStruct']();});
+dp(make['prototype'],'marshalSingle', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalSingle(System.Single)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalSingle'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 1.1;});
+dp(make['prototype'],'marshalUInt32', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalUInt32(System.UInt32)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalUInt32'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'marshalUInt64', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalUInt64(System.UInt64)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalUInt64'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'marshalUInt8', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalUInt8(System.Byte)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalUInt8'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dpg(make['prototype'],'weight', function() { return 0;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Animals'],'Dino', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'canRoar', function()
+ {
+    /// <signature externalid='M:Animals.Dino.CanRoar' externalfile='animal.xml' helpkeyword='Animals.Dino.CanRoar'>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+dp(make['prototype'],'isExtinct', function()
+ {
+    /// <signature externalid='M:Animals.Dino.IsExtinct' externalfile='animal.xml' helpkeyword='Animals.Dino.IsExtinct'>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+dp(make['prototype'],'roar', function(numtimes)
+ {
+    /// <signature externalid='M:Animals.Dino.Roar(System.Int32)' externalfile='animal.xml' helpkeyword='Animals.Dino.Roar'>
+    /// <param name='numtimes' type='Number'/>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Animals'],'Fish', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'getNumFins', function()
+ {
+    /// <signature externalid='M:Animals.Fish.GetNumFins' externalfile='animal.xml' helpkeyword='Animals.Fish.GetNumFins'>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Animals'],'IAnimal', /* runtime constructor-1 */function()
+ {
+    /// <field name='weight' type='Number' externalid='P:Animals.IAnimal.Weight' externalfile='animal.xml' helpkeyword='Animals.IAnimal.Weight'/>
+    function make() { return this; };
+dp(make['prototype'],'addInts', function(val1,val2)
+ {
+    /// <signature externalid='M:Animals.IAnimal.AddInts(System.Int32,System.Int32)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.AddInts'>
+    /// <param name='val1' type='Number'/>
+    /// <param name='val2' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'getDimensions', function()
+ {
+    /// <signature externalid='M:Animals.IAnimal.GetDimensions' externalfile='animal.xml' helpkeyword='Animals.IAnimal.GetDimensions'>
+    /// <returns type='Animals._Dimensions' externalid='T:Animals._Dimensions' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_Dimensions']();});
+dp(make['prototype'],'getNumLegs', function()
+ {
+    /// <signature externalid='M:Animals.IAnimal.GetNumLegs' externalfile='animal.xml' helpkeyword='Animals.IAnimal.GetNumLegs'>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'getOuterStruct', function()
+ {
+    /// <signature externalid='M:Animals.IAnimal.GetOuterStruct' externalfile='animal.xml' helpkeyword='Animals.IAnimal.GetOuterStruct'>
+    /// <returns type='Animals._OuterStruct' externalid='T:Animals._OuterStruct' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_OuterStruct']();});
+dp(make['prototype'],'marshalBool', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalBool(System.Boolean)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalBool'>
+    /// <param name='_in' type='Boolean'/>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+dp(make['prototype'],'marshalChar16', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalChar16(System.Char)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalChar16'>
+    /// <param name='_in' type='String'/>
+    /// <returns type='String'/>
+    /// </signature>
+ return '_';});
+dp(make['prototype'],'marshalDimensions', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalDimensions(Animals._Dimensions)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalDimensions'>
+    /// <param name='_in' type='Animals._Dimensions'/>
+    /// <returns type='Animals._Dimensions' externalid='T:Animals._Dimensions' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_Dimensions']();});
+dp(make['prototype'],'marshalDouble', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalDouble(System.Double)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalDouble'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 1.1;});
+dp(make['prototype'],'marshalInt32', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalInt32(System.Int32)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalInt32'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'marshalInt64', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalInt64(System.Int64)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalInt64'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'marshalOuterStruct', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalOuterStruct(Animals._OuterStruct)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalOuterStruct'>
+    /// <param name='_in' type='Animals._OuterStruct'/>
+    /// <returns type='Animals._OuterStruct' externalid='T:Animals._OuterStruct' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_OuterStruct']();});
+dp(make['prototype'],'marshalSingle', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalSingle(System.Single)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalSingle'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 1.1;});
+dp(make['prototype'],'marshalUInt32', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalUInt32(System.UInt32)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalUInt32'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'marshalUInt64', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalUInt64(System.UInt64)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalUInt64'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'marshalUInt8', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalUInt8(System.Byte)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalUInt8'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dpg(make['prototype'],'weight', function() { return 0;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Animals'],'IAnimalFactory', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'create', function()
+ {
+    /// <signature externalid='M:Animals.IAnimalFactory.Create' externalfile='animal.xml' helpkeyword='Animals.IAnimalFactory.Create'>
+    /// <returns type='Animals.Animal' externalid='T:Animals.Animal' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['Animal']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Animals'],'IDino', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'canRoar', function()
+ {
+    /// <signature externalid='M:Animals.IDino.CanRoar' externalfile='animal.xml' helpkeyword='Animals.IDino.CanRoar'>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+dp(make['prototype'],'roar', function(numtimes)
+ {
+    /// <signature externalid='M:Animals.IDino.Roar(System.Int32)' externalfile='animal.xml' helpkeyword='Animals.IDino.Roar'>
+    /// <param name='numtimes' type='Number'/>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Animals'],'IExtinct', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'isExtinct', function()
+ {
+    /// <signature externalid='M:Animals.IExtinct.IsExtinct' externalfile='animal.xml' helpkeyword='Animals.IExtinct.IsExtinct'>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Animals'],'IFish', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'getNumFins', function()
+ {
+    /// <signature externalid='M:Animals.IFish.GetNumFins' externalfile='animal.xml' helpkeyword='Animals.IFish.GetNumFins'>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Animals'],'_Dimensions', /* struct constructor */function() {
+    /// <signature>
+    /// <returns type='Animals._Dimensions' externalid='T:Animals._Dimensions' externalfile='animal.xml'/>
+    /// </signature>
+    /// <field name='length' type='Number' externalid='F:Animals._Dimensions.Length' externalfile='animal.xml' helpkeyword='Animals._Dimensions.Length'/>
+    /// <field name='width' type='Number' externalid='F:Animals._Dimensions.Width' externalfile='animal.xml' helpkeyword='Animals._Dimensions.Width'/>
+    var result={};
+dp(result,'length', 0);
+dp(result,'width', 0);
+return result; });
+dp(rootNamespace['Animals'],'_InnerStruct', /* struct constructor */function() {
+    /// <signature>
+    /// <returns type='Animals._InnerStruct' externalid='T:Animals._InnerStruct' externalfile='animal.xml'/>
+    /// </signature>
+    /// <field name='a' type='Number' externalid='F:Animals._InnerStruct.a' externalfile='animal.xml' helpkeyword='Animals._InnerStruct.a'/>
+    var result={};
+dp(result,'a', 0);
+return result; });
+dp(rootNamespace['Animals'],'_OuterStruct', /* struct constructor */function() {
+    /// <signature>
+    /// <returns type='Animals._OuterStruct' externalid='T:Animals._OuterStruct' externalfile='animal.xml'/>
+    /// </signature>
+    /// <field name='inner' type='Animals._InnerStruct' externalid='F:Animals._OuterStruct.Inner' externalfile='animal.xml' helpkeyword='Animals._OuterStruct.Inner'/>
+    var result={};
+dp(result,'inner', new rootNamespace['Animals']['_InnerStruct']());
+return result; });
+// Begin Pass 2 ----------------------------------------------------------------------
+/* runtime class constructor-2 */
+dp(rootNamespace['Animals']['Animal']['prototype'],'addInts', function(val1,val2)
+ {
+    /// <signature externalid='M:Animals.Animal.AddInts(System.Int32,System.Int32)' externalfile='animal.xml' helpkeyword='Animals.Animal.AddInts'>
+    /// <param name='val1' type='Number'/>
+    /// <param name='val2' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(rootNamespace['Animals']['Animal']['prototype'],'getDimensions', function()
+ {
+    /// <signature externalid='M:Animals.Animal.GetDimensions' externalfile='animal.xml' helpkeyword='Animals.Animal.GetDimensions'>
+    /// <returns type='Animals._Dimensions' externalid='T:Animals._Dimensions' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_Dimensions']();});
+dp(rootNamespace['Animals']['Animal']['prototype'],'getNumLegs', function()
+ {
+    /// <signature externalid='M:Animals.Animal.GetNumLegs' externalfile='animal.xml' helpkeyword='Animals.Animal.GetNumLegs'>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(rootNamespace['Animals']['Animal']['prototype'],'getOuterStruct', function()
+ {
+    /// <signature externalid='M:Animals.Animal.GetOuterStruct' externalfile='animal.xml' helpkeyword='Animals.Animal.GetOuterStruct'>
+    /// <returns type='Animals._OuterStruct' externalid='T:Animals._OuterStruct' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_OuterStruct']();});
+dp(rootNamespace['Animals']['Animal']['prototype'],'marshalBool', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalBool(System.Boolean)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalBool'>
+    /// <param name='_in' type='Boolean'/>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+dp(rootNamespace['Animals']['Animal']['prototype'],'marshalChar16', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalChar16(System.Char)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalChar16'>
+    /// <param name='_in' type='String'/>
+    /// <returns type='String'/>
+    /// </signature>
+ return '_';});
+dp(rootNamespace['Animals']['Animal']['prototype'],'marshalDimensions', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalDimensions(Animals._Dimensions)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalDimensions'>
+    /// <param name='_in' type='Animals._Dimensions'/>
+    /// <returns type='Animals._Dimensions' externalid='T:Animals._Dimensions' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_Dimensions']();});
+dp(rootNamespace['Animals']['Animal']['prototype'],'marshalDouble', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalDouble(System.Double)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalDouble'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 1.1;});
+dp(rootNamespace['Animals']['Animal']['prototype'],'marshalInt32', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalInt32(System.Int32)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalInt32'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(rootNamespace['Animals']['Animal']['prototype'],'marshalInt64', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalInt64(System.Int64)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalInt64'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(rootNamespace['Animals']['Animal']['prototype'],'marshalOuterStruct', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalOuterStruct(Animals._OuterStruct)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalOuterStruct'>
+    /// <param name='_in' type='Animals._OuterStruct'/>
+    /// <returns type='Animals._OuterStruct' externalid='T:Animals._OuterStruct' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_OuterStruct']();});
+dp(rootNamespace['Animals']['Animal']['prototype'],'marshalSingle', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalSingle(System.Single)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalSingle'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 1.1;});
+dp(rootNamespace['Animals']['Animal']['prototype'],'marshalUInt32', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalUInt32(System.UInt32)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalUInt32'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(rootNamespace['Animals']['Animal']['prototype'],'marshalUInt64', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalUInt64(System.UInt64)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalUInt64'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(rootNamespace['Animals']['Animal']['prototype'],'marshalUInt8', function(_in)
+ {
+    /// <signature externalid='M:Animals.Animal.MarshalUInt8(System.Byte)' externalfile='animal.xml' helpkeyword='Animals.Animal.MarshalUInt8'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dpg(rootNamespace['Animals']['Animal']['prototype'],'weight', function() { return 0;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Animals']['Dino']['prototype'],'canRoar', function()
+ {
+    /// <signature externalid='M:Animals.Dino.CanRoar' externalfile='animal.xml' helpkeyword='Animals.Dino.CanRoar'>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+dp(rootNamespace['Animals']['Dino']['prototype'],'isExtinct', function()
+ {
+    /// <signature externalid='M:Animals.Dino.IsExtinct' externalfile='animal.xml' helpkeyword='Animals.Dino.IsExtinct'>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+dp(rootNamespace['Animals']['Dino']['prototype'],'roar', function(numtimes)
+ {
+    /// <signature externalid='M:Animals.Dino.Roar(System.Int32)' externalfile='animal.xml' helpkeyword='Animals.Dino.Roar'>
+    /// <param name='numtimes' type='Number'/>
+    /// </signature>
+ return ;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Animals']['Fish']['prototype'],'getNumFins', function()
+ {
+    /// <signature externalid='M:Animals.Fish.GetNumFins' externalfile='animal.xml' helpkeyword='Animals.Fish.GetNumFins'>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'addInts', function(val1,val2)
+ {
+    /// <signature externalid='M:Animals.IAnimal.AddInts(System.Int32,System.Int32)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.AddInts'>
+    /// <param name='val1' type='Number'/>
+    /// <param name='val2' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'getDimensions', function()
+ {
+    /// <signature externalid='M:Animals.IAnimal.GetDimensions' externalfile='animal.xml' helpkeyword='Animals.IAnimal.GetDimensions'>
+    /// <returns type='Animals._Dimensions' externalid='T:Animals._Dimensions' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_Dimensions']();});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'getNumLegs', function()
+ {
+    /// <signature externalid='M:Animals.IAnimal.GetNumLegs' externalfile='animal.xml' helpkeyword='Animals.IAnimal.GetNumLegs'>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'getOuterStruct', function()
+ {
+    /// <signature externalid='M:Animals.IAnimal.GetOuterStruct' externalfile='animal.xml' helpkeyword='Animals.IAnimal.GetOuterStruct'>
+    /// <returns type='Animals._OuterStruct' externalid='T:Animals._OuterStruct' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_OuterStruct']();});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'marshalBool', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalBool(System.Boolean)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalBool'>
+    /// <param name='_in' type='Boolean'/>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'marshalChar16', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalChar16(System.Char)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalChar16'>
+    /// <param name='_in' type='String'/>
+    /// <returns type='String'/>
+    /// </signature>
+ return '_';});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'marshalDimensions', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalDimensions(Animals._Dimensions)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalDimensions'>
+    /// <param name='_in' type='Animals._Dimensions'/>
+    /// <returns type='Animals._Dimensions' externalid='T:Animals._Dimensions' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_Dimensions']();});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'marshalDouble', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalDouble(System.Double)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalDouble'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 1.1;});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'marshalInt32', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalInt32(System.Int32)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalInt32'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'marshalInt64', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalInt64(System.Int64)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalInt64'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'marshalOuterStruct', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalOuterStruct(Animals._OuterStruct)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalOuterStruct'>
+    /// <param name='_in' type='Animals._OuterStruct'/>
+    /// <returns type='Animals._OuterStruct' externalid='T:Animals._OuterStruct' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['_OuterStruct']();});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'marshalSingle', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalSingle(System.Single)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalSingle'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 1.1;});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'marshalUInt32', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalUInt32(System.UInt32)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalUInt32'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'marshalUInt64', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalUInt64(System.UInt64)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalUInt64'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(rootNamespace['Animals']['IAnimal']['prototype'],'marshalUInt8', function(_in)
+ {
+    /// <signature externalid='M:Animals.IAnimal.MarshalUInt8(System.Byte)' externalfile='animal.xml' helpkeyword='Animals.IAnimal.MarshalUInt8'>
+    /// <param name='_in' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dpg(rootNamespace['Animals']['IAnimal']['prototype'],'weight', function() { return 0;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Animals']['IAnimalFactory']['prototype'],'create', function()
+ {
+    /// <signature externalid='M:Animals.IAnimalFactory.Create' externalfile='animal.xml' helpkeyword='Animals.IAnimalFactory.Create'>
+    /// <returns type='Animals.Animal' externalid='T:Animals.Animal' externalfile='animal.xml'/>
+    /// </signature>
+ return new rootNamespace['Animals']['Animal']();});
+/* runtime class constructor-2 */
+dp(rootNamespace['Animals']['IDino']['prototype'],'canRoar', function()
+ {
+    /// <signature externalid='M:Animals.IDino.CanRoar' externalfile='animal.xml' helpkeyword='Animals.IDino.CanRoar'>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+dp(rootNamespace['Animals']['IDino']['prototype'],'roar', function(numtimes)
+ {
+    /// <signature externalid='M:Animals.IDino.Roar(System.Int32)' externalfile='animal.xml' helpkeyword='Animals.IDino.Roar'>
+    /// <param name='numtimes' type='Number'/>
+    /// </signature>
+ return ;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Animals']['IExtinct']['prototype'],'isExtinct', function()
+ {
+    /// <signature externalid='M:Animals.IExtinct.IsExtinct' externalfile='animal.xml' helpkeyword='Animals.IExtinct.IsExtinct'>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Animals']['IFish']['prototype'],'getNumFins', function()
+ {
+    /// <signature externalid='M:Animals.IFish.GetNumFins' externalfile='animal.xml' helpkeyword='Animals.IFish.GetNumFins'>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+}).call(this);

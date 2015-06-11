@@ -1,0 +1,18 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 86,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "testFirstChanceException"
+      },
+      {
+        "start": 156,
+        "length": 26,
+        "text": "testFirstChanceException()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

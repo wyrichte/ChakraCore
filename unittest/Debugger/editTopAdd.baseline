@@ -1,0 +1,20 @@
+=== Before change ===
+f ==  undefined
+ENC: QueryEdit: 1 requests
+ENC: edittopadd.js (55,103):
+/**edit(top)**/
+/// function f() {
+///     WScript.Echo("new ...
+===>
+ function f() {
+     WScript.Echo("new f, add new");
+ }
+...
+ENC: === AST Diffing ===
+ENC: Insert: FuncDecl function f() {..     WScript.Ec
+ENC: === Semantic Changes ===
+ENC: MoveFunction: FuncDecl function test() {..    WScript. -> FuncDecl function test() {..    WScript.
+ENC:     Old functionBody: test
+ENC: InsertFunction: FuncDecl function f() {..     WScript.Ec
+=== After change ===
+new f, add new

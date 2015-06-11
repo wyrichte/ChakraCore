@@ -1,0 +1,56 @@
+
+==== Basic let and const variables at global scope ====
+
+
+Naked references
+
+global var a
+global undecl b
+global let c
+global const d
+function e() { }
+
+this. references
+
+global var a
+global undecl b
+undefined
+undefined
+function e() { }
+
+for-in enumeration of this
+
+e: function e() { }
+a: global var a
+b: global undecl b
+
+==== Basic let and const variables at global scope -- Second Script ====
+
+
+Naked references from second script
+
+global var a
+global undecl b
+global let c
+global const d
+function e() { }
+global let shadow_let
+global const shadow_const
+
+this. references from second script
+
+global var a
+global undecl b
+undefined
+undefined
+function e() { }
+global undecl shadow_let
+global undecl shadow_const
+
+for-in enumeration of this from second script
+
+e: function e() { }
+a: global var a
+b: global undecl b
+shadow_let: global undecl shadow_let
+shadow_const: global undecl shadow_const

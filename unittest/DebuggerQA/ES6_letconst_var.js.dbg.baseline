@@ -1,0 +1,39 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "var x",
+      "x#1": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 163,
+        "length": 8,
+        "text": "write(x)",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 211,
+        "length": 8,
+        "text": "write(x)",
+        "frameDescription": "Run"
+      }
+    ]
+  }
+]

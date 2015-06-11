@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Basic WebWorker Promise test</title>
+    
+    <script>
+        function echo(str) {
+            if (typeof WScript === 'undefined') {
+                var p = document.createElement('p');
+                p.textContent = str;
+                var el = document.getElementById("testdiv");
+                el.appendChild(p);
+            } else {
+                WScript.Echo(str);
+            }
+        }
+        
+        var w = new Worker("ES6Promise_WebWorker.js");
+        
+        w.addEventListener('message', function(event) {
+            echo(event.data);
+        }, false);
+        
+        w.postMessage('');
+        
+        window.setTimeout(
+            function() {
+                WScript.Quit();
+            },
+            100
+        );
+    </script>
+</head>
+<body">
+    <div id="testdiv">hello</div>
+</body>
+</html>

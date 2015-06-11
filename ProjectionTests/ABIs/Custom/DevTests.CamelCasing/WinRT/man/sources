@@ -1,0 +1,7 @@
+TEST_CODE=1
+TARGETTYPE    = NOTARGET
+TARGETNAME    = Animals
+TARGET_DESTINATION = Projection\WinRT:Projection\APPX
+
+PASS0_BINPLACE= \
+    DevTests.CamelCasing.man

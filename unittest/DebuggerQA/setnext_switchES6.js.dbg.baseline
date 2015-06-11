@@ -1,0 +1,35 @@
+[
+  {
+    "setnextstatement": {
+      "from": 156,
+      "to": 232,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "z": "10",
+      "y": "[Uninitialized block variable]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "val": "function val(){\n\treturn 1;\n}",
+        "Run": "<large string>"
+      }
+    }
+  }
+]

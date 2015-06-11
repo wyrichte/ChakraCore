@@ -1,0 +1,61 @@
+!include $(PROJECT_ROOT)\platform.inc
+
+TARGETNAME=HeapTest
+TARGETTYPE=PROGRAM
+
+_NT_TARGET_VERSION = $(_NT_TARGET_VERSION_WIN7)
+
+WARNING_LEVEL=W2
+
+!IF "$(_BUILDARCH)" == "arm" || "$(_BUILDARCH)" == "arm64"
+NT_SIGNCODE=1
+TEST_CODE=1
+!ENDIF
+
+# Turns on fretest for test code
+!include $(JSCRIPT_ROOT)\jslibtest.inc
+
+INCLUDES=$(COREINCLUDES);$(DS_INC_PATH);$(SDK_INC_PATH)\crt\stl70;$(JSCRIPT_ROOT)\dll\jscript;$(OBJ_PATH)\..\..\dll\jscript\$(O);$(JSCRIPT_ROOT)\lib\Common\;$(JSCRIPT_ROOT)\lib\Common\DataStructures
+
+#4740: flow in or out of inline asm code suppresses global optimization
+MSC_WARNING_LEVEL=$(MSC_WARNING_LEVEL) /wd4740
+
+
+C_DEFINES =$(C_DEFINES) -DWINNT -DUNICODE -D_UNICODE
+
+MSC_WARNING_LEVEL=-$(WARNING_LEVEL:W3=W4)
+
+!if !$(FREEBUILD)
+C_DEFINES =$(C_DEFINES) -DPROFILE_DICTIONARY
+!endif
+
+USE_STL=1
+USE_ATL=1
+USE_RTTI=1
+UMENTRY = main
+UMTYPE = console
+
+# Note: EXCLUDE_BACKEND comes from inetcore\jscript\project.mk
+
+TARGETLIBS=     \
+    $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
+    $(OBJECT_INETCORE_DIR)\lib\codex\iel1\$(O)\codex_iel1.lib \
+    $(JS_LINK_LIBS) \
+    $(SDK_LIB_PATH)\muiload.lib \
+    $(SDK_LIB_PATH)\oleaut32.lib \
+    $(SDK_LIB_PATH)\ole32.lib \
+    $(SDK_LIB_PATH)\psapi.lib \
+    $(SDK_LIB_PATH)\Uuid.lib \
+    $(SDK_LIB_PATH)\shlwapi.lib \
+    $(SDK_LIB_PATH)\ntdll.lib \
+    $(SDK_LIB_PATH)\version.lib \
+!if !$(FREEBUILD)
+    $(SDK_LIB_PATH)\user32.lib \
+!endif
+
+SOURCES= \
+    Main.cpp
+
+PRECOMPILED_INCLUDE=stdafx.h
+PRECOMPILED_SOURCEFILE=stdafx.cpp
+PRECOMPILED_CXX=1

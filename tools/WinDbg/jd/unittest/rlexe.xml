@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<regress-exe>
+  <test>
+    <default>
+      <files>test1.js</files>
+      <command>bm jshost!*WScript*Echo;g; kc;!jd.ldsym;kc;g;  .echo;  kc;!jd.ldsym;kc;  q</command>
+      <tags>exclude_native</tags>
+      <baseline>test1_i0.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>test1.js</files>
+      <command>bm jshost!*WScript*Echo;g; kc;!jd.ldsym;kc;g;  .echo;  kc;!jd.ldsym;kc;  q</command>
+      <tags>exclude_interpreted</tags>
+      <baseline>test1_i0.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>test1.js</files>
+      <command>bm jshost!*WScript*Echo;g; kc;!jd.ldsym;kc;g;  .echo;  kc;!jd.ldsym;kc;  q</command>
+      <compile-flags>-ForceDeferParse -ForceJITLoopBody</compile-flags>
+      <tags>exclude_native</tags>
+      <baseline>test1_i1.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>test1.js</files>
+      <command>bm jshost!*WScript*Echo;g; kc;!jd.ldsym;kc;g;  .echo;  kc;!jd.ldsym;kc;  q</command>
+      <compile-flags>-ForceDeferParse -ForceJITLoopBody</compile-flags>
+      <tags>exclude_interpreted</tags>
+      <baseline>test1_i1.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>test2.js</files>
+      <command>sxe eh;g;  kc;!jd.ldsym;kc;  q</command>
+      <tags>exclude_native</tags>
+      <baseline>test2.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>test2.js</files>
+      <command>sxe eh;g;  kc;!jd.ldsym;kc;  q</command>
+      <tags>exclude_interpreted</tags>
+      <baseline>test2.baseline</baseline>
+    </default>
+  </test>
+
+</regress-exe>

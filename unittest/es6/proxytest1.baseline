@@ -1,0 +1,122 @@
+*** Running test #1 (0): basic Proxy object
+PASSED
+*** Running test #2 (1): Proxy construction
+PASSED
+*** Running test #3 (2): Revocable Proxy construction
+PASSED
+*** Running test #4 (3): proxy equality
+PASSED
+*** Running test #5 (4): remote proxy equality
+PASSED
+*** Running test #6 (5): getOwnPropertyDescriptor_basic
+getOwnPropertyDescriptor trap foo
+get trap foo on function receiver function
+get trap bar on function receiver function
+PASSED
+*** Running test #7 (6): getOwnPropertyDescriptor_item
+getOwnPropertyDescriptor trap 1
+get trap 1 on function receiver function
+getOwnPropertyDescriptor trap 1
+get trap 1 on function receiver function
+PASSED
+*** Running test #8 (7): getOwnPropertyDescriptor_getter
+getOwnPropertyDescriptor trap foo
+get trap foo on function receiver function
+get trap _doesntexist on function receiver function
+get trap mygetter on function receiver function
+in mygetter
+PASSED
+*** Running test #9 (8): getOwnPropertyDescriptor_itemgetter
+getOwnPropertyDescriptor trap 2
+get trap 2 on function receiver function
+getOwnPropertyDescriptor trap 2
+get trap 2 on function receiver function
+in item getter 2
+PASSED
+*** Running test #10 (9): getOwnPropertyDescriptor change return
+getOwnPropertyDescriptor trap tada
+in trapGetOwnPropertyDescriptor
+getOwnPropertyDescriptor trap whatisthis
+in trapGetOwnPropertyDescriptor
+getOwnPropertyDescriptor trap 2
+in trapGetOwnPropertyDescriptor
+PASSED
+*** Running test #11 (10): getPrototypeOf1
+get trap getPrototypeOf1 on function receiver function
+PASSED
+*** Running test #12 (11): getPrototypeOf2
+getPrototypeOf trap
+getPrototypeOf trap
+PASSED
+*** Running test #13 (12): getPrototypeOf return null
+getPrototypeOf trap
+PASSED
+*** Running test #14 (13): getPrototypeOf return value
+getPrototypeOf trap
+PASSED
+*** Running test #15 (14): hasOwnProperty return value
+get trap hasOwnProperty on function receiver function
+getOwnPropertyDescriptor trap xyz
+PASSED
+Summary of tests: total executed: 15; passed: 15; failed: 0
+*** Running test #16 (0): basic Proxy object
+PASSED
+*** Running test #17 (1): Proxy construction
+PASSED
+*** Running test #18 (2): Revocable Proxy construction
+PASSED
+*** Running test #19 (3): proxy equality
+PASSED
+*** Running test #20 (4): remote proxy equality
+PASSED
+*** Running test #21 (5): getOwnPropertyDescriptor_basic
+getOwnPropertyDescriptor trap foo
+get trap foo on function receiver function
+get trap bar on function receiver function
+PASSED
+*** Running test #22 (6): getOwnPropertyDescriptor_item
+getOwnPropertyDescriptor trap 1
+get trap 1 on function receiver function
+getOwnPropertyDescriptor trap 1
+get trap 1 on function receiver function
+PASSED
+*** Running test #23 (7): getOwnPropertyDescriptor_getter
+getOwnPropertyDescriptor trap foo
+get trap foo on function receiver function
+get trap _doesntexist on function receiver function
+get trap mygetter on function receiver function
+in mygetter
+PASSED
+*** Running test #24 (8): getOwnPropertyDescriptor_itemgetter
+getOwnPropertyDescriptor trap 2
+get trap 2 on function receiver function
+getOwnPropertyDescriptor trap 2
+get trap 2 on function receiver function
+in item getter 2
+PASSED
+*** Running test #25 (9): getOwnPropertyDescriptor change return
+getOwnPropertyDescriptor trap tada
+in trapGetOwnPropertyDescriptor
+getOwnPropertyDescriptor trap whatisthis
+in trapGetOwnPropertyDescriptor
+getOwnPropertyDescriptor trap 2
+in trapGetOwnPropertyDescriptor
+PASSED
+*** Running test #26 (10): getPrototypeOf1
+get trap getPrototypeOf1 on function receiver function
+PASSED
+*** Running test #27 (11): getPrototypeOf2
+getPrototypeOf trap
+getPrototypeOf trap
+PASSED
+*** Running test #28 (12): getPrototypeOf return null
+getPrototypeOf trap
+PASSED
+*** Running test #29 (13): getPrototypeOf return value
+getPrototypeOf trap
+PASSED
+*** Running test #30 (14): hasOwnProperty return value
+get trap hasOwnProperty on function receiver function
+getOwnPropertyDescriptor trap xyz
+PASSED
+Summary of tests: total executed: 30; passed: 30; failed: 0

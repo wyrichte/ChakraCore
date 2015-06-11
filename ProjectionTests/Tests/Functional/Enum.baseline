@@ -1,0 +1,486 @@
+Enum tests
+
+=================================================
+Starting [Test 1: BasicEnum]
+Pass: type
+      Actual: object
+
+Pass: first : number = '0'
+      Actual: first : number = '0'
+
+Pass: acanthocephala : number = '0'
+      Actual: acanthocephala : number = '0'
+
+Pass: acoelomorpha : number = '1'
+      Actual: acoelomorpha : number = '1'
+
+Pass: annelida : number = '2'
+      Actual: annelida : number = '2'
+
+Pass: arthropoda : number = '3'
+      Actual: arthropoda : number = '3'
+
+Pass: brachiopoda : number = '4'
+      Actual: brachiopoda : number = '4'
+
+Pass: bryozoa : number = '5'
+      Actual: bryozoa : number = '5'
+
+Pass: chaetognatha : number = '6'
+      Actual: chaetognatha : number = '6'
+
+Pass: chordata : number = '7'
+      Actual: chordata : number = '7'
+
+Pass: cnidaria : number = '8'
+      Actual: cnidaria : number = '8'
+
+Pass: ctenophora : number = '9'
+      Actual: ctenophora : number = '9'
+
+Pass: cycliophora : number = '10'
+      Actual: cycliophora : number = '10'
+
+Pass: echinodermata : number = '11'
+      Actual: echinodermata : number = '11'
+
+Pass: echiura : number = '12'
+      Actual: echiura : number = '12'
+
+Pass: entoprocta : number = '13'
+      Actual: entoprocta : number = '13'
+
+Pass: gastrotricha : number = '14'
+      Actual: gastrotricha : number = '14'
+
+Pass: gnathostomulida : number = '15'
+      Actual: gnathostomulida : number = '15'
+
+Pass: hemichordata : number = '16'
+      Actual: hemichordata : number = '16'
+
+Pass: kinorhyncha : number = '17'
+      Actual: kinorhyncha : number = '17'
+
+Pass: loricifera : number = '18'
+      Actual: loricifera : number = '18'
+
+Pass: micrognathozoa : number = '19'
+      Actual: micrognathozoa : number = '19'
+
+Pass: mollusca : number = '20'
+      Actual: mollusca : number = '20'
+
+Pass: nematoda : number = '21'
+      Actual: nematoda : number = '21'
+
+Pass: nematomorpha : number = '22'
+      Actual: nematomorpha : number = '22'
+
+Pass: nemertea : number = '23'
+      Actual: nemertea : number = '23'
+
+Pass: onychophora : number = '24'
+      Actual: onychophora : number = '24'
+
+Pass: orthonectida : number = '25'
+      Actual: orthonectida : number = '25'
+
+Pass: phoronida : number = '26'
+      Actual: phoronida : number = '26'
+
+Pass: placozoa : number = '27'
+      Actual: placozoa : number = '27'
+
+Pass: platyhelminthes : number = '28'
+      Actual: platyhelminthes : number = '28'
+
+Pass: porifera : number = '29'
+      Actual: porifera : number = '29'
+
+Pass: priapulida : number = '30'
+      Actual: priapulida : number = '30'
+
+Pass: rhombozoa : number = '31'
+      Actual: rhombozoa : number = '31'
+
+Pass: rotifera : number = '32'
+      Actual: rotifera : number = '32'
+
+Pass: sipuncula : number = '33'
+      Actual: sipuncula : number = '33'
+
+Pass: tardigrada : number = '34'
+      Actual: tardigrada : number = '34'
+
+Pass: xenoturbellid : number = '35'
+      Actual: xenoturbellid : number = '35'
+
+Pass: last : number = '35'
+      Actual: last : number = '35'
+
+Pass: number of members
+      Actual: 38
+
+PASS [Test 1: BasicEnum]
+=================================================
+
+=================================================
+Starting [Test 2: BasicEnumValue]
+Pass: Animals.Phylum.gnathostomulida
+      Actual: 15
+
+PASS [Test 2: BasicEnumValue]
+=================================================
+
+=================================================
+Starting [Test 3: MarshalEnumValue]
+Pass: myAnimal.marshalPhylum(Animals.Phylum.gnathostomulida)
+      Actual: 15
+
+PASS [Test 3: MarshalEnumValue]
+=================================================
+
+=================================================
+Starting [Test 4: MarshalEnumValueFromInt]
+Pass: myAnimal.marshalPhylum(5)
+      Actual: 5
+
+PASS [Test 4: MarshalEnumValueFromInt]
+=================================================
+
+=================================================
+Starting [Test 5: MarshalEnumStruct]
+Pass: type
+      Actual: object
+
+Pass: current : number = '15'
+      Actual: current : number = '15'
+
+Pass: original : number = '27'
+      Actual: original : number = '27'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 5: MarshalEnumStruct]
+=================================================
+
+=================================================
+Starting [Test 6: ChangeEnumField]
+Pass: Animals.Phylum.placozoa
+      Actual: 27
+
+Pass: Animals.Phylum.placozoa
+      Actual: 27
+
+PASS [Test 6: ChangeEnumField]
+=================================================
+
+=================================================
+Starting [Test 7: AddEnumField]
+Pass: type
+      Actual: object
+
+Pass: first : number = '0'
+      Actual: first : number = '0'
+
+Pass: acanthocephala : number = '0'
+      Actual: acanthocephala : number = '0'
+
+Pass: acoelomorpha : number = '1'
+      Actual: acoelomorpha : number = '1'
+
+Pass: annelida : number = '2'
+      Actual: annelida : number = '2'
+
+Pass: arthropoda : number = '3'
+      Actual: arthropoda : number = '3'
+
+Pass: brachiopoda : number = '4'
+      Actual: brachiopoda : number = '4'
+
+Pass: bryozoa : number = '5'
+      Actual: bryozoa : number = '5'
+
+Pass: chaetognatha : number = '6'
+      Actual: chaetognatha : number = '6'
+
+Pass: chordata : number = '7'
+      Actual: chordata : number = '7'
+
+Pass: cnidaria : number = '8'
+      Actual: cnidaria : number = '8'
+
+Pass: ctenophora : number = '9'
+      Actual: ctenophora : number = '9'
+
+Pass: cycliophora : number = '10'
+      Actual: cycliophora : number = '10'
+
+Pass: echinodermata : number = '11'
+      Actual: echinodermata : number = '11'
+
+Pass: echiura : number = '12'
+      Actual: echiura : number = '12'
+
+Pass: entoprocta : number = '13'
+      Actual: entoprocta : number = '13'
+
+Pass: gastrotricha : number = '14'
+      Actual: gastrotricha : number = '14'
+
+Pass: gnathostomulida : number = '15'
+      Actual: gnathostomulida : number = '15'
+
+Pass: hemichordata : number = '16'
+      Actual: hemichordata : number = '16'
+
+Pass: kinorhyncha : number = '17'
+      Actual: kinorhyncha : number = '17'
+
+Pass: loricifera : number = '18'
+      Actual: loricifera : number = '18'
+
+Pass: micrognathozoa : number = '19'
+      Actual: micrognathozoa : number = '19'
+
+Pass: mollusca : number = '20'
+      Actual: mollusca : number = '20'
+
+Pass: nematoda : number = '21'
+      Actual: nematoda : number = '21'
+
+Pass: nematomorpha : number = '22'
+      Actual: nematomorpha : number = '22'
+
+Pass: nemertea : number = '23'
+      Actual: nemertea : number = '23'
+
+Pass: onychophora : number = '24'
+      Actual: onychophora : number = '24'
+
+Pass: orthonectida : number = '25'
+      Actual: orthonectida : number = '25'
+
+Pass: phoronida : number = '26'
+      Actual: phoronida : number = '26'
+
+Pass: placozoa : number = '27'
+      Actual: placozoa : number = '27'
+
+Pass: platyhelminthes : number = '28'
+      Actual: platyhelminthes : number = '28'
+
+Pass: porifera : number = '29'
+      Actual: porifera : number = '29'
+
+Pass: priapulida : number = '30'
+      Actual: priapulida : number = '30'
+
+Pass: rhombozoa : number = '31'
+      Actual: rhombozoa : number = '31'
+
+Pass: rotifera : number = '32'
+      Actual: rotifera : number = '32'
+
+Pass: sipuncula : number = '33'
+      Actual: sipuncula : number = '33'
+
+Pass: tardigrada : number = '34'
+      Actual: tardigrada : number = '34'
+
+Pass: xenoturbellid : number = '35'
+      Actual: xenoturbellid : number = '35'
+
+Pass: last : number = '35'
+      Actual: last : number = '35'
+
+Pass: number of members
+      Actual: 38
+
+PASS [Test 7: AddEnumField]
+=================================================
+
+=================================================
+Starting [Test 8: DeleteBuiltInField]
+Pass: type
+      Actual: object
+
+Pass: first : number = '0'
+      Actual: first : number = '0'
+
+Pass: acanthocephala : number = '0'
+      Actual: acanthocephala : number = '0'
+
+Pass: acoelomorpha : number = '1'
+      Actual: acoelomorpha : number = '1'
+
+Pass: annelida : number = '2'
+      Actual: annelida : number = '2'
+
+Pass: arthropoda : number = '3'
+      Actual: arthropoda : number = '3'
+
+Pass: brachiopoda : number = '4'
+      Actual: brachiopoda : number = '4'
+
+Pass: bryozoa : number = '5'
+      Actual: bryozoa : number = '5'
+
+Pass: chaetognatha : number = '6'
+      Actual: chaetognatha : number = '6'
+
+Pass: chordata : number = '7'
+      Actual: chordata : number = '7'
+
+Pass: cnidaria : number = '8'
+      Actual: cnidaria : number = '8'
+
+Pass: ctenophora : number = '9'
+      Actual: ctenophora : number = '9'
+
+Pass: cycliophora : number = '10'
+      Actual: cycliophora : number = '10'
+
+Pass: echinodermata : number = '11'
+      Actual: echinodermata : number = '11'
+
+Pass: echiura : number = '12'
+      Actual: echiura : number = '12'
+
+Pass: entoprocta : number = '13'
+      Actual: entoprocta : number = '13'
+
+Pass: gastrotricha : number = '14'
+      Actual: gastrotricha : number = '14'
+
+Pass: gnathostomulida : number = '15'
+      Actual: gnathostomulida : number = '15'
+
+Pass: hemichordata : number = '16'
+      Actual: hemichordata : number = '16'
+
+Pass: kinorhyncha : number = '17'
+      Actual: kinorhyncha : number = '17'
+
+Pass: loricifera : number = '18'
+      Actual: loricifera : number = '18'
+
+Pass: micrognathozoa : number = '19'
+      Actual: micrognathozoa : number = '19'
+
+Pass: mollusca : number = '20'
+      Actual: mollusca : number = '20'
+
+Pass: nematoda : number = '21'
+      Actual: nematoda : number = '21'
+
+Pass: nematomorpha : number = '22'
+      Actual: nematomorpha : number = '22'
+
+Pass: nemertea : number = '23'
+      Actual: nemertea : number = '23'
+
+Pass: onychophora : number = '24'
+      Actual: onychophora : number = '24'
+
+Pass: orthonectida : number = '25'
+      Actual: orthonectida : number = '25'
+
+Pass: phoronida : number = '26'
+      Actual: phoronida : number = '26'
+
+Pass: placozoa : number = '27'
+      Actual: placozoa : number = '27'
+
+Pass: platyhelminthes : number = '28'
+      Actual: platyhelminthes : number = '28'
+
+Pass: porifera : number = '29'
+      Actual: porifera : number = '29'
+
+Pass: priapulida : number = '30'
+      Actual: priapulida : number = '30'
+
+Pass: rhombozoa : number = '31'
+      Actual: rhombozoa : number = '31'
+
+Pass: rotifera : number = '32'
+      Actual: rotifera : number = '32'
+
+Pass: sipuncula : number = '33'
+      Actual: sipuncula : number = '33'
+
+Pass: tardigrada : number = '34'
+      Actual: tardigrada : number = '34'
+
+Pass: xenoturbellid : number = '35'
+      Actual: xenoturbellid : number = '35'
+
+Pass: last : number = '35'
+      Actual: last : number = '35'
+
+Pass: number of members
+      Actual: 38
+
+PASS [Test 8: DeleteBuiltInField]
+=================================================
+
+=================================================
+Starting [Test 9: AttemptNew]
+Pass: error caught
+      Actual: -2146827843
+
+PASS [Test 9: AttemptNew]
+=================================================
+
+=================================================
+Starting [Test 10: PrintPhylum]
+Pass: Animals.Phylum
+      Actual: [object Animals.Phylum]
+
+PASS [Test 10: PrintPhylum]
+=================================================
+
+=================================================
+Starting [Test 11: KitchenEnum]
+Pass: type
+      Actual: object
+
+Pass: headChef : number = '0'
+      Actual: headChef : number = '0'
+
+Pass: assistantChef : number = '1'
+      Actual: assistantChef : number = '1'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 11: KitchenEnum]
+=================================================
+
+=================================================
+Starting [Test 12: AssistantChef]
+Pass: Fabrikam.Kitchen.ChefRole.assistantChef
+      Actual: 1
+
+PASS [Test 12: AssistantChef]
+=================================================
+
+=================================================
+Starting [Test 13: FileAccessMode]
+Pass: Windows.Storage.FileAccessMode.read
+      Actual: 0
+
+Pass: Windows.Storage.FileAccessMode.readWrite
+      Actual: 1
+
+Pass: Windows.Storage.FileAccessMode length
+      Actual: 2
+
+PASS [Test 13: FileAccessMode]
+=================================================
+
+Passed: 13
+Failed: 0

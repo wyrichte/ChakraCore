@@ -1,0 +1,316 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 89,
+        "length": 3,
+        "text": "sym",
+        "frameDescription": "o[sym].bar"
+      },
+      {
+        "start": 1309,
+        "length": 12,
+        "text": "o[sym].bar()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 208,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "o[simplestring]"
+      },
+      {
+        "start": 1324,
+        "length": 19,
+        "text": "o['simplestring']()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 290,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "o[simplestringshorthand]"
+      },
+      {
+        "start": 1346,
+        "length": 28,
+        "text": "o['simplestringshorthand']()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 333,
+        "length": 8,
+        "text": "return 0",
+        "frameDescription": "get o[simplestringgetset]"
+      },
+      {
+        "start": 1377,
+        "length": 30,
+        "text": "temp = o[\"simplestringgetset\"]",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 410,
+        "length": 1,
+        "text": "a",
+        "frameDescription": "set o[simplestringgetset]"
+      },
+      {
+        "start": 1410,
+        "length": 30,
+        "text": "o[\"simplestringgetset\"] = temp",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 524,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "o[]"
+      },
+      {
+        "start": 1443,
+        "length": 18,
+        "text": "o['complexexpr']()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 615,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "o[]"
+      },
+      {
+        "start": 1464,
+        "length": 27,
+        "text": "o['complexexprshorthand']()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 667,
+        "length": 8,
+        "text": "return 0",
+        "frameDescription": "get o[]"
+      },
+      {
+        "start": 1494,
+        "length": 29,
+        "text": "temp = o[\"complexexprgetset\"]",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 753,
+        "length": 1,
+        "text": "a",
+        "frameDescription": "set o[]"
+      },
+      {
+        "start": 1526,
+        "length": 29,
+        "text": "o[\"complexexprgetset\"] = temp",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 852,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "o[123]"
+      },
+      {
+        "start": 1558,
+        "length": 8,
+        "text": "o[123]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 914,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "o[321]"
+      },
+      {
+        "start": 1569,
+        "length": 8,
+        "text": "o[321]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 940,
+        "length": 8,
+        "text": "return 0",
+        "frameDescription": "get o[312]"
+      },
+      {
+        "start": 1580,
+        "length": 13,
+        "text": "temp = o[312]",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1000,
+        "length": 1,
+        "text": "a",
+        "frameDescription": "set o[312]"
+      },
+      {
+        "start": 1596,
+        "length": 13,
+        "text": "o[312] = temp",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1103,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "o[123.456]"
+      },
+      {
+        "start": 1612,
+        "length": 12,
+        "text": "o[123.456]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1169,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "o[654.321]"
+      },
+      {
+        "start": 1627,
+        "length": 12,
+        "text": "o[654.321]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1199,
+        "length": 8,
+        "text": "return 0",
+        "frameDescription": "get o[645.312]"
+      },
+      {
+        "start": 1642,
+        "length": 17,
+        "text": "temp = o[645.312]",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1263,
+        "length": 1,
+        "text": "a",
+        "frameDescription": "set o[645.312]"
+      },
+      {
+        "start": 1662,
+        "length": 17,
+        "text": "o[645.312] = temp",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "o": {
+        "[Methods]": {
+          "123.456": "<large string>",
+          "654.321": "<large string>",
+          "complexexpr": "<large string>",
+          "complexexprshorthand": "<large string>",
+          "simplestring": "<large string>",
+          "simplestringshorthand": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "645.312": "<large string>",
+        "complexexprgetset": "<large string>",
+        "simplestringgetset": "<large string>",
+        "sym": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "[123]": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "123",
+          "prototype": "{...}"
+        },
+        "[312]": "<large string>",
+        "[321]": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "321",
+          "prototype": "{...}"
+        }
+      }
+    }
+  }
+]

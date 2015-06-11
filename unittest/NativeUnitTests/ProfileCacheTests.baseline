@@ -1,0 +1,165 @@
+
+
+Running ProfileCacheTests Tests
+
+ProfileCacheTests: Basic Test
+CreateNewEngine()
+ParseScriptText()
+GetReadDataStream is called
+Result : 25
+IActiveScriptLifecycleEventSink->OnEvent()
+GetWriteDataStream is called
+SaveWriteDataStream is called
+Verify GetWriteDataStream Counter
+PASS
+Verify SaveWriteDataStream Counter
+PASS
+IActiveScriptLifecycleEventSink->OnEvent()
+Verify GetWriteDataStream Counter
+PASS
+Verify SaveWriteDataStream Counter
+PASS
+CloseEngine()
+=============================================
+ProfileCacheTests: JS with less than 5 functions
+CreateNewEngine()
+ParseScriptText()
+GetReadDataStream is called
+Result : 25
+IActiveScriptLifecycleEventSink->OnEvent()
+Verify GetWriteDataStream Counter
+PASS
+Verify SaveWriteDataStream Counter
+PASS
+CloseEngine()
+=============================================
+ProfileCacheTests: Execute js file with 5 functions
+CreateNewEngine()
+ParseScriptText()
+GetReadDataStream is called
+Result : 25
+IActiveScriptLifecycleEventSink->OnEvent()
+GetWriteDataStream is called
+SaveWriteDataStream is called
+Verify GetWriteDataStream Counter
+PASS
+Verify SaveWriteDataStream Counter
+PASS
+CloseEngine()
+=============================================
+ProfileCacheTests: Call OnEvent with VARIANT
+CreateNewEngine()
+ParseScriptText()
+GetReadDataStream is called
+Result : 25
+IActiveScriptLifecycleEventSink->OnEvent()
+GetWriteDataStream is called
+SaveWriteDataStream is called
+Verify GetWriteDataStream Counter
+PASS
+Verify SaveWriteDataStream Counter
+PASS
+CloseEngine()
+=============================================
+ProfileCacheTests: Invalid Profile Data
+CreateNewEngine()
+ParseScriptText()
+GetReadDataStream is called
+Result : 25
+IActiveScriptLifecycleEventSink->OnEvent()
+GetWriteDataStream is called
+SaveWriteDataStream is called
+Verify GetWriteDataStream Counter
+PASS
+Verify SaveWriteDataStream Counter
+PASS
+CloseEngine()
+=============================================
+ProfileCacheTests: Profile Data Less than 15 percents change
+CreateNewEngine()
+ParseScriptText()
+GetReadDataStream is called
+Result : 25
+IActiveScriptLifecycleEventSink->OnEvent()
+Verify GetWriteDataStream Counter
+PASS
+Verify SaveWriteDataStream Counter
+PASS
+CloseEngine()
+=============================================
+ProfileCacheTests: Profile Data Mismatched Version
+CreateNewEngine()
+ParseScriptText()
+GetReadDataStream is called
+Result : 25
+IActiveScriptLifecycleEventSink->OnEvent()
+GetWriteDataStream is called
+SaveWriteDataStream is called
+Verify GetWriteDataStream Counter
+PASS
+Verify SaveWriteDataStream Counter
+PASS
+CloseEngine()
+=============================================
+ProfileCacheTests: Fail HRESULT from GetWriteDataStream
+CreateNewEngine()
+ParseScriptText()
+GetReadDataStream is called
+Result : 25
+IActiveScriptLifecycleEventSink->OnEvent()
+GetWriteDataStream is called
+GetWriteDataStream will return E_FAIL now...
+Verify GetWriteDataStream Counter
+PASS
+Verify SaveWriteDataStream Counter
+PASS
+CloseEngine()
+ProfileCacheTests: Fail HRESULT from SaveWriteDataStream
+CreateNewEngine()
+ParseScriptText()
+GetReadDataStream is called
+Result : 25
+IActiveScriptLifecycleEventSink->OnEvent()
+GetWriteDataStream is called
+SaveWriteDataStream is called
+SaveWriteDataStream will return E_FAIL now...
+Verify GetWriteDataStream Counter
+PASS
+Verify SaveWriteDataStream Counter
+PASS
+CloseEngine()
+=============================================
+ProfileCacheTests: NULL IStream for GetReadDataStream
+CreateNewEngine()
+ParseScriptText()
+GetReadDataStream is called
+GetReadDataStream will return NULL IStream now...
+Result : 25
+IActiveScriptLifecycleEventSink->OnEvent()
+GetWriteDataStream is called
+SaveWriteDataStream is called
+Verify GetWriteDataStream Counter
+PASS
+Verify SaveWriteDataStream Counter
+PASS
+CloseEngine()
+=============================================
+ProfileCacheTests: NULL IStream for GetWriteDataStream
+CreateNewEngine()
+ParseScriptText()
+GetReadDataStream is called
+Result : 25
+IActiveScriptLifecycleEventSink->OnEvent()
+GetWriteDataStream is called
+GetWriteDataStream will return NULL IStream now...
+Verify GetWriteDataStream Counter
+PASS
+Verify SaveWriteDataStream Counter
+PASS
+CloseEngine()
+=============================================
+Total Test Cases  0
+Passed:  0
+Failed   0
+
+

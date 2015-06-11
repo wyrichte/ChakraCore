@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+<test>
+   <default>
+      <files>simple1.js</files>
+      <baseline>simple1.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>simple2.js</files>
+      <baseline>simple2.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>wrappedobj.js</files>
+      <baseline>wrappedobj.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>Equals.js</files>
+      <baseline>Equals.baseline</baseline>
+   </default>
+</test>
+
+</regress-exe>

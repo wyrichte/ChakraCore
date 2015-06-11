@@ -1,0 +1,45 @@
+﻿<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<Content xmlns="http://microsoft.com/schemas/Windows/Kits/Manifest">
+  <ContentGroup
+      BuildArchitecture="x86"
+      BuildType="fre"
+      >
+    <FeatureReference Name="X86 Common Extensions"/>
+    <BuildOutput Destination="x86\winext"/>
+  </ContentGroup>
+  <ContentGroup
+      BuildArchitecture="x86"
+      BuildType="fre"
+      >
+    <FeatureReference Name="Internal X86 Common Extensions"/>
+    <BuildOutput Destination="winext"/>
+  </ContentGroup>
+  <ContentGroup
+      BuildArchitecture="amd64"
+      BuildType="fre"
+      >
+    <FeatureReference Name="X64 Common Extensions"/>
+    <BuildOutput Destination="x64\winext"/>
+  </ContentGroup>
+  <ContentGroup
+      BuildArchitecture="amd64"
+      BuildType="fre"
+      >
+    <FeatureReference Name="Internal X64 Common Extensions"/>
+    <BuildOutput Destination="winext"/>
+  </ContentGroup>
+  <ContentGroup
+      BuildArchitecture="arm"
+      BuildType="fre"
+      >
+    <FeatureReference Name="Arm Common Extensions"/>
+    <BuildOutput Destination="arm\winext"/>
+  </ContentGroup>
+  <ContentGroup
+      BuildArchitecture="arm"
+      BuildType="fre"
+      >
+    <FeatureReference Name="Internal Arm Common Extensions"/>
+    <BuildOutput Destination="winext"/>
+  </ContentGroup>
+</Content>

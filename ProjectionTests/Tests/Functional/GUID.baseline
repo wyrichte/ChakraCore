@@ -1,0 +1,1079 @@
+GUID tests
+
+=================================================
+Starting [Test 0: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 0: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 1: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 1: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 2: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 2: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 3: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 3: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 4: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 4: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 5: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 5: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 6: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 6: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 7: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 7: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 8: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 8: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 9: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 9: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 10: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 10: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 11: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 11: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 12: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 12: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 13: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 13: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 14: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 14: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 15: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 15: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 16: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 16: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 17: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 17: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 18: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 18: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 19: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 19: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 20: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 20: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 21: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 21: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 22: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 22: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 23: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 23: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 24: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 24: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 25: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 25: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 26: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 26: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 27: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 27: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 28: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 28: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 29: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 29: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 30: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 30: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 31: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 31: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 32: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 32: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 33: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 33: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 34: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 34: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 35: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 35: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 36: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 36: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 37: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 37: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 38: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 38: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 39: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 39: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 40: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 40: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 41: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 41: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 42: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 42: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 43: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 43: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 44: marshalGUID]
+Pass: typeof  00000123-0045-0678-090a-0bcd0eff0123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000123-0045-0678-090a-0bcd0eff0123
+
+PASS [Test 44: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 45: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 45: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 46: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 46: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 47: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 47: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 48: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 48: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 49: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 49: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 50: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 50: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 51: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 51: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 52: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 52: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 53: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 53: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 54: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 54: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 55: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 55: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 56: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 56: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 57: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 57: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 58: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 58: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 59: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 59: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 60: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 60: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 61: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 61: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 62: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 62: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 63: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 63: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 64: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 64: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 65: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 65: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 66: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 66: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 67: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 67: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 68: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 68: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 69: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 69: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 70: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 70: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 71: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 71: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 72: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 72: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 73: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 73: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 74: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 74: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 75: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 75: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 76: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 76: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 77: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 77: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 78: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 78: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 79: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 79: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 80: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 80: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 81: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 81: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 82: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 82: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 83: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 83: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 84: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 84: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 85: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 85: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 86: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 86: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 87: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 87: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 88: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 88: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 89: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 89: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 90: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 90: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 91: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 91: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 92: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 92: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 93: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 93: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 94: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 94: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 95: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 95: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 96: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 96: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 97: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 97: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 98: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 98: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 99: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 99: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 100: marshalGUID]
+Pass: typeof  00000000-0000-0000-0000-000000000123
+      Actual: string
+
+Pass: GUID
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 100: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 101: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 101: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 102: marshalGUID]
+Pass: GUID : expected error
+      Actual: TypeError: Could not convert argument to type 'GUID'
+
+PASS [Test 102: marshalGUID]
+=================================================
+
+=================================================
+Starting [Test 103: marshalStudyInfo]
+Pass: typeof  [object Animals._StudyInfo]
+      Actual: object
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: StudyInfo[studyName]
+      Actual: Social Practices of Gorillas
+
+Pass: StudyInfo[subjectID]
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 103: marshalStudyInfo]
+=================================================
+
+=================================================
+Starting [Test 104: Get/Set Id]
+Pass: Animal.id
+      Actual: 00000000-0000-0000-0000-000000000123
+
+PASS [Test 104: Get/Set Id]
+=================================================
+
+=================================================
+Starting [Test 105: Set Id null]
+Comment: Caught error: Could not convert argument to type 'GUID'
+Pass: instanceof TypeError: Could not convert argument to type 'GUID'
+      Actual: true
+
+Pass: error.description
+      Actual: Could not convert argument to type 'GUID'
+
+PASS [Test 105: Set Id null]
+=================================================
+
+=================================================
+Starting [Test 106: Set Id undefined]
+Comment: Caught error: Could not convert argument to type 'GUID'
+Pass: instanceof TypeError: Could not convert argument to type 'GUID'
+      Actual: true
+
+Pass: error.description
+      Actual: Could not convert argument to type 'GUID'
+
+PASS [Test 106: Set Id undefined]
+=================================================
+
+=================================================
+Starting [Test 107: verifyMarshalGUID]
+Pass: Verified GUID
+      Actual: 60a36d60-6ac9-4266-b872-581295ce0c50
+
+PASS [Test 107: verifyMarshalGUID]
+=================================================
+
+=================================================
+Starting [Test 108: verifyMarshalGUID]
+Pass: Verified GUID
+      Actual: e55c507b-7c8f-4bda-b576-a5ab98cf982b
+
+PASS [Test 108: verifyMarshalGUID]
+=================================================
+
+=================================================
+Starting [Test 109: verifyMarshalGUID]
+Pass: Verified GUID
+      Actual: 992810ba-c394-4429-b136-1ba8c5b54c5d
+
+PASS [Test 109: verifyMarshalGUID]
+=================================================
+
+=================================================
+Starting [Test 110: verifyMarshalGUID]
+Pass: Verified GUID
+      Actual: aada726e-aff5-4f56-9b03-c1efe8497a0e
+
+PASS [Test 110: verifyMarshalGUID]
+=================================================
+
+=================================================
+Starting [Test 111: verifyMarshalGUID]
+Pass: Verified GUID
+      Actual: 0e7ab08b-f8ad-4187-80d9-cf2fb15ee7d7
+
+PASS [Test 111: verifyMarshalGUID]
+=================================================
+
+Passed: 112
+Failed: 0

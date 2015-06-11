@@ -1,0 +1,57 @@
+[
+  {
+    "locals": {
+      "this": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "integer": "1",
+      "string": "2",
+      "object": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "p1": "3",
+        "p2": "4"
+      },
+      "constInteger": "5",
+      "constString": "6",
+      "constObject": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "cp1": {
+          "__proto__": "{...}",
+          "cp2": "7",
+          "cp3": "8"
+        },
+        "cp4": "9"
+      },
+      "[Globals]": {
+        "blockScopeBasicLetConstTestFunc": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "name": "<large string>",
+          "prototype": "{...}"
+        }
+      }
+    }
+  }
+]

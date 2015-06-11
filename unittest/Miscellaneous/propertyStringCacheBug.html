@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>web worker fuzzer</title>
+    <!-- Blue 559508: CAS:Fuzz:checkin1315509 AV: UNKNOWN: jscript9.dll!Js::JavascriptOperators::OP_GetElementI -->
+    <!-- only repro with web worker -->
+    <!--<script src="propertyStringCacheBug.js"></script>-->
+</head>
+<body>
+    <script type='text/javascript' lang='javascript'>
+    WScript.SetKeepAlive();
+
+    (function() {
+        var w = new Worker('propertyStringCacheBug.js');
+        w.onmessage = function handler(e) {
+            WScript.Echo(e.data);
+            WScript.Quit();
+        };
+        w.postMessage("quit");
+    })();
+    </script>
+</body>
+</html>

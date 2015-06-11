@@ -1,0 +1,56 @@
+---BeginBackEnd: function: test, loop:0---
+GlobOpt Settings:
+    FloatTypeSpec: enabled
+    AggressiveIntTypeSpec: enabled
+    LossyIntTypeSpec: enabled
+    ArrayCheckHoist: enabled
+    ImplicitCallFlags: no
+        loop: 0, ImplicitCallFlags: no
+---EndBackEnd---
+BailOut: function: test ( (#1.2), #3) Loop: 0 Opcode: FromVar
+Bailout from loop: function: test, loopNumber: 0, bailOutKindName: (BailOutPrimitiveButString), reJitReason: None
+BailOut: function: test ( (#1.2), #3) Loop: 0 Opcode: FromVar
+Bailout from loop: function: test, loopNumber: 0, bailOutKindName: (BailOutPrimitiveButString), reJitReason: FloatTypeSpecDisabled
+---BeginBackEnd: function: test, loop:0---
+GlobOpt Settings:
+    FloatTypeSpec: disabled
+    AggressiveIntTypeSpec: enabled
+    LossyIntTypeSpec: enabled
+    ArrayCheckHoist: enabled
+    ImplicitCallFlags: no
+        loop: 0, ImplicitCallFlags: no
+---EndBackEnd---
+NaN
+BailOut: function: test ( (#1.2), #3) Loop: 0 Opcode: FromVar
+Bailout from loop: function: test, loopNumber: 0, bailOutKindName: (BailOutOnImplicitCalls), reJitReason: None
+BailOut: function: test ( (#1.2), #3) Loop: 0 Opcode: FromVar
+Bailout from loop: function: test, loopNumber: 0, bailOutKindName: (BailOutOnImplicitCalls), reJitReason: ImplicitCallFlagsChanged
+---BeginBackEnd: function: test, loop:0---
+GlobOpt Settings:
+    FloatTypeSpec: disabled
+    AggressiveIntTypeSpec: enabled
+    LossyIntTypeSpec: enabled
+    ArrayCheckHoist: enabled
+    ImplicitCallFlags: yes
+        loop: 0, ImplicitCallFlags: yes
+---EndBackEnd---
+---BeginBackEnd: function: get thing.prototype.isA---
+GlobOpt Settings:
+    FloatTypeSpec: enabled
+    AggressiveIntTypeSpec: enabled
+    LossyIntTypeSpec: enabled
+    ArrayCheckHoist: enabled
+    ImplicitCallFlags: no
+---EndBackEnd---
+bar
+foo
+---BeginBackEnd: function: test---
+GlobOpt Settings:
+    FloatTypeSpec: disabled
+    AggressiveIntTypeSpec: enabled
+    LossyIntTypeSpec: enabled
+    ArrayCheckHoist: enabled
+    ImplicitCallFlags: yes
+        loop: 0, ImplicitCallFlags: yes
+---EndBackEnd---
+bar

@@ -1,0 +1,55 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 48,
+        "length": 12,
+        "text": "eval('a--;')",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "a": "11"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 128,
+        "length": 10,
+        "text": "var m = 10",
+        "frameDescription": "test2"
+      },
+      {
+        "start": 309,
+        "length": 7,
+        "text": "test2()",
+        "frameDescription": "f1"
+      },
+      {
+        "start": 550,
+        "length": 4,
+        "text": "f1()",
+        "frameDescription": "code"
+      },
+      {
+        "start": 629,
+        "length": 6,
+        "text": "code()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "f1": "<large string>",
+      "a": "0",
+      "start": "<large string>",
+      "[Globals]": ""
+    }
+  }
+]

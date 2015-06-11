@@ -1,0 +1,104 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "10",
+      "[Scope]1": "",
+      "[Scope]2": "f1",
+      "[Scope]3": "f0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": "11"
+    }
+  },
+  {
+    "evaluate": {
+      "j": "10"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "12",
+      "[Scope]1": "",
+      "[Scope]2": "f1",
+      "[Scope]3": "f0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "k": "11",
+      "k2": "undefined",
+      "[Scope]1": "evalTest",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "10",
+      "[Scope]1": "",
+      "[Scope]2": "f1",
+      "[Scope]3": "f0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": "11"
+    }
+  },
+  {
+    "evaluate": {
+      "j": "10"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "12",
+      "[Scope]1": "",
+      "[Scope]2": "f1",
+      "[Scope]3": "f0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "k": "11",
+      "k2": "undefined",
+      "[Scope]1": "evalTest",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 491,
+        "length": 20,
+        "text": "WScript.Echo(\"Pass\")",
+        "frameDescription": "timerFunc"
+      }
+    ]
+  }
+]

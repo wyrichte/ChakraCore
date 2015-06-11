@@ -1,0 +1,11 @@
+ActiveScriptError_Transform.js(11, 5) JavaScript runtime error: Access is denied.
+
+Transform: E_FAIL -> E_ACCESSDENIED
+Restricted Error String: Transform: E_FAIL -> E_ACCESSDENIED
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x80070005
+Error Type: WinRT error
+Stack info:
+frame 0: Anonymous function(), line: 10, characterPosition: 4
+frame 1: Global code, line: 2, characterPosition: 1

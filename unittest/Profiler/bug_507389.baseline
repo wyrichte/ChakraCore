@@ -1,0 +1,10 @@
+Script Profiler starts
+blah
+Dumping sorted function compiled events
+[FunctionCompiled]: Function: Foo, Line: 4, Column: 1, Character Position: 87
+[FunctionCompiled]: Function: Global code, Line: 3, Column: 1, Character Position: 51
+[FunctionCompiled]: Function: Repro, Line: 18, Column: 1, Character Position: 297
+[FunctionCompiled]: Function: createFunction, Line: 6, Column: 25, Character Position: 106
+[FunctionCompiled]: Function: fun, Line: 7, Column: 5, Character Position: 160
+Passed: Validation
+Script Profiler ends

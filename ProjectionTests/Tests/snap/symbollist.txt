@@ -1,0 +1,15 @@
+%build.nttree%\Symbols.pri\jscript\exe\rl.pdb;%DropShare%\Symbols.pri\jscript\exe
+%build.nttree%\Symbols.pri\jscript\dll\jscript9test.pdb;%DropShare%\Symbols.pri\jscript\dll
+%build.nttree%\Symbols.pri\jscript\dll\jscript9diagtest.pdb;%DropShare%\Symbols.pri\jscript\dll
+%build.nttree%\Symbols.pri\jscript\exe\jshost.pdb;%DropShare%\Symbols.pri\jscript\exe
+%build.nttree%\Symbols.pri\jscript\exe\jsgen.pdb;%DropShare%\Symbols.pri\jscript\exe
+%build.nttree%\Symbols.pri\jscript\exe\jdtest.pdb;%DropShare%\Symbols.pri\jscript\exe
+%build.nttree%\Symbols.pri\jscript\exe\JsEtwConsole.pdb;%DropShare%\Symbols.pri\jscript\exe
+%build.nttree%\Symbols.pri\Projection\dll\Animals.pdb;%DropShare%\Symbols.pri\Projection\dll
+%build.nttree%\Symbols.pri\Projection\dll\DevTests.CamelCasing.pdb;%DropShare%\Symbols.pri\Projection\dll
+%build.nttree%\Symbols.pri\Projection\dll\DevTests.ContractVersioned.pdb;%DropShare%\Symbols.pri\Projection\dll
+%build.nttree%\Symbols.pri\Projection\dll\DevTests.pdb;%DropShare%\Symbols.pri\Projection\dll
+%build.nttree%\Symbols.pri\Projection\dll\DevTests.Repros.pdb;%DropShare%\Symbols.pri\Projection\dll
+%build.nttree%\Symbols.pri\Projection\dll\FabrikamKitchenServer.pdb;%DropShare%\Symbols.pri\Projection\dll
+%build.nttree%\Symbols.pri\Projection\dll\FabrikamKitchenServer.ProxyStub.pdb;%DropShare%\Symbols.pri\Projection\dll
+%build.nttree%\Symbols.pri\Projection\dll\Winery.pdb;%DropShare%\Symbols.pri\Projection\dll

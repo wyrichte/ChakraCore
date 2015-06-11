@@ -1,0 +1,44 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "gA": "1",
+        "gConstB": "2",
+        "blockScopeGlobalTestFunc": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "gC": "3",
+        "gD": "4"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "gA": "1",
+        "gConstB": "2",
+        "gC": "5",
+        "gD": "6",
+        "blockScopeGlobalTestFunc": "<large string>",
+        "gC#1": "3",
+        "gD#1": "4"
+      }
+    }
+  }
+]

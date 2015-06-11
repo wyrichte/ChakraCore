@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkItemQuery Version="1">
+    <TeamProject>DevDiv</TeamProject>
+    <Wiql>SELECT [System.Id], 
+                 [System.State], 
+                 [System.AssignedTo], 
+                 [Microsoft.DevDiv.TCID], 
+                 [Microsoft.DevDiv.OpenedBranch] 
+            FROM WorkItems 
+            WHERE [System.State] = 'Active'  
+            AND  [System.AreaPath] UNDER 'DevDiv\NDP\CLR'  
+            AND  [Microsoft.DevDiv.TCID] &lt;&gt; '' 
+            ORDER BY [System.Id]
+    </Wiql>
+</WorkItemQuery>
+

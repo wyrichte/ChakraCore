@@ -1,0 +1,10 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>PerfTest</title>
+    <script type="text/javascript" src="projectionsGlue.js"></script>
+    <script type="text/javascript" src="ColdStartForeignCall.js"></script>
+</head>
+<body onload="setTimeout(runner.run, 1000);runner.subscribe('end', function() { setTimeout(window.close, 10000); });">
+</body>
+</html>

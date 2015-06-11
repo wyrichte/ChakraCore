@@ -1,0 +1,83 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 230,
+        "length": 4,
+        "text": "Do()",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  },
+  {
+    "log": "Do()"
+  },
+  {
+    "callstack": [
+      {
+        "start": 21,
+        "length": 59,
+        "text": "WScript.Echo(\"DO() - IsInJitMode() == \" +  Debug.isInJit())",
+        "frameDescription": "Do",
+        "documentId": 2
+      },
+      {
+        "start": 230,
+        "length": 4,
+        "text": "Do()",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  },
+  {
+    "log": "skip the main document Print call"
+  },
+  {
+    "callstack": [
+      {
+        "start": 87,
+        "length": 39,
+        "text": "Print('foo callback to main document!')",
+        "frameDescription": "Do",
+        "documentId": 2
+      },
+      {
+        "start": 230,
+        "length": 4,
+        "text": "Do()",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  },
+  {
+    "log": "back to main()"
+  },
+  {
+    "callstack": [
+      {
+        "start": 117,
+        "length": 62,
+        "text": "WScript.Echo(\"Print() - IsInJitMode() == \" +  Debug.isInJit())",
+        "frameDescription": "Print",
+        "documentId": 1
+      },
+      {
+        "start": 87,
+        "length": 39,
+        "text": "Print('foo callback to main document!')",
+        "frameDescription": "Do",
+        "documentId": 2
+      },
+      {
+        "start": 230,
+        "length": 4,
+        "text": "Do()",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  }
+]

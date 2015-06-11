@@ -1,0 +1,9 @@
+[
+  {
+    "setnextstatement": {
+      "from": 12,
+      "to": 102,
+      "IsAllowed": "Yes"
+    }
+  }
+]

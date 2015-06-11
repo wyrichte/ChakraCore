@@ -1,0 +1,4 @@
+DIRS = \
+    release{!NO_JS_RELEASE} \
+    test{!NO_JS_TEST} \
+    static \

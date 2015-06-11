@@ -1,0 +1,5 @@
+DIRS=\
+    release{!EXCLUDE_IE_MAIN} \
+    test{!EXCLUDE_IE_MAIN} \
+    ls_release{!min_rt,!EXCLUDE_IE_MAIN,!amd64,!arm,!arm64} \
+    ls_test{!min_rt,!EXCLUDE_IE_MAIN,!amd64,!arm,!arm64} \

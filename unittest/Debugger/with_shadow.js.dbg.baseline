@@ -1,0 +1,86 @@
+[
+  {
+    "evaluate": {
+      "a": "with_a"
+    }
+  },
+  {
+    "evaluate": {
+      "b": "function b() { }"
+    }
+  },
+  {
+    "evaluate": {
+      "c": "proto_c"
+    }
+  },
+  {
+    "evaluate": {
+      "d": "function proto_d() { }"
+    }
+  },
+  {
+    "evaluate": {
+      "e": "ancestor_e"
+    }
+  },
+  {
+    "evaluate": {
+      "f": "ancestor_f"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "20",
+      "x": "{...}",
+      "k": "with_a",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "outer1": "outer1"
+    }
+  },
+  {
+    "evaluate": {
+      "outer2": "outer2"
+    }
+  },
+  {
+    "evaluate": {
+      "foo1": "foo1"
+    }
+  },
+  {
+    "evaluate": {
+      "foo": "<large string>"
+    }
+  },
+  {
+    "evaluate": {
+      "outer3": "outer3"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {
+        "foo": "<large string>",
+        "foo1": "foo1"
+      },
+      "[Globals]": {
+        "f1": "<large string>"
+      }
+    }
+  }
+]

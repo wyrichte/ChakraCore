@@ -1,0 +1,11 @@
+USE_NOTHROW_NEW=1 
+TARGETNAME=chakradiag
+TARGET_DESTINATION=retail
+TARGETTYPE=DYNLINK
+
+!include ..\sources.inc
+
+DLLDEF=$(OBJ_PATH)\$(O)\JScript9diag.def
+
+MUI_VERIFY_NO_LOC_RESOURCE=1 
+

@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+<test>
+    <default>
+        <files>sca_basic.js</files>
+        <baseline>sca_basic.baseline</baseline>
+    </default>
+    <condition order="1" type="include">
+      <target>amd64</target>
+      <override>
+        <baseline>sca_basic.x64.baseline</baseline>
+      </override>
+    </condition>
+</test>
+<test>
+    <default>
+        <files>sca_builtin.js</files>
+        <baseline>sca_builtin.baseline</baseline>
+    </default>
+</test>
+<test>
+    <default>
+        <files>sca_builtin.js</files>
+        <baseline>sca_builtin.userargs.baseline</baseline>
+        <compile-flags>-ES6RegexChanges  -args /s/gyimu -endargs</compile-flags>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>sca_array_lookup.js</files>
+        <baseline>sca_array_lookup.baseline</baseline>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>transferTest.js</files>
+        <compile-flags>-maxinterpretcount:1</compile-flags>
+        <baseline>transferTest.baseline</baseline>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>sca_object.js</files>
+        <baseline>sca_object.baseline</baseline>
+    </default>
+    <condition order="1" type="include">
+      <target>amd64</target>
+      <override>
+        <baseline>sca_object.x64.baseline</baseline>
+      </override>
+    </condition>
+</test>
+
+<test>
+    <default>
+        <files>sca_hostobj.js</files>
+        <baseline>sca_hostobj.baseline</baseline>
+        <compile-flags>-ES6- -KhronosInterop-</compile-flags>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>sca_hostobj.js</files>
+        <baseline>sca_hostobj.es6.baseline</baseline>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>sca_lookup.js</files>
+        <baseline>sca_lookup.baseline</baseline>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>sca_typedArray.js</files>
+        <baseline>sca_typedArray.baseline</baseline>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>sca_uint8clampedarray.js</files>
+        <baseline>sca_uint8clampedarray.baseline</baseline>
+        <compile-flags>-ES6TypedArrayExtensions</compile-flags>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>sca_array.js</files>
+        <baseline>sca_array.baseline</baseline>
+    </default>
+    <condition order="1" type="include">
+      <target>amd64</target>
+      <override>
+        <baseline>sca_array.x64.baseline</baseline>
+      </override>
+    </condition>
+</test>
+<test>
+    <default>
+        <files>sca_array.js</files>
+        <compile-flags>-ForceES5Array</compile-flags>
+        <baseline>sca_array.baseline</baseline>
+    </default>
+    <condition order="1" type="include">
+      <target>amd64</target>
+      <override>
+        <baseline>sca_array.x64.baseline</baseline>
+      </override>
+    </condition>
+</test>
+
+<test>
+    <default>
+        <files>sca_error.js</files>
+        <baseline>sca_error.baseline</baseline>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>sca_misc.js</files>
+        <baseline>sca_misc.baseline</baseline>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>sca_errmsg.js</files>
+        <baseline>sca_errmsg.baseline</baseline>
+    </default>
+</test>
+
+  <test>
+    <default>
+      <compile-flags>-Serialized</compile-flags>
+      <files>sca_misc.js</files>
+      <baseline>sca_misc.baseline</baseline>
+    </default>
+  </test>
+
+<test>
+    <default>
+        <files>sca_mapset.js</files>
+        <baseline>sca_mapset.baseline</baseline>
+    </default>
+</test>
+<test>
+    <default>
+      <files>Pwn2OwnBug.js</files>
+    </default>
+  </test>
+</regress-exe>

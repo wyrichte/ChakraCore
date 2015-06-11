@@ -1,0 +1,15 @@
+INCLUDES= $(COREINCLUDES);regalloc
+
+INCLUDES=$(INCLUDES);..\arm
+
+ARM_SOURCES= \
+    ..\arm\EncoderMD.cpp \
+    ..\arm\LegalizeMD.cpp \
+    ..\arm\LinearScanMD.cpp \
+    ..\arm\LinearScanMdA.asm \
+    ..\arm\LowerMD.cpp \
+    ..\arm\PeepsMD.cpp \
+    ..\arm\Thunks.asm \
+    ..\arm\UnwindInfoManager.cpp \
+
+

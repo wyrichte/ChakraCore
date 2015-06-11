@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="JavascriptTypeId.h" />
+    <ClInclude Include="jsStatic.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="scaformat.idl" />
+    <Midl Include="scriptdirect.idl" />
+    <Midl Include="..\..\published\sdk\inc\activdbg.idl">
+      <Filter>Inetcore</Filter>
+    </Midl>
+    <Midl Include="..\..\published\internal\inc\activdbg_private.idl">
+      <Filter>Inetcore</Filter>
+    </Midl>
+    <Midl Include="..\..\published\sdk\inc\activdbg100.idl">
+      <Filter>Inetcore</Filter>
+    </Midl>
+    <Midl Include="..\..\published\sdk\inc\activscp.idl">
+      <Filter>Inetcore</Filter>
+    </Midl>
+    <Midl Include="..\..\published\internal\inc\activscp2.idl">
+      <Filter>Inetcore</Filter>
+    </Midl>
+    <Midl Include="..\..\published\sdk\inc\activprof.idl">
+      <Filter>Inetcore</Filter>
+    </Midl>
+    <Midl Include="..\..\published\internal\inc\activscp_private.idl">
+      <Filter>Inetcore</Filter>
+    </Midl>
+    <Midl Include="..\..\published\sdk\inc\activaut.idl">
+      <Filter>Inetcore</Filter>
+    </Midl>
+    <Midl Include="..\..\published\sdk\inc\dbgprop.idl">
+      <Filter>Inetcore</Filter>
+    </Midl>
+    <Midl Include="..\..\published\sdk\inc\dispex.idl">
+      <Filter>Inetcore</Filter>
+    </Midl>
+    <Midl Include="..\..\published\internal\inc\scriptdirecthost.idl">
+      <Filter>Inetcore</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Inetcore">
+      <UniqueIdentifier>{a68502b6-0756-4057-ab02-dca7ff55dd7d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

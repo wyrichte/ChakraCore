@@ -1,0 +1,49 @@
+IReference Struct tests - bug 258665 repro
+
+=================================================
+Starting [Test 1: TestOutBug258665_HttpProgress - complex generic type instantiation as null out]
+Pass: object
+      Actual: null
+
+PASS [Test 1: TestOutBug258665_HttpProgress - complex generic type instantiation as null out]
+=================================================
+
+=================================================
+Starting [Test 2: TestOutBug258665_HttpProgress - simple generic type instantiation as null out]
+Pass: object
+      Actual: null
+
+PASS [Test 2: TestOutBug258665_HttpProgress - simple generic type instantiation as null out]
+=================================================
+
+=================================================
+Starting [Test 3: TestOutBug258665_HttpProgress - complex generic type instantiation]
+Pass: type
+      Actual: object
+
+Pass: stage : string = 'Stage test'
+      Actual: stage : string = 'Stage test'
+
+Pass: bytesSent : number = '123'
+      Actual: bytesSent : number = '123'
+
+Pass: totalBytesToSend : number = '1234'
+      Actual: totalBytesToSend : number = '1234'
+
+Pass: bytesReceived : number = '321'
+      Actual: bytesReceived : number = '321'
+
+Pass: totalBytesToReceive : number = '1234'
+      Actual: totalBytesToReceive : number = '1234'
+
+Pass: retries : number = '2'
+      Actual: retries : number = '2'
+
+Pass: number of members
+      Actual: 6
+
+PASS [Test 3: TestOutBug258665_HttpProgress - complex generic type instantiation]
+=================================================
+
+Passed: 3
+Failed: 0

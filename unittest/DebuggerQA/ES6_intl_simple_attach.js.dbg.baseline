@@ -1,0 +1,204 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "x": "undefined"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "coll": {
+        "__proto__": "{...}"
+      },
+      "numFormat": {
+        "__proto__": "{...}"
+      },
+      "dttmFormat": {
+        "__proto__": "{...}"
+      },
+      "[Globals]": {
+        "Run": "<large string>",
+        "x": "undefined"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "coll": {
+        "__proto__": {
+          "[Methods]": {
+            "compare": {
+              "__proto__": "<large string>",
+              "arguments": "<large string>",
+              "caller": "<large string>",
+              "length": "2",
+              "name": "bound compare"
+            },
+            "constructor": {
+              "[Methods]": "{...}",
+              "__proto__": "<large string>",
+              "arguments": "<large string>",
+              "caller": "<large string>",
+              "length": "0",
+              "name": "Collator",
+              "prototype": "{...}"
+            },
+            "resolvedOptions": {
+              "__proto__": "<large string>",
+              "arguments": "<large string>",
+              "caller": "<large string>",
+              "length": "0"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "numFormat": {
+        "__proto__": {
+          "[Methods]": {
+            "constructor": {
+              "[Methods]": "{...}",
+              "__proto__": "<large string>",
+              "arguments": "<large string>",
+              "caller": "<large string>",
+              "length": "0",
+              "name": "NumberFormat",
+              "prototype": "{...}"
+            },
+            "format": {
+              "__proto__": "<large string>",
+              "arguments": "<large string>",
+              "caller": "<large string>",
+              "length": "1",
+              "name": "bound format"
+            },
+            "resolvedOptions": {
+              "__proto__": "<large string>",
+              "arguments": "<large string>",
+              "caller": "<large string>",
+              "length": "0"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "dttmFormat": {
+        "__proto__": {
+          "[Methods]": {
+            "constructor": {
+              "[Methods]": "{...}",
+              "__proto__": "<large string>",
+              "__relevantExtensionKeys": "[ca,nu]",
+              "arguments": "<large string>",
+              "caller": "<large string>",
+              "length": "0",
+              "name": "<large string>",
+              "prototype": "{...}"
+            },
+            "format": {
+              "__proto__": "<large string>",
+              "arguments": "<large string>",
+              "caller": "<large string>",
+              "length": "0",
+              "name": "bound format"
+            },
+            "resolvedOptions": {
+              "__proto__": "<large string>",
+              "arguments": "<large string>",
+              "caller": "<large string>",
+              "length": "0"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "coll.compare.toString() == '\\nfunction() {\\n    [native code]\\n}\\n'": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "coll.resolvedOptions.toString() == '\\nfunction() {\\n    [native code]\\n}\\n'": "false"
+    }
+  },
+  {
+    "evaluate": {
+      "numFormat.format.toString() == '\\nfunction() {\\n    [native code]\\n}\\n'": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "numFormat.resolvedOptions.toString() == '\\nfunction() {\\n    [native code]\\n}\\n'": "false"
+    }
+  },
+  {
+    "evaluate": {
+      "dttmFormat.format.toString() == '\\nfunction() {\\n    [native code]\\n}\\n'": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "dttmFormat.resolvedOptions.toString() == '\\nfunction() {\\n    [native code]\\n}\\n'": "false"
+    }
+  }
+]

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Projection Test Picker</title>
+    <script>
+        var pkgdir = Windows.ApplicationModel.Package.current.installedLocation.getFilesAsync().then(readFiles, errFunc);
+        function readFiles(testFiles) {
+            var len = testFiles.length;
+            for (var i = 0; i < len; i++) {
+                var testName = testFiles[i].name;
+                var index = testName.indexOf('.js', testName.length - 3);
+                var testName2 = testName.toLowerCase();
+                if (index != -1 && testName2 != "projectionsglue.js" && testName2 != "console.js" && testName2 != "jsonlogger.js" && testName2 != "win8testshared.js") {
+                    var combo = document.getElementById("selectTest");
+                    combo.options[combo.options.length] = new Option(testName, testName);
+                }
+            }
+        }
+        function errFunc(err) {
+            var a = err.message;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var frame = document.querySelector("iframe");
+            var doc = frame.contentDocument;
+            var win = frame.contentWindow;
+            function runTest() {
+                var combo = document.getElementById("selectTest");
+                var len = combo.length;
+                for (var i = 1; i < len; i++) {
+                    if (combo[i].selected) {
+                        var crtTest = combo.value;
+                        var scriptTag = frame.contentDocument.createElement('script');
+                        scriptTag.src = crtTest;
+                        scriptTag.id = "srcTag" + i.toString();
+
+                        try {
+                            deleteScriptTag(scriptTag.id);
+                        } catch (e) { };
+                        frame.contentDocument.querySelector('head').appendChild(scriptTag);
+                    }
+                }
+                frame.contentWindow.Run();
+            };
+
+            function close() {
+                window.close();
+            };
+
+            function reloadFrame() {
+                frame.contentWindow.location.reload(true);
+            };
+            function deleteScriptTag(id) {
+                var scriptTag = frame.contentDocument.getElementById(id);
+                frame.contentDocument.querySelector('head').removeChild(scriptTag);
+            }
+            document.getElementById("close").addEventListener("click", close);
+            document.getElementById("run").addEventListener("click", runTest);
+            document.getElementById("selectTest").addEventListener("change", reloadFrame);
+        });
+    </script>
+</head>
+<body>
+<button id="close">Close</button>
+
+<div id="divRunTest"></div>
+<select id="selectTest" multiple="multiple">
+    <option>Select a test to run</option>
+
+</select>
+
+<button id="run">Run Selected Test</button>
+<div id="divResults">Test Results</div>
+
+<iframe height="800" width="100%" src="default.html" scrolling="yes"/>  
+</body>
+</html>

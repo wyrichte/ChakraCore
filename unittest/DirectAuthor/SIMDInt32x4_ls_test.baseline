@@ -1,0 +1,77 @@
+Passed
+    Number x, Number y, Number z, Number w, SIMD.int32x4 x
+Passed
+    Number x, Number y, Number z, Number w, SIMD.int32x4 x
+Passed
+Passed
+    
+Passed
+Passed
+    Number x
+Passed
+    Number x
+Passed
+Passed
+    SIMD.float64x2 x
+Passed
+    
+Passed
+    Number x
+Passed
+    Number x, Number y, Number z, Number w
+Passed
+    SIMD.float32x4 x
+Passed
+    SIMD.float32x4 x
+Passed
+    SIMD.float64x2 x
+Passed
+    SIMD.float64x2 x
+Passed
+    SIMD.int32x4 t, Number x
+Passed
+    SIMD.int32x4 t, Number y
+Passed
+    SIMD.int32x4 t, Number z
+Passed
+    SIMD.int32x4 t, Number w
+Passed
+    SIMD.int32x4 t, Boolean x
+Passed
+    SIMD.int32x4 t, Boolean x
+Passed
+    SIMD.int32x4 t, Boolean x
+Passed
+    SIMD.int32x4 t, Boolean x
+Passed
+Passed
+    SIMD.int32x4 x
+Passed
+    SIMD.int32x4 x
+Passed
+    SIMD.int32x4 x, SIMD.int32x4 y
+Passed
+    SIMD.int32x4 x, SIMD.int32x4 y
+Passed
+    SIMD.int32x4 x, SIMD.int32x4 y
+Passed
+    SIMD.int32x4 x, SIMD.int32x4 y
+Passed
+    SIMD.int32x4 x, SIMD.int32x4 y
+Passed
+    SIMD.int32x4 x, SIMD.int32x4 y
+Passed
+Passed
+Passed
+    SIMD.int32x4 x, SIMD.int32x4 y
+Passed
+    SIMD.int32x4 x, SIMD.int32x4 y
+Passed
+    SIMD.int32x4 x, SIMD.int32x4 y
+Passed
+    SIMD.int32x4 x, Number mask
+Passed
+    SIMD.int32x4 x, SIMD.int32x4 y, Number mask
+Passed
+    SIMD.int32x4 maskValue, SIMD.int32x4 trueValue, SIMD.int32x4 falseValue
+Passed

@@ -1,0 +1,124 @@
+Intl NumberFormat Tests
+
+=================================================
+Starting [Test 1: Test Valid Options]
+Pass: Formatting number with significant digits.
+      Actual: 2.1
+
+Pass: Formatting number with significant digits.
+      Actual: 2.1
+
+Pass: Formatting number with significant digits.
+      Actual: 2.10
+
+Pass: Formatting number with significant digits.
+      Actual: 123
+
+Pass: Formatting number with significant digits.
+      Actual: 123
+
+Pass: Formatting number with significant digits.
+      Actual: $123
+
+Pass: Formatting number with significant digits.
+      Actual: $123
+
+Pass: Formatting number with significant digits.
+      Actual: 123
+
+Pass: Formatting number with significant digits.
+      Actual: 00,123.10000
+
+Pass: Formatting number with significant digits.
+      Actual: 123.144
+
+PASS [Test 1: Test Valid Options]
+=================================================
+
+=================================================
+Starting [Test 2: Test Invalid Options]
+Pass: Exception didn't have the correct valid values when testing option:minimumSignificantDigits.
+Message: Option value '-1' for 'minimumSignificantDigits' is outside of valid range. Expected: [1 - 21]
+Searched For:[1 - 21]
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:maximumSignificantDigits.
+Message: Option value '-1' for 'maximumSignificantDigits' is outside of valid range. Expected: [1 - 21]
+Searched For:[1 - 21]
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:minimumFractionDigits.
+Message: Option value '-1' for 'minimumFractionDigits' is outside of valid range. Expected: [0 - 20]
+Searched For:[0 - 20]
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:maximumFractionDigits.
+Message: Option value '-1' for 'maximumFractionDigits' is outside of valid range. Expected: [0 - 20]
+Searched For:[0 - 20]
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:minimumIntegerDigits.
+Message: Option value '-1' for 'minimumIntegerDigits' is outside of valid range. Expected: [1 - 21]
+Searched For:[1 - 21]
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:minimumSignificantDigits.
+Message: Option value '22' for 'minimumSignificantDigits' is outside of valid range. Expected: [1 - 21]
+Searched For:[1 - 21]
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:maximumSignificantDigits.
+Message: Option value '22' for 'maximumSignificantDigits' is outside of valid range. Expected: [1 - 21]
+Searched For:[1 - 21]
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:minimumFractionDigits.
+Message: Option value '21' for 'minimumFractionDigits' is outside of valid range. Expected: [0 - 20]
+Searched For:[0 - 20]
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:maximumFractionDigits.
+Message: Option value '21' for 'maximumFractionDigits' is outside of valid range. Expected: [0 - 20]
+Searched For:[0 - 20]
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:minimumIntegerDigits.
+Message: Option value '22' for 'minimumIntegerDigits' is outside of valid range. Expected: [1 - 21]
+Searched For:[1 - 21]
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:maximumSignificantDigits.
+Message: Option value '1' for 'maximumSignificantDigits' is outside of valid range. Expected: [5 - 21]
+Searched For:[5 - 21]
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:maximumFractionDigits.
+Message: Option value '1' for 'maximumFractionDigits' is outside of valid range. Expected: [5 - 20]
+Searched For:[5 - 20]
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:style.
+Message: Option value 'invalid' for 'style' is outside of valid range. Expected: ['decimal', 'percent', 'currency']
+Searched For:['decimal', 'percent', 'currency']
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:style.
+Message: Currency code was not specified
+Searched For:Currency code was not specified
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:currency.
+Message: Currency code '5' is invalid
+Searched For:Currency code '5' is invalid
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:currencyDisplay.
+Message: Option value 'invalid' for 'currencyDisplay' is outside of valid range. Expected: ['code', 'symbol', 'name']
+Searched For:['code', 'symbol', 'name']
+      Actual: true
+
+PASS [Test 2: Test Invalid Options]
+=================================================
+
+Passed: 2
+Failed: 0

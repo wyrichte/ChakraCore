@@ -1,0 +1,68 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 79,
+        "length": 3,
+        "text": "0()",
+        "frameDescription": "literal"
+      },
+      {
+        "start": 220,
+        "length": 6,
+        "text": "f(arg)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 280,
+        "length": 13,
+        "text": "test(literal)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 120,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "useArgument"
+      },
+      {
+        "start": 220,
+        "length": 6,
+        "text": "f(arg)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 296,
+        "length": 20,
+        "text": "test(useArgument, 1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 154,
+        "length": 19,
+        "text": "1(...[1],1, ...[1])",
+        "frameDescription": "spread"
+      },
+      {
+        "start": 220,
+        "length": 6,
+        "text": "f(arg)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 319,
+        "length": 12,
+        "text": "test(spread)",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

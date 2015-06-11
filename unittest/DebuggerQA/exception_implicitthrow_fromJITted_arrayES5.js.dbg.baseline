@@ -1,0 +1,27 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 194,
+        "length": 11,
+        "text": "a.forEach()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 360,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "a": "[1]",
+      "[Globals]": ""
+    }
+  }
+]

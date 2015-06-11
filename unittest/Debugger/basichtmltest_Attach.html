@@ -1,0 +1,41 @@
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script type="text/javascript" src="basichtmltest_js.js"></script>
+<script type="text/javascript">
+f0();
+
+function evalTest() {
+    var str = "function test1() {\n";
+        str += "(function() {\n"
+        str += "var k = 10;k++\n";
+        str += "var k2 = {};debugger; /**bp:locals()**/\n";
+        str += "})();\n";
+        str += "}\ntest1()";
+        eval(str);
+}
+
+function timerFunc()
+{
+    WScript.Echo("Pass"); /**bp:stack()**/
+    WScript.Quit();
+}
+
+function Run()
+{
+    f0();
+    evalTest();
+}
+
+WScript.Attach(Run);
+WScript.Detach(Run);
+WScript.Attach(Run);
+
+WScript.SetKeepAlive();
+setTimeout(timerFunc, 200);
+
+</script>
+</head>
+<body>
+</body>
+</html>

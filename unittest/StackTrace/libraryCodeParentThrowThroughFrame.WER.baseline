@@ -1,0 +1,10 @@
+
+Stack trace for thrown exception
+      0: afun.toString (13, 16)
+      1: Intl.Collator.prototype.compare (0, 0)
+      2: Run (18, 8)
+      3: remotebar (22, 4)
+      4: remotefoo (27, 4)
+      5: localbar (6, 4)
+      6: localfoo (11, 4)
+      7: onload (15, 14)

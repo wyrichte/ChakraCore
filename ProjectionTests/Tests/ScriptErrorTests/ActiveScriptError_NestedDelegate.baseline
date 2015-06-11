@@ -1,0 +1,33 @@
+Called delegate1
+Called delegate2
+ActiveScriptError_NestedDelegate.js(13, 9) JavaScript runtime error: Not implemented
+
+Originate: E_NOTIMPL
+Restricted Error String: Originate: E_NOTIMPL
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x80004001
+Error Type: WinRT error
+Stack info:
+frame 0: delegate2(object, string), line: 12, characterPosition: 8
+ActiveScriptError_NestedDelegate.js(19, 9) JavaScript runtime error: Not implemented
+
+Originate: E_NOTIMPL
+Restricted Error String: Originate: E_NOTIMPL
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x80004001
+Error Type: WinRT error
+Stack info:
+frame 0: delegate1(object, string), line: 18, characterPosition: 8
+ActiveScriptError_NestedDelegate.js(23, 5) JavaScript runtime error: Not implemented
+
+Originate: E_NOTIMPL
+Restricted Error String: Originate: E_NOTIMPL
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x80004001
+Error Type: WinRT error
+Stack info:
+frame 0: Anonymous function(), line: 22, characterPosition: 4
+frame 1: Global code, line: 2, characterPosition: 1

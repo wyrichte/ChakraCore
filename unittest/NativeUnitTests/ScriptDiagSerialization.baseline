@@ -1,0 +1,24 @@
+
+
+Running JScript9Diag serialization tests
+
+TestByte - PASSED
+Test2ByteInt32 - PASSED
+TestInt64 - PASSED
+TestFieldIndexIs16 - PASSED
+TestBigFieldIndex - PASSED
+TestString - PASSED
+TestNested - PASSED
+TestArrayOfNested - PASSED
+TestDefaultValueInt - PASSED
+TestDefaultValueString - PASSED
+TestDefalutValueNested - PASSED
+TestDeletedField - PASSED
+TestDeletedFieldIsArrayOfNested - PASSED
+TestDeletedFieldIsOfUnknownType - PASSED
+TestTypicalWerCase - PASSED
+Total Test Cases  15
+Passed:  15
+Failed   0
+
+

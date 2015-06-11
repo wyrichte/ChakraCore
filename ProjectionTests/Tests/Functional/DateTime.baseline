@@ -1,0 +1,143 @@
+WinRT DateTime tests
+
+=================================================
+Starting [Test 1: GetDateTime - Retrieve DateTime as out param]
+Comment: Date is Sun Dec 31 1600 16:00:00 GMT-0800 (Pacific Standard Time)
+Comment: UTC Date is Mon, 01 Jan 1601 00:00:00 GMT
+Pass: Check object prototype is date
+      Actual: true
+
+Pass: Check if UTCDay matches
+      Actual: 1
+
+Pass: Check if UTCMonth matches
+      Actual: 0
+
+Pass: Check if UTCFullYear matches
+      Actual: 1601
+
+Pass: Check if UTCHours matches
+      Actual: 0
+
+Pass: Check if UTCMinutes matches
+      Actual: 0
+
+Pass: Check if UTCSeconds matches
+      Actual: 0
+
+PASS [Test 1: GetDateTime - Retrieve DateTime as out param]
+=================================================
+
+=================================================
+Starting [Test 2: GetDateTime - Retrieve DateTime as out param, verify milliseconds]
+Pass: Check number of milliseconds since ES5 epoch
+      Actual: -11644473600000
+
+PASS [Test 2: GetDateTime - Retrieve DateTime as out param, verify milliseconds]
+=================================================
+
+=================================================
+Starting [Test 3: GetDateTime - Retrieve DateTime as out param and modify it]
+Pass: Verify that the time retrieved is what we'd set
+      Actual: 1265068800000
+
+PASS [Test 3: GetDateTime - Retrieve DateTime as out param and modify it]
+=================================================
+
+=================================================
+Starting [Test 4: GetDateTime - Retrieve DateTime as out param, and round-trip it]
+Pass: Verify that the DateTime round-tripped correctly
+      Actual: -11644473600000
+
+PASS [Test 4: GetDateTime - Retrieve DateTime as out param, and round-trip it]
+=================================================
+
+=================================================
+Starting [Test 5: GetDateTime - Retrieve DateTime as out param, and round-trip it, but first we modify it to invalidate it]
+Pass: Verify that the DateTime round-tripped correctly
+      Actual: 1265068800000
+
+PASS [Test 5: GetDateTime - Retrieve DateTime as out param, and round-trip it, but first we modify it to invalidate it]
+=================================================
+
+=================================================
+Starting [Test 6: DateTime - Verify precision is maintained during round-tripping]
+Pass: Verify that the time retrieved is correct
+      Actual: true
+
+Pass: Verify that the time retrieved in ticks is correct
+      Actual: true
+
+Pass: Verify that the precision is lost
+      Actual: false
+
+PASS [Test 6: DateTime - Verify precision is maintained during round-tripping]
+=================================================
+
+=================================================
+Starting [Test 7: DateTime - Check equality of retrieved dates]
+Pass: Verify that the two ages are seperate objects
+      Actual: false
+
+Pass: Verify that the value of the two ages is the same
+      Actual: true
+
+Pass: Verify that the two ages are seperate objects
+      Actual: false
+
+Pass: Verify that the value of the two ages is the same
+      Actual: true
+
+PASS [Test 7: DateTime - Check equality of retrieved dates]
+=================================================
+
+=================================================
+Starting [Test 8: DateTime - Verify valueOf returns double value]
+Pass: Verify that the time retrieved is correct
+      Actual: true
+
+PASS [Test 8: DateTime - Verify valueOf returns double value]
+=================================================
+
+=================================================
+Starting [Test 9: DateTime - Override builtin method test]
+Pass: Verify that valueOf retrieved is correct
+      Actual: true
+
+PASS [Test 9: DateTime - Override builtin method test]
+=================================================
+
+=================================================
+Starting [Test 10: DateTime -verify infinity test]
+PASS [Test 10: DateTime -verify infinity test]
+=================================================
+
+=================================================
+Starting [Test 11: DateTime - Verify instanceof test]
+Pass: Verify that age is a date
+      Actual: true
+
+PASS [Test 11: DateTime - Verify instanceof test]
+=================================================
+
+=================================================
+Starting [Test 12: TimeSpan - Verify we marshal out a TimeSpan of 2000 as 0.2]
+Pass: Verify that we property marshal a TimeSpan of 2000 as 0.2
+      Actual: 0.2
+
+Pass: Verify that we property marshal a TimeSpan is marshaled as a Number
+      Actual: number
+
+PASS [Test 12: TimeSpan - Verify we marshal out a TimeSpan of 2000 as 0.2]
+=================================================
+
+=================================================
+Starting [Test 13: TimeSpan - Verify we can marshal in a TimeSpan]
+Pass: Verify that we property marshal the TimeSpan value we had set
+      Actual: 1
+
+PASS [Test 13: TimeSpan - Verify we can marshal in a TimeSpan]
+=================================================
+
+Passed: 13
+Failed: 0

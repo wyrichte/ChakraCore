@@ -1,0 +1,37 @@
+# Copyright (c) Microsoft Corporation. All rights reserved.
+
+TARGETNAME=FabrikamKitchenServer
+TARGETTYPE=LIBRARY
+TARGET_DESTINATION=Projection\WinRt:Projection\APPX
+
+TEST_CODE=1
+
+# This uses the shared copy of the C runtime library
+USE_MSVCRT=1
+
+_NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN8)
+
+# always build new components using UNICODE strings
+C_DEFINES=-DUNICODE -D_UNICODE
+
+MSC_WARNING_LEVEL=/W4
+
+# enable and specify a precompiled header.
+PRECOMPILED_CXX=1
+PRECOMPILED_INCLUDE=stdafx.h
+
+INCLUDES= \
+	$(SDK_INC_PATH)\atl30; \
+    $(COM_INC_PATH);\
+    $(COM_INC_PATH)\winrt;\
+    $(OBJ_PATH)\..\lib\$(O);\
+    $(OBJ_PATH)\..\idl\dll\$(O);\
+    $(INTERNAL_SDK_INC_PATH)\winrt;\
+
+SOURCES=\
+    ToasterServer.cpp \
+    ToastServer.cpp \
+    ChefServer.cpp \
+    KitchenServer.cpp \
+    OvenServer.cpp \
+    CookieServer.cpp \

@@ -1,0 +1,41 @@
+[
+  {
+    "evaluate": {
+      "a - [Type]": "Object",
+      "a": {
+        "[Proxy] - [Type]": "Object",
+        "[Proxy]": {
+          "[target] - [Type]": "Object",
+          "[target]": "{...}",
+          "[handler] - [Type]": "Object",
+          "[handler]": "{...}"
+        },
+        "__proto__ - [Type]": "Object",
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Null",
+          "__proto__": "null"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "m - [Type]": "Object, (Array)",
+      "m": {
+        "__proto__ - [Type]": "Object, (Array)",
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Object",
+          "__proto__": "{...}",
+          "length - [Type]": "Number",
+          "length": "0",
+          "Symbol.unscopables - [Type]": "Object",
+          "Symbol.unscopables": "{...}"
+        },
+        "length - [Type]": "Number",
+        "length": "0"
+      }
+    }
+  }
+]

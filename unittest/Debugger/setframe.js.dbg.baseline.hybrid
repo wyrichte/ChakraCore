@@ -1,0 +1,165 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "HHH_A": "0",
+      "HHH_B": "0",
+      "HHH_C": "0",
+      "[Globals]": {
+        "FFF": "<large string>",
+        "HHH": "<large string>",
+        "GGG": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "GGG_A": "0",
+      "GGG_B": "0",
+      "GGG_C": "0",
+      "GGG_ARRAY": {
+        "__proto__": "[]",
+        "length": "3",
+        "[0]": "1",
+        "[1]": "2",
+        "[2]": "3"
+      },
+      "[Scope]1": {
+        "GGG_closure": "1"
+      },
+      "[Globals]": {
+        "FFF": "<large string>",
+        "HHH": "<large string>",
+        "GGG": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "FFF_A": "0",
+      "FFF_B": "0",
+      "FFF_C": "0",
+      "[Globals]": {
+        "FFF": "<large string>",
+        "HHH": "<large string>",
+        "GGG": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "GGG_B=2;GGG_closure=3": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 363,
+        "length": 7,
+        "text": "HHH_C++",
+        "frameDescription": "HHH"
+      },
+      {
+        "start": 269,
+        "length": 5,
+        "text": "HHH()",
+        "frameDescription": "GGG"
+      },
+      {
+        "start": 73,
+        "length": 5,
+        "text": "GGG()",
+        "frameDescription": "FFF"
+      },
+      {
+        "start": 965,
+        "length": 5,
+        "text": "FFF()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "FFF_B++": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "GGG_A": "0",
+      "GGG_B": "0",
+      "GGG_C": "0",
+      "GGG_ARRAY": {
+        "__proto__": "[]",
+        "length": "3",
+        "[0]": "1",
+        "[1]": "2",
+        "[2]": "3"
+      },
+      "[Scope]1": {
+        "GGG_closure": "1"
+      },
+      "[Globals]": {
+        "FFF": "<large string>",
+        "HHH": "<large string>",
+        "GGG": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "FFF_A": "0",
+      "FFF_B": "0",
+      "FFF_C": "0",
+      "[Globals]": {
+        "FFF": "<large string>",
+        "HHH": "<large string>",
+        "GGG": "<large string>"
+      }
+    }
+  }
+]

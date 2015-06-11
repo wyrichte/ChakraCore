@@ -1,0 +1,18 @@
+[
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "2171813.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "var x = '🇦';"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

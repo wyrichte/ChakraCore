@@ -1,0 +1,18 @@
+
+TEST_CODE=1
+TARGETTYPE    = NOTARGET
+TARGETNAME    = DevTests.ContractVersioned
+TARGET_DESTINATION = Projection\WinRt:Projection\APPX
+
+IDL_TYPE=winrt
+
+_NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN8)
+
+SOURCES = \
+    DevTests.ContractVersioned.idl
+
+PASS0_BINPLACE= \
+    $(OBJ_PATH)\$(O)\$(TARGETNAME).winmd
+
+
+INCLUDES= \

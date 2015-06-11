@@ -1,0 +1,1298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="chk|Win32">
+      <Configuration>chk</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="chk|x64">
+      <Configuration>chk</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fretest|Win32">
+      <Configuration>fretest</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fretest|x64">
+      <Configuration>fretest</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fre|Win32">
+      <Configuration>fre</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fre|x64">
+      <Configuration>fre</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-chk|Win32">
+      <Configuration>jsls-chk</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-chk|x64">
+      <Configuration>jsls-chk</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-fre|Win32">
+      <Configuration>jsls-fre</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-fre|x64">
+      <Configuration>jsls-fre</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{18CF279F-188D-4655-B03D-74F65388E7D1}</ProjectGuid>
+    <RootNamespace>JS</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fre|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='chk|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fre|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='chk|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="..\..\VcProjBuild.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fre|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='chk|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fre|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='chk|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='chk|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='chk|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='chk|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='chk|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='chk|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='fre|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='fre|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='fre|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='fre|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='fre|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;..;..\..\Publish;..\Common;..\Parser;..\Runtime;.\$(PlatformPathNameAlt);$(IntDir)..\Common;$(IntDir)..\Publish%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol /Zm112 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;DBG;DBG_DUMP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>BackEnd.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol /Zm112 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;DBG;DBG_DUMP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>BackEnd.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='chk|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;DBG;DBG_DUMP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>BackEnd.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;DBG;DBG_DUMP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>BackEnd.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>BackEnd.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>BackEnd.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>BackEnd.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fre|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>BackEnd.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>BackEnd.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>BackEnd.h</PrecompiledHeaderFile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AgenPeeps.cpp" />
+    <ClCompile Include="amd64\PrologEncoderMD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\amd64</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="arm64\LowerMD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="arm\LegalizeMD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)\arm</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="arm\UnwindInfoManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)\arm</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="IRBuilderAsmJs.cpp" />
+    <ClCompile Include="BackEndOpcodeAttrAsmJs.cpp" />
+    <ClCompile Include="BailOut.cpp" />
+    <ClCompile Include="arm\EncoderMD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)\arm</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="arm\LinearScanMD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)\arm</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="arm\LowerMD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)\arm</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="arm\PeepsMD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)\arm</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="CaseNode.cpp" />
+    <ClCompile Include="CodeGenWorkItem.cpp" />
+    <ClCompile Include="CodegenAllocators.cpp" />
+    <ClCompile Include="CodegenNumberAllocator.cpp" />
+    <ClCompile Include="DbCheckPostLower.cpp" />
+    <ClCompile Include="GlobOptBailout.cpp" />
+    <ClCompile Include="GlobOptExpr.cpp" />
+    <ClCompile Include="GlobOptFields.cpp" />
+    <ClCompile Include="GlobOptIntBounds.cpp" />
+    <ClCompile Include="i386\EncoderMD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)\i386</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="i386\LinearScanMD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)\i386</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="i386\LowererMDArch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)\i386</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="i386\PeepsMD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)\i386</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="amd64\EncoderMD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\amd64</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="amd64\LinearScanMD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\amd64</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="amd64\LowererMDArch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\amd64</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="amd64\PeepsMD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\amd64</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="BackEnd.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='chk|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fre|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="BackEndOpcodeAttr.cpp" />
+    <ClCompile Include="BackwardPass.cpp" />
+    <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="DisassembleX86.cpp" />
+    <ClCompile Include="EmitBuffer.cpp" />
+    <ClCompile Include="Encoder.cpp" />
+    <ClCompile Include="FlowGraph.cpp" />
+    <ClCompile Include="Func.cpp" />
+    <ClCompile Include="GlobOpt.cpp" />
+    <ClCompile Include="InductionVariable.cpp" />
+    <ClCompile Include="Inline.cpp" />
+    <ClCompile Include="InlineeFrameInfo.cpp" />
+    <ClCompile Include="InliningHeuristics.cpp" />
+    <ClCompile Include="InliningDecider.cpp" />
+    <ClCompile Include="IntBounds.cpp" />
+    <ClCompile Include="InterpreterThunkEmitter.cpp" />
+    <ClCompile Include="IR.cpp" />
+    <ClCompile Include="IRBuilder.cpp" />
+    <ClCompile Include="IRViewer.cpp" />
+    <ClCompile Include="IRType.cpp" />
+    <ClCompile Include="JnHelperMethod.cpp" />
+    <ClCompile Include="LinearScan.cpp" />
+    <ClCompile Include="Lower.cpp" />
+    <ClCompile Include="LowerMDShared.cpp" />
+    <ClCompile Include="LowerMDSharedSimd128.cpp" />
+    <ClCompile Include="NativeCodeData.cpp" />
+    <ClCompile Include="NativeCodeGenerator.cpp" />
+    <ClCompile Include="Opnd.cpp" />
+    <ClCompile Include="PDataManager.cpp" />
+    <ClCompile Include="Peeps.cpp" />
+    <ClCompile Include="PEWriter.cpp" />
+    <ClCompile Include="PreLowerPeeps.cpp" />
+    <ClCompile Include="PrologEncoder.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="QueuedFullJitWorkItem.cpp" />
+    <ClCompile Include="Region.cpp" />
+    <ClCompile Include="SCCLiveness.cpp" />
+    <ClCompile Include="Security.cpp" />
+    <ClCompile Include="SimpleJitProfilingHelpers.cpp" />
+    <ClCompile Include="SimpleLayout.cpp" />
+    <ClCompile Include="Sym.cpp" />
+    <ClCompile Include="SymTable.cpp" />
+    <ClCompile Include="TempTracker.cpp" />
+    <ClCompile Include="ValueRelativeOffset.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AgenPeeps.h" />
+    <ClInclude Include="arm64\ARMEncode.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm64\EncoderMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm64\LinearScanMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm64\LowerMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm64\md.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm64\MdOpcodes.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm64\PeepsMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm64\Reg.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm64\RegList.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm64\UnwindCodes.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm64\UnwindInfoManager.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="IRBuilderAsmJs.h" />
+    <ClInclude Include="BackEndOpcodeAttrAsmJs.h" />
+    <ClInclude Include="BackEndOpCodeList.h" />
+    <ClInclude Include="GlobOptIntBounds.h" />
+    <ClInclude Include="i386\EncoderMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="i386\LinearScanMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="i386\LowererMDArch.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="i386\md.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="i386\MdOpcodes.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="i386\PeepsMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="i386\Reg.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="i386\RegList.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="i386\X86Encode.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="amd64\EncoderMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="amd64\LinearScanMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="amd64\LowererMDArch.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="amd64\md.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="amd64\MdOpcodes.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="amd64\PeepsMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="amd64\Reg.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="amd64\RegList.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="amd64\PrologEncoderMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="amd64\X64Encode.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm\ARMEncode.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm\AssemblyStep.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm\EncoderMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm\LegalizeMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm\LinearScanMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm\LowerMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm\md.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm\MdOpcodes.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm\PeepsMD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm\Reg.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm\RegList.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm\UnwindCodes.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm\UnwindInfoManager.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="BackEnd.h" />
+    <ClInclude Include="BackEndOpcodeAttr.h" />
+    <ClInclude Include="BackwardPass.h" />
+    <ClInclude Include="BailOut.h" />
+    <ClInclude Include="BailOutKind.h" />
+    <ClInclude Include="CaseNode.h" />
+    <ClInclude Include="CodeGenAllocators.h" />
+    <ClInclude Include="CodeGenNumberAllocator.h" />
+    <ClInclude Include="CodeGenWorkItemType.h" />
+    <ClInclude Include="codegenworkitem.h" />
+    <ClInclude Include="DbCheckPostLower.h" />
+    <ClInclude Include="DisassembleX86.h" />
+    <ClInclude Include="EmitBuffer.h" />
+    <ClInclude Include="Encoder.h" />
+    <ClInclude Include="FlowGraph.h" />
+    <ClInclude Include="Func.h" />
+    <ClInclude Include="GlobHashTable.h" />
+    <ClInclude Include="GlobOpt.h" />
+    <ClInclude Include="InductionVariable.h" />
+    <ClInclude Include="Inline.h" />
+    <ClInclude Include="InlineeFrameInfo.h" />
+    <ClInclude Include="InliningHeuristics.h" />
+    <ClInclude Include="InliningDecider.h" />
+    <ClInclude Include="IntBounds.h" />
+    <ClInclude Include="IntConstantBounds.h" />
+    <ClInclude Include="InterpreterThunkEmitter.h" />
+    <ClInclude Include="IntOverflowDoesNotMatterRange.h" />
+    <ClInclude Include="IR.h" />
+    <ClInclude Include="IRBuilder.h" />
+    <ClInclude Include="IRViewer.h" />
+    <ClInclude Include="IRType.h" />
+    <ClInclude Include="IRTypeList.h" />
+    <ClInclude Include="JnHelperMethod.h" />
+    <ClInclude Include="JnHelperMethodList.h" />
+    <ClInclude Include="Lifetime.h" />
+    <ClInclude Include="LinearScan.h" />
+    <ClInclude Include="LinearScanMDShared.h" />
+    <ClInclude Include="LowerMDShared.h" />
+    <ClInclude Include="NativeCodeData.h" />
+    <ClInclude Include="PDataManager.h" />
+    <ClInclude Include="PEWriter.h" />
+    <ClInclude Include="PrologEncoder.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Lower.h" />
+    <ClInclude Include="NativeCodeGenerator.h" />
+    <ClInclude Include="Opnd.h" />
+    <ClInclude Include="Peeps.h" />
+    <ClInclude Include="QueuedFullJitWorkItem.h" />
+    <ClInclude Include="Region.h" />
+    <ClInclude Include="SCCLiveness.h" />
+    <ClInclude Include="Security.h" />
+    <ClInclude Include="SimpleJitProfilingHelpers.h" />
+    <ClInclude Include="SimpleLayout.h" />
+    <ClInclude Include="Sym.h" />
+    <ClInclude Include="SymTable.h" />
+    <ClInclude Include="TempTracker.h" />
+    <ClInclude Include="ValueRelativeOffset.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="amd64\LinearScanMdA.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </MASM>
+    <MASM Include="amd64\Thunks.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </MASM>
+    <MASM Include="arm64\Thunks.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </MASM>
+    <MASM Include="arm\LinearScanMdA.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </MASM>
+    <None Include="arm64\sources" />
+    <None Include="arm\Thunks.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="IR.inl" />
+    <None Include="Opnd.inl" />
+    <None Include="Sym.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+  </ImportGroup>
+</Project>

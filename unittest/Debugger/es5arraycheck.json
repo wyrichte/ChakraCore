@@ -1,0 +1,157 @@
+{
+  "testname" : "a test to validate array",
+  "owner" : "AkroshG",
+  "validated" : false,
+  "timeout" : 5000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "commands" :
+  [
+{
+  "action": "open",
+  "args": [
+    "scripts\\es5arrayInspect.js"
+  ],
+  "events": [
+    {
+      "scriptOpen": "scripts\\es5arrayInspect.js"
+    }
+  ]
+},
+{
+  "action": "setBp",
+  "args": [
+    "es5arrayInspect.js",
+    "520"
+  ],
+  "events": [
+    {
+      "breakpointSet": {
+        "start": 520,
+        "length": 12,
+        "text": "arr2.x = \"x\""
+      }
+    }
+  ]
+},
+{
+  "action": "launch",
+  "args": [],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+{
+  "action": "location",
+  "args": [],
+  "events": [
+    {
+      "start": 520,
+      "length": 12,
+      "text": "arr2.x = \"x\"",
+      "frameDescription": "clickme"
+    }
+  ]
+},
+{
+  "action": "locals",
+  "args": [
+    1
+  ],
+  "events": [
+    {
+      "locals": {
+        "arguments": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "0"
+        },
+        "arr1": {
+          "__proto__": "[]",
+          "length": "16",
+          "x": "30",
+          "[0]": "11",
+          "[1]": "88",
+          "[2]": "2",
+          "[15]": "15"
+        },
+        "arr2": {
+          "__proto__": "[]",
+          "bValue": "50",
+          "length": "12",
+          "[0]": "8",
+          "[1]": "5",
+          "[7]": "37",
+          "[11]": "99"
+        },
+        "[Globals]": {
+          "clickme": "_bigstr"
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "step",
+  "args": [
+    "in"
+  ],
+  "events": [
+    {
+      "breakpoint": "step"
+    }
+  ]
+},
+{
+  "action": "locals",
+  "args": [
+    1
+  ],
+  "events": [
+    {
+      "locals": {
+        "arguments": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "0"
+        },
+        "arr1": {
+          "__proto__": "[]",
+          "length": "16",
+          "x": "30",
+          "[0]": "11",
+          "[1]": "88",
+          "[2]": "2",
+          "[15]": "15"
+        },
+        "arr2": {
+          "__proto__": "[]",
+          "bValue": "50",
+          "length": "12",
+          "x": "x",
+          "[0]": "8",
+          "[1]": "5",
+          "[7]": "37",
+          "[11]": "99"
+        },
+        "[Globals]": {
+          "clickme": "_bigstr"
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [],
+  "events": []
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

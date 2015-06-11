@@ -1,0 +1,17 @@
+JsDocCommentsParser::ParseVarDocComments:
+{
+  input :
+  {
+    text : "*\r\n * @type {String}\r\n \r\n"
+  },
+  output :
+  {
+    VarDocComments :
+    {
+        type : "String",
+
+        description : ""
+    }
+  }
+}
+Passed

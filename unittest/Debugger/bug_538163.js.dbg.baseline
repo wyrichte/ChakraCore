@@ -1,0 +1,46 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 70,
+        "length": 13,
+        "text": "if(!a.length)",
+        "frameDescription": "m"
+      },
+      {
+        "start": 184,
+        "length": 3,
+        "text": "m()",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 193,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 83,
+        "length": 6,
+        "text": "return",
+        "frameDescription": "m"
+      },
+      {
+        "start": 184,
+        "length": 3,
+        "text": "m()",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 193,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

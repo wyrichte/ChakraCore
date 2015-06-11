@@ -1,0 +1,22 @@
+Called delegate to originate E_NOINTERFACE
+ActiveScriptError_Delegate.js(14, 9) JavaScript runtime error: No such interface supported
+
+Originate: E_NOINTERFACE
+Restricted Error String: Originate: E_NOINTERFACE
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x80004002
+Error Type: WinRT error
+Stack info:
+frame 0: Anonymous function(object, string), line: 13, characterPosition: 8
+ActiveScriptError_Delegate.js(12, 5) JavaScript runtime error: No such interface supported
+
+Originate: E_NOINTERFACE
+Restricted Error String: Originate: E_NOINTERFACE
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x80004002
+Error Type: WinRT error
+Stack info:
+frame 0: Anonymous function(), line: 11, characterPosition: 4
+frame 1: Global code, line: 2, characterPosition: 1

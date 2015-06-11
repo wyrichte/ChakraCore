@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+  <test>
+    <default>
+      <tags>Intl,exclude_dynapogo,exclude_drt</tags>
+      <compile-flags>-relbasepath lib\runtime\library\injavascript -bytecodefn Intl</compile-flags>
+      <command>ValidateGeneratedByteCode.cmd</command>
+      <files>Dummy.js</files>
+      <baseline>ValidateGeneratedByteCode.bsl</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_winglob</tags>
+      <compile-flags>-Intl</compile-flags>
+      <files>Collator.js</files>
+      <baseline>Collator.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_winglob</tags>
+      <compile-flags>-Intl</compile-flags>
+      <files>SupportedLocalesOf.js</files>
+      <baseline>SupportedLocalesOf.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_winglob</tags>
+      <compile-flags>-Intl</compile-flags>
+      <files>NumberFormat.js</files>
+      <baseline>NumberFormat.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_winglob</tags>
+      <compile-flags>-Intl</compile-flags>
+      <files>DateTimeFormat.js</files>
+      <baseline>DateTimeFormat.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_winglob,exclude_win8,exclude_win7</tags>
+      <compile-flags>-Intl</compile-flags>
+      <files>BluePlusTests.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_winglob</tags>
+      <compile-flags>-Intl</compile-flags>
+      <files>IntlBuiltIns.js</files>
+      <baseline>IntlBuiltIns.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_winglob</tags>
+      <compile-flags>-Intl</compile-flags>
+      <files>IntlHiddenInternals.js</files>
+      <baseline>IntlHiddenInternals.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_winglob</tags>
+      <compile-flags>-Intl</compile-flags>
+      <files>IntlTaintingTests.js</files>
+      <baseline>IntlTaintingTests.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_fre,exclude_winglob</tags>
+      <compile-flags>-IntlBuiltIns -Intl</compile-flags>
+      <files>IntlPlatformTests.js</files>
+      <baseline>IntlPlatformTests.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_winglob,exclude_serialized</tags>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:IntlInternalsHiddenFromDebuggerTest.js.dbg.baseline -Intl</compile-flags>
+      <files>IntlInternalsHiddenFromDebuggerTest.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_winglob,exclude_serialized</tags>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:IntlInternalsHiddenFromDebuggerInterlacedTest.js.dbg.baseline -Intl</compile-flags>
+      <files>IntlInternalsHiddenFromDebuggerInterlacedTest.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+        <files>intlAttach.js</files>
+        <compile-flags>-maxinterpretCount:1 -off:simpleJit -targeted -dbgbaseline:intlAttach.js.dbg.baseline -Intl</compile-flags>
+        <tags>Intl,exclude_apollo,exclude_winglob</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_winglob</tags>
+      <compile-flags>-Intl</compile-flags>
+      <files>IntlInternalsHiddenFromExceptionStackTest.js</files>
+      <baseline>IntlInternalsHiddenFromExceptionStackTest.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_winglob</tags>
+      <compile-flags>-Intl</compile-flags>
+      <files>IntlInternalsHiddenFromFirstChanceExceptionStackTest.js</files>
+      <baseline>IntlInternalsHiddenFromFirstChanceExceptionStackTest.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win7,exclude_winglob,exclude_serialized</tags>
+      <files>StackWithScriptInLibrary.js</files>
+      <baseline>StackWithScriptInLibrary.baseline</baseline>
+      <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch -Intl</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>funcSource.js</files>
+      <compile-flags>-targeted -Intl -inspectmaxstringlength:100 -debuglaunch -dbgbaseline:funcSource.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators,exclude_winglob,exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>funcSource.js</files>
+      <command>jdtest.exe -targeted -inspectmaxstringlength:100 -dbgbaseline:funcSource.js.dbg.baseline jshost</command>
+      <compile-flags>-debuglaunch:hybrid -Intl</compile-flags>
+      <tags>fail_mutators,exclude_winglob,exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>scriptInLibrary.js</files>
+      <compile-flags>-targeted -dbgbaseline:scriptInLibrary.js.dbg.baseline -Intl</compile-flags>
+      <tags>fail_mutators,exclude_winglob</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>scriptInLibrary.js</files>
+      <compile-flags>-targeted -automaticsourcerundown -dbgbaseline:scriptInLibrary.js.dbg.baseline -Intl</compile-flags>
+      <tags>fail_mutators,exclude_winglob</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>throwFromLibrary.js</files>
+      <compile-flags>-targeted -debuglaunch -dbgbaseline:throwFromLibrary.js.dbg.baseline -Intl</compile-flags>
+      <tags>fail_mutators,exclude_winglob,exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>throwFromLibrary.js</files>
+      <baseline>throwFromLibrary.hybrid.baseline</baseline>
+      <command>jdtest.exe -targeted -dbgbaseline:throwFromLibrary.js.hybrid.dbg.baseline jshost</command>
+      <compile-flags>-debuglaunch:hybrid -Intl</compile-flags>
+      <tags>fail_mutators,exclude_winglob,exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>Intl,exclude_apollo,exclude_fre,exclude_winglob</tags>
+      <compile-flags>-IntlBuiltIns -Intl -off:NativeArray -ForceES5Array</compile-flags>
+      <files>ES5ArrayTest.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>intlProfileAttach.js</files>
+      <compile-flags>-targeted -LogLineColumnProfileInfo- -LogProfilerVerbose- -dbgbaseline:emptyJson.dbg.baseline</compile-flags>
+      <tags>fail_mutators,exclude_winglob,exclude_serialized</tags>
+    </default>
+  </test>
+</regress-exe>

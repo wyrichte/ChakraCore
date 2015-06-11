@@ -1,0 +1,38 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 308,
+        "length": 3,
+        "text": "x++",
+        "frameDescription": "baz"
+      },
+      {
+        "start": 273,
+        "length": 5,
+        "text": "baz()",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 175,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 427,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

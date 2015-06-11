@@ -1,0 +1,350 @@
+//  Copyright (c) Microsoft Corporation. All rights reserved.
+//
+//  WindowsRuntimeAPISet
+
+// This is a snap of the Win8 TeachRT sample from com\combase\unittest\teachrt
+
+import "oaidl.idl";
+import "Inspectable.idl";
+import "EventToken.idl";
+import "AsyncInfo.idl";
+
+#include <sdkddkver.h>
+
+namespace Fabrikam.Kitchen 
+{
+    [version(NTDDI_WIN8)]
+    typedef enum CookieDoneness
+    {
+        Raw = 0, 
+        Gooey, 
+        Golden, 
+        Burnt
+    } CookieDoneness;
+
+    [version(NTDDI_WIN8)]
+    typedef struct Dimensions
+    {
+        double Depth;
+        double Height;
+        double Width;
+    } Dimensions;
+
+    [version(NTDDI_WIN8)]
+    typedef enum ChefRole {
+        HeadChef,
+        AssistantChef
+    } ChefRole;
+
+    [flags, version(NTDDI_WIN8)] 
+    typedef enum ChefCapabilities 
+    {
+        CanSlice,
+        CanDice
+    } ChefCapabilities;
+
+    // Those familiar with classic IDL may remember defining the cpp_quote below for flags.
+    // Windows Runtime IDL takes care of this next line automatically, don't add it.
+    // cpp_quote("DEFINE_ENUM_FLAG_OPERATORS(ChefCapabilities)")
+
+    // Forward declarations
+    interface IAppliance;
+    interface ICookie;
+    interface IOven;
+    interface IToast;
+    interface IToaster;
+    interface IChef;
+    interface IApplianceElectricityConsumptionReporter;
+    runtimeclass Toaster;
+    runtimeclass Toast;
+
+    // Delegates
+    [version(NTDDI_WIN8), object, uuid(C2969913-53E8-478B-B765-AEC39B0C8872)]
+    delegate HRESULT ToastCompleteHandler([in] Toaster *sender, [in] IToast *toast);
+
+    [version(NTDDI_WIN8), object, uuid(6C54D01C-658F-4C48-A342-F18816B6A398)]
+    delegate HRESULT ToastStartHandler([in] Toaster *sender);
+
+    [version(NTDDI_WIN8), object, uuid(F47F69CC-EE4D-4BEB-BE96-D991BC5C6977)]
+    delegate HRESULT ApplianceSwitchOnHandler([in] IApplianceElectricityConsumptionReporter *sender, [in] HSTRING eventDetails);
+
+    [version(NTDDI_WIN8), object, uuid(0F63B4DD-64DB-49ED-8D7D-B6FD026B0B8E)]
+    delegate HRESULT ApplianceSwitchOffHandler([in] IApplianceElectricityConsumptionReporter *sender, [in] HSTRING eventDetails, [in] UINT32 unitCount);
+
+    [version(NTDDI_WIN8), object, uuid(1461260C-B855-438E-983A-512735F10F7A)]
+    delegate HRESULT ToasterPreheatStartHandler();
+
+    [version(NTDDI_WIN8), object, uuid(1A4D8070-7DFC-4094-ABB0-9817B586EB65)]
+    delegate HRESULT MultipleToastCompleteCollectionHandler([in] IChef * sender, [in] IVector<IToast *> *inToasts);
+
+    [version(NTDDI_WIN8), object, uuid(03823ACD-8316-4168-8609-87C3D7D0D29A)]
+    delegate HRESULT MultipleToastCompleteArrayHandler([in] IChef * sender, [in] UINT32 length, [in, size_is(length)] IToast * inToasts[]);
+
+    [version(NTDDI_WIN8), object, uuid(5665A233-925B-4136-BEFA-F8CDF9B7910A)]
+    delegate HRESULT MakeToastRoundOffHandler([in] IChef * sender, [out] boolean *isCorrect, [in] int nRoundOff);
+
+    // Interfaces
+    [version(NTDDI_WIN8), uuid(335D0E80-E9D8-4FF6-B5E9-8356BA822BCB)]
+    interface IApplianceElectricityConsumptionReporter : IInspectable
+    {
+        [propget] HRESULT ApplianceName([out, retval] HSTRING *name);
+
+        [eventadd] HRESULT ApplianceSwitchOnEvent(
+            [in] ApplianceSwitchOnHandler * switchOnHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+
+        [eventremove] HRESULT ApplianceSwitchOnEvent([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT ApplianceSwitchOffEvent(
+            [in] ApplianceSwitchOffHandler * switchOffHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+
+        [eventremove] HRESULT ApplianceSwitchOffEvent([in] EventRegistrationToken eventCookie);
+
+        HRESULT GetSameElectricityReporter([out] IApplianceElectricityConsumptionReporter **outElectricityReporter);
+    }
+
+    [version(NTDDI_WIN8), uuid(332FD2F1-1C69-4C91-949E-4BB67A85BDC5)]
+    interface IAppliance : IInspectable
+    {
+        [propget] HRESULT Size([out, retval] Dimensions* value);
+        [propput] HRESULT Size([in] Dimensions value);
+
+        [propget] HRESULT ElectricityReporter([out, retval] IApplianceElectricityConsumptionReporter **electricityReporter);
+    }
+
+    [version(NTDDI_WIN8), uuid(699B1394-3CEB-4A14-AE23-EFEC518B088B)]
+    interface IToast : IInspectable
+    {
+         [propget] HRESULT Message([out, retval] HSTRING* message);
+    }
+
+    [version(NTDDI_WIN8), uuid(6A112353-4F87-4460-A908-2944E92686F3)] 
+    interface IToaster : IInspectable
+        requires IAppliance
+    {
+        HRESULT MakeToast([in] HSTRING message, [out, retval] Toast** toast);
+
+        [eventadd] HRESULT ToastCompleteEvent(
+            [in] ToastCompleteHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+
+        [eventremove] HRESULT ToastCompleteEvent([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT ToastStartEvent(
+            [in] ToastStartHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+
+        [eventremove] HRESULT ToastStartEvent([in] EventRegistrationToken eventCookie);
+
+        HRESULT PreheatInBackground([in] ToastCompleteHandler* onPreheatComplete);
+
+        [eventadd] HRESULT PreheatCompleteBackground(
+            [in] ToastCompleteHandler * inHandler,
+            [out, retval] EventRegistrationToken *eventCookie);
+
+        [eventremove] HRESULT PreheatCompleteBackground([in] EventRegistrationToken eventCookie);
+
+        HRESULT InvokePreheatCompleteBackgroundEvents([in] Toaster *sender);
+
+        HRESULT PreheatInBackgroundWithSmuggledDelegate([in] ToastCompleteHandler* onPreheatComplete);
+
+        HRESULT GetSameToaster([out] IToaster **outToaster);
+
+        [eventadd] HRESULT PreheatStart(
+            [in] ToasterPreheatStartHandler * inHandler,
+            [out, retval] EventRegistrationToken *eventCookie);
+
+        [eventremove] HRESULT PreheatStart([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT IndirectToastCompleteEvent(
+            [in] ToastCompleteHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+
+        [eventremove] HRESULT IndirectToastCompleteEvent([in] EventRegistrationToken eventCookie);
+
+        [propget] HRESULT IndirectToaster([out, retval] IToaster **toaster);
+        [propput] HRESULT IndirectToaster([in] IToaster *toaster);
+        
+        HRESULT IndirectMakeToast([in] HSTRING message, [out, retval] Toast** toast);
+
+        [eventadd] HRESULT RootedToastCompleteEvent(
+            [in] ToastCompleteHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+
+        [eventremove] HRESULT RootedToastCompleteEvent([in] EventRegistrationToken eventCookie);
+
+        [propget] HRESULT RootedHandler([out, retval] ToastCompleteHandler ** clickHandler);
+        [propput] HRESULT RootedHandler([in] ToastCompleteHandler * clickHandler);
+
+        HRESULT InvokeRootedHandler([in] Toaster *sender, [in] IToast *toast);
+    }
+
+    [version(NTDDI_WIN8)]
+    runtimeclass BakeOperation
+    {
+        [default] interface Windows.Foundation.IAsyncOperationWithProgress<IVectorView<ICookie *>, int >; 
+    }
+
+    [version(NTDDI_WIN8)]
+    runtimeclass TimerOperation
+    {
+        [default] interface Windows.Foundation.IAsyncOperation<boolean>;
+    }
+
+    [version(NTDDI_WIN8), uuid(263D036E-F067-4F9A-9F83-4874C5D697D1)]
+    interface IOven : IInspectable
+        requires IAppliance
+    {
+        HRESULT BakeAsync([in] int numCookies, [out, retval] BakeOperation **asyncInfo);
+
+        HRESULT TimerAsync([in] int duration, [out, retval] TimerOperation **asyncInfo);
+    }
+
+    [version(NTDDI_WIN8), uuid(324A8A46-85C2-4084-8B89-315B9A369BD5)]
+    interface ICookie : IInspectable
+    {
+        [propget]
+        HRESULT Doneness([out, retval] CookieDoneness *doneness);
+    }
+
+    [version(NTDDI_WIN8), uuid(AAB3C5CE-E79D-4E18-803F-7CAFE28768B4)]
+    interface IKitchen : IInspectable
+    {
+    }
+
+    [version(NTDDI_WIN8), uuid(857C4CED-4154-476B-85DD-C36250ED5861)]
+    interface IChef : IInspectable
+    {
+        [propget] HRESULT Name([out,retval] HSTRING * name);
+
+        // One argument.
+        [overload("MakeBreakfast"), default_overload]
+        HRESULT MakeBreakfastToaster(
+            [in] IToaster *toaster,
+            [out, retval] int *cost);
+
+        // Do not overload with variations that differ only on an interface parameter type. e.g.
+        //     MakeBreakfastToaster([in] IOven *oven, [out, retval] int *cost);
+        //     MakeBreakfastToaster([in] IToaster *toaster, [out, retval] int *cost);
+        // Refactoring IOven and IToaster to both implement a IAppliance interface is preferred.
+        // This is because dynamic languages would not be able to tell the whether the IToaster method
+        // or IOven version of the method was intended at a call site.
+
+        // Two arguments, these will project together.
+        [overload("MakeBreakfast")]
+        HRESULT MakeBreakfastToasterInt(
+            [in] IToaster *toaster,
+            [in] int howMany,
+            [out, retval] int *cost);
+
+        [overload("MakeBreakfast") , default_overload]
+        HRESULT MakeBreakfastToasterDouble(
+            [in] IToaster *toaster,
+            [in] double howMany,
+            [out, retval] int *cost);
+
+        [propget] HRESULT Role([out, retval] ChefRole* value);
+
+        [propput] HRESULT Role([in] ChefRole value);
+
+        [propget] HRESULT Capabilities([out, retval] ChefCapabilities* value);
+
+        [propput] HRESULT Capabilities([in] ChefCapabilities value);
+
+        [eventadd] HRESULT MultipleToastCompleteCollection(
+            [in] MultipleToastCompleteCollectionHandler *inHandler,
+            [out, retval] EventRegistrationToken *eventCookie);
+
+        [eventremove] HRESULT MultipleToastCompleteCollection([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT MultipleToastCompleteArray(
+            [in] MultipleToastCompleteArrayHandler *inHandler,
+            [out, retval] EventRegistrationToken *eventCookie);
+
+        [eventremove] HRESULT MultipleToastCompleteArray([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT MakeToastRoundOff(
+            [in] MakeToastRoundOffHandler *inHandler,
+            [out, retval] EventRegistrationToken *eventCookie);
+
+        [eventremove] HRESULT MakeToastRoundOff([in] EventRegistrationToken eventCookie);
+    }
+
+    [version(NTDDI_WIN8), uuid(329A43A9-0BC3-46A6-92AD-64832A6304EF)]
+    interface IBurgerMaster : IInspectable
+    {
+        [overload("MakeBurger")]
+        HRESULT MakeBurger([in] DWORD baconSlices, [in] DWORD cheeseSlices, [out, retval] int * mayoFactor);
+
+        [overload("MakeBurger")]
+        HRESULT MakeBurgerAlwaysPuttingMayoInTheBun([out, retval] int * mayoFactor);
+    }
+
+    // The IVeggieMaster interface will not be implemented by any runtimeclass.  This is for unit testing to ensure that when we detect the methods for IBurgerMaster, we don't find these methods as well
+    [version(NTDDI_WIN8), uuid(C458E66F-CA6A-4E84-9807-935B3456382A)]
+    interface IVeggieMaster : IInspectable
+    {
+        [overload("MakeBurger")]
+        HRESULT MakeBurger([in] DWORD tomatoeSlices, [in] DWORD lettuceSlices, [out, retval] int * mayoFactor);
+
+        [overload("MakeBurger")]
+        HRESULT MakeBurgerAlwaysPuttingMayoInTheBun([out, retval] int * mayoFactor);
+    }
+
+    runtimeclass Chef;
+
+    [version(NTDDI_WIN8), uuid(C2F891FC-4D5C-4A63-AAD7-F48782D7F00E)]
+    interface IChefFactory : IInspectable
+    {
+        HRESULT CreateChef(
+            [in] HSTRING name,
+            [in] IKitchen *kitchen,
+            [out, retval] Chef **chef);
+    }
+
+    // Runtime classes
+    [version(NTDDI_WIN8), activatable(IChefFactory, NTDDI_WIN8)]
+    runtimeclass Chef
+    {
+        [default] interface IChef;
+    }
+
+    [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+    runtimeclass Kitchen
+    {
+        [default] interface IKitchen;
+    }
+
+    [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+    runtimeclass Toaster
+    {
+        [default] interface IToaster;
+    }
+
+    [version(NTDDI_WIN8)]
+    runtimeclass Toast
+    {
+        [default] interface IToast;
+    }
+
+    [version(NTDDI_WIN8)]
+    runtimeclass Cookie
+    {
+        [default] interface ICookie;
+    }
+
+    [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+    runtimeclass Oven
+    {
+        [default] interface IOven;
+    }
+
+    // Kitchen extension model definitions
+    [version(NTDDI_WIN8), uuid(2C55E773-D007-4F80-8F3A-FEDA43F358C8)]
+    interface IPricingModel : IInspectable
+    {
+        HRESULT DeterminePrice([in] double howMany, [out, retval] int *cost);
+    }
+
+} // Fabrikam.Kitchen

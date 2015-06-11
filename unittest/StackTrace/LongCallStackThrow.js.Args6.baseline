@@ -1,0 +1,11 @@
+Error: this is my error
+   at throwException (longcallstackthrow.js:29:5)
+   at throwExceptionWithCatch (longcallstackthrow.js:17:9)
+   at Anonymous function (longcallstackthrow.js:40:17)
+   at Anonymous function (longcallstackthrow.js:42:13)
+   at Anonymous function (longcallstackthrow.js:42:13)
+   at Anonymous function (longcallstackthrow.js:42:13)
+   at Anonymous function (longcallstackthrow.js:42:13)
+   at Anonymous function (longcallstackthrow.js:42:13)
+   at runtest (longcallstackthrow.js:51:5)
+   at Global code (longcallstackthrow.js:58:9)

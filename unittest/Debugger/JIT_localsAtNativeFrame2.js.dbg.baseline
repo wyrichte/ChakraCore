@@ -1,0 +1,1046 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 251,
+        "length": 13,
+        "text": "var sub = -10",
+        "frameDescription": "F2"
+      },
+      {
+        "start": 854,
+        "length": 16,
+        "text": "return b1 + F2()",
+        "frameDescription": "f6"
+      },
+      {
+        "start": 892,
+        "length": 4,
+        "text": "f6()",
+        "frameDescription": "F5_1"
+      },
+      {
+        "start": 910,
+        "length": 8,
+        "text": "F5_1(t1)",
+        "frameDescription": "F5"
+      },
+      {
+        "start": 1029,
+        "length": 4,
+        "text": "F5()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 966,
+        "length": 222,
+        "text": "function () {\n        var j = \"Anonymous function2\";\n        F5();\n        return j;                                    /**bp:stack();locals();setFrame(1);locals();setFrame(2);locals();setFrame(3);locals();**/\n    })()",
+        "frameDescription": "F6"
+      },
+      {
+        "start": 1831,
+        "length": 14,
+        "text": "F6(arg1, arg2)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 1868,
+        "length": 21,
+        "text": "Run(12, \"assdf\", 112)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[...]",
+      "i": "100",
+      "sub": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b1": "10",
+      "obj1": "{...}",
+      "[Scope]1": "F5_1",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "a": "22.2",
+      "arguments": "{...}",
+      "f6": "<large string>",
+      "z": "20",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "F5_1": "<large string>",
+      "x": "20",
+      "y": "{...}",
+      "t1": "22.2",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "12",
+      "b": "assdf",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1044,
+        "length": 8,
+        "text": "return j",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 966,
+        "length": 222,
+        "text": "function () {\n        var j = \"Anonymous function2\";\n        F5();\n        return j;                                    /**bp:stack();locals();setFrame(1);locals();setFrame(2);locals();setFrame(3);locals();**/\n    })()",
+        "frameDescription": "F6"
+      },
+      {
+        "start": 1831,
+        "length": 14,
+        "text": "F6(arg1, arg2)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 1868,
+        "length": 21,
+        "text": "Run(12, \"assdf\", 112)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "12",
+      "b": "assdf",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "arg1": "12",
+      "arg2": "assdf",
+      "arg3": "112",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "F2": "<large string>",
+      "F3": "<large string>",
+      "F5": "<large string>",
+      "F6": "<large string>",
+      "F7": "<large string>",
+      "Run": "<large string>",
+      "obj4": "12.56"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1449,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "f3"
+      },
+      {
+        "start": 1755,
+        "length": 4,
+        "text": "f3()",
+        "frameDescription": "f2"
+      },
+      {
+        "start": 1779,
+        "length": 5,
+        "text": "f2(k)",
+        "frameDescription": "F7"
+      },
+      {
+        "start": 1852,
+        "length": 8,
+        "text": "F7(arg3)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 1868,
+        "length": 21,
+        "text": "Run(12, \"assdf\", 112)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "10",
+      "[Scope]1": "",
+      "[Scope]2": "F7",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "f3": "<large string>",
+      "f32": "<large string>",
+      "arguments": "{...}",
+      "j2": "1",
+      "k2": "10",
+      "b21": "26.8",
+      "b22": "undefined",
+      "[Scope]1": "F7",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a1": "112",
+      "f2": "<large string>",
+      "k": "26.8",
+      "m": "132",
+      "j": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "arg1": "12",
+      "arg2": "assdf",
+      "arg3": "112",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 251,
+        "length": 13,
+        "text": "var sub = -10",
+        "frameDescription": "F2"
+      },
+      {
+        "start": 854,
+        "length": 16,
+        "text": "return b1 + F2()",
+        "frameDescription": "f6"
+      },
+      {
+        "start": 892,
+        "length": 4,
+        "text": "f6()",
+        "frameDescription": "F5_1"
+      },
+      {
+        "start": 910,
+        "length": 8,
+        "text": "F5_1(t1)",
+        "frameDescription": "F5"
+      },
+      {
+        "start": 1029,
+        "length": 4,
+        "text": "F5()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 966,
+        "length": 222,
+        "text": "function () {\n        var j = \"Anonymous function2\";\n        F5();\n        return j;                                    /**bp:stack();locals();setFrame(1);locals();setFrame(2);locals();setFrame(3);locals();**/\n    })()",
+        "frameDescription": "F6"
+      },
+      {
+        "start": 1831,
+        "length": 14,
+        "text": "F6(arg1, arg2)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 1892,
+        "length": 26,
+        "text": "Run([3,5,8], {a:\"aa\"}, 21)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[...]",
+      "i": "100",
+      "sub": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b1": "10",
+      "obj1": "{...}",
+      "[Scope]1": "F5_1",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "a": "22.2",
+      "arguments": "{...}",
+      "f6": "<large string>",
+      "z": "20",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "F5_1": "<large string>",
+      "x": "20",
+      "y": "{...}",
+      "t1": "22.2",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[3,5,8]",
+      "b": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1044,
+        "length": 8,
+        "text": "return j",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 966,
+        "length": 222,
+        "text": "function () {\n        var j = \"Anonymous function2\";\n        F5();\n        return j;                                    /**bp:stack();locals();setFrame(1);locals();setFrame(2);locals();setFrame(3);locals();**/\n    })()",
+        "frameDescription": "F6"
+      },
+      {
+        "start": 1831,
+        "length": 14,
+        "text": "F6(arg1, arg2)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 1892,
+        "length": 26,
+        "text": "Run([3,5,8], {a:\"aa\"}, 21)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[3,5,8]",
+      "b": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "arg1": "[3,5,8]",
+      "arg2": "{...}",
+      "arg3": "21",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "F2": "<large string>",
+      "F3": "<large string>",
+      "F5": "<large string>",
+      "F6": "<large string>",
+      "F7": "<large string>",
+      "Run": "<large string>",
+      "obj4": "12.56"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1449,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "f3"
+      },
+      {
+        "start": 1755,
+        "length": 4,
+        "text": "f3()",
+        "frameDescription": "f2"
+      },
+      {
+        "start": 1779,
+        "length": 5,
+        "text": "f2(k)",
+        "frameDescription": "F7"
+      },
+      {
+        "start": 1852,
+        "length": 8,
+        "text": "F7(arg3)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 1892,
+        "length": 26,
+        "text": "Run([3,5,8], {a:\"aa\"}, 21)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "10",
+      "[Scope]1": "",
+      "[Scope]2": "F7",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "f3": "<large string>",
+      "f32": "<large string>",
+      "arguments": "{...}",
+      "j2": "1",
+      "k2": "10",
+      "b21": "26.8",
+      "b22": "undefined",
+      "[Scope]1": "F7",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a1": "21",
+      "f2": "<large string>",
+      "k": "26.8",
+      "m": "41",
+      "j": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "arg1": "[3,5,8]",
+      "arg2": "{...}",
+      "arg3": "21",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 251,
+        "length": 13,
+        "text": "var sub = -10",
+        "frameDescription": "F2"
+      },
+      {
+        "start": 854,
+        "length": 16,
+        "text": "return b1 + F2()",
+        "frameDescription": "f6"
+      },
+      {
+        "start": 892,
+        "length": 4,
+        "text": "f6()",
+        "frameDescription": "F5_1"
+      },
+      {
+        "start": 910,
+        "length": 8,
+        "text": "F5_1(t1)",
+        "frameDescription": "F5"
+      },
+      {
+        "start": 1029,
+        "length": 4,
+        "text": "F5()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 966,
+        "length": 222,
+        "text": "function () {\n        var j = \"Anonymous function2\";\n        F5();\n        return j;                                    /**bp:stack();locals();setFrame(1);locals();setFrame(2);locals();setFrame(3);locals();**/\n    })()",
+        "frameDescription": "F6"
+      },
+      {
+        "start": 1831,
+        "length": 14,
+        "text": "F6(arg1, arg2)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 1921,
+        "length": 21,
+        "text": "Run(12, \"assdf\", 112)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[...]",
+      "i": "100",
+      "sub": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b1": "10",
+      "obj1": "{...}",
+      "[Scope]1": "F5_1",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "a": "22.2",
+      "arguments": "{...}",
+      "f6": "<large string>",
+      "z": "20",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "F5_1": "<large string>",
+      "x": "20",
+      "y": "{...}",
+      "t1": "22.2",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "12",
+      "b": "assdf",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1044,
+        "length": 8,
+        "text": "return j",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 966,
+        "length": 222,
+        "text": "function () {\n        var j = \"Anonymous function2\";\n        F5();\n        return j;                                    /**bp:stack();locals();setFrame(1);locals();setFrame(2);locals();setFrame(3);locals();**/\n    })()",
+        "frameDescription": "F6"
+      },
+      {
+        "start": 1831,
+        "length": 14,
+        "text": "F6(arg1, arg2)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 1921,
+        "length": 21,
+        "text": "Run(12, \"assdf\", 112)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "12",
+      "b": "assdf",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "arg1": "12",
+      "arg2": "assdf",
+      "arg3": "112",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "F2": "<large string>",
+      "F3": "<large string>",
+      "F5": "<large string>",
+      "F6": "<large string>",
+      "F7": "<large string>",
+      "Run": "<large string>",
+      "obj4": "12.56"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1449,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "f3"
+      },
+      {
+        "start": 1755,
+        "length": 4,
+        "text": "f3()",
+        "frameDescription": "f2"
+      },
+      {
+        "start": 1779,
+        "length": 5,
+        "text": "f2(k)",
+        "frameDescription": "F7"
+      },
+      {
+        "start": 1852,
+        "length": 8,
+        "text": "F7(arg3)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 1921,
+        "length": 21,
+        "text": "Run(12, \"assdf\", 112)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "10",
+      "[Scope]1": "",
+      "[Scope]2": "F7",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "f3": "<large string>",
+      "f32": "<large string>",
+      "arguments": "{...}",
+      "j2": "1",
+      "k2": "10",
+      "b21": "26.8",
+      "b22": "undefined",
+      "[Scope]1": "F7",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a1": "112",
+      "f2": "<large string>",
+      "k": "26.8",
+      "m": "132",
+      "j": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "arg1": "12",
+      "arg2": "assdf",
+      "arg3": "112",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 251,
+        "length": 13,
+        "text": "var sub = -10",
+        "frameDescription": "F2"
+      },
+      {
+        "start": 854,
+        "length": 16,
+        "text": "return b1 + F2()",
+        "frameDescription": "f6"
+      },
+      {
+        "start": 892,
+        "length": 4,
+        "text": "f6()",
+        "frameDescription": "F5_1"
+      },
+      {
+        "start": 910,
+        "length": 8,
+        "text": "F5_1(t1)",
+        "frameDescription": "F5"
+      },
+      {
+        "start": 1029,
+        "length": 4,
+        "text": "F5()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 966,
+        "length": 222,
+        "text": "function () {\n        var j = \"Anonymous function2\";\n        F5();\n        return j;                                    /**bp:stack();locals();setFrame(1);locals();setFrame(2);locals();setFrame(3);locals();**/\n    })()",
+        "frameDescription": "F6"
+      },
+      {
+        "start": 1831,
+        "length": 14,
+        "text": "F6(arg1, arg2)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 1945,
+        "length": 26,
+        "text": "Run([3,5,8], {a:\"aa\"}, 21)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[...]",
+      "i": "100",
+      "sub": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b1": "10",
+      "obj1": "{...}",
+      "[Scope]1": "F5_1",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "a": "22.2",
+      "arguments": "{...}",
+      "f6": "<large string>",
+      "z": "20",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "F5_1": "<large string>",
+      "x": "20",
+      "y": "{...}",
+      "t1": "22.2",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[3,5,8]",
+      "b": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1044,
+        "length": 8,
+        "text": "return j",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 966,
+        "length": 222,
+        "text": "function () {\n        var j = \"Anonymous function2\";\n        F5();\n        return j;                                    /**bp:stack();locals();setFrame(1);locals();setFrame(2);locals();setFrame(3);locals();**/\n    })()",
+        "frameDescription": "F6"
+      },
+      {
+        "start": 1831,
+        "length": 14,
+        "text": "F6(arg1, arg2)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 1945,
+        "length": 26,
+        "text": "Run([3,5,8], {a:\"aa\"}, 21)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[3,5,8]",
+      "b": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "arg1": "[3,5,8]",
+      "arg2": "{...}",
+      "arg3": "21",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "F2": "<large string>",
+      "F3": "<large string>",
+      "F5": "<large string>",
+      "F6": "<large string>",
+      "F7": "<large string>",
+      "Run": "<large string>",
+      "obj4": "12.56"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1449,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "f3"
+      },
+      {
+        "start": 1755,
+        "length": 4,
+        "text": "f3()",
+        "frameDescription": "f2"
+      },
+      {
+        "start": 1779,
+        "length": 5,
+        "text": "f2(k)",
+        "frameDescription": "F7"
+      },
+      {
+        "start": 1852,
+        "length": 8,
+        "text": "F7(arg3)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 1945,
+        "length": 26,
+        "text": "Run([3,5,8], {a:\"aa\"}, 21)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "10",
+      "[Scope]1": "",
+      "[Scope]2": "F7",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "f3": "<large string>",
+      "f32": "<large string>",
+      "arguments": "{...}",
+      "j2": "1",
+      "k2": "10",
+      "b21": "26.8",
+      "b22": "undefined",
+      "[Scope]1": "F7",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a1": "21",
+      "f2": "<large string>",
+      "k": "26.8",
+      "m": "41",
+      "j": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "arg1": "[3,5,8]",
+      "arg2": "{...}",
+      "arg3": "21",
+      "[Globals]": ""
+    }
+  }
+]

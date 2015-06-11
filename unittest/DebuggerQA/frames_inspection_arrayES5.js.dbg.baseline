@@ -1,0 +1,35 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 209,
+        "length": 3,
+        "text": "key",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.forEach"
+      },
+      {
+        "start": 157,
+        "length": 93,
+        "text": "arr.forEach(function (key, val, map) {\n            key;/**bp:stack();locals()**/\n        })",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "key": "1",
+      "val": "0",
+      "map": "[1]",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  }
+]

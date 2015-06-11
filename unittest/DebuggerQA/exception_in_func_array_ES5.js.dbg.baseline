@@ -1,0 +1,18 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 228,
+        "length": 13,
+        "text": "arr.forEach()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 341,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  }
+]

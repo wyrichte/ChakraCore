@@ -1,0 +1,58 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 220,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "func0"
+      },
+      {
+        "start": 359,
+        "length": 25,
+        "text": "1 >= 2 ? 0 : func0()) + 1",
+        "frameDescription": "func7"
+      },
+      {
+        "start": 398,
+        "length": 11,
+        "text": "func7(1, 1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 416,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 220,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "func0"
+      },
+      {
+        "start": 359,
+        "length": 25,
+        "text": "1 >= 2 ? 0 : func0()) + 1",
+        "frameDescription": "func7"
+      },
+      {
+        "start": 398,
+        "length": 11,
+        "text": "func7(1, 1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 426,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

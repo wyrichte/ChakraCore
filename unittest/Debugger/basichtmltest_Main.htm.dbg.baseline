@@ -1,0 +1,77 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 241,
+        "length": 22,
+        "text": "this.testPages.push(1)",
+        "frameDescription": "addTestPage"
+      },
+      {
+        "start": 190,
+        "length": 22,
+        "text": "newsuite.addTestPage()",
+        "frameDescription": "suite"
+      },
+      {
+        "start": 327,
+        "length": 17,
+        "text": "var x = b.suite()",
+        "frameDescription": "f"
+      },
+      {
+        "start": 459,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "onload"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 241,
+        "length": 22,
+        "text": "this.testPages.push(1)",
+        "frameDescription": "addTestPage"
+      },
+      {
+        "start": 222,
+        "length": 15,
+        "text": "return newsuite",
+        "frameDescription": "suite"
+      },
+      {
+        "start": 327,
+        "length": 17,
+        "text": "var x = b.suite()",
+        "frameDescription": "f"
+      },
+      {
+        "start": 459,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "onload"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "x": {
+        "[Methods]": {
+          "addTestPage": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "testPages": {
+          "[0]": "1",
+          "[1]": "1",
+          "__proto__": "[]",
+          "length": "2"
+        }
+      }
+    }
+  }
+]

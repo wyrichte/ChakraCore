@@ -1,0 +1,23 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "[Return value]": "undefined",
+      "arguments": "{...}",
+      "k": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "f.test1": "<large string>"
+    }
+  }
+]

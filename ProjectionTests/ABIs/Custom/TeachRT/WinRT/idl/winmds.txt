@@ -1,0 +1,2 @@
+; No pdbs for metadata-only file
+Fabrikam.winmd

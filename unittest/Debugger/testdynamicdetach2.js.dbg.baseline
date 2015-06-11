@@ -1,0 +1,219 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 202,
+        "length": 10,
+        "text": "var a = 10",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "g": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "g",
+        "prototype": "{...}"
+      },
+      "a": "undefined",
+      "f1": "undefined",
+      "s": "undefined",
+      "[Globals]": {
+        "foo": "<large string>",
+        "inEvalFunc1": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "var a = 10",
+        "frameDescription": "foo"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 280,
+        "length": 31,
+        "text": "WScript.Echo(\"In function foo\")",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "g": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "g",
+        "prototype": "{...}"
+      },
+      "a": "10",
+      "f1": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f1",
+        "prototype": "{...}"
+      },
+      "s": "undefined",
+      "[Globals]": {
+        "foo": "<large string>",
+        "inEvalFunc1": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 280,
+        "length": 31,
+        "text": "WScript.Echo(\"In function foo\")",
+        "frameDescription": "foo"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 367,
+        "length": 3,
+        "text": "g()",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "g": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "g",
+        "prototype": "{...}"
+      },
+      "a": "10",
+      "f1": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f1",
+        "prototype": "{...}"
+      },
+      "s": "undefined",
+      "[Globals]": {
+        "foo": "<large string>",
+        "inEvalFunc1": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 367,
+        "length": 3,
+        "text": "g()",
+        "frameDescription": "foo"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 536,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "g": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "g",
+        "prototype": "{...}"
+      },
+      "a": "asfdssd",
+      "f1": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f1",
+        "prototype": "{...}"
+      },
+      "s": "undefined",
+      "[Globals]": {
+        "foo": "<large string>",
+        "inEvalFunc1": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 536,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "foo"
+      }
+    ]
+  }
+]

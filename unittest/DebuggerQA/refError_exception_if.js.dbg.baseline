@@ -1,0 +1,30 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 3,
+        "text": "x++",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 90,
+        "length": 30,
+        "text": "WScript.Echo('Continue in if')",
+        "frameDescription": "Run"
+      }
+    ]
+  }
+]

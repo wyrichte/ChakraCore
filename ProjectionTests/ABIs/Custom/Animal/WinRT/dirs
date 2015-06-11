@@ -1,0 +1,5 @@
+DIRS=\
+    idl{noncrit} \
+    lib{noncrit} \
+    dllsrv \
+    man{noncrit} \

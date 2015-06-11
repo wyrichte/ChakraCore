@@ -1,0 +1,7817 @@
+IMap Tests
+
+=================================================
+Starting [Test 1: IMap : IMap of String and Integer]
+Comment: typeof myMap: object
+Comment: Dump of properties : 
+    var myMapMembers = [
+        ['by', 'number'],
+        ['Hundred', 'number'],
+        ['Hundred And Fifty', 'number'],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getView', 'function', 0],
+        ['hasKey', 'function', 1],
+        ['insert', 'function', 2],
+        ['lookup', 'function', 1],
+        ['remove', 'function', 1],
+        ['size', 'number'],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myMap
+      Actual: object
+
+Pass: myMap's property
+      Actual: by
+
+Pass: typeof myMap["by"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: clear
+
+Pass: typeof myMap["clear"]
+      Actual: function
+
+Pass: myMap["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["clear"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: first
+
+Pass: typeof myMap["first"]
+      Actual: function
+
+Pass: myMap["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["first"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: getView
+
+Pass: typeof myMap["getView"]
+      Actual: function
+
+Pass: myMap["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["getView"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: hasKey
+
+Pass: typeof myMap["hasKey"]
+      Actual: function
+
+Pass: myMap["hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["hasKey"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: insert
+
+Pass: typeof myMap["insert"]
+      Actual: function
+
+Pass: myMap["insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myMap["insert"].length
+      Actual: 2
+
+Pass: myMap's property
+      Actual: lookup
+
+Pass: typeof myMap["lookup"]
+      Actual: function
+
+Pass: myMap["lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["lookup"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: remove
+
+Pass: typeof myMap["remove"]
+      Actual: function
+
+Pass: myMap["remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["remove"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: size
+
+Pass: typeof myMap["size"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: toString
+
+Pass: typeof myMap["toString"]
+      Actual: function
+
+Pass: myMap["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["toString"].length
+      Actual: 0
+
+Pass: number of properties of myMap
+      Actual: 12
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 3
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (2): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+PASS [Test 1: IMap : IMap of String and Integer]
+=================================================
+
+=================================================
+Starting [Test 2: IMap : Set the properties]
+Pass: myMap["name"]
+      Actual: 4
+
+Pass: myMap["Twenty"]
+      Actual: 6
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 5
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: Twenty
+
+Pass: Value (2): myMap
+      Actual: 6
+
+Pass: Key (3): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (3): myMap
+      Actual: 17
+
+Pass: Key (4): myMap
+      Actual: name
+
+Pass: Value (4): myMap
+      Actual: 4
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Pass: myMap["name"]
+      Actual: 2
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 5
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: Twenty
+
+Pass: Value (2): myMap
+      Actual: 6
+
+Pass: Key (3): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (3): myMap
+      Actual: 17
+
+Pass: Key (4): myMap
+      Actual: name
+
+Pass: Value (4): myMap
+      Actual: 2
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Pass: myMap[0]
+      Actual: 0
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 6
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: 0
+
+Pass: Value (2): myMap
+      Actual: 0
+
+Pass: Key (3): myMap
+      Actual: Twenty
+
+Pass: Value (3): myMap
+      Actual: 6
+
+Pass: Key (4): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (4): myMap
+      Actual: 17
+
+Pass: Key (5): myMap
+      Actual: name
+
+Pass: Value (5): myMap
+      Actual: 2
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 6
+
+Pass: myMap["4"]
+      Actual: 4
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 7
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: 0
+
+Pass: Value (2): myMap
+      Actual: 0
+
+Pass: Key (3): myMap
+      Actual: Twenty
+
+Pass: Value (3): myMap
+      Actual: 6
+
+Pass: Key (4): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (4): myMap
+      Actual: 17
+
+Pass: Key (5): myMap
+      Actual: 4
+
+Pass: Value (5): myMap
+      Actual: 4
+
+Pass: Key (6): myMap
+      Actual: name
+
+Pass: Value (6): myMap
+      Actual: 2
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 7
+
+Pass: myMap["Twenty"]
+      Actual: 0
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 7
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: 0
+
+Pass: Value (2): myMap
+      Actual: 0
+
+Pass: Key (3): myMap
+      Actual: Twenty
+
+Pass: Value (3): myMap
+      Actual: 0
+
+Pass: Key (4): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (4): myMap
+      Actual: 17
+
+Pass: Key (5): myMap
+      Actual: 4
+
+Pass: Value (5): myMap
+      Actual: 4
+
+Pass: Key (6): myMap
+      Actual: name
+
+Pass: Value (6): myMap
+      Actual: 2
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 7
+
+Pass: myMap["undefinedProperty"]
+      Actual: undefined
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 7
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: 0
+
+Pass: Value (2): myMap
+      Actual: 0
+
+Pass: Key (3): myMap
+      Actual: Twenty
+
+Pass: Value (3): myMap
+      Actual: 0
+
+Pass: Key (4): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (4): myMap
+      Actual: 17
+
+Pass: Key (5): myMap
+      Actual: 4
+
+Pass: Value (5): myMap
+      Actual: 4
+
+Pass: Key (6): myMap
+      Actual: name
+
+Pass: Value (6): myMap
+      Actual: 2
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 7
+
+Pass: myMap["Twenty"]
+      Actual: 0
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 7
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: 0
+
+Pass: Value (2): myMap
+      Actual: 0
+
+Pass: Key (3): myMap
+      Actual: Twenty
+
+Pass: Value (3): myMap
+      Actual: 0
+
+Pass: Key (4): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (4): myMap
+      Actual: 17
+
+Pass: Key (5): myMap
+      Actual: 4
+
+Pass: Value (5): myMap
+      Actual: 4
+
+Pass: Key (6): myMap
+      Actual: name
+
+Pass: Value (6): myMap
+      Actual: 2
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 7
+
+PASS [Test 2: IMap : Set the properties]
+=================================================
+
+=================================================
+Starting [Test 3: IMap : Delete the properties]
+Pass: myMap["by"]
+      Actual: undefined
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 2
+
+Pass: Key (0): myMap
+      Actual: Hundred
+
+Pass: Value (0): myMap
+      Actual: 7
+
+Pass: Key (1): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (1): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Pass: myMap[0]
+      Actual: 70
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 3
+
+Pass: Key (0): myMap
+      Actual: Hundred
+
+Pass: Value (0): myMap
+      Actual: 7
+
+Pass: Key (1): myMap
+      Actual: 0
+
+Pass: Value (1): myMap
+      Actual: 70
+
+Pass: Key (2): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (2): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Pass: myMap[0]
+      Actual: undefined
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 2
+
+Pass: Key (0): myMap
+      Actual: Hundred
+
+Pass: Value (0): myMap
+      Actual: 7
+
+Pass: Key (1): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (1): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Pass: myMap["4"]
+      Actual: 40
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 3
+
+Pass: Key (0): myMap
+      Actual: Hundred
+
+Pass: Value (0): myMap
+      Actual: 7
+
+Pass: Key (1): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (1): myMap
+      Actual: 17
+
+Pass: Key (2): myMap
+      Actual: 4
+
+Pass: Value (2): myMap
+      Actual: 40
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Pass: myMap["4"]
+      Actual: undefined
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 2
+
+Pass: Key (0): myMap
+      Actual: Hundred
+
+Pass: Value (0): myMap
+      Actual: 7
+
+Pass: Key (1): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (1): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Pass: delete myMap["undefinedProperty"]
+      Actual: false
+
+Pass: myMap["undefinedProperty"]
+      Actual: undefined
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 2
+
+Pass: Key (0): myMap
+      Actual: Hundred
+
+Pass: Value (0): myMap
+      Actual: 7
+
+Pass: Key (1): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (1): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Pass: delete myMap[75]
+      Actual: false
+
+Pass: myMap[75]
+      Actual: undefined
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 2
+
+Pass: Key (0): myMap
+      Actual: Hundred
+
+Pass: Value (0): myMap
+      Actual: 7
+
+Pass: Key (1): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (1): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+PASS [Test 3: IMap : Delete the properties]
+=================================================
+
+=================================================
+Starting [Test 4: IMap : Enumerator]
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 4
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: 20
+
+Pass: Value (2): myMap
+      Actual: 20
+
+Pass: Key (3): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (3): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: Verifying enumerator of : myMap
+Pass: myMap's property: 0
+      Actual: by
+
+Pass: typeof myMap["by"]
+      Actual: number
+
+Pass: myMap["by"]
+      Actual: 2
+
+Pass: myMap's property: 1
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap["Hundred"]
+      Actual: 7
+
+Pass: myMap's property: 2
+      Actual: 20
+
+Pass: typeof myMap["20"]
+      Actual: number
+
+Pass: myMap["20"]
+      Actual: 20
+
+Pass: myMap's property: 3
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap["Hundred And Fifty"]
+      Actual: 17
+
+Pass: myMap's property: 4
+      Actual: clear
+
+Pass: typeofmyMap["clear"]
+      Actual: function
+
+Pass: myMap's property: 5
+      Actual: first
+
+Pass: typeofmyMap["first"]
+      Actual: function
+
+Pass: myMap's property: 6
+      Actual: getView
+
+Pass: typeofmyMap["getView"]
+      Actual: function
+
+Pass: myMap's property: 7
+      Actual: hasKey
+
+Pass: typeofmyMap["hasKey"]
+      Actual: function
+
+Pass: myMap's property: 8
+      Actual: insert
+
+Pass: typeofmyMap["insert"]
+      Actual: function
+
+Pass: myMap's property: 9
+      Actual: lookup
+
+Pass: typeofmyMap["lookup"]
+      Actual: function
+
+Pass: myMap's property: 10
+      Actual: remove
+
+Pass: typeofmyMap["remove"]
+      Actual: function
+
+Pass: myMap's property: 11
+      Actual: size
+
+Pass: typeofmyMap["size"]
+      Actual: number
+
+Pass: myMap's property: 12
+      Actual: toString
+
+Pass: typeofmyMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 4
+
+Pass: All prototype members read?
+      Actual: 9
+
+Comment: Remove all properties and verify the enumerator
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Comment: Verifying enumerator of : myMap
+Pass: myMap's property: 0
+      Actual: clear
+
+Pass: typeofmyMap["clear"]
+      Actual: function
+
+Pass: myMap's property: 1
+      Actual: first
+
+Pass: typeofmyMap["first"]
+      Actual: function
+
+Pass: myMap's property: 2
+      Actual: getView
+
+Pass: typeofmyMap["getView"]
+      Actual: function
+
+Pass: myMap's property: 3
+      Actual: hasKey
+
+Pass: typeofmyMap["hasKey"]
+      Actual: function
+
+Pass: myMap's property: 4
+      Actual: insert
+
+Pass: typeofmyMap["insert"]
+      Actual: function
+
+Pass: myMap's property: 5
+      Actual: lookup
+
+Pass: typeofmyMap["lookup"]
+      Actual: function
+
+Pass: myMap's property: 6
+      Actual: remove
+
+Pass: typeofmyMap["remove"]
+      Actual: function
+
+Pass: myMap's property: 7
+      Actual: size
+
+Pass: typeofmyMap["size"]
+      Actual: number
+
+Pass: myMap's property: 8
+      Actual: toString
+
+Pass: typeofmyMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 0
+
+Pass: All prototype members read?
+      Actual: 9
+
+PASS [Test 4: IMap : Enumerator]
+=================================================
+
+=================================================
+Starting [Test 5: IMap : Modifying values in Enumerator]
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 4
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: 20
+
+Pass: Value (2): myMap
+      Actual: 20
+
+Pass: Key (3): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (3): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: Verifying enumerator of : myMap
+Pass: myMap's property: 0
+      Actual: by
+
+Pass: typeof myMap["by"]
+      Actual: number
+
+Pass: myMap["by"]
+      Actual: 2
+
+Pass: myMap's property: 1
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap["Hundred"]
+      Actual: 7
+
+Pass: myMap's property: 2
+      Actual: 20
+
+Pass: typeof myMap["20"]
+      Actual: number
+
+Pass: myMap["20"]
+      Actual: 20
+
+Pass: myMap's property: 3
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap["Hundred And Fifty"]
+      Actual: 17
+
+Pass: myMap's property: 4
+      Actual: clear
+
+Pass: typeofmyMap["clear"]
+      Actual: function
+
+Pass: myMap's property: 5
+      Actual: first
+
+Pass: typeofmyMap["first"]
+      Actual: function
+
+Pass: myMap's property: 6
+      Actual: getView
+
+Pass: typeofmyMap["getView"]
+      Actual: function
+
+Pass: myMap's property: 7
+      Actual: hasKey
+
+Pass: typeofmyMap["hasKey"]
+      Actual: function
+
+Pass: myMap's property: 8
+      Actual: insert
+
+Pass: typeofmyMap["insert"]
+      Actual: function
+
+Pass: myMap's property: 9
+      Actual: lookup
+
+Pass: typeofmyMap["lookup"]
+      Actual: function
+
+Pass: myMap's property: 10
+      Actual: remove
+
+Pass: typeofmyMap["remove"]
+      Actual: function
+
+Pass: myMap's property: 11
+      Actual: size
+
+Pass: typeofmyMap["size"]
+      Actual: number
+
+Pass: myMap's property: 12
+      Actual: toString
+
+Pass: typeofmyMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 4
+
+Pass: All prototype members read?
+      Actual: 9
+
+Pass: * myMap's property: 0
+      Actual: by
+
+Pass: * typeof myMap["by"]
+      Actual: number
+
+Pass: * myMap["by"]
+      Actual: 2
+
+Comment: *** Modify the properties while enumerating : Start ***
+Pass: myMap["by"]
+      Actual: 20
+
+Pass: myMap["Hundred And Fifty"]
+      Actual: 150
+
+Pass: myMap["Adventurous"]
+      Actual: 1
+
+Pass: myMap["NewToSwimming"]
+      Actual: 0
+
+Pass: myMap["20"]
+      Actual: undefined
+
+Pass: myMap["Hundred"]
+      Actual: undefined
+
+Comment: *** Modify the properties while enumerating : End ***
+Pass: * myMap's property: 1
+      Actual: Hundred And Fifty
+
+Pass: * typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: * myMap["Hundred And Fifty"]
+      Actual: 150
+
+Pass: * myMap's property: 2
+      Actual: clear
+
+Pass: * typeofmyMap["clear"]
+      Actual: function
+
+Pass: * myMap's property: 3
+      Actual: first
+
+Pass: * typeofmyMap["first"]
+      Actual: function
+
+Pass: * myMap's property: 4
+      Actual: getView
+
+Pass: * typeofmyMap["getView"]
+      Actual: function
+
+Pass: * myMap's property: 5
+      Actual: hasKey
+
+Pass: * typeofmyMap["hasKey"]
+      Actual: function
+
+Pass: * myMap's property: 6
+      Actual: insert
+
+Pass: * typeofmyMap["insert"]
+      Actual: function
+
+Pass: * myMap's property: 7
+      Actual: lookup
+
+Pass: * typeofmyMap["lookup"]
+      Actual: function
+
+Pass: * myMap's property: 8
+      Actual: remove
+
+Pass: * typeofmyMap["remove"]
+      Actual: function
+
+Pass: * myMap's property: 9
+      Actual: size
+
+Pass: * typeofmyMap["size"]
+      Actual: number
+
+Pass: * myMap's property: 10
+      Actual: toString
+
+Pass: * typeofmyMap["toString"]
+      Actual: function
+
+Pass: * All Map contents read?
+      Actual: 2
+
+Pass: * All prototype members read?
+      Actual: 9
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 4
+
+Pass: Key (0): myMap
+      Actual: Adventurous
+
+Pass: Value (0): myMap
+      Actual: 1
+
+Pass: Key (1): myMap
+      Actual: by
+
+Pass: Value (1): myMap
+      Actual: 20
+
+Pass: Key (2): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (2): myMap
+      Actual: 150
+
+Pass: Key (3): myMap
+      Actual: NewToSwimming
+
+Pass: Value (3): myMap
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: Verifying enumerator of : myMap
+Pass: myMap's property: 0
+      Actual: Adventurous
+
+Pass: typeof myMap["Adventurous"]
+      Actual: number
+
+Pass: myMap["Adventurous"]
+      Actual: 1
+
+Pass: myMap's property: 1
+      Actual: by
+
+Pass: typeof myMap["by"]
+      Actual: number
+
+Pass: myMap["by"]
+      Actual: 20
+
+Pass: myMap's property: 2
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap["Hundred And Fifty"]
+      Actual: 150
+
+Pass: myMap's property: 3
+      Actual: NewToSwimming
+
+Pass: typeof myMap["NewToSwimming"]
+      Actual: number
+
+Pass: myMap["NewToSwimming"]
+      Actual: 0
+
+Pass: myMap's property: 4
+      Actual: clear
+
+Pass: typeofmyMap["clear"]
+      Actual: function
+
+Pass: myMap's property: 5
+      Actual: first
+
+Pass: typeofmyMap["first"]
+      Actual: function
+
+Pass: myMap's property: 6
+      Actual: getView
+
+Pass: typeofmyMap["getView"]
+      Actual: function
+
+Pass: myMap's property: 7
+      Actual: hasKey
+
+Pass: typeofmyMap["hasKey"]
+      Actual: function
+
+Pass: myMap's property: 8
+      Actual: insert
+
+Pass: typeofmyMap["insert"]
+      Actual: function
+
+Pass: myMap's property: 9
+      Actual: lookup
+
+Pass: typeofmyMap["lookup"]
+      Actual: function
+
+Pass: myMap's property: 10
+      Actual: remove
+
+Pass: typeofmyMap["remove"]
+      Actual: function
+
+Pass: myMap's property: 11
+      Actual: size
+
+Pass: typeofmyMap["size"]
+      Actual: number
+
+Pass: myMap's property: 12
+      Actual: toString
+
+Pass: typeofmyMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 4
+
+Pass: All prototype members read?
+      Actual: 9
+
+PASS [Test 5: IMap : Modifying values in Enumerator]
+=================================================
+
+=================================================
+Starting [Test 6: IMap : Name conflicting properties : 0, 32 and insert]
+Comment: *** Setup prototype for conflicting properties
+Comment: typeof myMap: object
+Comment: Dump of properties : 
+    var myMapMembers = [
+        ['by', 'number'],
+        ['Hundred', 'number'],
+        ['Hundred And Fifty', 'number'],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getView', 'function', 0],
+        ['hasKey', 'function', 1],
+        ['insert', 'function', 2],
+        ['lookup', 'function', 1],
+        ['remove', 'function', 1],
+        ['size', 'number'],
+        ['toString', 'function', 0],
+        ['0', 'string'],
+        ['32', 'string'],
+    ];
+Pass: typeof myMap
+      Actual: object
+
+Pass: myMap's property
+      Actual: by
+
+Pass: typeof myMap["by"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: clear
+
+Pass: typeof myMap["clear"]
+      Actual: function
+
+Pass: myMap["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["clear"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: first
+
+Pass: typeof myMap["first"]
+      Actual: function
+
+Pass: myMap["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["first"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: getView
+
+Pass: typeof myMap["getView"]
+      Actual: function
+
+Pass: myMap["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["getView"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: hasKey
+
+Pass: typeof myMap["hasKey"]
+      Actual: function
+
+Pass: myMap["hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["hasKey"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: insert
+
+Pass: typeof myMap["insert"]
+      Actual: function
+
+Pass: myMap["insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myMap["insert"].length
+      Actual: 2
+
+Pass: myMap's property
+      Actual: lookup
+
+Pass: typeof myMap["lookup"]
+      Actual: function
+
+Pass: myMap["lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["lookup"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: remove
+
+Pass: typeof myMap["remove"]
+      Actual: function
+
+Pass: myMap["remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["remove"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: size
+
+Pass: typeof myMap["size"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: toString
+
+Pass: typeof myMap["toString"]
+      Actual: function
+
+Pass: myMap["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["toString"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: 0
+
+Pass: typeof myMap["0"]
+      Actual: string
+
+Pass: myMap's property
+      Actual: 32
+
+Pass: typeof myMap["32"]
+      Actual: string
+
+Pass: number of properties of myMap
+      Actual: 14
+
+Comment: *** Set conflicting properties using index operation
+Pass: myMap.hasKey("insert")
+      Actual: false
+
+Pass: typeof myMap["insert"]
+      Actual: function
+
+Pass: myMap["insert"].toString()
+      Actual: function insert() { [native code] }
+
+Pass: myMap.hasKey("0")
+      Actual: false
+
+Pass: myMap["0"]
+      Actual: 0 Property
+
+Pass: myMap.hasKey("32")
+      Actual: false
+
+Pass: myMap["32"]
+      Actual: 32 Property
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 3
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (2): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: Verifying enumerator of : myMap
+Pass: myMap's property: 0
+      Actual: by
+
+Pass: typeof myMap["by"]
+      Actual: number
+
+Pass: myMap["by"]
+      Actual: 2
+
+Pass: myMap's property: 1
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap["Hundred"]
+      Actual: 7
+
+Pass: myMap's property: 2
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap["Hundred And Fifty"]
+      Actual: 17
+
+Pass: myMap's property: 3
+      Actual: clear
+
+Pass: typeofmyMap["clear"]
+      Actual: function
+
+Pass: myMap's property: 4
+      Actual: first
+
+Pass: typeofmyMap["first"]
+      Actual: function
+
+Pass: myMap's property: 5
+      Actual: getView
+
+Pass: typeofmyMap["getView"]
+      Actual: function
+
+Pass: myMap's property: 6
+      Actual: hasKey
+
+Pass: typeofmyMap["hasKey"]
+      Actual: function
+
+Pass: myMap's property: 7
+      Actual: insert
+
+Pass: typeofmyMap["insert"]
+      Actual: function
+
+Pass: myMap's property: 8
+      Actual: lookup
+
+Pass: typeofmyMap["lookup"]
+      Actual: function
+
+Pass: myMap's property: 9
+      Actual: remove
+
+Pass: typeofmyMap["remove"]
+      Actual: function
+
+Pass: myMap's property: 10
+      Actual: size
+
+Pass: typeofmyMap["size"]
+      Actual: number
+
+Pass: myMap's property: 11
+      Actual: toString
+
+Pass: typeofmyMap["toString"]
+      Actual: function
+
+Pass: myMap's property: 12
+      Actual: 0
+
+Pass: typeofmyMap["0"]
+      Actual: string
+
+Pass: myMap's property: 13
+      Actual: 32
+
+Pass: typeofmyMap["32"]
+      Actual: string
+
+Pass: All propertySet contents read?
+      Actual: 3
+
+Pass: All prototype members read?
+      Actual: 11
+
+Comment: *** Add Map members using .insert method
+Pass: myMap.hasKey("insert")
+      Actual: true
+
+Pass: myMap.lookup("insert")
+      Actual: 55
+
+Pass: typeof myMap["insert"]
+      Actual: function
+
+Pass: myMap["insert"].toString()
+      Actual: function insert() { [native code] }
+
+Pass: myMap.hasKey("0")
+      Actual: true
+
+Pass: myMap.lookup("0")
+      Actual: 66
+
+Pass: myMap["0"]
+      Actual: 0 Property
+
+Pass: myMap.hasKey("32")
+      Actual: true
+
+Pass: myMap.lookup("32")
+      Actual: 77
+
+Pass: myMap["32"]
+      Actual: 32 Property
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 6
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: 0
+
+Pass: Value (2): myMap
+      Actual: 66
+
+Pass: Key (3): myMap
+      Actual: 32
+
+Pass: Value (3): myMap
+      Actual: 77
+
+Pass: Key (4): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (4): myMap
+      Actual: 17
+
+Pass: Key (5): myMap
+      Actual: insert
+
+Pass: Value (5): myMap
+      Actual: 55
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 6
+
+Comment: Verifying enumerator of : myMap
+Pass: myMap's property: 0
+      Actual: by
+
+Pass: typeof myMap["by"]
+      Actual: number
+
+Pass: myMap["by"]
+      Actual: 2
+
+Pass: myMap's property: 1
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap["Hundred"]
+      Actual: 7
+
+Pass: myMap's property: 2
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap["Hundred And Fifty"]
+      Actual: 17
+
+Pass: myMap's property: 3
+      Actual: clear
+
+Pass: typeofmyMap["clear"]
+      Actual: function
+
+Pass: myMap's property: 4
+      Actual: first
+
+Pass: typeofmyMap["first"]
+      Actual: function
+
+Pass: myMap's property: 5
+      Actual: getView
+
+Pass: typeofmyMap["getView"]
+      Actual: function
+
+Pass: myMap's property: 6
+      Actual: hasKey
+
+Pass: typeofmyMap["hasKey"]
+      Actual: function
+
+Pass: myMap's property: 7
+      Actual: insert
+
+Pass: typeofmyMap["insert"]
+      Actual: function
+
+Pass: myMap's property: 8
+      Actual: lookup
+
+Pass: typeofmyMap["lookup"]
+      Actual: function
+
+Pass: myMap's property: 9
+      Actual: remove
+
+Pass: typeofmyMap["remove"]
+      Actual: function
+
+Pass: myMap's property: 10
+      Actual: size
+
+Pass: typeofmyMap["size"]
+      Actual: number
+
+Pass: myMap's property: 11
+      Actual: toString
+
+Pass: typeofmyMap["toString"]
+      Actual: function
+
+Pass: myMap's property: 12
+      Actual: 0
+
+Pass: typeofmyMap["0"]
+      Actual: string
+
+Pass: myMap's property: 13
+      Actual: 32
+
+Pass: typeofmyMap["32"]
+      Actual: string
+
+Pass: All propertySet contents read?
+      Actual: 3
+
+Pass: All prototype members read?
+      Actual: 11
+
+Comment: *** Delete the conflicting properties - shouldnt change anything
+Pass: myMap.hasKey("insert")
+      Actual: true
+
+Pass: myMap.lookup("insert")
+      Actual: 55
+
+Pass: typeof myMap["insert"]
+      Actual: function
+
+Pass: myMap["insert"].toString()
+      Actual: function insert() { [native code] }
+
+Pass: myMap.hasKey("0")
+      Actual: true
+
+Pass: myMap.lookup("0")
+      Actual: 66
+
+Pass: myMap["0"]
+      Actual: 0 Property
+
+Pass: myMap.hasKey("32")
+      Actual: true
+
+Pass: myMap.lookup("32")
+      Actual: 77
+
+Pass: myMap["32"]
+      Actual: 32 Property
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 6
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: 0
+
+Pass: Value (2): myMap
+      Actual: 66
+
+Pass: Key (3): myMap
+      Actual: 32
+
+Pass: Value (3): myMap
+      Actual: 77
+
+Pass: Key (4): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (4): myMap
+      Actual: 17
+
+Pass: Key (5): myMap
+      Actual: insert
+
+Pass: Value (5): myMap
+      Actual: 55
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 6
+
+Comment: Verifying enumerator of : myMap
+Pass: myMap's property: 0
+      Actual: by
+
+Pass: typeof myMap["by"]
+      Actual: number
+
+Pass: myMap["by"]
+      Actual: 2
+
+Pass: myMap's property: 1
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap["Hundred"]
+      Actual: 7
+
+Pass: myMap's property: 2
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap["Hundred And Fifty"]
+      Actual: 17
+
+Pass: myMap's property: 3
+      Actual: clear
+
+Pass: typeofmyMap["clear"]
+      Actual: function
+
+Pass: myMap's property: 4
+      Actual: first
+
+Pass: typeofmyMap["first"]
+      Actual: function
+
+Pass: myMap's property: 5
+      Actual: getView
+
+Pass: typeofmyMap["getView"]
+      Actual: function
+
+Pass: myMap's property: 6
+      Actual: hasKey
+
+Pass: typeofmyMap["hasKey"]
+      Actual: function
+
+Pass: myMap's property: 7
+      Actual: insert
+
+Pass: typeofmyMap["insert"]
+      Actual: function
+
+Pass: myMap's property: 8
+      Actual: lookup
+
+Pass: typeofmyMap["lookup"]
+      Actual: function
+
+Pass: myMap's property: 9
+      Actual: remove
+
+Pass: typeofmyMap["remove"]
+      Actual: function
+
+Pass: myMap's property: 10
+      Actual: size
+
+Pass: typeofmyMap["size"]
+      Actual: number
+
+Pass: myMap's property: 11
+      Actual: toString
+
+Pass: typeofmyMap["toString"]
+      Actual: function
+
+Pass: myMap's property: 12
+      Actual: 0
+
+Pass: typeofmyMap["0"]
+      Actual: string
+
+Pass: myMap's property: 13
+      Actual: 32
+
+Pass: typeofmyMap["32"]
+      Actual: string
+
+Pass: All propertySet contents read?
+      Actual: 3
+
+Pass: All prototype members read?
+      Actual: 11
+
+Comment: *** Set floating point properties
+Pass: myMap.hasKey("0.0")
+      Actual: true
+
+Pass: myMap.lookup("0.0")
+      Actual: 11
+
+Pass: myMap["0.0"]
+      Actual: 11
+
+Pass: myMap.hasKey("32.56")
+      Actual: true
+
+Pass: myMap.lookup("32.56")
+      Actual: 22
+
+Pass: myMap["32.56"]
+      Actual: 22
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 8
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: 0.0
+
+Pass: Value (1): myMap
+      Actual: 11
+
+Pass: Key (2): myMap
+      Actual: Hundred
+
+Pass: Value (2): myMap
+      Actual: 7
+
+Pass: Key (3): myMap
+      Actual: 32.56
+
+Pass: Value (3): myMap
+      Actual: 22
+
+Pass: Key (4): myMap
+      Actual: 0
+
+Pass: Value (4): myMap
+      Actual: 66
+
+Pass: Key (5): myMap
+      Actual: 32
+
+Pass: Value (5): myMap
+      Actual: 77
+
+Pass: Key (6): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (6): myMap
+      Actual: 17
+
+Pass: Key (7): myMap
+      Actual: insert
+
+Pass: Value (7): myMap
+      Actual: 55
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 8
+
+Comment: Verifying enumerator of : myMap
+Pass: myMap's property: 0
+      Actual: by
+
+Pass: typeof myMap["by"]
+      Actual: number
+
+Pass: myMap["by"]
+      Actual: 2
+
+Pass: myMap's property: 1
+      Actual: 0.0
+
+Pass: typeof myMap["0.0"]
+      Actual: number
+
+Pass: myMap["0.0"]
+      Actual: 11
+
+Pass: myMap's property: 2
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap["Hundred"]
+      Actual: 7
+
+Pass: myMap's property: 3
+      Actual: 32.56
+
+Pass: typeof myMap["32.56"]
+      Actual: number
+
+Pass: myMap["32.56"]
+      Actual: 22
+
+Pass: myMap's property: 4
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap["Hundred And Fifty"]
+      Actual: 17
+
+Pass: myMap's property: 5
+      Actual: clear
+
+Pass: typeofmyMap["clear"]
+      Actual: function
+
+Pass: myMap's property: 6
+      Actual: first
+
+Pass: typeofmyMap["first"]
+      Actual: function
+
+Pass: myMap's property: 7
+      Actual: getView
+
+Pass: typeofmyMap["getView"]
+      Actual: function
+
+Pass: myMap's property: 8
+      Actual: hasKey
+
+Pass: typeofmyMap["hasKey"]
+      Actual: function
+
+Pass: myMap's property: 9
+      Actual: insert
+
+Pass: typeofmyMap["insert"]
+      Actual: function
+
+Pass: myMap's property: 10
+      Actual: lookup
+
+Pass: typeofmyMap["lookup"]
+      Actual: function
+
+Pass: myMap's property: 11
+      Actual: remove
+
+Pass: typeofmyMap["remove"]
+      Actual: function
+
+Pass: myMap's property: 12
+      Actual: size
+
+Pass: typeofmyMap["size"]
+      Actual: number
+
+Pass: myMap's property: 13
+      Actual: toString
+
+Pass: typeofmyMap["toString"]
+      Actual: function
+
+Pass: myMap's property: 14
+      Actual: 0
+
+Pass: typeofmyMap["0"]
+      Actual: string
+
+Pass: myMap's property: 15
+      Actual: 32
+
+Pass: typeofmyMap["32"]
+      Actual: string
+
+Pass: All propertySet contents read?
+      Actual: 5
+
+Pass: All prototype members read?
+      Actual: 11
+
+Comment: *** Delete the object.prototype properties
+Pass: myMap["0"]
+      Actual: 66
+
+Pass: myMap["32"]
+      Actual: 77
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 8
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: 0.0
+
+Pass: Value (1): myMap
+      Actual: 11
+
+Pass: Key (2): myMap
+      Actual: Hundred
+
+Pass: Value (2): myMap
+      Actual: 7
+
+Pass: Key (3): myMap
+      Actual: 32.56
+
+Pass: Value (3): myMap
+      Actual: 22
+
+Pass: Key (4): myMap
+      Actual: 0
+
+Pass: Value (4): myMap
+      Actual: 66
+
+Pass: Key (5): myMap
+      Actual: 32
+
+Pass: Value (5): myMap
+      Actual: 77
+
+Pass: Key (6): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (6): myMap
+      Actual: 17
+
+Pass: Key (7): myMap
+      Actual: insert
+
+Pass: Value (7): myMap
+      Actual: 55
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 8
+
+Comment: Verifying enumerator of : myMap
+Pass: myMap's property: 0
+      Actual: by
+
+Pass: typeof myMap["by"]
+      Actual: number
+
+Pass: myMap["by"]
+      Actual: 2
+
+Pass: myMap's property: 1
+      Actual: 0.0
+
+Pass: typeof myMap["0.0"]
+      Actual: number
+
+Pass: myMap["0.0"]
+      Actual: 11
+
+Pass: myMap's property: 2
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap["Hundred"]
+      Actual: 7
+
+Pass: myMap's property: 3
+      Actual: 32.56
+
+Pass: typeof myMap["32.56"]
+      Actual: number
+
+Pass: myMap["32.56"]
+      Actual: 22
+
+Pass: myMap's property: 4
+      Actual: 0
+
+Pass: typeof myMap["0"]
+      Actual: number
+
+Pass: myMap["0"]
+      Actual: 66
+
+Pass: myMap's property: 5
+      Actual: 32
+
+Pass: typeof myMap["32"]
+      Actual: number
+
+Pass: myMap["32"]
+      Actual: 77
+
+Pass: myMap's property: 6
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap["Hundred And Fifty"]
+      Actual: 17
+
+Pass: myMap's property: 7
+      Actual: clear
+
+Pass: typeofmyMap["clear"]
+      Actual: function
+
+Pass: myMap's property: 8
+      Actual: first
+
+Pass: typeofmyMap["first"]
+      Actual: function
+
+Pass: myMap's property: 9
+      Actual: getView
+
+Pass: typeofmyMap["getView"]
+      Actual: function
+
+Pass: myMap's property: 10
+      Actual: hasKey
+
+Pass: typeofmyMap["hasKey"]
+      Actual: function
+
+Pass: myMap's property: 11
+      Actual: insert
+
+Pass: typeofmyMap["insert"]
+      Actual: function
+
+Pass: myMap's property: 12
+      Actual: lookup
+
+Pass: typeofmyMap["lookup"]
+      Actual: function
+
+Pass: myMap's property: 13
+      Actual: remove
+
+Pass: typeofmyMap["remove"]
+      Actual: function
+
+Pass: myMap's property: 14
+      Actual: size
+
+Pass: typeofmyMap["size"]
+      Actual: number
+
+Pass: myMap's property: 15
+      Actual: toString
+
+Pass: typeofmyMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 7
+
+Pass: All prototype members read?
+      Actual: 9
+
+PASS [Test 6: IMap : Name conflicting properties : 0, 32 and insert]
+=================================================
+
+=================================================
+Starting [Test 7: IMap : IMap methods and [] mixing]
+Comment: *** Set property using [] operation
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 6
+
+Pass: Key (0): myMap
+      Actual: prop2
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: by
+
+Pass: Value (1): myMap
+      Actual: 2
+
+Pass: Key (2): myMap
+      Actual: Hundred
+
+Pass: Value (2): myMap
+      Actual: 7
+
+Pass: Key (3): myMap
+      Actual: prop1
+
+Pass: Value (3): myMap
+      Actual: 1
+
+Pass: Key (4): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (4): myMap
+      Actual: 17
+
+Pass: Key (5): myMap
+      Actual: prop3
+
+Pass: Value (5): myMap
+      Actual: 3
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 6
+
+Comment: *** Add property override using insert method
+Pass: myMap.insert("prop2", 22)
+      Actual: true
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 6
+
+Pass: Key (0): myMap
+      Actual: prop2
+
+Pass: Value (0): myMap
+      Actual: 22
+
+Pass: Key (1): myMap
+      Actual: by
+
+Pass: Value (1): myMap
+      Actual: 2
+
+Pass: Key (2): myMap
+      Actual: Hundred
+
+Pass: Value (2): myMap
+      Actual: 7
+
+Pass: Key (3): myMap
+      Actual: prop1
+
+Pass: Value (3): myMap
+      Actual: 1
+
+Pass: Key (4): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (4): myMap
+      Actual: 17
+
+Pass: Key (5): myMap
+      Actual: prop3
+
+Pass: Value (5): myMap
+      Actual: 3
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 6
+
+Comment: *** Remove property using remove method
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 5
+
+Pass: Key (0): myMap
+      Actual: prop2
+
+Pass: Value (0): myMap
+      Actual: 22
+
+Pass: Key (1): myMap
+      Actual: by
+
+Pass: Value (1): myMap
+      Actual: 2
+
+Pass: Key (2): myMap
+      Actual: Hundred
+
+Pass: Value (2): myMap
+      Actual: 7
+
+Pass: Key (3): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (3): myMap
+      Actual: 17
+
+Pass: Key (4): myMap
+      Actual: prop3
+
+Pass: Value (4): myMap
+      Actual: 3
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Comment: *** Clear all properties using clear method
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+PASS [Test 7: IMap : IMap methods and [] mixing]
+=================================================
+
+=================================================
+Starting [Test 8: IMap : Non specialized IMap]
+Comment: typeof myMapOfStructAndVector: object
+Comment: Dump of properties : 
+    var myMapOfStructAndVectorMembers = [
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getView', 'function', 0],
+        ['hasKey', 'function', 1],
+        ['insert', 'function', 2],
+        ['lookup', 'function', 1],
+        ['remove', 'function', 1],
+        ['size', 'number'],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myMapOfStructAndVector
+      Actual: object
+
+Pass: myMapOfStructAndVector's property
+      Actual: clear
+
+Pass: typeof myMapOfStructAndVector["clear"]
+      Actual: function
+
+Pass: myMapOfStructAndVector["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMapOfStructAndVector["clear"].length
+      Actual: 0
+
+Pass: myMapOfStructAndVector's property
+      Actual: first
+
+Pass: typeof myMapOfStructAndVector["first"]
+      Actual: function
+
+Pass: myMapOfStructAndVector["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMapOfStructAndVector["first"].length
+      Actual: 0
+
+Pass: myMapOfStructAndVector's property
+      Actual: getView
+
+Pass: typeof myMapOfStructAndVector["getView"]
+      Actual: function
+
+Pass: myMapOfStructAndVector["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMapOfStructAndVector["getView"].length
+      Actual: 0
+
+Pass: myMapOfStructAndVector's property
+      Actual: hasKey
+
+Pass: typeof myMapOfStructAndVector["hasKey"]
+      Actual: function
+
+Pass: myMapOfStructAndVector["hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMapOfStructAndVector["hasKey"].length
+      Actual: 1
+
+Pass: myMapOfStructAndVector's property
+      Actual: insert
+
+Pass: typeof myMapOfStructAndVector["insert"]
+      Actual: function
+
+Pass: myMapOfStructAndVector["insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myMapOfStructAndVector["insert"].length
+      Actual: 2
+
+Pass: myMapOfStructAndVector's property
+      Actual: lookup
+
+Pass: typeof myMapOfStructAndVector["lookup"]
+      Actual: function
+
+Pass: myMapOfStructAndVector["lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMapOfStructAndVector["lookup"].length
+      Actual: 1
+
+Pass: myMapOfStructAndVector's property
+      Actual: remove
+
+Pass: typeof myMapOfStructAndVector["remove"]
+      Actual: function
+
+Pass: myMapOfStructAndVector["remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMapOfStructAndVector["remove"].length
+      Actual: 1
+
+Pass: myMapOfStructAndVector's property
+      Actual: size
+
+Pass: typeof myMapOfStructAndVector["size"]
+      Actual: number
+
+Pass: myMapOfStructAndVector's property
+      Actual: toString
+
+Pass: typeof myMapOfStructAndVector["toString"]
+      Actual: function
+
+Pass: myMapOfStructAndVector["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMapOfStructAndVector["toString"].length
+      Actual: 0
+
+Pass: number of properties of myMapOfStructAndVector
+      Actual: 9
+
+Comment: Verifying contents of : myMapOfStructAndVector
+Pass: myMapOfStructAndVector.size
+      Actual: 2
+
+Comment: * Item: 0
+Comment:   -Key: 0
+Pass: Key (0).length: myMapOfStructAndVector
+      Actual: 150
+
+Pass: Key (0).width: myMapOfStructAndVector
+      Actual: 100
+
+Comment:   -Value: 0
+Pass: Value (0).length: myMapOfStructAndVector
+      Actual: 3
+
+Comment: * Item: 1
+Comment:   -Key: 1
+Pass: Key (1).length: myMapOfStructAndVector
+      Actual: 100
+
+Pass: Key (1).width: myMapOfStructAndVector
+      Actual: 100
+
+Comment:   -Value: 1
+Pass: Value (1).length: myMapOfStructAndVector
+      Actual: 3
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Comment: *** Set/Get property using [] operation
+Pass: myMapOfStructAndVector["{length: 20, width: 30}"]
+      Actual: undefined
+
+Comment: Verifying contents of : myMapOfStructAndVector
+Pass: myMapOfStructAndVector.size
+      Actual: 2
+
+Comment: * Item: 0
+Comment:   -Key: 0
+Pass: Key (0).length: myMapOfStructAndVector
+      Actual: 150
+
+Pass: Key (0).width: myMapOfStructAndVector
+      Actual: 100
+
+Comment:   -Value: 0
+Pass: Value (0).length: myMapOfStructAndVector
+      Actual: 3
+
+Comment: * Item: 1
+Comment:   -Key: 1
+Pass: Key (1).length: myMapOfStructAndVector
+      Actual: 100
+
+Pass: Key (1).width: myMapOfStructAndVector
+      Actual: 100
+
+Comment:   -Value: 1
+Pass: Value (1).length: myMapOfStructAndVector
+      Actual: 3
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Pass: myMapOfStructAndVector[{length: 20, width: 30}]
+      Actual: undefined
+
+Comment: Verifying contents of : myMapOfStructAndVector
+Pass: myMapOfStructAndVector.size
+      Actual: 2
+
+Comment: * Item: 0
+Comment:   -Key: 0
+Pass: Key (0).length: myMapOfStructAndVector
+      Actual: 150
+
+Pass: Key (0).width: myMapOfStructAndVector
+      Actual: 100
+
+Comment:   -Value: 0
+Pass: Value (0).length: myMapOfStructAndVector
+      Actual: 3
+
+Comment: * Item: 1
+Comment:   -Key: 1
+Pass: Key (1).length: myMapOfStructAndVector
+      Actual: 100
+
+Pass: Key (1).width: myMapOfStructAndVector
+      Actual: 100
+
+Comment:   -Value: 1
+Pass: Value (1).length: myMapOfStructAndVector
+      Actual: 3
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Comment: *** Add property override using insert method
+Pass: myMapOfStructAndVector.insert({length: 20, width: 30}, ["Twenty", "Thirty"])
+      Actual: false
+
+Comment: Verifying contents of : myMapOfStructAndVector
+Pass: myMapOfStructAndVector.size
+      Actual: 3
+
+Comment: * Item: 0
+Comment:   -Key: 0
+Pass: Key (0).length: myMapOfStructAndVector
+      Actual: 150
+
+Pass: Key (0).width: myMapOfStructAndVector
+      Actual: 100
+
+Comment:   -Value: 0
+Pass: Value (0).length: myMapOfStructAndVector
+      Actual: 3
+
+Comment: * Item: 1
+Comment:   -Key: 1
+Pass: Key (1).length: myMapOfStructAndVector
+      Actual: 20
+
+Pass: Key (1).width: myMapOfStructAndVector
+      Actual: 30
+
+Comment:   -Value: 1
+Pass: Value (1).length: myMapOfStructAndVector
+      Actual: 2
+
+Comment: * Item: 2
+Comment:   -Key: 2
+Pass: Key (2).length: myMapOfStructAndVector
+      Actual: 100
+
+Pass: Key (2).width: myMapOfStructAndVector
+      Actual: 100
+
+Comment:   -Value: 2
+Pass: Value (2).length: myMapOfStructAndVector
+      Actual: 3
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: *** Remove property using remove method
+Comment: Verifying contents of : myMapOfStructAndVector
+Pass: myMapOfStructAndVector.size
+      Actual: 2
+
+Comment: * Item: 0
+Comment:   -Key: 0
+Pass: Key (0).length: myMapOfStructAndVector
+      Actual: 20
+
+Pass: Key (0).width: myMapOfStructAndVector
+      Actual: 30
+
+Comment:   -Value: 0
+Pass: Value (0).length: myMapOfStructAndVector
+      Actual: 2
+
+Comment: * Item: 1
+Comment:   -Key: 1
+Pass: Key (1).length: myMapOfStructAndVector
+      Actual: 100
+
+Pass: Key (1).width: myMapOfStructAndVector
+      Actual: 100
+
+Comment:   -Value: 1
+Pass: Value (1).length: myMapOfStructAndVector
+      Actual: 3
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Comment: *** Clear all properties using clear method
+Comment: Verifying contents of : myMapOfStructAndVector
+Pass: myMapOfStructAndVector.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+PASS [Test 8: IMap : Non specialized IMap]
+=================================================
+
+=================================================
+Starting [Test 9: IMapView : IMapView of String and Integer]
+Comment: typeof myMapView: object
+Comment: Dump of properties : 
+    var myMapViewMembers = [
+        ['by', 'number'],
+        ['Hundred', 'number'],
+        ['Hundred And Fifty', 'number'],
+        ['first', 'function', 0],
+        ['hasKey', 'function', 1],
+        ['lookup', 'function', 1],
+        ['size', 'number'],
+        ['split', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myMapView
+      Actual: object
+
+Pass: myMapView's property
+      Actual: by
+
+Pass: typeof myMapView["by"]
+      Actual: number
+
+Pass: myMapView's property
+      Actual: Hundred
+
+Pass: typeof myMapView["Hundred"]
+      Actual: number
+
+Pass: myMapView's property
+      Actual: Hundred And Fifty
+
+Pass: typeof myMapView["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMapView's property
+      Actual: first
+
+Pass: typeof myMapView["first"]
+      Actual: function
+
+Pass: myMapView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMapView["first"].length
+      Actual: 0
+
+Pass: myMapView's property
+      Actual: hasKey
+
+Pass: typeof myMapView["hasKey"]
+      Actual: function
+
+Pass: myMapView["hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMapView["hasKey"].length
+      Actual: 1
+
+Pass: myMapView's property
+      Actual: lookup
+
+Pass: typeof myMapView["lookup"]
+      Actual: function
+
+Pass: myMapView["lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMapView["lookup"].length
+      Actual: 1
+
+Pass: myMapView's property
+      Actual: size
+
+Pass: typeof myMapView["size"]
+      Actual: number
+
+Pass: myMapView's property
+      Actual: split
+
+Pass: typeof myMapView["split"]
+      Actual: function
+
+Pass: myMapView["split"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMapView["split"].length
+      Actual: 0
+
+Pass: myMapView's property
+      Actual: toString
+
+Pass: typeof myMapView["toString"]
+      Actual: function
+
+Pass: myMapView["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMapView["toString"].length
+      Actual: 0
+
+Pass: number of properties of myMapView
+      Actual: 9
+
+Comment: Verifying contents of : myMapView
+Pass: myMapView.size
+      Actual: 3
+
+Pass: Key (0): myMapView
+      Actual: by
+
+Pass: Value (0): myMapView
+      Actual: 2
+
+Pass: Key (1): myMapView
+      Actual: Hundred
+
+Pass: Value (1): myMapView
+      Actual: 7
+
+Pass: Key (2): myMapView
+      Actual: Hundred And Fifty
+
+Pass: Value (2): myMapView
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+PASS [Test 9: IMapView : IMapView of String and Integer]
+=================================================
+
+=================================================
+Starting [Test 10: IMapView : Set the properties]
+Pass: myMapView["undefinedProperty"]
+      Actual: undefined
+
+Pass: myMapView["name"]
+      Actual: undefined
+
+Pass: myMapView[0]
+      Actual: undefined
+
+Pass: myMapView["4"]
+      Actual: undefined
+
+Comment: Verifying contents of : myMapView
+Pass: myMapView.size
+      Actual: 3
+
+Pass: Key (0): myMapView
+      Actual: by
+
+Pass: Value (0): myMapView
+      Actual: 2
+
+Pass: Key (1): myMapView
+      Actual: Hundred
+
+Pass: Value (1): myMapView
+      Actual: 7
+
+Pass: Key (2): myMapView
+      Actual: Hundred And Fifty
+
+Pass: Value (2): myMapView
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+PASS [Test 10: IMapView : Set the properties]
+=================================================
+
+=================================================
+Starting [Test 11: IMapView : Delete the properties]
+Pass: myMapView["by"]
+      Actual: 2
+
+Pass: myMapView[0]
+      Actual: 70
+
+Pass: myMapView["4"]
+      Actual: 40
+
+Comment: Verifying contents of : myMapView
+Pass: myMapView.size
+      Actual: 5
+
+Pass: Key (0): myMapView
+      Actual: by
+
+Pass: Value (0): myMapView
+      Actual: 2
+
+Pass: Key (1): myMapView
+      Actual: Hundred
+
+Pass: Value (1): myMapView
+      Actual: 7
+
+Pass: Key (2): myMapView
+      Actual: 0
+
+Pass: Value (2): myMapView
+      Actual: 70
+
+Pass: Key (3): myMapView
+      Actual: Hundred And Fifty
+
+Pass: Value (3): myMapView
+      Actual: 17
+
+Pass: Key (4): myMapView
+      Actual: 4
+
+Pass: Value (4): myMapView
+      Actual: 40
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Pass: delete myMapView["undefinedProperty"]
+      Actual: false
+
+Pass: myMapView["undefinedProperty"]
+      Actual: undefined
+
+Comment: Verifying contents of : myMapView
+Pass: myMapView.size
+      Actual: 5
+
+Pass: Key (0): myMapView
+      Actual: by
+
+Pass: Value (0): myMapView
+      Actual: 2
+
+Pass: Key (1): myMapView
+      Actual: Hundred
+
+Pass: Value (1): myMapView
+      Actual: 7
+
+Pass: Key (2): myMapView
+      Actual: 0
+
+Pass: Value (2): myMapView
+      Actual: 70
+
+Pass: Key (3): myMapView
+      Actual: Hundred And Fifty
+
+Pass: Value (3): myMapView
+      Actual: 17
+
+Pass: Key (4): myMapView
+      Actual: 4
+
+Pass: Value (4): myMapView
+      Actual: 40
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Pass: delete myMapView[75]
+      Actual: false
+
+Pass: myMapView[75]
+      Actual: undefined
+
+Comment: Verifying contents of : myMapView
+Pass: myMapView.size
+      Actual: 5
+
+Pass: Key (0): myMapView
+      Actual: by
+
+Pass: Value (0): myMapView
+      Actual: 2
+
+Pass: Key (1): myMapView
+      Actual: Hundred
+
+Pass: Value (1): myMapView
+      Actual: 7
+
+Pass: Key (2): myMapView
+      Actual: 0
+
+Pass: Value (2): myMapView
+      Actual: 70
+
+Pass: Key (3): myMapView
+      Actual: Hundred And Fifty
+
+Pass: Value (3): myMapView
+      Actual: 17
+
+Pass: Key (4): myMapView
+      Actual: 4
+
+Pass: Value (4): myMapView
+      Actual: 40
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+PASS [Test 11: IMapView : Delete the properties]
+=================================================
+
+=================================================
+Starting [Test 12: IMapView : Enumerator]
+Comment: Verifying contents of : myMapView
+Pass: myMapView.size
+      Actual: 4
+
+Pass: Key (0): myMapView
+      Actual: by
+
+Pass: Value (0): myMapView
+      Actual: 2
+
+Pass: Key (1): myMapView
+      Actual: Hundred
+
+Pass: Value (1): myMapView
+      Actual: 7
+
+Pass: Key (2): myMapView
+      Actual: 20
+
+Pass: Value (2): myMapView
+      Actual: 20
+
+Pass: Key (3): myMapView
+      Actual: Hundred And Fifty
+
+Pass: Value (3): myMapView
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: Verifying enumerator of : myMapView
+Pass: myMapView's property: 0
+      Actual: by
+
+Pass: typeof myMapView["by"]
+      Actual: number
+
+Pass: myMapView["by"]
+      Actual: 2
+
+Pass: myMapView's property: 1
+      Actual: Hundred
+
+Pass: typeof myMapView["Hundred"]
+      Actual: number
+
+Pass: myMapView["Hundred"]
+      Actual: 7
+
+Pass: myMapView's property: 2
+      Actual: 20
+
+Pass: typeof myMapView["20"]
+      Actual: number
+
+Pass: myMapView["20"]
+      Actual: 20
+
+Pass: myMapView's property: 3
+      Actual: Hundred And Fifty
+
+Pass: typeof myMapView["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMapView["Hundred And Fifty"]
+      Actual: 17
+
+Pass: myMapView's property: 4
+      Actual: first
+
+Pass: typeofmyMapView["first"]
+      Actual: function
+
+Pass: myMapView's property: 5
+      Actual: hasKey
+
+Pass: typeofmyMapView["hasKey"]
+      Actual: function
+
+Pass: myMapView's property: 6
+      Actual: lookup
+
+Pass: typeofmyMapView["lookup"]
+      Actual: function
+
+Pass: myMapView's property: 7
+      Actual: size
+
+Pass: typeofmyMapView["size"]
+      Actual: number
+
+Pass: myMapView's property: 8
+      Actual: split
+
+Pass: typeofmyMapView["split"]
+      Actual: function
+
+Pass: myMapView's property: 9
+      Actual: toString
+
+Pass: typeofmyMapView["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 4
+
+Pass: All prototype members read?
+      Actual: 6
+
+Comment: Remove all properties and verify the enumerator
+Comment: Verifying contents of : myMapView
+Pass: myMapView.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Comment: Verifying enumerator of : myMapView
+Pass: myMapView's property: 0
+      Actual: first
+
+Pass: typeofmyMapView["first"]
+      Actual: function
+
+Pass: myMapView's property: 1
+      Actual: hasKey
+
+Pass: typeofmyMapView["hasKey"]
+      Actual: function
+
+Pass: myMapView's property: 2
+      Actual: lookup
+
+Pass: typeofmyMapView["lookup"]
+      Actual: function
+
+Pass: myMapView's property: 3
+      Actual: size
+
+Pass: typeofmyMapView["size"]
+      Actual: number
+
+Pass: myMapView's property: 4
+      Actual: split
+
+Pass: typeofmyMapView["split"]
+      Actual: function
+
+Pass: myMapView's property: 5
+      Actual: toString
+
+Pass: typeofmyMapView["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 0
+
+Pass: All prototype members read?
+      Actual: 6
+
+PASS [Test 12: IMapView : Enumerator]
+=================================================
+
+=================================================
+Starting [Test 13: IMapView : Name conflicting properties : 0, 32 and lookup]
+Comment: *** Setup prototype for conflicting properties
+Comment: typeof myMapView: object
+Comment: Dump of properties : 
+    var myMapViewMembers = [
+        ['by', 'number'],
+        ['Hundred', 'number'],
+        ['Hundred And Fifty', 'number'],
+        ['first', 'function', 0],
+        ['hasKey', 'function', 1],
+        ['lookup', 'function', 1],
+        ['size', 'number'],
+        ['split', 'function', 0],
+        ['toString', 'function', 0],
+        ['0', 'string'],
+        ['32', 'string'],
+    ];
+Pass: typeof myMapView
+      Actual: object
+
+Pass: myMapView's property
+      Actual: by
+
+Pass: typeof myMapView["by"]
+      Actual: number
+
+Pass: myMapView's property
+      Actual: Hundred
+
+Pass: typeof myMapView["Hundred"]
+      Actual: number
+
+Pass: myMapView's property
+      Actual: Hundred And Fifty
+
+Pass: typeof myMapView["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMapView's property
+      Actual: first
+
+Pass: typeof myMapView["first"]
+      Actual: function
+
+Pass: myMapView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMapView["first"].length
+      Actual: 0
+
+Pass: myMapView's property
+      Actual: hasKey
+
+Pass: typeof myMapView["hasKey"]
+      Actual: function
+
+Pass: myMapView["hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMapView["hasKey"].length
+      Actual: 1
+
+Pass: myMapView's property
+      Actual: lookup
+
+Pass: typeof myMapView["lookup"]
+      Actual: function
+
+Pass: myMapView["lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMapView["lookup"].length
+      Actual: 1
+
+Pass: myMapView's property
+      Actual: size
+
+Pass: typeof myMapView["size"]
+      Actual: number
+
+Pass: myMapView's property
+      Actual: split
+
+Pass: typeof myMapView["split"]
+      Actual: function
+
+Pass: myMapView["split"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMapView["split"].length
+      Actual: 0
+
+Pass: myMapView's property
+      Actual: toString
+
+Pass: typeof myMapView["toString"]
+      Actual: function
+
+Pass: myMapView["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMapView["toString"].length
+      Actual: 0
+
+Pass: myMapView's property
+      Actual: 0
+
+Pass: typeof myMapView["0"]
+      Actual: string
+
+Pass: myMapView's property
+      Actual: 32
+
+Pass: typeof myMapView["32"]
+      Actual: string
+
+Pass: number of properties of myMapView
+      Actual: 11
+
+Comment: *** Add Map members using .insert and verify the get operation using [] method
+Pass: myMapView.hasKey("insert")
+      Actual: true
+
+Pass: myMapView.lookup("insert")
+      Actual: 55
+
+Pass: typeof myMapView["lookup"]
+      Actual: function
+
+Pass: myMapView["lookup"].toString()
+      Actual: function lookup() { [native code] }
+
+Pass: myMapView.hasKey("0")
+      Actual: true
+
+Pass: myMapView.lookup("0")
+      Actual: 66
+
+Pass: myMapView["0"]
+      Actual: 0 Property
+
+Pass: myMapView.hasKey("32")
+      Actual: true
+
+Pass: myMapView.lookup("32")
+      Actual: 77
+
+Pass: myMapView["32"]
+      Actual: 32 Property
+
+Comment: Verifying contents of : myMapView
+Pass: myMapView.size
+      Actual: 6
+
+Pass: Key (0): myMapView
+      Actual: lookup
+
+Pass: Value (0): myMapView
+      Actual: 55
+
+Pass: Key (1): myMapView
+      Actual: by
+
+Pass: Value (1): myMapView
+      Actual: 2
+
+Pass: Key (2): myMapView
+      Actual: Hundred
+
+Pass: Value (2): myMapView
+      Actual: 7
+
+Pass: Key (3): myMapView
+      Actual: 0
+
+Pass: Value (3): myMapView
+      Actual: 66
+
+Pass: Key (4): myMapView
+      Actual: 32
+
+Pass: Value (4): myMapView
+      Actual: 77
+
+Pass: Key (5): myMapView
+      Actual: Hundred And Fifty
+
+Pass: Value (5): myMapView
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 6
+
+Comment: Verifying enumerator of : myMapView
+Pass: myMapView's property: 0
+      Actual: by
+
+Pass: typeof myMapView["by"]
+      Actual: number
+
+Pass: myMapView["by"]
+      Actual: 2
+
+Pass: myMapView's property: 1
+      Actual: Hundred
+
+Pass: typeof myMapView["Hundred"]
+      Actual: number
+
+Pass: myMapView["Hundred"]
+      Actual: 7
+
+Pass: myMapView's property: 2
+      Actual: Hundred And Fifty
+
+Pass: typeof myMapView["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMapView["Hundred And Fifty"]
+      Actual: 17
+
+Pass: myMapView's property: 3
+      Actual: first
+
+Pass: typeofmyMapView["first"]
+      Actual: function
+
+Pass: myMapView's property: 4
+      Actual: hasKey
+
+Pass: typeofmyMapView["hasKey"]
+      Actual: function
+
+Pass: myMapView's property: 5
+      Actual: lookup
+
+Pass: typeofmyMapView["lookup"]
+      Actual: function
+
+Pass: myMapView's property: 6
+      Actual: size
+
+Pass: typeofmyMapView["size"]
+      Actual: number
+
+Pass: myMapView's property: 7
+      Actual: split
+
+Pass: typeofmyMapView["split"]
+      Actual: function
+
+Pass: myMapView's property: 8
+      Actual: toString
+
+Pass: typeofmyMapView["toString"]
+      Actual: function
+
+Pass: myMapView's property: 9
+      Actual: 0
+
+Pass: typeofmyMapView["0"]
+      Actual: string
+
+Pass: myMapView's property: 10
+      Actual: 32
+
+Pass: typeofmyMapView["32"]
+      Actual: string
+
+Pass: All propertySet contents read?
+      Actual: 3
+
+Pass: All prototype members read?
+      Actual: 8
+
+Comment: *** Delete the object.prototype properties
+Pass: myMapView["0"]
+      Actual: 66
+
+Pass: myMapView["32"]
+      Actual: 77
+
+Comment: Verifying contents of : myMapView
+Pass: myMapView.size
+      Actual: 6
+
+Pass: Key (0): myMapView
+      Actual: lookup
+
+Pass: Value (0): myMapView
+      Actual: 55
+
+Pass: Key (1): myMapView
+      Actual: by
+
+Pass: Value (1): myMapView
+      Actual: 2
+
+Pass: Key (2): myMapView
+      Actual: Hundred
+
+Pass: Value (2): myMapView
+      Actual: 7
+
+Pass: Key (3): myMapView
+      Actual: 0
+
+Pass: Value (3): myMapView
+      Actual: 66
+
+Pass: Key (4): myMapView
+      Actual: 32
+
+Pass: Value (4): myMapView
+      Actual: 77
+
+Pass: Key (5): myMapView
+      Actual: Hundred And Fifty
+
+Pass: Value (5): myMapView
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 6
+
+Comment: Verifying enumerator of : myMapView
+Pass: myMapView's property: 0
+      Actual: by
+
+Pass: typeof myMapView["by"]
+      Actual: number
+
+Pass: myMapView["by"]
+      Actual: 2
+
+Pass: myMapView's property: 1
+      Actual: Hundred
+
+Pass: typeof myMapView["Hundred"]
+      Actual: number
+
+Pass: myMapView["Hundred"]
+      Actual: 7
+
+Pass: myMapView's property: 2
+      Actual: 0
+
+Pass: typeof myMapView["0"]
+      Actual: number
+
+Pass: myMapView["0"]
+      Actual: 66
+
+Pass: myMapView's property: 3
+      Actual: 32
+
+Pass: typeof myMapView["32"]
+      Actual: number
+
+Pass: myMapView["32"]
+      Actual: 77
+
+Pass: myMapView's property: 4
+      Actual: Hundred And Fifty
+
+Pass: typeof myMapView["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMapView["Hundred And Fifty"]
+      Actual: 17
+
+Pass: myMapView's property: 5
+      Actual: first
+
+Pass: typeofmyMapView["first"]
+      Actual: function
+
+Pass: myMapView's property: 6
+      Actual: hasKey
+
+Pass: typeofmyMapView["hasKey"]
+      Actual: function
+
+Pass: myMapView's property: 7
+      Actual: lookup
+
+Pass: typeofmyMapView["lookup"]
+      Actual: function
+
+Pass: myMapView's property: 8
+      Actual: size
+
+Pass: typeofmyMapView["size"]
+      Actual: number
+
+Pass: myMapView's property: 9
+      Actual: split
+
+Pass: typeofmyMapView["split"]
+      Actual: function
+
+Pass: myMapView's property: 10
+      Actual: toString
+
+Pass: typeofmyMapView["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 5
+
+Pass: All prototype members read?
+      Actual: 6
+
+PASS [Test 13: IMapView : Name conflicting properties : 0, 32 and lookup]
+=================================================
+
+=================================================
+Starting [Test 14: IObservableMap : IObservableMap of String and Integer]
+Comment: typeof myObservableMap: object
+Comment: Dump of properties : 
+    var myObservableMapMembers = [
+        ['Hundred', 'number'],
+        ['Twenty', 'number'],
+        ['Five', 'number'],
+        ['addEventListener', 'function', 2],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getView', 'function', 0],
+        ['hasKey', 'function', 1],
+        ['insert', 'function', 2],
+        ['lookup', 'function', 1],
+        ['onmapchanged', 'object'],
+        ['remove', 'function', 1],
+        ['removeEventListener', 'function', 2],
+        ['size', 'number'],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myObservableMap
+      Actual: object
+
+Pass: myObservableMap's property
+      Actual: Hundred
+
+Pass: typeof myObservableMap["Hundred"]
+      Actual: number
+
+Pass: myObservableMap's property
+      Actual: Twenty
+
+Pass: typeof myObservableMap["Twenty"]
+      Actual: number
+
+Pass: myObservableMap's property
+      Actual: Five
+
+Pass: typeof myObservableMap["Five"]
+      Actual: number
+
+Pass: myObservableMap's property
+      Actual: addEventListener
+
+Pass: typeof myObservableMap["addEventListener"]
+      Actual: function
+
+Pass: myObservableMap["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myObservableMap["addEventListener"].length
+      Actual: 2
+
+Pass: myObservableMap's property
+      Actual: clear
+
+Pass: typeof myObservableMap["clear"]
+      Actual: function
+
+Pass: myObservableMap["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myObservableMap["clear"].length
+      Actual: 0
+
+Pass: myObservableMap's property
+      Actual: first
+
+Pass: typeof myObservableMap["first"]
+      Actual: function
+
+Pass: myObservableMap["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myObservableMap["first"].length
+      Actual: 0
+
+Pass: myObservableMap's property
+      Actual: getView
+
+Pass: typeof myObservableMap["getView"]
+      Actual: function
+
+Pass: myObservableMap["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myObservableMap["getView"].length
+      Actual: 0
+
+Pass: myObservableMap's property
+      Actual: hasKey
+
+Pass: typeof myObservableMap["hasKey"]
+      Actual: function
+
+Pass: myObservableMap["hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myObservableMap["hasKey"].length
+      Actual: 1
+
+Pass: myObservableMap's property
+      Actual: insert
+
+Pass: typeof myObservableMap["insert"]
+      Actual: function
+
+Pass: myObservableMap["insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myObservableMap["insert"].length
+      Actual: 2
+
+Pass: myObservableMap's property
+      Actual: lookup
+
+Pass: typeof myObservableMap["lookup"]
+      Actual: function
+
+Pass: myObservableMap["lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myObservableMap["lookup"].length
+      Actual: 1
+
+Pass: myObservableMap's property
+      Actual: onmapchanged
+
+Pass: typeof myObservableMap["onmapchanged"]
+      Actual: object
+
+Pass: myObservableMap's property
+      Actual: remove
+
+Pass: typeof myObservableMap["remove"]
+      Actual: function
+
+Pass: myObservableMap["remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myObservableMap["remove"].length
+      Actual: 1
+
+Pass: myObservableMap's property
+      Actual: removeEventListener
+
+Pass: typeof myObservableMap["removeEventListener"]
+      Actual: function
+
+Pass: myObservableMap["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myObservableMap["removeEventListener"].length
+      Actual: 2
+
+Pass: myObservableMap's property
+      Actual: size
+
+Pass: typeof myObservableMap["size"]
+      Actual: number
+
+Pass: myObservableMap's property
+      Actual: toString
+
+Pass: typeof myObservableMap["toString"]
+      Actual: function
+
+Pass: myObservableMap["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myObservableMap["toString"].length
+      Actual: 0
+
+Pass: number of properties of myObservableMap
+      Actual: 15
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 3
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: Twenty
+
+Pass: Value (1): myObservableMap
+      Actual: 20
+
+Pass: Key (2): myObservableMap
+      Actual: Five
+
+Pass: Value (2): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+PASS [Test 14: IObservableMap : IObservableMap of String and Integer]
+=================================================
+
+=================================================
+Starting [Test 15: IObservableMap : Set the properties]
+Pass: myObservableMap["Thirty"]
+      Actual: 3
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 4
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: Twenty
+
+Pass: Value (1): myObservableMap
+      Actual: 20
+
+Pass: Key (2): myObservableMap
+      Actual: Thirty
+
+Pass: Value (2): myObservableMap
+      Actual: 3
+
+Pass: Key (3): myObservableMap
+      Actual: Five
+
+Pass: Value (3): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Pass: myObservableMap["Thirty"]
+      Actual: 30
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 4
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: Twenty
+
+Pass: Value (1): myObservableMap
+      Actual: 20
+
+Pass: Key (2): myObservableMap
+      Actual: Thirty
+
+Pass: Value (2): myObservableMap
+      Actual: 30
+
+Pass: Key (3): myObservableMap
+      Actual: Five
+
+Pass: Value (3): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Pass: myObservableMap[0]
+      Actual: 10
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 5
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: 0
+
+Pass: Value (1): myObservableMap
+      Actual: 10
+
+Pass: Key (2): myObservableMap
+      Actual: Twenty
+
+Pass: Value (2): myObservableMap
+      Actual: 20
+
+Pass: Key (3): myObservableMap
+      Actual: Thirty
+
+Pass: Value (3): myObservableMap
+      Actual: 30
+
+Pass: Key (4): myObservableMap
+      Actual: Five
+
+Pass: Value (4): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Pass: myObservableMap[0]
+      Actual: 0
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 5
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: 0
+
+Pass: Value (1): myObservableMap
+      Actual: 0
+
+Pass: Key (2): myObservableMap
+      Actual: Twenty
+
+Pass: Value (2): myObservableMap
+      Actual: 20
+
+Pass: Key (3): myObservableMap
+      Actual: Thirty
+
+Pass: Value (3): myObservableMap
+      Actual: 30
+
+Pass: Key (4): myObservableMap
+      Actual: Five
+
+Pass: Value (4): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Pass: myObservableMap["Twenty"]
+      Actual: 0
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 5
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: 0
+
+Pass: Value (1): myObservableMap
+      Actual: 0
+
+Pass: Key (2): myObservableMap
+      Actual: Twenty
+
+Pass: Value (2): myObservableMap
+      Actual: 0
+
+Pass: Key (3): myObservableMap
+      Actual: Thirty
+
+Pass: Value (3): myObservableMap
+      Actual: 30
+
+Pass: Key (4): myObservableMap
+      Actual: Five
+
+Pass: Value (4): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Pass: myObservableMap["undefinedProperty"]
+      Actual: undefined
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 5
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: 0
+
+Pass: Value (1): myObservableMap
+      Actual: 0
+
+Pass: Key (2): myObservableMap
+      Actual: Twenty
+
+Pass: Value (2): myObservableMap
+      Actual: 0
+
+Pass: Key (3): myObservableMap
+      Actual: Thirty
+
+Pass: Value (3): myObservableMap
+      Actual: 30
+
+Pass: Key (4): myObservableMap
+      Actual: Five
+
+Pass: Value (4): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Pass: myObservableMap["Twenty"]
+      Actual: 0
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 5
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: 0
+
+Pass: Value (1): myObservableMap
+      Actual: 0
+
+Pass: Key (2): myObservableMap
+      Actual: Twenty
+
+Pass: Value (2): myObservableMap
+      Actual: 0
+
+Pass: Key (3): myObservableMap
+      Actual: Thirty
+
+Pass: Value (3): myObservableMap
+      Actual: 30
+
+Pass: Key (4): myObservableMap
+      Actual: Five
+
+Pass: Value (4): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+PASS [Test 15: IObservableMap : Set the properties]
+=================================================
+
+=================================================
+Starting [Test 16: IObservableMap : Delete the properties]
+Pass: myObservableMap["Twenty"]
+      Actual: undefined
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 2
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: Five
+
+Pass: Value (1): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Pass: myObservableMap[0]
+      Actual: 0
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 3
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: 0
+
+Pass: Value (1): myObservableMap
+      Actual: 0
+
+Pass: Key (2): myObservableMap
+      Actual: Five
+
+Pass: Value (2): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Pass: myObservableMap[0]
+      Actual: undefined
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 2
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: Five
+
+Pass: Value (1): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Pass: delete myObservableMap["undefinedProperty"]
+      Actual: false
+
+Pass: myObservableMap["undefinedProperty"]
+      Actual: undefined
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 2
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: Five
+
+Pass: Value (1): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Pass: delete myObservableMap[75]
+      Actual: false
+
+Pass: myObservableMap[75]
+      Actual: undefined
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 2
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: Five
+
+Pass: Value (1): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+PASS [Test 16: IObservableMap : Delete the properties]
+=================================================
+
+=================================================
+Starting [Test 17: IObservableMap : Enumerator]
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 4
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: 20
+
+Pass: Value (1): myObservableMap
+      Actual: 20
+
+Pass: Key (2): myObservableMap
+      Actual: Twenty
+
+Pass: Value (2): myObservableMap
+      Actual: 20
+
+Pass: Key (3): myObservableMap
+      Actual: Five
+
+Pass: Value (3): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: Verifying enumerator of : myObservableMap
+Pass: myObservableMap's property: 0
+      Actual: Hundred
+
+Pass: typeof myObservableMap["Hundred"]
+      Actual: number
+
+Pass: myObservableMap["Hundred"]
+      Actual: 100
+
+Pass: myObservableMap's property: 1
+      Actual: 20
+
+Pass: typeof myObservableMap["20"]
+      Actual: number
+
+Pass: myObservableMap["20"]
+      Actual: 20
+
+Pass: myObservableMap's property: 2
+      Actual: Twenty
+
+Pass: typeof myObservableMap["Twenty"]
+      Actual: number
+
+Pass: myObservableMap["Twenty"]
+      Actual: 20
+
+Pass: myObservableMap's property: 3
+      Actual: Five
+
+Pass: typeof myObservableMap["Five"]
+      Actual: number
+
+Pass: myObservableMap["Five"]
+      Actual: 5
+
+Pass: myObservableMap's property: 4
+      Actual: addEventListener
+
+Pass: typeofmyObservableMap["addEventListener"]
+      Actual: function
+
+Pass: myObservableMap's property: 5
+      Actual: clear
+
+Pass: typeofmyObservableMap["clear"]
+      Actual: function
+
+Pass: myObservableMap's property: 6
+      Actual: first
+
+Pass: typeofmyObservableMap["first"]
+      Actual: function
+
+Pass: myObservableMap's property: 7
+      Actual: getView
+
+Pass: typeofmyObservableMap["getView"]
+      Actual: function
+
+Pass: myObservableMap's property: 8
+      Actual: hasKey
+
+Pass: typeofmyObservableMap["hasKey"]
+      Actual: function
+
+Pass: myObservableMap's property: 9
+      Actual: insert
+
+Pass: typeofmyObservableMap["insert"]
+      Actual: function
+
+Pass: myObservableMap's property: 10
+      Actual: lookup
+
+Pass: typeofmyObservableMap["lookup"]
+      Actual: function
+
+Pass: myObservableMap's property: 11
+      Actual: onmapchanged
+
+Pass: typeofmyObservableMap["onmapchanged"]
+      Actual: object
+
+Pass: myObservableMap's property: 12
+      Actual: remove
+
+Pass: typeofmyObservableMap["remove"]
+      Actual: function
+
+Pass: myObservableMap's property: 13
+      Actual: removeEventListener
+
+Pass: typeofmyObservableMap["removeEventListener"]
+      Actual: function
+
+Pass: myObservableMap's property: 14
+      Actual: size
+
+Pass: typeofmyObservableMap["size"]
+      Actual: number
+
+Pass: myObservableMap's property: 15
+      Actual: toString
+
+Pass: typeofmyObservableMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 4
+
+Pass: All prototype members read?
+      Actual: 12
+
+Comment: Remove all properties and verify the enumerator
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Comment: Verifying enumerator of : myObservableMap
+Pass: myObservableMap's property: 0
+      Actual: addEventListener
+
+Pass: typeofmyObservableMap["addEventListener"]
+      Actual: function
+
+Pass: myObservableMap's property: 1
+      Actual: clear
+
+Pass: typeofmyObservableMap["clear"]
+      Actual: function
+
+Pass: myObservableMap's property: 2
+      Actual: first
+
+Pass: typeofmyObservableMap["first"]
+      Actual: function
+
+Pass: myObservableMap's property: 3
+      Actual: getView
+
+Pass: typeofmyObservableMap["getView"]
+      Actual: function
+
+Pass: myObservableMap's property: 4
+      Actual: hasKey
+
+Pass: typeofmyObservableMap["hasKey"]
+      Actual: function
+
+Pass: myObservableMap's property: 5
+      Actual: insert
+
+Pass: typeofmyObservableMap["insert"]
+      Actual: function
+
+Pass: myObservableMap's property: 6
+      Actual: lookup
+
+Pass: typeofmyObservableMap["lookup"]
+      Actual: function
+
+Pass: myObservableMap's property: 7
+      Actual: onmapchanged
+
+Pass: typeofmyObservableMap["onmapchanged"]
+      Actual: object
+
+Pass: myObservableMap's property: 8
+      Actual: remove
+
+Pass: typeofmyObservableMap["remove"]
+      Actual: function
+
+Pass: myObservableMap's property: 9
+      Actual: removeEventListener
+
+Pass: typeofmyObservableMap["removeEventListener"]
+      Actual: function
+
+Pass: myObservableMap's property: 10
+      Actual: size
+
+Pass: typeofmyObservableMap["size"]
+      Actual: number
+
+Pass: myObservableMap's property: 11
+      Actual: toString
+
+Pass: typeofmyObservableMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 0
+
+Pass: All prototype members read?
+      Actual: 12
+
+PASS [Test 17: IObservableMap : Enumerator]
+=================================================
+
+=================================================
+Starting [Test 18: IObservableMap : Name conflicting properties : addEventListener and onmapchanged]
+Comment: *** Set conflicting properties using index operation
+Pass: myObservableMap.hasKey("addEventListener")
+      Actual: false
+
+Pass: typeof myObservableMap["addEventListener"]
+      Actual: function
+
+Pass: myObservableMap["addEventListener"].toString()
+      Actual: function addEventListener() { [native code] }
+
+Pass: myObservableMap.hasKey("onmapchanged")
+      Actual: false
+
+Pass: typeof myObservableMap["onmapchanged"]
+      Actual: object
+
+Pass: myObservableMap["onmapchanged"]
+      Actual: null
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 3
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: Twenty
+
+Pass: Value (1): myObservableMap
+      Actual: 20
+
+Pass: Key (2): myObservableMap
+      Actual: Five
+
+Pass: Value (2): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: Verifying enumerator of : myObservableMap
+Pass: myObservableMap's property: 0
+      Actual: Hundred
+
+Pass: typeof myObservableMap["Hundred"]
+      Actual: number
+
+Pass: myObservableMap["Hundred"]
+      Actual: 100
+
+Pass: myObservableMap's property: 1
+      Actual: Twenty
+
+Pass: typeof myObservableMap["Twenty"]
+      Actual: number
+
+Pass: myObservableMap["Twenty"]
+      Actual: 20
+
+Pass: myObservableMap's property: 2
+      Actual: Five
+
+Pass: typeof myObservableMap["Five"]
+      Actual: number
+
+Pass: myObservableMap["Five"]
+      Actual: 5
+
+Pass: myObservableMap's property: 3
+      Actual: addEventListener
+
+Pass: typeofmyObservableMap["addEventListener"]
+      Actual: function
+
+Pass: myObservableMap's property: 4
+      Actual: clear
+
+Pass: typeofmyObservableMap["clear"]
+      Actual: function
+
+Pass: myObservableMap's property: 5
+      Actual: first
+
+Pass: typeofmyObservableMap["first"]
+      Actual: function
+
+Pass: myObservableMap's property: 6
+      Actual: getView
+
+Pass: typeofmyObservableMap["getView"]
+      Actual: function
+
+Pass: myObservableMap's property: 7
+      Actual: hasKey
+
+Pass: typeofmyObservableMap["hasKey"]
+      Actual: function
+
+Pass: myObservableMap's property: 8
+      Actual: insert
+
+Pass: typeofmyObservableMap["insert"]
+      Actual: function
+
+Pass: myObservableMap's property: 9
+      Actual: lookup
+
+Pass: typeofmyObservableMap["lookup"]
+      Actual: function
+
+Pass: myObservableMap's property: 10
+      Actual: onmapchanged
+
+Pass: typeofmyObservableMap["onmapchanged"]
+      Actual: object
+
+Pass: myObservableMap's property: 11
+      Actual: remove
+
+Pass: typeofmyObservableMap["remove"]
+      Actual: function
+
+Pass: myObservableMap's property: 12
+      Actual: removeEventListener
+
+Pass: typeofmyObservableMap["removeEventListener"]
+      Actual: function
+
+Pass: myObservableMap's property: 13
+      Actual: size
+
+Pass: typeofmyObservableMap["size"]
+      Actual: number
+
+Pass: myObservableMap's property: 14
+      Actual: toString
+
+Pass: typeofmyObservableMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 3
+
+Pass: All prototype members read?
+      Actual: 12
+
+Comment: *** Add Map members using .insert method
+Pass: myObservableMap.hasKey("addEventListener")
+      Actual: true
+
+Pass: myObservableMap.lookup("addEventListener")
+      Actual: 55
+
+Pass: typeof myObservableMap["addEventListener"]
+      Actual: function
+
+Pass: myObservableMap["addEventListener"].toString()
+      Actual: function addEventListener() { [native code] }
+
+Pass: myObservableMap.hasKey("onmapchanged")
+      Actual: true
+
+Pass: myObservableMap.lookup("onmapchanged")
+      Actual: 66
+
+Pass: typeof myObservableMap["onmapchanged"]
+      Actual: object
+
+Pass: myObservableMap["onmapchanged"]
+      Actual: null
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 5
+
+Pass: Key (0): myObservableMap
+      Actual: addEventListener
+
+Pass: Value (0): myObservableMap
+      Actual: 55
+
+Pass: Key (1): myObservableMap
+      Actual: Hundred
+
+Pass: Value (1): myObservableMap
+      Actual: 100
+
+Pass: Key (2): myObservableMap
+      Actual: Twenty
+
+Pass: Value (2): myObservableMap
+      Actual: 20
+
+Pass: Key (3): myObservableMap
+      Actual: Five
+
+Pass: Value (3): myObservableMap
+      Actual: 5
+
+Pass: Key (4): myObservableMap
+      Actual: onmapchanged
+
+Pass: Value (4): myObservableMap
+      Actual: 66
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Comment: Verifying enumerator of : myObservableMap
+Pass: myObservableMap's property: 0
+      Actual: Hundred
+
+Pass: typeof myObservableMap["Hundred"]
+      Actual: number
+
+Pass: myObservableMap["Hundred"]
+      Actual: 100
+
+Pass: myObservableMap's property: 1
+      Actual: Twenty
+
+Pass: typeof myObservableMap["Twenty"]
+      Actual: number
+
+Pass: myObservableMap["Twenty"]
+      Actual: 20
+
+Pass: myObservableMap's property: 2
+      Actual: Five
+
+Pass: typeof myObservableMap["Five"]
+      Actual: number
+
+Pass: myObservableMap["Five"]
+      Actual: 5
+
+Pass: myObservableMap's property: 3
+      Actual: addEventListener
+
+Pass: typeofmyObservableMap["addEventListener"]
+      Actual: function
+
+Pass: myObservableMap's property: 4
+      Actual: clear
+
+Pass: typeofmyObservableMap["clear"]
+      Actual: function
+
+Pass: myObservableMap's property: 5
+      Actual: first
+
+Pass: typeofmyObservableMap["first"]
+      Actual: function
+
+Pass: myObservableMap's property: 6
+      Actual: getView
+
+Pass: typeofmyObservableMap["getView"]
+      Actual: function
+
+Pass: myObservableMap's property: 7
+      Actual: hasKey
+
+Pass: typeofmyObservableMap["hasKey"]
+      Actual: function
+
+Pass: myObservableMap's property: 8
+      Actual: insert
+
+Pass: typeofmyObservableMap["insert"]
+      Actual: function
+
+Pass: myObservableMap's property: 9
+      Actual: lookup
+
+Pass: typeofmyObservableMap["lookup"]
+      Actual: function
+
+Pass: myObservableMap's property: 10
+      Actual: onmapchanged
+
+Pass: typeofmyObservableMap["onmapchanged"]
+      Actual: object
+
+Pass: myObservableMap's property: 11
+      Actual: remove
+
+Pass: typeofmyObservableMap["remove"]
+      Actual: function
+
+Pass: myObservableMap's property: 12
+      Actual: removeEventListener
+
+Pass: typeofmyObservableMap["removeEventListener"]
+      Actual: function
+
+Pass: myObservableMap's property: 13
+      Actual: size
+
+Pass: typeofmyObservableMap["size"]
+      Actual: number
+
+Pass: myObservableMap's property: 14
+      Actual: toString
+
+Pass: typeofmyObservableMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 3
+
+Pass: All prototype members read?
+      Actual: 12
+
+Comment: *** Delete the conflicting properties - shouldnt change anything
+Pass: myObservableMap.hasKey("addEventListener")
+      Actual: true
+
+Pass: myObservableMap.lookup("addEventListener")
+      Actual: 55
+
+Pass: typeof myObservableMap["addEventListener"]
+      Actual: function
+
+Pass: myObservableMap["addEventListener"].toString()
+      Actual: function addEventListener() { [native code] }
+
+Pass: myObservableMap.hasKey("onmapchanged")
+      Actual: true
+
+Pass: myObservableMap.lookup("onmapchanged")
+      Actual: 66
+
+Pass: typeof myObservableMap["onmapchanged"]
+      Actual: object
+
+Pass: myObservableMap["onmapchanged"]
+      Actual: null
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 5
+
+Pass: Key (0): myObservableMap
+      Actual: addEventListener
+
+Pass: Value (0): myObservableMap
+      Actual: 55
+
+Pass: Key (1): myObservableMap
+      Actual: Hundred
+
+Pass: Value (1): myObservableMap
+      Actual: 100
+
+Pass: Key (2): myObservableMap
+      Actual: Twenty
+
+Pass: Value (2): myObservableMap
+      Actual: 20
+
+Pass: Key (3): myObservableMap
+      Actual: Five
+
+Pass: Value (3): myObservableMap
+      Actual: 5
+
+Pass: Key (4): myObservableMap
+      Actual: onmapchanged
+
+Pass: Value (4): myObservableMap
+      Actual: 66
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Comment: Verifying enumerator of : myObservableMap
+Pass: myObservableMap's property: 0
+      Actual: Hundred
+
+Pass: typeof myObservableMap["Hundred"]
+      Actual: number
+
+Pass: myObservableMap["Hundred"]
+      Actual: 100
+
+Pass: myObservableMap's property: 1
+      Actual: Twenty
+
+Pass: typeof myObservableMap["Twenty"]
+      Actual: number
+
+Pass: myObservableMap["Twenty"]
+      Actual: 20
+
+Pass: myObservableMap's property: 2
+      Actual: Five
+
+Pass: typeof myObservableMap["Five"]
+      Actual: number
+
+Pass: myObservableMap["Five"]
+      Actual: 5
+
+Pass: myObservableMap's property: 3
+      Actual: addEventListener
+
+Pass: typeofmyObservableMap["addEventListener"]
+      Actual: function
+
+Pass: myObservableMap's property: 4
+      Actual: clear
+
+Pass: typeofmyObservableMap["clear"]
+      Actual: function
+
+Pass: myObservableMap's property: 5
+      Actual: first
+
+Pass: typeofmyObservableMap["first"]
+      Actual: function
+
+Pass: myObservableMap's property: 6
+      Actual: getView
+
+Pass: typeofmyObservableMap["getView"]
+      Actual: function
+
+Pass: myObservableMap's property: 7
+      Actual: hasKey
+
+Pass: typeofmyObservableMap["hasKey"]
+      Actual: function
+
+Pass: myObservableMap's property: 8
+      Actual: insert
+
+Pass: typeofmyObservableMap["insert"]
+      Actual: function
+
+Pass: myObservableMap's property: 9
+      Actual: lookup
+
+Pass: typeofmyObservableMap["lookup"]
+      Actual: function
+
+Pass: myObservableMap's property: 10
+      Actual: onmapchanged
+
+Pass: typeofmyObservableMap["onmapchanged"]
+      Actual: object
+
+Pass: myObservableMap's property: 11
+      Actual: remove
+
+Pass: typeofmyObservableMap["remove"]
+      Actual: function
+
+Pass: myObservableMap's property: 12
+      Actual: removeEventListener
+
+Pass: typeofmyObservableMap["removeEventListener"]
+      Actual: function
+
+Pass: myObservableMap's property: 13
+      Actual: size
+
+Pass: typeofmyObservableMap["size"]
+      Actual: number
+
+Pass: myObservableMap's property: 14
+      Actual: toString
+
+Pass: typeofmyObservableMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 3
+
+Pass: All prototype members read?
+      Actual: 12
+
+Comment: *** Delete the conflicting properties using .remove method
+Pass: myObservableMap.hasKey("addEventListener")
+      Actual: false
+
+Pass: typeof myObservableMap["addEventListener"]
+      Actual: function
+
+Pass: myObservableMap["addEventListener"].toString()
+      Actual: function addEventListener() { [native code] }
+
+Pass: myObservableMap.hasKey("onmapchanged")
+      Actual: false
+
+Pass: typeof myObservableMap["onmapchanged"]
+      Actual: object
+
+Pass: myObservableMap["onmapchanged"]
+      Actual: null
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 3
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: Twenty
+
+Pass: Value (1): myObservableMap
+      Actual: 20
+
+Pass: Key (2): myObservableMap
+      Actual: Five
+
+Pass: Value (2): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: Verifying enumerator of : myObservableMap
+Pass: myObservableMap's property: 0
+      Actual: Hundred
+
+Pass: typeof myObservableMap["Hundred"]
+      Actual: number
+
+Pass: myObservableMap["Hundred"]
+      Actual: 100
+
+Pass: myObservableMap's property: 1
+      Actual: Twenty
+
+Pass: typeof myObservableMap["Twenty"]
+      Actual: number
+
+Pass: myObservableMap["Twenty"]
+      Actual: 20
+
+Pass: myObservableMap's property: 2
+      Actual: Five
+
+Pass: typeof myObservableMap["Five"]
+      Actual: number
+
+Pass: myObservableMap["Five"]
+      Actual: 5
+
+Pass: myObservableMap's property: 3
+      Actual: addEventListener
+
+Pass: typeofmyObservableMap["addEventListener"]
+      Actual: function
+
+Pass: myObservableMap's property: 4
+      Actual: clear
+
+Pass: typeofmyObservableMap["clear"]
+      Actual: function
+
+Pass: myObservableMap's property: 5
+      Actual: first
+
+Pass: typeofmyObservableMap["first"]
+      Actual: function
+
+Pass: myObservableMap's property: 6
+      Actual: getView
+
+Pass: typeofmyObservableMap["getView"]
+      Actual: function
+
+Pass: myObservableMap's property: 7
+      Actual: hasKey
+
+Pass: typeofmyObservableMap["hasKey"]
+      Actual: function
+
+Pass: myObservableMap's property: 8
+      Actual: insert
+
+Pass: typeofmyObservableMap["insert"]
+      Actual: function
+
+Pass: myObservableMap's property: 9
+      Actual: lookup
+
+Pass: typeofmyObservableMap["lookup"]
+      Actual: function
+
+Pass: myObservableMap's property: 10
+      Actual: onmapchanged
+
+Pass: typeofmyObservableMap["onmapchanged"]
+      Actual: object
+
+Pass: myObservableMap's property: 11
+      Actual: remove
+
+Pass: typeofmyObservableMap["remove"]
+      Actual: function
+
+Pass: myObservableMap's property: 12
+      Actual: removeEventListener
+
+Pass: typeofmyObservableMap["removeEventListener"]
+      Actual: function
+
+Pass: myObservableMap's property: 13
+      Actual: size
+
+Pass: typeofmyObservableMap["size"]
+      Actual: number
+
+Pass: myObservableMap's property: 14
+      Actual: toString
+
+Pass: typeofmyObservableMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 3
+
+Pass: All prototype members read?
+      Actual: 12
+
+PASS [Test 18: IObservableMap : Name conflicting properties : addEventListener and onmapchanged]
+=================================================
+
+=================================================
+Starting [Test 19: IObservableMap : IObservable methods and [] mixing]
+Comment: ** Set event handler
+Pass: myObservableMap.onmapchanged
+      Actual: function mapChangedEvent(ev) {
+                logger.comment("*** mapChanegdEvent : start ***");
+
+                verify(ev.type, "mapchanged", "ev.type");
+                verify(ev.target, myObservableMap, "ev.target");
+
+                verify(ev.collectionChange, expectedCollectionChange, "ev.collectionChange");
+                verify(ev.key, expectedKey, "ev.key");
+
+                verifyMapContents("ev.target", ev.target, expectedContents);
+
+                eventCount++;
+
+                logger.comment("*** mapChanegdEvent : end ***");
+            }
+
+Comment: ** Set property using [] operation
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.IObservableMap`2<String,Int32>]
+
+Pass: ev.collectionChange
+      Actual: 1
+
+Pass: ev.key
+      Actual: Thirty
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 4
+
+Pass: Key (0): ev.target
+      Actual: Hundred
+
+Pass: Value (0): ev.target
+      Actual: 100
+
+Pass: Key (1): ev.target
+      Actual: Twenty
+
+Pass: Value (1): ev.target
+      Actual: 20
+
+Pass: Key (2): ev.target
+      Actual: Thirty
+
+Pass: Value (2): ev.target
+      Actual: 330
+
+Pass: Key (3): ev.target
+      Actual: Five
+
+Pass: Value (3): ev.target
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: *** mapChanegdEvent : end ***
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 4
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: Twenty
+
+Pass: Value (1): myObservableMap
+      Actual: 20
+
+Pass: Key (2): myObservableMap
+      Actual: Thirty
+
+Pass: Value (2): myObservableMap
+      Actual: 330
+
+Pass: Key (3): myObservableMap
+      Actual: Five
+
+Pass: Value (3): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: ** Set property using insert method
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.IObservableMap`2<String,Int32>]
+
+Pass: ev.collectionChange
+      Actual: 1
+
+Pass: ev.key
+      Actual: One
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 5
+
+Pass: Key (0): ev.target
+      Actual: Hundred
+
+Pass: Value (0): ev.target
+      Actual: 100
+
+Pass: Key (1): ev.target
+      Actual: One
+
+Pass: Value (1): ev.target
+      Actual: 11
+
+Pass: Key (2): ev.target
+      Actual: Twenty
+
+Pass: Value (2): ev.target
+      Actual: 20
+
+Pass: Key (3): ev.target
+      Actual: Thirty
+
+Pass: Value (3): ev.target
+      Actual: 330
+
+Pass: Key (4): ev.target
+      Actual: Five
+
+Pass: Value (4): ev.target
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Comment: *** mapChanegdEvent : end ***
+Pass: myObservableMap.insert("One", 11)
+      Actual: false
+
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 5
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: One
+
+Pass: Value (1): myObservableMap
+      Actual: 11
+
+Pass: Key (2): myObservableMap
+      Actual: Twenty
+
+Pass: Value (2): myObservableMap
+      Actual: 20
+
+Pass: Key (3): myObservableMap
+      Actual: Thirty
+
+Pass: Value (3): myObservableMap
+      Actual: 330
+
+Pass: Key (4): myObservableMap
+      Actual: Five
+
+Pass: Value (4): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Comment: ** Change property using [] operation
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.IObservableMap`2<String,Int32>]
+
+Pass: ev.collectionChange
+      Actual: 3
+
+Pass: ev.key
+      Actual: One
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 5
+
+Pass: Key (0): ev.target
+      Actual: Hundred
+
+Pass: Value (0): ev.target
+      Actual: 100
+
+Pass: Key (1): ev.target
+      Actual: One
+
+Pass: Value (1): ev.target
+      Actual: 1
+
+Pass: Key (2): ev.target
+      Actual: Twenty
+
+Pass: Value (2): ev.target
+      Actual: 20
+
+Pass: Key (3): ev.target
+      Actual: Thirty
+
+Pass: Value (3): ev.target
+      Actual: 330
+
+Pass: Key (4): ev.target
+      Actual: Five
+
+Pass: Value (4): ev.target
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Comment: *** mapChanegdEvent : end ***
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 5
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: One
+
+Pass: Value (1): myObservableMap
+      Actual: 1
+
+Pass: Key (2): myObservableMap
+      Actual: Twenty
+
+Pass: Value (2): myObservableMap
+      Actual: 20
+
+Pass: Key (3): myObservableMap
+      Actual: Thirty
+
+Pass: Value (3): myObservableMap
+      Actual: 330
+
+Pass: Key (4): myObservableMap
+      Actual: Five
+
+Pass: Value (4): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Comment: ** Change property using insert method
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.IObservableMap`2<String,Int32>]
+
+Pass: ev.collectionChange
+      Actual: 3
+
+Pass: ev.key
+      Actual: Thirty
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 5
+
+Pass: Key (0): ev.target
+      Actual: Hundred
+
+Pass: Value (0): ev.target
+      Actual: 100
+
+Pass: Key (1): ev.target
+      Actual: One
+
+Pass: Value (1): ev.target
+      Actual: 1
+
+Pass: Key (2): ev.target
+      Actual: Twenty
+
+Pass: Value (2): ev.target
+      Actual: 20
+
+Pass: Key (3): ev.target
+      Actual: Thirty
+
+Pass: Value (3): ev.target
+      Actual: 30
+
+Pass: Key (4): ev.target
+      Actual: Five
+
+Pass: Value (4): ev.target
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Comment: *** mapChanegdEvent : end ***
+Pass: myObservableMap.insert("Thirty", 30)
+      Actual: true
+
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 5
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: One
+
+Pass: Value (1): myObservableMap
+      Actual: 1
+
+Pass: Key (2): myObservableMap
+      Actual: Twenty
+
+Pass: Value (2): myObservableMap
+      Actual: 20
+
+Pass: Key (3): myObservableMap
+      Actual: Thirty
+
+Pass: Value (3): myObservableMap
+      Actual: 30
+
+Pass: Key (4): myObservableMap
+      Actual: Five
+
+Pass: Value (4): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Comment: ** Remove property using delete operation
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.IObservableMap`2<String,Int32>]
+
+Pass: ev.collectionChange
+      Actual: 2
+
+Pass: ev.key
+      Actual: Thirty
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 4
+
+Pass: Key (0): ev.target
+      Actual: Hundred
+
+Pass: Value (0): ev.target
+      Actual: 100
+
+Pass: Key (1): ev.target
+      Actual: One
+
+Pass: Value (1): ev.target
+      Actual: 1
+
+Pass: Key (2): ev.target
+      Actual: Twenty
+
+Pass: Value (2): ev.target
+      Actual: 20
+
+Pass: Key (3): ev.target
+      Actual: Five
+
+Pass: Value (3): ev.target
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: *** mapChanegdEvent : end ***
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 4
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: One
+
+Pass: Value (1): myObservableMap
+      Actual: 1
+
+Pass: Key (2): myObservableMap
+      Actual: Twenty
+
+Pass: Value (2): myObservableMap
+      Actual: 20
+
+Pass: Key (3): myObservableMap
+      Actual: Five
+
+Pass: Value (3): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: ** Remove property using remove method
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.IObservableMap`2<String,Int32>]
+
+Pass: ev.collectionChange
+      Actual: 2
+
+Pass: ev.key
+      Actual: One
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 3
+
+Pass: Key (0): ev.target
+      Actual: Hundred
+
+Pass: Value (0): ev.target
+      Actual: 100
+
+Pass: Key (1): ev.target
+      Actual: Twenty
+
+Pass: Value (1): ev.target
+      Actual: 20
+
+Pass: Key (2): ev.target
+      Actual: Five
+
+Pass: Value (2): ev.target
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: *** mapChanegdEvent : end ***
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 3
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: Twenty
+
+Pass: Value (1): myObservableMap
+      Actual: 20
+
+Pass: Key (2): myObservableMap
+      Actual: Five
+
+Pass: Value (2): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: ** Setting key insert using [] operation
+Pass: Event Count
+      Actual: 0
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 3
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: Twenty
+
+Pass: Value (1): myObservableMap
+      Actual: 20
+
+Pass: Key (2): myObservableMap
+      Actual: Five
+
+Pass: Value (2): myObservableMap
+      Actual: 5
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: ** Setting key insert using insert method
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.IObservableMap`2<String,Int32>]
+
+Pass: ev.collectionChange
+      Actual: 1
+
+Pass: ev.key
+      Actual: insert
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 4
+
+Pass: Key (0): ev.target
+      Actual: Hundred
+
+Pass: Value (0): ev.target
+      Actual: 100
+
+Pass: Key (1): ev.target
+      Actual: Twenty
+
+Pass: Value (1): ev.target
+      Actual: 20
+
+Pass: Key (2): ev.target
+      Actual: Five
+
+Pass: Value (2): ev.target
+      Actual: 5
+
+Pass: Key (3): ev.target
+      Actual: insert
+
+Pass: Value (3): ev.target
+      Actual: 55
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: *** mapChanegdEvent : end ***
+Pass: myObservableMap.insert("insert", 55)
+      Actual: false
+
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 4
+
+Pass: Key (0): myObservableMap
+      Actual: Hundred
+
+Pass: Value (0): myObservableMap
+      Actual: 100
+
+Pass: Key (1): myObservableMap
+      Actual: Twenty
+
+Pass: Value (1): myObservableMap
+      Actual: 20
+
+Pass: Key (2): myObservableMap
+      Actual: Five
+
+Pass: Value (2): myObservableMap
+      Actual: 5
+
+Pass: Key (3): myObservableMap
+      Actual: insert
+
+Pass: Value (3): myObservableMap
+      Actual: 55
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: ** Clear all properties using clear method
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.IObservableMap`2<String,Int32>]
+
+Pass: ev.collectionChange
+      Actual: 0
+
+Pass: ev.key
+      Actual: 
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Comment: *** mapChanegdEvent : end ***
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Comment: ** remove event handler
+Pass: myObservableMap.onmapchanged
+      Actual: null
+
+Comment: ** Set new property using [] operation
+Pass: Event Count
+      Actual: 0
+
+Comment: Verifying contents of : myObservableMap
+Pass: myObservableMap.size
+      Actual: 1
+
+Pass: Key (0): myObservableMap
+      Actual: Two
+
+Pass: Value (0): myObservableMap
+      Actual: 2
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 1
+
+PASS [Test 19: IObservableMap : IObservable methods and [] mixing]
+=================================================
+
+=================================================
+Starting [Test 20: IMap : HString Key and WebHostHidden Value]
+Pass: Out param with IMap<HSTRING, HiddenType> returned (TypeError: The function 'getStringHiddenTypeMap' has an invalid signature and cannot be called)
+      Actual: true
+
+PASS [Test 20: IMap : HString Key and WebHostHidden Value]
+=================================================
+
+=================================================
+Starting [Test 21: RCStringMap : Runtimeclass with IMap<HSTRING, int>]
+Comment: typeof myMap: object
+Comment: Dump of properties : 
+    var myMapMembers = [
+        ['by', 'number'],
+        ['Hundred', 'number'],
+        ['Hundred And Fifty', 'number'],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getView', 'function', 0],
+        ['hasKey', 'function', 1],
+        ['insert', 'function', 2],
+        ['lookup', 'function', 1],
+        ['remove', 'function', 1],
+        ['size', 'number'],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myMap
+      Actual: object
+
+Pass: myMap's property
+      Actual: by
+
+Pass: typeof myMap["by"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: clear
+
+Pass: typeof myMap["clear"]
+      Actual: function
+
+Pass: myMap["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["clear"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: first
+
+Pass: typeof myMap["first"]
+      Actual: function
+
+Pass: myMap["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["first"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: getView
+
+Pass: typeof myMap["getView"]
+      Actual: function
+
+Pass: myMap["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["getView"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: hasKey
+
+Pass: typeof myMap["hasKey"]
+      Actual: function
+
+Pass: myMap["hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["hasKey"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: insert
+
+Pass: typeof myMap["insert"]
+      Actual: function
+
+Pass: myMap["insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myMap["insert"].length
+      Actual: 2
+
+Pass: myMap's property
+      Actual: lookup
+
+Pass: typeof myMap["lookup"]
+      Actual: function
+
+Pass: myMap["lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["lookup"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: remove
+
+Pass: typeof myMap["remove"]
+      Actual: function
+
+Pass: myMap["remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["remove"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: size
+
+Pass: typeof myMap["size"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: toString
+
+Pass: typeof myMap["toString"]
+      Actual: function
+
+Pass: myMap["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["toString"].length
+      Actual: 0
+
+Pass: number of properties of myMap
+      Actual: 12
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 3
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (2): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: *** Setting property using []
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 4
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: Twenty
+
+Pass: Value (2): myMap
+      Actual: 6
+
+Pass: Key (3): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (3): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: *** Deleting the property using delete operator
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 3
+
+Pass: Key (0): myMap
+      Actual: Hundred
+
+Pass: Value (0): myMap
+      Actual: 7
+
+Pass: Key (1): myMap
+      Actual: Twenty
+
+Pass: Value (1): myMap
+      Actual: 6
+
+Pass: Key (2): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (2): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: *** Enumerator using for
+Comment: Verifying enumerator of : myMap
+Pass: myMap's property: 0
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap["Hundred"]
+      Actual: 7
+
+Pass: myMap's property: 1
+      Actual: Twenty
+
+Pass: typeof myMap["Twenty"]
+      Actual: number
+
+Pass: myMap["Twenty"]
+      Actual: 6
+
+Pass: myMap's property: 2
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap["Hundred And Fifty"]
+      Actual: 17
+
+Pass: myMap's property: 3
+      Actual: clear
+
+Pass: typeofmyMap["clear"]
+      Actual: function
+
+Pass: myMap's property: 4
+      Actual: first
+
+Pass: typeofmyMap["first"]
+      Actual: function
+
+Pass: myMap's property: 5
+      Actual: getView
+
+Pass: typeofmyMap["getView"]
+      Actual: function
+
+Pass: myMap's property: 6
+      Actual: hasKey
+
+Pass: typeofmyMap["hasKey"]
+      Actual: function
+
+Pass: myMap's property: 7
+      Actual: insert
+
+Pass: typeofmyMap["insert"]
+      Actual: function
+
+Pass: myMap's property: 8
+      Actual: lookup
+
+Pass: typeofmyMap["lookup"]
+      Actual: function
+
+Pass: myMap's property: 9
+      Actual: remove
+
+Pass: typeofmyMap["remove"]
+      Actual: function
+
+Pass: myMap's property: 10
+      Actual: size
+
+Pass: typeofmyMap["size"]
+      Actual: number
+
+Pass: myMap's property: 11
+      Actual: toString
+
+Pass: typeofmyMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 3
+
+Pass: All prototype members read?
+      Actual: 9
+
+PASS [Test 21: RCStringMap : Runtimeclass with IMap<HSTRING, int>]
+=================================================
+
+=================================================
+Starting [Test 22: RCStringMapWithIterable : Runtimeclass with IMap<HSTRING, int> and Iterable<HSTRING>]
+Comment: typeof myMap: object
+Comment: Dump of properties : 
+    var myMapMembers = [
+        ['by', 'number'],
+        ['Hundred', 'number'],
+        ['Hundred And Fifty', 'number'],
+        ['Windows.Foundation.Collections.IIterable`1<String>.first', 'function', 0],
+        ['Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first', 'function', 0],
+        ['clear', 'function', 0],
+        ['getView', 'function', 0],
+        ['hasKey', 'function', 1],
+        ['insert', 'function', 2],
+        ['lookup', 'function', 1],
+        ['remove', 'function', 1],
+        ['size', 'number'],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myMap
+      Actual: object
+
+Pass: myMap's property
+      Actual: by
+
+Pass: typeof myMap["by"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: Windows.Foundation.Collections.IIterable`1<String>.first
+
+Pass: typeof myMap["Windows.Foundation.Collections.IIterable`1<String>.first"]
+      Actual: function
+
+Pass: myMap["Windows.Foundation.Collections.IIterable`1<String>.first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["Windows.Foundation.Collections.IIterable`1<String>.first"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first
+
+Pass: typeof myMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"]
+      Actual: function
+
+Pass: myMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: clear
+
+Pass: typeof myMap["clear"]
+      Actual: function
+
+Pass: myMap["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["clear"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: getView
+
+Pass: typeof myMap["getView"]
+      Actual: function
+
+Pass: myMap["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["getView"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: hasKey
+
+Pass: typeof myMap["hasKey"]
+      Actual: function
+
+Pass: myMap["hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["hasKey"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: insert
+
+Pass: typeof myMap["insert"]
+      Actual: function
+
+Pass: myMap["insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myMap["insert"].length
+      Actual: 2
+
+Pass: myMap's property
+      Actual: lookup
+
+Pass: typeof myMap["lookup"]
+      Actual: function
+
+Pass: myMap["lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["lookup"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: remove
+
+Pass: typeof myMap["remove"]
+      Actual: function
+
+Pass: myMap["remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["remove"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: size
+
+Pass: typeof myMap["size"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: toString
+
+Pass: typeof myMap["toString"]
+      Actual: function
+
+Pass: myMap["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["toString"].length
+      Actual: 0
+
+Pass: number of properties of myMap
+      Actual: 13
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 3
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (2): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: *** Setting property using []
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 4
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: Twenty
+
+Pass: Value (2): myMap
+      Actual: 6
+
+Pass: Key (3): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (3): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: *** Deleting the property using delete operator
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 3
+
+Pass: Key (0): myMap
+      Actual: Hundred
+
+Pass: Value (0): myMap
+      Actual: 7
+
+Pass: Key (1): myMap
+      Actual: Twenty
+
+Pass: Value (1): myMap
+      Actual: 6
+
+Pass: Key (2): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (2): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: *** Enumerator using for
+Comment: Verifying enumerator of : myMap
+Pass: myMap's property: 0
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap["Hundred"]
+      Actual: 7
+
+Pass: myMap's property: 1
+      Actual: Twenty
+
+Pass: typeof myMap["Twenty"]
+      Actual: number
+
+Pass: myMap["Twenty"]
+      Actual: 6
+
+Pass: myMap's property: 2
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap["Hundred And Fifty"]
+      Actual: 17
+
+Pass: myMap's property: 3
+      Actual: Windows.Foundation.Collections.IIterable`1<String>.first
+
+Pass: typeofmyMap["Windows.Foundation.Collections.IIterable`1<String>.first"]
+      Actual: function
+
+Pass: myMap's property: 4
+      Actual: Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first
+
+Pass: typeofmyMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"]
+      Actual: function
+
+Pass: myMap's property: 5
+      Actual: clear
+
+Pass: typeofmyMap["clear"]
+      Actual: function
+
+Pass: myMap's property: 6
+      Actual: getView
+
+Pass: typeofmyMap["getView"]
+      Actual: function
+
+Pass: myMap's property: 7
+      Actual: hasKey
+
+Pass: typeofmyMap["hasKey"]
+      Actual: function
+
+Pass: myMap's property: 8
+      Actual: insert
+
+Pass: typeofmyMap["insert"]
+      Actual: function
+
+Pass: myMap's property: 9
+      Actual: lookup
+
+Pass: typeofmyMap["lookup"]
+      Actual: function
+
+Pass: myMap's property: 10
+      Actual: remove
+
+Pass: typeofmyMap["remove"]
+      Actual: function
+
+Pass: myMap's property: 11
+      Actual: size
+
+Pass: typeofmyMap["size"]
+      Actual: number
+
+Pass: myMap's property: 12
+      Actual: toString
+
+Pass: typeofmyMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 3
+
+Pass: All prototype members read?
+      Actual: 10
+
+Comment: *** verify iterable First method can be called too
+Pass: (0): myIterator
+      Actual: Monday
+
+Pass: (1): myIterator
+      Actual: Tuesday
+
+Pass: (2): myIterator
+      Actual: Wednesday
+
+Pass: (3): myIterator
+      Actual: Thursday
+
+Pass: (4): myIterator
+      Actual: Friday
+
+Pass: (5): myIterator
+      Actual: Saturday
+
+Pass: (6): myIterator
+      Actual: Sunday
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 7
+
+PASS [Test 22: RCStringMapWithIterable : Runtimeclass with IMap<HSTRING, int> and Iterable<HSTRING>]
+=================================================
+
+=================================================
+Starting [Test 23: RCStringMapWithDefaultIterable : Runtimeclass with IMap<HSTRING, int> and default interface as Iterable<HSTRING>]
+Comment: typeof myMap: object
+Comment: Dump of properties : 
+    var myMapMembers = [
+        ['by', 'number'],
+        ['Hundred', 'number'],
+        ['Hundred And Fifty', 'number'],
+        ['Windows.Foundation.Collections.IIterable`1<String>.first', 'function', 0],
+        ['Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first', 'function', 0],
+        ['clear', 'function', 0],
+        ['getView', 'function', 0],
+        ['hasKey', 'function', 1],
+        ['insert', 'function', 2],
+        ['lookup', 'function', 1],
+        ['remove', 'function', 1],
+        ['size', 'number'],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myMap
+      Actual: object
+
+Pass: myMap's property
+      Actual: by
+
+Pass: typeof myMap["by"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: Windows.Foundation.Collections.IIterable`1<String>.first
+
+Pass: typeof myMap["Windows.Foundation.Collections.IIterable`1<String>.first"]
+      Actual: function
+
+Pass: myMap["Windows.Foundation.Collections.IIterable`1<String>.first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["Windows.Foundation.Collections.IIterable`1<String>.first"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first
+
+Pass: typeof myMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"]
+      Actual: function
+
+Pass: myMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: clear
+
+Pass: typeof myMap["clear"]
+      Actual: function
+
+Pass: myMap["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["clear"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: getView
+
+Pass: typeof myMap["getView"]
+      Actual: function
+
+Pass: myMap["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["getView"].length
+      Actual: 0
+
+Pass: myMap's property
+      Actual: hasKey
+
+Pass: typeof myMap["hasKey"]
+      Actual: function
+
+Pass: myMap["hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["hasKey"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: insert
+
+Pass: typeof myMap["insert"]
+      Actual: function
+
+Pass: myMap["insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myMap["insert"].length
+      Actual: 2
+
+Pass: myMap's property
+      Actual: lookup
+
+Pass: typeof myMap["lookup"]
+      Actual: function
+
+Pass: myMap["lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["lookup"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: remove
+
+Pass: typeof myMap["remove"]
+      Actual: function
+
+Pass: myMap["remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myMap["remove"].length
+      Actual: 1
+
+Pass: myMap's property
+      Actual: size
+
+Pass: typeof myMap["size"]
+      Actual: number
+
+Pass: myMap's property
+      Actual: toString
+
+Pass: typeof myMap["toString"]
+      Actual: function
+
+Pass: myMap["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myMap["toString"].length
+      Actual: 0
+
+Pass: number of properties of myMap
+      Actual: 13
+
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 3
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (2): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: *** Setting property using []
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 4
+
+Pass: Key (0): myMap
+      Actual: by
+
+Pass: Value (0): myMap
+      Actual: 2
+
+Pass: Key (1): myMap
+      Actual: Hundred
+
+Pass: Value (1): myMap
+      Actual: 7
+
+Pass: Key (2): myMap
+      Actual: Twenty
+
+Pass: Value (2): myMap
+      Actual: 6
+
+Pass: Key (3): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (3): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: *** Deleting the property using delete operator
+Comment: Verifying contents of : myMap
+Pass: myMap.size
+      Actual: 3
+
+Pass: Key (0): myMap
+      Actual: Hundred
+
+Pass: Value (0): myMap
+      Actual: 7
+
+Pass: Key (1): myMap
+      Actual: Twenty
+
+Pass: Value (1): myMap
+      Actual: 6
+
+Pass: Key (2): myMap
+      Actual: Hundred And Fifty
+
+Pass: Value (2): myMap
+      Actual: 17
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: *** Enumerator using for
+Comment: Verifying enumerator of : myMap
+Pass: myMap's property: 0
+      Actual: Hundred
+
+Pass: typeof myMap["Hundred"]
+      Actual: number
+
+Pass: myMap["Hundred"]
+      Actual: 7
+
+Pass: myMap's property: 1
+      Actual: Twenty
+
+Pass: typeof myMap["Twenty"]
+      Actual: number
+
+Pass: myMap["Twenty"]
+      Actual: 6
+
+Pass: myMap's property: 2
+      Actual: Hundred And Fifty
+
+Pass: typeof myMap["Hundred And Fifty"]
+      Actual: number
+
+Pass: myMap["Hundred And Fifty"]
+      Actual: 17
+
+Pass: myMap's property: 3
+      Actual: Windows.Foundation.Collections.IIterable`1<String>.first
+
+Pass: typeofmyMap["Windows.Foundation.Collections.IIterable`1<String>.first"]
+      Actual: function
+
+Pass: myMap's property: 4
+      Actual: Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first
+
+Pass: typeofmyMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"]
+      Actual: function
+
+Pass: myMap's property: 5
+      Actual: clear
+
+Pass: typeofmyMap["clear"]
+      Actual: function
+
+Pass: myMap's property: 6
+      Actual: getView
+
+Pass: typeofmyMap["getView"]
+      Actual: function
+
+Pass: myMap's property: 7
+      Actual: hasKey
+
+Pass: typeofmyMap["hasKey"]
+      Actual: function
+
+Pass: myMap's property: 8
+      Actual: insert
+
+Pass: typeofmyMap["insert"]
+      Actual: function
+
+Pass: myMap's property: 9
+      Actual: lookup
+
+Pass: typeofmyMap["lookup"]
+      Actual: function
+
+Pass: myMap's property: 10
+      Actual: remove
+
+Pass: typeofmyMap["remove"]
+      Actual: function
+
+Pass: myMap's property: 11
+      Actual: size
+
+Pass: typeofmyMap["size"]
+      Actual: number
+
+Pass: myMap's property: 12
+      Actual: toString
+
+Pass: typeofmyMap["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 3
+
+Pass: All prototype members read?
+      Actual: 10
+
+Comment: *** verify iterable First method can be called too
+Pass: (0): myIterator
+      Actual: Monday
+
+Pass: (1): myIterator
+      Actual: Tuesday
+
+Pass: (2): myIterator
+      Actual: Wednesday
+
+Pass: (3): myIterator
+      Actual: Thursday
+
+Pass: (4): myIterator
+      Actual: Friday
+
+Pass: (5): myIterator
+      Actual: Saturday
+
+Pass: (6): myIterator
+      Actual: Sunday
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 7
+
+PASS [Test 23: RCStringMapWithDefaultIterable : Runtimeclass with IMap<HSTRING, int> and default interface as Iterable<HSTRING>]
+=================================================
+
+=================================================
+Starting [Test 24: RCIDoubleObservableMap]
+Comment: typeof myDoubleObservableMap: object
+Comment: Dump of properties : 
+    var myDoubleObservableMapMembers = [
+        ['Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first', 'function', 0],
+        ['Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<System.Guid,Object>>.first', 'function', 0],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.clear', 'function', 0],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.getView', 'function', 0],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.hasKey', 'function', 1],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.insert', 'function', 2],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.lookup', 'function', 1],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.remove', 'function', 1],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.size', 'number'],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.clear', 'function', 0],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.getView', 'function', 0],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.hasKey', 'function', 1],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.insert', 'function', 2],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup', 'function', 1],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.remove', 'function', 1],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.size', 'number'],
+        ['Windows.Foundation.Collections.IObservableMap`2<String,Int32>.onmapchanged', 'object'],
+        ['Windows.Foundation.Collections.IObservableMap`2<System.Guid,Object>.onmapchanged', 'object'],
+        ['addEventListener', 'function', 2],
+        ['removeEventListener', 'function', 2],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myDoubleObservableMap
+      Actual: object
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"].length
+      Actual: 0
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<System.Guid,Object>>.first
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<System.Guid,Object>>.first"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<System.Guid,Object>>.first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<System.Guid,Object>>.first"].length
+      Actual: 0
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.clear
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.clear"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.clear"].length
+      Actual: 0
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.getView
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.getView"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.getView"].length
+      Actual: 0
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.hasKey
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.hasKey"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.hasKey"].length
+      Actual: 1
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.insert
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.insert"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.insert"].length
+      Actual: 2
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.lookup
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.lookup"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.lookup"].length
+      Actual: 1
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.remove
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.remove"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.remove"].length
+      Actual: 1
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.size
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.size"]
+      Actual: number
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.clear
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.clear"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.clear"].length
+      Actual: 0
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.getView
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.getView"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.getView"].length
+      Actual: 0
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.hasKey
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.hasKey"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.hasKey"].length
+      Actual: 1
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.insert
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.insert"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.insert"].length
+      Actual: 2
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup"].length
+      Actual: 1
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.remove
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.remove"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.remove"].length
+      Actual: 1
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.size
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.size"]
+      Actual: number
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IObservableMap`2<String,Int32>.onmapchanged
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IObservableMap`2<String,Int32>.onmapchanged"]
+      Actual: object
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IObservableMap`2<System.Guid,Object>.onmapchanged
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IObservableMap`2<System.Guid,Object>.onmapchanged"]
+      Actual: object
+
+Pass: myDoubleObservableMap's property
+      Actual: addEventListener
+
+Pass: typeof myDoubleObservableMap["addEventListener"]
+      Actual: function
+
+Pass: myDoubleObservableMap["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["addEventListener"].length
+      Actual: 2
+
+Pass: myDoubleObservableMap's property
+      Actual: removeEventListener
+
+Pass: typeof myDoubleObservableMap["removeEventListener"]
+      Actual: function
+
+Pass: myDoubleObservableMap["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["removeEventListener"].length
+      Actual: 2
+
+Pass: myDoubleObservableMap's property
+      Actual: toString
+
+Pass: typeof myDoubleObservableMap["toString"]
+      Actual: function
+
+Pass: myDoubleObservableMap["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["toString"].length
+      Actual: 0
+
+Pass: number of properties of myDoubleObservableMap
+      Actual: 21
+
+Pass: myDoubleObservableMap['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup'](8eb82cb5-03d6-49d2-80ee-8583e949b5bf).getGreeting()
+      Actual: Animal1
+
+Pass: myDoubleObservableMap['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup'](b960a7ac-f275-43fc-b154-91e7adeee7aa).getGreeting()
+      Actual: Animal2
+
+Pass: myDoubleObservableMap['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup'](9f1af037-baf9-473b-b8c3-183ab3f5b3ce).getGreeting()
+      Actual: Animal3
+
+Pass: myDoubleObservableMap['Windows.Foundation.Collections.IMap`2<String,Int32>.lookup'](by)
+      Actual: 2
+
+Pass: myDoubleObservableMap['Windows.Foundation.Collections.IMap`2<String,Int32>.lookup'](Hundred)
+      Actual: 7
+
+Pass: myDoubleObservableMap['Windows.Foundation.Collections.IMap`2<String,Int32>.lookup'](Hundred And Fifty)
+      Actual: 17
+
+PASS [Test 24: RCIDoubleObservableMap]
+=================================================
+
+=================================================
+Starting [Test 25: IDoubleIObservableMap - projected as interface type]
+Comment: typeof myDoubleObservableMap: object
+Comment: Dump of properties : 
+    var myDoubleObservableMapMembers = [
+        ['Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first', 'function', 0],
+        ['Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<System.Guid,Object>>.first', 'function', 0],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.clear', 'function', 0],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.getView', 'function', 0],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.hasKey', 'function', 1],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.insert', 'function', 2],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.lookup', 'function', 1],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.remove', 'function', 1],
+        ['Windows.Foundation.Collections.IMap`2<String,Int32>.size', 'number'],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.clear', 'function', 0],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.getView', 'function', 0],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.hasKey', 'function', 1],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.insert', 'function', 2],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup', 'function', 1],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.remove', 'function', 1],
+        ['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.size', 'number'],
+        ['Windows.Foundation.Collections.IObservableMap`2<String,Int32>.onmapchanged', 'object'],
+        ['Windows.Foundation.Collections.IObservableMap`2<System.Guid,Object>.onmapchanged', 'object'],
+        ['addEventListener', 'function', 2],
+        ['removeEventListener', 'function', 2],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myDoubleObservableMap
+      Actual: object
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Int32>>.first"].length
+      Actual: 0
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<System.Guid,Object>>.first
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<System.Guid,Object>>.first"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<System.Guid,Object>>.first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<System.Guid,Object>>.first"].length
+      Actual: 0
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.clear
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.clear"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.clear"].length
+      Actual: 0
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.getView
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.getView"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.getView"].length
+      Actual: 0
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.hasKey
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.hasKey"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.hasKey"].length
+      Actual: 1
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.insert
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.insert"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.insert"].length
+      Actual: 2
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.lookup
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.lookup"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.lookup"].length
+      Actual: 1
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.remove
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.remove"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.remove"].length
+      Actual: 1
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<String,Int32>.size
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<String,Int32>.size"]
+      Actual: number
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.clear
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.clear"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.clear"].length
+      Actual: 0
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.getView
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.getView"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.getView"].length
+      Actual: 0
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.hasKey
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.hasKey"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.hasKey"].length
+      Actual: 1
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.insert
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.insert"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.insert"].length
+      Actual: 2
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup"].length
+      Actual: 1
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.remove
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.remove"]
+      Actual: function
+
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.remove"].length
+      Actual: 1
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IMap`2<System.Guid,Object>.size
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IMap`2<System.Guid,Object>.size"]
+      Actual: number
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IObservableMap`2<String,Int32>.onmapchanged
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IObservableMap`2<String,Int32>.onmapchanged"]
+      Actual: object
+
+Pass: myDoubleObservableMap's property
+      Actual: Windows.Foundation.Collections.IObservableMap`2<System.Guid,Object>.onmapchanged
+
+Pass: typeof myDoubleObservableMap["Windows.Foundation.Collections.IObservableMap`2<System.Guid,Object>.onmapchanged"]
+      Actual: object
+
+Pass: myDoubleObservableMap's property
+      Actual: addEventListener
+
+Pass: typeof myDoubleObservableMap["addEventListener"]
+      Actual: function
+
+Pass: myDoubleObservableMap["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["addEventListener"].length
+      Actual: 2
+
+Pass: myDoubleObservableMap's property
+      Actual: removeEventListener
+
+Pass: typeof myDoubleObservableMap["removeEventListener"]
+      Actual: function
+
+Pass: myDoubleObservableMap["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["removeEventListener"].length
+      Actual: 2
+
+Pass: myDoubleObservableMap's property
+      Actual: toString
+
+Pass: typeof myDoubleObservableMap["toString"]
+      Actual: function
+
+Pass: myDoubleObservableMap["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myDoubleObservableMap["toString"].length
+      Actual: 0
+
+Pass: number of properties of myDoubleObservableMap
+      Actual: 21
+
+Pass: myDoubleObservableMap['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup'](8eb82cb5-03d6-49d2-80ee-8583e949b5bf).getGreeting()
+      Actual: Animal1
+
+Pass: myDoubleObservableMap['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup'](b960a7ac-f275-43fc-b154-91e7adeee7aa).getGreeting()
+      Actual: Animal2
+
+Pass: myDoubleObservableMap['Windows.Foundation.Collections.IMap`2<System.Guid,Object>.lookup'](9f1af037-baf9-473b-b8c3-183ab3f5b3ce).getGreeting()
+      Actual: Animal3
+
+Pass: myDoubleObservableMap['Windows.Foundation.Collections.IMap`2<String,Int32>.lookup'](by)
+      Actual: 2
+
+Pass: myDoubleObservableMap['Windows.Foundation.Collections.IMap`2<String,Int32>.lookup'](Hundred)
+      Actual: 7
+
+Pass: myDoubleObservableMap['Windows.Foundation.Collections.IMap`2<String,Int32>.lookup'](Hundred And Fifty)
+      Actual: 17
+
+PASS [Test 25: IDoubleIObservableMap - projected as interface type]
+=================================================
+
+Passed: 25
+Failed: 0

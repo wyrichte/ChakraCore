@@ -1,0 +1,19 @@
+
+
+===========>Starting Heap Dump for new objects only<===============
+
+ type: Animals.PropertyValueTests flags: (new_state_unavailable WinRT_Instance external_unknown size_unavailable) optional info records (1)
+ |  [Events] count: 0
+
+ type: Animals.PropertyValueTests flags: (new_state_unavailable WinRT_RuntimeClass external_unknown size_unavailable) optional info records (1)
+ |  [Events] count: 0
+
+==========>End Heap Dump<===============
+
+
+Pass: outVar.length
+      Actual: 10
+
+Pass: outVar.width
+      Actual: 40
+

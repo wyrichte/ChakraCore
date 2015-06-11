@@ -1,0 +1,1956 @@
+ES5 Int array as Iterable tests
+
+=================================================
+Starting [Test 1: MarshalInArrayAsIterable]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8];
+Comment: Object.defineProperty(myArray, "8", { set: function (x) { value = x; }, get: function () { return value }, configurable: true });
+Comment: myArray[8] = 9;
+Comment: var myIterable = (new Animals.Animal(1)).duplicateIterable(myArray);
+Comment: verifyIterable("myIterable", myIterable, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+Comment: typeof myIterable: object
+Comment: Dump of properties : 
+    var myIterableMembers = [
+        ['first', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterable
+      Actual: object
+
+Pass: myIterable's property
+      Actual: first
+
+Pass: typeof myIterable["first"]
+      Actual: function
+
+Pass: myIterable["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["first"].length
+      Actual: 0
+
+Pass: myIterable's property
+      Actual: toString
+
+Pass: typeof myIterable["toString"]
+      Actual: function
+
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterable
+      Actual: 2
+
+Comment: var myIterator = myIterable.first()
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'number'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: number
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 1
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 2
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 3
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 4
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 5
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 6
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 7
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 8
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 9
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Comment: Iterator with getMany
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 1
+
+Pass: manyItems[1]
+      Actual: 2
+
+Pass: manyItems[2]
+      Actual: 3
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 4
+
+Pass: manyItems[1]
+      Actual: 5
+
+Pass: manyItems[2]
+      Actual: 6
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 7
+
+Pass: manyItems[1]
+      Actual: 8
+
+Pass: manyItems[2]
+      Actual: 9
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+PASS [Test 1: MarshalInArrayAsIterable]
+=================================================
+
+=================================================
+Starting [Test 2: CheckIIterableLifeTime]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8];
+Comment: Object.defineProperty(myArray, "8", { set: function (x) { value = x; }, get: function () { return value }, configurable: true });
+Comment: myArray[8] = 9;
+Comment: var myIterable = (new Animals.Animal(1)).duplicateIterable(myArray);
+Comment: myArray = undefined
+Comment: verifyIterable("myIterable", myIterable, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+Comment: typeof myIterable: object
+Comment: Dump of properties : 
+    var myIterableMembers = [
+        ['first', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterable
+      Actual: object
+
+Pass: myIterable's property
+      Actual: first
+
+Pass: typeof myIterable["first"]
+      Actual: function
+
+Pass: myIterable["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["first"].length
+      Actual: 0
+
+Pass: myIterable's property
+      Actual: toString
+
+Pass: typeof myIterable["toString"]
+      Actual: function
+
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterable
+      Actual: 2
+
+Comment: var myIterator = myIterable.first()
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'number'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: number
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 1
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 2
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 3
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 4
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 5
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 6
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 7
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 8
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 9
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Comment: Iterator with getMany
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 1
+
+Pass: manyItems[1]
+      Actual: 2
+
+Pass: manyItems[2]
+      Actual: 3
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 4
+
+Pass: manyItems[1]
+      Actual: 5
+
+Pass: manyItems[2]
+      Actual: 6
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 7
+
+Pass: manyItems[1]
+      Actual: 8
+
+Pass: manyItems[2]
+      Actual: 9
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+PASS [Test 2: CheckIIterableLifeTime]
+=================================================
+
+=================================================
+Starting [Test 3: AlterArrayBeforeIterating]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8];
+Comment: Object.defineProperty(myArray, "8", { set: function (x) { value = x; }, get: function () { return value }, configurable: true });
+Comment: myArray[8] = 9;
+Comment: var myIterable = (new Animals.Animal(1)).duplicateIterable(myArray);
+Comment: typeof myIterable: object
+Comment: Dump of properties : 
+    var myIterableMembers = [
+        ['first', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterable
+      Actual: object
+
+Pass: myIterable's property
+      Actual: first
+
+Pass: typeof myIterable["first"]
+      Actual: function
+
+Pass: myIterable["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["first"].length
+      Actual: 0
+
+Pass: myIterable's property
+      Actual: toString
+
+Pass: typeof myIterable["toString"]
+      Actual: function
+
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterable
+      Actual: 2
+
+Comment: var myIterator = myIterable.first()
+Comment: myArray[11] = 30;
+Comment: verifyIterator("myIterator", myIterator, [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 30]);
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'number'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: number
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 1
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 2
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 3
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 4
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 5
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 6
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 7
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 8
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 9
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 0
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 0
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 30
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 12
+
+PASS [Test 3: AlterArrayBeforeIterating]
+=================================================
+
+=================================================
+Starting [Test 4: AlterArrayWhileIterating]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8];
+Comment: Object.defineProperty(myArray, "8", { set: function (x) { value = x; }, get: function () { return value }, configurable: true });
+Comment: myArray[8] = 9;
+Comment: var myIterable = (new Animals.Animal(1)).duplicateIterable(myArray);
+Comment: typeof myIterable: object
+Comment: Dump of properties : 
+    var myIterableMembers = [
+        ['first', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterable
+      Actual: object
+
+Pass: myIterable's property
+      Actual: first
+
+Pass: typeof myIterable["first"]
+      Actual: function
+
+Pass: myIterable["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["first"].length
+      Actual: 0
+
+Pass: myIterable's property
+      Actual: toString
+
+Pass: typeof myIterable["toString"]
+      Actual: function
+
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterable
+      Actual: 2
+
+Comment: var myIterator = myIterable.first()
+Comment: var myArrayToVerify = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+Comment: verifyIteratorRange("myIterator", myIterator, myArrayToVerify, 0, 2);
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'number'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: number
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 1
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 2
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: number of members iterated over
+      Actual: 2
+
+Comment: myArray[3] = 30;
+Comment: myArrayToVerify[3] = 30;
+Comment: verifyIteratorRange("myIterator", myIterator, myArrayToVerify, 2, 5);
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'number'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: number
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 3
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 30
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 5
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: number of members iterated over
+      Actual: 3
+
+Comment: myArray[5] = 50;
+Comment: myArrayToVerify[5] = 50;
+Comment: verifyIteratorRange("myIterator", myIterator, myArrayToVerify, 5, 9);
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'number'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: number
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 50
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 7
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 8
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 9
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 4
+
+PASS [Test 4: AlterArrayWhileIterating]
+=================================================
+
+=================================================
+Starting [Test 5: AlterArrayLengthWhileIterating]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8];
+Comment: Object.defineProperty(myArray, "8", { set: function (x) { value = x; }, get: function () { return value }, configurable: true });
+Comment: myArray[8] = 9;
+Comment: var myIterable = (new Animals.Animal(1)).duplicateIterable(myArray);
+Comment: typeof myIterable: object
+Comment: Dump of properties : 
+    var myIterableMembers = [
+        ['first', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterable
+      Actual: object
+
+Pass: myIterable's property
+      Actual: first
+
+Pass: typeof myIterable["first"]
+      Actual: function
+
+Pass: myIterable["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["first"].length
+      Actual: 0
+
+Pass: myIterable's property
+      Actual: toString
+
+Pass: typeof myIterable["toString"]
+      Actual: function
+
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterable
+      Actual: 2
+
+Comment: var myIterator = myIterable.first()
+Comment: var myArrayToVerify = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+Comment: verifyIteratorRange("myIterator", myIterator, myArrayToVerify, 0, 2);
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'number'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: number
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 1
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 2
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: number of members iterated over
+      Actual: 2
+
+Comment: myArray.length = 7
+Comment: myArrayToVerify.length = 7
+Comment: verifyIteratorRange("myIterator", myIterator, myArrayToVerify, 2, 7)
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'number'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: number
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 3
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 4
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 5
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 6
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 7
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 5
+
+Comment: myArray.length = 10;
+Comment: myArrayToVerify = [1, 2, 3, 4, 5, 6, 7, 0, 0, 0];
+Comment: verifyIteratorRange("myIterator", myIterator, myArrayToVerify, 7, 10);
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'number'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: number
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 0
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 0
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 0
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 3
+
+Comment: myArray.length = 13
+Comment: verify(myIterator.hasCurrent, true, "myIterator.hasCurrent");
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Comment: myArray.length = 5
+Comment: verify(myIterator.hasCurrent, false, "myIterator.hasCurrent")
+Pass: myIterator.hasCurrent
+      Actual: false
+
+PASS [Test 5: AlterArrayLengthWhileIterating]
+=================================================
+
+=================================================
+Starting [Test 6: ProjectAlreadyMarshaledJsArrayAsIterable]
+Comment: var myArray = [1, 2, 3, 4, 5, 6, 7, 8];
+Comment: Object.defineProperty(myArray, "8", { set: function (x) { value = x; }, get: function () { return value }, configurable: true });
+Comment: myArray[8] = 9;
+Comment: var myIterable = (new Animals.Animal(1)).sendBackSameIterable(myArray);
+Comment: verifyIterable("myIterable", myIterable, myArray)
+Comment: typeof myIterable: object
+Comment: Dump of properties : 
+    var myIterableMembers = [
+        ['first', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterable
+      Actual: object
+
+Pass: myIterable's property
+      Actual: first
+
+Pass: typeof myIterable["first"]
+      Actual: function
+
+Pass: myIterable["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["first"].length
+      Actual: 0
+
+Pass: myIterable's property
+      Actual: toString
+
+Pass: typeof myIterable["toString"]
+      Actual: function
+
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterable
+      Actual: 2
+
+Comment: var myIterator = myIterable.first()
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'number'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: number
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 1
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 2
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 3
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 4
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 5
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 6
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 7
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 8
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 9
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Comment: Iterator with getMany
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 1
+
+Pass: manyItems[1]
+      Actual: 2
+
+Pass: manyItems[2]
+      Actual: 3
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 4
+
+Pass: manyItems[1]
+      Actual: 5
+
+Pass: manyItems[2]
+      Actual: 6
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 7
+
+Pass: manyItems[1]
+      Actual: 8
+
+Pass: manyItems[2]
+      Actual: 9
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Pass: !Array.isArray(myIterable)
+      Actual: true
+
+Pass: myArray !== myIterable
+      Actual: true
+
+Comment: myArray[5] = 10;
+Comment: verifyIterable("myIterable", myIterable, myArray)
+Comment: typeof myIterable: object
+Comment: Dump of properties : 
+    var myIterableMembers = [
+        ['first', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterable
+      Actual: object
+
+Pass: myIterable's property
+      Actual: first
+
+Pass: typeof myIterable["first"]
+      Actual: function
+
+Pass: myIterable["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["first"].length
+      Actual: 0
+
+Pass: myIterable's property
+      Actual: toString
+
+Pass: typeof myIterable["toString"]
+      Actual: function
+
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterable["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterable
+      Actual: 2
+
+Comment: var myIterator = myIterable.first()
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'number'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: number
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 1
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 2
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 3
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 4
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 5
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 10
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 7
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 8
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: 9
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Comment: Iterator with getMany
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 1
+
+Pass: manyItems[1]
+      Actual: 2
+
+Pass: manyItems[2]
+      Actual: 3
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 4
+
+Pass: manyItems[1]
+      Actual: 5
+
+Pass: manyItems[2]
+      Actual: 10
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: 7
+
+Pass: manyItems[1]
+      Actual: 8
+
+Pass: manyItems[2]
+      Actual: 9
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Pass: !Array.isArray(myIterable)
+      Actual: true
+
+Pass: myArray !== myIterable
+      Actual: true
+
+PASS [Test 6: ProjectAlreadyMarshaledJsArrayAsIterable]
+=================================================
+
+Passed: 6
+Failed: 0

@@ -1,0 +1,69 @@
+JsDocCommentsParser::ParseTypeDefinitionDocComments:
+{
+  input :
+  {
+    text : "*\r\n * SampleOptions are the options for the sampleFunction\r\n * @typedef {Object} SampleOptions\r\n * @property {String} name  - name to print\r\n * @param {String} some parameter - should simply be ignored\r\n * @property {Number} count times to print.\r\n \r\n"
+  },
+  output :
+  {
+    TypeDefinitions :
+    [
+      {
+        name : "SampleOptions",
+        description : "SampleOptions are the options for the sampleFunction",
+        properties :
+        [
+          {
+            type : "String",
+            name : "name",
+            description : "name to print"
+          },
+          {
+            type : "Number",
+            name : "count",
+            description : "times to print."
+          }
+        ]
+      }
+    ]
+  }
+}
+JsDocCommentsParser::ParseVarDocComments:
+{
+  input :
+  {
+    text : "*\r\n * SampleOptions are the options for the sampleFunction\r\n * @typedef {Object} SampleOptions\r\n * @property {String} name  - name to print\r\n * @param {String} some parameter - should simply be ignored\r\n * @property {Number} count times to print.\r\n \r\n"
+  },
+  output :
+  {
+    VarDocComments :
+    {
+
+    }
+  }
+}
+JsDocCommentsParser::ParseFuncDocComments:
+{
+  input :
+  {
+    signatureText : "*\r\n * @returns {SampleOptions} options\r\n \r\n"
+  },
+  output :
+  {
+    signatures :
+    [
+      {
+        description : "",
+        parameters :
+        [
+        ],
+        returns :
+        {
+          type : "SampleOptions",
+          description : "options"
+        }
+      }
+    ]
+  }
+}
+Passed

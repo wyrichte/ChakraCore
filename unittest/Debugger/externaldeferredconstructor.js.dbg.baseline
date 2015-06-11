@@ -1,0 +1,7 @@
+[
+  {
+    "evaluate": {
+      "Debug.TestDeferredConstructor": "function TestDeferredConstructor() { [native code] }"
+    }
+  }
+]

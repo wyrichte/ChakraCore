@@ -1,0 +1,51 @@
+Metadata Errors Test
+
+=================================================
+Starting [Test 1: Metadata Errors]
+Comment: Test MetadataError.InvalidMetadataFile
+Pass: instanceof Error: MetadataError.InvalidMetadataFile (0x80000012): an unexpected failure occurred while trying to obtain metadata information
+      Actual: true
+
+Pass: e.message
+      Actual: MetadataError.InvalidMetadataFile (0x80000012): an unexpected failure occurred while trying to obtain metadata information
+
+Comment: Test MetadataError.BadMetadata
+Pass: instanceof Error: MetadataError.BadMetadata (0x8013118A): an unexpected failure occurred while trying to obtain metadata information
+      Actual: true
+
+Pass: e.message
+      Actual: MetadataError.BadMetadata (0x8013118A): an unexpected failure occurred while trying to obtain metadata information
+
+Comment: Test MetadataError.BadSignature
+Pass: instanceof Error: MetadataError.BadSignature (0x80131192): an unexpected failure occurred while trying to obtain metadata information
+      Actual: true
+
+Pass: e.message
+      Actual: MetadataError.BadSignature (0x80131192): an unexpected failure occurred while trying to obtain metadata information
+
+Comment: Test MetadataError.InternalError
+Pass: instanceof Error: MetadataError.InternalError (0x80131FFF): an unexpected failure occurred while trying to obtain metadata information
+      Actual: true
+
+Pass: e.message
+      Actual: MetadataError.InternalError (0x80131FFF): an unexpected failure occurred while trying to obtain metadata information
+
+Comment: Test MetadataError.OutOfMemory
+Pass: instanceof Error: MetadataError.OutOfMemory (0x8007000E): an unexpected failure occurred while trying to obtain metadata information
+      Actual: true
+
+Pass: e.message
+      Actual: MetadataError.OutOfMemory (0x8007000E): an unexpected failure occurred while trying to obtain metadata information
+
+Comment: Test MetadataError.Fail
+Pass: instanceof Error: MetadataError.Fail (0x80004005): an unexpected failure occurred while trying to obtain metadata information
+      Actual: true
+
+Pass: e.message
+      Actual: MetadataError.Fail (0x80004005): an unexpected failure occurred while trying to obtain metadata information
+
+PASS [Test 1: Metadata Errors]
+=================================================
+
+Passed: 1
+Failed: 0

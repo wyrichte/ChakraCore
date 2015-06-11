@@ -1,0 +1,302 @@
+Simple Event Tests
+
+=================================================
+Starting [Test 1: Simple event handler]
+Comment: Create Toaster
+MemoryTrace: Created Projection Object: 0    UnknownRefCount = 3
+Pass: toaster refCount
+      Actual: 2
+
+Comment: Add event listner
+MemoryTrace: Created Unknown Object: 0    Type = Delegate
+Pass: toaster refCount
+      Actual: 2
+
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 0  
+ProjectionObjects  Deleted : 0  
+Unknowns  Created : 0  
+Unknowns  Deleted : 0  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 1: Simple event handler]
+=================================================
+
+=================================================
+Starting [Test 2: Invoking event]
+Comment: Create Toaster
+MemoryTrace: Created Projection Object: 1    UnknownRefCount = 3
+Pass: toaster refCount
+      Actual: 2
+
+Comment: Add event listner
+MemoryTrace: Created Unknown Object: 1    Type = Delegate
+Pass: toaster refCount
+      Actual: 2
+
+Comment: Make Toast
+MemoryTrace: Created Projection Object: 2    UnknownRefCount = 4
+MemoryTrace: Created Projection Object: 3    UnknownRefCount = 7
+Comment: *** toastCompleteCallback: Enter
+Pass: toaster refCount inside event handler : ev.target
+      Actual: 3
+
+Pass: toast refCount inside event handler: ev.detail[0]
+      Actual: 7
+
+Pass: toast refCount inside event handler: ev
+      Actual: 7
+
+Comment: *** toastCompleteCallback: Exit
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 1  2  3  
+ProjectionObjects  Deleted : 1  2  3  
+Unknowns  Created : 1  
+Unknowns  Deleted : 1  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 2: Invoking event]
+=================================================
+
+=================================================
+Starting [Test 3: Remove Event]
+Comment: Create Toaster
+MemoryTrace: Created Projection Object: 4    UnknownRefCount = 3
+Pass: toaster refCount
+      Actual: 2
+
+Comment: Add event listner
+MemoryTrace: Created Unknown Object: 2    Type = Delegate
+Pass: toaster refCount
+      Actual: 2
+
+Comment: Remove event listner
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 4  
+ProjectionObjects  Deleted : 4  
+Unknowns  Created : 2  
+Unknowns  Deleted : 2  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 3: Remove Event]
+=================================================
+
+=================================================
+Starting [Test 4: Remove Event after Invoke]
+Comment: Create Toaster
+MemoryTrace: Created Projection Object: 5    UnknownRefCount = 3
+Pass: toaster refCount
+      Actual: 2
+
+Comment: Add event listner
+MemoryTrace: Created Unknown Object: 3    Type = Delegate
+Pass: toaster refCount
+      Actual: 2
+
+Comment: Make Toast
+MemoryTrace: Created Projection Object: 6    UnknownRefCount = 4
+MemoryTrace: Created Projection Object: 7    UnknownRefCount = 7
+Comment: *** toastCompleteCallback: Enter
+Pass: toaster refCount inside event handler : ev.target
+      Actual: 3
+
+Pass: toast refCount inside event handler: ev.detail[0]
+      Actual: 7
+
+Pass: toast refCount inside event handler: ev
+      Actual: 7
+
+Comment: *** toastCompleteCallback: Exit
+Comment: Remove event listner
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 5  6  7  
+ProjectionObjects  Deleted : 5  6  7  
+Unknowns  Created : 3  
+Unknowns  Deleted : 3  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 4: Remove Event after Invoke]
+=================================================
+
+=================================================
+Starting [Test 5: Add Event and Pass the object to ABI]
+Comment: Create Toaster
+MemoryTrace: Created Projection Object: 8    UnknownRefCount = 3
+Pass: toaster refCount
+      Actual: 2
+
+Comment: Add event listner
+MemoryTrace: Created Unknown Object: 4    Type = Delegate
+Pass: toaster refCount
+      Actual: 2
+
+Comment: Store the toaster into Animals.Animal
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 8  
+ProjectionObjects  Deleted : 8  
+Unknowns  Created : 4  
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+MemoryTrace: Created Projection Object: 9    UnknownRefCount = 4
+MemoryTrace: Created Projection Object: 10    UnknownRefCount = 4
+MemoryTrace: Created Projection Object: 11    UnknownRefCount = 7
+Comment: *** toastCompleteCallback: Enter
+Pass: toaster refCount inside event handler : ev.target
+      Actual: 4
+
+Pass: toast refCount inside event handler: ev.detail[0]
+      Actual: 7
+
+Pass: toast refCount inside event handler: ev
+      Actual: 7
+
+Comment: *** toastCompleteCallback: Exit
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 9  10  11  
+ProjectionObjects  Deleted : 9  10  11  
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+Comment: Set the toaster to null and see that delegate for event handler is released
+PASS [Test 5: Add Event and Pass the object to ABI]
+=================================================
+
+Passed: 5
+Failed: 0
+
+MemoryTrace: Stats after ProjectionContextClose
+ProjectionObjects  Created : 
+ProjectionObjects  Deleted : 
+Unknowns  Created : 
+Unknowns  Deleted : 4  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: ScriptContext Close
+
+MemoryTrace: Stats after scriptSite close
+ProjectionObjects  Created : 
+ProjectionObjects  Deleted : 
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+
+
+ProjectionObjects status:
+
+Id		Status		CreationUnkRef
+11		Destroyed	7				
+10		Destroyed	4				
+9		Destroyed	4				
+8		Destroyed	3				
+7		Destroyed	7				
+6		Destroyed	4				
+5		Destroyed	3				
+4		Destroyed	3				
+3		Destroyed	7				
+2		Destroyed	4				
+1		Destroyed	3				
+0		Destroyed	3				
+
+Alive: 0		Dead: 12
+
+
+
+Unknowns status:
+
+Id		Status		Type
+4		Destroyed	Delegate
+3		Destroyed	Delegate
+2		Destroyed	Delegate
+1		Destroyed	Delegate
+0		Destroyed	Delegate
+
+Alive: 0		Dead: 5
+
+
+
+FinalizableArrayBuffer status:
+
+Id		Status		NumberOfElements		BufferAllocatedUsing
+
+Alive: 0		Dead: 0
+
+MemoryTrace: Stats while destroying thread
+ProjectionObjects  Created : 
+ProjectionObjects  Deleted : 
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+
+
+ProjectionObjects status:
+
+Id		Status		CreationUnkRef
+11		Destroyed	7				
+10		Destroyed	4				
+9		Destroyed	4				
+8		Destroyed	3				
+7		Destroyed	7				
+6		Destroyed	4				
+5		Destroyed	3				
+4		Destroyed	3				
+3		Destroyed	7				
+2		Destroyed	4				
+1		Destroyed	3				
+0		Destroyed	3				
+
+Alive: 0		Dead: 12
+
+
+
+Unknowns status:
+
+Id		Status		Type
+4		Destroyed	Delegate
+3		Destroyed	Delegate
+2		Destroyed	Delegate
+1		Destroyed	Delegate
+0		Destroyed	Delegate
+
+Alive: 0		Dead: 5
+
+
+
+FinalizableArrayBuffer status:
+
+Id		Status		NumberOfElements		BufferAllocatedUsing
+
+Alive: 0		Dead: 0

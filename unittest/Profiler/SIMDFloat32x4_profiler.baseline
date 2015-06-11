@@ -1,0 +1,293 @@
+test SIMDFloat32x4......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 WithLane......
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 conversions......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 BinaryOp......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 UnaryOp......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 CompareOp......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 Shuffle......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 ShuffleMix......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 Clamp......
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 Select......
+Correct
+Correct
+Correct
+Correct
+Script Profiler starts
+test SIMDFloat32x4......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 WithLane......
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 conversions......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 BinaryOp......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 UnaryOp......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 CompareOp......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 Shuffle......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 ShuffleMix......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 Clamp......
+Correct
+Correct
+Correct
+Correct
+test SIMDFloat32x4 Select......
+Correct
+Correct
+Correct
+Correct
+Dumping sorted function compiled events
+[FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
+[FunctionCompiled]: Function: equal, Line: 1, Column: 1, Character Position: 0
+[FunctionCompiled]: Function: testSIMDFloat32x4, Line: 9, Column: 1, Character Position: 143
+[FunctionCompiled]: Function: testSIMDFloat32x4_BinaryOp, Line: 83, Column: 1, Character Position: 2191
+[FunctionCompiled]: Function: testSIMDFloat32x4_Clamp, Line: 247, Column: 1, Character Position: 6775
+[FunctionCompiled]: Function: testSIMDFloat32x4_CompareOp, Line: 151, Column: 1, Character Position: 4106
+[FunctionCompiled]: Function: testSIMDFloat32x4_Select, Line: 260, Column: 1, Character Position: 7174
+[FunctionCompiled]: Function: testSIMDFloat32x4_Shuffle, Line: 194, Column: 1, Character Position: 5170
+[FunctionCompiled]: Function: testSIMDFloat32x4_ShuffleMix, Line: 225, Column: 1, Character Position: 6090
+[FunctionCompiled]: Function: testSIMDFloat32x4_UnaryOp, Line: 126, Column: 1, Character Position: 3446
+[FunctionCompiled]: Function: testSIMDFloat32x4_conversion, Line: 51, Column: 1, Character Position: 1276
+Passed: Validation
+Script Profiler ends

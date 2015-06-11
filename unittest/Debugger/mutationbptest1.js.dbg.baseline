@@ -1,0 +1,26 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "obj": "{...}"
+      },
+      "[Pending Mutation]": {
+        "greetStr [Adding]": "Welcome! :)",
+        "[Property container obj]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "doNothing": "<large string>",
+        "setGreet": "<large string>",
+        "setName": "<large string>",
+        "obj": "{...}"
+      }
+    }
+  }
+]

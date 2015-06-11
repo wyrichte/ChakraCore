@@ -1,0 +1,9 @@
+DIRS=\
+    src{!EXCLUDE_IE_MAIN,!arm,!arm64,noncrit} \
+    NativeUnitTests{!min_rt,!EXCLUDE_IE_MAIN,noncrit} \
+    ut_rl{noncrit} \
+    jd{!MOBILECORE,noncrit,!EXCLUDE_IE_MAIN} \
+    jsrt{!MOBILECORE,!EXCLUDE_IE_MAIN} \
+    Microsoft.JavaScript{!MOBILECORE,!EXCLUDE_IE_MAIN} \
+    DirectAuthor{!MOBILECORE,!amd64,!arm,!arm64,!EXCLUDE_IE_MAIN} \
+    TaefDataSource{Test,noncrit} \

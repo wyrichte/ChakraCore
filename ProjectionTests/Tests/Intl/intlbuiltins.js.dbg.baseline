@@ -1,0 +1,1385 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 140,
+        "length": 175,
+        "text": "var builtInValue = args.length === 1 ? new builtInConstructor(args[0])[builtInFunc](\"en-US\", options) : new builtInConstructor(args[0])[builtInFunc](args[1], \"en-US\", options)",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "Number",
+        "[3]": "<large string>",
+        "[4]": "NumberFormat",
+        "[5]": "format",
+        "[6]": "[5]",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "minimumFractionDigits": "3"
+      },
+      "builtInConstructor": {
+        "__proto__": "<large string>",
+        "length": "1",
+        "MAX_VALUE": "<large string>",
+        "MIN_VALUE": "5e-324",
+        "NaN": "NaN",
+        "NEGATIVE_INFINITY": "-Infinity",
+        "POSITIVE_INFINITY": "Infinity",
+        "prototype": "0"
+      },
+      "builtInName": "Number",
+      "builtInFunc": "<large string>",
+      "intlConstructor": "NumberFormat",
+      "intlFunc": "format",
+      "args": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "builtInValue": "undefined",
+      "intlValue": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 140,
+        "length": 175,
+        "text": "var builtInValue = args.length === 1 ? new builtInConstructor(args[0])[builtInFunc](\"en-US\", options) : new builtInConstructor(args[0])[builtInFunc](args[1], \"en-US\", options)",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 805,
+        "length": 116,
+        "text": "testBuiltInFunction({ minimumFractionDigits: 3 }, Number, \"Number\", \"toLocaleString\", \"NumberFormat\", \"format\", [5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 695,
+        "length": 26,
+        "text": "WScript.Echo(builtInValue)",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "Number",
+        "[3]": "<large string>",
+        "[4]": "NumberFormat",
+        "[5]": "format",
+        "[6]": "[5]",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "minimumFractionDigits": "3"
+      },
+      "builtInConstructor": {
+        "__proto__": "<large string>",
+        "length": "1",
+        "MAX_VALUE": "<large string>",
+        "MIN_VALUE": "5e-324",
+        "NaN": "NaN",
+        "NEGATIVE_INFINITY": "-Infinity",
+        "POSITIVE_INFINITY": "Infinity",
+        "prototype": "0"
+      },
+      "builtInName": "Number",
+      "builtInFunc": "<large string>",
+      "intlConstructor": "NumberFormat",
+      "intlFunc": "format",
+      "args": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "builtInValue": "5.000",
+      "intlValue": "5.000",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 695,
+        "length": 26,
+        "text": "WScript.Echo(builtInValue)",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 805,
+        "length": 116,
+        "text": "testBuiltInFunction({ minimumFractionDigits: 3 }, Number, \"Number\", \"toLocaleString\", \"NumberFormat\", \"format\", [5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 802,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "Number",
+        "[3]": "<large string>",
+        "[4]": "NumberFormat",
+        "[5]": "format",
+        "[6]": "[5]",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "minimumFractionDigits": "3"
+      },
+      "builtInConstructor": {
+        "__proto__": "<large string>",
+        "length": "1",
+        "MAX_VALUE": "<large string>",
+        "MIN_VALUE": "5e-324",
+        "NaN": "NaN",
+        "NEGATIVE_INFINITY": "-Infinity",
+        "POSITIVE_INFINITY": "Infinity",
+        "prototype": "0"
+      },
+      "builtInName": "Number",
+      "builtInFunc": "<large string>",
+      "intlConstructor": "NumberFormat",
+      "intlFunc": "format",
+      "args": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "builtInValue": "5.000",
+      "intlValue": "5.000",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 802,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 805,
+        "length": 116,
+        "text": "testBuiltInFunction({ minimumFractionDigits: 3 }, Number, \"Number\", \"toLocaleString\", \"NumberFormat\", \"format\", [5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 140,
+        "length": 175,
+        "text": "var builtInValue = args.length === 1 ? new builtInConstructor(args[0])[builtInFunc](\"en-US\", options) : new builtInConstructor(args[0])[builtInFunc](args[1], \"en-US\", options)",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "String",
+        "[3]": "localeCompare",
+        "[4]": "Collator",
+        "[5]": "compare",
+        "[6]": "[A,a]",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "sensitivity": "base"
+      },
+      "builtInConstructor": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "1",
+        "prototype": ""
+      },
+      "builtInName": "String",
+      "builtInFunc": "localeCompare",
+      "intlConstructor": "Collator",
+      "intlFunc": "compare",
+      "args": {
+        "[0]": "A",
+        "[1]": "a",
+        "__proto__": "[]"
+      },
+      "builtInValue": "undefined",
+      "intlValue": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 140,
+        "length": 175,
+        "text": "var builtInValue = args.length === 1 ? new builtInConstructor(args[0])[builtInFunc](\"en-US\", options) : new builtInConstructor(args[0])[builtInFunc](args[1], \"en-US\", options)",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 924,
+        "length": 114,
+        "text": "testBuiltInFunction({ sensitivity: \"base\" }, String, \"String\", \"localeCompare\", \"Collator\", \"compare\", [\"A\", \"a\"])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 695,
+        "length": 26,
+        "text": "WScript.Echo(builtInValue)",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "String",
+        "[3]": "localeCompare",
+        "[4]": "Collator",
+        "[5]": "compare",
+        "[6]": "[A,a]",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "sensitivity": "base"
+      },
+      "builtInConstructor": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "1",
+        "prototype": ""
+      },
+      "builtInName": "String",
+      "builtInFunc": "localeCompare",
+      "intlConstructor": "Collator",
+      "intlFunc": "compare",
+      "args": {
+        "[0]": "A",
+        "[1]": "a",
+        "__proto__": "[]"
+      },
+      "builtInValue": "0",
+      "intlValue": "0",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 695,
+        "length": 26,
+        "text": "WScript.Echo(builtInValue)",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 924,
+        "length": 114,
+        "text": "testBuiltInFunction({ sensitivity: \"base\" }, String, \"String\", \"localeCompare\", \"Collator\", \"compare\", [\"A\", \"a\"])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 802,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "String",
+        "[3]": "localeCompare",
+        "[4]": "Collator",
+        "[5]": "compare",
+        "[6]": "[A,a]",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "sensitivity": "base"
+      },
+      "builtInConstructor": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "1",
+        "prototype": ""
+      },
+      "builtInName": "String",
+      "builtInFunc": "localeCompare",
+      "intlConstructor": "Collator",
+      "intlFunc": "compare",
+      "args": {
+        "[0]": "A",
+        "[1]": "a",
+        "__proto__": "[]"
+      },
+      "builtInValue": "0",
+      "intlValue": "0",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 802,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 924,
+        "length": 114,
+        "text": "testBuiltInFunction({ sensitivity: \"base\" }, String, \"String\", \"localeCompare\", \"Collator\", \"compare\", [\"A\", \"a\"])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 140,
+        "length": 175,
+        "text": "var builtInValue = args.length === 1 ? new builtInConstructor(args[0])[builtInFunc](\"en-US\", options) : new builtInConstructor(args[0])[builtInFunc](args[1], \"en-US\", options)",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "Date",
+        "[3]": "<large string>",
+        "[4]": "<large string>",
+        "[5]": "format",
+        "[6]": "<large string>",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "hour": "numeric"
+      },
+      "builtInConstructor": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "7",
+        "prototype": "Invalid Date"
+      },
+      "builtInName": "Date",
+      "builtInFunc": "<large string>",
+      "intlConstructor": "<large string>",
+      "intlFunc": "format",
+      "args": {
+        "[0]": "<large string>",
+        "__proto__": "[]"
+      },
+      "builtInValue": "undefined",
+      "intlValue": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 140,
+        "length": 175,
+        "text": "var builtInValue = args.length === 1 ? new builtInConstructor(args[0])[builtInFunc](\"en-US\", options) : new builtInConstructor(args[0])[builtInFunc](args[1], \"en-US\", options)",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 1041,
+        "length": 124,
+        "text": "testBuiltInFunction({ hour: \"numeric\" }, Date, \"Date\", \"toLocaleString\", \"DateTimeFormat\", \"format\", [new Date(2000, 1, 1)])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 695,
+        "length": 26,
+        "text": "WScript.Echo(builtInValue)",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "Date",
+        "[3]": "<large string>",
+        "[4]": "<large string>",
+        "[5]": "format",
+        "[6]": "<large string>",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "hour": "numeric"
+      },
+      "builtInConstructor": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "7",
+        "prototype": "Invalid Date"
+      },
+      "builtInName": "Date",
+      "builtInFunc": "<large string>",
+      "intlConstructor": "<large string>",
+      "intlFunc": "format",
+      "args": {
+        "[0]": "<large string>",
+        "__proto__": "[]"
+      },
+      "builtInValue": "?8? ?AM",
+      "intlValue": "?8? ?AM",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 695,
+        "length": 26,
+        "text": "WScript.Echo(builtInValue)",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 1041,
+        "length": 124,
+        "text": "testBuiltInFunction({ hour: \"numeric\" }, Date, \"Date\", \"toLocaleString\", \"DateTimeFormat\", \"format\", [new Date(2000, 1, 1)])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 802,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "Date",
+        "[3]": "<large string>",
+        "[4]": "<large string>",
+        "[5]": "format",
+        "[6]": "<large string>",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "hour": "numeric"
+      },
+      "builtInConstructor": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "7",
+        "prototype": "Invalid Date"
+      },
+      "builtInName": "Date",
+      "builtInFunc": "<large string>",
+      "intlConstructor": "<large string>",
+      "intlFunc": "format",
+      "args": {
+        "[0]": "<large string>",
+        "__proto__": "[]"
+      },
+      "builtInValue": "?8? ?AM",
+      "intlValue": "?8? ?AM",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 802,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 1041,
+        "length": 124,
+        "text": "testBuiltInFunction({ hour: \"numeric\" }, Date, \"Date\", \"toLocaleString\", \"DateTimeFormat\", \"format\", [new Date(2000, 1, 1)])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 140,
+        "length": 175,
+        "text": "var builtInValue = args.length === 1 ? new builtInConstructor(args[0])[builtInFunc](\"en-US\", options) : new builtInConstructor(args[0])[builtInFunc](args[1], \"en-US\", options)",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "Date",
+        "[3]": "<large string>",
+        "[4]": "<large string>",
+        "[5]": "format",
+        "[6]": "<large string>",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "hour": "numeric"
+      },
+      "builtInConstructor": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "7",
+        "prototype": "Invalid Date"
+      },
+      "builtInName": "Date",
+      "builtInFunc": "<large string>",
+      "intlConstructor": "<large string>",
+      "intlFunc": "format",
+      "args": {
+        "[0]": "<large string>",
+        "__proto__": "[]"
+      },
+      "builtInValue": "undefined",
+      "intlValue": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 140,
+        "length": 175,
+        "text": "var builtInValue = args.length === 1 ? new builtInConstructor(args[0])[builtInFunc](\"en-US\", options) : new builtInConstructor(args[0])[builtInFunc](args[1], \"en-US\", options)",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 1168,
+        "length": 128,
+        "text": "testBuiltInFunction({ hour: \"numeric\" }, Date, \"Date\", \"toLocaleTimeString\", \"DateTimeFormat\", \"format\", [new Date(2000, 1, 1)])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 326,
+        "length": 87,
+        "text": "var intlValue = new Intl[intlConstructor](\"en-US\", options)[intlFunc](args[0], args[1])",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "Date",
+        "[3]": "<large string>",
+        "[4]": "<large string>",
+        "[5]": "format",
+        "[6]": "<large string>",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "hour": "numeric"
+      },
+      "builtInConstructor": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "7",
+        "prototype": "Invalid Date"
+      },
+      "builtInName": "Date",
+      "builtInFunc": "<large string>",
+      "intlConstructor": "<large string>",
+      "intlFunc": "format",
+      "args": {
+        "[0]": "<large string>",
+        "__proto__": "[]"
+      },
+      "builtInValue": "?8? ?AM",
+      "intlValue": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 326,
+        "length": 87,
+        "text": "var intlValue = new Intl[intlConstructor](\"en-US\", options)[intlFunc](args[0], args[1])",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 1168,
+        "length": 128,
+        "text": "testBuiltInFunction({ hour: \"numeric\" }, Date, \"Date\", \"toLocaleTimeString\", \"DateTimeFormat\", \"format\", [new Date(2000, 1, 1)])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 695,
+        "length": 26,
+        "text": "WScript.Echo(builtInValue)",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "Date",
+        "[3]": "<large string>",
+        "[4]": "<large string>",
+        "[5]": "format",
+        "[6]": "<large string>",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "hour": "numeric"
+      },
+      "builtInConstructor": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "7",
+        "prototype": "Invalid Date"
+      },
+      "builtInName": "Date",
+      "builtInFunc": "<large string>",
+      "intlConstructor": "<large string>",
+      "intlFunc": "format",
+      "args": {
+        "[0]": "<large string>",
+        "__proto__": "[]"
+      },
+      "builtInValue": "?8? ?AM",
+      "intlValue": "?8? ?AM",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 695,
+        "length": 26,
+        "text": "WScript.Echo(builtInValue)",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 1168,
+        "length": 128,
+        "text": "testBuiltInFunction({ hour: \"numeric\" }, Date, \"Date\", \"toLocaleTimeString\", \"DateTimeFormat\", \"format\", [new Date(2000, 1, 1)])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 802,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "Date",
+        "[3]": "<large string>",
+        "[4]": "<large string>",
+        "[5]": "format",
+        "[6]": "<large string>",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "hour": "numeric"
+      },
+      "builtInConstructor": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "7",
+        "prototype": "Invalid Date"
+      },
+      "builtInName": "Date",
+      "builtInFunc": "<large string>",
+      "intlConstructor": "<large string>",
+      "intlFunc": "format",
+      "args": {
+        "[0]": "<large string>",
+        "__proto__": "[]"
+      },
+      "builtInValue": "?8? ?AM",
+      "intlValue": "?8? ?AM",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 802,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 1168,
+        "length": 128,
+        "text": "testBuiltInFunction({ hour: \"numeric\" }, Date, \"Date\", \"toLocaleTimeString\", \"DateTimeFormat\", \"format\", [new Date(2000, 1, 1)])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 1299,
+        "length": 129,
+        "text": "testBuiltInFunction({ month: \"numeric\" }, Date, \"Date\", \"toLocaleDateString\", \"DateTimeFormat\", \"format\", [new Date(2000, 1, 1)])",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "testBuiltInFunction": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1299,
+        "length": 129,
+        "text": "testBuiltInFunction({ month: \"numeric\" }, Date, \"Date\", \"toLocaleDateString\", \"DateTimeFormat\", \"format\", [new Date(2000, 1, 1)])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 140,
+        "length": 175,
+        "text": "var builtInValue = args.length === 1 ? new builtInConstructor(args[0])[builtInFunc](\"en-US\", options) : new builtInConstructor(args[0])[builtInFunc](args[1], \"en-US\", options)",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "Date",
+        "[3]": "<large string>",
+        "[4]": "<large string>",
+        "[5]": "format",
+        "[6]": "<large string>",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "month": "numeric"
+      },
+      "builtInConstructor": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "7",
+        "prototype": "Invalid Date"
+      },
+      "builtInName": "Date",
+      "builtInFunc": "<large string>",
+      "intlConstructor": "<large string>",
+      "intlFunc": "format",
+      "args": {
+        "[0]": "<large string>",
+        "__proto__": "[]"
+      },
+      "builtInValue": "undefined",
+      "intlValue": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 140,
+        "length": 175,
+        "text": "var builtInValue = args.length === 1 ? new builtInConstructor(args[0])[builtInFunc](\"en-US\", options) : new builtInConstructor(args[0])[builtInFunc](args[1], \"en-US\", options)",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 1299,
+        "length": 129,
+        "text": "testBuiltInFunction({ month: \"numeric\" }, Date, \"Date\", \"toLocaleDateString\", \"DateTimeFormat\", \"format\", [new Date(2000, 1, 1)])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 695,
+        "length": 26,
+        "text": "WScript.Echo(builtInValue)",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "Date",
+        "[3]": "<large string>",
+        "[4]": "<large string>",
+        "[5]": "format",
+        "[6]": "<large string>",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "month": "numeric"
+      },
+      "builtInConstructor": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "7",
+        "prototype": "Invalid Date"
+      },
+      "builtInName": "Date",
+      "builtInFunc": "<large string>",
+      "intlConstructor": "<large string>",
+      "intlFunc": "format",
+      "args": {
+        "[0]": "<large string>",
+        "__proto__": "[]"
+      },
+      "builtInValue": "?2",
+      "intlValue": "?2",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 695,
+        "length": 26,
+        "text": "WScript.Echo(builtInValue)",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 1299,
+        "length": 129,
+        "text": "testBuiltInFunction({ month: \"numeric\" }, Date, \"Date\", \"toLocaleDateString\", \"DateTimeFormat\", \"format\", [new Date(2000, 1, 1)])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 802,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "testBuiltInFunction"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "<large string>",
+        "[2]": "Date",
+        "[3]": "<large string>",
+        "[4]": "<large string>",
+        "[5]": "format",
+        "[6]": "<large string>",
+        "length": "7"
+      },
+      "options": {
+        "__proto__": "{...}",
+        "month": "numeric"
+      },
+      "builtInConstructor": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "7",
+        "prototype": "Invalid Date"
+      },
+      "builtInName": "Date",
+      "builtInFunc": "<large string>",
+      "intlConstructor": "<large string>",
+      "intlFunc": "format",
+      "args": {
+        "[0]": "<large string>",
+        "__proto__": "[]"
+      },
+      "builtInValue": "?2",
+      "intlValue": "?2",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testBuiltInFunction": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 802,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "testBuiltInFunction"
+      },
+      {
+        "start": 1299,
+        "length": 129,
+        "text": "testBuiltInFunction({ month: \"numeric\" }, Date, \"Date\", \"toLocaleDateString\", \"DateTimeFormat\", \"format\", [new Date(2000, 1, 1)])",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

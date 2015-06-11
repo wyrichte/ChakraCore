@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script> var j1 = new Date()
+
+</script>
+
+<script>
+var worker1;
+function AfterAttach()
+{
+    worker1.postMessage('init');
+    setTimeout(sendKill, 1000);
+}
+
+function sendKill() {
+    worker1.postMessage('kill');
+}
+
+function onRecvKilling()
+{
+    setTimeout('WScript.Quit()', 100);
+}
+
+function awebworker()
+{
+    worker1 = new Worker('worker1.js');
+    worker1.onmessage = function (e) {
+        switch(e.data)
+        {
+            case 'alive':
+                WScript.Attach(AfterAttach);
+                break;
+                
+            case 'killing':
+                onRecvKilling();
+                break;
+                
+            default:
+               WScript.Echo(e.data); /**bp:stack();evaluate('e.data',1)**/
+               break;
+        }
+    }
+    
+    worker1.onerror = function (e) {
+        WScript.Echo(e.message); 
+    }
+
+    WScript.SetKeepAlive();
+}
+
+</script>
+</head>
+<body>
+<script>
+awebworker();
+</script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+Release Tests
+
+=================================================
+Starting [Test 1: Verify msReleaseWinRTObject function exists on the global object]
+Pass: msReleaseWinRTObject should be defined
+      Actual: function msReleaseWinRTObject() { [native code] }
+
+Pass: typeof function msReleaseWinRTObject() { [native code] }
+      Actual: function
+
+Comment: Verify attributes of msReleaseWinRTObject
+Pass: writable
+      Actual: true
+
+Pass: enumerable
+      Actual: false
+
+Pass: configurable
+      Actual: true
+
+Pass: msReleaseWinRTObject.length
+      Actual: 1
+
+Pass: Call to msReleaseWinRTObject with 0 arguments should succeed
+      Actual: undefined
+
+PASS [Test 1: Verify msReleaseWinRTObject function exists on the global object]
+=================================================
+
+=================================================
+Starting [Test 2: Verify ref count after release is decreased]
+Pass: Animals.Animal.myFishRefCount
+      Actual: 3
+
+Pass: Animals.Animal.myFishRefCount
+      Actual: 1
+
+PASS [Test 2: Verify ref count after release is decreased]
+=================================================
+
+=================================================
+Starting [Test 3: Releasing already released object]
+Pass: Animals.Animal.myFishRefCount
+      Actual: 3
+
+Pass: Animals.Animal.myFishRefCount
+      Actual: 1
+
+Pass: Release call after calling release once returned (ReferenceError: Cannot release already released Inspectable Object)
+      Actual: true
+
+Pass: Animals.Animal.myFishRefCount
+      Actual: 1
+
+PASS [Test 3: Releasing already released object]
+=================================================
+
+=================================================
+Starting [Test 4: Verify method call after release fails]
+Pass: animal.addInts(10, 30)
+      Actual: 40
+
+Pass: Method call after release returned (ReferenceError: addInts: The Inspectable object 'this' is released and cannot be accessed)
+      Actual: true
+
+PASS [Test 4: Verify method call after release fails]
+=================================================
+
+=================================================
+Starting [Test 5: Verify property get after release fails]
+Pass: animal.weight
+      Actual: 50
+
+Pass: Property get after release returned (ReferenceError: get_Weight: The Inspectable object 'this' is released and cannot be accessed)
+      Actual: true
+
+PASS [Test 5: Verify property get after release fails]
+=================================================
+
+=================================================
+Starting [Test 6: Verify property set after release fails]
+Pass: animal.weight
+      Actual: 50
+
+Pass: animal.weight
+      Actual: 40
+
+Pass: Property set after release returned (ReferenceError: put_Weight: The Inspectable object 'this' is released and cannot be accessed)
+      Actual: true
+
+PASS [Test 6: Verify property set after release fails]
+=================================================
+
+=================================================
+Starting [Test 7: Verify adding event handler after release fails]
+Comment: Callback : Invoke
+Comment: Callback : Exit
+Pass: eventCount
+      Actual: 1
+
+Pass: addEventListener after release returned (ReferenceError: addEventListener: The Inspectable object 'this' is released and cannot be accessed)
+      Actual: true
+
+PASS [Test 7: Verify adding event handler after release fails]
+=================================================
+
+=================================================
+Starting [Test 8: Verify remove event handler after release fails]
+Comment: Callback : Invoke
+Comment: Callback : Exit
+Pass: eventCount
+      Actual: 1
+
+Pass: eventCount
+      Actual: 0
+
+Comment: Callback : Invoke
+Comment: Callback : Exit
+Pass: eventCount
+      Actual: 1
+
+Pass: removeEventListener after release returned (ReferenceError: removeEventListener: The Inspectable object 'this' is released and cannot be accessed)
+      Actual: true
+
+PASS [Test 8: Verify remove event handler after release fails]
+=================================================
+
+=================================================
+Starting [Test 9: Verify setting event handler after release fails]
+Comment: Callback : Invoke
+Comment: Callback : Exit
+Pass: eventCount
+      Actual: 1
+
+Pass: Setting event handler after release returned (ReferenceError: ontoastcompleteevent: The Inspectable object 'this' is released and cannot be accessed)
+      Actual: true
+
+PASS [Test 9: Verify setting event handler after release fails]
+=================================================
+
+=================================================
+Starting [Test 10: Verify setting event handler to null after release fails]
+Comment: Callback : Invoke
+Comment: Callback : Exit
+Pass: eventCount
+      Actual: 1
+
+Pass: eventCount
+      Actual: 0
+
+Comment: Callback : Invoke
+Comment: Callback : Exit
+Pass: eventCount
+      Actual: 1
+
+Pass: Setting event handler to null after release returned (ReferenceError: ontoastcompleteevent: The Inspectable object 'this' is released and cannot be accessed)
+      Actual: true
+
+PASS [Test 10: Verify setting event handler to null after release fails]
+=================================================
+
+=================================================
+Starting [Test 11: Verify getting event handler after release fails]
+Comment: Callback : Invoke
+Comment: Callback : Exit
+Pass: eventCount
+      Actual: 1
+
+Pass: toaster.ontoastcompleteevent
+      Actual: function callback() {
+                logger.comment("Callback : Invoke");
+                eventCount++;
+                logger.comment("Callback : Exit");
+            }
+
+Pass: Getting event handler after release returned (ReferenceError: ontoastcompleteevent: The Inspectable object 'this' is released and cannot be accessed)
+      Actual: true
+
+PASS [Test 11: Verify getting event handler after release fails]
+=================================================
+
+=================================================
+Starting [Test 12: Verify getting null event handler after release fails]
+Pass: toaster.ontoastcompleteevent
+      Actual: null
+
+Pass: Getting event handler after release returned (ReferenceError: ontoastcompleteevent: The Inspectable object 'this' is released and cannot be accessed)
+      Actual: true
+
+PASS [Test 12: Verify getting null event handler after release fails]
+=================================================
+
+=================================================
+Starting [Test 13: Verify released object as in parameter fails]
+Pass: oneFish.marshalIFish(twoFish)
+      Actual: [object Animals.Fish]
+
+Pass: Passing released object as in parameter returned (ReferenceError: Invalid access to already released Inspectable Object)
+      Actual: true
+
+PASS [Test 13: Verify released object as in parameter fails]
+=================================================
+
+=================================================
+Starting [Test 14: Identity and released objects]
+Comment: Verify identity of round-tripped runtimeclass
+Pass: a === b
+      Actual: [object Animals.Fish]
+
+Pass: a.getNumFins()
+      Actual: 5
+
+Comment: a.setNumFins(22)
+Pass: b.getNumFins()
+      Actual: 22
+
+Comment: Release original object
+Pass: Method call after release returned (ReferenceError: getNumFins: The Inspectable object 'this' is released and cannot be accessed)
+      Actual: true
+
+Pass: Method call after release returned (ReferenceError: getNumFins: The Inspectable object 'this' is released and cannot be accessed)
+      Actual: true
+
+Comment: Verify round-tripped runtimeclass
+Pass: a !== c
+      Actual: true
+
+Comment: Expected exception caught: Cannot release already released Inspectable Object
+Pass: c.getNumFins()
+      Actual: 22
+
+PASS [Test 14: Identity and released objects]
+=================================================
+
+Passed: 14
+Failed: 0

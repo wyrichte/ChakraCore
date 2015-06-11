@@ -1,0 +1,127 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 32,
+        "length": 6,
+        "text": "x += a",
+        "frameDescription": "f"
+      },
+      {
+        "start": 465,
+        "length": 4,
+        "text": "f(7)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "7",
+      "x": "0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 200,
+        "length": 3,
+        "text": "x++",
+        "frameDescription": "f"
+      },
+      {
+        "start": 465,
+        "length": 4,
+        "text": "f(7)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "7",
+      "x": "7",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 381,
+        "length": 3,
+        "text": "x++",
+        "frameDescription": "f"
+      },
+      {
+        "start": 465,
+        "length": 4,
+        "text": "f(7)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "7",
+      "x": "8",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 200,
+        "length": 3,
+        "text": "x++",
+        "frameDescription": "f"
+      },
+      {
+        "start": 498,
+        "length": 4,
+        "text": "f(9)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "9",
+      "x": "9",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 381,
+        "length": 3,
+        "text": "x++",
+        "frameDescription": "f"
+      },
+      {
+        "start": 498,
+        "length": 4,
+        "text": "f(9)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "9",
+      "x": "10",
+      "[Globals]": ""
+    }
+  }
+]

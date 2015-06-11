@@ -1,0 +1,22 @@
+[
+  {
+    "evaluate": {
+      "$propertyName$==\"c\" && $mutationType$==\"update\" && $newValue$==3": "false"
+    }
+  },
+  {
+    "evaluate": {
+      "$propertyName$==\"c\" && $mutationType$==\"update\" && $newValue$==3": "false"
+    }
+  },
+  {
+    "evaluate": {
+      "$propertyName$==\"c\" && $mutationType$==\"update\" && $newValue$==3": "false"
+    }
+  },
+  {
+    "evaluate": {
+      "$propertyName$==\"c\" && $mutationType$==\"update\" && $newValue$==3": "true"
+    }
+  }
+]

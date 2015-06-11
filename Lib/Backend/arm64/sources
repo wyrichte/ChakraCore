@@ -1,0 +1,9 @@
+INCLUDES= $(COREINCLUDES);regalloc
+
+INCLUDES=$(INCLUDES);..\arm64
+
+ARM64_SOURCES= \
+    ..\arm64\EncoderMD.cpp \
+    ..\arm64\LowerMD.cpp \
+    ..\arm64\Thunks.asm	\ 
+    

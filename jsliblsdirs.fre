@@ -1,0 +1,6 @@
+DIRS = \
+    release{!NO_JS_RELEASE} \
+    test{!NO_JS_TEST} \
+    ls_release{!NO_JS_RELEASE,!amd64,!arm,!arm64} \
+    ls_test{!NO_JS_TEST,!amd64,!arm,!arm64} \
+    jsgen{!NO_JS_RELEASE,!arm} \

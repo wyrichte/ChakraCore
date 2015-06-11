@@ -1,0 +1,1010 @@
+//  Copyright (c) Microsoft Corporation. All rights reserved.
+//
+//  WindowsRuntimeAPISet
+
+import "oaidl.idl";
+import "hstring.idl";
+import "inspectable.idl";
+import "EventToken.idl";
+import "AsyncInfo.idl";
+import "Windows.Foundation.idl";
+
+#include <sdkddkver.h>
+
+
+namespace Winery
+{
+    namespace IEnumerable
+    {
+        // non-repro of BLUE 183883
+        namespace EnumerableOfDefaultInterface
+        {
+            runtimeclass RTC;
+
+            [version(NTDDI_WIN8), uuid(A0B71A26-4EEC-49D0-BCA6-97B52A2B21DB)]
+            interface IMethod : IInspectable
+            {
+                HRESULT HelloWorld([out,retval]HSTRING * result);
+                HRESULT SetIndex(int newIndex, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(A0B71A26-4EEC-49D0-BCA6-97B52A2B21DC)]
+            interface IMethodColl : IInspectable requires IIterable<IMethod *>
+            {
+            }
+
+            [activatable(NTDDI_WIN8), version(NTDDI_WIN8)]
+            runtimeclass RTC
+            {
+                [default] interface IMethodColl;
+            }
+
+            declare
+            {
+                interface IIterable<IMethod *>;
+            }
+        }
+
+        // repro of BLUE 232596
+        namespace EnumerableOfDefaultInterfaceWithMultipleSameName
+        {
+            runtimeclass RTC;
+
+            [version(NTDDI_WIN8), uuid(A0B71A26-4EEC-49D0-BCA6-A7B52A2B21DB)]
+            interface IMethod : IInspectable
+            {
+                HRESULT HelloWorld([out,retval]HSTRING * result);
+                HRESULT SetIndex(int newIndex, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(A0B71A26-4EEC-49D0-BCA6-A7B52A2B21DC)]
+            interface IMethodColl : IInspectable requires IIterable<IMethod *>
+            {
+                HRESULT HelloWorld([out,retval]HSTRING * result);
+            }
+
+            [activatable(NTDDI_WIN8), version(NTDDI_WIN8)]
+            runtimeclass RTC
+            {
+                [default] interface IMethodColl;
+            }
+
+            declare
+            {
+                interface IIterable<IMethod *>;
+            }
+        }
+
+        // BLUE 183883
+        namespace EnumerableOfItself
+        {
+            runtimeclass RTC;
+            interface IMethod;
+
+            declare
+            {
+                interface IIterable<IMethod *>;
+            }
+
+            [version(NTDDI_WIN8), uuid(A0B71A26-4EEC-49D0-BCA6-B7B52A2B21DB)]
+            interface IMethod : IInspectable requires IIterable<IMethod*>
+            {
+                HRESULT HelloWorld([out,retval]HSTRING * result);
+                HRESULT SetIndex(int newIndex, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(A0B71A26-4EEC-49D0-BCA6-B7B52A2B21DD)]
+            interface IMethod2 : IInspectable
+            {
+                HRESULT HelloWorld2([out,retval]HSTRING * result);
+            }
+
+            [activatable(NTDDI_WIN8), version(NTDDI_WIN8)]
+            runtimeclass RTC
+            {
+                [default] interface IMethod;
+                interface IMethod2;
+            }
+        }
+
+        // BLUE 183883
+        namespace EnumerableOfItselfAsRTC
+        {
+            runtimeclass RTC;
+            interface IMethod;
+
+            [version(NTDDI_WIN8), uuid(A0B71A26-4EEC-49D0-BCA6-C7B52A2B21DB)]
+            interface IMethod : IInspectable requires IIterable<RTC*>
+            {
+                HRESULT HelloWorld([out,retval]HSTRING * result);
+                HRESULT SetIndex(int newIndex, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(A0B71A26-4EEC-49D0-BCA6-C7B52A2B21DD)]
+            interface IMethod2 : IInspectable
+            {
+                HRESULT HelloWorld2([out,retval]HSTRING * result);
+            }
+
+            [activatable(NTDDI_WIN8), version(NTDDI_WIN8)]
+            runtimeclass RTC
+            {
+                [default] interface IMethod;
+                interface IMethod2;
+            }
+        }
+    }
+
+    namespace Overloading
+    {
+midl_pragma warning ( disable: 4066 )
+        // This is a name conflict. Methods are callable as:
+        // c["Winery.Overloading.SimpleConflict.IA.Draw"](1)
+        // c["Winery.Overloading.SimpleConflict.IB.Draw"]("hello")
+        namespace SimpleConflict
+        {
+            [version(NTDDI_WIN8), uuid(a4109BE8-1A17-4abc-9F19-AF4A3AA7AC1A)]
+            interface IA : IInspectable
+            {
+                HRESULT Draw(int a,[out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(a4109BE8-1A17-4abc-9F19-AF4A3AA7AC1B)]
+            interface IB : IInspectable
+            {
+                HRESULT Draw(HSTRING a,[out,retval]HSTRING * result);
+            }
+
+
+            [version(NTDDI_WIN8)]
+            runtimeclass C
+            {
+                interface IA;
+                [default] interface IB;
+            }
+        }
+midl_pragma warning ( default: 4066 )
+
+        // This is a name conflict with static. Methods are callable as:
+        // c.doSomething(true)
+        // c.doSomething(true, true)
+        namespace SimpleStaticConflict
+        {
+            runtimeclass Access;
+
+            [version(NTDDI_WIN8), uuid(2F22B746-0E41-4B93-A1D0-99C0286D9741), exclusiveto(Access)]
+            interface IA : IInspectable
+            {
+                [overload("DoSomething"), default_overload]
+                HRESULT DoSomething(boolean a, [out,retval]HSTRING * result);
+
+                HRESULT DoSomethingNotOverloaded(boolean a, boolean b, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(F4F0BF6E-2F2A-4937-BDA7-CC19A42CDA82), exclusiveto(Access)]
+            interface IB : IInspectable
+            {
+                [overload("DoSomething")]
+                HRESULT DoSomething2(boolean a, boolean b, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(DF9380D5-5C99-4C32-9D60-DCD7E8B1AEE3)]
+            interface IEmpty : IInspectable
+            {
+            }
+
+            [version(NTDDI_WIN8), static(IA, NTDDI_WIN8), static(IB, NTDDI_WIN8), threading(both), marshaling_behavior(agile)]
+            runtimeclass Access
+            {
+                [default] interface IEmpty;
+            }
+        }
+
+        // This is a name conflict with static. Methods are callable as:
+        // c["Winery.Overloading.SimpleStaticConflictWithSameArity.IA.DoSomething"](true, true)
+        // c["Winery.Overloading.SimpleStaticConflictWithSameArity.IB.DoSomething"](true, true)
+        // c["Winery.Overloading.SimpleStaticConflictWithSameArity.IB.DoSomething"]('foo')
+        namespace SimpleStaticConflictWithSameArity
+        {
+            runtimeclass Access;
+
+            [version(NTDDI_WIN8), uuid(75D52C1A-3DB4-4027-9848-0BBA9280F403), exclusiveto(Access)]
+            interface IA : IInspectable
+            {
+                [overload("DoSomething"), default_overload]
+                HRESULT DoSomething(boolean a, boolean b, [out,retval]HSTRING * result);
+
+                HRESULT DoSomethingNotOverloaded(boolean a, boolean b, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(53A29F99-55B8-4440-A50A-1BD3DCB9C269), exclusiveto(Access)]
+            interface IB : IInspectable
+            {
+                [overload("DoSomething")]
+                HRESULT DoSomething2(boolean a, boolean b, [out,retval]HSTRING * result);
+
+                [overload("DoSomething")]
+                HRESULT DoSomething3(HSTRING a, [out,retval]HSTRING * result);
+                }
+
+            [version(NTDDI_WIN8), uuid(8C7620C1-61D9-4DC8-BB2B-BCF614AF42F9)]
+            interface IEmpty : IInspectable
+            {
+            }
+
+            [version(NTDDI_WIN8), static(IA, NTDDI_WIN8), static(IB, NTDDI_WIN8), threading(both), marshaling_behavior(agile)]
+            runtimeclass Access
+            {
+                [default] interface IEmpty;
+            }
+        }
+
+        // This is a name conflict with static. Methods are callable as:
+        // c.doSomething('foo') (note: c.doSomething(true) is not visible due to shadowing, see default_overload attribute)
+        // c.doSomething(true, true)
+        namespace SimpleStaticConflictWithinInterface
+        {
+            runtimeclass Access;
+
+            [version(NTDDI_WIN8), uuid(A82F5A36-B1C2-45FE-B726-7E0ED575EFB3), exclusiveto(Access)]
+            interface IA : IInspectable
+            {
+                [overload("DoSomething")]
+                HRESULT DoSomething(boolean a, [out,retval]HSTRING * result);
+
+                [overload("DoSomething")]
+                HRESULT DoSomething2(boolean a, boolean b, [out,retval]HSTRING * result);
+
+                [overload("DoSomething"), default_overload]
+                HRESULT DoSomething3(HSTRING a, [out,retval]HSTRING * result);
+
+                HRESULT DoSomethingNotOverloaded(boolean a, boolean b, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(AD4ECAAA-1421-4D6B-8046-B1198E639FF8)]
+            interface IEmpty : IInspectable
+            {
+            }
+
+            [version(NTDDI_WIN8), static(IA, NTDDI_WIN8), threading(both), marshaling_behavior(agile)]
+            runtimeclass Access
+            {
+                [default] interface IEmpty;
+            }
+        }
+
+        // This is a name conflict with static. Methods are callable as:
+        // c["Winery.Overloading.SimpleStaticConflictWithDifferentArity.IA.DoSomething"](true, true) as well as c.doSomething(true, true)
+        // c["Winery.Overloading.SimpleStaticConflictWithDifferentArity.IB.DoSomething"](true) as well as c.doSomething(true)
+        // c["Winery.Overloading.SimpleStaticConflictWithDifferentArity.IA.DoAnotherThing"](true) as well as c.doAnotherThing(true)
+        // c["Winery.Overloading.SimpleStaticConflictWithDifferentArity.IB.DoAnotherThing"](true, true) as well as c.doAnotherThing(true, true)
+        namespace SimpleStaticConflictWithDifferentArity
+        {
+            runtimeclass Access;
+
+            [version(NTDDI_WIN8), uuid(38914150-0C73-4755-9B20-109922D1E104), exclusiveto(Access)]
+            interface IA : IInspectable
+            {
+                [overload("DoSomething"), default_overload]
+                HRESULT DoSomething(boolean a, boolean b, [out,retval]HSTRING * result);
+
+                [overload("DoAnotherThing")]
+                HRESULT DoAnotherThing(boolean a, [out,retval]HSTRING * result);
+
+                HRESULT DoSomethingNotOverloaded(boolean a, boolean b, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(EA3DA6A6-A43F-41B0-82D1-9FDA957F94B8), exclusiveto(Access)]
+            interface IB : IInspectable
+            {
+                [overload("DoSomething")]
+                HRESULT DoSomething2(boolean a, [out,retval]HSTRING * result);
+
+                [overload("DoAnotherThing"), default_overload]
+                HRESULT DoAnotherThing2(boolean a, boolean b, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(AEE15B8E-A5A4-43D3-9EED-AAF00BDD10DA)]
+            interface IEmpty : IInspectable
+            {
+            }
+
+            [version(NTDDI_WIN8), static(IA, NTDDI_WIN8), static(IB, NTDDI_WIN8), threading(both), marshaling_behavior(agile)]
+            runtimeclass Access
+            {
+                [default] interface IEmpty;
+            }
+        }
+
+        // This is a name conflict with static. Methods are callable as:
+        // c["Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.IA.DoSomething"](true, true) as well as c.doSomething(true, true)
+        // c["Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.IB.DoSomething"](true, true)
+        namespace SimpleStaticConflictDefaultOverloadLast
+        {
+            runtimeclass Access;
+
+            [version(NTDDI_WIN8), uuid(B648C131-1BD4-46C5-A854-43934BAAEB33), exclusiveto(Access)]
+            interface IB : IInspectable
+            {
+                [overload("DoSomething")]
+                HRESULT DoSomething2(boolean a, boolean b, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(89BEB152-7CEF-4A4F-B3CC-129404F2E670), exclusiveto(Access)]
+            interface IA : IInspectable
+            {
+                [overload("DoSomething"), default_overload]
+                HRESULT DoSomething(boolean a, boolean b, [out,retval]HSTRING * result);
+
+                HRESULT DoSomethingNotOverloaded(boolean a, boolean b, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(5AF9D4CD-0918-4698-8FAE-476992501BFB)]
+            interface IEmpty : IInspectable
+            {
+            }
+
+            [version(NTDDI_WIN8), static(IB, NTDDI_WIN8), static(IA, NTDDI_WIN8), threading(both), marshaling_behavior(agile)]
+            runtimeclass Access
+            {
+                [default] interface IEmpty;
+            }
+        }
+
+        // This is a name conflict with static. Methods are callable as:
+        // c["Winery.Overloading.SimpleStaticConflict.IA.DoSomething"](true, true)  << win8 and win9 and above
+        // c["Winery.Overloading.SimpleStaticConflict.IB.DoSomething"](true)        << winBlue and above
+        // c["Winery.Overloading.SimpleStaticConflict.IC.DoSomething"](true, true, true) << winBlue and above
+        // c.doSomething(true) < from IB on WinBlue
+        // c.doSomething(true, true, true) < from IC on WinBlue
+        namespace SimpleStaticConflictVersioned
+        {
+            runtimeclass Access;
+
+            [version(NTDDI_WIN8), uuid(05C455B1-8B76-4951-A50A-D2046E07E246), exclusiveto(Access)]
+            interface IA : IInspectable
+            {
+                [overload("DoSomething")]
+                HRESULT DoSomething(boolean a, boolean b, [out,retval]HSTRING * result);
+
+                HRESULT DoSomethingNotOverloaded(boolean a, boolean b, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WINBLUE), uuid(CE0FEDD8-9453-48FC-A803-A714DA6C8C4E), exclusiveto(Access)]
+            interface IB : IInspectable
+            {
+                [overload("DoSomething"), default_overload]
+                HRESULT DoSomething2(boolean a, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WINBLUE), uuid(55D98354-93B1-43C7-A357-D02909D841CC), exclusiveto(Access)]
+            interface IC : IInspectable
+            {
+                [overload("DoSomething")]
+                HRESULT DoSomething3(boolean a, boolean b, boolean c, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(6CA3C633-5365-4CC6-8D11-E9529FB5E182)]
+            interface IEmpty : IInspectable
+            {
+            }
+
+            [version(NTDDI_WIN8), static(IA, NTDDI_WIN8), static(IB, NTDDI_WINBLUE), static(IC, NTDDI_WINBLUE), threading(both), marshaling_behavior(agile)]
+            runtimeclass Access
+            {
+                [default] interface IEmpty;
+            }
+        }
+
+        // This is a name conflict with static. Methods are callable as:
+        // c["Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.IA.DoSomething"](true, true)  << win8 and win9 and above
+        // c["Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.IB.DoSomething"](true)        << winBlue and above
+        // c["Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.IB.DoSomething"](true, true, true) << winBlue and above
+        // c.doSomething(true, true) < from IA on Win8
+        // c.doSomething(true) < from IB on WinBlue
+        // c.doSomething(true, true, true) < from IB on WinBlue
+        namespace SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface
+        {
+            runtimeclass Access;
+
+            [version(NTDDI_WIN8), uuid(0DBEB01A-28E1-4DEE-9841-EAB83C994DF9), exclusiveto(Access)]
+            interface IA : IInspectable
+            {
+                [overload("DoSomething")]
+                HRESULT DoSomething(boolean a, boolean b, [out,retval]HSTRING * result);
+
+                HRESULT DoSomethingNotOverloaded(boolean a, boolean b, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WINBLUE), uuid(79AA34F9-3890-4A98-8416-6CA87931C068), exclusiveto(Access)]
+            interface IB : IInspectable
+            {
+                [overload("DoSomething"), default_overload]
+                HRESULT DoSomething2(boolean a, [out,retval]HSTRING * result);
+
+                [overload("DoSomething")]
+                HRESULT DoSomething3(boolean a, boolean b, boolean c, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(57396657-ADF9-4372-86C5-4921D2FEF62D)]
+            interface IEmpty : IInspectable
+            {
+            }
+
+            [version(NTDDI_WIN8), static(IA, NTDDI_WIN8), static(IB, NTDDI_WINBLUE), threading(both), marshaling_behavior(agile)]
+            runtimeclass Access
+            {
+                [default] interface IEmpty;
+            }
+        }
+
+        // This is a name conflict with static. Methods are callable as:
+        // c["Winery.Overloading.StaticConflictWithRequiresInterface.IA.DoSomething"](true, true)  << win8 and win9 and above
+        // c["Winery.Overloading.StaticConflictWithRequiresInterface.IB.DoSomething"](true)        << winBlue and above
+        // c["Winery.Overloading.StaticConflictWithRequiresInterface.IB.DoSomething"](true, true, true) << winBlue and above
+        // c.doSomething(true, true) < from IA on Win8
+        // c.doSomething(true) < from IB on WinBlue
+        // c.doSomething(true, true, true) < from IB on WinBlue
+        // See BLUE#171007
+        namespace StaticConflictWithRequiresInterface
+        {
+            runtimeclass Access;
+
+            [version(NTDDI_WINBLUE), uuid(1B26180A-C2A5-4193-8876-429784D5ED23), exclusiveto(Access)]
+            interface IA : IInspectable
+            {
+                [overload("DoSomething")]
+                HRESULT DoSomething(boolean a, boolean b, [out,retval]HSTRING * result);
+
+                HRESULT DoSomethingNotOverloaded(boolean a, boolean b, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WINBLUE), uuid(CF08E3CA-88EB-409A-B7A5-7C0F37D0A18A), exclusiveto(Access)]
+            interface IB : IInspectable requires IA
+            {
+                [overload("DoSomething"), default_overload]
+                HRESULT DoSomething2(boolean a, [out,retval]HSTRING * result);
+
+                [overload("DoSomething"), default_overload]
+                HRESULT DoSomething3(boolean a, boolean b, [out,retval]HSTRING * result);
+
+                [overload("DoSomething"), default_overload]
+                HRESULT DoSomething4(boolean a, boolean b, boolean c, [out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WINBLUE), uuid(6CB4FE50-15C4-45A9-85D8-180FAE1A18DA)]
+            interface IEmpty : IInspectable
+            {
+            }
+
+            [version(NTDDI_WINBLUE), static(IB, NTDDI_WINBLUE), threading(both), marshaling_behavior(agile)]
+            runtimeclass Access
+            {
+                [default] interface IEmpty;
+            }
+        }
+
+        // This is an overload set. Methods are callable as:
+        // c.Draw(1);
+        // c.Draw(“hello”,"hello");
+        namespace SimpleOverloadSet
+        {
+            [version(NTDDI_WIN8), uuid(a4109BE8-1A17-4abc-9F19-2F4A3AA7ACAA)]
+            interface IA : IInspectable
+            {
+                [overload("Draw")]
+                HRESULT Draw1(int a,[out,retval]HSTRING * result);
+                [overload("Draw")]
+                HRESULT Draw2(HSTRING a, HSTRING b,[out,retval]HSTRING * result);
+            }
+            [version(NTDDI_WIN8)]
+            runtimeclass C
+            {
+                [default] interface IA;
+            }
+        }
+
+
+        // This is an overload set with a default overload. 
+        // c.Draw("1");
+        namespace SimpleDefaultOverloadSet
+        {
+            [version(NTDDI_WIN8), uuid(04109BE8-1Af7-4abc-9F19-2F4A3AA7ACAA)]
+            interface IA : IInspectable
+            {
+                [overload("Draw")]
+                HRESULT Draw1(int a, [out,retval]HSTRING * result);
+                [overload("Draw"),default_overload]
+                HRESULT Draw2(HSTRING a, [out,retval]HSTRING * result);
+            }
+            [version(NTDDI_WIN8)]
+            runtimeclass C
+            {
+                [default] interface IA;
+            }
+        }
+
+        // This is a name conflict. Methods are callable as:
+        // c["Winery.Overloading.SimpleConflict.IA.Draw"](1)
+        // c["Winery.Overloading.SimpleConflict.IB.Draw"]("hello", "hello")
+        namespace InheritedConflict
+        {
+            [version(NTDDI_WIN8), uuid(a4109BE8-1A17-4abc-2019-AF4A3AA7AC1A)]
+            interface IA : IInspectable
+            {
+                HRESULT Draw(int a,[out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(a4109BE8-1A17-412c-9F19-AF4A3AA7AC1B)]
+            interface IB : IInspectable requires IA
+            {
+                HRESULT Draw(HSTRING a, HSTRING b,[out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8)]
+            runtimeclass C
+            {
+                [default] interface IB;
+            }
+        }
+
+        //// This is a name conflict. Methods are callable as:
+        //// c["Winery.Overloading.NameConflictingWithOverloadSet.IA.Draw"](1)
+        //// c["Winery.Overloading.NameConflictingWithOverloadSet.IB.Draw"]("hello", "hello")
+        //// c["Winery.Overloading.NameConflictingWithOverloadSet.IC.Draw"](1,1,1)
+        //// c["Winery.Overloading.NameConflictingWithOverloadSet.IC.Draw"]("hello", "hello", "hello", "hello")
+        namespace NameConflictingWithOverloadSet
+        {
+            [version(NTDDI_WIN8), uuid(a4109BE8-1A17-09bc-2019-AF4A3AA7AC1A)]
+            interface IA : IInspectable
+            {
+                HRESULT Draw(int a,[out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(a4122BE8-1A17-412c-9F19-AF4A3AA7AC1B)]
+            interface IB : IInspectable requires IA
+            {
+                HRESULT Draw(HSTRING a, HSTRING b,[out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(64122BE8-1A17-412c-9F19-AF4A3AA7AC1B)]
+            interface IC: IInspectable requires IB
+            {
+                [overload("Draw")]
+                HRESULT Draw1(int a, int b, int c,[out,retval]HSTRING * result);
+                [overload("Draw")]
+                HRESULT Draw2(HSTRING a, HSTRING b, HSTRING c, HSTRING d,[out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8)]
+            runtimeclass C
+            {
+                [default] interface IC;
+            }
+        }
+
+        //// This is neither a name conflict nor an overload. Method is callable as:
+        //// c.Draw(1)
+        namespace Diamond
+        {
+            [version(NTDDI_WIN8), uuid(a4109BE8-1A17-acbc-2019-AF4A3AA7AC1A)]
+            interface IRoot : IInspectable
+            {
+                HRESULT Draw(int a,[out,retval]HSTRING * result);
+            }
+
+            [version(NTDDI_WIN8), uuid(a4122BE8-1A17-412c-9F19-AF4A3AA7AC22)]
+            interface ILeft : IInspectable requires IRoot
+            {
+            }
+
+            [version(NTDDI_WIN8), uuid(64122BE8-1A17-412d-9F19-AF4A3AA7AC22)]
+            interface IRight : IInspectable requires IRoot
+            {
+            }
+
+            [version(NTDDI_WIN8)]
+            runtimeclass C
+            {
+                [default] interface ILeft;
+                interface IRight;
+            }
+        }
+
+        // We don't need to create an activatable runtimeclass; just attach it to the overload class.
+        namespace DeprecatedAttributes
+        {
+            // deprecated interface
+            [version(NTDDI_WIN8)]
+            [uuid(34cec584-0b42-4000-a68d-df053421dff0)]
+            [deprecated("Use IAmazingerInterface instead.", deprecate, NTDDI_WIN8)]
+            interface IAmazingInterface : IInspectable
+            {
+                [deprecated("I reign supreme.", remove, NTDDI_WIN8)]
+                HRESULT AmazingMethod([in] int meaningless);
+            };
+
+            // Interface with a deprecated property.
+            [version(NTDDI_WIN8)]
+            [uuid(34cec584-0b42-4000-a68d-df053421dff1)]
+            interface IExceptionalInterface : IInspectable
+            {        
+                HRESULT ExceptionalMethod([in] HSTRING exceptionallyMeaningless);
+
+                [deprecated("Changed my mind; \"don't put this prop.", remove, NTDDI_WIN8)]
+                [propput] HRESULT ExceptionalProp([in] HSTRING exceptionallyMeaningless);
+                [deprecated("Actually, don't even use the prop at all.", remove, NTDDI_WINBLUE)]
+                [propget] HRESULT ExceptionalProp([out, retval] HSTRING *exceptionallyMeaningless);
+            };
+
+            // Simple deprecated delegate
+            [version(NTDDI_WIN8)]
+            [uuid(34cec584-0b42-4000-a68d-df053421dee5)]
+            [deprecated("Wasn't the best.", deprecate, NTDDI_WIN8)]
+            delegate HRESULT PenultimateHappenstanceHandler([in] boolean trueOrFalse);
+
+            // Deprecated runtimeclass with multiple deprecated attributes.
+            [deprecated("Apparently not fantastic enough.", deprecate, NTDDI_WIN8)]
+            [deprecated("Not nearly fantastic enough.", remove, NTDDI_WINBLUE)]
+            [version(NTDDI_WIN8)]
+            runtimeclass FantasticClass
+            {
+                [default] interface IExceptionalInterface;
+                interface IAmazingInterface;
+            };
+
+        }
+    }
+
+
+    namespace WinRTErrorTests
+    {
+        [version(NTDDI_WIN8)]
+        typedef struct errors
+        {
+            HRESULT Fail;
+            HRESULT InvalidArg;
+            HRESULT Pointer;
+            HRESULT NoInterface;
+            HRESULT NotImpl;
+            HRESULT Abort;
+            HRESULT AccessDenied;
+            HRESULT Handle;
+            HRESULT OutOfMemory;
+            HRESULT Unexpected;
+            HRESULT Bounds;
+            HRESULT ClassNotReg;
+        } Errors;
+
+        [version(NTDDI_WIN8), v1_enum]
+        typedef enum TestSids
+        {
+            WinCapabilityInternetClientSid              = 85,
+            WinCapabilityInternetClientServerSid        = 86,
+            WinCapabilityPrivateNetworkClientServerSid  = 87,
+            WinCapabilityPicturesLibrarySid             = 88,
+            WinCapabilityVideosLibrarySid               = 89,
+            WinCapabilityMusicLibrarySid                = 90,
+            WinCapabilityDocumentsLibrarySid            = 91,
+            WinCapabilitySharedUserCertificatesSid      = 92,
+            WinCapabilityDefaultWindowsCredentialsSid   = 93,
+            WinCapabilityRemovableStorageSid            = 94,
+        } TestSids;
+
+        interface IRestrictedErrorAccess;
+        [version(NTDDI_WIN8), object, uuid(189B8116-C697-4B43-AE24-C5CB86680DC0)]
+        delegate HRESULT DelegateToInvoke([in] IRestrictedErrorAccess *sender, [in] HSTRING message);
+
+        [version(NTDDI_WIN8), uuid(AAE910EA-BD71-4CDD-8475-1899BF4B35DF)]
+        interface IRestrictedErrorAccess : IInspectable
+        {
+            [propget] HRESULT ErrorCodes([out,retval] Errors * value);
+            [propget] HRESULT SuccessCode([out,retval] HRESULT * value);
+            HRESULT OriginateError(HRESULT hr, HSTRING str);
+            HRESULT ReturnHr(HRESULT hr);
+            HRESULT InvokeDelegate([in] DelegateToInvoke * func, [in] HSTRING message);
+            HRESULT TransformError(HRESULT hr, HRESULT hrNew, HSTRING str, HSTRING strNew);
+            HRESULT TransformDelegateError(DelegateToInvoke * failingFunc, HSTRING message, HRESULT hrNew, HSTRING strNew);
+            HRESULT OriginateErrorReturnHr(HRESULT hr, HSTRING str, HRESULT hrToReturn);
+            HRESULT OriginateErrorWithCapabilitySid(HRESULT hr, HSTRING str, TestSids sidEnum);
+            HRESULT GetSidString(TestSids sidEnum, [out,retval] HSTRING * sidStr);
+        }
+        
+        [version(NTDDI_WIN8), uuid(86035609-8840-4529-964E-E49DEFFA6834)]
+        interface IEmpty : IInspectable
+        {
+        }
+
+        [version(NTDDI_WIN8), static(IRestrictedErrorAccess,NTDDI_WIN8)]
+        runtimeclass RestrictedErrorAccess
+        {
+            [default] interface IEmpty;
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8), allowforweb]
+        runtimeclass RestrictedErrorAccessInstance
+        {
+            [default] interface IRestrictedErrorAccess;
+        }
+    }
+
+    //forward declaration
+    interface IGeneralShop;
+    interface IProductionLine;
+    interface IWarehouse;
+    runtimeclass RWinery;
+
+    [version(NTDDI_WIN8)]
+    typedef struct area
+    {
+        double Width;
+        double Length;
+    } Area;
+
+    [version(NTDDI_WIN8)]
+    typedef struct dimension
+    {
+        Area BaseArea;  //nested structs
+        double Height;
+    } Dimension;
+
+    [version(NTDDI_WIN8), v1_enum]
+    typedef enum reds
+    {
+        CabernetSauvignon = 0,
+        Zinfandel,
+        PinotNoir,
+        Merlot,
+    } Reds;
+
+    [version(NTDDI_WIN8), v1_enum/*, flags*/]
+    typedef enum whites
+    {
+        Chardonnay = 0,
+        SauvignonBlanc,
+        Riesling,
+    } Whites;
+
+    [version(NTDDI_WIN8), v1_enum]
+    typedef enum sweets
+    {
+        Riesling = 0, //same enum value name as whites
+        Moscato,
+        Muscat,
+    } Sweets;
+                
+    [version(NTDDI_WIN8)]
+    typedef struct bestSellings
+    {
+        Reds BestRed; //enums inside structs
+        Whites BestWhite;
+        Sweets BestSweet;
+    } BestSellingWines;
+
+    //Delegates
+    [version(NTDDI_WIN8), uuid(C8DC0348-EFB1-49ef-8149-911087D506B1)]
+    delegate HRESULT RandomIntGenerator([out, retval] int *val);
+
+    [deprecated("winery age is old.", deprecate, NTDDI_WINBLUE)]
+    [version(NTDDI_WIN8), object, uuid(C2969913-53E8-478B-B765-AEC39B0C8872)]
+    delegate HRESULT AgeCompleteHandler([in] RWinery *sender, [in] IWarehouse *pWarehouse);
+
+    [version(NTDDI_WIN8), uuid(9494F4E8-4025-49cd-A4CC-D43ED19A0C77)]
+    interface IRetail : IInspectable
+    {
+        [propget] HRESULT WelcomeMessage([out, retval] HSTRING *msg);
+        [propput] HRESULT WelcomeMessage([in] HSTRING msg);
+    }
+
+    //Events
+    [version(NTDDI_WIN8), uuid(9E8D9066-E11D-4515-8696-2A04B1925B8B)]
+    interface IProductionLine : IInspectable
+    {
+        [deprecated("add winery age is old.", deprecate, NTDDI_WINBLUE)]
+        [eventadd] HRESULT AgeCompleteEvent([in] AgeCompleteHandler *handler, [out,retval] EventRegistrationToken *pCookie);
+        [deprecated("remove winery age is old.", deprecate, NTDDI_WINBLUE)]
+        [eventremove] HRESULT AgeCompleteEvent([in] EventRegistrationToken iCookie);
+        HRESULT SendToWarehouse([in] IWarehouse *pWarehouse);
+        HRESULT Produce();
+    }
+    //Method Overloading
+    [version(NTDDI_WIN8), uuid(18E327A7-7290-431c-BF3D-9C2567114CAB)]
+    interface IWarehouse : IInspectable
+    {
+        [overload("ThrowVinegar"), default_overload] // some wines are just too old that they become vinegar
+        HRESULT ThrowSelectedVinegar([in] RandomIntGenerator *randomGenerator, 
+            [in] Reds wineType, [out, retval] int *thrown);
+        [overload("ThrowVinegar"), default_overload]
+        HRESULT ThrowZinfandelVinegar([in] RandomIntGenerator *randomGenerator, 
+            [out, retval] int *thrown);
+        HRESULT ClearWarehouse();
+        HRESULT StoreAgedWine();
+        [propget] HRESULT WineInStorage([out, retval] int *val);
+    }
+
+    //Requires
+    [version(NTDDI_WIN8), uuid(94F06D5A-8314-4a6a-9B4C-8EC8F14441D3)]
+    interface IWineRetail : IInspectable requires IRetail
+    {
+        HRESULT InitDatabase();
+        HRESULT SellReds([in] Reds wineType, [in] int amount);
+        HRESULT SellWhites([in] Whites wineType, [in] int amount);
+        HRESULT SellSweets([in] Sweets wineType, [in] int amount);
+        HRESULT GetBestSellingRed([out, retval] Reds *pVal);
+        HRESULT GetBestSellingWhite([out, retval] Whites *pVal);
+        HRESULT GetBestSellingSweet([out, retval] Sweets *pVal);
+    }
+
+    interface ICustomAsync;
+
+    //Delegates
+    [version(NTDDI_WIN8), uuid(06DC0348-dFB1-49ef-8149-911087D506c9)]
+    delegate HRESULT CustomAsyncCompleted([in]ICustomAsync * customAsync, [in]AsyncStatus status);
+
+    [version(NTDDI_WIN8), uuid(12DC0348-dFc1-49ef-8149-911087D526ca)]
+    delegate HRESULT CustomAsyncProgress(ICustomAsync * customAsync, int percent);
+
+    [version(NTDDI_WIN8), uuid(37F43BE1-C7FF-4B73-9BEF-519810EB19C2)]
+    delegate HRESULT SimpleDelegate([in]int num);
+
+    [version(NTDDI_WIN8), uuid(875BBB1A-4F73-4D8D-A233-9BE217E333AA)]
+    delegate HRESULT SimpleDelegateWithAsyncInParameter([in]ICustomAsync * customAsync);
+
+    [version(NTDDI_WIN8), uuid(34F26D5A-8314-4a6a-9B4D-8EC8F14a4101)]
+    interface ICustomAsync : IInspectable requires IAsyncInfo
+    {
+        [propget] HRESULT Completed([out, retval] CustomAsyncCompleted ** completed);
+        [propput] HRESULT Completed([in] CustomAsyncCompleted * completed);
+
+        [propget] HRESULT Progress([out, retval] CustomAsyncProgress ** completed);
+        [propput] HRESULT Progress([in] CustomAsyncProgress * completed);
+
+        HRESULT MoveToCompleted([in] IInspectable * result);
+        HRESULT MoveToError();
+        HRESULT TriggerProgress([in] int percent);
+
+        HRESULT TriggerIncorrectReturnValues();
+        HRESULT RestoreCorrectReturnValues();
+        HRESULT TriggerInvalidStatusArg();
+        HRESULT RestoreStatusArg();
+        HRESULT TriggerInvalidSenderArg();
+        HRESULT RestoreSenderArg();
+        HRESULT AllowProgressCalledAfterCompletion();
+        HRESULT DisallowProgressCalledAfterCompletion();
+
+        HRESULT GetResults([out] IInspectable ** result);
+    } 
+
+
+    [version(NTDDI_WIN8), uuid(34F26D5A-8314-4a6a-9B4C-8EC8F14a41D1)]
+    interface IAsyncMethods : IInspectable
+    {
+        HRESULT AsyncOperationOut([out]ICustomAsync ** asyncOp);
+        HRESULT AsyncOperationOutAfterExecuteDelegate([in] SimpleDelegate * simpleDelegate, [out, retval]ICustomAsync ** asyncOp);
+        HRESULT AsyncOperationViaDelegate([in] SimpleDelegateWithAsyncInParameter * simpleDelegateWithAsyncInParameter);
+        HRESULT AsyncOperationOutAfterExecuteDelegateWithAsyncInParameter([in] SimpleDelegateWithAsyncInParameter * simpleDelegateWithAsyncInParameter, [out, retval]ICustomAsync ** asyncOp);
+        HRESULT AsyncOperationOutAfterExecuteDelegateWithAsyncInParameterUseSameAsyncObject([in] SimpleDelegateWithAsyncInParameter * simpleDelegateWithAsyncInParameter, [out, retval]ICustomAsync ** asyncOp);
+        HRESULT AsyncOperationWithMultipleAsyncOutParameters([out]ICustomAsync ** asyncOp1, [out, retval]ICustomAsync ** asyncOp2);
+        HRESULT AsyncOperationWithMultipleOutParameters([out]int * num, [out, retval]ICustomAsync ** asyncOp);
+    } 
+
+    [version(NTDDI_WIN8), uuid(2062119A-6496-44EB-A3B5-4A94B4B76CDA)]
+    interface IAllowForWebAsyncMethods : IInspectable
+    {
+        HRESULT AllowForWebAsyncOperationOut([out]ICustomAsync ** asyncOp);
+    } 
+
+    [
+        version(NTDDI_WIN8),
+        uuid(58F3A75C-5C48-4340-9C5C-E60C4045F20D),
+        webhosthidden
+    ]
+    interface ISimpleHiddenObject : IInspectable
+    {
+    }
+
+    [version(NTDDI_WIN8), uuid(1A9DAD7E-4D85-4478-AC46-54673A3480D7)]
+    interface IAsyncMethodStatics : IInspectable
+    {
+        HRESULT AsyncOperationOutStatic([out, retval]ICustomAsync ** asyncOp) = 0;
+        HRESULT AsyncOperationOutStaticNotFastPath([in] double num1, [in] double num2, [in] double num3, [out, retval]ICustomAsync ** asyncOp) = 0;
+
+        HRESULT GetHiddenHandler([out, retval] Windows.Foundation.TypedEventHandler<ISimpleHiddenObject*, ISimpleHiddenObject*> **handler) = 0;
+        HRESULT GetVisibleHandler([out, retval] Windows.Foundation.TypedEventHandler<IInspectable*, IInspectable*> **handler) = 0;
+    }
+
+    [deprecated("winery is getting old.", deprecate, NTDDI_WINBLUE)]
+    [version(NTDDI_WIN8), uuid(63109BE8-1A17-4abc-9F19-AF4A3AA7AC1B)]
+    interface IWineryFactory : IInspectable
+    {
+        HRESULT CreateWinery([in] int val, [out, retval] RWinery **ppWinery);
+    }
+
+    //Properties
+    [version(NTDDI_WIN8), uuid(8DE2A8F4-9C77-4f61-94A3-7D0E2CDE7B83)]
+    interface IGeneralShop : IInspectable
+    {
+        [propget] HRESULT ShopArea([out, retval] Area *val);
+        [propput] HRESULT ShopArea([in] Area val);
+        [propget] HRESULT ShopDimension([out, retval] Dimension *val);
+        [propput] HRESULT ShopDimension([in] Dimension val);
+//          HRESULT CompareAreaOfNeighbors([in] IVector<IGeneralShop>* neighbors, [out, retval] double *largest); //Parameterized Interface
+        [propget] HRESULT ShopName([out, retval] HSTRING *msg);
+        [propput] HRESULT ShopName([in] HSTRING msg);
+//          HRESULT NeighborShopName([in] IVector<IGeneralShop>* neighbors, [out, retval] IMap<HSTRING, IGeneralShop>** namesMappings);
+
+
+        HRESULT MarshalIRetail([in] IRetail * _in, [out] IRetail ** _out);
+        HRESULT MarshalIGeneralShop([in] IGeneralShop * _in, [out] IGeneralShop ** _out);
+        HRESULT MarshalIProductionLine([in] IProductionLine * _in, [out] IProductionLine ** _out);
+// Midl won't compile this:
+// error MIDL2025 : syntax error : expecting a type specification near "*"
+//            HRESULT MarshalIWineryFactory([in] IWineryFactory * _in, [out] IWineryFactory ** _out);
+        HRESULT MarshalIWineRetail([in] IWineRetail * _in, [out] IWineRetail ** _out);
+        HRESULT MarshalIWarehouse([in] IWarehouse * _in, [out] IWarehouse ** _out);
+    }
+
+    [deprecated("Apparently not fantastic enough.", deprecate, NTDDI_WIN8)]
+    [deprecated("Not nearly fantastic enough.", remove, NTDDI_WINBLUE)]
+    [version(NTDDI_WIN8), uuid(9E8D9066-E110-C515-8696-2A04B1925B8B)]
+    interface INameTopologies : IInspectable
+    {
+        HRESULT GetSimpleConflict([out]Winery.Overloading.SimpleConflict.C ** c);
+        HRESULT GetSimpleOverloadSet([out]Winery.Overloading.SimpleOverloadSet.C ** c);
+        HRESULT GetInheritedConflict([out]Winery.Overloading.InheritedConflict.C ** c);
+        HRESULT GetNameConflictingWithOverloadSet([out]Winery.Overloading.NameConflictingWithOverloadSet.C ** c);
+        HRESULT GetDiamond([out]Winery.Overloading.Diamond.C ** c);      
+        HRESULT GetSimpleDefaultOverloadSet([out]Winery.Overloading.SimpleDefaultOverloadSet.C ** c);      
+
+        HRESULT GetEnumerableOfDefaultInterface([out]Winery.IEnumerable.EnumerableOfDefaultInterface.RTC ** c);      
+        HRESULT GetEnumerableOfDefaultInterfaceWithMultipleSameName([out]Winery.IEnumerable.EnumerableOfDefaultInterfaceWithMultipleSameName.RTC ** c);      
+        HRESULT GetEnumerableOfItself([out]Winery.IEnumerable.EnumerableOfItself.RTC ** c);      
+        HRESULT GetEnumerableOfItselfAsRTC([out]Winery.IEnumerable.EnumerableOfItselfAsRTC.RTC ** c);      
+
+        HRESULT GetSimpleConflictAsInterface([out]Winery.Overloading.SimpleConflict.IB ** c);
+        HRESULT GetSimpleOverloadSetAsInterface([out]Winery.Overloading.SimpleOverloadSet.IA ** c);
+        HRESULT GetInheritedConflictAsInterface([out]Winery.Overloading.InheritedConflict.IB ** c);
+        HRESULT GetNameConflictingWithOverloadSetAsInterface([out]Winery.Overloading.NameConflictingWithOverloadSet.IB ** c);
+        HRESULT GetDiamondAsInterface([out]Winery.Overloading.Diamond.IRoot ** c);      
+        HRESULT GetSimpleDefaultOverloadSetAsInterface([out]Winery.Overloading.SimpleDefaultOverloadSet.IA ** c);      
+        HRESULT GetDeprecatedAttributes([out] Winery.Overloading.DeprecatedAttributes.FantasticClass** c);
+    }
+
+    //RuntimeClasses
+    [deprecated("winery is getting old.", deprecate, NTDDI_WINBLUE)]
+    [version(NTDDI_WIN8), activatable(IWineryFactory, NTDDI_WIN8)]
+    [static(IAsyncMethodStatics, NTDDI_WIN8)]
+    [allowforweb]
+    runtimeclass RWinery
+    {
+        [default] interface IGeneralShop;
+        interface INameTopologies;
+
+        interface IProductionLine;
+        interface IWarehouse;
+        interface IWineRetail;
+        interface IAsyncMethods;
+        interface IAllowForWebAsyncMethods;
+    }
+
+    [version(NTDDI_WIN8)]
+    runtimeclass CustomAsyncInfo
+    {
+        [default] interface ICustomAsync;
+    }
+
+    [version(NTDDI_WIN8), allowforweb]
+    runtimeclass AllowForWebCustomAsyncInfo
+    {
+        [default] interface ICustomAsync;
+    }
+
+
+} // Winery
+
+/*
+TODO:
+Represents
+Arrays
+Async Patterns
+*/

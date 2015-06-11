@@ -1,0 +1,735 @@
+Mock tests
+
+=================================================
+Starting [Test 1: Getter/Setter mock]
+Comment: myAnimal.acceptKiloStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.addEventListener: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.addInts: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.areDimensionPointersEqual: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateFillArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateFillArrayHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateFillArrayWithInLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateFillArrayWithInLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateFillArrayWithOutLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateFillArrayWithOutLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateFillArrayWithOutLengthWithRetValLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateFillArrayWithOutLengthWithRetValLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateFillArrayWithOutLengthWithRetValRandomParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateFillArrayWithOutLengthWithRetValRandomParamHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegatePassArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegatePassArrayHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegatePassArrayWithInLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegatePassArrayWithInLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegatePassArrayWithOutLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegatePassArrayWithOutLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegatePassArrayWithOutLengthWithRetValLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegatePassArrayWithOutLengthWithRetValLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegatePassArrayWithOutLengthWithRetValRandomParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegatePassArrayWithOutLengthWithRetValRandomParamHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateReceiveArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateReceiveArrayHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateReceiveArrayWithInLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateReceiveArrayWithInLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateReceiveArrayWithOutLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateReceiveArrayWithOutLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateReceiveArrayWithOutLengthWithRetValLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateReceiveArrayWithOutLengthWithRetValLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateReceiveArrayWithOutLengthWithRetValRandomParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateReceiveArrayWithOutLengthWithRetValRandomParamHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateWithIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateWithMultipleOutParams: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateWithOutParam_HSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateWithOutParam_InOutMixed: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateWithOutParam_Interface: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateWithOutParam_Struct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateWithOutParam_int: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.callDelegateWithVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.checkByRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.checkMother: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.checkMotherConcrete: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.copyStringVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.copyVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.delIn_BooleanOut2: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.delegateByRef_Class: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.delegateByRef_Delegate: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.delegateByRef_GUID: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.delegateByRef_Interface: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.delegateByRef_Struct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.doubleOffset2Int: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.doubleOffsetByte: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.doubleOffsetChar: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.doubleOffsetInt: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.doubleOffsetInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.doubleOffsetStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.duplicateIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.duplicateIterator: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.duplicateStringIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.duplicateStringIterator: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.duplicateStringVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.duplicateStringVectorView: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.duplicateVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.duplicateVectorView: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.errorCode: {"enumerable":true,"configurable":true}
+Comment: myAnimal.fastPath: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fastPathIn: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fastPathInIn: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fastPathInOut: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fastPathOut: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fillArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fillArrayHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fillArrayWithInLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fillArrayWithInLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fillArrayWithOutLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fillArrayWithOutLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fillArrayWithOutLengthWithRetValLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fillArrayWithOutLengthWithRetValLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fillArrayWithOutLengthWithRetValRandomParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fillArrayWithOutLengthWithRetValRandomParamHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.fillDimensions: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.floatOffset2Int: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.floatOffsetByte: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.floatOffsetChar: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.floatOffsetInt: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.floatOffsetInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.floatOffsetStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.getDimensions: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.getGreeting: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.getMap: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.getNULLHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.getNames: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.getNativeDelegateAsOutParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.getNumLegs: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.getObservableStringVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.getObservableVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.getOuterStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.getReadOnlyVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.getStringVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.getVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.id: {"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutBool: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutChar16: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutDimensions: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutDouble: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutFish: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutIFish: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutInt32: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutPhylum: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutSingle: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutUInt32: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutUInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.interspersedInOutUInt8: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.isHungry: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.isSleepy: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.isStructModified: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.layoutBasicWithStructs: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.layoutOfManyMembers: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.layoutStructs: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.likesChef: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalBool: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalChar16: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalDimensions: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalDouble: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalGUID: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalHRESULT: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalInt16: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalInt32: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalNames: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalNullAsDelegate: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalOuterStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalPhylum: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalPhylumChange: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalSingle: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalStudyInfo: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalUInt16: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalUInt32: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalUInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.marshalUInt8: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.methodDelegateAsOutParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.mother: {"enumerable":true,"configurable":true}
+Comment: myAnimal.multiDouble3: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multiDouble4: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multiFloat3: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multiFloat4: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutBool: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutChar16: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutDimensions: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutDouble: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutFish: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutIFish: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutInt32: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutPhylum: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutSingle: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutUInt32: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutUInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.multipleOutUInt8: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.myArrayProp: {"enumerable":true,"configurable":true}
+Comment: myAnimal.myArrayPropHSTRING: {"enumerable":true,"configurable":true}
+Comment: myAnimal.myDimensions: {"enumerable":true,"configurable":true}
+Comment: myAnimal.myIterable: {"enumerable":true,"configurable":true}
+Comment: myAnimal.myPhylum: {"enumerable":true,"configurable":true}
+Comment: myAnimal.myVector: {"enumerable":true,"configurable":true}
+Comment: myAnimal.oneventhandler: {"enumerable":true,"configurable":true}
+Comment: myAnimal.passArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.passArrayHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.passArrayWithInLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.passArrayWithInLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.passArrayWithOutLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.passArrayWithOutLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.passArrayWithOutLengthWithRetValLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.passArrayWithOutLengthWithRetValLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.passArrayWithOutLengthWithRetValRandomParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.passArrayWithOutLengthWithRetValRandomParamHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.passIDByRef: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.pureFillArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.purePassArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.pureReceiveArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.receiveArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.receiveArrayHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.receiveArrayWithInLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.receiveArrayWithInLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.receiveArrayWithOutLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.receiveArrayWithOutLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.receiveArrayWithOutLengthWithRetValLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.receiveArrayWithOutLengthWithRetValLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.receiveArrayWithOutLengthWithRetValRandomParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.receiveArrayWithOutLengthWithRetValRandomParamHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.removeEventListener: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.sendAndGetIVectorStructs: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.sendBackSameIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.sendBackSameIterator: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.sendBackSameStringIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.sendBackSameStringIterator: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.sendBackSameStringVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.sendBackSameStringVectorView: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.sendBackSameVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.sendBackSameVectorView: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.setGreeting: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.setNumLegs: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.slowPath: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testBug202724_GetInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testBug202724_GetUInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testError: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testInAllIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testInMixIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testInNestedIRefNestedStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testInNestedIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testInSimpleIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testOutAllIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testOutBug258665_HttpProgress: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testOutBug258665_HttpProgressAsOptEmpty: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testOutBug258665_HttpProgressAsOptIntEmpty: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testOutMixIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testOutNestedIRefNestedStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testOutNestedIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testOutSimpleIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testPackedBoolean1: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testPackedByte12: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.verifyMarshalGUID: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.weight: {"enumerable":true,"configurable":true}
+Comment: myAnimal.toString: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Original - myAnimal.getNumLegs = function getNumLegs() { [native code] }
+Comment: Original - myAnimal.getNumLegs() = 282
+Comment: MOCK - myAnimal.getNumLegs = function () { return 600000000; }
+Comment: MOCK - myAnimal.getNumLegs() = 600000000
+Comment: MOCK - myAnimal.getNumLegs = function () { return 600000000; }
+Comment: MOCK - myAnimal.getNumLegs() = 600000000
+Comment: BACK ORIGINAL- myAnimal.getNumLegs = function getNumLegs() { [native code] }
+Comment: BACK ORIGINAL- myAnimal.getNumLegs() = 282
+Pass: myAnimal.getNumLegs()
+      Actual: 282
+
+PASS [Test 1: Getter/Setter mock]
+=================================================
+
+=================================================
+Starting [Test 2: RunTime Class mock]
+Comment: myAnimal2 ori ctor = function Animal() { [native code] }
+Comment: 
+Comment: 
+Comment: MOCKING CTOR
+Comment:         Animals.Animal: {"writable":true,"enumerable":true,"configurable":true}
+Comment: MOCKING PROTO
+Comment: MOCKING CTOR CALL
+Comment: MOCK CTOR =====================================================
+
+Comment: 
+Comment: 
+Comment: 
+Comment: myAnimal2 = [object Object]
+Comment: myAnimal2.getNumLegs: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal2.mockedProperty: {"enumerable":true,"configurable":true}
+Comment: Mocked animal2 - myAnimal2.getNumLegs = function() { return 111; }
+Pass: myAnimal2.getNumLegs()
+      Actual: 111
+
+Comment: Mocked animal2 - myAnimal2.mockedProperty = foo
+Pass: myAnimal2.mockedProperty()
+      Actual: foo
+
+Comment: swap back to original
+Comment: 
+Comment: 
+Comment: 
+Comment: myAnimal3.acceptKiloStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.addEventListener: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.addInts: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.areDimensionPointersEqual: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateFillArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateFillArrayHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateFillArrayWithInLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateFillArrayWithInLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateFillArrayWithOutLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateFillArrayWithOutLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateFillArrayWithOutLengthWithRetValLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateFillArrayWithOutLengthWithRetValLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateFillArrayWithOutLengthWithRetValRandomParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateFillArrayWithOutLengthWithRetValRandomParamHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegatePassArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegatePassArrayHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegatePassArrayWithInLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegatePassArrayWithInLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegatePassArrayWithOutLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegatePassArrayWithOutLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegatePassArrayWithOutLengthWithRetValLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegatePassArrayWithOutLengthWithRetValLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegatePassArrayWithOutLengthWithRetValRandomParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegatePassArrayWithOutLengthWithRetValRandomParamHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateReceiveArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateReceiveArrayHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateReceiveArrayWithInLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateReceiveArrayWithInLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateReceiveArrayWithOutLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateReceiveArrayWithOutLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateReceiveArrayWithOutLengthWithRetValLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateReceiveArrayWithOutLengthWithRetValLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateReceiveArrayWithOutLengthWithRetValRandomParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateReceiveArrayWithOutLengthWithRetValRandomParamHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateWithIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateWithMultipleOutParams: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateWithOutParam_HSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateWithOutParam_InOutMixed: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateWithOutParam_Interface: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateWithOutParam_Struct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateWithOutParam_int: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.callDelegateWithVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.checkByRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.checkMother: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.checkMotherConcrete: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.copyStringVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.copyVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.delIn_BooleanOut2: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.delegateByRef_Class: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.delegateByRef_Delegate: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.delegateByRef_GUID: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.delegateByRef_Interface: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.delegateByRef_Struct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.doubleOffset2Int: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.doubleOffsetByte: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.doubleOffsetChar: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.doubleOffsetInt: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.doubleOffsetInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.doubleOffsetStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.duplicateIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.duplicateIterator: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.duplicateStringIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.duplicateStringIterator: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.duplicateStringVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.duplicateStringVectorView: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.duplicateVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.duplicateVectorView: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.errorCode: {"enumerable":true,"configurable":true}
+Comment: myAnimal3.fastPath: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fastPathIn: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fastPathInIn: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fastPathInOut: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fastPathOut: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fillArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fillArrayHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fillArrayWithInLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fillArrayWithInLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fillArrayWithOutLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fillArrayWithOutLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fillArrayWithOutLengthWithRetValLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fillArrayWithOutLengthWithRetValLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fillArrayWithOutLengthWithRetValRandomParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fillArrayWithOutLengthWithRetValRandomParamHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.fillDimensions: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.floatOffset2Int: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.floatOffsetByte: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.floatOffsetChar: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.floatOffsetInt: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.floatOffsetInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.floatOffsetStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.getDimensions: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.getGreeting: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.getMap: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.getNULLHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.getNames: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.getNativeDelegateAsOutParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.getNumLegs: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.getObservableStringVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.getObservableVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.getOuterStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.getReadOnlyVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.getStringVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.getVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.id: {"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutBool: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutChar16: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutDimensions: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutDouble: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutFish: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutIFish: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutInt32: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutPhylum: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutSingle: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutUInt32: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutUInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.interspersedInOutUInt8: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.isHungry: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.isSleepy: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.isStructModified: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.layoutBasicWithStructs: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.layoutOfManyMembers: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.layoutStructs: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.likesChef: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalBool: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalChar16: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalDimensions: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalDouble: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalGUID: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalHRESULT: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalInt16: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalInt32: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalNames: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalNullAsDelegate: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalOuterStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalPhylum: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalPhylumChange: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalSingle: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalStudyInfo: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalUInt16: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalUInt32: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalUInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.marshalUInt8: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.methodDelegateAsOutParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.mother: {"enumerable":true,"configurable":true}
+Comment: myAnimal3.multiDouble3: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multiDouble4: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multiFloat3: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multiFloat4: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutBool: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutChar16: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutDimensions: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutDouble: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutFish: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutIFish: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutInt32: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutPhylum: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutSingle: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutUInt32: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutUInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.multipleOutUInt8: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.myArrayProp: {"enumerable":true,"configurable":true}
+Comment: myAnimal3.myArrayPropHSTRING: {"enumerable":true,"configurable":true}
+Comment: myAnimal3.myDimensions: {"enumerable":true,"configurable":true}
+Comment: myAnimal3.myIterable: {"enumerable":true,"configurable":true}
+Comment: myAnimal3.myPhylum: {"enumerable":true,"configurable":true}
+Comment: myAnimal3.myVector: {"enumerable":true,"configurable":true}
+Comment: myAnimal3.oneventhandler: {"enumerable":true,"configurable":true}
+Comment: myAnimal3.passArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.passArrayHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.passArrayWithInLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.passArrayWithInLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.passArrayWithOutLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.passArrayWithOutLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.passArrayWithOutLengthWithRetValLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.passArrayWithOutLengthWithRetValLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.passArrayWithOutLengthWithRetValRandomParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.passArrayWithOutLengthWithRetValRandomParamHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.passIDByRef: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.pureFillArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.purePassArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.pureReceiveArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.receiveArray: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.receiveArrayHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.receiveArrayWithInLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.receiveArrayWithInLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.receiveArrayWithOutLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.receiveArrayWithOutLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.receiveArrayWithOutLengthWithRetValLength: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.receiveArrayWithOutLengthWithRetValLengthHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.receiveArrayWithOutLengthWithRetValRandomParam: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.receiveArrayWithOutLengthWithRetValRandomParamHSTRING: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.removeEventListener: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.sendAndGetIVectorStructs: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.sendBackSameIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.sendBackSameIterator: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.sendBackSameStringIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.sendBackSameStringIterator: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.sendBackSameStringVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.sendBackSameStringVectorView: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.sendBackSameVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.sendBackSameVectorView: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.setGreeting: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.setNumLegs: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.slowPath: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testBug202724_GetInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testBug202724_GetUInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testError: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testInAllIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testInMixIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testInNestedIRefNestedStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testInNestedIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testInSimpleIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testOutAllIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testOutBug258665_HttpProgress: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testOutBug258665_HttpProgressAsOptEmpty: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testOutBug258665_HttpProgressAsOptIntEmpty: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testOutMixIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testOutNestedIRefNestedStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testOutNestedIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testOutSimpleIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testPackedBoolean1: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testPackedByte12: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.verifyMarshalGUID: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.weight: {"enumerable":true,"configurable":true}
+Comment: myAnimal3.toString: {"writable":true,"enumerable":true,"configurable":true}
+Comment: BACK ORIGINAL- myAnimal3.getNumLegs = function getNumLegs() { [native code] }
+Comment: BACK ORIGINAL- myAnimal3.getNumLegs() = 20
+Pass: myAnimal3.getNumLegs()
+      Actual: 20
+
+PASS [Test 2: RunTime Class mock]
+=================================================
+
+=================================================
+Starting [Test 3: Namespace mock]
+Comment: PHASE 1 ---------------------------------------------------------
+Comment: Animals.Animal: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.CollectionChangeType: {"value":{"itemAdded":0,"itemChanged":1,"itemRemoved":2},"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Dino: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.DodoBird: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.DoubleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Elephant: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.EmptyClass: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Fish: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.InterfaceWithDoubleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.InterfaceWithMultipleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.InterfaceWithSingleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.MultipleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Phylum: {"value":{"first":0,"acanthocephala":0,"acoelomorpha":1,"annelida":2,"arthropoda":3,"brachiopoda":4,"bryozoa":5,"chaetognatha":6,"chordata":7,"cnidaria":8,"ctenophora":9,"cycliophora":10,"echinodermata":11,"echiura":12,"entoprocta":13,"gastrotricha":14,"gnathostomulida":15,"hemichordata":16,"kinorhyncha":17,"loricifera":18,"micrognathozoa":19,"mollusca":20,"nematoda":21,"nematomorpha":22,"nemertea":23,"onychophora":24,"orthonectida":25,"phoronida":26,"placozoa":27,"platyhelminthes":28,"porifera":29,"priapulida":30,"rhombozoa":31,"rotifera":32,"sipuncula":33,"tardigrada":34,"xenoturbellid":35,"last":35},"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Pomapoodle: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.PropertyValueTests: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC1WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC2WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC3WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC4WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC5WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC6WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC7WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC8WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCIDoubleObservable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCIDoubleObservableMap: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCIObservable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCISingleObservable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue1: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue2: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue3: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue4: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue5: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue6: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCStringMap: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCStringMapWithDefaultIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCStringMapWithIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.SimplestClass: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.SingleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Turkey: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VariableProjection: {"value":{},"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VisibleClassWithDefaultHiddenInterface: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VisibleClassWithDefaultVisibleInterface: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VisibleClassWithHiddenInterfaceOnly: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface: {"writable":true,"enumerable":true,"configurable":true}
+Comment: PHASE 2 ---------------------------------------------------------
+Comment: SET MOCK
+Comment: MOCK CTOR =====================================================
+
+Comment: MockedAnimals.myAnimal: {"writable":true,"enumerable":true,"configurable":true}
+Comment: newAnimal: [object Object]
+Comment: newAnimal: {"myVal":-1,"prototype":{"foo":"bar","myValue":null}}
+Comment: MockedAnimals.newAnimal.myVal: undefined
+Comment: MockedAnimals.newAnimal.getValue: undefined
+Comment: MockedAnimals.newAnimal.setValue: undefined
+Comment: MockedAnimals.newAnimal.prototype: undefined
+Comment: MockedAnimals.newAnimal.foo: {"enumerable":true,"configurable":true}
+Comment: MockedAnimals.newAnimal.prisec: {"writable":true,"enumerable":true,"configurable":true}
+Comment: MockedAnimals.newAnimal.myValue: {"enumerable":true,"configurable":true}
+Pass: newAnimal.prisec()
+      Actual: prisec
+
+Pass: newAnimal.foo
+      Actual: bar
+
+Pass: newAnimal.myValue
+      Actual: 255
+
+Pass: newAnimal.getValue()
+      Actual: -1
+
+Pass: newAnimal.myValue
+      Actual: 298
+
+Pass: newAnimal.getValue()
+      Actual: 42
+
+Pass: newAnimal.myValue
+      Actual: 1282
+
+Pass: newAnimal.getValue()
+      Actual: 1026
+
+Comment: PHASE 3 ---------------------------------------------------------
+Comment: SET MOCK as Animals.Animal - keeping all the rest as is
+Comment: MOCK CTOR =====================================================
+
+Comment: Animals.Animal: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.CollectionChangeType: {"value":{"itemAdded":0,"itemChanged":1,"itemRemoved":2},"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Dino: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.DodoBird: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.DoubleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Elephant: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.EmptyClass: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Fish: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.InterfaceWithDoubleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.InterfaceWithMultipleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.InterfaceWithSingleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.MultipleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Phylum: {"value":{"first":0,"acanthocephala":0,"acoelomorpha":1,"annelida":2,"arthropoda":3,"brachiopoda":4,"bryozoa":5,"chaetognatha":6,"chordata":7,"cnidaria":8,"ctenophora":9,"cycliophora":10,"echinodermata":11,"echiura":12,"entoprocta":13,"gastrotricha":14,"gnathostomulida":15,"hemichordata":16,"kinorhyncha":17,"loricifera":18,"micrognathozoa":19,"mollusca":20,"nematoda":21,"nematomorpha":22,"nemertea":23,"onychophora":24,"orthonectida":25,"phoronida":26,"placozoa":27,"platyhelminthes":28,"porifera":29,"priapulida":30,"rhombozoa":31,"rotifera":32,"sipuncula":33,"tardigrada":34,"xenoturbellid":35,"last":35},"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Pomapoodle: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.PropertyValueTests: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC1WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC2WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC3WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC4WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC5WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC6WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC7WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC8WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCIDoubleObservable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCIDoubleObservableMap: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCIObservable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCISingleObservable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue1: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue2: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue3: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue4: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue5: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue6: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCStringMap: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCStringMapWithDefaultIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCStringMapWithIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.SimplestClass: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.SingleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Turkey: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VariableProjection: {"value":{},"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VisibleClassWithDefaultHiddenInterface: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VisibleClassWithDefaultVisibleInterface: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VisibleClassWithHiddenInterfaceOnly: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.prototype: {"writable":true,"enumerable":true,"configurable":true}
+Comment: newAnimal: [object Object]
+Comment: newAnimal: {"myVal":-1}
+Comment: MockedAnimals.newAnimal.myVal: undefined
+Comment: MockedAnimals.newAnimal.getValue: undefined
+Comment: MockedAnimals.newAnimal.setValue: undefined
+Comment: MockedAnimals.newAnimal.foo: {"enumerable":true,"configurable":true}
+Comment: MockedAnimals.newAnimal.prisec: {"writable":true,"enumerable":true,"configurable":true}
+Comment: MockedAnimals.newAnimal.myValue: {"enumerable":true,"configurable":true}
+Pass: newAnimal.prisec()
+      Actual: prisec
+
+Pass: newAnimal.foo
+      Actual: bar
+
+Pass: newAnimal.myValue
+      Actual: 255
+
+Pass: newAnimal.getValue()
+      Actual: -1
+
+Pass: newAnimal.myValue
+      Actual: 298
+
+Pass: newAnimal.getValue()
+      Actual: 42
+
+Pass: newAnimal.myValue
+      Actual: 1282
+
+Pass: newAnimal.getValue()
+      Actual: 1026
+
+Comment: SWAP ORIGINAL back
+Comment: Animals.Animal: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.CollectionChangeType: {"value":{"itemAdded":0,"itemChanged":1,"itemRemoved":2},"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Dino: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.DodoBird: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.DoubleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Elephant: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.EmptyClass: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Fish: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.InterfaceWithDoubleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.InterfaceWithMultipleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.InterfaceWithSingleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.MultipleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Phylum: {"value":{"first":0,"acanthocephala":0,"acoelomorpha":1,"annelida":2,"arthropoda":3,"brachiopoda":4,"bryozoa":5,"chaetognatha":6,"chordata":7,"cnidaria":8,"ctenophora":9,"cycliophora":10,"echinodermata":11,"echiura":12,"entoprocta":13,"gastrotricha":14,"gnathostomulida":15,"hemichordata":16,"kinorhyncha":17,"loricifera":18,"micrognathozoa":19,"mollusca":20,"nematoda":21,"nematomorpha":22,"nemertea":23,"onychophora":24,"orthonectida":25,"phoronida":26,"placozoa":27,"platyhelminthes":28,"porifera":29,"priapulida":30,"rhombozoa":31,"rotifera":32,"sipuncula":33,"tardigrada":34,"xenoturbellid":35,"last":35},"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Pomapoodle: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.PropertyValueTests: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC1WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC2WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC3WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC4WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC5WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC6WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC7WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RC8WithEvent: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCIDoubleObservable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCIDoubleObservableMap: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCIObservable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCISingleObservable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue1: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue2: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue3: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue4: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue5: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCPropertyValue6: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCStringMap: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCStringMapWithDefaultIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.RCStringMapWithIterable: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.SimplestClass: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.SingleIVector: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Turkey: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VariableProjection: {"value":{},"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VisibleClassWithDefaultHiddenInterface: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VisibleClassWithDefaultVisibleInterface: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VisibleClassWithHiddenInterfaceOnly: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.prototype: {"writable":true,"enumerable":true,"configurable":true}
+Comment: Animals.Animal: {}
+PASS [Test 3: Namespace mock]
+=================================================
+
+Passed: 3
+Failed: 0

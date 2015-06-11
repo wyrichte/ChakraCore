@@ -1,0 +1,69 @@
+JsDocCommentsParser::ParseTypeDefinitionDocComments:
+{
+  input :
+  {
+    text : "*\r\n * SampleOptions are the options for the sampleFunction\r\n * @typedef {Object} SampleOptions\r\n * @property {String} name  - name \r\n * to print\r\n * can span multiple line\r\n * @property {Number} count times \r\n * to print\r\n * can span multiple line too\r\n \r\n"
+  },
+  output :
+  {
+    TypeDefinitions :
+    [
+      {
+        name : "SampleOptions",
+        description : "SampleOptions are the options for the sampleFunction",
+        properties :
+        [
+          {
+            type : "String",
+            name : "name",
+            description : "name \r\nto print\r\ncan span multiple line"
+          },
+          {
+            type : "Number",
+            name : "count",
+            description : "times \r\nto print\r\ncan span multiple line too"
+          }
+        ]
+      }
+    ]
+  }
+}
+JsDocCommentsParser::ParseVarDocComments:
+{
+  input :
+  {
+    text : "*\r\n * SampleOptions are the options for the sampleFunction\r\n * @typedef {Object} SampleOptions\r\n * @property {String} name  - name \r\n * to print\r\n * can span multiple line\r\n * @property {Number} count times \r\n * to print\r\n * can span multiple line too\r\n \r\n"
+  },
+  output :
+  {
+    VarDocComments :
+    {
+
+    }
+  }
+}
+JsDocCommentsParser::ParseFuncDocComments:
+{
+  input :
+  {
+    signatureText : "*\r\n * @returns {SampleOptions} options\r\n \r\n"
+  },
+  output :
+  {
+    signatures :
+    [
+      {
+        description : "",
+        parameters :
+        [
+        ],
+        returns :
+        {
+          type : "SampleOptions",
+          description : "options"
+        }
+      }
+    ]
+  }
+}
+Passed

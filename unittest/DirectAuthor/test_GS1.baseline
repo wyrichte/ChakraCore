@@ -1,0 +1,36 @@
+GetStructure : getting all nodes
+Total nodes : 16
+{ asnkGlobal, containerName : , itemName : , range : {0 : 695}, HasChildren : yes }
+{ asnkVariable, containerName : , itemName : obj, range : {2 : 31}, HasChildren : no }
+{ asnkVariable, containerName : , itemName : test1Val, range : {34 : 46}, HasChildren : no }
+{ asnkFunction, containerName : , itemName : F1(), range : {323 : 358}, HasChildren : yes }
+{ asnkRegion, containerName : , itemName : , range : {314 : 358}, HasChildren : no }
+{ asnkVariable, containerName : , itemName : test2Val, range : {360 : 372}, HasChildren : no }
+{ asnkFunction, containerName : , itemName : intellisense.MyFooBar(arg1, arg2), range : {663 : 689}, HasChildren : yes }
+{ asnkRegion, containerName : , itemName : , range : {639 : 689}, HasChildren : no }
+{ asnkNamespace, containerName : intellisense, itemName : , range : {0 : 0}, HasChildren : yes }
+{ asnkFunction, containerName : , itemName : MyFooBar(arg1, arg2), range : {663 : 689}, HasChildren : yes }
+{ asnkRegion, containerName : , itemName : , range : {639 : 689}, HasChildren : no }
+{ asnkNamespace, containerName : obj, itemName : , range : {12 : 31}, HasChildren : yes }
+{ asnkField, containerName : , itemName : x1, range : {19 : 24}, HasChildren : no }
+{ asnkProperty, containerName : , itemName : test1, range : {92 : 122}, HasChildren : yes }
+{ asnkRegion, containerName : , itemName : , range : {162 : 204}, HasChildren : no }
+{ asnkRegion, containerName : , itemName : , range : {86 : 122}, HasChildren : no }
+GetStructure : Displaying structure graph
+asnkGlobal
+    obj
+    test1Val
+    F1()
+        asnkRegion
+    test2Val
+    intellisense.MyFooBar(arg1, arg2)
+        asnkRegion
+intellisense
+    MyFooBar(arg1, arg2)
+        asnkRegion
+obj
+    x1
+    test1
+        asnkRegion
+        asnkRegion
+Passed

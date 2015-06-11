@@ -1,0 +1,1311 @@
+AsyncDebug tests
+
+=================================================
+Starting [Test 1: AsyncOperationOutStatic]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=665
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=1, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=1, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 1: AsyncOperationOutStatic]
+=================================================
+
+=================================================
+Starting [Test 2: AsyncOperationOutStaticNotFastPath]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=72, SourceLocationStartIndex=1125
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=2, operationName=Winery.RWinery.asyncOperationOutStaticNotFastPath, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=2, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=2, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 2: AsyncOperationOutStaticNotFastPath]
+=================================================
+
+=================================================
+Starting [Test 3: AsyncOperationOut]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=40, SourceLocationStartIndex=1631
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=3, operationName=Winery.RWinery.asyncOperationOut, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=3, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=3, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 3: AsyncOperationOut]
+=================================================
+
+=================================================
+Starting [Test 4: AsyncOperationOut-Failure]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=40, SourceLocationStartIndex=2113
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=4, operationName=Winery.RWinery.asyncOperationOut, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=4, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=4, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 4: AsyncOperationOut-Failure]
+=================================================
+
+=================================================
+Starting [Test 5: AsyncOperationOutAfterExecuteDelegate-Simple]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=497, SourceLocationStartIndex=2672
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=5, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegate, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=42, SourceLocationStartIndex=2845
+NameBuffer = "Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=6, operationName=Winery.RWinery.asyncOperationOut, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=6, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=6, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=5, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=5, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 5: AsyncOperationOutAfterExecuteDelegate-Simple]
+=================================================
+
+=================================================
+Starting [Test 6: AsyncOperationOutAfterExecuteDelegate-Deeper]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=1037, SourceLocationStartIndex=3608
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=7, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegate, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=587, SourceLocationStartIndex=3781
+NameBuffer = "Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=8, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegate, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=42, SourceLocationStartIndex=3980
+NameBuffer = "Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=9, operationName=Winery.RWinery.asyncOperationOut, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=9, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=9, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=8, status=2)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=8, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=7, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=7, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 6: AsyncOperationOutAfterExecuteDelegate-Deeper]
+=================================================
+
+=================================================
+Starting [Test 7: SimpleDelegateWithAsyncInParameter]
+PASS [Test 7: SimpleDelegateWithAsyncInParameter]
+=================================================
+
+=================================================
+Starting [Test 8: SimpleDelegateWithAsyncInParameter-Nested]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=1310, SourceLocationStartIndex=6139
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=10, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegate, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=860, SourceLocationStartIndex=6312
+NameBuffer = "Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=11, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegate, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=11, status=2)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=11, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=10, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=10, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 8: SimpleDelegateWithAsyncInParameter-Nested]
+=================================================
+
+=================================================
+Starting [Test 9: AsyncOperationOutAfterExecuteDelegateWithAsyncInParameter]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=877, SourceLocationStartIndex=7980
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=12, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegate, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=384, SourceLocationStartIndex=8153
+NameBuffer = "Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=13, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegateWithAsyncInParameter, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=13, status=2)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=13, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=12, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=12, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 9: AsyncOperationOutAfterExecuteDelegateWithAsyncInParameter]
+=================================================
+
+=================================================
+Starting [Test 10: AsyncOperationOutAfterExecuteDelegateWithAsyncInParameterUseSameAsyncObject]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=966, SourceLocationStartIndex=9787
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=14, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegate, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=402, SourceLocationStartIndex=9960
+NameBuffer = "Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=15, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegateWithAsyncInParameterUseSameAsyncObject, relatedContext=0)
+WinRTError: Unspecified error
+
+	at Anonymous function (AsyncDebug.js:296:21)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=14, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=14, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 10: AsyncOperationOutAfterExecuteDelegateWithAsyncInParameterUseSameAsyncObject]
+=================================================
+
+=================================================
+Starting [Test 11: AsyncOperationWithMultipleAsyncOutParameters]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=936, SourceLocationStartIndex=11274
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=16, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegate, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=73, SourceLocationStartIndex=11447
+NameBuffer = "Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=17, operationName=Winery.RWinery.asyncOperationWithMultipleAsyncOutParameters, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=17, status=2)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=17, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=16, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=16, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 11: AsyncOperationWithMultipleAsyncOutParameters]
+=================================================
+
+=================================================
+Starting [Test 12: AsyncOperationWithMultipleOutParameters-Delegate]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=597, SourceLocationStartIndex=12733
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=18, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegate, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=65, SourceLocationStartIndex=12906
+NameBuffer = "Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=19, operationName=Winery.RWinery.asyncOperationWithMultipleOutParameters, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=19, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=19, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=18, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=18, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 12: AsyncOperationWithMultipleOutParameters-Delegate]
+=================================================
+
+=================================================
+Starting [Test 13: AsyncOperationWithMultipleOutParameters]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=65, SourceLocationStartIndex=13896
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=20, operationName=Winery.RWinery.asyncOperationWithMultipleOutParameters, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=20, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=20, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 13: AsyncOperationWithMultipleOutParameters]
+=================================================
+
+=================================================
+Starting [Test 14: AsyncOperationCompleteAfterCallbacksAdded]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=14651
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=21, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=21, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=21, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=21, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=21, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 14: AsyncOperationCompleteAfterCallbacksAdded]
+=================================================
+
+=================================================
+Starting [Test 15: AsyncOperationCompleteBeforeCallbacksAdded]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=15945
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=22, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=22, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=22, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=22, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=22, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 15: AsyncOperationCompleteBeforeCallbacksAdded]
+=================================================
+
+=================================================
+Starting [Test 16: AsyncOperationCompleteBeforeCallbacksAdded-Chained]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=17253
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=23, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=23, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=23, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=23, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=23, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 16: AsyncOperationCompleteBeforeCallbacksAdded-Chained]
+=================================================
+
+=================================================
+Starting [Test 17: AsyncOperationCompleteBeforeCallbacksAdded-Chained]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=18539
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=24, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=24, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=24, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=24, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=24, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 17: AsyncOperationCompleteBeforeCallbacksAdded-Chained]
+=================================================
+
+=================================================
+Starting [Test 18: AsyncOperationCancel]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=19835
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=25, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=25, status=2)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=25, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=25, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=25, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: errors: true true true
+Comment: successes: false false false
+PASS [Test 18: AsyncOperationCancel]
+=================================================
+
+=================================================
+Starting [Test 19: AsyncOperationErrorInSuccessCallback]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=21262
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=26, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=26, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=26, work=0)
+Calling AsyncCausalityTracer.TraceOperationRelation(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=26, relation=4)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=26, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=26, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: errors: false true false
+Comment: successes: true false true
+PASS [Test 19: AsyncOperationErrorInSuccessCallback]
+=================================================
+
+=================================================
+Starting [Test 20: AsyncOperationErrorInSuccessAndErrorCallbacks]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=22723
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=27, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=27, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=27, work=0)
+Calling AsyncCausalityTracer.TraceOperationRelation(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=27, relation=4)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=27, work=0)
+Calling AsyncCausalityTracer.TraceOperationRelation(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=27, relation=4)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=27, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: errors: false true true
+Comment: successes: true false false
+PASS [Test 20: AsyncOperationErrorInSuccessAndErrorCallbacks]
+=================================================
+
+=================================================
+Starting [Test 21: AsyncOperationErrorInErrorCallbackWithDone]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=24188
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=28, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=28, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=28, work=0)
+Calling AsyncCausalityTracer.TraceOperationRelation(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=28, relation=4)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=28, work=0)
+Calling AsyncCausalityTracer.TraceOperationRelation(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=28, relation=4)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=28, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: errors: true true true
+Comment: successes: false false false
+PASS [Test 21: AsyncOperationErrorInErrorCallbackWithDone]
+=================================================
+
+=================================================
+Starting [Test 22: AsyncOperationErrorInErrorCallbackWithErrorInDone]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=25697
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=29, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=29, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=29, work=0)
+Calling AsyncCausalityTracer.TraceOperationRelation(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=29, relation=4)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=29, work=0)
+Calling AsyncCausalityTracer.TraceOperationRelation(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=29, relation=4)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=29, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Pass: instanceof ReferenceError: Invalid left-hand side in assignment
+      Actual: true
+
+Comment: errors: true true true
+Comment: successes: false false false
+PASS [Test 22: AsyncOperationErrorInErrorCallbackWithErrorInDone]
+=================================================
+
+=================================================
+Starting [Test 23: AsyncOperationMalformedSuccessCallbackReturn]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=27394
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=30, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=30, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=30, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: errors: false false
+Comment: successes: true true
+PASS [Test 23: AsyncOperationMalformedSuccessCallbackReturn]
+=================================================
+
+=================================================
+Starting [Test 24: AsyncOperationMultipleCompletionCallbacksDoesNotCauseMultipleETWEvents]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=28548
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=31, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=31, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=31, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: errors: true
+Comment: successes: false
+PASS [Test 24: AsyncOperationMultipleCompletionCallbacksDoesNotCauseMultipleETWEvents]
+=================================================
+
+=================================================
+Starting [Test 25: ChainedPromiseWithSecondLevelPromiseInternalThen]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=29366
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=32, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Comment: calling chained promise
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=32, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=32, work=0)
+Comment: inside first-level then function
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=29646
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=33, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=33, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=33, work=0)
+Comment: inside second-level then function
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 25: ChainedPromiseWithSecondLevelPromiseInternalThen]
+=================================================
+
+=================================================
+Starting [Test 26: ChainedPromiseWithSecondLevelPromiseReturnedFromThen]
+Comment: calling chained promise
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=30229
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=34, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=34, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=34, work=0)
+Comment: inside first-level then function
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=30471
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=35, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=35, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=35, work=0)
+Comment: inside second-level then function
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 26: ChainedPromiseWithSecondLevelPromiseReturnedFromThen]
+=================================================
+
+=================================================
+Starting [Test 27: ChainedPromiseWithManyLevels]
+Comment: calling chained promise
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=31089
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=36, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=36, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=36, work=0)
+Comment: inside first-level then function
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=31367
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=37, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=37, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=37, work=0)
+Comment: inside second-level then function
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=31590
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 2: Name=41 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=38, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=38, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=38, work=0)
+Comment: inside third-level then function
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=31812
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 2: Name=41 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=39, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=39, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=39, work=0)
+Comment: inside fourth-level then function
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 27: ChainedPromiseWithManyLevels]
+=================================================
+
+=================================================
+Starting [Test 28: ChainedPromiseWithNestedPromises]
+Comment: calling chained/nested promise
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=32504
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=40, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=40, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=40, work=0)
+Comment: inside promise1.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=52, SourceLocationStartIndex=32940
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=41, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=33399
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=42, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=41, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=41, work=0)
+Comment: inside promise1a.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=52, SourceLocationStartIndex=33140
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=43, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=43, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=43, work=0)
+Comment: inside promise1a.promise1b.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=42, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=42, work=0)
+Comment: inside promise1.promise2.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=52, SourceLocationStartIndex=33618
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 2: Name=41 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=44, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=33835
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 2: Name=41 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=45, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=44, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=44, work=0)
+Comment: inside promise2a.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=45, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=45, work=0)
+Comment: inside promise1.promise2.promise3 then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=52, SourceLocationStartIndex=34063
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 2: Name=41 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=46, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=34774
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 2: Name=41 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=47, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=46, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=46, work=0)
+Comment: inside promise3a.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=52, SourceLocationStartIndex=34263
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=48, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=48, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=48, work=0)
+Comment: inside promise3a.promise3b.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=52, SourceLocationStartIndex=34505
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 2: Name=41 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=49, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=49, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=49, work=0)
+Comment: inside promise3a.promise3b.promise3c.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=47, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=47, work=0)
+Comment: inside promise1.promise2.promise3.promise4 then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 28: ChainedPromiseWithNestedPromises]
+=================================================
+
+=================================================
+Starting [Test 29: ChainedSinglePromise]
+Comment: calling chained promise
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=35792
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=50, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=50, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=50, work=0)
+Comment: inside first-level then function
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=50, work=0)
+Comment: inside second-level then function
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=50, work=0)
+Comment: inside third-level then function
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=50, work=0)
+Comment: inside fourth-level then function
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 29: ChainedSinglePromise]
+=================================================
+
+=================================================
+Starting [Test 30: ChainedPromiseReturningThenPromise]
+Comment: calling chained promise
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=36647
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=51, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=51, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=51, work=0)
+Comment: inside promise1.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=52, SourceLocationStartIndex=37248
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=52, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=51, work=0)
+Comment: inside promise1.thenPromise.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=52, SourceLocationStartIndex=37933
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 2: Name=41 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=53, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=51, work=0)
+Comment: inside promise1.then - second one
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=38323
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 2: Name=41 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 3: Name=61 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";"Promise.onSuccess";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=54, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=52, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=52, work=0)
+Comment: inside promise1a.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=52, SourceLocationStartIndex=37471
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=55, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=55, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=55, work=0)
+Comment: inside promise1a.promise1b.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=53, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=53, work=0)
+Comment: inside promise2a.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=54, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=54, work=0)
+Comment: inside promise3.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=52, SourceLocationStartIndex=38542
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=56, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=56, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=56, work=0)
+Comment: inside promise3b.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 30: ChainedPromiseReturningThenPromise]
+=================================================
+
+=================================================
+Starting [Test 31: ChainedPromiseWithMultipleCompleteCallbacks]
+Comment: calling chained promise
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=39477
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=57, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=57, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=57, work=0)
+Comment: inside promise1.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=39783
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=58, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=57, work=0)
+Comment: inside second promise1.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=58, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=58, work=0)
+Comment: inside promise3.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=58, work=0)
+Comment: inside second promise3.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=40257
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 2: Name=41 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=59, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=59, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=59, work=0)
+Comment: inside promise5.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=59, work=0)
+Comment: inside promise4.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 31: ChainedPromiseWithMultipleCompleteCallbacks]
+=================================================
+
+=================================================
+Starting [Test 32: TwoLevelChainPromise]
+Comment: calling chained promise
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=60, SourceLocationStartIndex=40989
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=60, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=60, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=60, work=0)
+Comment: inside parentPromise.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=55, SourceLocationStartIndex=41377
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=61, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=61, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=61, work=0)
+Comment: inside childPromise.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=67, SourceLocationStartIndex=41595
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=62, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=62, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=62, work=0)
+Comment: inside parentPromiseThenPromise.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 32: TwoLevelChainPromise]
+=================================================
+
+=================================================
+Starting [Test 33: TwoLevelChainPromiseReusePromiseAfterComplete]
+Comment: calling chained promise
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=60, SourceLocationStartIndex=42439
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=63, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=63, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=63, work=0)
+Comment: inside parentPromise.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=55, SourceLocationStartIndex=42827
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=64, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=64, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=64, work=0)
+Comment: inside childPromise.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=67, SourceLocationStartIndex=43045
+	Frame 1: Name=21 (Promise.onSuccess), SourceLocationLength=0, SourceLocationStartIndex=0
+NameBuffer = "Anonymous function";"Promise.onSuccess";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=65, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=65, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=65, work=0)
+Comment: inside parentPromiseThenPromise.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=63, work=0)
+Comment: inside latentParentPromiseThenPromise.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 33: TwoLevelChainPromiseReusePromiseAfterComplete]
+=================================================
+
+=================================================
+Starting [Test 39: SimpleProgressHandler]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=44016
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=66, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=66, work=1)
+Comment: Progress handler: 10%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=66, work=1)
+Comment: Progress handler: 20%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=66, work=1)
+Comment: Progress handler: 30%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=66, work=1)
+Comment: Progress handler: 40%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=66, work=1)
+Comment: Progress handler: 50%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=66, work=1)
+Comment: Progress handler: 60%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=66, work=1)
+Comment: Progress handler: 70%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=66, work=1)
+Comment: Progress handler: 80%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=66, work=1)
+Comment: Progress handler: 90%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=66, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=66, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 39: SimpleProgressHandler]
+=================================================
+
+=================================================
+Starting [Test 41: SimpleNestedProgressHandlers]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=44711
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=67, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=67, work=1)
+Comment: Progress handler 1: 10%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=67, work=1)
+Comment: Progress handler 1: 20%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=67, work=1)
+Comment: Progress handler 1: 30%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=67, work=1)
+Comment: Progress handler 1: 40%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=67, work=1)
+Comment: Progress handler 1: 50%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=67, work=1)
+Comment: Progress handler 1: 60%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=67, work=1)
+Comment: Progress handler 1: 70%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=67, work=1)
+Comment: Progress handler 1: 80%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=67, work=1)
+Comment: Progress handler 1: 90%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=67, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=67, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=67, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 41: SimpleNestedProgressHandlers]
+=================================================
+
+=================================================
+Starting [Test 42: SimpleProgressHandlerInteruptedByCompletion]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=45673
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=68, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=68, work=1)
+Comment: Progress handler: 10%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=68, work=1)
+Comment: Progress handler: 20%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=68, work=1)
+Comment: Progress handler: 30%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=68, work=1)
+Comment: Progress handler: 40%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=68, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=68, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: Failed to trigger progress after operation completion.
+PASS [Test 42: SimpleProgressHandlerInteruptedByCompletion]
+=================================================
+
+=================================================
+Starting [Test 43: SimpleProgressHandlerAfterCompletion]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=46668
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=69, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=69, work=1)
+Comment: Progress handler: 10%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=69, work=1)
+Comment: Progress handler: 20%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=69, work=1)
+Comment: Progress handler: 30%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=69, work=1)
+Comment: Progress handler: 40%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=69, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=69, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: Succeeded to trigger progress after operation completion.
+PASS [Test 43: SimpleProgressHandlerAfterCompletion]
+=================================================
+
+=================================================
+Starting [Test 44: SimpleProgressHandlerInteruptedByError]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=47738
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=70, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=70, work=1)
+Comment: Progress handler: 10%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=70, work=1)
+Comment: Progress handler: 20%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=70, work=1)
+Comment: Progress handler: 30%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=70, work=1)
+Comment: Progress handler: 40%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=70, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=70, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: Failed to trigger progress after operation error.
+PASS [Test 44: SimpleProgressHandlerInteruptedByError]
+=================================================
+
+=================================================
+Starting [Test 45: SimpleProgressHandlerAfterError]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=48711
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=71, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=71, work=1)
+Comment: Progress handler: 10%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=71, work=1)
+Comment: Progress handler: 20%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=71, work=1)
+Comment: Progress handler: 30%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=71, work=1)
+Comment: Progress handler: 40%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=71, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=71, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: Succeeded to trigger progress after operation error.
+PASS [Test 45: SimpleProgressHandlerAfterError]
+=================================================
+
+=================================================
+Starting [Test 46: SimpleNonNestedProgressHandlers]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=49753
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=50749
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 1: 10%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 2: 10%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 1: 20%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 2: 20%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 1: 30%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 2: 30%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 1: 40%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 2: 40%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 1: 50%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 2: 50%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 1: 60%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 2: 60%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 1: 70%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 2: 70%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 1: 80%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 2: 80%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 1: 90%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=1)
+Comment: Progress handler 2: 90%
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=2, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=72, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 46: SimpleNonNestedProgressHandlers]
+=================================================
+
+Passed: 40
+Failed: 0
+ETW Log Begin
+=============================================================
+﻿Log started
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=1;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=665;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=2;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=1125;SourceLocationLength=72;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=3;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=1631;SourceLocationLength=40;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=4;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=2113;SourceLocationLength=40;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=5;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=2672;SourceLocationLength=497;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=6;FrameCount=1;NameBufferCount=22;Frames=(SourceLocationStartIndex=2845;SourceLocationLength=42;NameIndex=0);NameBuffer="Anonymous function";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=7;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=3608;SourceLocationLength=1037;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=8;FrameCount=1;NameBufferCount=22;Frames=(SourceLocationStartIndex=3781;SourceLocationLength=587;NameIndex=0);NameBuffer="Anonymous function";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=9;FrameCount=1;NameBufferCount=22;Frames=(SourceLocationStartIndex=3980;SourceLocationLength=42;NameIndex=0);NameBuffer="Anonymous function";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=10;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=6139;SourceLocationLength=1310;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=11;FrameCount=1;NameBufferCount=22;Frames=(SourceLocationStartIndex=6312;SourceLocationLength=860;NameIndex=0);NameBuffer="Anonymous function";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=12;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=7980;SourceLocationLength=877;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=13;FrameCount=1;NameBufferCount=22;Frames=(SourceLocationStartIndex=8153;SourceLocationLength=384;NameIndex=0);NameBuffer="Anonymous function";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=14;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=9787;SourceLocationLength=966;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=15;FrameCount=1;NameBufferCount=22;Frames=(SourceLocationStartIndex=9960;SourceLocationLength=402;NameIndex=0);NameBuffer="Anonymous function";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=16;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=11274;SourceLocationLength=936;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=17;FrameCount=1;NameBufferCount=22;Frames=(SourceLocationStartIndex=11447;SourceLocationLength=73;NameIndex=0);NameBuffer="Anonymous function";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=18;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=12733;SourceLocationLength=597;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=19;FrameCount=1;NameBufferCount=22;Frames=(SourceLocationStartIndex=12906;SourceLocationLength=65;NameIndex=0);NameBuffer="Anonymous function";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=20;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=13896;SourceLocationLength=65;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=21;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=14651;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=22;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=15945;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=23;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=17253;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=24;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=18539;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=25;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=19835;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=26;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=21262;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=27;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=22723;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=28;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=24188;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=29;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=25697;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=30;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=27394;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=31;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=28548;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=32;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=29366;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=33;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=29646;SourceLocationLength=51;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=34;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=30229;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=35;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=30471;SourceLocationLength=51;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=36;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=31089;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=37;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=31367;SourceLocationLength=51;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=38;FrameCount=3;NameBufferCount=62;Frames[0]=(SourceLocationStartIndex=31590;SourceLocationLength=51;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);Frames[2]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=41);NameBuffer="Anonymous function";"Promise.onSuccess";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=39;FrameCount=3;NameBufferCount=62;Frames[0]=(SourceLocationStartIndex=31812;SourceLocationLength=51;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);Frames[2]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=41);NameBuffer="Anonymous function";"Promise.onSuccess";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=40;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=32504;SourceLocationLength=55;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=41;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=32940;SourceLocationLength=52;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=42;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=33399;SourceLocationLength=51;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=43;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=33140;SourceLocationLength=52;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=44;FrameCount=3;NameBufferCount=62;Frames[0]=(SourceLocationStartIndex=33618;SourceLocationLength=52;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);Frames[2]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=41);NameBuffer="Anonymous function";"Promise.onSuccess";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=45;FrameCount=3;NameBufferCount=62;Frames[0]=(SourceLocationStartIndex=33835;SourceLocationLength=51;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);Frames[2]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=41);NameBuffer="Anonymous function";"Promise.onSuccess";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=46;FrameCount=3;NameBufferCount=62;Frames[0]=(SourceLocationStartIndex=34063;SourceLocationLength=52;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);Frames[2]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=41);NameBuffer="Anonymous function";"Promise.onSuccess";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=47;FrameCount=3;NameBufferCount=62;Frames[0]=(SourceLocationStartIndex=34774;SourceLocationLength=51;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);Frames[2]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=41);NameBuffer="Anonymous function";"Promise.onSuccess";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=48;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=34263;SourceLocationLength=52;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=49;FrameCount=3;NameBufferCount=62;Frames[0]=(SourceLocationStartIndex=34505;SourceLocationLength=52;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);Frames[2]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=41);NameBuffer="Anonymous function";"Promise.onSuccess";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=50;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=35792;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=51;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=36647;SourceLocationLength=55;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=52;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=37248;SourceLocationLength=52;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=53;FrameCount=3;NameBufferCount=62;Frames[0]=(SourceLocationStartIndex=37933;SourceLocationLength=52;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);Frames[2]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=41);NameBuffer="Anonymous function";"Promise.onSuccess";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=54;FrameCount=4;NameBufferCount=82;Frames[0]=(SourceLocationStartIndex=38323;SourceLocationLength=51;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);Frames[2]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=41);Frames[3]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=61);NameBuffer="Anonymous function";"Promise.onSuccess";"Promise.onSuccess";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=55;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=37471;SourceLocationLength=52;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=56;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=38542;SourceLocationLength=52;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=57;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=39477;SourceLocationLength=55;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=58;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=39783;SourceLocationLength=51;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=59;FrameCount=3;NameBufferCount=62;Frames[0]=(SourceLocationStartIndex=40257;SourceLocationLength=51;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);Frames[2]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=41);NameBuffer="Anonymous function";"Promise.onSuccess";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=60;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=40989;SourceLocationLength=60;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=61;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=41377;SourceLocationLength=55;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=62;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=41595;SourceLocationLength=67;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=63;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=42439;SourceLocationLength=60;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=64;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=42827;SourceLocationLength=55;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=65;FrameCount=2;NameBufferCount=42;Frames[0]=(SourceLocationStartIndex=43045;SourceLocationLength=67;NameIndex=0);Frames[1]=(SourceLocationStartIndex=0;SourceLocationLength=0;NameIndex=21);NameBuffer="Anonymous function";"Promise.onSuccess";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=66;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=44016;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=67;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=44711;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=68;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=45673;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=69;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=46668;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=70;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=47738;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=71;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=48711;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE (#159): Info (AsyncOperationId=72;FrameCount=6;NameBufferCount=63;Frames[0]=(SourceLocationStartIndex=49753;SourceLocationLength=54;NameIndex=0);Frames[1]=(SourceLocationStartIndex=37562;SourceLocationLength=18;NameIndex=7);Frames[2]=(SourceLocationStartIndex=24303;SourceLocationLength=6;NameIndex=14);Frames[3]=(SourceLocationStartIndex=27880;SourceLocationLength=22;NameIndex=31);Frames[4]=(SourceLocationStartIndex=30450;SourceLocationLength=10;NameIndex=42);Frames[5]=(SourceLocationStartIndex=50749;SourceLocationLength=5;NameIndex=48);NameBuffer="test";"test";"states.running";"runTasks";"run";"Global code";)
+Log completed
+=============================================================
+ETW Log End

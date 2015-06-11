@@ -1,0 +1,21 @@
+*** Running test #1 (0): RegExp.test() - matches for the beginning of string, otherwise terminates if sticky = true
+PASSED
+*** Running test #2 (1): RegExp.exec() - matches for the beginning of string, otherwise terminates if sticky = true
+PASSED
+*** Running test #3 (2): RegExp.match() - matches for the beginning of string, otherwise terminates if sticky = true
+PASSED
+*** Running test #4 (3): RegExp.match() - matches for the beginning of string, otherwise terminates if sticky = true with lastindex set
+PASSED
+*** Running test #5 (4): RegExp.search() - matches for the beginning of string, otherwise terminates if sticky = true
+PASSED
+*** Running test #6 (5): RegExp.replace() - matches for the beginning of string, otherwise terminates if sticky = true
+PASSED
+*** Running test #7 (6): RegExp.replace() - matches for the beginning of string, otherwise terminates if sticky = true, lastIndex set
+PASSED
+*** Running test #8 (7): RegExp.replace() - matches for the beginning of string, otherwise terminates if sticky = true, global = true
+PASSED
+*** Running test #9 (8): RegExp.replace() - matches for the beginning of string, otherwise terminates if global = true
+PASSED
+*** Running test #10 (9): RegExp.split() - ignores sticky flag
+PASSED
+Summary of tests: total executed: 10; passed: 10; failed: 0

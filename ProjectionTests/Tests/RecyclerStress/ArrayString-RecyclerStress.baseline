@@ -1,0 +1,530 @@
+Recycler Stress - ArrayString.js
+
+=================================================
+Starting [Test 1: Pass, Fill, ReceiveArray]
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and myArray[0]
+      Actual: white
+
+Pass: myVector[1] and myArray[1]
+      Actual: Red
+
+Pass: myVector[2] and myArray[2]
+      Actual: Blue
+
+Pass: myVector[3] and myArray[3]
+      Actual: Yellow
+
+Pass: myVector[4] and myArray[4]
+      Actual: Pink
+
+Pass: myVector[5] and myArray[5]
+      Actual: Black
+
+Pass: myVector[6] and myArray[6]
+      Actual: Orange
+
+Pass: myVector[7] and myArray[7]
+      Actual: Purple
+
+Pass: myVector[8] and myArray[8]
+      Actual: Green
+
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and myArray[0]
+      Actual: white
+
+Pass: myVector[1] and myArray[1]
+      Actual: Red
+
+Pass: myVector[2] and myArray[2]
+      Actual: Blue
+
+Pass: myVector[3] and myArray[3]
+      Actual: Yellow
+
+Pass: myVector[4] and myArray[4]
+      Actual: Pink
+
+Pass: myVector[5] and myArray[5]
+      Actual: Black
+
+Pass: myVector[6] and myArray[6]
+      Actual: Orange
+
+Pass: myVector[7] and myArray[7]
+      Actual: Purple
+
+Pass: myVector[8] and myArray[8]
+      Actual: Green
+
+Pass: typeof myResult
+      Actual: object
+
+Pass: myResult.value
+      Actual: value
+
+Pass: typeof myResult.value
+      Actual: object
+
+Pass: myResult.outVector
+      Actual: outVector
+
+Pass: typeof myResult.outVector
+      Actual: object
+
+Pass: number of members
+      Actual: 2
+
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myResult.value[0] and myResult.outVector[0]
+      Actual: white
+
+Pass: myResult.value[1] and myResult.outVector[1]
+      Actual: Red
+
+Pass: myResult.value[2] and myResult.outVector[2]
+      Actual: Blue
+
+Pass: myResult.value[3] and myResult.outVector[3]
+      Actual: Yellow
+
+Pass: myResult.value[4] and myResult.outVector[4]
+      Actual: Pink
+
+Pass: myResult.value[5] and myResult.outVector[5]
+      Actual: Black
+
+Pass: myResult.value[6] and myResult.outVector[6]
+      Actual: Orange
+
+Pass: myResult.value[7] and myResult.outVector[7]
+      Actual: Purple
+
+Pass: myResult.value[8] and myResult.outVector[8]
+      Actual: Green
+
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and myArrayProjection[0]
+      Actual: white
+
+Pass: myVector[1] and myArrayProjection[1]
+      Actual: Red
+
+Pass: myVector[2] and myArrayProjection[2]
+      Actual: Blue
+
+Pass: myVector[3] and myArrayProjection[3]
+      Actual: Yellow
+
+Pass: myVector[4] and myArrayProjection[4]
+      Actual: Pink
+
+Pass: myVector[5] and myArrayProjection[5]
+      Actual: Black
+
+Pass: myVector[6] and myArrayProjection[6]
+      Actual: Orange
+
+Pass: myVector[7] and myArrayProjection[7]
+      Actual: Purple
+
+Pass: myVector[8] and myArrayProjection[8]
+      Actual: Green
+
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and myArrayProjection[0]
+      Actual: white
+
+Pass: myVector[1] and myArrayProjection[1]
+      Actual: Red
+
+Pass: myVector[2] and myArrayProjection[2]
+      Actual: Blue
+
+Pass: myVector[3] and myArrayProjection[3]
+      Actual: Yellow
+
+Pass: myVector[4] and myArrayProjection[4]
+      Actual: Gold
+
+Pass: myVector[5] and myArrayProjection[5]
+      Actual: Black
+
+Pass: myVector[6] and myArrayProjection[6]
+      Actual: Orange
+
+Pass: myVector[7] and myArrayProjection[7]
+      Actual: Purple
+
+Pass: myVector[8] and myArrayProjection[8]
+      Actual: Green
+
+Pass: myVector = myAnimal.passArray(myArrayProjection); returned (TypeError: Type mismatch)
+      Actual: true
+
+Pass: myVector = myAnimal.fillArray(myArrayProjection); returned (TypeError: Type mismatch)
+      Actual: true
+
+PASS [Test 1: Pass, Fill, ReceiveArray]
+=================================================
+
+=================================================
+Starting [Test 2: ProjectOutByRefArrayNull_Basic]
+Pass: myResult.value
+      Actual: null
+
+PASS [Test 2: ProjectOutByRefArrayNull_Basic]
+=================================================
+
+=================================================
+Starting [Test 3: Delegate_MarshalInArray_Basic]
+Comment: *** delegatePassArray Delegate
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: stringArray[0] and stringVector[0]
+      Actual: white
+
+Pass: stringArray[1] and stringVector[1]
+      Actual: Red
+
+Pass: stringArray[2] and stringVector[2]
+      Actual: Blue
+
+Pass: stringArray[3] and stringVector[3]
+      Actual: Yellow
+
+Pass: stringArray[4] and stringVector[4]
+      Actual: Pink
+
+Pass: stringArray[5] and stringVector[5]
+      Actual: Black
+
+Pass: stringArray[6] and stringVector[6]
+      Actual: Orange
+
+Pass: stringArray[7] and stringVector[7]
+      Actual: Purple
+
+Pass: stringArray[8] and stringVector[8]
+      Actual: Green
+
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and stringArray[0]
+      Actual: white
+
+Pass: myVector[1] and stringArray[1]
+      Actual: Red
+
+Pass: myVector[2] and stringArray[2]
+      Actual: Blue
+
+Pass: myVector[3] and stringArray[3]
+      Actual: Yellow
+
+Pass: myVector[4] and stringArray[4]
+      Actual: Pink
+
+Pass: myVector[5] and stringArray[5]
+      Actual: Black
+
+Pass: myVector[6] and stringArray[6]
+      Actual: Orange
+
+Pass: myVector[7] and stringArray[7]
+      Actual: Purple
+
+Pass: myVector[8] and stringArray[8]
+      Actual: Green
+
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and stringArray[0]
+      Actual: white
+
+Pass: myVector[1] and stringArray[1]
+      Actual: Red
+
+Pass: myVector[2] and stringArray[2]
+      Actual: Blue
+
+Pass: myVector[3] and stringArray[3]
+      Actual: Yellow
+
+Pass: myVector[4] and stringArray[4]
+      Actual: Gold
+
+Pass: myVector[5] and stringArray[5]
+      Actual: Black
+
+Pass: myVector[6] and stringArray[6]
+      Actual: Orange
+
+Pass: myVector[7] and stringArray[7]
+      Actual: Purple
+
+Pass: myVector[8] and stringArray[8]
+      Actual: Green
+
+Pass: myVector = myAnimal.passArray(stringArray); returned (TypeError: Type mismatch)
+      Actual: true
+
+Pass: myVector = myAnimal.fillArray(stringArray); returned (TypeError: Type mismatch)
+      Actual: true
+
+Pass: myArray
+      Actual: white,Red,Blue,Yellow,Pink,Black,Orange,Purple,Green
+
+PASS [Test 3: Delegate_MarshalInArray_Basic]
+=================================================
+
+=================================================
+Starting [Test 4: Delegate_ProjectOutArrayByValue]
+Comment: *** delegateFillArray Delegate
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and stringArray[0]
+      Actual: white
+
+Pass: myVector[1] and stringArray[1]
+      Actual: Red
+
+Pass: myVector[2] and stringArray[2]
+      Actual: Blue
+
+Pass: myVector[3] and stringArray[3]
+      Actual: Yellow
+
+Pass: myVector[4] and stringArray[4]
+      Actual: Pink
+
+Pass: myVector[5] and stringArray[5]
+      Actual: Black
+
+Pass: myVector[6] and stringArray[6]
+      Actual: Orange
+
+Pass: myVector[7] and stringArray[7]
+      Actual: Purple
+
+Pass: myVector[8] and stringArray[8]
+      Actual: Green
+
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myVector[0] and stringArray[0]
+      Actual: white
+
+Pass: myVector[1] and stringArray[1]
+      Actual: Red
+
+Pass: myVector[2] and stringArray[2]
+      Actual: Blue
+
+Pass: myVector[3] and stringArray[3]
+      Actual: Yellow
+
+Pass: myVector[4] and stringArray[4]
+      Actual: Gold
+
+Pass: myVector[5] and stringArray[5]
+      Actual: Black
+
+Pass: myVector[6] and stringArray[6]
+      Actual: Orange
+
+Pass: myVector[7] and stringArray[7]
+      Actual: Purple
+
+Pass: myVector[8] and stringArray[8]
+      Actual: Green
+
+Pass: myVector = myAnimal.passArray(stringArray); returned (TypeError: Type mismatch)
+      Actual: true
+
+Pass: myVector = myAnimal.fillArray(stringArray); returned (TypeError: Type mismatch)
+      Actual: true
+
+Pass: myArray
+      Actual: white,Red,Blue,Yellow,Pink,Black,Orange,Purple,Green
+
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: delegateFillArray.stringArray[0] and myResult.outVector[0]
+      Actual: white
+
+Pass: delegateFillArray.stringArray[1] and myResult.outVector[1]
+      Actual: Red
+
+Pass: delegateFillArray.stringArray[2] and myResult.outVector[2]
+      Actual: Blue
+
+Pass: delegateFillArray.stringArray[3] and myResult.outVector[3]
+      Actual: Yellow
+
+Pass: delegateFillArray.stringArray[4] and myResult.outVector[4]
+      Actual: Gold
+
+Pass: delegateFillArray.stringArray[5] and myResult.outVector[5]
+      Actual: Black
+
+Pass: delegateFillArray.stringArray[6] and myResult.outVector[6]
+      Actual: Orange
+
+Pass: delegateFillArray.stringArray[7] and myResult.outVector[7]
+      Actual: Voilet
+
+Pass: delegateFillArray.stringArray[8] and myResult.outVector[8]
+      Actual: Green
+
+Pass: myResult.value[5] != 'Brown'
+      Actual: true
+
+Pass: myResult.value[5] != 'Brown'
+      Actual: true
+
+PASS [Test 4: Delegate_ProjectOutArrayByValue]
+=================================================
+
+=================================================
+Starting [Test 5: Delegate_ProjectOutArrayByRef_Array]
+Comment: *** delegateReceiveArray Delegate
+Pass: delegateReceiveArray.myArray
+      Actual: white,Red,Blue,Yellow,Pink,Black,Orange,Purple,Green,Magenta
+
+Pass: Number of array Items and Vector Items
+      Actual: 10
+
+Pass: myResult.outVector[0] and delegateReceiveArray.myArray[0]
+      Actual: white
+
+Pass: myResult.outVector[1] and delegateReceiveArray.myArray[1]
+      Actual: Red
+
+Pass: myResult.outVector[2] and delegateReceiveArray.myArray[2]
+      Actual: Blue
+
+Pass: myResult.outVector[3] and delegateReceiveArray.myArray[3]
+      Actual: Yellow
+
+Pass: myResult.outVector[4] and delegateReceiveArray.myArray[4]
+      Actual: Pink
+
+Pass: myResult.outVector[5] and delegateReceiveArray.myArray[5]
+      Actual: Black
+
+Pass: myResult.outVector[6] and delegateReceiveArray.myArray[6]
+      Actual: Orange
+
+Pass: myResult.outVector[7] and delegateReceiveArray.myArray[7]
+      Actual: Purple
+
+Pass: myResult.outVector[8] and delegateReceiveArray.myArray[8]
+      Actual: Green
+
+Pass: myResult.outVector[9] and delegateReceiveArray.myArray[9]
+      Actual: Magenta
+
+Pass: myResult.value[5] != 'Brown'
+      Actual: true
+
+Pass: myResult.value[5] != 'Brown'
+      Actual: true
+
+PASS [Test 5: Delegate_ProjectOutArrayByRef_Array]
+=================================================
+
+=================================================
+Starting [Test 6: Delegate_ProjectOutArrayByRef_ArrayProjection]
+Comment: *** delegateReceiveArray Delegate
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: delegateReceiveArray.myArray[0] and delegateReceiveArray.myArrayProjection[0]
+      Actual: white
+
+Pass: delegateReceiveArray.myArray[1] and delegateReceiveArray.myArrayProjection[1]
+      Actual: Red
+
+Pass: delegateReceiveArray.myArray[2] and delegateReceiveArray.myArrayProjection[2]
+      Actual: Blue
+
+Pass: delegateReceiveArray.myArray[3] and delegateReceiveArray.myArrayProjection[3]
+      Actual: Brown
+
+Pass: delegateReceiveArray.myArray[4] and delegateReceiveArray.myArrayProjection[4]
+      Actual: Pink
+
+Pass: delegateReceiveArray.myArray[5] and delegateReceiveArray.myArrayProjection[5]
+      Actual: Black
+
+Pass: delegateReceiveArray.myArray[6] and delegateReceiveArray.myArrayProjection[6]
+      Actual: Orange
+
+Pass: delegateReceiveArray.myArray[7] and delegateReceiveArray.myArrayProjection[7]
+      Actual: Purple
+
+Pass: delegateReceiveArray.myArray[8] and delegateReceiveArray.myArrayProjection[8]
+      Actual: Green
+
+Pass: Number of array Items and Vector Items
+      Actual: 9
+
+Pass: myResult.outVector[0] and delegateReceiveArray.myArrayProjection[0]
+      Actual: white
+
+Pass: myResult.outVector[1] and delegateReceiveArray.myArrayProjection[1]
+      Actual: Red
+
+Pass: myResult.outVector[2] and delegateReceiveArray.myArrayProjection[2]
+      Actual: Blue
+
+Pass: myResult.outVector[3] and delegateReceiveArray.myArrayProjection[3]
+      Actual: Brown
+
+Pass: myResult.outVector[4] and delegateReceiveArray.myArrayProjection[4]
+      Actual: Pink
+
+Pass: myResult.outVector[5] and delegateReceiveArray.myArrayProjection[5]
+      Actual: Black
+
+Pass: myResult.outVector[6] and delegateReceiveArray.myArrayProjection[6]
+      Actual: Orange
+
+Pass: myResult.outVector[7] and delegateReceiveArray.myArrayProjection[7]
+      Actual: Purple
+
+Pass: myResult.outVector[8] and delegateReceiveArray.myArrayProjection[8]
+      Actual: Green
+
+Pass: myResult.value[5] != 'Silver'
+      Actual: true
+
+Pass: delegateReceiveArray.myArray[5] != 'Silver'
+      Actual: true
+
+Pass: myResult.value[5] != 'Silver'
+      Actual: true
+
+PASS [Test 6: Delegate_ProjectOutArrayByRef_ArrayProjection]
+=================================================
+
+Passed: 6
+Failed: 0

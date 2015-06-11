@@ -1,0 +1,675 @@
+Events and Delegates Recycler Stress tests for SNAP
+
+=================================================
+Starting [Test 5: Delegates: OutParamInDelegate_InOutMixed]
+Comment: *** In out mixed params Delegate called
+Comment: Setting animal.Weight to 40
+Pass: animal.weight
+      Actual: 50
+
+Pass: animal.weight
+      Actual: 40
+
+Pass: name
+      Actual: length
+
+Pass: length
+      Actual: 180
+
+Pass: name
+      Actual: width
+
+Pass: width
+      Actual: 360
+
+Pass: number of members
+      Actual: 2
+
+Pass: name
+      Actual: length
+
+Pass: length
+      Actual: 180
+
+Pass: name
+      Actual: width
+
+Pass: width
+      Actual: 360
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 5: Delegates: OutParamInDelegate_InOutMixed]
+=================================================
+
+=================================================
+Starting [Test 6: Delegates: OutParamInDelegate_MultipleOutParams]
+Comment: *** Multiple out params Delegate called
+Pass: animal.weight
+      Actual: 40
+
+Pass: animal.weight
+      Actual: 60
+
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Pass: actual.newWeight
+      Actual: 60
+
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Pass: actual.newWeight
+      Actual: 60
+
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+PASS [Test 6: Delegates: OutParamInDelegate_MultipleOutParams]
+=================================================
+
+=================================================
+Starting [Test 8: Delegates: DelegateAsOutParam_JSCallback]
+Comment: *** JSCallback as out delegate param called
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Comment: *** JSCallback as out delegate param called
+Pass: name
+      Actual: common
+
+Pass: common
+      Actual: Wolverine
+
+Pass: name
+      Actual: scientific
+
+Pass: scientific
+      Actual: Gulo gulo
+
+Pass: name
+      Actual: alsoKnownAs
+
+Pass: alsoKnownAs
+      Actual: Skunk Bear
+
+Pass: number of members
+      Actual: 3
+
+Pass: myDelegateStringOut
+      Actual: Wolverine
+
+PASS [Test 8: Delegates: DelegateAsOutParam_JSCallback]
+=================================================
+
+=================================================
+Starting [Test 12: Delegates: NativeDelegateAsOutParam]
+Pass: typeof myNativeDelegate
+      Actual: function
+
+Pass: myNativeDelegate
+      Actual: 
+function DelegateWithOutParam_HSTRING() {
+    [native code]
+}
+
+
+Pass: myNativeDelegate.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myNativeDelegate.length
+      Actual: 1
+
+Pass: myNativeDelegate.myExpando
+      Actual: undefined
+
+PASS [Test 12: Delegates: NativeDelegateAsOutParam]
+=================================================
+
+=================================================
+Starting [Test 13: Delegates: InvokeNativeDelegate]
+Pass: myNativeDelegate
+      Actual: 
+function DelegateWithOutParam_HSTRING() {
+    [native code]
+}
+
+
+Pass: undefined
+      Actual: Wolverine
+
+PASS [Test 13: Delegates: InvokeNativeDelegate]
+=================================================
+
+=================================================
+Starting [Test 16: Delegates: ParameterisedDelegate]
+Comment: var myObservableVector = myAnimal.getObservableVector();
+Pass: myObservableVector.length
+      Actual: 9
+
+Pass: myObservableVector[0]
+      Actual: 1
+
+Pass: myObservableVector[1]
+      Actual: 2
+
+Pass: myObservableVector[2]
+      Actual: 3
+
+Pass: myObservableVector[3]
+      Actual: 4
+
+Pass: myObservableVector[4]
+      Actual: 5
+
+Pass: myObservableVector[5]
+      Actual: 6
+
+Pass: myObservableVector[6]
+      Actual: 7
+
+Pass: myObservableVector[7]
+      Actual: 8
+
+Pass: myObservableVector[8]
+      Actual: 9
+
+Comment: myObservableVector.addEventListener('vectorchanged', vectorChanged);
+Comment: myObservableVector.append(1800);
+Comment: *** ParameterizedDelegate invoke: vectorChanged
+Comment:     newObservableVector: 1,2,3,4,5,6,7,8,9,1800
+Comment:     vectorChangedArgs.index: 9
+Comment:     vectorChangedArgs.collectionChange: 1
+Comment: Verifying results that were received in delegate
+Pass: vectorChanged.myObservableVector.length
+      Actual: 10
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 1
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 2
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[3]
+      Actual: 4
+
+Pass: vectorChanged.myObservableVector[4]
+      Actual: 5
+
+Pass: vectorChanged.myObservableVector[5]
+      Actual: 6
+
+Pass: vectorChanged.myObservableVector[6]
+      Actual: 7
+
+Pass: vectorChanged.myObservableVector[7]
+      Actual: 8
+
+Pass: vectorChanged.myObservableVector[8]
+      Actual: 9
+
+Pass: vectorChanged.myObservableVector[9]
+      Actual: 1800
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 1
+
+Comment: myObservableVector.removeAtEnd()
+Comment: *** ParameterizedDelegate invoke: vectorChanged
+Comment:     newObservableVector: 1,2,3,4,5,6,7,8,9
+Comment:     vectorChangedArgs.index: 9
+Comment:     vectorChangedArgs.collectionChange: 2
+Comment: Verifying results that were received in delegate
+Pass: vectorChanged.myObservableVector.length
+      Actual: 9
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 1
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 2
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[3]
+      Actual: 4
+
+Pass: vectorChanged.myObservableVector[4]
+      Actual: 5
+
+Pass: vectorChanged.myObservableVector[5]
+      Actual: 6
+
+Pass: vectorChanged.myObservableVector[6]
+      Actual: 7
+
+Pass: vectorChanged.myObservableVector[7]
+      Actual: 8
+
+Pass: vectorChanged.myObservableVector[8]
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 2
+
+PASS [Test 16: Delegates: ParameterisedDelegate]
+=================================================
+
+=================================================
+Starting [Test 17: Delegates: Exception thrown from delegate]
+Comment: Call into delegate
+Comment: Throwing from delegate : DelegateWithOutHSTRINGCallback1
+eventsAndDelegates-snap.js(319, 21) JavaScript runtime error: 
+Comment: Exception caught
+Pass: e.number
+      Actual: -2147467259
+
+Pass: Check for correct path taken
+      Actual: 3
+
+Comment: Call into delegate
+Comment: Throwing from delegate : DelegateWithOutHSTRINGCallback2
+eventsAndDelegates-snap.js(339, 21) JavaScript runtime error: 1
+Comment: Exception caught
+Pass: e.number
+      Actual: -2147467259
+
+Pass: Check for correct path taken
+      Actual: 5
+
+Comment: Call into delegate
+Comment: Throwing from delegate : DelegateWithOutHSTRINGCallback3
+eventsAndDelegates-snap.js(360, 21) JavaScript runtime error: Object expected
+Comment: Exception caught
+Pass: undefined
+      Actual: TypeError: Object expected
+
+Pass: Check for correct path taken
+      Actual: 7
+
+PASS [Test 17: Delegates: Exception thrown from delegate]
+=================================================
+
+=================================================
+Starting [Test 28: Delegates: Delegate with float as in out parameter mixed with other ints]
+Comment: *** delegateInOutParamFloat: Invoke
+Pass: inValue1
+      Actual: 20
+
+Pass: inValue2
+      Actual: -40
+
+Pass: inValue3
+      Actual: 60
+
+Pass: inValue4
+      Actual: 70
+
+Pass: inValue5
+      Actual: -107374168
+
+Comment: *** delegateInOutParamFloat: Exit
+Pass: Delegate invoke count
+      Actual: 1
+
+Pass: result.outValue1
+      Actual: -107374176
+
+Pass: result.outValue2
+      Actual: 107374160
+
+PASS [Test 28: Delegates: Delegate with float as in out parameter mixed with other ints]
+=================================================
+
+=================================================
+Starting [Test 1: Cross-Apartment Delegates: Basic]
+Comment: Fabrikam.Kitchen.Toaster created successfully
+Comment: Calling toaster.preheatInBackground
+Comment: toaster.preheatInBackground done
+Pass: Callback was called
+      Actual: true
+
+PASS [Test 1: Cross-Apartment Delegates: Basic]
+=================================================
+
+=================================================
+Starting [Test 2: Cross-Apartment Delegates: Calling Delegate on wrong thread]
+Comment: Fabrikam.Kitchen.Toaster created successfully
+Comment: Calling toaster.preheatInBackgroundWithSmuggledDelegate
+Pass: Calling Delegate on wrong thread should throw exception returned (WinRTError: The application called an interface that was marshalled for a different thread.
+)
+      Actual: true
+
+Comment: toaster.preheatInBackground done
+Pass: Callback was called
+      Actual: false
+
+PASS [Test 2: Cross-Apartment Delegates: Calling Delegate on wrong thread]
+=================================================
+
+=================================================
+Starting [Test 12: Events: CombinationOfEventHandlerSet]
+Comment: Create the chef and toaster
+Comment: typeof myChef: object
+Comment: Dump of properties : 
+    var myChefMembers = [
+        ['addEventListener', 'function', 2],
+        ['capabilities', 'number'],
+        ['makeBreakfast', 'function', 1],
+        ['name', 'string'],
+        ['onmaketoastroundoff', 'object'],
+        ['onmultipletoastcompletearray', 'object'],
+        ['onmultipletoastcompletecollection', 'object'],
+        ['removeEventListener', 'function', 2],
+        ['role', 'number'],
+    ];
+Pass: typeof myChef
+      Actual: object
+
+Pass: myChef["addEventListener"]
+      Actual: addEventListener
+
+Pass: typeof myChef["addEventListener"]
+      Actual: function
+
+Pass: myChef["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myChef["addEventListener"].length
+      Actual: 2
+
+Pass: myChef["capabilities"]
+      Actual: capabilities
+
+Pass: typeof myChef["capabilities"]
+      Actual: number
+
+Pass: myChef["makeBreakfast"]
+      Actual: makeBreakfast
+
+Pass: typeof myChef["makeBreakfast"]
+      Actual: function
+
+Pass: myChef["makeBreakfast"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myChef["makeBreakfast"].length
+      Actual: 1
+
+Pass: myChef["name"]
+      Actual: name
+
+Pass: typeof myChef["name"]
+      Actual: string
+
+Pass: myChef["onmaketoastroundoff"]
+      Actual: onmaketoastroundoff
+
+Pass: typeof myChef["onmaketoastroundoff"]
+      Actual: object
+
+Pass: myChef["onmultipletoastcompletearray"]
+      Actual: onmultipletoastcompletearray
+
+Pass: typeof myChef["onmultipletoastcompletearray"]
+      Actual: object
+
+Pass: myChef["onmultipletoastcompletecollection"]
+      Actual: onmultipletoastcompletecollection
+
+Pass: typeof myChef["onmultipletoastcompletecollection"]
+      Actual: object
+
+Pass: myChef["removeEventListener"]
+      Actual: removeEventListener
+
+Pass: typeof myChef["removeEventListener"]
+      Actual: function
+
+Pass: myChef["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myChef["removeEventListener"].length
+      Actual: 2
+
+Pass: myChef["role"]
+      Actual: role
+
+Pass: typeof myChef["role"]
+      Actual: number
+
+Pass: number of members of myChef
+      Actual: 9
+
+Pass: myChef.onmultipletoastcompletecollection
+      Actual: null
+
+Comment: Add event handler for multiple toast complete - callback1
+Pass: myChef.onmultipletoastcompletecollection
+      Actual: function multipleToastCompleteCollectionCallback1(ev) {
+                logger.comment("*** multipleToastCompleteCollectionCallback1 : Invoke");
+                eventInvokeCount++;
+                eventInvokeCount1++;
+
+                // Verify that event handler is being invoked correctly
+                verify(ev.type, "multipletoastcompletecollection", "ev.type");
+
+                logger.comment("*** multipleToastCompleteCollectionCallback1 : Exit");
+            }
+
+Comment: *** multipleToastCompleteCollectionCallback1 : Invoke
+Pass: ev.type
+      Actual: multipletoastcompletecollection
+
+Comment: *** multipleToastCompleteCollectionCallback1 : Exit
+Pass: eventInvokeCount
+      Actual: 1
+
+Pass: eventInvokeCount1
+      Actual: 1
+
+Pass: eventInvokeCount2
+      Actual: 0
+
+Comment: Set event handler to callback2
+Pass: myChef.onmultipletoastcompletecollection
+      Actual: function multipleToastCompleteCollectionCallback2(ev) {
+                logger.comment("*** multipleToastCompleteCollectionCallback2 : Invoke");
+                eventInvokeCount++;
+                eventInvokeCount2++;
+
+                // Verify that event handler is being invoked correctly
+                verify(ev.type, "multipletoastcompletecollection", "ev.type");
+
+                logger.comment("*** multipleToastCompleteCollectionCallback2 : Exit");
+            }
+
+Comment: *** multipleToastCompleteCollectionCallback2 : Invoke
+Pass: ev.type
+      Actual: multipletoastcompletecollection
+
+Comment: *** multipleToastCompleteCollectionCallback2 : Exit
+Pass: eventInvokeCount
+      Actual: 2
+
+Pass: eventInvokeCount1
+      Actual: 1
+
+Pass: eventInvokeCount2
+      Actual: 1
+
+Comment: Set event handler to null
+Pass: myChef.onmultipletoastcompletecollection
+      Actual: null
+
+Pass: eventInvokeCount
+      Actual: 2
+
+Pass: eventInvokeCount1
+      Actual: 1
+
+Pass: eventInvokeCount2
+      Actual: 1
+
+Comment: Set event handler to callback 2
+Pass: myChef.onmultipletoastcompletecollection
+      Actual: function multipleToastCompleteCollectionCallback2(ev) {
+                logger.comment("*** multipleToastCompleteCollectionCallback2 : Invoke");
+                eventInvokeCount++;
+                eventInvokeCount2++;
+
+                // Verify that event handler is being invoked correctly
+                verify(ev.type, "multipletoastcompletecollection", "ev.type");
+
+                logger.comment("*** multipleToastCompleteCollectionCallback2 : Exit");
+            }
+
+Comment: *** multipleToastCompleteCollectionCallback2 : Invoke
+Pass: ev.type
+      Actual: multipletoastcompletecollection
+
+Comment: *** multipleToastCompleteCollectionCallback2 : Exit
+Pass: eventInvokeCount
+      Actual: 3
+
+Pass: eventInvokeCount1
+      Actual: 1
+
+Pass: eventInvokeCount2
+      Actual: 2
+
+PASS [Test 12: Events: CombinationOfEventHandlerSet]
+=================================================
+
+Passed: 11
+Failed: 0

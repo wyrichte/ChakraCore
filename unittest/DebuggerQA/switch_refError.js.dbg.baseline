@@ -1,0 +1,21 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "switch(m)",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "m": "3",
+      "[Globals]": ""
+    }
+  }
+]

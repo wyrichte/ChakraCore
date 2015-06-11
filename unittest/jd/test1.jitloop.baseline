@@ -1,0 +1,26 @@
+---1st bp---
+Global code (test1.js:1,1)
+bar (test1.js:5,6)
+blah (test1.js:7,9)
+blah Loop0 (test1.js:7,9)
+foo (test1.js:3,1)
+
+Printing stacktrace..
+blah (test1.js:10,21)
+bar (test1.js:20,9)
+foo (test1.js:5,6)
+Global code (test1.js:25,1)
+
+---2nd bp---
+Global code (test1.js:1,1)
+bar (test1.js:5,6)
+blah (test1.js:7,9)
+blah Loop0 (test1.js:7,9)
+blah Loop1 (test1.js:7,9)
+foo (test1.js:3,1)
+
+Printing stacktrace..
+blah (test1.js:15,21)
+bar (test1.js:20,9)
+foo (test1.js:5,6)
+Global code (test1.js:25,1)

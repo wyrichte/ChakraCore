@@ -1,0 +1,80 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "m": "102",
+      "s1": "[1,2,3]",
+      "sum": "9",
+      "i": "2",
+      "i1": "3",
+      "s2": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 601,
+      "to": 315,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 601,
+      "to": 473,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "m": "102",
+      "s1": "[1,2,3]",
+      "sum": "9",
+      "i": "2",
+      "i1": "3",
+      "s2": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "m": "202",
+      "s1": "undefined",
+      "sum": "undefined",
+      "i": "undefined",
+      "s2": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 1089,
+      "to": 1320,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 1089,
+      "to": 1404,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "m": "202",
+      "s1": "undefined",
+      "sum": "undefined",
+      "i": "undefined",
+      "s2": "undefined",
+      "[Globals]": ""
+    }
+  }
+]

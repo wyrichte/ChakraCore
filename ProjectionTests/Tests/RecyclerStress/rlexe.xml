@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<regress-exe>
+  <test>
+    <default>
+      <files>Promises.js</files>
+      <baseline>Promises.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>GUID-recyclerStress.js</files>
+      <baseline>GUID-recyclerStress.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Structs.js</files>
+      <baseline>Structs-win8.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Strings.js</files>
+      <baseline>Strings.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Events-recyclerStress.js</files>
+      <baseline>Events-recyclerStress.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>,exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>CrossApartmentDelegates.js</files>
+      <baseline>CrossApartmentDelegates.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>parametertest-recyclerStress.js</files>
+      <baseline>parametertest-recyclerStress.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Interfaces-recyclerStress.js</files>
+      <baseline>Interfaces-recyclerStress.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Delegates.js</files>
+      <baseline>Delegates.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>PropertyTests.js</files>
+      <baseline>PropertyTests.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>CrossWinmd.js</files>
+      <baseline>CrossWinmd.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Collections-recyclerStress.js</files>
+      <baseline>Collections-recyclerStress.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>StringArrayAsIterable-recyclerStress.js</files>
+      <baseline>StringArrayAsIterable-recyclerStress.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>StringArrayAsVector-recyclerStress.js</files>
+      <baseline>StringArrayAsVector-recyclerStress.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Statics.js</files>
+      <baseline>Statics.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Array-recyclerStress.js</files>
+      <baseline>Array-recyclerStress.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ArrayString-recyclerStress.js</files>
+      <baseline>ArrayString-recyclerStress.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>MemoryLeaks.js</files>
+      <baseline>MemoryLeaks.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Inspectable-recyclerStress.js</files>
+      <baseline>Inspectable-recyclerStress.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>IReference-recyclerStress.js</files>
+      <baseline>IReference-recyclerStress.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>PropertySet.js</files>
+      <baseline>PropertySet.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>eventsAndDelegates-snap.js</files>
+      <baseline>eventsAndDelegates-snap.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre,exclude_notsnap</tags>
+    </default>
+  </test>
+
+    <test>
+        <default>
+            <files>Events-recyclerStress.NoWeakDelegate.js</files>
+            <baseline>Events-recyclerStress.NoWeakDelegate.baseline</baseline>
+            <compile-flags>-recyclerStress</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+  <test>
+    <default>
+      <files>msGetSetWeakWinRTProperty.js</files>
+      <baseline>msGetSetWeakWinRTProperty.baseline</baseline>
+      <compile-flags>-recyclerStress</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+</regress-exe>

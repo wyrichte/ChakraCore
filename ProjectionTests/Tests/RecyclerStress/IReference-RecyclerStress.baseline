@@ -1,0 +1,221 @@
+RecyclerStress - IReference.js
+
+=================================================
+Starting [Test 1: Reference_In: Boolean]
+Pass: testBoolean_ReferenceIn(true).isNull
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(true).isValidType
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(true).outValue
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(new Boolean(1)).isNull
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(new Boolean(1)).isValidType
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(new Boolean(1)).outValue
+      Actual: true
+
+PASS [Test 1: Reference_In: Boolean]
+=================================================
+
+=================================================
+Starting [Test 2: Reference_In: Char16]
+Pass: testChar16_ReferenceIn("a").isNull
+      Actual: false
+
+Pass: testChar16_ReferenceIn("a").isValidType
+      Actual: true
+
+Pass: testChar16_ReferenceIn("a").outValue
+      Actual: a
+
+PASS [Test 2: Reference_In: Char16]
+=================================================
+
+=================================================
+Starting [Test 3: Reference_In: Int64]
+Pass: testCharInt64_ReferenceIn(-4000).isNull
+      Actual: false
+
+Pass: testInt64_ReferenceIn(-4000).isValidType
+      Actual: true
+
+Pass: testInt64_ReferenceIn(-4000).outValue
+      Actual: -4000
+
+Pass: testCharInt64_ReferenceIn(0).isNull
+      Actual: false
+
+Pass: testInt64_ReferenceIn(0).isValidType
+      Actual: true
+
+Pass: testInt64_ReferenceIn(0).outValue
+      Actual: 0
+
+PASS [Test 3: Reference_In: Int64]
+=================================================
+
+=================================================
+Starting [Test 4: Reference_In: Guid]
+Pass: testCharGuid_ReferenceIn("{40435D4E-D37B-42E6-8A3E-9E17D020609E}").isNull
+      Actual: false
+
+Pass: testGuid_ReferenceIn("{40435D4E-D37B-42E6-8A3E-9E17D020609E}").isValidType
+      Actual: true
+
+Pass: testGuid_ReferenceIn("{40435D4E-D37B-42E6-8A3E-9E17D020609E}").outValue
+      Actual: 40435d4e-d37b-42e6-8a3e-9e17d020609e
+
+PASS [Test 4: Reference_In: Guid]
+=================================================
+
+=================================================
+Starting [Test 5: Reference_In: User defined struct]
+Pass: testDimensions_ReferenceIn(myDimensions).isNull
+      Actual: false
+
+Pass: testDimensions_ReferenceIn(myDimensions).isValidType
+      Actual: true
+
+Pass: testDimensions_ReferenceIn(myDimensions).outValue.length
+      Actual: 10
+
+Pass: testDimensions_ReferenceIn(myDimensions).outValue.width
+      Actual: 40
+
+PASS [Test 5: Reference_In: User defined struct]
+=================================================
+
+=================================================
+Starting [Test 6: Reference_In: TimeSpan]
+Pass: testTimeSpan_ReferenceIn(myTimeSpan).isNull
+      Actual: false
+
+Pass: testTimeSpan_ReferenceIn(myTimeSpan).isValidType
+      Actual: true
+
+Pass: testTimeSpan_ReferenceIn(myTimeSpan).outValue
+      Actual: 40
+
+PASS [Test 6: Reference_In: TimeSpan]
+=================================================
+
+=================================================
+Starting [Test 7: Reference_In: Point]
+Pass: testPoint_ReferenceIn(myPoint).isNull
+      Actual: false
+
+Pass: testPoint_ReferenceIn(myPoint).isValidType
+      Actual: true
+
+Pass: testPoint_ReferenceIn(myPoint).outValue.x
+      Actual: 40
+
+Pass: testPoint_ReferenceIn(myPoint).outValue.y
+      Actual: 70
+
+PASS [Test 7: Reference_In: Point]
+=================================================
+
+=================================================
+Starting [Test 8: Reference_In: Enum]
+Pass: testEnum_ReferenceIn(Animals.Phylum.cycliophora).isNull
+      Actual: false
+
+Pass: testEnum_ReferenceIn(Animals.Phylum.cycliophora).isValidType
+      Actual: true
+
+Pass: testEnum_ReferenceIn(Animals.Phylum.cycliophora).outValue
+      Actual: 10
+
+PASS [Test 8: Reference_In: Enum]
+=================================================
+
+=================================================
+Starting [Test 9: Reference_Out: Boolean]
+Pass: testBoolean_ReferenceOut(true)
+      Actual: true
+
+Pass: testBoolean_ReferenceOut(false)
+      Actual: false
+
+PASS [Test 9: Reference_Out: Boolean]
+=================================================
+
+=================================================
+Starting [Test 10: Reference_Out: Char16]
+Pass: testChar16_ReferenceOut("S")
+      Actual: S
+
+PASS [Test 10: Reference_Out: Char16]
+=================================================
+
+=================================================
+Starting [Test 11: Reference_Out: UInt8]
+Pass: testUInt8_ReferenceOut(2)
+      Actual: 2
+
+PASS [Test 11: Reference_Out: UInt8]
+=================================================
+
+=================================================
+Starting [Test 12: Reference_Out: Double]
+Pass: testDouble_ReferenceOut(2)
+      Actual: 2
+
+PASS [Test 12: Reference_Out: Double]
+=================================================
+
+=================================================
+Starting [Test 13: Reference_Out: Guid]
+Pass: testGuid_ReferenceOut("{10C27311-B58F-476C-BFF4-6689B8A19836}")
+      Actual: 10c27311-b58f-476c-bff4-6689b8a19836
+
+PASS [Test 13: Reference_Out: Guid]
+=================================================
+
+=================================================
+Starting [Test 14: Reference_Out: User defined struct]
+Pass: testDimensions_ReferenceOut(myDimensions).length
+      Actual: 10
+
+Pass: testDimensions_ReferenceOut(myDimensions).width
+      Actual: 40
+
+PASS [Test 14: Reference_Out: User defined struct]
+=================================================
+
+=================================================
+Starting [Test 15: Reference_Out: TimeSpan]
+Pass: testTimeSpan_ReferenceOut(myTimeSpan)
+      Actual: 86400000
+
+PASS [Test 15: Reference_Out: TimeSpan]
+=================================================
+
+=================================================
+Starting [Test 16: Reference_Out: Point]
+Pass: testPoint_ReferenceOut(myPoint).x
+      Actual: 40
+
+Pass: testPoint_ReferenceOut(myPoint).y
+      Actual: 70
+
+PASS [Test 16: Reference_Out: Point]
+=================================================
+
+=================================================
+Starting [Test 17: Reference_Out: Enum]
+Pass: testEnum_ReferenceOut(Animals.Phylum.cycliophora)
+      Actual: 10
+
+PASS [Test 17: Reference_Out: Enum]
+=================================================
+
+Passed: 17
+Failed: 0

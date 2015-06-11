@@ -1,0 +1,30 @@
+USE_NOTHROW_NEW=1 
+TEST_CODE=1
+ASSEMBLY_IDENTITY_PUBLIC_KEY_NAME=none
+URT_VER=4.5
+TARGETNAME=UnitTest.JsRT.Managed.API
+TARGETTYPE=DYNLINK
+TARGET_DESTINATION=jscript\jsrt\unittest
+
+USER_CS_FLAGS = $(USER_CS_FLAGS) /d:$(_BUILDARCH)
+
+SOURCES = \
+    ApiTest.cs
+
+REFERENCES = \
+    $(OBJECT_JSCRIPT_DIR)\dll\Microsoft.JavaScript\$(O)\Microsoft.JavaScript.metadata_dll;              \
+    $(CLR_REF_PATH)\System.metadata_dll;                                                                \
+    $(CLR_REF_PATH)\System.Core.metadata_dll;                                                           \
+    $(CLR_REF_PATH)\Microsoft.CSharp.metadata_dll;                                                      \
+    $(SDKTOOLS_REF_PATH)\vs2010\microsoft.visualstudio.qualitytools.unittestframework.metadata_dll;     \
+    $(SDKTOOLS_REF_PATH)\wextest\cue\wex.common.managed.metadata_dll;                                   \
+    $(SDKTOOLS_REF_PATH)\wextest\cue\wex.logger.interop.metadata_dll;                                   \
+    $(SDKTOOLS_REF_PATH)\wextest\cue\te.managed.metadata_dll;                                           \
+
+BINPLACE_USE_FULLCLASS=1
+BINPLACE_NO_SYMCHK=1
+PASS2_BINPLACE= \
+    $(_NTTREE)\chakra.dll \
+    $(_NTTREE)\symbols.pri\retail\dll\chakra.pdb \
+    $(_NTTREE)\jscript\chakratest.dll \
+    $(_NTTREE)\symbols.pri\jscript\dll\chakratest.pdb

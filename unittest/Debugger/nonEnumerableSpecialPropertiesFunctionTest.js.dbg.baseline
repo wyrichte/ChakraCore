@@ -1,0 +1,176 @@
+[
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": {
+          "caller": "<large string>",
+          "caller - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_IS_METHOD",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2320
+          }
+        },
+        "[Methods] - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_IS_FAKE",
+            "DBGPROP_ATTRIB_VALUE_IS_METHOD",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2352
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_IS_FAKE",
+              "DBGPROP_ATTRIB_VALUE_IS_METHOD",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2352
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "arguments": "null",
+          "arguments - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "caller": "null",
+          "caller - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "name": "",
+          "name - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 3072
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_IS_METHOD"
+          ],
+          "flagsAsValue": 272
+        },
+        "arguments": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_IS_FAKE",
+              "DBGPROP_ATTRIB_VALUE_IS_METHOD",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2352
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "length": "3",
+          "length - [Attributes]": {
+            "flags": [],
+            "flagsAsValue": 0
+          },
+          "[0]": "1",
+          "[0] - [Attributes]": {
+            "flags": [],
+            "flagsAsValue": 0
+          },
+          "[1]": "2",
+          "[1] - [Attributes]": {
+            "flags": [],
+            "flagsAsValue": 0
+          },
+          "[2]": "3",
+          "[2] - [Attributes]": {
+            "flags": [],
+            "flagsAsValue": 0
+          }
+        },
+        "arguments - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2064
+        },
+        "length": "3",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "name": "inner",
+        "name - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "prototype": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_IS_FAKE",
+              "DBGPROP_ATTRIB_VALUE_IS_METHOD",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2352
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          }
+        },
+        "prototype - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        }
+      },
+      "f - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+          "DBGPROP_ATTRIB_VALUE_IS_METHOD"
+        ],
+        "flagsAsValue": 272
+      }
+    }
+  }
+]

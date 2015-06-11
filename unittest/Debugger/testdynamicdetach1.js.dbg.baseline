@@ -1,0 +1,211 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 22,
+        "length": 31,
+        "text": "WScript.Echo(\"In function foo\")",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a1": "undefined",
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 22,
+        "length": 31,
+        "text": "WScript.Echo(\"In function foo\")",
+        "frameDescription": "foo"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "language_initiated",
+      "location": {
+        "start": 57,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a1": "undefined",
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 57,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 117,
+        "length": 38,
+        "text": "eval('var inEval = 10;\\n inEval++;\\n')",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a1": {
+        "__proto__": "[]",
+        "length": "10",
+        "[0]": "{...}"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 117,
+        "length": 38,
+        "text": "eval('var inEval = 10;\\n inEval++;\\n')",
+        "frameDescription": "foo"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 0,
+        "length": 15,
+        "text": "var inEval = 10",
+        "frameDescription": "eval code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Scope]1": {
+        "arguments": "{...}",
+        "a1": "[...]",
+        "inEval": "undefined"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 15,
+        "text": "var inEval = 10",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 117,
+        "length": 38,
+        "text": "eval('var inEval = 10;\\n inEval++;\\n')",
+        "frameDescription": "foo"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "language_initiated",
+      "location": {
+        "start": 159,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a1": {
+        "__proto__": "[]",
+        "length": "10",
+        "[0]": "{...}"
+      },
+      "inEval": "11",
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 159,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      }
+    ]
+  }
+]

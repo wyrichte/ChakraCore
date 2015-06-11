@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Basic __proto__ test</title>
+</head>
+<body>
+    <p>Test iframe</p>
+    <iframe id="sframe" src="proto_empty.html"></iframe>
+
+    <form id="form1" method="post">
+        <input id="button1" type="button" onclick="this.form1_injected_copy = form1_injected"/>
+    </form>
+    
+    <script type="text/javascript" src="..\UnitTestFramework/UnitTestFramework.js"></script>
+    <script type="text/javascript" src="protolib.js"></script>
+    <script type="text/javascript" src="proto_basic.js"></script>
+</body>
+</html>

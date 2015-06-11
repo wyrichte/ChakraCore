@@ -1,0 +1,39 @@
+[
+  {
+    "setnextstatement": {
+      "from": 110,
+      "to": 39,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "evaluate": {
+      "x": "1 2 3 2 3 4"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 312,
+      "to": 435,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "10",
+      "c": "NaN",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "10",
+      "c": "NaN",
+      "[Globals]": ""
+    }
+  }
+]

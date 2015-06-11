@@ -1,0 +1,75 @@
+{
+  "testname" : "a test to validate the callstack and debugger statement",
+  "owner" : "AkroshG",
+  "validated" : false,
+  "timeout" : 10000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "commands" :
+  [
+{
+  "action": "open",
+  "args": [
+    "scripts\\callstacks.js"
+  ],
+  "events": [
+    {
+      "scriptOpen": "scripts\\callstacks.js"
+    }
+  ]
+},
+{
+  "action": "launch",
+  "args": [],
+  "events": [
+    {
+      "breakpoint": "language initiated"
+    }
+  ]
+},
+{
+  "action": "callstack",
+  "args": [],
+  "events": [
+    {
+      "callstack": [
+        {
+          "start": 22,
+          "length": 8,
+          "text": "debugger",
+          "frameDescription": "zee"
+        },
+        {
+          "start": 58,
+          "length": 5,
+          "text": "zee()",
+          "frameDescription": "bar"
+        },
+        {
+          "start": 91,
+          "length": 5,
+          "text": "bar()",
+          "frameDescription": "foo"
+        },
+        {
+          "start": 104,
+          "length": 5,
+          "text": "foo()",
+          "frameDescription": "Global code"
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [],
+  "events": []
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

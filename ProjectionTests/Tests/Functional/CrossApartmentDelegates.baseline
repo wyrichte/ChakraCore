@@ -1,0 +1,30 @@
+Cross apartment delegate test
+
+=================================================
+Starting [Test 1: Basic]
+Comment: Fabrikam.Kitchen.Toaster created successfully
+Comment: Calling toaster.preheatInBackground
+Comment: toaster.preheatInBackground done
+Pass: Callback was called
+      Actual: true
+
+PASS [Test 1: Basic]
+=================================================
+
+=================================================
+Starting [Test 2: Calling Delegate on wrong thread]
+Comment: Fabrikam.Kitchen.Toaster created successfully
+Comment: Calling toaster.preheatInBackgroundWithSmuggledDelegate
+Pass: Calling Delegate on wrong thread should throw exception returned (WinRTError: The application called an interface that was marshalled for a different thread.
+)
+      Actual: true
+
+Comment: toaster.preheatInBackground done
+Pass: Callback was called
+      Actual: false
+
+PASS [Test 2: Calling Delegate on wrong thread]
+=================================================
+
+Passed: 2
+Failed: 0

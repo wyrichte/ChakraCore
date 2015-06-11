@@ -1,0 +1,104 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 39,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 113,
+        "length": 25,
+        "text": "Debug.invokeFunction(foo)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 149,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 39,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 113,
+        "length": 25,
+        "text": "Debug.invokeFunction(foo)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 39,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 113,
+        "length": 25,
+        "text": "Debug.invokeFunction(foo)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 149,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 39,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 113,
+        "length": 25,
+        "text": "Debug.invokeFunction(foo)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 39,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 113,
+        "length": 25,
+        "text": "Debug.invokeFunction(foo)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 39,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 113,
+        "length": 25,
+        "text": "Debug.invokeFunction(foo)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 149,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

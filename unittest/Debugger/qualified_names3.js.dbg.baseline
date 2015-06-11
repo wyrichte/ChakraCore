@@ -1,0 +1,18 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 352,
+        "length": 12,
+        "text": "abc.def = 10",
+        "frameDescription": "obj.foo"
+      },
+      {
+        "start": 676,
+        "length": 9,
+        "text": "obj.foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  }
+]

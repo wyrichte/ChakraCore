@@ -1,0 +1,28 @@
+=== Before change ===
+function foo() {
+    /**edit(test)**/
+    /// var foo = 1;
+    /**endedit(test)**/
+    return function f() { return foo; }
+}
+ENC: QueryEdit: 1 requests
+ENC: editactivationobject3.js (301,63):
+/**edit(test)**/
+    /// var foo = 1;
+    /**endedit(test)**/...
+===>
+ var foo = 1;
+...
+ENC: === AST Diffing ===
+ENC: Update: FuncDecl function foo() {..    /**edit(t -> FuncDecl function foo() {..     var foo 
+ENC: === Semantic Changes ===
+ENC: UpdateFunction: FuncDecl function foo() {..    /**edit(t -> FuncDecl function foo() {..     var foo 
+ENC:     Old functionBody: foo
+ENC: MoveFunction: FuncDecl function test() {..    WScript. -> FuncDecl function test() {..    WScript.
+ENC:     Old functionBody: test
+=== After change ===
+function foo() {
+     var foo = 1;
+
+    return function f() { return foo; }
+}

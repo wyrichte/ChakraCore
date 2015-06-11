@@ -1,0 +1,46 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 5,
+        "text": "e = 1",
+        "frameDescription": "bar3"
+      },
+      {
+        "start": 370,
+        "length": 20,
+        "text": "i < 1 && bar3.call()",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 426,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 5,
+        "text": "e = 1",
+        "frameDescription": "bar3"
+      },
+      {
+        "start": 370,
+        "length": 20,
+        "text": "i < 1 && bar3.call()",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 437,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

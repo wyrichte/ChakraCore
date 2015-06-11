@@ -1,0 +1,11 @@
+ActiveScriptError_OriginateWithCapability.js(11, 5) JavaScript runtime error: Access is denied.
+
+Originate: E_ACCESSDENIED
+Restricted Error String: Originate: E_ACCESSDENIED
+Null Restricted Error Reference
+Capability SID: S-1-15-3-1
+EXCEPINFO scode: 0x80070005
+Error Type: WinRT error
+Stack info:
+frame 0: Anonymous function(), line: 10, characterPosition: 4
+frame 1: Global code, line: 2, characterPosition: 1

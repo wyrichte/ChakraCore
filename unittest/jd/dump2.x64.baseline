@@ -1,0 +1,13 @@
+Amd64EHFrame (JS Internal:1,1)
+foo (dump2.js:5,9)
+Amd64EHFrame (JS Internal:1,1)
+Amd64EHFrame (JS Internal:1,1)
+test (dump2.js:14,9)
+Global code (dump2.js:25,1)
+
+Amd64EHFrame (JS Internal:1,1)
+foo (dump2.js:5,9)
+Amd64EHFrame (JS Internal:1,1)
+Amd64EHFrame (JS Internal:1,1)
+test (dump2.js:16,9)
+Global code (dump2.js:25,1)

@@ -1,0 +1,122 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 247,
+        "length": 15,
+        "text": "cause.exception",
+        "frameDescription": "foo1"
+      },
+      {
+        "start": 1708,
+        "length": 6,
+        "text": "foo1()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 504,
+        "length": 15,
+        "text": "cause.exception",
+        "frameDescription": "foo2"
+      },
+      {
+        "start": 1717,
+        "length": 6,
+        "text": "foo2()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 788,
+        "length": 22,
+        "text": "throw \"some exception\"",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 917,
+        "length": 10,
+        "text": "foo (true)",
+        "frameDescription": "foo3"
+      },
+      {
+        "start": 1726,
+        "length": 6,
+        "text": "foo3()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1075,
+        "length": 30,
+        "text": "new Object).unexistingMethod()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 1129,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "foo4"
+      },
+      {
+        "start": 1735,
+        "length": 6,
+        "text": "foo4()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1345,
+        "length": 31,
+        "text": "new UnexistingObject).getTime()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 1400,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "foo5"
+      },
+      {
+        "start": 1744,
+        "length": 6,
+        "text": "foo5()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1579,
+        "length": 22,
+        "text": "throw new Error(\"boo\")",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 1660,
+        "length": 10,
+        "text": "foo.call()",
+        "frameDescription": "foo6"
+      },
+      {
+        "start": 1753,
+        "length": 6,
+        "text": "foo6()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

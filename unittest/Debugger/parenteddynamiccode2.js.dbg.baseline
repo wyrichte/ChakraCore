@@ -1,0 +1,58 @@
+[
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "parenteddynamiccode2.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "var x0 = 1;"
+            },
+            {
+              "Name": "eval code (2)",
+              "Text": "var x1 = 2;"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "parenteddynamiccode2.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "var x0 = 1;"
+            },
+            {
+              "Name": "eval code (2)",
+              "Text": "var x1 = 2;"
+            },
+            {
+              "Name": "eval code (3)",
+              "Text": "var x2 = 3;"
+            },
+            {
+              "Name": "eval code (4)",
+              "Text": "var y = 1;"
+            },
+            {
+              "Name": "Function code (1)",
+              "Text": "function anonymous() {\n\n}"
+            },
+            {
+              "Name": "eval code (5)",
+              "Text": "var x3 = 4;"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

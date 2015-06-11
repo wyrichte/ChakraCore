@@ -1,0 +1,46 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "g0": "10"
+      },
+      "g0": "10"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "g0": "10"
+      },
+      "[Scope]1": {
+        "arguments": "{...}",
+        "x0": "1"
+      },
+      "[Scope]2": {
+        "foo": "<large string>"
+      },
+      "[Globals]": {
+        "g0": "10"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "undefined",
+      "x0": "2",
+      "[Scope]1": {
+        "arguments": "{...}"
+      },
+      "[Scope]2": {
+        "foo": "<large string>"
+      },
+      "[Globals]": {
+        "g0": "10"
+      }
+    }
+  }
+]

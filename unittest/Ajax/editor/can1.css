@@ -1,0 +1,154 @@
+.compsel {
+    position:absolute;
+    z-index:1;
+    font-family: consolas;
+    font-size: 16;
+    border-style: solid;
+    border-bottom-color: #333333;
+    border-right-color: #555555;
+    border-left-color: #BBBBBB;
+    border-top-color: #DDDDDD;
+    background-color:#FFFFFF;
+    padding:1;
+}
+
+.compopt {
+    padding:1;
+ }
+
+.compopthlt {
+    background-color:#ADD8E6;
+    padding:1;
+ }
+
+
+.isearch {
+    position:absolute;
+    z-index:1;
+    font-family: consolas;
+    font-size: 24;
+    border-style: solid;
+    border-bottom-color: #333333;
+    border-right-color: #555555;
+    border-left-color: #BBBBBB;
+    border-top-color: #DDDDDD;
+    background-color:#FFFFFF;
+}
+
+.isearcherr {
+    position:absolute;
+    color:#CD5C5C;
+    z-index:1;
+    font-family: consolas;
+    font-style:bold;
+    font-size: 24;
+    border-style: solid;
+    border-bottom-color: #333333;
+    border-right-color: #555555;
+    border-left-color: #BBBBBB;
+    border-top-color: #DDDDDD;
+    background-color:#FFFFFF;
+}
+
+.temphlt {
+    position:absolute;
+    z-index:-1;
+    color:#FF69B4;
+    background-color:#FF69B4;
+}
+
+.highlight {
+    position:absolute;
+    z-index:-1;
+    color:#FFD700;
+    background-color:transparent;
+    display:none;
+}
+.ctextarea {
+    position:absolute;
+}
+
+.cstatus {
+    position:absolute;
+    background-color:#FFFACD;
+    font-family: monospace;
+    font-size: 16;
+}
+
+.keyword {
+    color: #0000FF;
+}
+
+.stringlit {
+    color:#A52A2A;
+}
+
+.comment {
+    color:#008000;
+}
+
+.horseStyle {
+    color:#008000;
+}
+
+.catStyle {
+    color:#FFD700;
+}
+
+.varStyle {
+    color:#D2691E;
+}
+
+.literal {
+    color: #BB33AA;
+}
+
+.code1 {
+    font-family: monospace;
+    font-size: 16;
+    white-space:pre;
+}
+
+.plain {
+    white-space:pre;
+    color:#000000;
+}
+
+.cursorOn {
+    background-color: #555555;
+    color:#FFFFFF;
+}
+
+.cursorOff {
+    background-color: transparent;
+}
+
+.bowRed {
+   color:#FF0000;
+}
+
+.bowOrange {
+   color:#FFA500;
+}
+
+.bowYellow {
+   color:#FFFF00;
+}
+
+.bowGreen {
+   color:#2E8B57;
+}
+
+.bowBlue {
+   color:#0000FF;
+}
+
+.bowViolet {
+   color:#EE82EE;
+}
+
+.bowIndigo {
+   color:#4B0082;
+}
+
+

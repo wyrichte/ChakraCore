@@ -1,0 +1,43 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {
+        "a": "level2level3"
+      },
+      "[Scope]2": {
+        "e": "level1"
+      },
+      "[Globals]": {
+        "c": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "c": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f",
+        "prototype": "{...}"
+      },
+      "b": "level2",
+      "a": "level2level3",
+      "e": "level1"
+    }
+  }
+]

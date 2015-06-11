@@ -1,0 +1,327 @@
+{
+  "testname" : "JS Completions - Test completions",
+  "owner" : "chuckj",
+  "validated" : true,
+  "timeout" : 1000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "_comment1" : "Put an underscore \"_\" prefix to comment out a header field.",
+  "_comment2" : "No field in the schema uses the underscore prefix",
+  "runAuthoringTest" : true,
+  "commands" :
+  [
+{
+  "action": "getCompletions",
+  "args": [
+    "bug72357.js"
+  ],
+  "events": [
+    {
+      "completions": [
+        {
+          "extent": {
+            "offset": 58,
+            "length": 0
+          },
+          "kind": "member",
+          "completions": [
+            {
+              "kind": "field",
+              "group": "file identifiers",
+              "name": "s",
+              "displayText": "s",
+              "insertionText": "s"
+            },
+            {
+              "kind": "method",
+              "group": "file identifiers",
+              "name": "alert",
+              "displayText": "alert",
+              "insertionText": "alert"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "constructor",
+              "displayText": "constructor",
+              "insertionText": "constructor"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "indexOf",
+              "displayText": "indexOf",
+              "insertionText": "indexOf"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "lastIndexOf",
+              "displayText": "lastIndexOf",
+              "insertionText": "lastIndexOf"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "replace",
+              "displayText": "replace",
+              "insertionText": "replace"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "search",
+              "displayText": "search",
+              "insertionText": "search"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "slice",
+              "displayText": "slice",
+              "insertionText": "slice"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "charAt",
+              "displayText": "charAt",
+              "insertionText": "charAt"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "charCodeAt",
+              "displayText": "charCodeAt",
+              "insertionText": "charCodeAt"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "concat",
+              "displayText": "concat",
+              "insertionText": "concat"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "localeCompare",
+              "displayText": "localeCompare",
+              "insertionText": "localeCompare"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "match",
+              "displayText": "match",
+              "insertionText": "match"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "split",
+              "displayText": "split",
+              "insertionText": "split"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "substring",
+              "displayText": "substring",
+              "insertionText": "substring"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "substr",
+              "displayText": "substr",
+              "insertionText": "substr"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "toLocaleLowerCase",
+              "displayText": "toLocaleLowerCase",
+              "insertionText": "toLocaleLowerCase"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "toLocaleUpperCase",
+              "displayText": "toLocaleUpperCase",
+              "insertionText": "toLocaleUpperCase"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "toLowerCase",
+              "displayText": "toLowerCase",
+              "insertionText": "toLowerCase"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "toString",
+              "displayText": "toString",
+              "insertionText": "toString"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "toUpperCase",
+              "displayText": "toUpperCase",
+              "insertionText": "toUpperCase"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "trim",
+              "displayText": "trim",
+              "insertionText": "trim"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "valueOf",
+              "displayText": "valueOf",
+              "insertionText": "valueOf"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "anchor",
+              "displayText": "anchor",
+              "insertionText": "anchor"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "big",
+              "displayText": "big",
+              "insertionText": "big"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "blink",
+              "displayText": "blink",
+              "insertionText": "blink"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "bold",
+              "displayText": "bold",
+              "insertionText": "bold"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "fixed",
+              "displayText": "fixed",
+              "insertionText": "fixed"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "fontcolor",
+              "displayText": "fontcolor",
+              "insertionText": "fontcolor"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "fontsize",
+              "displayText": "fontsize",
+              "insertionText": "fontsize"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "italics",
+              "displayText": "italics",
+              "insertionText": "italics"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "link",
+              "displayText": "link",
+              "insertionText": "link"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "small",
+              "displayText": "small",
+              "insertionText": "small"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "strike",
+              "displayText": "strike",
+              "insertionText": "strike"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "sub",
+              "displayText": "sub",
+              "insertionText": "sub"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "sup",
+              "displayText": "sup",
+              "insertionText": "sup"
+            },
+            {
+              "kind": "field",
+              "group": "members",
+              "name": "length",
+              "displayText": "length",
+              "insertionText": "length"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "hasOwnProperty",
+              "displayText": "hasOwnProperty",
+              "insertionText": "hasOwnProperty"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "propertyIsEnumerable",
+              "displayText": "propertyIsEnumerable",
+              "insertionText": "propertyIsEnumerable"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "isPrototypeOf",
+              "displayText": "isPrototypeOf",
+              "insertionText": "isPrototypeOf"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "toLocaleString",
+              "displayText": "toLocaleString",
+              "insertionText": "toLocaleString"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

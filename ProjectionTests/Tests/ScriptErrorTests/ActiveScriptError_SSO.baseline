@@ -1,0 +1,21 @@
+ActiveScriptError_SSO.js(769, 9) JavaScript runtime error: Out of stack space
+Restricted Error String: (null)
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x800A001C
+Error Type: Generic error
+Stack info:
+frame 0: Recurring functions on call stack truncated due to stack overflow, line: 0, characterPosition: 0
+frame 1: eval(string), line: 768, characterPosition: 8
+frame 2: eval(string), line: 768, characterPosition: 8
+frame 3: eval(string), line: 768, characterPosition: 8
+frame 4: eval(string), line: 768, characterPosition: 8
+frame 5: eval(string), line: 768, characterPosition: 8
+frame 6: eval(string), line: 768, characterPosition: 8
+frame 7: eval(string), line: 768, characterPosition: 8
+frame 8: eval(string), line: 768, characterPosition: 8
+frame 9: eval(string), line: 768, characterPosition: 8
+frame 10: eval(string), line: 768, characterPosition: 8
+frame 11: Anonymous function(), line: 760, characterPosition: 4
+frame 12: eval code, line: 754, characterPosition: 1
+frame 13: Global code, line: 1, characterPosition: 0

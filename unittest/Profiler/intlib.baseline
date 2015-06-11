@@ -1,0 +1,13 @@
+Script Profiler starts
+Dumping sorted function compiled events
+[FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
+[FunctionCompiled]: Function: bar, Line: 2, Column: 5, Character Position: 18
+[FunctionCompiled]: Function: foo, Line: 1, Column: 1, Character Position: 0
+[FunctionCompiled]: Function: toString, Line: 5, Column: 21, Character Position: 73
+  foo
+    Collator
+    Array.sort
+      toString
+        bar
+Passed: Validation
+Script Profiler ends

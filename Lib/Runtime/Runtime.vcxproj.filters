@@ -1,0 +1,1755 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="StdAfx.cpp" />
+    <ClCompile Include="Types\JavascriptEnumerator.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\JavascriptExceptionObject.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\JavascriptConversion.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\JavascriptMathOperators.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\JavascriptOperators.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\JavascriptStackWalker.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptVariantDateType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptArray.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptArrayEnumerator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptArrayEnumeratorBase.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptArraySnapshotEnumerator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptArrayType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptBoolean.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptBooleanObject.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptBooleanObjectType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptBooleanType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptDate.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptDateType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptError.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptExternalFunction.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptFunction.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptFunctionType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptLibrary.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptNumber.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptNumberObject.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptNumberObjectType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptObject.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptPixelArray.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptPixelArrayEnumerator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptPixelArrayType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptRegExpConstructor.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptRegExpConstructorType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptRegularExpression.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptRegularExpressionResult.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptRegularExpressionType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptString.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptStringEnumerator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptStringType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\javascripttypednumber.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptVariantDate.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteCode\ByteCodeDumper.cpp">
+      <Filter>ByteCode</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteCode\ByteCodeGenerator.cpp">
+      <Filter>ByteCode</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteCode\ByteCodeReader.cpp">
+      <Filter>ByteCode</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteCode\ByteCodeWriter.cpp">
+      <Filter>ByteCode</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteCode\ByteBlock.cpp">
+      <Filter>ByteCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ES5Array.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ES5ArrayEnumerator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ES5ArrayTypeHandler.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\DynamicObject.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\DynamicObjectEnumerator.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\DynamicObjectSnapshotEnumerator.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\DynamicType.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\ActivationObjectType.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\StaticType.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\Type.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ArgumentsObject.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ArgumentsObjectType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ArgumentsObjectEnumerator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\BoundFunction.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\BoundFunctionType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\BufferStringBuilder.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ConcatString.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\CrossSite.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\DeferredTypeHandler.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\DictionaryTypeHandler.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\diagobjectmodel.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\DiagProbe.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\DateImplementation.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\FunctionBody.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\FunctionInfo.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ForInObjectEnumerator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\GlobalObject.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\GlobalObjectType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\InterpreterStackFrame.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JSON.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JSONStack.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\LiteralString.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\LiteralStringObject.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\LiteralStringObjectType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Math.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\moduleroot.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ModuleRootType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\NullTypeHandler.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteCode\Opcodes.cpp">
+      <Filter>ByteCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ObjectPrototypeObject.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ProfileString.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\PropertyString.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\PathTypeHandler.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\PropertyDescriptor.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\RecyclableObject.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\RegexHelper.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\SimpleDictionaryTypeHandler.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\SimpleTypeHandler.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\ScriptContext.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\ScriptContextProfiler.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\SourceMutator.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\SingleCharString.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\SparseArraySegment.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\SubString.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\TypePath.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\TypeHandler.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\TempArenaAllocatorObject.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\UriHelper.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\JavascriptExceptionOperators.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\typedArrayEnumerator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\TypedArray.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\CallInfo.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\TaggedInt.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptErrorDebug.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\i386\stackframe.cpp">
+      <Filter>Language\i386</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\amd64\stackframe.cpp">
+      <Filter>Language\amd64</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\arm\stackframe.cpp">
+      <Filter>Language\arm</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\TypePropertyCache.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteCode\ScopeInfo.cpp">
+      <Filter>ByteCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptBuiltInFunctions.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\ByteCodeSerializer.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ThrowErrorObject.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\CodeGenRecyclableData.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\FunctionCodeGenJitTimeData.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\FunctionCodeGenRuntimeData.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\StackTraceArguments.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\DynamicObjectSnapshotEnumeratorWPCache.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptWinRTDate.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\SimpleDictionaryUnorderedTypeHandler.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ArrayBuffer.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\dataview.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Constants.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\DelayLoadLibrary.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Entropy.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\EtwTrace.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Exception.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\HostLogger.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JnDebugHelp.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ScriptMemoryDumper.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\StackProber.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\TestEtwEventSink.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ThreadBoundThreadContextManager.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ThreadContext.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\DynamicProfileInfo.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\DynamicProfileMutator.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\DynamicProfileStorage.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\PropertyRecord.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\SourceContextInfo.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\SourceDynamicProfileManager.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ThreadContextTLSEntry.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptWeakMap.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\ValueType.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\Utf8SourceInfo.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptMap.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptSet.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\RootObjectBase.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\EngineInterfaceObject.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptTypedObjectSlotAccessorFunction.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\WindowsGlobalizationAdapter.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\CacheOperators.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\ReadOnlyDynamicProfileInfo.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\WindowsFoundationAdapter.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\ScriptContextOptimizationOverrideInfo.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\InlineCache.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\CompoundString.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ScriptFunction.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\DiagStackFrame.cpp" />
+    <ClCompile Include="Library\ScriptFunctionType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\RuntimeFunction.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\ExpirableObject.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\StackScriptFunction.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\DiagHelperMethodWrapper.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\StringCopyInfo.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\CommonExternalApiImpl.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteCode\OpCodeUtil.cpp">
+      <Filter>ByteCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\AsyncDebug.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\RoCausality.Win7.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteCode\StatementReader.cpp">
+      <Filter>ByteCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JSONString.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Debug.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\ProfilingHelpers.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\DOMFastPath.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JSONParser.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JSONScanner.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\HiResTimer.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\ExternalType.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\ProbeContainer.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptSymbol.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptSymbolObject.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptSymbolObjectType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptSymbolType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptArrayIterator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptMapIterator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptSetIterator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptStringIterator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptProxy.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptPromise.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\PerfHint.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\IteratorObjectEnumerator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptReflect.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptEnumeratorIterator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\IteratorObjectEnumerator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptWeakSet.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\ExecutionMode.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptRegExpEnumerator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\SourceHolder.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\MissingPropertyTypeHandler.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptGeneratorFunction.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptGenerator.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\MutationBreakpoint.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\WithScopeObject.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\CharStringCache.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptGeneratorFunctionType.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\AsmJS.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\AsmJSLink.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\AsmJSModule.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\AsmJSBytecodeGenerator.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\AsmJSTypes.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\AsmJSUtils.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteCode\AsmJSByteCodeDumper.cpp">
+      <Filter>ByteCode</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteCode\OpCodeUtilAsmJs.cpp">
+      <Filter>ByteCode</Filter>
+    </ClCompile>
+    <ClCompile Include="ByteCode\AsmJsByteCodeWriter.cpp">
+      <Filter>ByteCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\i386\AsmJSJitTemplate.cpp">
+      <Filter>Language\i386</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\AsmJSEncoder.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Language\AsmJSCodeGenerator.cpp">
+      <Filter>Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Telemetry.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Telemetry\IScriptContextTelemetryProvider.cpp">
+      <Filter>Telemetry</Filter>
+    </ClCompile>
+    <ClCompile Include="Telemetry\OpcodeTelemetry.cpp">
+      <Filter>Telemetry</Filter>
+    </ClCompile>
+    <ClCompile Include="Telemetry\ScriptContextTelemetry.cpp">
+      <Filter>Telemetry</Filter>
+    </ClCompile>
+    <ClCompile Include="Telemetry\ESBuiltIns\ESBuiltInsOpcodeTelemetry.cpp">
+      <Filter>Telemetry\ESBuiltIns</Filter>
+    </ClCompile>
+    <ClCompile Include="Telemetry\ESBuiltIns\ESBuiltInsTelemetryProvider.cpp">
+      <Filter>Telemetry\ESBuiltIns</Filter>
+    </ClCompile>
+    <ClCompile Include="Telemetry\ESBuiltIns\ESBuiltInsDatabase.cpp" />
+    <ClCompile Include="Telemetry\ScriptEngineTelemetry.cpp" />
+    <ClCompile Include="Language\amd64\AsmJSJitTemplate.cpp">
+      <Filter>Language\amd64</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\ArrayObject.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\SpreadArgument.cpp">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\JavascriptSIMDFloat32x4.cpp" />
+    <ClCompile Include="Library\JavascriptSIMDFloat64x2.cpp" />
+    <ClCompile Include="Library\JavascriptSIMDInt32x4.cpp" />
+    <ClCompile Include="Library\SIMDInt32x4OperationX86X64.cpp" />
+    <ClCompile Include="Library\SIMDInt32x4Operation.cpp" />
+    <ClCompile Include="Library\SIMDInt32x4Lib.cpp" />
+    <ClCompile Include="Library\SIMDfloat64x2OperationX86X64.cpp" />
+    <ClCompile Include="Library\SIMDFloat64x2Operation.cpp" />
+    <ClCompile Include="Library\SIMDFloat64x2Lib.cpp" />
+    <ClCompile Include="Library\SIMDfloat32x4OperationX86X64.cpp" />
+    <ClCompile Include="Library\SIMDFloat32x4Operation.cpp" />
+    <ClCompile Include="Library\SIMDFloat32x4Lib.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Runtime.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="Types\JavascriptEnumerator.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\JavascriptExceptionObject.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\JavascriptConversion.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\JavascriptOperators.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\JavascriptStackWalker.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptArray.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptArrayEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptBoolean.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptBooleanObject.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptDate.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptError.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptExternalFunction.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptFunction.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptLibrary.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptNumber.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptNumberObject.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptObject.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptPixelArray.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptPixelArrayEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptRegExpConstructor.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptRegularExpression.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptRegularExpressionResult.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptString.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptStringEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptVariantDate.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\ByteCodeDumper.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\ByteCodeGenerator.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\ByteCodeReader.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\ByteCodeWriter.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\ByteBlock.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ES5ArrayTypeHandler.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ES5Array.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ES5ArrayEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\DynamicObject.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\DynamicObjectEnumerator.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\DynamicType.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\ActivationObjectType.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\StaticType.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\Type.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\Arguments.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ArgumentsObject.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ArgumentsObjectEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\BoundFunction.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\BufferStringBuilder.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ConcatString.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\CallInfo.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\CrossSiteObject.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\CrossSite.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\DeferredTypeHandler.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\DictionaryPropertyDescriptor.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\DictionaryTypeHandler.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\DiagProbe.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\diagobjectmodel.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\DateImplementation.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\FunctionInfo.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="SerializableFunctionFields.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\FunctionBody.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ForInObjectEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\GlobalObject.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\IWalkPropertyCallback.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\InterpreterStackFrame.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JnDirectFields.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JSONStack.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JSON.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\LiteralString.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\LiteralStringObject.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\MathLibrary.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\moduleroot.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\NullTypeHandler.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\OpLayouts.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\OpCodes.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ObjectPrototypeObject.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ProfileString.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\PropertyString.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\PathTypeHandler.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\PropertyDescriptor.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\RecyclableObject.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\RegexHelper.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\SimpleDictionaryPropertyDescriptor.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\SimpleDictionaryTypeHandler.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\SimplePropertyDescriptor.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\SimpleTypeHandler.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\ScriptContext.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\ScriptContextProfiler.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\SourceMutator.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\SingleCharString.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\SparseArraySegment.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\SubString.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\TypePath.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\TypeHandler.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\TempArenaAllocatorObject.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\UriHelper.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\JavascriptExceptionOperators.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\typedArrayEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\typedarray.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\TaggedInt.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptErrorDebug.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\amd64\stackframe.h">
+      <Filter>Language\amd64</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\arm\stackframe.h">
+      <Filter>Language\arm</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\i386\stackframe.h">
+      <Filter>Language\i386</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\TypePropertyCache.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\InlineCache.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\ScopeInfo.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptBuiltInFunctions.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptBuiltInFunctionList.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\ByteCodeSerializer.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ThrowErrorObject.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\InlineCachePointerArray.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\CodeGenRecyclableData.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\FunctionCodeGenJitTimeData.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\FunctionCodeGenRuntimeData.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\StackTraceArguments.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\DynamicObjectSnapshotEnumerator.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\DynamicObjectSnapshotEnumeratorWPCache.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\CrossSiteEnumerator.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptWinRTFunction.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptWinRTDate.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\byteCodeCacheReleaseFileVersion.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\SimpleDictionaryUnorderedTypeHandler.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptArrayEnumeratorBase.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptArrayIndexEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptArrayNonIndexSnapshotEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptArraySnapshotEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ArrayBuffer.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\dataview.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\BuiltInFlags.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Constants.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\DelayLoadLibrary.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Entropy.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ES5ArrayIndexEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ES5ArrayNonIndexEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\EtwTrace.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Exception.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\HostLogger.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\javascripttypednumber.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ScriptMemoryDumper.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\StackProber.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\TestEtwEventSink.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ThreadBoundThreadContextManager.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ThreadContext.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ThreadContextTLSEntry.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\threadservicewrapper.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\DynamicProfileInfo.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\DynamicProfileMutator.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\DynamicProfileStorage.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\JavascriptMathOperators.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\PropertyRecord.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\ReadOnlyDynamicProfileInfo.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\SourceContextInfo.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\SourceDynamicProfileManager.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptWeakMap.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\ValueType.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\ValueTypes.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\Utf8SourceInfo.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptMap.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptSet.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\LayoutTypes.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\RootObjectBase.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\HostObjectBase.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptTypedObjectSlotAccessorFunction.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\WindowsGlobalizationAdapter.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="RuntimeCommon.h" />
+    <ClInclude Include="Language\CacheOperators.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\SameValueComparer.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\MapOrSetDataList.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\TypeId.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\WindowsFoundationAdapter.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\InJavascript\intl.js.bc.32b.h">
+      <Filter>Library\InJavascript</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\InJavascript\intl.js.bc.64b.h">
+      <Filter>Library\InJavascript</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\ScriptContextOptimizationOverrideInfo.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\CompoundString.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ScriptFunction.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\DiagStackFrame.h" />
+    <ClInclude Include="Library\ScriptFunctionType.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\RuntimeFunction.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\ExpirableObject.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\StackScriptFunction.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\JavascriptExceptionContext.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\DiagHelperMethodWrapper.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\LeaveScriptObject.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\StringCopyInfo.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="DiagGlobalList.h" />
+    <ClInclude Include="DiagVTableList.h" />
+    <ClInclude Include="LibraryFunction.h" />
+    <ClInclude Include="InternalPropertyList.h" />
+    <ClInclude Include="Library\EngineInterfaceObject.h" />
+    <ClInclude Include="Library\EngineInterfaceObjectBuiltIns.h" />
+    <ClInclude Include="ByteCode\OpCodeList.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\OpCodeUtil.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\AsyncDebug.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\RoCausality.Win7.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\InJavascript\Promise.js.bc.32b.h">
+      <Filter>Library\InJavascript</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\InJavascript\Promise.js.bc.64b.h">
+      <Filter>Library\InJavascript</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\StatementReader.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JSONString.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Debug.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\ProfilingHelpers.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\domfastpath.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\CopyOnWrite.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\DateImplementationData.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\JavascriptFunctionArgIndex.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JSONParser.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JSONScanner.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptStringTagEntries.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\HiResTimer.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\DOMFastPathInfo.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\DOMFastpathinfolist.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\EvalMapRecord.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\ExtendedOpCodeList.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\ExternalObject.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\ProbeContainer.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptSymbol.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptSymbolObject.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptArrayIterator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptMapIterator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptSetIterator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptStringIterator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptProxy.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptPromise.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\PerfHint.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\PerfHintDescriptions.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\SourceHolder.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\IteratorObjectEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptWeakSet.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\ExecutionMode.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\ExecutionModes.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptEnumeratorIterator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptRegExpEnumerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptReflect.h">
+      <Filter>LIbrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\MissingPropertyTypeHandler.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptGeneratorFunction.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptGenerator.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\MutationBreakpoint.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\WithScopeObject.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\CharStringCache.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\AsmJS.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\AsmJSLink.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\AsmJSModule.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\AsmJSBytecodeGenerator.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\AsmJSTypes.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\AsmJSUtils.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\OpCodesAsmJs.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\ExtendedOpCodeListAsmJs.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\OpCodeListAsmJs.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\InterpreterProcessOpCodeAsmJs.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\LayoutTypesAsmJs.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\AsmJSByteCodeDumper.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\OpLayoutsAsmJs.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\OpLayoutsCommon.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\OpCodeUtilAsmJs.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteCode\AsmJsByteCodeWriter.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\AsmJSJitTemplate.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\AsmJSEncoder.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\AsmJSCodeGenerator.h">
+      <Filter>Language</Filter>
+    </ClInclude>
+    <ClInclude Include="Language\i386\AsmJsInstructionTemplate.h">
+      <Filter>Language\i386</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Telemetry.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Telemetry\IScriptContextTelemetryProvider.h">
+      <Filter>Telemetry</Filter>
+    </ClInclude>
+    <ClInclude Include="Telemetry\OpcodeTelemetry.h">
+      <Filter>Telemetry</Filter>
+    </ClInclude>
+    <ClInclude Include="Telemetry\ScriptContextTelemetry.h">
+      <Filter>Telemetry</Filter>
+    </ClInclude>
+    <ClInclude Include="Telemetry\ESBuiltIns\ESBuiltInsOpcodeTelemetry.h">
+      <Filter>Telemetry\ESBuiltIns</Filter>
+    </ClInclude>
+    <ClInclude Include="Telemetry\ESBuiltIns\ESBuiltInsTelemetryProvider.h">
+      <Filter>Telemetry\ESBuiltIns</Filter>
+    </ClInclude>
+    <ClInclude Include="Telemetry\ESBuiltIns\ESBuiltInsDatabase.h" />
+    <ClInclude Include="Telemetry\ScriptEngineTelemetry.h" />
+    <ClInclude Include="Telemetry\IOpcodeTelemetry.h" />
+    <ClInclude Include="Telemetry\TelemetryList.includes.h" />
+    <ClInclude Include="Types\ArrayObject.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\SpreadArgument.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\JavascriptSIMDFloat32x4.h" />
+    <ClInclude Include="Library\JavascriptSIMDFloat64x2.h" />
+    <ClInclude Include="Library\JavascriptSIMDInt32x4.h" />
+    <ClInclude Include="Library\SIMDShuffleMasks.h" />
+    <ClInclude Include="Library\SIMDInt32x4Operation.h" />
+    <ClInclude Include="Library\SIMDInt32x4Lib.h" />
+    <ClInclude Include="Library\SIMDFloat64x2Operation.h" />
+    <ClInclude Include="Library\SIMDFloat64x2Lib.h" />
+    <ClInclude Include="Library\SIMDFloat32x4Operation.h" />
+    <ClInclude Include="Library\SIMDFloat32x4Lib.h" />
+    <ClInclude Include="ByteCode\OpCodesSimd.h">
+      <Filter>ByteCode</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="Language\amd64\JavascriptOperatorsA.asm">
+      <Filter>Language\amd64</Filter>
+    </MASM>
+    <MASM Include="Library\amd64\javascriptfunctiona.asm">
+      <Filter>Library\amd64</Filter>
+    </MASM>
+    <MASM Include="Language\amd64\amd64_Thunks.asm">
+      <Filter>Language\amd64</Filter>
+    </MASM>
+    <MASM Include="Library\arm\arm_DeferredDeserializeThunk.asm">
+      <Filter>Library\arm</Filter>
+    </MASM>
+    <MASM Include="Language\arm\arm_CallEhFrame.asm">
+      <Filter>Language\arm</Filter>
+    </MASM>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Language\JavascriptConversion.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Language\JavascriptObject.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Language\JavascriptOperators.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Library\JavascriptArray.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptBoolean.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptDate.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptFunction.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptLibrary.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptNumber.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptPixelArray.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptRegularExpression.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptRegularExpressionResult.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptString.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptVariantDate.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="ByteCode\ByteCodeReader.inl">
+      <Filter>ByteCode</Filter>
+    </None>
+    <None Include="ByteCode\ByteBlock.inl">
+      <Filter>ByteCode</Filter>
+    </None>
+    <None Include="Types\DynamicType.inl">
+      <Filter>Types</Filter>
+    </None>
+    <None Include="Types\DynamicObject.inl">
+      <Filter>Types</Filter>
+    </None>
+    <None Include="Types\FunctionBody.inl">
+      <Filter>Types</Filter>
+    </None>
+    <None Include="Library\GlobalObject.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Language\InterpreterStackFrame.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Language\InterpreterLoop.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Types\RecyclableObject.inl">
+      <Filter>Types</Filter>
+    </None>
+    <None Include="Language\ScriptContext.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Library\TaggedInt.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\RegexHelper.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\arm\arm_CallFunction.asm">
+      <Filter>Library\arm</Filter>
+    </None>
+    <None Include="Library\arm\arm_DeferredParsingThunk.asm">
+      <Filter>Library\arm</Filter>
+    </None>
+    <None Include="Language\arm\arm_Thunks.asm">
+      <Filter>Language\arm</Filter>
+    </None>
+    <None Include="Language\InlineCache.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Types\TypePropertyCache.inl">
+      <Filter>Types</Filter>
+    </None>
+    <None Include="Language\amd64\stackframe.inl">
+      <Filter>Language\amd64</Filter>
+    </None>
+    <None Include="Types\TypeHandler.inl">
+      <Filter>Types</Filter>
+    </None>
+    <None Include="Language\InlineCachePointerArray.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Library\JavascriptWinRTDate.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\ConcatString.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Language\JavascriptExceptionOperators.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Language\JavascriptMathOperators.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Language\CacheOperators.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Library\InJavascript\BuildGenByteCodeBin.cmd">
+      <Filter>Library\InJavascript</Filter>
+    </None>
+    <None Include="Library\InJavascript\GenByteCode.cmd">
+      <Filter>Library\InJavascript</Filter>
+    </None>
+    <None Include="Library\InJavascript\Intl.js">
+      <Filter>Library\InJavascript</Filter>
+    </None>
+    <None Include="Library\InJavascript\WarnGenByteCode.cmd">
+      <Filter>Library\InJavascript</Filter>
+    </None>
+    <None Include="Language\DiagHelperMethodWrapper.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Library\SparseArraySegment.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\InJavascript\Promise.js">
+      <Filter>Library\InJavascript</Filter>
+    </None>
+    <None Include="Language\InterpreterHandler.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Library\JavascriptSymbol.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptArrayIterator.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptMapIterator.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptSetIterator.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptStringIterator.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptMap.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptSet.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptWeakMap.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Library\JavascriptWeakSet.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Language\AsmJSEncoderHandler.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Language\AsmJSEncoder.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Language\InterpreterHandlerAsmJs.inl">
+      <Filter>Language</Filter>
+    </None>
+    <None Include="Language\i386\AsmJsInstructionTemplate.inl">
+      <Filter>Language\i386</Filter>
+    </None>
+    <None Include="Library\CharStringCache.inl">
+      <Filter>Library</Filter>
+    </None>
+    <None Include="Telemetry\ESBuiltIns\ESBuiltInsDatabase.inc" />
+    <None Include="Telemetry\ESBuiltIns\ESBuiltInsTypeNames.inc" />
+    <None Include="Telemetry\ESBuiltIns\ESBuiltInsTypeNames.trie.Generator.js" />
+    <None Include="Telemetry\ESBuiltIns\ESBuiltInsTypeNames.trie.inc" />
+    <None Include="Telemetry\ESBuiltIns\sources.inc" />
+    <None Include="Telemetry\ESBuiltIns\TraceLogList.Generator.js" />
+    <None Include="Telemetry\ESBuiltIns\TraceLogList.inc" />
+    <None Include="Telemetry\dirs" />
+    <None Include="Telemetry\TelemetryList.inc" />
+    <None Include="Telemetry\sources.inc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Library">
+      <UniqueIdentifier>{5e0555f9-c5eb-457e-9793-f2d22b609c8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Language">
+      <UniqueIdentifier>{d70cdd6d-3ace-46bd-9610-89849b7c3b44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ByteCode">
+      <UniqueIdentifier>{b3cc4da8-febc-41ed-bb42-75328b15bbb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Types">
+      <UniqueIdentifier>{75b995f7-7686-49d0-8225-758681619ac4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Language\amd64">
+      <UniqueIdentifier>{89dd9717-8fc4-4bd2-8263-e5df7541642a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Language\arm">
+      <UniqueIdentifier>{aee204ca-48c2-4372-b596-658869c91356}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Language\i386">
+      <UniqueIdentifier>{6715c81f-d44f-4171-aa61-36c040ba67b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\arm">
+      <UniqueIdentifier>{e898d9d2-212a-440c-ae6c-e9fdafe0256a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\amd64">
+      <UniqueIdentifier>{55dad6b2-f8d0-4472-b0ee-5b383d4af1e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\InJavascript">
+      <UniqueIdentifier>{e9f8ce5f-4c56-4efd-859c-5cabe286f4c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Language\arm64">
+      <UniqueIdentifier>{7e0d2984-959b-45ee-a1f2-68c710526788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Telemetry">
+      <UniqueIdentifier>{b5a9830d-4599-45b2-9466-94b067d3b3c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Telemetry\ESBuiltIns">
+      <UniqueIdentifier>{4fc06122-d652-414c-a472-bcf7d2666fa0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Telemetry\README - Instructions on adding new aspects.txt" />
+  </ItemGroup>
+</Project>

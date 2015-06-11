@@ -1,0 +1,783 @@
+Recycler Stress scenarios from interfaces.js
+
+=================================================
+Starting [Test 1: Kitchen Walkthrough]
+Comment: Object dump:
+    var objectDumpMembers = [
+        ['addEventListener', 'function', 2],
+        ['electricityReporter', 'object'],
+        ['getSameToaster', 'function', 0],
+        ['indirectMakeToast', 'function', 1],
+        ['indirectToaster', 'object'],
+        ['invokePreheatCompleteBackgroundEvents', 'function', 1],
+        ['invokeRootedHandler', 'function', 2],
+        ['makeToast', 'function', 1],
+        ['onindirecttoastcompleteevent', 'object'],
+        ['onpreheatcompletebackground', 'object'],
+        ['onpreheatstart', 'object'],
+        ['onrootedtoastcompleteevent', 'object'],
+        ['ontoastcompleteevent', 'object'],
+        ['ontoaststartevent', 'object'],
+        ['preheatInBackground', 'function', 1],
+        ['preheatInBackgroundWithSmuggledDelegate', 'function', 1],
+        ['removeEventListener', 'function', 2],
+        ['rootedHandler', 'object'],
+        ['size', 'object'],
+    ];
+Pass: type
+      Actual: object
+
+Pass: name
+      Actual: addEventListener
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][addEventListener]
+      Actual: function
+
+Pass: addEventListener.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: addEventListener.length
+      Actual: 2
+
+Pass: name
+      Actual: electricityReporter
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][electricityReporter]
+      Actual: object
+
+Pass: name
+      Actual: getSameToaster
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][getSameToaster]
+      Actual: function
+
+Pass: getSameToaster.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getSameToaster.length
+      Actual: 0
+
+Pass: name
+      Actual: indirectMakeToast
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][indirectMakeToast]
+      Actual: function
+
+Pass: indirectMakeToast.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: indirectMakeToast.length
+      Actual: 1
+
+Pass: name
+      Actual: indirectToaster
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][indirectToaster]
+      Actual: object
+
+Pass: name
+      Actual: invokePreheatCompleteBackgroundEvents
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][invokePreheatCompleteBackgroundEvents]
+      Actual: function
+
+Pass: invokePreheatCompleteBackgroundEvents.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: invokePreheatCompleteBackgroundEvents.length
+      Actual: 1
+
+Pass: name
+      Actual: invokeRootedHandler
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][invokeRootedHandler]
+      Actual: function
+
+Pass: invokeRootedHandler.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: invokeRootedHandler.length
+      Actual: 2
+
+Pass: name
+      Actual: makeToast
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][makeToast]
+      Actual: function
+
+Pass: makeToast.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: makeToast.length
+      Actual: 1
+
+Pass: name
+      Actual: onindirecttoastcompleteevent
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][onindirecttoastcompleteevent]
+      Actual: object
+
+Pass: name
+      Actual: onpreheatcompletebackground
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][onpreheatcompletebackground]
+      Actual: object
+
+Pass: name
+      Actual: onpreheatstart
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][onpreheatstart]
+      Actual: object
+
+Pass: name
+      Actual: onrootedtoastcompleteevent
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][onrootedtoastcompleteevent]
+      Actual: object
+
+Pass: name
+      Actual: ontoastcompleteevent
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][ontoastcompleteevent]
+      Actual: object
+
+Pass: name
+      Actual: ontoaststartevent
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][ontoaststartevent]
+      Actual: object
+
+Pass: name
+      Actual: preheatInBackground
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][preheatInBackground]
+      Actual: function
+
+Pass: preheatInBackground.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: preheatInBackground.length
+      Actual: 1
+
+Pass: name
+      Actual: preheatInBackgroundWithSmuggledDelegate
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][preheatInBackgroundWithSmuggledDelegate]
+      Actual: function
+
+Pass: preheatInBackgroundWithSmuggledDelegate.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: preheatInBackgroundWithSmuggledDelegate.length
+      Actual: 1
+
+Pass: name
+      Actual: removeEventListener
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][removeEventListener]
+      Actual: function
+
+Pass: removeEventListener.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: removeEventListener.length
+      Actual: 2
+
+Pass: name
+      Actual: rootedHandler
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][rootedHandler]
+      Actual: object
+
+Pass: name
+      Actual: size
+
+Pass: typeof [object Fabrikam.Kitchen.Toaster][size]
+      Actual: object
+
+Pass: number of members
+      Actual: 19
+
+Comment: Object dump:
+    var objectDumpMembers = [
+    ];
+Pass: type
+      Actual: object
+
+Pass: number of members
+      Actual: 0
+
+Comment: Object dump:
+    var objectDumpMembers = [
+        ['addEventListener', 'function', 2],
+        ['capabilities', 'number'],
+        ['makeBreakfast', 'function', 1],
+        ['name', 'string'],
+        ['onmaketoastroundoff', 'object'],
+        ['onmultipletoastcompletearray', 'object'],
+        ['onmultipletoastcompletecollection', 'object'],
+        ['removeEventListener', 'function', 2],
+        ['role', 'number'],
+    ];
+Pass: type
+      Actual: object
+
+Pass: name
+      Actual: addEventListener
+
+Pass: typeof [object Fabrikam.Kitchen.Chef][addEventListener]
+      Actual: function
+
+Pass: addEventListener.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: addEventListener.length
+      Actual: 2
+
+Pass: name
+      Actual: capabilities
+
+Pass: typeof [object Fabrikam.Kitchen.Chef][capabilities]
+      Actual: number
+
+Pass: name
+      Actual: makeBreakfast
+
+Pass: typeof [object Fabrikam.Kitchen.Chef][makeBreakfast]
+      Actual: function
+
+Pass: makeBreakfast.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: makeBreakfast.length
+      Actual: 1
+
+Pass: name
+      Actual: name
+
+Pass: typeof [object Fabrikam.Kitchen.Chef][name]
+      Actual: string
+
+Pass: name
+      Actual: onmaketoastroundoff
+
+Pass: typeof [object Fabrikam.Kitchen.Chef][onmaketoastroundoff]
+      Actual: object
+
+Pass: name
+      Actual: onmultipletoastcompletearray
+
+Pass: typeof [object Fabrikam.Kitchen.Chef][onmultipletoastcompletearray]
+      Actual: object
+
+Pass: name
+      Actual: onmultipletoastcompletecollection
+
+Pass: typeof [object Fabrikam.Kitchen.Chef][onmultipletoastcompletecollection]
+      Actual: object
+
+Pass: name
+      Actual: removeEventListener
+
+Pass: typeof [object Fabrikam.Kitchen.Chef][removeEventListener]
+      Actual: function
+
+Pass: removeEventListener.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: removeEventListener.length
+      Actual: 2
+
+Pass: name
+      Actual: role
+
+Pass: typeof [object Fabrikam.Kitchen.Chef][role]
+      Actual: number
+
+Pass: number of members
+      Actual: 9
+
+Comment: Object dump:
+    var objectDumpMembers = [
+        ['bakeAsync', 'function', 1],
+        ['electricityReporter', 'object'],
+        ['size', 'object'],
+        ['timerAsync', 'function', 1],
+    ];
+Pass: type
+      Actual: object
+
+Pass: name
+      Actual: bakeAsync
+
+Pass: typeof [object Fabrikam.Kitchen.Oven][bakeAsync]
+      Actual: function
+
+Pass: bakeAsync.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: bakeAsync.length
+      Actual: 1
+
+Pass: name
+      Actual: electricityReporter
+
+Pass: typeof [object Fabrikam.Kitchen.Oven][electricityReporter]
+      Actual: object
+
+Pass: name
+      Actual: size
+
+Pass: typeof [object Fabrikam.Kitchen.Oven][size]
+      Actual: object
+
+Pass: name
+      Actual: timerAsync
+
+Pass: typeof [object Fabrikam.Kitchen.Oven][timerAsync]
+      Actual: function
+
+Pass: timerAsync.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: timerAsync.length
+      Actual: 1
+
+Pass: number of members
+      Actual: 4
+
+Comment: Object dump:
+    var objectDumpMembers = [
+        ['cancel', 'function', 0],
+        ['close', 'function', 0],
+        ['completed', 'object'],
+        ['errorCode', 'number'],
+        ['getResults', 'function', 0],
+        ['id', 'number'],
+        ['progress', 'object'],
+        ['status', 'number'],
+    ];
+Pass: type
+      Actual: object
+
+Pass: name
+      Actual: cancel
+
+Pass: typeof [object Fabrikam.Kitchen.BakeOperation][cancel]
+      Actual: function
+
+Pass: cancel.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: cancel.length
+      Actual: 0
+
+Pass: name
+      Actual: close
+
+Pass: typeof [object Fabrikam.Kitchen.BakeOperation][close]
+      Actual: function
+
+Pass: close.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: close.length
+      Actual: 0
+
+Pass: name
+      Actual: completed
+
+Pass: typeof [object Fabrikam.Kitchen.BakeOperation][completed]
+      Actual: object
+
+Pass: name
+      Actual: errorCode
+
+Pass: typeof [object Fabrikam.Kitchen.BakeOperation][errorCode]
+      Actual: number
+
+Pass: name
+      Actual: getResults
+
+Pass: typeof [object Fabrikam.Kitchen.BakeOperation][getResults]
+      Actual: function
+
+Pass: getResults.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getResults.length
+      Actual: 0
+
+Pass: name
+      Actual: id
+
+Pass: typeof [object Fabrikam.Kitchen.BakeOperation][id]
+      Actual: number
+
+Pass: name
+      Actual: progress
+
+Pass: typeof [object Fabrikam.Kitchen.BakeOperation][progress]
+      Actual: object
+
+Pass: name
+      Actual: status
+
+Pass: typeof [object Fabrikam.Kitchen.BakeOperation][status]
+      Actual: number
+
+Pass: number of members
+      Actual: 8
+
+PASS [Test 1: Kitchen Walkthrough]
+=================================================
+
+=================================================
+Starting [Test 2: Winery.shopName]
+Pass: Winery has property shopName
+      Actual: true
+
+Pass: winery.shopName
+      Actual: Wine Shop
+
+Pass: winery["shopName"]
+      Actual: Wine Shop
+
+PASS [Test 2: Winery.shopName]
+=================================================
+
+=================================================
+Starting [Test 3: Calling a method on a required interface]
+Pass: fish.singTheSwimmingSong()
+      Actual: I feed from the bottom, you feed from the top 
+I live upon morsels you happen to drop 
+And coffee that somehow leaks out of your cup 
+If nothing comes down then I'm forced to swim up 
+
+
+PASS [Test 3: Calling a method on a required interface]
+=================================================
+
+=================================================
+Starting [Test 4: marshalIFish]
+Comment: Object dump:
+    var objectDumpMembers = [
+        ['getNullAsAnimal', 'function', 0],
+        ['getNullAsMap', 'function', 0],
+        ['getNullAsObservableVector', 'function', 0],
+        ['getNullAsPropertyValue', 'function', 0],
+        ['getNullAsVector', 'function', 0],
+        ['getNumFins', 'function', 0],
+        ['getOneAnimal', 'function', 0],
+        ['getOneEmptyGRCNFail', 'function', 0],
+        ['getOneEmptyGRCNInterface', 'function', 0],
+        ['getOneEmptyGRCNNull', 'function', 0],
+        ['getOneMap', 'function', 0],
+        ['getOneObservableVector', 'function', 0],
+        ['getOnePropertyValue', 'function', 0],
+        ['getOneVector', 'function', 0],
+        ['marshalIFish', 'function', 1],
+        ['marshalIFishToFish', 'function', 1],
+        ['marshalILikeToSwim', 'function', 1],
+        ['marshalILikeToSwimToFish', 'function', 1],
+        ['name', 'string'],
+        ['setNumFins', 'function', 1],
+        ['singTheSwimmingSong', 'function', 0],
+    ];
+Pass: type
+      Actual: object
+
+Pass: name
+      Actual: getNullAsAnimal
+
+Pass: typeof [object Animals.Fish][getNullAsAnimal]
+      Actual: function
+
+Pass: getNullAsAnimal.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsAnimal.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsMap
+
+Pass: typeof [object Animals.Fish][getNullAsMap]
+      Actual: function
+
+Pass: getNullAsMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsObservableVector
+
+Pass: typeof [object Animals.Fish][getNullAsObservableVector]
+      Actual: function
+
+Pass: getNullAsObservableVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsObservableVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsPropertyValue
+
+Pass: typeof [object Animals.Fish][getNullAsPropertyValue]
+      Actual: function
+
+Pass: getNullAsPropertyValue.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsPropertyValue.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsVector
+
+Pass: typeof [object Animals.Fish][getNullAsVector]
+      Actual: function
+
+Pass: getNullAsVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getNumFins
+
+Pass: typeof [object Animals.Fish][getNumFins]
+      Actual: function
+
+Pass: getNumFins.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNumFins.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneAnimal
+
+Pass: typeof [object Animals.Fish][getOneAnimal]
+      Actual: function
+
+Pass: getOneAnimal.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneAnimal.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNFail
+
+Pass: typeof [object Animals.Fish][getOneEmptyGRCNFail]
+      Actual: function
+
+Pass: getOneEmptyGRCNFail.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNFail.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNInterface
+
+Pass: typeof [object Animals.Fish][getOneEmptyGRCNInterface]
+      Actual: function
+
+Pass: getOneEmptyGRCNInterface.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNInterface.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNNull
+
+Pass: typeof [object Animals.Fish][getOneEmptyGRCNNull]
+      Actual: function
+
+Pass: getOneEmptyGRCNNull.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNNull.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneMap
+
+Pass: typeof [object Animals.Fish][getOneMap]
+      Actual: function
+
+Pass: getOneMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneObservableVector
+
+Pass: typeof [object Animals.Fish][getOneObservableVector]
+      Actual: function
+
+Pass: getOneObservableVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneObservableVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getOnePropertyValue
+
+Pass: typeof [object Animals.Fish][getOnePropertyValue]
+      Actual: function
+
+Pass: getOnePropertyValue.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOnePropertyValue.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneVector
+
+Pass: typeof [object Animals.Fish][getOneVector]
+      Actual: function
+
+Pass: getOneVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneVector.length
+      Actual: 0
+
+Pass: name
+      Actual: marshalIFish
+
+Pass: typeof [object Animals.Fish][marshalIFish]
+      Actual: function
+
+Pass: marshalIFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalIFish.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalIFishToFish
+
+Pass: typeof [object Animals.Fish][marshalIFishToFish]
+      Actual: function
+
+Pass: marshalIFishToFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalIFishToFish.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalILikeToSwim
+
+Pass: typeof [object Animals.Fish][marshalILikeToSwim]
+      Actual: function
+
+Pass: marshalILikeToSwim.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalILikeToSwim.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalILikeToSwimToFish
+
+Pass: typeof [object Animals.Fish][marshalILikeToSwimToFish]
+      Actual: function
+
+Pass: marshalILikeToSwimToFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalILikeToSwimToFish.length
+      Actual: 1
+
+Pass: name
+      Actual: name
+
+Pass: typeof [object Animals.Fish][name]
+      Actual: string
+
+Pass: name
+      Actual: setNumFins
+
+Pass: typeof [object Animals.Fish][setNumFins]
+      Actual: function
+
+Pass: setNumFins.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: setNumFins.length
+      Actual: 1
+
+Pass: name
+      Actual: singTheSwimmingSong
+
+Pass: typeof [object Animals.Fish][singTheSwimmingSong]
+      Actual: function
+
+Pass: singTheSwimmingSong.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: singTheSwimmingSong.length
+      Actual: 0
+
+Pass: number of members
+      Actual: 21
+
+Pass: fish2.getNumFins()
+      Actual: 5
+
+PASS [Test 4: marshalIFish]
+=================================================
+
+Passed: 4
+Failed: 0

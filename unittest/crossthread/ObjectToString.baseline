@@ -1,0 +1,90 @@
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+
+Unable to get property 'toString' of undefined or null reference
+Unable to get property 'toLocaleString' of undefined or null reference
+[object Undefined]
+Object.prototype.toLocaleString: 'this' is null or undefined
+
+Unable to get property 'toString' of undefined or null reference
+Unable to get property 'toLocaleString' of undefined or null reference
+[object Null]
+Object.prototype.toLocaleString: 'this' is null or undefined
+
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+
+true
+true
+[object Boolean]
+true
+
+true
+true
+[object Boolean]
+true
+
+Sun Apr 24 2011 12:49:15 GMT-0700 (Pacific Daylight Time)
+Sunday, April 24, 2011 12:49:15 PM
+[object Date]
+Sun Apr 24 2011 12:49:15 GMT-0700 (Pacific Daylight Time)
+
+3.14
+3.14
+[object Number]
+3.14
+
+8
+8.00
+[object Number]
+8
+
+18446744073709552000
+18,446,744,073,709,552,000.00
+[object Number]
+18446744073709552000
+
+3.14
+3.14
+[object Number]
+3.14
+
+8
+8.00
+[object Number]
+8
+
+18446744073709552000
+18,446,744,073,709,552,000.00
+[object Number]
+18446744073709552000
+
+/(?:)/
+/(?:)/
+[object RegExp]
+/(?:)/
+
+1,2,3
+1.00, 2.00, 3.00
+[object Array]
+1,2,3
+
+function testFunction() { WScript.Echo("Test"); }
+function testFunction() { WScript.Echo("Test"); }
+[object Function]
+function testFunction() { WScript.Echo("Test"); }
+
+Blah blah blah
+Blah blah blah
+[object String]
+Blah blah blah
+
+Blah blah blah
+Blah blah blah
+[object String]
+Blah blah blah
+

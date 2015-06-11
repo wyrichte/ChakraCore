@@ -1,0 +1,99 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 421,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 141,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 546,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "bar": "<large string>",
+          "foo": "<large string>",
+          "Run": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "[Date returned]": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "[Return value]": "undefined",
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "a": "bar",
+      "b": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "0",
+          "Symbol.unscopables": "{...}"
+        },
+        "length": "0"
+      },
+      "c": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "[Globals]": {
+        "foo": {
+          "[Methods]": "{...}",
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "length": "0",
+          "name": "foo",
+          "prototype": "{...}"
+        },
+        "bar": {
+          "[Methods]": "{...}",
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "length": "0",
+          "name": "bar",
+          "prototype": "{...}"
+        },
+        "Run": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "name": "Run",
+          "prototype": "{...}"
+        }
+      }
+    }
+  }
+]

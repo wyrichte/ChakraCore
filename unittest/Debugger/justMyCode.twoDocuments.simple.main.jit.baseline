@@ -1,0 +1,7 @@
+Print() - IsInJitMode() == true
+Start!
+Do() - IsInJitMode() == false
+Print() - IsInJitMode() == false
+foo callback to main document!
+Print() - IsInJitMode() == true
+Completed!

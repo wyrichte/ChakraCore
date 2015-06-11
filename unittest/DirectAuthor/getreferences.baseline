@@ -1,0 +1,9 @@
+Identifier : str and references found : 2
+	{ range : [28, 31], kind : asrfAuthoritative asrfLValue asrfLocalReference }
+	{ range : [52, 55], kind : asrfAuthoritative asrfRValue asrfLocalReference }
+Passed
+Identifier : obj and references found : 3
+	{ range : [4, 7], kind : asrfAuthoritative asrfLValue asrfGlobalReference }
+	{ range : [57, 60], kind : asrfSuggestive asrfRValue asrfGlobalReference }
+	{ range : [68, 71], kind : asrfSuggestive asrfRValue asrfGlobalReference }
+Passed

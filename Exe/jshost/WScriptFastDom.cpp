@@ -1,0 +1,1668 @@
+/********************************************************
+*                                                       *
+*   Copyright (C) Microsoft. All rights reserved.       *
+*                                                       *
+********************************************************/
+#include "stdafx.h"
+#include "WscriptFastDom.h"
+#include "Jscript9Interface.h"
+#include "ieisos.h"
+
+#include <initguid.h>
+#include <guids.h>
+#include <fcntl.h>
+
+std::multimap<Var, IJsHostScriptSite*> scriptEngineMap;
+
+MessageQueue *WScriptFastDom::s_messageQueue = NULL;
+JsHostActiveScriptSite* WScriptFastDom::s_mainScriptSite = nullptr;
+bool WScriptFastDom::s_enableEditTest = false;
+bool WScriptFastDom::s_stdInAtEOF = false;
+unsigned int MessageBase::s_messageCount = 0;
+
+Var WScriptFastDom::Echo(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    va_list argptr;
+    va_start(argptr, thisArg);
+    Var * args = (Var*)argptr;
+
+    return EchoToStream(stdout, /* newLine */ true, function, callInfo.Count, args);
+}
+
+Var WScriptFastDom::StdErrWriteLine(Var function, CallInfo callInfo, Var thisArg ...)
+{
+    va_list argptr;
+    va_start(argptr, thisArg);
+    Var * args = (Var*)argptr;
+
+    return EchoToStream(stderr, /* newLine */ true, function, callInfo.Count, args);
+}
+
+Var WScriptFastDom::StdErrWrite(Var function, CallInfo callInfo, Var thisArg ...)
+{
+    va_list argptr;
+    va_start(argptr, thisArg);
+    Var * args = (Var*)argptr;
+
+    return EchoToStream(stderr, /* newLine */ false, function, callInfo.Count, args);
+}
+
+Var WScriptFastDom::StdOutWriteLine(Var function, CallInfo callInfo, Var thisArg ...)
+{
+    va_list argptr;
+    va_start(argptr, thisArg);
+    Var * args = (Var*)argptr;
+
+    return EchoToStream(stdout, /* newLine */ true, function, callInfo.Count, args);
+}
+
+Var WScriptFastDom::StdOutWrite(Var function, CallInfo callInfo, Var thisArg ...)
+{
+    va_list argptr;
+    va_start(argptr, thisArg);
+    Var * args = (Var*)argptr;
+
+    return EchoToStream(stdout, /* newLine */ false, function, callInfo.Count, args);
+}
+
+Var WScriptFastDom::StdInReadLine(Var function, CallInfo callInfo, Var thisArg ...)
+{
+    va_list argptr;
+    va_start(argptr, thisArg);
+    
+    HRESULT hr;
+    Var result = nullptr;
+    IActiveScriptDirect * activeScriptDirect = NULL;
+    IJavascriptOperations * operations = NULL;
+    bool readFailed = false;
+    char *buf = NULL;
+    IfFailedGo(JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect));  
+    IfFailedGo(activeScriptDirect->GetJavascriptOperations(&operations));
+   
+    buf = new char[StdInMaxLineLength];
+
+    if (fgets(buf, StdInMaxLineLength, stdin) == nullptr)
+    {
+        if (s_stdInAtEOF)
+        {
+            // The stream is already known to be at EOF.  Raise an exception.
+            readFailed = true;
+        }
+        else
+        {
+            if (feof(stdin))
+            {
+                // Return an empty string.
+                s_stdInAtEOF = true;
+                buf[0] = '\0';
+            }
+            else
+            {
+                // The read failed, but not because of EOF.  Raise an exception.
+                readFailed = true;
+            }
+        }
+        
+    }
+    else
+    {
+        // Strip off the terminating newline.
+        char *ptr = strrchr(buf, '\n');
+        if (ptr != nullptr)
+        {
+            *ptr = '\0';
+        }
+    }
+    
+    if (!readFailed)
+    {
+        // The string we read is UTF8, and needs to be converted.
+        bool failed = false;
+        wchar_t *wbuf = new wchar_t[StdInMaxLineLength];
+        wbuf[0] = L'\0';
+        size_t bufLen = strlen(buf);
+        hr = S_OK;
+
+        DWORD retVal = 0;
+        if (bufLen > 0)
+        {
+            retVal = MultiByteToWideChar(CP_UTF8, 0, buf, bufLen, wbuf, StdInMaxLineLength);
+        }
+
+        if (bufLen > 0 && retVal == 0)
+        {
+            failed = true;
+            printf("ERR: %d\n", GetLastError());
+        }
+        else
+        {
+            hr = activeScriptDirect->StringToVar(wbuf, wcslen(wbuf), &result);
+        }
+
+        delete[] wbuf;
+
+        if (FAILED(hr))
+        {
+            IfFailedGo(hr);
+        }
+        else if (failed)
+        {
+            IfFailedGo(E_FAIL);
+        }
+    }
+
+LReturn:
+
+    if (buf != nullptr)
+    {
+        delete[] buf;
+    }
+
+    if (readFailed)
+    {
+        Var errorObject = NULL;
+        hr = activeScriptDirect->CreateErrorObject(JavascriptError, hr, L"Read from stdin failed.", &errorObject);
+        if (SUCCEEDED(hr))
+        {
+            operations->Release();
+            activeScriptDirect->Release();
+            operations->ThrowException(activeScriptDirect, errorObject, FALSE);
+        }
+    }
+
+    if (operations != nullptr)
+    {
+        operations->Release();
+    }
+
+    if (FAILED(hr))
+    {
+        activeScriptDirect->ReleaseAndRethrowException(hr);
+    }
+
+    if (activeScriptDirect != nullptr)
+    {
+        activeScriptDirect->Release();
+    }
+
+    return result;
+}
+
+Var WScriptFastDom::StdInEOF(Var function, CallInfo callInfo, Var thisArg ...)
+{
+    va_list argptr;
+    va_start(argptr, thisArg);
+
+    HRESULT hr = S_OK;
+    IActiveScriptDirect * activeScriptDirect = nullptr;
+    Var result = nullptr;
+    IfFailedGo(JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect));
+
+    if (feof(stdin) != 0)
+    {
+        s_stdInAtEOF = true;
+    }
+
+    IfFailedGo(activeScriptDirect->BOOLToVar(s_stdInAtEOF, &result));
+
+LReturn:
+
+    if (activeScriptDirect != nullptr)
+    {
+        activeScriptDirect->Release();
+    }
+
+    return result;
+}
+
+
+Var WScriptFastDom::EchoToStream(FILE * stream, bool newLine, Var function, unsigned int count, Var * args)
+{
+    HRESULT hr = S_OK;
+
+    IActiveScriptDirect * activeScriptDirect = NULL;
+    hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+    if (FAILED(hr))
+    {
+        return NULL;
+    }
+
+    for (unsigned int i = 0; i < count - 1; i++)
+    {
+        BSTR argToString;
+        hr = activeScriptDirect->VarToString(args[i], &argToString);
+        if (SUCCEEDED(hr))
+        {
+            if (i > 0)
+            {
+                fwprintf(stream, L" ");
+            }
+            fwprintf(stream, L"%ls", argToString);
+            SysFreeString(argToString);
+        }
+        else
+        {
+            if (hr == SCRIPT_E_RECORDED)
+            {
+                activeScriptDirect->ReleaseAndRethrowException(hr);
+            }
+        }
+    }
+
+    if (newLine)
+    {
+        fwprintf(stream, L"\n");
+    }
+    fflush(stream);
+
+    Var undefined = NULL;
+    activeScriptDirect->GetUndefined(&undefined);
+    activeScriptDirect->Release();
+
+    return undefined;
+}
+
+Var WScriptFastDom::GetWorkingSet(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    va_list argptr;
+    va_start(argptr, thisArg);
+
+    HRESULT hr;
+    IActiveScriptDirect*  activeScriptDirect = NULL;
+    hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+    Var instance = NULL;
+    if (SUCCEEDED(hr))
+    {
+        VARIANT varResult;
+        VariantInit(&varResult);
+        if (SUCCEEDED(GetWorkingSetFromActiveScript<IActiveScriptDirect>(activeScriptDirect, &varResult)))
+        {
+            if (varResult.vt == VT_DISPATCH)
+            {
+                CComPtr<IDispatchEx> wsDispatch;
+                hr = varResult.pdispVal->QueryInterface(IID_IDispatchEx, (void**)&wsDispatch);
+                if (SUCCEEDED(hr))
+                {
+                    hr = activeScriptDirect->DispExToVar(wsDispatch, &instance);
+                }
+                if (hr == SCRIPT_E_RECORDED)
+                {
+                    activeScriptDirect->ReleaseAndRethrowException(hr);
+                }
+            }
+            else
+            {
+                hr = E_FAIL;
+            }
+            VariantClear(&varResult);
+        }
+        activeScriptDirect->Release();
+    }
+    if (SUCCEEDED(hr))
+    {
+        return instance;
+    }
+    return NULL;
+}
+
+Var WScriptFastDom::Quit(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    HRESULT hr = S_OK;
+
+    int exitCode = 0;
+
+    if (callInfo.Count > 1)
+    {
+        va_list argptr;
+        va_start(argptr, thisArg);
+        Var * arg = (Var*)argptr;
+
+        IActiveScriptDirect * activeScriptDirect = NULL;
+        hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+        if (SUCCEEDED(hr))
+        {
+            hr = activeScriptDirect->VarToInt(*arg, &exitCode);
+            if (FAILED(hr))
+            {
+                exitCode = 0;
+                if (hr == SCRIPT_E_RECORDED)
+                {
+                    activeScriptDirect->ReleaseAndRethrowException(hr);
+                }
+            }
+        }
+        activeScriptDirect->Release();
+    }
+
+    ExitProcess(exitCode);
+
+    return NULL;
+}
+
+bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScriptDirect, CallInfo callInfo, Var* args, RunInfo& runInfo, bool isSourceRaw)
+{
+    runInfo.hr = S_OK;
+    runInfo.errorMessage = L"";
+
+    /*
+        Arguments:
+        1. Source string - Either the path to the source file or the actual source code, depending on the API used.
+        2. Context string - Indicates whether to run in self (same engine as the current one) or samethread (run on a new engine instance) or crossthread context. Self is default.
+        3. diagnostic string, if needed.
+        4. true or false to indicate whether the egnine is primary or not.
+    */
+    if (callInfo.Count < 2 || callInfo.Count > 6)
+    {
+        runInfo.hr = E_INVALIDARG;
+        runInfo.errorMessage = L"Too many or too few arguments.";
+
+        return false;
+    }
+
+    if (isSourceRaw)
+    {
+        unsigned int length;
+        runInfo.hr = activeScriptDirect->VarToRawString(args[0], &runInfo.source, &length);
+    }
+    else
+    {
+        BSTR content;
+        runInfo.hr = activeScriptDirect->VarToString(args[0], &content);
+        runInfo.source = content ? content : L"";
+    }
+
+    if (!SUCCEEDED(runInfo.hr))
+    {
+        runInfo.errorMessage = L"Failed while reading the source";
+        return false;
+    }
+
+    if (callInfo.Count > 2)
+    {
+        if (callInfo.Count > 3)
+        {
+            if (callInfo.Count > 4)
+            {
+                if (callInfo.Count > 5)
+                {
+                    int domainId;
+                    runInfo.hr = activeScriptDirect->VarToInt(args[4], &domainId);
+                    if (SUCCEEDED(runInfo.hr))
+                    {
+                        runInfo.domainId = (WORD)domainId;
+                    }
+                    else
+                    {
+                        runInfo.errorMessage = L"Failed while reading the fifth arg (domainId)";
+                        return false;
+                    }
+                }
+
+                BOOL isPrimary;
+                runInfo.hr = activeScriptDirect->VarToBOOL(args[3], &isPrimary);
+                if (SUCCEEDED(runInfo.hr))
+                {
+                    runInfo.isPrimary = !!isPrimary;
+                }
+                else
+                {
+                    runInfo.errorMessage = L"Failed while reading the fourth arg (primary flag)";
+                    return false;
+                }
+            }
+
+            CComBSTR diagnostics;
+            runInfo.hr = activeScriptDirect->VarToString(args[2], &diagnostics);
+            if (SUCCEEDED(runInfo.hr))
+            {
+                if (wcscmp(diagnostics, L"diagnostics") == 0)
+                {
+                    runInfo.isDiagnosticHost = true;
+                }
+                SysFreeString(diagnostics);
+            }
+            else
+            {
+                runInfo.errorMessage = L"Failed while reading the third arg (diagnostics flag)";
+                return false;
+            }
+        }
+
+        BSTR context;
+        runInfo.hr = activeScriptDirect->VarToString(args[1], &context);
+        if (SUCCEEDED(runInfo.hr))
+        {
+            runInfo.SetContext(context);
+            SysFreeString(context);
+        }
+        else
+        {
+            runInfo.errorMessage = L"Failed while reading the second arg (context flag)";
+            return false;
+        }
+    }
+
+    return true;
+}
+
+Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    RunInfo runInfo;
+    IActiveScriptDirect * activeScriptDirect = NULL;
+    IJavascriptOperations * operations = NULL;
+    runInfo.hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+    if (SUCCEEDED(runInfo.hr))
+    {
+        runInfo.hr = activeScriptDirect->GetJavascriptOperations(&operations);
+    }
+    if (FAILED(runInfo.hr))
+    {
+        return NULL;
+    }
+
+    Var returnValue = NULL;
+    va_list argptr;
+    va_start(argptr, thisArg);
+    Var * args = (Var*)argptr;
+
+    if (ParseRunInfoFromArgs(activeScriptDirect, callInfo, args, runInfo))
+    {
+        if (runInfo.context == RunInfo::ContextType::self)
+        {
+            IActiveScript * activeScript;
+            runInfo.hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScript), (void**)&activeScript);
+            if (SUCCEEDED(runInfo.hr))
+            {
+                IJsHostScriptSite * jsHostScriptSite;
+                runInfo.hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
+                if (SUCCEEDED(runInfo.hr))
+                {
+                    runInfo.hr = jsHostScriptSite->LoadScriptFile(runInfo.source);
+                    if (SUCCEEDED(runInfo.hr))
+                    {
+                        runInfo.hr = activeScriptDirect->GetGlobalObject(&returnValue);
+                        if (SUCCEEDED(runInfo.hr))
+                        {
+                            runInfo.hr = AddToScriptEngineMapNoThrow(returnValue, jsHostScriptSite);
+                        }
+                    }
+                    jsHostScriptSite->Release();
+                }
+
+                activeScript->Release();
+            }
+        }
+        else if (runInfo.context == RunInfo::ContextType::sameThread)
+        {
+            JsHostActiveScriptSite * scriptSite;
+            runInfo.hr = CreateNewEngine(GetCurrentThread(), &scriptSite, true, runInfo.isDiagnosticHost, runInfo.isPrimary /* not primary by default */, runInfo.domainId);
+            if (SUCCEEDED(runInfo.hr))
+            {
+                runInfo.hr = scriptSite->LoadScriptFile(runInfo.source);
+                if (SUCCEEDED(runInfo.hr))
+                {
+                    IActiveScript * newActiveScript = NULL;
+                    runInfo.hr = scriptSite->GetActiveScript(&newActiveScript);
+                    if (SUCCEEDED(runInfo.hr))
+                    {
+                        IActiveScriptDirect * newActiveScriptDirect = NULL;
+                        runInfo.hr = newActiveScript->QueryInterface(__uuidof(IActiveScriptDirect), (void**)&newActiveScriptDirect);
+                        if (SUCCEEDED(runInfo.hr))
+                        {
+                            runInfo.hr = newActiveScriptDirect->GetGlobalObject(&returnValue);
+                            newActiveScriptDirect->Release();
+                            if (SUCCEEDED(runInfo.hr))
+                            {
+                                IJsHostScriptSite * jsHostScriptSite;
+                                runInfo.hr = newActiveScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
+                                if (SUCCEEDED(runInfo.hr))
+                                {
+                                    runInfo.hr = AddToScriptEngineMapNoThrow(returnValue, jsHostScriptSite);
+                                    jsHostScriptSite->Release();
+                                }
+                            }
+                        }
+                        newActiveScript->Release();
+                    }
+                }
+                scriptSite->Release();
+            }
+        }
+        else if (runInfo.context == RunInfo::ContextType::crossThread)
+        {
+            if (IsOs_OneCoreUAP())
+            {
+                Assert(FALSE); // crossthread scenario is not supported for WP8.
+                runInfo.hr = E_INVALIDARG;
+            } 
+            else
+            {
+                HANDLE newThread;
+                runInfo.hr = CreateEngineThread(&newThread);
+                if (SUCCEEDED(runInfo.hr))
+                {
+                    JsHostActiveScriptSite * scriptSite;
+                    runInfo.hr = CreateNewEngine(newThread, &scriptSite, true, runInfo.isDiagnosticHost, runInfo.isPrimary /* not primary */, runInfo.domainId);
+                    if (SUCCEEDED(runInfo.hr))
+                    {
+                        runInfo.hr = scriptSite->LoadScriptFile(runInfo.source);
+                        if (SUCCEEDED(runInfo.hr))
+                        {
+                            IDispatchEx * globalObjectDispatchEx = NULL;
+                            runInfo.hr = scriptSite->GetGlobalObjectDispatchEx(&globalObjectDispatchEx);
+                            if (SUCCEEDED(runInfo.hr))
+                            {
+                                runInfo.hr = activeScriptDirect->DispExToVar(globalObjectDispatchEx, &returnValue);
+                                globalObjectDispatchEx->Release();
+                                if (SUCCEEDED(runInfo.hr))
+                                {
+                                    IActiveScript * newActiveScript = NULL;
+                                    runInfo.hr = scriptSite->GetActiveScript(&newActiveScript);
+                                    if (SUCCEEDED(runInfo.hr))
+                                    {
+                                        IJsHostScriptSite * jsHostScriptSite;
+                                        runInfo.hr = newActiveScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
+                                        if (SUCCEEDED(runInfo.hr))
+                                        {
+                                            runInfo.hr = AddToScriptEngineMapNoThrow(returnValue, jsHostScriptSite);
+                                            jsHostScriptSite->Release();
+                                        }
+                                        newActiveScript->Release();
+                                    }
+                                }
+                                if (runInfo.hr == SCRIPT_E_RECORDED)
+                                {
+                                    activeScriptDirect->ReleaseAndRethrowException(runInfo.hr);
+                                }
+                            }
+                        }
+                        scriptSite->Release();
+                    }
+                    CloseHandle(newThread);
+                }
+            }
+        }
+    }
+
+    if (FAILED(runInfo.hr))
+    {
+        Var errorObject = NULL;
+        runInfo.hr = activeScriptDirect->CreateErrorObject(JavascriptError, runInfo.hr, runInfo.errorMessage, &errorObject);
+        if (SUCCEEDED(runInfo.hr))
+        {
+            operations->Release();
+            activeScriptDirect->Release();
+            runInfo.hr = operations->ThrowException(activeScriptDirect, errorObject, FALSE);
+        }
+    }
+
+    operations->Release();
+    activeScriptDirect->Release();
+
+    return returnValue;
+}
+
+Var WScriptFastDom::LoadScript(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    RunInfo runInfo;
+    CComPtr<IActiveScriptDirect> activeScriptDirect = NULL;
+    CComPtr<IJavascriptOperations> operations = NULL;
+    JsHostActiveScriptSite *scriptSite = nullptr;
+    runInfo.hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+    if (SUCCEEDED(runInfo.hr))
+    {
+        runInfo.hr = activeScriptDirect->GetJavascriptOperations(&operations);
+    }
+    if (FAILED(runInfo.hr))
+    {
+        return NULL;
+    }
+
+    Var returnValue = NULL;
+    va_list argptr;
+    va_start(argptr, thisArg);
+    Var * args = (Var*)argptr;
+
+    if (ParseRunInfoFromArgs(activeScriptDirect, callInfo, args, runInfo, true))
+    {
+        if (runInfo.context == RunInfo::ContextType::self)
+        {
+            IActiveScript * activeScript;
+            runInfo.hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScript), (void**)&activeScript);
+            if (SUCCEEDED(runInfo.hr))
+            {
+                IJsHostScriptSite * jsHostScriptSite;
+                runInfo.hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
+                if (SUCCEEDED(runInfo.hr))
+                {
+                    scriptSite = (JsHostActiveScriptSite*)jsHostScriptSite;
+                    if (scriptSite != nullptr)
+                    {
+                        scriptSite->delegateErrorHandling = true;
+                        scriptSite->lastException = new ExceptionData();
+
+                        runInfo.hr = scriptSite->LoadScript(runInfo.source);
+                        if (SUCCEEDED(runInfo.hr))
+                        {
+                            runInfo.hr = activeScriptDirect->GetGlobalObject(&returnValue);
+                            if (SUCCEEDED(runInfo.hr))
+                            {
+                                runInfo.hr = AddToScriptEngineMapNoThrow(returnValue, jsHostScriptSite);
+                            }
+                        }
+
+                        scriptSite->delegateErrorHandling = false;
+                    }
+                }
+
+                activeScript->Release();
+            }
+        }
+        else if (runInfo.context == RunInfo::ContextType::sameThread)
+        {
+            runInfo.hr = CreateNewEngine(GetCurrentThread(), &scriptSite, true, runInfo.isDiagnosticHost, runInfo.isPrimary /* By default not primary in LoadScript */, runInfo.domainId);
+            if (SUCCEEDED(runInfo.hr))
+            {
+                Assert(scriptSite->delegateErrorHandling == false);
+                Assert(scriptSite->lastException == nullptr);
+                scriptSite->delegateErrorHandling = true;
+                scriptSite->lastException = new ExceptionData();
+
+                runInfo.hr = scriptSite->LoadScript(runInfo.source);
+                        
+                if (SUCCEEDED(runInfo.hr))
+                {
+                    IActiveScript * newActiveScript = NULL;
+                    runInfo.hr = scriptSite->GetActiveScript(&newActiveScript);
+                    if (SUCCEEDED(runInfo.hr))
+                    {
+                        IActiveScriptDirect * newActiveScriptDirect = NULL;
+                        runInfo.hr = newActiveScript->QueryInterface(__uuidof(IActiveScriptDirect), (void**)&newActiveScriptDirect);
+                        if (SUCCEEDED(runInfo.hr))
+                        {
+                            runInfo.hr = newActiveScriptDirect->GetGlobalObject(&returnValue);
+                            newActiveScriptDirect->Release();
+                            if (SUCCEEDED(runInfo.hr))
+                            {
+                                IJsHostScriptSite * jsHostScriptSite;
+                                runInfo.hr = newActiveScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
+                                if (SUCCEEDED(runInfo.hr))
+                                {
+                                    runInfo.hr = AddToScriptEngineMapNoThrow(returnValue, jsHostScriptSite);
+                                    jsHostScriptSite->Release();
+                                }
+                            }
+                        }
+                        newActiveScript->Release();
+                    }
+                }
+                scriptSite->delegateErrorHandling = false;
+            }
+        }
+        else if (runInfo.context == RunInfo::ContextType::crossThread)
+        {
+            runInfo.hr = E_NOTIMPL;
+        }
+    }
+
+    if (FAILED(runInfo.hr))
+    {
+        Var errorObject = NULL;
+        if (scriptSite != nullptr && scriptSite->lastException != nullptr)
+        {
+            switch (scriptSite->lastException->errorType)
+            {
+            case JsErrorType::JavascriptParseError:
+                runInfo.hr = activeScriptDirect->CreateErrorObject(JsErrorType::JavascriptSyntaxError, runInfo.hr, scriptSite->lastException->description, &errorObject);
+                break;
+            case JsErrorType::JavascriptTypeError:
+                runInfo.hr = activeScriptDirect->CreateErrorObject(JsErrorType::JavascriptTypeError, runInfo.hr, scriptSite->lastException->description, &errorObject);
+                break;
+            default:
+                if (scriptSite->lastException->thrownObject != nullptr)
+                {
+                    errorObject = scriptSite->lastException->thrownObject;
+                    runInfo.hr = S_OK;
+                }
+                else
+                {
+                    runInfo.hr = activeScriptDirect->CreateErrorObject(JsErrorType::JavascriptError, runInfo.hr, scriptSite->lastException->description, &errorObject);
+                }
+                break;
+            }
+            delete scriptSite->lastException;
+            scriptSite->lastException = nullptr;
+            scriptSite->Release();
+        }
+        else
+        {
+            runInfo.hr = activeScriptDirect->CreateErrorObject(JavascriptError, runInfo.hr, runInfo.errorMessage, &errorObject);
+        }
+
+        if (SUCCEEDED(runInfo.hr))
+        {
+            runInfo.hr = operations->ThrowException(activeScriptDirect, errorObject, FALSE);
+        }
+    }
+    else if (scriptSite != nullptr)
+    {
+        scriptSite->Release();
+    }
+
+    return returnValue;
+}
+
+HRESULT WScriptFastDom::AddToScriptEngineMapNoThrow(Var globalObject, IJsHostScriptSite* jsHostScriptSite)
+{
+    HRESULT hr = S_OK;
+    AutoCriticalSection autoHostThreadCS(&hostThreadMapCs);
+    try
+    {
+        scriptEngineMap.insert(std::pair<Var, IJsHostScriptSite*>(globalObject, jsHostScriptSite));
+    }
+    catch(const exception &)
+    {
+        hr = E_FAIL;
+    }
+    jsHostScriptSite->AddRef();
+
+    return hr;
+}
+
+void WScriptFastDom::ShutdownAll()
+{
+    for (auto i = scriptEngineMap.begin(); i != scriptEngineMap.end(); i++)
+    {
+        i->second->Release();
+    }
+    scriptEngineMap.clear();
+
+    s_messageQueue = NULL;
+}
+
+Var WScriptFastDom::PerformSourceRundown(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    DiagnosticsHelper *diagnosticsHelper = DiagnosticsHelper::GetDiagnosticsHelper();
+    diagnosticsHelper->m_shouldPerformSourceRundown = true;
+
+    ::PerformSourceRundown(); // Queue a source rundown message
+
+    return NULL;
+}
+
+Var WScriptFastDom::DebugDynamicAttach(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    if (callInfo.Count > 1)
+    {
+        va_list argptr;
+        va_start(argptr, thisArg);
+        Var * args = (Var*)argptr;
+
+        FastDomDebugAttach(args[0]);
+    }
+    return NULL;
+}
+
+// Sets the debugger into a mode to perform dynamic detachment (no refresh detach).
+Var WScriptFastDom::DebugDynamicDetach(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    HRESULT hr = S_OK;
+    if(IsRunningUnderJdtest)
+    {
+        // Detach unsupported in hybrid mode.
+        LPCWSTR errorMessage = L"WScript.Detach not available in hybrid mode";
+        IActiveScriptDirect * activeScriptDirect = NULL;
+        IJavascriptOperations * operations = NULL;
+        hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+        if (SUCCEEDED(hr))
+        {
+            hr = activeScriptDirect->GetJavascriptOperations(&operations);
+            Var errorObject = NULL;
+            if(SUCCEEDED(hr))
+            {
+                hr = activeScriptDirect->CreateErrorObject(JavascriptError, hr, errorMessage, &errorObject);
+                if(SUCCEEDED(hr))
+                {
+                    hr = operations->ThrowException(activeScriptDirect, errorObject, FALSE);
+                }
+                operations->Release();
+            }
+            activeScriptDirect->Release();
+        }
+        return NULL;
+    }
+
+
+    if (callInfo.Count > 1)
+    {
+        va_list argptr;
+        va_start(argptr, thisArg);
+        Var * args = (Var*)argptr;
+
+        FastDomDebugDetach(args[0]);
+    }
+    return NULL;
+}
+
+Var WScriptFastDom::Edit(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    if (callInfo.Count == 3)
+    {
+        va_list argptr;
+        va_start(argptr, thisArg);
+        Var * args = (Var*)argptr;
+
+        HRESULT hr = S_OK;
+
+        CComPtr<IActiveScriptDirect> activeScriptDirect;
+        hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+        if (FAILED(hr))
+        {
+            return nullptr;
+        }
+
+        CComBSTR editLabel;
+        hr = activeScriptDirect->VarToString(args[0], &editLabel);
+        if (SUCCEEDED(hr))
+        {
+            CComPtr<IDebugDocumentText> spDebugDocumentText;
+            ULONG startOffset;
+            ULONG length;
+            PCWSTR editContent;
+            ULONG newLength;
+            DiagnosticsHelper* diagnosticsHelper = DiagnosticsHelper::GetDiagnosticsHelper();
+            bool editRangeAndContentFound = diagnosticsHelper->GetEditRangeAndContent(editLabel, &spDebugDocumentText, &startOffset, &length, &editContent, &newLength);
+            if (editRangeAndContentFound)
+            {
+                FastDomEdit(args[1], spDebugDocumentText, startOffset, length, editContent, newLength);
+            }
+            else
+            {
+                // Ooops, label not found 
+                LPCWSTR errorMessage = L"WScript.Edit() label not found.";
+                CComPtr<IJavascriptOperations> operations = nullptr;
+                hr = activeScriptDirect->GetJavascriptOperations(&operations);
+                Var errorObject = nullptr;
+                if (SUCCEEDED(hr))
+                {
+                    hr = activeScriptDirect->CreateErrorObject(JavascriptError, hr, errorMessage, &errorObject);
+                    if (SUCCEEDED(hr))
+                    {
+                        hr = operations->ThrowException(activeScriptDirect, errorObject, FALSE);
+                    }
+                }
+
+                return nullptr;
+            }
+        }
+        else
+        {
+            if (hr == SCRIPT_E_RECORDED)
+            {
+                activeScriptDirect->ReleaseAndRethrowException(hr);
+            }
+        }
+
+        Var undefined = nullptr;
+        activeScriptDirect->GetUndefined(&undefined);
+        return undefined;
+    }
+
+    // TODO: Error reporting - WScript.Edit() is called with wrong number of arguments!
+
+    return nullptr;
+}
+
+Var WScriptFastDom::StartScriptProfiler(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    if (callInfo.Count > 1)
+    {
+        va_list argptr;
+        va_start(argptr, thisArg);
+        Var * args = (Var*)argptr;
+
+        FastDomStartProfiler(args[0]);
+    }
+    return nullptr;
+}
+
+Var WScriptFastDom::StopScriptProfiler(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    Var targetFunction = nullptr; // WScript.StopProfiling([optional]func)
+    if (callInfo.Count > 1)
+    {
+        va_list argptr;
+        va_start(argptr, thisArg);
+        Var * args = (Var*)argptr;
+        targetFunction = args[0];
+    }
+
+    FastDomStopProfiler(targetFunction);
+    return nullptr;
+}
+
+Var WScriptFastDom::InitializeProjection(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    HRESULT hr = S_OK;
+
+    IActiveScriptDirect * activeScriptDirect = NULL;
+    hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+    if (SUCCEEDED(hr))
+    {
+        IActiveScript * activeScript;
+        hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScript), (void**)&activeScript);
+        if (SUCCEEDED(hr))
+        {
+            IJsHostScriptSite * jsHostScriptSite;
+            hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
+            if (SUCCEEDED(hr))
+            {
+                hr = jsHostScriptSite->InitializeProjection();
+                jsHostScriptSite->Release();
+            }
+            activeScript->Release();
+        }
+        activeScriptDirect->Release();
+    }
+
+    return NULL;
+}
+
+Var WScriptFastDom::RegisterCrossThreadInterfacePS(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    HRESULT hr = S_OK;
+
+    IActiveScriptDirect * activeScriptDirect = NULL;
+    hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+    if (SUCCEEDED(hr))
+    {
+        IActiveScript * activeScript;
+        hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScript), (void**)&activeScript);
+        if (SUCCEEDED(hr))
+        {
+            IJsHostScriptSite * jsHostScriptSite;
+            hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
+            if (SUCCEEDED(hr))
+            {
+                hr = jsHostScriptSite->RegisterCrossThreadInterface();
+                jsHostScriptSite->Release();
+            }
+            activeScript->Release();
+        }
+        activeScriptDirect->Release();
+    }
+
+    return NULL;
+}
+
+Var WScriptFastDom::CopyOnWrite(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    ARGUMENTS(thisArg, args);
+    HRESULT hr = S_OK;
+
+    ScriptDirect scriptDirect;
+    IfFailGo(scriptDirect.From(function));
+
+    if(callInfo.Count != 2)
+    {
+        goto Error;
+    }
+
+    Var globalObject;
+    IfFailGo(scriptDirect->GetGlobalObject(&globalObject));
+
+    Var copy;
+    IfFailGo(ScriptDirect::JsCopyOnWrite(globalObject, args[0], &copy));
+    return copy;
+
+Error:
+    scriptDirect.ThrowIfFailed(hr);
+    return scriptDirect.GetUndefined();
+}
+
+Var WScriptFastDom::CreateCanvasPixelArray(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    ARGUMENTS(thisArg, args);
+    HRESULT hr = S_OK;
+    ScriptDirect scriptDirect;
+    Var result = nullptr;
+    IfFailGo(scriptDirect.From(function));
+    result = scriptDirect.GetUndefined();
+
+    if(callInfo.Count != 2)
+    {
+        goto Error;
+    }
+
+    int length;
+    IfFailGo(scriptDirect.GetProperty(args[0], L"length", &length));
+
+    Var pixelArray;
+    IfFailGo(scriptDirect->CreatePixelArray(static_cast<UINT>(length), &pixelArray));
+
+    BYTE* pBuffer;
+    UINT bufferLen;
+    IfFailGo(scriptDirect->GetPixelArrayBuffer(pixelArray, &pBuffer, &bufferLen));
+
+    // Read data into pixel array buffer
+    {
+        ByteBufferContainer byteBuffer(pBuffer, bufferLen);
+        IfFailGo(scriptDirect.ReadArray(args[0], &byteBuffer));
+    }
+
+    result = pixelArray;
+
+Error:
+    scriptDirect.ThrowIfFailed(hr);
+    return result;
+}
+
+Var WScriptFastDom::SetTimeout(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    HRESULT hr = S_OK;
+    ARGUMENTS(thisArg, args);
+    Var result = nullptr;
+    ScriptDirect scriptDirect;
+
+    IfFailGo(scriptDirect.From(function));
+    result = scriptDirect.GetUndefined();
+
+    // SetTimeout(function, time)
+    if(callInfo.Count != 3)
+    {
+        hr = E_INVALIDARG;
+        goto Error;
+    }
+
+    // Retrieve the function
+    Var callbackFunction = args[0];
+    
+    // Retrieve and convert the time
+    int time;
+    IfFailGo(scriptDirect->VarToInt(args[1], &time));
+
+    // Push the callback
+    CallbackMessage *msg = new CallbackMessage(time, callbackFunction);
+    s_messageQueue->Push(msg);
+
+    // Build a return value that can be used as the key for ClearTimeout.
+    IfFailGo(scriptDirect->IntToVar(msg->GetId(), &result));
+
+Error:
+    scriptDirect.ThrowIfFailed(hr);
+    return result;
+}
+
+Var WScriptFastDom::ClearTimeout(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    HRESULT hr = S_OK;
+    ARGUMENTS(thisArg, args);
+    Var result = nullptr;
+    ScriptDirect scriptDirect;
+
+    IfFailGo(scriptDirect.From(function));
+    result = scriptDirect.GetUndefined();
+
+    // ClearTimeout(id)
+    if(callInfo.Count != 2)
+    {
+        hr = E_INVALIDARG;
+        goto Error;
+    }
+
+    // Retrieve and convert the id
+    int id;
+    IfFailGo(scriptDirect->VarToInt(args[0], &id));
+
+    s_messageQueue->RemoveById(id);
+
+Error:
+    scriptDirect.ThrowIfFailed(hr);
+    return result;
+}
+
+Var WScriptFastDom::EmitStackTraceEvent(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    HRESULT hr = S_OK;
+    ARGUMENTS(thisArg, args);
+    ScriptDirect scriptDirect;
+    USHORT maxFrame = JSCRIPT_FULL_STACKTRACE;
+    IfFailGo(scriptDirect.From(function));
+
+    if(callInfo.Count > 1)
+    {
+        int value;
+        IfFailGo(scriptDirect->VarToInt(args[0], &value));
+        maxFrame = (USHORT)value;
+    }
+
+    UINT64 operationId = 201; // random operation id
+    scriptDirect->EmitStackTraceEvent(operationId, maxFrame);
+
+Error:
+    return scriptDirect.GetUndefined();
+}
+
+Var WScriptFastDom::CallFunction(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    ARGUMENTS(thisArg, args);
+    ScriptDirect scriptDirect;
+
+    if (scriptDirect.From(function) == S_OK)
+    {
+        // CallFunciton(function)
+        if (callInfo.Count == 2)
+        {
+            // Retrieve the function
+            Var functionToCall = args[0];
+
+            // For simplicity use the callback pattern but call directly.
+            CallbackMessage msg(0/*timeout*/, functionToCall);
+            msg.CallJavascriptFunction();
+        }
+    }
+
+    return scriptDirect.GetUndefined();
+}
+
+Var WScriptFastDom::SetRestrictedMode(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    ARGUMENTS(thisArg, args);
+    ScriptDirect scriptDirect;
+
+    if (scriptDirect.From(function) == S_OK)
+    {
+        BOOL result = false;
+        // CallFunction(function)
+        if (callInfo.Count == 2
+            && (scriptDirect->VarToBOOL(args[0], &result) == S_OK))
+        {
+            CComPtr<IActiveScriptDirect> activeScriptDirect(nullptr);
+            CComPtr<IActiveScriptProperty> activeScriptProperty(nullptr);
+            
+            HRESULT hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+            Assert(hr == S_OK);
+            hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScriptProperty), (LPVOID*)&activeScriptProperty);
+            Assert(hr == S_OK);
+
+            if (s_mainScriptSite != nullptr)
+            {
+                VARIANT varValue;
+                varValue.vt = VT_BOOL;
+                varValue.boolVal = result ? VARIANT_TRUE : VARIANT_FALSE;
+                hr = activeScriptProperty->SetProperty(SCRIPTPROP_EVAL_RESTRICTION, nullptr, &varValue);
+                Assert(hr == S_OK);
+            }
+            else
+            {
+                Assert(false);
+            }
+        }
+    }
+
+    return scriptDirect.GetUndefined();
+}
+
+Var WScriptFastDom::SetEvalEnabled(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    ARGUMENTS(thisArg, args);
+    ScriptDirect scriptDirect;
+
+    if (scriptDirect.From(function) == S_OK)
+    {
+        BOOL result = false;
+        // CallFunction(function)
+        if (callInfo.Count == 2 
+            && (scriptDirect->VarToBOOL(args[0], &result) == S_OK))
+        {
+            if (s_mainScriptSite != nullptr)
+            {
+                s_mainScriptSite->SetEvalAllowed(result);
+            }
+            else
+            {
+                Assert(false);
+            }
+        }
+    }
+
+    return scriptDirect.GetUndefined();
+}
+
+Var WScriptFastDom::TestConstructor(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    Var obj;
+    ScriptDirect scriptDirect;
+
+    if (scriptDirect.From(function) == S_OK)
+    {
+        if (scriptDirect->CreateObject(&obj) == S_OK)
+        {
+            return obj;
+        }
+    }
+    return scriptDirect.GetUndefined();
+}
+
+HRESULT WScriptFastDom::TestConstructorInitMethod(Var instance)
+{
+    return S_OK;
+}
+
+Var WScriptFastDom::Shutdown(Var function, CallInfo callInfo, Var thisArg, ...)
+{
+    ARGUMENTS(thisArg, args);
+    HRESULT hr = S_OK;
+    ScriptDirect scriptDirect;
+    Var result = nullptr;
+    std::multimap<Var, IJsHostScriptSite*>::iterator iter;
+    IfFailGo(scriptDirect.From(function));
+    result = scriptDirect.GetUndefined();
+
+    if (callInfo.Count != 2)
+    {
+        // Implicitly assume the main script site needs to be closed
+        if (s_mainScriptSite != nullptr)
+        {
+            hr = ShutdownEngine(s_mainScriptSite);
+            if (SUCCEEDED(hr))
+            {
+                // Release this reference
+                s_mainScriptSite->Release();
+                s_mainScriptSite = nullptr;
+            }
+        }
+        return result;
+    }
+
+    Var globalObject = args[0];
+    {
+        AutoCriticalSection autoHostThreadCS(&hostThreadMapCs);
+        iter = scriptEngineMap.find(globalObject);
+        if (iter != scriptEngineMap.end())
+        {
+            ShutdownEngine((JsHostActiveScriptSite*)iter->second);
+            iter->second->Release();
+            scriptEngineMap.erase(iter);
+        }
+    }
+
+Error:
+    return result;
+}
+
+
+/* static */
+HRESULT WScriptFastDom::CreateArgsObject(IActiveScriptDirect *const activeScriptDirect, __out Var *argsObject)
+{
+    Assert(argsObject);
+
+    HRESULT hr   = S_OK;    
+    LPWSTR *argv = HostConfigFlags::argsVal;
+    Var retArr   = NULL;
+    Var value    = NULL;
+    Var index    = NULL;
+    *argsObject   = NULL;
+    CComPtr<IJavascriptOperations> jsOp;
+
+    Assert(activeScriptDirect);
+
+    Var undefined = NULL;
+    activeScriptDirect->GetUndefined(&undefined);
+
+    hr = activeScriptDirect->CreateArrayObject(HostConfigFlags::argsCount, &retArr);
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    hr = activeScriptDirect->GetJavascriptOperations(&jsOp);
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    for (int i = 0; i < HostConfigFlags::argsCount; i++)
+    {
+        hr = activeScriptDirect->StringToVar((LPCWSTR)argv[i], wcslen((LPCWSTR)argv[i]), &value);
+        if (FAILED(hr))
+        {
+            return hr;
+        }
+
+        hr = activeScriptDirect->IntToVar(i, &index);
+        if (FAILED(hr))
+        {
+            return hr;
+        }
+
+        hr = jsOp->SetItem(activeScriptDirect, retArr, index, value);
+        if (FAILED(hr))
+        {
+            return hr;
+        }
+    }
+
+    *argsObject = retArr;
+
+    return hr;
+}
+
+HRESULT WScriptFastDom::AddMethodToObject(__in LPWSTR propertyName, __in IActiveScriptDirect* scriptDirect, __inout Var wscript, __in ScriptMethod signature)
+{
+    HRESULT hr;
+    ITypeOperations * operations = nullptr;
+    hr = scriptDirect->GetDefaultTypeOperations(&operations);
+    IfFailedGo(hr);    
+
+    PropertyId propertyId;
+    hr = scriptDirect->GetOrAddPropertyId(propertyName, &propertyId);
+    IfFailedGo(hr);    
+    Var funcVar;
+    hr = scriptDirect->BuildDirectFunction(NULL, signature, propertyId, &funcVar);
+    IfFailedGo(hr);
+    BOOL result;
+    hr =  operations->SetProperty(scriptDirect, wscript, propertyId, funcVar, &result);
+    IfFailedGo(hr);
+
+LReturn:
+    if(operations)
+    {
+        operations->Release();
+    }
+    return hr;
+}
+
+void WScriptFastDom::AddMessageQueue(MessageQueue *messageQueue)
+{
+    Assert(s_messageQueue == NULL);
+    s_messageQueue = messageQueue;
+}
+
+void WScriptFastDom::SetMainScriptSite(JsHostActiveScriptSite* activeScriptSite)
+{
+    Assert(s_mainScriptSite == nullptr);
+    s_mainScriptSite = activeScriptSite;
+    s_mainScriptSite->AddRef();
+}
+
+void WScriptFastDom::ClearMainScriptSite()
+{
+    if (s_mainScriptSite != nullptr)
+    {
+        s_mainScriptSite->Release();
+        s_mainScriptSite = nullptr;
+    }
+
+}
+HRESULT WScriptFastDom::InitializeProperty(IActiveScriptDirect *activeScriptDirect, __in wchar_t *propName, __out Var * obj, __out PropertyId *propId)
+{
+    HRESULT hr = S_OK;
+    HTYPE type;
+
+    IfFailedGo(activeScriptDirect->GetOrAddPropertyId(propName, propId));
+    IfFailedGo(activeScriptDirect->CreateType(TypeId_Unspecified, NULL, NULL, NULL, FALSE, *propId, TRUE, &type));
+    IfFailedGo(activeScriptDirect->CreateTypedObject(type, 0, TRUE, obj));
+    
+LReturn:
+    return hr;
+}
+
+HRESULT WScriptFastDom::InitializeStreams(IActiveScriptDirect * activeScriptDirect, Var wscript)
+{
+    HRESULT hr = S_OK;
+    ITypeOperations * operations = nullptr;
+    BOOL result;
+
+    IfFailedGo(activeScriptDirect->GetDefaultTypeOperations(&operations));
+
+
+    // Create the properties on WScript
+    Var stdErr, stdOut, stdIn;
+    PropertyId stdErrPropId, stdOutPropId, stdInPropId;
+    IfFailedGo(InitializeProperty(activeScriptDirect, L"StdErr", &stdErr, &stdErrPropId));
+    IfFailedGo(operations->SetProperty(activeScriptDirect, wscript, stdErrPropId, stdErr, &result));
+    IfFailedGo(InitializeProperty(activeScriptDirect, L"StdOut", &stdOut, &stdOutPropId));
+    IfFailedGo(operations->SetProperty(activeScriptDirect, wscript, stdOutPropId, stdOut, &result));
+    IfFailedGo(InitializeProperty(activeScriptDirect, L"StdIn", &stdIn, &stdInPropId));
+    IfFailedGo(operations->SetProperty(activeScriptDirect, wscript, stdInPropId, stdIn, &result));
+    
+
+    // Add methods to the streams
+    IfFailedGo(AddMethodToObject(L"WriteLine", activeScriptDirect, stdErr, WScriptFastDom::StdErrWriteLine));
+    IfFailedGo(AddMethodToObject(L"Write", activeScriptDirect, stdErr, WScriptFastDom::StdErrWrite));
+    IfFailedGo(AddMethodToObject(L"WriteLine", activeScriptDirect, stdOut, WScriptFastDom::StdOutWriteLine));
+    IfFailedGo(AddMethodToObject(L"Write", activeScriptDirect, stdOut, WScriptFastDom::StdOutWrite));
+    IfFailedGo(AddMethodToObject(L"ReadLine", activeScriptDirect, stdIn, WScriptFastDom::StdInReadLine));
+    IfFailedGo(AddMethodToObject(L"EOF", activeScriptDirect, stdIn, WScriptFastDom::StdInEOF));
+
+LReturn:
+    if (operations != nullptr)
+    {
+        operations->Release();
+    }
+    return hr;
+}
+
+HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript)
+{
+    HRESULT hr = S_OK;
+    ITypeOperations * operations = NULL;
+    IActiveScriptDirect * activeScriptDirect = NULL;
+    BOOL result;
+
+    hr = activeScript->QueryInterface(__uuidof(IActiveScriptDirect), (void **)&activeScriptDirect);
+    IfFailedGo(hr);
+
+    hr = activeScriptDirect->GetDefaultTypeOperations(&operations);
+    IfFailedGo(hr);
+
+    Var globalObject;
+    hr = activeScriptDirect->GetGlobalObject(&globalObject);
+    IfFailedGo(hr);
+
+    // Create the WScript object
+    PropertyId wscriptPropertyId;
+    hr = activeScriptDirect->GetOrAddPropertyId(L"WScript", &wscriptPropertyId);
+    IfFailedGo(hr);
+    Var wscript;
+    hr =  activeScriptDirect->CreateObject(&wscript);
+    IfFailedGo(hr);
+    hr = operations->SetProperty(activeScriptDirect, globalObject, wscriptPropertyId, wscript, &result);
+    IfFailedGo(hr);
+
+    // Create the print method of the global object
+    hr = AddMethodToObject(L"print", activeScriptDirect, globalObject, WScriptFastDom::Echo);
+    IfFailedGo(hr);
+
+    // Create the Echo method
+    hr = AddMethodToObject(L"Echo", activeScriptDirect, wscript, WScriptFastDom::Echo);
+    IfFailedGo(hr);
+
+    // Create the Args method
+    PropertyId argsPropertyId;
+    hr = activeScriptDirect->GetOrAddPropertyId(L"Arguments", &argsPropertyId);
+    IfFailedGo(hr);    
+    Var args;
+    hr = CreateArgsObject(activeScriptDirect, &args);
+    IfFailedGo(hr);
+    Assert(args);
+    hr =  operations->SetProperty(activeScriptDirect, wscript, argsPropertyId, args, &result);
+    IfFailedGo(hr);
+
+    // Initialize StdErr, StdOut, StdIn
+    IfFailedGo(InitializeStreams(activeScriptDirect, wscript));
+
+    // Create the Quit method
+    hr = AddMethodToObject(L"Quit", activeScriptDirect, wscript, WScriptFastDom::Quit);
+    IfFailedGo(hr);
+
+    // Create the LoadScriptFile method
+    hr = AddMethodToObject(L"LoadScriptFile", activeScriptDirect, wscript, WScriptFastDom::LoadScriptFile);
+    IfFailedGo(hr);
+
+    // Create the LoadScript method
+    hr = AddMethodToObject(L"LoadScript", activeScriptDirect, wscript, WScriptFastDom::LoadScript);
+    IfFailedGo(hr);
+
+    // Create the InitializeProjection method
+    hr = AddMethodToObject(L"InitializeProjection", activeScriptDirect, wscript, WScriptFastDom::InitializeProjection);
+    IfFailedGo(hr);
+
+    // Create the perform source rundown method
+    hr = AddMethodToObject(L"PerformSourceRundown", activeScriptDirect, wscript, WScriptFastDom::PerformSourceRundown);
+    IfFailedGo(hr);
+
+    // Create the Dynamic attach method
+    hr = AddMethodToObject(L"Attach", activeScriptDirect, wscript, WScriptFastDom::DebugDynamicAttach);
+    IfFailedGo(hr);
+
+    // Create the Dynamic detach method
+    hr = AddMethodToObject(L"Detach", activeScriptDirect, wscript, WScriptFastDom::DebugDynamicDetach);
+    IfFailedGo(hr);
+
+#ifdef EDIT_AND_CONTINUE
+    if (s_enableEditTest) // Only add method when command line explicitly requests, to avoid affecting other unrelated baseline.
+    {
+        // Create the Dynamic edit method
+        hr = AddMethodToObject(L"Edit", activeScriptDirect, wscript, WScriptFastDom::Edit);
+        IfFailedGo(hr);
+    }
+#endif
+
+    // Create the Script Profile method
+    hr = AddMethodToObject(L"StartProfiling", activeScriptDirect, wscript, WScriptFastDom::StartScriptProfiler);
+    IfFailedGo(hr);
+
+    // Create the Script Profile method
+    hr = AddMethodToObject(L"StopProfiling", activeScriptDirect, wscript, WScriptFastDom::StopScriptProfiler);
+    IfFailedGo(hr);
+
+    // Create the RegisterCrossThreadInterfacePS method
+    hr = AddMethodToObject(L"RegisterCrossThreadInterfacePS", activeScriptDirect, wscript, WScriptFastDom::RegisterCrossThreadInterfacePS);
+    IfFailedGo(hr);
+
+    // Create the GetWorkingSet method
+    hr = AddMethodToObject(L"GetWorkingSet", activeScriptDirect, wscript, WScriptFastDom::GetWorkingSet);
+    IfFailedGo(hr);
+
+    // Create the CopyOnWrite method
+    hr = AddMethodToObject(L"CopyOnWrite", activeScriptDirect, wscript, WScriptFastDom::CopyOnWrite);
+    IfFailedGo(hr);
+
+    // Create the CreateCanvasPixelArray method
+    hr = AddMethodToObject(L"CreateCanvasPixelArray", activeScriptDirect, wscript, WScriptFastDom::CreateCanvasPixelArray);
+    IfFailedGo(hr);
+
+    // Create the Shutdown method
+    hr = AddMethodToObject(L"Shutdown", activeScriptDirect, wscript, WScriptFastDom::Shutdown);
+    IfFailedGo(hr);
+
+    // Create the SetTimeout method
+    hr = AddMethodToObject(L"SetTimeout", activeScriptDirect, wscript, WScriptFastDom::SetTimeout);
+    IfFailedGo(hr);
+    
+    // Create the ClearTimeout method
+    hr = AddMethodToObject(L"ClearTimeout", activeScriptDirect, wscript, WScriptFastDom::ClearTimeout);
+    IfFailedGo(hr);
+
+    hr = AddMethodToObject(L"EmitStackTraceEvent", activeScriptDirect, wscript, WScriptFastDom::EmitStackTraceEvent);
+    IfFailedGo(hr);
+
+    if (HostConfigFlags::flags.EnableMiscWScriptFunctions)
+    {
+        hr = AddMethodToObject(L"CallFunction", activeScriptDirect, wscript, WScriptFastDom::CallFunction);
+        IfFailedGo(hr);
+    }
+
+    hr = AddMethodToObject(L"SetEvalEnabled", activeScriptDirect, wscript, WScriptFastDom::SetEvalEnabled); 
+    IfFailedGo(hr);
+
+    hr = AddMethodToObject(L"SetRestrictedMode", activeScriptDirect, wscript, WScriptFastDom::SetRestrictedMode);
+    IfFailedGo(hr);
+
+    // Add constructor ImageData
+    PropertyId namePropertyId;
+    Var testConstructor;
+    IfFailedGo(activeScriptDirect->GetOrAddPropertyId(L"TestConstructor", &namePropertyId));
+    IfFailedGo(activeScriptDirect->CreateDeferredConstructor(&WScriptFastDom::TestConstructor, namePropertyId, TestConstructorInitMethod, 5, FALSE, FALSE,  &testConstructor));
+    IfFailedGo(operations->SetProperty(activeScriptDirect, wscript, namePropertyId, testConstructor, &result));
+
+LReturn:
+    if (operations)
+    {
+        operations->Release();
+    }
+
+    if (activeScriptDirect)
+    {
+        activeScriptDirect->Release();
+    }
+
+    return hr;
+}
+
+WScriptFastDom::CallbackMessage::CallbackMessage(unsigned int time, Var function) : MessageBase(time), m_function(function)
+{
+    ScriptDirect::JsVarAddRef(m_function);
+}
+
+WScriptFastDom::CallbackMessage::~CallbackMessage()
+{
+    ScriptDirect::JsVarRelease(m_function);
+    m_function = NULL;
+}
+
+HRESULT WScriptFastDom::CallbackMessage::CallJavascriptFunction()
+{
+    HRESULT hr = S_OK;
+    if (m_function)
+    {
+        CComPtr<IServiceProvider> serviceProvider;
+        CallInfo callInfo = { 1, CallFlags_None };
+        ScriptDirect scriptDirect;
+        Var globalObject = NULL;
+        Var result = NULL;
+        IfFailGo(scriptDirect.From(m_function));
+
+        BOOL isCalable = FALSE;
+        IfFailGo(scriptDirect->IsObjectCallable(m_function, &isCalable));
+
+        if (!isCalable)
+        {
+            PWSTR scriptCode = NULL;
+            unsigned int length = 0;
+            Var varFunction = NULL;
+            IfFailGo(scriptDirect->VarToRawString(m_function, (LPCWSTR*)&scriptCode, &length));
+            IfFailGo(scriptDirect->Parse(scriptCode, &varFunction));
+
+            // varFunction is constructed now (store it back, this can be used for setInterval)
+            ScriptDirect::JsVarRelease(m_function);
+            m_function = varFunction;
+            ScriptDirect::JsVarAddRef(m_function);
+        }
+
+        IfFailGo(scriptDirect->GetGlobalObject(&globalObject));
+        IfFailGo(scriptDirect->GetServiceProvider(&serviceProvider));
+        hr = scriptDirect->Execute(
+            m_function,
+            callInfo,
+            &globalObject,
+            NULL,
+            &result
+            );
+    }
+
+Error:
+    return hr;
+}
+
+HRESULT WScriptFastDom::CallbackMessage::Call()
+{
+    return CallJavascriptFunction();
+}
+
+void WScriptFastDom::EnableEditTests()
+{
+    s_enableEditTest = true;
+}

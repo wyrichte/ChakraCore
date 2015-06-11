@@ -1,0 +1,425 @@
+Manipulation of Projected Functions
+
+=================================================
+Starting [Test 1: Manipulation of static methods]
+Pass: Animals.Animal.getAnswer.bind(Animals.Animal)
+      Actual: 42
+
+Pass: Animals.Animal.getAnswer.bind()
+      Actual: 42
+
+Pass: Animals.Animal.getAnswer.bind(root, 'hello')
+      Actual: 42
+
+Pass: Animals.Animal.getAnswer.bind({})
+      Actual: 42
+
+Pass: Animals.Animal.getAnswer.bind(null)
+      Actual: 42
+
+Pass: Animals.Animal.getAnswer.bind(undefined)
+      Actual: 42
+
+Pass: DevTests.CamelCasing.OverloadStringVariations.pascalStaticOverload.bind(DevTests.CamelCasing.OverloadStringVariations)
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload(int) Called
+
+Pass: DevTests.CamelCasing.OverloadStringVariations.pascalStaticOverload.bind()
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload() Called
+
+Pass: DevTests.CamelCasing.OverloadStringVariations.pascalStaticOverload.bind(root)
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload(int) Called
+
+Pass: DevTests.CamelCasing.OverloadStringVariations.pascalStaticOverload.bind({}, 12)
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload(int) Called
+
+Pass: DevTests.CamelCasing.OverloadStringVariations.pascalStaticOverload.bind(null)
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload() Called
+
+Pass: DevTests.CamelCasing.OverloadStringVariations.pascalStaticOverload.bind(undefined)
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload() Called
+
+Pass: Animals.Animal.getAnswer.call(Animals.Animal)
+      Actual: 42
+
+Pass: Animals.Animal.getAnswer.apply()
+      Actual: 42
+
+Pass: Animals.Animal.getAnswer.call(root)
+      Actual: 42
+
+Pass: Animals.Animal.getAnswer.apply({})
+      Actual: 42
+
+Pass: Animals.Animal.getAnswer.call(null, 73)
+      Actual: 42
+
+Pass: Animals.Animal.getAnswer.apply(undefined)
+      Actual: 42
+
+Pass: DevTests.CamelCasing.OverloadStringVariations.pascalStaticOverload.apply(DevTests.CamelCasing.OverloadStringVariations)
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload() Called
+
+Pass: DevTests.CamelCasing.OverloadStringVariations.pascalStaticOverload.call()
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload() Called
+
+Pass: DevTests.CamelCasing.OverloadStringVariations.pascalStaticOverload.apply(root, [22])
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload(int) Called
+
+Pass: DevTests.CamelCasing.OverloadStringVariations.pascalStaticOverload.call({})
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload() Called
+
+Pass: DevTests.CamelCasing.OverloadStringVariations.pascalStaticOverload.apply(null, [3])
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload(int) Called
+
+Pass: DevTests.CamelCasing.OverloadStringVariations.pascalStaticOverload.call(undefined, 50, 'foo')
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload(int) Called
+
+Comment: var func = Animals.Animal.getAnswer;
+Pass: func()
+      Actual: 42
+
+Pass: func.bind(Animals.Animal)()
+      Actual: 42
+
+Pass: func.bind(root)()
+      Actual: 42
+
+Pass: func.call(Animals.Animal)
+      Actual: 42
+
+Pass: func.apply({})
+      Actual: 42
+
+Comment: func = DevTests.CamelCasing.OverloadStringVariations.pascalStaticOverload;
+Pass: func()
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload() Called
+
+Pass: func(107)
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload(int) Called
+
+Pass: func.bind(DevTests.CamelCasing.OverloadStringVariations)()
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload() Called
+
+Pass: func.bind(root, 9)()
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload(int) Called
+
+Pass: func.apply(DevTests.CamelCasing.OverloadStringVariations, [220])
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload(int) Called
+
+Pass: func.call({})
+      Actual: DevTests.CamelCasing.IOverloadCasingStatic.PascalStaticOverload() Called
+
+PASS [Test 1: Manipulation of static methods]
+=================================================
+
+=================================================
+Starting [Test 2: Manipulation of instance methods]
+Comment: fishInstance.setNumFins.bind(fishInstance2)
+Pass: fishInstance2.getNumFins()
+      Actual: 23
+
+Pass: fishInstance.getNumFins.bind(fishInstance)
+      Actual: 5
+
+Pass: fishInstance.getNumFins.bind(turkeyInstance) returned (TypeError: 'this' is not of expected type: Animals.Fish)
+      Actual: true
+
+Pass: fishInstance.getNumFins.bind() returned (TypeError: getNumFins: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: fishInstance.getNumFins.bind(root) returned (TypeError: getNumFins: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: fishInstance.getNumFins.bind({}) returned (TypeError: getNumFins: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: fishInstance.getNumFins.bind(null) returned (TypeError: getNumFins: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: fishInstance.getNumFins.bind(undefined) returned (TypeError: getNumFins: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: turkeyInstance.toSandwich.bind(turkeyInstance)
+      Actual: 1
+
+Pass: turkeyInstance.toSandwich.bind(turkeyInstance)
+      Actual: 0
+
+Pass: turkeyInstance.toSandwich.bind(turkeyInstance, 0)
+      Actual: 0
+
+Pass: turkeyInstance.toSandwich.bind(fishInstance) returned (TypeError: 'this' is not of expected type: Animals.Turkey)
+      Actual: true
+
+Pass: turkeyInstance.toSandwich.bind() returned (TypeError: toSandwich: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: turkeyInstance.toSandwich.bind(root) returned (TypeError: toSandwich: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: turkeyInstance.toSandwich.bind({}) returned (TypeError: toSandwich: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: turkeyInstance.toSandwich.bind(null) returned (TypeError: toSandwich: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: turkeyInstance.toSandwich.bind(undefined) returned (TypeError: toSandwich: 'this' is not an Inspectable Object)
+      Actual: true
+
+Comment: fishInstance.setNumFins.call(fishInstance2, 203);
+Pass: fishInstance.getNumFins.call(fishInstance)
+      Actual: 203
+
+Pass: fishInstance.getNumFins.call(fishInstance)
+      Actual: 5
+
+Pass: fishInstance.getNumFins.apply(turkeyInstance) returned (TypeError: 'this' is not of expected type: Animals.Fish)
+      Actual: true
+
+Pass: fishInstance.getNumFins.call() returned (TypeError: getNumFins: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: fishInstance.getNumFins.apply(root) returned (TypeError: getNumFins: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: fishInstance.getNumFins.call({}) returned (TypeError: getNumFins: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: fishInstance.getNumFins.apply(null) returned (TypeError: getNumFins: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: fishInstance.getNumFins.call(undefined) returned (TypeError: getNumFins: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: turkeyInstance.toSandwich.apply(turkeyInstance)
+      Actual: 1
+
+Pass: turkeyInstance.toSandwich.call(new Animals.Turkey(), 0)
+      Actual: 0
+
+Pass: turkeyInstance.toSandwich.apply(turkeyInstance, [3])
+      Actual: 1
+
+Pass: turkeyInstance.toSandwich.call(fishInstance) returned (TypeError: 'this' is not of expected type: Animals.Turkey)
+      Actual: true
+
+Pass: turkeyInstance.toSandwich.apply() returned (TypeError: toSandwich: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: turkeyInstance.toSandwich.call(root) returned (TypeError: toSandwich: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: turkeyInstance.toSandwich.apply({}) returned (TypeError: toSandwich: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: turkeyInstance.toSandwich.call(null) returned (TypeError: toSandwich: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: turkeyInstance.toSandwich.apply(undefined) returned (TypeError: toSandwich: 'this' is not an Inspectable Object)
+      Actual: true
+
+Comment: var func = fishInstance.getNumFins;
+Pass: func() returned (TypeError: getNumFins: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: func.bind(fishInstance)()
+      Actual: 5
+
+Pass: func.bind(root)() returned (TypeError: getNumFins: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: func.apply(fishInstance)
+      Actual: 5
+
+Pass: func.call({}) returned (TypeError: getNumFins: 'this' is not an Inspectable Object)
+      Actual: true
+
+Comment: var func = turkeyInstance.toSandwich;
+Pass: func() returned (TypeError: toSandwich: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: func.bind(turkeyInstance)(0)
+      Actual: 0
+
+Pass: func.bind(root)() returned (TypeError: toSandwich: 'this' is not an Inspectable Object)
+      Actual: true
+
+Pass: func.call(turkeyInstance)
+      Actual: 1
+
+Pass: func.apply({}) returned (TypeError: toSandwich: 'this' is not an Inspectable Object)
+      Actual: true
+
+PASS [Test 2: Manipulation of instance methods]
+=================================================
+
+=================================================
+Starting [Test 3: Manipulation of constructors]
+Comment: new Animals.Fish.bind(Animals)()
+Pass: instanceof [object Animals.Fish]
+      Actual: true
+
+Comment: new Animals.Fish.bind()()
+Pass: instanceof [object Animals.Fish]
+      Actual: true
+
+Comment: new Animals.Fish.bind(root, 'hello')()
+Pass: instanceof [object Animals.Fish]
+      Actual: true
+
+Comment: new Animals.Fish.bind({})()
+Pass: instanceof [object Animals.Fish]
+      Actual: true
+
+Comment: new Animals.Fish.bind(null)()
+Pass: instanceof [object Animals.Fish]
+      Actual: true
+
+Comment: new Animals.Fish.bind(undefined)()
+Pass: instanceof [object Animals.Fish]
+      Actual: true
+
+Comment: new Animals.Animal.bind(Animals)()
+Pass: instanceof [object Animals.Animal]
+      Actual: true
+
+Comment: new Animals.Animal.bind()()
+Pass: instanceof [object Animals.Animal]
+      Actual: true
+
+Comment: new Animals.Animal.bind(root, 7)()
+Pass: instanceof [object Animals.Animal]
+      Actual: true
+
+Comment: new Animals.Animal.bind({}, mother, 46)()
+Pass: instanceof [object Animals.Animal]
+      Actual: true
+
+Comment: new Animals.Animal.bind(null, 1, 2)()
+Pass: instanceof [object Animals.Animal]
+      Actual: true
+
+Pass: instance.getNumLegs()
+      Actual: 6
+
+Comment: new Animals.Animal.bind(undefined)()
+Pass: instanceof [object Animals.Animal]
+      Actual: true
+
+Comment: var func = Animals.Fish;
+Comment: new func()
+Pass: instanceof [object Animals.Fish]
+      Actual: true
+
+Comment: new (func.bind(Animals))()
+Pass: instanceof [object Animals.Fish]
+      Actual: true
+
+Comment: new (func.bind(root))()
+Pass: instanceof [object Animals.Fish]
+      Actual: true
+
+Comment: var func = Animals.Animal;
+Comment: new func()
+Pass: instanceof [object Animals.Animal]
+      Actual: true
+
+Comment: new (func.bind(Animals, mother))(10)
+Pass: instanceof [object Animals.Animal]
+      Actual: true
+
+Pass: instance.weight
+      Actual: 10
+
+Comment: new (func.bind(root))()
+Pass: instanceof [object Animals.Animal]
+      Actual: true
+
+PASS [Test 3: Manipulation of constructors]
+=================================================
+
+=================================================
+Starting [Test 4: Manipulation of delegates]
+Comment: *** JSCallback as out delegate param called
+Comment: *** JSCallback as out delegate param called
+Pass: jsDelegate.bind(animalInstance)
+      Actual: Wolverine
+
+Comment: *** JSCallback as out delegate param called
+Pass: jsDelegate.bind()
+      Actual: Wolverine
+
+Comment: *** JSCallback as out delegate param called
+Pass: jsDelegate.bind(root, animalInstance)
+      Actual: Wolverine
+
+Comment: *** JSCallback as out delegate param called
+Pass: jsDelegate.bind({})
+      Actual: Wolverine
+
+Comment: *** JSCallback as out delegate param called
+Pass: jsDelegate.bind(null)
+      Actual: Wolverine
+
+Comment: *** JSCallback as out delegate param called
+Pass: jsDelegate.bind(undefined)
+      Actual: Wolverine
+
+Pass: nativeDelegate.bind(animalInstance)
+      Actual: Wolverine
+
+Pass: nativeDelegate.bind()
+      Actual: Wolverine
+
+Pass: nativeDelegate.bind(root)
+      Actual: Wolverine
+
+Pass: nativeDelegate.bind({}, animalInstance)
+      Actual: Wolverine
+
+Pass: nativeDelegate.bind(null)
+      Actual: Wolverine
+
+Pass: nativeDelegate.bind(undefined, animalInstance, 12)
+      Actual: Wolverine
+
+Comment: *** JSCallback as out delegate param called
+Pass: jsDelegate.call(animalInstance, animalInstance)
+      Actual: Wolverine
+
+Comment: *** JSCallback as out delegate param called
+Pass: jsDelegate.call(root, animalInstance)
+      Actual: Wolverine
+
+Comment: *** JSCallback as out delegate param called
+Pass: jsDelegate.apply({}, [animalInstance])
+      Actual: Wolverine
+
+Comment: *** JSCallback as out delegate param called
+Pass: jsDelegate.call(null, animalInstance, 73)
+      Actual: Wolverine
+
+Comment: *** JSCallback as out delegate param called
+Pass: jsDelegate.apply(undefined, [animalInstance])
+      Actual: Wolverine
+
+Pass: nativeDelegate.apply(animalInstance, [animalInstance])
+      Actual: Wolverine
+
+Pass: nativeDelegate.apply(root, [animalInstance, 'hello'])
+      Actual: Wolverine
+
+Pass: nativeDelegate.call({}, animalInstance)
+      Actual: Wolverine
+
+Pass: nativeDelegate.apply(null, [animalInstance])
+      Actual: Wolverine
+
+Pass: nativeDelegate.call(undefined, animalInstance)
+      Actual: Wolverine
+
+PASS [Test 4: Manipulation of delegates]
+=================================================
+
+Passed: 4
+Failed: 0

@@ -1,0 +1,110 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 88,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "k.subF1.subsubF1"
+      },
+      {
+        "start": 0,
+        "length": 3,
+        "text": "m()",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 140,
+        "length": 12,
+        "text": "eval('m();')",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "10",
+      "[Scope]1": "",
+      "[Scope]2": "f1",
+      "[Scope]3": "f0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": "11"
+    }
+  },
+  {
+    "evaluate": {
+      "j": "10"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "12",
+      "[Scope]1": "",
+      "[Scope]2": "f1",
+      "[Scope]3": "f0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "12",
+      "a": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": {
+        "__proto__": {
+          "__proto__": "{...}",
+          "ap": "ap",
+          "aph": "non-enum"
+        },
+        "[1]": "1",
+        "[2]": "2",
+        "a1": "a1",
+        "a2": {
+          "__proto__": "{...}",
+          "[1]": "0",
+          "a21": "a21"
+        },
+        "a3": {
+          "[0]": "0",
+          "[1]": "1",
+          "[2]": "2",
+          "[4]": "4",
+          "__proto__": "[]",
+          "length": "5"
+        },
+        "ah": "non-enum",
+        "getn": "getv",
+        "true": "true",
+        "undefined": "undef"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "k": "11",
+      "k2": "undefined",
+      "[Scope]1": "evalTest",
+      "[Globals]": ""
+    }
+  }
+]

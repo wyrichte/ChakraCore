@@ -1,0 +1,1284 @@
+(function () {
+var rootNamespace=this,dp=null,dpg=null,shadowableMembers=['apply','call','hasOwnProperty','isPrototypeOf','propertyIsEnumerable','toLocalString','toString','valueOf'];shadowableMembers.contains=function(b){for(var a=0;a<shadowableMembers.length;a++)if(shadowableMembers[a]==b)return true;return false};if(Object.defineProperty==undefined){dp=function(b,a,c){b[a]!=undefined&&!shadowableMembers.contains(a)&&WScript.Echo('Attempted redefinition of property '+a);b[a]=c};dpg=function(b,a){b[a]!=undefined&&!shadowableMembers.contains(a)&&WScript.Echo('Attempted redefinition of property '+a);b[a]={}}}else{dp=function(b,a,c){Object.defineProperty(b,a,{writable:false,enumerable:true,configurable:false,value:c})};dpg=function(c,a,b){Object.defineProperty(c,a,{enumerable:true,configurable:false,'get':b})}}var preventExtensions=null;if(Object.preventExtensions==undefined)preventExtensions=function(a){return a};else preventExtensions=function(a){return Object.preventExtensions(a)};function doComplete(a,b){if(a._state!==state_working)return;a._value=b;if(typeof b==='object'&&typeof b.then==='function'){a._state=state_waiting;b.then(function(b){a._state=state_working;doComplete(a,b)},function(b){a._state=state_working;doError(a,b)},function(b){doProgress(a,b)})}else{a._state=state_fulfilled_success;doNotify(a);a._cleanup()}}function doError(a,b){if(a._state!==state_working)return;a._value=b;a._state=state_fulfilled_error;doNotify(a);a._cleanup()}function doProgress(a,d){if(a._listeners)for(var b=0,e=a._listeners.length;b<e;b++){var c=a._listeners[b].onProgress;try{c&&c(d)}catch(f){}}}function notifySuccess(d,f){for(var b=0,g=d.length;b<g;b++){var e=d[b],a=e.carrier,c=e.onComplete;try{if(c)doComplete(a,c(f));else doComplete(a,f)}catch(h){doError(a,h)}}}function notifyError(c,f){for(var b=0,g=c.length;b<g;b++){var d=c[b],a=d.carrier,e=d.onError;try{if(e)doComplete(a,e(f));else doError(a,f)}catch(h){doError(a,h)}}}var state_working=0,state_waiting=1,state_fulfilled_error=2,state_fulfilled_success=3;function doCancel(a){if(a._state===state_waiting)typeof a._value.cancel==='function'&&a._value.cancel();a._cleanup()}function doNotify(b){var a=b._listeners;b._listeners=null;if(a){notifySuccess(a,b._value);notifyError(a,new Error)}}function doThen(a,e,g,f,c){a._listeners=a._listeners||[];var b=createThenPromise(c);a._listeners.push({promise:b.promise,carrier:b.carrier,onComplete:e,onError:g,onProgress:f});var d=100;doProgress(a,d);a._state>state_waiting&&doNotify(a);return b.promise}var AsyncOpPromise=function(a){var c=this,b={_listeners:null,_state:state_working,_value:null,_cleanup:function(){a=null}};this.cancel=function(){a&&a.cancel();doCancel(b)};this.then=function(a,e,d){return doThen(b,a,e,d,c)};doComplete(b,a.getResults())};AsyncOpPromise.prototype={};var thenPromisePrototype={};preventExtensions(thenPromisePrototype);var createThenPromise=function(b){var a={_listeners:null,_state:state_working,_value:null,_cleanup:function(){b=null}},c=Object.create(thenPromisePrototype,{then:{writable:false,enumerable:true,configurable:false,value:function(b,d,c){return doThen(a,b,d,c,this)}},cancel:{writable:false,enumerable:true,configurable:false,value:function(){b&&b.cancel();doCancel(a)}}});preventExtensions(c);return {promise:c,carrier:a}},asyncOpWrapperPrototype={};preventExtensions(asyncOpWrapperPrototype);function AsyncOpWrapper(e){var a=null,c=function(b,d,c){a=a||new AsyncOpPromise(this.operation);return a.then(b,d,c)};preventExtensions(c);var b=function(){a=a||new AsyncOpPromise(this.operation);a.cancel()};preventExtensions(b);var d=Object.create(asyncOpWrapperPrototype,{operation:{writable:false,enumerable:true,configurable:false,value:e},then:{writable:false,enumerable:true,configurable:false,value:c},cancel:{writable:false,enumerable:true,configurable:false,value:b}});preventExtensions(d);return d}
+// Begin Pass 1 ----------------------------------------------------------------------
+if(this.Fabrikam==undefined) {this.Fabrikam = {};}
+/* namespace */ if(rootNamespace['Fabrikam']['Kitchen']==undefined) {rootNamespace['Fabrikam']['Kitchen']= {}; }
+dp(rootNamespace['Fabrikam']['Kitchen'],'ApplianceSwitchOffHandler', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'invoke', function(sender,eventDetails,unitCount)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.ApplianceSwitchOffHandler.Invoke(Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter,System.String,System.UInt32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ApplianceSwitchOffHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter'/>
+    /// <param name='eventDetails' type='String'/>
+    /// <param name='unitCount' type='Number'/>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'ApplianceSwitchOnHandler', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'invoke', function(sender,eventDetails)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.ApplianceSwitchOnHandler.Invoke(Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter,System.String)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ApplianceSwitchOnHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter'/>
+    /// <param name='eventDetails' type='String'/>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'BakeOperation', /* runtime constructor-1 */function()
+ {
+    /// <field name='errorCode' type='Number' externalid='P:Fabrikam.Kitchen.BakeOperation.ErrorCode' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.BakeOperation.ErrorCode'/>
+    /// <field name='id' type='Number' externalid='P:Fabrikam.Kitchen.BakeOperation.Id' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.BakeOperation.Id'/>
+    /// <field name='status' type='Windows.Foundation.AsyncStatus' externalid='P:Fabrikam.Kitchen.BakeOperation.Status' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.BakeOperation.Status'/>
+    function make() { return this; };
+dp(make['prototype'],'cancel', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.BakeOperation.Cancel' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.BakeOperation.Cancel'>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'close', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.BakeOperation.Close' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.BakeOperation.Close'>
+    /// </signature>
+ return ;});
+dpg(make['prototype'],'errorCode', function() { return 0;});
+dpg(make['prototype'],'id', function() { return 0;});
+dp(make['prototype'],'start', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.BakeOperation.Start' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.BakeOperation.Start'>
+    /// </signature>
+ return ;});
+dpg(make['prototype'],'status', function() { return new rootNamespace['Windows']['Foundation']['AsyncStatus']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return new AsyncOpWrapper(result);
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'Chef', /* runtime constructor-1 */function(name,kitchen)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Chef.#ctor(System.String,Fabrikam.Kitchen.IKitchen)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.#ctor'>
+    /// <param name='name' type='String'/>
+    /// <param name='kitchen' type='Fabrikam.Kitchen.IKitchen'/>
+    /// <returns type='Fabrikam.Kitchen.Chef' externalid='T:Fabrikam.Kitchen.Chef' externalfile='fabrikam.xml'/>
+    /// </signature>
+    /// <field name='capabilities' type='Fabrikam.Kitchen.ChefCapabilities' externalid='P:Fabrikam.Kitchen.Chef.Capabilities' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.Capabilities'/>
+    /// <field name='name' type='String' externalid='P:Fabrikam.Kitchen.Chef.Name' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.Name'/>
+    /// <field name='role' type='Fabrikam.Kitchen.ChefRole' externalid='P:Fabrikam.Kitchen.Chef.Role' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.Role'/>
+    function make() { return this; };
+dp(make['prototype'],'addEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>multipletoastcompletecollection</event>
+/// <event>multipletoastcompletearray</event>
+/// <event>maketoastroundoff</event>
+});
+dpg(make['prototype'],'capabilities', function() { return new rootNamespace['Fabrikam']['Kitchen']['ChefCapabilities']();});
+dp(make['prototype'],'makeBreakfast', function(param1,param2)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Chef.MakeBreakfast(Fabrikam.Kitchen.IToaster,System.Double)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.MakeBreakfast'>
+    /// <param name='toaster' type='Fabrikam.Kitchen.IToaster'/>
+    /// <param name='howMany' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+    /// <signature externalid='M:Fabrikam.Kitchen.Chef.MakeBreakfast(Fabrikam.Kitchen.IToaster)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.MakeBreakfast'>
+    /// <param name='toaster' type='Fabrikam.Kitchen.IToaster'/>
+    /// <returns type='Number'/>
+    /// </signature>
+
+if(arguments.length>=2) {return 0;}
+if(arguments.length>=1) {return 0;}
+;});
+dpg(make['prototype'],'name', function() { return '';});
+dpg(make['prototype'],'onmaketoastroundoff', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.Chef.MakeToastRoundOff' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.MakeToastRoundOff'>
+   /// <param name='ev' type='Object' />
+   /// <event>maketoastroundoff</event>
+   /// </signature>
+}
+;});
+dpg(make['prototype'],'onmultipletoastcompletearray', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.Chef.MultipleToastCompleteArray' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.MultipleToastCompleteArray'>
+   /// <param name='ev' type='Object' />
+   /// <event>multipletoastcompletearray</event>
+   /// </signature>
+}
+;});
+dpg(make['prototype'],'onmultipletoastcompletecollection', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.Chef.MultipleToastCompleteCollection' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.MultipleToastCompleteCollection'>
+   /// <param name='ev' type='Object' />
+   /// <event>multipletoastcompletecollection</event>
+   /// </signature>
+}
+;});
+dp(make['prototype'],'removeEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>multipletoastcompletecollection</event>
+/// <event>multipletoastcompletearray</event>
+/// <event>maketoastroundoff</event>
+});
+dpg(make['prototype'],'role', function() { return new rootNamespace['Fabrikam']['Kitchen']['ChefRole']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'ChefCapabilities', /* enum */ {
+    /// <field name='canDice' type='Number' externalid='F:Fabrikam.Kitchen.ChefCapabilities.CanDice' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ChefCapabilities.CanDice'/>
+    'canDice':1,
+    /// <field name='canSlice' type='Number' externalid='F:Fabrikam.Kitchen.ChefCapabilities.CanSlice' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ChefCapabilities.CanSlice'/>
+    'canSlice':0
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'ChefRole', /* enum */ {
+    /// <field name='assistantChef' type='Number' externalid='F:Fabrikam.Kitchen.ChefRole.AssistantChef' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ChefRole.AssistantChef'/>
+    'assistantChef':1,
+    /// <field name='headChef' type='Number' externalid='F:Fabrikam.Kitchen.ChefRole.HeadChef' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ChefRole.HeadChef'/>
+    'headChef':0
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'Cookie', /* runtime constructor-1 */function()
+ {
+    /// <field name='doneness' type='Fabrikam.Kitchen.CookieDoneness' externalid='P:Fabrikam.Kitchen.Cookie.Doneness' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Cookie.Doneness'/>
+    function make() { return this; };
+dpg(make['prototype'],'doneness', function() { return new rootNamespace['Fabrikam']['Kitchen']['CookieDoneness']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'CookieDoneness', /* enum */ {
+    /// <field name='burnt' type='Number' externalid='F:Fabrikam.Kitchen.CookieDoneness.Burnt' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.CookieDoneness.Burnt'/>
+    'burnt':3,
+    /// <field name='golden' type='Number' externalid='F:Fabrikam.Kitchen.CookieDoneness.Golden' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.CookieDoneness.Golden'/>
+    'golden':2,
+    /// <field name='gooey' type='Number' externalid='F:Fabrikam.Kitchen.CookieDoneness.Gooey' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.CookieDoneness.Gooey'/>
+    'gooey':1,
+    /// <field name='raw' type='Number' externalid='F:Fabrikam.Kitchen.CookieDoneness.Raw' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.CookieDoneness.Raw'/>
+    'raw':0
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'Dimensions', /* struct constructor */function() {
+    /// <signature>
+    /// <returns type='Fabrikam.Kitchen.Dimensions' externalid='T:Fabrikam.Kitchen.Dimensions' externalfile='fabrikam.xml'/>
+    /// </signature>
+    /// <field name='depth' type='Number' externalid='F:Fabrikam.Kitchen.Dimensions.Depth' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Dimensions.Depth'/>
+    /// <field name='height' type='Number' externalid='F:Fabrikam.Kitchen.Dimensions.Height' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Dimensions.Height'/>
+    /// <field name='width' type='Number' externalid='F:Fabrikam.Kitchen.Dimensions.Width' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Dimensions.Width'/>
+    var result={};
+dp(result,'depth', 1.1);
+dp(result,'height', 1.1);
+dp(result,'width', 1.1);
+return result; });
+dp(rootNamespace['Fabrikam']['Kitchen'],'GPriceProvider', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'determinePrice', function(howMany)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.GPriceProvider.DeterminePrice(System.Double)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GPriceProvider.DeterminePrice'>
+    /// <param name='howMany' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'GToasterOven', /* runtime constructor-1 */function()
+ {
+    /// <field name='electricityReporter' type='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter' externalid='P:Fabrikam.Kitchen.GToasterOven.ElectricityReporter' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.ElectricityReporter'/>
+    /// <field name='size' type='Fabrikam.Kitchen.Dimensions' externalid='P:Fabrikam.Kitchen.GToasterOven.Size' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.Size'/>
+    function make() { return this; };
+dp(make['prototype'],'addEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>toaststartevent</event>
+/// <event>toastcompleteevent</event>
+/// <event>preheatstart</event>
+});
+dp(make['prototype'],'bakeAsync', function(numCookies)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.GToasterOven.BakeAsync(System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.BakeAsync'>
+    /// <param name='numCookies' type='Number'/>
+    /// <returns type='Fabrikam.Kitchen.BakeOperation' externalid='T:Fabrikam.Kitchen.BakeOperation' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['BakeOperation']();});
+dpg(make['prototype'],'electricityReporter', function() { return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dp(make['prototype'],'getSameToaster', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.GToasterOven.GetSameToaster' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.GetSameToaster'>
+    /// <returns type='Fabrikam.Kitchen.IToaster' externalid='T:Fabrikam.Kitchen.IToaster' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['IToaster']();});
+dp(make['prototype'],'makeToast', function(message)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.GToasterOven.MakeToast(System.String)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.MakeToast'>
+    /// <param name='message' type='String'/>
+    /// <returns type='Fabrikam.Kitchen.Toast' externalid='T:Fabrikam.Kitchen.Toast' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['Toast']();});
+dpg(make['prototype'],'onpreheatstart', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.GToasterOven.PreheatStart' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.PreheatStart'>
+   /// <param name='ev' type='Object' />
+   /// <event>preheatstart</event>
+   /// </signature>
+}
+;});
+dpg(make['prototype'],'ontoastcompleteevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.GToasterOven.ToastCompleteEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.ToastCompleteEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>toastcompleteevent</event>
+   /// </signature>
+}
+;});
+dpg(make['prototype'],'ontoaststartevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.GToasterOven.ToastStartEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.ToastStartEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>toaststartevent</event>
+   /// </signature>
+}
+;});
+dp(make['prototype'],'preheatInBackground', function(onPreheatComplete)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.GToasterOven.PreheatInBackground(Fabrikam.Kitchen.ToastCompleteHandler)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.PreheatInBackground'>
+    /// <param name='onPreheatComplete' type='Fabrikam.Kitchen.ToastCompleteHandler'/>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'removeEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>toaststartevent</event>
+/// <event>toastcompleteevent</event>
+/// <event>preheatstart</event>
+});
+dpg(make['prototype'],'size', function() { return new rootNamespace['Fabrikam']['Kitchen']['Dimensions']();});
+dp(make['prototype'],'timerAsync', function(duration)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.GToasterOven.TimerAsync(System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.TimerAsync'>
+    /// <param name='duration' type='Number'/>
+    /// <returns type='Fabrikam.Kitchen.TimerOperation' externalid='T:Fabrikam.Kitchen.TimerOperation' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['TimerOperation']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'IAppliance', /* runtime constructor-1 */function()
+ {
+    /// <field name='electricityReporter' type='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter' externalid='P:Fabrikam.Kitchen.IAppliance.ElectricityReporter' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IAppliance.ElectricityReporter'/>
+    /// <field name='size' type='Fabrikam.Kitchen.Dimensions' externalid='P:Fabrikam.Kitchen.IAppliance.Size' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IAppliance.Size'/>
+    function make() { return this; };
+dpg(make['prototype'],'electricityReporter', function() { return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dpg(make['prototype'],'size', function() { return new rootNamespace['Fabrikam']['Kitchen']['Dimensions']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'IApplianceElectricityConsumptionReporter', /* runtime constructor-1 */function()
+ {
+    /// <field name='applianceName' type='String' externalid='P:Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.ApplianceName' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.ApplianceName'/>
+    function make() { return this; };
+dp(make['prototype'],'addEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>applianceswitchonevent</event>
+/// <event>applianceswitchoffevent</event>
+});
+dpg(make['prototype'],'applianceName', function() { return '';});
+dp(make['prototype'],'getSameElectricityReporter', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.GetSameElectricityReporter' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.GetSameElectricityReporter'>
+    /// <returns type='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter' externalid='T:Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dpg(make['prototype'],'onapplianceswitchoffevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.ApplianceSwitchOffEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.ApplianceSwitchOffEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>applianceswitchoffevent</event>
+   /// </signature>
+}
+;});
+dpg(make['prototype'],'onapplianceswitchonevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.ApplianceSwitchOnEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.ApplianceSwitchOnEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>applianceswitchonevent</event>
+   /// </signature>
+}
+;});
+dp(make['prototype'],'removeEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>applianceswitchonevent</event>
+/// <event>applianceswitchoffevent</event>
+});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'IChef', /* runtime constructor-1 */function()
+ {
+    /// <field name='capabilities' type='Fabrikam.Kitchen.ChefCapabilities' externalid='P:Fabrikam.Kitchen.IChef.Capabilities' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChef.Capabilities'/>
+    /// <field name='name' type='String' externalid='P:Fabrikam.Kitchen.IChef.Name' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChef.Name'/>
+    /// <field name='role' type='Fabrikam.Kitchen.ChefRole' externalid='P:Fabrikam.Kitchen.IChef.Role' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChef.Role'/>
+    function make() { return this; };
+dp(make['prototype'],'addEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>multipletoastcompletecollection</event>
+/// <event>multipletoastcompletearray</event>
+/// <event>maketoastroundoff</event>
+});
+dpg(make['prototype'],'capabilities', function() { return new rootNamespace['Fabrikam']['Kitchen']['ChefCapabilities']();});
+dp(make['prototype'],'makeBreakfast', function(param1,param2)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IChef.MakeBreakfast(Fabrikam.Kitchen.IToaster,System.Double)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChef.MakeBreakfast'>
+    /// <param name='toaster' type='Fabrikam.Kitchen.IToaster'/>
+    /// <param name='howMany' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+    /// <signature externalid='M:Fabrikam.Kitchen.IChef.MakeBreakfast(Fabrikam.Kitchen.IToaster)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChef.MakeBreakfast'>
+    /// <param name='toaster' type='Fabrikam.Kitchen.IToaster'/>
+    /// <returns type='Number'/>
+    /// </signature>
+
+if(arguments.length>=2) {return 0;}
+if(arguments.length>=1) {return 0;}
+;});
+dpg(make['prototype'],'name', function() { return '';});
+dpg(make['prototype'],'onmaketoastroundoff', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IChef.MakeToastRoundOff' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChef.MakeToastRoundOff'>
+   /// <param name='ev' type='Object' />
+   /// <event>maketoastroundoff</event>
+   /// </signature>
+}
+;});
+dpg(make['prototype'],'onmultipletoastcompletearray', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IChef.MultipleToastCompleteArray' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChef.MultipleToastCompleteArray'>
+   /// <param name='ev' type='Object' />
+   /// <event>multipletoastcompletearray</event>
+   /// </signature>
+}
+;});
+dpg(make['prototype'],'onmultipletoastcompletecollection', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IChef.MultipleToastCompleteCollection' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChef.MultipleToastCompleteCollection'>
+   /// <param name='ev' type='Object' />
+   /// <event>multipletoastcompletecollection</event>
+   /// </signature>
+}
+;});
+dp(make['prototype'],'removeEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>multipletoastcompletecollection</event>
+/// <event>multipletoastcompletearray</event>
+/// <event>maketoastroundoff</event>
+});
+dpg(make['prototype'],'role', function() { return new rootNamespace['Fabrikam']['Kitchen']['ChefRole']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'IChefFactory', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'createChef', function(name,kitchen)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IChefFactory.CreateChef(System.String,Fabrikam.Kitchen.IKitchen)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChefFactory.CreateChef'>
+    /// <param name='name' type='String'/>
+    /// <param name='kitchen' type='Fabrikam.Kitchen.IKitchen'/>
+    /// <returns type='Fabrikam.Kitchen.Chef' externalid='T:Fabrikam.Kitchen.Chef' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['Chef']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'ICookie', /* runtime constructor-1 */function()
+ {
+    /// <field name='doneness' type='Fabrikam.Kitchen.CookieDoneness' externalid='P:Fabrikam.Kitchen.ICookie.Doneness' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ICookie.Doneness'/>
+    function make() { return this; };
+dpg(make['prototype'],'doneness', function() { return new rootNamespace['Fabrikam']['Kitchen']['CookieDoneness']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'IKitchen', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'IOven', /* runtime constructor-1 */function()
+ {
+    /// <field name='electricityReporter' type='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter' externalid='P:Fabrikam.Kitchen.IOven.ElectricityReporter' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IOven.ElectricityReporter'/>
+    /// <field name='size' type='Fabrikam.Kitchen.Dimensions' externalid='P:Fabrikam.Kitchen.IOven.Size' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IOven.Size'/>
+    function make() { return this; };
+dp(make['prototype'],'bakeAsync', function(numCookies)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IOven.BakeAsync(System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IOven.BakeAsync'>
+    /// <param name='numCookies' type='Number'/>
+    /// <returns type='Fabrikam.Kitchen.BakeOperation' externalid='T:Fabrikam.Kitchen.BakeOperation' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['BakeOperation']();});
+dpg(make['prototype'],'electricityReporter', function() { return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dpg(make['prototype'],'size', function() { return new rootNamespace['Fabrikam']['Kitchen']['Dimensions']();});
+dp(make['prototype'],'timerAsync', function(duration)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IOven.TimerAsync(System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IOven.TimerAsync'>
+    /// <param name='duration' type='Number'/>
+    /// <returns type='Fabrikam.Kitchen.TimerOperation' externalid='T:Fabrikam.Kitchen.TimerOperation' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['TimerOperation']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'IPricingModel', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'determinePrice', function(howMany)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IPricingModel.DeterminePrice(System.Double)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IPricingModel.DeterminePrice'>
+    /// <param name='howMany' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'IToast', /* runtime constructor-1 */function()
+ {
+    /// <field name='message' type='String' externalid='P:Fabrikam.Kitchen.IToast.Message' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToast.Message'/>
+    function make() { return this; };
+dpg(make['prototype'],'message', function() { return '';});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'IToaster', /* runtime constructor-1 */function()
+ {
+    /// <field name='electricityReporter' type='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter' externalid='P:Fabrikam.Kitchen.IToaster.ElectricityReporter' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.ElectricityReporter'/>
+    /// <field name='size' type='Fabrikam.Kitchen.Dimensions' externalid='P:Fabrikam.Kitchen.IToaster.Size' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.Size'/>
+    function make() { return this; };
+dp(make['prototype'],'addEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>toaststartevent</event>
+/// <event>toastcompleteevent</event>
+/// <event>preheatstart</event>
+});
+dpg(make['prototype'],'electricityReporter', function() { return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dp(make['prototype'],'getSameToaster', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IToaster.GetSameToaster' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.GetSameToaster'>
+    /// <returns type='Fabrikam.Kitchen.IToaster' externalid='T:Fabrikam.Kitchen.IToaster' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['IToaster']();});
+dp(make['prototype'],'makeToast', function(message)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IToaster.MakeToast(System.String)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.MakeToast'>
+    /// <param name='message' type='String'/>
+    /// <returns type='Fabrikam.Kitchen.Toast' externalid='T:Fabrikam.Kitchen.Toast' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['Toast']();});
+dpg(make['prototype'],'onpreheatstart', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IToaster.PreheatStart' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.PreheatStart'>
+   /// <param name='ev' type='Object' />
+   /// <event>preheatstart</event>
+   /// </signature>
+}
+;});
+dpg(make['prototype'],'ontoastcompleteevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IToaster.ToastCompleteEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.ToastCompleteEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>toastcompleteevent</event>
+   /// </signature>
+}
+;});
+dpg(make['prototype'],'ontoaststartevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IToaster.ToastStartEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.ToastStartEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>toaststartevent</event>
+   /// </signature>
+}
+;});
+dp(make['prototype'],'preheatInBackground', function(onPreheatComplete)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IToaster.PreheatInBackground(Fabrikam.Kitchen.ToastCompleteHandler)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.PreheatInBackground'>
+    /// <param name='onPreheatComplete' type='Fabrikam.Kitchen.ToastCompleteHandler'/>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'removeEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>toaststartevent</event>
+/// <event>toastcompleteevent</event>
+/// <event>preheatstart</event>
+});
+dpg(make['prototype'],'size', function() { return new rootNamespace['Fabrikam']['Kitchen']['Dimensions']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'Kitchen', /* runtime constructor-1 */function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Kitchen.#ctor' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Kitchen.#ctor'>
+    /// <returns type='Fabrikam.Kitchen.Kitchen' externalid='T:Fabrikam.Kitchen.Kitchen' externalfile='fabrikam.xml'/>
+    /// </signature>
+    function make() { return this; };
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'MakeToastRoundOffHandler', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'invoke', function(sender,nRoundOff)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.MakeToastRoundOffHandler.Invoke(Fabrikam.Kitchen.IChef,System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.MakeToastRoundOffHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.IChef'/>
+    /// <param name='nRoundOff' type='Number'/>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'MultipleToastCompleteArrayHandler', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'invoke', function(sender,inToasts)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.MultipleToastCompleteArrayHandler.Invoke(Fabrikam.Kitchen.IChef,Fabrikam.Kitchen.IToast[])' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.MultipleToastCompleteArrayHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.IChef'/>
+    /// <param name='inToasts' type='Array'/>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'MultipleToastCompleteCollectionHandler', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'invoke', function(sender,inToasts)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.MultipleToastCompleteCollectionHandler.Invoke(Fabrikam.Kitchen.IChef,Windows.Foundation.Collections.IVector`1)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.MultipleToastCompleteCollectionHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.IChef'/>
+    /// <param name='inToasts' type='Windows.Foundation.Collections.IVector`1&lt;Fabrikam.Kitchen.IToast&gt;'/>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'Oven', /* runtime constructor-1 */function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Oven.#ctor' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Oven.#ctor'>
+    /// <returns type='Fabrikam.Kitchen.Oven' externalid='T:Fabrikam.Kitchen.Oven' externalfile='fabrikam.xml'/>
+    /// </signature>
+    /// <field name='electricityReporter' type='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter' externalid='P:Fabrikam.Kitchen.Oven.ElectricityReporter' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Oven.ElectricityReporter'/>
+    /// <field name='size' type='Fabrikam.Kitchen.Dimensions' externalid='P:Fabrikam.Kitchen.Oven.Size' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Oven.Size'/>
+    function make() { return this; };
+dp(make['prototype'],'bakeAsync', function(numCookies)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Oven.BakeAsync(System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Oven.BakeAsync'>
+    /// <param name='numCookies' type='Number'/>
+    /// <returns type='Fabrikam.Kitchen.BakeOperation' externalid='T:Fabrikam.Kitchen.BakeOperation' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['BakeOperation']();});
+dpg(make['prototype'],'electricityReporter', function() { return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dpg(make['prototype'],'size', function() { return new rootNamespace['Fabrikam']['Kitchen']['Dimensions']();});
+dp(make['prototype'],'timerAsync', function(duration)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Oven.TimerAsync(System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Oven.TimerAsync'>
+    /// <param name='duration' type='Number'/>
+    /// <returns type='Fabrikam.Kitchen.TimerOperation' externalid='T:Fabrikam.Kitchen.TimerOperation' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['TimerOperation']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'TimerOperation', /* runtime constructor-1 */function()
+ {
+    /// <field name='errorCode' type='Number' externalid='P:Fabrikam.Kitchen.TimerOperation.ErrorCode' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.TimerOperation.ErrorCode'/>
+    /// <field name='id' type='Number' externalid='P:Fabrikam.Kitchen.TimerOperation.Id' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.TimerOperation.Id'/>
+    /// <field name='status' type='Windows.Foundation.AsyncStatus' externalid='P:Fabrikam.Kitchen.TimerOperation.Status' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.TimerOperation.Status'/>
+    function make() { return this; };
+dp(make['prototype'],'cancel', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.TimerOperation.Cancel' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.TimerOperation.Cancel'>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'close', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.TimerOperation.Close' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.TimerOperation.Close'>
+    /// </signature>
+ return ;});
+dpg(make['prototype'],'errorCode', function() { return 0;});
+dpg(make['prototype'],'id', function() { return 0;});
+dp(make['prototype'],'start', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.TimerOperation.Start' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.TimerOperation.Start'>
+    /// </signature>
+ return ;});
+dpg(make['prototype'],'status', function() { return new rootNamespace['Windows']['Foundation']['AsyncStatus']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return new AsyncOpWrapper(result);
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'Toast', /* runtime constructor-1 */function()
+ {
+    /// <field name='message' type='String' externalid='P:Fabrikam.Kitchen.Toast.Message' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toast.Message'/>
+    function make() { return this; };
+dpg(make['prototype'],'message', function() { return '';});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'ToastCompleteHandler', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'invoke', function(sender,toast)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.ToastCompleteHandler.Invoke(Fabrikam.Kitchen.Toaster,Fabrikam.Kitchen.IToast)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ToastCompleteHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.Toaster'/>
+    /// <param name='toast' type='Fabrikam.Kitchen.IToast'/>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'ToastStartHandler', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'invoke', function(sender)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.ToastStartHandler.Invoke(Fabrikam.Kitchen.Toaster)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ToastStartHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.Toaster'/>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'Toaster', /* runtime constructor-1 */function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Toaster.#ctor' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.#ctor'>
+    /// <returns type='Fabrikam.Kitchen.Toaster' externalid='T:Fabrikam.Kitchen.Toaster' externalfile='fabrikam.xml'/>
+    /// </signature>
+    /// <field name='electricityReporter' type='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter' externalid='P:Fabrikam.Kitchen.Toaster.ElectricityReporter' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.ElectricityReporter'/>
+    /// <field name='size' type='Fabrikam.Kitchen.Dimensions' externalid='P:Fabrikam.Kitchen.Toaster.Size' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.Size'/>
+    function make() { return this; };
+dp(make['prototype'],'addEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>toaststartevent</event>
+/// <event>toastcompleteevent</event>
+/// <event>preheatstart</event>
+});
+dpg(make['prototype'],'electricityReporter', function() { return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dp(make['prototype'],'getSameToaster', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Toaster.GetSameToaster' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.GetSameToaster'>
+    /// <returns type='Fabrikam.Kitchen.IToaster' externalid='T:Fabrikam.Kitchen.IToaster' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['IToaster']();});
+dp(make['prototype'],'makeToast', function(message)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Toaster.MakeToast(System.String)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.MakeToast'>
+    /// <param name='message' type='String'/>
+    /// <returns type='Fabrikam.Kitchen.Toast' externalid='T:Fabrikam.Kitchen.Toast' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['Toast']();});
+dpg(make['prototype'],'onpreheatstart', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.Toaster.PreheatStart' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.PreheatStart'>
+   /// <param name='ev' type='Object' />
+   /// <event>preheatstart</event>
+   /// </signature>
+}
+;});
+dpg(make['prototype'],'ontoastcompleteevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.Toaster.ToastCompleteEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.ToastCompleteEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>toastcompleteevent</event>
+   /// </signature>
+}
+;});
+dpg(make['prototype'],'ontoaststartevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.Toaster.ToastStartEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.ToastStartEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>toaststartevent</event>
+   /// </signature>
+}
+;});
+dp(make['prototype'],'preheatInBackground', function(onPreheatComplete)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Toaster.PreheatInBackground(Fabrikam.Kitchen.ToastCompleteHandler)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.PreheatInBackground'>
+    /// <param name='onPreheatComplete' type='Fabrikam.Kitchen.ToastCompleteHandler'/>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'removeEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>toaststartevent</event>
+/// <event>toastcompleteevent</event>
+/// <event>preheatstart</event>
+});
+dpg(make['prototype'],'size', function() { return new rootNamespace['Fabrikam']['Kitchen']['Dimensions']();});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+dp(rootNamespace['Fabrikam']['Kitchen'],'ToasterPreheatStartHandler', /* runtime constructor-1 */function()
+ {
+    function make() { return this; };
+dp(make['prototype'],'invoke', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.ToasterPreheatStartHandler.Invoke' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ToasterPreheatStartHandler.Invoke'>
+    /// </signature>
+ return ;});
+dp(make['prototype'],'constructor', make);
+    var result = new make();
+    return result;
+}
+);
+// Begin Pass 2 ----------------------------------------------------------------------
+/* namespace */ if(rootNamespace['Fabrikam']['Kitchen']==undefined) {rootNamespace['Fabrikam']['Kitchen']= {}; }
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['ApplianceSwitchOffHandler']['prototype'],'invoke', function(sender,eventDetails,unitCount)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.ApplianceSwitchOffHandler.Invoke(Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter,System.String,System.UInt32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ApplianceSwitchOffHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter'/>
+    /// <param name='eventDetails' type='String'/>
+    /// <param name='unitCount' type='Number'/>
+    /// </signature>
+ return ;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['ApplianceSwitchOnHandler']['prototype'],'invoke', function(sender,eventDetails)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.ApplianceSwitchOnHandler.Invoke(Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter,System.String)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ApplianceSwitchOnHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter'/>
+    /// <param name='eventDetails' type='String'/>
+    /// </signature>
+ return ;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['BakeOperation']['prototype'],'cancel', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.BakeOperation.Cancel' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.BakeOperation.Cancel'>
+    /// </signature>
+ return ;});
+dp(rootNamespace['Fabrikam']['Kitchen']['BakeOperation']['prototype'],'close', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.BakeOperation.Close' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.BakeOperation.Close'>
+    /// </signature>
+ return ;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['BakeOperation']['prototype'],'errorCode', function() { return 0;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['BakeOperation']['prototype'],'id', function() { return 0;});
+dp(rootNamespace['Fabrikam']['Kitchen']['BakeOperation']['prototype'],'start', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.BakeOperation.Start' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.BakeOperation.Start'>
+    /// </signature>
+ return ;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['BakeOperation']['prototype'],'status', function() { return new rootNamespace['Windows']['Foundation']['AsyncStatus']();});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['Chef']['prototype'],'addEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>multipletoastcompletecollection</event>
+/// <event>multipletoastcompletearray</event>
+/// <event>maketoastroundoff</event>
+});
+dpg(rootNamespace['Fabrikam']['Kitchen']['Chef']['prototype'],'capabilities', function() { return new rootNamespace['Fabrikam']['Kitchen']['ChefCapabilities']();});
+dp(rootNamespace['Fabrikam']['Kitchen']['Chef']['prototype'],'makeBreakfast', function(param1,param2)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Chef.MakeBreakfast(Fabrikam.Kitchen.IToaster,System.Double)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.MakeBreakfast'>
+    /// <param name='toaster' type='Fabrikam.Kitchen.IToaster'/>
+    /// <param name='howMany' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+    /// <signature externalid='M:Fabrikam.Kitchen.Chef.MakeBreakfast(Fabrikam.Kitchen.IToaster)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.MakeBreakfast'>
+    /// <param name='toaster' type='Fabrikam.Kitchen.IToaster'/>
+    /// <returns type='Number'/>
+    /// </signature>
+
+if(arguments.length>=2) {return 0;}
+if(arguments.length>=1) {return 0;}
+;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['Chef']['prototype'],'name', function() { return '';});
+dpg(rootNamespace['Fabrikam']['Kitchen']['Chef']['prototype'],'onmaketoastroundoff', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.Chef.MakeToastRoundOff' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.MakeToastRoundOff'>
+   /// <param name='ev' type='Object' />
+   /// <event>maketoastroundoff</event>
+   /// </signature>
+}
+;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['Chef']['prototype'],'onmultipletoastcompletearray', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.Chef.MultipleToastCompleteArray' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.MultipleToastCompleteArray'>
+   /// <param name='ev' type='Object' />
+   /// <event>multipletoastcompletearray</event>
+   /// </signature>
+}
+;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['Chef']['prototype'],'onmultipletoastcompletecollection', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.Chef.MultipleToastCompleteCollection' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Chef.MultipleToastCompleteCollection'>
+   /// <param name='ev' type='Object' />
+   /// <event>multipletoastcompletecollection</event>
+   /// </signature>
+}
+;});
+dp(rootNamespace['Fabrikam']['Kitchen']['Chef']['prototype'],'removeEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>multipletoastcompletecollection</event>
+/// <event>multipletoastcompletearray</event>
+/// <event>maketoastroundoff</event>
+});
+dpg(rootNamespace['Fabrikam']['Kitchen']['Chef']['prototype'],'role', function() { return new rootNamespace['Fabrikam']['Kitchen']['ChefRole']();});
+/* runtime class constructor-2 */
+dpg(rootNamespace['Fabrikam']['Kitchen']['Cookie']['prototype'],'doneness', function() { return new rootNamespace['Fabrikam']['Kitchen']['CookieDoneness']();});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['GPriceProvider']['prototype'],'determinePrice', function(howMany)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.GPriceProvider.DeterminePrice(System.Double)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GPriceProvider.DeterminePrice'>
+    /// <param name='howMany' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['GToasterOven']['prototype'],'addEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>toaststartevent</event>
+/// <event>toastcompleteevent</event>
+/// <event>preheatstart</event>
+});
+dp(rootNamespace['Fabrikam']['Kitchen']['GToasterOven']['prototype'],'bakeAsync', function(numCookies)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.GToasterOven.BakeAsync(System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.BakeAsync'>
+    /// <param name='numCookies' type='Number'/>
+    /// <returns type='Fabrikam.Kitchen.BakeOperation' externalid='T:Fabrikam.Kitchen.BakeOperation' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['BakeOperation']();});
+dpg(rootNamespace['Fabrikam']['Kitchen']['GToasterOven']['prototype'],'electricityReporter', function() { return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dp(rootNamespace['Fabrikam']['Kitchen']['GToasterOven']['prototype'],'getSameToaster', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.GToasterOven.GetSameToaster' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.GetSameToaster'>
+    /// <returns type='Fabrikam.Kitchen.IToaster' externalid='T:Fabrikam.Kitchen.IToaster' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['IToaster']();});
+dp(rootNamespace['Fabrikam']['Kitchen']['GToasterOven']['prototype'],'makeToast', function(message)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.GToasterOven.MakeToast(System.String)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.MakeToast'>
+    /// <param name='message' type='String'/>
+    /// <returns type='Fabrikam.Kitchen.Toast' externalid='T:Fabrikam.Kitchen.Toast' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['Toast']();});
+dpg(rootNamespace['Fabrikam']['Kitchen']['GToasterOven']['prototype'],'onpreheatstart', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.GToasterOven.PreheatStart' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.PreheatStart'>
+   /// <param name='ev' type='Object' />
+   /// <event>preheatstart</event>
+   /// </signature>
+}
+;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['GToasterOven']['prototype'],'ontoastcompleteevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.GToasterOven.ToastCompleteEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.ToastCompleteEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>toastcompleteevent</event>
+   /// </signature>
+}
+;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['GToasterOven']['prototype'],'ontoaststartevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.GToasterOven.ToastStartEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.ToastStartEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>toaststartevent</event>
+   /// </signature>
+}
+;});
+dp(rootNamespace['Fabrikam']['Kitchen']['GToasterOven']['prototype'],'preheatInBackground', function(onPreheatComplete)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.GToasterOven.PreheatInBackground(Fabrikam.Kitchen.ToastCompleteHandler)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.PreheatInBackground'>
+    /// <param name='onPreheatComplete' type='Fabrikam.Kitchen.ToastCompleteHandler'/>
+    /// </signature>
+ return ;});
+dp(rootNamespace['Fabrikam']['Kitchen']['GToasterOven']['prototype'],'removeEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>toaststartevent</event>
+/// <event>toastcompleteevent</event>
+/// <event>preheatstart</event>
+});
+dpg(rootNamespace['Fabrikam']['Kitchen']['GToasterOven']['prototype'],'size', function() { return new rootNamespace['Fabrikam']['Kitchen']['Dimensions']();});
+dp(rootNamespace['Fabrikam']['Kitchen']['GToasterOven']['prototype'],'timerAsync', function(duration)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.GToasterOven.TimerAsync(System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.GToasterOven.TimerAsync'>
+    /// <param name='duration' type='Number'/>
+    /// <returns type='Fabrikam.Kitchen.TimerOperation' externalid='T:Fabrikam.Kitchen.TimerOperation' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['TimerOperation']();});
+/* runtime class constructor-2 */
+dpg(rootNamespace['Fabrikam']['Kitchen']['IAppliance']['prototype'],'electricityReporter', function() { return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IAppliance']['prototype'],'size', function() { return new rootNamespace['Fabrikam']['Kitchen']['Dimensions']();});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']['prototype'],'addEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>applianceswitchonevent</event>
+/// <event>applianceswitchoffevent</event>
+});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']['prototype'],'applianceName', function() { return '';});
+dp(rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']['prototype'],'getSameElectricityReporter', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.GetSameElectricityReporter' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.GetSameElectricityReporter'>
+    /// <returns type='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter' externalid='T:Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']['prototype'],'onapplianceswitchoffevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.ApplianceSwitchOffEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.ApplianceSwitchOffEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>applianceswitchoffevent</event>
+   /// </signature>
+}
+;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']['prototype'],'onapplianceswitchonevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.ApplianceSwitchOnEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IApplianceElectricityConsumptionReporter.ApplianceSwitchOnEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>applianceswitchonevent</event>
+   /// </signature>
+}
+;});
+dp(rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']['prototype'],'removeEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>applianceswitchonevent</event>
+/// <event>applianceswitchoffevent</event>
+});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['IChef']['prototype'],'addEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>multipletoastcompletecollection</event>
+/// <event>multipletoastcompletearray</event>
+/// <event>maketoastroundoff</event>
+});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IChef']['prototype'],'capabilities', function() { return new rootNamespace['Fabrikam']['Kitchen']['ChefCapabilities']();});
+dp(rootNamespace['Fabrikam']['Kitchen']['IChef']['prototype'],'makeBreakfast', function(param1,param2)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IChef.MakeBreakfast(Fabrikam.Kitchen.IToaster,System.Double)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChef.MakeBreakfast'>
+    /// <param name='toaster' type='Fabrikam.Kitchen.IToaster'/>
+    /// <param name='howMany' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+    /// <signature externalid='M:Fabrikam.Kitchen.IChef.MakeBreakfast(Fabrikam.Kitchen.IToaster)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChef.MakeBreakfast'>
+    /// <param name='toaster' type='Fabrikam.Kitchen.IToaster'/>
+    /// <returns type='Number'/>
+    /// </signature>
+
+if(arguments.length>=2) {return 0;}
+if(arguments.length>=1) {return 0;}
+;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IChef']['prototype'],'name', function() { return '';});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IChef']['prototype'],'onmaketoastroundoff', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IChef.MakeToastRoundOff' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChef.MakeToastRoundOff'>
+   /// <param name='ev' type='Object' />
+   /// <event>maketoastroundoff</event>
+   /// </signature>
+}
+;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IChef']['prototype'],'onmultipletoastcompletearray', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IChef.MultipleToastCompleteArray' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChef.MultipleToastCompleteArray'>
+   /// <param name='ev' type='Object' />
+   /// <event>multipletoastcompletearray</event>
+   /// </signature>
+}
+;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IChef']['prototype'],'onmultipletoastcompletecollection', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IChef.MultipleToastCompleteCollection' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChef.MultipleToastCompleteCollection'>
+   /// <param name='ev' type='Object' />
+   /// <event>multipletoastcompletecollection</event>
+   /// </signature>
+}
+;});
+dp(rootNamespace['Fabrikam']['Kitchen']['IChef']['prototype'],'removeEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>multipletoastcompletecollection</event>
+/// <event>multipletoastcompletearray</event>
+/// <event>maketoastroundoff</event>
+});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IChef']['prototype'],'role', function() { return new rootNamespace['Fabrikam']['Kitchen']['ChefRole']();});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['IChefFactory']['prototype'],'createChef', function(name,kitchen)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IChefFactory.CreateChef(System.String,Fabrikam.Kitchen.IKitchen)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IChefFactory.CreateChef'>
+    /// <param name='name' type='String'/>
+    /// <param name='kitchen' type='Fabrikam.Kitchen.IKitchen'/>
+    /// <returns type='Fabrikam.Kitchen.Chef' externalid='T:Fabrikam.Kitchen.Chef' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['Chef']();});
+/* runtime class constructor-2 */
+dpg(rootNamespace['Fabrikam']['Kitchen']['ICookie']['prototype'],'doneness', function() { return new rootNamespace['Fabrikam']['Kitchen']['CookieDoneness']();});
+/* runtime class constructor-2 */
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['IOven']['prototype'],'bakeAsync', function(numCookies)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IOven.BakeAsync(System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IOven.BakeAsync'>
+    /// <param name='numCookies' type='Number'/>
+    /// <returns type='Fabrikam.Kitchen.BakeOperation' externalid='T:Fabrikam.Kitchen.BakeOperation' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['BakeOperation']();});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IOven']['prototype'],'electricityReporter', function() { return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IOven']['prototype'],'size', function() { return new rootNamespace['Fabrikam']['Kitchen']['Dimensions']();});
+dp(rootNamespace['Fabrikam']['Kitchen']['IOven']['prototype'],'timerAsync', function(duration)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IOven.TimerAsync(System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IOven.TimerAsync'>
+    /// <param name='duration' type='Number'/>
+    /// <returns type='Fabrikam.Kitchen.TimerOperation' externalid='T:Fabrikam.Kitchen.TimerOperation' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['TimerOperation']();});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['IPricingModel']['prototype'],'determinePrice', function(howMany)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IPricingModel.DeterminePrice(System.Double)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IPricingModel.DeterminePrice'>
+    /// <param name='howMany' type='Number'/>
+    /// <returns type='Number'/>
+    /// </signature>
+ return 0;});
+/* runtime class constructor-2 */
+dpg(rootNamespace['Fabrikam']['Kitchen']['IToast']['prototype'],'message', function() { return '';});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['IToaster']['prototype'],'addEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>toaststartevent</event>
+/// <event>toastcompleteevent</event>
+/// <event>preheatstart</event>
+});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IToaster']['prototype'],'electricityReporter', function() { return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dp(rootNamespace['Fabrikam']['Kitchen']['IToaster']['prototype'],'getSameToaster', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IToaster.GetSameToaster' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.GetSameToaster'>
+    /// <returns type='Fabrikam.Kitchen.IToaster' externalid='T:Fabrikam.Kitchen.IToaster' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['IToaster']();});
+dp(rootNamespace['Fabrikam']['Kitchen']['IToaster']['prototype'],'makeToast', function(message)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IToaster.MakeToast(System.String)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.MakeToast'>
+    /// <param name='message' type='String'/>
+    /// <returns type='Fabrikam.Kitchen.Toast' externalid='T:Fabrikam.Kitchen.Toast' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['Toast']();});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IToaster']['prototype'],'onpreheatstart', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IToaster.PreheatStart' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.PreheatStart'>
+   /// <param name='ev' type='Object' />
+   /// <event>preheatstart</event>
+   /// </signature>
+}
+;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IToaster']['prototype'],'ontoastcompleteevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IToaster.ToastCompleteEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.ToastCompleteEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>toastcompleteevent</event>
+   /// </signature>
+}
+;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IToaster']['prototype'],'ontoaststartevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.IToaster.ToastStartEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.ToastStartEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>toaststartevent</event>
+   /// </signature>
+}
+;});
+dp(rootNamespace['Fabrikam']['Kitchen']['IToaster']['prototype'],'preheatInBackground', function(onPreheatComplete)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.IToaster.PreheatInBackground(Fabrikam.Kitchen.ToastCompleteHandler)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.IToaster.PreheatInBackground'>
+    /// <param name='onPreheatComplete' type='Fabrikam.Kitchen.ToastCompleteHandler'/>
+    /// </signature>
+ return ;});
+dp(rootNamespace['Fabrikam']['Kitchen']['IToaster']['prototype'],'removeEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>toaststartevent</event>
+/// <event>toastcompleteevent</event>
+/// <event>preheatstart</event>
+});
+dpg(rootNamespace['Fabrikam']['Kitchen']['IToaster']['prototype'],'size', function() { return new rootNamespace['Fabrikam']['Kitchen']['Dimensions']();});
+/* runtime class constructor-2 */
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['MakeToastRoundOffHandler']['prototype'],'invoke', function(sender,nRoundOff)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.MakeToastRoundOffHandler.Invoke(Fabrikam.Kitchen.IChef,System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.MakeToastRoundOffHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.IChef'/>
+    /// <param name='nRoundOff' type='Number'/>
+    /// <returns type='Boolean'/>
+    /// </signature>
+ return true;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['MultipleToastCompleteArrayHandler']['prototype'],'invoke', function(sender,inToasts)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.MultipleToastCompleteArrayHandler.Invoke(Fabrikam.Kitchen.IChef,Fabrikam.Kitchen.IToast[])' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.MultipleToastCompleteArrayHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.IChef'/>
+    /// <param name='inToasts' type='Array'/>
+    /// </signature>
+ return ;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['MultipleToastCompleteCollectionHandler']['prototype'],'invoke', function(sender,inToasts)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.MultipleToastCompleteCollectionHandler.Invoke(Fabrikam.Kitchen.IChef,Windows.Foundation.Collections.IVector`1)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.MultipleToastCompleteCollectionHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.IChef'/>
+    /// <param name='inToasts' type='Windows.Foundation.Collections.IVector`1&lt;Fabrikam.Kitchen.IToast&gt;'/>
+    /// </signature>
+ return ;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['Oven']['prototype'],'bakeAsync', function(numCookies)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Oven.BakeAsync(System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Oven.BakeAsync'>
+    /// <param name='numCookies' type='Number'/>
+    /// <returns type='Fabrikam.Kitchen.BakeOperation' externalid='T:Fabrikam.Kitchen.BakeOperation' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['BakeOperation']();});
+dpg(rootNamespace['Fabrikam']['Kitchen']['Oven']['prototype'],'electricityReporter', function() { return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dpg(rootNamespace['Fabrikam']['Kitchen']['Oven']['prototype'],'size', function() { return new rootNamespace['Fabrikam']['Kitchen']['Dimensions']();});
+dp(rootNamespace['Fabrikam']['Kitchen']['Oven']['prototype'],'timerAsync', function(duration)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Oven.TimerAsync(System.Int32)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Oven.TimerAsync'>
+    /// <param name='duration' type='Number'/>
+    /// <returns type='Fabrikam.Kitchen.TimerOperation' externalid='T:Fabrikam.Kitchen.TimerOperation' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['TimerOperation']();});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['TimerOperation']['prototype'],'cancel', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.TimerOperation.Cancel' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.TimerOperation.Cancel'>
+    /// </signature>
+ return ;});
+dp(rootNamespace['Fabrikam']['Kitchen']['TimerOperation']['prototype'],'close', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.TimerOperation.Close' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.TimerOperation.Close'>
+    /// </signature>
+ return ;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['TimerOperation']['prototype'],'errorCode', function() { return 0;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['TimerOperation']['prototype'],'id', function() { return 0;});
+dp(rootNamespace['Fabrikam']['Kitchen']['TimerOperation']['prototype'],'start', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.TimerOperation.Start' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.TimerOperation.Start'>
+    /// </signature>
+ return ;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['TimerOperation']['prototype'],'status', function() { return new rootNamespace['Windows']['Foundation']['AsyncStatus']();});
+/* runtime class constructor-2 */
+dpg(rootNamespace['Fabrikam']['Kitchen']['Toast']['prototype'],'message', function() { return '';});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['ToastCompleteHandler']['prototype'],'invoke', function(sender,toast)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.ToastCompleteHandler.Invoke(Fabrikam.Kitchen.Toaster,Fabrikam.Kitchen.IToast)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ToastCompleteHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.Toaster'/>
+    /// <param name='toast' type='Fabrikam.Kitchen.IToast'/>
+    /// </signature>
+ return ;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['ToastStartHandler']['prototype'],'invoke', function(sender)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.ToastStartHandler.Invoke(Fabrikam.Kitchen.Toaster)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ToastStartHandler.Invoke'>
+    /// <param name='sender' type='Fabrikam.Kitchen.Toaster'/>
+    /// </signature>
+ return ;});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['Toaster']['prototype'],'addEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>toaststartevent</event>
+/// <event>toastcompleteevent</event>
+/// <event>preheatstart</event>
+});
+dpg(rootNamespace['Fabrikam']['Kitchen']['Toaster']['prototype'],'electricityReporter', function() { return new rootNamespace['Fabrikam']['Kitchen']['IApplianceElectricityConsumptionReporter']();});
+dp(rootNamespace['Fabrikam']['Kitchen']['Toaster']['prototype'],'getSameToaster', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Toaster.GetSameToaster' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.GetSameToaster'>
+    /// <returns type='Fabrikam.Kitchen.IToaster' externalid='T:Fabrikam.Kitchen.IToaster' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['IToaster']();});
+dp(rootNamespace['Fabrikam']['Kitchen']['Toaster']['prototype'],'makeToast', function(message)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Toaster.MakeToast(System.String)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.MakeToast'>
+    /// <param name='message' type='String'/>
+    /// <returns type='Fabrikam.Kitchen.Toast' externalid='T:Fabrikam.Kitchen.Toast' externalfile='fabrikam.xml'/>
+    /// </signature>
+ return new rootNamespace['Fabrikam']['Kitchen']['Toast']();});
+dpg(rootNamespace['Fabrikam']['Kitchen']['Toaster']['prototype'],'onpreheatstart', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.Toaster.PreheatStart' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.PreheatStart'>
+   /// <param name='ev' type='Object' />
+   /// <event>preheatstart</event>
+   /// </signature>
+}
+;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['Toaster']['prototype'],'ontoastcompleteevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.Toaster.ToastCompleteEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.ToastCompleteEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>toastcompleteevent</event>
+   /// </signature>
+}
+;});
+dpg(rootNamespace['Fabrikam']['Kitchen']['Toaster']['prototype'],'ontoaststartevent', function() { return function(ev) {
+    /// <signature externalid='E:Fabrikam.Kitchen.Toaster.ToastStartEvent' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.ToastStartEvent'>
+   /// <param name='ev' type='Object' />
+   /// <event>toaststartevent</event>
+   /// </signature>
+}
+;});
+dp(rootNamespace['Fabrikam']['Kitchen']['Toaster']['prototype'],'preheatInBackground', function(onPreheatComplete)
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.Toaster.PreheatInBackground(Fabrikam.Kitchen.ToastCompleteHandler)' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.Toaster.PreheatInBackground'>
+    /// <param name='onPreheatComplete' type='Fabrikam.Kitchen.ToastCompleteHandler'/>
+    /// </signature>
+ return ;});
+dp(rootNamespace['Fabrikam']['Kitchen']['Toaster']['prototype'],'removeEventListener', function(event,handler) {
+/// <param name='event' type='String'/>
+/// <param name='handler' type='Function'/>
+/// <event>toaststartevent</event>
+/// <event>toastcompleteevent</event>
+/// <event>preheatstart</event>
+});
+dpg(rootNamespace['Fabrikam']['Kitchen']['Toaster']['prototype'],'size', function() { return new rootNamespace['Fabrikam']['Kitchen']['Dimensions']();});
+/* runtime class constructor-2 */
+dp(rootNamespace['Fabrikam']['Kitchen']['ToasterPreheatStartHandler']['prototype'],'invoke', function()
+ {
+    /// <signature externalid='M:Fabrikam.Kitchen.ToasterPreheatStartHandler.Invoke' externalfile='fabrikam.xml' helpkeyword='Fabrikam.Kitchen.ToasterPreheatStartHandler.Invoke'>
+    /// </signature>
+ return ;});
+}).call(this);

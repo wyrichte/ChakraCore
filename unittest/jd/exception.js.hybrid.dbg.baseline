@@ -1,0 +1,41 @@
+[
+  {
+    "locals": {
+      "this - [Type]": "Object",
+      "this": {
+        "__proto__ - [Type]": "Object",
+        "__proto__": "{...}"
+      },
+      "arguments - [Type]": "Object, (Arguments)",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__ - [Type]": "Object",
+        "__proto__": "{...}",
+        "length - [Type]": "Number",
+        "length": "0"
+      },
+      "e2 - [Type]": "String",
+      "e2": "2 string",
+      "e1 - [Type]": "Error",
+      "e1": {
+        "__proto__ - [Type]": "Error",
+        "__proto__": "",
+        "description - [Type]": "String",
+        "description": "1 Error",
+        "message - [Type]": "String",
+        "message": "1 Error",
+        "stack": "Function evaluation is disabled while debugging native code"
+      },
+      "x - [Type]": "Number",
+      "x": "3",
+      "y - [Type]": "Number",
+      "y": "2",
+      "z - [Type]": "Number",
+      "z": "1",
+      "[Globals]": {
+        "f - [Type]": "Object, (Function)",
+        "f": "<large string>"
+      }
+    }
+  }
+]

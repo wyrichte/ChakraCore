@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+  <test>
+    <default>
+      <files>rejitintspec.js</files>
+      <compile-flags>-speculationcap:0 -profileBasedSpeculationCap:0 -bgjit- -testtrace:bailout -testtrace:globopt -testtrace:inline -testtrace:backend -testtrace:rejit -off:jitloopbody -MaxInterpretCount:3 -off:simpleJit -testEtwDll:NativeUnitTests.dll</compile-flags>
+      <tags>exclude_fre,exclude_dynapogo</tags>
+      <baseline>rejitintspec.baseline</baseline>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>rejitfloatspec.js</files>
+      <compile-flags>-speculationcap:0  -profileBasedSpeculationCap:0 -bgjit- -testtrace:bailout -testtrace:globopt -testtrace:inline -testtrace:backend -testtrace:rejit -off:jitloopbody  -MaxInterpretCount:3 -off:simpleJit -testEtwDll:NativeUnitTests.dll</compile-flags>
+      <tags>exclude_fre,exclude_dynapogo</tags>
+      <baseline>rejitfloatspec.baseline</baseline>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>rejitimplicitcalls.js</files>
+      <compile-flags>-speculationcap:0 -profileBasedSpeculationCap:0 -bgjit- -testtrace:bailout -testtrace:globopt -testtrace:inline -testtrace:rejit -testtrace:backend -LoopInterpretCount:5  -MaxInterpretCount:3 -off:simpleJit -off:bailOnNoProfile -testEtwDll:NativeUnitTests.dll</compile-flags>
+      <tags>exclude_fre,exclude_dynapogo</tags>
+      <baseline>rejitimplicitcalls.baseline</baseline>
+    </default>
+  </test>
+  
+  <!-- Disabling this unit test because the traces now vary between x86 and x64 also due to equivalent object type spec.
+  <test>
+    <default>
+      <files>rejitinlining.js</files>
+      <compile-flags>-speculationcap:0 -profileBasedSpeculationCap:0 -bgjit- -force:inline -testtrace:bailout -testtrace:globopt -testtrace:inline -testtrace:polymorphicinline -testtrace:rejit -testtrace:backend -testEtwDll:NativeUnitTests.dll -MaxInterpretCount:3 -off:simpleJit -LoopInterpretCount:4 -off:recycler -UseFunctionIdForTrace</compile-flags>
+      <tags>exclude_fre,exclude_dynapogo</tags>
+      <baseline>rejitinlining.baseline</baseline>
+    </default>
+  </test>-->
+  
+  <test>
+    <default>
+      <files>rejitArrayCheckHoist.js</files>
+      <baseline>rejitArrayCheckHoist.baseline</baseline>
+      <compile-flags>-speculationcap:0 -profileBasedSpeculationCap:0 -bgjit- -off:polymorphicinline -off:inline -loopInterpretCount:1000000 -testtrace:bailout -testtrace:globopt -testtrace:inline -testtrace:rejit -testtrace:backend -testEtwDll:NativeUnitTests.dll -MaxInterpretCount:3 -off:simpleJit -off:recycler -UseFunctionIdForTrace</compile-flags>
+      <tags>exclude_fre,exclude_dynapogo</tags>
+    </default>
+  </test>
+
+</regress-exe>

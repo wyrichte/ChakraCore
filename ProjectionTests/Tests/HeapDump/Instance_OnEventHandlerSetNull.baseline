@@ -1,0 +1,267 @@
+Pass: ev.message
+      Actual: 123
+
+Pass: toastCompleteCount
+      Actual: 1
+
+Pass: toastCompleteCount
+      Actual: 1
+
+
+
+===========>Starting Heap Dump for specific object<===============
+
+ type: Fabrikam.Kitchen.Toaster flags: (new WinRT_Instance) optional info records (2)
+ |  [Prototype] type: ObjectObject flags: (new) optional info records (2)
+ |  |  [Prototype] type: ObjectObject flags: (new) optional info records (2)
+ |  |  |  [Prototype] type: Null flags: (new) optional info records (0)
+ |  |  |  [Properties] count: 13
+ |  |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
+ |  |  |  |    [Prototype] type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    |  [Prototype] type: ObjectObject (seen)
+ |  |  |  |    |  [Properties] count: 6
+ |  |  |  |    |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
+ |  |  |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    |  | 1 length: value: 0.000000
+ |  |  |  |    |  | 2 apply: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    |  |    [Properties] count: 1
+ |  |  |  |    |  |    | 0 length: value: 2.000000
+ |  |  |  |    |  | 3 bind: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    |  |    [Properties] count: 1
+ |  |  |  |    |  |    | 0 length: value: 1.000000
+ |  |  |  |    |  | 4 call: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    |  |    [Properties] count: 1
+ |  |  |  |    |  |    | 0 length: value: 1.000000
+ |  |  |  |    |  | 5 toString: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    |  |    [Properties] count: 1
+ |  |  |  |    |  |    | 0 length: value: 0.000000
+ |  |  |  | 1 hasOwnProperty: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 2 propertyIsEnumerable: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 3 isPrototypeOf: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 4 toLocaleString: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 0.000000
+ |  |  |  | 5 toString: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 0.000000
+ |  |  |  | 6 valueOf: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 0.000000
+ |  |  |  | 7 __proto__: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 2
+ |  |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |  |    |    [Properties] count: 1
+ |  |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |  |    | 1 length: value: 0.000000
+ |  |  |  | 8 __proto__: rsFlags: setter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 2
+ |  |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |  |    |    [Properties] count: 1
+ |  |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |  |    | 1 length: value: 1.000000
+ |  |  |  | 9 __defineGetter__: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 2.000000
+ |  |  |  | 10 __defineSetter__: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 2.000000
+ |  |  |  | 11 __lookupGetter__: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 12 __lookupSetter__: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  [Properties] count: 31
+ |  |  | 0 addEventListener: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 2.000000
+ |  |  | 1 electricityReporter: rsFlags: getter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 2 electricityReporter: rsFlags: setter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 3 getSameToaster: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 0.000000
+ |  |  | 4 indirectMakeToast: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 5 indirectToaster: rsFlags: getter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 6 indirectToaster: rsFlags: setter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 7 invokePreheatCompleteBackgroundEvents: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 8 invokeRootedHandler: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 2.000000
+ |  |  | 9 makeToast: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 10 onindirecttoastcompleteevent: rsFlags: getter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 11 onindirecttoastcompleteevent: rsFlags: setter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 12 onpreheatcompletebackground: rsFlags: getter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 13 onpreheatcompletebackground: rsFlags: setter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 14 onpreheatstart: rsFlags: getter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 15 onpreheatstart: rsFlags: setter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 16 onrootedtoastcompleteevent: rsFlags: getter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 17 onrootedtoastcompleteevent: rsFlags: setter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 18 ontoastcompleteevent: rsFlags: getter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 19 ontoastcompleteevent: rsFlags: setter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 20 ontoaststartevent: rsFlags: getter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 21 ontoaststartevent: rsFlags: setter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 22 preheatInBackground: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 23 preheatInBackgroundWithSmuggledDelegate: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 1.000000
+ |  |  | 24 removeEventListener: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 2.000000
+ |  |  | 25 rootedHandler: rsFlags: getter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 26 rootedHandler: rsFlags: setter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 27 size: rsFlags: getter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 28 size: rsFlags: setter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  | 29 toString: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 0.000000
+ |  |  | 30 constructor: type: Fabrikam.Kitchen.Toaster flags: (new WinRT_RuntimeClass) optional info records (3)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject (seen)
+ |  |  |    | 1 length: value: 0.000000
+ |  |  |    [Internal property] type: Fabrikam.Kitchen.Toaster flags: (new_state_unavailable WinRT_RuntimeClass external_unknown size_unavailable) optional info records (1)
+ |  |  |    |    [Events] count: 0
+ |  [Internal property] type: Fabrikam.Kitchen.Toaster flags: (new_state_unavailable WinRT_Instance external_unknown size_unavailable) optional info records (1)
+ |  |    [Events] count: 0
+
+==========>End Heap Dump<===============
+
+

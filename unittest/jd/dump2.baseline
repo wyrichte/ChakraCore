@@ -1,0 +1,7 @@
+foo (dump2.js:5,9)
+test (dump2.js:14,9)
+Global code (dump2.js:25,1)
+
+foo (dump2.js:5,9)
+test (dump2.js:16,9)
+Global code (dump2.js:25,1)

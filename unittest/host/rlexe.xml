@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+  <test>
+    <default>
+      <files>redeclare.htm</files>
+      <baseline>redeclare.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>redeclar1.htm</files>
+      <baseline />
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>redeclar2.htm</files>
+      <baseline />
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>redeclar3.htm</files>
+      <baseline />
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>EventHandlerCall.htm</files>
+      <baseline />
+    </default>
+  </test>
+  
+</regress-exe>

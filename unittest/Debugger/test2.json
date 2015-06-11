@@ -1,0 +1,73 @@
+{
+
+  "testname" : "Hit a bp run to completion",
+
+  "owner" : "SteveJS",
+
+  "validated" : false,
+
+  "timeout" : 1000,
+
+  "binRootEnv" : "_NTTREE",
+
+  "targetHost" : "chakra.dll",
+
+  "commands" :
+
+  [
+
+{
+  "action": "open",
+  "args": [
+    "scripts\\repro.js"
+  ],
+  "events": [
+    {
+      "scriptOpen": "scripts\\repro.js"
+    }
+  ]
+},
+
+{
+  "action": "setBp",
+  "args": [
+    "repro.js",
+    "4"
+  ],
+  "events": [
+    {
+      "breakpointSet": {
+        "start": 0,
+        "length": 13,
+        "text": "var i = 1+2+3"
+      }
+    }
+  ]
+},
+
+{
+  "action": "launch",
+  "args": [],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+
+{
+  "action": "go",
+  "args": [],
+  "events": []
+},
+
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+
+  ]
+
+}
+

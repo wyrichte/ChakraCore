@@ -1,0 +1,37 @@
+1.1
+1.1
+1.1
+    Initial JIT
+---BeginBackEnd: function: grow---
+GlobOpt Settings:
+    FloatTypeSpec: enabled
+    AggressiveIntTypeSpec: enabled
+    LossyIntTypeSpec: enabled
+    ArrayCheckHoist: enabled
+    ImplicitCallFlags: no
+---EndBackEnd---
+BailOut: function: grow ( (#1.1), #2) Opcode: FromVar
+Bailout from function: function: grow, bailOutKindName: (BailOutPrimitiveButString), bailOutCount: 1, callCount: 20, reJitReason: None, reThunk: false
+NaN
+    Schedule instrumented reJIT
+BailOut: function: grow ( (#1.1), #2) Opcode: FromVar
+Bailout from function: function: grow, bailOutKindName: (BailOutPrimitiveButString), bailOutCount: 2, callCount: 0, reJitReason: FloatTypeSpecDisabled, reThunk: false
+NaN
+    Instrumented reJIT
+---BeginBackEnd: function: grow---
+GlobOpt Settings:
+    FloatTypeSpec: disabled
+    AggressiveIntTypeSpec: enabled
+    LossyIntTypeSpec: enabled
+    ArrayCheckHoist: enabled
+    ImplicitCallFlags: no
+---EndBackEnd---
+NaN
+NaN
+NaN
+NaN
+NaN
+    Schedule reJIT here, no float type spec
+NaN
+    reJIT, no float type spec
+NaN

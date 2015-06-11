@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win7</tags>
+      <files>JavascriptCausalityWrappers.js</files>
+      <baseline>JavascriptCausalityWrappers.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win8,exclude_winBlue</tags>
+      <files>JavascriptCausalityWrappers.js</files>
+      <baseline>JavascriptCausalityWrappers.win7.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>exclude_apollo</tags>
+      <files>JavascriptCausalityWrappers.js</files>
+      <baseline>JavascriptCausalityWrappers.win7.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -ForceDownlevelAsyncDebug -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win7</tags>
+      <files>StackForETW.js</files>
+      <baseline>StackForETW.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win7</tags>
+      <files>StackForETW.js</files>
+      <baseline>StackForETW_noDBG.baseline</baseline>
+	  <compile-flags>-trace:StackFramesEvent</compile-flags>
+    </default>
+  </test>
+
+  <!-- Enable when mshtmlhost supports DebugLaunch 
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win7</tags>
+      <files>ScriptTags.html</files>
+      <baseline>ScriptTags.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
+      <command>MshtmlHost.exe</command>
+    </default>
+  </test>
+  !-->
+  
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win8,exclude_winBlue</tags>
+      <files>StackForETW.js</files>
+      <baseline>StackForETW.win7.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>exclude_apollo</tags>
+      <files>StackForETW.js</files>
+      <baseline>StackForETW.win7.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -ForceDownlevelAsyncDebug -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win7</tags>
+      <files>StackForLib.js</files>
+      <baseline>StackForLib.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win7</tags>
+      <files>StackForLib.js</files>
+      <baseline>StackForLib_noDBG.baseline</baseline>
+	  <compile-flags>-trace:StackFramesEvent</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win7</tags>
+      <files>StackForETWDynamicCode.js</files>
+      <baseline>StackForETWDynamicCode.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win7</tags>
+      <files>StackForETWDynamicCode.js</files>
+      <baseline>StackForETWDynamicCode_noDBG.baseline</baseline>
+	  <compile-flags>-trace:StackFramesEvent</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win8,exclude_winBlue</tags>
+      <files>StackForETWDynamicCode.js</files>
+      <baseline>StackForETWDynamicCode.win7.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>exclude_apollo</tags>
+      <files>StackForETWDynamicCode.js</files>
+      <baseline>StackForETWDynamicCode.win7.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -ForceDownlevelAsyncDebug -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <tags>exclude_apollo</tags>
+      <files>TestCausalityEnums.js</files>
+      <baseline>TestCausalityEnums.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch -nativetest:NativeUnitTests.dll AsyncDebugTest</compile-flags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win7,exclude_win8</tags>
+      <files>TestBasicActiveScriptDirectAsyncCausality.js</files>
+      <baseline>TestBasicActiveScriptDirectAsyncCausality.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch -nativetest:NativeUnitTests.dll AsyncDebugTest</compile-flags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win8,exclude_winBlue</tags>
+      <files>TestBasicActiveScriptDirectAsyncCausality.js</files>
+      <baseline>TestBasicActiveScriptDirectAsyncCausality.win7.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch -nativetest:NativeUnitTests.dll AsyncDebugTest</compile-flags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <tags>exclude_apollo</tags>
+      <files>TestBasicActiveScriptDirectAsyncCausality.js</files>
+      <baseline>TestBasicActiveScriptDirectAsyncCausality.win7.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -ForceDownlevelAsyncDebug -TraceAsyncDebugCalls -DebugLaunch -nativetest:NativeUnitTests.dll AsyncDebugTest</compile-flags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win7,exclude_win8</tags>
+      <files>TestAsyncDebugWithScriptClosed.js</files>
+      <baseline>TestAsyncDebugWithScriptClosed.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch -nativetest:NativeUnitTests.dll AsyncDebugTest</compile-flags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <tags>exclude_apollo,exclude_win8,exclude_winBlue</tags>
+      <files>TestAsyncDebugWithScriptClosed.js</files>
+      <baseline>TestAsyncDebugWithScriptClosed.win7.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch -nativetest:NativeUnitTests.dll AsyncDebugTest</compile-flags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <tags>exclude_apollo</tags>
+      <files>TestAsyncDebugWithScriptClosed.js</files>
+      <baseline>TestAsyncDebugWithScriptClosed.win7.baseline</baseline>
+	  <compile-flags>-AsyncDebugging -ForceDownlevelAsyncDebug -TraceAsyncDebugCalls -DebugLaunch -nativetest:NativeUnitTests.dll AsyncDebugTest</compile-flags>
+    </default>
+  </test>
+  
+</regress-exe>

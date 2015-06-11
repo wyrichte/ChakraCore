@@ -1,0 +1,348 @@
+::::::::::::::::::::::::::::::::::::::::::::::::
+::
+:: RunAllRLTests.cmd
+::
+:: Runs checkin tests using the JC.exe on the path, in 2 variants:
+::
+:: -maxInterpretCount:1 -maxSimpleJitRunCount:1 -bgjit-
+:: <dynapogo>
+::
+:: Logs are placed into:
+::
+:: logs\interpreted
+:: logs\dynapogo
+::
+:: User specified variants:
+:: logs\forcedeferparse
+:: logs\nodeferparse
+:: logs\forceundodefer
+:: logs\bytecodeserialized (serialized to byte codes)
+:: logs\forceserialized (force bytecode serialization internally)
+::
+:: As a precheckin test, run jscript\tools\RunAllTests.cmd
+:: Don't run this directly.
+::
+::::::::::::::::::::::::::::::::::::::::::::::::
+@echo off
+setlocal
+
+if "%CD%\" NEQ "%~dp0" (
+    echo Current directory is %CD%\
+    echo Script directory is %~dp0- changing
+    cd %~dp0
+)
+
+set _buildType=%build.type%
+set _buildArch=%build.arch%
+set _Variants=
+set _TAGS=
+set _NOTTAGS=
+set _DIRNOTTAGS=
+set _DIRTAGS=
+set _binaryRoot=%_nttree%\jscript
+set _toolsRoot=%sdxroot%\inetcore\jscript\tools
+set _drt=
+set _snap=
+set _rebase=
+set _ExtraVariants=
+set _logsRoot=%cd%\logs
+
+:NextArgument
+if "%1" == "-?" (
+    echo Usage: runalltests.cmd [-binary <path>]
+    exit /b 0
+) else if /i "%1" == "-variants" (
+    set _Variants=%~2
+    shift
+    goto ArgLoop
+) else if /i "%1" == "-extraVariants" (
+:: Extra variants are specified by the user but not run
+:: by default.  Shorthand versions for specific variants
+:: can be found at the end of the loop.
+    if "%_ExtraVariants%" == "" (
+        set _ExtraVariants=%~2
+    ) else (
+        set _ExtraVariants=%_ExtraVariants%,%~2
+    )
+    shift
+    goto ArgLoop
+) else if /i "%1" == "-binary" (
+    set _JCBinaryArgument=-binary %2
+    shift
+    goto ArgLoop
+) else if /i "%1" == "-asmbase" (
+    set _RLMode=-asmbase
+    set _Variants=default
+    goto ArgLoop
+) else if /i "%1" == "-asmdiff" (
+    set _RLMode=-asmdiff
+    set _Variants=default
+    goto ArgLoop
+) else if /i "%1" == "-dirs" (
+    set _DIRS=-dirs %2
+    shift
+    goto ArgLoop
+) else if /i "%1" == "-win7" (
+    set TARGET_OS=win7
+    goto ArgLoop
+) else if /i "%1" == "-win8" (
+    set TARGET_OS=win8
+    goto ArgLoop
+) else if /i "%1" == "-winBlue" (
+    set TARGET_OS=winBlue
+    goto ArgLoop
+) else if /i "%1" == "-nottags" (
+    set _NOTTAGS=%_NOTTAGS% -nottags %2
+    shift
+    goto ArgLoop
+) else if /i "%1" == "-tags" (
+    set _TAGS=%_TAGS% -tags %2
+    shift
+    goto ArgLoop
+) else if /i "%1" == "-dirtags" (
+    set _DIRTAGS=%_DIRTAGS% -dirtags %2
+    shift
+    goto ArgLoop
+) else if /i "%1" == "-dirnottags" (
+    set _DIRNOTTAGS=%_DIRNOTTAGS% -dirnottags %2
+    shift
+    goto ArgLoop
+) else if /i "%1" == "-snap" (
+    set _snap=1
+    set _NOTTAGS=%_NOTTAGS% -nottags exclude_snap
+    goto ArgLoop
+) else if /i "%1" == "-drt" (
+    set _drt=1
+    set _NOTTAGS=%_NOTTAGS% -nottags exclude_drt
+    goto ArgLoop
+) else if /i "%1" == "-rebase" (
+    set _rebase=-rebase
+    goto ArgLoop
+) else if /i "%1" == "-rundebug" (
+    set _RUNDEBUG=1
+    goto ArgLoop
+) else if /i "%1" == "-platform" (
+    set _buildArch=%2
+    shift
+    goto ArgLoop
+) else if /i "%1" == "-buildType" (
+    set _buildType=%2
+    shift
+    goto ArgLoop
+) else if /i "%1" == "-binaryRoot" (
+    set _binaryRoot=%2
+    shift
+    goto ArgLoop
+) else if /i "%1" == "-toolsRoot" (
+    set _toolsRoot=%2
+    shift
+    goto ArgLoop
+
+:: Defined here are shorthand versions for specifying
+:: extra variants when running.
+) else if /i "%1" == "-parser" (
+    if "%_ExtraVariants%" == "" (
+        set _ExtraVariants=forcedeferparse,nodeferparse,forceundodefer
+    ) else (
+        set _ExtraVariants=%_ExtraVariants%,forcedeferparse,nodeferparse,forceundodefer
+    )
+    goto ArgLoop
+) else if /i "%1" == "-serialization" (
+    if "%_ExtraVariants%" == "" (
+        set _ExtraVariants=bytecodeserialized,forceserialized
+    ) else (
+        set _ExtraVariants=%_ExtraVariants%,bytecodeserialized,forceserialized
+    )
+    goto ArgLoop
+) else if "%1" == "" (
+    goto StartScript
+) else (
+    echo Unknown argument: %1
+    goto :eof
+)
+
+:ArgLoop
+shift
+goto :NextArgument
+
+
+:StartScript
+set path=%path%;%_binaryRoot%;%_toolsRoot%
+
+del /s /q profile.dpl.* > nul
+
+set _JCBinaryArgument=
+set _RLMode=-exe
+
+set _Error=0
+
+:: Always turn on FRETEST
+set FRETEST=1
+
+::
+:: If running on chk or FRETEST, use dynamic profile cache and undef tag exclude_ship.
+::
+set _dynamicprofilecache=-dynamicprofilecache:profile.dpl
+set _dynamicprofileinput=-dynamicprofileinput:profile.dpl
+set _exclude_ship=
+if "%_buildType%" == "fre" (
+    if "%FRETEST%" == "" (
+        set _dynamicprofilecache=
+        set _dynamicprofileinput=
+        set _exclude_ship=-nottags exclude_ship
+    )
+)
+if "%_buildType%" == "chk" (
+set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -DumpOnCrash
+)
+
+@rem For Apollo, we will exclude tests that have the tag "exclude_apollo".
+set _ExcludeApolloTests=
+if "%APOLLO%" == "1" (
+    set _ExcludeApolloTests=-nottags exclude_apollo
+    set TARGET_OS=wp8
+)
+
+:: If running as part of a DRT, we do not need to setup the test harnesses.
+if "%_drt%" == "" (
+    @rem Disable html tests on dev box / snap build machine. Only run in DRT.
+    set _ExcludeHtmlTests=-nottags html
+
+    call runjs setupJsGlass
+
+    call runjs setupTesthost
+
+    call runjs setupJdTest
+
+    call runjs setupJsHostTest
+
+    set _ExcludeIntlTests=-nottags exclude_winglob
+    call runjs setupWindowsGlobalization
+    if errorlevel 0 (
+        set _ExcludeIntlTests=
+    )
+)
+
+set _BuildFlavorLogs=%_logsRoot%\%_buildArch%%_buildType%
+set _delCmd=del /s /q %_BuildFlavorLogs%\rl*.log
+echo %_delCmd%
+%_delCmd% 2>&1
+
+if NOT "%_SNAP%" == "1" (
+    set _BaseVariants=interpreted,dynapogo
+) else (
+    set _BaseVariants=interpreted,dynapogo
+)
+
+
+:: if -dirs is passed then by default don't run tests in debugmode unless user provides -rundebug explicitly in arguments
+if NOT "%_DIRS%" == "" (
+    if NOT "%_RUNDEBUG%" == "1" (
+        if "%_Variants%"=="" set _Variants=%_BaseVariants%
+    )
+)
+
+:: If _Variants is modified make corresponding change in unittest_variants array in file jscript\tools\ScriptLib\EzeAutomation.js
+if "%_Variants%"=="" set _Variants=%_BaseVariants%
+
+:: If the user specified extra variants to run, include them.
+if NOT "%_ExtraVariants%" == "" set _Variants=%_Variants%,%_ExtraVariants%
+
+for %%i in (%_Variants%) do (
+    set _TESTCONFIG=%%i
+    call :RunOneConfig
+)
+
+echo.
+echo.
+
+for %%i in (%_Variants%) do (
+    echo ######## Logs for %%i variant ########
+    type %_BuildFlavorLogs%\%%i\rl.log
+    echo.
+)
+
+exit /b %_Error%
+
+:::::::::::::::::::::::::::::::::::::::::::::::::
+:RunOneConfig
+::
+:: IMPORTANT: this subroutine returns pass/fail in the _Error environment
+:: variable.  Don't surround this call with setlocal/endlocal, or changes
+:: to that variable will not be persisted, and failures will not be reflected
+:: to SNAP.
+::
+
+echo ############# Starting %_TESTCONFIG% variant #############
+
+set _delCmd=del /q %_logsRoot%\rl*
+echo %_delCmd%
+%_delCmd% 2>&1
+
+set _mdCmd=md %_BuildFlavorLogs%\%_TESTCONFIG%
+echo %_mdCmd%
+%_mdCmd% 2>&1
+
+set _OLD_CC_FLAGS=%EXTRA_CC_FLAGS%
+set EXTRA_RL_FLAGS=
+if "%_TESTCONFIG%"=="interpreted" (
+    set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -maxInterpretCount:1 -maxSimpleJitRunCount:1 -bgjit- %_dynamicprofilecache%
+    set EXTRA_RL_FLAGS=-appendtestnametoextraccflags
+)
+if "%_TESTCONFIG%"=="nonative" (
+    set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -nonative
+    set EXTRA_RL_FLAGS=-nottags exclude_interpreted -nottags fails_interpreted
+)
+if "%_TESTCONFIG%"=="dynapogo"    (
+    set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -forceNative -off:simpleJit -bgJitDelay:0 %_dynamicprofileinput%
+    set EXTRA_RL_FLAGS=-appendtestnametoextraccflags
+)
+
+set _exclude_serialized=
+
+:: Variants after here are user supplied variants (do not run by default).
+if "%_TESTCONFIG%"=="forcedeferparse" (
+    set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -forceDeferParse %_dynamicprofilecache%
+    set EXTRA_RL_FLAGS=-appendtestnametoextraccflags
+    set _exclude_forcedeferparse=-nottags exclude_forcedeferparse
+)
+if "%_TESTCONFIG%"=="nodeferparse" (
+    set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -noDeferParse %_dynamicprofilecache%
+    set EXTRA_RL_FLAGS=-appendtestnametoextraccflags
+    set _exclude_nodeferparse=-nottags exclude_nodeferparse
+)
+if "%_TESTCONFIG%"=="forceundodefer" (
+    set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -forceUndoDefer %_dynamicprofilecache%
+    set EXTRA_RL_FLAGS=-appendtestnametoextraccflags
+    set _exclude_forceundodefer=-nottags exclude_forceundodefer
+)
+if "%_TESTCONFIG%"=="bytecodeserialized" (
+    set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -recreatebytecodefile -serialized:%TEMP%\ByteCode
+    set EXTRA_RL_FLAGS=-appendtestnametoextraccflags
+    set _exclude_serialized=-nottags exclude_serialized
+)
+if "%_TESTCONFIG%"=="forceserialized" (
+    set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -forceserialized
+    set _exclude_serialized=-nottags exclude_serialized
+)
+
+echo %_TESTCONFIG% > %_logsRoot%\_currentRun.tmp
+:: Default variant is no longer run.
+:: if "%_TESTCONFIG%"=="default"      set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -speculationcap:0 %_dynamicprofilecache%
+set _runCmd=call runtests.cmd %_JCBinaryArgument% %_DIRS% -logverbose %_TAGS% %_NOTTAGS% %_DIRTAGS% %_DIRNOTTAGS% -nottags fails_%_TESTCONFIG% -nottags fail_%TARGET_OS% -nottags exclude_%_TESTCONFIG% -nottags exclude_%_buildArch% -nottags exclude_%TARGET_OS% -nottags exclude_%_buildType% %_exclude_ship% %_exclude_serialized% %_exclude_forcedeferparse% %_exclude_nodeferparse% %_exclude_forceundodefer% %_ExcludeHtmlTests% %_ExcludeIntlTests% %_ExcludeApolloTests% %_RLMode% %EXTRA_RL_FLAGS% %_rebase%
+echo %_runCmd%
+%_runCmd% 2>&1
+
+if errorlevel 1 set _Error=1
+if not errorlevel 0 set _Error=1
+
+if _Error==0 del /Y %TEMP%\ByteCode*.bc
+if _Error==0 del /Y %TEMP%\NativeCode*.dll
+
+set _moveCmd=move /Y %_logsRoot%\*.log %_BuildFlavorLogs%\%_TESTCONFIG%
+echo %_moveCmd%
+%_moveCmd% 2>&1
+
+del /Q %_logsRoot%\_currentRun.tmp
+
+set EXTRA_CC_FLAGS=%_OLD_CC_FLAGS%

@@ -1,0 +1,14 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "[bar returned]": "undefined",
+      "[Return value]": "undefined",
+      "a": "foo",
+      "b": "[]",
+      "arguments": "{...}",
+      "c": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

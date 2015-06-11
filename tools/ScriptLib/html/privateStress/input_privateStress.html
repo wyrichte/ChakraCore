@@ -1,0 +1,87 @@
+<HTML>
+<BODY id=inputForm>
+
+<SPAN ID=Introduction> <!-- This will be filled in with dynamic content --> </SPAN> 
+
+<TABLE >
+<TR><TH COLSPAN=2 ALIGN=CENTER> 
+    Private Stress Submission Form <BR>
+    (see <A HREF='http://devdiv/sites/CLR/stress/default.aspx' TARGET=_blank> CLR Stress</A> for more info) <BR>
+    </TH> 
+</TR>
+
+<!-- --------------------------------------------------------------------- -->
+
+<TR><TD> <A HREF=help_privateStress.html#BuildFlavors_help TABINDEX=-1 TARGET="Help"> Build Flavors </A> </TD> 
+    <TD> <INPUT TYPE=checkbox ID=x86chk_input name=BuildFlavors value=x86chk checked=checked> x86chk
+         <INPUT TYPE=checkbox ID=x86ret_input name=BuildFlavors value=x86ret checked=checked> x86ret
+         <INPUT TYPE=checkbox ID=amd64chk_input name=BuildFlavors value=amd64chk checked=checked> amd64chk
+         <INPUT TYPE=checkbox ID=amd64ret_input name=BuildFlavors value=amd64ret checked=checked> amd64ret
+         <INPUT TYPE=checkbox ID=ia64chk_input name=BuildFlavors value=ia64chk> ia64chk
+         <INPUT TYPE=checkbox ID=ia64ret_input name=BuildFlavors value=ia64ret> ia64ret
+    </TD> 
+</TR>
+
+<tr><td valign=top> <A HREF=help_privateStress.html#TestMixes_help TABINDEX=-1 TARGET="Help"> Test Mixes</td>
+    <td> <select multiple=multiple id=TestMixes_input name=TestMixes size=8>
+        <!-- Options will be filled in dynamically. -->
+    </select></td>
+</tr>
+
+<TR><TD> <A HREF=help_privateStress.html#GFlagsOptions_help TABINDEX=-1 TARGET="Help"> GFlags Options </A> </TD> 
+    <td> Common options </td>
+</TR>
+<tr><td></td>
+    <td><INPUT TYPE=checkbox ID=ust_input name=GFlagsOptions value=ust> ust - Create user mode stack trace database</td>
+</tr>
+<tr><td></td>
+    <td><INPUT TYPE=checkbox ID=hpa_input name=GFlagsOptions value=hpa> hpa - Enable page heap</td>
+</tr>
+<tr><td></td>
+    <td>More options...</td>
+</tr>
+<tr><td></td>
+    <td><select multiple=multiple ID=GFlagsOptions_input name=MoreGFlagsOptions size=8>
+        <!-- Options will be filled in dynamically. -->
+    </select></td>
+</tr>
+
+<TR><TD> <A HREF=help_privateStress.html#MDAsOptions_help TABINDEX=-1 TARGET="Help"> MDAs Options </A> </TD> 
+    <td> Common options </td> 
+</TR>
+<tr><td></td>
+    <td> <INPUT TYPE=checkbox ID=gcManagedToUnmanaged_input name=MDAsOptions value=gcManagedToUnmanaged> GcManagedToUnmanaged
+</tr>
+<tr><td></td>
+    <td><INPUT TYPE=checkbox ID=gcUnmanagedToManaged_input name=MDAsOptions value=gcUnmanagedToManaged> GcUnmanagedToManaged</td>
+</tr>
+<tr><td></td>
+    <td><INPUT TYPE=checkbox ID=invalidOverlappedToPInvoke_input name=MDAsOptions value=invalidOverlappedToPInvoke> InvalidOverlappedToPInvoke</td>
+</tr>
+<tr><td></td>
+    <td><INPUT TYPE=checkbox ID=pInvokeStackImbalance_input name=MDAsOptions value=pInvokeStackImbalance> PInvokeStackImbalance</td>
+</tr>
+<tr><td></td>
+    <td><INPUT TYPE=checkbox ID=releaseHandleFailed_input name=MDAsOptions value=releaseHandleFailed> ReleaseHandleFailed</td>
+</tr>
+<tr><td></td>
+    <td>More options...</td>
+</tr>
+<tr><td></td>
+    <td><select multiple=multiple ID=MDAsOptions_input name=MoreMDAsOptions size=8>
+        <!-- Options will be filled in dynamically. -->
+    </select></td>
+</tr>
+<tr><td></td></tr>
+
+<TR><TD> <A HREF=help_privateStress.html#EnvironmentVariables_help TABINDEX=-1 TARGET="Help"> Environment Variables </A> </TD>
+    <TD> <INPUT ID=EnvironmentVariables SIZE=64> </TD> 
+</TR>
+
+</TABLE>
+
+<HR>
+<INPUT TYPE=BUTTON ID=Submit Value=Submit>
+<INPUT TYPE=BUTTON ID=Cancel Value=Cancel>
+</BODY>
+</HTML>

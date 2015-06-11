@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=10">
+</head>
+<body>
+<canvas id="frameCanvas" width="40" height="40" style="display:none"></canvas>
+<script type = "text/javascript">
+    var getCPArray = function (i) {
+        var canvas = document.getElementById("frameCanvas");
+        var context = canvas.getContext('2d');
+        var out = context.createImageData(40 * i, 40 * i).data;
+       // alert("Inside the frame, canvas pixel array's length is: "+out.length);
+        return out;
+    }
+</script>
+</body>
+</html>

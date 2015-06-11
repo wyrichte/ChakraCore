@@ -1,0 +1,48 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 104,
+        "length": 3,
+        "text": "y++",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "m": "3",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 115,
+        "length": 7,
+        "text": "throw 2",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "2",
+      "arguments": "{...}",
+      "m": "3",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "m": "3",
+      "[Globals]": ""
+    }
+  }
+]

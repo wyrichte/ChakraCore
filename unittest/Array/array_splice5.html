@@ -1,0 +1,50 @@
+<html>
+<body onload="start()">
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<script type="text/javascript"> //<![CDATA[
+var echo = document.write;
+if (WScript && WScript.Echo) {
+  echo = WScript.Echo;
+}
+
+echo ("window = " + window);
+echo ("window.addEventListener = " + window.addEventListener);
+echo ("window.attachEvent = " + window.attachEvent);
+
+function func2()
+{}
+
+// from bug BLUE 5602
+function func()
+{
+	e="div".match(func2());
+echo("e = " + e + " ; e.length = " + e.length);
+	e.length=58;
+echo("e = " + e + " ; e.length = " + e.length);
+	e.splice(1);//es.splice(1,17); is OK too
+echo("e = " + e + " ; e.length = " + e.length);
+}
+
+// from bug BLUE 5602
+function func_test2()
+{
+	e="div".match(func2());
+echo("e = " + e + " ; e.length = " + e.length);
+	e.length=58;
+echo("e = " + e + " ; e.length = " + e.length);
+	e.splice(1,17);
+echo("e = " + e + " ; e.length = " + e.length);
+}
+
+function start()
+{
+  echo ("start- func()");
+  func();
+  echo ("start- func_test2()");
+  func_test2();
+  echo ("start- done");
+}
+
+</script>
+</body>
+</html>

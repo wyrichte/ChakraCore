@@ -1,0 +1,1476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TagSet Name="IE">
+    <KnownProcesses>
+        <KnownProcess Name="iexplore.exe"/>
+        <KnownProcess Name="wwahost.exe"/>
+        <KnownProcess Name="miexplore.exe"/>
+        <KnownProcess Name="iepreview.exe"/>
+        <KnownProcess Name="mshtmpad.exe"/>
+        <KnownProcess Name="mshta.exe"/>
+        <KnownProcess Name="ieuser.exe"/>
+        <KnownProcess Name="ielowutil.exe"/>
+    </KnownProcesses>
+    <ETWNames>
+        <Provider Name="Microsoft-IE" Guid="9e3b3947-ca5d-4614-91a2-7b624e0e7244"/>
+        <Provider Name="Microsoft-IEFRAME" Guid="5c8bb950-959e-4309-8908-67961a1205d5"/>
+        <Symbol Name="win:Start" Value="1"/>
+        <Symbol Name="win:Stop" Value="2"/>
+    </ETWNames>
+  <KnownThreads>
+    <!-- If a thread logs an event/stack that matches a tag below, it can be 
+             marked as a known/interesting thread. Look for KnownThread="XXX" to
+             locate the tags that map to a known thread. -->
+    <KnownThread Name="IEUIThread"/>
+    <KnownThread Name="IERenderThread"/>
+    <KnownThread Name="IEDecodeThread"/>
+    <!-- OptInProcess option allows the containing process to be tracked even
+             if it is not in the default known process list. If a known process 
+             list is explicitly specified in the tag file it overrides this opt-in. -->
+    <KnownThread Name="XamlUIThread" OptInProcess="1"/>
+    <KnownThread Name="XamlRenderThread" OptInProcess="1"/>
+    <!-- IgnoreProcess allows ignoring other threads in the process containing
+             this thread, unless it is marked known/interesting through another way -->
+    <KnownThread Name="DWMThread" OptInProcess="1" IgnoreProcess="1"/>
+    <KnownThread Name="DXSchedThread" OptInProcess="1" IgnoreProcess="1"/>
+  </KnownThreads>
+    <Tag Name="ETWOverhead" Graph="1">
+        <Tag Name="ETWStackWalking">
+            <Entrypoint Module="ntkrnlmp.exe" Method="EtwpStackWalkApc"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="EtwpStackTraceDispatcher"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="EtwTraceContextSwap"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="EtwpTraceStackWalk"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="EtwpReceiveNotification"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="EtwTraceReadyThread"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="EtwTraceTimedEvent"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="EtwpEventWriteFull"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="EtwWrite"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="EtwTraceKernalEvent"/>
+        </Tag>
+        <Tag Name="ETW">
+            <Entrypoint Module="ntkrnlmp.exe" Method="EtwpLogKernelEvent" />
+            <Entrypoint Module="ntdll.dll" Method="EtwEventWrite"/>
+        </Tag>
+        <Tag Name="ETWTemplate">
+            <Entrypoint Method="Template_p*" />
+            <Entrypoint Method="Template_q*" />
+            <Entrypoint Method="Template_zz" />
+        </Tag>
+    </Tag>
+    <Tag Name="IEFrame" Graph="1">
+        <Tag Name="AsyncWork">
+            <Entrypoint Module="ieframe.dll" Method="CAsyncStorage::s_WorkItemCallback"/>
+            <Entrypoint Module="ieframe.dll" Method="LowFrequencyWorkitemThreadProc"/>
+            <Entrypoint Module="ieframe.dll" Method="LowFrequencyWorkitemWndProc"/>
+            <Entrypoint Module="ieframe.dll" Method="QueueLowFrequencyWorkitem"/>
+            <Entrypoint Module="ieframe.dll" Method="WinList_AsyncWorkitemThreadProc"/>
+        </Tag>
+        <Tag Name="BaseBrowser">
+            <Entrypoint Module="ieframe.dll" Method="CShellBrowser2_CreateInstance"/>
+            <Entrypoint Module="ieframe.dll" Method="CShellBrowser2::Exec"/>
+            <Entrypoint Module="ieframe.dll" Method="CBaseBrowser2::_OnSize"/>
+            <Entrypoint Module="ieframe.dll" Method="CDocObjectHost::OnChanged"/>
+            <Entrypoint Module="ieframe.dll" Method="CShellBrowser2::s_WndProc"/>
+            <Entrypoint Module="ieframe.dll" Method="CDocObjectHost::Exec"/>
+            <Entrypoint Module="ieframe.dll" Method="CProgSink::DoUpdate"/>
+        </Tag>
+        <Tag Name="BrowserFrame">
+            <Entrypoint Module="ieframe.dll" Method="CBrowserFrame::v_WndProc"/>
+            <Entrypoint Module="ieframe.dll" Method="CBrowserFrame::CreateInstance"/>
+            <Entrypoint Module="ieframe.dll" Method="LCIEStartAsFrame"/>
+        </Tag>
+        <Tag Name="CommandBar">
+            <Entrypoint Module="ieframe.dll" Method="CCommandBar::CreateInstance"/>
+            <Entrypoint Module="ieframe.dll" Method="CCommandBar::v_WndProc"/>
+            <Entrypoint Module="ieframe.dll" Method="CCommandBar::ResizeBorderDW"/>
+            <Tag Name="Commands">
+                <Entrypoint Module="ieframe.dll" Method="CCommandBar::s_ToolbarBandWndProc"/>
+                <Entrypoint Module="ieframe.dll" Method="CCommandBar::_UpdateToolbarFeedsButton"/>
+                <Entrypoint Module="ieframe.dll" Method="CCommandBar::OnChanged"/>
+                <Entrypoint Module="ieframe.dll" Method="CCommandBar::_OnPaintCommandButton"/>
+            </Tag>
+            <Tag Name="Favorites">
+                <Entrypoint Module="ieframe.dll" Method="CLinksMonitor::OnLinksAvailable"/>
+                <Entrypoint Module="ieframe.dll" Method="CLinksMonitor::OnLinksAvailable"/>
+                <Entrypoint Module="ieframe.dll" Method="CLinksBand::v_WndProc"/>
+            </Tag>
+            <Tag Name="TabUI">
+                <Entrypoint Module="ieframe.dll" Method="CTabBand::CreateInstance"/>
+                <Entrypoint Module="ieframe.dll" Method="CTabBand::v_WndProc"/>
+                <Entrypoint Module="ieframe.dll" Method="CTabBand::OnTabSelectionChanged"/>
+                <Entrypoint Module="ieframe.dll" Method="CTabBand::OnChanged"/>
+                <Entrypoint Module="ieframe.dll" Method="CTabBandHWNDElement::OnEvent"/>
+                <Entrypoint Module="ieframe.dll" Method="CTabBandHWNDElement::ActivateTooltip"/>
+                <Entrypoint Module="ieframe.dll" Method="CTabBandHWNDElement::OnInput"/>
+                <Entrypoint Module="ieframe.dll" Method="CTabWindowManager::OnTabCreated"/>
+                <Entrypoint Module="ieframe.dll" Method="CTabWindowManager::OnTabSelectionChanged"/>
+                <Entrypoint Module="ieframe.dll" Method="CTabWindowManager::OnTabStateChanged"/>
+            </Tag>
+        </Tag>
+        <Tag Name="DUI">
+            <Entrypoint Module="ieframe.dll" Method="DirectUI::Element::_DisplayNodeCallback"/>
+            <Entrypoint Module="ieframe.dll" Method="DirectUI::HWNDElement::StaticWndProc"/>
+            <Entrypoint Module="ieframe.dll" Method="DirectUI::HWNDElement::ActivateTooltip"/>
+            <Entrypoint Module="ieframe.dll" Method="DirectUI::Element::Insert"/>
+            <Entrypoint Module="ieframe.dll" Method="DirectUI::Element::SetVisible"/>
+            <Entrypoint Module="ieframe.dll" Method="DirectUI::DUIXmlParser::CreateElement"/>
+            <Entrypoint Module="ieframe.dll" Method="DirectUI::Element::SetValue"/>
+            <Entrypoint Module="ieframe.dll" Method="DirectUI::Element::EndDefer"/>
+        </Tag>
+        <Tag Name="ITBar">
+            <Entrypoint Module="ieframe.dll" Method="CShellBrowser2::_PrepareInternetToolbar"/>
+            <Entrypoint Module="ieframe.dll" Method="CInternetToolbar::Exec"/>
+            <Entrypoint Module="ieframe.dll" Method="CInternetToolbar::ShowDW"/>
+            <Entrypoint Module="ieframe.dll" Method="CInternetToolbar::Exec"/>
+            <Entrypoint Module="ieframe.dll" Method="CInternetToolbar::CITBandSite::Exec"/>
+            <Entrypoint Module="ieframe.dll" Method="CInternetToolbarHost::_TranslateMenuMessage"/>
+            <Entrypoint Module="ieframe.dll" Method="CShellBrowser2::_InitITBarState"/>
+            <Tag Name="Menu">
+                <Entrypoint Module="ieframe.dll" Method="CInternetToolbar::_ShowMenu"/>
+                <Entrypoint Module="ieframe.dll" Method="CMenuBand::Exec"/>
+                <Entrypoint Module="ieframe.dll" Method="CMenuBand::ShowDW"/>
+                <Entrypoint Module="ieframe.dll" Method="CMenuBand::Exec"/>
+                <Entrypoint Module="ieframe.dll" Method="CMenuBand::TranslateMenuMessage"/>
+            </Tag>
+        </Tag>
+        <Tag Name="LayeredState">
+            <Entrypoint Module="ieframe.dll" Method="CLayerParticipant::LayerSetString"/>
+            <Entrypoint Module="ieframe.dll" Method="CLayerParticipant::LayerSetInt"/>
+            <Entrypoint Module="ieframe.dll" Method="CLayerBase::Subscribe"/>
+            <Entrypoint Module="ieframe.dll" Method="CLayerParticipant::LayerSetBool"/>
+            <Entrypoint Module="ieframe.dll" Method="CLayerBase::SetLocalState"/>
+            <Entrypoint Module="ieframe.dll" Method="CLayerParticipant::LayerJoin"/>
+            <Entrypoint Module="ieframe.dll" Method="CLayerParticipant::LayerSetOlecmdf"/>
+            <Entrypoint Module="ieframe.dll" Method="CLayerParticipant::LayerPublishCommands"/>
+            <Entrypoint Module="ieframe.dll" Method="CLayerParticipant::LayerBulkSubscribe"/>
+            <Entrypoint Module="ieframe.dll" Method="LayerAsyncBoundaryManager::ConnectUpper"/>
+            <Entrypoint Module="ieframe.dll" Method="LayerAsyncBoundaryManager::ConnectUpper"/>
+        </Tag>
+        <Tag Name="NavBar">
+            <Entrypoint Module="ieframe.dll" Method="CNavBar::_CreateBar"/>
+            <Entrypoint Module="ieframe.dll" Method="CNavBar::OnFocusChangeIS"/>
+            <Entrypoint Module="ieframe.dll" Method="CNavBar::Exec"/>
+            <Entrypoint Module="ieframe.dll" Method="CNavBar::s_SizableWndProc"/>
+            <Entrypoint Module="ieframe.dll" Method="CBrowserFrame::_CreateNavBar"/>
+            <Entrypoint Module="ieframe.dll" Method="CNavBar::ShowDW"/>
+            <Entrypoint Module="ieframe.dll" Method="CNavBar::ResizeBorderDW"/>
+            <Tag Name="Address">
+                <Entrypoint Module="ieframe.dll" Method="CAddressBand::s_AddressBandWndProc"/>
+                <Entrypoint Module="ieframe.dll" Method="CAddressBand::OnFocusChangeIS"/>
+                <Entrypoint Module="ieframe.dll" Method="CAddressBand::Exec"/>
+                <Entrypoint Module="ieframe.dll" Method="CAddressEditBox::Exec"/>
+                <Entrypoint Module="ieframe.dll" Method="CAddressBand::SetNavigationState"/>
+                <Entrypoint Module="ieframe.dll" Method="CAddressEditBox::_EditSubclassWndProc"/>
+                <Entrypoint Module="ieframe.dll" Method="CAddressDisplay::v_WndProc"/>
+                <Entrypoint Module="ieframe.dll" Method="CAddressBand::SetNavigationTarget"/>
+                <Entrypoint Module="ieframe.dll" Method="CAddressBand::s_TBWndProc"/>
+                <Entrypoint Module="ieframe.dll" Method="CAddressBand::ShowDW"/>
+            </Tag>
+            <Tag Name="Search">
+                <Entrypoint Module="ieframe.dll" Method="CSearchControl::s_SubclassWndProc"/>
+                <Entrypoint Module="ieframe.dll" Method="CUniversalSearchBand::Exec"/>
+                <Entrypoint Module="ieframe.dll" Method="CSearchControl::Exec"/>
+                <Entrypoint Module="ieframe.dll" Method="CSearchManager::SetSearchState"/>
+            </Tag>
+            <Tag Name="Travel">
+                <Entrypoint Module="ieframe.dll" Method="CTravelBand::s_TravelWndProc"/>
+                <Entrypoint Module="ieframe.dll" Method="CTravelBand::SetNavigationState"/>
+            </Tag>
+        </Tag>
+        <Tag Name="NewTabPage">
+            <Entrypoint Module="ieframe.dll" Method="CShellUIHelper::BuildNewTabPage"/>
+            <Tag Name="Activities">
+                <Entrypoint Module="ieframe.dll" Method="CNewTabPageActivitiesFactory::BuildActivitiesList"/>
+            </Tag>
+            <Tag Name="ClosedTabs">
+                <Entrypoint Module="ieframe.dll" Method="CNewTabPageClosedTabsFactory::BuildRecentlyClosedTabsList"/>
+            </Tag>
+        </Tag>
+        <Tag Name="StatusBar">
+            <Entrypoint Module="ieframe.dll" Method="CShellBrowser2::s_StatusBarSubclassWndProc"/>
+            <Entrypoint Module="ieframe.dll" Method="CDocObjectHost::_ResetStatusBar"/>
+            <Entrypoint Module="ieframe.dll" Method="CShellBrowser2::_CreateStatusBar"/>
+            <Entrypoint Module="ieframe.dll" Method="CShellBrowser2::_UpdateStatusBarState"/>
+            <Entrypoint Module="ieframe.dll" Method="CShellBrowser2::_ReloadStatusbarIcon"/>
+            <Entrypoint Module="ieframe.dll" Method="CDocObjectHost::_LayoutStatusBar"/>
+            <Entrypoint Module="ieframe.dll" Method="CShellBrowser2::_CreateZoomButton"/>
+            <Entrypoint Module="ieframe.dll" Method="CShellBrowser2::_CreateInPrivateBlockButton"/>
+            <Entrypoint Module="ieframe.dll" Method="CShellBrowser2::_UpdateZonesPane"/>
+        </Tag>
+        <Tag Name="TabManagement">
+            <Entrypoint Module="ieframe.dll" Method="CTabWindowManager::AddBlankTab"/>
+            <Entrypoint Module="ieframe.dll" Method="CTabWindowManager::HandleTabBrowserCreated"/>
+            <Entrypoint Module="ieframe.dll" Method="CTabWindowManager::OnTabCreated"/>
+            <Entrypoint Module="ieframe.dll" Method="CTabWindowManager::OnTabStateChanged"/>
+            <Entrypoint Module="ieframe.dll" Method="CTabWindowManager::OnTabSelectionChanged"/>
+            <Entrypoint Module="ieframe.dll" Method="CTabWindowManager::OnTabListChanged"/>
+            <Entrypoint Module="ieframe.dll" Method="_AttemptEarlyStartTab"/>
+        </Tag>
+        <Tag Name="Taskbar">
+            <Entrypoint Module="ieframe.dll" Method="CTaskbarBroker::UpdateLiveClipRect"/>
+            <Entrypoint Module="ieframe.dll" Method="CTaskbarBroker::OnTabCreated"/>
+            <Entrypoint Module="ieframe.dll" Method="CTaskbarBroker::OnTabSelectionChanged"/>
+            <Entrypoint Module="ieframe.dll" Method="CTaskbarBroker::OnTabStateChanged"/>
+            <Entrypoint Module="ieframe.dll" Method="CTaskbarBroker::CreateInstance"/>
+        </Tag>
+        <Tag Name="Thumbnails">
+            <Entrypoint Module="ieframe.dll" Method="CTabThumbnailHandler::v_WndProc"/>
+            <Entrypoint Module="ieframe.dll" Method="CTabImageCache::ShouldCatchUpThumbnails"/>
+            <Entrypoint Module="ieframe.dll" Method="CTabThumbnailHandler::SetTitle"/>
+            <Entrypoint Module="ieframe.dll" Method="CTabThumbnailHandler::CreateInstance"/>
+            <Entrypoint Module="ieframe.dll" Method="CGlobalImageProcessTaskQueue::ScaleAndCompressImage"/>
+        </Tag>
+        <Tag Name="Networking">
+            <Entrypoint Module="ieframe.dll" Method="FramePreCacheStartup"/>
+            <Entrypoint Module="ieframe.dll" Method="StartAutoProxyDetection"/>
+            <Entrypoint Module="ieframe.dll" Method="SetProtectedModeFolders"/>
+            <Entrypoint Module="wininet.dll" Method="GetUrlCacheEntryInfoW"/>
+            <Entrypoint Module="ieframe.dll" Method="CDocObjectHost::_StartAsyncBinding"/>
+        </Tag>
+        <Tag Name="NewTabPage">
+            <Entrypoint Module="ieframe.dll" Method="CBrowserFrame::ShowNewTabPage"/>
+        </Tag>
+        <Tag Name="PlaySound">
+            <Entrypoint Module="ieframe.dll" Method="SHPlaySound"/>
+            <Module Name="winmm.dll"/>
+            <Module Name="wdmaud.drv"/>
+        </Tag>
+        <Tag Name="LowFreqWorkerThread">
+            <Entrypoint Module="ieframe.dll" Method="LowFrequencyWorkitemThreadProc"/>
+        </Tag>
+        <Tag Name="WSQuery">
+            <Entrypoint Module="ieframe.dll" Method="CWSProvider::Query"/>
+            <Entrypoint Module="ieframe.dll" Method="CQueryWorker::ProcessQuery"/>
+            <Entrypoint Module="ieframe.dll" Method="CDataModel::Query"/>
+            <Entrypoint Module="ieframe.dll" Method="CWSDataItem::GetMatches"/>
+        </Tag>
+        <Tag Name="ULV">
+            <Entrypoint Module="ieframe.dll" Method="CUnifiedListViewHost::OnEditContentChanged"/>
+            <Entrypoint Module="ieframe.dll" Method="CULVWindow::_LoadDUI"/>
+            <Entrypoint Module="ieframe.dll" Method="CULVWindow::UpdateGroup"/>
+            <Entrypoint Module="ieframe.dll" Method="CULVWindow::SetCustomUI"/>
+        </Tag>
+        <Tag Name="SFToolbar">
+            <Entrypoint Module="ieframe.dll" Method="CSFToolbar::_DefWindowProc"/>
+        </Tag>
+        <Tag Name="History">
+            <ETWStart Provider="Microsoft-IEFRAME" Id="0x2c" Version="0x0" Task="0x1d" Opcode="win:Start" Symbol="ADDTOHISTORY_START"/>
+            <ETWStop Provider="Microsoft-IEFRAME" Id="0x2d" Version="0x0" Task="0x1d" Opcode="win:Stop" Symbol="ADDTOHISTORY_STOP"/>
+            <ETWStart Provider="Microsoft-IEFRAME" Id="0x2e" Version="0x0" Task="0x1e" Opcode="win:Start" Symbol="QUERYHISTORY_START"/>
+            <ETWStop Provider="Microsoft-IEFRAME" Id="0x2f" Version="0x0" Task="0x1e" Opcode="win:Stop" Symbol="QUERYHISTORY_STOP"/>
+            <ETWStart Provider="Microsoft-IEFRAME" Id="0x30" Version="0x0" Task="0x1f" Opcode="win:Start" Symbol="ENUMHISTORYRECORDS_START"/>
+            <ETWStop Provider="Microsoft-IEFRAME" Id="0x31" Version="0x0" Task="0x1f" Opcode="win:Stop" Symbol="ENUMHISTORYRECORDS_STOP"/>
+            <ETWStart Provider="Microsoft-IEFRAME" Id="0x32" Version="0x0" Task="0x20" Opcode="win:Start" Symbol="LEGACYHISTORYADD_START"/>
+            <ETWStop Provider="Microsoft-IEFRAME" Id="0x33" Version="0x0" Task="0x20" Opcode="win:Stop" Symbol="LEGACYHISTORYADD_STOP"/>
+            <ETWStart Provider="Microsoft-IEFRAME" Id="0x34" Version="0x0" Task="0x21" Opcode="win:Start" Symbol="LEGACYHISTORYQUERY_START"/>
+            <ETWStop Provider="Microsoft-IEFRAME" Id="0x35" Version="0x0" Task="0x21" Opcode="win:Stop" Symbol="LEGACYHISTORYQUERY_STOP"/>
+            <ETWStart Provider="Microsoft-IEFRAME" Id="0x36" Version="0x0" Task="0x22" Opcode="win:Start" Symbol="LEGACYHISTORYENUM_START"/>
+            <ETWStop Provider="Microsoft-IEFRAME" Id="0x37" Version="0x0" Task="0x22" Opcode="win:Stop" Symbol="LEGACYHISTORYENUM_STOP"/>
+            <!-- $TODO [MiladinP]: We need to find the symbols for these -->
+        </Tag>
+    </Tag>
+    <Tag Name="IEMisc" Graph="1">
+        <Tag Name="Legacy JScript">
+            <!-- <Module Name="jscript.dll" /> -->
+            <Entrypoint Module="jscript.dll" Method="NameTbl::Invoke"/>
+            <Entrypoint Module="jscript.dll" Method="NameTbl::InvokeEx"/>
+            <Entrypoint Module="jscript.dll" Method="NameTbl::InvokeInternal"/>
+            <Entrypoint Module="jscript.dll" Method="JavascriptDispatch::Invoke"/>
+            <Entrypoint Module="jscript.dll" Method="JavascriptDispatch::InvokeEx"/>
+            <Entrypoint Module="jscript.dll" Method="VAR::InvokeByDispID"/>
+            <Entrypoint Module="jscript.dll" Method="jscript.dll!COleScript::Close"/>
+            <Tag Name="ParseSource">
+                <Entrypoint Module="jscript.dll" Method="Parser::ParseSource"/>
+            </Tag>
+            <Tag Name="Execute">
+                <Entrypoint Module="jscript.dll" Method="CSession::Execute"/>
+            </Tag>
+            <Tag Name="Recycler">
+                <Entrypoint Module="jscript.dll" Method="GcContext::ExhaustiveCollect"/>
+            </Tag>
+        </Tag>
+        <Tag Name="AntiPhishing">
+            <Entrypoint Module="ieapfltr.dll" Method="Evaluator::ContinueProcessingWrapper"/>
+            <Entrypoint Module="ieapfltr.dll" Method="operator new"/>
+        </Tag>
+        <Tag Name="Networking" Priority="-1">
+            <Module Name="wininet.dll"/>
+            <Entrypoint Module="urlmon.dll" Method="TransactionWndProc"/>
+            <Entrypoint Module="urlmon.dll" Method="CUrlMkTls::TLSAllocData"/>
+        </Tag>
+        <Tag Name="WinINet">
+            <Module Name="wininet.dll"/>
+            <Entrypoint Module="wininet.dll" Method="CFSM::*"/>
+        </Tag>
+        <Tag Name="Shims">
+            <Entrypoint Module="ieshims.dll" Method="IEShimLib::CString::AllocBuffer"/>
+            <Entrypoint Module="ieshims.dll" Method="operator new"/>
+            <Namespace Module="ieshims.dll" Method="IEShimLib"/>
+        </Tag>
+        <Tag Name="IERTUtil">
+            <Entrypoint Module="iertutil.dll" Method="operator new"/>
+        </Tag>
+    </Tag>
+	<Tag Name="JScript9" Graph="1">
+        <ETWStart Provider="Microsoft-IE" Id="0x52" Version="0x0" Task="0x43" Opcode="win:Start" Symbol="MSHTML_CWINDOW_SCRIPT_START"/>
+        <ETWStop Provider="Microsoft-IE" Id="0x53" Version="0x0" Task="0x43" Opcode="win:Stop" Symbol="MSHTML_CWINDOW_SCRIPT_STOP"/>
+        <Tag Name="Init" Graph="1">
+            <Entrypoint Module="jscript9.dll" Method="ScriptEngine::Initialize"/>
+            <Entrypoint Module="jscript9.dll" Method="ScriptEngine::AddNamedItem"/>
+            <Entrypoint Module="jscript9.dll" Method="CJScriptClassFactory::CreateInstance"/>
+            <Entrypoint Module="jscript9.dll" Method="ScriptEngine::SetScriptSite"/>
+            <Entrypoint Module="jscript9.dll" Method="ScriptEngine::ParseScriptText"/>
+            <Entrypoint Module="jscript9.dll" Method="ScriptSite::Create"/>
+            <Entrypoint Module="jscript9.dll" Method="ScriptEngine::Clone"/>
+            <Entrypoint Module="jscript9.dll" Method="__DllMainCRTStartup" />
+            <!-- REVIEW: should this be in trident -->
+            <Entrypoint Module="mshtml.dll" Method="CJScript9Holder::InitTypes" />
+        </Tag>
+        <Tag Name="SaveSource" Graph="0">
+            <Entrypoint Module="jscript9.dll" Method="Js::ScriptContext::SaveSource"/>
+        </Tag>
+        <Tag Name="Memory" Graph="1">
+            <Tag Name="Root" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="Recycler::RootAddRef" />
+                <Entrypoint Module="jscript9.dll" Method="Recycler::RootRelease" />
+                <Entrypoint Module="jscript9.dll" Method="Recycler::AddRef" />
+                <Entrypoint Module="jscript9.dll" Method="Recycler::Release" />
+            </Tag>
+            <Tag Name="Dispose" Graph="1">
+                <Tag Name="DOMDispose" Graph="0">
+                    <Entrypoint Module="jscript9.dll" Method="Js::CustomExternalObject::Dispose"/>
+                </Tag>
+                <Tag Name="ProjectionDispose" Graph="0">
+                    <Entrypoint Module="jscript9.dll" Method="Projection::ProjectionObjectInstance::Dispose"/>
+                </Tag>
+                <Entrypoint Module="jscript9.dll" Method="Recycler::DisposeObjects"/>
+            </Tag>
+            <Tag Name="RecyclerAlloc" Graph="0" Priority="-1">
+                <Entrypoint Module="jscript9.dll" Method="Recycler::Alloc"/>
+                <Entrypoint Module="jscript9.dll" Method="Recycler::AllocLeaf"/>
+                <Entrypoint Module="jscript9.dll" Method="Recycler::AllocZero*"/>
+                <Entrypoint Module="jscript9.dll"  Method="AllocateArray*Recycler*"/>
+                <Entrypoint Module="jscript9.dll" Method="Recycler::AllocFinalizableWithAttributes"/>
+                <Entrypoint Module="jscript9.dll" Method="Recycler::AllocWithAttributes*"/>
+                <Entrypoint Module="jscript9.dll" Method="Recycler::AllocWithAttributes*"/>
+            </Tag>
+            <Tag Name="Arena" Graph="0" Priority="-1">
+                <Namespace Module="jscript9.dll" Method="ArenaAllocator::"/>
+                <Namespace Module="jscript9.dll" Method="ArenaAllocatorNoFreeList::"/>
+            </Tag>
+            <Tag Name="PoolAllocator" Graph="0" Priority="-1">
+                <Namespace Module="jscript9.dll" Method="PoolAllocator::"/>
+            </Tag>
+            <Tag Name="IdleDecommit" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="IdleDecommitPageAllocator::DecommitNow" />
+            </Tag>
+        </Tag>
+        <Tag Name="Frontend" Graph="1">
+            <ETWStart Provider="Microsoft-IE" Id="0x81" Version="0x0" Task="0x5d" Opcode="win:Start" Symbol="JSCRIPT_BYTECODEGEN_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0x82" Version="0x0" Task="0x5d" Opcode="win:Stop" Symbol="JSCRIPT_BYTECODEGEN_STOP"/>
+            <Entrypoint Module="jscript9.dll" Method="ScriptEngine::Compile"/>
+            <Entrypoint Module="jscript9.dll" Method="Parser::ParseSource"/>
+            <Tag Name="ImmediateNoAST" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="Parser::ParseStmtListNoASTCore"/>
+            </Tag>
+            <Tag Name="Immediate" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="ScriptEngine::DefaultCompile"/>
+                <Entrypoint Module="jscript9.dll" Method="ScriptContext::DefaultLoadScript"/>
+                <Entrypoint Module="jscript9.dll" Method="ScriptContext::DefaultLoadScriptUtf8"/>
+                <Entrypoint Module="jscript9.dll" Method="GlobalObject::DefaultEvalHelper"/>
+            </Tag>
+            <Tag Name="Deferred" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="Parser::ParseSourceWithOffset"/>
+                <Entrypoint Module="jscript9.dll" Method="Js::JavascriptFunction::DeferredParse"/>
+                <Entrypoint Module="jscript9.dll" Method="Js::JavascriptFunction::DeferredParseCore"/>
+                <Entrypoint Module="jscript9.dll" Method="Js::JavascriptFunction::DeferredParseThunk"/>
+            </Tag>
+            <Tag Name="ByteCodeGen" Graph="0">
+                <ETWStart Provider="Microsoft-IE" Id="0xa8" Version="0x0" Task="0x73" Opcode="win:Start" Symbol="JSCRIPT_BYTECODEGEN_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0xa9" Version="0x0" Task="0x73" Opcode="win:Stop" Symbol="JSCRIPT_BYTECODEGEN_STOP"/>
+                <Entrypoint Module="jscript9.dll" Method="ByteCodeGenerator::Generate"/>
+                <Namespace Module="jscript9.dll" Method="ByteCodeWriter::"/>
+            </Tag>
+            <Tag Name="ByteCodeDeserialize" Graph="0">
+<!--
+                <ETWStart Provider="Microsoft-JScript" Id="0x7f" Version="0x0" Task="0x5c" Opcode="win:Start" Symbol="JSCRIPT_BYTECODEDESERIALIZE_START"/>
+                <ETWStop Provider="Microsoft-JScript" Id="0x80" Version="0x0" Task="0x5c" Opcode="win:Stop" Symbol="JSCRIPT_BYTECODEDESERIALIZE_STOP"/>
+-->
+                <Entrypoint Module="jscript9.dll" Method="Js::ByteCodeBufferReader::ReadFunctionBody"/>
+                <Namespace Module="jscript9.dll" Method="Js::ByteCodeBufferReader::"/>
+            </Tag>
+        </Tag>
+        <Tag Name="JIT" Graph="1">
+            <ETWStart Provider="Microsoft-IE" Id="0xaa" Version="0x0" Task="0x74" Opcode="win:Start" Symbol="JSCRIPT_NATIVECODEGEN_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0xab" Version="0x0" Task="0x74" Opcode="win:Stop" Symbol="JSCRIPT_NATIVECODEGEN_STOP"/>
+            <Entrypoint Module="jscript9.dll" Method="NativeCodeGenerator::Process"/>
+            <Entrypoint Module="jscript9.dll" Method="BackgroundCodeGenThread::StaticThreadProc"/>
+            <Entrypoint Module="jscript9.dll" Method="JsUtil::BackgroundJobProcessor::StaticThreadProc"/>
+            <Tag Name="Regalloc">
+                <Namespace Module="jscript9.dll" Method="SCCLiveness::"/>
+                <Namespace Module="jscript9.dll" Method="LinearScan::"/>
+            </Tag>
+            <Tag Name="Lowerer">
+                <Namespace Module="jscript9.dll" Method="Lowerer::"/>
+            </Tag>
+            <Tag Name="Peeps">
+                <Namespace Module="jscript9.dll" Method="Peeps::"/>
+            </Tag>
+            <Tag Name="GlobalOpt" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="GlobOpt::Optimize"/>
+            </Tag>
+            <Tag Name="Encoder">
+                <Entrypoint Module="jscript9.dll" Method="Encoder::Encode"/>
+            </Tag>
+            <Tag Name="IRBuilder">
+                <Entrypoint Module="jscript9.dll" Method="IRBuilder::"/>
+            </Tag>
+        </Tag>
+        <Tag Name="DOMCallOut" Graph="0">
+            <ETWStart Provider="Microsoft-IE" Id="0xae" Version="0x0" Task="0x76" Opcode="win:Start" Symbol="JSCRIPT_CALL_OUT_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0xaf" Version="0x0" Task="0x76" Opcode="win:Stop" Symbol="JSCRIPT_CALL_OUT_STOP"/>
+            <Tag Name="FastDOM">
+                <Entrypoint Module="jscript9.dll" Method="Js::JavascriptExternalFunction::ExternalFunctionThunk" />
+                <Entrypoint Module="jscript9.dll" Method="Js::ExternalType::ExternalEntryThunk" />
+
+                <!-- REVIEW: if the type operations call back to jscript9, we will be counted here and not as execution -->
+                <Entrypoint Module="mshtml.dll" Method="C*TypeOperations::*" />
+                <Tag Name="TypeSystem">
+                    <Entrypoint Module="jscript9.dll" Method="Js::CustomExternalType::DeferredInitializer" />
+                </Tag>
+            </Tag>
+            <Tag Name="HostDispatch" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="HostDispatch::CallInvokeEx"/>
+                <Entrypoint Module="jscript9.dll" Method="HostDispatch::GetValueByDispId"/>
+                <Entrypoint Module="jscript9.dll" Method="HostDispatch::PutValueByDispId"/>
+                <Entrypoint Module="jscript9.dll" Method="HostDispatch::InvokeByDispId"/>
+                <Namespace Module="jscript9.dll" Method="HostDispatch::"/>
+            </Tag>
+            <Entrypoint Module="mshtml.dll" Method="CActiveScriptHolder::OnEnterScript"/>
+        </Tag>
+        <Tag Name="Execute" Graph="1">
+            <Entrypoint Module="jscript9.dll" Method="ScriptSite::Execute"/>
+            <Tag Name="FastDOM" Graph="0">
+                <Namespace Module="jscript9.dll" Method="Js::CustomExternalObject::" />
+                <Namespace Module="jscript9.dll" Method="Js::DefaultScriptOperations::" />
+            </Tag>
+            <Tag Name="Projection" Graph="0">
+                <Namespace Module="jscript9.dll" Method="Projection::NamespaceProjection::" />
+            </Tag>
+            <Tag Name="Interpreter" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="Js::InterpreterStackFrame::Process"/>
+                <Entrypoint Module="jscript9.dll" Method="Js::InterpreterStackFrame::OP_*"/>
+                <Entrypoint Module="jscript9.dll" Method="Js::InterpreterStackFrame::*Thunk*"/>
+                <Entrypoint Module="jscript9.dll" Method="Js::InterpreterStackFrame::Setup::*"/>
+                <Entrypoint Module="jscript9.dll" Method="Js::ByteCodeReader::Setup::*"/>
+                <Namespace Module="jscript9.dll" Method="Js::DynamicProfileInfo::"/>
+            </Tag>
+            <Tag Name="PropertyGet">
+                <Entrypoint Module="jscript9.dll" Method="Js::JavascriptOperators::PatchGet*"/>
+            </Tag>
+            <Tag Name="PropertySet">
+                <Entrypoint Module="jscript9.dll" Method="Js::JavascriptOperators::PatchPutValueNoLocalFastPath"/>
+                <Entrypoint Module="jscript9.dll" Method="Js::JavascriptOperators::PatchPutValueHelper"/>
+            </Tag>
+            <Tag Name="Runtime" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="Js::InterpreterStackFrame::CallLoopBody"/>
+                <!-- Only CallFunction<true> there,  CallFunction<false> is only use for calling out
+                     and ApplyArgs (which should already correctly stack tagged already -->
+                <Entrypoint Module="jscript9.dll" Method="Js::JavascriptFunction::CallFunction&lt;1&gt;"/>
+                <!-- For Win8 -->
+                <Entrypoint Module="jscript9.dll" Method="Js::JavascriptFunction::CallFunction"/>
+                <!--<Namespace Module="jscript9.dll" Method="Js::JavascriptOperators::"/>-->
+                <Entrypoint Module="jscript9.dll" Method="Js::JavascriptOperators::CallGetter"/>
+                <Entrypoint Module="jscript9.dll" Method="Js::JavascriptOperators::CallSetter"/>
+                <!--<Namespace Module="jscript9.dll" Method="Js::JavascriptConversion::"/>
+				<Namespace Module="jscript9.dll" Method="Js::JavascriptFunction::"/>
+				<Namespace Module="jscript9.dll" Method="Js::JavascriptArray::"/>
+				<Namespace Module="jscript9.dll" Method="Js::ScriptContext::"/>
+				<Namespace Module="jscript9.dll" Method="Js::JavascriptExceptionOperators::"/>
+				<Namespace Module="jscript9.dll" Method="Js::DynamicObject::"/>
+				<Namespace Module="jscript9.dll" Method="Js::JavascriptMath::"/>
+				<Namespace Module="jscript9.dll" Method="Js::JavascriptExternalFunction::"/>
+				<Namespace Module="jscript9.dll" Method="Js::JavascriptLibrary::" />
+				<Namespace Module="jscript9.dll" Method="Js::Math::" />
+				<Namespace Module="jscript9.dll" Method="Js::BoundFunction::" />
+				<Namespace Module="jscript9.dll" Method="JSON::"/>
+				<Namespace Module="jscript9.dll" Method="Js::JavascriptObject::"/>
+				<Namespace Module="jscript9.dll" Method="Js::JavascriptDate::"/>
+				<Entrypoint Module="jscript9.dll" Method="ThreadContext::ProbeStack"/>
+				<EntryPoint Module="jscript9.dll" Method="Js::JavascriptString::Entry*"/>-->
+            </Tag>
+            <Tag Name="JSON" Graph="0">
+                <Namespace Module="jscript9.dll" Method="JSON::" />
+            </Tag>
+            <!--<Tag Name="JittedCode">
+				<Entrypoint Module="*.js" Method="*"/>
+			</Tag>-->
+            <Tag Name="JSDispatch" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="JavascriptDispatch::GetDispID"/>
+                <Entrypoint Module="jscript9.dll" Method="JavascriptDispatch::InvokeEx"/>
+            </Tag>
+            <Tag Name="RegEx" Graph="0">
+                <Namespace Module="jscript9.dll" Method="Js::JavascriptRegularExpression::"/>
+                <Namespace Module="jscript9.dll" Method="regex::RegexCompiler::"/>
+            </Tag>
+            <Tag Name="CheckCodeGen" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="NativeCodeGenerator::CheckCodeGenThunk" />
+            </Tag>
+            <Tag Name="GenerateInterrpreterThunk" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="Js::FunctionBody::GenerateDynamicInterpreterThunk"/>
+            </Tag>
+        </Tag>
+    <!--
+      <Tag Name="BytecodeDeserialize" Graph="1">
+        <ETWStart Provider="Microsoft-JScript" Id="0x7f" Version="0x0" Task="0x5c" Opcode="win:Start" Symbol="JSCRIPT_BYTECODEDESERIALIZE_START"/>
+        <ETWStop Provider="Microsoft-JScript" Id="0x80" Version="0x0" Task="0x5c" Opcode="win:Stop" Symbol="JSCRIPT_BYTECODEDESERIALIZE_STOP"/>
+      </Tag>
+    -->
+
+        <Tag Name="Recycler" Graph="1">
+          <!--  <ETWStart Provider="Microsoft-IE" Id="0x7f" Version="0x0" Task="0x5c" Opcode="win:Start" Symbol="JSCRIPT_GC_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0x80" Version="0x0" Task="0x5c" Opcode="win:Stop" Symbol="JSCRIPT_GC_STOP"/> -->
+            <Entrypoint Module="jscript9.dll" Method="ThreadContext::ExecuteRecyclerCollectionFunction" />
+            <Tag Name="Misc" Graph="0" Priority="-1">
+                <Namespace Module="jscript9.dll" Method="Recycler::"/>
+            </Tag>
+            <Tag Name="Init" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="Recycler::Initialize"/>
+            </Tag>
+            <Tag Name="StartCollect" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="Recycler::DoCollect"/>
+                <Entrypoint Module="jscript9.dll" Method="Recycler::StartConcurrentMarkCollect"/>
+            </Tag>
+            <Tag Name="FinishCollect" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="Recycler::FinishConcurrentCollectWrapped"/>
+            </Tag>
+            <Tag Name="BackgroundGC" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="Recycler::ConcurrentMark"/>
+                <Entrypoint Module="jscript9.dll" Method="HeapInfo::ConcurrentSweep*"/>
+            </Tag>
+            <Tag Name="Collect" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="Recycler::CollectNow*"/>
+            </Tag>
+            <Tag Name="PreCollect" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="ThreadContext::PreCollectionCallBack"/>
+            </Tag>
+            <Tag Name="PreSweep" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="ThreadContext::PreSweepCallback"/>
+            </Tag>
+            <Tag Name="Projection" Graph="0">
+                <Entrypoint Module="jscript9.dll" Method="ThreadContext::MarkExternalWeakReferencedObjects" />
+            </Tag>
+        </Tag>
+        <Tag Name="JSProjection" Graph="1">
+            <Entrypoint Module="jscript9.dll" Method="Projection::InvokeMethodByThisInfo"/>
+            <Entrypoint Module="jscript9.dll" Method="Projection::Delegate::Invoke"/>
+            <Entrypoint Module="jscript9.dll" Method="Projection::ProjectionWriter::DelayedFunctionOfSignatureThunk"/>
+            <!-- Deprecate these three eventually in later builds. -->
+            <Entrypoint Module="jscript9.dll" Method="Projection::ProjectionWriter::DelayedMethodAssignContinuationThunk"/>
+            <Entrypoint Module="jscript9.dll" Method="Projection::ProjectionWriter::DelayedPropertyGetterContinuationThunk"/>
+            <Entrypoint Module="jscript9.dll" Method="Projection::ProjectionWriter::DelayedPropertySetterContinuationThunk"/>
+            <Entrypoint Module="jscript9.dll" Method="Projection::*Thunk"/>
+            <Tag Name="ResolveTypeName">
+                <Entrypoint Module="jscript9.dll" Method="Projection::ProjectionContext::ResolveTypeName"/>
+            </Tag>
+            <Tag Name="ExprConstruction">
+                <Entrypoint Module="jscript9.dll" Method="ProjectionModel::ProjectionBuilder::IntermediateExprOfToken"/>
+            </Tag>
+            <Tag Name="TryGetProjectionFastPath">
+                <Entrypoint Module="jscript9.dll" Method="Projection::TryGetProjectionFastPath"/>
+            </Tag>
+            <Tag Name="CreateNewTypeInstance">
+                <Entrypoint Module="jscript9.dll" Method="Projection::ProjectionWriter::CreateNewTypeInstance"/>
+            </Tag>
+            <Tag Name="CreateTypeFactoryInstance">
+                <Entrypoint Module="jscript9.dll" Method="Projection::ProjectionContext::CreateTypeFactoryInstance"/>
+            </Tag>
+            <Tag Name="Unmarshal">
+                <Entrypoint Module="jscript9.dll" Method="Projection::ProjectionMethodInvoker::ReadOutOrThrow"/>
+            </Tag>
+        </Tag>
+        <Tag Name="WinRTCallOut" Graph="1">
+            <Entrypoint Module="jscript9.dll" Method="Projection::ProjectionMethodInvoker::InvokeUnknown"/>
+            <Entrypoint Module="jscript9.dll" Method="Projection::StaticFastPath*"/>
+            <Entrypoint Module="jscript9.dll" Method="Projection::FastPath*"/>
+            <Entrypoint Module="jscript9.dll" Method="Projection::AddEventListenerThunk" />
+            <Entrypoint Module="jscript9.dll" Method="arm_ProjectionCall" />
+            <Tag Name="AsyncDebug" Graph="0">
+                <Namespace Module="jscript9.dll" Method="AsyncDebug::" />
+            </Tag>
+        </Tag>
+        <Tag Name="Unknown" Graph="0" Priority="-2">
+            <Entrypoint Module="jscript9.dll" Method="*" />
+        </Tag>
+    </Tag>    
+    <Tag Name="Chakra" Graph="1">
+        <ETWStart Provider="Microsoft-IE" Id="0x52" Version="0x0" Task="0x43" Opcode="win:Start" Symbol="MSHTML_CWINDOW_SCRIPT_START"/>
+        <ETWStop Provider="Microsoft-IE" Id="0x53" Version="0x0" Task="0x43" Opcode="win:Stop" Symbol="MSHTML_CWINDOW_SCRIPT_STOP"/>
+        <Tag Name="Init" Graph="1">
+            <Entrypoint Module="chakra.dll" Method="ScriptEngine::Initialize"/>
+            <Entrypoint Module="chakra.dll" Method="ScriptEngine::AddNamedItem"/>
+            <Entrypoint Module="chakra.dll" Method="CJScriptClassFactory::CreateInstance"/>
+            <Entrypoint Module="chakra.dll" Method="ScriptEngine::SetScriptSite"/>
+            <Entrypoint Module="chakra.dll" Method="ScriptEngine::ParseScriptText"/>
+            <Entrypoint Module="chakra.dll" Method="ScriptSite::Create"/>
+            <Entrypoint Module="chakra.dll" Method="ScriptEngine::Clone"/>
+            <Entrypoint Module="chakra.dll" Method="__DllMainCRTStartup" />
+            <!-- REVIEW: should this be in trident -->
+            <Entrypoint Module="mshtml.dll" Method="CJScript9Holder::InitTypes" />
+        </Tag>
+        <Tag Name="SaveSource" Graph="0">
+            <Entrypoint Module="chakra.dll" Method="Js::ScriptContext::SaveSource"/>
+        </Tag>
+        <Tag Name="Memory" Graph="1">
+            <Tag Name="Root" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="Recycler::RootAddRef" />
+                <Entrypoint Module="chakra.dll" Method="Recycler::RootRelease" />
+                <Entrypoint Module="chakra.dll" Method="Recycler::AddRef" />
+                <Entrypoint Module="chakra.dll" Method="Recycler::Release" />
+            </Tag>
+            <Tag Name="Dispose" Graph="1">
+                <Tag Name="DOMDispose" Graph="0">
+                    <Entrypoint Module="chakra.dll" Method="Js::CustomExternalObject::Dispose"/>
+                </Tag>
+                <Tag Name="ProjectionDispose" Graph="0">
+                    <Entrypoint Module="chakra.dll" Method="Projection::ProjectionObjectInstance::Dispose"/>
+                </Tag>
+                <Entrypoint Module="chakra.dll" Method="Recycler::DisposeObjects"/>
+            </Tag>
+            <Tag Name="RecyclerAlloc" Graph="0" Priority="-1">
+                <Entrypoint Module="chakra.dll" Method="Recycler::Alloc"/>
+                <Entrypoint Module="chakra.dll" Method="Recycler::AllocLeaf"/>
+                <Entrypoint Module="chakra.dll" Method="Recycler::AllocZero*"/>
+                <Entrypoint Module="chakra.dll"  Method="AllocateArray*Recycler*"/>
+                <Entrypoint Module="chakra.dll" Method="Recycler::AllocFinalizableWithAttributes"/>
+                <Entrypoint Module="chakra.dll" Method="Recycler::AllocWithAttributes*"/>
+                <Entrypoint Module="chakra.dll" Method="Recycler::AllocWithAttributes*"/>
+            </Tag>
+            <Tag Name="Arena" Graph="0" Priority="-1">
+                <Namespace Module="chakra.dll" Method="ArenaAllocator::"/>
+                <Namespace Module="chakra.dll" Method="ArenaAllocatorNoFreeList::"/>
+            </Tag>
+            <Tag Name="PoolAllocator" Graph="0" Priority="-1">
+                <Namespace Module="chakra.dll" Method="PoolAllocator::"/>
+            </Tag>
+            <Tag Name="IdleDecommit" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="IdleDecommitPageAllocator::DecommitNow" />
+            </Tag>
+        </Tag>
+        <Tag Name="Frontend" Graph="1">
+            <ETWStart Provider="Microsoft-IE" Id="0x81" Version="0x0" Task="0x5d" Opcode="win:Start" Symbol="JSCRIPT_BYTECODEGEN_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0x82" Version="0x0" Task="0x5d" Opcode="win:Stop" Symbol="JSCRIPT_BYTECODEGEN_STOP"/>
+            <Entrypoint Module="chakra.dll" Method="ScriptEngine::Compile"/>
+            <Entrypoint Module="chakra.dll" Method="Parser::ParseSource"/>
+            <Tag Name="ImmediateNoAST" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="Parser::ParseStmtListNoASTCore"/>
+            </Tag>
+            <Tag Name="Immediate" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="ScriptEngine::DefaultCompile"/>
+                <Entrypoint Module="chakra.dll" Method="ScriptContext::DefaultLoadScript"/>
+                <Entrypoint Module="chakra.dll" Method="ScriptContext::DefaultLoadScriptUtf8"/>
+                <Entrypoint Module="chakra.dll" Method="GlobalObject::DefaultEvalHelper"/>
+            </Tag>
+            <Tag Name="Deferred" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="Parser::ParseSourceWithOffset"/>
+                <Entrypoint Module="chakra.dll" Method="Js::JavascriptFunction::DeferredParse"/>
+                <Entrypoint Module="chakra.dll" Method="Js::JavascriptFunction::DeferredParseCore"/>
+                <Entrypoint Module="chakra.dll" Method="Js::JavascriptFunction::DeferredParseThunk"/>
+            </Tag>
+            <Tag Name="ByteCodeGen" Graph="0">
+                <ETWStart Provider="Microsoft-IE" Id="0xa8" Version="0x0" Task="0x73" Opcode="win:Start" Symbol="JSCRIPT_BYTECODEGEN_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0xa9" Version="0x0" Task="0x73" Opcode="win:Stop" Symbol="JSCRIPT_BYTECODEGEN_STOP"/>
+                <Entrypoint Module="chakra.dll" Method="ByteCodeGenerator::Generate"/>
+                <Namespace Module="chakra.dll" Method="ByteCodeWriter::"/>
+            </Tag>
+            <Tag Name="ByteCodeDeserialize" Graph="0">
+<!--
+                <ETWStart Provider="Microsoft-JScript" Id="0x7f" Version="0x0" Task="0x5c" Opcode="win:Start" Symbol="JSCRIPT_BYTECODEDESERIALIZE_START"/>
+                <ETWStop Provider="Microsoft-JScript" Id="0x80" Version="0x0" Task="0x5c" Opcode="win:Stop" Symbol="JSCRIPT_BYTECODEDESERIALIZE_STOP"/>
+-->
+                <Entrypoint Module="chakra.dll" Method="Js::ByteCodeBufferReader::ReadFunctionBody"/>
+                <Namespace Module="chakra.dll" Method="Js::ByteCodeBufferReader::"/>
+            </Tag>
+        </Tag>
+        <Tag Name="JIT" Graph="1">
+            <ETWStart Provider="Microsoft-IE" Id="0xaa" Version="0x0" Task="0x74" Opcode="win:Start" Symbol="JSCRIPT_NATIVECODEGEN_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0xab" Version="0x0" Task="0x74" Opcode="win:Stop" Symbol="JSCRIPT_NATIVECODEGEN_STOP"/>
+            <Entrypoint Module="chakra.dll" Method="NativeCodeGenerator::Process"/>
+            <Entrypoint Module="chakra.dll" Method="BackgroundCodeGenThread::StaticThreadProc"/>
+            <Entrypoint Module="chakra.dll" Method="JsUtil::BackgroundJobProcessor::StaticThreadProc"/>
+            <Tag Name="Regalloc">
+                <Namespace Module="chakra.dll" Method="SCCLiveness::"/>
+                <Namespace Module="chakra.dll" Method="LinearScan::"/>
+            </Tag>
+            <Tag Name="Lowerer">
+                <Namespace Module="chakra.dll" Method="Lowerer::"/>
+            </Tag>
+            <Tag Name="Peeps">
+                <Namespace Module="chakra.dll" Method="Peeps::"/>
+            </Tag>
+            <Tag Name="GlobalOpt" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="GlobOpt::Optimize"/>
+            </Tag>
+            <Tag Name="Encoder">
+                <Entrypoint Module="chakra.dll" Method="Encoder::Encode"/>
+            </Tag>
+            <Tag Name="IRBuilder">
+                <Entrypoint Module="chakra.dll" Method="IRBuilder::"/>
+            </Tag>
+        </Tag>
+        <Tag Name="DOMCallOut" Graph="0">
+            <ETWStart Provider="Microsoft-IE" Id="0xae" Version="0x0" Task="0x76" Opcode="win:Start" Symbol="JSCRIPT_CALL_OUT_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0xaf" Version="0x0" Task="0x76" Opcode="win:Stop" Symbol="JSCRIPT_CALL_OUT_STOP"/>
+            <Tag Name="FastDOM">
+                <Entrypoint Module="chakra.dll" Method="Js::JavascriptExternalFunction::ExternalFunctionThunk" />
+                <Entrypoint Module="chakra.dll" Method="Js::ExternalType::ExternalEntryThunk" />
+
+                <!-- REVIEW: if the type operations call back to jscript9, we will be counted here and not as execution -->
+                <Entrypoint Module="mshtml.dll" Method="C*TypeOperations::*" />
+                <Tag Name="TypeSystem">
+                    <Entrypoint Module="chakra.dll" Method="Js::CustomExternalType::DeferredInitializer" />
+                </Tag>
+            </Tag>
+            <Tag Name="HostDispatch" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="HostDispatch::CallInvokeEx"/>
+                <Entrypoint Module="chakra.dll" Method="HostDispatch::GetValueByDispId"/>
+                <Entrypoint Module="chakra.dll" Method="HostDispatch::PutValueByDispId"/>
+                <Entrypoint Module="chakra.dll" Method="HostDispatch::InvokeByDispId"/>
+                <Namespace Module="chakra.dll" Method="HostDispatch::"/>
+            </Tag>
+            <Entrypoint Module="mshtml.dll" Method="CActiveScriptHolder::OnEnterScript"/>
+        </Tag>
+        <Tag Name="Execute" Graph="1">
+            <Entrypoint Module="chakra.dll" Method="ScriptSite::Execute"/>
+            <Tag Name="FastDOM" Graph="0">
+                <Namespace Module="chakra.dll" Method="Js::CustomExternalObject::" />
+                <Namespace Module="chakra.dll" Method="Js::DefaultScriptOperations::" />
+            </Tag>
+            <Tag Name="Projection" Graph="0">
+                <Namespace Module="chakra.dll" Method="Projection::NamespaceProjection::" />
+            </Tag>
+            <Tag Name="Interpreter" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="Js::InterpreterStackFrame::Process"/>
+                <Entrypoint Module="chakra.dll" Method="Js::InterpreterStackFrame::OP_*"/>
+                <Entrypoint Module="chakra.dll" Method="Js::InterpreterStackFrame::*Thunk*"/>
+                <Entrypoint Module="chakra.dll" Method="Js::InterpreterStackFrame::Setup::*"/>
+                <Entrypoint Module="chakra.dll" Method="Js::ByteCodeReader::Setup::*"/>
+                <Namespace Module="chakra.dll" Method="Js::DynamicProfileInfo::"/>
+            </Tag>
+            <Tag Name="PropertyGet">
+                <Entrypoint Module="chakra.dll" Method="Js::JavascriptOperators::PatchGet*"/>
+            </Tag>
+            <Tag Name="PropertySet">
+                <Entrypoint Module="chakra.dll" Method="Js::JavascriptOperators::PatchPutValueNoLocalFastPath"/>
+                <Entrypoint Module="chakra.dll" Method="Js::JavascriptOperators::PatchPutValueHelper"/>
+            </Tag>
+            <Tag Name="Runtime" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="Js::InterpreterStackFrame::CallLoopBody"/>
+                <!-- Only CallFunction<true> there,  CallFunction<false> is only use for calling out
+                     and ApplyArgs (which should already correctly stack tagged already -->
+                <Entrypoint Module="chakra.dll" Method="Js::JavascriptFunction::CallFunction&lt;1&gt;"/>
+                <!-- For Win8 -->
+                <Entrypoint Module="chakra.dll" Method="Js::JavascriptFunction::CallFunction"/>
+                <!--<Namespace Module="chakra.dll" Method="Js::JavascriptOperators::"/>-->
+                <Entrypoint Module="chakra.dll" Method="Js::JavascriptOperators::CallGetter"/>
+                <Entrypoint Module="chakra.dll" Method="Js::JavascriptOperators::CallSetter"/>
+                <!--<Namespace Module="chakra.dll" Method="Js::JavascriptConversion::"/>
+				<Namespace Module="chakra.dll" Method="Js::JavascriptFunction::"/>
+				<Namespace Module="chakra.dll" Method="Js::JavascriptArray::"/>
+				<Namespace Module="chakra.dll" Method="Js::ScriptContext::"/>
+				<Namespace Module="chakra.dll" Method="Js::JavascriptExceptionOperators::"/>
+				<Namespace Module="chakra.dll" Method="Js::DynamicObject::"/>
+				<Namespace Module="chakra.dll" Method="Js::JavascriptMath::"/>
+				<Namespace Module="chakra.dll" Method="Js::JavascriptExternalFunction::"/>
+				<Namespace Module="chakra.dll" Method="Js::JavascriptLibrary::" />
+				<Namespace Module="chakra.dll" Method="Js::Math::" />
+				<Namespace Module="chakra.dll" Method="Js::BoundFunction::" />
+				<Namespace Module="chakra.dll" Method="JSON::"/>
+				<Namespace Module="chakra.dll" Method="Js::JavascriptObject::"/>
+				<Namespace Module="chakra.dll" Method="Js::JavascriptDate::"/>
+				<Entrypoint Module="chakra.dll" Method="ThreadContext::ProbeStack"/>
+				<EntryPoint Module="chakra.dll" Method="Js::JavascriptString::Entry*"/>-->
+            </Tag>
+            <Tag Name="JSON" Graph="0">
+                <Namespace Module="chakra.dll" Method="JSON::" />
+            </Tag>
+            <!--<Tag Name="JittedCode">
+				<Entrypoint Module="*.js" Method="*"/>
+			</Tag>-->
+            <Tag Name="JSDispatch" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="JavascriptDispatch::GetDispID"/>
+                <Entrypoint Module="chakra.dll" Method="JavascriptDispatch::InvokeEx"/>
+            </Tag>
+            <Tag Name="RegEx" Graph="0">
+                <Namespace Module="chakra.dll" Method="Js::JavascriptRegularExpression::"/>
+                <Namespace Module="chakra.dll" Method="regex::RegexCompiler::"/>
+            </Tag>
+            <Tag Name="CheckCodeGen" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="NativeCodeGenerator::CheckCodeGenThunk" />
+            </Tag>
+            <Tag Name="GenerateInterrpreterThunk" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="Js::FunctionBody::GenerateDynamicInterpreterThunk"/>
+            </Tag>
+        </Tag>
+    <!--
+      <Tag Name="BytecodeDeserialize" Graph="1">
+        <ETWStart Provider="Microsoft-JScript" Id="0x7f" Version="0x0" Task="0x5c" Opcode="win:Start" Symbol="JSCRIPT_BYTECODEDESERIALIZE_START"/>
+        <ETWStop Provider="Microsoft-JScript" Id="0x80" Version="0x0" Task="0x5c" Opcode="win:Stop" Symbol="JSCRIPT_BYTECODEDESERIALIZE_STOP"/>
+      </Tag>
+    -->
+
+        <Tag Name="Recycler" Graph="1">
+          <!--  <ETWStart Provider="Microsoft-IE" Id="0x7f" Version="0x0" Task="0x5c" Opcode="win:Start" Symbol="JSCRIPT_GC_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0x80" Version="0x0" Task="0x5c" Opcode="win:Stop" Symbol="JSCRIPT_GC_STOP"/> -->
+            <Entrypoint Module="chakra.dll" Method="ThreadContext::ExecuteRecyclerCollectionFunction" />
+            <Tag Name="Misc" Graph="0" Priority="-1">
+                <Namespace Module="chakra.dll" Method="Recycler::"/>
+            </Tag>
+            <Tag Name="Init" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="Recycler::Initialize"/>
+            </Tag>
+            <Tag Name="StartCollect" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="Recycler::DoCollect"/>
+                <Entrypoint Module="chakra.dll" Method="Recycler::StartConcurrentMarkCollect"/>
+            </Tag>
+            <Tag Name="FinishCollect" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="Recycler::FinishConcurrentCollectWrapped"/>
+            </Tag>
+            <Tag Name="BackgroundGC" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="Recycler::ConcurrentMark"/>
+                <Entrypoint Module="chakra.dll" Method="HeapInfo::ConcurrentSweep*"/>
+            </Tag>
+            <Tag Name="Collect" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="Recycler::CollectNow*"/>
+            </Tag>
+            <Tag Name="PreCollect" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="ThreadContext::PreCollectionCallBack"/>
+            </Tag>
+            <Tag Name="PreSweep" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="ThreadContext::PreSweepCallback"/>
+            </Tag>
+            <Tag Name="Projection" Graph="0">
+                <Entrypoint Module="chakra.dll" Method="ThreadContext::MarkExternalWeakReferencedObjects" />
+            </Tag>
+        </Tag>
+        <Tag Name="JSProjection" Graph="1">
+            <Entrypoint Module="chakra.dll" Method="Projection::InvokeMethodByThisInfo"/>
+            <Entrypoint Module="chakra.dll" Method="Projection::Delegate::Invoke"/>
+            <Entrypoint Module="chakra.dll" Method="Projection::ProjectionWriter::DelayedFunctionOfSignatureThunk"/>
+            <!-- Deprecate these three eventually in later builds. -->
+            <Entrypoint Module="chakra.dll" Method="Projection::ProjectionWriter::DelayedMethodAssignContinuationThunk"/>
+            <Entrypoint Module="chakra.dll" Method="Projection::ProjectionWriter::DelayedPropertyGetterContinuationThunk"/>
+            <Entrypoint Module="chakra.dll" Method="Projection::ProjectionWriter::DelayedPropertySetterContinuationThunk"/>
+            <Entrypoint Module="chakra.dll" Method="Projection::*Thunk"/>
+            <Tag Name="ResolveTypeName">
+                <Entrypoint Module="chakra.dll" Method="Projection::ProjectionContext::ResolveTypeName"/>
+            </Tag>
+            <Tag Name="ExprConstruction">
+                <Entrypoint Module="chakra.dll" Method="ProjectionModel::ProjectionBuilder::IntermediateExprOfToken"/>
+            </Tag>
+            <Tag Name="TryGetProjectionFastPath">
+                <Entrypoint Module="chakra.dll" Method="Projection::TryGetProjectionFastPath"/>
+            </Tag>
+            <Tag Name="CreateNewTypeInstance">
+                <Entrypoint Module="chakra.dll" Method="Projection::ProjectionWriter::CreateNewTypeInstance"/>
+            </Tag>
+            <Tag Name="CreateTypeFactoryInstance">
+                <Entrypoint Module="chakra.dll" Method="Projection::ProjectionContext::CreateTypeFactoryInstance"/>
+            </Tag>
+            <Tag Name="Unmarshal">
+                <Entrypoint Module="chakra.dll" Method="Projection::ProjectionMethodInvoker::ReadOutOrThrow"/>
+            </Tag>
+        </Tag>
+        <Tag Name="WinRTCallOut" Graph="1">
+            <Entrypoint Module="chakra.dll" Method="Projection::ProjectionMethodInvoker::InvokeUnknown"/>
+            <Entrypoint Module="chakra.dll" Method="Projection::StaticFastPath*"/>
+            <Entrypoint Module="chakra.dll" Method="Projection::FastPath*"/>
+            <Entrypoint Module="chakra.dll" Method="Projection::AddEventListenerThunk" />
+            <Entrypoint Module="chakra.dll" Method="arm_ProjectionCall" />
+            <Tag Name="AsyncDebug" Graph="0">
+                <Namespace Module="chakra.dll" Method="AsyncDebug::" />
+            </Tag>
+        </Tag>
+        <Tag Name="Unknown" Graph="0" Priority="-2">
+            <Entrypoint Module="chakra.dll" Method="*" />
+        </Tag>
+    </Tag>
+    <Tag Name="System">
+        <Tag Name="ContextSwitch">
+            <Entrypoint Module="ntkrnlmp.exe" Method="KiSwapThread"/>
+        </Tag>
+        <Tag Name="LoadLibrary">
+            <Entrypoint Module="ntdll.dll" Method="LdrpLoadDll"/>
+            <Entrypoint Module="ntdll.dll" Method="LdrLoadDll"/>
+            <Entrypoint Module="Kernelbase.dll" Method="LoadLibraryExW"/>
+            <Entrypoint Module="Kernelbase.dll" Method="LoadLibraryExA"/>
+            <Entrypoint Module="Kernelbase.dll" Method="LoadLibraryW"/>
+            <Entrypoint Module="Kernelbase.dll" Method="LoadLibraryA"/>
+            <Entrypoint Module="Kernelbase.dll" Method="FreeLibrary"/>
+            <Entrypoint Module="Kernel32.dll" Method="LoadLibraryExW"/>
+            <Entrypoint Module="Kernel32.dll" Method="LoadLibraryExA"/>
+            <Entrypoint Module="Kernel32.dll" Method="LoadLibraryW"/>
+            <Entrypoint Module="Kernel32.dll" Method="LoadLibraryA"/>
+            <Entrypoint Module="Kernel32.dll" Method="FreeLibrary"/>
+            <Tag Name="DllMain">
+                <Entrypoint Module="ntdll.dll" Method="LdrpCallInitRoutine"/>
+            </Tag>
+            <Tag Name="SnapImports">
+                <Entrypoint Module="ntdll.dll" Method="LdrpSnapIAT"/>
+                <Entrypoint Module="ntdll.dll" Method="LdrpSnapModule"/>
+                <Entrypoint Module="ntdll.dll" Method="LdrpMapAndSnapModules"/>
+                <Tag Name="NameToOrdinal" Priority="11">
+                    <Entrypoint Module="ntdll.dll" Method="LdrpNameToOrdinal"/>
+                </Tag>
+            </Tag>
+            <Tag Name="FindOrMap">
+                <Entrypoint Module="ntdll.dll" Method="LdrpFindOrMapDll"/>
+            </Tag>
+            <Tag Name="GetProcAddr/DelayLoadResolve">
+                <Entrypoint Module="ntdll.dll" Method="LdrGetProcedureAddress"/>
+                <Entrypoint Module="ntdll.dll" Method="LdrGetProcedureAddressEx"/>
+                <Entrypoint Module="ntdll.dll" Method="LdrResolveDelayLoadedAPI"/>
+                <Entrypoint Module="Kernel32.dll" Method="GetProcAddress"/>
+            </Tag>
+        </Tag>
+        <Tag Name="DPC+ISRs">
+            <Entrypoint Module="ntkrnlmp.exe" Method="KiRetireDpcList"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="KiInterruptDispatch"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="KiInterruptDispatchCommon"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="KiIpiServiceRoutine"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="KiExitDispatcher"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="KiInterruptException"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="KiReplayInterrupt"/>
+            <Entrypoint Module="ntkrnlmp.exe" Method="IopPassiveInterruptWorker"/>
+            <Entrypoint Module="hal.dll" Method="HalpIpiHandler"/>
+        </Tag>
+        <Tag Name="ThreadPool">
+            <Entrypoint Module="ntdll.dll" Method="TppWorkerThread"/>
+            <Entrypoint Module="ntdll.dll" Method="TpAllocPool"/>
+            <Tag Name="Callbacks">
+                <Entrypoint Module="ntdll.dll" Method="RtlpTpWaitCallback"/>
+            </Tag>
+        </Tag>
+    </Tag>
+    <Tag Name="Trident" Graph="1">
+        <Tag Name="Display">
+            <ETWStart Provider="Microsoft-IE" Id="0x01" Version="0x0" Task="0x01" Opcode="win:Start" Symbol="MSHTML_CDOC_ONPAINT_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0x02" Version="0x0" Task="0x01" Opcode="win:Stop" Symbol="MSHTML_CDOC_ONPAINT_STOP"/>
+            <Tag Name="VSyncProvider">
+                <Entrypoint Module="mshtml.dll" Method="CVSyncProvider::RunThread"/>
+            </Tag>
+            <Tag Name="ViewRender" KnownThread="IERenderThread">
+                <ETWStart Provider="Microsoft-IE" Id="0x89" Version="0x0" Task="0x61" Opcode="win:Start" Symbol="MSHTML_VIEW_RENDERVIEW_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0x8a" Version="0x0" Task="0x61" Opcode="win:Stop" Symbol="MSHTML_VIEW_RENDERVIEW_STOP"/>
+                <Entrypoint Module="mshtml.dll" Method="CDoc::OnPaint"/>
+                <Entrypoint Module="mshtml.dll" Method="CDoc::PaintWorker"/>
+                <Entrypoint Module="mshtml.dll" Method="CDoc::PaintInPlace"/>
+                <Entrypoint Module="mshtml.dll" Method="CView::RenderView"/>
+                <Entrypoint Module="mshtml.dll" Method="CDispSurface::EndDraw"/>
+                <Entrypoint Module="mshtml.dll" Method="CLineServicesClient::DrawTextRun"/>
+                <Entrypoint Module="mshtml.dll" Method="CDXHwndRenderTarget::Present"/>
+            </Tag>
+            <Tag Name="BuildDisplay">
+                <ETWStart Provider="Microsoft-IE" Id="0xa3" Version="0x0" Task="0x70" Opcode="win:Start" Symbol="MSHTML_CSSLAYOUT_BUILDDISPLAY_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0xa4" Version="0x0" Task="0x70" Opcode="win:Stop" Symbol="MSHTML_CSSLAYOUT_BUILDDISPLAY_STOP"/>
+                <Entrypoint Module="mshtml.dll" Method="CView::CloseDisplayTree"/>
+            </Tag>
+            <Tag Name="DeviceCreate">
+                <ETWStart Provider="Microsoft-IE" Id="0xb0" Version="0x0" Task="0x77" Opcode="win:Start" Symbol="MSHTML_DX_DEVICECREATE_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0xb1" Version="0x0" Task="0x77" Opcode="win:Stop" Symbol="MSHTML_DX_DEVICECREATE_STOP"/>
+                <Entrypoint Module="mshtml.dll" Method="CDXSystem::EnsureDeviceResources"/>
+                <Entrypoint Module="mshtml.dll" Method="CDXResourceDomain::EnsureD3DDevice"/>
+                <Entrypoint Module="mshtml.dll" Method="GetDispSystem"/>
+            </Tag>
+            <Tag Name="SurfaceEnsure">
+                <ETWStart Provider="Microsoft-IE" Id="0xb2" Version="0x0" Task="0x78" Opcode="win:Start" Symbol="MSHTML_DX_TARGETSURFACE_ENSURE_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0xb3" Version="0x0" Task="0x78" Opcode="win:Stop" Symbol="MSHTML_DX_TARGETSURFACE_ENSURE_STOP"/>
+                <Entrypoint Module="mshtml.dll" Method="CDXSwapChainTargetSurface::EnsureResources"/>
+                <Entrypoint Module="mshtml.dll" Method="CDXHwTextureTargetSurface::EnsureResources"/>
+                <Entrypoint Module="mshtml.dll" Method="CDXSwBitmapTargetSurface::EnsureResources"/>
+            </Tag>
+            <Tag Name="Filters">
+                <Entrypoint Module="mshtml.dll" Method="CDoc::FilterCallback"/>
+            </Tag>
+            <Tag Name="Animations">
+                <Entrypoint Module="mshtml.dll" Method="CAnimationManager::*"/>
+            </Tag>
+            <Tag Name="Driver" Priority="-1">
+                <Module Name="igdumd32.dll"/>
+                <Module Name="nvwgf2um.dll"/>
+                <Module Name="igd10umd32.dll"/>
+                <Module Name="atiumdag.dll"/>
+                <Module Name="atiumdva.dll"/>
+                <Module Name="atidxx32.dll"/>
+            </Tag>
+            <Tag Name="Canvas">
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::restore"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::save"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::rotate"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::scale"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::setTransform"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::transform"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::translate"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::createLinearGradient"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::createRadialGradient"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::createPattern"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::clearRect"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::fillRect"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::strokeRect"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::arc"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::arcTo"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::beginPath"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::bezierCurveTo"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::clip"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::closePath"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::fill"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::lineTo"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::moveTo"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::quadraticCurveTo"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::rect"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::stroke"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::isPointInPath"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::fillText"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::measureText"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::strokeText"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::drawImage"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::createImageData"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::getImageData"/>
+                <Entrypoint Module="mshtml.dll" Method="CCanvasRenderingContext2D::putImageData"/>
+                <Entrypoint Module="mshtml.dll" Method="CHTMLCanvasElement::getContext"/>
+                <Entrypoint Module="mshtml.dll" Method="CHTMLCanvasElement::toDataURL"/>
+            </Tag>
+        </Tag>
+        <Tag Name="Script">
+            <Entrypoint Module="mshtml.dll" Method="CScriptElement::CommitCode"/>
+            <Entrypoint Module="mshtml.dll" Method="CScriptElement::Execute"/>
+            <Entrypoint Module="mshtml.dll" Method="CWindow::ExecuteTimeoutScript"/>
+        </Tag>
+        <Tag Name="Layout" KnownThread="IEUIThread">
+            <ETWStart Provider="Microsoft-IE" Id="0x03" Version="0x0" Task="0x02" Opcode="win:Start" Symbol="MSHTML_CMARKUP_LAYOUT_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0x04" Version="0x0" Task="0x02" Opcode="win:Stop" Symbol="MSHTML_CMARKUP_LAYOUT_STOP"/>
+            <Entrypoint Module="mshtml.dll" Method="CView::EnsureView"/>
+            <Entrypoint Module="mshtml.dll" Method="CDisplay::RecalcView"/>
+            <Entrypoint Module="mshtml.dll" Method="CElement::EnsureRecalcNotify"/>
+            <Entrypoint Module="mshtml.dll" Method="CLayout::DoLayout"/>
+            <Entrypoint Module="mshtml.dll" Method="CRecalcTask::OnRun"/>
+            <Tag Name="BuildBlocks">
+                <ETWStart Provider="Microsoft-IE" Id="0x9f" Version="0x0" Task="0x6e" Opcode="win:Start" Symbol="MSHTML_CSSLAYOUT_BUILDBLOCKS_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0xa0" Version="0x0" Task="0x6e" Opcode="win:Stop" Symbol="MSHTML_CSSLAYOUT_BUILDBLOCKS_STOP"/>
+                <Entrypoint Module="mshtml.dll" Method="CLayoutBlock::BuildBlock"/>
+            </Tag>
+            <Tag Name="BuildLayout">
+                <ETWStart Provider="Microsoft-IE" Id="0xa1" Version="0x0" Task="0x6f" Opcode="win:Start" Symbol="MSHTML_CSSLAYOUT_BUILDLAYOUT_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0xa2" Version="0x0" Task="0x6f" Opcode="win:Stop" Symbol="MSHTML_CSSLAYOUT_BUILDLAYOUT_STOP"/>
+                <Entrypoint Module="mshtml.dll" Method="Ptls5::FsUpdateBottomlessPage"/>
+                <Entrypoint Module="mshtml.dll" Method="Ptls5::FsUpdateBottomlessPageWithHint"/>
+                <Entrypoint Module="mshtml.dll" Method="Ptls5::FsUpdateFinitePage"/>
+                <Entrypoint Module="mshtml.dll" Method="Ptls5::FsCreatePageFinite"/>
+                <Entrypoint Module="mshtml.dll" Method="Ptls5::FsCreatePageBottomless"/>
+            </Tag>
+            <Tag Name="PTLS" Priority="-1">
+                <Namespace Module="mshtml.dll" Method="Ptls5::"/>
+            </Tag>
+        </Tag>
+        <Tag Name="Formatting" Graph="1">
+            <ETWStart Provider="Microsoft-IE" Id="0x7d" Version="0x0" Task="0x5b" Opcode="win:Start" Symbol="MSHTML_FORMATCALCULATION_COMPUTEFORMATS_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0x7e" Version="0x0" Task="0x5b" Opcode="win:Stop" Symbol="MSHTML_FORMATCALCULATION_COMPUTEFORMATS_STOP"/>
+            <ETWStart Provider="Microsoft-IE" Id="0x1e2" Version="0x0" Task="0x115" Opcode="win:Start" Symbol="MSHTML_CVIEW_EXECUTEINVALIDATIONTASKS_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0x1e3" Version="0x0" Task="0x115" Opcode="win:Stop" Symbol="MSHTML_CVIEW_EXECUTEINVALIDATIONTASKS_STOP"/>
+            <Entrypoint Module="mshtml.dll" Method="CView::ExecuteInvalidationTasks"/>
+            <Entrypoint Module="mshtml.dll" Method="CTreeNode::ComputeFormats"/>
+            <Entrypoint Module="mshtml.dll" Method="CElement::UpdateFormats"/>
+            <Entrypoint Module="mshtml.dll" Method="CTreeNode::GetFancyFormat"/>
+            <Entrypoint Module="mshtml.dll" Method="CStyleSheet::PrivateRelease"/>
+            <Tag Name="Behaviors">
+                <Entrypoint Module="mshtml.dll" Method="CElement::ApplyBehaviorCss"/>
+                <Entrypoint Module="mshtml.dll" Method="CMarkup::RecomputePeers"/>
+            </Tag>
+            <Tag Name="StyleSheets" Color="15">
+                <Entrypoint Module="mshtml.dll" Method="CStyleSheetArray::Apply"/>
+                <Tag Name="Rule Matching" Color="16">
+                    <Entrypoint Module="mshtml.dll" Method="CStyleSheetArray::BuildListOfProbableRules"/>
+                    <Entrypoint Module="mshtml.dll" Method="CStyleSelector::Match"/>
+                </Tag>
+                <Tag Name="Format Application" Color="17">
+                    <Entrypoint Module="mshtml.dll" Method="ApplyAttrArrayValues"/>
+                    <Entrypoint Module="mshtml.dll" Method="ApplyFormatInfoProperty"/>
+                </Tag>
+            </Tag>
+        </Tag>
+        <Tag Name="OM" Graph="1">
+            <Entrypoint Module="mshtml.dll" Method="CMarkup::UnloadContents"/>
+            <Entrypoint Module="mshtml.dll" Method="COmWindowProxy::SwitchMarkup"/>
+            <Entrypoint Module="mshtml.dll" Method="CMarkup::OnLoadStatus"/>
+            <Namespace Module="mshtml.dll" Method="CStorageTypeOperations::"/>
+            <Tag Name="Native">
+                <ETWStart Provider="Microsoft-IE" Id="0x79" Version="0x0" Task="0x59" Opcode="win:Start" Symbol="MSHTML_DOM_MARSHALLING_NATIVE_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0x7a" Version="0x0" Task="0x59" Opcode="win:Stop" Symbol="MSHTML_DOM_MARSHALLING_NATIVE_STOP"/>
+                <Entrypoint Module="mshtml.dll" Method="Trampoline_*"/>
+                <Entrypoint Module="mshtml.dll" Method="CFastDOM::*::Trampoline_*"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANT_oDoLONG"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTp_BSTR_oDoLONG"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_BSTR_oDoLONG"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_BSTR_oDoBSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTp_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_BSTR_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="G_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_IDispatchp_VARIANTBOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="GS_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="GS_PropEnum"/>
+                <Entrypoint Module="mshtml.dll" Method="GS_VARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="GS_VARIANTBOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="GS_long"/>
+                <Entrypoint Module="mshtml.dll" Method="GS_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_BSTRp_void"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="G_long"/>
+                <Entrypoint Module="mshtml.dll" Method="G_VARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_BSTRp_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_BSTRp_long"/>
+                <Entrypoint Module="mshtml.dll" Method="G_USHORT"/>
+                <Entrypoint Module="mshtml.dll" Method="G_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_longp_BSTR_oDolong"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_oDolong"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="G_PropEnum"/>
+                <Entrypoint Module="mshtml.dll" Method="G_VARIANTBOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="G_float"/>
+                <Entrypoint Module="mshtml.dll" Method="G_IUnknownp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTp_VARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_IDispatchp_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_IDispatchp_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_void"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_VARIANTBOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_BSTRp_long_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_long_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_long_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_long_long_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_BSTR_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_BSTR_BSTR_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_o0oVARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_VARIANTp_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_void"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_oDoVARIANTBOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_void"/>
+                <Entrypoint Module="mshtml.dll" Method="GS_short"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_IUnknownp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_IDispatchp_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_oDoVARIANTBOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_BSTR_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_BSTRp_BSTR_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_longp_BSTR_o0oVARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_IDispatchp_o0oVARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_BSTR_o0oVARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="G_LONG"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_VARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_VARIANTp_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTp_VARIANTp_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_VARIANTp_BSTR_VARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_VARIANTp_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="GS_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_VARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_BSTR_o0oVARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_longp_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_longp_BSTR_BSTR_oDolong"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTp_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_BSTR_oDolong_oDolong"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_longp_BSTR_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_BSTR_oDoVARIANTBOOL_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_IDispatchp_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_VARIANTBOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_longp_short_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_oDoBSTR_oDoBSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_VARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_o0oVARIANT_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_BSTR_VARIANT_o0oVARIANT_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_IDispatchp_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_IDispatchp_VARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="GS_LONG"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_o0oVARIANT_o0oVARIANT_o0oVARIANT_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="G_short"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_o0oVARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_VARIANT_o0oVARIANT_o0oVARIANT_o0oVARIANT_o0oVARIANT_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_BSTR_BSTR_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_BSTR_VARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="G_LONGPTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_longp_VARIANTp_long_o0oVARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_oDoBSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_oDoBSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTp_oDoBSTR_oDoBSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_oDoBSTR_oDoBSTR_oDoBSTR_oDoVARIANTBOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTp_BSTR_o0oVARIANTp_o0oVARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_o0oVARIANT_oDoBSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTp_BSTR_oDoBSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_oDoBSTR_o0oVARIANTp_o0oVARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_IDispatchp_oDoBSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_SAFEARRAYPVARIANTP"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_oDoBSTR_o0oVARIANT_o0oVARIANT_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_long_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_oDoBSTR_oDolong"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_BSTR_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_IDispatchp_long_VARIANTp_VARIANTBOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_oDolong"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_oDolong_oDolong"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_BSTRp_o0oVARIANT_o0oVARIANT_o0oVARIANT_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_longp_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_longp_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="G_ULONG"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL_VARIANTBOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL_VARIANTBOOL_IDispatchp_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL_VARIANTBOOL_IDispatchp_long_long_long_long_long_VARIANTBOOL_VARIANTBOOL_VARIANTBOOL_VARIANTBOOL_USHORT_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL_VARIANTBOOL_IDispatchp_long_long_long_long_long_USHORT_IDispatchp_BSTR_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL_VARIANTBOOL_IDispatchp_long_long_long_long_long_USHORT_IDispatchp_BSTR_long_long_long_ULONG"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL_VARIANTBOOL_IDispatchp_BSTR_ULONG"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL_VARIANTBOOL_IDispatchp_BSTR_ULONG_BSTR_VARIANTBOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL_VARIANTBOOL_IDispatchp_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL_VARIANTBOOL_IDispatchp_BSTR_BSTR_BSTR_USHORT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL_VARIANTBOOL_IDispatchp_BSTR_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL_VARIANTBOOL_IDispatchp_long_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL_VARIANTBOOL_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_float_BSTR"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_float_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_float_float_float_float_float_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_float_float_float_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_float_float_float_float_float_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_IDispatchp_VARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_float_float_float_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_float_float_float_float_float_BOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_float_float_float_float_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_float_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_float_float_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_IDispatchp_VARIANT_VARIANT_VARIANT_VARIANT_VARIANT_VARIANT_VARIANT_VARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_VARIANT_VARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_IDispatchp_float_float_VARIANT_VARIANT_VARIANT_VARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_BSTRp_BSTR_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_BSTR_VARIANTBOOL_VARIANTBOOL_VARIANTBOOL_ULONG_ULONG_ULONG_ULONG"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_short_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_short"/>
+                <Entrypoint Module="mshtml.dll" Method="GS_USHORT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_IDispatchp_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_float_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_float"/>
+                <Entrypoint Module="mshtml.dll" Method="GS_BOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_BSTRp_BSTR_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_float_float_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_ULONGp_ULONG"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_ULONG"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_floatp_void"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTp_IDispatchp_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTBOOLp_IDispatchp_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_BSTR_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_float_float_float_float_float_BOOL_BOOL"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_longp_float"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_longp_void"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_floatp_long_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_floatp_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_longp_IDispatchp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_VARIANTp_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_BSTRp_VARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IDispatchpp_BSTR_BSTR_o0oVARIANT"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_IUnknownpp_long"/>
+                <Entrypoint Module="mshtml.dll" Method="Method_void_long_long_long_long_VARIANTp"/>
+                <Entrypoint Module="mshtml.dll" Method="GS_ULONG"/>
+            </Tag>
+            <Tag Name="Marshalling">
+                <ETWStart Provider="Microsoft-IE" Id="0x75" Version="0x0" Task="0x57" Opcode="win:Start" Symbol="MSHTML_DOM_MARSHALLING_GETDISPID_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0x76" Version="0x0" Task="0x57" Opcode="win:Stop" Symbol="MSHTML_DOM_MARSHALLING_GETDISPID_STOP"/>
+                <ETWStart Provider="Microsoft-IE" Id="0x77" Version="0x0" Task="0x58" Opcode="win:Start" Symbol="MSHTML_DOM_MARSHALLING_INVOKEEX_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0x78" Version="0x0" Task="0x58" Opcode="win:Stop" Symbol="MSHTML_DOM_MARSHALLING_INVOKEEX_STOP"/>
+                <ETWStart Provider="Microsoft-IE" Id="0x87" Version="0x0" Task="0x60" Opcode="win:Start" Symbol="MSHTML_DOM_EXPANDO_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0x88" Version="0x0" Task="0x60" Opcode="win:Stop" Symbol="MSHTML_DOM_EXPANDO_STOP"/>
+                <Entrypoint Module="mshtml.dll" Method="PlainGetDispID"/>
+                <Entrypoint Module="mshtml.dll" Method="PlainInvokeEx"/>
+                <Entrypoint Module="mshtml.dll" Method="CBase::PrivateGetDispID"/>
+                <Entrypoint Module="mshtml.dll" Method="CBase::PrivateInvokeEx"/>
+                <Entrypoint Module="mshtml.dll" Method="CBase::InvokeAA"/>
+                <Entrypoint Module="mshtml.dll" Method="CBase::ContextInvokeEx"/>
+                <Entrypoint Module="mshtml.dll" Method="CElement::VersionedGetDispID"/>
+                <!-- $TODO [MiladinP]: validate this entry point - does it really belong here? -->
+                <Entrypoint Module="chakra.dll" Method="DispMemberProxy::Invoke"/>
+            </Tag>
+        </Tag>
+        <Tag Name="Parsing" Graph="1">
+            <Entrypoint Module="mshtml.dll" Method="CHtmParse::Execute"/>
+            <Tag Name="Post">
+                <ETWStart Provider="Microsoft-IE" Id="0x2e" Version="0x0" Task="0x2a" Opcode="win:Start" Symbol="MSHTML_HTMPOST_POSTMANONTIMER_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0x2f" Version="0x0" Task="0x2a" Opcode="win:Stop" Symbol="MSHTML_HTMPOST_POSTMANONTIMER_STOP"/>
+                <ETWStart Provider="Microsoft-IE" Id="0x56" Version="0x0" Task="0x45" Opcode="win:Start" Symbol="MSHTML_HTMPOST_POSTMANEXECUTE_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0x57" Version="0x0" Task="0x45" Opcode="win:Stop" Symbol="MSHTML_HTMPOST_POSTMANEXECUTE_STOP"/>
+                <ETWStart Provider="Microsoft-IE" Id="0x58" Version="0x0" Task="0x46" Opcode="win:Start" Symbol="MSHTML_HTMPOST_EXEC_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0x59" Version="0x0" Task="0x46" Opcode="win:Stop" Symbol="MSHTML_HTMPOST_EXEC_STOP"/>
+                <Entrypoint Module="mshtml.dll" Method="CHtmPost::Exec"/>
+                <Entrypoint Module="mshtml.dll" Method="CPostManager::PostManOnTimer"/>
+                <Entrypoint Module="mshtml.dll" Method="PostManExecute"/>
+            </Tag>
+            <Tag Name="Pre">
+                <ETWStart Provider="Microsoft-IE" Id="0x49" Version="0x0" Task="0x3e" Opcode="win:Start" Symbol="MSHTML_HTMPRE_RUN_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0x4a" Version="0x0" Task="0x3e" Opcode="win:Stop" Symbol="MSHTML_HTMPRE_RUN_STOP"/>
+                <Entrypoint Module="mshtml.dll" Method="CHtmPre::Run"/>
+                <Entrypoint Module="mshtml.dll" Method="CPreParser::TokenizeText"/>
+            </Tag>
+            <Tag Name="Notifications">
+                <Entrypoint Module="mshtml.dll" Method="CHtmRootParseCtx::FlushNotifications"/>
+            </Tag>
+            <Tag Name="CSS">
+                <ETWStart Provider="Microsoft-IE" Id="0x7b" Version="0x0" Task="0x5a" Opcode="win:Start" Symbol="MSHTML_CSS_PARSER_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0x7c" Version="0x0" Task="0x5a" Opcode="win:Stop" Symbol="MSHTML_CSS_PARSER_STOP"/>
+                <Entrypoint Module="mshtml.dll" Method="CStyleSheet::DoParsing"/>
+                <Entrypoint Module="mshtml.dll" Method="CSSIE9Parser::RuleSet"/>
+                <Entrypoint Module="mshtml.dll" Method="CSS2_1Parser::RuleSet"/>
+                <Entrypoint Module="mshtml.dll" Method="ProcessCSSText"/>
+            </Tag>
+            <Tag Name="DocumentWrite">
+                <Entrypoint Module="mshtml.dll" Method="CDocument::write"/>
+            </Tag>
+        </Tag>
+        <Tag Name="ActiveX">
+            <!-- Trident entry points -->
+            <Entrypoint Module="mshtml.dll" Method="COleSite::CreateObject"/>
+            <Entrypoint Module="mshtml.dll" Method="COleSite::TransitionTo"/>
+            <Entrypoint Module="mshtml.dll" Method="COleSite::Notify"/>
+            <Entrypoint Module="mshtml.dll" Method="COleLayout::Draw"/>
+            <Tag Name="Flash">
+                <Module Name="flash.ocx"/>
+                <Module Name="flash10*.ocx"/>
+                <Module Name="flash11*.ocx"/>
+                <Module Name="FlashUtil10.ocx"/>
+                <Module Name="NPSWF32.dll"/>
+            </Tag>
+            <Tag Name="Silverlight">
+                <Module Name="npctrl.dll"/>
+                <Module Name="agcore.dll"/>
+            </Tag>
+        </Tag>
+        <Tag Name="Security">
+            <Entrypoint Module="mshtml.dll" Method="CElement::SecurityContext"/>
+            <Entrypoint Module="mshtml.dll" Method="CBase::SecurityContextAllowsAccess"/>
+            <Tag Name="Anti Phishing">
+                <ETWStart Provider="Microsoft-IE" Id="0x22" Version="0x0" Task="0x20" Opcode="win:Start" Symbol="ANTIPHISHING_EVALUATE_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0x23" Version="0x0" Task="0x20" Opcode="win:Stop" Symbol="ANTIPHISHING_EVALUATE_STOP"/>
+                <Entrypoint Module="mshtml.dll" Method="CDoc::SubmitForAntiPhishProcessing"/>
+                <Entrypoint Module="mshtml.dll" Method="CAPProcessor::Invoke"/>
+                <Entrypoint Module="mshtml.dll" Method="CDoc::ConstructAPProcessor"/>
+            </Tag>
+            <Tag Name="XSS">
+                <Entrypoint Module="mshtml.dll" Method="CBindingXSSFilter::OnProgress"/>
+                <Entrypoint Module="mshtml.dll" Method="CBindingXSSFilter::OnDataAvailable"/>
+                <Entrypoint Module="mshtml.dll" Method="CBindingXSSFilter::Read"/>
+                <Entrypoint Module="mshtml.dll" Method="CInternetProtocolXSSFilter::ReportData"/>
+                <Entrypoint Module="mshtml.dll" Method="CInternetProtocolXSSFilter::Read"/>
+                <Entrypoint Module="mshtml.dll" Method="BindingXSSFilter_TearDown"/>
+            </Tag>
+            <Tag Name="URLBlock">
+                <Entrypoint Module="mshtml.dll" Method="CBindingURLBlockFilter::OnProgress"/>
+                <Entrypoint Module="mshtml.dll" Method="CBindingURLBlockFilter::OnDataAvailable"/>
+                <Entrypoint Module="mshtml.dll" Method="CBindingURLBlockFilter::Read"/>
+                <Entrypoint Module="mshtml.dll" Method="CInternetProtocolURLBlockFilter::ReportProgress"/>
+                <Entrypoint Module="mshtml.dll" Method="CInternetProtocolURLBlockFilter::ReportData"/>
+                <Entrypoint Module="mshtml.dll" Method="CInternetProtocolURLBlockFilter::Read"/>
+            </Tag>
+        </Tag>
+        <Tag Name="Downloading">
+            <Entrypoint Module="mshtml.dll" Method="CDwnBindData::ReportData"/>
+            <Entrypoint Module="mshtml.dll" Method="CDwnChan::OnMethodCall"/>
+            <Entrypoint Module="mshtml.dll" Method="CDoc::OnUrlImgCtxDeferredDownload"/>
+            <Entrypoint Module="mshtml.dll" Method="CImgHelper::DeferredOnDwnChan"/>
+            <Entrypoint Module="mshtml.dll" Method="CScriptElement::OnDwnChanCallback"/>
+            <Entrypoint Module="mshtml.dll" Method="CStyleSheet::OnDwnChanCallback"/>
+            <Entrypoint Module="mshtml.dll" Method="CLinkElement::OnDwnChanCallback"/>
+            <Entrypoint Module="mshtml.dll" Method="CImgHelper::OnDwnChanCallback"/>
+            <Entrypoint Module="urlmon.dll" Method="CDL_PacketProcessProc"/>
+        </Tag>
+        <Tag Name="Collections">
+            <ETWStart Provider="Microsoft-IE" Id="0x85" Version="0x0" Task="0x5f" Opcode="win:Start" Symbol="MSHTML_COLLECTIONS_ENSUREARY_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0x86" Version="0x0" Task="0x5f" Opcode="win:Stop" Symbol="MSHTML_COLLECTIONS_ENSUREARY_STOP"/>
+            <Namespace Module="mshtml.dll" Method="CCollectionCache::"/>
+        </Tag>
+        <Tag Name="Compat">
+            <Entrypoint Module="mshtml.dll" Method="CMarkup::GetEmulationState"/>
+        </Tag>
+        <Tag Name="Image Decoding" Graph="1" KnownThread="IEDecodeThread">
+            <ETWStart Provider="Microsoft-IE" Id="0x4b" Version="0x0" Task="0x3f" Opcode="win:Start" Symbol="MSHTML_CIMGTASKEXEC_START"/>
+            <ETWStop Provider="Microsoft-IE" Id="0x4c" Version="0x0" Task="0x3f" Opcode="win:Stop" Symbol="MSHTML_CIMGTASKEXEC_STOP"/>
+            <Entrypoint Module="mshtml.dll" Method="CImgTaskExec::FiberProc"/>
+            <Entrypoint Module="mshtml.dll" Method="CImgTaskExec::GetFiber"/>
+            <Entrypoint Module="mshtml.dll" Method="CImgTaskGif::Decode"/>
+            <Entrypoint Module="mshtml.dll" Method="CImgTaskJpg::Decode"/>
+            <Entrypoint Module="mshtml.dll" Method="CImgTaskPlug::Decode"/>
+        </Tag>
+        <Tag Name="Misc">
+            <Tag Name="TypeLib">
+                <Entrypoint Module="mshtml.dll" Method="GetFormsTypeLib"/>
+            </Tag>
+            <Tag Name="XmlHttp">
+                <Namespace Module="mshtml.dll" Method="CXMLHttpRequest::"/>
+            </Tag>
+            <Tag Name="Navigate">
+                <Entrypoint Module="mshtml.dll" Method="CWindow::FollowHyperlinkHelper"/>
+            </Tag>
+            <Tag Name="Privacy">
+                <Entrypoint Module="mshtml.dll" Method="CPrivacyList::AddNode"/>
+                <Entrypoint Module="mshtml.dll" Method="CDoc::AddToPrivacyList"/>
+            </Tag>
+            <Tag Name="OtherGlobalMessageHandling">
+                <Entrypoint Module="mshtml.dll" Method="GlobalWndOnMethodCall"/>
+            </Tag>
+            <Tag Name="Hover">
+                <ETWStart Provider="Microsoft-IE" Id="0x65" Version="0x0" Task="0x4f" Opcode="win:Start" Symbol="MSHTML_CELEMENT_HANDLEMOUSEHOVERFORSTYLE_START"/>
+                <ETWStop Provider="Microsoft-IE" Id="0x66" Version="0x0" Task="0x4f" Opcode="win:Stop" Symbol="MSHTML_CELEMENT_HANDLEMOUSEHOVERFORSTYLE_STOP"/>
+                <Entrypoint Module="mshtml.dll" Method="CElement::HandleMouseHoverForStyle"/>
+            </Tag>
+            <Tag Name="IsVisitedHyperLink">
+                <Entrypoint Module="mshtml.dll" Method="CDoc::IsVisitedHyperlink"/>
+            </Tag>
+            <Tag Name="HitTesting">
+                <Entrypoint Module="mshtml.dll" Method="CDoc::HitTestPoint"/>
+            </Tag>
+            <Tag Name="CStorage">
+                <Entrypoint Module="mshtml.dll" Method="CStorageTask::*"/>
+            </Tag>
+        </Tag>
+    </Tag>
+    <Tag Name="WWAHost" Graph="1">
+        <Entrypoint Module="wwahost.exe" Method="WebInstance::DispatchInternal"/>
+        <Entrypoint Module="wwahost.exe" Method="WebInstance::SetWindow"/>
+        <Entrypoint Module="wwahost.exe" Method="WebInstance::Run"/>
+        <Entrypoint Module="wwahost.exe" Method="WebInstance::RunMessageLoop"/>
+        <Entrypoint Module="twinapi.dll" Method="Windows::ApplicationModel::Core::CoreApplicationView::SyncThreadProc"/>
+        <Tag Name="Initialization">
+            <Entrypoint Module="wwahost.exe" Method="WebInstance::Initialize"/>
+            <Entrypoint Module="wwahost.exe" Method="WebInstance::Setup"/>
+        </Tag>
+        <Tag Name="WrapperProtocol">
+            <Entrypoint Module="wwahost.exe" Method="WrapperProtocol::StartEx"/>
+            <Entrypoint Module="wwahost.exe" Method="WrapperProtocolSink::ReportData"/>
+            <Entrypoint Module="wwahost.exe" Method="WrapperProtocol::Read"/>
+        </Tag>
+        <Tag Name="FindMimeFromData">
+            <Entrypoint Module="urlmon.dll" Method="FindMimeFromDataInternal"/>
+        </Tag>
+        <Tag Name="ResolveLocalized">
+            <Entrypoint Module="wwahost.exe" Method="PackageUrlSchemeConverter::ResolvePackagedResourceIUriToLocalizedFile"/>
+        </Tag>
+        <Tag Name="WinMainInit">
+            <Entrypoint Module="wwahost.exe" Method="mainCRTStartup"/>
+        </Tag>
+    </Tag>
+    <Tag Name="CLR" Graph="1">
+        <Entrypoint Module="clr.dll" Method="*" />
+    </Tag>
+</TagSet>

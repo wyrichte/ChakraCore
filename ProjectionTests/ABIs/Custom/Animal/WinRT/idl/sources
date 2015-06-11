@@ -1,0 +1,26 @@
+
+TEST_CODE=1
+TARGETTYPE    = NOTARGET
+TARGETNAME    = Animals
+TARGET_DESTINATION = Projection\WinRt:Projection\APPX
+
+IDL_TYPE=winrt
+
+_NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN8)
+
+NTTARGETFILE1=$(OBJ_PATH)\$(O)\published\Animals.winmd
+
+SOURCES = \
+    Animals.idl
+MIDL_OPTIMIZATION=$(MIDL_OPTIMIZATION) /struct_by_ref
+
+
+PASS1_BINPLACE= \
+    $(OBJ_PATH)\$(O)\published\$(TARGETNAME).winmd
+
+BINPLACE_EXCLUDE_FILE=winmds.txt
+
+INCLUDES= \
+    $(INETCORE_DIR)\jscript\ProjectionTests\ABIs\Custom\TeachRT\WinRT\idl; \
+    $(OBJECT_INETCORE_DIR)\jscript\ProjectionTests\ABIs\Custom\TeachRT\WinRT\idl\$(O);\
+    

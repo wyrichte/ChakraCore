@@ -1,0 +1,25 @@
+JsDocCommentsParser::ParseFuncDocComments:
+{
+  input :
+  {
+    signatureText : "*\r\n * Let's say hello\r\n * @returns {string}\r\n \r\n"
+  },
+  output :
+  {
+    signatures :
+    [
+      {
+        description : "Let's say hello",
+        parameters :
+        [
+        ],
+        returns :
+        {
+          type : "String",
+          description : ""
+        }
+      }
+    ]
+  }
+}
+Passed

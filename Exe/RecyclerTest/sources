@@ -1,0 +1,75 @@
+TARGETNAME=RecyclerTest
+TARGETTYPE=PROGRAM
+
+WARNING_LEVEL=W2
+
+!IF "$(_BUILDARCH)" == "arm" || "$(_BUILDARCH)" == "arm64"
+NT_SIGNCODE=1
+TEST_CODE=1
+!ENDIF
+
+# Turns on fretest for test code
+!include $(JSCRIPT_ROOT)\jslibtest.inc
+
+INCLUDES=$(COREINCLUDES);$(DS_INC_PATH);$(SDK_INC_PATH)\crt\stl70;$(JSCRIPT_ROOT)\dll\jscript;$(OBJ_PATH)\..\..\dll\jscript\$(O);
+
+#4740: flow in or out of inline asm code suppresses global optimization
+MSC_WARNING_LEVEL=$(MSC_WARNING_LEVEL) /wd4740
+
+
+C_DEFINES =$(C_DEFINES) -DWINNT -DUNICODE -D_UNICODE -DRECYCLER_TEST=1
+
+MSC_WARNING_LEVEL=-$(WARNING_LEVEL:W3=W4)
+
+USE_STL=1
+USE_ATL=1
+USE_RTTI=1
+UMENTRY = main
+UMTYPE = console
+
+!if !$(FREEBUILD)
+C_DEFINES =$(C_DEFINES) -DPROFILE_DICTIONARY
+!endif
+
+
+# Note: EXCLUDE_BACKEND comes from inetcore\jscript\project.mk
+
+# Make sure that common.memory.lib is passed to linker prior to msvcrt so that our new/delete 
+# do not cause 'already defined in msvcrt.lib error'.
+CRTLIBS= \
+    $(OBJECT_JSCRIPT_DIR)\lib\common\memory\$(JS_LIBTYPE)\$(O)\jscript.common.memory.lib
+
+TARGETLIBS=     \
+!IF (!$(FREEBUILD) || defined(FRETEST) || defined(NTTESTENV)) && "$(TARGET_DIRECTORY)" != "arm" && "$(TARGET_DIRECTORY)" != "arm64"
+    ..\..\tools\external\lib\$(TARGET_DIRECTORY)\jitprofiling.lib \
+!ENDIF
+    $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
+    $(OBJECT_INETCORE_DIR)\lib\codex\iel1\$(O)\codex_iel1.lib \
+    $(INETCORE_LIB_PATH)\iertutilp.lib \
+    $(INETCORE_LIB_PATH)\IESettingsId.lib \
+    $(INETCORE_LIB_PATH)\IESettingsApi.lib \
+    $(OBJECT_INETCORE_DIR)\lib\common\iel1_sp\$(O)\ieshare_common_iel1.lib \
+    $(JS_LIBS_COMMON) \
+    $(SDK_LIB_PATH)\muiload.lib \
+    $(SDK_LIB_PATH)\oleaut32.lib \
+    $(SDK_LIB_PATH)\ole32.lib \
+    $(SDK_LIB_PATH)\Shlwapi.lib \
+    $(SDK_LIB_PATH)\Uuid.lib \
+    $(SDK_LIB_PATH)\version.lib \
+!if !$(FREEBUILD)
+    $(SDK_LIB_PATH)\dbghelp.lib \
+    $(SDK_LIB_PATH)\user32.lib \
+!endif
+
+
+SOURCES= \
+    BinaryFeatureControlOverrides.cpp \
+    Harness.cpp \
+    List.cpp    \
+    Tests.cpp    \
+    Tracker.cpp    \
+    Reporting.cpp   \
+
+PRECOMPILED_INCLUDE=stdafx.h
+PRECOMPILED_SOURCEFILE=stdafx.cpp
+PRECOMPILED_CXX=1

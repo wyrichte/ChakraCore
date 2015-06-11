@@ -1,0 +1,70 @@
+Recycler Stress Selected Scenarios from Guid.js
+
+=================================================
+Starting [Test 1: Get/Set Id]
+Pass: Animal.id
+      Actual: 00000000-0000-0000-0000-000000000123
+
+Pass: Marshaling in GUID
+      Actual: undefined
+
+PASS [Test 1: Get/Set Id]
+=================================================
+
+=================================================
+Starting [Test 2: verifyMarshalGUID]
+Pass: Verified GUID
+      Actual: 60a36d60-6ac9-4266-b872-581295ce0c50
+
+Pass: verifyMarshalGUID
+      Actual: undefined
+
+PASS [Test 2: verifyMarshalGUID]
+=================================================
+
+=================================================
+Starting [Test 3: verifyMarshalGUID]
+Pass: Verified GUID
+      Actual: e55c507b-7c8f-4bda-b576-a5ab98cf982b
+
+Pass: verifyMarshalGUID
+      Actual: undefined
+
+PASS [Test 3: verifyMarshalGUID]
+=================================================
+
+=================================================
+Starting [Test 4: verifyMarshalGUID]
+Pass: Verified GUID
+      Actual: 992810ba-c394-4429-b136-1ba8c5b54c5d
+
+Pass: verifyMarshalGUID
+      Actual: undefined
+
+PASS [Test 4: verifyMarshalGUID]
+=================================================
+
+=================================================
+Starting [Test 5: verifyMarshalGUID]
+Pass: Verified GUID
+      Actual: aada726e-aff5-4f56-9b03-c1efe8497a0e
+
+Pass: verifyMarshalGUID
+      Actual: undefined
+
+PASS [Test 5: verifyMarshalGUID]
+=================================================
+
+=================================================
+Starting [Test 6: verifyMarshalGUID]
+Pass: Verified GUID
+      Actual: 0e7ab08b-f8ad-4187-80d9-cf2fb15ee7d7
+
+Pass: verifyMarshalGUID
+      Actual: undefined
+
+PASS [Test 6: verifyMarshalGUID]
+=================================================
+
+Passed: 6
+Failed: 0

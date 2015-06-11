@@ -1,0 +1,9 @@
+!include ..\sources.inc
+TARGET_DESTINATION=Projection\WinRt:Projection\APPX
+
+INCLUDES= $(INCLUDES)\
+    $(OBJ_PATH)\..\..\idl\dll\$(O);\
+
+TARGETLIBS=$(TARGETLIBS)\
+    $(SDK_LIB_PATH)\kernel32.lib \
+    

@@ -1,0 +1,1978 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": {
+        "[Methods]": {
+          "callee": {
+            "__proto__": "<large string>",
+            "arguments": "{...}",
+            "caller": "null",
+            "length": "0",
+            "name": "test1",
+            "prototype": "{...}"
+          },
+          "Symbol.iterator": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": "values"
+          }
+        },
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": "<large string>",
+            "__defineSetter__": "<large string>",
+            "__lookupGetter__": "<large string>",
+            "__lookupSetter__": "<large string>",
+            "constructor": "<large string>",
+            "hasOwnProperty": "<large string>",
+            "isPrototypeOf": "<large string>",
+            "propertyIsEnumerable": "<large string>",
+            "toLocaleString": "<large string>",
+            "toString": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "m": {
+        "__proto__": {
+          "[Methods]": {
+            "clear": "<large string>",
+            "constructor": "<large string>",
+            "delete": "<large string>",
+            "entries": "<large string>",
+            "forEach": "<large string>",
+            "get": "<large string>",
+            "has": "<large string>",
+            "keys": "<large string>",
+            "set": "<large string>",
+            "Symbol.iterator": "<large string>",
+            "values": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "size": "0"
+        },
+        "[Map]": "size = 0"
+      },
+      "s": {
+        "__proto__": {
+          "[Methods]": {
+            "add": "<large string>",
+            "clear": "<large string>",
+            "constructor": "<large string>",
+            "delete": "<large string>",
+            "entries": "<large string>",
+            "forEach": "<large string>",
+            "has": "<large string>",
+            "keys": "<large string>",
+            "Symbol.iterator": "<large string>",
+            "values": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "size": "0"
+        },
+        "[Set]": "size = 0"
+      },
+      "wm": {
+        "__proto__": {
+          "[Methods]": {
+            "constructor": "<large string>",
+            "delete": "<large string>",
+            "get": "<large string>",
+            "has": "<large string>",
+            "set": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        },
+        "[WeakMap]": "size = 0"
+      },
+      "ws": {
+        "__proto__": {
+          "[Methods]": {
+            "add": "<large string>",
+            "constructor": "<large string>",
+            "delete": "<large string>",
+            "has": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        },
+        "[WeakSet]": "size = 0"
+      },
+      "p": "undefined",
+      "[Globals]": {
+        "test1": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": ""
+          },
+          "arguments": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "length": "0"
+          },
+          "caller": "null",
+          "length": "0",
+          "name": "test1",
+          "prototype": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}"
+          }
+        },
+        "test2": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": ""
+          },
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "test2",
+          "prototype": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}"
+          }
+        },
+        "o": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": {
+        "[Methods]": {
+          "callee": {
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": ""
+            },
+            "arguments": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}",
+              "length": "0"
+            },
+            "caller": "null",
+            "length": "0",
+            "name": "test1",
+            "prototype": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}"
+            }
+          },
+          "Symbol.iterator": {
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": ""
+            },
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": "values"
+          }
+        },
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "<large string>"
+            },
+            "__defineSetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "<large string>"
+            },
+            "__lookupGetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "__lookupSetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "constructor": {
+              "[Methods]": "{...}",
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "Object",
+              "prototype": "{...}"
+            },
+            "hasOwnProperty": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "isPrototypeOf": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "isPrototypeOf"
+            },
+            "propertyIsEnumerable": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "toLocaleString": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "<large string>"
+            },
+            "toString": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "toString"
+            },
+            "valueOf": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "valueOf"
+            }
+          },
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "m": {
+        "__proto__": {
+          "[Methods]": {
+            "clear": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "clear"
+            },
+            "constructor": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "Map",
+              "prototype": "{...}"
+            },
+            "delete": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "delete"
+            },
+            "entries": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "entries"
+            },
+            "forEach": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "forEach"
+            },
+            "get": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "get"
+            },
+            "has": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "has"
+            },
+            "keys": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "keys"
+            },
+            "set": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "set"
+            },
+            "Symbol.iterator": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "entries"
+            },
+            "values": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "values"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          },
+          "size": "3"
+        },
+        "[Map]": {
+          "0": {
+            "key": "5",
+            "value": {
+              "__proto__": "{...}",
+              "a": "1",
+              "b": "2",
+              "c": "3"
+            }
+          },
+          "1": {
+            "key": {
+              "__proto__": "{...}",
+              "[Map]": "size = 3"
+            },
+            "value": {
+              "__proto__": "{...}",
+              "[Map]": "size = 3"
+            }
+          },
+          "2": {
+            "key": "63",
+            "value": {
+              "__proto__": "0"
+            }
+          }
+        }
+      },
+      "s": {
+        "__proto__": {
+          "[Methods]": {
+            "add": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "add"
+            },
+            "clear": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "clear"
+            },
+            "constructor": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "Set",
+              "prototype": "{...}"
+            },
+            "delete": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "delete"
+            },
+            "entries": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "entries"
+            },
+            "forEach": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "forEach"
+            },
+            "has": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "has"
+            },
+            "keys": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "values"
+            },
+            "Symbol.iterator": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "values"
+            },
+            "values": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "values"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          },
+          "size": "3"
+        },
+        "[Set]": {
+          "0": "5",
+          "1": {
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}",
+              "size": "3"
+            },
+            "[Set]": {
+              "0": "5",
+              "1": "{...}",
+              "2": "3.14"
+            }
+          },
+          "2": "3.14"
+        }
+      },
+      "wm": {
+        "__proto__": {
+          "[Methods]": {
+            "constructor": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "WeakMap",
+              "prototype": "{...}"
+            },
+            "delete": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "delete"
+            },
+            "get": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "get"
+            },
+            "has": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "has"
+            },
+            "set": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "set"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        },
+        "[WeakMap]": {
+          "0": {
+            "key": {
+              "__proto__": "{...}",
+              "[Map]": "size = 3"
+            },
+            "value": "5"
+          }
+        }
+      },
+      "ws": {
+        "__proto__": {
+          "[Methods]": {
+            "add": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "add"
+            },
+            "constructor": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "WeakSet",
+              "prototype": "{...}"
+            },
+            "delete": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "delete"
+            },
+            "has": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "has"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        },
+        "[WeakSet]": {
+          "0": {
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}",
+              "size": "3"
+            },
+            "[Map]": {
+              "0": "[5, {...}]",
+              "1": "[{...}, {...}]",
+              "2": "[63, 42]"
+            }
+          }
+        }
+      },
+      "p": "undefined",
+      "[Globals]": {
+        "test1": {
+          "__proto__": {
+            "[Methods]": {
+              "apply": "<large string>",
+              "bind": "<large string>",
+              "call": "<large string>",
+              "constructor": "<large string>",
+              "toMethod": "<large string>",
+              "toString": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            },
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": ""
+          },
+          "arguments": {
+            "[Methods]": {
+              "callee": "<large string>",
+              "Symbol.iterator": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            },
+            "length": "0"
+          },
+          "caller": "null",
+          "length": "0",
+          "name": "test1",
+          "prototype": {
+            "[Methods]": {
+              "constructor": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            }
+          }
+        },
+        "test2": {
+          "__proto__": {
+            "[Methods]": {
+              "apply": "<large string>",
+              "bind": "<large string>",
+              "call": "<large string>",
+              "constructor": "<large string>",
+              "toMethod": "<large string>",
+              "toString": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            },
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": ""
+          },
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "test2",
+          "prototype": {
+            "[Methods]": {
+              "constructor": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            }
+          }
+        },
+        "o": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": {
+        "[Methods]": {
+          "callee": {
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": ""
+            },
+            "arguments": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}",
+              "length": "0"
+            },
+            "caller": "null",
+            "length": "0",
+            "name": "test1",
+            "prototype": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}"
+            }
+          },
+          "Symbol.iterator": {
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": ""
+            },
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": "values"
+          }
+        },
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "<large string>"
+            },
+            "__defineSetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "<large string>"
+            },
+            "__lookupGetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "__lookupSetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "constructor": {
+              "[Methods]": "{...}",
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "Object",
+              "prototype": "{...}"
+            },
+            "hasOwnProperty": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "isPrototypeOf": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "isPrototypeOf"
+            },
+            "propertyIsEnumerable": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "toLocaleString": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "<large string>"
+            },
+            "toString": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "toString"
+            },
+            "valueOf": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "valueOf"
+            }
+          },
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "m": {
+        "__proto__": {
+          "[Methods]": {
+            "clear": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "clear"
+            },
+            "constructor": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "Map",
+              "prototype": "{...}"
+            },
+            "delete": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "delete"
+            },
+            "entries": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "entries"
+            },
+            "forEach": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "forEach"
+            },
+            "get": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "get"
+            },
+            "has": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "has"
+            },
+            "keys": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "keys"
+            },
+            "set": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "set"
+            },
+            "Symbol.iterator": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "entries"
+            },
+            "values": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "values"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          },
+          "size": "2"
+        },
+        "[Map]": {
+          "0": {
+            "key": "5",
+            "value": {
+              "__proto__": "{...}",
+              "a": "1",
+              "b": "2",
+              "c": "3"
+            }
+          },
+          "1": {
+            "key": "63",
+            "value": {
+              "__proto__": "0"
+            }
+          }
+        }
+      },
+      "s": {
+        "__proto__": {
+          "[Methods]": {
+            "add": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "add"
+            },
+            "clear": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "clear"
+            },
+            "constructor": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "Set",
+              "prototype": "{...}"
+            },
+            "delete": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "delete"
+            },
+            "entries": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "entries"
+            },
+            "forEach": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "forEach"
+            },
+            "has": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "has"
+            },
+            "keys": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "values"
+            },
+            "Symbol.iterator": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "values"
+            },
+            "values": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "values"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          },
+          "size": "2"
+        },
+        "[Set]": {
+          "0": "5",
+          "1": "3.14"
+        }
+      },
+      "wm": {
+        "__proto__": {
+          "[Methods]": {
+            "constructor": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "WeakMap",
+              "prototype": "{...}"
+            },
+            "delete": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "delete"
+            },
+            "get": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "get"
+            },
+            "has": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "has"
+            },
+            "set": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "set"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        },
+        "[WeakMap]": "size = 0"
+      },
+      "ws": {
+        "__proto__": {
+          "[Methods]": {
+            "add": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "add"
+            },
+            "constructor": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "WeakSet",
+              "prototype": "{...}"
+            },
+            "delete": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "delete"
+            },
+            "has": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "has"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        },
+        "[WeakSet]": "size = 0"
+      },
+      "p": "undefined",
+      "[Globals]": {
+        "test1": {
+          "__proto__": {
+            "[Methods]": {
+              "apply": "<large string>",
+              "bind": "<large string>",
+              "call": "<large string>",
+              "constructor": "<large string>",
+              "toMethod": "<large string>",
+              "toString": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            },
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": ""
+          },
+          "arguments": {
+            "[Methods]": {
+              "callee": "<large string>",
+              "Symbol.iterator": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            },
+            "length": "0"
+          },
+          "caller": "null",
+          "length": "0",
+          "name": "test1",
+          "prototype": {
+            "[Methods]": {
+              "constructor": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            }
+          }
+        },
+        "test2": {
+          "__proto__": {
+            "[Methods]": {
+              "apply": "<large string>",
+              "bind": "<large string>",
+              "call": "<large string>",
+              "constructor": "<large string>",
+              "toMethod": "<large string>",
+              "toString": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            },
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": ""
+          },
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "test2",
+          "prototype": {
+            "[Methods]": {
+              "constructor": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            }
+          }
+        },
+        "o": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": {
+        "[Methods]": {
+          "callee": {
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": ""
+            },
+            "arguments": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}",
+              "length": "0"
+            },
+            "caller": "null",
+            "length": "0",
+            "name": "test1",
+            "prototype": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}"
+            }
+          },
+          "Symbol.iterator": {
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "{...}",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": ""
+            },
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": "values"
+          }
+        },
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "<large string>"
+            },
+            "__defineSetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "<large string>"
+            },
+            "__lookupGetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "__lookupSetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "constructor": {
+              "[Methods]": "{...}",
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "Object",
+              "prototype": "{...}"
+            },
+            "hasOwnProperty": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "isPrototypeOf": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "isPrototypeOf"
+            },
+            "propertyIsEnumerable": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "toLocaleString": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "<large string>"
+            },
+            "toString": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "toString"
+            },
+            "valueOf": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "valueOf"
+            }
+          },
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "m": {
+        "__proto__": {
+          "[Methods]": {
+            "clear": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "clear"
+            },
+            "constructor": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "Map",
+              "prototype": "{...}"
+            },
+            "delete": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "delete"
+            },
+            "entries": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "entries"
+            },
+            "forEach": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "forEach"
+            },
+            "get": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "get"
+            },
+            "has": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "has"
+            },
+            "keys": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "keys"
+            },
+            "set": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "set"
+            },
+            "Symbol.iterator": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "entries"
+            },
+            "values": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "values"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          },
+          "size": "3"
+        },
+        "[Map]": {
+          "0": {
+            "key": "5",
+            "value": {
+              "__proto__": "{...}",
+              "a": "1",
+              "b": "2",
+              "c": "3"
+            }
+          },
+          "1": {
+            "key": "63",
+            "value": {
+              "__proto__": "0"
+            }
+          },
+          "2": {
+            "key": "another",
+            "value": "entry"
+          }
+        }
+      },
+      "s": {
+        "__proto__": {
+          "[Methods]": {
+            "add": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "add"
+            },
+            "clear": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "clear"
+            },
+            "constructor": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "Set",
+              "prototype": "{...}"
+            },
+            "delete": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "delete"
+            },
+            "entries": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "entries"
+            },
+            "forEach": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "forEach"
+            },
+            "has": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "has"
+            },
+            "keys": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "values"
+            },
+            "Symbol.iterator": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "values"
+            },
+            "values": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "values"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          },
+          "size": "3"
+        },
+        "[Set]": {
+          "0": "5",
+          "1": "3.14",
+          "2": "abc"
+        }
+      },
+      "wm": {
+        "__proto__": {
+          "[Methods]": {
+            "constructor": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "WeakMap",
+              "prototype": "{...}"
+            },
+            "delete": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "delete"
+            },
+            "get": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "get"
+            },
+            "has": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "has"
+            },
+            "set": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "set"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        },
+        "[WeakMap]": {
+          "0": {
+            "key": {
+              "__proto__": "{...}",
+              "x": "some",
+              "y": "other",
+              "z": "object"
+            },
+            "value": "bar"
+          }
+        }
+      },
+      "ws": {
+        "__proto__": {
+          "[Methods]": {
+            "add": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "add"
+            },
+            "constructor": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "WeakSet",
+              "prototype": "{...}"
+            },
+            "delete": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "delete"
+            },
+            "has": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "has"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        },
+        "[WeakSet]": {
+          "0": {
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            },
+            "x": "some",
+            "y": "other",
+            "z": "object"
+          }
+        }
+      },
+      "p": {
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "<large string>"
+            },
+            "__defineSetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "<large string>"
+            },
+            "__lookupGetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "__lookupSetter__": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "constructor": {
+              "[Methods]": "{...}",
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "Object",
+              "prototype": "{...}"
+            },
+            "hasOwnProperty": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "isPrototypeOf": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "isPrototypeOf"
+            },
+            "propertyIsEnumerable": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "toLocaleString": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "<large string>"
+            },
+            "toString": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "toString"
+            },
+            "valueOf": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "valueOf"
+            }
+          },
+          "__proto__": "null"
+        },
+        "x": "some",
+        "y": "other",
+        "z": "object"
+      },
+      "[Globals]": {
+        "test1": {
+          "__proto__": {
+            "[Methods]": {
+              "apply": "<large string>",
+              "bind": "<large string>",
+              "call": "<large string>",
+              "constructor": "<large string>",
+              "toMethod": "<large string>",
+              "toString": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            },
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": ""
+          },
+          "arguments": {
+            "[Methods]": {
+              "callee": "<large string>",
+              "Symbol.iterator": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            },
+            "length": "0"
+          },
+          "caller": "null",
+          "length": "0",
+          "name": "test1",
+          "prototype": {
+            "[Methods]": {
+              "constructor": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            }
+          }
+        },
+        "test2": {
+          "__proto__": {
+            "[Methods]": {
+              "apply": "<large string>",
+              "bind": "<large string>",
+              "call": "<large string>",
+              "constructor": "<large string>",
+              "toMethod": "<large string>",
+              "toString": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            },
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": ""
+          },
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "test2",
+          "prototype": {
+            "[Methods]": {
+              "constructor": "<large string>"
+            },
+            "__proto__": {
+              "[Methods]": "{...}",
+              "__proto__": "null"
+            }
+          }
+        },
+        "o": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "map - [Type]": "Map",
+      "map": "{...}"
+    }
+  },
+  {
+    "evaluate": {
+      "set - [Type]": "Set",
+      "set": "{...}"
+    }
+  },
+  {
+    "evaluate": {
+      "weakmap - [Type]": "WeakMap",
+      "weakmap": "{...}"
+    }
+  },
+  {
+    "evaluate": {
+      "weakset - [Type]": "WeakSet",
+      "weakset": "{...}"
+    }
+  },
+  {
+    "evaluate": {
+      "Map.prototype - [Type]": "Object",
+      "Map.prototype": "{...}"
+    }
+  },
+  {
+    "evaluate": {
+      "Set.prototype - [Type]": "Object",
+      "Set.prototype": "{...}"
+    }
+  },
+  {
+    "evaluate": {
+      "WeakMap.prototype - [Type]": "Object",
+      "WeakMap.prototype": "{...}"
+    }
+  },
+  {
+    "evaluate": {
+      "WeakSet.prototype - [Type]": "Object",
+      "WeakSet.prototype": "{...}"
+    }
+  }
+]

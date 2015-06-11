@@ -1,0 +1,21 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "func1": "<large string>",
+      "obj0": "{...}",
+      "obj1": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "__loopvar2": "undefined",
+      "[Scope]1": "test0",
+      "[Globals]": ""
+    }
+  }
+]

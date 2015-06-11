@@ -1,0 +1,455 @@
+AsyncDebug-WinJS tests
+
+=================================================
+Starting [Test 34: SimpleWinJSPromise]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=807
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=1, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=1, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=1, work=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=962
+NameBuffer = "Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=2, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=2, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=2, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=1, work=0)
+Comment: inside winjs-wrapped.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 34: SimpleWinJSPromise]
+=================================================
+
+=================================================
+Starting [Test 35: ChainedWinJSPromise]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=1495
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=3, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=3, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=3, work=0)
+Comment: promise.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=1784
+NameBuffer = "Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=4, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=4, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=4, work=0)
+Comment: winjspromise.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=2057
+	Frame 1: Name=21 (notifySuccess), SourceLocationLength=64, SourceLocationStartIndex=61169
+	Frame 2: Name=37 (state_success_notify.enter), SourceLocationLength=26, SourceLocationStartIndex=47851
+	Frame 3: Name=66 (_run), SourceLocationLength=23, SourceLocationStartIndex=58035
+	Frame 4: Name=73 (_completed), SourceLocationLength=11, SourceLocationStartIndex=56871
+NameBuffer = "Anonymous function";"notifySuccess";"state_success_notify.enter";"_run";"_completed";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=5, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=5, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=5, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=3, work=0)
+Comment: latent.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 35: ChainedWinJSPromise]
+=================================================
+
+=================================================
+Starting [Test 36: ChainedWinJSPromiseWithErrorHandlers]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=2726
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=6, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=6, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=6, work=0)
+Comment: promise.then(error)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=4322
+NameBuffer = "Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=7, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=7, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=7, work=0)
+Comment: winjspromise.then(error)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=4964
+	Frame 1: Name=21 (notifyError), SourceLocationLength=40, SourceLocationStartIndex=62381
+	Frame 2: Name=35 (state_error_notify.enter), SourceLocationLength=26, SourceLocationStartIndex=49455
+	Frame 3: Name=62 (_run), SourceLocationLength=23, SourceLocationStartIndex=58035
+	Frame 4: Name=69 (_error), SourceLocationLength=11, SourceLocationStartIndex=57049
+	Frame 5: Name=78 (error), SourceLocationLength=21, SourceLocationStartIndex=44089
+NameBuffer = "Anonymous function";"notifyError";"state_error_notify.enter";"_run";"_error";"error";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=8, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=8, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=8, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=6, work=0)
+Comment: latent.then(error)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: Success handlers: false false false
+Comment: Error handlers: true true true
+PASS [Test 36: ChainedWinJSPromiseWithErrorHandlers]
+=================================================
+
+=================================================
+Starting [Test 37: ChainedWinJSPromiseWithErrorHandlers2]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=6370
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=9, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=9, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=9, work=0)
+Comment: promise.then(error)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=7966
+NameBuffer = "Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=10, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=10, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=10, work=0)
+Comment: winjspromise.then(complete)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=8316
+	Frame 1: Name=21 (notifySuccess), SourceLocationLength=64, SourceLocationStartIndex=61169
+	Frame 2: Name=37 (state_success_notify.enter), SourceLocationLength=26, SourceLocationStartIndex=47851
+	Frame 3: Name=66 (_run), SourceLocationLength=23, SourceLocationStartIndex=58035
+	Frame 4: Name=73 (_completed), SourceLocationLength=11, SourceLocationStartIndex=56871
+NameBuffer = "Anonymous function";"notifySuccess";"state_success_notify.enter";"_run";"_completed";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=11, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=11, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=11, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=9, work=0)
+Comment: latent.then(error)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: Success handlers: false true false
+Comment: Error handlers: true false true
+PASS [Test 37: ChainedWinJSPromiseWithErrorHandlers2]
+=================================================
+
+=================================================
+Starting [Test 38: ChainedWinJSPromiseWithErrorHandlers3]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=54, SourceLocationStartIndex=10019
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=12, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=12, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=12, work=0)
+Comment: promise.then(complete)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=10620
+NameBuffer = "Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=13, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=13, status=3)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=13, work=0)
+Comment: winjspromise.then(error)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=11262
+	Frame 1: Name=21 (notifyError), SourceLocationLength=40, SourceLocationStartIndex=62381
+	Frame 2: Name=35 (state_error_notify.enter), SourceLocationLength=26, SourceLocationStartIndex=49455
+	Frame 3: Name=62 (_run), SourceLocationLength=23, SourceLocationStartIndex=58035
+	Frame 4: Name=69 (_error), SourceLocationLength=11, SourceLocationStartIndex=57049
+	Frame 5: Name=78 (error), SourceLocationLength=21, SourceLocationStartIndex=44089
+NameBuffer = "Anonymous function";"notifyError";"state_error_notify.enter";"_run";"_error";"error";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=14, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=14, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=14, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=12, work=0)
+Comment: latent.then(complete)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: Success handlers: true false true
+Comment: Error handlers: false true false
+PASS [Test 38: ChainedWinJSPromiseWithErrorHandlers3]
+=================================================
+
+=================================================
+Starting [Test 47: WinJS.Promise.Join]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=13654
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=15, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=13724
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=16, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Comment: promise1 completing...
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=15, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=15, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=15, work=0)
+Comment: promise1.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: promise2 completing...
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=16, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=16, work=0)
+Comment: winjspromise.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=14185
+	Frame 1: Name=21 (notifySuccess), SourceLocationLength=64, SourceLocationStartIndex=61169
+	Frame 2: Name=37 (state_success_notify.enter), SourceLocationLength=26, SourceLocationStartIndex=47851
+	Frame 3: Name=66 (_run), SourceLocationLength=23, SourceLocationStartIndex=58035
+	Frame 4: Name=73 (_completed), SourceLocationLength=11, SourceLocationStartIndex=56871
+	Frame 5: Name=86 (argDone), SourceLocationLength=17, SourceLocationStartIndex=93454
+	Frame 6: Name=96 (Anonymous function), SourceLocationLength=12, SourceLocationStartIndex=94813
+NameBuffer = "Anonymous function";"notifySuccess";"state_success_notify.enter";"_run";"_completed";"argDone";"Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=17, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=16, work=0)
+Comment: promise2.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: promise3 completing...
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=17, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=17, work=0)
+Comment: promise3.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 47: WinJS.Promise.Join]
+=================================================
+
+=================================================
+Starting [Test 48: WinJS.Promise.As]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=14907
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=18, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Comment: winjspromise completing...
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=18, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=18, work=0)
+Comment: promise1.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=18, work=0)
+Comment: winjspromise.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 48: WinJS.Promise.As]
+=================================================
+
+=================================================
+Starting [Test 49: WinJS.Promise.Any]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=15483
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=19, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=15553
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=20, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Comment: promise1 completing...
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=19, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=19, work=0)
+Comment: winjspromise.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=16013
+	Frame 1: Name=21 (notifySuccess), SourceLocationLength=64, SourceLocationStartIndex=61169
+	Frame 2: Name=37 (state_success_notify.enter), SourceLocationLength=26, SourceLocationStartIndex=47851
+	Frame 3: Name=66 (_run), SourceLocationLength=23, SourceLocationStartIndex=58035
+	Frame 4: Name=73 (_completed), SourceLocationLength=11, SourceLocationStartIndex=56871
+	Frame 5: Name=86 (Anonymous function), SourceLocationLength=42, SourceLocationStartIndex=87501
+NameBuffer = "Anonymous function";"notifySuccess";"state_success_notify.enter";"_run";"_completed";"Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=21, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=19, work=0)
+Comment: promise1.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: promise3 completing...
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=21, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=21, work=0)
+Comment: promise3.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: promise2 completing...
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=20, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=20, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=20, work=0)
+Comment: promise2.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 49: WinJS.Promise.Any]
+=================================================
+
+=================================================
+Starting [Test 50: WinJS.Promise.Any.2]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=16738
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=22, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=16808
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=23, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Comment: promise2 completing...
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=23, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=23, work=0)
+Comment: winjspromise.then
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Anonymous function), SourceLocationLength=51, SourceLocationStartIndex=17268
+	Frame 1: Name=21 (notifySuccess), SourceLocationLength=64, SourceLocationStartIndex=61169
+	Frame 2: Name=37 (state_success_notify.enter), SourceLocationLength=26, SourceLocationStartIndex=47851
+	Frame 3: Name=66 (_run), SourceLocationLength=23, SourceLocationStartIndex=58035
+	Frame 4: Name=73 (_completed), SourceLocationLength=11, SourceLocationStartIndex=56871
+	Frame 5: Name=86 (Anonymous function), SourceLocationLength=42, SourceLocationStartIndex=87501
+NameBuffer = "Anonymous function";"notifySuccess";"state_success_notify.enter";"_run";"_completed";"Anonymous function";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=24, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=23, work=0)
+Comment: promise2.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: promise1 completing...
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=22, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=22, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=22, work=0)
+Comment: promise1.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Comment: promise3 completing...
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=24, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=24, work=0)
+Comment: promise3.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 50: WinJS.Promise.Any.2]
+=================================================
+
+=================================================
+Starting [Test 51: WinJS.Promise.Any.3]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=17993
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=25, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Comment: promise1 completing...
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=25, status=1)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=25, work=0)
+Comment: winjspromise.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=25, work=0)
+Comment: promise1.then
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 51: WinJS.Promise.Any.3]
+=================================================
+
+=================================================
+Starting [Test 52: WinJS.Promise.Cancel]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=18629
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=26, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=26, status=2)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=26, work=0)
+Comment: promise1.then (Error)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=26, work=0)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 52: WinJS.Promise.Cancel]
+=================================================
+
+=================================================
+Starting [Test 53: WinJS.Promise.Cancel.2]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=19193
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=27, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=27, status=2)
+Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=27, work=0)
+Comment: promise1.then (Error)
+Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=0, source=1, work=0)
+PASS [Test 53: WinJS.Promise.Cancel.2]
+=================================================
+
+=================================================
+Starting [Test 54: WinJS.Promise.Is]
+Posting stack trace via ETW:
+	Frame 0: Name=0 (test), SourceLocationLength=55, SourceLocationStartIndex=19725
+	Frame 1: Name=7 (test), SourceLocationLength=18, SourceLocationStartIndex=37562
+	Frame 2: Name=14 (states.running), SourceLocationLength=6, SourceLocationStartIndex=24303
+	Frame 3: Name=31 (runTasks), SourceLocationLength=22, SourceLocationStartIndex=27880
+	Frame 4: Name=42 (run), SourceLocationLength=10, SourceLocationStartIndex=30450
+	Frame 5: Name=48 (Global code), SourceLocationLength=5, SourceLocationStartIndex=20061
+NameBuffer = "test";"test";"states.running";"runTasks";"run";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=28, operationName=Winery.RWinery.asyncOperationOutStatic, relatedContext=0)
+Pass: WinJS.Promise.is(promise1)
+      Actual: true
+
+PASS [Test 54: WinJS.Promise.Is]
+=================================================
+
+Passed: 13
+Failed: 0

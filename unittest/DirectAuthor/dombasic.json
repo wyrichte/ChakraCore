@@ -1,0 +1,4246 @@
+{
+  "testname" : "JS function help",
+  "owner" : "cmurdoch",
+  "validated" : true,
+  "timeout" : 1000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "_comment1" : "Put an underscore \"_\" prefix to comment out a header field.",
+  "_comment2" : "No field in the schema uses the underscore prefix",
+  "runAuthoringTest" : true,
+  "commands" :
+  [
+{
+  "action": "getFunctionHelp",
+  "args": [
+    "..\\..\\Lib\\Author\\References\\domWeb.js",
+    "dombasic.js"
+  ],
+  "events": [
+    {
+      "functionHelpTests": [
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 26,
+          "extentLength": 7,
+          "functionHelp": {
+            "functionName": "alert",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "message",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 43,
+          "extentLength": 6,
+          "functionHelp": {
+            "functionName": "blur",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 59,
+          "extentLength": 16,
+          "functionHelp": {
+            "functionName": "clearImmediate",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "handle",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 85,
+          "extentLength": 15,
+          "functionHelp": {
+            "functionName": "clearInterval",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "handle",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 110,
+          "extentLength": 14,
+          "functionHelp": {
+            "functionName": "clearTimeout",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "handle",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 134,
+          "extentLength": 7,
+          "functionHelp": {
+            "functionName": "close",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 151,
+          "extentLength": 9,
+          "functionHelp": {
+            "functionName": "confirm",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "message",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 170,
+          "extentLength": 7,
+          "functionHelp": {
+            "functionName": "focus",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 187,
+          "extentLength": 8,
+          "functionHelp": {
+            "functionName": "moveBy",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 205,
+          "extentLength": 8,
+          "functionHelp": {
+            "functionName": "moveTo",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 223,
+          "extentLength": 6,
+          "functionHelp": {
+            "functionName": "open",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Window",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "url",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "target",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "features",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "replace",
+                    "description": "",
+                    "type": "Boolean",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 239,
+          "extentLength": 7,
+          "functionHelp": {
+            "functionName": "print",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 256,
+          "extentLength": 8,
+          "functionHelp": {
+            "functionName": "prompt",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "String",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "message",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "defaultValue",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 274,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "resizeBy",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 294,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "resizeTo",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 314,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "scrollBy",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 334,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "scrollTo",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 354,
+          "extentLength": 14,
+          "functionHelp": {
+            "functionName": "setImmediate",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Number",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "expression",
+                    "description": "",
+                    "type": "Object",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "args",
+                    "description": "",
+                    "type": "Object",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 378,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "setInterval",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Number",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "handler",
+                    "description": "",
+                    "type": "Object",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "timeout",
+                    "description": "",
+                    "type": "Object",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "args",
+                    "description": "",
+                    "type": "Object",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 401,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "setTimeout",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Number",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "handler",
+                    "description": "",
+                    "type": "Object",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "timeout",
+                    "description": "",
+                    "type": "Object",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "args",
+                    "description": "",
+                    "type": "Object",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 447,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "addEventListener",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "type",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "listener",
+                    "description": "",
+                    "type": "EventListener",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "useCapture",
+                    "description": "",
+                    "type": "Boolean",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 477,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "adoptNode",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "source",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 500,
+          "extentLength": 25,
+          "functionHelp": {
+            "functionName": "compareDocumentPosition",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Number",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "other",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 537,
+          "extentLength": 17,
+          "functionHelp": {
+            "functionName": "createAttribute",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Attr",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "name",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 566,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "createAttributeNS",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Attr",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "namespaceURI",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "qualifiedName",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 597,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "createCDATASection",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "CDATASection",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "data",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 629,
+          "extentLength": 15,
+          "functionHelp": {
+            "functionName": "createComment",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Comment",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "data",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 656,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "createDocumentFragment",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "DocumentFragment",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 692,
+          "extentLength": 15,
+          "functionHelp": {
+            "functionName": "createElement",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Element",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "tagName",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 719,
+          "extentLength": 17,
+          "functionHelp": {
+            "functionName": "createElementNS",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Element",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "namespaceURI",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "qualifiedName",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 748,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "createEvent",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Event",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "eventInterface",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 773,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "createNodeIterator",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "NodeIterator",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "root",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "whatToShow",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "filter",
+                    "description": "",
+                    "type": "NodeFilter",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "entityReferenceExpansion",
+                    "description": "",
+                    "type": "Boolean",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 805,
+          "extentLength": 29,
+          "functionHelp": {
+            "functionName": "createProcessingInstruction",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "ProcessingInstruction",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "target",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "data",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 846,
+          "extentLength": 16,
+          "functionHelp": {
+            "functionName": "createTextNode",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Text",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "data",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 874,
+          "extentLength": 7,
+          "functionHelp": {
+            "functionName": "close",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 893,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "createRange",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Range",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 918,
+          "extentLength": 16,
+          "functionHelp": {
+            "functionName": "createTextNode",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Text",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "data",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 946,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "createTreeWalker",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "TreeWalker",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "root",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "whatToShow",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "filter",
+                    "description": "",
+                    "type": "NodeFilter",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "entityReferenceExpansion",
+                    "description": "",
+                    "type": "Boolean",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 976,
+          "extentLength": 15,
+          "functionHelp": {
+            "functionName": "dispatchEvent",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "evt",
+                    "description": "",
+                    "type": "Event",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1003,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "elementFromPoint",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Element",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1033,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "execCommand",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "commandId",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "showUI",
+                    "description": "",
+                    "type": "Boolean",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "value",
+                    "description": "",
+                    "type": "Object",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1058,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "execCommandShowHelp",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "commandId",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1091,
+          "extentLength": 7,
+          "functionHelp": {
+            "functionName": "focus",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1110,
+          "extentLength": 16,
+          "functionHelp": {
+            "functionName": "getElementById",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Element",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "elementId",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1138,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "getElementsByName",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "NodeList",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "elementName",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1169,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "getElementsByTagName",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "NodeList",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "tagname",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1203,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "getElementsByTagNameNS",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "NodeList",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "namespaceURI",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "localName",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1239,
+          "extentLength": 14,
+          "functionHelp": {
+            "functionName": "getSelection",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Selection",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1265,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "hasFocus",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1287,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "isDefaultNamespace",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "namespaceURI",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1319,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "isEqualNode",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "arg",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1344,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "isSameNode",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "other",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1368,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "isSupported",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "feature",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "version",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1393,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "lookupNamespaceURI",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "String",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "prefix",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1425,
+          "extentLength": 14,
+          "functionHelp": {
+            "functionName": "lookupPrefix",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "String",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "namespaceURI",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1451,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "normalize",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1474,
+          "extentLength": 6,
+          "functionHelp": {
+            "functionName": "open",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Object",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "url",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "name",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "features",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "replace",
+                    "description": "",
+                    "type": "Boolean",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1492,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "queryCommandEnabled",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "commandId",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1525,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "queryCommandIndeterm",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "commandId",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1559,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "queryCommandState",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "commandId",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1590,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "queryCommandSupported",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "commandId",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1625,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "queryCommandText",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "String",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "commandId",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1655,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "queryCommandValue",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "String",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "commandId",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1686,
+          "extentLength": 15,
+          "functionHelp": {
+            "functionName": "querySelector",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Element",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "selectors",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1713,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "querySelectorAll",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "NodeList",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "selectors",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1743,
+          "extentLength": 16,
+          "functionHelp": {
+            "functionName": "releaseCapture",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1771,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "removeEventListener",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "type",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "listener",
+                    "description": "",
+                    "type": "EventListener",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "useCapture",
+                    "description": "",
+                    "type": "Boolean",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1804,
+          "extentLength": 16,
+          "functionHelp": {
+            "functionName": "updateSettings",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1832,
+          "extentLength": 7,
+          "functionHelp": {
+            "functionName": "write",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "content",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1851,
+          "extentLength": 9,
+          "functionHelp": {
+            "functionName": "writeln",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "content",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1909,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "appendChild",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "newChild",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1950,
+          "extentLength": 14,
+          "functionHelp": {
+            "functionName": "applyElement",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Element",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "apply",
+                    "description": "",
+                    "type": "Element",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "where",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1992,
+          "extentLength": 17,
+          "functionHelp": {
+            "functionName": "clearAttributes",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2037,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "cloneNode",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "deep",
+                    "description": "",
+                    "type": "Boolean",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2076,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "componentFromPoint",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "String",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2124,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "contains",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "child",
+                    "description": "",
+                    "type": "HTMLElement",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2162,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "dragDrop",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2200,
+          "extentLength": 17,
+          "functionHelp": {
+            "functionName": "getAdjacentText",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "String",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "where",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2245,
+          "extentLength": 14,
+          "functionHelp": {
+            "functionName": "getAttribute",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "String",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "name",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2287,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "getAttributeNodeNS",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Attr",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "namespaceURI",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "localName",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2335,
+          "extentLength": 16,
+          "functionHelp": {
+            "functionName": "getAttributeNS",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "String",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "namespaceURI",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "localName",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2379,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "getElementsByClassName",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "NodeList",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "classNames",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2431,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "getElementsByTagName",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "NodeList",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "name",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2481,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "getElementsByTagNameNS",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "NodeList",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "namespaceURI",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "localName",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2533,
+          "extentLength": 14,
+          "functionHelp": {
+            "functionName": "hasAttribute",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "name",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2575,
+          "extentLength": 16,
+          "functionHelp": {
+            "functionName": "hasAttributeNS",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "namespaceURI",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "localName",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2619,
+          "extentLength": 15,
+          "functionHelp": {
+            "functionName": "hasAttributes",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2662,
+          "extentLength": 15,
+          "functionHelp": {
+            "functionName": "hasChildNodes",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2705,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "insertAdjacentElement",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Element",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "position",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "insertedElement",
+                    "description": "",
+                    "type": "Element",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2756,
+          "extentLength": 14,
+          "functionHelp": {
+            "functionName": "insertBefore",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "newChild",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "refChild",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2798,
+          "extentLength": 17,
+          "functionHelp": {
+            "functionName": "mergeAttributes",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "source",
+                    "description": "",
+                    "type": "HTMLElement",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "preserveIdentity",
+                    "description": "",
+                    "type": "Boolean",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2843,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "msMatchesSelector",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "selectors",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2890,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "normalize",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2929,
+          "extentLength": 15,
+          "functionHelp": {
+            "functionName": "querySelector",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Element",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "selectors",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2972,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "querySelectorAll",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "NodeList",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "selectors",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3018,
+          "extentLength": 17,
+          "functionHelp": {
+            "functionName": "removeAttribute",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "name",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3063,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "removeAttributeNode",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Attr",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "oldAttr",
+                    "description": "",
+                    "type": "Attr",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3112,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "removeAttributeNS",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "namespaceURI",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "localName",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3159,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "removeChild",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "oldChild",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3200,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "removeNode",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "deep",
+                    "description": "",
+                    "type": "Boolean",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3240,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "replaceAdjacentText",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "String",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "where",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "newText",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3289,
+          "extentLength": 14,
+          "functionHelp": {
+            "functionName": "replaceChild",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "newChild",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "oldChild",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3331,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "replaceNode",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "replacement",
+                    "description": "",
+                    "type": "Document",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "replacement",
+                    "description": "",
+                    "type": "HTMLElement",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "replacement",
+                    "description": "",
+                    "type": "Attr",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "replacement",
+                    "description": "",
+                    "type": "Text",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3372,
+          "extentLength": 14,
+          "functionHelp": {
+            "functionName": "setAttribute",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "name",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "value",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3414,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "setAttributeNode",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Attr",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "newAttr",
+                    "description": "",
+                    "type": "Attr",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3460,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "setAttributeNodeNS",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Attr",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "newAttr",
+                    "description": "",
+                    "type": "Attr",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3508,
+          "extentLength": 16,
+          "functionHelp": {
+            "functionName": "setAttributeNS",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "namespaceURI",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "qualifiedName",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "value",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3552,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "swapNode",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "otherNode",
+                    "description": "",
+                    "type": "Document",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "otherNode",
+                    "description": "",
+                    "type": "HTMLElement",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "otherNode",
+                    "description": "",
+                    "type": "Attr",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "otherNode",
+                    "description": "",
+                    "type": "Text",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3609,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "appendChild",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "newChild",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3692,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "appendChild",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "newChild",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3779,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "appendChild",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "newChild",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3823,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "querySelectorAll",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "NodeList",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "selectors",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3889,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "appendChild",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Node",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "newChild",
+                    "description": "",
+                    "type": "Node",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3919,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "insertAdjacentHTML",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "where",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "html",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3983,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "javaEnabled",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4016,
+          "extentLength": 14,
+          "functionHelp": {
+            "functionName": "taintEnabled",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Boolean",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4082,
+          "extentLength": 6,
+          "functionHelp": {
+            "functionName": "item",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Element",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "nameOrIndex",
+                    "description": "",
+                    "type": "Object",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "optionalIndex",
+                    "description": "",
+                    "type": "Object",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4107,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "namedItem",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "Element",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "name",
+                    "description": "",
+                    "type": "String",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

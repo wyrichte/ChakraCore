@@ -1,0 +1,67 @@
+TARGETNAME = ut_jsdiag
+TARGETTYPE = DYNLINK
+
+TEST_CODE=1
+!if "$(_BUILDARCH)" == "arm" || "$(_BUILDARCH)" == "arm64"
+NT_SIGNCODE=1
+!endif
+
+C_DEFINES = $(C_DEFINES) -DWINNT -DUNICODE -D_UNICODE -DWIN32_DCOM
+INCLUDES = ..\..\exe\jdtest;..\..\dll\JScriptDiag;$(OBJECT_ROOT)\inetcore\jscript\publish\$(O);$(INCLUDES)
+
+!if "$(DBGSDK_INC_PATH)" != ""
+INCLUDES = $(DBGSDK_INC_PATH);$(INCLUDES);
+!else
+INCLUDES = $(SDKTOOLS_INC_PATH);$(INCLUDES);
+!endif
+!if "$(DBGSDK_LIB_PATH)" != ""
+DBGSDK_LIB_PATH = $(DBGSDK_LIB_PATH)\$(TARGET_DIRECTORY)
+!else
+DBGSDK_LIB_PATH = $(SDK_LIB_PATH)
+!endif
+!if "$(DBGLIB_LIB_PATH)" != ""
+DBGLIB_LIB_PATH = $(DBGLIB_LIB_PATH)\$(TARGET_DIRECTORY)
+!else
+DBGLIB_LIB_PATH = $(SDKTOOLS_LIB_PATH)
+!endif
+
+# Link to atlsd.lib without requiring DEBUG_CRTS
+ATL_INCLUDES = $(ATL_INC_ROOT)\atlmfc
+C_DEFINES = $(C_DEFINES) /D_ATL_STATIC_REGISTRY
+ATL_LIBS = $(ATL_LIB_PATH)\atlthunk.lib
+!if !$(FREEBUILD)
+ATL_LIBS = $(ATL_LIB_PATH)\atlsd.lib $(ATL_LIBS)
+!else
+ATL_LIBS = $(ATL_LIB_PATH)\atls.lib $(ATL_LIBS)
+!endif
+
+SOURCES = \
+    SinkDebugSite.cpp \
+    ut_jsdiag.cpp \
+
+DLLDEF_OBJECTS = \
+    $(DBGLIB_LIB_PATH)\engextcpp.lib
+
+LINKLIBS = \
+    $(DBGSDK_LIB_PATH)\dbghelp.lib \
+    $(DBGSDK_LIB_PATH)\dbgeng.lib \
+    $(DBGLIB_LIB_PATH)\engextcpp.lib \
+    $(OBJ_PATH)\..\..\dll\jscriptdiag\release\$(O)\guids.obj \
+
+TARGETLIBS = \
+    $(ATL_LIBS) \
+    $(SDK_LIB_PATH)\advapi32.lib \
+    $(SDK_LIB_PATH)\kernel32.lib \
+    $(SDK_LIB_PATH)\ole32.lib \
+    $(SDK_LIB_PATH)\oleaut32.lib \
+    $(SDK_LIB_PATH)\user32.lib \
+
+USE_MSVCRT = 1
+USE_STL = 1
+UMTYPE = windows
+
+MSC_WARNING_LEVEL = /W4 /WX
+
+PRECOMPILED_INCLUDE=stdafx.h
+PRECOMPILED_SOURCEFILE=stdafx.cpp
+PRECOMPILED_CXX=1

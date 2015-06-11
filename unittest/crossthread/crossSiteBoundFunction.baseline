@@ -1,0 +1,18 @@
+-- Test Bind
+local function
+
+-- Test prop get
+remoteFoo
+localFoo
+remoteBar
+localBar
+
+-- Test prop set
+remoteFoo2
+localFoo
+remoteBar
+localBar
+
+-- Test remote call
+local function
+remote function

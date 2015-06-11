@@ -1,0 +1,74 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": "undefined",
+      "bar": "undefined",
+      "callfn": "undefined",
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "Run": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "x": "1",
+      "bar": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "bar",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "callfn": "undefined",
+      "[Globals]": {
+        "Run": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "name": "Run",
+          "prototype": "{...}"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 237,
+        "length": 1,
+        "text": "y",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 311,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 435,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  }
+]

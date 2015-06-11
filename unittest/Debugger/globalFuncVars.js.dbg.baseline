@@ -1,0 +1,194 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "c": "undefined",
+        "obj": "undefined"
+      },
+      "[Scope]1": {
+        "arguments": "{...}",
+        "mm": "[22,33]",
+        "a": "10",
+        "b": "{...}",
+        "c1": "undefined",
+        "f1": "<large string>"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>",
+        "obj": "undefined",
+        "c": "undefined"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "mm": "[22,33]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 41,
+        "length": 3,
+        "text": "ex1",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 260,
+        "length": 121,
+        "text": "eval(' try { \\n abc.def = 10;\\n } catch(ex1) { \\n ex1; /**bp:stack();locals(1);evaluate(\"ex1\");evaluate(\"c1\")**/ } \\nc;')",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 389,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "c": "undefined",
+        "obj": "undefined"
+      },
+      "ex1": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "[Scope]1": {
+        "arguments": "{...}",
+        "mm": "[22,33]",
+        "a": "10",
+        "b": "{...}",
+        "c1": "[1]",
+        "f1": "<large string>"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>",
+        "obj": "undefined",
+        "c": "undefined"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "ex1": "<large string>"
+    }
+  },
+  {
+    "evaluate": {
+      "c1": "[1]"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "c": "undefined",
+        "obj": "undefined"
+      },
+      "foo": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo",
+        "prototype": "{...}"
+      },
+      "bar": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "bar",
+        "prototype": "{...}"
+      },
+      "obj": "undefined",
+      "c": "undefined"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "c": "undefined",
+        "obj": "undefined"
+      },
+      "ex2": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "foo": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo",
+        "prototype": "{...}"
+      },
+      "bar": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "bar",
+        "prototype": "{...}"
+      },
+      "obj": "undefined",
+      "c": "undefined"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "c": "10",
+        "obj": "{...}"
+      },
+      "foo": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo",
+        "prototype": "{...}"
+      },
+      "bar": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "bar",
+        "prototype": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "x": "10",
+        "y": "[11,22]"
+      },
+      "c": "10"
+    }
+  },
+  {
+    "evaluate": {
+      "y": "[11,22]"
+    }
+  }
+]

@@ -1,0 +1,84 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "[Uninitialized block variable]",
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>",
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 79,
+        "length": 13,
+        "text": "let a = \"foo\"",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 195,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 455,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[foo returned]": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "y": "10",
+      "z": "10",
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>",
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "y": "10",
+      "z": "10",
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>",
+        "Run": "<large string>"
+      }
+    }
+  }
+]

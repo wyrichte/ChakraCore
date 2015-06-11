@@ -1,0 +1,46 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "2",
+      "x#1": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "x": "2"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "2",
+      "x#1": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "x": "2"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "1",
+      "[Globals]": ""
+    }
+  }
+]

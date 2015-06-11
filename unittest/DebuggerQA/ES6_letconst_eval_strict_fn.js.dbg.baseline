@@ -1,0 +1,26 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callee": "<large string>",
+        "caller": "<large string>",
+        "length": "0"
+      },
+      "a": "1",
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "a": "1"
+    }
+  }
+]

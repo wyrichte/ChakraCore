@@ -1,0 +1,287 @@
+type tests
+In AnimalFactory::Create
+PASS	0: marshalUInt32
+	Pass: typeof  6
+		  Actual: number
+
+	Pass: UInt32
+		  Actual: 6
+
+PASS	1: marshalInt64
+	Pass: typeof  52
+		  Actual: number
+
+	Pass: Int64
+		  Actual: 52
+
+PASS	2: marshalInt32
+	Pass: typeof  5
+		  Actual: number
+
+	Pass: Int32
+		  Actual: 5
+
+PASS	3: marshalDouble
+	Pass: typeof  1.1
+		  Actual: number
+
+	Pass: Double
+		  Actual: 1.1
+
+PASS	4: marshalBool
+	Pass: typeof  true
+		  Actual: boolean
+
+	Pass: Bool
+		  Actual: true
+
+PASS	5: marshalBool
+	Pass: typeof  false
+		  Actual: boolean
+
+	Pass: Bool
+		  Actual: false
+
+PASS	6: marshalChar16
+	Pass: typeof  a
+		  Actual: string
+
+	Pass: Char16
+		  Actual: a
+
+PASS	7: marshalUInt8
+	Pass: typeof  7
+		  Actual: number
+
+	Pass: UInt8
+		  Actual: 7
+
+PASS	8: marshalSingle
+	Pass: typeof  59
+		  Actual: number
+
+	Pass: Single
+		  Actual: 59
+
+PASS	9: marshalUInt64
+	Pass: typeof  53
+		  Actual: number
+
+	Pass: UInt64
+		  Actual: 53
+
+PASS	10: marshalInt32
+	Pass: typeof  -1
+		  Actual: number
+
+	Pass: Int32
+		  Actual: -1
+
+PASS	11: marshalInt32
+	Pass: typeof  0
+		  Actual: number
+
+	Pass: Int32
+		  Actual: 0
+
+PASS	12: marshalInt32
+	Pass: typeof  -1
+		  Actual: number
+
+	Pass: Int32
+		  Actual: -1
+
+PASS	13: marshalInt32
+	Pass: typeof  1
+		  Actual: number
+
+	Pass: Int32
+		  Actual: 1
+
+PASS	14: marshalInt32
+	Pass: typeof  -1
+		  Actual: number
+
+	Pass: Int32
+		  Actual: -1
+
+PASS	15: marshalUInt8
+	Pass: typeof  255
+		  Actual: number
+
+	Pass: UInt8
+		  Actual: 255
+
+PASS	16: marshalUInt8
+	Pass: typeof  0
+		  Actual: number
+
+	Pass: UInt8
+		  Actual: 0
+
+PASS	17: marshalUInt8
+	Pass: typeof  255
+		  Actual: number
+
+	Pass: UInt8
+		  Actual: 255
+
+PASS	18: marshalUInt8
+	Pass: typeof  1
+		  Actual: number
+
+	Pass: UInt8
+		  Actual: 1
+
+PASS	19: marshalUInt8
+	Pass: typeof  255
+		  Actual: number
+
+	Pass: UInt8
+		  Actual: 255
+
+PASS	20: marshalUInt32
+	Pass: typeof  4294967295
+		  Actual: number
+
+	Pass: UInt32
+		  Actual: 4294967295
+
+PASS	21: marshalUInt32
+	Pass: typeof  0
+		  Actual: number
+
+	Pass: UInt32
+		  Actual: 0
+
+PASS	22: marshalUInt32
+	Pass: typeof  4294967295
+		  Actual: number
+
+	Pass: UInt32
+		  Actual: 4294967295
+
+PASS	23: marshalUInt32
+	Pass: typeof  1
+		  Actual: number
+
+	Pass: UInt32
+		  Actual: 1
+
+PASS	24: marshalUInt32
+	Pass: typeof  4294967295
+		  Actual: number
+
+	Pass: UInt32
+		  Actual: 4294967295
+
+PASS	25: marshalBool
+	Pass: typeof  true
+		  Actual: boolean
+
+	Pass: Bool
+		  Actual: true
+
+PASS	26: marshalBool
+	Pass: typeof  true
+		  Actual: boolean
+
+	Pass: Bool
+		  Actual: true
+
+PASS	27: marshalBool
+	Pass: typeof  true
+		  Actual: boolean
+
+	Pass: Bool
+		  Actual: true
+
+PASS	28: marshalBool
+	Pass: typeof  false
+		  Actual: boolean
+
+	Pass: Bool
+		  Actual: false
+
+PASS	29: marshalBool
+	Pass: typeof  true
+		  Actual: boolean
+
+	Pass: Bool
+		  Actual: true
+
+PASS	30: marshalChar16
+	Pass: Char16 : expected error
+		  Actual: TypeError: Invalid procedure call or argument
+
+PASS	31: marshalChar16
+	Pass: Char16 : expected error
+		  Actual: TypeError: Invalid procedure call or argument
+
+PASS	32: marshalChar16
+	Pass: Char16 : expected error
+		  Actual: TypeError: Invalid procedure call or argument
+
+PASS	33: marshalChar16
+	Pass: Char16 : expected error
+		  Actual: TypeError: Invalid procedure call or argument
+
+PASS	34: marshalUInt32
+	Pass: typeof  0
+		  Actual: number
+
+	Pass: UInt32
+		  Actual: 0
+
+PASS	35: marshalInt64
+	Pass: typeof  0
+		  Actual: number
+
+	Pass: Int64
+		  Actual: 0
+
+PASS	36: marshalInt32
+	Pass: typeof  0
+		  Actual: number
+
+	Pass: Int32
+		  Actual: 0
+
+PASS	37: marshalDouble
+	Pass: typeof  0
+		  Actual: number
+
+	Pass: Double
+		  Actual: 0
+
+PASS	38: marshalBool
+	Pass: typeof  false
+		  Actual: boolean
+
+	Pass: Bool
+		  Actual: false
+
+PASS	39: marshalUInt8
+	Pass: typeof  0
+		  Actual: number
+
+	Pass: UInt8
+		  Actual: 0
+
+PASS	40: marshalSingle
+	Pass: typeof  0
+		  Actual: number
+
+	Pass: Single
+		  Actual: 0
+
+PASS	41: marshalUInt64
+	Pass: typeof  0
+		  Actual: number
+
+	Pass: UInt64
+		  Actual: 0
+
+
+Passed: 42
+Failed: 0

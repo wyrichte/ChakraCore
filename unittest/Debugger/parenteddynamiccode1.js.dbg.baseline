@@ -1,0 +1,122 @@
+[
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "parenteddynamiccode1.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "eval('var x1 = 1;');var f1 = new Function();f1();",
+              "Children": [
+                {
+                  "Name": "eval code (2)",
+                  "Text": "var x1 = 1;"
+                },
+                {
+                  "Name": "Function code (1)",
+                  "Text": "function anonymous() {\n\n}"
+                }
+              ]
+            },
+            {
+              "Name": "Function code (2)",
+              "Text": "function anonymous() {\neval('var x2 = 1;');\n}",
+              "Children": [
+                {
+                  "Name": "eval code (3)",
+                  "Text": "var x2 = 1;"
+                }
+              ]
+            },
+            {
+              "Name": "Function code (3)",
+              "Text": "function anonymous() {\neval('var x3 = 1;');var f4 = new Function('var x4 = 1;'); f4();\n}",
+              "Children": [
+                {
+                  "Name": "eval code (6)",
+                  "Text": "var x3 = 1;"
+                },
+                {
+                  "Name": "Function code (4)",
+                  "Text": "function anonymous() {\nvar x4 = 1;\n}"
+                }
+              ]
+            },
+            {
+              "Name": "eval code (4)",
+              "Text": "var x5 = 1;eval('var x6 = 1;');",
+              "Children": [
+                {
+                  "Name": "eval code (5)",
+                  "Text": "var x6 = 1;"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "parenteddynamiccode1.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "eval('var x1 = 1;');var f1 = new Function();f1();",
+              "Children": [
+                {
+                  "Name": "eval code (2)",
+                  "Text": "var x1 = 1;"
+                },
+                {
+                  "Name": "Function code (1)",
+                  "Text": "function anonymous() {\n\n}"
+                }
+              ]
+            },
+            {
+              "Name": "Function code (2)",
+              "Text": "function anonymous() {\neval('var x2 = 1;');\n}",
+              "Children": [
+                {
+                  "Name": "eval code (3)",
+                  "Text": "var x2 = 1;"
+                }
+              ]
+            },
+            {
+              "Name": "Function code (3)",
+              "Text": "function anonymous() {\neval('var x3 = 1;');var f4 = new Function('var x4 = 1;'); f4();\n}",
+              "Children": [
+                {
+                  "Name": "eval code (6)",
+                  "Text": "var x3 = 1;"
+                },
+                {
+                  "Name": "Function code (4)",
+                  "Text": "function anonymous() {\nvar x4 = 1;\n}"
+                }
+              ]
+            },
+            {
+              "Name": "eval code (4)",
+              "Text": "var x5 = 1;eval('var x6 = 1;');",
+              "Children": [
+                {
+                  "Name": "eval code (5)",
+                  "Text": "var x6 = 1;"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

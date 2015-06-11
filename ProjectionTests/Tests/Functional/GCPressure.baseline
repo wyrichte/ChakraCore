@@ -1,0 +1,36 @@
+GCPressureAttribute consumption tests
+
+=================================================
+Starting [Test 1: Associated GC pressure of class without attribute]
+Pass: Memory Footprint of Animals.Animal
+      Actual: -1
+
+PASS [Test 1: Associated GC pressure of class without attribute]
+=================================================
+
+=================================================
+Starting [Test 2: Associated GC pressure of class with attribute value "Low"]
+Pass: Memory Footprint of DevTests.GCPressure.SmallClass
+      Actual: 0
+
+PASS [Test 2: Associated GC pressure of class with attribute value "Low"]
+=================================================
+
+=================================================
+Starting [Test 3: Associated GC pressure of class with attribute value "Medium"]
+Pass: Memory Footprint of DevTests.GCPressure.MediumClass
+      Actual: 1
+
+PASS [Test 3: Associated GC pressure of class with attribute value "Medium"]
+=================================================
+
+=================================================
+Starting [Test 4: Associated GC pressure of class with attribute value "High"]
+Pass: Memory Footprint of DevTests.GCPressure.LargeClass
+      Actual: 2
+
+PASS [Test 4: Associated GC pressure of class with attribute value "High"]
+=================================================
+
+Passed: 4
+Failed: 0

@@ -1,0 +1,117 @@
+Intl Collator Tests
+
+=================================================
+Starting [Test 1: Test Valid Options]
+Pass: Comparing with default options.
+      Actual: -1
+
+Pass: Comparing with variant sensitivity.
+      Actual: -1
+
+Pass: Comparing with variant sensitivity.
+      Actual: 1
+
+Pass: Comparing with variant sensitivity.
+      Actual: -1
+
+Pass: Comparing with case sensitivity.
+      Actual: -1
+
+Pass: Comparing with case sensitivity.
+      Actual: -1
+
+Pass: Comparing with case sensitivity.
+      Actual: 0
+
+Pass: Comparing with accent sensitivity.
+      Actual: 1
+
+Pass: Comparing with accent sensitivity.
+      Actual: 0
+
+Pass: Comparing with accent sensitivity.
+      Actual: -1
+
+Pass: Comparing with base sensitivity.
+      Actual: 0
+
+Pass: Comparing with base sensitivity.
+      Actual: 0
+
+Pass: Comparing with base sensitivity.
+      Actual: -1
+
+Pass: Comparing with collation option of phonebk.
+      Actual: 1
+
+Pass: Comparing with collation unciode extension phonebk.
+      Actual: 1
+
+Pass: Comparing without collation option of phonebk.
+      Actual: -1
+
+Pass: Comparing with numeric option set to true.
+      Actual: -1
+
+Pass: Comparing with numeric unicode extension set to true.
+      Actual: -1
+
+Pass: Comparing with numeric option set to false.
+      Actual: 1
+
+Pass: Comparing with numeric unicode extension set to false.
+      Actual: 1
+
+Pass: Comparing with collation set to phonebk and numeric set to true.
+      Actual: -1
+
+Pass: Comparing with collation set to phonebk and numeric set to true.
+      Actual: 1
+
+Pass: Comparing with collation set to phonebk and numeric set to false.
+      Actual: 1
+
+Pass: Comparing with collation set to phonebk and numeric set to false.
+      Actual: 1
+
+Pass: Comparing with ignore punctuation set to true.
+      Actual: 0
+
+Pass: Comparing with ignore punctuation set to true.
+      Actual: 1
+
+PASS [Test 1: Test Valid Options]
+=================================================
+
+=================================================
+Starting [Test 2: Test Invalid Options]
+Pass: Exception didn't have the correct valid values when testing option:caseFirst.
+Message: Option value 'invalid' for 'caseFirst' is outside of valid range. Expected: ['upper', 'lower', 'false']
+Searched For:['upper', 'lower', 'false']
+      Actual: true
+
+Pass: Exception didn't have the correct valid values when testing option:caseFirst.
+Message: Option value 'invalid' for 'caseFirst' is outside of valid range. Expected: ['upper', 'lower', 'false']
+Searched For:['upper', 'lower', 'false']
+      Actual: true
+
+Pass: Testing invalid numeric option.
+      Actual: true
+
+Pass: Testing invalid numeric option.
+      Actual: false
+
+Pass: Testing invalid ignorePunctuation option.
+      Actual: true
+
+Pass: Testing invalid collation option.
+      Actual: default
+
+Pass: Testing invalid colation option.
+      Actual: default
+
+PASS [Test 2: Test Invalid Options]
+=================================================
+
+Passed: 2
+Failed: 0

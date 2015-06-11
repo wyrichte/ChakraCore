@@ -1,0 +1,28 @@
+ <!doctype>
+<html>
+<head>
+</head>
+<body>
+<button id="aButton">hello </button>
+<h1>"SUB"</h1>
+<script type="text/javascript">
+window.name = "SUB";
+
+var data1 = {};
+var data2 = {};
+var data3 = {};
+var data4 = {};
+var myArray = [data1, data2, data3, data4];
+var myArray1 = [data1, data2, data3, data4];
+var myObject = { one: 1, two: 2, three: 3, four: 4 };
+var obj = {};
+Object.defineProperty(obj, "test", { get: function() {document.write("get"); return 10;}, set: function() {value = 5;}});
+
+var evalString = "eval('document.write(window.name)')";
+//var evalString = "this.eval('eval(\"(document.write(window.name))\")')";
+//var evalString = "eval('eval(\"(document.write(window.name))\")')";
+
+
+</script>
+</body>
+</html> 

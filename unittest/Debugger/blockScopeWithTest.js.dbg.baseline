@@ -1,0 +1,93 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "c": "1",
+      "dConst": "2",
+      "b": "4",
+      "a": "3",
+      "o": {
+        "__proto__": "{...}",
+        "p1": "1",
+        "p2": "2"
+      },
+      "[Globals]": {
+        "blockScopeWithTestFunc": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "b": "4",
+      "a": "3",
+      "o": {
+        "__proto__": "{...}",
+        "p1": "1",
+        "p2": "2"
+      },
+      "[Globals]": {
+        "blockScopeWithTestFunc": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "3",
+      "o": {
+        "__proto__": "{...}",
+        "p1": "1",
+        "p2": "2"
+      },
+      "[Globals]": {
+        "blockScopeWithTestFunc": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "o": {
+        "__proto__": "{...}",
+        "p1": "1",
+        "p2": "2"
+      },
+      "[Globals]": {
+        "blockScopeWithTestFunc": "<large string>"
+      }
+    }
+  }
+]

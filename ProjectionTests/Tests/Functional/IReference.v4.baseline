@@ -1,0 +1,1009 @@
+Marshaling in and out of IReference
+
+=================================================
+Starting [Test 1: Reference_In: null]
+Pass: testBoolean_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testString_ReferenceIn(null) returned (TypeError: Object doesn't support property or method 'testString_ReferenceIn')
+      Actual: true
+
+Pass: testChar16_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testChar16_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testUInt8_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testUInt8_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testInt16_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testInt16_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testUInt16_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testUInt16_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testInt32_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testInt32_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testUInt32_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testUInt32_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testInt64_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testInt64_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testUInt64_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testUInt64_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testFloat_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testFloat_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testDouble_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testDouble_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testGuid_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testGuid_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testDate_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testDate_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testInspectable_ReferenceIn(null) returned (TypeError: Object doesn't support property or method 'testInspectable_ReferenceIn')
+      Actual: true
+
+Pass: testFish_ReferenceIn(null) returned (TypeError: Object doesn't support property or method 'testFish_ReferenceIn')
+      Actual: true
+
+Pass: testVector_ReferenceIn(null) returned (TypeError: Object doesn't support property or method 'testVector_ReferenceIn')
+      Actual: true
+
+Pass: testRCIObservable_ReferenceIn(null) returned (TypeError: Object doesn't support property or method 'testRCIObservable_ReferenceIn')
+      Actual: true
+
+Pass: testDimensions_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testDimensions_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testTimeSpan_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testTimeSpan_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testPoint_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testPoint_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testSize_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testSize_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testRect_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testRect_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testEnum_ReferenceIn(null).isValidType
+      Actual: true
+
+Pass: testEnum_ReferenceIn(null).isNull
+      Actual: true
+
+Pass: testDelegate_ReferenceIn(null) returned (TypeError: Object doesn't support property or method 'testDelegate_ReferenceIn')
+      Actual: true
+
+PASS [Test 1: Reference_In: null]
+=================================================
+
+=================================================
+Starting [Test 2: Reference_In: undefined]
+Pass: testBoolean_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testString_ReferenceIn(undefined) returned (TypeError: Object doesn't support property or method 'testString_ReferenceIn')
+      Actual: true
+
+Pass: testChar16_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testChar16_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testUInt8_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testUInt8_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testInt16_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testInt16_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testUInt16_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testUInt16_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testInt32_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testInt32_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testUInt32_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testUInt32_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testInt64_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testInt64_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testUInt64_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testUInt64_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testFloat_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testFloat_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testDouble_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testDouble_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testGuid_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testGuid_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testDate_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testDate_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testInspectable_ReferenceIn(undefined) returned (TypeError: Object doesn't support property or method 'testInspectable_ReferenceIn')
+      Actual: true
+
+Pass: testFish_ReferenceIn(undefined) returned (TypeError: Object doesn't support property or method 'testFish_ReferenceIn')
+      Actual: true
+
+Pass: testVector_ReferenceIn(undefined) returned (TypeError: Object doesn't support property or method 'testVector_ReferenceIn')
+      Actual: true
+
+Pass: testRCIObservable_ReferenceIn(undefined) returned (TypeError: Object doesn't support property or method 'testRCIObservable_ReferenceIn')
+      Actual: true
+
+Pass: testDimensions_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testDimensions_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testTimeSpan_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testTimeSpan_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testPoint_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testPoint_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testSize_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testSize_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testRect_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testRect_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testEnum_ReferenceIn(undefined).isValidType
+      Actual: true
+
+Pass: testEnum_ReferenceIn(undefined).isNull
+      Actual: true
+
+Pass: testDelegate_ReferenceIn(undefined) returned (TypeError: Object doesn't support property or method 'testDelegate_ReferenceIn')
+      Actual: true
+
+PASS [Test 2: Reference_In: undefined]
+=================================================
+
+=================================================
+Starting [Test 3: Reference_In: Boolean]
+Pass: testBoolean_ReferenceIn(true).isNull
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(true).isValidType
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(true).outValue
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(false).isNull
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(false).isValidType
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(false).outValue
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(new Boolean(0)).isNull
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(new Boolean(0)).isValidType
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(new Boolean(0)).outValue
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(new Boolean(1)).isNull
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(new Boolean(1)).isValidType
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(new Boolean(1)).outValue
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(new Boolean("")).isNull
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(new Boolean("")).isValidType
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(new Boolean("")).outValue
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(new Boolean(null)).isNull
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(new Boolean(null)).isValidType
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(new Boolean(null)).outValue
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(new Boolean(NaN)).isNull
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(new Boolean(NaN)).isValidType
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(new Boolean(NaN)).outValue
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(new Boolean("false")).isNull
+      Actual: false
+
+Pass: testBoolean_ReferenceIn(new Boolean("false")).isValidType
+      Actual: true
+
+Pass: testBoolean_ReferenceIn(new Boolean("false")).outValue
+      Actual: true
+
+PASS [Test 3: Reference_In: Boolean]
+=================================================
+
+=================================================
+Starting [Test 4: Reference_In: String]
+Pass: testString_ReferenceIn("String1") returned (TypeError: Object doesn't support property or method 'testString_ReferenceIn')
+      Actual: true
+
+Pass: testString_ReferenceIn("") returned (TypeError: Object doesn't support property or method 'testString_ReferenceIn')
+      Actual: true
+
+Pass: testString_ReferenceIn(new String("String2")) returned (TypeError: Object doesn't support property or method 'testString_ReferenceIn')
+      Actual: true
+
+Pass: testString_ReferenceIn(new String("String2")) returned (TypeError: Object doesn't support property or method 'testString_ReferenceIn')
+      Actual: true
+
+PASS [Test 4: Reference_In: String]
+=================================================
+
+=================================================
+Starting [Test 5: Reference_In: Char16]
+Pass: testChar16_ReferenceIn("a").isNull
+      Actual: false
+
+Pass: testChar16_ReferenceIn("a").isValidType
+      Actual: true
+
+Pass: testChar16_ReferenceIn("a").outValue
+      Actual: a
+
+PASS [Test 5: Reference_In: Char16]
+=================================================
+
+=================================================
+Starting [Test 6: Reference_In: UInt8]
+Pass: testCharUInt8_ReferenceIn(0x18).isNull
+      Actual: false
+
+Pass: testUInt8_ReferenceIn(0x18).isValidType
+      Actual: true
+
+Pass: testUInt8_ReferenceIn(0x18).outValue
+      Actual: 24
+
+Pass: testCharUInt8_ReferenceIn(0).isNull
+      Actual: false
+
+Pass: testUInt8_ReferenceIn(0).isValidType
+      Actual: true
+
+Pass: testUInt8_ReferenceIn(0).outValue
+      Actual: 0
+
+PASS [Test 6: Reference_In: UInt8]
+=================================================
+
+=================================================
+Starting [Test 7: Reference_In: Int16]
+Pass: testInt16_ReferenceIn(-40).isNull
+      Actual: false
+
+Pass: testInt16_ReferenceIn(-40).isValidType
+      Actual: true
+
+Pass: testInt16_ReferenceIn(-40).outValue
+      Actual: -40
+
+Pass: testInt16_ReferenceIn(0).isNull
+      Actual: false
+
+Pass: testInt16_ReferenceIn(0).isValidType
+      Actual: true
+
+Pass: testInt16_ReferenceIn(0).outValue
+      Actual: 0
+
+PASS [Test 7: Reference_In: Int16]
+=================================================
+
+=================================================
+Starting [Test 8: Reference_In: UInt16]
+Pass: testUInt16_ReferenceIn(40).isNull
+      Actual: false
+
+Pass: testUInt16_ReferenceIn(40).isValidType
+      Actual: true
+
+Pass: testUInt16_ReferenceIn(40).outValue
+      Actual: 40
+
+Pass: testUInt16_ReferenceIn(0).isNull
+      Actual: false
+
+Pass: testUInt16_ReferenceIn(0).isValidType
+      Actual: true
+
+Pass: testUInt16_ReferenceIn(0).outValue
+      Actual: 0
+
+PASS [Test 8: Reference_In: UInt16]
+=================================================
+
+=================================================
+Starting [Test 9: Reference_In: Int32]
+Pass: testCharInt32_ReferenceIn(-4000).isNull
+      Actual: false
+
+Pass: testInt32_ReferenceIn(-4000).isValidType
+      Actual: true
+
+Pass: testInt32_ReferenceIn(-4000).outValue
+      Actual: -4000
+
+Pass: testCharInt32_ReferenceIn(0).isNull
+      Actual: false
+
+Pass: testInt32_ReferenceIn(0).isValidType
+      Actual: true
+
+Pass: testInt32_ReferenceIn(0).outValue
+      Actual: 0
+
+PASS [Test 9: Reference_In: Int32]
+=================================================
+
+=================================================
+Starting [Test 10: Reference_In: UInt32]
+Pass: testCharUInt32_ReferenceIn(4000).isNull
+      Actual: false
+
+Pass: testUInt32_ReferenceIn(4000).isValidType
+      Actual: true
+
+Pass: testUInt32_ReferenceIn(4000).outValue
+      Actual: 4000
+
+Pass: testCharUInt32_ReferenceIn(0).isNull
+      Actual: false
+
+Pass: testUInt32_ReferenceIn(0).isValidType
+      Actual: true
+
+Pass: testUInt32_ReferenceIn(0).outValue
+      Actual: 0
+
+PASS [Test 10: Reference_In: UInt32]
+=================================================
+
+=================================================
+Starting [Test 11: Reference_In: Int64]
+Pass: testCharInt64_ReferenceIn(-4000).isNull
+      Actual: false
+
+Pass: testInt64_ReferenceIn(-4000).isValidType
+      Actual: true
+
+Pass: testInt64_ReferenceIn(-4000).outValue
+      Actual: -4000
+
+Pass: testCharInt64_ReferenceIn(0).isNull
+      Actual: false
+
+Pass: testInt64_ReferenceIn(0).isValidType
+      Actual: true
+
+Pass: testInt64_ReferenceIn(0).outValue
+      Actual: 0
+
+PASS [Test 11: Reference_In: Int64]
+=================================================
+
+=================================================
+Starting [Test 12: Reference_In: UInt64]
+Pass: testCharUInt64_ReferenceIn(4000).isNull
+      Actual: false
+
+Pass: testUInt64_ReferenceIn(4000).isValidType
+      Actual: true
+
+Pass: testUInt64_ReferenceIn(4000).outValue
+      Actual: 4000
+
+Pass: testCharUInt64_ReferenceIn(0).isNull
+      Actual: false
+
+Pass: testUInt64_ReferenceIn(0).isValidType
+      Actual: true
+
+Pass: testUInt64_ReferenceIn(0).outValue
+      Actual: 0
+
+PASS [Test 12: Reference_In: UInt64]
+=================================================
+
+=================================================
+Starting [Test 13: Reference_In: Float]
+Pass: testCharFloat_ReferenceIn(88.30000305175781).isNull
+      Actual: false
+
+Pass: testFloat_ReferenceIn(88.30000305175781).isValidType
+      Actual: true
+
+Pass: testFloat_ReferenceIn(88.30000305175781).outValue
+      Actual: 88.30000305175781
+
+Pass: testCharFloat_ReferenceIn(0).isNull
+      Actual: false
+
+Pass: testFloat_ReferenceIn(0).isValidType
+      Actual: true
+
+Pass: testFloat_ReferenceIn(0).outValue
+      Actual: 0
+
+PASS [Test 13: Reference_In: Float]
+=================================================
+
+=================================================
+Starting [Test 14: Reference_In: Double]
+Pass: testCharDouble_ReferenceIn(88.3).isNull
+      Actual: false
+
+Pass: testDouble_ReferenceIn(88.3).isValidType
+      Actual: true
+
+Pass: testDouble_ReferenceIn(88.3).outValue
+      Actual: 88.3
+
+Pass: testCharDouble_ReferenceIn(0).isNull
+      Actual: false
+
+Pass: testDouble_ReferenceIn(0).isValidType
+      Actual: true
+
+Pass: testDouble_ReferenceIn(0).outValue
+      Actual: 0
+
+PASS [Test 14: Reference_In: Double]
+=================================================
+
+=================================================
+Starting [Test 15: Reference_In: Guid]
+Pass: testCharGuid_ReferenceIn("{40435D4E-D37B-42E6-8A3E-9E17D020609E}").isNull
+      Actual: false
+
+Pass: testGuid_ReferenceIn("{40435D4E-D37B-42E6-8A3E-9E17D020609E}").isValidType
+      Actual: true
+
+Pass: testGuid_ReferenceIn("{40435D4E-D37B-42E6-8A3E-9E17D020609E}").outValue
+      Actual: 40435d4e-d37b-42e6-8a3e-9e17d020609e
+
+PASS [Test 15: Reference_In: Guid]
+=================================================
+
+=================================================
+Starting [Test 16: Reference_In: Date]
+Pass: testDate_ReferenceIn(winrtDate).isNull
+      Actual: false
+
+Pass: testDate_ReferenceIn(winrtDate).isValidType
+      Actual: true
+
+Pass: testDate_ReferenceIn(winrtDate).outValue
+      Actual: Sun Dec 31 16:00:00 PST 1600
+
+Pass: testDate_ReferenceIn(jsDate).isNull
+      Actual: false
+
+Pass: testDate_ReferenceIn(jsDate).isValidType
+      Actual: true
+
+Pass: testDate_ReferenceIn(jsDate).outValue
+      Actual: Sun Jun 24 11:33:00 PDT 1979
+
+PASS [Test 16: Reference_In: Date]
+=================================================
+
+=================================================
+Starting [Test 17: Reference_In: Inspectable]
+Pass: testInspectable_ReferenceIn(myAnimal) returned (TypeError: Object doesn't support property or method 'testInspectable_ReferenceIn')
+      Actual: true
+
+Pass: testInspectable_ReferenceIn(myFish) returned (TypeError: Object doesn't support property or method 'testInspectable_ReferenceIn')
+      Actual: true
+
+Pass: testInspectable_ReferenceIn(myVector) returned (TypeError: Object doesn't support property or method 'testInspectable_ReferenceIn')
+      Actual: true
+
+Pass: testInspectable_ReferenceIn(myObservableVector) returned (TypeError: Object doesn't support property or method 'testInspectable_ReferenceIn')
+      Actual: true
+
+PASS [Test 17: Reference_In: Inspectable]
+=================================================
+
+=================================================
+Starting [Test 18: Reference_In: Animal]
+Pass: testAnimal_ReferenceIn(myAnimal) returned (TypeError: Object doesn't support property or method 'testAnimal_ReferenceIn')
+      Actual: true
+
+Pass: testAnimal_ReferenceIn(myFish) returned (TypeError: Object doesn't support property or method 'testAnimal_ReferenceIn')
+      Actual: true
+
+Pass: testAnimal_ReferenceIn(myVector) returned (TypeError: Object doesn't support property or method 'testAnimal_ReferenceIn')
+      Actual: true
+
+Pass: testAnimal_ReferenceIn(myObservableVector) returned (TypeError: Object doesn't support property or method 'testAnimal_ReferenceIn')
+      Actual: true
+
+PASS [Test 18: Reference_In: Animal]
+=================================================
+
+=================================================
+Starting [Test 19: Reference_In: IFish]
+Pass: testFish_ReferenceIn(myAnimal) returned (TypeError: Object doesn't support property or method 'testFish_ReferenceIn')
+      Actual: true
+
+Pass: testFish_ReferenceIn(myFish) returned (TypeError: Object doesn't support property or method 'testFish_ReferenceIn')
+      Actual: true
+
+Pass: testFish_ReferenceIn(myVector) returned (TypeError: Object doesn't support property or method 'testFish_ReferenceIn')
+      Actual: true
+
+Pass: testFish_ReferenceIn(myObservableVector) returned (TypeError: Object doesn't support property or method 'testFish_ReferenceIn')
+      Actual: true
+
+PASS [Test 19: Reference_In: IFish]
+=================================================
+
+=================================================
+Starting [Test 20: Reference_In: IVector<int>]
+Pass: testVector_ReferenceIn(myAnimal) returned (TypeError: Object doesn't support property or method 'testVector_ReferenceIn')
+      Actual: true
+
+Pass: testVector_ReferenceIn(myFish) returned (TypeError: Object doesn't support property or method 'testVector_ReferenceIn')
+      Actual: true
+
+Pass: testVector_ReferenceIn(myVector) returned (TypeError: Object doesn't support property or method 'testVector_ReferenceIn')
+      Actual: true
+
+Pass: testVector_ReferenceIn(myObservableVector) returned (TypeError: Object doesn't support property or method 'testVector_ReferenceIn')
+      Actual: true
+
+PASS [Test 20: Reference_In: IVector<int>]
+=================================================
+
+=================================================
+Starting [Test 21: Reference_In: Class with IVector<int> as default interface]
+Pass: testRCIObservable_ReferenceIn(myAnimal) returned (TypeError: Object doesn't support property or method 'testRCIObservable_ReferenceIn')
+      Actual: true
+
+Pass: testRCIObservable_ReferenceIn(myFish) returned (TypeError: Object doesn't support property or method 'testRCIObservable_ReferenceIn')
+      Actual: true
+
+Pass: testRCIObservable_ReferenceIn(myVector) returned (TypeError: Object doesn't support property or method 'testRCIObservable_ReferenceIn')
+      Actual: true
+
+Pass: testRCIObservable_ReferenceIn(myObservableVector) returned (TypeError: Object doesn't support property or method 'testRCIObservable_ReferenceIn')
+      Actual: true
+
+PASS [Test 21: Reference_In: Class with IVector<int> as default interface]
+=================================================
+
+=================================================
+Starting [Test 22: Reference_In: User defined struct]
+Pass: testDimensions_ReferenceIn(myDimensions).isNull
+      Actual: false
+
+Pass: testDimensions_ReferenceIn(myDimensions).isValidType
+      Actual: true
+
+Pass: testDimensions_ReferenceIn(myDimensions).outValue.length
+      Actual: 10
+
+Pass: testDimensions_ReferenceIn(myDimensions).outValue.width
+      Actual: 40
+
+PASS [Test 22: Reference_In: User defined struct]
+=================================================
+
+=================================================
+Starting [Test 23: Reference_In: TimeSpan]
+Pass: testTimeSpan_ReferenceIn(myTimeSpan).isNull
+      Actual: false
+
+Pass: testTimeSpan_ReferenceIn(myTimeSpan).isValidType
+      Actual: true
+
+Pass: testTimeSpan_ReferenceIn(myTimeSpan).outValue
+      Actual: 40
+
+PASS [Test 23: Reference_In: TimeSpan]
+=================================================
+
+=================================================
+Starting [Test 24: Reference_In: Point]
+Pass: testPoint_ReferenceIn(myPoint).isNull
+      Actual: false
+
+Pass: testPoint_ReferenceIn(myPoint).isValidType
+      Actual: true
+
+Pass: testPoint_ReferenceIn(myPoint).outValue.x
+      Actual: 40
+
+Pass: testPoint_ReferenceIn(myPoint).outValue.y
+      Actual: 70
+
+PASS [Test 24: Reference_In: Point]
+=================================================
+
+=================================================
+Starting [Test 25: Reference_In: Size]
+Pass: testSize_ReferenceIn(mySize).isNull
+      Actual: false
+
+Pass: testSize_ReferenceIn(mySize).isValidType
+      Actual: true
+
+Pass: testSize_ReferenceIn(mySize).outValue.width
+      Actual: 40
+
+Pass: testSize_ReferenceIn(mySize).outValue.height
+      Actual: 70
+
+PASS [Test 25: Reference_In: Size]
+=================================================
+
+=================================================
+Starting [Test 26: Reference_In: Rect]
+Pass: testRect_ReferenceIn(myRect).isNull
+      Actual: false
+
+Pass: testRect_ReferenceIn(myRect).isValidType
+      Actual: true
+
+Pass: testRect_ReferenceIn(myRect).outValue.x
+      Actual: 40
+
+Pass: testRect_ReferenceIn(myRect).outValue.y
+      Actual: 70
+
+Pass: testSize_ReferenceIn(myRect).outValue.width
+      Actual: 80
+
+Pass: testSize_ReferenceIn(myRect).outValue.height
+      Actual: 400
+
+PASS [Test 26: Reference_In: Rect]
+=================================================
+
+=================================================
+Starting [Test 27: Reference_In: Enum]
+Pass: testEnum_ReferenceIn(Animals.Phylum.cycliophora).isNull
+      Actual: false
+
+Pass: testEnum_ReferenceIn(Animals.Phylum.cycliophora).isValidType
+      Actual: true
+
+Pass: testEnum_ReferenceIn(Animals.Phylum.cycliophora).outValue
+      Actual: 10
+
+PASS [Test 27: Reference_In: Enum]
+=================================================
+
+=================================================
+Starting [Test 28: Reference_In: Js Delegate]
+Pass: testDelegate_ReferenceIn(myDelegate) returned (TypeError: Object doesn't support property or method 'testDelegate_ReferenceIn')
+      Actual: true
+
+PASS [Test 28: Reference_In: Js Delegate]
+=================================================
+
+=================================================
+Starting [Test 29: Reference_In: Winrt Delegate]
+Pass: testDelegate_ReferenceIn(myWinRTDelegate) returned (TypeError: Object doesn't support property or method 'testDelegate_ReferenceIn')
+      Actual: true
+
+PASS [Test 29: Reference_In: Winrt Delegate]
+=================================================
+
+=================================================
+Starting [Test 30: Reference_Out: Boolean]
+Pass: testBoolean_ReferenceOut(true)
+      Actual: true
+
+Pass: testBoolean_ReferenceOut(false)
+      Actual: false
+
+PASS [Test 30: Reference_Out: Boolean]
+=================================================
+
+=================================================
+Starting [Test 32: Reference_Out: Char16]
+Pass: testChar16_ReferenceOut("S")
+      Actual: S
+
+PASS [Test 32: Reference_Out: Char16]
+=================================================
+
+=================================================
+Starting [Test 33: Reference_Out: UInt8]
+Pass: testUInt8_ReferenceOut(2)
+      Actual: 2
+
+PASS [Test 33: Reference_Out: UInt8]
+=================================================
+
+=================================================
+Starting [Test 34: Reference_Out: Int16]
+Pass: testInt16_ReferenceOut(2)
+      Actual: 2
+
+PASS [Test 34: Reference_Out: Int16]
+=================================================
+
+=================================================
+Starting [Test 35: Reference_Out: UInt16]
+Pass: testUInt16_ReferenceOut(2)
+      Actual: 2
+
+PASS [Test 35: Reference_Out: UInt16]
+=================================================
+
+=================================================
+Starting [Test 36: Reference_Out: Int32]
+Pass: testInt32_ReferenceOut(2)
+      Actual: 2
+
+PASS [Test 36: Reference_Out: Int32]
+=================================================
+
+=================================================
+Starting [Test 37: Reference_Out: UInt32]
+Pass: testUInt32_ReferenceOut(2)
+      Actual: 2
+
+PASS [Test 37: Reference_Out: UInt32]
+=================================================
+
+=================================================
+Starting [Test 38: Reference_Out: Int64]
+Pass: testInt64_ReferenceOut(2)
+      Actual: 2
+
+PASS [Test 38: Reference_Out: Int64]
+=================================================
+
+=================================================
+Starting [Test 39: Reference_Out: UInt64]
+Pass: testUInt64_ReferenceOut(2)
+      Actual: 2
+
+PASS [Test 39: Reference_Out: UInt64]
+=================================================
+
+=================================================
+Starting [Test 40: Reference_Out: Float]
+Pass: testFloat_ReferenceOut(2)
+      Actual: 2
+
+PASS [Test 40: Reference_Out: Float]
+=================================================
+
+=================================================
+Starting [Test 41: Reference_Out: Double]
+Pass: testDouble_ReferenceOut(2)
+      Actual: 2
+
+PASS [Test 41: Reference_Out: Double]
+=================================================
+
+=================================================
+Starting [Test 42: Reference_Out: Guid]
+Pass: testGuid_ReferenceOut("{10C27311-B58F-476C-BFF4-6689B8A19836}")
+      Actual: 10c27311-b58f-476c-bff4-6689b8a19836
+
+PASS [Test 42: Reference_Out: Guid]
+=================================================
+
+=================================================
+Starting [Test 43: Reference_Out: Date]
+Pass: testDate_ReferenceOut(winrtDate)
+      Actual: Sun Dec 31 16:00:00 PST 1600
+
+Pass: testDate_ReferenceOut(jsDate)
+      Actual: Sun Jun 24 11:33:00 PDT 1979
+
+PASS [Test 43: Reference_Out: Date]
+=================================================
+
+=================================================
+Starting [Test 44: Reference_Out: User defined struct]
+Pass: testDimensions_ReferenceOut(myDimensions).length
+      Actual: 10
+
+Pass: testDimensions_ReferenceOut(myDimensions).width
+      Actual: 40
+
+PASS [Test 44: Reference_Out: User defined struct]
+=================================================
+
+=================================================
+Starting [Test 45: Reference_Out: TimeSpan]
+Pass: testTimeSpan_ReferenceOut(myTimeSpan)
+      Actual: 86400000
+
+PASS [Test 45: Reference_Out: TimeSpan]
+=================================================
+
+=================================================
+Starting [Test 46: Reference_Out: Point]
+Pass: testPoint_ReferenceOut(myPoint).x
+      Actual: 40
+
+Pass: testPoint_ReferenceOut(myPoint).y
+      Actual: 70
+
+PASS [Test 46: Reference_Out: Point]
+=================================================
+
+=================================================
+Starting [Test 47: Reference_Out: Size]
+Pass: testSize_ReferenceOut(mySize).width
+      Actual: 40
+
+Pass: testSize_ReferenceOut(mySize).height
+      Actual: 70
+
+PASS [Test 47: Reference_Out: Size]
+=================================================
+
+=================================================
+Starting [Test 48: Reference_Out: Rect]
+Pass: testRect_ReferenceOut(myRect).x
+      Actual: 40
+
+Pass: testRect_ReferenceOut(myRect).y
+      Actual: 70
+
+Pass: testSize_ReferenceOut(myRect).width
+      Actual: 80
+
+Pass: testSize_ReferenceOut(myRect).height
+      Actual: 400
+
+PASS [Test 48: Reference_Out: Rect]
+=================================================
+
+=================================================
+Starting [Test 49: Reference_Out: Enum]
+Pass: testEnum_ReferenceOut(Animals.Phylum.cycliophora)
+      Actual: 10
+
+PASS [Test 49: Reference_Out: Enum]
+=================================================
+
+Passed: 48
+Failed: 0

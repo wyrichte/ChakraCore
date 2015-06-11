@@ -1,0 +1,22 @@
+<html>
+<body>
+<script type="text/javascript">
+    WScript.SetKeepAlive();
+
+    HETest = {};
+    HETest.image_a = new Image();
+
+    HETest.image_a.onload = function() {
+        // This dumps Image dom object properties. Use small maxDumpIndent to reduce dumped properties to avoid noise from Trident changes.
+        Debug.dumpHeap(HETest, true, true, undefined, undefined, undefined, /*maxDumpIndent*/8);
+
+        WScript.Quit();
+    }
+
+    HETest.image_a.src = "../Ajax/Ez1.jpg";
+
+    // In case image loading fails, set a timeout to quit.
+    setTimeout(function() { WScript.Quit(); }, 5000);
+</script>
+</body>
+</html>

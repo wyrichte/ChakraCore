@@ -1,0 +1,79 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 197,
+        "length": 7,
+        "text": "test1()",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 26,
+        "length": 10,
+        "text": "var k = 10",
+        "frameDescription": "test1"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 100,
+        "length": 9,
+        "text": "return 10",
+        "frameDescription": "testInternal"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 100,
+        "length": 9,
+        "text": "return 10",
+        "frameDescription": "testInternal"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 325,
+        "length": 7,
+        "text": "test2()",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 179,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "test2"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "language_initiated",
+      "location": {
+        "start": 179,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "test2"
+      }
+    }
+  }
+]

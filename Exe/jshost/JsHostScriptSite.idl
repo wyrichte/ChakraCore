@@ -1,0 +1,20 @@
+/********************************************************
+*                                                       *
+*   Copyright (C) Microsoft. All rights reserved.       *
+*                                                       *
+********************************************************/
+
+import "unknwn.idl";
+
+[
+    object,
+    uuid(3066F658-B298-4804-BDE6-788CA0D1A6D4)
+]
+interface IJsHostScriptSite : IUnknown
+{
+    HRESULT LoadScriptFile(LPCOLESTR filename);
+    HRESULT LoadScript(LPCOLESTR script);
+    HRESULT InitializeProjection();
+    HRESULT RegisterCrossThreadInterface();
+};
+

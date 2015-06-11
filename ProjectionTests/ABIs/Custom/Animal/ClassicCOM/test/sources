@@ -1,0 +1,33 @@
+#  Copyright (c) Microsoft Corporation. All rights reserved.
+TARGETNAME  = AnimalTest
+TARGETTYPE  = PROGRAM
+TARGET_DESTINATION=Projection\ClassicCom
+UMTYPE      = console
+UMENTRY     = wmain
+
+C_DEFINES=-DUNICODE -D_UNICODE
+
+USE_MSVCRT=1
+
+MSC_WARNING_LEVEL=/W4
+          
+PRECOMPILED_CXX=1
+PRECOMPILED_INCLUDE=stdafx.h
+
+# This path is where the header from compiling the IDL or RexPP will end up
+#
+#    $(OBJ_PATH)\..\idl\$(O);
+#
+# In the meantime, the sample uses a hand-generated header to show features 
+# that aren't yet available in IDL.
+INCLUDES = \
+    $(COM_INC_PATH); \
+    $(OBJ_PATH)\..\idl\$(O); \
+
+SOURCES = \
+    AnimalTest.rc \
+    AnimalTest.cpp \
+
+TARGETLIBS = \
+    $(SDK_LIB_PATH)\kernel32.lib \
+

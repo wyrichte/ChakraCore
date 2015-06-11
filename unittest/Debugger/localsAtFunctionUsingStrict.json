@@ -1,0 +1,584 @@
+{
+  "testname" : "a test to validate the locals at function which has  usage of 'use strict' ",
+  "owner" : "AkroshG",
+  "validated" : false,
+  "timeout" : 5000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "commands" :
+  [
+{
+  "action": "open",
+  "args": [
+    "scripts\\variableInspect4.js"
+  ],
+  "events": [
+    {
+      "scriptOpen": "scripts\\variableInspect4.js"
+    }
+  ]
+},
+{
+  "action": "setBp",
+  "args": [
+    "variableInspect4.js",
+    "62"
+  ],
+  "events": [
+    {
+      "breakpointSet": {
+        "start": 62,
+        "length": 9,
+        "text": "return 10"
+      }
+    }
+  ]
+},
+{
+  "action": "setBp",
+  "args": [
+    "variableInspect4.js",
+    "127"
+  ],
+  "events": [
+    {
+      "breakpointSet": {
+        "start": 127,
+        "length": 9,
+        "text": "return 10"
+      }
+    }
+  ]
+},
+{
+  "action": "launch",
+  "args": [],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+{
+  "action": "locals",
+  "args": [
+    2
+  ],
+  "events": [
+    {
+      "locals": {
+        "arguments": {
+          "[Methods]": {
+            "callee": "_bigstr",
+            "Symbol.iterator": "_bigstr"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "length": "1",
+          "[0]": "2",
+          "[5]": "extra arg"
+        },
+        "a": "2",
+        "b": "undefined",
+        "[Globals]": {
+          "foobaz": {
+            "__proto__": "_bigstr",
+            "arguments": "{...}",
+            "caller": "null",
+            "length": "2",
+            "name": "foobaz",
+            "prototype": "{...}"
+          },
+          "foobaz1": {
+            "__proto__": "_bigstr",
+            "arguments": "_bigstr",
+            "caller": "_bigstr",
+            "length": "2",
+            "name": "foobaz1",
+            "prototype": "{...}"
+          }
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [
+    "wait"
+  ],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+{
+  "action": "locals",
+  "args": [
+    2
+  ],
+  "events": [
+    {
+      "locals": {
+        "arguments": {
+          "[Methods]": {
+            "callee": "_bigstr",
+            "Symbol.iterator": "_bigstr"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "length": "2",
+          "[0]": "2",
+          "[1]": "100",
+          "[5]": "extra arg"
+        },
+        "a": "2",
+        "b": "100",
+        "[Globals]": {
+          "foobaz": {
+            "__proto__": "_bigstr",
+            "arguments": "{...}",
+            "caller": "null",
+            "length": "2",
+            "name": "foobaz",
+            "prototype": "{...}"
+          },
+          "foobaz1": {
+            "__proto__": "_bigstr",
+            "arguments": "_bigstr",
+            "caller": "_bigstr",
+            "length": "2",
+            "name": "foobaz1",
+            "prototype": "{...}"
+          }
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [
+    "wait"
+  ],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+{
+  "action": "locals",
+  "args": [
+    2
+  ],
+  "events": [
+    {
+      "locals": {
+        "arguments": {
+          "[Methods]": {
+            "callee": "_bigstr",
+            "Symbol.iterator": "_bigstr"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "length": "3",
+          "[0]": "2",
+          "[1]": {
+            "__proto__": "Invalid Date"
+          },
+          "[2]": "4",
+          "[5]": "extra arg"
+        },
+        "a": "2",
+        "b": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}"
+          }
+        },
+        "[Globals]": {
+          "foobaz": {
+            "__proto__": "_bigstr",
+            "arguments": "{...}",
+            "caller": "null",
+            "length": "2",
+            "name": "foobaz",
+            "prototype": "{...}"
+          },
+          "foobaz1": {
+            "__proto__": "_bigstr",
+            "arguments": "_bigstr",
+            "caller": "_bigstr",
+            "length": "2",
+            "name": "foobaz1",
+            "prototype": "{...}"
+          }
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [
+    "wait"
+  ],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+{
+  "action": "locals",
+  "args": [
+    2
+  ],
+  "events": [
+    {
+      "locals": {
+        "arguments": {
+          "[Methods]": {
+            "callee": "_bigstr",
+            "Symbol.iterator": "_bigstr"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "length": "4",
+          "[0]": "hi",
+          "[1]": "undefined",
+          "[2]": "4",
+          "[3]": "hello",
+          "[5]": "extra arg"
+        },
+        "a": "hi",
+        "b": "undefined",
+        "[Globals]": {
+          "foobaz": {
+            "__proto__": "_bigstr",
+            "arguments": "{...}",
+            "caller": "null",
+            "length": "2",
+            "name": "foobaz",
+            "prototype": "{...}"
+          },
+          "foobaz1": {
+            "__proto__": "_bigstr",
+            "arguments": "_bigstr",
+            "caller": "_bigstr",
+            "length": "2",
+            "name": "foobaz1",
+            "prototype": "{...}"
+          }
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [
+    "wait"
+  ],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+{
+  "action": "locals",
+  "args": [
+    2
+  ],
+  "events": [
+    {
+      "locals": {
+        "arguments": {
+          "[Methods]": {
+            "Symbol.iterator": "_bigstr"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "callee": {
+            "__proto__": "",
+            "description": "_bigstr",
+            "message": "_bigstr",
+            "number": "-2146823244",
+            "stack": "_bigstr"
+          },
+          "caller": {
+            "__proto__": "",
+            "description": "_bigstr",
+            "message": "_bigstr",
+            "number": "-2146823245",
+            "stack": "_bigstr"
+          },
+          "length": "1",
+          "[0]": "2"
+        },
+        "c": "2",
+        "d": "undefined",
+        "[Globals]": {
+          "foobaz": {
+            "__proto__": "_bigstr",
+            "arguments": "null",
+            "caller": "null",
+            "length": "2",
+            "name": "foobaz",
+            "prototype": "{...}"
+          },
+          "foobaz1": {
+            "__proto__": "_bigstr",
+            "arguments": "_bigstr",
+            "caller": "_bigstr",
+            "length": "2",
+            "name": "foobaz1",
+            "prototype": "{...}"
+          }
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [
+    "wait"
+  ],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+{
+  "action": "locals",
+  "args": [
+    2
+  ],
+  "events": [
+    {
+      "locals": {
+        "arguments": {
+          "[Methods]": {
+            "Symbol.iterator": "_bigstr"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "callee": {
+            "__proto__": "",
+            "description": "_bigstr",
+            "message": "_bigstr",
+            "number": "-2146823244",
+            "stack": "_bigstr"
+          },
+          "caller": {
+            "__proto__": "",
+            "description": "_bigstr",
+            "message": "_bigstr",
+            "number": "-2146823245",
+            "stack": "_bigstr"
+          },
+          "length": "2",
+          "[0]": "12",
+          "[1]": "100"
+        },
+        "c": "12",
+        "d": "100",
+        "[Globals]": {
+          "foobaz": {
+            "__proto__": "_bigstr",
+            "arguments": "null",
+            "caller": "null",
+            "length": "2",
+            "name": "foobaz",
+            "prototype": "{...}"
+          },
+          "foobaz1": {
+            "__proto__": "_bigstr",
+            "arguments": "_bigstr",
+            "caller": "_bigstr",
+            "length": "2",
+            "name": "foobaz1",
+            "prototype": "{...}"
+          }
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [
+    "wait"
+  ],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+{
+  "action": "locals",
+  "args": [
+    2
+  ],
+  "events": [
+    {
+      "locals": {
+        "arguments": {
+          "[Methods]": {
+            "Symbol.iterator": "_bigstr"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "callee": {
+            "__proto__": "",
+            "description": "_bigstr",
+            "message": "_bigstr",
+            "number": "-2146823244",
+            "stack": "_bigstr"
+          },
+          "caller": {
+            "__proto__": "",
+            "description": "_bigstr",
+            "message": "_bigstr",
+            "number": "-2146823245",
+            "stack": "_bigstr"
+          },
+          "length": "3",
+          "[0]": "12",
+          "[1]": {
+            "__proto__": "Invalid Date"
+          },
+          "[2]": "4"
+        },
+        "c": "12",
+        "d": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}"
+          }
+        },
+        "[Globals]": {
+          "foobaz": {
+            "__proto__": "_bigstr",
+            "arguments": "null",
+            "caller": "null",
+            "length": "2",
+            "name": "foobaz",
+            "prototype": "{...}"
+          },
+          "foobaz1": {
+            "__proto__": "_bigstr",
+            "arguments": "_bigstr",
+            "caller": "_bigstr",
+            "length": "2",
+            "name": "foobaz1",
+            "prototype": "{...}"
+          }
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [
+    "wait"
+  ],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+{
+  "action": "locals",
+  "args": [
+    2
+  ],
+  "events": [
+    {
+      "locals": {
+        "arguments": {
+          "[Methods]": {
+            "Symbol.iterator": "_bigstr"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "callee": {
+            "__proto__": "",
+            "description": "_bigstr",
+            "message": "_bigstr",
+            "number": "-2146823244",
+            "stack": "_bigstr"
+          },
+          "caller": {
+            "__proto__": "",
+            "description": "_bigstr",
+            "message": "_bigstr",
+            "number": "-2146823245",
+            "stack": "_bigstr"
+          },
+          "length": "4",
+          "[0]": "hi",
+          "[1]": "undefined",
+          "[2]": "4",
+          "[3]": "hello"
+        },
+        "c": "hi",
+        "d": "undefined",
+        "[Globals]": {
+          "foobaz": {
+            "__proto__": "_bigstr",
+            "arguments": "null",
+            "caller": "null",
+            "length": "2",
+            "name": "foobaz",
+            "prototype": "{...}"
+          },
+          "foobaz1": {
+            "__proto__": "_bigstr",
+            "arguments": "_bigstr",
+            "caller": "_bigstr",
+            "length": "2",
+            "name": "foobaz1",
+            "prototype": "{...}"
+          }
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [],
+  "events": []
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

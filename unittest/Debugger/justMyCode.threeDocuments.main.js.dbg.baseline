@@ -1,0 +1,58 @@
+[
+  {
+    "log": "InInner()"
+  },
+  {
+    "callstack": [
+      {
+        "start": 444,
+        "length": 17,
+        "text": "WScript.Echo(str)",
+        "frameDescription": "PrintInner",
+        "documentId": 3
+      },
+      {
+        "start": 96,
+        "length": 15,
+        "text": "PrintInner(str)",
+        "frameDescription": "Print",
+        "documentId": 3
+      },
+      {
+        "start": 87,
+        "length": 31,
+        "text": "Print('foo to inner document!')",
+        "frameDescription": "Do",
+        "documentId": 2
+      },
+      {
+        "start": 251,
+        "length": 4,
+        "text": "Do()",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  },
+  {
+    "log": "InOuter()"
+  },
+  {
+    "callstack": [
+      {
+        "start": 125,
+        "length": 60,
+        "text": "WScript.Echo(\"/DO() - IsInJitMode() == \" +  Debug.isInJit())",
+        "frameDescription": "Do",
+        "documentId": 2
+      },
+      {
+        "start": 251,
+        "length": 4,
+        "text": "Do()",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  }
+]

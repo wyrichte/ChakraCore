@@ -1,0 +1,56 @@
+IBuffer (Two documents)
+
+=================================================
+Starting [Test 0: Base64Decode using IBuffer]
+Pass: bufferLength
+      Actual: 20
+
+PASS [Test 0: Base64Decode using IBuffer]
+=================================================
+
+=================================================
+Starting [Test 1: IBuffer direct read/write access]
+PASS [Test 1: IBuffer direct read/write access]
+=================================================
+
+=================================================
+Starting [Test 2: IBuffer properties and projection aliasing]
+Pass: Initial buffer capacity is correct
+      Actual: 42
+
+Pass: Initial buffer length is correct
+      Actual: 0
+
+Pass: Buffer projects injected byteLength property
+      Actual: 42
+
+Pass: Buffer length is equal to capacity after projection
+      Actual: 42
+
+Pass: Projected ArrayBuffer length is correct
+      Actual: 42
+
+Pass: Buffer length is the same after write
+      Actual: 42
+
+Pass: byteLength is unchanged after write
+      Actual: 42
+
+PASS [Test 2: IBuffer properties and projection aliasing]
+=================================================
+
+=================================================
+Starting [Test 3: Blue Bug 175495: IBuffer Dataview Support]
+PASS [Test 3: Blue Bug 175495: IBuffer Dataview Support]
+=================================================
+
+=================================================
+Starting [Test 4: Blue Bug 176611: Use of ArrayBufferFromIBuffer after IBuffer release]
+Pass: new Int8Array(ibuf); returned (TypeError: Typed array constructor argument is invalid)
+      Actual: true
+
+PASS [Test 4: Blue Bug 176611: Use of ArrayBufferFromIBuffer after IBuffer release]
+=================================================
+
+Passed: 5
+Failed: 0

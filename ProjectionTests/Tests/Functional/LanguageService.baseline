@@ -1,0 +1,285 @@
+Language Service tests
+
+=================================================
+Starting [Test 1: Enum]
+PASS [Test 1: Enum]
+=================================================
+
+=================================================
+Starting [Test 2: Array]
+PASS [Test 2: Array]
+=================================================
+
+=================================================
+Starting [Test 4: Struct]
+PASS [Test 4: Struct]
+=================================================
+
+=================================================
+Starting [Test 369696: Multi-out]
+Pass: Expected reta
+      Actual: number
+
+Pass: Expected retb
+      Actual: number
+
+Pass: Expected retc
+      Actual: number
+
+PASS [Test 369696: Multi-out]
+=================================================
+
+=================================================
+Starting [Test promise-1: Basic async]
+PASS [Test promise-1: Basic async]
+=================================================
+
+=================================================
+Starting [Test promise-2: CompleteSuccessfully]
+Pass: Result type of then
+      Actual: object
+
+Pass: Result type of then
+      Actual: number
+
+PASS [Test promise-2: CompleteSuccessfully]
+=================================================
+
+=================================================
+Starting [Test promise-3: CompleteWithCancel]
+Pass: Result type of error
+      Actual: object
+
+PASS [Test promise-3: CompleteWithCancel]
+=================================================
+
+=================================================
+Starting [Test promise-5: TwoThensFollowedByCompleted]
+PASS [Test promise-5: TwoThensFollowedByCompleted]
+=================================================
+
+=================================================
+Starting [Test promise-12: ThenCancelProgress]
+PASS [Test promise-12: ThenCancelProgress]
+=================================================
+
+=================================================
+Starting [Test 142: IntelliDoc]
+Pass: Method of generic interface
+      Actual: M:Windows.Foundation.Collections.IMap`2.Clear
+
+Pass: Method of generic interface (xml)
+      Actual: Windows.xml
+
+Pass: Method of generic interface (help)
+      Actual: Windows.Foundation.Collections.IMap`2.Clear
+
+Pass: Method of generic interface
+      Actual: M:Windows.Foundation.Collections.IMap`2.HasKey(`0)
+
+Pass: Method of generic interface (xml)
+      Actual: Windows.xml
+
+Pass: Method of generic interface (help)
+      Actual: Windows.Foundation.Collections.IMap`2.HasKey
+
+Pass: Parameterless constructor
+      Actual: M:Windows.Foundation.Collections.PropertySet.#ctor
+
+Pass: Parameterless constructor (xml)
+      Actual: Windows.xml
+
+Pass: Parameterless constructor (help)
+      Actual: Windows.Foundation.Collections.PropertySet
+
+Pass: Property of generic interface
+      Actual: P:Windows.Foundation.Collections.IMap`2.Size
+
+Pass: Property of generic interface (xml)
+      Actual: Windows.xml
+
+Pass: Property of generic interface (help)
+      Actual: Windows.Foundation.Collections.IMap`2.Size
+
+Pass: Event of generic interface
+      Actual: E:Windows.Foundation.Collections.IObservableMap`2.MapChanged
+
+Pass: Event of generic interface (xml)
+      Actual: Windows.xml
+
+Pass: Event of generic interface (help)
+      Actual: Windows.Foundation.Collections.IObservableMap`2.MapChanged
+
+Pass: Struct
+      Actual: T:Animals.BigComplexStruct
+
+Pass: Struct (xml)
+      Actual: animals.xml
+
+Pass: Struct (help)
+      Actual: Animals.BigComplexStruct
+
+PASS [Test 142: IntelliDoc]
+=================================================
+
+=================================================
+Starting [Test 354819-1: addEventListener is called]
+Pass: Expected reflectToaster param to have 'type'
+      Actual: true
+
+Pass: Expected reflectToaster param to have 'target'
+      Actual: true
+
+Pass: Expected reflectToaster param to have 'message'
+      Actual: true
+
+Pass: Expected realToaster param .detail to be an array
+      Actual: true
+
+Pass: Expected reflectToaster param .detail to be an array
+      Actual: true
+
+Pass: Expected target to be an IToaster
+      Actual: true
+
+Pass: Expected type to be a string
+      Actual: true
+
+Pass: Expected reflectp0.detail[0] to have 'message'
+      Actual: true
+
+Pass: Expected reflectp0.detail[0] to NOT have 'target'
+      Actual: false
+
+Pass: Expected reflectp0.detail[0] to NOT have 'detail'
+      Actual: false
+
+Pass: Expected reflectp0.detail[0] to NOT have 'type'
+      Actual: false
+
+PASS [Test 354819-1: addEventListener is called]
+=================================================
+
+=================================================
+Starting [Test 354819-2: ontoaststartevent is called]
+Comment: ontoaststartevent([object Object],undefined,undefined)
+Comment: --target:[object Object]
+Comment: --detail:
+Comment: --type:
+Comment: ontoaststartevent([object Object],undefined,undefined)
+Comment: --target:[object Fabrikam.Kitchen.Toaster]
+Comment: --detail:
+Comment: --type:toaststartevent
+Pass: Expected reflectToaster param to have 'type'
+      Actual: true
+
+Pass: Expected reflectToaster param to have 'target'
+      Actual: true
+
+Pass: Expected realToaster param .detail to be an array
+      Actual: true
+
+Pass: Expected reflectToaster param .detail to be an array
+      Actual: true
+
+Pass: Expected target to be an IToaster
+      Actual: true
+
+Pass: Expected type to be a string
+      Actual: true
+
+PASS [Test 354819-2: ontoaststartevent is called]
+=================================================
+
+=================================================
+Starting [Test 450740: Max enum]
+Comment: 4294967295
+Comment: 4294967295
+Pass: Values should be the same
+      Actual: true
+
+PASS [Test 450740: Max enum]
+=================================================
+
+=================================================
+Starting [Test 432654-1: IVector of varying types]
+Pass: reflect.Windows.Foundation.Collections['IVector`1'].length
+      Actual: 1
+
+Comment: IVector<Dimensions>
+Pass: instanceof [object Object]
+      Actual: true
+
+Pass: instanceof [object Object]
+      Actual: true
+
+Comment: IVector<DelegateWithOutParam_HSTRING>
+Pass: instanceof [object Object]
+      Actual: true
+
+Pass: typeof [object Object]
+      Actual: object
+
+Comment: IVector<IVector<int>>
+Pass: instanceof 0
+      Actual: true
+
+Pass: instanceof 0
+      Actual: true
+
+Pass: typeof 0
+      Actual: number
+
+PASS [Test 432654-1: IVector of varying types]
+=================================================
+
+=================================================
+Starting [Test 432654-2: Prototype of generic type]
+Pass: reflect.Windows.Foundation.Collections['IMap`2'].length
+      Actual: 2
+
+Pass: typeof 
+      Actual: string
+
+Pass: typeof 
+      Actual: string
+
+Pass: typeof [object Object]
+      Actual: object
+
+Pass: typeof 0
+      Actual: number
+
+Pass: typeof 0
+      Actual: number
+
+Pass: typeof [object Object]
+      Actual: object
+
+Pass: typeof 
+      Actual: string
+
+Pass: typeof 
+      Actual: string
+
+Pass: typeof [object Object]
+      Actual: object
+
+PASS [Test 432654-2: Prototype of generic type]
+=================================================
+
+=================================================
+Starting [Test 452197: Returned delegate is a function]
+Pass: expected a functions
+      Actual: true
+
+Comment: Reflect length: 1
+Comment: Real length: 1
+Pass: expected length of delegate to be the number of parameters
+      Actual: true
+
+PASS [Test 452197: Returned delegate is a function]
+=================================================
+
+Passed: 16
+Failed: 0

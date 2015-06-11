@@ -1,0 +1,19 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 14,
+        "text": "refreshTimer()",
+        "frameDescription": "Unknown script code"
+      }
+    ]
+  },
+  {
+    "setnextstatement": {
+      "from": 0,
+      "to": 0,
+      "IsAllowed": "No"
+    }
+  }
+]

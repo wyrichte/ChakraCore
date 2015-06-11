@@ -1,0 +1,19 @@
+=== Before change ===
+undefined
+ENC: QueryEdit: 1 requests
+ENC: editblock2_top.js (145,163):
+/**edit(test)**/
+    function foo() {}
+    
+    /// function...
+===>
+ function Timer(){};
+ function foo() {
+     return Timer;
+ }...
+ENC: === AST Diffing ===
+ENC: Insert: FuncDecl function Timer(){}
+ENC: Update: FuncDecl function foo() {} -> FuncDecl function foo() {..     return T
+ENC: === Semantic Changes ===
+=== After change ===
+undefined

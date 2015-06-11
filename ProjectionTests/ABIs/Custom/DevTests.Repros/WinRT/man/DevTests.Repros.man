@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<assembly
+    xmlns="urn:schemas-microsoft-com:asm.v3"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    manifestVersion="1.0"
+    >
+  <assemblyIdentity
+      buildType="$(build.buildType)"
+      language="neutral"
+      name="Chakra AnimalServer"
+      processorArchitecture="$(build.arch)"
+      publicKeyToken="$(Build.WindowsPublicKeyToken)"
+      version="$(build.version)"
+      versionScope="nonSxS"
+      />
+  <file
+      destinationPath="$(runtime.system32)"
+      importPath="$(build.nttree)\"
+      name="DevTests.Repros.dll"
+      sourceName="DevTests.Repros.dll"
+      sourcePath=".\"
+      >
+    <securityDescriptor name="WRP_FILE_DEFAULT_SDDL"/>
+  </file>
+  <registryKeys>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Repros.WebUI.WebUIActivation">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{E2BC058E-AA1B-4557-93A7-71031DD6012F}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.Repros.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{E2BC058E-AA1B-4557-93A7-71031DD6012F}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Repros.WebUI.WebUIActivation"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+    
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Repros.Performance.RefClass">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{E2BC058E-A91B-4557-93A7-71031DD6012E}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.Repros.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{E2BC058E-A91B-4557-93A7-71031DD6012E}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Repros.Performance.RefClass"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Repros.InterfaceOutFastPath.Tests">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{9E7CD211-65CC-48F7-A652-D364DB437C1F}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.Repros.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{9E7CD211-65CC-48F7-A652-D364DB437C1F}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Repros.InterfaceOutFastPath.Tests"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Repros.VersionedProperties.VersionedProperty">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{D6E52DDA-2562-4EF6-84CC-FE1232C054F8}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.Repros.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{D6E52DDA-2562-4EF6-84CC-FE1232C054F8}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Repros.VersionedProperties.VersionedProperty"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+    
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Repros.VersionedProperties.ConflictWithVersionedProperty">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{46D907F2-6962-4FFA-8EE1-E66F35F4E610}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.Repros.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{46D907F2-6962-4FFA-8EE1-E66F35F4E610}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Repros.VersionedProperties.ConflictWithVersionedProperty"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Repros.Stringables.SimpleStringable">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{8ABA7DAB-34FA-420D-BC45-A81F7EFB4C89}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.Repros.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{8ABA7DAB-34FA-420D-BC45-A81F7EFB4C89}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Repros.Stringables.SimpleStringable"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.Repros.VersionedProperties.ReadOnlyVersionedProperty">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{4FBBD6C3-1330-47FF-B404-BDD476578D88}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.Repros.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{4FBBD6C3-1330-47FF-B404-BDD476578D88}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.Repros.VersionedProperties.ReadOnlyVersionedProperty"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+  </registryKeys>
+  <trustInfo>
+    <security>
+      <accessControl>
+        <securityDescriptorDefinitions>
+          <securityDescriptorDefinition
+              name="WRP_REGKEY_DEFAULT_SDDL"
+              sddl="$(build.wrpRegKeySddl)"
+              />
+          <securityDescriptorDefinition
+              name="WRP_FILE_DEFAULT_SDDL"
+              sddl="$(build.wrpFileSddl)"
+              />
+        </securityDescriptorDefinitions>
+      </accessControl>
+    </security>
+  </trustInfo>
+</assembly>

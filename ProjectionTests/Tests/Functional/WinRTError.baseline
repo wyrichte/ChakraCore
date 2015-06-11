@@ -1,0 +1,5913 @@
+WinRT Error Tests
+
+=================================================
+Starting [Test 1: CallOriginateErrorAndReturnDifferentHRESULT]
+Comment: Calling RoOriginateError but returning a different HRESULT should raise unknown error (which doesn't contain errorString passed to OriginateError).
+Pass: e.number
+      Actual: -2147454973
+
+Pass: e.message
+      Actual: Unknown runtime error
+
+Pass: e.stack should be defined
+      Actual: WinRTError: Unknown runtime error
+   at test (winrterror.js:54:17)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+
+Pass: e.description should be defined
+      Actual: Unknown runtime error
+
+PASS [Test 1: CallOriginateErrorAndReturnDifferentHRESULT]
+=================================================
+
+=================================================
+Starting [Test 2: CallOriginateErrorAndReturnSuccess]
+Comment: Calling RoOriginateError but returning S_OK should not raise exception.
+PASS [Test 2: CallOriginateErrorAndReturnSuccess]
+=================================================
+
+=================================================
+Starting [Test 3: CallOriginateErrorWithAndReturnSuccessAnotherCallReturnsSameFailHRButNotOriginateError]
+Comment: Calling RoOriginateError but returning S_OK should not raise exception.
+Comment: Calling method which doesn't RoOriginateError but returns previous fail hr should raise exception but not contain errorString.
+Comment: Exception raised.
+Pass: e.number
+      Actual: -2147454974
+
+Pass: e.message
+      Actual: Unknown runtime error
+
+Pass: e.stack should be defined
+      Actual: WinRTError: Unknown runtime error
+   at test (winrterror.js:117:17)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+
+Pass: e.description should be defined
+      Actual: Unknown runtime error
+
+PASS [Test 3: CallOriginateErrorWithAndReturnSuccessAnotherCallReturnsSameFailHRButNotOriginateError]
+=================================================
+
+=================================================
+Starting [Test 4: Originate and catch error -- verify error object var and restricted values]
+Comment: Testing HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+Originate: e_fail
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Unspecified error
+
+Originate: e_fail
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147467259
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Unspecified error
+
+Originate: e_fail
+   at test (winrterror.js:150:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_fail
+
+Comment: Testing HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+Originate: e_invalidArg
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof The parameter is incorrect.
+
+Originate: e_invalidArg
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024809
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: The parameter is incorrect.
+
+Originate: e_invalidArg
+   at test (winrterror.js:150:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_invalidArg
+
+Comment: Testing HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+Originate: e_pointer
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Invalid pointer
+
+Originate: e_pointer
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147467261
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Invalid pointer
+
+Originate: e_pointer
+   at test (winrterror.js:150:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_pointer
+
+Comment: Testing HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+Originate: e_noInterface
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof No such interface supported
+
+Originate: e_noInterface
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147467262
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: No such interface supported
+
+Originate: e_noInterface
+   at test (winrterror.js:150:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_noInterface
+
+Comment: Testing HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+Originate: e_notImpl
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Not implemented
+
+Originate: e_notImpl
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147467263
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Not implemented
+
+Originate: e_notImpl
+   at test (winrterror.js:150:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_notImpl
+
+Comment: Testing HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+Originate: e_abort
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Operation aborted
+
+Originate: e_abort
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147467260
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Operation aborted
+
+Originate: e_abort
+   at test (winrterror.js:150:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_abort
+
+Comment: Testing HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+Originate: e_accessDenied
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+Originate: e_accessDenied
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+Originate: e_accessDenied
+   at test (winrterror.js:150:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_accessDenied
+
+Comment: Testing HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+Originate: e_handle
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof The handle is invalid.
+
+Originate: e_handle
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024890
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: The handle is invalid.
+
+Originate: e_handle
+   at test (winrterror.js:150:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_handle
+
+Comment: Testing HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+Originate: e_outOfMemory
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Not enough storage is available to complete this operation.
+
+Originate: e_outOfMemory
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024882
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Not enough storage is available to complete this operation.
+
+Originate: e_outOfMemory
+   at test (winrterror.js:150:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_outOfMemory
+
+Comment: Testing HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+Originate: e_unexpected
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Catastrophic failure
+
+Originate: e_unexpected
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147418113
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Catastrophic failure
+
+Originate: e_unexpected
+   at test (winrterror.js:150:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_unexpected
+
+Comment: Testing HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+Originate: e_bounds
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof The operation attempted to access data outside the valid range
+
+Originate: e_bounds
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147483637
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: The operation attempted to access data outside the valid range
+
+Originate: e_bounds
+   at test (winrterror.js:150:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_bounds
+
+Comment: Testing HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+Originate: e_classNotReg
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Class not registered
+
+Originate: e_classNotReg
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147221164
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Class not registered
+
+Originate: e_classNotReg
+   at test (winrterror.js:150:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_classNotReg
+
+PASS [Test 4: Originate and catch error -- verify error object var and restricted values]
+=================================================
+
+=================================================
+Starting [Test 5: Delegate originates error]
+Comment: Testing HRESULT: e_fail
+Pass: Message arg
+      Actual: Called delegate to originate e_fail
+
+Pass: e.number
+      Actual: -2147467259
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_fail
+
+Comment: Testing HRESULT: e_invalidArg
+Pass: Message arg
+      Actual: Called delegate to originate e_invalidArg
+
+Pass: e.number
+      Actual: -2147024809
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_invalidArg
+
+Comment: Testing HRESULT: e_pointer
+Pass: Message arg
+      Actual: Called delegate to originate e_pointer
+
+Pass: e.number
+      Actual: -2147467261
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_pointer
+
+Comment: Testing HRESULT: e_noInterface
+Pass: Message arg
+      Actual: Called delegate to originate e_noInterface
+
+Pass: e.number
+      Actual: -2147467262
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_noInterface
+
+Comment: Testing HRESULT: e_notImpl
+Pass: Message arg
+      Actual: Called delegate to originate e_notImpl
+
+Pass: e.number
+      Actual: -2147467263
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_notImpl
+
+Comment: Testing HRESULT: e_abort
+Pass: Message arg
+      Actual: Called delegate to originate e_abort
+
+Pass: e.number
+      Actual: -2147467260
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_abort
+
+Comment: Testing HRESULT: e_accessDenied
+Pass: Message arg
+      Actual: Called delegate to originate e_accessDenied
+
+Pass: e.number
+      Actual: -2147024891
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_accessDenied
+
+Comment: Testing HRESULT: e_handle
+Pass: Message arg
+      Actual: Called delegate to originate e_handle
+
+Pass: e.number
+      Actual: -2147024890
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_handle
+
+Comment: Testing HRESULT: e_outOfMemory
+Pass: Message arg
+      Actual: Called delegate to originate e_outOfMemory
+
+Pass: e.number
+      Actual: -2147024882
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_outOfMemory
+
+Comment: Testing HRESULT: e_unexpected
+Pass: Message arg
+      Actual: Called delegate to originate e_unexpected
+
+Pass: e.number
+      Actual: -2147418113
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_unexpected
+
+Comment: Testing HRESULT: e_bounds
+Pass: Message arg
+      Actual: Called delegate to originate e_bounds
+
+Pass: e.number
+      Actual: -2147483637
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_bounds
+
+Comment: Testing HRESULT: e_classNotReg
+Pass: Message arg
+      Actual: Called delegate to originate e_classNotReg
+
+Pass: e.number
+      Actual: -2147221164
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_classNotReg
+
+PASS [Test 5: Delegate originates error]
+=================================================
+
+=================================================
+Starting [Test 6: Nested delegates]
+Comment: Testing HRESULT: e_fail
+Pass: Message arg
+      Actual: Called delegate1
+
+Pass: Message arg
+      Actual: Called delegate2
+
+Pass: e.number
+      Actual: -2147467259
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_fail
+
+Comment: Testing HRESULT: e_invalidArg
+Pass: Message arg
+      Actual: Called delegate1
+
+Pass: Message arg
+      Actual: Called delegate2
+
+Pass: e.number
+      Actual: -2147024809
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_invalidArg
+
+Comment: Testing HRESULT: e_pointer
+Pass: Message arg
+      Actual: Called delegate1
+
+Pass: Message arg
+      Actual: Called delegate2
+
+Pass: e.number
+      Actual: -2147467261
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_pointer
+
+Comment: Testing HRESULT: e_noInterface
+Pass: Message arg
+      Actual: Called delegate1
+
+Pass: Message arg
+      Actual: Called delegate2
+
+Pass: e.number
+      Actual: -2147467262
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_noInterface
+
+Comment: Testing HRESULT: e_notImpl
+Pass: Message arg
+      Actual: Called delegate1
+
+Pass: Message arg
+      Actual: Called delegate2
+
+Pass: e.number
+      Actual: -2147467263
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_notImpl
+
+Comment: Testing HRESULT: e_abort
+Pass: Message arg
+      Actual: Called delegate1
+
+Pass: Message arg
+      Actual: Called delegate2
+
+Pass: e.number
+      Actual: -2147467260
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_abort
+
+Comment: Testing HRESULT: e_accessDenied
+Pass: Message arg
+      Actual: Called delegate1
+
+Pass: Message arg
+      Actual: Called delegate2
+
+Pass: e.number
+      Actual: -2147024891
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_accessDenied
+
+Comment: Testing HRESULT: e_handle
+Pass: Message arg
+      Actual: Called delegate1
+
+Pass: Message arg
+      Actual: Called delegate2
+
+Pass: e.number
+      Actual: -2147024890
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_handle
+
+Comment: Testing HRESULT: e_outOfMemory
+Pass: Message arg
+      Actual: Called delegate1
+
+Pass: Message arg
+      Actual: Called delegate2
+
+Pass: e.number
+      Actual: -2147024882
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_outOfMemory
+
+Comment: Testing HRESULT: e_unexpected
+Pass: Message arg
+      Actual: Called delegate1
+
+Pass: Message arg
+      Actual: Called delegate2
+
+Pass: e.number
+      Actual: -2147418113
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_unexpected
+
+Comment: Testing HRESULT: e_bounds
+Pass: Message arg
+      Actual: Called delegate1
+
+Pass: Message arg
+      Actual: Called delegate2
+
+Pass: e.number
+      Actual: -2147483637
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_bounds
+
+Comment: Testing HRESULT: e_classNotReg
+Pass: Message arg
+      Actual: Called delegate1
+
+Pass: Message arg
+      Actual: Called delegate2
+
+Pass: e.number
+      Actual: -2147221164
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate: e_classNotReg
+
+PASS [Test 6: Nested delegates]
+=================================================
+
+=================================================
+Starting [Test 7: Transform Error]
+Comment: Testing HRESULT: e_fail transformed to HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+Transform: e_fail -> e_invalidArg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_fail -> e_invalidArg
+
+Comment: Testing HRESULT: e_fail transformed to HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+Transform: e_fail -> e_pointer
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_fail -> e_pointer
+
+Comment: Testing HRESULT: e_fail transformed to HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+Transform: e_fail -> e_noInterface
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_fail -> e_noInterface
+
+Comment: Testing HRESULT: e_fail transformed to HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+Transform: e_fail -> e_notImpl
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_fail -> e_notImpl
+
+Comment: Testing HRESULT: e_fail transformed to HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+Transform: e_fail -> e_abort
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_fail -> e_abort
+
+Comment: Testing HRESULT: e_fail transformed to HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+Transform: e_fail -> e_accessDenied
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_fail -> e_accessDenied
+
+Comment: Testing HRESULT: e_fail transformed to HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+Transform: e_fail -> e_handle
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_fail -> e_handle
+
+Comment: Testing HRESULT: e_fail transformed to HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+Transform: e_fail -> e_outOfMemory
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_fail -> e_outOfMemory
+
+Comment: Testing HRESULT: e_fail transformed to HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+Transform: e_fail -> e_unexpected
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_fail -> e_unexpected
+
+Comment: Testing HRESULT: e_fail transformed to HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+Transform: e_fail -> e_bounds
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_fail -> e_bounds
+
+Comment: Testing HRESULT: e_fail transformed to HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+Transform: e_fail -> e_classNotReg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_fail -> e_classNotReg
+
+Comment: Testing HRESULT: e_invalidArg transformed to HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+Transform: e_invalidArg -> e_fail
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_invalidArg -> e_fail
+
+Comment: Testing HRESULT: e_invalidArg transformed to HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+Transform: e_invalidArg -> e_pointer
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_invalidArg -> e_pointer
+
+Comment: Testing HRESULT: e_invalidArg transformed to HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+Transform: e_invalidArg -> e_noInterface
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_invalidArg -> e_noInterface
+
+Comment: Testing HRESULT: e_invalidArg transformed to HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+Transform: e_invalidArg -> e_notImpl
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_invalidArg -> e_notImpl
+
+Comment: Testing HRESULT: e_invalidArg transformed to HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+Transform: e_invalidArg -> e_abort
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_invalidArg -> e_abort
+
+Comment: Testing HRESULT: e_invalidArg transformed to HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+Transform: e_invalidArg -> e_accessDenied
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_invalidArg -> e_accessDenied
+
+Comment: Testing HRESULT: e_invalidArg transformed to HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+Transform: e_invalidArg -> e_handle
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_invalidArg -> e_handle
+
+Comment: Testing HRESULT: e_invalidArg transformed to HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+Transform: e_invalidArg -> e_outOfMemory
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_invalidArg -> e_outOfMemory
+
+Comment: Testing HRESULT: e_invalidArg transformed to HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+Transform: e_invalidArg -> e_unexpected
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_invalidArg -> e_unexpected
+
+Comment: Testing HRESULT: e_invalidArg transformed to HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+Transform: e_invalidArg -> e_bounds
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_invalidArg -> e_bounds
+
+Comment: Testing HRESULT: e_invalidArg transformed to HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+Transform: e_invalidArg -> e_classNotReg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_invalidArg -> e_classNotReg
+
+Comment: Testing HRESULT: e_pointer transformed to HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+Transform: e_pointer -> e_fail
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_pointer -> e_fail
+
+Comment: Testing HRESULT: e_pointer transformed to HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+Transform: e_pointer -> e_invalidArg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_pointer -> e_invalidArg
+
+Comment: Testing HRESULT: e_pointer transformed to HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+Transform: e_pointer -> e_noInterface
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_pointer -> e_noInterface
+
+Comment: Testing HRESULT: e_pointer transformed to HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+Transform: e_pointer -> e_notImpl
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_pointer -> e_notImpl
+
+Comment: Testing HRESULT: e_pointer transformed to HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+Transform: e_pointer -> e_abort
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_pointer -> e_abort
+
+Comment: Testing HRESULT: e_pointer transformed to HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+Transform: e_pointer -> e_accessDenied
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_pointer -> e_accessDenied
+
+Comment: Testing HRESULT: e_pointer transformed to HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+Transform: e_pointer -> e_handle
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_pointer -> e_handle
+
+Comment: Testing HRESULT: e_pointer transformed to HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+Transform: e_pointer -> e_outOfMemory
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_pointer -> e_outOfMemory
+
+Comment: Testing HRESULT: e_pointer transformed to HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+Transform: e_pointer -> e_unexpected
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_pointer -> e_unexpected
+
+Comment: Testing HRESULT: e_pointer transformed to HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+Transform: e_pointer -> e_bounds
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_pointer -> e_bounds
+
+Comment: Testing HRESULT: e_pointer transformed to HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+Transform: e_pointer -> e_classNotReg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_pointer -> e_classNotReg
+
+Comment: Testing HRESULT: e_noInterface transformed to HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+Transform: e_noInterface -> e_fail
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_noInterface -> e_fail
+
+Comment: Testing HRESULT: e_noInterface transformed to HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+Transform: e_noInterface -> e_invalidArg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_noInterface -> e_invalidArg
+
+Comment: Testing HRESULT: e_noInterface transformed to HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+Transform: e_noInterface -> e_pointer
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_noInterface -> e_pointer
+
+Comment: Testing HRESULT: e_noInterface transformed to HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+Transform: e_noInterface -> e_notImpl
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_noInterface -> e_notImpl
+
+Comment: Testing HRESULT: e_noInterface transformed to HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+Transform: e_noInterface -> e_abort
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_noInterface -> e_abort
+
+Comment: Testing HRESULT: e_noInterface transformed to HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+Transform: e_noInterface -> e_accessDenied
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_noInterface -> e_accessDenied
+
+Comment: Testing HRESULT: e_noInterface transformed to HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+Transform: e_noInterface -> e_handle
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_noInterface -> e_handle
+
+Comment: Testing HRESULT: e_noInterface transformed to HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+Transform: e_noInterface -> e_outOfMemory
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_noInterface -> e_outOfMemory
+
+Comment: Testing HRESULT: e_noInterface transformed to HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+Transform: e_noInterface -> e_unexpected
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_noInterface -> e_unexpected
+
+Comment: Testing HRESULT: e_noInterface transformed to HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+Transform: e_noInterface -> e_bounds
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_noInterface -> e_bounds
+
+Comment: Testing HRESULT: e_noInterface transformed to HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+Transform: e_noInterface -> e_classNotReg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_noInterface -> e_classNotReg
+
+Comment: Testing HRESULT: e_notImpl transformed to HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+Transform: e_notImpl -> e_fail
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_notImpl -> e_fail
+
+Comment: Testing HRESULT: e_notImpl transformed to HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+Transform: e_notImpl -> e_invalidArg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_notImpl -> e_invalidArg
+
+Comment: Testing HRESULT: e_notImpl transformed to HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+Transform: e_notImpl -> e_pointer
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_notImpl -> e_pointer
+
+Comment: Testing HRESULT: e_notImpl transformed to HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+Transform: e_notImpl -> e_noInterface
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_notImpl -> e_noInterface
+
+Comment: Testing HRESULT: e_notImpl transformed to HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+Transform: e_notImpl -> e_abort
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_notImpl -> e_abort
+
+Comment: Testing HRESULT: e_notImpl transformed to HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+Transform: e_notImpl -> e_accessDenied
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_notImpl -> e_accessDenied
+
+Comment: Testing HRESULT: e_notImpl transformed to HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+Transform: e_notImpl -> e_handle
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_notImpl -> e_handle
+
+Comment: Testing HRESULT: e_notImpl transformed to HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+Transform: e_notImpl -> e_outOfMemory
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_notImpl -> e_outOfMemory
+
+Comment: Testing HRESULT: e_notImpl transformed to HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+Transform: e_notImpl -> e_unexpected
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_notImpl -> e_unexpected
+
+Comment: Testing HRESULT: e_notImpl transformed to HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+Transform: e_notImpl -> e_bounds
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_notImpl -> e_bounds
+
+Comment: Testing HRESULT: e_notImpl transformed to HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+Transform: e_notImpl -> e_classNotReg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_notImpl -> e_classNotReg
+
+Comment: Testing HRESULT: e_abort transformed to HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+Transform: e_abort -> e_fail
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_abort -> e_fail
+
+Comment: Testing HRESULT: e_abort transformed to HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+Transform: e_abort -> e_invalidArg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_abort -> e_invalidArg
+
+Comment: Testing HRESULT: e_abort transformed to HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+Transform: e_abort -> e_pointer
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_abort -> e_pointer
+
+Comment: Testing HRESULT: e_abort transformed to HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+Transform: e_abort -> e_noInterface
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_abort -> e_noInterface
+
+Comment: Testing HRESULT: e_abort transformed to HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+Transform: e_abort -> e_notImpl
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_abort -> e_notImpl
+
+Comment: Testing HRESULT: e_abort transformed to HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+Transform: e_abort -> e_accessDenied
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_abort -> e_accessDenied
+
+Comment: Testing HRESULT: e_abort transformed to HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+Transform: e_abort -> e_handle
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_abort -> e_handle
+
+Comment: Testing HRESULT: e_abort transformed to HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+Transform: e_abort -> e_outOfMemory
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_abort -> e_outOfMemory
+
+Comment: Testing HRESULT: e_abort transformed to HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+Transform: e_abort -> e_unexpected
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_abort -> e_unexpected
+
+Comment: Testing HRESULT: e_abort transformed to HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+Transform: e_abort -> e_bounds
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_abort -> e_bounds
+
+Comment: Testing HRESULT: e_abort transformed to HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+Transform: e_abort -> e_classNotReg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_abort -> e_classNotReg
+
+Comment: Testing HRESULT: e_accessDenied transformed to HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+Transform: e_accessDenied -> e_fail
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_accessDenied -> e_fail
+
+Comment: Testing HRESULT: e_accessDenied transformed to HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+Transform: e_accessDenied -> e_invalidArg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_accessDenied -> e_invalidArg
+
+Comment: Testing HRESULT: e_accessDenied transformed to HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+Transform: e_accessDenied -> e_pointer
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_accessDenied -> e_pointer
+
+Comment: Testing HRESULT: e_accessDenied transformed to HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+Transform: e_accessDenied -> e_noInterface
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_accessDenied -> e_noInterface
+
+Comment: Testing HRESULT: e_accessDenied transformed to HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+Transform: e_accessDenied -> e_notImpl
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_accessDenied -> e_notImpl
+
+Comment: Testing HRESULT: e_accessDenied transformed to HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+Transform: e_accessDenied -> e_abort
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_accessDenied -> e_abort
+
+Comment: Testing HRESULT: e_accessDenied transformed to HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+Transform: e_accessDenied -> e_handle
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_accessDenied -> e_handle
+
+Comment: Testing HRESULT: e_accessDenied transformed to HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+Transform: e_accessDenied -> e_outOfMemory
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_accessDenied -> e_outOfMemory
+
+Comment: Testing HRESULT: e_accessDenied transformed to HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+Transform: e_accessDenied -> e_unexpected
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_accessDenied -> e_unexpected
+
+Comment: Testing HRESULT: e_accessDenied transformed to HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+Transform: e_accessDenied -> e_bounds
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_accessDenied -> e_bounds
+
+Comment: Testing HRESULT: e_accessDenied transformed to HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+Transform: e_accessDenied -> e_classNotReg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_accessDenied -> e_classNotReg
+
+Comment: Testing HRESULT: e_handle transformed to HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+Transform: e_handle -> e_fail
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_handle -> e_fail
+
+Comment: Testing HRESULT: e_handle transformed to HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+Transform: e_handle -> e_invalidArg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_handle -> e_invalidArg
+
+Comment: Testing HRESULT: e_handle transformed to HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+Transform: e_handle -> e_pointer
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_handle -> e_pointer
+
+Comment: Testing HRESULT: e_handle transformed to HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+Transform: e_handle -> e_noInterface
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_handle -> e_noInterface
+
+Comment: Testing HRESULT: e_handle transformed to HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+Transform: e_handle -> e_notImpl
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_handle -> e_notImpl
+
+Comment: Testing HRESULT: e_handle transformed to HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+Transform: e_handle -> e_abort
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_handle -> e_abort
+
+Comment: Testing HRESULT: e_handle transformed to HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+Transform: e_handle -> e_accessDenied
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_handle -> e_accessDenied
+
+Comment: Testing HRESULT: e_handle transformed to HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+Transform: e_handle -> e_outOfMemory
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_handle -> e_outOfMemory
+
+Comment: Testing HRESULT: e_handle transformed to HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+Transform: e_handle -> e_unexpected
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_handle -> e_unexpected
+
+Comment: Testing HRESULT: e_handle transformed to HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+Transform: e_handle -> e_bounds
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_handle -> e_bounds
+
+Comment: Testing HRESULT: e_handle transformed to HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+Transform: e_handle -> e_classNotReg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_handle -> e_classNotReg
+
+Comment: Testing HRESULT: e_outOfMemory transformed to HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+Transform: e_outOfMemory -> e_fail
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_outOfMemory -> e_fail
+
+Comment: Testing HRESULT: e_outOfMemory transformed to HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+Transform: e_outOfMemory -> e_invalidArg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_outOfMemory -> e_invalidArg
+
+Comment: Testing HRESULT: e_outOfMemory transformed to HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+Transform: e_outOfMemory -> e_pointer
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_outOfMemory -> e_pointer
+
+Comment: Testing HRESULT: e_outOfMemory transformed to HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+Transform: e_outOfMemory -> e_noInterface
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_outOfMemory -> e_noInterface
+
+Comment: Testing HRESULT: e_outOfMemory transformed to HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+Transform: e_outOfMemory -> e_notImpl
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_outOfMemory -> e_notImpl
+
+Comment: Testing HRESULT: e_outOfMemory transformed to HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+Transform: e_outOfMemory -> e_abort
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_outOfMemory -> e_abort
+
+Comment: Testing HRESULT: e_outOfMemory transformed to HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+Transform: e_outOfMemory -> e_accessDenied
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_outOfMemory -> e_accessDenied
+
+Comment: Testing HRESULT: e_outOfMemory transformed to HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+Transform: e_outOfMemory -> e_handle
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_outOfMemory -> e_handle
+
+Comment: Testing HRESULT: e_outOfMemory transformed to HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+Transform: e_outOfMemory -> e_unexpected
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_outOfMemory -> e_unexpected
+
+Comment: Testing HRESULT: e_outOfMemory transformed to HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+Transform: e_outOfMemory -> e_bounds
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_outOfMemory -> e_bounds
+
+Comment: Testing HRESULT: e_outOfMemory transformed to HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+Transform: e_outOfMemory -> e_classNotReg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_outOfMemory -> e_classNotReg
+
+Comment: Testing HRESULT: e_unexpected transformed to HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+Transform: e_unexpected -> e_fail
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_unexpected -> e_fail
+
+Comment: Testing HRESULT: e_unexpected transformed to HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+Transform: e_unexpected -> e_invalidArg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_unexpected -> e_invalidArg
+
+Comment: Testing HRESULT: e_unexpected transformed to HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+Transform: e_unexpected -> e_pointer
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_unexpected -> e_pointer
+
+Comment: Testing HRESULT: e_unexpected transformed to HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+Transform: e_unexpected -> e_noInterface
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_unexpected -> e_noInterface
+
+Comment: Testing HRESULT: e_unexpected transformed to HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+Transform: e_unexpected -> e_notImpl
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_unexpected -> e_notImpl
+
+Comment: Testing HRESULT: e_unexpected transformed to HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+Transform: e_unexpected -> e_abort
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_unexpected -> e_abort
+
+Comment: Testing HRESULT: e_unexpected transformed to HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+Transform: e_unexpected -> e_accessDenied
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_unexpected -> e_accessDenied
+
+Comment: Testing HRESULT: e_unexpected transformed to HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+Transform: e_unexpected -> e_handle
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_unexpected -> e_handle
+
+Comment: Testing HRESULT: e_unexpected transformed to HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+Transform: e_unexpected -> e_outOfMemory
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_unexpected -> e_outOfMemory
+
+Comment: Testing HRESULT: e_unexpected transformed to HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+Transform: e_unexpected -> e_bounds
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_unexpected -> e_bounds
+
+Comment: Testing HRESULT: e_unexpected transformed to HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+Transform: e_unexpected -> e_classNotReg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_unexpected -> e_classNotReg
+
+Comment: Testing HRESULT: e_bounds transformed to HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+Transform: e_bounds -> e_fail
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_bounds -> e_fail
+
+Comment: Testing HRESULT: e_bounds transformed to HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+Transform: e_bounds -> e_invalidArg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_bounds -> e_invalidArg
+
+Comment: Testing HRESULT: e_bounds transformed to HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+Transform: e_bounds -> e_pointer
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_bounds -> e_pointer
+
+Comment: Testing HRESULT: e_bounds transformed to HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+Transform: e_bounds -> e_noInterface
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_bounds -> e_noInterface
+
+Comment: Testing HRESULT: e_bounds transformed to HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+Transform: e_bounds -> e_notImpl
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_bounds -> e_notImpl
+
+Comment: Testing HRESULT: e_bounds transformed to HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+Transform: e_bounds -> e_abort
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_bounds -> e_abort
+
+Comment: Testing HRESULT: e_bounds transformed to HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+Transform: e_bounds -> e_accessDenied
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_bounds -> e_accessDenied
+
+Comment: Testing HRESULT: e_bounds transformed to HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+Transform: e_bounds -> e_handle
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_bounds -> e_handle
+
+Comment: Testing HRESULT: e_bounds transformed to HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+Transform: e_bounds -> e_outOfMemory
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_bounds -> e_outOfMemory
+
+Comment: Testing HRESULT: e_bounds transformed to HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+Transform: e_bounds -> e_unexpected
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_bounds -> e_unexpected
+
+Comment: Testing HRESULT: e_bounds transformed to HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+Transform: e_bounds -> e_classNotReg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_bounds -> e_classNotReg
+
+Comment: Testing HRESULT: e_classNotReg transformed to HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+Transform: e_classNotReg -> e_fail
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_classNotReg -> e_fail
+
+Comment: Testing HRESULT: e_classNotReg transformed to HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+Transform: e_classNotReg -> e_invalidArg
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_classNotReg -> e_invalidArg
+
+Comment: Testing HRESULT: e_classNotReg transformed to HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+Transform: e_classNotReg -> e_pointer
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_classNotReg -> e_pointer
+
+Comment: Testing HRESULT: e_classNotReg transformed to HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+Transform: e_classNotReg -> e_noInterface
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_classNotReg -> e_noInterface
+
+Comment: Testing HRESULT: e_classNotReg transformed to HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+Transform: e_classNotReg -> e_notImpl
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_classNotReg -> e_notImpl
+
+Comment: Testing HRESULT: e_classNotReg transformed to HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+Transform: e_classNotReg -> e_abort
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_classNotReg -> e_abort
+
+Comment: Testing HRESULT: e_classNotReg transformed to HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+Transform: e_classNotReg -> e_accessDenied
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_classNotReg -> e_accessDenied
+
+Comment: Testing HRESULT: e_classNotReg transformed to HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+Transform: e_classNotReg -> e_handle
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_classNotReg -> e_handle
+
+Comment: Testing HRESULT: e_classNotReg transformed to HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+Transform: e_classNotReg -> e_outOfMemory
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_classNotReg -> e_outOfMemory
+
+Comment: Testing HRESULT: e_classNotReg transformed to HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+Transform: e_classNotReg -> e_unexpected
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_classNotReg -> e_unexpected
+
+Comment: Testing HRESULT: e_classNotReg transformed to HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+Transform: e_classNotReg -> e_bounds
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Transform: e_classNotReg -> e_bounds
+
+PASS [Test 7: Transform Error]
+=================================================
+
+=================================================
+Starting [Test 8: IErrorInfo and HRESULT do not match]
+Comment: Testing IErrorInfo with HRESULT: e_fail mismatch with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_fail mismatch with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_fail mismatch with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_fail mismatch with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_fail mismatch with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_fail mismatch with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_fail mismatch with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_fail mismatch with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_fail mismatch with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_fail mismatch with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_fail mismatch with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_invalidArg mismatch with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_invalidArg mismatch with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_invalidArg mismatch with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_invalidArg mismatch with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_invalidArg mismatch with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_invalidArg mismatch with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_invalidArg mismatch with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_invalidArg mismatch with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_invalidArg mismatch with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_invalidArg mismatch with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_invalidArg mismatch with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_pointer mismatch with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_pointer mismatch with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_pointer mismatch with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_pointer mismatch with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_pointer mismatch with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_pointer mismatch with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_pointer mismatch with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_pointer mismatch with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_pointer mismatch with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_pointer mismatch with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_pointer mismatch with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_noInterface mismatch with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_noInterface mismatch with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_noInterface mismatch with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_noInterface mismatch with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_noInterface mismatch with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_noInterface mismatch with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_noInterface mismatch with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_noInterface mismatch with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_noInterface mismatch with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_noInterface mismatch with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_noInterface mismatch with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_notImpl mismatch with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_notImpl mismatch with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_notImpl mismatch with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_notImpl mismatch with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_notImpl mismatch with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_notImpl mismatch with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_notImpl mismatch with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_notImpl mismatch with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_notImpl mismatch with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_notImpl mismatch with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_notImpl mismatch with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_abort mismatch with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_abort mismatch with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_abort mismatch with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_abort mismatch with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_abort mismatch with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_abort mismatch with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_abort mismatch with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_abort mismatch with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_abort mismatch with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_abort mismatch with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_abort mismatch with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_accessDenied mismatch with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_accessDenied mismatch with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_accessDenied mismatch with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_accessDenied mismatch with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_accessDenied mismatch with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_accessDenied mismatch with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_accessDenied mismatch with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_accessDenied mismatch with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_accessDenied mismatch with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_accessDenied mismatch with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_accessDenied mismatch with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_handle mismatch with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_handle mismatch with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_handle mismatch with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_handle mismatch with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_handle mismatch with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_handle mismatch with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_handle mismatch with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_handle mismatch with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_handle mismatch with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_handle mismatch with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_handle mismatch with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_outOfMemory mismatch with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_outOfMemory mismatch with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_outOfMemory mismatch with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_outOfMemory mismatch with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_outOfMemory mismatch with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_outOfMemory mismatch with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_outOfMemory mismatch with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_outOfMemory mismatch with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_outOfMemory mismatch with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_outOfMemory mismatch with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_outOfMemory mismatch with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_unexpected mismatch with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_unexpected mismatch with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_unexpected mismatch with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_unexpected mismatch with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_unexpected mismatch with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_unexpected mismatch with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_unexpected mismatch with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_unexpected mismatch with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_unexpected mismatch with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_unexpected mismatch with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_unexpected mismatch with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_bounds mismatch with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_bounds mismatch with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_bounds mismatch with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_bounds mismatch with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_bounds mismatch with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_bounds mismatch with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_bounds mismatch with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_bounds mismatch with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_bounds mismatch with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_bounds mismatch with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_bounds mismatch with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_classNotReg mismatch with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_classNotReg mismatch with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_classNotReg mismatch with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_classNotReg mismatch with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_classNotReg mismatch with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_classNotReg mismatch with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_classNotReg mismatch with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_classNotReg mismatch with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_classNotReg mismatch with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_classNotReg mismatch with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing IErrorInfo with HRESULT: e_classNotReg mismatch with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+PASS [Test 8: IErrorInfo and HRESULT do not match]
+=================================================
+
+=================================================
+Starting [Test 9: Stale IErrorInfo left over from previous call]
+Comment: Testing stale IErrorInfo with HRESULT: e_fail followed by call with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_fail followed by call with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_fail followed by call with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_fail followed by call with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_fail followed by call with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_fail followed by call with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_fail followed by call with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_fail followed by call with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_fail followed by call with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_fail followed by call with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_fail followed by call with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_fail followed by call with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_invalidArg followed by call with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_invalidArg followed by call with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_invalidArg followed by call with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_invalidArg followed by call with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_invalidArg followed by call with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_invalidArg followed by call with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_invalidArg followed by call with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_invalidArg followed by call with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_invalidArg followed by call with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_invalidArg followed by call with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_invalidArg followed by call with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_invalidArg followed by call with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_pointer followed by call with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_pointer followed by call with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_pointer followed by call with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_pointer followed by call with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_pointer followed by call with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_pointer followed by call with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_pointer followed by call with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_pointer followed by call with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_pointer followed by call with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_pointer followed by call with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_pointer followed by call with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_pointer followed by call with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_noInterface followed by call with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_noInterface followed by call with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_noInterface followed by call with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_noInterface followed by call with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_noInterface followed by call with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_noInterface followed by call with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_noInterface followed by call with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_noInterface followed by call with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_noInterface followed by call with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_noInterface followed by call with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_noInterface followed by call with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_noInterface followed by call with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_notImpl followed by call with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_notImpl followed by call with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_notImpl followed by call with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_notImpl followed by call with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_notImpl followed by call with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_notImpl followed by call with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_notImpl followed by call with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_notImpl followed by call with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_notImpl followed by call with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_notImpl followed by call with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_notImpl followed by call with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_notImpl followed by call with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_abort followed by call with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_abort followed by call with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_abort followed by call with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_abort followed by call with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_abort followed by call with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_abort followed by call with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_abort followed by call with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_abort followed by call with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_abort followed by call with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_abort followed by call with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_abort followed by call with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_abort followed by call with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_accessDenied followed by call with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_accessDenied followed by call with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_accessDenied followed by call with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_accessDenied followed by call with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_accessDenied followed by call with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_accessDenied followed by call with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_accessDenied followed by call with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_accessDenied followed by call with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_accessDenied followed by call with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_accessDenied followed by call with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_accessDenied followed by call with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_accessDenied followed by call with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_handle followed by call with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_handle followed by call with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_handle followed by call with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_handle followed by call with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_handle followed by call with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_handle followed by call with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_handle followed by call with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_handle followed by call with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_handle followed by call with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_handle followed by call with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_handle followed by call with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_handle followed by call with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_outOfMemory followed by call with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_outOfMemory followed by call with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_outOfMemory followed by call with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_outOfMemory followed by call with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_outOfMemory followed by call with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_outOfMemory followed by call with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_outOfMemory followed by call with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_outOfMemory followed by call with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_outOfMemory followed by call with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_outOfMemory followed by call with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_outOfMemory followed by call with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_outOfMemory followed by call with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_unexpected followed by call with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_unexpected followed by call with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_unexpected followed by call with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_unexpected followed by call with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_unexpected followed by call with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_unexpected followed by call with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_unexpected followed by call with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_unexpected followed by call with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_unexpected followed by call with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_unexpected followed by call with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_unexpected followed by call with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_unexpected followed by call with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_bounds followed by call with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_bounds followed by call with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_bounds followed by call with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_bounds followed by call with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_bounds followed by call with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_bounds followed by call with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_bounds followed by call with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_bounds followed by call with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_bounds followed by call with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_bounds followed by call with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_bounds followed by call with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_bounds followed by call with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_classNotReg followed by call with returned HRESULT: e_fail
+Pass: e.number
+      Actual: -2147467259
+
+Pass: e.message
+      Actual: Unspecified error
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_classNotReg followed by call with returned HRESULT: e_invalidArg
+Pass: e.number
+      Actual: -2147024809
+
+Pass: e.message
+      Actual: The parameter is incorrect.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_classNotReg followed by call with returned HRESULT: e_pointer
+Pass: e.number
+      Actual: -2147467261
+
+Pass: e.message
+      Actual: Invalid pointer
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_classNotReg followed by call with returned HRESULT: e_noInterface
+Pass: e.number
+      Actual: -2147467262
+
+Pass: e.message
+      Actual: No such interface supported
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_classNotReg followed by call with returned HRESULT: e_notImpl
+Pass: e.number
+      Actual: -2147467263
+
+Pass: e.message
+      Actual: Not implemented
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_classNotReg followed by call with returned HRESULT: e_abort
+Pass: e.number
+      Actual: -2147467260
+
+Pass: e.message
+      Actual: Operation aborted
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_classNotReg followed by call with returned HRESULT: e_accessDenied
+Pass: e.number
+      Actual: -2147024891
+
+Pass: e.message
+      Actual: Access is denied.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_classNotReg followed by call with returned HRESULT: e_handle
+Pass: e.number
+      Actual: -2147024890
+
+Pass: e.message
+      Actual: The handle is invalid.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_classNotReg followed by call with returned HRESULT: e_outOfMemory
+Pass: e.number
+      Actual: -2147024882
+
+Pass: e.message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_classNotReg followed by call with returned HRESULT: e_unexpected
+Pass: e.number
+      Actual: -2147418113
+
+Pass: e.message
+      Actual: Catastrophic failure
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_classNotReg followed by call with returned HRESULT: e_bounds
+Pass: e.number
+      Actual: -2147483637
+
+Pass: e.message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+Comment: Testing stale IErrorInfo with HRESULT: e_classNotReg followed by call with returned HRESULT: e_classNotReg
+Pass: e.number
+      Actual: -2147221164
+
+Pass: e.message
+      Actual: Class not registered
+
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: undefined
+
+PASS [Test 9: Stale IErrorInfo left over from previous call]
+=================================================
+
+=================================================
+Starting [Test 10: Originate and catch error with capability SID -- verify error object var and restricted values]
+Comment: Testing Capability: winCapabilityInternetClientSid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityInternetClientSid
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityInternetClientSid
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-1'
+Pass: Found property with value 'S-1-15-3-1'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityInternetClientSid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-1
+
+Comment: Testing Capability: winCapabilityInternetClientServerSid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityInternetClientServerSid
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityInternetClientServerSid
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-2'
+Pass: Found property with value 'S-1-15-3-2'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityInternetClientServerSid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-2
+
+Comment: Testing Capability: winCapabilityPrivateNetworkClientServerSid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityPrivateNetworkClientServerSid
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityPrivateNetworkClientServerSid
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-3'
+Pass: Found property with value 'S-1-15-3-3'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityPrivateNetworkClientServerSid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-3
+
+Comment: Testing Capability: winCapabilityPicturesLibrarySid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityPicturesLibrarySid
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityPicturesLibrarySid
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-4'
+Pass: Found property with value 'S-1-15-3-4'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityPicturesLibrarySid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-4
+
+Comment: Testing Capability: winCapabilityVideosLibrarySid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityVideosLibrarySid
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityVideosLibrarySid
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-5'
+Pass: Found property with value 'S-1-15-3-5'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityVideosLibrarySid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-5
+
+Comment: Testing Capability: winCapabilityMusicLibrarySid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityMusicLibrarySid
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityMusicLibrarySid
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-6'
+Pass: Found property with value 'S-1-15-3-6'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityMusicLibrarySid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-6
+
+Comment: Testing Capability: winCapabilityDocumentsLibrarySid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityDocumentsLibrarySid
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityDocumentsLibrarySid
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-7'
+Pass: Found property with value 'S-1-15-3-7'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityDocumentsLibrarySid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-7
+
+Comment: Testing Capability: winCapabilitySharedUserCertificatesSid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilitySharedUserCertificatesSid
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilitySharedUserCertificatesSid
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-9'
+Pass: Found property with value 'S-1-15-3-9'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilitySharedUserCertificatesSid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-9
+
+Comment: Testing Capability: winCapabilityDefaultWindowsCredentialsSid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityDefaultWindowsCredentialsSid
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityDefaultWindowsCredentialsSid
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-8'
+Pass: Found property with value 'S-1-15-3-8'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityDefaultWindowsCredentialsSid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-8
+
+Comment: Testing Capability: winCapabilityRemovableStorageSid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityRemovableStorageSid
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+Originate E_ACCESSDENIED with Capability SID: winCapabilityRemovableStorageSid
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-10'
+Pass: Found property with value 'S-1-15-3-10'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityRemovableStorageSid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-10
+
+PASS [Test 10: Originate and catch error with capability SID -- verify error object var and restricted values]
+=================================================
+
+Passed: 10
+Failed: 0

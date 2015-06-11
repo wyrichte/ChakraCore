@@ -1,0 +1,47 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "nested": "function nested() {\n        eval(\"\"); // eval here makes test's scope a non-dynamic object scope\n    }",
+      "l": "[Uninitialized block variable]",
+      "c": "[Uninitialized block variable]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "nested": "function nested() {\n        eval(\"\"); // eval here makes test's scope a non-dynamic object scope\n    }",
+      "l": "10",
+      "c": "[Uninitialized block variable]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "nested": "function nested() {\n        eval(\"\"); // eval here makes test's scope a non-dynamic object scope\n    }",
+      "l": "10",
+      "c": "20",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "c=30": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "nested": "function nested() {\n        eval(\"\"); // eval here makes test's scope a non-dynamic object scope\n    }",
+      "l": "10",
+      "c": "20",
+      "[Globals]": ""
+    }
+  }
+]

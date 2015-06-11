@@ -1,0 +1,2 @@
+C_DEFINES = $(C_DEFINES) -DENABLE_DEBUG_CONFIG_OPTIONS=1
+!include ..\sources.inc

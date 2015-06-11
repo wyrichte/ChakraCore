@@ -1,0 +1,10 @@
+[
+  {
+    "evaluate": {
+      "weakSet": {
+        "weakSet.__proto__": "{...}",
+        "weakSet": "size = 3"
+      }
+    }
+  }
+]

@@ -1,0 +1,1312 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 639,
+        "length": 15,
+        "text": "callBadFormat()",
+        "frameDescription": "toString"
+      },
+      {
+        "start": 728,
+        "length": 28,
+        "text": "array.sort(collator.compare)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 506,
+        "length": 255,
+        "text": "runTest(function () {\n    var count = 0; // Only run once\n    var array = [\n        { toString: function () { if (count++ == 0) { callBadFormat(); } } },\n        5\n    ];\n    var collator = new Intl.Collator();\n    array.sort(collator.compare);\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 809,
+        "length": 36,
+        "text": "throw new Error(\"Intentional throw\")",
+        "frameDescription": "bad_locale.toString"
+      },
+      {
+        "start": 1270,
+        "length": 20,
+        "text": "new obj(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1239,
+        "length": 60,
+        "text": "runTest(function () {\n        new obj(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1270,
+        "length": 20,
+        "text": "new obj(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1239,
+        "length": 60,
+        "text": "runTest(function () {\n        new obj(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 809,
+        "length": 36,
+        "text": "throw new Error(\"Intentional throw\")",
+        "frameDescription": "bad_locale.toString"
+      },
+      {
+        "start": 1339,
+        "length": 35,
+        "text": "obj.supportedLocalesOf(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1308,
+        "length": 75,
+        "text": "runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1339,
+        "length": 35,
+        "text": "obj.supportedLocalesOf(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1308,
+        "length": 75,
+        "text": "runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 809,
+        "length": 36,
+        "text": "throw new Error(\"Intentional throw\")",
+        "frameDescription": "bad_locale.toString"
+      },
+      {
+        "start": 1270,
+        "length": 20,
+        "text": "new obj(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1239,
+        "length": 60,
+        "text": "runTest(function () {\n        new obj(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1270,
+        "length": 20,
+        "text": "new obj(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1239,
+        "length": 60,
+        "text": "runTest(function () {\n        new obj(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 809,
+        "length": 36,
+        "text": "throw new Error(\"Intentional throw\")",
+        "frameDescription": "bad_locale.toString"
+      },
+      {
+        "start": 1339,
+        "length": 35,
+        "text": "obj.supportedLocalesOf(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1308,
+        "length": 75,
+        "text": "runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1339,
+        "length": 35,
+        "text": "obj.supportedLocalesOf(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1308,
+        "length": 75,
+        "text": "runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 809,
+        "length": 36,
+        "text": "throw new Error(\"Intentional throw\")",
+        "frameDescription": "bad_locale.toString"
+      },
+      {
+        "start": 1464,
+        "length": 28,
+        "text": "new obj().format(bad_locale)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1429,
+        "length": 76,
+        "text": "runTest(function () {\n            new obj().format(bad_locale);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1464,
+        "length": 28,
+        "text": "new obj().format(bad_locale)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1429,
+        "length": 76,
+        "text": "runTest(function () {\n            new obj().format(bad_locale);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 809,
+        "length": 36,
+        "text": "throw new Error(\"Intentional throw\")",
+        "frameDescription": "bad_locale.toString"
+      },
+      {
+        "start": 1270,
+        "length": 20,
+        "text": "new obj(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1239,
+        "length": 60,
+        "text": "runTest(function () {\n        new obj(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1270,
+        "length": 20,
+        "text": "new obj(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1239,
+        "length": 60,
+        "text": "runTest(function () {\n        new obj(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 809,
+        "length": 36,
+        "text": "throw new Error(\"Intentional throw\")",
+        "frameDescription": "bad_locale.toString"
+      },
+      {
+        "start": 1339,
+        "length": 35,
+        "text": "obj.supportedLocalesOf(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1308,
+        "length": 75,
+        "text": "runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1339,
+        "length": 35,
+        "text": "obj.supportedLocalesOf(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1308,
+        "length": 75,
+        "text": "runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 809,
+        "length": 36,
+        "text": "throw new Error(\"Intentional throw\")",
+        "frameDescription": "bad_locale.toString"
+      },
+      {
+        "start": 1464,
+        "length": 28,
+        "text": "new obj().format(bad_locale)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1429,
+        "length": 76,
+        "text": "runTest(function () {\n            new obj().format(bad_locale);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1153,
+        "length": 364,
+        "text": "[Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat].forEach(function (obj) {\n    runTest(function () {\n        new obj(bad_locales);\n    });\n\n    runTest(function () {\n        obj.supportedLocalesOf(bad_locales);\n    });\n\n    if (obj.prototype.format) {\n        runTest(function () {\n            new obj().format(bad_locale);\n        });\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 809,
+        "length": 36,
+        "text": "throw new Error(\"Intentional throw\")",
+        "frameDescription": "bad_locale.toString"
+      },
+      {
+        "start": 1878,
+        "length": 25,
+        "text": "f.apply(d, [bad_locales])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1843,
+        "length": 73,
+        "text": "runTest(function () {\n            f.apply(d, [bad_locales]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1748,
+        "length": 177,
+        "text": "[d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1704,
+        "length": 414,
+        "text": "function () {\n    var d = new Date();\n    [d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    });\n\n    runTest(function () {\n        var n = 0;\n        n.toLocaleString(bad_locales);\n    });\n\n    runTest(function () {\n        \"abc\".localeCompare(\"def\", bad_locales);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1878,
+        "length": 25,
+        "text": "f.apply(d, [bad_locales])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1843,
+        "length": 73,
+        "text": "runTest(function () {\n            f.apply(d, [bad_locales]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1748,
+        "length": 177,
+        "text": "[d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1704,
+        "length": 414,
+        "text": "function () {\n    var d = new Date();\n    [d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    });\n\n    runTest(function () {\n        var n = 0;\n        n.toLocaleString(bad_locales);\n    });\n\n    runTest(function () {\n        \"abc\".localeCompare(\"def\", bad_locales);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 809,
+        "length": 36,
+        "text": "throw new Error(\"Intentional throw\")",
+        "frameDescription": "bad_locale.toString"
+      },
+      {
+        "start": 1878,
+        "length": 25,
+        "text": "f.apply(d, [bad_locales])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1843,
+        "length": 73,
+        "text": "runTest(function () {\n            f.apply(d, [bad_locales]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1748,
+        "length": 177,
+        "text": "[d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1704,
+        "length": 414,
+        "text": "function () {\n    var d = new Date();\n    [d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    });\n\n    runTest(function () {\n        var n = 0;\n        n.toLocaleString(bad_locales);\n    });\n\n    runTest(function () {\n        \"abc\".localeCompare(\"def\", bad_locales);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1878,
+        "length": 25,
+        "text": "f.apply(d, [bad_locales])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1843,
+        "length": 73,
+        "text": "runTest(function () {\n            f.apply(d, [bad_locales]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1748,
+        "length": 177,
+        "text": "[d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1704,
+        "length": 414,
+        "text": "function () {\n    var d = new Date();\n    [d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    });\n\n    runTest(function () {\n        var n = 0;\n        n.toLocaleString(bad_locales);\n    });\n\n    runTest(function () {\n        \"abc\".localeCompare(\"def\", bad_locales);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 809,
+        "length": 36,
+        "text": "throw new Error(\"Intentional throw\")",
+        "frameDescription": "bad_locale.toString"
+      },
+      {
+        "start": 1878,
+        "length": 25,
+        "text": "f.apply(d, [bad_locales])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1843,
+        "length": 73,
+        "text": "runTest(function () {\n            f.apply(d, [bad_locales]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1748,
+        "length": 177,
+        "text": "[d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1704,
+        "length": 414,
+        "text": "function () {\n    var d = new Date();\n    [d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    });\n\n    runTest(function () {\n        var n = 0;\n        n.toLocaleString(bad_locales);\n    });\n\n    runTest(function () {\n        \"abc\".localeCompare(\"def\", bad_locales);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1878,
+        "length": 25,
+        "text": "f.apply(d, [bad_locales])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1843,
+        "length": 73,
+        "text": "runTest(function () {\n            f.apply(d, [bad_locales]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1748,
+        "length": 177,
+        "text": "[d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1704,
+        "length": 414,
+        "text": "function () {\n    var d = new Date();\n    [d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    });\n\n    runTest(function () {\n        var n = 0;\n        n.toLocaleString(bad_locales);\n    });\n\n    runTest(function () {\n        \"abc\".localeCompare(\"def\", bad_locales);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 809,
+        "length": 36,
+        "text": "throw new Error(\"Intentional throw\")",
+        "frameDescription": "bad_locale.toString"
+      },
+      {
+        "start": 1985,
+        "length": 29,
+        "text": "n.toLocaleString(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1934,
+        "length": 89,
+        "text": "runTest(function () {\n        var n = 0;\n        n.toLocaleString(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1704,
+        "length": 414,
+        "text": "function () {\n    var d = new Date();\n    [d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    });\n\n    runTest(function () {\n        var n = 0;\n        n.toLocaleString(bad_locales);\n    });\n\n    runTest(function () {\n        \"abc\".localeCompare(\"def\", bad_locales);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1985,
+        "length": 29,
+        "text": "n.toLocaleString(bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 1934,
+        "length": 89,
+        "text": "runTest(function () {\n        var n = 0;\n        n.toLocaleString(bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1704,
+        "length": 414,
+        "text": "function () {\n    var d = new Date();\n    [d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    });\n\n    runTest(function () {\n        var n = 0;\n        n.toLocaleString(bad_locales);\n    });\n\n    runTest(function () {\n        \"abc\".localeCompare(\"def\", bad_locales);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 809,
+        "length": 36,
+        "text": "throw new Error(\"Intentional throw\")",
+        "frameDescription": "bad_locale.toString"
+      },
+      {
+        "start": 2063,
+        "length": 39,
+        "text": "\"abc\".localeCompare(\"def\", bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2032,
+        "length": 79,
+        "text": "runTest(function () {\n        \"abc\".localeCompare(\"def\", bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1704,
+        "length": 414,
+        "text": "function () {\n    var d = new Date();\n    [d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    });\n\n    runTest(function () {\n        var n = 0;\n        n.toLocaleString(bad_locales);\n    });\n\n    runTest(function () {\n        \"abc\".localeCompare(\"def\", bad_locales);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2063,
+        "length": 39,
+        "text": "\"abc\".localeCompare(\"def\", bad_locales)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2032,
+        "length": 79,
+        "text": "runTest(function () {\n        \"abc\".localeCompare(\"def\", bad_locales);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 1704,
+        "length": 414,
+        "text": "function () {\n    var d = new Date();\n    [d.toLocaleString, d.toLocaleDateString, d.toLocaleTimeString].forEach(function (f) {\n        runTest(function () {\n            f.apply(d, [bad_locales]);\n        });\n    });\n\n    runTest(function () {\n        var n = 0;\n        n.toLocaleString(bad_locales);\n    });\n\n    runTest(function () {\n        \"abc\".localeCompare(\"def\", bad_locales);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 2331,
+        "length": 32,
+        "text": "f.apply(arr, [callBadFormat, 0])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2296,
+        "length": 80,
+        "text": "runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2179,
+        "length": 206,
+        "text": "[arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2126,
+        "length": 759,
+        "text": "function () {\n    // Array\n    var arr = [1];\n    [arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    });\n\n    // JSON\n    runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    });\n    runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    });\n\n    // Map, Set\n    var m = new Map(); m.set(1, 1);\n    var s = new Set(); s.add(1);\n    [m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    });\n\n    // String\n    runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 2331,
+        "length": 32,
+        "text": "f.apply(arr, [callBadFormat, 0])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2296,
+        "length": 80,
+        "text": "runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2179,
+        "length": 206,
+        "text": "[arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2126,
+        "length": 759,
+        "text": "function () {\n    // Array\n    var arr = [1];\n    [arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    });\n\n    // JSON\n    runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    });\n    runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    });\n\n    // Map, Set\n    var m = new Map(); m.set(1, 1);\n    var s = new Set(); s.add(1);\n    [m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    });\n\n    // String\n    runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 2331,
+        "length": 32,
+        "text": "f.apply(arr, [callBadFormat, 0])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2296,
+        "length": 80,
+        "text": "runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2179,
+        "length": 206,
+        "text": "[arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2126,
+        "length": 759,
+        "text": "function () {\n    // Array\n    var arr = [1];\n    [arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    });\n\n    // JSON\n    runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    });\n    runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    });\n\n    // Map, Set\n    var m = new Map(); m.set(1, 1);\n    var s = new Set(); s.add(1);\n    [m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    });\n\n    // String\n    runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 2331,
+        "length": 32,
+        "text": "f.apply(arr, [callBadFormat, 0])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2296,
+        "length": 80,
+        "text": "runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2179,
+        "length": 206,
+        "text": "[arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2126,
+        "length": 759,
+        "text": "function () {\n    // Array\n    var arr = [1];\n    [arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    });\n\n    // JSON\n    runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    });\n    runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    });\n\n    // Map, Set\n    var m = new Map(); m.set(1, 1);\n    var s = new Set(); s.add(1);\n    [m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    });\n\n    // String\n    runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 2331,
+        "length": 32,
+        "text": "f.apply(arr, [callBadFormat, 0])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2296,
+        "length": 80,
+        "text": "runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2179,
+        "length": 206,
+        "text": "[arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2126,
+        "length": 759,
+        "text": "function () {\n    // Array\n    var arr = [1];\n    [arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    });\n\n    // JSON\n    runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    });\n    runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    });\n\n    // Map, Set\n    var m = new Map(); m.set(1, 1);\n    var s = new Set(); s.add(1);\n    [m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    });\n\n    // String\n    runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 2331,
+        "length": 32,
+        "text": "f.apply(arr, [callBadFormat, 0])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2296,
+        "length": 80,
+        "text": "runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2179,
+        "length": 206,
+        "text": "[arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2126,
+        "length": 759,
+        "text": "function () {\n    // Array\n    var arr = [1];\n    [arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    });\n\n    // JSON\n    runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    });\n    runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    });\n\n    // Map, Set\n    var m = new Map(); m.set(1, 1);\n    var s = new Set(); s.add(1);\n    [m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    });\n\n    // String\n    runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 2331,
+        "length": 32,
+        "text": "f.apply(arr, [callBadFormat, 0])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2296,
+        "length": 80,
+        "text": "runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2179,
+        "length": 206,
+        "text": "[arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2126,
+        "length": 759,
+        "text": "function () {\n    // Array\n    var arr = [1];\n    [arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    });\n\n    // JSON\n    runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    });\n    runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    });\n\n    // Map, Set\n    var m = new Map(); m.set(1, 1);\n    var s = new Set(); s.add(1);\n    [m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    });\n\n    // String\n    runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 2438,
+        "length": 31,
+        "text": "JSON.parse(\"{}\", callBadFormat)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2407,
+        "length": 71,
+        "text": "runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2126,
+        "length": 759,
+        "text": "function () {\n    // Array\n    var arr = [1];\n    [arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    });\n\n    // JSON\n    runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    });\n    runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    });\n\n    // Map, Set\n    var m = new Map(); m.set(1, 1);\n    var s = new Set(); s.add(1);\n    [m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    });\n\n    // String\n    runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 2516,
+        "length": 33,
+        "text": "JSON.stringify({}, callBadFormat)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2485,
+        "length": 73,
+        "text": "runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2126,
+        "length": 759,
+        "text": "function () {\n    // Array\n    var arr = [1];\n    [arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    });\n\n    // JSON\n    runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    });\n    runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    });\n\n    // Map, Set\n    var m = new Map(); m.set(1, 1);\n    var s = new Set(); s.add(1);\n    [m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    });\n\n    // String\n    runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 2731,
+        "length": 26,
+        "text": "obj.forEach(callBadFormat)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2696,
+        "length": 74,
+        "text": "runTest(function () {\n            obj.forEach(callBadFormat);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2655,
+        "length": 124,
+        "text": "[m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2126,
+        "length": 759,
+        "text": "function () {\n    // Array\n    var arr = [1];\n    [arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    });\n\n    // JSON\n    runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    });\n    runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    });\n\n    // Map, Set\n    var m = new Map(); m.set(1, 1);\n    var s = new Set(); s.add(1);\n    [m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    });\n\n    // String\n    runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 2731,
+        "length": 26,
+        "text": "obj.forEach(callBadFormat)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2696,
+        "length": 74,
+        "text": "runTest(function () {\n            obj.forEach(callBadFormat);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2655,
+        "length": 124,
+        "text": "[m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2126,
+        "length": 759,
+        "text": "function () {\n    // Array\n    var arr = [1];\n    [arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    });\n\n    // JSON\n    runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    });\n    runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    });\n\n    // Map, Set\n    var m = new Map(); m.set(1, 1);\n    var s = new Set(); s.add(1);\n    [m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    });\n\n    // String\n    runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 2834,
+        "length": 35,
+        "text": "\"abcd\".replace(\"ab\", callBadFormat)",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2803,
+        "length": 75,
+        "text": "runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2126,
+        "length": 759,
+        "text": "function () {\n    // Array\n    var arr = [1];\n    [arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    });\n\n    // JSON\n    runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    });\n    runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    });\n\n    // Map, Set\n    var m = new Map(); m.set(1, 1);\n    var s = new Set(); s.add(1);\n    [m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    });\n\n    // String\n    runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

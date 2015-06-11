@@ -1,0 +1,299 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "obj1": "{...}",
+      "func0": "<large string>",
+      "ui8": "<large string>",
+      "f": "1",
+      "__loopvar2": "undefined",
+      "strvar0": "undefined",
+      "arguments": "{...}",
+      "obj0": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "f64": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 988,
+        "length": 14,
+        "text": "obj0.prop0 = 1",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 1802,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "obj1": "{...}",
+      "func0": "<large string>",
+      "ui8": "<large string>",
+      "f": "1",
+      "__loopvar2": "undefined",
+      "strvar0": "undefined",
+      "arguments": "{...}",
+      "obj0": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "f64": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 988,
+        "length": 14,
+        "text": "obj0.prop0 = 1",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 1813,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "obj1": "{...}",
+      "func0": "<large string>",
+      "ui8": "<large string>",
+      "f": "1",
+      "__loopvar2": "undefined",
+      "strvar0": "undefined",
+      "arguments": "{...}",
+      "obj0": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "f64": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 988,
+        "length": 14,
+        "text": "obj0.prop0 = 1",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 1824,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "obj1": "{...}",
+      "func0": "<large string>",
+      "ui8": "<large string>",
+      "f": "1",
+      "__loopvar2": "undefined",
+      "strvar0": "undefined",
+      "arguments": "{...}",
+      "obj0": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "f64": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 988,
+        "length": 14,
+        "text": "obj0.prop0 = 1",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 1835,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "obj1": "{...}",
+      "func0": "<large string>",
+      "ui8": "<large string>",
+      "f": "1",
+      "__loopvar2": "undefined",
+      "strvar0": "undefined",
+      "arguments": "{...}",
+      "obj0": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "f64": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 988,
+        "length": 14,
+        "text": "obj0.prop0 = 1",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 1895,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "obj1": "{...}",
+      "func0": "<large string>",
+      "ui8": "<large string>",
+      "f": "1",
+      "__loopvar2": "undefined",
+      "strvar0": "undefined",
+      "arguments": "{...}",
+      "obj0": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "f64": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 988,
+        "length": 14,
+        "text": "obj0.prop0 = 1",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 1906,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "obj1": "{...}",
+      "func0": "<large string>",
+      "ui8": "<large string>",
+      "f": "1",
+      "__loopvar2": "undefined",
+      "strvar0": "undefined",
+      "arguments": "{...}",
+      "obj0": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "f64": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 988,
+        "length": 14,
+        "text": "obj0.prop0 = 1",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 1917,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "obj1": "{...}",
+      "func0": "<large string>",
+      "ui8": "<large string>",
+      "f": "1",
+      "__loopvar2": "undefined",
+      "strvar0": "undefined",
+      "arguments": "{...}",
+      "obj0": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "f64": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 988,
+        "length": 14,
+        "text": "obj0.prop0 = 1",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 1928,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "obj1": "{...}",
+      "func0": "<large string>",
+      "ui8": "<large string>",
+      "f": "1",
+      "__loopvar2": "undefined",
+      "strvar0": "undefined",
+      "arguments": "{...}",
+      "obj0": "{...}",
+      "arrObj0": "{...}",
+      "ary": "[...]",
+      "f64": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 988,
+        "length": 14,
+        "text": "obj0.prop0 = 1",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 1999,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

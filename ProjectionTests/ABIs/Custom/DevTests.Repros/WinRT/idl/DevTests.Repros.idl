@@ -1,0 +1,201 @@
+//  Copyright (c) Microsoft Corporation. All rights reserved.
+//
+//  WindowsRuntimeAPISet
+
+#include "sdkddkver.h"
+
+import "oaidl.idl";
+import "inspectable.idl";
+import "EventToken.idl";
+import "Windows.Foundation.idl";
+
+midl_pragma warning ( disable: 4066 )
+
+namespace DevTests.Repros {
+
+    namespace WebUI
+    {
+        interface IWebUIActivationStatics;
+
+        [version(NTDDI_WIN8)]
+        [object, uuid(50f1e730-c5d1-4b6b-9adb-8a11756be29c)]
+        delegate HRESULT ActivatedEventHandler(
+            [in] IWebUIActivationStatics *sender,
+            [in] IWebUIActivationStatics *eventArgs);
+
+        [version(NTDDI_WIN8)]
+        [uuid(351b86bd-43b3-482b-85db-35d87b517ad9)]
+        interface IWebUIActivationStatics : IInspectable
+        {
+            [eventadd] HRESULT Activated([in] ActivatedEventHandler * handler, 
+                [out, retval] EventRegistrationToken* token);
+
+            [eventremove] HRESULT Activated([in] EventRegistrationToken token);
+            HRESULT FireActivatedEvent();
+        }
+
+        // No activatable attribute means no projection of constructors.
+        [version(NTDDI_WIN8)]
+        [static(IWebUIActivationStatics, NTDDI_WIN8)]
+        runtimeclass WebUIActivation
+        {
+        }
+    }
+
+    namespace Performance
+    {
+        runtimeclass RefClass;
+
+        [uuid(a9C3EB19-8959-C3C4-0F26-CBFFC712CB30), version(NTDDI_WIN8), exclusiveto(RefClass)]
+        interface __IRefClassPublicNonVirtuals : IInspectable 
+        {
+        }
+
+        [uuid(09C3EB19-9859-C3C4-AF26-CBFFC712CB30), version(NTDDI_WIN8)]
+        interface IFoo : IInspectable 
+        {
+            HRESULT Initialize([in] int i1, [in] int i2, [out, retval] int * result);
+        }
+
+        [version(NTDDI_WIN8), object, uuid(04869603-E49E-4710-B2AA-C533B954B578)]
+        delegate HRESULT SomeDelegate();
+
+
+        [uuid(09C3EB19-9809-C3C4-BF26-CBFFC712CB34), version(NTDDI_WIN8)]
+        interface IRef : IInspectable 
+        {
+            HRESULT Calc([in] int i1, [in] int i2, [out, retval] int * result);
+            HRESULT OneIntParamsFunc([in] int i1);
+            HRESULT arrayParamsFunc([in] UINT32 length, [in, size_is(length)] int * intArray);
+            HRESULT manyIntParamsFunc([in] int i1, [in] int i2, [in] int i3, [in] int i4, [in] int i5, [in] int i6, [in] int i7, [in] int i8, [in] int i9, [in] int i10);
+            HRESULT noParamsFunc();
+            HRESULT paramsFunc([in] int i1, [in] int i2);
+            HRESULT refArrayParamsFunc([in] UINT32 length, [in, size_is(length)] RefClass ** classArray);
+            HRESULT refClassParamFunc([in] RefClass * refClass);
+            HRESULT returnArrayFunc([out] UINT32 *length, [out, retval, size_is(,*length)] int **result);
+            HRESULT returnArrayOfOneFunc([out] UINT32 *length, [out, retval, size_is(,*length)] int **result);
+            HRESULT returnIntFunc([out, retval] int * result);
+            HRESULT returnRefArrayFunc([out] UINT32 *length, [out, size_is(,*length)] RefClass *** result);
+            HRESULT returnRefClassFunc([out, retval] RefClass ** result);
+            HRESULT returnStringArrayFunc([out] UINT32 *length, [out, retval, size_is(,*length)] HSTRING **result);
+            HRESULT returnStringFunc([out, retval] HSTRING * result);
+            HRESULT stringArrayParamsFunc([in] UINT32 length, [in, size_is(length)] HSTRING * classArray);
+            HRESULT stringParamFunc([in] HSTRING str);
+
+            // -Non MoCom additions -------------------------------------------------------------
+            HRESULT passStringWithDelegate([in] HSTRING str, [in] SomeDelegate * callme);
+            HRESULT passRetrievableStringArray([in] UINT32 length, [in, size_is(length)] HSTRING * classArray);
+            HRESULT retrievePassedStringArray([out] UINT32 *length, [out, retval, size_is(,*length)] HSTRING **result);
+        }
+
+        [activatable(NTDDI_WIN8), version(NTDDI_WIN8)]
+        runtimeclass RefClass
+        {
+            [default] interface __IRefClassPublicNonVirtuals;
+            interface IFoo;
+            interface IRef;
+        }
+    }
+
+    namespace InterfaceOutFastPath
+    {
+        [uuid(3C1A55F5-5AC9-4DF5-B393-5A3DD994F959), version(NTDDI_WIN8)]
+        interface IOutInterface : IInspectable
+        {
+            HRESULT TestMethod([out, retval] boolean * result);
+        }
+
+        [uuid(2BE55648-5B7C-4333-86C4-F0C1E31BB69E), version(NTDDI_WIN8)]
+        interface ITestInterface : IInspectable
+        {
+            HRESULT InterfaceOutTest([out, retval] IOutInterface ** result);
+        }
+
+        [version(NTDDI_WIN8)]
+        [static(ITestInterface, NTDDI_WIN8)]
+        runtimeclass Tests
+        {
+        }
+    }
+
+#define NTDDI_MOCK_WIN9     0x06030000
+
+    namespace VersionedProperties
+    {
+        [uuid(AD1F42A2-F37B-4344-A5E6-4CBB0D18BDF6), version(0)]
+        interface IReadOnlyProperty : IInspectable
+        {
+            [propget] HRESULT TestProperty([out,retval] int* value);
+        }
+
+        [uuid(8277EC60-A627-4343-A4A9-B339C6082BE3), version(NTDDI_WIN8)]
+        interface IToReadWriteProperty : IInspectable
+        {
+            [propput] HRESULT TestProperty([in] int value);
+        }
+
+        [uuid(2E1F76C4-B9D2-4BA3-8AA6-C01C26C4540B), version(NTDDI_WIN8)]
+        interface IVerifyReadWriteProperty : IInspectable requires IToReadWriteProperty, IReadOnlyProperty
+        {
+            HRESULT VerifyTestProperty([in] int expectedValue, [out,retval] boolean* result);
+        }
+
+        [uuid(97668C5C-E0F7-47D6-8CA3-3692E2EA1682), version(NTDDI_WIN8)]
+        interface IWriteOnlyPropertyStatic : IInspectable
+        {
+            HRESULT GetInterfaceWithReadWriteProp([out,retval] IVerifyReadWriteProperty** result);
+        }
+
+        [uuid(86F87EBF-425E-4AAD-935C-B105F740C56C), version(0)]
+        interface IConflictingReadWriteProperty : IInspectable
+        {
+            [propget] HRESULT TestProperty([out,retval] HSTRING* value);
+            [propput] HRESULT TestProperty([in] HSTRING value);
+        }
+
+        [activatable(0), version(0)] 
+        [static(IWriteOnlyPropertyStatic, NTDDI_WIN8)]
+        runtimeclass VersionedProperty
+        {
+            [default] interface IReadOnlyProperty;
+            [version(NTDDI_WIN8)] interface IToReadWriteProperty;
+        }
+
+        [activatable(NTDDI_WIN8), version(NTDDI_WIN8)] 
+        runtimeclass ReadOnlyVersionedProperty
+        {
+            [default] interface IReadOnlyProperty;
+            [version(NTDDI_MOCK_WIN9)] interface IToReadWriteProperty;
+        }
+
+        [activatable(0), version(0)]
+        runtimeclass ConflictWithVersionedProperty
+        {
+            [default] interface IReadOnlyProperty;
+            interface IConflictingReadWriteProperty;
+            [version(NTDDI_WIN8)] interface IToReadWriteProperty;
+        }
+    }
+
+    namespace Stringables
+    {
+        runtimeclass SimpleStringable;
+        interface ISimpleStringableStatics;
+
+        [uuid(EDD324CB-2C62-4E4E-B7C9-B07EC0814E34), version(NTDDI_WINBLUE)]
+        interface ISimpleStringableStatics : IInspectable
+        {
+        }
+
+        [uuid(D8B11006-CB75-40C9-B91E-65ED7636A757), version(NTDDI_WINBLUE), exclusiveto(SimpleStringable)]
+        interface ISimpleStringable : IInspectable requires Windows.Foundation.IStringable
+        {
+        }
+
+        [activatable(NTDDI_WINBLUE), version(NTDDI_WINBLUE)]
+        runtimeclass SimpleStringable
+        {
+            [default] interface ISimpleStringable;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+Miscellaneous Versioning Scenarios
+
+=================================================
+Starting [Test Win8: 837548: Read-only property versioned to read-write property -- Read-only under target version Win8]
+Pass: obj.testProperty should be defined
+      Actual: 0
+
+Pass: obj.testProperty property descriptor should be defined
+      Actual: [object Object]
+
+Pass: typeof function get_TestProperty() { [native code] }
+      Actual: function
+
+Pass: typeof undefined
+      Actual: undefined
+
+Pass: obj.testProperty
+      Actual: 0
+
+Pass: obj.testProperty
+      Actual: 0
+
+PASS [Test Win8: 837548: Read-only property versioned to read-write property -- Read-only under target version Win8]
+=================================================
+
+Passed: 1
+Failed: 0

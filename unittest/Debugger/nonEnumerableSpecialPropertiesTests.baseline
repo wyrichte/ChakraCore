@@ -1,0 +1,15 @@
+*** Running test #1 (test01): Non-Enumerable Special Properties Array Buffer Test
+PASSED
+*** Running test #2 (test02): Non-Enumerable Special Properties Array Test
+PASSED
+*** Running test #3 (test03): Non-Enumerable Special Properties Pixel Array Test
+PASSED
+*** Running test #4 (test04): Non-Enumerable Special Properties Regex Constructor Test
+PASSED
+*** Running test #5 (test05): Non-Enumerable Special Properties Regex Test
+PASSED
+*** Running test #6 (test06): Non-Enumerable Special Properties String Test
+PASSED
+*** Running test #7 (test07): Non-Enumerable Special Properties Typed Array Test
+PASSED
+Summary of tests: total executed: 7; passed: 7; failed: 0

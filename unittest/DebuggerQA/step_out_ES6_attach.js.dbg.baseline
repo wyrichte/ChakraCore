@@ -1,0 +1,50 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": "4",
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>",
+        "baz": "<large string>",
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 274,
+        "length": 1,
+        "text": "x",
+        "frameDescription": "baz"
+      },
+      {
+        "start": 204,
+        "length": 5,
+        "text": "baz()",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 145,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 452,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  }
+]

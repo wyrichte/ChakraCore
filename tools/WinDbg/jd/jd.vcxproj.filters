@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="diag.cpp" />
+    <ClCompile Include="jd.cpp" />
+    <ClCompile Include="jdrecycler.cpp" />
+    <ClCompile Include="RemoteTypeHandler.cpp" />
+    <ClCompile Include="ScriptDebugSite.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Collections.cpp" />
+    <ClCompile Include="RecyclerList.cpp" />
+    <ClCompile Include="RecyclerRoots.cpp" />
+    <ClCompile Include="util.cpp" />
+    <ClCompile Include="jdbackend.cpp" />
+    <ClCompile Include="jdbytecode.cpp" />
+    <ClCompile Include="RemotePageAllocator.cpp" />
+    <ClCompile Include="RemoteThreadContext.cpp" />
+    <ClCompile Include="RemoteRecycler.cpp" />
+    <ClCompile Include="..\..\..\Dll\JScriptDiag\ScriptDump.cpp" />
+    <ClCompile Include="..\..\..\Dll\JScriptDiag\Serializer.cpp" />
+    <ClCompile Include="..\..\..\Dll\JScriptDiag\thrownew.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Exe\jshost\ComObject.h" />
+    <ClInclude Include="jd.h" />
+    <ClInclude Include="RemoteTypeHandler.h" />
+    <ClInclude Include="ScriptDebugSite.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TypeHandlerPropertyNameReader.h" />
+    <ClInclude Include="Nullable.h" />
+    <ClInclude Include="Collections.h" />
+    <ClInclude Include="jdrecycler.h" />
+    <ClInclude Include="RecyclerRoots.h" />
+    <ClInclude Include="RemoteRecyclerList.h" />
+    <ClInclude Include="jdbackend.h" />
+    <ClInclude Include="jdbytecode.h" />
+    <ClInclude Include="JDUtil.h" />
+    <ClInclude Include="RemoteFunctionBody.h" />
+    <ClInclude Include="RemotePageAllocator.h" />
+    <ClInclude Include="RemoteThreadContext.h" />
+    <ClInclude Include="RemoteRecycler.h" />
+    <ClInclude Include="..\..\..\Dll\JScriptDiag\ScriptDump.h" />
+    <ClInclude Include="..\..\..\Dll\JScriptDiag\ScriptDumpReader.h" />
+    <ClInclude Include="..\..\..\Dll\JScriptDiag\Serializer.h" />
+    <ClInclude Include="..\..\..\Dll\JScriptDiag\Serializer.inl" />
+    <ClInclude Include="..\..\..\Dll\JScriptDiag\thrownew.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="private\jd.def" />
+    <None Include="release\jsd.def" />
+  </ItemGroup>
+</Project>

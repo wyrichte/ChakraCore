@@ -1,0 +1,32 @@
+# Copyright (c) Microsoft Corporation. All rights reserved.
+
+TARGETNAME=WineryServer
+TARGETTYPE=LIBRARY
+TEST_CODE=1
+# This uses the shared copy of the C runtime library
+USE_MSVCRT=1
+
+# always build new components using UNICODE strings
+C_DEFINES=-DUNICODE -D_UNICODE
+
+MSC_WARNING_LEVEL=/W4
+
+# enable and specify a precompiled header.
+PRECOMPILED_CXX=1
+PRECOMPILED_INCLUDE=stdafx.h
+
+# replace "..\idl" with "$(OBJ_PATH)\..\idl\$(O);" once MIDL 
+# changes are available
+INCLUDES= \
+    $(COM_INC_PATH);\
+    $(COM_INC_PATH)\winrt;\
+    $(OBJ_PATH)\..\lib\$(O);\
+    $(OBJ_PATH)\..\idl\$(O);\
+    ..\idl;\
+
+_NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN8)
+
+SOURCES=\
+    RestrictedErrorAccessServer.cpp \
+	SimpleStaticConflictServer.cpp \
+    WineryServer.cpp \

@@ -1,0 +1,20 @@
+[
+  {
+    "log": "catchBlock"
+  },
+  {
+    "callstack": [
+      {
+        "start": 128,
+        "length": 20,
+        "text": "WScript.Echo('PASS')",
+        "frameDescription": "Global code",
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+          "DBGPROP_ATTRIB_FRAME_INCATCHBLOCK"
+        ],
+        "flagsAsValue": 33554448
+      }
+    ]
+  }
+]

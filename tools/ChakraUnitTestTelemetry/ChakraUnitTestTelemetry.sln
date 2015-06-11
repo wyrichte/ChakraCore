@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChakraUnitTestTelemetry", "ChakraUnitTestTelemetry\ChakraUnitTestTelemetry.csproj", "{6306CFE7-8A9D-4E2F-A257-142542D1AC9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChakraUnitTestTelemetry.Test", "ChakraUnitTestTelemetry.Test\ChakraUnitTestTelemetry.Test.csproj", "{7CBC1F3C-4130-414F-ADA9-A2D907AC0EDC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6306CFE7-8A9D-4E2F-A257-142542D1AC9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6306CFE7-8A9D-4E2F-A257-142542D1AC9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6306CFE7-8A9D-4E2F-A257-142542D1AC9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6306CFE7-8A9D-4E2F-A257-142542D1AC9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CBC1F3C-4130-414F-ADA9-A2D907AC0EDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CBC1F3C-4130-414F-ADA9-A2D907AC0EDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CBC1F3C-4130-414F-ADA9-A2D907AC0EDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CBC1F3C-4130-414F-ADA9-A2D907AC0EDC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

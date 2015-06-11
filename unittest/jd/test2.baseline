@@ -1,0 +1,34 @@
+Anonymous function (test2.js:14,6)
+Function code (Function code:1,1)
+Global code (test2.js:1,1)
+bar (test2.js:13,1)
+eval code (eval code:1,1)
+foo (test2.js:3,11)
+func (test2.js:7,1)
+
+Printing stacktrace..
+foo (test2.js:4,5)
+func (test2.js:8,5)
+Function code (Function code:1,1)
+eval code (eval code:1,1)
+Anonymous function (test2.js:15,9)
+bar (test2.js:14,6)
+Global code (test2.js:19,1)
+
+---verifyall again---
+Anonymous function (test2.js:14,6)
+Function code (Function code:1,1)
+Global code (test2.js:1,1)
+bar (test2.js:13,1)
+eval code (eval code:1,1)
+foo (test2.js:3,11)
+func (test2.js:7,1)
+
+Printing stacktrace..
+foo (test2.js:4,5)
+func (test2.js:8,5)
+Function code (Function code:1,1)
+eval code (eval code:1,1)
+Anonymous function (test2.js:15,9)
+bar (test2.js:14,6)
+Global code (test2.js:19,1)

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+<test>
+   <default>
+      <files>pass.js</files>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>fail.js</files>
+      <tags>foo</tags>
+   </default>
+</test>
+
+</regress-exe>

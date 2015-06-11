@@ -1,0 +1,20 @@
+No filename given
+PASS	1: Testing initial value of Error.prototype, name and message property of Error Object, ES5 section 15.11.1.1 
+	Pass: Initial value of Error.prototype is Error
+		  Actual: Error
+
+	Pass: Initial value of message property is ""
+		  Actual: 
+
+	Pass: Typeof Error should be object
+		  Actual: object
+
+	Pass: Initial value of name property is Error
+		  Actual: Error
+
+	Pass: Initial value of message property is ""
+		  Actual: 
+
+
+Passed: 1
+Failed: 0

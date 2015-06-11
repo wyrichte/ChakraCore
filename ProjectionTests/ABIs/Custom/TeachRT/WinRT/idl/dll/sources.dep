@@ -1,0 +1,7 @@
+PUBLIC_PASS0_CONSUMES= \
+    base\published|PASS0 \
+    com\published\idlole\public|PASS0 \
+    com\published\idlole\publish|PASS0 \
+    com\winrt\buildtools\winmetadata|PASS0 \
+    minkernel\published\base|PASS0 \
+

@@ -1,0 +1,37 @@
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<html>
+<head>
+<script>
+window.onerror = function(msg, url, line)
+{
+    var relativeUrl = url.match(/^(.*)?inetcore\/(.*)\/unittest\/(.*)/i)[3];
+   
+    var output = "[window.onerror] msg: " + msg;
+    output += "\n                 relativeUrl: " + relativeUrl;
+    output += "\n                 line: " + line;
+    if (this.WScript)
+    {
+        WScript.Echo(output);
+    }
+    else
+    {
+        alert(output);
+    }
+    return true;
+}
+
+function localbar()
+{
+    remotefoo();
+}
+
+function localfoo()
+{
+    localbar();
+}
+</script>
+</head>
+<body onload="localfoo()">
+<iframe name=frame1 src="childThrowThroughFrame.html">
+</body>
+</html>

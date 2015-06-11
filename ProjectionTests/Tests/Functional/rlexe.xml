@@ -1,0 +1,1830 @@
+<?xml version="1.0"?>
+<regress-exe>
+  <test>
+    <default>
+      <files>dotest.cmd</files>
+      <baseline>CompleteJsGen.baseline</baseline>
+      <compile-flags>-call CompleteJsGen.cmd</compile-flags>
+      <tags>exclude_win7,exclude_arm</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>dotest.cmd</files>
+      <baseline>Winery.jsgen.win8.baseline</baseline>
+      <compile-flags>-winmd Winery.winmd -r Windows.winmd -enableVersioningAllAssemblies -targetPlatformVersion 8.0</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>dotest.cmd</files>
+      <baseline>Winery.jsgen.baseline</baseline>
+      <compile-flags>-winmd Winery.winmd -r Windows.winmd -enableVersioningAllAssemblies -targetPlatformVersion 8.1</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>dotest.cmd</files>
+      <baseline>Winery.jsgen.baseline</baseline>
+      <compile-flags>-winmd Winery.winmd -r Windows.winmd -enableVersioningAllAssemblies</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>dotest.cmd</files>
+      <baseline>Animals.win8.jsgen.baseline</baseline>
+      <compile-flags>-winmd Animals.winmd -r Windows.winmd -r Fabrikam.Kitchen.winmd</compile-flags>
+      <tags>exclude_win7,exclude_arm</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>dotest.cmd</files>
+      <baseline>Animals.win7.jsgen.baseline</baseline>
+      <compile-flags>-winmd Animals.winmd</compile-flags>
+      <tags>exclude_win8,exclude_winBlue,exclude_arm</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>dotest.cmd</files>
+      <baseline>Fabrikam.jsgen.rootNamespace.baseline</baseline>
+      <compile-flags>-winmd Fabrikam.Kitchen.winmd -rootNamespace jsgen -r Windows.winmd</compile-flags>
+      <tags>exclude_win7,exclude_arm</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>dotest.cmd</files>
+      <baseline>Fabrikam.win7.jsgen.rootNamespace.baseline</baseline>
+      <compile-flags>-winmd Fabrikam.Kitchen.winmd -rootNamespace jsgen -r Windows.winmd</compile-flags>
+      <tags>exclude_win8,exclude_winBlue,exclude_arm</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>dotest.cmd</files>
+      <baseline>Fabrikam.jsgen.baseline</baseline>
+      <compile-flags>-winmd Fabrikam.Kitchen.winmd -r Windows.winmd</compile-flags>
+      <tags>exclude_win7,exclude_arm</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>dotest.cmd</files>
+      <baseline>Fabrikam.win7.jsgen.baseline</baseline>
+      <compile-flags>-winmd Fabrikam.Kitchen.winmd -r Windows.winmd</compile-flags>
+      <tags>exclude_win8,exclude_winBlue</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>dotest.cmd</files>
+      <baseline>Winery.jsgen.baseline</baseline>
+      <compile-flags>-winmd Winery.winmd -r Windows.winmd</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>BasicTypes-win7.js</files>
+      <baseline>BasicTypes-win7.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_winBlue,exclude_win8,exclude_arm</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>BasicTypes-win8.js</files>
+      <baseline>BasicTypes-win8.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7,exclude_arm</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>LanguageService.js</files>
+      <baseline>LanguageService.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>fail,exclude_win7,exclude_native,exclude_arm,exclude_snap</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>LanguageService.js</files>
+      <baseline>LanguageService.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>fail,exclude_win7,exclude_native,exclude_arm,exclude_fre,exclude_snap</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <files>Promises.js</files>
+      <baseline>Promises.baseline</baseline>
+      <compile-flags>-LibraryStackFrame</compile-flags>
+      <tags>exclude_win7,exclude_snap</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <files>Promises.js</files>
+      <baseline>Promises.dbg.baseline</baseline>
+      <compile-flags>-targeted -debuglaunch -dbgbaseline:promises.js.dbg.baseline -LibraryStackFrame</compile-flags>
+      <tags>exclude_win7,exclude_snap</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <files>PromisesDebug.js</files>
+      <baseline>PromisesDebug.baseline</baseline>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:PromisesDebug.js.dbg.baseline -TraceAsyncDebugCalls</compile-flags>
+      <tags>exclude_win7,exclude_fre,fail_mutators,exclude_dynapogo,exclude_snap</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <files>Promises.js</files>
+      <baseline>PromiseDelegate.baseline</baseline>
+      <compile-flags>-EnableDelegateWrapper -LibraryStackFrame</compile-flags>
+      <tags>exclude_win7,exclude_arm,exclude_amd64,exclude_snap</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+    <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <files>Promises.js</files>
+      <baseline>Promises.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig -LibraryStackFrame</compile-flags>
+      <tags>exclude_win7,exclude_fre,exclude_snap</tags>
+    </default>
+  </test>
+
+  <!-- Disable async debug tests with line numbers in the baselines until promise.js RIs - BLUE: 478208 !-->
+  <test>
+    <default>
+      <files>AsyncDebug.js</files>
+      <baseline>AsyncDebug.baseline</baseline>
+      <compile-flags>-TraceAsyncDebugCalls</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>AsyncDebug.js</files>
+      <baseline>AsyncDebug-WithStacktrace.baseline</baseline>
+      <compile-flags>-DebugLaunch -TraceAsyncDebugCalls</compile-flags>
+      <tags>fail,exclude_win7,exclude_fre,exclude_snap</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>AsyncDebug-WinJS.js</files>
+      <baseline>AsyncDebug-WinJS.baseline</baseline>
+      <compile-flags>-TraceAsyncDebugCalls</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>AsyncDebug-WinJS.js</files>
+      <baseline>AsyncDebug-WinJS-WithStacktrace.baseline</baseline>
+      <compile-flags>-DebugLaunch -TraceAsyncDebugCalls</compile-flags>
+      <tags>fail,exclude_win7,exclude_fre,exclude_snap</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>AsyncDebug.js</files>
+      <baseline>AsyncDebug-EtwLog.win8.baseline</baseline>
+      <compile-flags>-DebugLaunch -TraceAsyncDebugCalls -JsEtwConsole:"-keywordmask jscript9:0x8000;asynccausality:0x202 jscript9;asynccausality"</compile-flags>
+      <tags>exclude_win7,exclude_winBlue,exclude_fre,JsEtwConsole</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>AsyncDebug.js</files>
+      <baseline>AsyncDebug-EtwLog.baseline</baseline>
+      <compile-flags>-DebugLaunch -TraceAsyncDebugCalls -JsEtwConsole:"-keywordmask jscript9:0x8000;asynccausality:0x202 jscript9;asynccausality"</compile-flags>
+      <tags>exclude_win7,exclude_win8,exclude_fre,exclude_snap,JsEtwConsole</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>StackForETW1.js</files>
+      <baseline>StackForETW1.baseline</baseline>
+      <compile-flags> -JsEtwConsole:"-keywordmask jscript9:0x80000"</compile-flags>
+      <tags>exclude_win7,exclude_fre,JsEtwConsole</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>stacktraceevent_1.js</files>
+      <baseline>stacktraceevent_1.baseline</baseline>
+      <compile-flags>-Intl- -trace:StackFramesEvent -JsEtwConsole:"-keywordmask jscript9:0x40000 jscript9"</compile-flags>
+      <tags>exclude_win7,exclude_fre,JsEtwConsole</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>GUID.js</files>
+      <baseline>GUID.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>GUID.js</files>
+      <baseline>GUID.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Structs.js</files>
+      <baseline>Structs-win7.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_winBlue,exclude_win8</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Structs.js</files>
+      <baseline>Structs-win7.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_winBlue,exclude_win8,exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Structs.js</files>
+      <baseline>Structs-win8.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Structs.js</files>
+      <baseline>Structs-win8.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>RefStructs.js</files>
+      <baseline>RefStructs.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>RefStructs.js</files>
+      <baseline>RefStructs.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Strings.js</files>
+      <baseline>Strings.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Strings.js</files>
+      <baseline>Strings.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>BugRegressions.js</files>
+      <baseline>BugRegressions.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>BugRegressions.js</files>
+      <baseline>BugRegressions.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Enum.js</files>
+      <baseline>Enum.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Enum.js</files>
+      <baseline>Enum.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <files>Events.js</files>
+      <baseline>Events.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7,exclude_snap</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <files>Events.js</files>
+      <baseline>Events.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre,exclude_snap</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>runtimeclass.js</files>
+      <baseline>runtimeclass.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>runtimeclass.js</files>
+      <baseline>runtimeclass.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <files>CrossApartmentDelegates.js</files>
+      <baseline>CrossApartmentDelegates.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7,exclude_snap</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>CrossApartmentDelegates.js</files>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <baseline>CrossApartmentDelegates.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre,exclude_snap</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>CrossApartmentDelegates.js</files>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <baseline>CrossApartmentDelegates.baseline</baseline>
+      <compile-flags>-EnableDelegateWrapper</compile-flags>
+      <tags>exclude_win7,exclude_arm,exclude_amd64,exclude_snap</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Activation.js</files>
+      <baseline>Activation.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7,exclude_snap</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Activation.js</files>
+      <baseline>Activation.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre,exclude_snap</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ErrorTest.js</files>
+      <baseline>ErrorTest.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ErrorTest.js</files>
+      <baseline>ErrorTest.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>parametertest.js</files>
+      <baseline>parametertest.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>parametertest.js</files>
+      <baseline>parametertest.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Interfaces.js</files>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <baseline>Interfaces.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7,exclude_snap</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Interfaces.js</files>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <baseline>Interfaces.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre,exclude_snap</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>KitchenTest.js</files>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <baseline>KitchenTest.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7,exclude_snap</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>KitchenTest.js</files>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <baseline>KitchenTest.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre,exclude_snap</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>WineryTest.js</files>
+      <baseline>WineryTest.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>WineryTest.js</files>
+      <baseline>WineryTest.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>WineryTest.js</files>
+      <baseline>WineryTest.baseline</baseline>
+      <compile-flags>-EnableDelegateWrapper</compile-flags>
+      <tags>exclude_win7,exclude_arm,exclude_amd64</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>GenericVector.js</files>
+      <baseline>GenericVector.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>GenericVector.js</files>
+      <baseline>GenericVector.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>GenericStringVector.js</files>
+      <baseline>GenericStringVector.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>GenericStringVector.js</files>
+      <baseline>GenericStringVector.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Delegates.js</files>
+      <baseline>Delegates.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Delegates.js</files>
+      <baseline>Delegates.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>PropertyTests.js</files>
+      <baseline>PropertyTests.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>PropertyTests.js</files>
+      <baseline>PropertyTests.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>CrossWinmd.js</files>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <baseline>CrossWinmd.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7,exclude_snap</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>CrossWinmd.js</files>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <baseline>CrossWinmd.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre,exclude_snap</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Overloading.js</files>
+      <baseline>Overloading.baseline</baseline>
+      <!-- force version as NTDDI_MOCK_WIN9 == NTDDI_WINBLUE -->
+      <compile-flags>-TargetWinRTVersion:3</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Overloading.js</files>
+      <baseline>Overloading.baseline</baseline>
+      <!-- force version as NTDDI_MOCK_WIN9 == NTDDI_WINBLUE -->
+      <compile-flags>-NoWinRTFastSig -TargetWinRTVersion:3</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Overloading.Blue171007.js</files>
+      <baseline>Overloading.Blue171007.baseline</baseline>
+      <!-- force version as NTDDI_MOCK_WIN9 == NTDDI_WINBLUE -->
+      <compile-flags>-TargetWinRTVersion:3</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Overloading.Blue171007.js</files>
+      <baseline>Overloading.Blue171007.baseline</baseline>
+      <!-- force version as NTDDI_MOCK_WIN9 == NTDDI_WINBLUE -->
+      <compile-flags>-NoWinRTFastSig -TargetWinRTVersion:3</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Collections.js</files>
+      <baseline>Collections.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Collections.js</files>
+      <baseline>Collections.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>CollectionsVectorView.js</files>
+      <baseline>CollectionsVectorView.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>CollectionsVectorView.js</files>
+      <baseline>CollectionsVectorView.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>RCCollections.js</files>
+      <baseline>RCCollections.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>RCCollections.js</files>
+      <baseline>RCCollections.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ObservableVector.js</files>
+      <baseline>ObservableVector.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ObservableVector.js</files>
+      <baseline>ObservableVector.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>RCObservableVector.js</files>
+      <baseline>RCObservableVector.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>RCObservableVector.js</files>
+      <baseline>RCObservableVector.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>RCSingleObservableVector.js</files>
+      <baseline>RCSingleObservableVector.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>RCSingleObservableVector.js</files>
+      <baseline>RCSingleObservableVector.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ArrayAsIterable.js</files>
+      <baseline>ArrayAsIterable.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ArrayAsIterable.js</files>
+      <baseline>ArrayAsIterable.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>StringArrayAsIterable.js</files>
+      <baseline>StringArrayAsIterable.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>StringArrayAsIterable.js</files>
+      <baseline>StringArrayAsIterable.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ArrayAsIterator.js</files>
+      <baseline>ArrayAsIterator.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ArrayAsIterator.js</files>
+      <baseline>ArrayAsIterator.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>StringArrayAsIterator.js</files>
+      <baseline>StringArrayAsIterator.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>StringArrayAsIterator.js</files>
+      <baseline>StringArrayAsIterator.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ArrayAsVectorView.js</files>
+      <baseline>ArrayAsVectorView.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ArrayAsVectorView.js</files>
+      <baseline>ArrayAsVectorView.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>StringArrayAsVectorView.js</files>
+      <baseline>StringArrayAsVectorView.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>StringArrayAsVectorView.js</files>
+      <baseline>StringArrayAsVectorView.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ArrayAsVector.js</files>
+      <baseline>ArrayAsVector.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ArrayAsVector.js</files>
+      <baseline>ArrayAsVector.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>StringArrayAsVector.js</files>
+      <baseline>StringArrayAsVector.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>StringArrayAsVector.js</files>
+      <baseline>StringArrayAsVector.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ES5ArrayAsIterable.js</files>
+      <baseline>ES5ArrayAsIterable.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ES5ArrayAsIterable.js</files>
+      <baseline>ES5ArrayAsIterable.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ES5ArrayAsIterator.js</files>
+      <baseline>ES5ArrayAsIterator.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ES5ArrayAsIterator.js</files>
+      <baseline>ES5ArrayAsIterator.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ES5ArrayAsVectorView.js</files>
+      <baseline>ES5ArrayAsVectorView.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ES5ArrayAsVectorView.js</files>
+      <baseline>ES5ArrayAsVectorView.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ES5ArrayAsVector.js</files>
+      <baseline>ES5ArrayAsVector.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ES5ArrayAsVector.js</files>
+      <baseline>ES5ArrayAsVector.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Statics.js</files>
+      <baseline>Statics.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Statics.js</files>
+      <baseline>Statics.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Array.js</files>
+      <baseline>Array.es5.baseline</baseline>
+      <compile-flags>-ES6- -KhronosInterop-</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Array.js</files>
+      <baseline>Array.es5.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig -ES6- -KhronosInterop-</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Array.js</files>
+      <baseline>Array.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Array.js</files>
+      <baseline>Array.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ArrayRestricted.js</files>
+      <baseline>ArrayRestricted.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7,exclude_amd64</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ArrayRestricted.js</files>
+      <baseline>ArrayRestricted.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_amd64,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ArrayString.js</files>
+      <baseline>ArrayString.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ArrayString.js</files>
+      <baseline>ArrayString.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>camelCasing.js</files>
+      <baseline>camelCasing.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+<!-- CONTRACTMIDLTODO: Enable when MIDL compiler which understands contracts is enabled -->
+<!--
+  <test>
+    <default>
+      <files>contractVersioned.js</files>
+      <baseline>contractVersioned.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+-->
+
+  <test>
+    <default>
+      <files>camelCasing.js</files>
+      <baseline>camelCasing.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>InspectableToVar.js</files>
+      <baseline>InspectableToVar.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>InspectableToVar.js</files>
+      <baseline>InspectableToVar.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ObjectIdentity.js</files>
+      <baseline>ObjectIdentity.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ObjectIdentity.js</files>
+      <baseline>ObjectIdentity.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>DateTime.js</files>
+      <baseline>DateTime.baseline</baseline>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>DateTime.js</files>
+      <baseline>DateTime.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>DateTimeAndTimeSpan.js</files>
+      <baseline>DateTimeAndTimeSpan.baseline</baseline>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>DateTimeAndTimeSpan.js</files>
+      <baseline>DateTimeAndTimeSpan.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+<!-- MemoryLeaks.js temporarily disabled on v5 AMD64 due to fluctuating baselines. See TFS Task 713351. -->
+  <test>
+    <default>
+      <files>MemoryLeaks.js</files>
+      <baseline>MemoryLeaks.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7,exclude_amd64</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>MemoryLeaks.js</files>
+      <baseline>MemoryLeaks.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre,exclude_amd64</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>WinRTError.js</files>
+      <baseline>WinRTError.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>WinRTError.js</files>
+      <baseline>WinRTError.baseline</baseline>
+      <compile-flags>-hostType:3 -TargetWinRTVersion:3</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>WinRTError.js</files>
+      <baseline>WinRTError.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:3 -NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_win8,exclude_fre</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>WinRTError.js</files>
+      <baseline>WinRTError.win8compat.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:1</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>WinRTError.js</files>
+      <baseline>WinRTError.win8compat.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:1 -NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_win8,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>WinRTError.js</files>
+      <baseline>WinRTError.win8.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:2</compile-flags>
+      <tags>exclude_win7,exclude_winBlue</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>WinRTError.js</files>
+      <baseline>WinRTError.win8.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:2 -NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_winBlue,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Inspectable.js</files>
+      <baseline>Inspectable.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Inspectable.js</files>
+      <baseline>Inspectable.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>IReference.js</files>
+      <baseline>IReference.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>IReference.js</files>
+      <baseline>IReference.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>IPropertyValue.js</files>
+      <baseline>IPropertyValue.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>IPropertyValue.js</files>
+      <baseline>IPropertyValue.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>PropertyValue.js</files>
+      <baseline>PropertyValue.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>PropertyValue.js</files>
+      <baseline>PropertyValue.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ProjectedObjectAttributes.js</files>
+      <baseline>ProjectedObjectAttributes.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ProjectedObjectAttributes.js</files>
+      <baseline>ProjectedObjectAttributes.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>WebHostHidden.js</files>
+      <baseline>WebHostHidden.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>WebHostHidden.js</files>
+      <baseline>WebHostHidden.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>PropertySet.js</files>
+      <baseline>PropertySet.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>PropertySet.js</files>
+      <baseline>PropertySet.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>FunctionManipulation.js</files>
+      <baseline>FunctionManipulation.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>FunctionManipulation.js</files>
+      <baseline>FunctionManipulation.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>IMap.js</files>
+      <baseline>IMap.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>IMap.js</files>
+      <baseline>IMap.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>msReleaseWinRTObject.js</files>
+      <baseline>msReleaseWinRTObject.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>msReleaseWinRTObject.js</files>
+      <baseline>msReleaseWinRTObject.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>NullArray.js</files>
+      <baseline>NullArray.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:4</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>GCPressure.js</files>
+      <baseline>GCPressure.baseline</baseline>
+      <compile-flags>-EnableThirdPartyGCPressure</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>GCPressure.js</files>
+      <baseline>GCPressure.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig -EnableThirdPartyGCPressure</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+    <test>
+        <default>
+            <files>DeprecatedAttributes.js</files>
+            <baseline>DeprecatedAttributes.baseline</baseline>
+            <compile-flags>-TargetWinRTVersion:3</compile-flags>
+            <tags>exclude_win7</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>DeprecatedAttributes.js</files>
+            <baseline>DeprecatedAttributesv2.baseline</baseline>
+            <compile-flags>-EnableVersioningAllAssemblies -TargetWinRTVersion:2</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+  <test>
+    <default>
+      <files>GCPressure.IgnoreNonWindows.js</files>
+      <baseline>GCPressure.IgnoreNonWindows.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>GCPressure.IgnoreNonWindows.js</files>
+      <baseline>GCPressure.IgnoreNonWindows.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>MetadataErrorTest.js</files>
+      <baseline>MetadataErrorTest.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+<!--
+On start of Win 8.2+, we're seeing a new property Phone. Windows.Phone appears to have types with versions 6.4 even though the
+target version specified here is for 6.2.1. But I guess that Phone will be enumerated anyway in 6.2.1 despite not having any
+types in that namespace with version 6.2.1.
+
+  <test>
+    <default>
+      <files>WindowsNamespaceEnumerability.js</files>
+      <baseline>WindowsNamespaceEnumerability.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:2</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>WindowsNamespaceEnumerability.js</files>
+      <baseline>WindowsNamespaceEnumerability.baseline</baseline>
+      <compile-flags>-TargetWinRTVersion:2 -NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+-->
+<!--
+Re-enable with new baseline
+  <test>
+    <default>
+      <files>WindowsNamespaceEnumerability.winBlue.js</files>
+      <baseline>WindowsNamespaceEnumerability.winBlue.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>WindowsNamespaceEnumerability.winBlue.js</files>
+      <baseline>WindowsNamespaceEnumerability.winBlue.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+-->
+  <test>
+    <default>
+      <files>Events.NoWeakDelegate.js</files>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <baseline>Events.NoWeakDelegate.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7,exclude_snap</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Events.NoWeakDelegate.js</files>
+      <!-- Temporarily disabled due to problems in SNAP - see OS 1085784 -->
+      <baseline>Events.NoWeakDelegate.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre,exclude_snap</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>msGetSetWeakWinRTProperty.js</files>
+      <baseline>msGetSetWeakWinRTProperty.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>msGetSetWeakWinRTProperty.js</files>
+      <baseline>msGetSetWeakWinRTProperty.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>equals.js</files>
+      <baseline>equals.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>IBuffer.js</files>
+      <baseline>IBuffer.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>IBuffer.js</files>
+      <baseline>IBuffer.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+  
+  <!--  IBuffer tests are temporarily disabled under -version:5 on AMD64. See TFS Task 709060 -->
+  <test>
+    <default>
+      <files>IBuffer.TwoDocuments.js</files>
+      <baseline>IBuffer.twoDocuments.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7,exclude_amd64</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>IBuffer.TwoDocuments.js</files>
+      <baseline>IBuffer.twoDocuments.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre,exclude_amd64</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>IBufferAfterClose.js</files>
+      <baseline>IBufferAfterClose.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>IBufferAfterClose.js</files>
+      <baseline>IBufferAfterClose.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_fre</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ParameterizedDelegate.js</files>
+      <baseline>ParameterizedDelegate.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Stringify.js</files>
+      <baseline>Stringify.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+  <!-- all ienumerable tests - run using cache over time -->
+  <test>
+    <default>
+      <files>IEnumerable.js</files>
+      <baseline>IEnumerable.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>IEnumerable.js</files>
+      <baseline>IEnumerable.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+  <!-- all ienumerable tests - run one by one, to avoid caching side effect -->
+  <test>
+    <default>
+      <files>IEnumerable.test1only.js</files>
+      <baseline>IEnumerable.test1only.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>IEnumerable.test1only.js</files>
+      <baseline>IEnumerable.test1only.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>IEnumerable.test2only.js</files>
+      <baseline>IEnumerable.test2only.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>IEnumerable.test2only.js</files>
+      <baseline>IEnumerable.test2only.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>IEnumerable.test3only.js</files>
+      <baseline>IEnumerable.test3only.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>IEnumerable.test3only.js</files>
+      <baseline>IEnumerable.test3only.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>IEnumerable.test4only.js</files>
+      <baseline>IEnumerable.test4only.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>IEnumerable.test4only.js</files>
+      <baseline>IEnumerable.test4only.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>InteropStepping.js</files>
+      <baseline>InteropStepping.baseline</baseline>
+      <command>jdtest.exe -targeted -dbgbaseline:InteropStepping.js.dbg.baseline jshost</command>
+      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
+      <tags>exclude_win7,exclude_dynapogo,exclude_snap</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>InteropStepping.js</files>
+      <baseline>InteropStepping.baseline</baseline>
+      <command>jdtest.exe -targeted -dbgbaseline:InteropStepping.js.dbg.baseline jshost</command>
+      <compile-flags>-debuglaunch:hybrid -Intl-  -NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7,exclude_dynapogo,exclude_snap</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>IStringable.js</files>
+      <baseline>IStringable.baseline</baseline>
+      <compile-flags></compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>IStringable.js</files>
+      <baseline>IStringable.baseline</baseline>
+      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>AllowForWebConstructors.js</files>
+      <baseline>AllowForWebConstructors.baseline</baseline>
+      <compile-flags>-hostType:3</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>AllowForWebStaticMembers.js</files>
+      <baseline>AllowForWebStaticMembers.baseline</baseline>
+      <compile-flags>-hostType:3</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>AllowForWebInstanceMembers.js</files>
+      <baseline>AllowForWebInstanceMembers.baseline</baseline>
+      <compile-flags>-hostType:3</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>AllowForWebPromises.js</files>
+      <baseline>AllowForWebPromises.baseline</baseline>
+      <compile-flags>-hostType:3</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>HostedAppAllowForWebConstructors.js</files>
+      <baseline>HostedAppAllowForWebConstructors.baseline</baseline>
+      <compile-flags>-hostType:3 -WinRTConstructorAllowed</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>HostedAppAllowForWebStatics.js</files>
+      <baseline>HostedAppAllowForWebStatics.baseline</baseline>
+      <compile-flags>-hostType:3 -WinRTConstructorAllowed</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>AllowForWebInstanceMembers.js</files>
+      <baseline>AllowForWebInstanceMembers.baseline</baseline>
+      <compile-flags>-hostType:3 -WinRTConstructorAllowed</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>AllowForWebPromises.js</files>
+      <baseline>AllowForWebPromises.baseline</baseline>
+      <compile-flags>-hostType:3 -WinRTConstructorAllowed</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+</regress-exe>

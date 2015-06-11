@@ -1,0 +1,66 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 90,
+        "length": 7,
+        "text": "throw 5",
+        "frameDescription": "f"
+      },
+      {
+        "start": 197,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 101,
+        "length": 7,
+        "text": "throw 7",
+        "frameDescription": "f"
+      },
+      {
+        "start": 197,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 121,
+        "length": 8,
+        "text": "throw 22",
+        "frameDescription": "f"
+      },
+      {
+        "start": 197,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 134,
+        "length": 13,
+        "text": "a.b.c.d.e = 0",
+        "frameDescription": "f"
+      },
+      {
+        "start": 197,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

@@ -1,0 +1,4 @@
+TypeError: Cannot redefine non-configurable property 'nonConfigurableFoo'
+	at Global code (vso_os_1091425.js:1:1)
+	at Global code (vso_os_1091425.js:19:5)
+Pass

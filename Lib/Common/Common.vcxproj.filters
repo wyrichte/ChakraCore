@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DataStructures">
+      <UniqueIdentifier>{f71eee56-10e3-4432-b5f9-f525f2b2dc80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="amd64">
+      <UniqueIdentifier>{8c0b2cc0-dd09-4053-910b-48f6dbba1889}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Exceptions">
+      <UniqueIdentifier>{b3ad67b9-b8f0-4423-bd51-b8cfe6769069}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Common\Int32Math.cpp" />
+    <ClCompile Include="Common\MathUtil.cpp" />
+    <ClCompile Include="StdAfx.cpp" />
+    <ClCompile Include="Common\Tick.cpp" />
+    <ClCompile Include="DataStructures\InternalStringNoCaseComparer.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\FixedBitVectorEnumerator.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\FixedBitVector.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="Exceptions\ExceptionBase.cpp">
+      <Filter>Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="Exceptions\Throw.cpp">
+      <Filter>Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\BigInt.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStructures\DictionaryStats.cpp" />
+    <ClCompile Include="Common\NumberUtilities.cpp" />
+    <ClCompile Include="DataStructures\InternalString.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="Exceptions\ExceptionCheck.cpp">
+      <Filter>Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Api.cpp" />
+    <ClCompile Include="Common\DateUtilities.cpp" />
+    <ClCompile Include="Common\Event.cpp" />
+    <ClCompile Include="Common\Jobs.cpp" />
+    <ClCompile Include="DataStructures\Interval.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\vtinfo.cpp" />
+    <ClCompile Include="Exceptions\reporterror.cpp">
+      <Filter>Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\RejitReason.cpp" />
+    <ClCompile Include="DataStructures\ImmutableList.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="common\DaylightTimeHelper.cpp" />
+    <ClCompile Include="DefaultCommonExternalApi.cpp" />
+    <ClCompile Include="common\NumberUtilities_strtod.cpp" />
+    <ClCompile Include="DataStructures\BufferBuilder.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="common\cfglogger.cpp" />
+    <ClCompile Include="core\ConfigParser.cpp" />
+    <ClCompile Include="core\EtwTraceCore.cpp" />
+    <ClCompile Include="core\CmdParser.cpp" />
+    <ClCompile Include="core\ConfigFlagsTable.cpp" />
+    <ClCompile Include="core\BinaryFeatureControl.cpp" />
+    <ClCompile Include="core\DbgHelpSymbolManager.cpp" />
+    <ClCompile Include="core\FaultInjection.cpp" />
+    <ClCompile Include="core\Output.cpp" />
+    <ClCompile Include="core\PerfCounter.cpp" />
+    <ClCompile Include="core\PerfCounterSet.cpp" />
+    <None Include="core\PerfCounterImpl.cpp" />
+    <ClCompile Include="core\ProfileInstrument.cpp" />
+    <ClCompile Include="core\ProfileMemory.cpp" />
+    <ClCompile Include="core\StackBackTrace.cpp" />
+    <ClCompile Include="core\SysInfo.cpp" />
+    <ClCompile Include="core\DelayLoadLibrary.cpp" />
+    <ClCompile Include="DataStructures\growingArray.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Assertions.h" />
+    <ClInclude Include="BackEndAPI.h" />
+    <ClInclude Include="Memory\collectionstate.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="ConfigFlagsList.h" />
+    <ClInclude Include="EnumHelp.h" />
+    <ClInclude Include="Common\Int32Math.h" />
+    <ClInclude Include="Common\MathUtil.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="TargetVer.h" />
+    <ClInclude Include="Common\Tick.h" />
+    <ClInclude Include="Common\UInt32Math.h" />
+    <ClInclude Include="DataStructures\dictionary.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\DictionaryEntry.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Dlist.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\BitVector.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\InternalStringNoCaseComparer.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\SparseArray.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\SparseBitVector.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\stack.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\FixedStack.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\FixedBitVector.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\FixedBitVectorEnumerator.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\SList.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\quicksort.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\UnitBitVector.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\LargeStack.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\list.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\HashTable.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\comparer.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\ExceptionBase.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\InternalErrorException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\NotImplementedException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\OutOfMemoryException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\ScriptAbortException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\Throw.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Tree.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\StringBuilder.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\KeyValuePair.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\BaseDictionary.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\BigInt.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DictionaryStats.h" />
+    <ClInclude Include="Common\NumberUtilities.h" />
+    <ClInclude Include="DataStructures\InternalString.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\SizePolicy.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\OperationAbortedException.h" />
+    <ClInclude Include="Exceptions\ExceptionCheck.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\vtinfo.h" />
+    <ClInclude Include="CriticalSection.h" />
+    <ClInclude Include="DataStructures\PageStack.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\UInt16Math.h" />
+    <ClInclude Include="DataStructures\ContinuousPageStack.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="TemplateParameter.h" />
+    <ClInclude Include="Common\Event.h" />
+    <ClInclude Include="Common\Jobs.h" />
+    <ClInclude Include="DataStructures\DoublyLinkedListElement.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\DateUtilities.h" />
+    <ClInclude Include="DataStructures\CharacterBuffer.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\interval.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\ImmutableList.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Option.h" />
+    <ClInclude Include="DataStructures\ImmutableList.h" />
+    <ClInclude Include="DataStructures\BufferBuilder.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\reporterror.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\RejitException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Cache.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\MruDictionary.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\RegexKey.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonDefines.h" />
+    <ClInclude Include="Common\RejitReason.h" />
+    <ClInclude Include="Common\RejitReasons.h" />
+    <ClInclude Include="Warnings.h" />
+    <ClInclude Include="EnumClassHelp.h" />
+    <ClInclude Include="common\DaylightTimeHelper.h" />
+    <ClInclude Include="DataStructures\LineOffsetCache.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="commoninl.h" />
+    <ClInclude Include="DataStructures\DoublyLinkedList.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="common\vtregistry.h" />
+    <ClInclude Include="DataStructures\Queue.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="common\cfglogger.h" />
+    <ClInclude Include="DataStructures\Pair.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="core\api.h" />
+    <ClInclude Include="core\ConfigParser.h" />
+    <ClInclude Include="core\EtwTraceCore.h" />
+    <ClInclude Include="core\AllocSizeMath.h" />
+    <ClInclude Include="core\CmdParser.h" />
+    <ClInclude Include="core\ConfigFlagsTable.h" />
+    <ClInclude Include="core\ICustomConfigFlags.h" />
+    <ClInclude Include="core\BinaryFeatureControl.h" />
+    <ClInclude Include="core\DbgHelpSymbolManager.h" />
+    <ClInclude Include="core\FaultInjection.h" />
+    <ClInclude Include="core\FaultTypes.h" />
+    <ClInclude Include="core\Output.h" />
+    <ClInclude Include="core\PerfCounter.h" />
+    <ClInclude Include="core\PerfCounterSet.h" />
+    <ClInclude Include="core\ProfileInstrument.h" />
+    <ClInclude Include="core\ProfileMemory.h" />
+    <ClInclude Include="core\StackBackTrace.h" />
+    <ClInclude Include="core\SysInfo.h" />
+    <ClInclude Include="core\DelayLoadLibrary.h" />
+    <ClInclude Include="DataStructures\growingArray.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\HeapInfoConstants.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Common\Tick.inl" />
+    <None Include="DataStructures\BigInt.inl">
+      <Filter>DataStructures</Filter>
+    </None>
+    <None Include="DataStructures\DoublyLinkedListElement.inl">
+      <Filter>DataStructures</Filter>
+    </None>
+    <None Include="Common\Jobs.inl" />
+    <None Include="Common\NumberUtilities.inl" />
+    <None Include="Common\vtinfo.inl" />
+    <None Include="DataStructures\DoublyLinkedList.inl">
+      <Filter>DataStructures</Filter>
+    </None>
+    <None Include="core\ConfigFlagsTable.inl" />
+    <None Include="core\ProfileMemory.inl" />
+    <None Include="Memory\HeapBlockMap.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="..\Runtime\publish\MutatorsHost.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="common\amd64\commona.asm">
+      <Filter>amd64</Filter>
+    </MASM>
+  </ItemGroup>
+</Project>

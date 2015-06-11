@@ -1,0 +1,172 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 194,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "f2.prototype.subF1"
+      },
+      {
+        "start": 381,
+        "length": 12,
+        "text": "obj1.subF1()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 310,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "f2.prototype.subF2"
+      },
+      {
+        "start": 396,
+        "length": 12,
+        "text": "obj1.subF2()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 489,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "f2.prototype.subF3.subSubF3"
+      },
+      {
+        "start": 540,
+        "length": 21,
+        "text": "obj1.subF3.subSubF3()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 652,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "subF1"
+      },
+      {
+        "start": 819,
+        "length": 12,
+        "text": "obj1.subF1()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 766,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "subF2"
+      },
+      {
+        "start": 834,
+        "length": 12,
+        "text": "obj1.subF2()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 914,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "OneClass"
+      },
+      {
+        "start": 1344,
+        "length": 24,
+        "text": "var obj = new OneClass()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1066,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "OneClass.prototype.method"
+      },
+      {
+        "start": 1371,
+        "length": 12,
+        "text": "obj.method()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 993,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "OneClass.method1"
+      },
+      {
+        "start": 1386,
+        "length": 18,
+        "text": "OneClass.method1()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "str": "getter"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1160,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "get OneClass.prototype.method2"
+      },
+      {
+        "start": 1407,
+        "length": 19,
+        "text": "var k = obj.method2",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "str": "setter"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1293,
+        "length": 3,
+        "text": "a++",
+        "frameDescription": "set OneClass.prototype.method2"
+      },
+      {
+        "start": 1429,
+        "length": 16,
+        "text": "obj.method2 = 31",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

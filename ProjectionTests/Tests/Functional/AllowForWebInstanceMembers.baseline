@@ -1,0 +1,3178 @@
+AllowForWeb - Instance Members tests
+
+=================================================
+Starting [Test 1: Verify that instance members of an object of a class with [AllowForWeb] are accessible]
+Pass: !!animalInstance
+      Actual: true
+
+Comment: Objectdump: 
+    var objectDumpMembers = [
+        ['acceptKiloStruct', 'function', 1],
+        ['addEventListener', 'function', 2],
+        ['addInts', 'function', 2],
+        ['areDimensionPointersEqual', 'function', 2],
+        ['callDelegateFillArray', 'function', 1],
+        ['callDelegateFillArrayHSTRING', 'function', 1],
+        ['callDelegateFillArrayWithInLength', 'function', 1],
+        ['callDelegateFillArrayWithInLengthHSTRING', 'function', 1],
+        ['callDelegateFillArrayWithOutLength', 'function', 1],
+        ['callDelegateFillArrayWithOutLengthHSTRING', 'function', 1],
+        ['callDelegateFillArrayWithOutLengthWithRetValLength', 'function', 1],
+        ['callDelegateFillArrayWithOutLengthWithRetValLengthHSTRING', 'function', 1],
+        ['callDelegateFillArrayWithOutLengthWithRetValRandomParam', 'function', 1],
+        ['callDelegateFillArrayWithOutLengthWithRetValRandomParamHSTRING', 'function', 1],
+        ['callDelegatePassArray', 'function', 1],
+        ['callDelegatePassArrayHSTRING', 'function', 1],
+        ['callDelegatePassArrayWithInLength', 'function', 1],
+        ['callDelegatePassArrayWithInLengthHSTRING', 'function', 1],
+        ['callDelegatePassArrayWithOutLength', 'function', 1],
+        ['callDelegatePassArrayWithOutLengthHSTRING', 'function', 1],
+        ['callDelegatePassArrayWithOutLengthWithRetValLength', 'function', 1],
+        ['callDelegatePassArrayWithOutLengthWithRetValLengthHSTRING', 'function', 1],
+        ['callDelegatePassArrayWithOutLengthWithRetValRandomParam', 'function', 1],
+        ['callDelegatePassArrayWithOutLengthWithRetValRandomParamHSTRING', 'function', 1],
+        ['callDelegateReceiveArray', 'function', 1],
+        ['callDelegateReceiveArrayHSTRING', 'function', 1],
+        ['callDelegateReceiveArrayWithInLength', 'function', 1],
+        ['callDelegateReceiveArrayWithInLengthHSTRING', 'function', 1],
+        ['callDelegateReceiveArrayWithOutLength', 'function', 1],
+        ['callDelegateReceiveArrayWithOutLengthHSTRING', 'function', 1],
+        ['callDelegateReceiveArrayWithOutLengthWithRetValLength', 'function', 1],
+        ['callDelegateReceiveArrayWithOutLengthWithRetValLengthHSTRING', 'function', 1],
+        ['callDelegateReceiveArrayWithOutLengthWithRetValRandomParam', 'function', 1],
+        ['callDelegateReceiveArrayWithOutLengthWithRetValRandomParamHSTRING', 'function', 1],
+        ['callDelegateWithIterable', 'function', 1],
+        ['callDelegateWithMultipleOutParams', 'function', 2],
+        ['callDelegateWithOutParam_HSTRING', 'function', 1],
+        ['callDelegateWithOutParam_InOutMixed', 'function', 2],
+        ['callDelegateWithOutParam_Interface', 'function', 1],
+        ['callDelegateWithOutParam_Struct', 'function', 1],
+        ['callDelegateWithOutParam_int', 'function', 1],
+        ['callDelegateWithVector', 'function', 1],
+        ['checkByRefStruct', 'function', 2],
+        ['checkMother', 'function', 1],
+        ['checkMotherConcrete', 'function', 1],
+        ['copyStringVector', 'function', 1],
+        ['copyVector', 'function', 1],
+        ['delIn_BooleanOut2', 'function', 1],
+        ['delegateByRef_Class', 'function', 2],
+        ['delegateByRef_Delegate', 'function', 3],
+        ['delegateByRef_GUID', 'function', 2],
+        ['delegateByRef_Interface', 'function', 2],
+        ['delegateByRef_Struct', 'function', 2],
+        ['doubleOffset2Int', 'function', 3],
+        ['doubleOffsetByte', 'function', 2],
+        ['doubleOffsetChar', 'function', 2],
+        ['doubleOffsetInt', 'function', 2],
+        ['doubleOffsetInt64', 'function', 2],
+        ['doubleOffsetStruct', 'function', 2],
+        ['duplicateIterable', 'function', 1],
+        ['duplicateIterator', 'function', 1],
+        ['duplicateStringIterable', 'function', 1],
+        ['duplicateStringIterator', 'function', 1],
+        ['duplicateStringVector', 'function', 1],
+        ['duplicateStringVectorView', 'function', 1],
+        ['duplicateVector', 'function', 1],
+        ['duplicateVectorView', 'function', 1],
+        ['errorCode', 'number'],
+        ['fastPath', 'function', 0],
+        ['fastPathIn', 'function', 1],
+        ['fastPathInIn', 'function', 2],
+        ['fastPathInOut', 'function', 1],
+        ['fastPathOut', 'function', 0],
+        ['fillArray', 'function', 1],
+        ['fillArrayHSTRING', 'function', 1],
+        ['fillArrayWithInLength', 'function', 2],
+        ['fillArrayWithInLengthHSTRING', 'function', 2],
+        ['fillArrayWithOutLength', 'function', 1],
+        ['fillArrayWithOutLengthHSTRING', 'function', 1],
+        ['fillArrayWithOutLengthWithRetValLength', 'function', 1],
+        ['fillArrayWithOutLengthWithRetValLengthHSTRING', 'function', 1],
+        ['fillArrayWithOutLengthWithRetValRandomParam', 'function', 1],
+        ['fillArrayWithOutLengthWithRetValRandomParamHSTRING', 'function', 1],
+        ['fillDimensions', 'function', 1],
+        ['floatOffset2Int', 'function', 3],
+        ['floatOffsetByte', 'function', 2],
+        ['floatOffsetChar', 'function', 2],
+        ['floatOffsetInt', 'function', 2],
+        ['floatOffsetInt64', 'function', 2],
+        ['floatOffsetStruct', 'function', 2],
+        ['getDimensions', 'function', 0],
+        ['getGreeting', 'function', 0],
+        ['getMap', 'function', 1],
+        ['getNULLHSTRING', 'function', 0],
+        ['getNames', 'function', 0],
+        ['getNativeDelegateAsOutParam', 'function', 0],
+        ['getNumLegs', 'function', 0],
+        ['getObservableStringVector', 'function', 0],
+        ['getObservableVector', 'function', 0],
+        ['getOuterStruct', 'function', 0],
+        ['getReadOnlyVector', 'function', 1],
+        ['getStringVector', 'function', 0],
+        ['getVector', 'function', 0],
+        ['id', 'string'],
+        ['interspersedInOutBool', 'function', 2],
+        ['interspersedInOutChar16', 'function', 2],
+        ['interspersedInOutDimensions', 'function', 2],
+        ['interspersedInOutDouble', 'function', 2],
+        ['interspersedInOutFish', 'function', 2],
+        ['interspersedInOutHSTRING', 'function', 2],
+        ['interspersedInOutIFish', 'function', 2],
+        ['interspersedInOutInt32', 'function', 2],
+        ['interspersedInOutInt64', 'function', 2],
+        ['interspersedInOutPhylum', 'function', 2],
+        ['interspersedInOutSingle', 'function', 2],
+        ['interspersedInOutUInt32', 'function', 2],
+        ['interspersedInOutUInt64', 'function', 2],
+        ['interspersedInOutUInt8', 'function', 2],
+        ['isHungry', 'function', 0],
+        ['isSleepy', 'function', 0],
+        ['isStructModified', 'function', 2],
+        ['layoutBasicWithStructs', 'function', 9],
+        ['layoutOfManyMembers', 'function', 9],
+        ['layoutStructs', 'function', 5],
+        ['likesChef', 'function', 0],
+        ['marshalBool', 'function', 1],
+        ['marshalChar16', 'function', 1],
+        ['marshalDimensions', 'function', 1],
+        ['marshalDouble', 'function', 1],
+        ['marshalGUID', 'function', 1],
+        ['marshalHRESULT', 'function', 1],
+        ['marshalHSTRING', 'function', 1],
+        ['marshalInt16', 'function', 1],
+        ['marshalInt32', 'function', 1],
+        ['marshalInt64', 'function', 1],
+        ['marshalNames', 'function', 1],
+        ['marshalNullAsDelegate', 'function', 1],
+        ['marshalOuterStruct', 'function', 1],
+        ['marshalPhylum', 'function', 1],
+        ['marshalPhylumChange', 'function', 1],
+        ['marshalSingle', 'function', 1],
+        ['marshalStudyInfo', 'function', 1],
+        ['marshalUInt16', 'function', 1],
+        ['marshalUInt32', 'function', 1],
+        ['marshalUInt64', 'function', 1],
+        ['marshalUInt8', 'function', 1],
+        ['methodDelegateAsOutParam', 'function', 1],
+        ['mother', 'object'],
+        ['multiDouble3', 'function', 3],
+        ['multiDouble4', 'function', 4],
+        ['multiFloat3', 'function', 3],
+        ['multiFloat4', 'function', 4],
+        ['multipleOutBool', 'function', 2],
+        ['multipleOutChar16', 'function', 2],
+        ['multipleOutDimensions', 'function', 2],
+        ['multipleOutDouble', 'function', 2],
+        ['multipleOutFish', 'function', 2],
+        ['multipleOutHSTRING', 'function', 2],
+        ['multipleOutIFish', 'function', 2],
+        ['multipleOutInt32', 'function', 2],
+        ['multipleOutInt64', 'function', 2],
+        ['multipleOutPhylum', 'function', 2],
+        ['multipleOutSingle', 'function', 2],
+        ['multipleOutUInt32', 'function', 2],
+        ['multipleOutUInt64', 'function', 2],
+        ['multipleOutUInt8', 'function', 2],
+        ['myArrayProp', 'object'],
+        ['myArrayPropHSTRING', 'object'],
+        ['myDimensions', 'object'],
+        ['myIterable', 'object'],
+        ['myPhylum', 'number'],
+        ['myVector', 'object'],
+        ['oneventhandler', 'object'],
+        ['passArray', 'function', 1],
+        ['passArrayHSTRING', 'function', 1],
+        ['passArrayWithInLength', 'function', 2],
+        ['passArrayWithInLengthHSTRING', 'function', 2],
+        ['passArrayWithOutLength', 'function', 1],
+        ['passArrayWithOutLengthHSTRING', 'function', 1],
+        ['passArrayWithOutLengthWithRetValLength', 'function', 1],
+        ['passArrayWithOutLengthWithRetValLengthHSTRING', 'function', 1],
+        ['passArrayWithOutLengthWithRetValRandomParam', 'function', 1],
+        ['passArrayWithOutLengthWithRetValRandomParamHSTRING', 'function', 1],
+        ['passIDByRef', 'function', 1],
+        ['pureFillArray', 'function', 1],
+        ['purePassArray', 'function', 1],
+        ['pureReceiveArray', 'function', 0],
+        ['receiveArray', 'function', 0],
+        ['receiveArrayHSTRING', 'function', 0],
+        ['receiveArrayWithInLength', 'function', 1],
+        ['receiveArrayWithInLengthHSTRING', 'function', 1],
+        ['receiveArrayWithOutLength', 'function', 0],
+        ['receiveArrayWithOutLengthHSTRING', 'function', 0],
+        ['receiveArrayWithOutLengthWithRetValLength', 'function', 0],
+        ['receiveArrayWithOutLengthWithRetValLengthHSTRING', 'function', 0],
+        ['receiveArrayWithOutLengthWithRetValRandomParam', 'function', 0],
+        ['receiveArrayWithOutLengthWithRetValRandomParamHSTRING', 'function', 0],
+        ['removeEventListener', 'function', 2],
+        ['sendAndGetIVectorStructs', 'function', 1],
+        ['sendBackSameIterable', 'function', 1],
+        ['sendBackSameIterator', 'function', 1],
+        ['sendBackSameStringIterable', 'function', 1],
+        ['sendBackSameStringIterator', 'function', 1],
+        ['sendBackSameStringVector', 'function', 1],
+        ['sendBackSameStringVectorView', 'function', 1],
+        ['sendBackSameVector', 'function', 1],
+        ['sendBackSameVectorView', 'function', 1],
+        ['setGreeting', 'function', 1],
+        ['setNumLegs', 'function', 1],
+        ['slowPath', 'function', 6],
+        ['testBug202724_GetInt64', 'function', 0],
+        ['testBug202724_GetUInt64', 'function', 0],
+        ['testError', 'function', 1],
+        ['testInAllIRefStruct', 'function', 1],
+        ['testInMixIRefStruct', 'function', 1],
+        ['testInNestedIRefNestedStruct', 'function', 1],
+        ['testInNestedIRefStruct', 'function', 1],
+        ['testInSimpleIRefStruct', 'function', 1],
+        ['testOutAllIRefStruct', 'function', 1],
+        ['testOutBug258665_HttpProgress', 'function', 1],
+        ['testOutBug258665_HttpProgressAsOptEmpty', 'function', 0],
+        ['testOutBug258665_HttpProgressAsOptIntEmpty', 'function', 0],
+        ['testOutMixIRefStruct', 'function', 1],
+        ['testOutNestedIRefNestedStruct', 'function', 1],
+        ['testOutNestedIRefStruct', 'function', 1],
+        ['testOutSimpleIRefStruct', 'function', 1],
+        ['testPackedBoolean1', 'function', 1],
+        ['testPackedByte12', 'function', 1],
+        ['verifyMarshalGUID', 'function', 2],
+        ['weight', 'number'],
+        ['toString', 'function', 0],
+    ];
+Pass: type
+      Actual: object
+
+Pass: name
+      Actual: acceptKiloStruct
+
+Pass: typeof [object Animals.Animal][acceptKiloStruct]
+      Actual: function
+
+Pass: acceptKiloStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: acceptKiloStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: addEventListener
+
+Pass: typeof [object Animals.Animal][addEventListener]
+      Actual: function
+
+Pass: addEventListener.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: addEventListener.length
+      Actual: 2
+
+Pass: name
+      Actual: addInts
+
+Pass: typeof [object Animals.Animal][addInts]
+      Actual: function
+
+Pass: addInts.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: addInts.length
+      Actual: 2
+
+Pass: name
+      Actual: areDimensionPointersEqual
+
+Pass: typeof [object Animals.Animal][areDimensionPointersEqual]
+      Actual: function
+
+Pass: areDimensionPointersEqual.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: areDimensionPointersEqual.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateFillArray
+
+Pass: typeof [object Animals.Animal][callDelegateFillArray]
+      Actual: function
+
+Pass: callDelegateFillArray.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateFillArray.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateFillArrayHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegateFillArrayHSTRING]
+      Actual: function
+
+Pass: callDelegateFillArrayHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateFillArrayHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateFillArrayWithInLength
+
+Pass: typeof [object Animals.Animal][callDelegateFillArrayWithInLength]
+      Actual: function
+
+Pass: callDelegateFillArrayWithInLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateFillArrayWithInLength.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateFillArrayWithInLengthHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegateFillArrayWithInLengthHSTRING]
+      Actual: function
+
+Pass: callDelegateFillArrayWithInLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateFillArrayWithInLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateFillArrayWithOutLength
+
+Pass: typeof [object Animals.Animal][callDelegateFillArrayWithOutLength]
+      Actual: function
+
+Pass: callDelegateFillArrayWithOutLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateFillArrayWithOutLength.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateFillArrayWithOutLengthHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegateFillArrayWithOutLengthHSTRING]
+      Actual: function
+
+Pass: callDelegateFillArrayWithOutLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateFillArrayWithOutLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateFillArrayWithOutLengthWithRetValLength
+
+Pass: typeof [object Animals.Animal][callDelegateFillArrayWithOutLengthWithRetValLength]
+      Actual: function
+
+Pass: callDelegateFillArrayWithOutLengthWithRetValLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateFillArrayWithOutLengthWithRetValLength.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateFillArrayWithOutLengthWithRetValLengthHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegateFillArrayWithOutLengthWithRetValLengthHSTRING]
+      Actual: function
+
+Pass: callDelegateFillArrayWithOutLengthWithRetValLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateFillArrayWithOutLengthWithRetValLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateFillArrayWithOutLengthWithRetValRandomParam
+
+Pass: typeof [object Animals.Animal][callDelegateFillArrayWithOutLengthWithRetValRandomParam]
+      Actual: function
+
+Pass: callDelegateFillArrayWithOutLengthWithRetValRandomParam.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateFillArrayWithOutLengthWithRetValRandomParam.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateFillArrayWithOutLengthWithRetValRandomParamHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegateFillArrayWithOutLengthWithRetValRandomParamHSTRING]
+      Actual: function
+
+Pass: callDelegateFillArrayWithOutLengthWithRetValRandomParamHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateFillArrayWithOutLengthWithRetValRandomParamHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegatePassArray
+
+Pass: typeof [object Animals.Animal][callDelegatePassArray]
+      Actual: function
+
+Pass: callDelegatePassArray.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegatePassArray.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegatePassArrayHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegatePassArrayHSTRING]
+      Actual: function
+
+Pass: callDelegatePassArrayHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegatePassArrayHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegatePassArrayWithInLength
+
+Pass: typeof [object Animals.Animal][callDelegatePassArrayWithInLength]
+      Actual: function
+
+Pass: callDelegatePassArrayWithInLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegatePassArrayWithInLength.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegatePassArrayWithInLengthHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegatePassArrayWithInLengthHSTRING]
+      Actual: function
+
+Pass: callDelegatePassArrayWithInLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegatePassArrayWithInLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegatePassArrayWithOutLength
+
+Pass: typeof [object Animals.Animal][callDelegatePassArrayWithOutLength]
+      Actual: function
+
+Pass: callDelegatePassArrayWithOutLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegatePassArrayWithOutLength.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegatePassArrayWithOutLengthHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegatePassArrayWithOutLengthHSTRING]
+      Actual: function
+
+Pass: callDelegatePassArrayWithOutLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegatePassArrayWithOutLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegatePassArrayWithOutLengthWithRetValLength
+
+Pass: typeof [object Animals.Animal][callDelegatePassArrayWithOutLengthWithRetValLength]
+      Actual: function
+
+Pass: callDelegatePassArrayWithOutLengthWithRetValLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegatePassArrayWithOutLengthWithRetValLength.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegatePassArrayWithOutLengthWithRetValLengthHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegatePassArrayWithOutLengthWithRetValLengthHSTRING]
+      Actual: function
+
+Pass: callDelegatePassArrayWithOutLengthWithRetValLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegatePassArrayWithOutLengthWithRetValLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegatePassArrayWithOutLengthWithRetValRandomParam
+
+Pass: typeof [object Animals.Animal][callDelegatePassArrayWithOutLengthWithRetValRandomParam]
+      Actual: function
+
+Pass: callDelegatePassArrayWithOutLengthWithRetValRandomParam.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegatePassArrayWithOutLengthWithRetValRandomParam.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegatePassArrayWithOutLengthWithRetValRandomParamHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegatePassArrayWithOutLengthWithRetValRandomParamHSTRING]
+      Actual: function
+
+Pass: callDelegatePassArrayWithOutLengthWithRetValRandomParamHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegatePassArrayWithOutLengthWithRetValRandomParamHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateReceiveArray
+
+Pass: typeof [object Animals.Animal][callDelegateReceiveArray]
+      Actual: function
+
+Pass: callDelegateReceiveArray.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateReceiveArray.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateReceiveArrayHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegateReceiveArrayHSTRING]
+      Actual: function
+
+Pass: callDelegateReceiveArrayHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateReceiveArrayHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateReceiveArrayWithInLength
+
+Pass: typeof [object Animals.Animal][callDelegateReceiveArrayWithInLength]
+      Actual: function
+
+Pass: callDelegateReceiveArrayWithInLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateReceiveArrayWithInLength.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateReceiveArrayWithInLengthHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegateReceiveArrayWithInLengthHSTRING]
+      Actual: function
+
+Pass: callDelegateReceiveArrayWithInLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateReceiveArrayWithInLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateReceiveArrayWithOutLength
+
+Pass: typeof [object Animals.Animal][callDelegateReceiveArrayWithOutLength]
+      Actual: function
+
+Pass: callDelegateReceiveArrayWithOutLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateReceiveArrayWithOutLength.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateReceiveArrayWithOutLengthHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegateReceiveArrayWithOutLengthHSTRING]
+      Actual: function
+
+Pass: callDelegateReceiveArrayWithOutLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateReceiveArrayWithOutLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateReceiveArrayWithOutLengthWithRetValLength
+
+Pass: typeof [object Animals.Animal][callDelegateReceiveArrayWithOutLengthWithRetValLength]
+      Actual: function
+
+Pass: callDelegateReceiveArrayWithOutLengthWithRetValLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateReceiveArrayWithOutLengthWithRetValLength.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateReceiveArrayWithOutLengthWithRetValLengthHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegateReceiveArrayWithOutLengthWithRetValLengthHSTRING]
+      Actual: function
+
+Pass: callDelegateReceiveArrayWithOutLengthWithRetValLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateReceiveArrayWithOutLengthWithRetValLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateReceiveArrayWithOutLengthWithRetValRandomParam
+
+Pass: typeof [object Animals.Animal][callDelegateReceiveArrayWithOutLengthWithRetValRandomParam]
+      Actual: function
+
+Pass: callDelegateReceiveArrayWithOutLengthWithRetValRandomParam.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateReceiveArrayWithOutLengthWithRetValRandomParam.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateReceiveArrayWithOutLengthWithRetValRandomParamHSTRING
+
+Pass: typeof [object Animals.Animal][callDelegateReceiveArrayWithOutLengthWithRetValRandomParamHSTRING]
+      Actual: function
+
+Pass: callDelegateReceiveArrayWithOutLengthWithRetValRandomParamHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateReceiveArrayWithOutLengthWithRetValRandomParamHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithIterable
+
+Pass: typeof [object Animals.Animal][callDelegateWithIterable]
+      Actual: function
+
+Pass: callDelegateWithIterable.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithIterable.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithMultipleOutParams
+
+Pass: typeof [object Animals.Animal][callDelegateWithMultipleOutParams]
+      Actual: function
+
+Pass: callDelegateWithMultipleOutParams.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithMultipleOutParams.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithOutParam_HSTRING
+
+Pass: typeof [object Animals.Animal][callDelegateWithOutParam_HSTRING]
+      Actual: function
+
+Pass: callDelegateWithOutParam_HSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithOutParam_HSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithOutParam_InOutMixed
+
+Pass: typeof [object Animals.Animal][callDelegateWithOutParam_InOutMixed]
+      Actual: function
+
+Pass: callDelegateWithOutParam_InOutMixed.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithOutParam_InOutMixed.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithOutParam_Interface
+
+Pass: typeof [object Animals.Animal][callDelegateWithOutParam_Interface]
+      Actual: function
+
+Pass: callDelegateWithOutParam_Interface.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithOutParam_Interface.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithOutParam_Struct
+
+Pass: typeof [object Animals.Animal][callDelegateWithOutParam_Struct]
+      Actual: function
+
+Pass: callDelegateWithOutParam_Struct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithOutParam_Struct.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithOutParam_int
+
+Pass: typeof [object Animals.Animal][callDelegateWithOutParam_int]
+      Actual: function
+
+Pass: callDelegateWithOutParam_int.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithOutParam_int.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithVector
+
+Pass: typeof [object Animals.Animal][callDelegateWithVector]
+      Actual: function
+
+Pass: callDelegateWithVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithVector.length
+      Actual: 1
+
+Pass: name
+      Actual: checkByRefStruct
+
+Pass: typeof [object Animals.Animal][checkByRefStruct]
+      Actual: function
+
+Pass: checkByRefStruct.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: checkByRefStruct.length
+      Actual: 2
+
+Pass: name
+      Actual: checkMother
+
+Pass: typeof [object Animals.Animal][checkMother]
+      Actual: function
+
+Pass: checkMother.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: checkMother.length
+      Actual: 1
+
+Pass: name
+      Actual: checkMotherConcrete
+
+Pass: typeof [object Animals.Animal][checkMotherConcrete]
+      Actual: function
+
+Pass: checkMotherConcrete.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: checkMotherConcrete.length
+      Actual: 1
+
+Pass: name
+      Actual: copyStringVector
+
+Pass: typeof [object Animals.Animal][copyStringVector]
+      Actual: function
+
+Pass: copyStringVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: copyStringVector.length
+      Actual: 1
+
+Pass: name
+      Actual: copyVector
+
+Pass: typeof [object Animals.Animal][copyVector]
+      Actual: function
+
+Pass: copyVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: copyVector.length
+      Actual: 1
+
+Pass: name
+      Actual: delIn_BooleanOut2
+
+Pass: typeof [object Animals.Animal][delIn_BooleanOut2]
+      Actual: function
+
+Pass: delIn_BooleanOut2.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: delIn_BooleanOut2.length
+      Actual: 1
+
+Pass: name
+      Actual: delegateByRef_Class
+
+Pass: typeof [object Animals.Animal][delegateByRef_Class]
+      Actual: function
+
+Pass: delegateByRef_Class.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: delegateByRef_Class.length
+      Actual: 2
+
+Pass: name
+      Actual: delegateByRef_Delegate
+
+Pass: typeof [object Animals.Animal][delegateByRef_Delegate]
+      Actual: function
+
+Pass: delegateByRef_Delegate.length
+      Actual: 3
+
+Comment: Setting length of function to be 10
+Pass: delegateByRef_Delegate.length
+      Actual: 3
+
+Pass: name
+      Actual: delegateByRef_GUID
+
+Pass: typeof [object Animals.Animal][delegateByRef_GUID]
+      Actual: function
+
+Pass: delegateByRef_GUID.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: delegateByRef_GUID.length
+      Actual: 2
+
+Pass: name
+      Actual: delegateByRef_Interface
+
+Pass: typeof [object Animals.Animal][delegateByRef_Interface]
+      Actual: function
+
+Pass: delegateByRef_Interface.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: delegateByRef_Interface.length
+      Actual: 2
+
+Pass: name
+      Actual: delegateByRef_Struct
+
+Pass: typeof [object Animals.Animal][delegateByRef_Struct]
+      Actual: function
+
+Pass: delegateByRef_Struct.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: delegateByRef_Struct.length
+      Actual: 2
+
+Pass: name
+      Actual: doubleOffset2Int
+
+Pass: typeof [object Animals.Animal][doubleOffset2Int]
+      Actual: function
+
+Pass: doubleOffset2Int.length
+      Actual: 3
+
+Comment: Setting length of function to be 10
+Pass: doubleOffset2Int.length
+      Actual: 3
+
+Pass: name
+      Actual: doubleOffsetByte
+
+Pass: typeof [object Animals.Animal][doubleOffsetByte]
+      Actual: function
+
+Pass: doubleOffsetByte.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: doubleOffsetByte.length
+      Actual: 2
+
+Pass: name
+      Actual: doubleOffsetChar
+
+Pass: typeof [object Animals.Animal][doubleOffsetChar]
+      Actual: function
+
+Pass: doubleOffsetChar.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: doubleOffsetChar.length
+      Actual: 2
+
+Pass: name
+      Actual: doubleOffsetInt
+
+Pass: typeof [object Animals.Animal][doubleOffsetInt]
+      Actual: function
+
+Pass: doubleOffsetInt.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: doubleOffsetInt.length
+      Actual: 2
+
+Pass: name
+      Actual: doubleOffsetInt64
+
+Pass: typeof [object Animals.Animal][doubleOffsetInt64]
+      Actual: function
+
+Pass: doubleOffsetInt64.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: doubleOffsetInt64.length
+      Actual: 2
+
+Pass: name
+      Actual: doubleOffsetStruct
+
+Pass: typeof [object Animals.Animal][doubleOffsetStruct]
+      Actual: function
+
+Pass: doubleOffsetStruct.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: doubleOffsetStruct.length
+      Actual: 2
+
+Pass: name
+      Actual: duplicateIterable
+
+Pass: typeof [object Animals.Animal][duplicateIterable]
+      Actual: function
+
+Pass: duplicateIterable.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: duplicateIterable.length
+      Actual: 1
+
+Pass: name
+      Actual: duplicateIterator
+
+Pass: typeof [object Animals.Animal][duplicateIterator]
+      Actual: function
+
+Pass: duplicateIterator.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: duplicateIterator.length
+      Actual: 1
+
+Pass: name
+      Actual: duplicateStringIterable
+
+Pass: typeof [object Animals.Animal][duplicateStringIterable]
+      Actual: function
+
+Pass: duplicateStringIterable.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: duplicateStringIterable.length
+      Actual: 1
+
+Pass: name
+      Actual: duplicateStringIterator
+
+Pass: typeof [object Animals.Animal][duplicateStringIterator]
+      Actual: function
+
+Pass: duplicateStringIterator.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: duplicateStringIterator.length
+      Actual: 1
+
+Pass: name
+      Actual: duplicateStringVector
+
+Pass: typeof [object Animals.Animal][duplicateStringVector]
+      Actual: function
+
+Pass: duplicateStringVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: duplicateStringVector.length
+      Actual: 1
+
+Pass: name
+      Actual: duplicateStringVectorView
+
+Pass: typeof [object Animals.Animal][duplicateStringVectorView]
+      Actual: function
+
+Pass: duplicateStringVectorView.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: duplicateStringVectorView.length
+      Actual: 1
+
+Pass: name
+      Actual: duplicateVector
+
+Pass: typeof [object Animals.Animal][duplicateVector]
+      Actual: function
+
+Pass: duplicateVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: duplicateVector.length
+      Actual: 1
+
+Pass: name
+      Actual: duplicateVectorView
+
+Pass: typeof [object Animals.Animal][duplicateVectorView]
+      Actual: function
+
+Pass: duplicateVectorView.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: duplicateVectorView.length
+      Actual: 1
+
+Pass: name
+      Actual: errorCode
+
+Pass: typeof [object Animals.Animal][errorCode]
+      Actual: number
+
+Pass: name
+      Actual: fastPath
+
+Pass: typeof [object Animals.Animal][fastPath]
+      Actual: function
+
+Pass: fastPath.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: fastPath.length
+      Actual: 0
+
+Pass: name
+      Actual: fastPathIn
+
+Pass: typeof [object Animals.Animal][fastPathIn]
+      Actual: function
+
+Pass: fastPathIn.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: fastPathIn.length
+      Actual: 1
+
+Pass: name
+      Actual: fastPathInIn
+
+Pass: typeof [object Animals.Animal][fastPathInIn]
+      Actual: function
+
+Pass: fastPathInIn.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: fastPathInIn.length
+      Actual: 2
+
+Pass: name
+      Actual: fastPathInOut
+
+Pass: typeof [object Animals.Animal][fastPathInOut]
+      Actual: function
+
+Pass: fastPathInOut.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: fastPathInOut.length
+      Actual: 1
+
+Pass: name
+      Actual: fastPathOut
+
+Pass: typeof [object Animals.Animal][fastPathOut]
+      Actual: function
+
+Pass: fastPathOut.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: fastPathOut.length
+      Actual: 0
+
+Pass: name
+      Actual: fillArray
+
+Pass: typeof [object Animals.Animal][fillArray]
+      Actual: function
+
+Pass: fillArray.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: fillArray.length
+      Actual: 1
+
+Pass: name
+      Actual: fillArrayHSTRING
+
+Pass: typeof [object Animals.Animal][fillArrayHSTRING]
+      Actual: function
+
+Pass: fillArrayHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: fillArrayHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: fillArrayWithInLength
+
+Pass: typeof [object Animals.Animal][fillArrayWithInLength]
+      Actual: function
+
+Pass: fillArrayWithInLength.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: fillArrayWithInLength.length
+      Actual: 2
+
+Pass: name
+      Actual: fillArrayWithInLengthHSTRING
+
+Pass: typeof [object Animals.Animal][fillArrayWithInLengthHSTRING]
+      Actual: function
+
+Pass: fillArrayWithInLengthHSTRING.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: fillArrayWithInLengthHSTRING.length
+      Actual: 2
+
+Pass: name
+      Actual: fillArrayWithOutLength
+
+Pass: typeof [object Animals.Animal][fillArrayWithOutLength]
+      Actual: function
+
+Pass: fillArrayWithOutLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: fillArrayWithOutLength.length
+      Actual: 1
+
+Pass: name
+      Actual: fillArrayWithOutLengthHSTRING
+
+Pass: typeof [object Animals.Animal][fillArrayWithOutLengthHSTRING]
+      Actual: function
+
+Pass: fillArrayWithOutLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: fillArrayWithOutLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: fillArrayWithOutLengthWithRetValLength
+
+Pass: typeof [object Animals.Animal][fillArrayWithOutLengthWithRetValLength]
+      Actual: function
+
+Pass: fillArrayWithOutLengthWithRetValLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: fillArrayWithOutLengthWithRetValLength.length
+      Actual: 1
+
+Pass: name
+      Actual: fillArrayWithOutLengthWithRetValLengthHSTRING
+
+Pass: typeof [object Animals.Animal][fillArrayWithOutLengthWithRetValLengthHSTRING]
+      Actual: function
+
+Pass: fillArrayWithOutLengthWithRetValLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: fillArrayWithOutLengthWithRetValLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: fillArrayWithOutLengthWithRetValRandomParam
+
+Pass: typeof [object Animals.Animal][fillArrayWithOutLengthWithRetValRandomParam]
+      Actual: function
+
+Pass: fillArrayWithOutLengthWithRetValRandomParam.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: fillArrayWithOutLengthWithRetValRandomParam.length
+      Actual: 1
+
+Pass: name
+      Actual: fillArrayWithOutLengthWithRetValRandomParamHSTRING
+
+Pass: typeof [object Animals.Animal][fillArrayWithOutLengthWithRetValRandomParamHSTRING]
+      Actual: function
+
+Pass: fillArrayWithOutLengthWithRetValRandomParamHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: fillArrayWithOutLengthWithRetValRandomParamHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: fillDimensions
+
+Pass: typeof [object Animals.Animal][fillDimensions]
+      Actual: function
+
+Pass: fillDimensions.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: fillDimensions.length
+      Actual: 1
+
+Pass: name
+      Actual: floatOffset2Int
+
+Pass: typeof [object Animals.Animal][floatOffset2Int]
+      Actual: function
+
+Pass: floatOffset2Int.length
+      Actual: 3
+
+Comment: Setting length of function to be 10
+Pass: floatOffset2Int.length
+      Actual: 3
+
+Pass: name
+      Actual: floatOffsetByte
+
+Pass: typeof [object Animals.Animal][floatOffsetByte]
+      Actual: function
+
+Pass: floatOffsetByte.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: floatOffsetByte.length
+      Actual: 2
+
+Pass: name
+      Actual: floatOffsetChar
+
+Pass: typeof [object Animals.Animal][floatOffsetChar]
+      Actual: function
+
+Pass: floatOffsetChar.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: floatOffsetChar.length
+      Actual: 2
+
+Pass: name
+      Actual: floatOffsetInt
+
+Pass: typeof [object Animals.Animal][floatOffsetInt]
+      Actual: function
+
+Pass: floatOffsetInt.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: floatOffsetInt.length
+      Actual: 2
+
+Pass: name
+      Actual: floatOffsetInt64
+
+Pass: typeof [object Animals.Animal][floatOffsetInt64]
+      Actual: function
+
+Pass: floatOffsetInt64.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: floatOffsetInt64.length
+      Actual: 2
+
+Pass: name
+      Actual: floatOffsetStruct
+
+Pass: typeof [object Animals.Animal][floatOffsetStruct]
+      Actual: function
+
+Pass: floatOffsetStruct.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: floatOffsetStruct.length
+      Actual: 2
+
+Pass: name
+      Actual: getDimensions
+
+Pass: typeof [object Animals.Animal][getDimensions]
+      Actual: function
+
+Pass: getDimensions.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getDimensions.length
+      Actual: 0
+
+Pass: name
+      Actual: getGreeting
+
+Pass: typeof [object Animals.Animal][getGreeting]
+      Actual: function
+
+Pass: getGreeting.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getGreeting.length
+      Actual: 0
+
+Pass: name
+      Actual: getMap
+
+Pass: typeof [object Animals.Animal][getMap]
+      Actual: function
+
+Pass: getMap.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: getMap.length
+      Actual: 1
+
+Pass: name
+      Actual: getNULLHSTRING
+
+Pass: typeof [object Animals.Animal][getNULLHSTRING]
+      Actual: function
+
+Pass: getNULLHSTRING.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNULLHSTRING.length
+      Actual: 0
+
+Pass: name
+      Actual: getNames
+
+Pass: typeof [object Animals.Animal][getNames]
+      Actual: function
+
+Pass: getNames.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNames.length
+      Actual: 0
+
+Pass: name
+      Actual: getNativeDelegateAsOutParam
+
+Pass: typeof [object Animals.Animal][getNativeDelegateAsOutParam]
+      Actual: function
+
+Pass: getNativeDelegateAsOutParam.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNativeDelegateAsOutParam.length
+      Actual: 0
+
+Pass: name
+      Actual: getNumLegs
+
+Pass: typeof [object Animals.Animal][getNumLegs]
+      Actual: function
+
+Pass: getNumLegs.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNumLegs.length
+      Actual: 0
+
+Pass: name
+      Actual: getObservableStringVector
+
+Pass: typeof [object Animals.Animal][getObservableStringVector]
+      Actual: function
+
+Pass: getObservableStringVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getObservableStringVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getObservableVector
+
+Pass: typeof [object Animals.Animal][getObservableVector]
+      Actual: function
+
+Pass: getObservableVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getObservableVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getOuterStruct
+
+Pass: typeof [object Animals.Animal][getOuterStruct]
+      Actual: function
+
+Pass: getOuterStruct.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOuterStruct.length
+      Actual: 0
+
+Pass: name
+      Actual: getReadOnlyVector
+
+Pass: typeof [object Animals.Animal][getReadOnlyVector]
+      Actual: function
+
+Pass: getReadOnlyVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: getReadOnlyVector.length
+      Actual: 1
+
+Pass: name
+      Actual: getStringVector
+
+Pass: typeof [object Animals.Animal][getStringVector]
+      Actual: function
+
+Pass: getStringVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStringVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getVector
+
+Pass: typeof [object Animals.Animal][getVector]
+      Actual: function
+
+Pass: getVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getVector.length
+      Actual: 0
+
+Pass: name
+      Actual: id
+
+Pass: typeof [object Animals.Animal][id]
+      Actual: string
+
+Pass: name
+      Actual: interspersedInOutBool
+
+Pass: typeof [object Animals.Animal][interspersedInOutBool]
+      Actual: function
+
+Pass: interspersedInOutBool.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutBool.length
+      Actual: 2
+
+Pass: name
+      Actual: interspersedInOutChar16
+
+Pass: typeof [object Animals.Animal][interspersedInOutChar16]
+      Actual: function
+
+Pass: interspersedInOutChar16.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutChar16.length
+      Actual: 2
+
+Pass: name
+      Actual: interspersedInOutDimensions
+
+Pass: typeof [object Animals.Animal][interspersedInOutDimensions]
+      Actual: function
+
+Pass: interspersedInOutDimensions.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutDimensions.length
+      Actual: 2
+
+Pass: name
+      Actual: interspersedInOutDouble
+
+Pass: typeof [object Animals.Animal][interspersedInOutDouble]
+      Actual: function
+
+Pass: interspersedInOutDouble.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutDouble.length
+      Actual: 2
+
+Pass: name
+      Actual: interspersedInOutFish
+
+Pass: typeof [object Animals.Animal][interspersedInOutFish]
+      Actual: function
+
+Pass: interspersedInOutFish.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutFish.length
+      Actual: 2
+
+Pass: name
+      Actual: interspersedInOutHSTRING
+
+Pass: typeof [object Animals.Animal][interspersedInOutHSTRING]
+      Actual: function
+
+Pass: interspersedInOutHSTRING.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutHSTRING.length
+      Actual: 2
+
+Pass: name
+      Actual: interspersedInOutIFish
+
+Pass: typeof [object Animals.Animal][interspersedInOutIFish]
+      Actual: function
+
+Pass: interspersedInOutIFish.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutIFish.length
+      Actual: 2
+
+Pass: name
+      Actual: interspersedInOutInt32
+
+Pass: typeof [object Animals.Animal][interspersedInOutInt32]
+      Actual: function
+
+Pass: interspersedInOutInt32.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutInt32.length
+      Actual: 2
+
+Pass: name
+      Actual: interspersedInOutInt64
+
+Pass: typeof [object Animals.Animal][interspersedInOutInt64]
+      Actual: function
+
+Pass: interspersedInOutInt64.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutInt64.length
+      Actual: 2
+
+Pass: name
+      Actual: interspersedInOutPhylum
+
+Pass: typeof [object Animals.Animal][interspersedInOutPhylum]
+      Actual: function
+
+Pass: interspersedInOutPhylum.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutPhylum.length
+      Actual: 2
+
+Pass: name
+      Actual: interspersedInOutSingle
+
+Pass: typeof [object Animals.Animal][interspersedInOutSingle]
+      Actual: function
+
+Pass: interspersedInOutSingle.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutSingle.length
+      Actual: 2
+
+Pass: name
+      Actual: interspersedInOutUInt32
+
+Pass: typeof [object Animals.Animal][interspersedInOutUInt32]
+      Actual: function
+
+Pass: interspersedInOutUInt32.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutUInt32.length
+      Actual: 2
+
+Pass: name
+      Actual: interspersedInOutUInt64
+
+Pass: typeof [object Animals.Animal][interspersedInOutUInt64]
+      Actual: function
+
+Pass: interspersedInOutUInt64.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutUInt64.length
+      Actual: 2
+
+Pass: name
+      Actual: interspersedInOutUInt8
+
+Pass: typeof [object Animals.Animal][interspersedInOutUInt8]
+      Actual: function
+
+Pass: interspersedInOutUInt8.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: interspersedInOutUInt8.length
+      Actual: 2
+
+Pass: name
+      Actual: isHungry
+
+Pass: typeof [object Animals.Animal][isHungry]
+      Actual: function
+
+Pass: isHungry.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: isHungry.length
+      Actual: 0
+
+Pass: name
+      Actual: isSleepy
+
+Pass: typeof [object Animals.Animal][isSleepy]
+      Actual: function
+
+Pass: isSleepy.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: isSleepy.length
+      Actual: 0
+
+Pass: name
+      Actual: isStructModified
+
+Pass: typeof [object Animals.Animal][isStructModified]
+      Actual: function
+
+Pass: isStructModified.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: isStructModified.length
+      Actual: 2
+
+Pass: name
+      Actual: layoutBasicWithStructs
+
+Pass: typeof [object Animals.Animal][layoutBasicWithStructs]
+      Actual: function
+
+Pass: layoutBasicWithStructs.length
+      Actual: 9
+
+Comment: Setting length of function to be 10
+Pass: layoutBasicWithStructs.length
+      Actual: 9
+
+Pass: name
+      Actual: layoutOfManyMembers
+
+Pass: typeof [object Animals.Animal][layoutOfManyMembers]
+      Actual: function
+
+Pass: layoutOfManyMembers.length
+      Actual: 9
+
+Comment: Setting length of function to be 10
+Pass: layoutOfManyMembers.length
+      Actual: 9
+
+Pass: name
+      Actual: layoutStructs
+
+Pass: typeof [object Animals.Animal][layoutStructs]
+      Actual: function
+
+Pass: layoutStructs.length
+      Actual: 5
+
+Comment: Setting length of function to be 10
+Pass: layoutStructs.length
+      Actual: 5
+
+Pass: name
+      Actual: likesChef
+
+Pass: typeof [object Animals.Animal][likesChef]
+      Actual: function
+
+Pass: likesChef.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: likesChef.length
+      Actual: 0
+
+Pass: name
+      Actual: marshalBool
+
+Pass: typeof [object Animals.Animal][marshalBool]
+      Actual: function
+
+Pass: marshalBool.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalBool.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalChar16
+
+Pass: typeof [object Animals.Animal][marshalChar16]
+      Actual: function
+
+Pass: marshalChar16.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalChar16.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalDimensions
+
+Pass: typeof [object Animals.Animal][marshalDimensions]
+      Actual: function
+
+Pass: marshalDimensions.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalDimensions.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalDouble
+
+Pass: typeof [object Animals.Animal][marshalDouble]
+      Actual: function
+
+Pass: marshalDouble.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalDouble.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalGUID
+
+Pass: typeof [object Animals.Animal][marshalGUID]
+      Actual: function
+
+Pass: marshalGUID.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalGUID.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalHRESULT
+
+Pass: typeof [object Animals.Animal][marshalHRESULT]
+      Actual: function
+
+Pass: marshalHRESULT.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalHRESULT.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalHSTRING
+
+Pass: typeof [object Animals.Animal][marshalHSTRING]
+      Actual: function
+
+Pass: marshalHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInt16
+
+Pass: typeof [object Animals.Animal][marshalInt16]
+      Actual: function
+
+Pass: marshalInt16.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInt16.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInt32
+
+Pass: typeof [object Animals.Animal][marshalInt32]
+      Actual: function
+
+Pass: marshalInt32.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInt32.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInt64
+
+Pass: typeof [object Animals.Animal][marshalInt64]
+      Actual: function
+
+Pass: marshalInt64.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInt64.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalNames
+
+Pass: typeof [object Animals.Animal][marshalNames]
+      Actual: function
+
+Pass: marshalNames.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalNames.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalNullAsDelegate
+
+Pass: typeof [object Animals.Animal][marshalNullAsDelegate]
+      Actual: function
+
+Pass: marshalNullAsDelegate.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalNullAsDelegate.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalOuterStruct
+
+Pass: typeof [object Animals.Animal][marshalOuterStruct]
+      Actual: function
+
+Pass: marshalOuterStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalOuterStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalPhylum
+
+Pass: typeof [object Animals.Animal][marshalPhylum]
+      Actual: function
+
+Pass: marshalPhylum.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalPhylum.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalPhylumChange
+
+Pass: typeof [object Animals.Animal][marshalPhylumChange]
+      Actual: function
+
+Pass: marshalPhylumChange.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalPhylumChange.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalSingle
+
+Pass: typeof [object Animals.Animal][marshalSingle]
+      Actual: function
+
+Pass: marshalSingle.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalSingle.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalStudyInfo
+
+Pass: typeof [object Animals.Animal][marshalStudyInfo]
+      Actual: function
+
+Pass: marshalStudyInfo.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalStudyInfo.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalUInt16
+
+Pass: typeof [object Animals.Animal][marshalUInt16]
+      Actual: function
+
+Pass: marshalUInt16.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalUInt16.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalUInt32
+
+Pass: typeof [object Animals.Animal][marshalUInt32]
+      Actual: function
+
+Pass: marshalUInt32.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalUInt32.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalUInt64
+
+Pass: typeof [object Animals.Animal][marshalUInt64]
+      Actual: function
+
+Pass: marshalUInt64.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalUInt64.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalUInt8
+
+Pass: typeof [object Animals.Animal][marshalUInt8]
+      Actual: function
+
+Pass: marshalUInt8.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalUInt8.length
+      Actual: 1
+
+Pass: name
+      Actual: methodDelegateAsOutParam
+
+Pass: typeof [object Animals.Animal][methodDelegateAsOutParam]
+      Actual: function
+
+Pass: methodDelegateAsOutParam.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: methodDelegateAsOutParam.length
+      Actual: 1
+
+Pass: name
+      Actual: mother
+
+Pass: typeof [object Animals.Animal][mother]
+      Actual: object
+
+Pass: name
+      Actual: multiDouble3
+
+Pass: typeof [object Animals.Animal][multiDouble3]
+      Actual: function
+
+Pass: multiDouble3.length
+      Actual: 3
+
+Comment: Setting length of function to be 10
+Pass: multiDouble3.length
+      Actual: 3
+
+Pass: name
+      Actual: multiDouble4
+
+Pass: typeof [object Animals.Animal][multiDouble4]
+      Actual: function
+
+Pass: multiDouble4.length
+      Actual: 4
+
+Comment: Setting length of function to be 10
+Pass: multiDouble4.length
+      Actual: 4
+
+Pass: name
+      Actual: multiFloat3
+
+Pass: typeof [object Animals.Animal][multiFloat3]
+      Actual: function
+
+Pass: multiFloat3.length
+      Actual: 3
+
+Comment: Setting length of function to be 10
+Pass: multiFloat3.length
+      Actual: 3
+
+Pass: name
+      Actual: multiFloat4
+
+Pass: typeof [object Animals.Animal][multiFloat4]
+      Actual: function
+
+Pass: multiFloat4.length
+      Actual: 4
+
+Comment: Setting length of function to be 10
+Pass: multiFloat4.length
+      Actual: 4
+
+Pass: name
+      Actual: multipleOutBool
+
+Pass: typeof [object Animals.Animal][multipleOutBool]
+      Actual: function
+
+Pass: multipleOutBool.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutBool.length
+      Actual: 2
+
+Pass: name
+      Actual: multipleOutChar16
+
+Pass: typeof [object Animals.Animal][multipleOutChar16]
+      Actual: function
+
+Pass: multipleOutChar16.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutChar16.length
+      Actual: 2
+
+Pass: name
+      Actual: multipleOutDimensions
+
+Pass: typeof [object Animals.Animal][multipleOutDimensions]
+      Actual: function
+
+Pass: multipleOutDimensions.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutDimensions.length
+      Actual: 2
+
+Pass: name
+      Actual: multipleOutDouble
+
+Pass: typeof [object Animals.Animal][multipleOutDouble]
+      Actual: function
+
+Pass: multipleOutDouble.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutDouble.length
+      Actual: 2
+
+Pass: name
+      Actual: multipleOutFish
+
+Pass: typeof [object Animals.Animal][multipleOutFish]
+      Actual: function
+
+Pass: multipleOutFish.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutFish.length
+      Actual: 2
+
+Pass: name
+      Actual: multipleOutHSTRING
+
+Pass: typeof [object Animals.Animal][multipleOutHSTRING]
+      Actual: function
+
+Pass: multipleOutHSTRING.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutHSTRING.length
+      Actual: 2
+
+Pass: name
+      Actual: multipleOutIFish
+
+Pass: typeof [object Animals.Animal][multipleOutIFish]
+      Actual: function
+
+Pass: multipleOutIFish.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutIFish.length
+      Actual: 2
+
+Pass: name
+      Actual: multipleOutInt32
+
+Pass: typeof [object Animals.Animal][multipleOutInt32]
+      Actual: function
+
+Pass: multipleOutInt32.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutInt32.length
+      Actual: 2
+
+Pass: name
+      Actual: multipleOutInt64
+
+Pass: typeof [object Animals.Animal][multipleOutInt64]
+      Actual: function
+
+Pass: multipleOutInt64.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutInt64.length
+      Actual: 2
+
+Pass: name
+      Actual: multipleOutPhylum
+
+Pass: typeof [object Animals.Animal][multipleOutPhylum]
+      Actual: function
+
+Pass: multipleOutPhylum.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutPhylum.length
+      Actual: 2
+
+Pass: name
+      Actual: multipleOutSingle
+
+Pass: typeof [object Animals.Animal][multipleOutSingle]
+      Actual: function
+
+Pass: multipleOutSingle.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutSingle.length
+      Actual: 2
+
+Pass: name
+      Actual: multipleOutUInt32
+
+Pass: typeof [object Animals.Animal][multipleOutUInt32]
+      Actual: function
+
+Pass: multipleOutUInt32.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutUInt32.length
+      Actual: 2
+
+Pass: name
+      Actual: multipleOutUInt64
+
+Pass: typeof [object Animals.Animal][multipleOutUInt64]
+      Actual: function
+
+Pass: multipleOutUInt64.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutUInt64.length
+      Actual: 2
+
+Pass: name
+      Actual: multipleOutUInt8
+
+Pass: typeof [object Animals.Animal][multipleOutUInt8]
+      Actual: function
+
+Pass: multipleOutUInt8.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multipleOutUInt8.length
+      Actual: 2
+
+Pass: name
+      Actual: myArrayProp
+
+Pass: typeof [object Animals.Animal][myArrayProp]
+      Actual: object
+
+Pass: name
+      Actual: myArrayPropHSTRING
+
+Pass: typeof [object Animals.Animal][myArrayPropHSTRING]
+      Actual: object
+
+Pass: name
+      Actual: myDimensions
+
+Pass: typeof [object Animals.Animal][myDimensions]
+      Actual: object
+
+Pass: name
+      Actual: myIterable
+
+Pass: typeof [object Animals.Animal][myIterable]
+      Actual: object
+
+Pass: name
+      Actual: myPhylum
+
+Pass: typeof [object Animals.Animal][myPhylum]
+      Actual: number
+
+Pass: name
+      Actual: myVector
+
+Pass: typeof [object Animals.Animal][myVector]
+      Actual: object
+
+Pass: name
+      Actual: oneventhandler
+
+Pass: typeof [object Animals.Animal][oneventhandler]
+      Actual: object
+
+Pass: name
+      Actual: passArray
+
+Pass: typeof [object Animals.Animal][passArray]
+      Actual: function
+
+Pass: passArray.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: passArray.length
+      Actual: 1
+
+Pass: name
+      Actual: passArrayHSTRING
+
+Pass: typeof [object Animals.Animal][passArrayHSTRING]
+      Actual: function
+
+Pass: passArrayHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: passArrayHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: passArrayWithInLength
+
+Pass: typeof [object Animals.Animal][passArrayWithInLength]
+      Actual: function
+
+Pass: passArrayWithInLength.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: passArrayWithInLength.length
+      Actual: 2
+
+Pass: name
+      Actual: passArrayWithInLengthHSTRING
+
+Pass: typeof [object Animals.Animal][passArrayWithInLengthHSTRING]
+      Actual: function
+
+Pass: passArrayWithInLengthHSTRING.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: passArrayWithInLengthHSTRING.length
+      Actual: 2
+
+Pass: name
+      Actual: passArrayWithOutLength
+
+Pass: typeof [object Animals.Animal][passArrayWithOutLength]
+      Actual: function
+
+Pass: passArrayWithOutLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: passArrayWithOutLength.length
+      Actual: 1
+
+Pass: name
+      Actual: passArrayWithOutLengthHSTRING
+
+Pass: typeof [object Animals.Animal][passArrayWithOutLengthHSTRING]
+      Actual: function
+
+Pass: passArrayWithOutLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: passArrayWithOutLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: passArrayWithOutLengthWithRetValLength
+
+Pass: typeof [object Animals.Animal][passArrayWithOutLengthWithRetValLength]
+      Actual: function
+
+Pass: passArrayWithOutLengthWithRetValLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: passArrayWithOutLengthWithRetValLength.length
+      Actual: 1
+
+Pass: name
+      Actual: passArrayWithOutLengthWithRetValLengthHSTRING
+
+Pass: typeof [object Animals.Animal][passArrayWithOutLengthWithRetValLengthHSTRING]
+      Actual: function
+
+Pass: passArrayWithOutLengthWithRetValLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: passArrayWithOutLengthWithRetValLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: passArrayWithOutLengthWithRetValRandomParam
+
+Pass: typeof [object Animals.Animal][passArrayWithOutLengthWithRetValRandomParam]
+      Actual: function
+
+Pass: passArrayWithOutLengthWithRetValRandomParam.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: passArrayWithOutLengthWithRetValRandomParam.length
+      Actual: 1
+
+Pass: name
+      Actual: passArrayWithOutLengthWithRetValRandomParamHSTRING
+
+Pass: typeof [object Animals.Animal][passArrayWithOutLengthWithRetValRandomParamHSTRING]
+      Actual: function
+
+Pass: passArrayWithOutLengthWithRetValRandomParamHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: passArrayWithOutLengthWithRetValRandomParamHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: passIDByRef
+
+Pass: typeof [object Animals.Animal][passIDByRef]
+      Actual: function
+
+Pass: passIDByRef.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: passIDByRef.length
+      Actual: 1
+
+Pass: name
+      Actual: pureFillArray
+
+Pass: typeof [object Animals.Animal][pureFillArray]
+      Actual: function
+
+Pass: pureFillArray.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: pureFillArray.length
+      Actual: 1
+
+Pass: name
+      Actual: purePassArray
+
+Pass: typeof [object Animals.Animal][purePassArray]
+      Actual: function
+
+Pass: purePassArray.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: purePassArray.length
+      Actual: 1
+
+Pass: name
+      Actual: pureReceiveArray
+
+Pass: typeof [object Animals.Animal][pureReceiveArray]
+      Actual: function
+
+Pass: pureReceiveArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: pureReceiveArray.length
+      Actual: 0
+
+Pass: name
+      Actual: receiveArray
+
+Pass: typeof [object Animals.Animal][receiveArray]
+      Actual: function
+
+Pass: receiveArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: receiveArray.length
+      Actual: 0
+
+Pass: name
+      Actual: receiveArrayHSTRING
+
+Pass: typeof [object Animals.Animal][receiveArrayHSTRING]
+      Actual: function
+
+Pass: receiveArrayHSTRING.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: receiveArrayHSTRING.length
+      Actual: 0
+
+Pass: name
+      Actual: receiveArrayWithInLength
+
+Pass: typeof [object Animals.Animal][receiveArrayWithInLength]
+      Actual: function
+
+Pass: receiveArrayWithInLength.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: receiveArrayWithInLength.length
+      Actual: 1
+
+Pass: name
+      Actual: receiveArrayWithInLengthHSTRING
+
+Pass: typeof [object Animals.Animal][receiveArrayWithInLengthHSTRING]
+      Actual: function
+
+Pass: receiveArrayWithInLengthHSTRING.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: receiveArrayWithInLengthHSTRING.length
+      Actual: 1
+
+Pass: name
+      Actual: receiveArrayWithOutLength
+
+Pass: typeof [object Animals.Animal][receiveArrayWithOutLength]
+      Actual: function
+
+Pass: receiveArrayWithOutLength.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: receiveArrayWithOutLength.length
+      Actual: 0
+
+Pass: name
+      Actual: receiveArrayWithOutLengthHSTRING
+
+Pass: typeof [object Animals.Animal][receiveArrayWithOutLengthHSTRING]
+      Actual: function
+
+Pass: receiveArrayWithOutLengthHSTRING.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: receiveArrayWithOutLengthHSTRING.length
+      Actual: 0
+
+Pass: name
+      Actual: receiveArrayWithOutLengthWithRetValLength
+
+Pass: typeof [object Animals.Animal][receiveArrayWithOutLengthWithRetValLength]
+      Actual: function
+
+Pass: receiveArrayWithOutLengthWithRetValLength.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: receiveArrayWithOutLengthWithRetValLength.length
+      Actual: 0
+
+Pass: name
+      Actual: receiveArrayWithOutLengthWithRetValLengthHSTRING
+
+Pass: typeof [object Animals.Animal][receiveArrayWithOutLengthWithRetValLengthHSTRING]
+      Actual: function
+
+Pass: receiveArrayWithOutLengthWithRetValLengthHSTRING.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: receiveArrayWithOutLengthWithRetValLengthHSTRING.length
+      Actual: 0
+
+Pass: name
+      Actual: receiveArrayWithOutLengthWithRetValRandomParam
+
+Pass: typeof [object Animals.Animal][receiveArrayWithOutLengthWithRetValRandomParam]
+      Actual: function
+
+Pass: receiveArrayWithOutLengthWithRetValRandomParam.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: receiveArrayWithOutLengthWithRetValRandomParam.length
+      Actual: 0
+
+Pass: name
+      Actual: receiveArrayWithOutLengthWithRetValRandomParamHSTRING
+
+Pass: typeof [object Animals.Animal][receiveArrayWithOutLengthWithRetValRandomParamHSTRING]
+      Actual: function
+
+Pass: receiveArrayWithOutLengthWithRetValRandomParamHSTRING.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: receiveArrayWithOutLengthWithRetValRandomParamHSTRING.length
+      Actual: 0
+
+Pass: name
+      Actual: removeEventListener
+
+Pass: typeof [object Animals.Animal][removeEventListener]
+      Actual: function
+
+Pass: removeEventListener.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: removeEventListener.length
+      Actual: 2
+
+Pass: name
+      Actual: sendAndGetIVectorStructs
+
+Pass: typeof [object Animals.Animal][sendAndGetIVectorStructs]
+      Actual: function
+
+Pass: sendAndGetIVectorStructs.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendAndGetIVectorStructs.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameIterable
+
+Pass: typeof [object Animals.Animal][sendBackSameIterable]
+      Actual: function
+
+Pass: sendBackSameIterable.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameIterable.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameIterator
+
+Pass: typeof [object Animals.Animal][sendBackSameIterator]
+      Actual: function
+
+Pass: sendBackSameIterator.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameIterator.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameStringIterable
+
+Pass: typeof [object Animals.Animal][sendBackSameStringIterable]
+      Actual: function
+
+Pass: sendBackSameStringIterable.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameStringIterable.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameStringIterator
+
+Pass: typeof [object Animals.Animal][sendBackSameStringIterator]
+      Actual: function
+
+Pass: sendBackSameStringIterator.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameStringIterator.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameStringVector
+
+Pass: typeof [object Animals.Animal][sendBackSameStringVector]
+      Actual: function
+
+Pass: sendBackSameStringVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameStringVector.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameStringVectorView
+
+Pass: typeof [object Animals.Animal][sendBackSameStringVectorView]
+      Actual: function
+
+Pass: sendBackSameStringVectorView.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameStringVectorView.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameVector
+
+Pass: typeof [object Animals.Animal][sendBackSameVector]
+      Actual: function
+
+Pass: sendBackSameVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameVector.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameVectorView
+
+Pass: typeof [object Animals.Animal][sendBackSameVectorView]
+      Actual: function
+
+Pass: sendBackSameVectorView.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameVectorView.length
+      Actual: 1
+
+Pass: name
+      Actual: setGreeting
+
+Pass: typeof [object Animals.Animal][setGreeting]
+      Actual: function
+
+Pass: setGreeting.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: setGreeting.length
+      Actual: 1
+
+Pass: name
+      Actual: setNumLegs
+
+Pass: typeof [object Animals.Animal][setNumLegs]
+      Actual: function
+
+Pass: setNumLegs.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: setNumLegs.length
+      Actual: 1
+
+Pass: name
+      Actual: slowPath
+
+Pass: typeof [object Animals.Animal][slowPath]
+      Actual: function
+
+Pass: slowPath.length
+      Actual: 6
+
+Comment: Setting length of function to be 10
+Pass: slowPath.length
+      Actual: 6
+
+Pass: name
+      Actual: testBug202724_GetInt64
+
+Pass: typeof [object Animals.Animal][testBug202724_GetInt64]
+      Actual: function
+
+Pass: testBug202724_GetInt64.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: testBug202724_GetInt64.length
+      Actual: 0
+
+Pass: name
+      Actual: testBug202724_GetUInt64
+
+Pass: typeof [object Animals.Animal][testBug202724_GetUInt64]
+      Actual: function
+
+Pass: testBug202724_GetUInt64.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: testBug202724_GetUInt64.length
+      Actual: 0
+
+Pass: name
+      Actual: testError
+
+Pass: typeof [object Animals.Animal][testError]
+      Actual: function
+
+Pass: testError.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testError.length
+      Actual: 1
+
+Pass: name
+      Actual: testInAllIRefStruct
+
+Pass: typeof [object Animals.Animal][testInAllIRefStruct]
+      Actual: function
+
+Pass: testInAllIRefStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testInAllIRefStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: testInMixIRefStruct
+
+Pass: typeof [object Animals.Animal][testInMixIRefStruct]
+      Actual: function
+
+Pass: testInMixIRefStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testInMixIRefStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: testInNestedIRefNestedStruct
+
+Pass: typeof [object Animals.Animal][testInNestedIRefNestedStruct]
+      Actual: function
+
+Pass: testInNestedIRefNestedStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testInNestedIRefNestedStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: testInNestedIRefStruct
+
+Pass: typeof [object Animals.Animal][testInNestedIRefStruct]
+      Actual: function
+
+Pass: testInNestedIRefStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testInNestedIRefStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: testInSimpleIRefStruct
+
+Pass: typeof [object Animals.Animal][testInSimpleIRefStruct]
+      Actual: function
+
+Pass: testInSimpleIRefStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testInSimpleIRefStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: testOutAllIRefStruct
+
+Pass: typeof [object Animals.Animal][testOutAllIRefStruct]
+      Actual: function
+
+Pass: testOutAllIRefStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testOutAllIRefStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: testOutBug258665_HttpProgress
+
+Pass: typeof [object Animals.Animal][testOutBug258665_HttpProgress]
+      Actual: function
+
+Pass: testOutBug258665_HttpProgress.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testOutBug258665_HttpProgress.length
+      Actual: 1
+
+Pass: name
+      Actual: testOutBug258665_HttpProgressAsOptEmpty
+
+Pass: typeof [object Animals.Animal][testOutBug258665_HttpProgressAsOptEmpty]
+      Actual: function
+
+Pass: testOutBug258665_HttpProgressAsOptEmpty.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: testOutBug258665_HttpProgressAsOptEmpty.length
+      Actual: 0
+
+Pass: name
+      Actual: testOutBug258665_HttpProgressAsOptIntEmpty
+
+Pass: typeof [object Animals.Animal][testOutBug258665_HttpProgressAsOptIntEmpty]
+      Actual: function
+
+Pass: testOutBug258665_HttpProgressAsOptIntEmpty.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: testOutBug258665_HttpProgressAsOptIntEmpty.length
+      Actual: 0
+
+Pass: name
+      Actual: testOutMixIRefStruct
+
+Pass: typeof [object Animals.Animal][testOutMixIRefStruct]
+      Actual: function
+
+Pass: testOutMixIRefStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testOutMixIRefStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: testOutNestedIRefNestedStruct
+
+Pass: typeof [object Animals.Animal][testOutNestedIRefNestedStruct]
+      Actual: function
+
+Pass: testOutNestedIRefNestedStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testOutNestedIRefNestedStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: testOutNestedIRefStruct
+
+Pass: typeof [object Animals.Animal][testOutNestedIRefStruct]
+      Actual: function
+
+Pass: testOutNestedIRefStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testOutNestedIRefStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: testOutSimpleIRefStruct
+
+Pass: typeof [object Animals.Animal][testOutSimpleIRefStruct]
+      Actual: function
+
+Pass: testOutSimpleIRefStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testOutSimpleIRefStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: testPackedBoolean1
+
+Pass: typeof [object Animals.Animal][testPackedBoolean1]
+      Actual: function
+
+Pass: testPackedBoolean1.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testPackedBoolean1.length
+      Actual: 1
+
+Pass: name
+      Actual: testPackedByte12
+
+Pass: typeof [object Animals.Animal][testPackedByte12]
+      Actual: function
+
+Pass: testPackedByte12.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testPackedByte12.length
+      Actual: 1
+
+Pass: name
+      Actual: verifyMarshalGUID
+
+Pass: typeof [object Animals.Animal][verifyMarshalGUID]
+      Actual: function
+
+Pass: verifyMarshalGUID.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: verifyMarshalGUID.length
+      Actual: 2
+
+Pass: name
+      Actual: weight
+
+Pass: typeof [object Animals.Animal][weight]
+      Actual: number
+
+Pass: name
+      Actual: toString
+
+Pass: typeof [object Animals.Animal][toString]
+      Actual: function
+
+Pass: toString.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: toString.length
+      Actual: 0
+
+Pass: number of members
+      Actual: 231
+
+PASS [Test 1: Verify that instance members of an object of a class with [AllowForWeb] are accessible]
+=================================================
+
+Passed: 1
+Failed: 0

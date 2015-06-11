@@ -1,0 +1,60 @@
+TEST_CODE          = 1
+MANAGED_CODE       = 1
+URT_VER            = 4.0
+TARGETNAME         = JsEtwConsole
+TARGETTYPE         = PROGRAM
+UMTYPE             = console
+TARGET_DESTINATION = jscript
+CODE_ANALYSIS      = 1
+ASSEMBLY_IDENTITY_PUBLIC_KEY_NAME = none
+MANAGED_PLATFORM_SPECIFIC = 1
+
+REFERENCES= \
+    $(CLR_REF_PATH)\System.metadata_dll, \
+    $(CLR_REF_PATH)\System.Core.metadata_dll, \
+    $(CLR_REF_PATH)\System.Data.metadata_dll, \
+    $(CLR_REF_PATH)\System.Data.DataSetExtensions.metadata_dll, \
+    $(CLR_REF_PATH)\System.Xml.metadata_dll, \
+    $(CLR_REF_PATH)\System.Xml.Linq.metadata_dll, \
+
+SOURCES= \
+    JsEtwConsole.rc \
+    DateTimeExtensions.cs \
+    EtwEventDetails.cs \
+    EtwListener.cs \
+    EtwManifestCache.cs \
+    EtwProviders.cs \
+    Program.cs \
+    ResourceBin.Designer.cs \
+    Internals\EventArrivedEventArgs.cs \
+    Internals\EventTraceWatcher.cs \
+    Internals\PropertyBag.cs \
+    Internals\TraceEventInfoWrapper.cs \
+    Internals\Interop\Types.cs \
+    Internals\Interop\NativeMethods.cs \
+    Helpers\ConsoleHelper.cs \
+    Helpers\EtwLog.cs \
+    Helpers\FileHelper.cs \
+    Helpers\JScript9Etw.cs \
+    Helpers\PrincipalHelper.cs \
+    Helpers\RunnerHelper.cs \
+    Properties\AssemblyInfo.cs \
+
+MANAGED_RESOURCE_FILES = \
+    ResourceBin.resx,$(OBJ_PATH)\$(O)\JsEtwConsole.ResourceBin.resources \
+
+LANGUAGE_SPECIFIC_MANAGED_RESOURCES = \
+    $(OBJ_PATH)\$(O)\JsEtwConsole.ResourceBin.resources
+
+NTTARGETFILE0 = $(MANAGED_RESOURCE_FILES)
+
+#
+# Include application manifest inside the PE
+#
+SXS_ASSEMBLY_NAME=JsEtwConsole
+SXS_ASSEMBLY_VERSION=1.0
+SXS_MANIFEST=JsEtwConsole.exe.manifest
+SXS_ASSEMBLY_LANGUAGE_INDEPENDENT=1
+SXS_MANIFEST_IN_RESOURCES=1
+
+PASS2_BINPLACE= -:DEST projection\winrt $(OBJ_PATH)\$(O)\JsEtwConsole.exe

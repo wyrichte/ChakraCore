@@ -1,0 +1,9 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "a": "<large string>",
+      "test": "<large string>"
+    }
+  }
+]

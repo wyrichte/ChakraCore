@@ -1,0 +1,4 @@
+PUBLIC_PASS1_CONSUMES= \
+    minkernel\debuggers\extcpp|PASS1 \
+    inetcore\jscript\dll\jscriptdiag\lib|PASS0 \
+

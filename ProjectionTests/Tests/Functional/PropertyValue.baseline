@@ -1,0 +1,140 @@
+Marshaling into and out of PropertyValue
+
+=================================================
+Starting [Test 1: PropertyValue_In: Custom PropertyValue out with GRCN as IReference<Dimensions>]
+Pass: testRCPV1_PropertyValueIn(200) returned (TypeError: The runtimeclass Animals.RCPropertyValue1 that has Windows.Foundation.IPropertyValue as default interface is not supported as input parameter type)
+      Actual: true
+
+PASS [Test 1: PropertyValue_In: Custom PropertyValue out with GRCN as IReference<Dimensions>]
+=================================================
+
+=================================================
+Starting [Test 2: PropertyValue_In: Custom PropertyValue out with GRCN as RCName]
+Pass: testRCPV2_PropertyValueIn(200) returned (TypeError: The runtimeclass Animals.RCPropertyValue2 that has Windows.Foundation.IPropertyValue as default interface is not supported as input parameter type)
+      Actual: true
+
+PASS [Test 2: PropertyValue_In: Custom PropertyValue out with GRCN as RCName]
+=================================================
+
+=================================================
+Starting [Test 3: PropertyValue_In: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
+Pass: testRCPV3_PropertyValueIn(200) returned (TypeError: The runtimeclass Animals.RCPropertyValue3 that has Windows.Foundation.IPropertyValue as default interface is not supported as input parameter type)
+      Actual: true
+
+PASS [Test 3: PropertyValue_In: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
+=================================================
+
+=================================================
+Starting [Test 4: PropertyValue_In: Custom PropertyValue out with GRCN as IReference<Char16>]
+Pass: testRCPV4_PropertyValueIn('D') returned (TypeError: The runtimeclass Animals.RCPropertyValue4 that has Windows.Foundation.IPropertyValue as default interface is not supported as input parameter type)
+      Actual: true
+
+PASS [Test 4: PropertyValue_In: Custom PropertyValue out with GRCN as IReference<Char16>]
+=================================================
+
+=================================================
+Starting [Test 5: PropertyValue_In: Custom PropertyValue out with GRCN as RCName]
+Pass: testRCPV5_PropertyValueIn('D') returned (TypeError: The runtimeclass Animals.RCPropertyValue5 that has Windows.Foundation.IPropertyValue as default interface is not supported as input parameter type)
+      Actual: true
+
+PASS [Test 5: PropertyValue_In: Custom PropertyValue out with GRCN as RCName]
+=================================================
+
+=================================================
+Starting [Test 6: PropertyValue_In: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
+Pass: testRCPV6_PropertyValueIn('D') returned (TypeError: The runtimeclass Animals.RCPropertyValue6 that has Windows.Foundation.IPropertyValue as default interface is not supported as input parameter type)
+      Actual: true
+
+PASS [Test 6: PropertyValue_In: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
+=================================================
+
+=================================================
+Starting [Test 7: PropertyValue_Out: Custom PropertyValue out with GRCN as IReference<Dimensions>]
+Comment: [object Animals.Dimensions]
+Pass: testRCPV1_PropertyValueOut().length
+      Actual: 100
+
+Pass: testRCPV1_PropertyValueOut().width
+      Actual: 20
+
+PASS [Test 7: PropertyValue_Out: Custom PropertyValue out with GRCN as IReference<Dimensions>]
+=================================================
+
+=================================================
+Starting [Test 8: PropertyValue_Out: Custom PropertyValue out with GRCN as RCName]
+Pass: testRCPV2_PropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Animals.RCPropertyValue2 is not supported as out parameter)
+      Actual: true
+
+PASS [Test 8: PropertyValue_Out: Custom PropertyValue out with GRCN as RCName]
+=================================================
+
+=================================================
+Starting [Test 9: PropertyValue_Out: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
+Pass: testRCPV3_PropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Windows.Foundation.IPropertyValue is not supported as out parameter)
+      Actual: true
+
+PASS [Test 9: PropertyValue_Out: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
+=================================================
+
+=================================================
+Starting [Test 10: PropertyValue_Out: Custom PropertyValue out with GRCN as IReference<Char16>]
+Comment: D
+Pass: testRCPV4_PropertyValueOut()
+      Actual: D
+
+PASS [Test 10: PropertyValue_Out: Custom PropertyValue out with GRCN as IReference<Char16>]
+=================================================
+
+=================================================
+Starting [Test 11: PropertyValue_Out: Custom PropertyValue out with GRCN as RCName]
+Pass: testRCPV5_PropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Animals.RCPropertyValue5 is not supported as out parameter)
+      Actual: true
+
+PASS [Test 11: PropertyValue_Out: Custom PropertyValue out with GRCN as RCName]
+=================================================
+
+=================================================
+Starting [Test 12: PropertyValue_Out: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
+Pass: testRCPV6_PropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Windows.Foundation.IPropertyValue is not supported as out parameter)
+      Actual: true
+
+PASS [Test 12: PropertyValue_Out: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
+=================================================
+
+=================================================
+Starting [Test 13: PropertyValue_In: CanvasPixelArray from winrt]
+Pass: testUInt8Array_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue.length
+      Actual: 8
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[0]
+      Actual: 2
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[1]
+      Actual: 3
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[2]
+      Actual: 4
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[3]
+      Actual: 5
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[4]
+      Actual: 6
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[5]
+      Actual: 7
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[6]
+      Actual: 8
+
+Pass: testUInt8Array_IPropertyValueIn(myArray).outValue[7]
+      Actual: 9
+
+PASS [Test 13: PropertyValue_In: CanvasPixelArray from winrt]
+=================================================
+
+Passed: 13
+Failed: 0

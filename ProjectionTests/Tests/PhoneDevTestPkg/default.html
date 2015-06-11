@@ -1,0 +1,76 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>JS Test</title>
+    <script src="console.js"></script>
+    <script src="win8testshared.js"></script>
+    <script src="newGlue.js"></script>
+    <script src="xml2json.js"></script>
+    <script src="jsonlogger.js"></script>
+
+</head>
+<body>
+    <input id="swapTestfile" style="display: block; width:100%" value=""/>
+    <input id="swapDisableTests" style="display: block; width: 100%" value="" />
+    <pre id="swapXmlLog" style="visibility:hidden"></pre>
+    <pre id="swapJsonLog" style="visibility:hidden"></pre>
+    <div id="swapCanExit"></div>
+    <div id="swapError"></div>
+    <script>
+        window.onerror = function (message, url, linenumber) {
+            swapError.innerText = "JavaScript error: " + message + "\non line " + linenumber + "\nfor " + url;
+            return true;
+        }
+
+        function loadTest(testfile, disables) {
+            runner.subscribe('testStart', function (t) {
+                if (Array.isArray(disables) && disables.some(function (e) {
+                    return e == t.id || e == t.desc;
+                })) {
+                    t.test = function () {
+                        logger.comment("this test is skipped");
+                    };
+                    return;
+                }
+            });
+
+            MSApp.execUnsafeLocalFunction(function () {
+                var testcaseScript = document.createElement('script');
+                testcaseScript.setAttribute('src', testfile);
+                document.head.appendChild(testcaseScript);
+                setTimeout(function () {
+                    runner.subscribe('end', function () {
+                        runner.__xml_logger_str = new X2JS().json2xml_str({ testresult: runner.__json_logger_obj });
+                        swapXmlLog.innerText = runner.__xml_logger_str;
+                        swapJsonLog.innerText = runner.__json_logger_str;
+                        //swapXmlLog.innerText = runner.__json_logger_str;
+
+                        // poll for can exit input from DOMAccess
+                        setTimeout(function () {
+                            if (swapCanExit.innerText.toLowerCase() === "true") {
+                                MSApp.terminateApp(null);
+                            } else {
+                                setTimeout(arguments.callee, 1000);
+                            }
+                        }, 1000);
+                    });
+                    runner.run(testfile);
+                }, 1000);
+            });
+        }
+
+        // poll for test file input from DOMAcess
+        setTimeout(function () {
+            if (/.+\.js/.test(swapTestfile.value)) {
+                var disables;
+                try { disables = eval(swapDisableTests.value); } catch (e) { }
+                loadTest(swapTestfile.value, disables);
+            } else {
+                setTimeout(arguments.callee, 1000);
+            }
+        }, 1000);
+
+
+    </script>
+</body>
+</html>

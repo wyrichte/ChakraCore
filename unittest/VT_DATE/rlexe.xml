@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+<test>
+    <default>
+        <files>getVarDate.js</files>
+        <baseline>getVarDate.baseline</baseline>
+    </default>
+</test>
+
+</regress-exe>

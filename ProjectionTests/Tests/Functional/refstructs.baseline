@@ -1,0 +1,238 @@
+IReference Struct tests
+
+=================================================
+Starting [Test 1: TestInSimpleIRefStruct - Ensure that TestInSimpleIRefStruct set the right value of 20]
+PASS [Test 1: TestInSimpleIRefStruct - Ensure that TestInSimpleIRefStruct set the right value of 20]
+=================================================
+
+=================================================
+Starting [Test 2: TestInSimpleIRefStruct - Ensure that TestInSimpleIRefStruct set the right value of -1]
+PASS [Test 2: TestInSimpleIRefStruct - Ensure that TestInSimpleIRefStruct set the right value of -1]
+=================================================
+
+=================================================
+Starting [Test 3: TestInSimpleIRefStruct - Ensure that TestInSimpleIRefStruct allows null]
+PASS [Test 3: TestInSimpleIRefStruct - Ensure that TestInSimpleIRefStruct allows null]
+=================================================
+
+=================================================
+Starting [Test 4: TestInSimpleIRefStruct - Ensure that TestInSimpleIRefStruct failed when invalue is different]
+Comment: Caught error: Unspecified error
+
+Pass: instanceof WinRTError: Unspecified error
+
+      Actual: true
+
+Unspecified error
+
+PASS [Test 4: TestInSimpleIRefStruct - Ensure that TestInSimpleIRefStruct failed when invalue is different]
+=================================================
+
+=================================================
+Starting [Test 5: TestInSimpleIRefStruct - Ensure that TestInSimpleIRefStruct failed when invalue is different]
+Comment: Caught error: Unspecified error
+
+Pass: instanceof WinRTError: Unspecified error
+
+      Actual: true
+
+Unspecified error
+
+PASS [Test 5: TestInSimpleIRefStruct - Ensure that TestInSimpleIRefStruct failed when invalue is different]
+=================================================
+
+=================================================
+Starting [Test 6: TestOutSimpleIRefStruct - Ensure that TestOutSimpleIRefStruct get the right positive value]
+Pass: type
+      Actual: object
+
+Pass: field1 : number = '20'
+      Actual: field1 : number = '20'
+
+Pass: field2 : number = '20'
+      Actual: field2 : number = '20'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 6: TestOutSimpleIRefStruct - Ensure that TestOutSimpleIRefStruct get the right positive value]
+=================================================
+
+=================================================
+Starting [Test 7: TestOutSimpleIRefStruct - Ensure that TestOutSimpleIRefStruct get the right negative value]
+Pass: type
+      Actual: object
+
+Pass: field1 : number = '-1'
+      Actual: field1 : number = '-1'
+
+Pass: field2 : number = '-1'
+      Actual: field2 : number = '-1'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 7: TestOutSimpleIRefStruct - Ensure that TestOutSimpleIRefStruct get the right negative value]
+=================================================
+
+=================================================
+Starting [Test 8: TestOutSimpleIRefStruct - Ensure that TestOutSimpleIRefStruct get the right null value]
+Pass: type
+      Actual: object
+
+Pass: field1 : object = 'null'
+      Actual: field1 : object = 'null'
+
+Pass: field2 : object = 'null'
+      Actual: field2 : object = 'null'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 8: TestOutSimpleIRefStruct - Ensure that TestOutSimpleIRefStruct get the right null value]
+=================================================
+
+=================================================
+Starting [Test 9: testInMixIRefStruct - Ensure that testInMixIRefStruct set the right value of 20]
+PASS [Test 9: testInMixIRefStruct - Ensure that testInMixIRefStruct set the right value of 20]
+=================================================
+
+=================================================
+Starting [Test 10: testInMixIRefStruct - Ensure that testInMixIRefStruct set the right value of -1]
+PASS [Test 10: testInMixIRefStruct - Ensure that testInMixIRefStruct set the right value of -1]
+=================================================
+
+=================================================
+Starting [Test 11: testInMixIRefStruct - Ensure that testInMixIRefStruct allows null]
+PASS [Test 11: testInMixIRefStruct - Ensure that testInMixIRefStruct allows null]
+=================================================
+
+=================================================
+Starting [Test 12: testInNestedIRefNestedStruct - Ensure that NestedIRefNestedStruct set the right value of 20]
+PASS [Test 12: testInNestedIRefNestedStruct - Ensure that NestedIRefNestedStruct set the right value of 20]
+=================================================
+
+=================================================
+Starting [Test 13: testOutNestedIRefNestedStruct- Ensure that testOutNestedIRefNestedStruct get the right value of 20]
+Pass: type
+      Actual: object
+
+Pass: field1 : number = '20'
+      Actual: field1 : number = '20'
+
+Pass: dimensions : object = '[object Animals.Dimensions]'
+      Actual: dimensions : object = '[object Animals.Dimensions]'
+
+Pass: field3 : number = '20'
+      Actual: field3 : number = '20'
+
+Pass: number of members
+      Actual: 3
+
+Pass: type
+      Actual: object
+
+Pass: length : number = '20'
+      Actual: length : number = '20'
+
+Pass: width : number = '20'
+      Actual: width : number = '20'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 13: testOutNestedIRefNestedStruct- Ensure that testOutNestedIRefNestedStruct get the right value of 20]
+=================================================
+
+=================================================
+Starting [Test 14: testInNestedIRefNestedStruct - Ensure that NestedIRefNestedStruct set the right value of -1]
+PASS [Test 14: testInNestedIRefNestedStruct - Ensure that NestedIRefNestedStruct set the right value of -1]
+=================================================
+
+=================================================
+Starting [Test 15: testOutNestedIRefNestedStruct - Ensure that NestedIRefNestedStruct get the right value of -1]
+Pass: type
+      Actual: object
+
+Pass: field1 : number = '-1'
+      Actual: field1 : number = '-1'
+
+Pass: dimensions : object = '[object Animals.Dimensions]'
+      Actual: dimensions : object = '[object Animals.Dimensions]'
+
+Pass: field3 : number = '255'
+      Actual: field3 : number = '255'
+
+Pass: number of members
+      Actual: 3
+
+Pass: type
+      Actual: object
+
+Pass: length : number = '-1'
+      Actual: length : number = '-1'
+
+Pass: width : number = '-1'
+      Actual: width : number = '-1'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 15: testOutNestedIRefNestedStruct - Ensure that NestedIRefNestedStruct get the right value of -1]
+=================================================
+
+=================================================
+Starting [Test 16: testInNestedIRefNestedStruct - Ensure that NestedIRefNestedStruct set the right value of null]
+PASS [Test 16: testInNestedIRefNestedStruct - Ensure that NestedIRefNestedStruct set the right value of null]
+=================================================
+
+=================================================
+Starting [Test 16: AllIRefStruct - Ensure that AllIRefStruct set the right value of null]
+PASS [Test 16: AllIRefStruct - Ensure that AllIRefStruct set the right value of null]
+=================================================
+
+=================================================
+Starting [Test 17: AllIRefStruct - Ensure that AllIRefStruct set the right value of 20]
+PASS [Test 17: AllIRefStruct - Ensure that AllIRefStruct set the right value of 20]
+=================================================
+
+=================================================
+Starting [Test 17: AllIRefStruct - Ensure that AllIRefStruct get the right value of 20]
+Pass: type
+      Actual: object
+
+Pass: wcharField : string = 'A'
+      Actual: wcharField : string = 'A'
+
+Pass: byteField : number = '65'
+      Actual: byteField : number = '65'
+
+Pass: int16Field : number = '65'
+      Actual: int16Field : number = '65'
+
+Pass: int32Field : number = '65'
+      Actual: int32Field : number = '65'
+
+Pass: uint16Field : number = '65'
+      Actual: uint16Field : number = '65'
+
+Pass: uint32Field : number = '65'
+      Actual: uint32Field : number = '65'
+
+Pass: booleanField : boolean = 'true'
+      Actual: booleanField : boolean = 'true'
+
+Pass: floatField : number = '65'
+      Actual: floatField : number = '65'
+
+Pass: doubleField : number = '65'
+      Actual: doubleField : number = '65'
+
+Pass: number of members
+      Actual: 9
+
+PASS [Test 17: AllIRefStruct - Ensure that AllIRefStruct get the right value of 20]
+=================================================
+
+Passed: 19
+Failed: 0

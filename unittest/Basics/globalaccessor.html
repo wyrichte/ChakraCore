@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<body>
+<pre id="text"></pre>
+<script>
+var leWindow = window;
+var setResult = false;
+
+
+Object.defineProperty(Object.prototype, "isWindow", {
+    get: function() {
+        return leWindow == this ;
+    }
+});
+
+var text = document.getElementById("text");
+
+if (leWindow.isWindow) {
+    text.textContent = "PASS";
+    WScript.Echo("PASS");
+} else {
+    text.textContent = "FAIL";
+    WScript.Echo("FAIL");
+}
+
+
+Object.defineProperty(window, "setWindow", {
+    set: function() {
+        setResult = ( leWindow == this );
+    }
+});
+
+setWindow = false;
+var text = document.getElementById("text");
+if (setResult) {
+    text.textContent = "PASS";
+    WScript.Echo("PASS");
+} else {
+    text.textContent = "FAIL";
+    WScript.Echo("FAIL");
+}
+
+</script>
+</body>
+</html>cg

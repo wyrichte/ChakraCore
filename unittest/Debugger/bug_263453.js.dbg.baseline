@@ -1,0 +1,18 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 351,
+        "length": 42,
+        "text": "nonExistFunction(fooInstance.nonExistProp)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 401,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

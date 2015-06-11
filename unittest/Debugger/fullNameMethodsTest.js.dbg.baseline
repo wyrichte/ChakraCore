@@ -1,0 +1,15 @@
+[
+  {
+    "evaluate": {
+      "o": {
+        "[Methods]": {
+          "o.a": "function () {\n        }"
+        },
+        "o.__proto__": {
+          "[Methods]": "{...}",
+          "o.__proto__.__proto__": "null"
+        }
+      }
+    }
+  }
+]

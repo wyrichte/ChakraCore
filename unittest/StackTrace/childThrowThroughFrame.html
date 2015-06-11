@@ -1,0 +1,18 @@
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<html>
+ChildThrowThroughWindow
+<script>
+function remotebar()
+{
+    throw new Error("This is my error");
+}
+
+function remotefoo()
+{
+    remotebar();
+}
+
+parent.remotefoo = remotefoo;
+
+</script>
+</html>

@@ -1,0 +1,14 @@
+Identifier : BBC and references found : 2
+	{ range : [6, 9], kind : asrfAuthoritative asrfLValue asrfGlobalReference }
+	{ range : [49, 52], kind : asrfSuggestive asrfRValue asrfGlobalReference }
+Passed
+Identifier : Person and references found : 3
+	{ range : [65, 71], kind : asrfAuthoritative asrfLValue asrfGlobalReference }
+	{ range : [79, 90], kind : asrfAuthoritative asrfLValue asrfGlobalReference }
+	{ range : [393, 399], kind : asrfSuggestive asrfRValue asrfGlobalReference }
+Passed
+Identifier : firstName and references found : 3
+	{ range : [106, 115], kind : asrfSuggestive asrfLValue asrfMemberReference }
+	{ range : [168, 177], kind : asrfSuggestive asrfLValue asrfMemberReference }
+	{ range : [406, 415], kind : asrfSuggestive asrfRValue asrfMemberReference }
+Passed

@@ -1,0 +1,8 @@
+GetStructure : getting all nodes
+Total nodes : 2
+{ asnkGlobal, containerName : , itemName : , range : {0 : 40}, HasChildren : yes }
+{ asnkVariable, containerName : , itemName : baz, range : {0 : 39}, HasChildren : no }
+GetStructure : Displaying structure graph
+asnkGlobal
+    baz
+Passed

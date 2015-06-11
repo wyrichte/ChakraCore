@@ -1,0 +1,30 @@
+
+Test Valid Keys
+[1,2,3]
+[1,"1970-01-01T00:00:00.000Z",3]
+[1,2,"sometest"]
+[["1970-01-01T00:00:00.000Z",2,"3"],2,3]
+[1,2,3]
+[1,[2,[3]]]
+[[1,[0]],[2,[0]]]
+Two arrays pointing to the same one isn't preserved on lookup.
+
+Test Cycles
+"NotIndexable"
+"NotIndexable"
+"NotIndexable"
+"NotIndexable"
+
+Test Invalid Keys
+"NotIndexable"
+"NotIndexable"
+"NotIndexable"
+"NotIndexable"
+"NotIndexable"
+["as",[1,"2014-08-13T07:00:00.000Z",2.3]]
+undefined
+undefined
+"a"
+1
+"2014-08-13T07:00:00.000Z"
+[]

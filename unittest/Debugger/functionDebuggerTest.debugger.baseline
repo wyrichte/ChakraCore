@@ -1,0 +1,269 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 2,
+        "length": 64,
+        "text": "var obj =\n{\n    get: function() {},\n    set: function(v){}\n}",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a": "undefined",
+        "b": "undefined",
+        "obj": "undefined",
+        "obj2": "undefined",
+        "obj3": "undefined"
+      },
+      "f": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f",
+        "prototype": "{...}"
+      },
+      "obj": "undefined",
+      "obj2": "undefined",
+      "obj3": "undefined",
+      "a": "undefined",
+      "b": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2,
+        "length": 64,
+        "text": "var obj =\n{\n    get: function() {},\n    set: function(v){}\n}",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 71,
+        "length": 59,
+        "text": "var obj2 =\n{\n    get getter() {},\n    set setter(v){}\n}",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a": "undefined",
+        "b": "undefined",
+        "obj": "{...}",
+        "obj2": "undefined",
+        "obj3": "undefined"
+      },
+      "f": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f",
+        "prototype": "{...}"
+      },
+      "obj": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj2": "undefined",
+      "obj3": "undefined",
+      "a": "undefined",
+      "b": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 71,
+        "length": 59,
+        "text": "var obj2 =\n{\n    get getter() {},\n    set setter(v){}\n}",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 135,
+        "length": 74,
+        "text": "var obj3 =\n{\n    get: function foo() {},\n    set:  function bar(v){}\n}",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a": "undefined",
+        "b": "undefined",
+        "obj": "{...}",
+        "obj2": "{...}",
+        "obj3": "undefined"
+      },
+      "f": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f",
+        "prototype": "{...}"
+      },
+      "obj": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj2": {
+        "__proto__": "{...}",
+        "getter": "undefined",
+        "setter": "undefined"
+      },
+      "obj3": "undefined",
+      "a": "undefined",
+      "b": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 135,
+        "length": 74,
+        "text": "var obj3 =\n{\n    get: function foo() {},\n    set:  function bar(v){}\n}",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 227,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "f"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a": "undefined",
+        "b": "undefined",
+        "obj": "{...}",
+        "obj2": "{...}",
+        "obj3": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "f": "function f(){}",
+        "obj": "{...}",
+        "obj2": "{...}",
+        "obj3": "{...}",
+        "a": "undefined",
+        "b": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 227,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "f"
+      },
+      {
+        "start": 233,
+        "length": 11,
+        "text": "var a = f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 275,
+        "length": 20,
+        "text": "WScript.Echo(\"PASS\")",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a": "undefined",
+        "obj": "{...}",
+        "obj2": "{...}",
+        "obj3": "{...}"
+      },
+      "f": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f",
+        "prototype": "{...}"
+      },
+      "obj": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj2": {
+        "__proto__": "{...}",
+        "getter": "undefined",
+        "setter": "undefined"
+      },
+      "obj3": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "a": "undefined",
+      "b": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "b",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 275,
+        "length": 20,
+        "text": "WScript.Echo(\"PASS\")",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

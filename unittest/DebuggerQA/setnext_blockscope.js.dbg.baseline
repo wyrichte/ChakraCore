@@ -1,0 +1,50 @@
+[
+  {
+    "setnextstatement": {
+      "from": 235,
+      "to": 315,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": "3",
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 235,
+      "to": 315,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": "3",
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  }
+]

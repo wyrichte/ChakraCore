@@ -1,0 +1,9 @@
+%build.nttree%\jscript\rl.exe;%DropShare%\bin
+%build.nttree%\jscript\chakratest.dll;%DropShare%\bin
+%build.nttree%\jscript\chakradiagtest.dll;%DropShare%\bin
+%build.nttree%\jscript\jscript9test.dll;%DropShare%\bin
+%build.nttree%\jscript\jscript9diagtest.dll;%DropShare%\bin
+%build.nttree%\jscript\jshost.exe;%DropShare%\bin
+%build.nttree%\jscript\jsgen.exe;%DropShare%\bin
+%build.nttree%\jscript\jdtest.exe;%DropShare%\bin
+%build.nttree%\jscript\JsEtwConsole.exe;%DropShare%\bin

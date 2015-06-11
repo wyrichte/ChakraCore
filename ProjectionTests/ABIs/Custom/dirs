@@ -1,0 +1,11 @@
+DIRS= \
+    Winery \
+    TeachRT \
+    Animal \
+    DevTests.CamelCasing \
+    DevTests.Repros \
+    DevTests \
+
+# CONTRACTMIDLTODO: Enable when MIDL compiler which understands contracts is enabled
+# Also update ProjectionTests\tests\snap\symbolList.txt to ensure symbols are copied
+#    DevTests.ContractVersioned \

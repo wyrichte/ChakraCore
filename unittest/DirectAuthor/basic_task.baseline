@@ -1,0 +1,8 @@
+6 task comments found.
+TODO in multiple line should work just as well
+TODO do it again
+TODO also in non JSDoc style
+@todo will work just fine
+TODO: Tab is also counted as whitespace
+HACK We could have multiple of them too!
+Passed

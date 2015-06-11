@@ -1,0 +1,17 @@
+ENC: QueryEdit: 1 requests
+ENC: editentrypoint.js (163,73):
+/**edit(test)**/
+/// try {
+/// } catch(e) {
+/// }
+/**endedi...
+===>
+ try {
+ } catch(e) {
+ }
+...
+ENC: === AST Diffing ===
+ENC: Update: FuncDecl function foo() {..    var a = 0 -> FuncDecl function foo() {..    var a = 0
+ENC: === Semantic Changes ===
+ENC: UpdateFunction: FuncDecl function foo() {..    var a = 0 -> FuncDecl function foo() {..    var a = 0
+ENC:     Old functionBody: foo

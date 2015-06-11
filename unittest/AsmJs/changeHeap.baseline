@@ -1,0 +1,252 @@
+'Int32Arra' is not a standard Math builtin
+changeHeap.js(25, 68)
+	Asm.js Compilation Error function : None::f
+	Undefined function 
+
+Warning: Typed array builtin already defined for var b1      Error creating function entry
+default & rest args not alloweddefault & rest args not allowedExpecting an assignment
+Expecting an assignment
+Expecting an assignment
+
+changeHeap.js(61, 106)
+	Asm.js Compilation Error function : None::ch
+	Unhandled parse opcode for asm.js
+
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Expecting an assignment
+Warning: Typed array builtin already defined for var I32Expecting an assignment
+Warning: Typed array builtin already defined for var I32Expecting an assignment
+Warning: Typed array builtin already defined for var I32Expecting an assignment
+Warning: Typed array builtin already defined for var I32Warning: Typed array builtin already defined for var I32Expecting an assignment
+Warning: Typed array builtin already defined for var I32AsmJs Runtime Error : Array builtin function is invalid 
+AsmJs Runtime Error : Array builtin function is invalid 
+AsmJs Runtime Error : Array builtin function is invalid 
+AsmJs Runtime Error : Array builtin function is invalid 
+function f() {}
+AsmJs Runtime Error : Invalid module argument count
+undefined
+undefined
+AsmJs Runtime Error : Buffer bytelength is not a valid size for asm.js
+function f() {}
+AsmJs Runtime Error : Buffer bytelength is not a valid size for asm.js
+function f() {}
+AsmJs Runtime Error : Buffer bytelength is not a valid size for asm.js
+function f() {}
+false
+AsmJs Runtime Error : Array builtin function is invalid 
+AsmJs Runtime Error : Array builtin function is invalid 
+AsmJs Runtime Error : Array builtin function is invalid 
+AsmJs Runtime Error : Array builtin function is invalid 
+AsmJs Runtime Error : Array builtin function is invalid 
+AsmJs Runtime Error : Array builtin function is invalid 
+AsmJs Runtime Error : Array builtin function is invalid 
+42
+43
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+42
+Warning: Typed array builtin already defined for var I32undefined
+Warning: Typed array builtin already defined for var I32undefined
+Warning: Typed array builtin already defined for var I32undefined
+Warning: Typed array builtin already defined for var I32undefined
+Warning: Typed array builtin already defined for var I32
+changeHeap.js(1, 331)
+	Asm.js Compilation Error function : None::f
+	Call is not legal at this location
+
+undefined
+Warning: Typed array builtin already defined for var I32
+changeHeap.js(1, 331)
+	Asm.js Compilation Error function : None::f
+	Call is not legal at this location
+
+undefined
+Warning: Typed array builtin already defined for var I32
+changeHeap.js(1, 331)
+	Asm.js Compilation Error function : None::f
+	Call is not legal at this location
+
+undefined
+Warning: Typed array builtin already defined for var I32
+changeHeap.js(1, 331)
+	Asm.js Compilation Error function : None::f
+	Call is not legal at this location
+
+undefined
+Warning: Typed array builtin already defined for var I32
+changeHeap.js(1, 331)
+	Asm.js Compilation Error function : None::f
+	Call is not legal at this location
+
+undefined
+Warning: Typed array builtin already defined for var I32
+changeHeap.js(1, 331)
+	Asm.js Compilation Error function : None::f
+	Call is not legal at this location
+
+undefined
+Warning: Typed array builtin already defined for var I32
+changeHeap.js(1, 331)
+	Asm.js Compilation Error function : None::f
+	Call is not legal at this location
+
+undefined
+Warning: Typed array builtin already defined for var I32
+changeHeap.js(1, 331)
+	Asm.js Compilation Error function : None::f
+	Call is not legal at this location
+
+undefined
+Warning: Typed array builtin already defined for var I32
+changeHeap.js(1, 331)
+	Asm.js Compilation Error function : None::f
+	Call is not legal at this location
+
+undefined
+AsmJs Runtime Error : Buffer bytelength is smaller than constant accesses
+undefined
+AsmJs Runtime Error : Buffer bytelength is smaller than constant accesses
+undefined
+Expecting an assignment
+undefined
+Expecting an assignment
+undefined
+AsmJs Runtime Error : Buffer bytelength is smaller than constant accesses
+0
+AsmJs Runtime Error : Buffer bytelength is smaller than constant accesses
+0
+Expecting an assignment
+0
+Expecting an assignment
+0
+function (glob,ffis,b){"use asm";var I32=glob.Int32Array; var i32=new I32(b);var len=glob.byteLength;function ch(b2) { if(len(b2) & 0xffffff || len(b2) <= 0xffffff || len(b2) > 0x80000000) return false; i32=new I32(b2); b=b2; return true } function get(i) { i=i|0; return i32[i>>2]|0 } function set(i, v) { i=i|0; v=v|0; i32[i>>2] = v } return {get:get, set:set, changeHeap:ch}}
+42
+13
+0
+true
+0
+0
+262
+0
+true
+42
+13
+0
+27
+56
+85
+56
+27

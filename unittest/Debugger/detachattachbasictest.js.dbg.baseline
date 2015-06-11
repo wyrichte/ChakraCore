@@ -1,0 +1,4453 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "[CollectGarbage returned]": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "[CollectGarbage returned]": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "[CollectGarbage returned]": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "[CollectGarbage returned]": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "[CollectGarbage returned]": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "[CollectGarbage returned]": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "[CollectGarbage returned]": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "[CollectGarbage returned]": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "[CollectGarbage returned]": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "[CollectGarbage returned]": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 322,
+        "length": 16,
+        "text": "CollectGarbage()",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "i": "100"
+      },
+      "[CollectGarbage returned]": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "undefined",
+      "[Globals]": {
+        "detachBasicTest": "<large string>",
+        "i": "100"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 345,
+        "length": 9,
+        "text": "var a = 0",
+        "frameDescription": "detachBasicTest"
+      }
+    ]
+  }
+]

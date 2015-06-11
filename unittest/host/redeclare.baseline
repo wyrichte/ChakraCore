@@ -1,0 +1,56 @@
+test0 with document
+[object HTMLDocument]
+test1 with document
+[object HTMLDocument]
+test2 with document
+[object HTMLDocument]
+test3 with document
+[object HTMLDocument]
+test0 with window
+[object Window]
+test1 with window
+undefined
+test2 with window
+[object Window]
+test3 with window
+[object Window]
+test0 with navigator
+[object Navigator]
+test1 with navigator
+[object Navigator]
+test2 with navigator
+[object Navigator]
+test3 with navigator
+[object Navigator]
+test0 with sessionStorage
+undefined
+test1 with sessionStorage
+undefined
+test2 with sessionStorage
+undefined
+test3 with sessionStorage
+undefined
+test0 with localStorage
+undefined
+test1 with localStorage
+undefined
+test2 with localStorage
+undefined
+test3 with localStorage
+undefined
+test0 with [object HTMLDocument]
+test1 with [object HTMLDocument]
+test2 with [object HTMLDocument]
+test0 with [object Window]
+test1 with [object Window]
+test2 with [object Window]
+test0 with [object Navigator]
+test1 with [object Navigator]
+test2 with [object Navigator]
+test0 with undefined
+test1 with undefined
+test2 with undefined
+test0 with undefined
+test1 with undefined
+test2 with undefined
+[object HTMLDocument]

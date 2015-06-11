@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes'">
+    <BuildSteps>SkipExternalDependencies</BuildSteps>
+  </PropertyGroup>
+  <Target Name="SkipExternalDependencies">
+    <Message Text="Skipped because USE_EXTERNAL_DEPENDENCIES is yes" />
+  </Target>
+</Project>

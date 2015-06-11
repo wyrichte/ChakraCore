@@ -1,0 +1,43 @@
+*** Running test #1 (0): Testing spread array literals (all should be the same)
+PASSED
+*** Running test #2 (1): Testing call with spread args (all should be the same)
+PASSED
+*** Running test #3 (2): Testing spread with a lot of padding numbers
+PASSED
+*** Running test #4 (3): Testing array literals with gaps
+PASSED
+*** Running test #5 (4): Testing call spread args with gaps
+1undefined3
+1undefinedundefinedundefined2
+PASSED
+*** Running test #6 (5): Testing spread with string literals
+string
+s,t,r,i,n,g
+PASSED
+*** Running test #7 (6): BLUE 491118: Spread outside of a call or array literal
+PASSED
+*** Running test #8 (7): BLUE 511620: Calling spread operation inside string template results in crash
+PASSED
+*** Running test #9 (8): BLUE 490915: ... is a valid operator but ...... (2 spreads combined) is not
+PASSED
+*** Running test #10 (9): BLUE 522366: Spreading null or undefined should throw TypeError instead of RuntimeError
+PASSED
+*** Running test #11 (10): BLUE 522630: Assignment expresion should be evaluated fisrt and then the results should be spread
+PASSED
+*** Running test #12 (11): Spread functionality in non-standard call types
+PASSED
+*** Running test #13 (12): BLUE: 521584:[ES6][Spread] - Spread inside eval is considered valid without quotes. Currently crashes
+PASSED
+*** Running test #14 (13): Spread with side effects
+PASSED
+*** Running test #15 (14): BLUE 584814: Instr::HasFixedFunctionAddressTarget() assertion
+PASSED
+*** Running test #16 (15): BLUE 582720: Spread calls with invalid functions crash in native
+PASSED
+*** Running test #17 (16): BLUE 589583: CallIPut with spread causes an assert
+PASSED
+*** Running test #18 (17): BLUE 596934, 597412: Incorrect spread argument length handling
+PASSED
+*** Running test #19 (18): BLUE 611774: Spread with a prefix operator is allowed anywhere
+PASSED
+Summary of tests: total executed: 19; passed: 19; failed: 0

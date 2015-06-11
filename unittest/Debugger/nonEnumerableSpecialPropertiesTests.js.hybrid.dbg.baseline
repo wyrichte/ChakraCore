@@ -1,0 +1,1060 @@
+[
+  {
+    "evaluate": {
+      "arrBuffer": {
+        "__proto__": "[object ArrayBuffer]",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        }
+      },
+      "arrBuffer - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "arr": {
+        "__proto__": "[]",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "length": "5",
+        "length - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[0]": "1",
+        "[0] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[1]": "2",
+        "[1] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[2]": "3",
+        "[2] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[3]": "4",
+        "[3] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[4]": "5",
+        "[4] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "arr - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "pixelArr": {
+        "__proto__": "[object Uint8ClampedArray]",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[3]": "0",
+        "[3] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "pixelArr - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "regex.constructor": {
+        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_METHOD",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 13
+        },
+        "$'": "",
+        "$' - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "$&": "",
+        "$& - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "$_": "",
+        "$_ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "$`": "",
+        "$` - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "$+": "",
+        "$+ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "$1": "",
+        "$1 - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "$2": "",
+        "$2 - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "$3": "",
+        "$3 - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "$4": "",
+        "$4 - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "$5": "",
+        "$5 - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "$6": "",
+        "$6 - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "$7": "",
+        "$7 - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "$8": "",
+        "$8 - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "$9": "",
+        "$9 - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "index": "-1",
+        "index - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "input": "",
+        "input - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "lastIndex": "-1",
+        "lastIndex - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "lastMatch": "",
+        "lastMatch - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "lastParen": "",
+        "lastParen - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "leftContext": "",
+        "leftContext - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "length": "2",
+        "length - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "prototype": "",
+        "prototype - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "rightContext": "",
+        "rightContext - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "regex.constructor - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_METHOD",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 13
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "regex": {
+        "__proto__": "",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "global": "false",
+        "global - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "ignoreCase": "false",
+        "ignoreCase - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "lastIndex": "0",
+        "lastIndex - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "multiline": "false",
+        "multiline - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "options": "",
+        "options - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "source": ".\\s?",
+        "source - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "unicode": "false",
+        "unicode - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "regex - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "regex2": {
+        "__proto__": "",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "global": "true",
+        "global - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "ignoreCase": "true",
+        "ignoreCase - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "lastIndex": "0",
+        "lastIndex - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "multiline": "true",
+        "multiline - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "options": "gim",
+        "options - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "source": ".\\s?",
+        "source - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "unicode": "false",
+        "unicode - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "regex2 - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "str": {
+        "__proto__": "",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "length": "6",
+        "length - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "str - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "int8Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_FAKE",
+              "JS_PROPERTY_METHOD",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 15
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "int8Arr - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "uint8Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_FAKE",
+              "JS_PROPERTY_METHOD",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 15
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "uint8Arr - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "int16Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_FAKE",
+              "JS_PROPERTY_METHOD",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 15
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "int16Arr - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "uint16Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_FAKE",
+              "JS_PROPERTY_METHOD",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 15
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[3]": "0",
+        "[3] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "uint16Arr - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "int32Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_FAKE",
+              "JS_PROPERTY_METHOD",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 15
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[3]": "0",
+        "[3] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[4]": "0",
+        "[4] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "int32Arr - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "uint32Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_FAKE",
+              "JS_PROPERTY_METHOD",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 15
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[3]": "0",
+        "[3] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[4]": "0",
+        "[4] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[5]": "0",
+        "[5] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "uint32Arr - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "float32Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_FAKE",
+              "JS_PROPERTY_METHOD",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 15
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[3]": "0",
+        "[3] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[4]": "0",
+        "[4] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[5]": "0",
+        "[5] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[6]": "0",
+        "[6] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "float32Arr - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "float64Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_FAKE",
+              "JS_PROPERTY_METHOD",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 15
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[3]": "0",
+        "[3] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[4]": "0",
+        "[4] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[5]": "0",
+        "[5] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[6]": "0",
+        "[6] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "[7]": "0",
+        "[7] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        }
+      },
+      "float64Arr - [Attributes]": {
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    }
+  }
+]

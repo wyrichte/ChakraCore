@@ -1,0 +1,25 @@
+Property type is unsupported by SCA
+ERROR: hr = (hr) Hr:0x80041000
+Error: 80041000 
+   at Global code (sca_errmsg.js:25:9)
+
+getter throws exception
+ERROR: hr = (hr) Hr:0x86664004
+ReferenceError: 'no_such_var' is undefined
+   at get tests[getter throws exception].foo (sca_errmsg.js:10:13)
+   at Global code (sca_errmsg.js:25:9)
+
+getter stack overflow
+ERROR: hr = (hr) Hr:0x86664004
+Error: Out of stack space
+   at get tests[getter stack overflow].foo (sca_errmsg.js:17:13)
+   at get tests[getter stack overflow].foo (sca_errmsg.js:17:13)
+   at get tests[getter stack overflow].foo (sca_errmsg.js:17:13)
+   at get tests[getter stack overflow].foo (sca_errmsg.js:17:13)
+   at get tests[getter stack overflow].foo (sca_errmsg.js:17:13)
+   at get tests[getter stack overflow].foo (sca_errmsg.js:17:13)
+   at get tests[getter stack overflow].foo (sca_errmsg.js:17:13)
+   at get tests[getter stack overflow].foo (sca_errmsg.js:17:13)
+   at get tests[getter stack overflow].foo (sca_errmsg.js:17:13)
+   at get tests[getter stack overflow].foo (sca_errmsg.js:17:13)
+

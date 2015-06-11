@@ -1,0 +1,33 @@
+# Copyright (c) Microsoft Corporation. All rights reserved.
+TEST_CODE=1
+TARGETNAME=DevTests
+TARGETTYPE=LIBRARY
+TARGET_DESTINATION=Projection\WinRt:Projection\APPX
+
+C_DEFINES=-DUNICODE -D_UNICODE
+
+_NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN8)
+
+USE_MSVCRT=1
+
+MSC_WARNING_LEVEL=/W4
+
+# enable and specify a precompiled header.
+PRECOMPILED_CXX=1
+PRECOMPILED_INCLUDE=stdafx.h
+
+INCLUDES= \
+    $(COM_INC_PATH);\
+    $(COM_INC_PATH)\winrt;\
+    $(OBJ_PATH)\..\lib\$(O);\
+    $(OBJ_PATH)\..\idl\$(O);\
+
+
+SOURCES=\
+    DateTimeAndTimeSpan.cpp\
+    Arm.cpp\
+    SimpleTestNamespace.cpp\
+    GCPressure.cpp\
+    Versioning.cpp\
+    Delegates.cpp\
+

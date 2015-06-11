@@ -1,0 +1,24 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 264,
+        "length": 17,
+        "text": "throw new Error()",
+        "frameDescription": "set x.value"
+      },
+      {
+        "start": 398,
+        "length": 19,
+        "text": "x.value = callcount",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 471,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  }
+]

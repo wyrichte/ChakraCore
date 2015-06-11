@@ -1,0 +1,22 @@
+[
+  {
+    "evaluate": {
+      "level_1_identifier_0": "<large string>"
+    }
+  },
+  {
+    "evaluate": {
+      "level_1_identifier_1": "level1"
+    }
+  },
+  {
+    "evaluate": {
+      "level_3_identifier_1": "level3"
+    }
+  },
+  {
+    "evaluate": {
+      "level_1_identifier_0": "level1"
+    }
+  }
+]

@@ -1,0 +1,2371 @@
+
+
+Running FastDom Tests
+
+PASS: The Add Property For Negative PID's 0
+
+PASS: The Add Property For Negative PID's -1
+
+PASS: The Add Property For Negative PID's -2
+
+PASS: The Add Property For Negative PID's -3
+
+PASS: The Add Property For Negative PID's -4
+
+PASS: The Add Property For Negative PID's -5
+
+PASS: The Add Property For Negative PID's -6
+
+PASS: The Add Property For Negative PID's -7
+
+PASS: The Add Property For Negative PID's -8
+
+PASS: The Add Property For Negative PID's -9
+
+Object Name is:  o1  Property Name is: p1
+PASS: Expected Value: 10    Actual obj value: 10
+
+PASS: Expected Value: 10    Actual value: 10
+
+
+FastDomTestCase 4 test1
+Object Name is:  o2  Property Name is: p2
+PASS: Expected Value: 2147483648    Actual obj value: 2.14748e+009
+
+PASS: Expected Value: 2147483648    Actual value: 2.14748e+009
+
+
+FastDomTestCase 4 test2
+Object Name is:  o3  Property Name is: p3
+PASS: Expected Value: 2147483649    Actual obj value: 2.14748e+009
+
+PASS: Expected Value: 2147483649    Actual value: 2.14748e+009
+
+
+FastDomTestCase 4 test3
+Object Name is:  o4  Property Name is: p4
+PASS: Expected Value: 429496725    Actual obj value: 4.29497e+008
+
+PASS: Expected Value: 429496725    Actual value: 4.29497e+008
+
+
+FastDomTestCase 4 test4
+Object Name is:  o5  Property Name is: p5
+PASS: Expected Value: 429496726    Actual obj value: 4.29497e+008
+
+PASS: Expected Value: 429496726    Actual value: 4.29497e+008
+
+
+FastDomTestCase 4 test5
+Object Name is:  o6  Property Name is: p6
+PASS: Expected Value: 429496724    Actual obj value: 4.29497e+008
+
+PASS: Expected Value: 429496724    Actual value: 4.29497e+008
+
+
+FastDomTestCase 4 test6
+Object Name is:  o  Property Name is: propertypropertypropertypropertypropertypropertypropertypropertypropertypropertyproperty1
+PASS: Actual Value: Chakra    Expected obj value: Chakra
+
+
+FastDomTestCase 5 test1
+Object Name is:  obj0  Property Name is: p0
+PASS: Actual Value: Microsoft0    Expected obj value: Microsoft0
+
+
+FastDomTestCase 6
+Object Name is:  obj1  Property Name is: p1
+PASS: Actual Value: Microsoft1    Expected obj value: Microsoft1
+
+
+FastDomTestCase 6
+Object Name is:  obj2  Property Name is: p2
+PASS: Actual Value: Microsoft2    Expected obj value: Microsoft2
+
+
+FastDomTestCase 6
+Object Name is:  obj3  Property Name is: p3
+PASS: Actual Value: Microsoft3    Expected obj value: Microsoft3
+
+
+FastDomTestCase 6
+Object Name is:  obj4  Property Name is: p4
+PASS: Actual Value: Microsoft4    Expected obj value: Microsoft4
+
+
+FastDomTestCase 6
+Object Name is:  obj5  Property Name is: p5
+PASS: Actual Value: Microsoft5    Expected obj value: Microsoft5
+
+
+FastDomTestCase 6
+Object Name is:  obj6  Property Name is: p6
+PASS: Actual Value: Microsoft6    Expected obj value: Microsoft6
+
+
+FastDomTestCase 6
+Object Name is:  obj7  Property Name is: p7
+PASS: Actual Value: Microsoft7    Expected obj value: Microsoft7
+
+
+FastDomTestCase 6
+Object Name is:  obj8  Property Name is: p8
+PASS: Actual Value: Microsoft8    Expected obj value: Microsoft8
+
+
+FastDomTestCase 6
+Object Name is:  obj9  Property Name is: p9
+PASS: Actual Value: Microsoft9    Expected obj value: Microsoft9
+
+
+FastDomTestCase 6
+Object Name is:  obj10  Property Name is: p10
+PASS: Actual Value: Microsoft10    Expected obj value: Microsoft10
+
+
+FastDomTestCase 6
+Object Name is:  obj11  Property Name is: p11
+PASS: Actual Value: Microsoft11    Expected obj value: Microsoft11
+
+
+FastDomTestCase 6
+Object Name is:  obj12  Property Name is: p12
+PASS: Actual Value: Microsoft12    Expected obj value: Microsoft12
+
+
+FastDomTestCase 6
+Object Name is:  obj13  Property Name is: p13
+PASS: Actual Value: Microsoft13    Expected obj value: Microsoft13
+
+
+FastDomTestCase 6
+Object Name is:  obj14  Property Name is: p14
+PASS: Actual Value: Microsoft14    Expected obj value: Microsoft14
+
+
+FastDomTestCase 6
+Object Name is:  obj15  Property Name is: p15
+PASS: Actual Value: Microsoft15    Expected obj value: Microsoft15
+
+
+FastDomTestCase 6
+Object Name is:  obj16  Property Name is: p16
+PASS: Actual Value: Microsoft16    Expected obj value: Microsoft16
+
+
+FastDomTestCase 6
+Object Name is:  obj17  Property Name is: p17
+PASS: Actual Value: Microsoft17    Expected obj value: Microsoft17
+
+
+FastDomTestCase 6
+Object Name is:  obj18  Property Name is: p18
+PASS: Actual Value: Microsoft18    Expected obj value: Microsoft18
+
+
+FastDomTestCase 6
+Object Name is:  obj19  Property Name is: p19
+PASS: Actual Value: Microsoft19    Expected obj value: Microsoft19
+
+
+FastDomTestCase 6
+Object Name is:  obj20  Property Name is: p20
+PASS: Actual Value: Microsoft20    Expected obj value: Microsoft20
+
+
+FastDomTestCase 6
+Object Name is:  obj21  Property Name is: p21
+PASS: Actual Value: Microsoft21    Expected obj value: Microsoft21
+
+
+FastDomTestCase 6
+Object Name is:  obj22  Property Name is: p22
+PASS: Actual Value: Microsoft22    Expected obj value: Microsoft22
+
+
+FastDomTestCase 6
+Object Name is:  obj23  Property Name is: p23
+PASS: Actual Value: Microsoft23    Expected obj value: Microsoft23
+
+
+FastDomTestCase 6
+Object Name is:  obj24  Property Name is: p24
+PASS: Actual Value: Microsoft24    Expected obj value: Microsoft24
+
+
+FastDomTestCase 6
+Object Name is:  obj25  Property Name is: p25
+PASS: Actual Value: Microsoft25    Expected obj value: Microsoft25
+
+
+FastDomTestCase 6
+Object Name is:  obj26  Property Name is: p26
+PASS: Actual Value: Microsoft26    Expected obj value: Microsoft26
+
+
+FastDomTestCase 6
+Object Name is:  obj27  Property Name is: p27
+PASS: Actual Value: Microsoft27    Expected obj value: Microsoft27
+
+
+FastDomTestCase 6
+Object Name is:  obj28  Property Name is: p28
+PASS: Actual Value: Microsoft28    Expected obj value: Microsoft28
+
+
+FastDomTestCase 6
+Object Name is:  obj29  Property Name is: p29
+PASS: Actual Value: Microsoft29    Expected obj value: Microsoft29
+
+
+FastDomTestCase 6
+Object Name is:  obj30  Property Name is: p30
+PASS: Actual Value: Microsoft30    Expected obj value: Microsoft30
+
+
+FastDomTestCase 6
+Object Name is:  obj31  Property Name is: p31
+PASS: Actual Value: Microsoft31    Expected obj value: Microsoft31
+
+
+FastDomTestCase 6
+Object Name is:  obj32  Property Name is: p32
+PASS: Actual Value: Microsoft32    Expected obj value: Microsoft32
+
+
+FastDomTestCase 6
+Object Name is:  obj33  Property Name is: p33
+PASS: Actual Value: Microsoft33    Expected obj value: Microsoft33
+
+
+FastDomTestCase 6
+Object Name is:  obj34  Property Name is: p34
+PASS: Actual Value: Microsoft34    Expected obj value: Microsoft34
+
+
+FastDomTestCase 6
+Object Name is:  obj35  Property Name is: p35
+PASS: Actual Value: Microsoft35    Expected obj value: Microsoft35
+
+
+FastDomTestCase 6
+Object Name is:  obj36  Property Name is: p36
+PASS: Actual Value: Microsoft36    Expected obj value: Microsoft36
+
+
+FastDomTestCase 6
+Object Name is:  obj37  Property Name is: p37
+PASS: Actual Value: Microsoft37    Expected obj value: Microsoft37
+
+
+FastDomTestCase 6
+Object Name is:  obj38  Property Name is: p38
+PASS: Actual Value: Microsoft38    Expected obj value: Microsoft38
+
+
+FastDomTestCase 6
+Object Name is:  obj39  Property Name is: p39
+PASS: Actual Value: Microsoft39    Expected obj value: Microsoft39
+
+
+FastDomTestCase 6
+Object Name is:  obj40  Property Name is: p40
+PASS: Actual Value: Microsoft40    Expected obj value: Microsoft40
+
+
+FastDomTestCase 6
+Object Name is:  obj41  Property Name is: p41
+PASS: Actual Value: Microsoft41    Expected obj value: Microsoft41
+
+
+FastDomTestCase 6
+Object Name is:  obj42  Property Name is: p42
+PASS: Actual Value: Microsoft42    Expected obj value: Microsoft42
+
+
+FastDomTestCase 6
+Object Name is:  obj43  Property Name is: p43
+PASS: Actual Value: Microsoft43    Expected obj value: Microsoft43
+
+
+FastDomTestCase 6
+Object Name is:  obj44  Property Name is: p44
+PASS: Actual Value: Microsoft44    Expected obj value: Microsoft44
+
+
+FastDomTestCase 6
+Object Name is:  obj45  Property Name is: p45
+PASS: Actual Value: Microsoft45    Expected obj value: Microsoft45
+
+
+FastDomTestCase 6
+Object Name is:  obj46  Property Name is: p46
+PASS: Actual Value: Microsoft46    Expected obj value: Microsoft46
+
+
+FastDomTestCase 6
+Object Name is:  obj47  Property Name is: p47
+PASS: Actual Value: Microsoft47    Expected obj value: Microsoft47
+
+
+FastDomTestCase 6
+Object Name is:  obj48  Property Name is: p48
+PASS: Actual Value: Microsoft48    Expected obj value: Microsoft48
+
+
+FastDomTestCase 6
+Object Name is:  obj49  Property Name is: p49
+PASS: Actual Value: Microsoft49    Expected obj value: Microsoft49
+
+
+FastDomTestCase 6
+Object Name is:  obj50  Property Name is: p50
+PASS: Actual Value: Microsoft50    Expected obj value: Microsoft50
+
+
+FastDomTestCase 6
+Object Name is:  obj51  Property Name is: p51
+PASS: Actual Value: Microsoft51    Expected obj value: Microsoft51
+
+
+FastDomTestCase 6
+Object Name is:  obj52  Property Name is: p52
+PASS: Actual Value: Microsoft52    Expected obj value: Microsoft52
+
+
+FastDomTestCase 6
+Object Name is:  obj53  Property Name is: p53
+PASS: Actual Value: Microsoft53    Expected obj value: Microsoft53
+
+
+FastDomTestCase 6
+Object Name is:  obj54  Property Name is: p54
+PASS: Actual Value: Microsoft54    Expected obj value: Microsoft54
+
+
+FastDomTestCase 6
+Object Name is:  obj55  Property Name is: p55
+PASS: Actual Value: Microsoft55    Expected obj value: Microsoft55
+
+
+FastDomTestCase 6
+Object Name is:  obj56  Property Name is: p56
+PASS: Actual Value: Microsoft56    Expected obj value: Microsoft56
+
+
+FastDomTestCase 6
+Object Name is:  obj57  Property Name is: p57
+PASS: Actual Value: Microsoft57    Expected obj value: Microsoft57
+
+
+FastDomTestCase 6
+Object Name is:  obj58  Property Name is: p58
+PASS: Actual Value: Microsoft58    Expected obj value: Microsoft58
+
+
+FastDomTestCase 6
+Object Name is:  obj59  Property Name is: p59
+PASS: Actual Value: Microsoft59    Expected obj value: Microsoft59
+
+
+FastDomTestCase 6
+Object Name is:  obj60  Property Name is: p60
+PASS: Actual Value: Microsoft60    Expected obj value: Microsoft60
+
+
+FastDomTestCase 6
+Object Name is:  obj61  Property Name is: p61
+PASS: Actual Value: Microsoft61    Expected obj value: Microsoft61
+
+
+FastDomTestCase 6
+Object Name is:  obj62  Property Name is: p62
+PASS: Actual Value: Microsoft62    Expected obj value: Microsoft62
+
+
+FastDomTestCase 6
+Object Name is:  obj63  Property Name is: p63
+PASS: Actual Value: Microsoft63    Expected obj value: Microsoft63
+
+
+FastDomTestCase 6
+Object Name is:  obj64  Property Name is: p64
+PASS: Actual Value: Microsoft64    Expected obj value: Microsoft64
+
+
+FastDomTestCase 6
+Object Name is:  obj65  Property Name is: p65
+PASS: Actual Value: Microsoft65    Expected obj value: Microsoft65
+
+
+FastDomTestCase 6
+Object Name is:  obj66  Property Name is: p66
+PASS: Actual Value: Microsoft66    Expected obj value: Microsoft66
+
+
+FastDomTestCase 6
+Object Name is:  obj67  Property Name is: p67
+PASS: Actual Value: Microsoft67    Expected obj value: Microsoft67
+
+
+FastDomTestCase 6
+Object Name is:  obj68  Property Name is: p68
+PASS: Actual Value: Microsoft68    Expected obj value: Microsoft68
+
+
+FastDomTestCase 6
+Object Name is:  obj69  Property Name is: p69
+PASS: Actual Value: Microsoft69    Expected obj value: Microsoft69
+
+
+FastDomTestCase 6
+Object Name is:  obj70  Property Name is: p70
+PASS: Actual Value: Microsoft70    Expected obj value: Microsoft70
+
+
+FastDomTestCase 6
+Object Name is:  obj71  Property Name is: p71
+PASS: Actual Value: Microsoft71    Expected obj value: Microsoft71
+
+
+FastDomTestCase 6
+Object Name is:  obj72  Property Name is: p72
+PASS: Actual Value: Microsoft72    Expected obj value: Microsoft72
+
+
+FastDomTestCase 6
+Object Name is:  obj73  Property Name is: p73
+PASS: Actual Value: Microsoft73    Expected obj value: Microsoft73
+
+
+FastDomTestCase 6
+Object Name is:  obj74  Property Name is: p74
+PASS: Actual Value: Microsoft74    Expected obj value: Microsoft74
+
+
+FastDomTestCase 6
+Object Name is:  obj75  Property Name is: p75
+PASS: Actual Value: Microsoft75    Expected obj value: Microsoft75
+
+
+FastDomTestCase 6
+Object Name is:  obj76  Property Name is: p76
+PASS: Actual Value: Microsoft76    Expected obj value: Microsoft76
+
+
+FastDomTestCase 6
+Object Name is:  obj77  Property Name is: p77
+PASS: Actual Value: Microsoft77    Expected obj value: Microsoft77
+
+
+FastDomTestCase 6
+Object Name is:  obj78  Property Name is: p78
+PASS: Actual Value: Microsoft78    Expected obj value: Microsoft78
+
+
+FastDomTestCase 6
+Object Name is:  obj79  Property Name is: p79
+PASS: Actual Value: Microsoft79    Expected obj value: Microsoft79
+
+
+FastDomTestCase 6
+Object Name is:  obj80  Property Name is: p80
+PASS: Actual Value: Microsoft80    Expected obj value: Microsoft80
+
+
+FastDomTestCase 6
+Object Name is:  obj81  Property Name is: p81
+PASS: Actual Value: Microsoft81    Expected obj value: Microsoft81
+
+
+FastDomTestCase 6
+Object Name is:  obj82  Property Name is: p82
+PASS: Actual Value: Microsoft82    Expected obj value: Microsoft82
+
+
+FastDomTestCase 6
+Object Name is:  obj83  Property Name is: p83
+PASS: Actual Value: Microsoft83    Expected obj value: Microsoft83
+
+
+FastDomTestCase 6
+Object Name is:  obj84  Property Name is: p84
+PASS: Actual Value: Microsoft84    Expected obj value: Microsoft84
+
+
+FastDomTestCase 6
+Object Name is:  obj85  Property Name is: p85
+PASS: Actual Value: Microsoft85    Expected obj value: Microsoft85
+
+
+FastDomTestCase 6
+Object Name is:  obj86  Property Name is: p86
+PASS: Actual Value: Microsoft86    Expected obj value: Microsoft86
+
+
+FastDomTestCase 6
+Object Name is:  obj87  Property Name is: p87
+PASS: Actual Value: Microsoft87    Expected obj value: Microsoft87
+
+
+FastDomTestCase 6
+Object Name is:  obj88  Property Name is: p88
+PASS: Actual Value: Microsoft88    Expected obj value: Microsoft88
+
+
+FastDomTestCase 6
+Object Name is:  obj89  Property Name is: p89
+PASS: Actual Value: Microsoft89    Expected obj value: Microsoft89
+
+
+FastDomTestCase 6
+Object Name is:  obj90  Property Name is: p90
+PASS: Actual Value: Microsoft90    Expected obj value: Microsoft90
+
+
+FastDomTestCase 6
+Object Name is:  obj91  Property Name is: p91
+PASS: Actual Value: Microsoft91    Expected obj value: Microsoft91
+
+
+FastDomTestCase 6
+Object Name is:  obj92  Property Name is: p92
+PASS: Actual Value: Microsoft92    Expected obj value: Microsoft92
+
+
+FastDomTestCase 6
+Object Name is:  obj93  Property Name is: p93
+PASS: Actual Value: Microsoft93    Expected obj value: Microsoft93
+
+
+FastDomTestCase 6
+Object Name is:  obj94  Property Name is: p94
+PASS: Actual Value: Microsoft94    Expected obj value: Microsoft94
+
+
+FastDomTestCase 6
+Object Name is:  obj95  Property Name is: p95
+PASS: Actual Value: Microsoft95    Expected obj value: Microsoft95
+
+
+FastDomTestCase 6
+Object Name is:  obj96  Property Name is: p96
+PASS: Actual Value: Microsoft96    Expected obj value: Microsoft96
+
+
+FastDomTestCase 6
+Object Name is:  obj97  Property Name is: p97
+PASS: Actual Value: Microsoft97    Expected obj value: Microsoft97
+
+
+FastDomTestCase 6
+Object Name is:  obj98  Property Name is: p98
+PASS: Actual Value: Microsoft98    Expected obj value: Microsoft98
+
+
+FastDomTestCase 6
+Object Name is:  obj99  Property Name is: p99
+PASS: Actual Value: Microsoft99    Expected obj value: Microsoft99
+
+
+FastDomTestCase 6
+Object Name is:  Chakra_foo_obj  Property Name is: protoprop1
+PASS: Expected Value: 2147483648    Actual obj value: 2.14748e+009
+
+PASS: Expected Value: 2147483648    Actual value: 2.14748e+009
+
+
+Object Name is:  Chakra_foo_obj  Property Name is: myfooprop
+PASS: Actual Value: eze    Expected obj value: eze
+
+
+Object Name is:  Chakra_Foo  Property Name is: myfooprop
+PASS: Actual Value: eze    Expected obj value: eze
+
+
+Object Name is:  Chakra_foo_obj  Property Name is: protoprop1
+PASS: Expected Value: 2147483648    Actual obj value: 2.14748e+009
+
+PASS: Expected Value: 2147483648    Actual value: 2.14748e+009
+
+
+FastDomTestCase 7
+Object Name is:  foo0  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo0  Property Name is: p0
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  JScript_Foo  Property Name is: p0
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo0  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo1  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo1  Property Name is: p1
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  JScript_Bar  Property Name is: p1
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo1  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo1  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo2  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo2  Property Name is: p2
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo0  Property Name is: p2
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo2  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo2  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo2  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo3  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo3  Property Name is: p3
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo1  Property Name is: p3
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo3  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo3  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo3  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo3  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo4  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo4  Property Name is: p4
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo2  Property Name is: p4
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo4  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo4  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo4  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo4  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo4  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo5  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo5  Property Name is: p5
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo3  Property Name is: p5
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo5  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo5  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo5  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo5  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo5  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo5  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo6  Property Name is: oo6
+PASS: Expected Value: 55    Actual obj value: 55
+
+PASS: Expected Value: 55    Actual value: 55
+
+
+Object Name is:  foo6  Property Name is: p6
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo4  Property Name is: p6
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo6  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo6  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo6  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo6  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo6  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo6  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo6  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo7  Property Name is: oo7
+PASS: Expected Value: 66    Actual obj value: 66
+
+PASS: Expected Value: 66    Actual value: 66
+
+
+Object Name is:  foo7  Property Name is: p7
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo5  Property Name is: p7
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo7  Property Name is: oo6
+PASS: Expected Value: 55    Actual obj value: 55
+
+PASS: Expected Value: 55    Actual value: 55
+
+
+Object Name is:  foo7  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo7  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo7  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo7  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo7  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo7  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo7  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo8  Property Name is: oo8
+PASS: Expected Value: 77    Actual obj value: 77
+
+PASS: Expected Value: 77    Actual value: 77
+
+
+Object Name is:  foo8  Property Name is: p8
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo6  Property Name is: p8
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo8  Property Name is: oo7
+PASS: Expected Value: 66    Actual obj value: 66
+
+PASS: Expected Value: 66    Actual value: 66
+
+
+Object Name is:  foo8  Property Name is: oo6
+PASS: Expected Value: 55    Actual obj value: 55
+
+PASS: Expected Value: 55    Actual value: 55
+
+
+Object Name is:  foo8  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo8  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo8  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo8  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo8  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo8  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo8  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo9  Property Name is: oo9
+PASS: Expected Value: 88    Actual obj value: 88
+
+PASS: Expected Value: 88    Actual value: 88
+
+
+Object Name is:  foo9  Property Name is: p9
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo7  Property Name is: p9
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo9  Property Name is: oo8
+PASS: Expected Value: 77    Actual obj value: 77
+
+PASS: Expected Value: 77    Actual value: 77
+
+
+Object Name is:  foo9  Property Name is: oo7
+PASS: Expected Value: 66    Actual obj value: 66
+
+PASS: Expected Value: 66    Actual value: 66
+
+
+Object Name is:  foo9  Property Name is: oo6
+PASS: Expected Value: 55    Actual obj value: 55
+
+PASS: Expected Value: 55    Actual value: 55
+
+
+Object Name is:  foo9  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo9  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo9  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo9  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo9  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo9  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo9  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo10  Property Name is: oo10
+PASS: Expected Value: 99    Actual obj value: 99
+
+PASS: Expected Value: 99    Actual value: 99
+
+
+Object Name is:  foo10  Property Name is: p10
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo8  Property Name is: p10
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo10  Property Name is: oo9
+PASS: Expected Value: 88    Actual obj value: 88
+
+PASS: Expected Value: 88    Actual value: 88
+
+
+Object Name is:  foo10  Property Name is: oo8
+PASS: Expected Value: 77    Actual obj value: 77
+
+PASS: Expected Value: 77    Actual value: 77
+
+
+Object Name is:  foo10  Property Name is: oo7
+PASS: Expected Value: 66    Actual obj value: 66
+
+PASS: Expected Value: 66    Actual value: 66
+
+
+Object Name is:  foo10  Property Name is: oo6
+PASS: Expected Value: 55    Actual obj value: 55
+
+PASS: Expected Value: 55    Actual value: 55
+
+
+Object Name is:  foo10  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo10  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo10  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo10  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo10  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo10  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo10  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo11  Property Name is: oo11
+PASS: Expected Value: 1010    Actual obj value: 1010
+
+PASS: Expected Value: 1010    Actual value: 1010
+
+
+Object Name is:  foo11  Property Name is: p11
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo9  Property Name is: p11
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo11  Property Name is: oo10
+PASS: Expected Value: 99    Actual obj value: 99
+
+PASS: Expected Value: 99    Actual value: 99
+
+
+Object Name is:  foo11  Property Name is: oo9
+PASS: Expected Value: 88    Actual obj value: 88
+
+PASS: Expected Value: 88    Actual value: 88
+
+
+Object Name is:  foo11  Property Name is: oo8
+PASS: Expected Value: 77    Actual obj value: 77
+
+PASS: Expected Value: 77    Actual value: 77
+
+
+Object Name is:  foo11  Property Name is: oo7
+PASS: Expected Value: 66    Actual obj value: 66
+
+PASS: Expected Value: 66    Actual value: 66
+
+
+Object Name is:  foo11  Property Name is: oo6
+PASS: Expected Value: 55    Actual obj value: 55
+
+PASS: Expected Value: 55    Actual value: 55
+
+
+Object Name is:  foo11  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo11  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo11  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo11  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo11  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo11  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo11  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+FastDomTestCase 8
+Object Name is:  foo0  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo0  Property Name is: p0
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  JScript_Foo  Property Name is: p0
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo0  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo1  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo1  Property Name is: p1
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  JScript_Bar  Property Name is: p1
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo1  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo1  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo2  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo2  Property Name is: p2
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo0  Property Name is: p2
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo2  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo2  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo2  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo3  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo3  Property Name is: p3
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo1  Property Name is: p3
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo3  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo3  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo3  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo3  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo4  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo4  Property Name is: p4
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo2  Property Name is: p4
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo4  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo4  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo4  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo4  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo4  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo5  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo5  Property Name is: p5
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo3  Property Name is: p5
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo5  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo5  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo5  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo5  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo5  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo5  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo6  Property Name is: oo6
+PASS: Expected Value: 55    Actual obj value: 55
+
+PASS: Expected Value: 55    Actual value: 55
+
+
+Object Name is:  foo6  Property Name is: p6
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo4  Property Name is: p6
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo6  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo6  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo6  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo6  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo6  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo6  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo6  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo7  Property Name is: oo7
+PASS: Expected Value: 66    Actual obj value: 66
+
+PASS: Expected Value: 66    Actual value: 66
+
+
+Object Name is:  foo7  Property Name is: p7
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo5  Property Name is: p7
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo7  Property Name is: oo6
+PASS: Expected Value: 55    Actual obj value: 55
+
+PASS: Expected Value: 55    Actual value: 55
+
+
+Object Name is:  foo7  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo7  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo7  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo7  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo7  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo7  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo7  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo8  Property Name is: oo8
+PASS: Expected Value: 77    Actual obj value: 77
+
+PASS: Expected Value: 77    Actual value: 77
+
+
+Object Name is:  foo8  Property Name is: p8
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo6  Property Name is: p8
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo8  Property Name is: oo7
+PASS: Expected Value: 66    Actual obj value: 66
+
+PASS: Expected Value: 66    Actual value: 66
+
+
+Object Name is:  foo8  Property Name is: oo6
+PASS: Expected Value: 55    Actual obj value: 55
+
+PASS: Expected Value: 55    Actual value: 55
+
+
+Object Name is:  foo8  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo8  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo8  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo8  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo8  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo8  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo8  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo9  Property Name is: oo9
+PASS: Expected Value: 88    Actual obj value: 88
+
+PASS: Expected Value: 88    Actual value: 88
+
+
+Object Name is:  foo9  Property Name is: p9
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo7  Property Name is: p9
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo9  Property Name is: oo8
+PASS: Expected Value: 77    Actual obj value: 77
+
+PASS: Expected Value: 77    Actual value: 77
+
+
+Object Name is:  foo9  Property Name is: oo7
+PASS: Expected Value: 66    Actual obj value: 66
+
+PASS: Expected Value: 66    Actual value: 66
+
+
+Object Name is:  foo9  Property Name is: oo6
+PASS: Expected Value: 55    Actual obj value: 55
+
+PASS: Expected Value: 55    Actual value: 55
+
+
+Object Name is:  foo9  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo9  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo9  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo9  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo9  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo9  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo9  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo10  Property Name is: oo10
+PASS: Expected Value: 99    Actual obj value: 99
+
+PASS: Expected Value: 99    Actual value: 99
+
+
+Object Name is:  foo10  Property Name is: p10
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo8  Property Name is: p10
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo10  Property Name is: oo9
+PASS: Expected Value: 88    Actual obj value: 88
+
+PASS: Expected Value: 88    Actual value: 88
+
+
+Object Name is:  foo10  Property Name is: oo8
+PASS: Expected Value: 77    Actual obj value: 77
+
+PASS: Expected Value: 77    Actual value: 77
+
+
+Object Name is:  foo10  Property Name is: oo7
+PASS: Expected Value: 66    Actual obj value: 66
+
+PASS: Expected Value: 66    Actual value: 66
+
+
+Object Name is:  foo10  Property Name is: oo6
+PASS: Expected Value: 55    Actual obj value: 55
+
+PASS: Expected Value: 55    Actual value: 55
+
+
+Object Name is:  foo10  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo10  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo10  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo10  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo10  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo10  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo10  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo11  Property Name is: oo11
+PASS: Expected Value: 1010    Actual obj value: 1010
+
+PASS: Expected Value: 1010    Actual value: 1010
+
+
+Object Name is:  foo11  Property Name is: p11
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  Foo9  Property Name is: p11
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+Object Name is:  foo11  Property Name is: oo10
+PASS: Expected Value: 99    Actual obj value: 99
+
+PASS: Expected Value: 99    Actual value: 99
+
+
+Object Name is:  foo11  Property Name is: oo9
+PASS: Expected Value: 88    Actual obj value: 88
+
+PASS: Expected Value: 88    Actual value: 88
+
+
+Object Name is:  foo11  Property Name is: oo8
+PASS: Expected Value: 77    Actual obj value: 77
+
+PASS: Expected Value: 77    Actual value: 77
+
+
+Object Name is:  foo11  Property Name is: oo7
+PASS: Expected Value: 66    Actual obj value: 66
+
+PASS: Expected Value: 66    Actual value: 66
+
+
+Object Name is:  foo11  Property Name is: oo6
+PASS: Expected Value: 55    Actual obj value: 55
+
+PASS: Expected Value: 55    Actual value: 55
+
+
+Object Name is:  foo11  Property Name is: oo5
+PASS: Expected Value: 44    Actual obj value: 44
+
+PASS: Expected Value: 44    Actual value: 44
+
+
+Object Name is:  foo11  Property Name is: oo4
+PASS: Expected Value: 33    Actual obj value: 33
+
+PASS: Expected Value: 33    Actual value: 33
+
+
+Object Name is:  foo11  Property Name is: oo3
+PASS: Expected Value: 22    Actual obj value: 22
+
+PASS: Expected Value: 22    Actual value: 22
+
+
+Object Name is:  foo11  Property Name is: oo2
+PASS: Expected Value: 11    Actual obj value: 11
+
+PASS: Expected Value: 11    Actual value: 11
+
+
+Object Name is:  foo11  Property Name is: oo1
+PASS: Expected Value: 222    Actual obj value: 222
+
+PASS: Expected Value: 222    Actual value: 222
+
+
+Object Name is:  foo11  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:  foo11  Property Name is: oo0
+PASS: Expected Value: 111    Actual obj value: 111
+
+PASS: Expected Value: 111    Actual value: 111
+
+
+Object Name is:    Property Name is: p0
+PASS: Actual Value: v0    Expected obj value: v0
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p1
+PASS: Actual Value: v1    Expected obj value: v1
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p2
+PASS: Actual Value: v2    Expected obj value: v2
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p3
+PASS: Actual Value: v3    Expected obj value: v3
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p4
+PASS: Actual Value: v4    Expected obj value: v4
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p5
+PASS: Actual Value: v5    Expected obj value: v5
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p6
+PASS: Actual Value: v6    Expected obj value: v6
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p7
+PASS: Actual Value: v7    Expected obj value: v7
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p8
+PASS: Actual Value: v8    Expected obj value: v8
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p9
+PASS: Actual Value: v9    Expected obj value: v9
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p10
+PASS: Actual Value: v10    Expected obj value: v10
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p11
+PASS: Actual Value: v11    Expected obj value: v11
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p12
+PASS: Actual Value: v12    Expected obj value: v12
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p13
+PASS: Actual Value: v13    Expected obj value: v13
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p14
+PASS: Actual Value: v14    Expected obj value: v14
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p15
+PASS: Actual Value: v15    Expected obj value: v15
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p16
+PASS: Actual Value: v16    Expected obj value: v16
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p17
+PASS: Actual Value: v17    Expected obj value: v17
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p18
+PASS: Actual Value: v18    Expected obj value: v18
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p19
+PASS: Actual Value: v19    Expected obj value: v19
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p20
+PASS: Actual Value: v20    Expected obj value: v20
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p21
+PASS: Actual Value: v21    Expected obj value: v21
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p22
+PASS: Actual Value: v22    Expected obj value: v22
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p23
+PASS: Actual Value: v23    Expected obj value: v23
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p24
+PASS: Actual Value: v24    Expected obj value: v24
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p25
+PASS: Actual Value: v25    Expected obj value: v25
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p26
+PASS: Actual Value: v26    Expected obj value: v26
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p27
+PASS: Actual Value: v27    Expected obj value: v27
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p28
+PASS: Actual Value: v28    Expected obj value: v28
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p29
+PASS: Actual Value: v29    Expected obj value: v29
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p30
+PASS: Actual Value: v30    Expected obj value: v30
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p31
+PASS: Actual Value: v31    Expected obj value: v31
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p32
+PASS: Actual Value: v32    Expected obj value: v32
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p33
+PASS: Actual Value: v33    Expected obj value: v33
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p34
+PASS: Actual Value: v34    Expected obj value: v34
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p35
+PASS: Actual Value: v35    Expected obj value: v35
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p36
+PASS: Actual Value: v36    Expected obj value: v36
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p37
+PASS: Actual Value: v37    Expected obj value: v37
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p38
+PASS: Actual Value: v38    Expected obj value: v38
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p39
+PASS: Actual Value: v39    Expected obj value: v39
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p40
+PASS: Actual Value: v40    Expected obj value: v40
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p41
+PASS: Actual Value: v41    Expected obj value: v41
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p42
+PASS: Actual Value: v42    Expected obj value: v42
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p43
+PASS: Actual Value: v43    Expected obj value: v43
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p44
+PASS: Actual Value: v44    Expected obj value: v44
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p45
+PASS: Actual Value: v45    Expected obj value: v45
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p46
+PASS: Actual Value: v46    Expected obj value: v46
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p47
+PASS: Actual Value: v47    Expected obj value: v47
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p48
+PASS: Actual Value: v48    Expected obj value: v48
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p49
+PASS: Actual Value: v49    Expected obj value: v49
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p50
+PASS: Actual Value: v50    Expected obj value: v50
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p51
+PASS: Actual Value: v51    Expected obj value: v51
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p52
+PASS: Actual Value: v52    Expected obj value: v52
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p53
+PASS: Actual Value: v53    Expected obj value: v53
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p54
+PASS: Actual Value: v54    Expected obj value: v54
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p55
+PASS: Actual Value: v55    Expected obj value: v55
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p56
+PASS: Actual Value: v56    Expected obj value: v56
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p57
+PASS: Actual Value: v57    Expected obj value: v57
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p58
+PASS: Actual Value: v58    Expected obj value: v58
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p59
+PASS: Actual Value: v59    Expected obj value: v59
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p60
+PASS: Actual Value: v60    Expected obj value: v60
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p61
+PASS: Actual Value: v61    Expected obj value: v61
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p62
+PASS: Actual Value: v62    Expected obj value: v62
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p63
+PASS: Actual Value: v63    Expected obj value: v63
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p64
+PASS: Actual Value: v64    Expected obj value: v64
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p65
+PASS: Actual Value: v65    Expected obj value: v65
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p66
+PASS: Actual Value: v66    Expected obj value: v66
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p67
+PASS: Actual Value: v67    Expected obj value: v67
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p68
+PASS: Actual Value: v68    Expected obj value: v68
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p69
+PASS: Actual Value: v69    Expected obj value: v69
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p70
+PASS: Actual Value: v70    Expected obj value: v70
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p71
+PASS: Actual Value: v71    Expected obj value: v71
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p72
+PASS: Actual Value: v72    Expected obj value: v72
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p73
+PASS: Actual Value: v73    Expected obj value: v73
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p74
+PASS: Actual Value: v74    Expected obj value: v74
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p75
+PASS: Actual Value: v75    Expected obj value: v75
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p76
+PASS: Actual Value: v76    Expected obj value: v76
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p77
+PASS: Actual Value: v77    Expected obj value: v77
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p78
+PASS: Actual Value: v78    Expected obj value: v78
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p79
+PASS: Actual Value: v79    Expected obj value: v79
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p80
+PASS: Actual Value: v80    Expected obj value: v80
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p81
+PASS: Actual Value: v81    Expected obj value: v81
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p82
+PASS: Actual Value: v82    Expected obj value: v82
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p83
+PASS: Actual Value: v83    Expected obj value: v83
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p84
+PASS: Actual Value: v84    Expected obj value: v84
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p85
+PASS: Actual Value: v85    Expected obj value: v85
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p86
+PASS: Actual Value: v86    Expected obj value: v86
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p87
+PASS: Actual Value: v87    Expected obj value: v87
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p88
+PASS: Actual Value: v88    Expected obj value: v88
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p89
+PASS: Actual Value: v89    Expected obj value: v89
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p90
+PASS: Actual Value: v90    Expected obj value: v90
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p91
+PASS: Actual Value: v91    Expected obj value: v91
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p92
+PASS: Actual Value: v92    Expected obj value: v92
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p93
+PASS: Actual Value: v93    Expected obj value: v93
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p94
+PASS: Actual Value: v94    Expected obj value: v94
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p95
+PASS: Actual Value: v95    Expected obj value: v95
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p96
+PASS: Actual Value: v96    Expected obj value: v96
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p97
+PASS: Actual Value: v97    Expected obj value: v97
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p98
+PASS: Actual Value: v98    Expected obj value: v98
+
+
+FastDomTestCase 9
+Object Name is:    Property Name is: p99
+PASS: Actual Value: v99    Expected obj value: v99
+
+
+FastDomTestCase 9
+FastDomTestCase 10 SUCCEEDED
+Total Test Cases  219
+Passed:  219
+Failed   0
+
+

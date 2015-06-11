@@ -1,0 +1,272 @@
+[
+  {
+    "evaluate": {
+      "map": {
+        "map.__proto__": {
+          "[Methods]": {
+            "map.__proto__.clear": {
+              "map.__proto__.clear.__proto__": {
+                "[Methods]": "{...}",
+                "map.__proto__.clear.__proto__.__proto__": "{...}",
+                "map.__proto__.clear.__proto__.arguments": "null",
+                "map.__proto__.clear.__proto__.caller": "null",
+                "map.__proto__.clear.__proto__.length": "0",
+                "map.__proto__.clear.__proto__.name": ""
+              },
+              "map.__proto__.clear.arguments": "null",
+              "map.__proto__.clear.caller": "null",
+              "map.__proto__.clear.length": "0",
+              "map.__proto__.clear.name": "clear"
+            },
+            "map.__proto__.constructor": {
+              "map.__proto__.constructor.__proto__": {
+                "[Methods]": "{...}",
+                "map.__proto__.constructor.__proto__.__proto__": "{...}",
+                "map.__proto__.constructor.__proto__.arguments": "null",
+                "map.__proto__.constructor.__proto__.caller": "null",
+                "map.__proto__.constructor.__proto__.length": "0",
+                "map.__proto__.constructor.__proto__.name": ""
+              },
+              "map.__proto__.constructor.arguments": "null",
+              "map.__proto__.constructor.caller": "null",
+              "map.__proto__.constructor.length": "0",
+              "map.__proto__.constructor.name": "Map",
+              "map.__proto__.constructor.prototype": {
+                "[Methods]": "{...}",
+                "map.__proto__.constructor.prototype.__proto__": "{...}",
+                "map.__proto__.constructor.prototype.size": "Map.prototype.size: 'this' is not a Map object"
+              }
+            },
+            "map.__proto__.delete": {
+              "map.__proto__.delete.__proto__": {
+                "[Methods]": "{...}",
+                "map.__proto__.delete.__proto__.__proto__": "{...}",
+                "map.__proto__.delete.__proto__.arguments": "null",
+                "map.__proto__.delete.__proto__.caller": "null",
+                "map.__proto__.delete.__proto__.length": "0",
+                "map.__proto__.delete.__proto__.name": ""
+              },
+              "map.__proto__.delete.arguments": "null",
+              "map.__proto__.delete.caller": "null",
+              "map.__proto__.delete.length": "1",
+              "map.__proto__.delete.name": "delete"
+            },
+            "map.__proto__.entries": {
+              "map.__proto__.entries.__proto__": {
+                "[Methods]": "{...}",
+                "map.__proto__.entries.__proto__.__proto__": "{...}",
+                "map.__proto__.entries.__proto__.arguments": "null",
+                "map.__proto__.entries.__proto__.caller": "null",
+                "map.__proto__.entries.__proto__.length": "0",
+                "map.__proto__.entries.__proto__.name": ""
+              },
+              "map.__proto__.entries.arguments": "null",
+              "map.__proto__.entries.caller": "null",
+              "map.__proto__.entries.length": "0",
+              "map.__proto__.entries.name": "entries"
+            },
+            "map.__proto__.forEach": {
+              "map.__proto__.forEach.__proto__": {
+                "[Methods]": "{...}",
+                "map.__proto__.forEach.__proto__.__proto__": "{...}",
+                "map.__proto__.forEach.__proto__.arguments": "null",
+                "map.__proto__.forEach.__proto__.caller": "null",
+                "map.__proto__.forEach.__proto__.length": "0",
+                "map.__proto__.forEach.__proto__.name": ""
+              },
+              "map.__proto__.forEach.arguments": "null",
+              "map.__proto__.forEach.caller": "null",
+              "map.__proto__.forEach.length": "1",
+              "map.__proto__.forEach.name": "forEach"
+            },
+            "map.__proto__.get": {
+              "map.__proto__.get.__proto__": {
+                "[Methods]": "{...}",
+                "map.__proto__.get.__proto__.__proto__": "{...}",
+                "map.__proto__.get.__proto__.arguments": "null",
+                "map.__proto__.get.__proto__.caller": "null",
+                "map.__proto__.get.__proto__.length": "0",
+                "map.__proto__.get.__proto__.name": ""
+              },
+              "map.__proto__.get.arguments": "null",
+              "map.__proto__.get.caller": "null",
+              "map.__proto__.get.length": "1",
+              "map.__proto__.get.name": "get"
+            },
+            "map.__proto__.has": {
+              "map.__proto__.has.__proto__": {
+                "[Methods]": "{...}",
+                "map.__proto__.has.__proto__.__proto__": "{...}",
+                "map.__proto__.has.__proto__.arguments": "null",
+                "map.__proto__.has.__proto__.caller": "null",
+                "map.__proto__.has.__proto__.length": "0",
+                "map.__proto__.has.__proto__.name": ""
+              },
+              "map.__proto__.has.arguments": "null",
+              "map.__proto__.has.caller": "null",
+              "map.__proto__.has.length": "1",
+              "map.__proto__.has.name": "has"
+            },
+            "map.__proto__.keys": {
+              "map.__proto__.keys.__proto__": {
+                "[Methods]": "{...}",
+                "map.__proto__.keys.__proto__.__proto__": "{...}",
+                "map.__proto__.keys.__proto__.arguments": "null",
+                "map.__proto__.keys.__proto__.caller": "null",
+                "map.__proto__.keys.__proto__.length": "0",
+                "map.__proto__.keys.__proto__.name": ""
+              },
+              "map.__proto__.keys.arguments": "null",
+              "map.__proto__.keys.caller": "null",
+              "map.__proto__.keys.length": "0",
+              "map.__proto__.keys.name": "keys"
+            },
+            "map.__proto__.set": {
+              "map.__proto__.set.__proto__": {
+                "[Methods]": "{...}",
+                "map.__proto__.set.__proto__.__proto__": "{...}",
+                "map.__proto__.set.__proto__.arguments": "null",
+                "map.__proto__.set.__proto__.caller": "null",
+                "map.__proto__.set.__proto__.length": "0",
+                "map.__proto__.set.__proto__.name": ""
+              },
+              "map.__proto__.set.arguments": "null",
+              "map.__proto__.set.caller": "null",
+              "map.__proto__.set.length": "2",
+              "map.__proto__.set.name": "set"
+            },
+            "Symbol.iterator": {
+              "__proto__": {
+                "[Methods]": "{...}",
+                "__proto__": "{...}",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": ""
+              },
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "entries"
+            },
+            "map.__proto__.values": {
+              "map.__proto__.values.__proto__": {
+                "[Methods]": "{...}",
+                "map.__proto__.values.__proto__.__proto__": "{...}",
+                "map.__proto__.values.__proto__.arguments": "null",
+                "map.__proto__.values.__proto__.caller": "null",
+                "map.__proto__.values.__proto__.length": "0",
+                "map.__proto__.values.__proto__.name": ""
+              },
+              "map.__proto__.values.arguments": "null",
+              "map.__proto__.values.caller": "null",
+              "map.__proto__.values.length": "0",
+              "map.__proto__.values.name": "values"
+            }
+          },
+          "map.__proto__.__proto__": {
+            "[Methods]": {
+              "map.__proto__.__proto__.__defineGetter__": {
+                "map.__proto__.__proto__.__defineGetter__.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "map.__proto__.__proto__.__defineGetter__.arguments": "null",
+                "map.__proto__.__proto__.__defineGetter__.caller": "null",
+                "map.__proto__.__proto__.__defineGetter__.length": "2",
+                "map.__proto__.__proto__.__defineGetter__.name": "__defineGetter__"
+              },
+              "map.__proto__.__proto__.__defineSetter__": {
+                "map.__proto__.__proto__.__defineSetter__.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "map.__proto__.__proto__.__defineSetter__.arguments": "null",
+                "map.__proto__.__proto__.__defineSetter__.caller": "null",
+                "map.__proto__.__proto__.__defineSetter__.length": "2",
+                "map.__proto__.__proto__.__defineSetter__.name": "__defineSetter__"
+              },
+              "map.__proto__.__proto__.__lookupGetter__": {
+                "map.__proto__.__proto__.__lookupGetter__.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "map.__proto__.__proto__.__lookupGetter__.arguments": "null",
+                "map.__proto__.__proto__.__lookupGetter__.caller": "null",
+                "map.__proto__.__proto__.__lookupGetter__.length": "1",
+                "map.__proto__.__proto__.__lookupGetter__.name": "__lookupGetter__"
+              },
+              "map.__proto__.__proto__.__lookupSetter__": {
+                "map.__proto__.__proto__.__lookupSetter__.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "map.__proto__.__proto__.__lookupSetter__.arguments": "null",
+                "map.__proto__.__proto__.__lookupSetter__.caller": "null",
+                "map.__proto__.__proto__.__lookupSetter__.length": "1",
+                "map.__proto__.__proto__.__lookupSetter__.name": "__lookupSetter__"
+              },
+              "map.__proto__.__proto__.constructor": {
+                "[Methods]": "{...}",
+                "map.__proto__.__proto__.constructor.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "map.__proto__.__proto__.constructor.arguments": "null",
+                "map.__proto__.__proto__.constructor.caller": "null",
+                "map.__proto__.__proto__.constructor.length": "1",
+                "map.__proto__.__proto__.constructor.name": "Object",
+                "map.__proto__.__proto__.constructor.prototype": "{...}"
+              },
+              "map.__proto__.__proto__.hasOwnProperty": {
+                "map.__proto__.__proto__.hasOwnProperty.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "map.__proto__.__proto__.hasOwnProperty.arguments": "null",
+                "map.__proto__.__proto__.hasOwnProperty.caller": "null",
+                "map.__proto__.__proto__.hasOwnProperty.length": "1",
+                "map.__proto__.__proto__.hasOwnProperty.name": "hasOwnProperty"
+              },
+              "map.__proto__.__proto__.isPrototypeOf": {
+                "map.__proto__.__proto__.isPrototypeOf.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "map.__proto__.__proto__.isPrototypeOf.arguments": "null",
+                "map.__proto__.__proto__.isPrototypeOf.caller": "null",
+                "map.__proto__.__proto__.isPrototypeOf.length": "1",
+                "map.__proto__.__proto__.isPrototypeOf.name": "isPrototypeOf"
+              },
+              "map.__proto__.__proto__.propertyIsEnumerable": {
+                "map.__proto__.__proto__.propertyIsEnumerable.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "map.__proto__.__proto__.propertyIsEnumerable.arguments": "null",
+                "map.__proto__.__proto__.propertyIsEnumerable.caller": "null",
+                "map.__proto__.__proto__.propertyIsEnumerable.length": "1",
+                "map.__proto__.__proto__.propertyIsEnumerable.name": "propertyIsEnumerable"
+              },
+              "map.__proto__.__proto__.toLocaleString": {
+                "map.__proto__.__proto__.toLocaleString.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "map.__proto__.__proto__.toLocaleString.arguments": "null",
+                "map.__proto__.__proto__.toLocaleString.caller": "null",
+                "map.__proto__.__proto__.toLocaleString.length": "0",
+                "map.__proto__.__proto__.toLocaleString.name": "toLocaleString"
+              },
+              "map.__proto__.__proto__.toString": {
+                "map.__proto__.__proto__.toString.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "map.__proto__.__proto__.toString.arguments": "null",
+                "map.__proto__.__proto__.toString.caller": "null",
+                "map.__proto__.__proto__.toString.length": "0",
+                "map.__proto__.__proto__.toString.name": "toString"
+              },
+              "map.__proto__.__proto__.valueOf": {
+                "map.__proto__.__proto__.valueOf.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "map.__proto__.__proto__.valueOf.arguments": "null",
+                "map.__proto__.__proto__.valueOf.caller": "null",
+                "map.__proto__.__proto__.valueOf.length": "0",
+                "map.__proto__.__proto__.valueOf.name": "valueOf"
+              }
+            },
+            "map.__proto__.__proto__.__proto__": "null"
+          },
+          "map.__proto__.size": "2"
+        },
+        "map": {
+          "0": {
+            "key": {
+              "map": {
+                "[Methods]": "{...}",
+                "map": "null"
+              },
+              "map#1": "1"
+            },
+            "value": "1"
+          },
+          "1": {
+            "key": "2",
+            "value": "3"
+          }
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,17 @@
+TEST_CODE=1
+TARGETTYPE = NOTARGET
+TARGETNAME = Winery
+TARGET_DESTINATION = Projection\WinRT:Projection\APPX
+
+IDL_TYPE=winrt
+
+NTTARGETFILE1=$(OBJ_PATH)\$(O)\published\Winery.winmd
+
+SOURCES = \
+    Winery.idl
+
+BINPLACE_EXCLUDE_FILE=winmds.txt
+
+PASS1_BINPLACE= \
+    $(OBJ_PATH)\$(O)\published\$(TARGETNAME).winmd
+

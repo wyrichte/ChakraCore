@@ -1,0 +1,12 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "bar0": "<large string>",
+      "arguments": "{...}",
+      "x": "undefined",
+      "obj0": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

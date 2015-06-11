@@ -1,0 +1,622 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c": "5",
+      "obj": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "2",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 316,
+        "length": 5,
+        "text": "c = 7",
+        "frameDescription": "f"
+      },
+      {
+        "start": 417,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "f": "<large string>",
+          "f1": "<large string>",
+          "g": "<large string>",
+          "g1": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "d": "7",
+        "i": "0"
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "c": "7",
+      "obj": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "o2": {
+          "__proto__": "{...}",
+          "a": "44"
+        },
+        "x": "2",
+        "y": "3"
+      },
+      "[Globals]": {
+        "g": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "f": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "g1": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "f1": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "i": "0",
+        "d": "7"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c": "5",
+      "obj": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "2",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 316,
+        "length": 5,
+        "text": "c = 7",
+        "frameDescription": "f"
+      },
+      {
+        "start": 417,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "f": "<large string>",
+          "f1": "<large string>",
+          "g": "<large string>",
+          "g1": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "d": "7",
+        "i": "1"
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "c": "7",
+      "obj": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "o2": {
+          "__proto__": "{...}",
+          "a": "44"
+        },
+        "x": "2",
+        "y": "3"
+      },
+      "[Globals]": {
+        "g": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "f": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "g1": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "f1": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "i": "1",
+        "d": "7"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c": "5",
+      "obj": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "2",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 316,
+        "length": 5,
+        "text": "c = 7",
+        "frameDescription": "f"
+      },
+      {
+        "start": 417,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "f": "<large string>",
+          "f1": "<large string>",
+          "g": "<large string>",
+          "g1": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "d": "7",
+        "i": "2"
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "c": "7",
+      "obj": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "o2": {
+          "__proto__": "{...}",
+          "a": "44"
+        },
+        "x": "2",
+        "y": "3"
+      },
+      "[Globals]": {
+        "g": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "f": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "g1": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "f1": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "i": "2",
+        "d": "7"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c": "5",
+      "obj": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "2",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 316,
+        "length": 5,
+        "text": "c = 7",
+        "frameDescription": "f"
+      },
+      {
+        "start": 417,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "f": "<large string>",
+          "f1": "<large string>",
+          "g": "<large string>",
+          "g1": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "d": "7",
+        "i": "3"
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "c": "7",
+      "obj": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "o2": {
+          "__proto__": "{...}",
+          "a": "44"
+        },
+        "x": "2",
+        "y": "3"
+      },
+      "[Globals]": {
+        "g": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "f": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "g1": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "f1": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "i": "3",
+        "d": "7"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c": "5",
+      "obj": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "2",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 316,
+        "length": 5,
+        "text": "c = 7",
+        "frameDescription": "f"
+      },
+      {
+        "start": 417,
+        "length": 3,
+        "text": "f()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "f": "<large string>",
+          "f1": "<large string>",
+          "g": "<large string>",
+          "g1": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "d": "7",
+        "i": "4"
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "c": "7",
+      "obj": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "o2": {
+          "__proto__": "{...}",
+          "a": "44"
+        },
+        "x": "2",
+        "y": "3"
+      },
+      "[Globals]": {
+        "g": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "f": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "g1": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "f1": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "prototype": "{...}"
+        },
+        "i": "4",
+        "d": "7"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "d": "7",
+        "i": "5"
+      },
+      "x": "2",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "10"
+      },
+      "[Globals]": {
+        "g": "<large string>",
+        "f": "<large string>",
+        "g1": "<large string>",
+        "f1": "<large string>",
+        "i": "5",
+        "d": "7"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "d": "7",
+        "i": "5"
+      },
+      "x": "2",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "10"
+      },
+      "[Globals]": {
+        "g": "<large string>",
+        "f": "<large string>",
+        "g1": "<large string>",
+        "f1": "<large string>",
+        "i": "5",
+        "d": "7"
+      }
+    }
+  }
+]

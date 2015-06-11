@@ -1,0 +1,2 @@
+Var declaration with integer literal outside range [-2^31, 2^32)
+-2147483649

@@ -1,0 +1,10 @@
+1
+ETW Log Begin
+=============================================================
+﻿Log started
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE_V2 (#165): Info (OperationId=1;FrameCount=4;FrameNameBufferCount=0;Frames[0]=(SourceLocationLineNumber=1;SourceLocationColumnNumber=1;MethodIDOrFrameNameIndex=2;IsFrameNameIndex=0);Frames[1]=(SourceLocationLineNumber=5;SourceLocationColumnNumber=1;MethodIDOrFrameNameIndex=3;IsFrameNameIndex=0);Frames[2]=(SourceLocationLineNumber=9;SourceLocationColumnNumber=1;MethodIDOrFrameNameIndex=4;IsFrameNameIndex=0);Frames[3]=(SourceLocationLineNumber=12;SourceLocationColumnNumber=0;MethodIDOrFrameNameIndex=1;IsFrameNameIndex=0))
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE_V2 (#165): Info (OperationId=2;FrameCount=1;FrameNameBufferCount=0;Frames=(SourceLocationLineNumber=15;SourceLocationColumnNumber=0;MethodIDOrFrameNameIndex=1;IsFrameNameIndex=0))
+   - JSCRIPT_ASYNCCAUSALITY_STACKTRACE_V2 (#165): Info (OperationId=3;FrameCount=5;FrameNameBufferCount=0;Frames[0]=(SourceLocationLineNumber=2;SourceLocationColumnNumber=0;MethodIDOrFrameNameIndex=8;IsFrameNameIndex=0);Frames[1]=(SourceLocationLineNumber=1;SourceLocationColumnNumber=1;MethodIDOrFrameNameIndex=7;IsFrameNameIndex=0);Frames[2]=(SourceLocationLineNumber=5;SourceLocationColumnNumber=0;MethodIDOrFrameNameIndex=6;IsFrameNameIndex=0);Frames[3]=(SourceLocationLineNumber=23;SourceLocationColumnNumber=8;MethodIDOrFrameNameIndex=5;IsFrameNameIndex=0);Frames[4]=(SourceLocationLineNumber=25;SourceLocationColumnNumber=0;MethodIDOrFrameNameIndex=1;IsFrameNameIndex=0))
+Log completed
+=============================================================
+ETW Log End

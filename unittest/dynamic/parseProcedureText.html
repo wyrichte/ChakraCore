@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<header>
+<script>
+
+function start(i)
+{
+var e = document.getElementById("blah");
+
+e.innerHTML="<button onclick=\"alert('button" + i + "')\">My button " + i + "</button>";
+
+var f = function() { if (i % 60 == 0) CollectGarbage(); start(i+1); };
+setTimeout(f, 1000);
+}
+</script>
+
+</header>
+<body onload="start(0)">
+
+<div id="blah"></div>
+<div id="content"> </div>
+</body>
+
+</html>

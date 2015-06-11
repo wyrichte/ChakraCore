@@ -1,0 +1,176 @@
+[
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 31,
+        "length": 4,
+        "text": "this",
+        "frameDescription": "arrow_expression"
+      },
+      {
+        "start": 83,
+        "length": 18,
+        "text": "arrow_expression()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "[Return value]": "{...}",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 76,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "arrow_concisebody"
+      },
+      {
+        "start": 184,
+        "length": 19,
+        "text": "arrow_concisebody()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[arrow_concisebody returned]": "undefined",
+      "arrow_expression": "() => this",
+      "arrow_concisebody": "() => { this; }",
+      "deepfunction": "undefined",
+      "deepfunctionwithNames": "undefined",
+      "obj": "undefined",
+      "noeval": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 429,
+        "length": 9,
+        "text": "var a = 1",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 386,
+        "length": 223,
+        "text": "() => {\n                \n                var a = 1; /**bp:stack()**/\n                a;\n                a;\n                a; /**bp:locals();evaluate('this',1)**/\n                a;\n                \n            })()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 345,
+        "length": 289,
+        "text": "function() {\n            \n            (() => {\n                \n                var a = 1; /**bp:stack()**/\n                a;\n                a;\n                a; /**bp:locals();evaluate('this',1)**/\n                a;\n                \n            })();\n        \n        })()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 321,
+        "length": 329,
+        "text": "() => {\n    \n        (function() {\n            \n            (() => {\n                \n                var a = 1; /**bp:stack()**/\n                a;\n                a;\n                a; /**bp:locals();evaluate('this',1)**/\n                a;\n                \n            })();\n        \n        })()\n    \n    })()",
+        "frameDescription": "deepfunction"
+      },
+      {
+        "start": 657,
+        "length": 14,
+        "text": "deepfunction()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "a": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "this": "null"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 908,
+        "length": 1,
+        "text": "a",
+        "frameDescription": "l4"
+      },
+      {
+        "start": 995,
+        "length": 4,
+        "text": "l4()",
+        "frameDescription": "l3"
+      },
+      {
+        "start": 1032,
+        "length": 4,
+        "text": "l3()",
+        "frameDescription": "l2"
+      },
+      {
+        "start": 1063,
+        "length": 4,
+        "text": "l2()",
+        "frameDescription": "deepfunctionwithNames"
+      },
+      {
+        "start": 1075,
+        "length": 23,
+        "text": "deepfunctionwithNames()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1232,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "obj.lambda2"
+      },
+      {
+        "start": 1148,
+        "length": 14,
+        "text": "this.lambda2()",
+        "frameDescription": "obj.fn"
+      },
+      {
+        "start": 1240,
+        "length": 8,
+        "text": "obj.fn()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "this": "null"
+    }
+  }
+]

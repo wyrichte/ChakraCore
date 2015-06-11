@@ -1,0 +1,94 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c": "10",
+      "m": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "arg2": "144",
+      "m": "10",
+      "m2": "55",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "m": "10"
+    }
+  },
+  {
+    "evaluate": {
+      "m = 23": "23"
+    }
+  },
+  {
+    "evaluate": {
+      "m": "23"
+    }
+  },
+  {
+    "evaluate": {
+      "arg2 = {abc:11}": "{...}"
+    }
+  },
+  {
+    "evaluate": {
+      "k.x = 21": "21"
+    }
+  },
+  {
+    "evaluate": {
+      "arg2": {
+        "__proto__": "{...}",
+        "abc": "11"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "m": "23"
+    }
+  },
+  {
+    "evaluate": {
+      "m = [1,2,3]": "[1,2,3]"
+    }
+  },
+  {
+    "evaluate": {
+      "m": "[1,2,3]"
+    }
+  },
+  {
+    "evaluate": {
+      "k1 = function() {}": "function() {}"
+    }
+  },
+  {
+    "evaluate": {
+      "k": {
+        "__proto__": "{...}",
+        "x": "21"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "k1": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "k1",
+        "prototype": "{...}"
+      }
+    }
+  }
+]

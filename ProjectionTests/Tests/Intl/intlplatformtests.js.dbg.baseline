@@ -1,0 +1,6648 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 0,
+        "length": 40,
+        "text": "var platform = Intl.EngineInterface.Intl",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "Debug": "{...}",
+        "hiddenObject": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "pass": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "platform": "undefined",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": "undefined",
+      "currencyFormatterStateObject": "undefined",
+      "numberFormatterStateObject": "undefined",
+      "percentFormatterStateObject": "undefined",
+      "dateTimeFormatterStateObject": "undefined",
+      "hiddenObject": "undefined",
+      "someObject": "undefined",
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 40,
+        "text": "var platform = Intl.EngineInterface.Intl",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 1277,
+        "length": 57,
+        "text": "Assert(platform.isWellFormedLanguageTag, [\"en-US\"], true)",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "Debug": "{...}",
+        "hiddenObject": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "pass": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": "undefined",
+      "numberFormatterStateObject": "undefined",
+      "percentFormatterStateObject": "undefined",
+      "dateTimeFormatterStateObject": "undefined",
+      "hiddenObject": "undefined",
+      "someObject": "undefined",
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1277,
+        "length": 57,
+        "text": "Assert(platform.isWellFormedLanguageTag, [\"en-US\"], true)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 221,
+        "length": 40,
+        "text": "if (String(result) !== String(expected))",
+        "frameDescription": "Assert"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "Debug": "{...}",
+        "hiddenObject": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "pass": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1"
+      },
+      "arguments": {
+        "[0]": "en-US",
+        "__proto__": "[]"
+      },
+      "expected": "true",
+      "thisArg": "undefined",
+      "result": "true",
+      "funcName": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "hiddenObject": "undefined",
+        "someObject": "undefined",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 221,
+        "length": 40,
+        "text": "if (String(result) !== String(expected))",
+        "frameDescription": "Assert"
+      },
+      {
+        "start": 1277,
+        "length": 57,
+        "text": "Assert(platform.isWellFormedLanguageTag, [\"en-US\"], true)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 221,
+        "length": 40,
+        "text": "if (String(result) !== String(expected))",
+        "frameDescription": "Assert"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "Debug": "{...}",
+        "hiddenObject": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "pass": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1"
+      },
+      "arguments": {
+        "[0]": "1",
+        "__proto__": "[]"
+      },
+      "expected": "false",
+      "thisArg": "undefined",
+      "result": "false",
+      "funcName": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "hiddenObject": "undefined",
+        "someObject": "undefined",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 221,
+        "length": 40,
+        "text": "if (String(result) !== String(expected))",
+        "frameDescription": "Assert"
+      },
+      {
+        "start": 1337,
+        "length": 54,
+        "text": "Assert(platform.isWellFormedLanguageTag, [\"1\"], false)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 221,
+        "length": 40,
+        "text": "if (String(result) !== String(expected))",
+        "frameDescription": "Assert"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "Debug": "{...}",
+        "hiddenObject": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "pass": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1"
+      },
+      "arguments": {
+        "[0]": "en-us",
+        "__proto__": "[]"
+      },
+      "expected": "en-US",
+      "thisArg": "undefined",
+      "result": "en-US",
+      "funcName": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "hiddenObject": "undefined",
+        "someObject": "undefined",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 221,
+        "length": 40,
+        "text": "if (String(result) !== String(expected))",
+        "frameDescription": "Assert"
+      },
+      {
+        "start": 1394,
+        "length": 57,
+        "text": "Assert(platform.normalizeLanguageTag, [\"en-us\"], \"en-US\")",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 221,
+        "length": 40,
+        "text": "if (String(result) !== String(expected))",
+        "frameDescription": "Assert"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "Debug": "{...}",
+        "hiddenObject": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "pass": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1"
+      },
+      "arguments": {
+        "[0]": "A",
+        "[1]": "a",
+        "[2]": "en-US",
+        "[3]": "undefined",
+        "[4]": "undefined",
+        "[5]": "undefined",
+        "__proto__": "[]"
+      },
+      "expected": "1",
+      "thisArg": "undefined",
+      "result": "1",
+      "funcName": "compareString",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "hiddenObject": "undefined",
+        "someObject": "undefined",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 221,
+        "length": 40,
+        "text": "if (String(result) !== String(expected))",
+        "frameDescription": "Assert"
+      },
+      {
+        "start": 1454,
+        "length": 87,
+        "text": "Assert(platform.compareString, [\"A\", \"a\", \"en-US\", undefined, undefined, undefined], 1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 221,
+        "length": 40,
+        "text": "if (String(result) !== String(expected))",
+        "frameDescription": "Assert"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "Debug": "{...}",
+        "hiddenObject": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "pass": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1"
+      },
+      "arguments": {
+        "[0]": "en-US",
+        "__proto__": "[]"
+      },
+      "expected": "en-US",
+      "thisArg": "undefined",
+      "result": "en-US",
+      "funcName": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "hiddenObject": "undefined",
+        "someObject": "undefined",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 221,
+        "length": 40,
+        "text": "if (String(result) !== String(expected))",
+        "frameDescription": "Assert"
+      },
+      {
+        "start": 1544,
+        "length": 96,
+        "text": "Assert(platform.resolveLocaleLookup, [platform.getDefaultLocale()], platform.getDefaultLocale())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 1643,
+        "length": 97,
+        "text": "Assert(platform.resolveLocaleBestFit, [platform.getDefaultLocale()], platform.getDefaultLocale())",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "Debug": "{...}",
+        "hiddenObject": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "pass": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": "undefined",
+      "numberFormatterStateObject": "undefined",
+      "percentFormatterStateObject": "undefined",
+      "dateTimeFormatterStateObject": "undefined",
+      "hiddenObject": "undefined",
+      "someObject": "undefined",
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1643,
+        "length": 97,
+        "text": "Assert(platform.resolveLocaleBestFit, [platform.getDefaultLocale()], platform.getDefaultLocale())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 221,
+        "length": 40,
+        "text": "if (String(result) !== String(expected))",
+        "frameDescription": "Assert"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "Debug": "{...}",
+        "hiddenObject": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "pass": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1"
+      },
+      "arguments": {
+        "[0]": "en-US",
+        "__proto__": "[]"
+      },
+      "expected": "en-US",
+      "thisArg": "undefined",
+      "result": "en-US",
+      "funcName": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "dateTimeFormatterStateObject": "undefined",
+        "hiddenObject": "undefined",
+        "someObject": "undefined",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 221,
+        "length": 40,
+        "text": "if (String(result) !== String(expected))",
+        "frameDescription": "Assert"
+      },
+      {
+        "start": 1643,
+        "length": 97,
+        "text": "Assert(platform.resolveLocaleBestFit, [platform.getDefaultLocale()], platform.getDefaultLocale())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 1974,
+        "length": 75,
+        "text": "var numberFormatterStateObject = { __locale: \"en-US\", __formatterToUse: 0 }",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "undefined",
+        "Debug": "{...}",
+        "hiddenObject": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "undefined",
+        "pass": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US"
+      },
+      "numberFormatterStateObject": "undefined",
+      "percentFormatterStateObject": "undefined",
+      "dateTimeFormatterStateObject": "undefined",
+      "hiddenObject": "undefined",
+      "someObject": "undefined",
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1974,
+        "length": 75,
+        "text": "var numberFormatterStateObject = { __locale: \"en-US\", __formatterToUse: 0 }",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 2052,
+        "length": 76,
+        "text": "var percentFormatterStateObject = { __locale: \"en-US\", __formatterToUse: 1 }",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "undefined",
+        "Debug": "{...}",
+        "hiddenObject": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "undefined",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US"
+      },
+      "percentFormatterStateObject": "undefined",
+      "dateTimeFormatterStateObject": "undefined",
+      "hiddenObject": "undefined",
+      "someObject": "undefined",
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2052,
+        "length": 76,
+        "text": "var percentFormatterStateObject = { __locale: \"en-US\", __formatterToUse: 1 }",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 2370,
+        "length": 70,
+        "text": "Assert(platform.formatNumber, [1, currencyFormatterStateObject], \"$1\")",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "undefined",
+        "Debug": "{...}",
+        "hiddenObject": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": "undefined",
+      "hiddenObject": "undefined",
+      "someObject": "undefined",
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2370,
+        "length": 70,
+        "text": "Assert(platform.formatNumber, [1, currencyFormatterStateObject], \"$1\")",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 2639,
+        "length": 121,
+        "text": "var dateTimeFormatterStateObject = { __locale: \"en-US\", __templateString: \"hour minute\", __windowsClock: \"24HourClock\", }",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "undefined",
+        "Debug": "{...}",
+        "hiddenObject": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": "undefined",
+      "hiddenObject": "undefined",
+      "someObject": "undefined",
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2639,
+        "length": 121,
+        "text": "var dateTimeFormatterStateObject = { __locale: \"en-US\", __templateString: \"hour minute\", __windowsClock: \"24HourClock\", }",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 3025,
+        "length": 29,
+        "text": "var someObject = { other: 5 }",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "undefined",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": "undefined",
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3025,
+        "length": 29,
+        "text": "var someObject = { other: 5 }",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 3303,
+        "length": 58,
+        "text": "if (platform.getHiddenObject(someObject) !== hiddenObject)",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "__proto__": "{...}",
+        "other": "5"
+      },
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3303,
+        "length": 58,
+        "text": "if (platform.getHiddenObject(someObject) !== hiddenObject)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 3522,
+        "length": 89,
+        "text": "Assert(platform.registerBuiltInFunction, [function () { return \"Pass1\"; }, 1], undefined)",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "__proto__": "{...}",
+        "other": "5"
+      },
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3522,
+        "length": 89,
+        "text": "Assert(platform.registerBuiltInFunction, [function () { return \"Pass1\"; }, 1], undefined)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 3955,
+        "length": 66,
+        "text": "Assert(Date.prototype.toLocaleDateString, [], \"Pass1\", new Date())",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "__proto__": "{...}",
+        "other": "5"
+      },
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3955,
+        "length": 66,
+        "text": "Assert(Date.prototype.toLocaleDateString, [], \"Pass1\", new Date())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 4265,
+        "length": 68,
+        "text": "Assert(platform.builtInSetPrototype, [someObject, hiddenObject], {})",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "__proto__": "{...}",
+        "other": "5"
+      },
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 4265,
+        "length": 68,
+        "text": "Assert(platform.builtInSetPrototype, [someObject, hiddenObject], {})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 4533,
+        "length": 47,
+        "text": "AssertTypeOf(platform.Boolean, [5], Boolean(5))",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "__proto__": "{...}",
+        "other": "5"
+      },
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 4533,
+        "length": 47,
+        "text": "AssertTypeOf(platform.Boolean, [5], Boolean(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 444,
+        "length": 43,
+        "text": "var result = func.apply(thisArg, arguments)",
+        "frameDescription": "AssertTypeOf"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1",
+        "prototype": "false"
+      },
+      "arguments": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "expected": "true",
+      "thisArg": "undefined",
+      "result": "undefined",
+      "funcName": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 444,
+        "length": 43,
+        "text": "var result = func.apply(thisArg, arguments)",
+        "frameDescription": "AssertTypeOf"
+      },
+      {
+        "start": 4533,
+        "length": 47,
+        "text": "AssertTypeOf(platform.Boolean, [5], Boolean(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 494,
+        "length": 58,
+        "text": "var funcName = func.toString().match(/function (.*)\\(/)[1]",
+        "frameDescription": "AssertTypeOf"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1",
+        "prototype": "false"
+      },
+      "arguments": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "expected": "true",
+      "thisArg": "undefined",
+      "result": "true",
+      "funcName": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 494,
+        "length": 58,
+        "text": "var funcName = func.toString().match(/function (.*)\\(/)[1]",
+        "frameDescription": "AssertTypeOf"
+      },
+      {
+        "start": 4533,
+        "length": 47,
+        "text": "AssertTypeOf(platform.Boolean, [5], Boolean(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 736,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "AssertTypeOf"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1",
+        "prototype": "false"
+      },
+      "arguments": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "expected": "true",
+      "thisArg": "undefined",
+      "result": "true",
+      "funcName": "Boolean",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 736,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "AssertTypeOf"
+      },
+      {
+        "start": 4533,
+        "length": 47,
+        "text": "AssertTypeOf(platform.Boolean, [5], Boolean(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 444,
+        "length": 43,
+        "text": "var result = func.apply(thisArg, arguments)",
+        "frameDescription": "AssertTypeOf"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "1",
+        "prototype": ""
+      },
+      "arguments": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "expected": "5",
+      "thisArg": "undefined",
+      "result": "undefined",
+      "funcName": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 444,
+        "length": 43,
+        "text": "var result = func.apply(thisArg, arguments)",
+        "frameDescription": "AssertTypeOf"
+      },
+      {
+        "start": 4583,
+        "length": 45,
+        "text": "AssertTypeOf(platform.String, [5], String(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 736,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "AssertTypeOf"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "1",
+        "prototype": ""
+      },
+      "arguments": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "expected": "5",
+      "thisArg": "undefined",
+      "result": "5",
+      "funcName": "String",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 736,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "AssertTypeOf"
+      },
+      {
+        "start": 4583,
+        "length": 45,
+        "text": "AssertTypeOf(platform.String, [5], String(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 444,
+        "length": 43,
+        "text": "var result = func.apply(thisArg, arguments)",
+        "frameDescription": "AssertTypeOf"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1",
+        "MAX_VALUE": "<large string>",
+        "MIN_VALUE": "5e-324",
+        "NaN": "NaN",
+        "NEGATIVE_INFINITY": "-Infinity",
+        "POSITIVE_INFINITY": "Infinity",
+        "prototype": "0"
+      },
+      "arguments": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "expected": "5",
+      "thisArg": "undefined",
+      "result": "undefined",
+      "funcName": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 444,
+        "length": 43,
+        "text": "var result = func.apply(thisArg, arguments)",
+        "frameDescription": "AssertTypeOf"
+      },
+      {
+        "start": 4631,
+        "length": 45,
+        "text": "AssertTypeOf(platform.Number, [5], Number(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 736,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "AssertTypeOf"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1",
+        "MAX_VALUE": "<large string>",
+        "MIN_VALUE": "5e-324",
+        "NaN": "NaN",
+        "NEGATIVE_INFINITY": "-Infinity",
+        "POSITIVE_INFINITY": "Infinity",
+        "prototype": "0"
+      },
+      "arguments": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "expected": "5",
+      "thisArg": "undefined",
+      "result": "5",
+      "funcName": "Number",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 736,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "AssertTypeOf"
+      },
+      {
+        "start": 4631,
+        "length": 45,
+        "text": "AssertTypeOf(platform.Number, [5], Number(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 444,
+        "length": 43,
+        "text": "var result = func.apply(thisArg, arguments)",
+        "frameDescription": "AssertTypeOf"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "7",
+        "prototype": "Invalid Date"
+      },
+      "arguments": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "expected": "<large string>",
+      "thisArg": "undefined",
+      "result": "undefined",
+      "funcName": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 444,
+        "length": 43,
+        "text": "var result = func.apply(thisArg, arguments)",
+        "frameDescription": "AssertTypeOf"
+      },
+      {
+        "start": 4679,
+        "length": 41,
+        "text": "AssertTypeOf(platform.Date, [5], Date(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 736,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "AssertTypeOf"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "7",
+        "prototype": "Invalid Date"
+      },
+      "arguments": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "expected": "<large string>",
+      "thisArg": "undefined",
+      "result": "<large string>",
+      "funcName": "Date",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 736,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "AssertTypeOf"
+      },
+      {
+        "start": 4679,
+        "length": 41,
+        "text": "AssertTypeOf(platform.Date, [5], Date(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 444,
+        "length": 43,
+        "text": "var result = func.apply(thisArg, arguments)",
+        "frameDescription": "AssertTypeOf"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "2",
+        "prototype": ""
+      },
+      "arguments": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "expected": {
+        "__proto__": ""
+      },
+      "thisArg": "undefined",
+      "result": "undefined",
+      "funcName": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 444,
+        "length": 43,
+        "text": "var result = func.apply(thisArg, arguments)",
+        "frameDescription": "AssertTypeOf"
+      },
+      {
+        "start": 4723,
+        "length": 45,
+        "text": "AssertTypeOf(platform.RegExp, [5], RegExp(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 736,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "AssertTypeOf"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "2",
+        "prototype": ""
+      },
+      "arguments": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "expected": {
+        "__proto__": ""
+      },
+      "thisArg": "undefined",
+      "result": {
+        "__proto__": ""
+      },
+      "funcName": "RegExp",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 736,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "AssertTypeOf"
+      },
+      {
+        "start": 4723,
+        "length": 45,
+        "text": "AssertTypeOf(platform.RegExp, [5], RegExp(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 4771,
+        "length": 45,
+        "text": "AssertTypeOf(platform.Object, [5], Object(5))",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "__proto__": "{...}",
+        "other": "5"
+      },
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 4771,
+        "length": 45,
+        "text": "AssertTypeOf(platform.Object, [5], Object(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 444,
+        "length": 43,
+        "text": "var result = func.apply(thisArg, arguments)",
+        "frameDescription": "AssertTypeOf"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "1",
+        "prototype": "{...}"
+      },
+      "arguments": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "expected": {
+        "__proto__": "0"
+      },
+      "thisArg": "undefined",
+      "result": "undefined",
+      "funcName": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 444,
+        "length": 43,
+        "text": "var result = func.apply(thisArg, arguments)",
+        "frameDescription": "AssertTypeOf"
+      },
+      {
+        "start": 4771,
+        "length": 45,
+        "text": "AssertTypeOf(platform.Object, [5], Object(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 736,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "AssertTypeOf"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "length": "1",
+        "prototype": "{...}"
+      },
+      "arguments": {
+        "[0]": "5",
+        "__proto__": "[]"
+      },
+      "expected": {
+        "__proto__": "0"
+      },
+      "thisArg": "undefined",
+      "result": {
+        "__proto__": "0"
+      },
+      "funcName": "Object",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "undefined",
+        "newFunc": "undefined",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 736,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "AssertTypeOf"
+      },
+      {
+        "start": 4771,
+        "length": 45,
+        "text": "AssertTypeOf(platform.Object, [5], Object(5))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 4954,
+        "length": 63,
+        "text": "if ((typeof new platform.Number(5)) !== (typeof new Number(5)))",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "__proto__": "{...}",
+        "other": "5"
+      },
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 4954,
+        "length": 63,
+        "text": "if ((typeof new platform.Number(5)) !== (typeof new Number(5)))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 5204,
+        "length": 63,
+        "text": "if ((typeof new platform.RegExp(5)) !== (typeof new RegExp(5)))",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "__proto__": "{...}",
+        "other": "5"
+      },
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 5204,
+        "length": 63,
+        "text": "if ((typeof new platform.RegExp(5)) !== (typeof new RegExp(5)))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 5461,
+        "length": 63,
+        "text": "if ((typeof new platform.String(5)) !== (typeof new String(5)))",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "__proto__": "{...}",
+        "other": "5"
+      },
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 5461,
+        "length": 63,
+        "text": "if ((typeof new platform.String(5)) !== (typeof new String(5)))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 5636,
+        "length": 45,
+        "text": "Assert(platform.builtInMathFloor, [5.5], \"5\")",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "__proto__": "{...}",
+        "other": "5"
+      },
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 5636,
+        "length": 45,
+        "text": "Assert(platform.builtInMathFloor, [5.5], \"5\")",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 5882,
+        "length": 26,
+        "text": "if (someObject.test !== 5)",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "__proto__": "{...}",
+        "other": "5",
+        "test": "5"
+      },
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 5882,
+        "length": 26,
+        "text": "if (someObject.test !== 5)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 6099,
+        "length": 69,
+        "text": "Assert(platform.builtInJavascriptObjectEntryIsExtensible, [{}], true)",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "undefined",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "other": "5",
+        "test": "5"
+      },
+      "pass": "undefined",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 6099,
+        "length": 69,
+        "text": "Assert(platform.builtInJavascriptObjectEntryIsExtensible, [{}], true)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 6484,
+        "length": 15,
+        "text": "if (pass !== 1)",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "other": "5",
+        "test": "5"
+      },
+      "pass": "1",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 6484,
+        "length": 15,
+        "text": "if (pass !== 1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 6559,
+        "length": 70,
+        "text": "Assert(platform.builtInJavascriptArrayEntryIndexOf, [1], 2, [3, 4, 1])",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "other": "5",
+        "test": "5"
+      },
+      "pass": "1",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 6559,
+        "length": 70,
+        "text": "Assert(platform.builtInJavascriptArrayEntryIndexOf, [1], 2, [3, 4, 1])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 6697,
+        "length": 70,
+        "text": "Assert(platform.builtInJavascriptArrayEntryJoin, [\".\"], \"1.1\", [1, 1])",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "newFunc": "undefined",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "other": "5",
+        "test": "5"
+      },
+      "pass": "1",
+      "newFunc": "undefined",
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 6697,
+        "length": 70,
+        "text": "Assert(platform.builtInJavascriptArrayEntryJoin, [\".\"], \"1.1\", [1, 1])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 6989,
+        "length": 79,
+        "text": "Assert(platform.builtInJavascriptDateEntryGetDate, [], 1, new Date(2000, 1, 1))",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "other": "5",
+        "test": "5"
+      },
+      "pass": "1",
+      "newFunc": {
+        "__proto__": "<large string>",
+        "arguments": "<large string>",
+        "caller": "<large string>"
+      },
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 6989,
+        "length": 79,
+        "text": "Assert(platform.builtInJavascriptDateEntryGetDate, [], 1, new Date(2000, 1, 1))",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 7299,
+        "length": 72,
+        "text": "Assert(platform.builtInJavascriptStringEntryToUpperCase, [], \"AB\", \"aB\")",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "other": "5",
+        "test": "5"
+      },
+      "pass": "1",
+      "newFunc": {
+        "__proto__": "<large string>",
+        "arguments": "<large string>",
+        "caller": "<large string>"
+      },
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 7299,
+        "length": 72,
+        "text": "Assert(platform.builtInJavascriptStringEntryToUpperCase, [], \"AB\", \"aB\")",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 7506,
+        "length": 58,
+        "text": "AssertError(platform.raiseNeedObject, [], new TypeError())",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "other": "5",
+        "test": "5"
+      },
+      "pass": "1",
+      "newFunc": {
+        "__proto__": "<large string>",
+        "arguments": "<large string>",
+        "caller": "<large string>"
+      },
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 7506,
+        "length": 58,
+        "text": "AssertError(platform.raiseNeedObject, [], new TypeError())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 880,
+        "length": 30,
+        "text": "func.apply(thisArg, arguments)",
+        "frameDescription": "AssertError"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1"
+      },
+      "arguments": {
+        "__proto__": "[]"
+      },
+      "expectedType": {
+        "__proto__": ""
+      },
+      "funcName": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 880,
+        "length": 30,
+        "text": "func.apply(thisArg, arguments)",
+        "frameDescription": "AssertError"
+      },
+      {
+        "start": 7506,
+        "length": 58,
+        "text": "AssertError(platform.raiseNeedObject, [], new TypeError())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 880,
+        "length": 30,
+        "text": "func.apply(thisArg, arguments)",
+        "frameDescription": "AssertError"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1"
+      },
+      "arguments": {
+        "[0]": "",
+        "[1]": "",
+        "__proto__": "[]"
+      },
+      "expectedType": {
+        "__proto__": ""
+      },
+      "funcName": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 880,
+        "length": 30,
+        "text": "func.apply(thisArg, arguments)",
+        "frameDescription": "AssertError"
+      },
+      {
+        "start": 7567,
+        "length": 80,
+        "text": "AssertError(platform.raiseObjectIsAlreadyInitialized, [\"\", \"\"], new TypeError())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 880,
+        "length": 30,
+        "text": "func.apply(thisArg, arguments)",
+        "frameDescription": "AssertError"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1"
+      },
+      "arguments": {
+        "[0]": "",
+        "[1]": "",
+        "[2]": "",
+        "__proto__": "[]"
+      },
+      "expectedType": {
+        "__proto__": ""
+      },
+      "funcName": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 880,
+        "length": 30,
+        "text": "func.apply(thisArg, arguments)",
+        "frameDescription": "AssertError"
+      },
+      {
+        "start": 7650,
+        "length": 80,
+        "text": "AssertError(platform.raiseOptionValueOutOfRange, [\"\", \"\", \"\"], new RangeError())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 880,
+        "length": 30,
+        "text": "func.apply(thisArg, arguments)",
+        "frameDescription": "AssertError"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1"
+      },
+      "arguments": {
+        "[0]": "",
+        "__proto__": "[]"
+      },
+      "expectedType": {
+        "__proto__": ""
+      },
+      "funcName": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 880,
+        "length": 30,
+        "text": "func.apply(thisArg, arguments)",
+        "frameDescription": "AssertError"
+      },
+      {
+        "start": 7733,
+        "length": 68,
+        "text": "AssertError(platform.raiseNeedObjectOrString, [\"\"], new TypeError())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 880,
+        "length": 30,
+        "text": "func.apply(thisArg, arguments)",
+        "frameDescription": "AssertError"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1"
+      },
+      "arguments": {
+        "[0]": "",
+        "__proto__": "[]"
+      },
+      "expectedType": {
+        "__proto__": ""
+      },
+      "funcName": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 880,
+        "length": 30,
+        "text": "func.apply(thisArg, arguments)",
+        "frameDescription": "AssertError"
+      },
+      {
+        "start": 7804,
+        "length": 70,
+        "text": "AssertError(platform.raiseLocaleNotWellFormed, [\"\"], new RangeError())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 1047,
+        "length": 9,
+        "text": "catch (e)",
+        "frameDescription": "AssertError"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "e": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1"
+      },
+      "arguments": {
+        "[0]": "",
+        "__proto__": "[]"
+      },
+      "expectedType": {
+        "__proto__": ""
+      },
+      "funcName": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1047,
+        "length": 9,
+        "text": "catch (e)",
+        "frameDescription": "AssertError"
+      },
+      {
+        "start": 7804,
+        "length": 70,
+        "text": "AssertError(platform.raiseLocaleNotWellFormed, [\"\"], new RangeError())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 7877,
+        "length": 70,
+        "text": "AssertError(platform.raiseThis_NullOrUndefined, [\"\"], new TypeError())",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "other": "5",
+        "test": "5"
+      },
+      "pass": "1",
+      "newFunc": {
+        "__proto__": "<large string>",
+        "arguments": "<large string>",
+        "caller": "<large string>"
+      },
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 7877,
+        "length": 70,
+        "text": "AssertError(platform.raiseThis_NullOrUndefined, [\"\"], new TypeError())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 880,
+        "length": 30,
+        "text": "func.apply(thisArg, arguments)",
+        "frameDescription": "AssertError"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "func": {
+        "__proto__": "<large string>",
+        "length": "1"
+      },
+      "arguments": {
+        "[0]": "",
+        "__proto__": "[]"
+      },
+      "expectedType": {
+        "__proto__": ""
+      },
+      "funcName": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "undefined"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 880,
+        "length": 30,
+        "text": "func.apply(thisArg, arguments)",
+        "frameDescription": "AssertError"
+      },
+      {
+        "start": 7877,
+        "length": 70,
+        "text": "AssertError(platform.raiseThis_NullOrUndefined, [\"\"], new TypeError())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 8238,
+        "length": 67,
+        "text": "AssertError(platform.raiseMissingCurrencyCode, [], new TypeError())",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "other": "5",
+        "test": "5"
+      },
+      "pass": "1",
+      "newFunc": {
+        "__proto__": "<large string>",
+        "arguments": "<large string>",
+        "caller": "<large string>"
+      },
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 8238,
+        "length": 67,
+        "text": "AssertError(platform.raiseMissingCurrencyCode, [], new TypeError())",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 8388,
+        "length": 1093,
+        "text": "var localesList = [\n    { defaultLocale: \"de-DE_phoneb\", parsedLocale: \"de-DE\", collation: \"phonebk\" },\n    { defaultLocale: \"es-ES_tradnl\", parsedLocale: \"es-ES\", collation: \"trad\" },\n    { defaultLocale: \"lv-LV_tradnl\", parsedLocale: \"lv\", collation: \"trad\" },\n    { defaultLocale: \"ja-JP_radstr\", parsedLocale: \"ja\", collation: \"unihan\" },\n// These locales behave different on win7\n//    { defaultLocale: \"zh-TW_pronun\", parsedLocale: \"zh-Hant-TW\", collation: \"phonetic\" },\n//    { defaultLocale: \"zh-TW_radstr\", parsedLocale: \"zh-Hant-TW\", collation: \"unihan\" },\n    { defaultLocale: \"zh-HK_radstr\", parsedLocale: \"zh-Hant-HK\", collation: \"unihan\" },\n    { defaultLocale: \"zh-MO_radstr\", parsedLocale: \"zh-Hant-MO\", collation: \"unihan\" },\n    { defaultLocale: \"zh-CN_stroke\", parsedLocale: \"zh-Hans-CN\", collation: \"stroke\" },\n    { defaultLocale: \"zh-SG_stroke\", parsedLocale: \"zh-Hans-SG\", collation: \"stroke\" },\n    { defaultLocale: \"hu-HU_technl\", parsedLocale: \"hu\", collation: \"default\" },\n    { defaultLocale: \"ka-GE_modern\", parsedLocale: \"ka\", collation: \"default\" }]",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "undefined",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "Assert": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertTypeOf": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "AssertError": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "platform": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "currencyFormatterStateObject": {
+        "__proto__": "{...}",
+        "__currency": "USD",
+        "__formatterToUse": "2",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "numberFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "0",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "percentFormatterStateObject": {
+        "__proto__": "{...}",
+        "__formatterToUse": "1",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn"
+      },
+      "dateTimeFormatterStateObject": {
+        "__proto__": "{...}",
+        "__locale": "en-US",
+        "__numberingSystem": "Latn",
+        "__patternStrings": "<large string>",
+        "__templateString": "hour minute",
+        "__windowsCalendar": "<large string>",
+        "__windowsClock": "24HourClock"
+      },
+      "hiddenObject": {
+        "__proto__": "{...}",
+        "val": "5"
+      },
+      "someObject": {
+        "other": "5",
+        "test": "5"
+      },
+      "pass": "1",
+      "newFunc": {
+        "__proto__": "<large string>",
+        "arguments": "<large string>",
+        "caller": "<large string>"
+      },
+      "localesList": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 8388,
+        "length": 1093,
+        "text": "var localesList = [\n    { defaultLocale: \"de-DE_phoneb\", parsedLocale: \"de-DE\", collation: \"phonebk\" },\n    { defaultLocale: \"es-ES_tradnl\", parsedLocale: \"es-ES\", collation: \"trad\" },\n    { defaultLocale: \"lv-LV_tradnl\", parsedLocale: \"lv\", collation: \"trad\" },\n    { defaultLocale: \"ja-JP_radstr\", parsedLocale: \"ja\", collation: \"unihan\" },\n// These locales behave different on win7\n//    { defaultLocale: \"zh-TW_pronun\", parsedLocale: \"zh-Hant-TW\", collation: \"phonetic\" },\n//    { defaultLocale: \"zh-TW_radstr\", parsedLocale: \"zh-Hant-TW\", collation: \"unihan\" },\n    { defaultLocale: \"zh-HK_radstr\", parsedLocale: \"zh-Hant-HK\", collation: \"unihan\" },\n    { defaultLocale: \"zh-MO_radstr\", parsedLocale: \"zh-Hant-MO\", collation: \"unihan\" },\n    { defaultLocale: \"zh-CN_stroke\", parsedLocale: \"zh-Hans-CN\", collation: \"stroke\" },\n    { defaultLocale: \"zh-SG_stroke\", parsedLocale: \"zh-Hans-SG\", collation: \"stroke\" },\n    { defaultLocale: \"hu-HU_technl\", parsedLocale: \"hu\", collation: \"default\" },\n    { defaultLocale: \"ka-GE_modern\", parsedLocale: \"ka\", collation: \"default\" }]",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 9535,
+        "length": 76,
+        "text": "platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "[...]",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "0",
+        "[2]": "[...]",
+        "length": "3"
+      },
+      "resolvedOptions": "undefined",
+      "localeInfo": {
+        "__proto__": "{...}",
+        "collation": "phonebk",
+        "defaultLocale": "de-DE_phoneb",
+        "parsedLocale": "de-DE"
+      },
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 9535,
+        "length": 76,
+        "text": "platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 9486,
+        "length": 461,
+        "text": "localesList.forEach(function (localeInfo) {\n    platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }\n    var resolvedOptions = new Intl.Collator().resolvedOptions();\n    if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {\n        WScript.Echo(\"Failed to parse default locale of '\" + JSON.stringify(localeInfo) + \"'. Options: \" + JSON.stringify(resolvedOptions));\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 9945,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "[...]",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "0",
+        "[2]": "[...]",
+        "length": "3"
+      },
+      "resolvedOptions": {
+        "__proto__": "{...}",
+        "caseFirst": "lower",
+        "collation": "phonebk",
+        "ignorePunctuation": "false",
+        "locale": "de-DE",
+        "numeric": "false",
+        "sensitivity": "variant",
+        "usage": "sort"
+      },
+      "localeInfo": {
+        "__proto__": "{...}",
+        "collation": "phonebk",
+        "defaultLocale": "de-DE_phoneb",
+        "parsedLocale": "de-DE"
+      },
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 9945,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 9486,
+        "length": 461,
+        "text": "localesList.forEach(function (localeInfo) {\n    platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }\n    var resolvedOptions = new Intl.Collator().resolvedOptions();\n    if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {\n        WScript.Echo(\"Failed to parse default locale of '\" + JSON.stringify(localeInfo) + \"'. Options: \" + JSON.stringify(resolvedOptions));\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 9535,
+        "length": 76,
+        "text": "platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "[...]",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "1",
+        "[2]": "[...]",
+        "length": "3"
+      },
+      "resolvedOptions": "undefined",
+      "localeInfo": {
+        "__proto__": "{...}",
+        "collation": "trad",
+        "defaultLocale": "es-ES_tradnl",
+        "parsedLocale": "es-ES"
+      },
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 9535,
+        "length": 76,
+        "text": "platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 9486,
+        "length": 461,
+        "text": "localesList.forEach(function (localeInfo) {\n    platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }\n    var resolvedOptions = new Intl.Collator().resolvedOptions();\n    if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {\n        WScript.Echo(\"Failed to parse default locale of '\" + JSON.stringify(localeInfo) + \"'. Options: \" + JSON.stringify(resolvedOptions));\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 9945,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "[...]",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "1",
+        "[2]": "[...]",
+        "length": "3"
+      },
+      "resolvedOptions": {
+        "__proto__": "{...}",
+        "caseFirst": "lower",
+        "collation": "trad",
+        "ignorePunctuation": "false",
+        "locale": "es-ES",
+        "numeric": "false",
+        "sensitivity": "variant",
+        "usage": "sort"
+      },
+      "localeInfo": {
+        "__proto__": "{...}",
+        "collation": "trad",
+        "defaultLocale": "es-ES_tradnl",
+        "parsedLocale": "es-ES"
+      },
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 9945,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 9486,
+        "length": 461,
+        "text": "localesList.forEach(function (localeInfo) {\n    platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }\n    var resolvedOptions = new Intl.Collator().resolvedOptions();\n    if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {\n        WScript.Echo(\"Failed to parse default locale of '\" + JSON.stringify(localeInfo) + \"'. Options: \" + JSON.stringify(resolvedOptions));\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 9535,
+        "length": 76,
+        "text": "platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "[...]",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "2",
+        "[2]": "[...]",
+        "length": "3"
+      },
+      "resolvedOptions": "undefined",
+      "localeInfo": {
+        "__proto__": "{...}",
+        "collation": "trad",
+        "defaultLocale": "lv-LV_tradnl",
+        "parsedLocale": "lv"
+      },
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 9535,
+        "length": 76,
+        "text": "platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 9486,
+        "length": 461,
+        "text": "localesList.forEach(function (localeInfo) {\n    platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }\n    var resolvedOptions = new Intl.Collator().resolvedOptions();\n    if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {\n        WScript.Echo(\"Failed to parse default locale of '\" + JSON.stringify(localeInfo) + \"'. Options: \" + JSON.stringify(resolvedOptions));\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 9617,
+        "length": 59,
+        "text": "var resolvedOptions = new Intl.Collator().resolvedOptions()",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "[...]",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "2",
+        "[2]": "[...]",
+        "length": "3"
+      },
+      "resolvedOptions": "undefined",
+      "localeInfo": {
+        "__proto__": "{...}",
+        "collation": "trad",
+        "defaultLocale": "lv-LV_tradnl",
+        "parsedLocale": "lv"
+      },
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 9617,
+        "length": 59,
+        "text": "var resolvedOptions = new Intl.Collator().resolvedOptions()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 9486,
+        "length": 461,
+        "text": "localesList.forEach(function (localeInfo) {\n    platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }\n    var resolvedOptions = new Intl.Collator().resolvedOptions();\n    if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {\n        WScript.Echo(\"Failed to parse default locale of '\" + JSON.stringify(localeInfo) + \"'. Options: \" + JSON.stringify(resolvedOptions));\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 9945,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "[...]",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "2",
+        "[2]": "[...]",
+        "length": "3"
+      },
+      "resolvedOptions": {
+        "__proto__": "{...}",
+        "caseFirst": "lower",
+        "collation": "trad",
+        "ignorePunctuation": "false",
+        "locale": "lv",
+        "numeric": "false",
+        "sensitivity": "variant",
+        "usage": "sort"
+      },
+      "localeInfo": {
+        "__proto__": "{...}",
+        "collation": "trad",
+        "defaultLocale": "lv-LV_tradnl",
+        "parsedLocale": "lv"
+      },
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 9945,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 9486,
+        "length": 461,
+        "text": "localesList.forEach(function (localeInfo) {\n    platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }\n    var resolvedOptions = new Intl.Collator().resolvedOptions();\n    if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {\n        WScript.Echo(\"Failed to parse default locale of '\" + JSON.stringify(localeInfo) + \"'. Options: \" + JSON.stringify(resolvedOptions));\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 9535,
+        "length": 76,
+        "text": "platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "[...]",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "3",
+        "[2]": "[...]",
+        "length": "3"
+      },
+      "resolvedOptions": "undefined",
+      "localeInfo": {
+        "__proto__": "{...}",
+        "collation": "unihan",
+        "defaultLocale": "ja-JP_radstr",
+        "parsedLocale": "ja"
+      },
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 9535,
+        "length": 76,
+        "text": "platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 9486,
+        "length": 461,
+        "text": "localesList.forEach(function (localeInfo) {\n    platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }\n    var resolvedOptions = new Intl.Collator().resolvedOptions();\n    if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {\n        WScript.Echo(\"Failed to parse default locale of '\" + JSON.stringify(localeInfo) + \"'. Options: \" + JSON.stringify(resolvedOptions));\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 9945,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "[...]",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "3",
+        "[2]": "[...]",
+        "length": "3"
+      },
+      "resolvedOptions": {
+        "__proto__": "{...}",
+        "caseFirst": "lower",
+        "collation": "unihan",
+        "ignorePunctuation": "false",
+        "locale": "ja",
+        "numeric": "false",
+        "sensitivity": "variant",
+        "usage": "sort"
+      },
+      "localeInfo": {
+        "__proto__": "{...}",
+        "collation": "unihan",
+        "defaultLocale": "ja-JP_radstr",
+        "parsedLocale": "ja"
+      },
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 9945,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 9486,
+        "length": 461,
+        "text": "localesList.forEach(function (localeInfo) {\n    platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }\n    var resolvedOptions = new Intl.Collator().resolvedOptions();\n    if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {\n        WScript.Echo(\"Failed to parse default locale of '\" + JSON.stringify(localeInfo) + \"'. Options: \" + JSON.stringify(resolvedOptions));\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 9535,
+        "length": 76,
+        "text": "platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "[...]",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "4",
+        "[2]": "[...]",
+        "length": "3"
+      },
+      "resolvedOptions": "undefined",
+      "localeInfo": {
+        "__proto__": "{...}",
+        "collation": "unihan",
+        "defaultLocale": "zh-HK_radstr",
+        "parsedLocale": "zh-Hant-HK"
+      },
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 9535,
+        "length": 76,
+        "text": "platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 9486,
+        "length": 461,
+        "text": "localesList.forEach(function (localeInfo) {\n    platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }\n    var resolvedOptions = new Intl.Collator().resolvedOptions();\n    if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {\n        WScript.Echo(\"Failed to parse default locale of '\" + JSON.stringify(localeInfo) + \"'. Options: \" + JSON.stringify(resolvedOptions));\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 9945,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "[...]",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "4",
+        "[2]": "[...]",
+        "length": "3"
+      },
+      "resolvedOptions": {
+        "__proto__": "{...}",
+        "caseFirst": "lower",
+        "collation": "unihan",
+        "ignorePunctuation": "false",
+        "locale": "zh-Hant-HK",
+        "numeric": "false",
+        "sensitivity": "variant",
+        "usage": "sort"
+      },
+      "localeInfo": {
+        "__proto__": "{...}",
+        "collation": "unihan",
+        "defaultLocale": "zh-HK_radstr",
+        "parsedLocale": "zh-Hant-HK"
+      },
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 9945,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 9486,
+        "length": 461,
+        "text": "localesList.forEach(function (localeInfo) {\n    platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }\n    var resolvedOptions = new Intl.Collator().resolvedOptions();\n    if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {\n        WScript.Echo(\"Failed to parse default locale of '\" + JSON.stringify(localeInfo) + \"'. Options: \" + JSON.stringify(resolvedOptions));\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 9535,
+        "length": 76,
+        "text": "platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "[...]",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "5",
+        "[2]": "[...]",
+        "length": "3"
+      },
+      "resolvedOptions": "undefined",
+      "localeInfo": {
+        "__proto__": "{...}",
+        "collation": "unihan",
+        "defaultLocale": "zh-MO_radstr",
+        "parsedLocale": "zh-Hant-MO"
+      },
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 9535,
+        "length": 76,
+        "text": "platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 9486,
+        "length": 461,
+        "text": "localesList.forEach(function (localeInfo) {\n    platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }\n    var resolvedOptions = new Intl.Collator().resolvedOptions();\n    if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {\n        WScript.Echo(\"Failed to parse default locale of '\" + JSON.stringify(localeInfo) + \"'. Options: \" + JSON.stringify(resolvedOptions));\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 9945,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "Debug": "{...}",
+        "hiddenObject": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "localesList": "[...]",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "numberFormatterStateObject": "{...}",
+        "pass": "1",
+        "percentFormatterStateObject": "{...}",
+        "platform": "{...}",
+        "SCA": "{...}",
+        "someObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "{...}",
+        "[1]": "5",
+        "[2]": "[...]",
+        "length": "3"
+      },
+      "resolvedOptions": {
+        "__proto__": "{...}",
+        "caseFirst": "lower",
+        "collation": "unihan",
+        "ignorePunctuation": "false",
+        "locale": "zh-Hant-MO",
+        "numeric": "false",
+        "sensitivity": "variant",
+        "usage": "sort"
+      },
+      "localeInfo": {
+        "__proto__": "{...}",
+        "collation": "unihan",
+        "defaultLocale": "zh-MO_radstr",
+        "parsedLocale": "zh-Hant-MO"
+      },
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "Assert": "<large string>",
+        "AssertTypeOf": "<large string>",
+        "AssertError": "<large string>",
+        "platform": "{...}",
+        "currencyFormatterStateObject": "{...}",
+        "numberFormatterStateObject": "{...}",
+        "percentFormatterStateObject": "{...}",
+        "dateTimeFormatterStateObject": "{...}",
+        "hiddenObject": "{...}",
+        "someObject": "{...}",
+        "pass": "1",
+        "newFunc": "<large string>",
+        "localesList": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 9945,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 9486,
+        "length": 461,
+        "text": "localesList.forEach(function (localeInfo) {\n    platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }\n    var resolvedOptions = new Intl.Collator().resolvedOptions();\n    if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {\n        WScript.Echo(\"Failed to parse default locale of '\" + JSON.stringify(localeInfo) + \"'. Options: \" + JSON.stringify(resolvedOptions));\n    }\n})",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

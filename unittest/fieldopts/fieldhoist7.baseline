@@ -1,0 +1,3 @@
+ReferenceError: 'obj3' is undefined
+	at Anonymous function() (fieldhoist7.js:2:27)
+	at Global code (fieldhoist7.js:1:2)

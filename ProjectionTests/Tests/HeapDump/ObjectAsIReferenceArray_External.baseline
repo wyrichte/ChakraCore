@@ -1,0 +1,27 @@
+
+
+===========>Starting Heap Dump for new objects only<===============
+
+ type: Windows.Foundation.IReferenceArray`1<Animals.DelegateWithOutParam_HSTRING> flags: (new_state_unavailable root WinRT_Instance external_unknown size_unavailable) optional info records (1)
+ |  [Array elements] count: 2
+ |  | 0:*** Error: Object missing from snapshot ***
+ |  | 1:*** Error: Object missing from snapshot ***
+
+ type: Animals.PropertyValueTests flags: (new_state_unavailable WinRT_Instance external_unknown size_unavailable) optional info records (1)
+ |  [Events] count: 0
+
+ type: Animals.PropertyValueTests flags: (new_state_unavailable WinRT_RuntimeClass external_unknown size_unavailable) optional info records (1)
+ |  [Events] count: 0
+
+==========>End Heap Dump<===============
+
+
+Pass: myDelegateArray.length
+      Actual: 2
+
+Pass: myDelegateArray[0].toString()
+      Actual: function DelegateWithOutParam_HSTRING() { [native code] }
+
+Pass: myDelegateArray[1].toString()
+      Actual: function DelegateWithOutParam_HSTRING() { [native code] }
+

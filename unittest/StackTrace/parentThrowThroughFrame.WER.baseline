@@ -1,0 +1,7 @@
+
+Stack trace for thrown exception
+      0: remotebar (6, 4)
+      1: remotefoo (11, 4)
+      2: localbar (6, 4)
+      3: localfoo (11, 4)
+      4: onload (15, 0)

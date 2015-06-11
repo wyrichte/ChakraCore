@@ -1,0 +1,89 @@
+<package>
+<job id="runJS">
+<script language="JScript" src="scriptLib\log.js"></script>
+<script language="JScript" src="scriptLib\fso.js"></script>
+<script language="JScript" src="scriptLib\proc.js"></script>
+<script language="JScript" src="scriptLib\util.js"></script>
+<script language="JScript" src="scriptLib\run.js"></script>
+<script language="JScript" src="scriptLib\runRemote.js"></script>
+<script language="JScript" src="scriptLib\xml.js"></script>
+<script language="JScript" src="scriptLib\dump.js"></script>
+<script language="JScript" src="scriptLib\task.js"></script>
+<script language="JScript" src="scriptLib\doRun.js"></script>
+<script language="JScript" src="scriptLib\setupBuild.js"></script>
+<script language="JScript" src="scriptLib\ezeAutomation.js"></script>
+<script language="JScript" src="scriptLib\clrAutomation.js"></script>
+<script language="JScript" src="scriptLib\snapsniff.js"></script>
+<script language="JScript" src="scriptLib\optimizeNDP.js"></script>
+<script language="JScript" src="scriptLib\runJScript.js"></script>
+<script language="JScript" src="scriptLib\email.js"></script>
+<script language="JScript" src="scriptLib\tfs.js"></script>
+<script language="JScript" src="scriptLib\targetedPatching.js"></script>
+<script language="JScript" src="scriptLib\ezeTask.js"></script>
+<script language="JScript" src="scriptLib\clrProcess.js"></script>
+<script language="JScript" src="scriptLib\productStudio.js"></script>
+<script language="JScript" src="scriptLib\sourceDepot.js"></script>
+<script language="JScript" src="scriptLib\symbols.js"></script>
+<script language="JScript" src="scriptLib\integrate.js"></script>
+<script language="JScript" src="scriptLib\testSummary.js"></script>
+<script language="JScript" src="scriptLib\queue.js"></script>
+<script language="JScript" src="scriptLib\checkin.js"></script>
+<script language="JScript" src="scriptLib\internetExplorer.js"></script>
+<script language="JScript" src="scriptLib\coreclr.js"></script>
+<script language="JScript" src="scriptLib\shortcuts.js"></script>
+<script language="JScript" src="scriptLib\prefastPlugins.js"></script>
+<script language="JScript" src="scriptLib\privateStress.js"></script>
+<script language="JScript" src="scriptLib\owner.js"></script>
+<script language="JScript" src="scriptLib\sl_deployment.js"></script>
+<script language="JScript" src="scriptLib\snapSubmission.js"></script>
+<script language="JScript">
+
+        // Runjs is really defined in scriptLib\runJScript.js
+        // runJS routine is passed the list of source files that
+        // it should look at on a runjs /?
+
+var retValue = -1; // error unless proven otherwise
+try
+{
+	retValue = runJS([
+        "scriptLib\\integrate.js",
+        "scriptLib\\dump.js",
+        "scriptLib\\sourceDepot.js",
+        "scriptLib\\symbols.js",
+        "scriptLib\\productStudio.js",
+        "scriptLib\\tfs.js",
+        "scriptLib\\email.js",
+        "scriptLib\\ezeAutomation.js",
+        "scriptLib\\snapsniff.js",
+        "scriptLib\\optimizeNDP.js",
+        "scriptLib\\ezeTask.js",
+        "scriptLib\\proc.js",
+        "scriptLib\\testSummary.js",
+        "scriptLib\\clrProcess.js",
+        "scriptLib\\checkin.js",
+        "scriptLib\\targetedPatching.js",
+        "scriptLib\\doRun.js",
+        "scriptLib\\retailLab.js",
+        "scriptLib\\shortcuts.js",
+        "scriptLib\\coreclr.js",
+        "scriptLib\\prefastPlugins.js",
+        "scriptLib\\privateStress.js",
+        "scriptLib\\sl_deployment.js",
+        "scriptLib\\owner.js",
+        "scriptLib\\setupBuild.js",
+        "scriptLib\\snapSubmission.js",
+        ]);
+}
+catch(e)
+{
+	WScript.Echo("runjs.wsf: caught error: " + (e.message || e));
+}
+
+WScript.Echo("runjs.wsf: returning " + retValue);
+WScript.Quit(retValue);
+
+</script>
+</job>
+</package>
+
+

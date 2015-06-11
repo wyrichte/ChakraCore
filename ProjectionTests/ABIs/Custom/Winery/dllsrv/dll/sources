@@ -1,0 +1,9 @@
+!include ..\sources.inc
+TARGET_DESTINATION=Projection\WinRt:Projection\APPX
+
+DELAYLOAD=api-ms-win-core-winrt-errorprivate-l1-1-1.dll
+DLOAD_ERROR_HANDLER= kernel32
+
+TARGETLIBS=$(TARGETLIBS)\
+    $(SDK_LIB_PATH)\kernel32.lib \
+    

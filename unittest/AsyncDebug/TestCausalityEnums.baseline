@@ -1,0 +1,26 @@
+
+
+Running AsyncDebugging tests
+
+Test causality enum mapping to chakra...
+Verify enum (AsyncCausality_LogLevel_Required (0) == Windows::Foundation::Diagnostics::CausalityTraceLevel_Required (0))
+Verify enum (AsyncCausality_LogLevel_Important (1) == Windows::Foundation::Diagnostics::CausalityTraceLevel_Important (1))
+Verify enum (AsyncCausality_LogLevel_Verbose (2) == Windows::Foundation::Diagnostics::CausalityTraceLevel_Verbose (2))
+Verify enum (AsyncCausality_RelationType_AssignDelegate (0) == Windows::Foundation::Diagnostics::CausalityRelation_AssignDelegate (0))
+Verify enum (AsyncCausality_RelationType_Join (1) == Windows::Foundation::Diagnostics::CausalityRelation_Join (1))
+Verify enum (AsyncCausality_RelationType_ChooseAny (2) == Windows::Foundation::Diagnostics::CausalityRelation_Choice (2))
+Verify enum (AsyncCausality_RelationType_Cancel (3) == Windows::Foundation::Diagnostics::CausalityRelation_Cancel (3))
+Verify enum (AsyncCausality_RelationType_Error (4) == Windows::Foundation::Diagnostics::CausalityRelation_Error (4))
+Verify enum (AsyncCausality_CallbackType_Completion (0) == Windows::Foundation::Diagnostics::CausalitySynchronousWork_CompletionNotification (0))
+Verify enum (AsyncCausality_CallbackType_Progress (1) == Windows::Foundation::Diagnostics::CausalitySynchronousWork_ProgressNotification (1))
+Verify enum (AsyncCausality_CallbackType_Execution (2) == Windows::Foundation::Diagnostics::CausalitySynchronousWork_Execution (2))
+Verify enum (AsyncCausality_OperationStatus_Started (0) == Windows::Foundation::AsyncStatus::Started (0))
+Verify enum (AsyncCausality_OperationStatus_Completed (1) == Windows::Foundation::AsyncStatus::Completed (1))
+Verify enum (AsyncCausality_OperationStatus_Canceled (2) == Windows::Foundation::AsyncStatus::Canceled (2))
+Verify enum (AsyncCausality_OperationStatus_Error (3) == Windows::Foundation::AsyncStatus::Error (3))
+Done.
+Total Test Cases  1
+Passed:  1
+Failed   0
+
+

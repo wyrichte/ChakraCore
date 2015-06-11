@@ -1,0 +1,17 @@
+
+
+===========>Starting Heap Dump for specific object<===============
+
+ type: FunctionObject flags: (new) optional info records (4)
+ |  [Prototype] type: FunctionObject flags: (new) optional info records (2)
+ |  [Function name] foo
+ |  [Scopes] count: 1
+ |  | scope[0]: type: Window flags: (new) optional info records (4)
+ |  [Relationships] count: 3
+ |  | 0 sourceUrl: value: EventHandler.html
+ |  | 1 sourceRow: value: 8.000000
+ |  | 2 sourceCol: value: 21.000000
+
+==========>End Heap Dump<===============
+
+

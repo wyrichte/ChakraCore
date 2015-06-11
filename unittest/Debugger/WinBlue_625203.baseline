@@ -1,0 +1,3 @@
+ERROR: hr = (EvaluateExpressionAsDebugProperty(expression, flags, debugPropertyInfo)) Hr:0x80004005
+ERROR: hr = (pDebugger->EvaluateExpression(expression, expandLevel, flags, json)) Hr:0x80004005
+ERROR: JsEvaluateExpression_Internal

@@ -1,0 +1,87 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "10",
+      "[Scope]1": {
+        "b21": "undefined",
+        "b22": "undefined"
+      },
+      "[Scope]2": {
+        "j": "10"
+      },
+      "[Scope]3": {
+        "j0": "20",
+        "j01": "20"
+      },
+      "[Globals]": {
+        "f0": "<large string>",
+        "foo": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "a": "11"
+    }
+  },
+  {
+    "evaluate": {
+      "j": "10"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "12",
+      "[Scope]1": {
+        "b21": "undefined",
+        "b22": "undefined"
+      },
+      "[Scope]2": {
+        "j": "10"
+      },
+      "[Scope]3": {
+        "j0": "20",
+        "j01": "20"
+      },
+      "[Globals]": {
+        "f0": "<large string>",
+        "foo": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "constructor.name": "123"
+    }
+  },
+  {
+    "evaluate": {
+      "constructor": {
+        "__proto__": "{...}",
+        "name": "123"
+      }
+    }
+  }
+]

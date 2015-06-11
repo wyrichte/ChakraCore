@@ -1,0 +1,28 @@
+[
+  {
+    "evaluate": {
+      "arrBuffer": {
+        "__proto__": "{...}",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "byteLength": "5",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        }
+      },
+      "arrBuffer - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  }
+]

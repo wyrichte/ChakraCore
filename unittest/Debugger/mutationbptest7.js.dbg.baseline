@@ -1,0 +1,11 @@
+[
+  {
+    "log": "Cannot set mutation breakpoint setOnObject 0, type 7, ID MB1"
+  },
+  {
+    "log": "Cannot set mutation breakpoint setOnObject 0, type 7, ID MB2"
+  },
+  {
+    "log": "Cannot set mutation breakpoint setOnObject 0, type 7, ID MB4"
+  }
+]

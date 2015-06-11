@@ -1,0 +1,26 @@
+# Copyright (c) Microsoft Corporation. All rights reserved.
+TARGETNAME=Animals
+TARGETTYPE=DYNLINK
+TARGET_DESTINATION=Projection\ClassicCom
+
+C_DEFINES=-DUNICODE -D_UNICODE
+
+USE_MSVCRT=1
+
+MSC_WARNING_LEVEL=/W4
+
+# enable and specify a precompiled header.
+PRECOMPILED_CXX=1
+PRECOMPILED_INCLUDE=stdafx.h
+
+INCLUDES= \
+    $(COM_INC_PATH);\
+    $(OBJ_PATH)\..\idl\$(O); \
+
+SOURCES=\
+    Animals.cpp \
+    Animals.rc  \
+
+TARGETLIBS=\
+    $(SDK_LIB_PATH)\kernel32.lib   \
+    $(SDK_LIB_PATH)\ole32.lib \

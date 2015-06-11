@@ -1,0 +1,17 @@
+[
+  {
+    "evaluate": {
+      "f": "let f"
+    }
+  },
+  {
+    "evaluate": {
+      "f": "<large string>"
+    }
+  },
+  {
+    "evaluate": {
+      "f": "let f"
+    }
+  }
+]

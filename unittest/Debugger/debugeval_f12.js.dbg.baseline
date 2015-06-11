@@ -1,0 +1,7 @@
+[
+  {
+    "evaluate": {
+      "_debugEval(\"x + y + z\", false)": "6"
+    }
+  }
+]

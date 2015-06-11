@@ -1,0 +1,879 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="chk|Win32">
+      <Configuration>chk</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="chk|x64">
+      <Configuration>chk</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fretest|Win32">
+      <Configuration>fretest</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fretest|x64">
+      <Configuration>fretest</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fre|Win32">
+      <Configuration>fre</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fre|x64">
+      <Configuration>fre</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-chk|Win32">
+      <Configuration>jsls-chk</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-chk|x64">
+      <Configuration>jsls-chk</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-fre|Win32">
+      <Configuration>jsls-fre</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-fre|x64">
+      <Configuration>jsls-fre</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>Chakra</ProjectName>
+    <ProjectGuid>{EA882C8D-81FC-42FE-ABD5-2666DB933FDA}</ProjectGuid>
+    <RootNamespace>JScript</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fre|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <UseOfATL>static</UseOfATL>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <UseOfATL>static</UseOfATL>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <UseOfATL>static</UseOfATL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='chk|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfATL>static</UseOfATL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfATL>static</UseOfATL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fre|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <UseOfATL>static</UseOfATL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <UseOfATL>static</UseOfATL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <UseOfATL>static</UseOfATL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='chk|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfATL>static</UseOfATL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfATL>static</UseOfATL>
+  </PropertyGroup>
+  <Import Project="..\..\VcProjbuild.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fre|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='chk|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fre|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='chk|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='chk|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='chk|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='chk|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='chk|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='chk|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='fre|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='fre|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='fre|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='fre|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='fre|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" />
+    <IncludePath>$(IntDir)\..\publish;$(IncludePath);$(PUBLIC_ROOT)\internal\com\inc;$(PUBLIC_ROOT)\internal\com\inc\winrt;$(PUBLIC_ROOT)\internal\com\inc\midlrt;$(PUBLIC_ROOT)\sdk\inc</IncludePath>
+    <IncludePath Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'">$(IntDir)\..\manifests-inbox;$(IncludePath)</IncludePath>
+    <LibraryPath>$(PUBLIC_ROOT)\internal\inetcore\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\mincore\priv_sdk\lib\$(PlatformPathNameAlt);$(LibraryPath)</LibraryPath>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(ProjectName)test</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(ProjectName)lstest</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(ProjectName)test</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(ProjectName)lstest</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(ProjectName)test</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(ProjectName)test</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(ProjectName)lstest</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(ProjectName)test</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(ProjectName)lstest</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(ProjectName)test</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;..;..\..\Publish;..\..\Lib\Author;..\..\Lib\Common;..\..\Lib\Parser;..\..\Lib\Runtime;..\..\Lib\Backend;..\..\..\Lib\Inc;$(IntDir);$(IntDir)..\Common;$(IntDir)..\Publish;.\test;$(IntDir)..\AuthorInterface;$(IntDir)..\Manifests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__PLACEMENT_NEW_INLINE;WIN32;_CONSOLE;_USRDLL;JSCRIPT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <StringPooling>true</StringPooling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <CallingConvention>StdCall</CallingConvention>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+      <!--
+        4510: default constructor could not be generated
+        4610: can never be instantiated - user defined constructor required
+        -->
+      <DisableSpecificWarnings>%(DisableSpecificWarnings);4510;4610</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>muiload.lib;psapi.lib;version.lib;CommonUtilityLibrary.lib;ntdll.lib;bcrypt.lib;rpcrt4.lib;ieuuidp.lib;pathcchapis.lib;crypt32.lib;iertutilp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='chk'">
+    <ClCompile>
+      <PreprocessorDefinitions>_DEBUG;DBG=1;DBG_DUMP=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>true</MinimalRebuild>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(ProjectName)test.dll</OutputFile>
+      <ModuleDefinitionFile>jscript9test.def</ModuleDefinitionFile>
+      <AdditionalDependencies>dbghelp.lib;jitprofiling.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='jsls-chk'">
+    <ClCompile>
+      <PreprocessorDefinitions>LANGUAGE_SERVICE=1;_DEBUG;DBG=1;DBG_DUMP=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>true</MinimalRebuild>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(ProjectName)lstest.dll</OutputFile>
+      <ModuleDefinitionFile>jscript9ls.def</ModuleDefinitionFile>
+      <AdditionalDependencies>..\..\lib\author\CodeMarkers\CodeMarkers.lib;xmllite.lib;dbghelp.lib;jitprofiling.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='fretest'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(ProjectName)test.dll</OutputFile>
+      <ModuleDefinitionFile>jscript9test.def</ModuleDefinitionFile>
+      <AdditionalDependencies>jitprofiling.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='fre'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='jsls-fre'">
+    <ClCompile>
+      <PreprocessorDefinitions>LANGUAGE_SERVICE=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(ProjectName)lstest.dll</OutputFile>
+      <ModuleDefinitionFile>jscript9ls.def</ModuleDefinitionFile>
+      <AdditionalDependencies>..\..\lib\author\CodeMarkers\CodeMarkers.lib;xmllite.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes'">
+    <Link>
+      <OutputFile>$(OutDir)$(ProjectName)test.dll</OutputFile>
+      <ModuleDefinitionFile>jscript9test.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(OBJECT_ROOT)\inetcore\lib\codex\iel1\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);$(OBJECT_ROOT)\inetcore\lib\devtb\dtbhost\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);$(OBJECT_ROOT)\inetcore\lib\common\iel1\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ieshare_codex_iel1.lib;ieshare_iedevtools_host_iel1.lib;ieshare_common_iel1.lib;IESettingsId.lib;IESettingsApi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">
+    <PostBuildEvent>
+      <Command>echo F | $(SystemRoot)\system32\xcopy.exe /Y $(TargetPath) $(OutputPath)mshtmlhost.exe.local\chakra.dll </Command>
+    </PostBuildEvent>
+    <ClCompile>
+      <AdditionalOptions>-Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries);msvcrtcf.lib</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">
+    <PostBuildEvent>
+      <Command>echo F | $(SystemRoot)\system32\xcopy.exe /Y $(TargetPath) $(OutputPath)mshtmlhost.exe.local\chakra.dll </Command>
+    </PostBuildEvent>
+    <ClCompile>
+      <AdditionalOptions>-Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='chk|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <Link>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo F | $(SystemRoot)\system32\xcopy.exe /Y $(TargetPath) $(OutputPath)mshtmlhost.exe.local\chakra.dll </Command>
+    </PostBuildEvent>
+    <ClCompile>
+      <AdditionalOptions>-Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <Link>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo F | $(SystemRoot)\system32\xcopy.exe /Y $(TargetPath) $(OutputPath)mshtmlhost.exe.local\chakra.dll </Command>
+    </PostBuildEvent>
+    <ClCompile>
+      <AdditionalOptions>-Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo F | $(SystemRoot)\system32\xcopy.exe /Y $(TargetPath) $(OutputPath)mshtmlhost.exe.local\chakra.dll </Command>
+    </PostBuildEvent>
+    <ClCompile>
+      <AdditionalOptions>-Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo F | $(SystemRoot)\system32\xcopy.exe /Y $(TargetPath) $(OutputPath)mshtmlhost.exe.local\chakra.dll </Command>
+    </PostBuildEvent>
+    <ClCompile>
+      <AdditionalOptions>-Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo F | $(SystemRoot)\system32\xcopy.exe /Y $(TargetPath) $(OutputPath)mshtmlhost.exe.local\chakra.dll </Command>
+    </PostBuildEvent>
+    <ClCompile>
+      <AdditionalOptions>-Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fre|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <Link>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo F | $(SystemRoot)\system32\xcopy.exe /Y $(TargetPath) $(OutputPath)mshtmlhost.exe.local\chakra.dll </Command>
+    </PostBuildEvent>
+    <ClCompile>
+      <AdditionalOptions>-Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <Link>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo F | $(SystemRoot)\system32\xcopy.exe /Y $(TargetPath) $(OutputPath)mshtmlhost.exe.local\chakra.dll </Command>
+    </PostBuildEvent>
+    <ClCompile>
+      <AdditionalOptions>-Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <Link>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo F | $(SystemRoot)\system32\xcopy.exe /Y $(TargetPath) $(OutputPath)mshtmlhost.exe.local\chakra.dll </Command>
+    </PostBuildEvent>
+    <ClCompile>
+      <AdditionalOptions>-Zm150 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="abidelegates.cpp" />
+    <ClCompile Include="ABIEvents.cpp" />
+    <ClCompile Include="activescripterror.cpp" />
+    <ClCompile Include="ActiveScriptProfilerHeapEnum.cpp" />
+    <ClCompile Include="ArrayAsCollection.cpp" />
+    <ClCompile Include="ArrayAsIterable.cpp" />
+    <ClCompile Include="ArrayAsIterator.cpp" />
+    <ClCompile Include="ArrayAsVector.cpp" />
+    <ClCompile Include="ArrayProjection.cpp" />
+    <ClCompile Include="ArrayProjectionEnumerator.cpp" />
+    <ClCompile Include="breakpointProbe.cpp" />
+    <ClCompile Include="caller.cpp" />
+    <ClCompile Include="CJavascriptOperations.cpp" />
+    <ClCompile Include="classfac.cpp" />
+    <ClCompile Include="codectx.cpp" />
+    <ClCompile Include="customenumerator.cpp" />
+    <ClCompile Include="CustomExternalType.cpp" />
+    <ClCompile Include="dbgfmt.cpp" />
+    <ClCompile Include="dbgprop.cpp" />
+    <ClCompile Include="DebugObject.cpp" />
+    <ClCompile Include="DefaultScriptOperations.cpp" />
+    <ClCompile Include="DiagnosticsScriptObject.cpp" />
+    <ClCompile Include="DispatchHelper.cpp" />
+    <ClCompile Include="DispMemberProxy.cpp" />
+    <ClCompile Include="DispMemberProxyType.cpp" />
+    <ClCompile Include="dllfunc.cpp" />
+    <ClCompile Include="DOMProperties.cpp" />
+    <ClCompile Include="DynamicSourceHolder.cpp" />
+    <ClCompile Include="EditTest.cpp" />
+    <ClCompile Include="EnumVariantEnumerator.cpp" />
+    <ClCompile Include="ErrorTypeHelper.cpp" />
+    <ClCompile Include="EventSink.cpp" />
+    <ClCompile Include="ExternalObject.cpp" />
+    <ClCompile Include="FinalizableTypedArrayContents.cpp" />
+    <ClCompile Include="guids.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='chk|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fre|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HostDispatch.cpp" />
+    <ClCompile Include="HostDispatchEnumerator.cpp" />
+    <ClCompile Include="HostDispatchType.cpp" />
+    <ClCompile Include="HostObject.cpp" />
+    <ClCompile Include="HostObjectType.cpp" />
+    <ClCompile Include="HostVariant.cpp" />
+    <ClCompile Include="IBufferProjection.cpp" />
+    <ClCompile Include="InspectableObjectTypeOperations.cpp" />
+    <ClCompile Include="JavascriptDispatch.cpp" />
+    <ClCompile Include="JavascriptExternalOperators.cpp" />
+    <ClCompile Include="JavascriptPixelArrayDispatch.cpp" />
+    <ClCompile Include="JavascriptSafeArray.cpp" />
+    <ClCompile Include="JavascriptSafeArrayObject.cpp" />
+    <ClCompile Include="JavascriptSafeArrayObjectType.cpp" />
+    <ClCompile Include="JavascriptSafeArrayType.cpp" />
+    <ClCompile Include="javascriptThreadService.cpp" />
+    <ClCompile Include="jsfac.cpp" />
+    <ClCompile Include="jsrt.cpp" />
+    <ClCompile Include="JsrtContext.cpp" />
+    <ClCompile Include="JsrtCustomEnumerator.cpp" />
+    <ClCompile Include="JsrtDelegateWrapper.cpp" />
+    <ClCompile Include="JsrtExternalObject.cpp" />
+    <ClCompile Include="JsrtRuntime.cpp" />
+    <ClCompile Include="NamedEventHandler.cpp" />
+    <ClCompile Include="NamedItemList.cpp" />
+    <ClCompile Include="NamespaceProjectionEnumerator.cpp" />
+    <ClCompile Include="NativeVisualizerExtension.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="ObjectAsIPropertyValue.cpp" />
+    <ClCompile Include="ObjectAsIReference.cpp" />
+    <ClCompile Include="ProfileDataObject.cpp" />
+    <ClCompile Include="ProjectionAsyncDebug.cpp" />
+    <ClCompile Include="ProjectionFastPath.cpp" />
+    <ClCompile Include="ProjectionMarshaler.cpp" />
+    <ClCompile Include="ProjectionMemoryInformation.cpp" />
+    <ClCompile Include="ProjectionMethodInvoker.cpp" />
+    <ClCompile Include="ProjectionObjectInstance.cpp" />
+    <ClCompile Include="ProjectionWriter.cpp" />
+    <ClCompile Include="PropertySet.cpp" />
+    <ClCompile Include="PropertySetEnumerator.cpp" />
+    <ClCompile Include="proxystub.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='chk|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fre|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="QueryContinuePoller.cpp" />
+    <ClCompile Include="namespaceProjection.cpp" />
+    <ClCompile Include="ProjectionContext.cpp" />
+    <ClCompile Include="projectionTypeOperations.cpp" />
+    <ClCompile Include="refcountedHostVariant.cpp" />
+    <ClCompile Include="SCADeserialization.cpp" />
+    <ClCompile Include="SCAPropBag.cpp" />
+    <ClCompile Include="SCASerialization.cpp" />
+    <ClCompile Include="scpnode.cpp" />
+    <ClCompile Include="scptext.cpp" />
+    <ClCompile Include="ScriptDAC.cpp" />
+    <ClCompile Include="DiagHook.cpp" />
+    <ClCompile Include="ScriptDebugDocument.cpp" />
+    <ClCompile Include="ScriptEdit.cpp" />
+    <ClCompile Include="ScriptEngine.cpp" />
+    <ClCompile Include="ScriptEngineBase.cpp" />
+    <ClCompile Include="scriptsite.cpp" />
+    <ClCompile Include="scrpting.cpp" />
+    <ClCompile Include="SemanticChange.cpp" />
+    <ClCompile Include="siteserv.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='chk|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fre|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="StreamHelper.cpp" />
+    <ClCompile Include="StreamReader.cpp" />
+    <ClCompile Include="StreamWriter.cpp" />
+    <ClCompile Include="TestHooks.cpp" />
+    <ClCompile Include="typeinfobuilder.cpp" />
+    <ClCompile Include="UnknownImpl.cpp" />
+    <ClCompile Include="VariableArgMethodHelper.cpp" />
+    <ClCompile Include="VectorArray.cpp" />
+    <ClCompile Include="VectorArrayEnumerator.cpp" />
+    <ClCompile Include="ExternalWeakReferenceImpl.cpp" />
+    <ClCompile Include="ExternalWeakReferenceSourceImpl.cpp" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">
+    <ClCompile Include="AuthoringFactoryDll.cpp" />
+    <ClCompile Include="BinaryFeatureControlOverrides.cpp" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">
+    <ClCompile Include="AuthoringFactoryDll.cpp" />
+    <ClCompile Include="BinaryFeatureControlOverrides.cpp" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">
+    <ClCompile Include="AuthoringFactoryDll.cpp" />
+    <ClCompile Include="BinaryFeatureControlOverrides.cpp" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">
+    <ClCompile Include="AuthoringFactoryDll.cpp" />
+    <ClCompile Include="BinaryFeatureControlOverrides.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="amd64\projectioncall.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </MASM>
+    <MASM Include="amd64\UnknownImplHelper.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </MASM>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="JscriptInfo.idl">
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">%(Filename).h</HeaderFileName>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">..\..\publish;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">..\..\publish;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">..\..\publish;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">..\..\publish;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">..\..\publish;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DefaultCharType Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">Unsigned</DefaultCharType>
+      <DefaultCharType Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">Unsigned</DefaultCharType>
+      <OutputDirectory Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)</OutputDirectory>
+      <OutputDirectory Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)</OutputDirectory>
+      <DllDataFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">%(Filename)_dlldata.c</DllDataFileName>
+      <DllDataFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">%(Filename)_dlldata.c</DllDataFileName>
+      <OutputDirectory Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)</OutputDirectory>
+      <OutputDirectory Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)</OutputDirectory>
+      <OutputDirectory Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)</OutputDirectory>
+      <DllDataFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">%(Filename)_dlldata.c</DllDataFileName>
+      <DllDataFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">%(Filename)_dlldata.c</DllDataFileName>
+      <DllDataFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">%(Filename)_dlldata.c</DllDataFileName>
+      <OutputDirectory Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)</OutputDirectory>
+      <OutputDirectory Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)</OutputDirectory>
+      <DllDataFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">%(Filename)_dlldata.c</DllDataFileName>
+      <DllDataFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">%(Filename)_dlldata.c</DllDataFileName>
+      <OutputDirectory Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)</OutputDirectory>
+      <OutputDirectory Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)</OutputDirectory>
+      <OutputDirectory Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)</OutputDirectory>
+      <DllDataFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">%(Filename)_dlldata.c</DllDataFileName>
+      <DllDataFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">%(Filename)_dlldata.c</DllDataFileName>
+      <DllDataFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">%(Filename)_dlldata.c</DllDataFileName>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="abidelegates.h" />
+    <ClInclude Include="ABIEvents.h" />
+    <ClInclude Include="activescripterror.h" />
+    <ClInclude Include="ActiveScriptProfilerHeapEnum.h" />
+    <ClInclude Include="ad1ex.h" />
+    <ClInclude Include="ArrayAsCollection.h" />
+    <ClInclude Include="ArrayAsIterable.h" />
+    <ClInclude Include="ArrayAsIterator.h" />
+    <ClInclude Include="ArrayAsVector.h" />
+    <ClInclude Include="ArrayProjection.h" />
+    <ClInclude Include="ArrayProjectionEnumerator.h" />
+    <ClInclude Include="breakpointProbe.h" />
+    <ClInclude Include="builtinoperations.h" />
+    <ClInclude Include="caller.h" />
+    <ClInclude Include="chakrart.h" />
+    <ClInclude Include="CJavascriptOperations.h" />
+    <ClInclude Include="classfac.h" />
+    <ClInclude Include="codectx.h" />
+    <ClInclude Include="customenumerator.h" />
+    <ClInclude Include="CustomExternalType.h" />
+    <ClInclude Include="dbgfmt.h" />
+    <ClInclude Include="dbgpropImpl.h" />
+    <ClInclude Include="DebugObject.h" />
+    <ClInclude Include="DefaultScriptOperations.h" />
+    <ClInclude Include="DiagnosticsScriptObject.h" />
+    <ClInclude Include="DispatchHelper.h" />
+    <ClInclude Include="dispidhelper.h" />
+    <ClInclude Include="DispMemberProxy.h" />
+    <ClInclude Include="dllfunc.h" />
+    <ClInclude Include="DOMProperties.h" />
+    <ClInclude Include="DynamicSourceHolder.h" />
+    <ClInclude Include="EditTest.h" />
+    <ClInclude Include="EnumVariantEnumerator.h" />
+    <ClInclude Include="ErrorTypeHelper.h" />
+    <ClInclude Include="EventSink.h" />
+    <ClInclude Include="FinalizableTypedArrayContents.h" />
+    <ClInclude Include="GenerateByteCodeConfig.h" />
+    <ClInclude Include="guids.h" />
+    <ClInclude Include="HostDispatch.h" />
+    <ClInclude Include="HostDispatchEnumerator.h" />
+    <ClInclude Include="HostObject.h" />
+    <ClInclude Include="HostVariant.h" />
+    <ClInclude Include="IBufferProjection.h" />
+    <ClInclude Include="IHTMLDOMConstructor.h" />
+    <ClInclude Include="InspectableObjectTypeOperations.h" />
+    <ClInclude Include="JavascriptDispatch.h" />
+    <ClInclude Include="JavascriptExternalOperators.h" />
+    <ClInclude Include="javascriptpixelarraydispatch.h" />
+    <ClInclude Include="JavascriptSafeArray.h" />
+    <ClInclude Include="JavascriptSafeArrayObject.h" />
+    <ClInclude Include="javascriptThreadService.h" />
+    <ClInclude Include="JnDOMDirectFields.h" />
+    <ClInclude Include="jscriptdllcommon.h" />
+    <ClInclude Include="jsfac.h" />
+    <ClInclude Include="jsrt.h" />
+    <ClInclude Include="JsrtComException.h" />
+    <ClInclude Include="JsrtContext.h" />
+    <ClInclude Include="JsrtCustomEnumerator.h" />
+    <ClInclude Include="JsrtDelegateWrapper.h" />
+    <ClInclude Include="JsrtExternalObject.h" />
+    <ClInclude Include="JsrtRuntime.h" />
+    <ClInclude Include="NamedEventHandler.h" />
+    <ClInclude Include="NamedItemList.h" />
+    <ClInclude Include="NamespaceProjectionEnumerator.h" />
+    <ClInclude Include="NativeVisualizerExtension.h" />
+    <ClInclude Include="ObjectAsIPropertyValue.h" />
+    <ClInclude Include="ObjectAsIReference.h" />
+    <ClInclude Include="ProjectionAsyncDebug.h" />
+    <ClInclude Include="ProjectionFastPath.h" />
+    <ClInclude Include="ProjectionMarshaler.h" />
+    <ClInclude Include="ProjectionMemoryInformation.h" />
+    <ClInclude Include="ProjectionMethodInvoker.h" />
+    <ClInclude Include="ProjectionObjectInstance.h" />
+    <ClInclude Include="ProjectionWriter.h" />
+    <ClInclude Include="PropertySet.h" />
+    <ClInclude Include="PropertySetEnumerator.h" />
+    <ClInclude Include="proxystub.h" />
+    <ClInclude Include="QueryContinuePoller.h" />
+    <ClInclude Include="namespaceProjection.h" />
+    <ClInclude Include="ProfileDataObject.h" />
+    <ClInclude Include="ProjectionContext.h" />
+    <ClInclude Include="projectionTypeOperations.h" />
+    <ClInclude Include="refcountedHostVariant.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SCAEngine.h" />
+    <ClInclude Include="SCAPropBag.h" />
+    <ClInclude Include="SCASerialization.h" />
+    <ClInclude Include="SCADeserialization.h" />
+    <ClInclude Include="ScriptDAC.h" />
+    <ClInclude Include="DiagHook.h" />
+    <ClInclude Include="ScriptDebugDocument.h" />
+    <ClInclude Include="ScriptEdit.h" />
+    <ClInclude Include="SemanticChange.h" />
+    <ClInclude Include="StreamHelper.h" />
+    <ClInclude Include="StreamReader.h" />
+    <ClInclude Include="StreamWriter.h" />
+    <ClInclude Include="scpnode.h" />
+    <ClInclude Include="scptext.h" />
+    <ClInclude Include="ScriptEngine.h" />
+    <ClInclude Include="scriptsite.h" />
+    <ClInclude Include="scrpting.h" />
+    <ClInclude Include="siteserv.h" />
+    <ClInclude Include="SpecialProjection.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="TestHooks.h" />
+    <ClInclude Include="typeinfobuilder.h" />
+    <ClInclude Include="UnknownImpl.h" />
+    <ClInclude Include="VariableArgMethodHelper.h" />
+    <ClInclude Include="VectorArray.h" />
+    <ClInclude Include="VectorArrayEnumerator.h" />
+    <ClInclude Include="ExternalWeakReferenceImpl.h" />
+    <ClInclude Include="ExternalWeakReferenceSourceImpl.h" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='chk'">
+    <ResourceCompile Include="jscript9.rc">
+      <AdditionalIncludeDirectories>$(IntDir)..\Parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'">$(IntDir)..\manifests-inbox;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes'">$(OBJECT_ROOT)\inetcore\manifests\inbox\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='fre'">
+    <ResourceCompile Include="jscript9.rc">
+      <AdditionalIncludeDirectories>$(IntDir)..\Parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'">$(IntDir)..\manifests-inbox;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes'">$(OBJECT_ROOT)\inetcore\manifests\inbox\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='fretest'">
+    <ResourceCompile Include="jscript9.rc">
+      <AdditionalIncludeDirectories>$(IntDir)..\Parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'">$(IntDir)..\manifests-inbox;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes'">$(OBJECT_ROOT)\inetcore\manifests\inbox\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='jsls-chk'">
+    <ResourceCompile Include="jscript9ls.rc">
+      <AdditionalIncludeDirectories>$(IntDir)..\Parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'">$(IntDir)..\manifests-inbox;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes'">$(OBJECT_ROOT)\inetcore\manifests\inbox\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='jsls-fre'">
+    <ResourceCompile Include="jscript9ls.rc">
+      <AdditionalIncludeDirectories>$(IntDir)..\Parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'">$(IntDir)..\manifests-inbox;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes'">$(OBJECT_ROOT)\inetcore\manifests\inbox\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\jscript\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\dep\codex.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac38}</Project>
+    </ProjectReference>
+    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\dep\common-iel1.vcxproj">
+      <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0814}</Project>
+    </ProjectReference>
+    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\dep\dtbhost.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac37}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\IESettingsApi.vcxproj">
+      <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865f08f4}</Project>
+    </ProjectReference>
+    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\dep\manifests-inbox.vcxproj">
+      <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0815}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\ScriptProjectionHostApi.vcxproj">
+      <Project>{62154ab9-058d-4aa5-98e2-bc6d9af71af4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Author\Author.vcxproj" Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">
+      <Project>{e152e191-0245-45bf-bdaa-070abfe72e80}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Author\Author.vcxproj" Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">
+      <Project>{e152e191-0245-45bf-bdaa-070abfe72e80}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Author\Author.vcxproj" Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">
+      <Project>{e152e191-0245-45bf-bdaa-070abfe72e80}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Author\Author.vcxproj" Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">
+      <Project>{e152e191-0245-45bf-bdaa-070abfe72e80}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Backend\Backend.vcxproj">
+      <Project>{18cf279f-188d-4655-b03d-74f65388e7d1}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Common\Common.vcxproj">
+      <Project>{bb4153ff-ac3e-4734-b562-cc23812df31b}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Common\Memory.vcxproj">
+      <Project>{bb4153ff-ac3e-4734-b562-ff23812df31b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\MemProtectHeap\MemProtectHeap.vcxproj">
+      <Project>{bb4153ff-ac3e-4734-b562-ee23812df31b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Parser\Parser.vcxproj">
+      <Project>{f6fad160-5a4b-476a-93ac-33e0b3a18c0c}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Runtime\Math\Math.vcxproj">
+      <Project>{abc904ad-9415-46f8-aa23-e33193f81f7c}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Runtime\Runtime.vcxproj">
+      <Project>{706083f7-6aa4-4558-a153-6352ef9110f5}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>true</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\WinRT\WinRT.vcxproj">
+      <Project>{37871403-9cd8-434c-8904-dbdd95b69d81}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="helpers.js" />
+    <None Include="JScript9.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+  </ImportGroup>
+</Project>

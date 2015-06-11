@@ -1,0 +1,696 @@
+Javascript Object wrapped to pass on as Winrt Objects
+
+=================================================
+Starting [Test 1: Array back in JS as IVector]
+Comment: Get Same Vector
+MemoryTrace: Created Projection Object: 0    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 0    Type = IVector
+MemoryTrace: Created Projection Object: 1    UnknownRefCount = 5
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 0  1  
+ProjectionObjects  Deleted : 0  1  
+Unknowns  Created : 0  
+Unknowns  Deleted : 0  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 1: Array back in JS as IVector]
+=================================================
+
+=================================================
+Starting [Test 2: Array back in JS wrapped inside native IVector]
+Comment: Duplicate Array as Vector
+MemoryTrace: Created Projection Object: 2    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 1    Type = IVector
+MemoryTrace: Created Projection Object: 3    UnknownRefCount = 4
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 2  3  
+ProjectionObjects  Deleted : 2  3  
+Unknowns  Created : 1  
+Unknowns  Deleted : 1  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 2: Array back in JS wrapped inside native IVector]
+=================================================
+
+=================================================
+Starting [Test 3: Array back in JS as IVector and then get the iterable and iterator]
+Comment: Get Same Vector
+MemoryTrace: Created Projection Object: 4    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 2    Type = IVector
+MemoryTrace: Created Projection Object: 5    UnknownRefCount = 5
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 4  5  
+ProjectionObjects  Deleted : 4  
+Unknowns  Created : 2  
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+Comment: Call iterable's first method
+MemoryTrace: Created Unknown Object: 3    Type = IIterable
+MemoryTrace: Created Unknown Object: 4    Type = IIterator
+MemoryTrace: Created Projection Object: 6    UnknownRefCount = 3
+Pass: first.current at (1)
+      Actual: 1
+
+Pass: first.current at (2)
+      Actual: 2
+
+Pass: first.current at (3)
+      Actual: 3
+
+Pass: first.current at (4)
+      Actual: 4
+
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 6  
+ProjectionObjects  Deleted : 5  6  
+Unknowns  Created : 3  4  
+Unknowns  Deleted : 2  3  4  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 3: Array back in JS as IVector and then get the iterable and iterator]
+=================================================
+
+=================================================
+Starting [Test 4: Array back in JS as IVectorView]
+Comment: Get Same VectorView
+MemoryTrace: Created Projection Object: 7    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 5    Type = IVectorView
+MemoryTrace: Created Projection Object: 8    UnknownRefCount = 5
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 7  8  
+ProjectionObjects  Deleted : 7  8  
+Unknowns  Created : 5  
+Unknowns  Deleted : 5  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 4: Array back in JS as IVectorView]
+=================================================
+
+=================================================
+Starting [Test 5: Array back in JS wrapped inside native IVectorView]
+Comment: Duplicate Array as VectorView
+MemoryTrace: Created Projection Object: 9    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 6    Type = IVectorView
+MemoryTrace: Created Projection Object: 10    UnknownRefCount = 4
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 9  10  
+ProjectionObjects  Deleted : 9  10  
+Unknowns  Created : 6  
+Unknowns  Deleted : 6  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 5: Array back in JS wrapped inside native IVectorView]
+=================================================
+
+=================================================
+Starting [Test 6: Array back in JS as IIterable]
+Comment: Get Same Iterable
+MemoryTrace: Created Projection Object: 11    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 7    Type = IIterable
+MemoryTrace: Created Projection Object: 12    UnknownRefCount = 5
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 11  12  
+ProjectionObjects  Deleted : 11  12  
+Unknowns  Created : 7  
+Unknowns  Deleted : 7  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 6: Array back in JS as IIterable]
+=================================================
+
+=================================================
+Starting [Test 7: Array back in JS wrapped inside native IIterable]
+Comment: Duplicate Array as Iterable
+MemoryTrace: Created Projection Object: 13    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 8    Type = IIterable
+MemoryTrace: Created Projection Object: 14    UnknownRefCount = 4
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 13  14  
+ProjectionObjects  Deleted : 13  14  
+Unknowns  Created : 8  
+Unknowns  Deleted : 8  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 7: Array back in JS wrapped inside native IIterable]
+=================================================
+
+=================================================
+Starting [Test 8: Array back in JS as IIteable and then get the iterator]
+Comment: Get Same Iterable
+MemoryTrace: Created Projection Object: 15    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 9    Type = IIterable
+MemoryTrace: Created Projection Object: 16    UnknownRefCount = 5
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 15  16  
+ProjectionObjects  Deleted : 15  
+Unknowns  Created : 9  
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+Comment: Call iterable's first method
+MemoryTrace: Created Unknown Object: 10    Type = IIterator
+MemoryTrace: Created Projection Object: 17    UnknownRefCount = 3
+Pass: first.current at (1)
+      Actual: 1
+
+Pass: first.current at (2)
+      Actual: 2
+
+Pass: first.current at (3)
+      Actual: 3
+
+Pass: first.current at (4)
+      Actual: 4
+
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 17  
+ProjectionObjects  Deleted : 16  17  
+Unknowns  Created : 10  
+Unknowns  Deleted : 9  10  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 8: Array back in JS as IIteable and then get the iterator]
+=================================================
+
+=================================================
+Starting [Test 9: Array back in JS as IIterator]
+Comment: Get Same Iterator
+MemoryTrace: Created Projection Object: 18    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 11    Type = IIterator
+MemoryTrace: Created Projection Object: 19    UnknownRefCount = 5
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 18  19  
+ProjectionObjects  Deleted : 18  19  
+Unknowns  Created : 11  
+Unknowns  Deleted : 11  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 9: Array back in JS as IIterator]
+=================================================
+
+=================================================
+Starting [Test 10: Array back in JS wrapped inside native IIterator]
+Comment: Duplicate Array as Iterator
+MemoryTrace: Created Projection Object: 20    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 12    Type = IIterator
+MemoryTrace: Created Projection Object: 21    UnknownRefCount = 4
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 20  21  
+ProjectionObjects  Deleted : 20  21  
+Unknowns  Created : 12  
+Unknowns  Deleted : 12  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 10: Array back in JS wrapped inside native IIterator]
+=================================================
+
+=================================================
+Starting [Test 11: Delegate passed in]
+Comment: Pass the function as delegate and then invoke it from ABI
+MemoryTrace: Created Projection Object: 22    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 13    Type = Delegate
+Comment: *** Delegate called
+Pass: Delegate Called
+      Actual: 1
+
+Pass: (new Animals.Animal(1)).callDelegateWithOutParam_HSTRING(callback)
+      Actual: Wolverine
+
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 22  
+ProjectionObjects  Deleted : 22  
+Unknowns  Created : 13  
+Unknowns  Deleted : 13  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 11: Delegate passed in]
+=================================================
+
+=================================================
+Starting [Test 12: Get Back same delegate]
+Comment: Pass the function as delegate and get it back as the delegate
+MemoryTrace: Created Projection Object: 23    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 14    Type = Delegate
+Comment: *** Delegate called
+Pass: Delegate Called
+      Actual: 1
+
+Pass: (new Animals.Animal(1)).methodDelegateAsOutParam(callback)
+      Actual: function callback(animal) {
+        logger.comment("*** Delegate called");
+        var animalNames = animal.getNames();
+        delegateCalled++;
+        return animalNames.common;
+    }
+
+Comment: Verify the callback can be called
+Comment: *** Delegate called
+Pass: Delegate Called
+      Actual: 2
+
+Pass: myNewCallback(myAnimal)
+      Actual: Wolverine
+
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 23  
+ProjectionObjects  Deleted : 23  
+Unknowns  Created : 14  
+Unknowns  Deleted : 14  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 12: Get Back same delegate]
+=================================================
+
+=================================================
+Starting [Test 13: IReference as in parameter]
+MemoryTrace: Created Projection Object: 24    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 15    Type = IReference
+MemoryTrace: Created FinalizableArrayBuffer Object: 0    Number of Elements = 1    Buffer Created Using = new[]
+MemoryTrace: Created Unknown Object: 16    Type = IPropertyValue
+Pass: testDimensions_ReferenceIn(myDimensions).isNull
+      Actual: false
+
+Pass: testDimensions_ReferenceIn(myDimensions).isValidType
+      Actual: true
+
+Pass: testDimensions_ReferenceIn(myDimensions).outValue.length
+      Actual: 10
+
+Pass: testDimensions_ReferenceIn(myDimensions).outValue.width
+      Actual: 40
+
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 24  
+ProjectionObjects  Deleted : 24  
+Unknowns  Created : 15  16  
+Unknowns  Deleted : 15  16  
+FinalizableArrayBuffer Created : 0  
+FinalizableArrayBuffer Deleted : 0  
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 13: IReference as in parameter]
+=================================================
+
+=================================================
+Starting [Test 14: IReference as out parameter]
+MemoryTrace: Created Projection Object: 25    UnknownRefCount = 3
+MemoryTrace: Created Unknown Object: 17    Type = IReference
+MemoryTrace: Created FinalizableArrayBuffer Object: 1    Number of Elements = 1    Buffer Created Using = new[]
+MemoryTrace: Created Unknown Object: 18    Type = IPropertyValue
+Pass: testDimensions_ReferenceOut(myDimensions).length
+      Actual: 10
+
+Pass: testDimensions_ReferenceOut(myDimensions).width
+      Actual: 40
+
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 25  
+ProjectionObjects  Deleted : 25  
+Unknowns  Created : 17  18  
+Unknowns  Deleted : 17  18  
+FinalizableArrayBuffer Created : 1  
+FinalizableArrayBuffer Deleted : 1  
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 14: IReference as out parameter]
+=================================================
+
+=================================================
+Starting [Test 15: IReferenceArray as in parameter]
+MemoryTrace: Created Projection Object: 26    UnknownRefCount = 3
+MemoryTrace: Reading Array for: Method Call
+    Array Pattern: ReceiveArray
+    Considering length attribute: false
+    Read Array of type: Animals.Dimensions
+    Array Length: 2
+    Read array Length: 2
+    Creating ArrayProjection : Animals.Dimensions
+    Creates Finalizer
+MemoryTrace: Created FinalizableArrayBuffer Object: 2    Number of Elements = 2    Buffer Created Using = CoTaskMemAlloc
+MemoryTrace: Created Unknown Object: 19    Type = IReferenceArray
+MemoryTrace: Created FinalizableArrayBuffer Object: 3    Number of Elements = 2    Buffer Created Using = new[]
+MemoryTrace: Created Unknown Object: 20    Type = IPropertyValue
+MemoryTrace: Reading Array for: Method Call
+    Array Pattern: ReceiveArray
+    Considering length attribute: false
+    Read Array of type: Animals.Dimensions
+    Array Length: 2
+    Read array Length: 2
+    Creating ArrayProjection : Animals.Dimensions
+    Creates Finalizer
+MemoryTrace: Created FinalizableArrayBuffer Object: 4    Number of Elements = 2    Buffer Created Using = CoTaskMemAlloc
+Pass: testDimensionsArray_IPropertyValueIn(myArray).isValidType
+      Actual: true
+
+Pass: testDimensionsArray_IPropertyValueIn(myArray).outValue.length
+      Actual: 2
+
+Pass: testDimensionsArray_IPropertyValueIn(myArray).outValue[0].length
+      Actual: 40
+
+Pass: testDimensionsArray_IPropertyValueIn(myArray).outValue[0].width
+      Actual: 40
+
+Pass: testDimensionsArray_IPropertyValueIn(myArray).outValue[1].length
+      Actual: 100
+
+Pass: testDimensionsArray_IPropertyValueIn(myArray).outValue[1].width
+      Actual: 40
+
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 26  
+ProjectionObjects  Deleted : 26  
+Unknowns  Created : 19  20  
+Unknowns  Deleted : 19  20  
+FinalizableArrayBuffer Created : 2  3  4  
+FinalizableArrayBuffer Deleted : 2  3  4  
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 15: IReferenceArray as in parameter]
+=================================================
+
+=================================================
+Starting [Test 16: IReferenceArray as out parameter]
+MemoryTrace: Created Projection Object: 27    UnknownRefCount = 3
+MemoryTrace: Reading Array for: Method Call
+    Array Pattern: ReceiveArray
+    Considering length attribute: false
+    Read Array of type: Animals.Dimensions
+    Array Length: 2
+    Read array Length: 2
+    Creating ArrayProjection : Animals.Dimensions
+    Creates Finalizer
+MemoryTrace: Created FinalizableArrayBuffer Object: 5    Number of Elements = 2    Buffer Created Using = CoTaskMemAlloc
+MemoryTrace: Created Unknown Object: 21    Type = IReferenceArray
+MemoryTrace: Created FinalizableArrayBuffer Object: 6    Number of Elements = 2    Buffer Created Using = new[]
+MemoryTrace: Created Unknown Object: 22    Type = IPropertyValue
+MemoryTrace: Reading Array for: Method Call
+    Array Pattern: ReceiveArray
+    Considering length attribute: false
+    Read Array of type: Animals.Dimensions
+    Array Length: 2
+    Read array Length: 2
+    Creating ArrayProjection : Animals.Dimensions
+    Creates Finalizer
+MemoryTrace: Created FinalizableArrayBuffer Object: 7    Number of Elements = 2    Buffer Created Using = CoTaskMemAlloc
+Pass: testInspectable_IPropertyValueOut(myArray).length
+      Actual: 2
+
+Pass: testInspectable_IPropertyValueOut(myArray)[0].length
+      Actual: 40
+
+Pass: testInspectable_IPropertyValueOut(myArray)[0].width
+      Actual: 40
+
+Pass: testInspectable_IPropertyValueOut(myArray)[1].length
+      Actual: 100
+
+Pass: testInspectable_IPropertyValueOut(myArray)[1].width
+      Actual: 40
+
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 27  
+ProjectionObjects  Deleted : 27  
+Unknowns  Created : 21  22  
+Unknowns  Deleted : 21  22  
+FinalizableArrayBuffer Created : 5  6  7  
+FinalizableArrayBuffer Deleted : 5  6  7  
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 16: IReferenceArray as out parameter]
+=================================================
+
+Passed: 16
+Failed: 0
+
+MemoryTrace: Stats after ProjectionContextClose
+ProjectionObjects  Created : 
+ProjectionObjects  Deleted : 
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: ScriptContext Close
+
+MemoryTrace: Stats after scriptSite close
+ProjectionObjects  Created : 
+ProjectionObjects  Deleted : 
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+
+
+ProjectionObjects status:
+
+Id		Status		CreationUnkRef
+27		Destroyed	3				
+26		Destroyed	3				
+25		Destroyed	3				
+24		Destroyed	3				
+23		Destroyed	3				
+22		Destroyed	3				
+21		Destroyed	4				
+20		Destroyed	3				
+19		Destroyed	5				
+18		Destroyed	3				
+17		Destroyed	3				
+16		Destroyed	5				
+15		Destroyed	3				
+14		Destroyed	4				
+13		Destroyed	3				
+12		Destroyed	5				
+11		Destroyed	3				
+10		Destroyed	4				
+9		Destroyed	3				
+8		Destroyed	5				
+7		Destroyed	3				
+6		Destroyed	3				
+5		Destroyed	5				
+4		Destroyed	3				
+3		Destroyed	4				
+2		Destroyed	3				
+1		Destroyed	5				
+0		Destroyed	3				
+
+Alive: 0		Dead: 28
+
+
+
+Unknowns status:
+
+Id		Status		Type
+22		Destroyed	IPropertyValue
+21		Destroyed	IReferenceArray
+20		Destroyed	IPropertyValue
+19		Destroyed	IReferenceArray
+18		Destroyed	IPropertyValue
+17		Destroyed	IReference
+16		Destroyed	IPropertyValue
+15		Destroyed	IReference
+14		Destroyed	Delegate
+13		Destroyed	Delegate
+12		Destroyed	IIterator
+11		Destroyed	IIterator
+10		Destroyed	IIterator
+9		Destroyed	IIterable
+8		Destroyed	IIterable
+7		Destroyed	IIterable
+6		Destroyed	IVectorView
+5		Destroyed	IVectorView
+4		Destroyed	IIterator
+3		Destroyed	IIterable
+2		Destroyed	IVector
+1		Destroyed	IVector
+0		Destroyed	IVector
+
+Alive: 0		Dead: 23
+
+
+
+FinalizableArrayBuffer status:
+
+Id		Status		NumberOfElements		BufferAllocatedUsing
+7		Destroyed	2				CoTaskMemAlloc
+6		Destroyed	2				new[]
+5		Destroyed	2				CoTaskMemAlloc
+4		Destroyed	2				CoTaskMemAlloc
+3		Destroyed	2				new[]
+2		Destroyed	2				CoTaskMemAlloc
+1		Destroyed	1				new[]
+0		Destroyed	1				new[]
+
+Alive: 0		Dead: 8
+
+MemoryTrace: Stats while destroying thread
+ProjectionObjects  Created : 
+ProjectionObjects  Deleted : 
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+
+
+ProjectionObjects status:
+
+Id		Status		CreationUnkRef
+27		Destroyed	3				
+26		Destroyed	3				
+25		Destroyed	3				
+24		Destroyed	3				
+23		Destroyed	3				
+22		Destroyed	3				
+21		Destroyed	4				
+20		Destroyed	3				
+19		Destroyed	5				
+18		Destroyed	3				
+17		Destroyed	3				
+16		Destroyed	5				
+15		Destroyed	3				
+14		Destroyed	4				
+13		Destroyed	3				
+12		Destroyed	5				
+11		Destroyed	3				
+10		Destroyed	4				
+9		Destroyed	3				
+8		Destroyed	5				
+7		Destroyed	3				
+6		Destroyed	3				
+5		Destroyed	5				
+4		Destroyed	3				
+3		Destroyed	4				
+2		Destroyed	3				
+1		Destroyed	5				
+0		Destroyed	3				
+
+Alive: 0		Dead: 28
+
+
+
+Unknowns status:
+
+Id		Status		Type
+22		Destroyed	IPropertyValue
+21		Destroyed	IReferenceArray
+20		Destroyed	IPropertyValue
+19		Destroyed	IReferenceArray
+18		Destroyed	IPropertyValue
+17		Destroyed	IReference
+16		Destroyed	IPropertyValue
+15		Destroyed	IReference
+14		Destroyed	Delegate
+13		Destroyed	Delegate
+12		Destroyed	IIterator
+11		Destroyed	IIterator
+10		Destroyed	IIterator
+9		Destroyed	IIterable
+8		Destroyed	IIterable
+7		Destroyed	IIterable
+6		Destroyed	IVectorView
+5		Destroyed	IVectorView
+4		Destroyed	IIterator
+3		Destroyed	IIterable
+2		Destroyed	IVector
+1		Destroyed	IVector
+0		Destroyed	IVector
+
+Alive: 0		Dead: 23
+
+
+
+FinalizableArrayBuffer status:
+
+Id		Status		NumberOfElements		BufferAllocatedUsing
+7		Destroyed	2				CoTaskMemAlloc
+6		Destroyed	2				new[]
+5		Destroyed	2				CoTaskMemAlloc
+4		Destroyed	2				CoTaskMemAlloc
+3		Destroyed	2				new[]
+2		Destroyed	2				CoTaskMemAlloc
+1		Destroyed	1				new[]
+0		Destroyed	1				new[]
+
+Alive: 0		Dead: 8

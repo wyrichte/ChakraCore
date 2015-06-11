@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+  <test>
+    <default>
+      <files>ObjectToString.js</files>
+      <baseline>ObjectToString.baseline</baseline>
+      <compile-flags>-Intl-</compile-flags>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ObjectFreeze.js</files>
+      <baseline>ObjectFreeze.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ObjectSeal.js</files>
+      <baseline>ObjectSeal.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ObjectPreventExtensions.js</files>
+      <baseline>ObjectPreventExtensions.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ObjectDefineProperty.js</files>
+      <baseline>ObjectDefineProperty.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ObjectDefineProperties.js</files>
+      <baseline>ObjectDefineProperties.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>ObjectEnumerators.js</files>
+      <baseline>ObjectEnumerators.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>String.js</files>
+      <baseline>String.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Number.js</files>
+      <baseline>Number.baseline</baseline>
+      <compile-flags>-Intl-</compile-flags>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Boolean.js</files>
+      <baseline>Boolean.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+  
+  <test>
+    <default>
+      <files>withScopeCrossScript.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Date.js</files>
+      <baseline>Date.baseline</baseline>
+      <compile-flags>-Intl-</compile-flags>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>JSON.js</files>
+      <baseline>JSON.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Array.js</files>
+      <baseline>Array.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>marshalsetter.js</files>
+      <baseline>marshalsetter.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>marshalsetter.js</files>
+      <baseline>marshalsetter.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
+      <tags>exclude_ship</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>testthis.js</files>
+      <baseline>testthis.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>forIn.js</files>
+      <baseline>forIn.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>forIncontext.js</files>
+      <baseline>forIncontext.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>forIn.js</files>
+      <baseline>forIn.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>valueobject.js</files>
+      <baseline>valueobject.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <compile-flags>-crashOnException -SwallowExceptions -maxInterpretCount:1 -off:simpleJit -debug  -FaultInjection:1 -FaultInjectionType:1 -FaultInjectionCount:15382</compile-flags>
+      <files>821662.js</files>
+      <tags>exclude_fre,exclude_apollo,exclude_serialized,fail</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>RegExp.js</files>
+      <baseline>RegExp.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <compile-flags>-Force:Deferparse</compile-flags>
+      <files>defercross.js</files>
+      <baseline>defercross.baseline</baseline>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>arraysortmain.js</files>
+      <baseline>arraysortmain.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>crossSiteBoundFunction.js</files>
+      <baseline>crossSiteBoundFunction.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <compile-flags>-targeted -debuglaunch -dbgbaseline:388447parent.js.dbg.baseline</compile-flags>
+      <files>388447parent.js</files>
+      <files>388447parent.baseline</files>
+      <baseline/>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug705618.js</files>
+      <baseline/>
+      <tags>exclude_apollo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <compile-flags> -FaultInjection:1 -FaultInjectionCount:0 -FaultInjectionType:64 -FaultInjectionScriptContextToTerminateCount:2 </compile-flags>
+      <files>FaultInjectionForScriptTermination.js</files>
+      <baseline>FaultInjectionForScriptTermination.baseline</baseline>
+      <tags>exclude_fre,exclude_apollo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>DebugFuncExecutorInDisposeObject2.js</files>
+      <baseline>DebugFuncExecutorInDisposeObject2.baseline</baseline>
+      <tags>exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>DebugFuncExecutorInDisposeObject3.js</files>
+      <baseline>DebugFuncExecutorInDisposeObject3.baseline</baseline>
+      <tags>exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>DebugFuncExecutorInDisposeObject4.js</files>
+      <baseline>DebugFuncExecutorInDisposeObject4.baseline</baseline>
+      <tags>exclude_fre,exclude_apollo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>DebugFuncExecutorInDisposeObject5.js</files>
+      <baseline>DebugFuncExecutorInDisposeObject5.baseline</baseline>
+      <tags>exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>DebugFuncExecutorInDisposeObject6.js</files>
+      <baseline>DebugFuncExecutorInDisposeObject6.baseline</baseline>
+      <tags>exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug1083203.js</files>
+      <baseline>bug1083203.baseline</baseline>
+      <compile-flags> -maxsimplejitruncount:2 -maxinterpretcount:1 -off:nativearray</compile-flags>
+      <tags>exclude_fre,exclude_apollo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>proxybug1.js</files>
+      <baseline/>
+      <tags>exclude_fre,exclude_apollo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>objectcall.js</files>
+      <compile-flags>-enableMiscWScriptFunctions</compile-flags>
+      <tags>exclude_fre,exclude_apollo</tags>
+    </default>
+  </test>
+
+  <!-- WHEN ADDING A NEW TEST: for cross-thread test, make sure you add exclude_apollo tag fot it -->
+
+</regress-exe>

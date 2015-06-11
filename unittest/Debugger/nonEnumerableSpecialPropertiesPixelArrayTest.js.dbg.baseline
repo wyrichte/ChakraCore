@@ -1,0 +1,48 @@
+[
+  {
+    "evaluate": {
+      "pixelArr": {
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[3]": "0",
+        "[3] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "__proto__": "[...]",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "length": "4",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        }
+      },
+      "pixelArr - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  }
+]

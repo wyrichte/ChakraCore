@@ -1,0 +1,55 @@
+[
+  {
+    "setnextstatement": {
+      "from": 272,
+      "to": 208,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "z": "[Uninitialized block variable]",
+      "y": "[Uninitialized block variable]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 208,
+        "length": 3,
+        "text": "z++",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "Use before declaration",
+      "arguments": "{...}",
+      "z": "[Uninitialized block variable]",
+      "y": "[Uninitialized block variable]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "val": "function val(){\n\treturn 2;\n}",
+        "Run": "<large string>"
+      }
+    }
+  }
+]

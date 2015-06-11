@@ -1,0 +1,208 @@
+{
+  "testname" : "variable and expression check on strict mode",
+  "owner" : "AkroshG",
+  "validated" : false,
+  "timeout" : 10000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "commands" :
+  [
+{
+  "action": "open",
+  "args": [
+    "scripts\\strictmode_basicTest.js"
+  ],
+  "events": [
+    {
+      "scriptOpen": "scripts\\strictmode_basicTest.js"
+    }
+  ]
+},
+{
+  "action": "setBp",
+  "args": [
+    "variableInspect.js",
+    "95"
+  ],
+  "events": [
+    {
+      "breakpointSet": {
+        "start": 95,
+        "length": 3,
+        "text": "j++"
+      }
+    }
+  ]
+},
+{
+  "action": "launch",
+  "args": [],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+{
+  "action": "location",
+  "args": [],
+  "events": [
+    {
+      "start": 95,
+      "length": 3,
+      "text": "j++",
+      "frameDescription": "foo"
+    }
+  ]
+},
+{
+  "action": "locals",
+  "args": [
+    1
+  ],
+  "events": [
+    {
+      "locals": {
+        "arguments": {
+          "[prototype]": "{...}",
+          "callee": "_bigstr",
+          "caller": "_bigstr",
+          "length": "0"
+        },
+        "j": "10",
+        "[Scope]1": {
+          "a": "10",
+          "arguments": "{...}",
+          "foo": "_bigstr"
+        },
+        "[Globals]": {
+          "withStrict": "_bigstr"
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "evaluate",
+  "args": [
+    "this"
+  ],
+  "events": [
+    {
+      "evaluate": {
+        "this": "undefined"
+      }
+    }
+  ]
+},
+{
+  "action": "evaluate",
+  "args": [
+    "var m1 = 10;"
+  ],
+  "events": [
+    {
+      "evaluate": {
+        "var m1 = 10;": "undefined"
+      }
+    }
+  ]
+},
+{
+  "action": "evaluate",
+  "args": [
+    "m1"
+  ],
+  "events": [
+    {
+      "evaluate": {
+        "m1": "'m1' is undefined"
+      }
+    }
+  ]
+},
+{
+  "action": "evaluate",
+  "args": [
+    "m2 = 10"
+  ],
+  "events": []
+},
+{
+  "action": "step",
+  "args": [
+    "in"
+  ],
+  "events": [
+    {
+      "breakpoint": "step"
+    }
+  ]
+},
+{
+  "action": "locals",
+  "args": [
+    1
+  ],
+  "events": [
+    {
+      "locals": {
+        "arguments": {
+          "[prototype]": "{...}",
+          "callee": "_bigstr",
+          "caller": "_bigstr",
+          "length": "0"
+        },
+        "j": "11",
+        "[Scope]1": {
+          "a": "10",
+          "arguments": "{...}",
+          "foo": "_bigstr"
+        },
+        "[Globals]": {
+          "withStrict": "_bigstr"
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [
+    "wait"
+  ],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+{
+  "action": "evaluate",
+  "args": [
+    "this",
+    1
+  ],
+  "events": [
+    {
+      "evaluate": {
+        "this": {
+          "[prototype]": "{...}",
+          "x1": "20"
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [],
+  "events": []
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

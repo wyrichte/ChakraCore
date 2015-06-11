@@ -1,0 +1,347 @@
+WeakWinRTProperty Tests
+
+=================================================
+Starting [Test 1: Verify msGetWeakWinRTProperty function exists on the global object]
+Pass: msGetWeakWinRTProperty should be defined
+      Actual: function msGetWeakWinRTProperty() { [native code] }
+
+Pass: typeof function msGetWeakWinRTProperty() { [native code] }
+      Actual: function
+
+Comment: Verify attributes of msGetWeakWinRTProperty
+Pass: writable
+      Actual: true
+
+Pass: enumerable
+      Actual: false
+
+Pass: configurable
+      Actual: true
+
+Pass: msGetWeakWinRTProperty.length
+      Actual: 2
+
+PASS [Test 1: Verify msGetWeakWinRTProperty function exists on the global object]
+=================================================
+
+=================================================
+Starting [Test 2: Verify msSetWeakWinRTProperty function exists on the global object]
+Pass: msSetWeakWinRTProperty should be defined
+      Actual: function msSetWeakWinRTProperty() { [native code] }
+
+Pass: typeof function msSetWeakWinRTProperty() { [native code] }
+      Actual: function
+
+Comment: Verify attributes of msSetWeakWinRTProperty
+Pass: writable
+      Actual: true
+
+Pass: enumerable
+      Actual: false
+
+Pass: configurable
+      Actual: true
+
+Pass: msSetWeakWinRTProperty.length
+      Actual: 3
+
+PASS [Test 2: Verify msSetWeakWinRTProperty function exists on the global object]
+=================================================
+
+=================================================
+Starting [Test 3: Verify that the msGetWeakWinRTProperty fails if not set already]
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty")
+      Actual: null
+
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty")
+      Actual: null
+
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty")
+      Actual: null
+
+Pass: toastCompleteCount
+      Actual: 3
+
+PASS [Test 3: Verify that the msGetWeakWinRTProperty fails if not set already]
+=================================================
+
+=================================================
+Starting [Test 4: Verify that the msGetWeakWinRTProperty succceeds after setting the property]
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "expectedToast")
+      Actual: [object Fabrikam.Kitchen.Toast]
+
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "expectedToast")
+      Actual: [object Fabrikam.Kitchen.Toast]
+
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "expectedToast")
+      Actual: [object Fabrikam.Kitchen.Toast]
+
+Pass: toastCompleteCount
+      Actual: 3
+
+PASS [Test 4: Verify that the msGetWeakWinRTProperty succceeds after setting the property]
+=================================================
+
+=================================================
+Starting [Test 5: Verify that the cycle can be broken using msGetWeakWinRTProperty and msSetWeakWinRTProperty]
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty") !== null
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty") !== undefined
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty")._data
+      Actual: Data
+
+Pass: eventCallsCount
+      Actual: 1
+
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty")
+      Actual: null
+
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty")
+      Actual: null
+
+Pass: eventCallsCount
+      Actual: 3
+
+PASS [Test 5: Verify that the cycle can be broken using msGetWeakWinRTProperty and msSetWeakWinRTProperty]
+=================================================
+
+=================================================
+Starting [Test 6: Verify that the msSetWeakWinRTProperty can override existing property]
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty") !== null
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty") !== undefined
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty")._data
+      Actual: Data1
+
+Pass: toastCompleteCount
+      Actual: 1
+
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty") !== null
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty") !== undefined
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty")._data
+      Actual: Data2
+
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty") !== null
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty") !== undefined
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "weakProperty")._data
+      Actual: Data2
+
+Pass: toastCompleteCount
+      Actual: 3
+
+Pass: newObject._data
+      Actual: Data1
+
+Pass: newObject2._data
+      Actual: Data2
+
+PASS [Test 6: Verify that the msSetWeakWinRTProperty can override existing property]
+=================================================
+
+=================================================
+Starting [Test 7: Parameters of msSetWeakWinRTProperty]
+Pass: msSetWeakWinRTProperty(); returned (Error: msSetWeakWinRTProperty: function called with too few arguments)
+      Actual: true
+
+Pass: msSetWeakWinRTProperty(new Animals.Animal()); returned (Error: msSetWeakWinRTProperty: function called with too few arguments)
+      Actual: true
+
+Pass: msSetWeakWinRTProperty(new Animals.Animal(), "weakProp"); returned (Error: msSetWeakWinRTProperty: function called with too few arguments)
+      Actual: true
+
+Pass: msSetWeakWinRTProperty(32, "weakProp", "32"); returned (TypeError: Inspectable Object expected)
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(myAnimal, null)
+      Actual: [object Object]
+
+Pass: msSetWeakWinRTProperty(myAnimal, null, newObject);
+      Actual: undefined
+
+PASS [Test 7: Parameters of msSetWeakWinRTProperty]
+=================================================
+
+=================================================
+Starting [Test 8: Parameters of msGetWeakWinRTProperty]
+Pass: msGetWeakWinRTProperty(); returned (Error: msGetWeakWinRTProperty: function called with too few arguments)
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(new Animals.Animal()); returned (Error: msGetWeakWinRTProperty: function called with too few arguments)
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(32, "weakProp"); returned (TypeError: Inspectable Object expected)
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(new Animals.Animal(), null);
+      Actual: undefined
+
+PASS [Test 8: Parameters of msGetWeakWinRTProperty]
+=================================================
+
+=================================================
+Starting [Test 9: Verify Multiple WeakProperties can be set and get]
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data1") !== null
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data1") !== undefined
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data1")._data
+      Actual: Data1
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data2") !== null
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data2") !== undefined
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data2")._data
+      Actual: Data2
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data3") !== null
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data3") !== undefined
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data3")._data
+      Actual: Data3
+
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data1") !== null
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data1") !== undefined
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data1")._data
+      Actual: Data1
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data2") !== null
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data2") !== undefined
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data2")._data
+      Actual: Data2
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data3") !== null
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data3") !== undefined
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data3")._data
+      Actual: Data3
+
+Pass: ev.message
+      Actual: 123
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data1") !== null
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data1") !== undefined
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data1")._data
+      Actual: Data1
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data2") !== null
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data2") !== undefined
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data2")._data
+      Actual: Data2
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data3") !== null
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data3") !== undefined
+      Actual: true
+
+Pass: msGetWeakWinRTProperty(ev.target, "Data3")._data
+      Actual: Data3
+
+Pass: toastCompleteCount
+      Actual: 3
+
+Pass: newObject._data
+      Actual: Data1
+
+Pass: newObject2._data
+      Actual: Data2
+
+Pass: newObject3._data
+      Actual: Data3
+
+PASS [Test 9: Verify Multiple WeakProperties can be set and get]
+=================================================
+
+=================================================
+Starting [Test 10: Verify weak properties can be set on non event handling projection object instance]
+Pass: msGetWeakWinRTProperty(myAnimal, "WeakProperty")
+      Actual: [object Animals.Fish]
+
+PASS [Test 10: Verify weak properties can be set on non event handling projection object instance]
+=================================================
+
+Passed: 10
+Failed: 0

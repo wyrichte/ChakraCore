@@ -1,0 +1,152 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 361,
+        "length": 33,
+        "text": "var err = arguments.callee.caller",
+        "frameDescription": "afun.toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 816,
+        "length": 34,
+        "text": "var res = intl.compare(afun, bfun)",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 496,
+        "length": 10,
+        "text": "return \"a\"",
+        "frameDescription": "afun.toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 816,
+        "length": 34,
+        "text": "var res = intl.compare(afun, bfun)",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "err": "undefined",
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 632,
+        "length": 3,
+        "text": "x++",
+        "frameDescription": "bfun.toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 816,
+        "length": 34,
+        "text": "var res = intl.compare(afun, bfun)",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 737,
+        "length": 10,
+        "text": "return \"b\"",
+        "frameDescription": "bfun.toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 816,
+        "length": 34,
+        "text": "var res = intl.compare(afun, bfun)",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "testpass": "true",
+      "intl": {
+        "__proto__": "{...}"
+      },
+      "afun": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "bfun": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "res": "-1",
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  }
+]

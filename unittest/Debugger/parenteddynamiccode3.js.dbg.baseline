@@ -1,0 +1,68 @@
+[
+  {
+    "evaluate": {
+      "eval(\"x0==0;\");": "true"
+    }
+  },
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "parenteddynamiccode3.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "var x0 = 0;"
+            },
+            {
+              "Name": "eval code (2)",
+              "Text": "var x1 = 0;"
+            }
+          ]
+        },
+        {
+          "Name": "eval code (3)",
+          "Text": "x0==0;"
+        }
+      ]
+    }
+  },
+  {
+    "evaluate": {
+      "eval(\"x0==0;\");": "true"
+    }
+  },
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "parenteddynamiccode3.js",
+          "Children": [
+            {
+              "Name": "eval code (1)",
+              "Text": "var x0 = 0;"
+            },
+            {
+              "Name": "eval code (2)",
+              "Text": "var x1 = 0;"
+            },
+            {
+              "Name": "eval code (4)",
+              "Text": "var x2 = 0;"
+            },
+            {
+              "Name": "eval code (5)",
+              "Text": "var x3 = 0;"
+            }
+          ]
+        },
+        {
+          "Name": "eval code (3)",
+          "Text": "x0==0;"
+        }
+      ]
+    }
+  }
+]

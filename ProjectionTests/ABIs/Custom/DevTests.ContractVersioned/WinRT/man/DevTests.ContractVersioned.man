@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<assembly
+    xmlns="urn:schemas-microsoft-com:asm.v3"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    manifestVersion="1.0"
+    >
+  <assemblyIdentity
+      buildType="$(build.buildType)"
+      language="neutral"
+      name="Chakra ContractVersioned unit tests"
+      processorArchitecture="$(build.arch)"
+      publicKeyToken="$(Build.WindowsPublicKeyToken)"
+      version="$(build.version)"
+      versionScope="nonSxS"
+      />
+  <file
+      destinationPath="$(runtime.system32)"
+      importPath="$(build.nttree)\"
+      name="DevTests.ContractVersioned.dll"
+      sourceName="DevTests.ContractVersioned.dll"
+      sourcePath=".\"
+      >
+    <securityDescriptor name="WRP_FILE_DEFAULT_SDDL"/>
+  </file>
+  <registryKeys>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.ContractVersioned.Xyz">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{7FEC2FD7-0E16-4700-B5C6-2462A91129F4}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.ContractVersioned.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{7FEC2FD7-0E16-4700-B5C6-2462A91129F4}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.ContractVersioned.Xyz"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\DevTests.ContractVersioned.XyzPlatformVersioned">
+      <registryValue
+          name="ActivationType"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="CLSID"
+          value="{B6AC07D5-1169-44FD-9F25-0FF2D3917306}"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="DllPath"
+          value="$(runtime.system32)\DevTests.ContractVersioned.dll"
+          valueType="REG_SZ"
+          />
+      <registryValue
+          name="Threading"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <registryValue
+          name="TrustLevel"
+          value="00000000"
+          valueType="REG_DWORD"
+          />
+      <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+    </registryKey>
+    <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{B6AC07D5-1169-44FD-9F25-0FF2D3917306}">
+      <registryValue
+          name="ActivatableClassId"
+          value="DevTests.ContractVersioned.XyzPlatformVersioned"
+          valueType="REG_SZ"
+          />
+    </registryKey>
+  </registryKeys>
+  <trustInfo>
+    <security>
+      <accessControl>
+        <securityDescriptorDefinitions>
+          <securityDescriptorDefinition
+              name="WRP_REGKEY_DEFAULT_SDDL"
+              sddl="$(build.wrpRegKeySddl)"
+              />
+          <securityDescriptorDefinition
+              name="WRP_FILE_DEFAULT_SDDL"
+              sddl="$(build.wrpFileSddl)"
+              />
+        </securityDescriptorDefinitions>
+      </accessControl>
+    </security>
+  </trustInfo>
+</assembly>

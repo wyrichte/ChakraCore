@@ -1,0 +1,169 @@
+import "oaidl.idl";
+import "hstring.idl";
+import "inspectable.idl";
+import "EventToken.idl";
+import "AsyncInfo.idl";
+
+#define Marshal(type) HRESULT Marshal##type([in] t_##type _in, [out] t_##type* _out)
+
+typedef boolean t_Bool;
+typedef byte t_UInt8;
+typedef __int32 t_Int32;
+typedef unsigned __int32 t_UInt32;
+typedef __int64 t_Int64;
+typedef unsigned __int64 t_UInt64;
+typedef float t_Single;
+typedef double t_Double;
+typedef wchar_t t_Char16;
+
+
+[version(8)]
+typedef enum Phylum
+{
+    Acanthocephala,
+    Acoelomorpha, 
+    Annelida, 
+    Arthropoda, 
+    Brachiopoda, 
+    Bryozoa,
+    Chaetognatha,
+    Chordata,
+    Cnidaria,
+    Ctenophora,
+    Cycliophora,
+    Echinodermata,
+    Echiura,
+    Entoprocta,
+    Gastrotricha,
+    Gnathostomulida,
+    Hemichordata,
+    Kinorhyncha,
+    Loricifera,
+    Micrognathozoa,
+    Mollusca,
+    Nematoda,
+    Nematomorpha,
+    Nemertea,
+    Onychophora,
+    Orthonectida,
+    Phoronida,
+    Placozoa,
+    Platyhelminthes,
+    Porifera,
+    Priapulida,
+    Rhombozoa,
+    Rotifera,
+    Sipuncula,
+    Tardigrada,
+    Xenoturbellida 
+} Phylum;
+
+[version(8)]
+typedef struct _Dimensions
+{
+    int Length;
+    int Width;
+} Dimensions;
+
+[version(8)]
+typedef struct _InnerStruct
+{
+    int a;
+} InnerStruct;
+
+[version(8)]
+typedef struct _OuterStruct
+{
+    InnerStruct Inner;    
+} OuterStruct;
+
+typedef Dimensions t_Dimensions;
+typedef OuterStruct t_OuterStruct;
+	[uuid(FADA1B9F-8DC7-4A78-8A67-A42E1F721E8C)]
+library Animals
+{
+    [uuid(78416248-5d76-4055-934e-a82b029316ef), version(8)]
+        // simple mock interface for IInspectable, used to ensure that Animal has the right vtable layout
+        interface IInspectableMock : IUnknown {
+            HRESULT GetIids();
+            HRESULT GetRuntimeClassName();
+            HRESULT GetTrustLevel();
+        };
+    [uuid(EBB16717-21AE-4ABF-9C59-B654DE06F596), version(8)]
+        interface IAnimal : IInspectableMock
+        {
+            HRESULT GetNumLegs([out] int* numberOfLegs);
+
+            [propget] HRESULT Weight([out, retval] int* value); 
+            [propput] HRESULT Weight([in] int value);
+
+            HRESULT GetDimensions([out,retval] Dimensions* dimensions);
+
+            HRESULT AddInts([in] int val1, [in] int val2, [out, retval] int* result);
+
+            HRESULT GetOuterStruct([out, retval] OuterStruct* strct);
+
+            HRESULT MarshalPhylum([in] Phylum phylum, [out, retval] Phylum* result);
+
+            Marshal(Bool);
+            Marshal(UInt8);
+            Marshal(Int32);
+            Marshal(UInt32);
+            Marshal(Int64);
+            Marshal(UInt64);
+            Marshal(Single);
+            Marshal(Double);
+            Marshal(Char16);
+            Marshal(Dimensions);
+            Marshal(OuterStruct);
+
+        };
+
+    [uuid(8f1c0be1-7644-482f-86bd-a5f9a86b2eed), version(8)]
+        interface IDino : IInspectableMock
+        {
+            HRESULT CanRoar([out] boolean* result);
+            HRESULT Roar([in] int numtimes);
+        };
+
+    [uuid(5d6b37bb-d2c9-45da-b0b2-dd4a1a34713e), version(8)]
+        interface IExtinct : IInspectableMock
+        {
+            HRESULT IsExtinct([out] boolean* res);
+        };
+    [uuid(24c91b7e-a818-4a0f-89fd-fd3ab826eca6), version(8)]
+        interface IFish : IInspectableMock
+        {
+            HRESULT GetNumFins([out] int* numberOfFins);
+        };
+    [uuid(F1DB40AE-DF57-4A1A-960A-9C05B70A4EB0), version(8)]
+        interface IAnimalFactory : IInspectableMock
+        {
+            HRESULT Create([out] IAnimal** ppAnimal);
+        };
+
+    [version(8), uuid(EB561C4D-2526-4A9E-94D3-4743A5EB658B)]
+        coclass Animal
+        {
+            interface IAnimal;
+        };
+
+    [version(8), uuid(5927ed9f-cee0-466a-be38-1aaa01aea11f)]
+        coclass Fish
+        {
+            interface IFish;
+        };
+
+    [version(8), uuid(46bebd27-90da-447d-80fb-ca55235f6be0)]
+        coclass Dino
+        {
+            [default] interface IDino;
+            interface IExtinct;
+        };
+    [version(8), uuid(A88BF705-491F-4FB1-B4C4-00A332135B05)]
+        coclass AnimalFactory
+        {
+            interface IAnimalFactory;    
+        };
+}
+

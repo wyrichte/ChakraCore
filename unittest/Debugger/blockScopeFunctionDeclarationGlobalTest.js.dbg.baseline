@@ -1,0 +1,21 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "f": "undefined"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "f": "function f() { }",
+      "f#1": "function f() { }"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "f": "function f() { }"
+    }
+  }
+]

@@ -1,0 +1,79 @@
+[
+  {
+    "evaluate": {
+      "x()": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "evaluate": {
+      "x()": "Evaluation of the JavaScript expression is not supported while debugging native code"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "fooCaller": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "x": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "x",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "[Globals]": {
+        "fooCaller": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "fooCaller",
+          "prototype": "{...}"
+        }
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 628,
+        "length": 1,
+        "text": "x",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 674,
+        "length": 13,
+        "text": "fooCaller()()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

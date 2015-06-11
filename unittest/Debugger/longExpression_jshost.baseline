@@ -1,0 +1,6 @@
+outer called 
+longExpression_jshost.js(1605, 1) JavaScript runtime error: Out of stack space
+ERROR: DebugAttach failed, hr=0x8007000e
+outer called 
+outer called 
+ERROR: Debugger did not receive .js file load notification.

@@ -1,0 +1,70 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 118,
+        "length": 12,
+        "text": "abc.def = 10",
+        "frameDescription": "testFunction"
+      },
+      {
+        "start": 283,
+        "length": 12,
+        "text": "info.info1()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 384,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "fn": "<large string>",
+      "testString": "test string",
+      "m": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "fn": "<large string>",
+      "testString": "test string",
+      "m": "11",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 283,
+        "length": 12,
+        "text": "info.info1()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 384,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "a": "in test",
+      "[Globals]": ""
+    }
+  }
+]

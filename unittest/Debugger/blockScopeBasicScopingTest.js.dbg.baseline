@@ -1,0 +1,32 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "integer": "1",
+      "string": "2",
+      "object": "{...}",
+      "constInteger": "5",
+      "constString": "6",
+      "constObject": "{...}",
+      "a": "0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "0",
+      "[Globals]": ""
+    }
+  }
+]

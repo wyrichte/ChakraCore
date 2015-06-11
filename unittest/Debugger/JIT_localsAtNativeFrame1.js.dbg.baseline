@@ -1,0 +1,258 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 132,
+        "length": 13,
+        "text": "var sub = -10",
+        "frameDescription": "F1"
+      },
+      {
+        "start": 424,
+        "length": 4,
+        "text": "F1()",
+        "frameDescription": "F2"
+      },
+      {
+        "start": 463,
+        "length": 8,
+        "text": "F2(arg1)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 479,
+        "length": 7,
+        "text": "Run(12)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[]",
+      "sub": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a1": "12",
+      "j": "10",
+      "j1": "{...}",
+      "m": "2012",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "arg1": "12",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "F1": "<large string>",
+      "F2": "<large string>",
+      "Run": "<large string>"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 132,
+        "length": 13,
+        "text": "var sub = -10",
+        "frameDescription": "F1"
+      },
+      {
+        "start": 424,
+        "length": 4,
+        "text": "F1()",
+        "frameDescription": "F2"
+      },
+      {
+        "start": 463,
+        "length": 8,
+        "text": "F2(arg1)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 489,
+        "length": 12,
+        "text": "Run([3,5,8])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[]",
+      "sub": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a1": "[3,5,8]",
+      "j": "10",
+      "j1": "{...}",
+      "m": "203,5,8",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "arg1": "[3,5,8]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "F1": "<large string>",
+      "F2": "<large string>",
+      "Run": "<large string>"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 132,
+        "length": 13,
+        "text": "var sub = -10",
+        "frameDescription": "F1"
+      },
+      {
+        "start": 424,
+        "length": 4,
+        "text": "F1()",
+        "frameDescription": "F2"
+      },
+      {
+        "start": 463,
+        "length": 8,
+        "text": "F2(arg1)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 503,
+        "length": 13,
+        "text": "Run({a:\"aa\"})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[]",
+      "sub": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a1": "{...}",
+      "j": "10",
+      "j1": "{...}",
+      "m": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "arg1": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "F1": "<large string>",
+      "F2": "<large string>",
+      "Run": "<large string>"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 132,
+        "length": 13,
+        "text": "var sub = -10",
+        "frameDescription": "F1"
+      },
+      {
+        "start": 424,
+        "length": 4,
+        "text": "F1()",
+        "frameDescription": "F2"
+      },
+      {
+        "start": 463,
+        "length": 8,
+        "text": "F2(arg1)",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 519,
+        "length": 12,
+        "text": "Run([3,5,8])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[]",
+      "sub": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a1": "[3,5,8]",
+      "j": "10",
+      "j1": "{...}",
+      "m": "203,5,8",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "arg1": "[3,5,8]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "F1": "<large string>",
+      "F2": "<large string>",
+      "Run": "<large string>"
+    }
+  }
+]

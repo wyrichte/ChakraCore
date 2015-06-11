@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="DebuggerCore.cpp" />
+    <ClCompile Include="DelayLoadLibrary.cpp" />
+    <ClCompile Include="delegatewrapper.cpp" />
+    <ClCompile Include="DiagnosticsHelper.cpp" />
+    <ClCompile Include="Helpers.cpp" />
+    <ClCompile Include="HtmlApp.cpp" />
+    <ClCompile Include="HtmlAppWindow.cpp" />
+    <ClCompile Include="HtmlHeapEnum.cpp" />
+    <ClCompile Include="HtmlHost.cpp" />
+    <ClCompile Include="HtmlWinSink.cpp" />
+    <ClCompile Include="JsHost.cpp" />
+    <ClCompile Include="MockImageData.cpp" />
+    <ClCompile Include="MockSCAContext.cpp" />
+    <ClCompile Include="MockTypeOperations.cpp" />
+    <ClCompile Include="phscriptsite.cpp" />
+    <ClCompile Include="proxystub.c" />
+    <ClCompile Include="SCA.cpp" />
+    <ClCompile Include="ScriptDebugNodeSource.cpp" />
+    <ClCompile Include="ScriptDirectHelper.cpp" />
+    <ClCompile Include="ScriptProfiler.cpp" />
+    <ClCompile Include="StdAfx.cpp" />
+    <ClCompile Include="TestUtilities.cpp" />
+    <ClCompile Include="TypeResolution.cpp" />
+    <ClCompile Include="WScriptFastDom.cpp" />
+    <ClCompile Include="WScriptJsrt.cpp" />
+    <ClCompile Include="LanguageService.cpp" />
+    <ClCompile Include="LanguageServiceTestDriver.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ComObject.h" />
+    <ClInclude Include="DebuggerCore.h" />
+    <ClInclude Include="DelayLoadLibrary.h" />
+    <ClInclude Include="delegatewrapper.h" />
+    <ClInclude Include="DiagnosticsHelper.h" />
+    <ClInclude Include="Helpers.h" />
+    <ClInclude Include="HtmlApp.h" />
+    <ClInclude Include="HtmlAppWindow.h" />
+    <ClInclude Include="HtmlWinSink.h" />
+    <ClInclude Include="MessageQueue.h" />
+    <ClInclude Include="MockImageData.h" />
+    <ClInclude Include="MockSCAContext.h" />
+    <ClInclude Include="MockTypeOperations.h" />
+    <ClInclude Include="phscriptsite.h" />
+    <ClInclude Include="proxystub.h" />
+    <ClInclude Include="SCA.h" />
+    <ClInclude Include="ScriptDebugEvent.h" />
+    <ClInclude Include="ScriptDebugNodeSource.h" />
+    <ClInclude Include="ScriptDirectHelper.h" />
+    <ClInclude Include="ScriptProfiler.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="testutilities.h" />
+    <ClInclude Include="testutilitiesreferences.h" />
+    <ClInclude Include="ThreadMessage.h" />
+    <ClInclude Include="WScriptFastDom.h" />
+    <ClInclude Include="WScriptJsrt.h" />
+    <ClInclude Include="ThreadMessage.h" />
+    <ClInclude Include="LanguageService.h" />
+    <ClInclude Include="LanguageServiceTestDriver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{c2873371-61a4-4b8d-a148-fc26ca8c0e52}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="JsHost.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jshost.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="JsHostScriptSite.idl" />
+  </ItemGroup>
+</Project>

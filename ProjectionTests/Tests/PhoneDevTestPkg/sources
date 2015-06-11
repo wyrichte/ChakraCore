@@ -1,0 +1,15 @@
+!undef USE_MSVCRT
+TARGETTYPE = APPX
+TARGETNAME = PhoneDevTestPkg
+TARGET_DESTINATION = Projection
+
+# uncomment following line when winbluephone_wwa's change FI'ed
+# CODE_SIGN_EKU=APPSTORE_WPB_MKTPLACE
+
+MODERN_JSCOP_DISABLE=JS2003,JS2015,JS2038,JS2043,JS2051,JS2055,JS2064,JS2085,JS2087
+
+SOURCES = \
+    devappx.appxsources
+    
+PASS_INDEPENDENT_BINPLACE=\
+    PhoneDevTestPkg_License.xml

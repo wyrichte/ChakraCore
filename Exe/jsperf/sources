@@ -1,0 +1,72 @@
+!include $(PROJECT_ROOT)\platform.inc
+
+TARGETNAME=jsperf
+TARGETTYPE=PROGLIB
+TARGET_DESTINATION=jscript\jsrt
+
+UMENTRY = wmain
+UMTYPE = console
+WARNING_LEVEL=W2
+
+TEST_CODE=1
+
+V8_BUILD=0
+
+!if $(V8_BUILD)
+C_DEFINES=$(C_DEFINES) -DALLOW_V8
+!endif
+
+INCLUDES=$(COREINCLUDES);$(COM_INC_PATH);$(DS_INC_PATH);$(SDK_INC_PATH)\crt\stl70;..\common;$(JSCRIPT_ROOT)\dll\jscript;$(OBJ_PATH)\..\..\..\dll\jscript\$(O);$(OBJ_PATH)\..\..\..\dll\jscript\release\$(O);$(OBJ_PATH)\$(O)
+C_DEFINES =$(C_DEFINES) -DWINNT -DUNICODE -D_UNICODE -DWIN32_DCOM -DPSAPI_VERSION=1 -Iinclude
+
+
+MSC_WARNING_LEVEL=-$(WARNING_LEVEL:W3=W4)
+
+USE_IDLBASED_DLLDATA=1
+
+DLLDEF=JsPerf.def
+
+386_STDCALL=0
+USE_STL=1
+STL_VER=70
+USE_ATL=1
+LINKER_STACKSIZE=/STACK:0x100000,0x2000
+
+
+!if !$(FREEBUILD)
+SUBSYSTEM_VERSION=$(SUBSYSTEM_600)
+!endif
+
+# Note: EXCLUDE_BACKEND comes from inetcore\jscript\project.mk
+
+
+SOURCES= \
+    jsperf.cpp \
+    scriptsite.cpp \
+    perftest.cpp \
+    engine.cpp \
+
+
+PRECOMPILED_INCLUDE=stdafx.h
+PRECOMPILED_SOURCEFILE=stdafx.cpp
+PRECOMPILED_CXX=1
+
+MUI=1
+
+TARGETLIBS=     \
+    $(OBJ_PATH)\..\..\dll\jscript\release\$(O)\jscript9.lib \
+    $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
+    $(SDK_LIB_PATH)\ntdll.lib \
+    $(SDK_LIB_PATH)\kernel32.lib   \
+    $(SDK_LIB_PATH)\muiload.lib \
+    $(SDK_LIB_PATH)\oleaut32.lib \
+    $(SDK_LIB_PATH)\ole32.lib \
+    $(SDK_LIB_PATH)\Uuid.lib \
+    $(SDK_LIB_PATH)\psapi.lib \
+    $(SDK_LIB_PATH)\rpcns4.lib \
+    $(SDK_LIB_PATH)\rpcrt4.lib \
+    $(SDK_LIB_PATH)\shlwapi.lib \
+    $(SDK_LIB_PATH)\user32.lib \
+!if $(V8_BUILD)
+    lib\v8.lib \
+!endif

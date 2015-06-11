@@ -1,0 +1,9 @@
+Posting stack trace via ETW:
+        Frame 0: Name=0 (baz), SourceLocationLength=67, SourceLocationStartIndex=468
+        Frame 1: Name=6 (bar), SourceLocationLength=35, SourceLocationStartIndex=633
+        Frame 2: Name=12 (Function code), SourceLocationLength=35, SourceLocationStartIndex=45
+        Frame 3: Name=28 (foowrapper), SourceLocationLength=46, SourceLocationStartIndex=47
+        Frame 4: Name=41 (foo), SourceLocationLength=42, SourceLocationStartIndex=873
+        Frame 5: Name=47 (onload), SourceLocationLength=26, SourceLocationStartIndex=1068
+NameBuffer = "baz";"bar";"Function code";"foowrapper";"foo";"onload";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=5, operationName=somestring, relatedContext=0)

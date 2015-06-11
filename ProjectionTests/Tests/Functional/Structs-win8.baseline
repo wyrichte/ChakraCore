@@ -1,0 +1,447 @@
+Struct tests
+
+=================================================
+Starting [Test 1: BasicGetDimensions - Ensure that GetDimensions returns what we expect]
+Pass: type
+      Actual: object
+
+Pass: length : number = '180'
+      Actual: length : number = '180'
+
+Pass: width : number = '360'
+      Actual: width : number = '360'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 1: BasicGetDimensions - Ensure that GetDimensions returns what we expect]
+=================================================
+
+=================================================
+Starting [Test 2: MarshalInlineStruct - Make sure that we can marshal an inline struct]
+Pass: type
+      Actual: object
+
+Pass: length : number = '92'
+      Actual: length : number = '92'
+
+Pass: width : number = '181'
+      Actual: width : number = '181'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 2: MarshalInlineStruct - Make sure that we can marshal an inline struct]
+=================================================
+
+=================================================
+Starting [Test 3: MarshalCoercibleInlineStruct - Make sure that we can marshal an inline struct]
+Pass: type
+      Actual: object
+
+Pass: length : number = '192'
+      Actual: length : number = '192'
+
+Pass: width : number = '186'
+      Actual: width : number = '186'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 3: MarshalCoercibleInlineStruct - Make sure that we can marshal an inline struct]
+=================================================
+
+=================================================
+Starting [Test 4: MarshalNullDimensions - Behavior of null dimensions]
+Comment: Caught error: Could not convert object to struct: object missing expected property 'length'
+Pass: instanceof TypeError: Could not convert object to struct: object missing expected property 'length'
+      Actual: true
+
+Pass: error.description
+      Actual: Could not convert object to struct: object missing expected property 'length'
+
+PASS [Test 4: MarshalNullDimensions - Behavior of null dimensions]
+=================================================
+
+=================================================
+Starting [Test 5: RoundTripFromWinRT - Make sure that we can marshal an inline struct]
+Pass: type
+      Actual: object
+
+Pass: length : number = '180'
+      Actual: length : number = '180'
+
+Pass: width : number = '360'
+      Actual: width : number = '360'
+
+Pass: number of members
+      Actual: 2
+
+Pass: Do not expect == of roundtripped object
+      Actual: true
+
+Pass: Do not expect === of roundtripped object
+      Actual: true
+
+PASS [Test 5: RoundTripFromWinRT - Make sure that we can marshal an inline struct]
+=================================================
+
+=================================================
+Starting [Test 6: SimpleNestedStruct - Make sure that we can marshal an inline struct]
+Pass: type
+      Actual: object
+
+Pass: inner : object = '[object Animals._InnerStruct]'
+      Actual: inner : object = '[object Animals._InnerStruct]'
+
+Pass: number of members
+      Actual: 1
+
+Pass: type
+      Actual: object
+
+Pass: a : number = '100'
+      Actual: a : number = '100'
+
+Pass: number of members
+      Actual: 1
+
+PASS [Test 6: SimpleNestedStruct - Make sure that we can marshal an inline struct]
+=================================================
+
+=================================================
+Starting [Test 7: MarshalInlineNestedStruct - Check inline nested struct]
+Pass: type
+      Actual: object
+
+Pass: inner : object = '[object Animals._InnerStruct]'
+      Actual: inner : object = '[object Animals._InnerStruct]'
+
+Pass: number of members
+      Actual: 1
+
+Pass: type
+      Actual: object
+
+Pass: a : number = '52'
+      Actual: a : number = '52'
+
+Pass: number of members
+      Actual: 1
+
+PASS [Test 7: MarshalInlineNestedStruct - Check inline nested struct]
+=================================================
+
+=================================================
+Starting [Test 8: RoundtripNestedStruct - Make sure a nested struct can round trip from WinRT object and back through]
+Pass: type
+      Actual: object
+
+Pass: inner : object = '[object Animals._InnerStruct]'
+      Actual: inner : object = '[object Animals._InnerStruct]'
+
+Pass: number of members
+      Actual: 1
+
+Pass: type
+      Actual: object
+
+Pass: a : number = '100'
+      Actual: a : number = '100'
+
+Pass: number of members
+      Actual: 1
+
+PASS [Test 8: RoundtripNestedStruct - Make sure a nested struct can round trip from WinRT object and back through]
+=================================================
+
+=================================================
+Starting [Test 9: MarshalNullNestedStruct - Null in the case of an inner struct]
+Comment: Caught error: Could not convert object to struct: object missing expected property 'a'
+Pass: instanceof TypeError: Could not convert object to struct: object missing expected property 'a'
+      Actual: true
+
+Pass: error.description
+      Actual: Could not convert object to struct: object missing expected property 'a'
+
+PASS [Test 9: MarshalNullNestedStruct - Null in the case of an inner struct]
+=================================================
+
+=================================================
+Starting [Test 10: MarshalStudyInfo - Check content of StudyInfo]
+Pass: type
+      Actual: object
+
+Pass: studyName : string = 'hello'
+      Actual: studyName : string = 'hello'
+
+Pass: subjectID : string = '7c9af34a-ab59-425a-a6db-0c372ccaa322'
+      Actual: subjectID : string = '7c9af34a-ab59-425a-a6db-0c372ccaa322'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 10: MarshalStudyInfo - Check content of StudyInfo]
+=================================================
+
+=================================================
+Starting [Test 11: StructsByRef - Check the behaviour of Structs when passed ByRef.]
+Comment: Error that was consumed in bindReturn: Could not convert object to struct: object missing expected property 'length'
+Pass: Can't pass null for ByRef.
+      Actual: false
+
+Comment: Error that was consumed in bindReturn: Could not convert object to struct: object missing expected property 'length'
+Pass: Error expected.
+      Actual: false
+
+Comment: Error that was consumed in bindReturn: Could not convert object to struct: object missing expected property 'width'
+Pass: Error expected.
+      Actual: false
+
+Comment: Error that was consumed in bindReturn: Could not convert object to struct: object missing expected property 'length'
+Pass: Error expected.
+      Actual: false
+
+Pass: type
+      Actual: object
+
+Pass: length : number = '280'
+      Actual: length : number = '280'
+
+Pass: width : number = '460'
+      Actual: width : number = '460'
+
+Pass: number of members
+      Actual: 2
+
+Pass: type
+      Actual: object
+
+Pass: length : number = '180'
+      Actual: length : number = '180'
+
+Pass: width : number = '360'
+      Actual: width : number = '360'
+
+Pass: number of members
+      Actual: 2
+
+Comment: Error that was consumed in bindOnError: areDimensionPointersEqual: 'this' is not an Inspectable Object
+Pass: Can't pass null for ByRef.
+      Actual: false
+
+Comment: Error that was consumed in bindOnError: areDimensionPointersEqual: 'this' is not an Inspectable Object
+Pass: Two seperate object instances definetly can't have equal pointers.
+      Actual: false
+
+Comment: Error that was consumed in bindOnError: areDimensionPointersEqual: 'this' is not an Inspectable Object
+Pass: At the time of this test, neither JS nor was it the requirement to support equal pointers for same object marshalled to WinRT
+      Actual: false
+
+Pass: Struct's modification shouldn't affect the struct given/passed from/to JS.
+      Actual: false
+
+PASS [Test 11: StructsByRef - Check the behaviour of Structs when passed ByRef.]
+=================================================
+
+=================================================
+Starting [Test 12: PassIdByRef - Ensure that PassIdByRef correctly accepts a GUID passed by ref.]
+Comment: Error that was consumed in bindReturn: Could not convert argument to type 'GUID'
+Pass: Error expected.
+      Actual: false
+
+Comment: Error that was consumed in bindReturn: Could not convert argument to type 'GUID'
+Pass: Error expected.
+      Actual: false
+
+Comment: Error that was consumed in bindReturn: Could not convert argument to type 'GUID'
+Pass: Error expected.
+      Actual: false
+
+Pass: string
+      Actual: 7c9af34a-ab59-425a-a6db-0c372ccaa323
+
+PASS [Test 12: PassIdByRef - Ensure that PassIdByRef correctly accepts a GUID passed by ref.]
+=================================================
+
+=================================================
+Starting [Test 13: CheckMother - Ensure that both flavors of CheckMother succesfully compare the stored mother reference.]
+Pass: Exception thrown: The parameter is incorrect.
+
+      Actual: true
+
+Pass: Exception thrown: The parameter is incorrect.
+
+      Actual: true
+
+Pass: No exception thrown.
+      Actual: true
+
+Pass: No exception thrown.
+      Actual: true
+
+Pass: No exception thrown.
+      Actual: true
+
+Pass: No exception thrown.
+      Actual: true
+
+Pass: No exception thrown.
+      Actual: true
+
+Pass: No exception thrown.
+      Actual: true
+
+Pass: Exception thrown: The parameter is incorrect.
+
+      Actual: true
+
+Pass: Exception thrown: The parameter is incorrect.
+
+      Actual: true
+
+Pass: Exception thrown: The parameter is incorrect.
+
+      Actual: true
+
+Pass: Exception thrown: The parameter is incorrect.
+
+      Actual: true
+
+PASS [Test 13: CheckMother - Ensure that both flavors of CheckMother succesfully compare the stored mother reference.]
+=================================================
+
+=================================================
+Starting [Test 14: DelegatesByRef - Test to make sure that passing delegates by ref works as expected.]
+Pass: type
+      Actual: object
+
+Pass: length : number = '280'
+      Actual: length : number = '280'
+
+Pass: width : number = '460'
+      Actual: width : number = '460'
+
+Pass: number of members
+      Actual: 2
+
+Pass: type
+      Actual: object
+
+Pass: length : number = '180'
+      Actual: length : number = '180'
+
+Pass: width : number = '360'
+      Actual: width : number = '360'
+
+Pass: number of members
+      Actual: 2
+
+Pass: string
+      Actual: 7c9af34a-ab59-425a-a6db-0c372ccab023
+
+Comment: Error that was consumed in bindReturn: The parameter is incorrect.
+
+Pass: Exception thrown: The parameter is incorrect.
+
+      Actual: true
+
+Comment: Error that was consumed in bindReturn: The parameter is incorrect.
+
+Pass: Exception thrown: The parameter is incorrect.
+
+      Actual: true
+
+Pass: No exception thrown.
+      Actual: true
+
+Pass: No exception thrown.
+      Actual: true
+
+Pass: No exception thrown.
+      Actual: true
+
+Pass: No exception thrown.
+      Actual: true
+
+Pass: No exception thrown.
+      Actual: true
+
+Pass: No exception thrown.
+      Actual: true
+
+Comment: Error that was consumed in bindReturn: The parameter is incorrect.
+
+Pass: Exception thrown: The parameter is incorrect.
+
+      Actual: true
+
+Comment: Error that was consumed in bindReturn: The parameter is incorrect.
+
+Pass: Exception thrown: The parameter is incorrect.
+
+      Actual: true
+
+Comment: Error that was consumed in bindReturn: The parameter is incorrect.
+
+Pass: Exception thrown: The parameter is incorrect.
+
+      Actual: true
+
+Comment: Error that was consumed in bindReturn: The parameter is incorrect.
+
+Pass: Exception thrown: The parameter is incorrect.
+
+      Actual: true
+
+Pass: type
+      Actual: object
+
+Pass: length : number = '280'
+      Actual: length : number = '280'
+
+Pass: width : number = '460'
+      Actual: width : number = '460'
+
+Pass: number of members
+      Actual: 2
+
+Pass: type
+      Actual: object
+
+Pass: length : number = '180'
+      Actual: length : number = '180'
+
+Pass: width : number = '360'
+      Actual: width : number = '360'
+
+Pass: number of members
+      Actual: 2
+
+PASS [Test 14: DelegatesByRef - Test to make sure that passing delegates by ref works as expected.]
+=================================================
+
+=================================================
+Starting [Test 15: MemoryTest - Ensure that we are deallocating memory after every call.]
+PASS [Test 15: MemoryTest - Ensure that we are deallocating memory after every call.]
+=================================================
+
+=================================================
+Starting [Test 16: MixedStructs - Tests with mixed structs passed as ByRef and as IReference]
+Pass: We pass one as a pointer, while ByRef we still copy, can't be same pointer.
+      Actual: false
+
+Pass: It isn't a requirement for the strings to be equal.
+      Actual: false
+
+Pass: It isn't a requirement for matrix references to be equal.
+      Actual: false
+
+Pass: It isn't a requirement for int references to be equal.
+      Actual: false
+
+PASS [Test 16: MixedStructs - Tests with mixed structs passed as ByRef and as IReference]
+=================================================
+
+Passed: 16
+Failed: 0

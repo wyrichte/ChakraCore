@@ -1,0 +1,72 @@
+[
+  {
+    "evaluate": {
+      "obj": {
+        "obj.__proto__": {
+          "[Methods]": "{...}",
+          "obj.__proto__.__proto__": "null"
+        },
+        "obj[\"\"]": {
+          "[Methods]": "{...}",
+          "obj[\"\"].__proto__": "{...}"
+        },
+        "obj['\n']": {
+          "[Methods]": "{...}",
+          "obj['\n'].__proto__": "{...}"
+        },
+        "obj[2]": {
+          "[Methods]": "{...}",
+          "obj[2].__proto__": "{...}"
+        }
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 145,
+        "length": 3,
+        "text": "obj",
+        "frameDescription": "obj[\n][b]"
+      },
+      {
+        "start": 390,
+        "length": 16,
+        "text": "obj[\"\\n\"][\"b\"]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 221,
+        "length": 3,
+        "text": "obj",
+        "frameDescription": "obj[][a]"
+      },
+      {
+        "start": 409,
+        "length": 14,
+        "text": "obj[\"\"][\"a\"]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 297,
+        "length": 3,
+        "text": "obj",
+        "frameDescription": "obj[2][a]"
+      },
+      {
+        "start": 426,
+        "length": 15,
+        "text": "obj[\"2\"][\"a\"]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

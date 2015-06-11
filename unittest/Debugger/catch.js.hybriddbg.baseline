@@ -1,0 +1,21 @@
+[
+  {
+    "log": "catchBlock"
+  },
+  {
+    "callstack": [
+      {
+        "start": 128,
+        "length": 20,
+        "text": "WScript.Echo('PASS')",
+        "frameDescription": "Global code",
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY",
+          "JS_PROPERTY_FRAME_INCATCHBLOCK"
+        ],
+        "flagsAsValue": 73
+      }
+    ]
+  }
+]

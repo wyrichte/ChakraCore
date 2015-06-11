@@ -1,0 +1,47 @@
+//  Copyright (c) Microsoft Corporation. All rights reserved.
+//
+//  WindowsRuntimeAPISet
+
+import "oaidl.idl";
+import "ocidl.idl";
+import "inspectable.idl";
+
+#include <sdkddkver.h>
+midl_pragma warning ( disable: 4066 )
+
+namespace DevTests.ContractVersioned{
+    [contractversion(4)]
+    apicontract XyzContract {}
+
+    [contract(DevTests.ContractVersioned.XyzContract, 4)]
+    [uuid(90E1DBAD-4D20-4FBC-BDB3-31017BDAC850)]
+    interface IXyz : IInspectable
+    {
+        HRESULT Method1(int param1);
+        [propget] HRESULT Property1([out, retval] int* value);
+        [propput] HRESULT Property1([in] int value);
+    };
+
+    [contract(DevTests.ContractVersioned.XyzContract, 4)]
+    [activatable(DevTests.ContractVersioned.XyzContract, 4)]
+    runtimeclass Xyz
+    {
+        [default]interface IXyz;
+    }
+
+    [version(NTDDI_WINBLUE)]
+    [uuid(733E8332-5B14-4939-A6E2-7B56A877BD6A)]
+    interface IXyzPlatformVersioned : IInspectable
+    {
+        HRESULT Method1(int param1);
+    };
+
+    [version(NTDDI_WINBLUE)]
+    [activatable(NTDDI_WINBLUE)]
+    runtimeclass XyzPlatformVersioned
+    {
+        [default]interface IXyzPlatformVersioned;
+    }
+}
+
+

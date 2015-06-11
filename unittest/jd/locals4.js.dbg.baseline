@@ -1,0 +1,102 @@
+[
+  {
+    "locals": {
+      "this - [Type]": "Object",
+      "this": {
+        "[Methods]": {
+          "foo - [Type]": "Object, (Function)",
+          "foo": "<large string>"
+        },
+        "__proto__ - [Type]": "Object",
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Null",
+          "__proto__": "null"
+        }
+      },
+      "arguments - [Type]": "Object, (Arguments)",
+      "arguments": {
+        "[Methods]": {
+          "callee - [Type]": "Object, (Function)",
+          "callee": "<large string>",
+          "Symbol.iterator - [Type]": "Object, (Function)",
+          "Symbol.iterator": "function values() { [native code] }"
+        },
+        "__proto__ - [Type]": "Object",
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Null",
+          "__proto__": "null"
+        },
+        "length - [Type]": "Number",
+        "length": "1",
+        "[0] - [Type]": "Number",
+        "[0]": "100"
+      },
+      "buffer - [Type]": "Object, (ArrayBuffer)",
+      "buffer": {
+        "[Methods]": {
+          "x - [Type]": "Object, (Function)",
+          "x": "function ArrayBuffer() { [native code] }"
+        },
+        "__proto__ - [Type]": "Object",
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Object",
+          "__proto__": "{...}",
+          "byteLength - [Type]": "Number",
+          "byteLength": "8"
+        },
+        "n - [Type]": "String",
+        "n": "ArrayBuffer"
+      },
+      "typedArrays - [Type]": "Object, (Array)",
+      "typedArrays": {
+        "__proto__ - [Type]": "Object, (Array)",
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Object",
+          "__proto__": "{...}",
+          "length - [Type]": "Number",
+          "length": "0",
+          "Symbol.unscopables - [Type]": "Object",
+          "Symbol.unscopables": "{...}"
+        },
+        "length - [Type]": "Number",
+        "length": "1",
+        "[0] - [Type]": "Object, (Uint8ClampedArray)",
+        "[0]": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Object",
+          "__proto__": "{...}",
+          "n - [Type]": "String",
+          "n": "",
+          "[0] - [Type]": "Number",
+          "[0]": "0",
+          "[1] - [Type]": "Number",
+          "[1]": "0",
+          "[2] - [Type]": "Number",
+          "[2]": "0",
+          "[3] - [Type]": "Number",
+          "[3]": "0",
+          "[4] - [Type]": "Number",
+          "[4]": "1",
+          "[5] - [Type]": "Number",
+          "[5]": "254",
+          "[6] - [Type]": "Number",
+          "[6]": "255",
+          "[7] - [Type]": "Number",
+          "[7]": "255"
+        }
+      },
+      "[Globals]": {
+        "g - [Type]": "Object",
+        "g": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Object",
+          "__proto__": "{...}"
+        }
+      }
+    }
+  }
+]

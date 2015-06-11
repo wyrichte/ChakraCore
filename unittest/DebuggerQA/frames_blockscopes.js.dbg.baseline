@@ -1,0 +1,34 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c": "1",
+      "b": "2",
+      "a": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c": "1",
+      "b": "2",
+      "a": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "c=22/7": "<large string>"
+    }
+  }
+]

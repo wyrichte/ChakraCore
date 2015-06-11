@@ -1,0 +1,203 @@
+Error test
+
+=================================================
+Starting [Test 1: Error test]
+Comment: Test marshaling of HRESULT: e_fail
+Pass: instanceof WinRTError: Unspecified error
+
+      Actual: true
+
+Pass: Error number
+      Actual: -2147467259
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual: Unspecified error
+
+
+Comment: Test marshaling of HRESULT: e_invalidArg
+Pass: instanceof WinRTError: The parameter is incorrect.
+
+      Actual: true
+
+Pass: Error number
+      Actual: -2147024809
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual: The parameter is incorrect.
+
+
+Comment: Test marshaling of HRESULT: e_pointer
+Pass: instanceof WinRTError: Invalid pointer
+
+      Actual: true
+
+Pass: Error number
+      Actual: -2147467261
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual: Invalid pointer
+
+
+Comment: Test marshaling of HRESULT: e_noInterface
+Pass: instanceof WinRTError: No such interface supported
+
+      Actual: true
+
+Pass: Error number
+      Actual: -2147467262
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual: No such interface supported
+
+
+Comment: Test marshaling of HRESULT: e_notImpl
+Pass: instanceof WinRTError: Not implemented
+
+      Actual: true
+
+Pass: Error number
+      Actual: -2147467263
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual: Not implemented
+
+
+Comment: Test marshaling of HRESULT: e_abort
+Pass: instanceof WinRTError: Operation aborted
+
+      Actual: true
+
+Pass: Error number
+      Actual: -2147467260
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual: Operation aborted
+
+
+Comment: Test marshaling of HRESULT: e_accessDenied
+Pass: instanceof WinRTError: Access is denied.
+
+      Actual: true
+
+Pass: Error number
+      Actual: -2147024891
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual: Access is denied.
+
+
+Comment: Test marshaling of HRESULT: e_handle
+Pass: instanceof WinRTError: The handle is invalid.
+
+      Actual: true
+
+Pass: Error number
+      Actual: -2147024890
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual: The handle is invalid.
+
+
+Comment: Test marshaling of HRESULT: e_outOfMemory
+Pass: instanceof WinRTError: Not enough storage is available to complete this operation.
+
+      Actual: true
+
+Pass: Error number
+      Actual: -2147024882
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual: Not enough storage is available to complete this operation.
+
+
+Comment: Test marshaling of HRESULT: e_unexpected
+Pass: instanceof WinRTError: Catastrophic failure
+
+      Actual: true
+
+Pass: Error number
+      Actual: -2147418113
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual: Catastrophic failure
+
+
+Comment: Test marshaling of HRESULT: e_bounds
+Pass: instanceof WinRTError: The operation attempted to access data outside the valid range
+
+      Actual: true
+
+Pass: Error number
+      Actual: -2147483637
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual: The operation attempted to access data outside the valid range
+
+
+Comment: Test marshaling of HRESULT: e_classNotReg
+Pass: instanceof WinRTError: Class not registered
+
+      Actual: true
+
+Pass: Error number
+      Actual: -2147221164
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual: Class not registered
+
+
+PASS [Test 1: Error test]
+=================================================
+
+=================================================
+Starting [Test 2: WinRTError constructor test]
+Pass: instanceof WinRTError: This is a WinRT error
+      Actual: true
+
+Pass: Error name
+      Actual: WinRTError
+
+Pass: Error message
+      Actual: This is a WinRT error
+
+PASS [Test 2: WinRTError constructor test]
+=================================================
+
+Passed: 2
+Failed: 0

@@ -1,0 +1,28 @@
+
+
+Running version tests
+
+run js direct API test
+verify typeid == 0 : SUCCEEDED
+verify typeid == 1 : SUCCEEDED
+verify typeid == 2 : SUCCEEDED
+verify typeid == 2 : SUCCEEDED
+verify typeid == 65 : SUCCEEDED
+library object test succeeded
+verify bool succeeded
+verify bool succeeded
+verify bool succeeded
+verify bool succeeded
+verify bool succeeded
+verify DataConversion::VarToInt for double succeeded.
+verify DataConversion::VarToInt for double succeeded.
+verify DataConversion::VarToInt for double succeeded.
+verify DataConversion::VarToInt for double succeeded.
+verify DataConversion::VarToInt for double succeeded.
+verify DataConversion::VarToInt for double succeeded.
+verify IASD
+Total Test Cases  0
+Passed:  0
+Failed   0
+
+

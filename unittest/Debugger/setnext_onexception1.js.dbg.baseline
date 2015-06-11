@@ -1,0 +1,43 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "j": "11",
+      "s1": "undefined",
+      "sum": "undefined",
+      "i": "undefined",
+      "i1": "undefined",
+      "c": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 302,
+      "to": 444,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 302,
+      "to": 655,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "11",
+      "s1": "undefined",
+      "sum": "undefined",
+      "i": "undefined",
+      "i1": "undefined",
+      "c": "undefined",
+      "[Globals]": ""
+    }
+  }
+]

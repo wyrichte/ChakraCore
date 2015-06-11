@@ -1,0 +1,5 @@
+DIRS =	Core \
+	Common \
+	DataStructures \
+	Exceptions \
+	Memory \

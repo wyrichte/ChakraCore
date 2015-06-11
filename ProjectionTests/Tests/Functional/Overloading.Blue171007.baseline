@@ -1,0 +1,51 @@
+overloading.blue171007
+
+=================================================
+Starting [Test 1: Static overloading with Requires]
+Pass: typeof function Winery.Overloading.StaticConflictWithRequiresInterface.Access() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.StaticConflictWithRequiresInterface.IA.doSomething should be defined
+      Actual: function
+
+Pass: typeof function Winery.Overloading.StaticConflictWithRequiresInterface.IA.doSomething() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.StaticConflictWithRequiresInterface.IB.doSomething should be defined
+      Actual: function
+
+Pass: typeof function Winery.Overloading.StaticConflictWithRequiresInterface.IB.doSomething() { [native code] }
+      Actual: function
+
+Pass: doSomethingNotOverloaded should be defined
+      Actual: function
+
+Pass: typeof function doSomethingNotOverloaded() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.StaticConflictWithRequiresInterface.IA.doSomethingNotOverloaded(true, true)
+      Actual: StaticConflictWithRequiresInterface.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.StaticConflictWithRequiresInterface.IA.doSomethingNotOverloaded(true, true)#2
+      Actual: StaticConflictWithRequiresInterface.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.StaticConflictWithRequiresInterface.IA.doSomethingNotOverloaded(true, true)
+      Actual: StaticConflictWithRequiresInterface.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.StaticConflictWithRequiresInterface.IB.doSomething(true)
+      Actual: StaticConflictWithRequiresInterface.IB.DoSomething2(boolean) called
+
+Pass: Winery.Overloading.StaticConflictWithRequiresInterface.IB.doSomething(true, true, true)
+      Actual: StaticConflictWithRequiresInterface.IB.DoSomething4(boolean, boolean, boolean) called
+
+Pass: Winery.Overloading.StaticConflictWithRequiresInterface.IB.doSomething(true, true)
+      Actual: StaticConflictWithRequiresInterface.IB.DoSomething3(boolean, boolean) called
+
+Pass: Winery.Overloading.StaticConflictWithRequiresInterface.IA.doSomething(true, true)
+      Actual: StaticConflictWithRequiresInterface.IA.DoSomething(boolean, boolean) called
+
+PASS [Test 1: Static overloading with Requires]
+=================================================
+
+Passed: 1
+Failed: 0

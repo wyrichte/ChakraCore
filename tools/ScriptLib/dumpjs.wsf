@@ -1,0 +1,25 @@
+<package>
+<job id="runJS">
+<script language="JScript" src="log.js"></script>
+<script language="JScript" src="fso.js"></script>
+<script language="JScript" src="proc.js"></script>
+<script language="JScript" src="util.js"></script>
+<script language="JScript" src="run.js"></script>
+<script language="JScript" src="dump.js"></script>
+<script language="JScript" src="runJScript.js"></script>
+<script language="JScript">
+
+
+	// Runjs is really defined in scriptLib\runJS.js
+	// runJS routine is passed the list of source files that
+	// it should look at on a runjs /? 
+
+WScript.Quit(runJS([
+	"scriptLib\\dump.js",
+	]));
+
+</script>
+</job>
+</package>
+
+

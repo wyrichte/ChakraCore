@@ -1,0 +1,117 @@
+{
+  "testname" : "JS Completions - Test an unterminated comment",
+  "owner" : "chuckj",
+  "validated" : true,
+  "timeout" : 1000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "_comment1" : "Put an underscore \"_\" prefix to comment out a header field.",
+  "_comment2" : "No field in the schema uses the underscore prefix",
+  "runAuthoringTest" : true,
+  "commands" :
+  [
+{
+  "action": "getCompletions",
+  "args": [
+    "unterm_comment.js"
+  ],
+  "events": [
+    {
+      "completions": [
+        {
+          "extent": {
+            "offset": 17,
+            "length": 0
+          },
+          "kind": "member",
+          "completions": [
+            {
+              "kind": "field",
+              "group": "file identifiers",
+              "name": "a",
+              "displayText": "a",
+              "insertionText": "a"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "constructor",
+              "displayText": "constructor",
+              "insertionText": "constructor"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "toExponential",
+              "displayText": "toExponential",
+              "insertionText": "toExponential"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "toFixed",
+              "displayText": "toFixed",
+              "insertionText": "toFixed"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "toPrecision",
+              "displayText": "toPrecision",
+              "insertionText": "toPrecision"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "toLocaleString",
+              "displayText": "toLocaleString",
+              "insertionText": "toLocaleString"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "toString",
+              "displayText": "toString",
+              "insertionText": "toString"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "valueOf",
+              "displayText": "valueOf",
+              "insertionText": "valueOf"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "hasOwnProperty",
+              "displayText": "hasOwnProperty",
+              "insertionText": "hasOwnProperty"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "propertyIsEnumerable",
+              "displayText": "propertyIsEnumerable",
+              "insertionText": "propertyIsEnumerable"
+            },
+            {
+              "kind": "method",
+              "group": "members",
+              "name": "isPrototypeOf",
+              "displayText": "isPrototypeOf",
+              "insertionText": "isPrototypeOf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

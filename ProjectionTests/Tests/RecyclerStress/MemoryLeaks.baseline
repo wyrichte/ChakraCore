@@ -1,0 +1,171 @@
+Memory Leaks Tests
+
+=================================================
+Starting [Test 1: SimpleInterfaceGet]
+Comment: Create myFish
+Pass: myFish refCount
+      Actual: 2
+
+Comment: Get mySameFish same as myFish
+Pass: myFish refCount
+      Actual: 2
+
+Pass: mySameFish refCount
+      Actual: 2
+
+Comment: Set the myFish to null and perform gc
+Comment: Perform gc
+Pass: mySameFish refCount
+      Actual: 2
+
+Comment: Set mySameFish to winrt
+Pass: mySameFish refCount
+      Actual: 3
+
+Comment: Perform gc and check if all the vars of myFish are released
+Pass: Animals.Animal.myFishRefCount
+      Actual: 1
+
+PASS [Test 1: SimpleInterfaceGet]
+=================================================
+
+=================================================
+Starting [Test 2: MethodInvoke]
+Comment: Create myFish
+Pass: myFish refCount
+      Actual: 2
+
+Comment: Call getNumFins
+Pass: myFish.getNumFins()
+      Actual: 5
+
+Pass: myFish refCount
+      Actual: 2
+
+PASS [Test 2: MethodInvoke]
+=================================================
+
+=================================================
+Starting [Test 3: PropertyGetAndSet]
+Comment: Create myFish
+Pass: myFish refCount
+      Actual: 2
+
+Comment: Set property
+Pass: myFish refCount
+      Actual: 2
+
+Comment: Get property
+Pass: myFish.name
+      Actual: Nemo
+
+Pass: myFish refCount
+      Actual: 2
+
+PASS [Test 3: PropertyGetAndSet]
+=================================================
+
+=================================================
+Starting [Test 4: DelegateInvoke]
+Comment: Create myFish
+Pass: myFish refCount
+      Actual: 2
+
+Comment: Set Fish into the animal
+Pass: myFish refCount
+      Actual: 3
+
+Comment: Perform gc
+Pass: Animals.Animal.myFishRefCount
+      Actual: 1
+
+Comment: Call myDelegate: return null
+Comment: *** myDelegate: Invoke
+Pass: delegateMyFish refCount
+      Actual: 4
+
+Comment: *** myDelegate: Exit
+Comment: Perform gc
+Pass: Animals.Animal.myFishRefCount
+      Actual: 1
+
+Comment: Call myDelegate: return Fish
+Comment: *** myDelegate: Invoke
+Pass: delegateMyFish refCount
+      Actual: 4
+
+Comment: *** myDelegate: Exit
+Comment: Perform gc
+Pass: Animals.Animal.myFishRefCount
+      Actual: 3
+
+Comment: Set the myOutFish to null and check the myFish of winrt is the only one holding reference
+Comment: Perform gc
+Pass: Animals.Animal.myFishRefCount
+      Actual: 1
+
+PASS [Test 4: DelegateInvoke]
+=================================================
+
+=================================================
+Starting [Test 5: EventInvoke]
+Comment: Create toaster
+Pass: toaster refCount
+      Actual: 2
+
+Comment: Add event listner
+Pass: toaster refCount
+      Actual: 2
+
+Comment: *** toastCompleteCallback: Enter
+Pass: ev.message
+      Actual: Toast Complete Msg
+
+Pass: toaster refCount inside event handler : ev.target
+      Actual: true
+
+Pass: toast refCount inside event handler: ev.detail[0]
+      Actual: 7
+
+Pass: toast refCount inside event handler: ev
+      Actual: 7
+
+Comment: *** toastCompleteCallback: Exit
+Pass: toast.message
+      Actual: Toast Complete Msg
+
+Comment: Perform gc
+Pass: toaster refCount after event handler invoke
+      Actual: 2
+
+Pass: toast refCount after event handler invoke
+      Actual: 2
+
+Comment: Remove event listner
+Comment: Perform gc
+Pass: toaster refCount after event handler invoke
+      Actual: 2
+
+Pass: toast refCount after event handler invoke
+      Actual: 2
+
+PASS [Test 5: EventInvoke]
+=================================================
+
+=================================================
+Starting [Test 6: Inspectable_Out: Get inspectable out that has fails on GRCN]
+Comment: Create myFish
+Pass: myFish refCount
+      Actual: 2
+
+Pass: propertyValueTests.testFailingRuntimeClassNameWithAnotherInterface(myFish); returned (TypeError: testFailingRuntimeClassNameWithAnotherInterface: could not convert return value to IInspectable)
+      Actual: true
+
+Pass: myFish refCount
+      Actual: 2
+
+PASS [Test 6: Inspectable_Out: Get inspectable out that has fails on GRCN]
+=================================================
+
+Passed: 6
+Failed: 0

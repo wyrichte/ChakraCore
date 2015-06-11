@@ -1,0 +1,19 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<html>
+<head>
+<script>
+function localbar()
+{
+    remotefoo();
+}
+
+function localfoo()
+{
+    localbar();
+}
+</script>
+</head>
+<body onload="localfoo()">
+<iframe name=frame1 src="libraryCodeChildThrowThroughFrame.html">
+</body>
+</html>

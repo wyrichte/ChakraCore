@@ -1,0 +1,19 @@
+=== Before change ===
+old f, delete
+ENC: QueryEdit: 1 requests
+ENC: edittopdelete.js (54,111):
+/**edit(top)**/
+function f() {
+    WScript.Echo("old f, delet...
+===>
+  // f deleted
+...
+ENC: === AST Diffing ===
+ENC: Delete: FuncDecl function f() {..    WScript.Ech
+ENC: === Semantic Changes ===
+ENC: DeleteFunction: FuncDecl function f() {..    WScript.Ech
+ENC:     Old functionBody: f
+ENC: MoveFunction: FuncDecl function test() {..    WScript. -> FuncDecl function test() {..    WScript.
+ENC:     Old functionBody: test
+=== After change ===
+old f, delete

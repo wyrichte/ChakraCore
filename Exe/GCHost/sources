@@ -1,0 +1,58 @@
+TARGETNAME=GCHost
+TARGETTYPE=PROGRAM
+UMENTRY = wmain
+UMTYPE = console
+
+USE_NOTHROW_NEW=1 
+
+!IF "$(_BUILDARCH)" == "arm" || "$(_BUILDARCH)" == "arm64"
+NT_SIGNCODE=1
+TEST_CODE=1
+!ENDIF
+
+# Turns on fretest for test code
+!include $(JSCRIPT_ROOT)\jslibtest.inc
+
+INCLUDES=$(COREINCLUDES);
+
+# Make sure that common.memory.lib is passed to linker prior to msvcrt so that our new/delete 
+# do not cause 'already defined in msvcrt.lib error'.
+CRTLIBS= \
+    $(OBJECT_JSCRIPT_DIR)\lib\MemProtectHeap\static\$(JS_LIBTYPE)\$(O)\JScript.MemProtectHeap.static.lib 
+
+# Libs needed
+# oleaut32: Needed for SysAllocString used by CmdParser
+# version: Needed by AutoSystemInfo to get version information
+# Debug only:
+# dbghelp: Needed by Js::Throw::GenerateDump
+# user32: Needed by Js::Throw::ReportAssert to show a message box
+
+TARGETLIBS=     \
+    $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
+    $(MINCORE_SDK_LIB_PATH)\mincore_fw.lib    \
+    $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \
+    $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
+    $(INETCORE_LIB_PATH)\iertutilp.lib \
+    $(INETCORE_LIB_PATH)\IESettingsId.lib \
+    $(INETCORE_LIB_PATH)\IESettingsApi.lib \
+    $(OBJECT_INETCORE_DIR)\lib\common\iel1_sp\$(O)\ieshare_common_iel1.lib \
+!if !$(FREEBUILD)
+    $(SDK_LIB_PATH)\dbghelp.lib \
+    $(MINCORE_PRIV_SDK_LIB_VPATH)\ext-ms-win-ntuser-dialogbox-l1.lib \
+!endif
+
+DELAYLOAD = \
+    oleaut32.dll; \
+!IF (!$(FREEBUILD))
+    ext-ms-win-ntuser-dialogbox-l1-1-0.dll; \
+!ENDIF
+
+ALLOW_NT_STYLE_DLOAD_ERROR_HANDLER=1
+DLOAD_ERROR_HANDLER=kernelbase.dll
+
+SOURCES= \
+    GCHost.cpp \
+
+PRECOMPILED_INCLUDE=stdafx.h
+PRECOMPILED_SOURCEFILE=stdafx.cpp
+PRECOMPILED_CXX=1

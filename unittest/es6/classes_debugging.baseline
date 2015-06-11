@@ -1,0 +1,10 @@
+*** Running test #1 (0): BLUE: 546995 Debugger: FQN: ES6: Fully qualified name just shows function name for class methods
+PASSED
+*** Running test #2 (1): BLUE: 554109 [Debugger]  - Class Declaration is shown incorrectly in Debugger
+Check
+PASSED
+*** Running test #3 (2): BLUE 546955: Debugger: FQN: ES6: Constructor for extended class should show extended class name instead of "constructor" in stack if explicit constructor is not defined in extended class
+PASSED
+*** Running test #4 (3): Super evaluation in eval/lambda contexts
+PASSED
+Summary of tests: total executed: 4; passed: 4; failed: 0

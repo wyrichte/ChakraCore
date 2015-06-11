@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+<body>
+<script type="text/javascript">
+
+function foo() {
+	document.getElementById('RunButton').click();
+}
+WScript.Attach(foo);
+WScript.Detach(foo);
+WScript.Attach(foo);
+WScript.Detach(foo);
+WScript.Attach(foo);
+function Run() {
+}
+WScript.Echo("Pass");
+
+</script>
+<input id="RunButton" "type="button" value="Call Run" onclick="Run() /**bp:dumpBreak()**/"/>
+</body>
+</html>
+ 

@@ -1,0 +1,3346 @@
+Recycler Stress Selected Scenarios from events.js
+
+=================================================
+Starting [Test 1: Basic]
+Pass: ev.message
+      Actual: 123
+
+Pass: ev.message
+      Actual: 123
+
+Pass: ev.message
+      Actual: 123
+
+Pass: toastCompleteCount
+      Actual: 3
+
+PASS [Test 1: Basic]
+=================================================
+
+=================================================
+Starting [Test 2: MultipleListeners]
+Comment: Calling toaster.MakeToast, expecting 3 callbacks
+Pass: Number of events handled
+      Actual: 3
+
+PASS [Test 2: MultipleListeners]
+=================================================
+
+=================================================
+Starting [Test 3: MultipleEvents]
+Comment: Registerting toaststartevent callback
+Comment: Registerting toastcompleteevent callback1
+Comment: Calling toaster.makeToast
+Comment: In Start toasting event callback1
+Comment: In Complete toasting event callback: toast.message is 123
+Pass: Number of times toaststartevent called
+      Actual: 1
+
+Pass: Number of times toastcompleteevents called
+      Actual: 1
+
+Comment: Registerting toaststartevent callback
+Comment: Calling toaster.makeToast 4 times
+Comment: In Start toasting event callback1
+Comment: In Start toasting event callback2
+Comment: In Complete toasting event callback: toast.message is 123
+Comment: In Start toasting event callback1
+Comment: In Start toasting event callback2
+Comment: In Complete toasting event callback: toast.message is 123
+Comment: In Start toasting event callback1
+Comment: In Start toasting event callback2
+Comment: In Complete toasting event callback: toast.message is 123
+Comment: In Start toasting event callback1
+Comment: In Start toasting event callback2
+Comment: In Complete toasting event callback: toast.message is 123
+Pass: Number of times toaststartevent called
+      Actual: 8
+
+Pass: Number of times toastcompleteevents called
+      Actual: 4
+
+Comment: Removing toaststartevent callback1
+Comment: Calling toaster.makeToast
+Comment: In Start toasting event callback2
+Comment: In Complete toasting event callback: toast.message is 123
+Pass: Number of times toaststartevent called
+      Actual: 1
+
+Pass: Number of times toastcompleteevents called
+      Actual: 1
+
+Comment: Removing toaststartevent callback2
+Comment: Calling toaster.makeToast
+Comment: In Complete toasting event callback: toast.message is 123
+Pass: Number of times toaststartevent called
+      Actual: 0
+
+Pass: Number of times toastcompleteevents called
+      Actual: 1
+
+Comment: Removing toastcompleteevent callback
+Comment: Calling toaster.makeToast
+Pass: Number of times toaststartevent called
+      Actual: 0
+
+Pass: Number of times toastcompleteevents called
+      Actual: 0
+
+PASS [Test 3: MultipleEvents]
+=================================================
+
+=================================================
+Starting [Test 4: EventsOnInterfaceOnlyWinRTObjects]
+Comment: var electricityReporter = toaster.electricityReporter
+Pass: electricityReporter.applianceName
+      Actual: Toaster
+
+Comment: Registering onSwitchOn event handler
+Comment: Registering onSwitchOff event handler
+Comment: Calling toaster.makeToast
+Comment: *** OnSwitchOn
+Pass: ev.target.applianceName
+      Actual: Toaster
+
+Pass: ev : eventDetails
+      Actual: 123
+
+Comment: *** OnSwitchOff
+Pass: ev.target.applianceName
+      Actual: Toaster
+
+Pass: ev : eventDetails
+      Actual: 123
+
+Pass: ev.detail[1] : unitCount
+      Actual: 5
+
+PASS [Test 4: EventsOnInterfaceOnlyWinRTObjects]
+=================================================
+
+=================================================
+Starting [Test 5: Event Name collision on required interfaces]
+Comment: var myRC1WithEvent = new Animals.RC1WithEvent();
+Comment: typeof myRC1WithEvent: object
+Comment: Dump of properties : 
+    var myRC1WithEventMembers = [
+        ['Animals.IInterface2WithEvent.onevent2', 'function', 1],
+        ['addEventListener', 'function', 2],
+        ['handler1', 'function', 2],
+        ['invokeDelegate', 'function', 2],
+        ['invokeEvent_I1E1', 'function', 1],
+        ['invokeEvent_I1E2', 'function', 1],
+        ['invokeEvent_I2E1', 'function', 1],
+        ['invokeEvent_I2E3', 'function', 1],
+        ['onevent1', 'object'],
+        ['onevent2', 'object'],
+        ['onevent21', 'object'],
+        ['onevent3', 'object'],
+        ['removeEventListener', 'function', 2],
+        ['wasHandler1Invoked', 'boolean'],
+    ];
+Pass: typeof myRC1WithEvent
+      Actual: object
+
+Pass: myRC1WithEvent["Animals.IInterface2WithEvent.onevent2"]
+      Actual: Animals.IInterface2WithEvent.onevent2
+
+Pass: typeof myRC1WithEvent["Animals.IInterface2WithEvent.onevent2"]
+      Actual: function
+
+Pass: myRC1WithEvent["Animals.IInterface2WithEvent.onevent2"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myRC1WithEvent["Animals.IInterface2WithEvent.onevent2"].length
+      Actual: 1
+
+Pass: myRC1WithEvent["addEventListener"]
+      Actual: addEventListener
+
+Pass: typeof myRC1WithEvent["addEventListener"]
+      Actual: function
+
+Pass: myRC1WithEvent["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myRC1WithEvent["addEventListener"].length
+      Actual: 2
+
+Pass: myRC1WithEvent["handler1"]
+      Actual: handler1
+
+Pass: typeof myRC1WithEvent["handler1"]
+      Actual: function
+
+Pass: myRC1WithEvent["handler1"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myRC1WithEvent["handler1"].length
+      Actual: 2
+
+Pass: myRC1WithEvent["invokeDelegate"]
+      Actual: invokeDelegate
+
+Pass: typeof myRC1WithEvent["invokeDelegate"]
+      Actual: function
+
+Pass: myRC1WithEvent["invokeDelegate"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myRC1WithEvent["invokeDelegate"].length
+      Actual: 2
+
+Pass: myRC1WithEvent["invokeEvent_I1E1"]
+      Actual: invokeEvent_I1E1
+
+Pass: typeof myRC1WithEvent["invokeEvent_I1E1"]
+      Actual: function
+
+Pass: myRC1WithEvent["invokeEvent_I1E1"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myRC1WithEvent["invokeEvent_I1E1"].length
+      Actual: 1
+
+Pass: myRC1WithEvent["invokeEvent_I1E2"]
+      Actual: invokeEvent_I1E2
+
+Pass: typeof myRC1WithEvent["invokeEvent_I1E2"]
+      Actual: function
+
+Pass: myRC1WithEvent["invokeEvent_I1E2"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myRC1WithEvent["invokeEvent_I1E2"].length
+      Actual: 1
+
+Pass: myRC1WithEvent["invokeEvent_I2E1"]
+      Actual: invokeEvent_I2E1
+
+Pass: typeof myRC1WithEvent["invokeEvent_I2E1"]
+      Actual: function
+
+Pass: myRC1WithEvent["invokeEvent_I2E1"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myRC1WithEvent["invokeEvent_I2E1"].length
+      Actual: 1
+
+Pass: myRC1WithEvent["invokeEvent_I2E3"]
+      Actual: invokeEvent_I2E3
+
+Pass: typeof myRC1WithEvent["invokeEvent_I2E3"]
+      Actual: function
+
+Pass: myRC1WithEvent["invokeEvent_I2E3"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myRC1WithEvent["invokeEvent_I2E3"].length
+      Actual: 1
+
+Pass: myRC1WithEvent["onevent1"]
+      Actual: onevent1
+
+Pass: typeof myRC1WithEvent["onevent1"]
+      Actual: object
+
+Pass: myRC1WithEvent["onevent2"]
+      Actual: onevent2
+
+Pass: typeof myRC1WithEvent["onevent2"]
+      Actual: object
+
+Pass: myRC1WithEvent["onevent21"]
+      Actual: onevent21
+
+Pass: typeof myRC1WithEvent["onevent21"]
+      Actual: object
+
+Pass: myRC1WithEvent["onevent3"]
+      Actual: onevent3
+
+Pass: typeof myRC1WithEvent["onevent3"]
+      Actual: object
+
+Pass: myRC1WithEvent["removeEventListener"]
+      Actual: removeEventListener
+
+Pass: typeof myRC1WithEvent["removeEventListener"]
+      Actual: function
+
+Pass: myRC1WithEvent["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myRC1WithEvent["removeEventListener"].length
+      Actual: 2
+
+Pass: myRC1WithEvent["wasHandler1Invoked"]
+      Actual: wasHandler1Invoked
+
+Pass: typeof myRC1WithEvent["wasHandler1Invoked"]
+      Actual: boolean
+
+Pass: number of members of myRC1WithEvent
+      Actual: 14
+
+Comment: myRC1WithEvent.invokeEvent_I1E1(myString);
+Comment: *** Event Start : Interface1::Event1
+Pass: ev.target
+      Actual: [object Animals.RC1WithEvent]
+
+Pass: ev
+      Actual: This is IInterface1WithEvent::Event1
+
+Comment: *** Event Complete : Interface1::Event1
+Comment: myRC1WithEvent.invokeEvent_I2E1(myString);
+Comment: *** Event Start : Interface2::Event21
+Pass: ev.target
+      Actual: [object Animals.RC1WithEvent]
+
+Pass: ev
+      Actual: This is IInterface2WithEvent::Event21
+
+Comment: *** Event Complete : Interface2::Event1
+Comment: myRC1WithEvent.invokeEvent_I1E1(myString);
+Comment: *** Event Start : Interface1::Event1
+Pass: ev.target
+      Actual: [object Animals.RC1WithEvent]
+
+Pass: ev
+      Actual: This is IInterface1WithEvent::Event1
+
+Comment: *** Event Complete : Interface1::Event1
+Comment: *** Event Start : Generic callback
+Pass: ev.target
+      Actual: [object Animals.RC1WithEvent]
+
+Pass: ev
+      Actual: This is IInterface1WithEvent::Event1
+
+Comment: *** Event Complete : Generic callback
+Comment: myRC1WithEvent.invokeEvent_I1E2(myString);
+Comment: *** Event Start : Generic callback
+Pass: ev.target
+      Actual: [object Animals.RC1WithEvent]
+
+Pass: ev
+      Actual: This is IInterface1WithEvent::Event2
+
+Comment: *** Event Complete : Generic callback
+Comment: myRC1WithEvent.invokeEvent_I2E1(myString);
+Comment: myRC1WithEvent.invokeEvent_I1E1(myString);
+Comment: *** Event Start : Interface1::Event1
+Pass: ev.target
+      Actual: [object Animals.RC1WithEvent]
+
+Pass: ev
+      Actual: This is IInterface1WithEvent::Event1
+
+Comment: *** Event Complete : Interface1::Event1
+Comment: myRC1WithEvent.invokeEvent_I1E2(myString);
+Comment: myRC1WithEvent.invokeEvent_I1E1(myString);
+PASS [Test 5: Event Name collision on required interfaces]
+=================================================
+
+=================================================
+Starting [Test 6: EventHandlerInvokeFormat: <This, Sender, Runtimeclass>]
+Comment: Create the toaster
+Comment: Add event listener for toastComplete event
+Comment: *** toastCompleteCallback : Invoke
+Pass: ev.message
+      Actual: 123
+
+Comment: typeof ev: object
+Comment: Dump of properties : 
+    var evMembers = [
+        ['target', 'object'],
+        ['detail', 'object'],
+        ['type', 'string'],
+        ['message', 'string'],
+    ];
+Pass: typeof ev
+      Actual: object
+
+Pass: ev["target"]
+      Actual: target
+
+Pass: typeof ev["target"]
+      Actual: object
+
+Pass: ev["detail"]
+      Actual: detail
+
+Pass: typeof ev["detail"]
+      Actual: object
+
+Pass: ev["type"]
+      Actual: type
+
+Pass: typeof ev["type"]
+      Actual: string
+
+Pass: ev["message"]
+      Actual: message
+
+Pass: typeof ev["message"]
+      Actual: string
+
+Pass: number of members of ev
+      Actual: 4
+
+Comment: typeof ev.target: object
+Comment: Dump of properties : 
+    var ev.targetMembers = [
+        ['addEventListener', 'function', 2],
+        ['electricityReporter', 'object'],
+        ['getSameToaster', 'function', 0],
+        ['indirectMakeToast', 'function', 1],
+        ['indirectToaster', 'object'],
+        ['invokePreheatCompleteBackgroundEvents', 'function', 1],
+        ['invokeRootedHandler', 'function', 2],
+        ['makeToast', 'function', 1],
+        ['onindirecttoastcompleteevent', 'object'],
+        ['onpreheatcompletebackground', 'object'],
+        ['onpreheatstart', 'object'],
+        ['onrootedtoastcompleteevent', 'object'],
+        ['ontoastcompleteevent', 'object'],
+        ['ontoaststartevent', 'object'],
+        ['preheatInBackground', 'function', 1],
+        ['preheatInBackgroundWithSmuggledDelegate', 'function', 1],
+        ['removeEventListener', 'function', 2],
+        ['rootedHandler', 'object'],
+        ['size', 'object'],
+    ];
+Pass: typeof ev.target
+      Actual: object
+
+Pass: ev.target["addEventListener"]
+      Actual: addEventListener
+
+Pass: typeof ev.target["addEventListener"]
+      Actual: function
+
+Pass: ev.target["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.target["addEventListener"].length
+      Actual: 2
+
+Pass: ev.target["electricityReporter"]
+      Actual: electricityReporter
+
+Pass: typeof ev.target["electricityReporter"]
+      Actual: object
+
+Pass: ev.target["getSameToaster"]
+      Actual: getSameToaster
+
+Pass: typeof ev.target["getSameToaster"]
+      Actual: function
+
+Pass: ev.target["getSameToaster"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev.target["getSameToaster"].length
+      Actual: 0
+
+Pass: ev.target["indirectMakeToast"]
+      Actual: indirectMakeToast
+
+Pass: typeof ev.target["indirectMakeToast"]
+      Actual: function
+
+Pass: ev.target["indirectMakeToast"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["indirectMakeToast"].length
+      Actual: 1
+
+Pass: ev.target["indirectToaster"]
+      Actual: indirectToaster
+
+Pass: typeof ev.target["indirectToaster"]
+      Actual: object
+
+Pass: ev.target["invokePreheatCompleteBackgroundEvents"]
+      Actual: invokePreheatCompleteBackgroundEvents
+
+Pass: typeof ev.target["invokePreheatCompleteBackgroundEvents"]
+      Actual: function
+
+Pass: ev.target["invokePreheatCompleteBackgroundEvents"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["invokePreheatCompleteBackgroundEvents"].length
+      Actual: 1
+
+Pass: ev.target["invokeRootedHandler"]
+      Actual: invokeRootedHandler
+
+Pass: typeof ev.target["invokeRootedHandler"]
+      Actual: function
+
+Pass: ev.target["invokeRootedHandler"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.target["invokeRootedHandler"].length
+      Actual: 2
+
+Pass: ev.target["makeToast"]
+      Actual: makeToast
+
+Pass: typeof ev.target["makeToast"]
+      Actual: function
+
+Pass: ev.target["makeToast"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["makeToast"].length
+      Actual: 1
+
+Pass: ev.target["onindirecttoastcompleteevent"]
+      Actual: onindirecttoastcompleteevent
+
+Pass: typeof ev.target["onindirecttoastcompleteevent"]
+      Actual: object
+
+Pass: ev.target["onpreheatcompletebackground"]
+      Actual: onpreheatcompletebackground
+
+Pass: typeof ev.target["onpreheatcompletebackground"]
+      Actual: object
+
+Pass: ev.target["onpreheatstart"]
+      Actual: onpreheatstart
+
+Pass: typeof ev.target["onpreheatstart"]
+      Actual: object
+
+Pass: ev.target["onrootedtoastcompleteevent"]
+      Actual: onrootedtoastcompleteevent
+
+Pass: typeof ev.target["onrootedtoastcompleteevent"]
+      Actual: object
+
+Pass: ev.target["ontoastcompleteevent"]
+      Actual: ontoastcompleteevent
+
+Pass: typeof ev.target["ontoastcompleteevent"]
+      Actual: object
+
+Pass: ev.target["ontoaststartevent"]
+      Actual: ontoaststartevent
+
+Pass: typeof ev.target["ontoaststartevent"]
+      Actual: object
+
+Pass: ev.target["preheatInBackground"]
+      Actual: preheatInBackground
+
+Pass: typeof ev.target["preheatInBackground"]
+      Actual: function
+
+Pass: ev.target["preheatInBackground"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["preheatInBackground"].length
+      Actual: 1
+
+Pass: ev.target["preheatInBackgroundWithSmuggledDelegate"]
+      Actual: preheatInBackgroundWithSmuggledDelegate
+
+Pass: typeof ev.target["preheatInBackgroundWithSmuggledDelegate"]
+      Actual: function
+
+Pass: ev.target["preheatInBackgroundWithSmuggledDelegate"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["preheatInBackgroundWithSmuggledDelegate"].length
+      Actual: 1
+
+Pass: ev.target["removeEventListener"]
+      Actual: removeEventListener
+
+Pass: typeof ev.target["removeEventListener"]
+      Actual: function
+
+Pass: ev.target["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.target["removeEventListener"].length
+      Actual: 2
+
+Pass: ev.target["rootedHandler"]
+      Actual: rootedHandler
+
+Pass: typeof ev.target["rootedHandler"]
+      Actual: object
+
+Pass: ev.target["size"]
+      Actual: size
+
+Pass: typeof ev.target["size"]
+      Actual: object
+
+Pass: number of members of ev.target
+      Actual: 19
+
+Pass: ev.target === toaster
+      Actual: true
+
+Comment: Verifying property descriptor for ev.target
+Pass: typeof ev
+      Actual: object
+
+Pass: (target in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Pass: Array.isArray(ev.detail)
+      Actual: true
+
+Pass: ev.detail.length
+      Actual: 1
+
+Comment: typeof ev.detail[0]: object
+Comment: Dump of properties : 
+    var ev.detail[0]Members = [
+        ['message', 'string'],
+    ];
+Pass: typeof ev.detail[0]
+      Actual: object
+
+Pass: ev.detail[0]["message"]
+      Actual: message
+
+Pass: typeof ev.detail[0]["message"]
+      Actual: string
+
+Pass: number of members of ev.detail[0]
+      Actual: 1
+
+Pass: ev !== ev.detail[0]
+      Actual: true
+
+Pass: ev != ev.detail[0]
+      Actual: true
+
+Pass: ev.message
+      Actual: 123
+
+Comment: Verifying property descriptor for ev.detail
+Pass: typeof ev
+      Actual: object
+
+Pass: (detail in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Pass: ev.type
+      Actual: toastcompleteevent
+
+Comment: Verifying property descriptor for ev.type
+Pass: typeof ev
+      Actual: object
+
+Pass: (type in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Pass: ev.myExpando
+      Actual: undefined
+
+Pass: ev.detail.myExpando
+      Actual: undefined
+
+Comment: *** toastCompleteCallback : Exit
+Pass: toastCompleteCount
+      Actual: 1
+
+PASS [Test 6: EventHandlerInvokeFormat: <This, Sender, Runtimeclass>]
+=================================================
+
+=================================================
+Starting [Test 7: EventHandlerInvokeFormat: <This, Sender, String, Arg2>]
+Comment: Create the toaster
+Comment: Get electricity reporter
+Pass: electricityReporter.applianceName
+      Actual: Toaster
+
+Comment: Registering onSwitchOff event handler
+Comment: Calling toaster.makeToast
+Comment: *** OnSwitchOff : Invoke
+Pass: ev.target.applianceName
+      Actual: Toaster
+
+Pass: ev : eventDetails
+      Actual: 123
+
+Pass: ev.detail[1] : unitCount
+      Actual: 5
+
+Comment: typeof ev: object
+Comment: Dump of properties : 
+    var evMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['target', 'object'],
+        ['detail', 'object'],
+        ['type', 'string'],
+    ];
+Pass: typeof ev
+      Actual: object
+
+Pass: ev["0"]
+      Actual: 0
+
+Pass: typeof ev["0"]
+      Actual: string
+
+Pass: ev["1"]
+      Actual: 1
+
+Pass: typeof ev["1"]
+      Actual: string
+
+Pass: ev["2"]
+      Actual: 2
+
+Pass: typeof ev["2"]
+      Actual: string
+
+Pass: ev["target"]
+      Actual: target
+
+Pass: typeof ev["target"]
+      Actual: object
+
+Pass: ev["detail"]
+      Actual: detail
+
+Pass: typeof ev["detail"]
+      Actual: object
+
+Pass: ev["type"]
+      Actual: type
+
+Pass: typeof ev["type"]
+      Actual: string
+
+Pass: number of members of ev
+      Actual: 6
+
+Comment: typeof ev.target: object
+Comment: Dump of properties : 
+    var ev.targetMembers = [
+        ['addEventListener', 'function', 2],
+        ['applianceName', 'string'],
+        ['getSameElectricityReporter', 'function', 0],
+        ['onapplianceswitchoffevent', 'object'],
+        ['onapplianceswitchonevent', 'object'],
+        ['removeEventListener', 'function', 2],
+    ];
+Pass: typeof ev.target
+      Actual: object
+
+Pass: ev.target["addEventListener"]
+      Actual: addEventListener
+
+Pass: typeof ev.target["addEventListener"]
+      Actual: function
+
+Pass: ev.target["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.target["addEventListener"].length
+      Actual: 2
+
+Pass: ev.target["applianceName"]
+      Actual: applianceName
+
+Pass: typeof ev.target["applianceName"]
+      Actual: string
+
+Pass: ev.target["getSameElectricityReporter"]
+      Actual: getSameElectricityReporter
+
+Pass: typeof ev.target["getSameElectricityReporter"]
+      Actual: function
+
+Pass: ev.target["getSameElectricityReporter"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev.target["getSameElectricityReporter"].length
+      Actual: 0
+
+Pass: ev.target["onapplianceswitchoffevent"]
+      Actual: onapplianceswitchoffevent
+
+Pass: typeof ev.target["onapplianceswitchoffevent"]
+      Actual: object
+
+Pass: ev.target["onapplianceswitchonevent"]
+      Actual: onapplianceswitchonevent
+
+Pass: typeof ev.target["onapplianceswitchonevent"]
+      Actual: object
+
+Pass: ev.target["removeEventListener"]
+      Actual: removeEventListener
+
+Pass: typeof ev.target["removeEventListener"]
+      Actual: function
+
+Pass: ev.target["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.target["removeEventListener"].length
+      Actual: 2
+
+Pass: number of members of ev.target
+      Actual: 6
+
+Pass: ev.target === electricityReporter
+      Actual: true
+
+Comment: Verifying property descriptor for ev.target
+Pass: typeof ev
+      Actual: object
+
+Pass: (target in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Pass: Array.isArray(ev.detail)
+      Actual: true
+
+Pass: ev.detail.length
+      Actual: 2
+
+Comment: typeof ev.detail[0]: string
+Comment: Dump of properties : 
+    var ev.detail[0]Members = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+    ];
+Pass: typeof ev.detail[0]
+      Actual: string
+
+Pass: ev.detail[0]["0"]
+      Actual: 0
+
+Pass: typeof ev.detail[0]["0"]
+      Actual: string
+
+Pass: ev.detail[0]["1"]
+      Actual: 1
+
+Pass: typeof ev.detail[0]["1"]
+      Actual: string
+
+Pass: ev.detail[0]["2"]
+      Actual: 2
+
+Pass: typeof ev.detail[0]["2"]
+      Actual: string
+
+Pass: number of members of ev.detail[0]
+      Actual: 3
+
+Pass: ev !== ev.detail[0]
+      Actual: true
+
+Pass: ev == ev.detail[0]
+      Actual: true
+
+Pass: ev.message
+      Actual: undefined
+
+Comment: Verifying property descriptor for ev.detail
+Pass: typeof ev
+      Actual: object
+
+Pass: (detail in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Pass: ev.type
+      Actual: applianceswitchoffevent
+
+Comment: Verifying property descriptor for ev.type
+Pass: typeof ev
+      Actual: object
+
+Pass: (type in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Comment: *** OnSwitchOff : Exit
+Pass: eventInvokeCount
+      Actual: 1
+
+PASS [Test 7: EventHandlerInvokeFormat: <This, Sender, String, Arg2>]
+=================================================
+
+=================================================
+Starting [Test 8: EventHandlerInvokeFormat: <This, sender, Vecor<T>>]
+Comment: Create the chef and toaster
+Comment: Add event listener for multiple toast make complete event
+Comment: *** multipleToastCompleteCollectionCallback : Invoke
+Comment: typeof ev: object
+Comment: Dump of properties : 
+    var evMembers = [
+        ['0', 'object'],
+        ['1', 'object'],
+        ['2', 'object'],
+        ['3', 'object'],
+        ['4', 'object'],
+        ['target', 'object'],
+        ['detail', 'object'],
+        ['type', 'string'],
+        ['append', 'function', 1],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['getView', 'function', 0],
+        ['indexOf', 'function', 1],
+        ['insertAt', 'function', 2],
+        ['removeAt', 'function', 1],
+        ['removeAtEnd', 'function', 0],
+        ['replaceAll', 'function', 1],
+        ['setAt', 'function', 2],
+        ['size', 'number'],
+    ];
+Pass: typeof ev
+      Actual: object
+
+Pass: ev["0"]
+      Actual: 0
+
+Pass: typeof ev["0"]
+      Actual: object
+
+Pass: ev["1"]
+      Actual: 1
+
+Pass: typeof ev["1"]
+      Actual: object
+
+Pass: ev["2"]
+      Actual: 2
+
+Pass: typeof ev["2"]
+      Actual: object
+
+Pass: ev["3"]
+      Actual: 3
+
+Pass: typeof ev["3"]
+      Actual: object
+
+Pass: ev["4"]
+      Actual: 4
+
+Pass: typeof ev["4"]
+      Actual: object
+
+Pass: ev["target"]
+      Actual: target
+
+Pass: typeof ev["target"]
+      Actual: object
+
+Pass: ev["detail"]
+      Actual: detail
+
+Pass: typeof ev["detail"]
+      Actual: object
+
+Pass: ev["type"]
+      Actual: type
+
+Pass: typeof ev["type"]
+      Actual: string
+
+Pass: ev["append"]
+      Actual: append
+
+Pass: typeof ev["append"]
+      Actual: function
+
+Pass: ev["append"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev["append"].length
+      Actual: 1
+
+Pass: ev["clear"]
+      Actual: clear
+
+Pass: typeof ev["clear"]
+      Actual: function
+
+Pass: ev["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev["clear"].length
+      Actual: 0
+
+Pass: ev["first"]
+      Actual: first
+
+Pass: typeof ev["first"]
+      Actual: function
+
+Pass: ev["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev["first"].length
+      Actual: 0
+
+Pass: ev["getAt"]
+      Actual: getAt
+
+Pass: typeof ev["getAt"]
+      Actual: function
+
+Pass: ev["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev["getAt"].length
+      Actual: 1
+
+Pass: ev["getMany"]
+      Actual: getMany
+
+Pass: typeof ev["getMany"]
+      Actual: function
+
+Pass: ev["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev["getMany"].length
+      Actual: 2
+
+Pass: ev["getView"]
+      Actual: getView
+
+Pass: typeof ev["getView"]
+      Actual: function
+
+Pass: ev["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev["getView"].length
+      Actual: 0
+
+Pass: ev["indexOf"]
+      Actual: indexOf
+
+Pass: typeof ev["indexOf"]
+      Actual: function
+
+Pass: ev["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev["indexOf"].length
+      Actual: 1
+
+Pass: ev["insertAt"]
+      Actual: insertAt
+
+Pass: typeof ev["insertAt"]
+      Actual: function
+
+Pass: ev["insertAt"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev["insertAt"].length
+      Actual: 2
+
+Pass: ev["removeAt"]
+      Actual: removeAt
+
+Pass: typeof ev["removeAt"]
+      Actual: function
+
+Pass: ev["removeAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev["removeAt"].length
+      Actual: 1
+
+Pass: ev["removeAtEnd"]
+      Actual: removeAtEnd
+
+Pass: typeof ev["removeAtEnd"]
+      Actual: function
+
+Pass: ev["removeAtEnd"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev["removeAtEnd"].length
+      Actual: 0
+
+Pass: ev["replaceAll"]
+      Actual: replaceAll
+
+Pass: typeof ev["replaceAll"]
+      Actual: function
+
+Pass: ev["replaceAll"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev["replaceAll"].length
+      Actual: 1
+
+Pass: ev["setAt"]
+      Actual: setAt
+
+Pass: typeof ev["setAt"]
+      Actual: function
+
+Pass: ev["setAt"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev["setAt"].length
+      Actual: 2
+
+Pass: ev["size"]
+      Actual: size
+
+Pass: typeof ev["size"]
+      Actual: number
+
+Pass: number of members of ev
+      Actual: 21
+
+Comment: typeof ev.target: object
+Comment: Dump of properties : 
+    var ev.targetMembers = [
+        ['addEventListener', 'function', 2],
+        ['capabilities', 'number'],
+        ['makeBreakfast', 'function', 1],
+        ['name', 'string'],
+        ['onmaketoastroundoff', 'object'],
+        ['onmultipletoastcompletearray', 'object'],
+        ['onmultipletoastcompletecollection', 'object'],
+        ['removeEventListener', 'function', 2],
+        ['role', 'number'],
+    ];
+Pass: typeof ev.target
+      Actual: object
+
+Pass: ev.target["addEventListener"]
+      Actual: addEventListener
+
+Pass: typeof ev.target["addEventListener"]
+      Actual: function
+
+Pass: ev.target["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.target["addEventListener"].length
+      Actual: 2
+
+Pass: ev.target["capabilities"]
+      Actual: capabilities
+
+Pass: typeof ev.target["capabilities"]
+      Actual: number
+
+Pass: ev.target["makeBreakfast"]
+      Actual: makeBreakfast
+
+Pass: typeof ev.target["makeBreakfast"]
+      Actual: function
+
+Pass: ev.target["makeBreakfast"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["makeBreakfast"].length
+      Actual: 1
+
+Pass: ev.target["name"]
+      Actual: name
+
+Pass: typeof ev.target["name"]
+      Actual: string
+
+Pass: ev.target["onmaketoastroundoff"]
+      Actual: onmaketoastroundoff
+
+Pass: typeof ev.target["onmaketoastroundoff"]
+      Actual: object
+
+Pass: ev.target["onmultipletoastcompletearray"]
+      Actual: onmultipletoastcompletearray
+
+Pass: typeof ev.target["onmultipletoastcompletearray"]
+      Actual: object
+
+Pass: ev.target["onmultipletoastcompletecollection"]
+      Actual: onmultipletoastcompletecollection
+
+Pass: typeof ev.target["onmultipletoastcompletecollection"]
+      Actual: object
+
+Pass: ev.target["removeEventListener"]
+      Actual: removeEventListener
+
+Pass: typeof ev.target["removeEventListener"]
+      Actual: function
+
+Pass: ev.target["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.target["removeEventListener"].length
+      Actual: 2
+
+Pass: ev.target["role"]
+      Actual: role
+
+Pass: typeof ev.target["role"]
+      Actual: number
+
+Pass: number of members of ev.target
+      Actual: 9
+
+Pass: ev.target === myChef
+      Actual: true
+
+Comment: Verifying property descriptor for ev.target
+Pass: typeof ev
+      Actual: object
+
+Pass: (target in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Pass: Array.isArray(ev.detail)
+      Actual: true
+
+Pass: ev.detail.length
+      Actual: 1
+
+Comment: typeof ev.detail[0]: object
+Comment: Dump of properties : 
+    var ev.detail[0]Members = [
+        ['0', 'object'],
+        ['1', 'object'],
+        ['2', 'object'],
+        ['3', 'object'],
+        ['4', 'object'],
+        ['append', 'function', 1],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['getView', 'function', 0],
+        ['indexOf', 'function', 1],
+        ['insertAt', 'function', 2],
+        ['removeAt', 'function', 1],
+        ['removeAtEnd', 'function', 0],
+        ['replaceAll', 'function', 1],
+        ['setAt', 'function', 2],
+        ['size', 'number'],
+    ];
+Pass: typeof ev.detail[0]
+      Actual: object
+
+Pass: ev.detail[0]["0"]
+      Actual: 0
+
+Pass: typeof ev.detail[0]["0"]
+      Actual: object
+
+Pass: ev.detail[0]["1"]
+      Actual: 1
+
+Pass: typeof ev.detail[0]["1"]
+      Actual: object
+
+Pass: ev.detail[0]["2"]
+      Actual: 2
+
+Pass: typeof ev.detail[0]["2"]
+      Actual: object
+
+Pass: ev.detail[0]["3"]
+      Actual: 3
+
+Pass: typeof ev.detail[0]["3"]
+      Actual: object
+
+Pass: ev.detail[0]["4"]
+      Actual: 4
+
+Pass: typeof ev.detail[0]["4"]
+      Actual: object
+
+Pass: ev.detail[0]["append"]
+      Actual: append
+
+Pass: typeof ev.detail[0]["append"]
+      Actual: function
+
+Pass: ev.detail[0]["append"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["append"].length
+      Actual: 1
+
+Pass: ev.detail[0]["clear"]
+      Actual: clear
+
+Pass: typeof ev.detail[0]["clear"]
+      Actual: function
+
+Pass: ev.detail[0]["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["clear"].length
+      Actual: 0
+
+Pass: ev.detail[0]["first"]
+      Actual: first
+
+Pass: typeof ev.detail[0]["first"]
+      Actual: function
+
+Pass: ev.detail[0]["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["first"].length
+      Actual: 0
+
+Pass: ev.detail[0]["getAt"]
+      Actual: getAt
+
+Pass: typeof ev.detail[0]["getAt"]
+      Actual: function
+
+Pass: ev.detail[0]["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["getAt"].length
+      Actual: 1
+
+Pass: ev.detail[0]["getMany"]
+      Actual: getMany
+
+Pass: typeof ev.detail[0]["getMany"]
+      Actual: function
+
+Pass: ev.detail[0]["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["getMany"].length
+      Actual: 2
+
+Pass: ev.detail[0]["getView"]
+      Actual: getView
+
+Pass: typeof ev.detail[0]["getView"]
+      Actual: function
+
+Pass: ev.detail[0]["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["getView"].length
+      Actual: 0
+
+Pass: ev.detail[0]["indexOf"]
+      Actual: indexOf
+
+Pass: typeof ev.detail[0]["indexOf"]
+      Actual: function
+
+Pass: ev.detail[0]["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["indexOf"].length
+      Actual: 1
+
+Pass: ev.detail[0]["insertAt"]
+      Actual: insertAt
+
+Pass: typeof ev.detail[0]["insertAt"]
+      Actual: function
+
+Pass: ev.detail[0]["insertAt"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["insertAt"].length
+      Actual: 2
+
+Pass: ev.detail[0]["removeAt"]
+      Actual: removeAt
+
+Pass: typeof ev.detail[0]["removeAt"]
+      Actual: function
+
+Pass: ev.detail[0]["removeAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["removeAt"].length
+      Actual: 1
+
+Pass: ev.detail[0]["removeAtEnd"]
+      Actual: removeAtEnd
+
+Pass: typeof ev.detail[0]["removeAtEnd"]
+      Actual: function
+
+Pass: ev.detail[0]["removeAtEnd"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["removeAtEnd"].length
+      Actual: 0
+
+Pass: ev.detail[0]["replaceAll"]
+      Actual: replaceAll
+
+Pass: typeof ev.detail[0]["replaceAll"]
+      Actual: function
+
+Pass: ev.detail[0]["replaceAll"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["replaceAll"].length
+      Actual: 1
+
+Pass: ev.detail[0]["setAt"]
+      Actual: setAt
+
+Pass: typeof ev.detail[0]["setAt"]
+      Actual: function
+
+Pass: ev.detail[0]["setAt"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["setAt"].length
+      Actual: 2
+
+Pass: ev.detail[0]["size"]
+      Actual: size
+
+Pass: typeof ev.detail[0]["size"]
+      Actual: number
+
+Pass: number of members of ev.detail[0]
+      Actual: 18
+
+Pass: ev !== ev.detail[0]
+      Actual: true
+
+Pass: ev != ev.detail[0]
+      Actual: true
+
+Pass: ev.detail[0][0].message
+      Actual: Bob
+
+Pass: ev.detail[0][1].message
+      Actual: Bob
+
+Pass: ev.detail[0][2].message
+      Actual: Bob
+
+Pass: ev.detail[0][3].message
+      Actual: Bob
+
+Pass: ev.detail[0][4].message
+      Actual: Bob
+
+Comment: Verifying property descriptor for ev.detail
+Pass: typeof ev
+      Actual: object
+
+Pass: (detail in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Pass: ev.type
+      Actual: multipletoastcompletecollection
+
+Comment: Verifying property descriptor for ev.type
+Pass: typeof ev
+      Actual: object
+
+Pass: (type in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Comment: *** multipleToastCompleteCollectionCallback : Exit
+Pass: eventInvokeCount
+      Actual: 1
+
+PASS [Test 8: EventHandlerInvokeFormat: <This, sender, Vecor<T>>]
+=================================================
+
+=================================================
+Starting [Test 9: EventHandlerInvokeFormat: <This, sender, Array<T>>]
+Comment: Create the chef and toaster
+Comment: Add event listener for multiple toast make complete event
+Comment: *** multipleToastCompleteArrayCallback : Invoke
+Comment: typeof ev: object
+Comment: Dump of properties : 
+    var evMembers = [
+        ['0', 'object'],
+        ['1', 'object'],
+        ['2', 'object'],
+        ['3', 'object'],
+        ['4', 'object'],
+        ['target', 'object'],
+        ['detail', 'object'],
+        ['type', 'string'],
+    ];
+Pass: typeof ev
+      Actual: object
+
+Pass: ev["0"]
+      Actual: 0
+
+Pass: typeof ev["0"]
+      Actual: object
+
+Pass: ev["1"]
+      Actual: 1
+
+Pass: typeof ev["1"]
+      Actual: object
+
+Pass: ev["2"]
+      Actual: 2
+
+Pass: typeof ev["2"]
+      Actual: object
+
+Pass: ev["3"]
+      Actual: 3
+
+Pass: typeof ev["3"]
+      Actual: object
+
+Pass: ev["4"]
+      Actual: 4
+
+Pass: typeof ev["4"]
+      Actual: object
+
+Pass: ev["target"]
+      Actual: target
+
+Pass: typeof ev["target"]
+      Actual: object
+
+Pass: ev["detail"]
+      Actual: detail
+
+Pass: typeof ev["detail"]
+      Actual: object
+
+Pass: ev["type"]
+      Actual: type
+
+Pass: typeof ev["type"]
+      Actual: string
+
+Pass: number of members of ev
+      Actual: 8
+
+Comment: typeof ev.target: object
+Comment: Dump of properties : 
+    var ev.targetMembers = [
+        ['addEventListener', 'function', 2],
+        ['capabilities', 'number'],
+        ['makeBreakfast', 'function', 1],
+        ['name', 'string'],
+        ['onmaketoastroundoff', 'object'],
+        ['onmultipletoastcompletearray', 'object'],
+        ['onmultipletoastcompletecollection', 'object'],
+        ['removeEventListener', 'function', 2],
+        ['role', 'number'],
+    ];
+Pass: typeof ev.target
+      Actual: object
+
+Pass: ev.target["addEventListener"]
+      Actual: addEventListener
+
+Pass: typeof ev.target["addEventListener"]
+      Actual: function
+
+Pass: ev.target["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.target["addEventListener"].length
+      Actual: 2
+
+Pass: ev.target["capabilities"]
+      Actual: capabilities
+
+Pass: typeof ev.target["capabilities"]
+      Actual: number
+
+Pass: ev.target["makeBreakfast"]
+      Actual: makeBreakfast
+
+Pass: typeof ev.target["makeBreakfast"]
+      Actual: function
+
+Pass: ev.target["makeBreakfast"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["makeBreakfast"].length
+      Actual: 1
+
+Pass: ev.target["name"]
+      Actual: name
+
+Pass: typeof ev.target["name"]
+      Actual: string
+
+Pass: ev.target["onmaketoastroundoff"]
+      Actual: onmaketoastroundoff
+
+Pass: typeof ev.target["onmaketoastroundoff"]
+      Actual: object
+
+Pass: ev.target["onmultipletoastcompletearray"]
+      Actual: onmultipletoastcompletearray
+
+Pass: typeof ev.target["onmultipletoastcompletearray"]
+      Actual: object
+
+Pass: ev.target["onmultipletoastcompletecollection"]
+      Actual: onmultipletoastcompletecollection
+
+Pass: typeof ev.target["onmultipletoastcompletecollection"]
+      Actual: object
+
+Pass: ev.target["removeEventListener"]
+      Actual: removeEventListener
+
+Pass: typeof ev.target["removeEventListener"]
+      Actual: function
+
+Pass: ev.target["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.target["removeEventListener"].length
+      Actual: 2
+
+Pass: ev.target["role"]
+      Actual: role
+
+Pass: typeof ev.target["role"]
+      Actual: number
+
+Pass: number of members of ev.target
+      Actual: 9
+
+Pass: ev.target === myChef
+      Actual: true
+
+Comment: Verifying property descriptor for ev.target
+Pass: typeof ev
+      Actual: object
+
+Pass: (target in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Pass: Array.isArray(ev.detail)
+      Actual: true
+
+Pass: ev.detail.length
+      Actual: 1
+
+Comment: typeof ev.detail[0]: object
+Comment: Dump of properties : 
+    var ev.detail[0]Members = [
+        ['0', 'object'],
+        ['1', 'object'],
+        ['2', 'object'],
+        ['3', 'object'],
+        ['4', 'object'],
+    ];
+Pass: typeof ev.detail[0]
+      Actual: object
+
+Pass: ev.detail[0]["0"]
+      Actual: 0
+
+Pass: typeof ev.detail[0]["0"]
+      Actual: object
+
+Pass: ev.detail[0]["1"]
+      Actual: 1
+
+Pass: typeof ev.detail[0]["1"]
+      Actual: object
+
+Pass: ev.detail[0]["2"]
+      Actual: 2
+
+Pass: typeof ev.detail[0]["2"]
+      Actual: object
+
+Pass: ev.detail[0]["3"]
+      Actual: 3
+
+Pass: typeof ev.detail[0]["3"]
+      Actual: object
+
+Pass: ev.detail[0]["4"]
+      Actual: 4
+
+Pass: typeof ev.detail[0]["4"]
+      Actual: object
+
+Pass: number of members of ev.detail[0]
+      Actual: 5
+
+Pass: ev !== ev.detail[0]
+      Actual: true
+
+Pass: ev != ev.detail[0]
+      Actual: true
+
+Pass: ev.detail[0][0].message
+      Actual: Bob
+
+Pass: ev.detail[0][1].message
+      Actual: Bob
+
+Pass: ev.detail[0][2].message
+      Actual: Bob
+
+Pass: ev.detail[0][3].message
+      Actual: Bob
+
+Pass: ev.detail[0][4].message
+      Actual: Bob
+
+Comment: Verifying property descriptor for ev.detail
+Pass: typeof ev
+      Actual: object
+
+Pass: (detail in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Pass: ev.type
+      Actual: multipletoastcompletearray
+
+Comment: Verifying property descriptor for ev.type
+Pass: typeof ev
+      Actual: object
+
+Pass: (type in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Comment: *** multipleToastCompleteArrayCallback : Exit
+Pass: eventInvokeCount
+      Actual: 1
+
+PASS [Test 9: EventHandlerInvokeFormat: <This, sender, Array<T>>]
+=================================================
+
+=================================================
+Starting [Test 10: EventHandlerInvokeFormat: <This, sender, NameConflictWithTarget - Inteface>]
+Comment: Create Object
+Comment: Add event listener
+Comment: Invoke method and event
+Comment: *** interfaceWithTargetEventCallback : Invoke
+Comment: typeof ev: object
+Comment: Dump of properties : 
+    var evMembers = [
+        ['target', 'object'],
+        ['detail', 'object'],
+        ['type', 'string'],
+        ['addEventListener', 'function', 2],
+        ['invokeDelegateEvent', 'function', 1],
+        ['invokeInterfaceWithTargetEvent', 'function', 0],
+        ['invokeStructEvent', 'function', 1],
+        ['invokeStructWithTargetEvent', 'function', 1],
+        ['ondelegateevent', 'object'],
+        ['oninterfacewithtargetevent', 'object'],
+        ['onstructevent', 'object'],
+        ['onstructwithtargetevent', 'object'],
+        ['removeEventListener', 'function', 2],
+    ];
+Pass: typeof ev
+      Actual: object
+
+Pass: ev["target"]
+      Actual: target
+
+Pass: typeof ev["target"]
+      Actual: object
+
+Pass: ev["detail"]
+      Actual: detail
+
+Pass: typeof ev["detail"]
+      Actual: object
+
+Pass: ev["type"]
+      Actual: type
+
+Pass: typeof ev["type"]
+      Actual: string
+
+Pass: ev["addEventListener"]
+      Actual: addEventListener
+
+Pass: typeof ev["addEventListener"]
+      Actual: function
+
+Pass: ev["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev["addEventListener"].length
+      Actual: 2
+
+Pass: ev["invokeDelegateEvent"]
+      Actual: invokeDelegateEvent
+
+Pass: typeof ev["invokeDelegateEvent"]
+      Actual: function
+
+Pass: ev["invokeDelegateEvent"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev["invokeDelegateEvent"].length
+      Actual: 1
+
+Pass: ev["invokeInterfaceWithTargetEvent"]
+      Actual: invokeInterfaceWithTargetEvent
+
+Pass: typeof ev["invokeInterfaceWithTargetEvent"]
+      Actual: function
+
+Pass: ev["invokeInterfaceWithTargetEvent"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev["invokeInterfaceWithTargetEvent"].length
+      Actual: 0
+
+Pass: ev["invokeStructEvent"]
+      Actual: invokeStructEvent
+
+Pass: typeof ev["invokeStructEvent"]
+      Actual: function
+
+Pass: ev["invokeStructEvent"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev["invokeStructEvent"].length
+      Actual: 1
+
+Pass: ev["invokeStructWithTargetEvent"]
+      Actual: invokeStructWithTargetEvent
+
+Pass: typeof ev["invokeStructWithTargetEvent"]
+      Actual: function
+
+Pass: ev["invokeStructWithTargetEvent"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev["invokeStructWithTargetEvent"].length
+      Actual: 1
+
+Pass: ev["ondelegateevent"]
+      Actual: ondelegateevent
+
+Pass: typeof ev["ondelegateevent"]
+      Actual: object
+
+Pass: ev["oninterfacewithtargetevent"]
+      Actual: oninterfacewithtargetevent
+
+Pass: typeof ev["oninterfacewithtargetevent"]
+      Actual: object
+
+Pass: ev["onstructevent"]
+      Actual: onstructevent
+
+Pass: typeof ev["onstructevent"]
+      Actual: object
+
+Pass: ev["onstructwithtargetevent"]
+      Actual: onstructwithtargetevent
+
+Pass: typeof ev["onstructwithtargetevent"]
+      Actual: object
+
+Pass: ev["removeEventListener"]
+      Actual: removeEventListener
+
+Pass: typeof ev["removeEventListener"]
+      Actual: function
+
+Pass: ev["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev["removeEventListener"].length
+      Actual: 2
+
+Pass: number of members of ev
+      Actual: 13
+
+Comment: typeof ev.target: object
+Comment: Dump of properties : 
+    var ev.targetMembers = [
+        ['addEventListener', 'function', 2],
+        ['invokeDelegateEvent', 'function', 1],
+        ['invokeInterfaceWithTargetEvent', 'function', 0],
+        ['invokeStructEvent', 'function', 1],
+        ['invokeStructWithTargetEvent', 'function', 1],
+        ['ondelegateevent', 'object'],
+        ['oninterfacewithtargetevent', 'object'],
+        ['onstructevent', 'object'],
+        ['onstructwithtargetevent', 'object'],
+        ['removeEventListener', 'function', 2],
+        ['target', 'function', 1],
+    ];
+Pass: typeof ev.target
+      Actual: object
+
+Pass: ev.target["addEventListener"]
+      Actual: addEventListener
+
+Pass: typeof ev.target["addEventListener"]
+      Actual: function
+
+Pass: ev.target["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.target["addEventListener"].length
+      Actual: 2
+
+Pass: ev.target["invokeDelegateEvent"]
+      Actual: invokeDelegateEvent
+
+Pass: typeof ev.target["invokeDelegateEvent"]
+      Actual: function
+
+Pass: ev.target["invokeDelegateEvent"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["invokeDelegateEvent"].length
+      Actual: 1
+
+Pass: ev.target["invokeInterfaceWithTargetEvent"]
+      Actual: invokeInterfaceWithTargetEvent
+
+Pass: typeof ev.target["invokeInterfaceWithTargetEvent"]
+      Actual: function
+
+Pass: ev.target["invokeInterfaceWithTargetEvent"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev.target["invokeInterfaceWithTargetEvent"].length
+      Actual: 0
+
+Pass: ev.target["invokeStructEvent"]
+      Actual: invokeStructEvent
+
+Pass: typeof ev.target["invokeStructEvent"]
+      Actual: function
+
+Pass: ev.target["invokeStructEvent"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["invokeStructEvent"].length
+      Actual: 1
+
+Pass: ev.target["invokeStructWithTargetEvent"]
+      Actual: invokeStructWithTargetEvent
+
+Pass: typeof ev.target["invokeStructWithTargetEvent"]
+      Actual: function
+
+Pass: ev.target["invokeStructWithTargetEvent"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["invokeStructWithTargetEvent"].length
+      Actual: 1
+
+Pass: ev.target["ondelegateevent"]
+      Actual: ondelegateevent
+
+Pass: typeof ev.target["ondelegateevent"]
+      Actual: object
+
+Pass: ev.target["oninterfacewithtargetevent"]
+      Actual: oninterfacewithtargetevent
+
+Pass: typeof ev.target["oninterfacewithtargetevent"]
+      Actual: object
+
+Pass: ev.target["onstructevent"]
+      Actual: onstructevent
+
+Pass: typeof ev.target["onstructevent"]
+      Actual: object
+
+Pass: ev.target["onstructwithtargetevent"]
+      Actual: onstructwithtargetevent
+
+Pass: typeof ev.target["onstructwithtargetevent"]
+      Actual: object
+
+Pass: ev.target["removeEventListener"]
+      Actual: removeEventListener
+
+Pass: typeof ev.target["removeEventListener"]
+      Actual: function
+
+Pass: ev.target["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.target["removeEventListener"].length
+      Actual: 2
+
+Pass: ev.target["target"]
+      Actual: target
+
+Pass: typeof ev.target["target"]
+      Actual: function
+
+Pass: ev.target["target"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["target"].length
+      Actual: 1
+
+Pass: number of members of ev.target
+      Actual: 11
+
+Pass: ev.target === myRC8WithEvent
+      Actual: true
+
+Comment: Verifying property descriptor for ev.target
+Pass: typeof ev
+      Actual: object
+
+Pass: (target in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Pass: Array.isArray(ev.detail)
+      Actual: true
+
+Pass: ev.detail.length
+      Actual: 1
+
+Comment: typeof ev.detail[0]: object
+Comment: Dump of properties : 
+    var ev.detail[0]Members = [
+        ['addEventListener', 'function', 2],
+        ['invokeDelegateEvent', 'function', 1],
+        ['invokeInterfaceWithTargetEvent', 'function', 0],
+        ['invokeStructEvent', 'function', 1],
+        ['invokeStructWithTargetEvent', 'function', 1],
+        ['ondelegateevent', 'object'],
+        ['oninterfacewithtargetevent', 'object'],
+        ['onstructevent', 'object'],
+        ['onstructwithtargetevent', 'object'],
+        ['removeEventListener', 'function', 2],
+        ['target', 'function', 1],
+    ];
+Pass: typeof ev.detail[0]
+      Actual: object
+
+Pass: ev.detail[0]["addEventListener"]
+      Actual: addEventListener
+
+Pass: typeof ev.detail[0]["addEventListener"]
+      Actual: function
+
+Pass: ev.detail[0]["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["addEventListener"].length
+      Actual: 2
+
+Pass: ev.detail[0]["invokeDelegateEvent"]
+      Actual: invokeDelegateEvent
+
+Pass: typeof ev.detail[0]["invokeDelegateEvent"]
+      Actual: function
+
+Pass: ev.detail[0]["invokeDelegateEvent"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["invokeDelegateEvent"].length
+      Actual: 1
+
+Pass: ev.detail[0]["invokeInterfaceWithTargetEvent"]
+      Actual: invokeInterfaceWithTargetEvent
+
+Pass: typeof ev.detail[0]["invokeInterfaceWithTargetEvent"]
+      Actual: function
+
+Pass: ev.detail[0]["invokeInterfaceWithTargetEvent"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["invokeInterfaceWithTargetEvent"].length
+      Actual: 0
+
+Pass: ev.detail[0]["invokeStructEvent"]
+      Actual: invokeStructEvent
+
+Pass: typeof ev.detail[0]["invokeStructEvent"]
+      Actual: function
+
+Pass: ev.detail[0]["invokeStructEvent"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["invokeStructEvent"].length
+      Actual: 1
+
+Pass: ev.detail[0]["invokeStructWithTargetEvent"]
+      Actual: invokeStructWithTargetEvent
+
+Pass: typeof ev.detail[0]["invokeStructWithTargetEvent"]
+      Actual: function
+
+Pass: ev.detail[0]["invokeStructWithTargetEvent"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["invokeStructWithTargetEvent"].length
+      Actual: 1
+
+Pass: ev.detail[0]["ondelegateevent"]
+      Actual: ondelegateevent
+
+Pass: typeof ev.detail[0]["ondelegateevent"]
+      Actual: object
+
+Pass: ev.detail[0]["oninterfacewithtargetevent"]
+      Actual: oninterfacewithtargetevent
+
+Pass: typeof ev.detail[0]["oninterfacewithtargetevent"]
+      Actual: object
+
+Pass: ev.detail[0]["onstructevent"]
+      Actual: onstructevent
+
+Pass: typeof ev.detail[0]["onstructevent"]
+      Actual: object
+
+Pass: ev.detail[0]["onstructwithtargetevent"]
+      Actual: onstructwithtargetevent
+
+Pass: typeof ev.detail[0]["onstructwithtargetevent"]
+      Actual: object
+
+Pass: ev.detail[0]["removeEventListener"]
+      Actual: removeEventListener
+
+Pass: typeof ev.detail[0]["removeEventListener"]
+      Actual: function
+
+Pass: ev.detail[0]["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["removeEventListener"].length
+      Actual: 2
+
+Pass: ev.detail[0]["target"]
+      Actual: target
+
+Pass: typeof ev.detail[0]["target"]
+      Actual: function
+
+Pass: ev.detail[0]["target"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.detail[0]["target"].length
+      Actual: 1
+
+Pass: number of members of ev.detail[0]
+      Actual: 11
+
+Pass: ev.detail[0] === myRC8WithEvent
+      Actual: true
+
+Pass: ev !== ev.detail[0]
+      Actual: true
+
+Pass: ev != ev.detail[0]
+      Actual: true
+
+Comment: Verifying property descriptor for ev.detail
+Pass: typeof ev
+      Actual: object
+
+Pass: (detail in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Pass: ev.type
+      Actual: interfacewithtargetevent
+
+Comment: Verifying property descriptor for ev.type
+Pass: typeof ev
+      Actual: object
+
+Pass: (type in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Comment: *** interfaceWithTargetEventCallback : Exit
+Pass: eventInvokeCount
+      Actual: 1
+
+PASS [Test 10: EventHandlerInvokeFormat: <This, sender, NameConflictWithTarget - Inteface>]
+=================================================
+
+=================================================
+Starting [Test 11: EventHandlerInvokeFormat: <This, sender, NameConflictWithTarget - struct>]
+Comment: Create Object
+Comment: Add event listener
+Comment: Invoke method and event
+Comment: *** structWithTargetEventCallback : Invoke
+Comment: typeof ev: object
+Comment: Dump of properties : 
+    var evMembers = [
+        ['structId', 'number'],
+        ['structData', 'number'],
+        ['target', 'object'],
+        ['detail', 'object'],
+        ['type', 'string'],
+    ];
+Pass: typeof ev
+      Actual: object
+
+Pass: ev["structId"]
+      Actual: structId
+
+Pass: typeof ev["structId"]
+      Actual: number
+
+Pass: ev["structData"]
+      Actual: structData
+
+Pass: typeof ev["structData"]
+      Actual: number
+
+Pass: ev["target"]
+      Actual: target
+
+Pass: typeof ev["target"]
+      Actual: object
+
+Pass: ev["detail"]
+      Actual: detail
+
+Pass: typeof ev["detail"]
+      Actual: object
+
+Pass: ev["type"]
+      Actual: type
+
+Pass: typeof ev["type"]
+      Actual: string
+
+Pass: number of members of ev
+      Actual: 5
+
+Comment: typeof ev.target: object
+Comment: Dump of properties : 
+    var ev.targetMembers = [
+        ['addEventListener', 'function', 2],
+        ['invokeDelegateEvent', 'function', 1],
+        ['invokeInterfaceWithTargetEvent', 'function', 0],
+        ['invokeStructEvent', 'function', 1],
+        ['invokeStructWithTargetEvent', 'function', 1],
+        ['ondelegateevent', 'object'],
+        ['oninterfacewithtargetevent', 'object'],
+        ['onstructevent', 'object'],
+        ['onstructwithtargetevent', 'object'],
+        ['removeEventListener', 'function', 2],
+        ['target', 'function', 1],
+    ];
+Pass: typeof ev.target
+      Actual: object
+
+Pass: ev.target["addEventListener"]
+      Actual: addEventListener
+
+Pass: typeof ev.target["addEventListener"]
+      Actual: function
+
+Pass: ev.target["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.target["addEventListener"].length
+      Actual: 2
+
+Pass: ev.target["invokeDelegateEvent"]
+      Actual: invokeDelegateEvent
+
+Pass: typeof ev.target["invokeDelegateEvent"]
+      Actual: function
+
+Pass: ev.target["invokeDelegateEvent"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["invokeDelegateEvent"].length
+      Actual: 1
+
+Pass: ev.target["invokeInterfaceWithTargetEvent"]
+      Actual: invokeInterfaceWithTargetEvent
+
+Pass: typeof ev.target["invokeInterfaceWithTargetEvent"]
+      Actual: function
+
+Pass: ev.target["invokeInterfaceWithTargetEvent"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: ev.target["invokeInterfaceWithTargetEvent"].length
+      Actual: 0
+
+Pass: ev.target["invokeStructEvent"]
+      Actual: invokeStructEvent
+
+Pass: typeof ev.target["invokeStructEvent"]
+      Actual: function
+
+Pass: ev.target["invokeStructEvent"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["invokeStructEvent"].length
+      Actual: 1
+
+Pass: ev.target["invokeStructWithTargetEvent"]
+      Actual: invokeStructWithTargetEvent
+
+Pass: typeof ev.target["invokeStructWithTargetEvent"]
+      Actual: function
+
+Pass: ev.target["invokeStructWithTargetEvent"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["invokeStructWithTargetEvent"].length
+      Actual: 1
+
+Pass: ev.target["ondelegateevent"]
+      Actual: ondelegateevent
+
+Pass: typeof ev.target["ondelegateevent"]
+      Actual: object
+
+Pass: ev.target["oninterfacewithtargetevent"]
+      Actual: oninterfacewithtargetevent
+
+Pass: typeof ev.target["oninterfacewithtargetevent"]
+      Actual: object
+
+Pass: ev.target["onstructevent"]
+      Actual: onstructevent
+
+Pass: typeof ev.target["onstructevent"]
+      Actual: object
+
+Pass: ev.target["onstructwithtargetevent"]
+      Actual: onstructwithtargetevent
+
+Pass: typeof ev.target["onstructwithtargetevent"]
+      Actual: object
+
+Pass: ev.target["removeEventListener"]
+      Actual: removeEventListener
+
+Pass: typeof ev.target["removeEventListener"]
+      Actual: function
+
+Pass: ev.target["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: ev.target["removeEventListener"].length
+      Actual: 2
+
+Pass: ev.target["target"]
+      Actual: target
+
+Pass: typeof ev.target["target"]
+      Actual: function
+
+Pass: ev.target["target"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: ev.target["target"].length
+      Actual: 1
+
+Pass: number of members of ev.target
+      Actual: 11
+
+Pass: ev.target === myRC8WithEvent
+      Actual: true
+
+Comment: Verifying property descriptor for ev.target
+Pass: typeof ev
+      Actual: object
+
+Pass: (target in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Pass: Array.isArray(ev.detail)
+      Actual: true
+
+Pass: ev.detail.length
+      Actual: 1
+
+Comment: typeof ev.detail[0]: object
+Comment: Dump of properties : 
+    var ev.detail[0]Members = [
+        ['structId', 'number'],
+        ['structData', 'number'],
+        ['target', 'boolean'],
+    ];
+Pass: typeof ev.detail[0]
+      Actual: object
+
+Pass: ev.detail[0]["structId"]
+      Actual: structId
+
+Pass: typeof ev.detail[0]["structId"]
+      Actual: number
+
+Pass: ev.detail[0]["structData"]
+      Actual: structData
+
+Pass: typeof ev.detail[0]["structData"]
+      Actual: number
+
+Pass: ev.detail[0]["target"]
+      Actual: target
+
+Pass: typeof ev.detail[0]["target"]
+      Actual: boolean
+
+Pass: number of members of ev.detail[0]
+      Actual: 3
+
+Pass: ev.detail[0]
+      Actual: [object Animals._StructForStructWithTargetEvent]
+
+Pass: ev.detail[0].structId
+      Actual: 10
+
+Pass: ev.detail[0].structData
+      Actual: 100
+
+Pass: ev.detail[0].target !== ev.target
+      Actual: true
+
+Pass: ev.detail[0].target != ev.target
+      Actual: true
+
+Pass: ev !== ev.detail[0]
+      Actual: true
+
+Pass: ev != ev.detail[0]
+      Actual: true
+
+Comment: Verifying property descriptor for ev.detail
+Pass: typeof ev
+      Actual: object
+
+Pass: (detail in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Pass: ev.type
+      Actual: structwithtargetevent
+
+Comment: Verifying property descriptor for ev.type
+Pass: typeof ev
+      Actual: object
+
+Pass: (type in ev)
+      Actual: true
+
+Comment: Get property descriptor from object
+Pass: desc !== undefined
+      Actual: true
+
+Pass: desc.writable
+      Actual: false
+
+Pass: desc.enumerable
+      Actual: true
+
+Pass: desc.configurable
+      Actual: false
+
+Pass: desc.get
+      Actual: undefined
+
+Pass: desc.set
+      Actual: undefined
+
+Pass: desc.value
+      Actual: true
+
+Comment: *** structWithTargetEventCallback : Exit
+Pass: eventInvokeCount
+      Actual: 1
+
+PASS [Test 11: EventHandlerInvokeFormat: <This, sender, NameConflictWithTarget - struct>]
+=================================================
+
+=================================================
+Starting [Test 12: CombinationOfEventHandlerSet]
+Comment: Create the chef and toaster
+Comment: typeof myChef: object
+Comment: Dump of properties : 
+    var myChefMembers = [
+        ['addEventListener', 'function', 2],
+        ['capabilities', 'number'],
+        ['makeBreakfast', 'function', 1],
+        ['name', 'string'],
+        ['onmaketoastroundoff', 'object'],
+        ['onmultipletoastcompletearray', 'object'],
+        ['onmultipletoastcompletecollection', 'object'],
+        ['removeEventListener', 'function', 2],
+        ['role', 'number'],
+    ];
+Pass: typeof myChef
+      Actual: object
+
+Pass: myChef["addEventListener"]
+      Actual: addEventListener
+
+Pass: typeof myChef["addEventListener"]
+      Actual: function
+
+Pass: myChef["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myChef["addEventListener"].length
+      Actual: 2
+
+Pass: myChef["capabilities"]
+      Actual: capabilities
+
+Pass: typeof myChef["capabilities"]
+      Actual: number
+
+Pass: myChef["makeBreakfast"]
+      Actual: makeBreakfast
+
+Pass: typeof myChef["makeBreakfast"]
+      Actual: function
+
+Pass: myChef["makeBreakfast"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myChef["makeBreakfast"].length
+      Actual: 1
+
+Pass: myChef["name"]
+      Actual: name
+
+Pass: typeof myChef["name"]
+      Actual: string
+
+Pass: myChef["onmaketoastroundoff"]
+      Actual: onmaketoastroundoff
+
+Pass: typeof myChef["onmaketoastroundoff"]
+      Actual: object
+
+Pass: myChef["onmultipletoastcompletearray"]
+      Actual: onmultipletoastcompletearray
+
+Pass: typeof myChef["onmultipletoastcompletearray"]
+      Actual: object
+
+Pass: myChef["onmultipletoastcompletecollection"]
+      Actual: onmultipletoastcompletecollection
+
+Pass: typeof myChef["onmultipletoastcompletecollection"]
+      Actual: object
+
+Pass: myChef["removeEventListener"]
+      Actual: removeEventListener
+
+Pass: typeof myChef["removeEventListener"]
+      Actual: function
+
+Pass: myChef["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myChef["removeEventListener"].length
+      Actual: 2
+
+Pass: myChef["role"]
+      Actual: role
+
+Pass: typeof myChef["role"]
+      Actual: number
+
+Pass: number of members of myChef
+      Actual: 9
+
+Pass: myChef.onmultipletoastcompletecollection
+      Actual: null
+
+Comment: Add event handler for multiple toast complete - callback1
+Pass: myChef.onmultipletoastcompletecollection
+      Actual: function multipleToastCompleteCollectionCallback1(ev) {
+                logger.comment("*** multipleToastCompleteCollectionCallback1 : Invoke");
+                eventInvokeCount++;
+                eventInvokeCount1++;
+
+                // Verify that event handler is being invoked correctly
+                verify(ev.type, "multipletoastcompletecollection", "ev.type");
+
+                logger.comment("*** multipleToastCompleteCollectionCallback1 : Exit");
+            }
+
+Comment: *** multipleToastCompleteCollectionCallback1 : Invoke
+Pass: ev.type
+      Actual: multipletoastcompletecollection
+
+Comment: *** multipleToastCompleteCollectionCallback1 : Exit
+Pass: eventInvokeCount
+      Actual: 1
+
+Pass: eventInvokeCount1
+      Actual: 1
+
+Pass: eventInvokeCount2
+      Actual: 0
+
+Comment: Set event handler to callback2
+Pass: myChef.onmultipletoastcompletecollection
+      Actual: function multipleToastCompleteCollectionCallback2(ev) {
+                logger.comment("*** multipleToastCompleteCollectionCallback2 : Invoke");
+                eventInvokeCount++;
+                eventInvokeCount2++;
+
+                // Verify that event handler is being invoked correctly
+                verify(ev.type, "multipletoastcompletecollection", "ev.type");
+
+                logger.comment("*** multipleToastCompleteCollectionCallback2 : Exit");
+            }
+
+Comment: *** multipleToastCompleteCollectionCallback2 : Invoke
+Pass: ev.type
+      Actual: multipletoastcompletecollection
+
+Comment: *** multipleToastCompleteCollectionCallback2 : Exit
+Pass: eventInvokeCount
+      Actual: 2
+
+Pass: eventInvokeCount1
+      Actual: 1
+
+Pass: eventInvokeCount2
+      Actual: 1
+
+Comment: Set event handler to null
+Pass: myChef.onmultipletoastcompletecollection
+      Actual: null
+
+Pass: eventInvokeCount
+      Actual: 2
+
+Pass: eventInvokeCount1
+      Actual: 1
+
+Pass: eventInvokeCount2
+      Actual: 1
+
+Comment: Set event handler to callback 2
+Pass: myChef.onmultipletoastcompletecollection
+      Actual: function multipleToastCompleteCollectionCallback2(ev) {
+                logger.comment("*** multipleToastCompleteCollectionCallback2 : Invoke");
+                eventInvokeCount++;
+                eventInvokeCount2++;
+
+                // Verify that event handler is being invoked correctly
+                verify(ev.type, "multipletoastcompletecollection", "ev.type");
+
+                logger.comment("*** multipleToastCompleteCollectionCallback2 : Exit");
+            }
+
+Comment: *** multipleToastCompleteCollectionCallback2 : Invoke
+Pass: ev.type
+      Actual: multipletoastcompletecollection
+
+Comment: *** multipleToastCompleteCollectionCallback2 : Exit
+Pass: eventInvokeCount
+      Actual: 3
+
+Pass: eventInvokeCount1
+      Actual: 1
+
+Pass: eventInvokeCount2
+      Actual: 2
+
+PASS [Test 12: CombinationOfEventHandlerSet]
+=================================================
+
+=================================================
+Starting [Test 13: NameConflictsOnEventHandler: With event name collision of event1 and event method collision onevent2]
+Comment: Create the object;
+Pass: myRC1WithEvent.onevent1
+      Actual: null
+
+Pass: myRC1WithEvent.onevent2
+      Actual: null
+
+Pass: myRC1WithEvent.onevent21
+      Actual: null
+
+Pass: myRC1WithEvent.onevent3
+      Actual: null
+
+Comment: Set the callbacks
+Pass: myRC1WithEvent.onevent1
+      Actual: function interface1Callback1(ev) {
+                logger.comment("*** interface1Callback1: Invoke");
+                i1e1Count++;
+                verify(ev.type, "event1", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface1Callback1: Exit");
+            }
+
+Pass: myRC1WithEvent.onevent2
+      Actual: function interface1Callback2(ev) {
+                logger.comment("*** interface1Callback2: Invoke");
+                i1e2Count++;
+                verify(ev.type, "event2", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface1Callback2: Exit");
+            }
+
+Pass: myRC1WithEvent.onevent21
+      Actual: function interface2Callback1(ev) {
+                logger.comment("*** interface2Callback1: Invoke");
+                i2e1Count++;
+                verify(ev.type, "event21", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface2Callback1: Exit");
+            }
+
+Pass: myRC1WithEvent.onevent3
+      Actual: function interface2Callback3(ev) {
+                logger.comment("*** interface2Callback3: Invoke");
+                i2e3Count++;
+                verify(ev.type, "event3", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface2Callback3: Exit");
+            }
+
+Comment: Invoke events and methods
+Comment: *** interface1Callback1: Invoke
+Pass: ev.type
+      Actual: event1
+
+Pass: ev.detail[0]
+      Actual: event1
+
+Comment: *** interface1Callback1: Exit
+Pass: i1e1Count
+      Actual: 1
+
+Comment: *** interface1Callback2: Invoke
+Pass: ev.type
+      Actual: event2
+
+Pass: ev.detail[0]
+      Actual: event2
+
+Comment: *** interface1Callback2: Exit
+Pass: i1e2Count
+      Actual: 1
+
+Comment: *** interface2Callback1: Invoke
+Pass: ev.type
+      Actual: event21
+
+Pass: ev.detail[0]
+      Actual: event21
+
+Comment: *** interface2Callback1: Exit
+Pass: i2e1Count
+      Actual: 1
+
+Comment: *** interface2Callback3: Invoke
+Pass: ev.type
+      Actual: event3
+
+Pass: ev.detail[0]
+      Actual: event3
+
+Comment: *** interface2Callback3: Exit
+Pass: i2e3Count
+      Actual: 1
+
+Pass: myRC1WithEvent["Animals.IInterface2WithEvent.onevent2"]("This is onevent2 method")
+      Actual: This is onevent2 method
+
+Comment: Set the callbacks to null
+Pass: myRC1WithEvent.onevent1
+      Actual: null
+
+Pass: myRC1WithEvent.onevent2
+      Actual: null
+
+Pass: myRC1WithEvent.onevent21
+      Actual: null
+
+Pass: myRC1WithEvent.onevent3
+      Actual: null
+
+Comment: Invoke events and methods
+Pass: i1e1Count
+      Actual: 1
+
+Pass: i1e2Count
+      Actual: 1
+
+Pass: i2e1Count
+      Actual: 1
+
+Pass: i2e3Count
+      Actual: 1
+
+Pass: myRC1WithEvent["Animals.IInterface2WithEvent.onevent2"]("This is onevent2 method")
+      Actual: This is onevent2 method
+
+PASS [Test 13: NameConflictsOnEventHandler: With event name collision of event1 and event method collision onevent2]
+=================================================
+
+=================================================
+Starting [Test 14: Setting indirect event]
+Comment: Make indirect toast
+Pass: event count
+      Actual: 1
+
+PASS [Test 14: Setting indirect event]
+=================================================
+
+=================================================
+Starting [Test 15: Setting indirect event and reseting toaster before invoking event, verify the delegate is alive]
+Comment: Make toast
+Pass: event count
+      Actual: 1
+
+PASS [Test 15: Setting indirect event and reseting toaster before invoking event, verify the delegate is alive]
+=================================================
+
+=================================================
+Starting [Test 16: Setting indirect event and setting indirect toaster to null and then creating toast, the event should be fired]
+Comment: Make indirect toast
+Pass: event count
+      Actual: 1
+
+PASS [Test 16: Setting indirect event and setting indirect toaster to null and then creating toast, the event should be fired]
+=================================================
+
+=================================================
+Starting [Test 17: Setting rooted delegate and making sure it isnt collected even if toaster is set to null]
+Pass: event count
+      Actual: 1
+
+Comment: Make rooted toast
+Pass: event count
+      Actual: 2
+
+Comment: Make rooted toast
+Pass: event count
+      Actual: 3
+
+PASS [Test 17: Setting rooted delegate and making sure it isnt collected even if toaster is set to null]
+=================================================
+
+=================================================
+Starting [Test 18: Setting rooted delegate and making sure it isnt collected even if toaster is set to null]
+Pass: event count
+      Actual: 1
+
+Comment: Make rooted toast
+Pass: event count
+      Actual: 2
+
+Comment: Make toast
+Pass: event count
+      Actual: 3
+
+PASS [Test 18: Setting rooted delegate and making sure it isnt collected even if toaster is set to null]
+=================================================
+
+=================================================
+Starting [Test 19: Cross Apartment event invoke]
+Comment: Fabrikam.Kitchen.Toaster created successfully
+Comment: Add preheat bg complete event handler
+Comment: Calling toaster.preheatInBackground
+Comment: toaster.preheatInBackground done
+Pass: eventCount
+      Actual: 1
+
+PASS [Test 19: Cross Apartment event invoke]
+=================================================
+
+=================================================
+Starting [Test 20: Setting indirect event and reseting toaster before invoking event, verify the error is thrown]
+Comment: Test prereq returned false. Skipping
+PASS [Test 20: Setting indirect event and reseting toaster before invoking event, verify the error is thrown]
+=================================================
+
+Passed: 20
+Failed: 0

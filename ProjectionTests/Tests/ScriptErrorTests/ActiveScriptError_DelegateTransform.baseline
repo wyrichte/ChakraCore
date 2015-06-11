@@ -1,0 +1,25 @@
+Called delegate to originate E_HANDLE
+Originate: E_HANDLE
+ActiveScriptError_DelegateTransform.js(20, 13) JavaScript runtime error: The handle is invalid.
+
+Originate: E_HANDLE
+Restricted Error String: Originate: E_HANDLE
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x80070006
+Error Type: WinRT error
+Stack info:
+frame 0: delegate, line: 15, characterPosition: 12
+frame 1: [Throw Stack Follows], line: 0, characterPosition: 0
+frame 2: delegate(object, string), line: 19, characterPosition: 12
+ActiveScriptError_DelegateTransform.js(24, 5) JavaScript runtime error: Not enough storage is available to complete this operation.
+
+Transform: E_HANDLE -> E_OUTOFMEMORY
+Restricted Error String: Transform: E_HANDLE -> E_OUTOFMEMORY
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x8007000E
+Error Type: WinRT error
+Stack info:
+frame 0: Anonymous function(), line: 23, characterPosition: 4
+frame 1: Global code, line: 2, characterPosition: 1

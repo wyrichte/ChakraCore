@@ -1,0 +1,42 @@
+<html>
+
+<title>Dialog Box on big factorial </title>
+<link rel="stylesheet" href="demo.css">
+<body>
+<script>
+
+    var StartF = function() {
+
+        // This is what we want to ask the user.
+        // Limited formatting is possible with underscores and newlines.
+        var message = "\n\n\n\n" +
+        "_________________________________________________\n\n" +
+        "This function calculates factorial(50)\n" +
+        " be aware that it may require some time.\n" +
+        "_________________________________________________\n\n\n" +
+        "Click Ok to proceed or Cancel to abort";
+
+        // Ask for confirmation, and abort if we don't get it.
+        if (!confirm(message)) {
+            document.write(" factorial abandoned");
+        }
+        else {
+
+            /* The code to perform the query would go here */
+
+            var i;
+            var f = 1;
+            for (i = 1; i <= 50; i++) {
+                f = f * i;
+            }
+            document.write("factorial(50)= " + f);
+        }
+
+
+    }
+</script>
+<button onclick="StartF()">Start</button>
+
+</body>
+</html>
+

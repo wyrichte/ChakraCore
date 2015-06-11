@@ -1,0 +1,147 @@
+function (){}
+ERROR: hr = (hr) Hr:0x80041000
+Error: 80041000 
+
+function anonymous() { 1 + 1 }
+ERROR: hr = (hr) Hr:0x80041000
+Error: 80041000 
+
+function (root) { return scadump(root, "rt", [], []); }
+ERROR: hr = (hr) Hr:0x80041000
+Error: 80041000 
+
+function serialize() { [native code] }
+ERROR: hr = (hr) Hr:0x80041000
+Error: 80041000 
+
+{"0":"Arguments object"}
+ERROR: hr = (hr) Hr:0x80041000
+Error: 80041000 
+
+function getProxy() { var myProxy = new Proxy({}, {}); return myProxy; }
+ERROR: hr = (hr) Hr:0x80041000
+Error: 80041000 
+
+{"abc":function (){}}
+ERROR: hr = (hr) Hr:0x80041000
+Error: 80041000 
+
+{"abc":function anonymous() { 1 + 1 }}
+ERROR: hr = (hr) Hr:0x80041000
+Error: 80041000 
+
+{"abc":function (root) { return scadump(root, "rt", [], []); }}
+ERROR: hr = (hr) Hr:0x80041000
+Error: 80041000 
+
+{"abc":function serialize() { [native code] }}
+ERROR: hr = (hr) Hr:0x80041000
+Error: 80041000 
+
+{"abc":{"0":"Arguments object"}}
+ERROR: hr = (hr) Hr:0x80041000
+Error: 80041000 
+
+{"abc":function getProxy() { var myProxy = new Proxy({}, {}); return myProxy; }}
+ERROR: hr = (hr) Hr:0x80041000
+Error: 80041000 
+
+new major version
+02000000 0000001B 00000002 00000061
+00000008 00000002 00000061 FFFFFFFF
+ERROR: hr = (hr) Hr:0x80041001
+Error: 80041001 
+ERROR: hr = (ReadIndexableProperty(pStream, bstrs.Count(), bstrs.Items(), &value, &canPropertyBeAdded)) Hr:0x80041001
+Error: 80041001 
+
+new minor version - should be ok
+01010000 0000001B 00000002 00000061
+00000008 00000002 00000061 FFFFFFFF
+{"a":"a"}
+a
+
+root SCATypeID is none
+01000000 00000000 00000002 00000061
+00000008 00000002 00000061 FFFFFFFF
+ERROR: hr = (hr) Hr:0x80041002
+Error: 80041002 
+NoProperty
+
+root SCATypeID is unknown
+01000000 00000063 00000002 00000061
+00000008 00000002 00000061 FFFFFFFF
+ERROR: hr = (hr) Hr:0x80041002
+Error: 80041002 
+NoProperty, CanAdd
+
+property value SCATypeID is none
+01000000 0000001B 00000002 00000061
+00000000 00000002 00000061 FFFFFFFF
+ERROR: hr = (hr) Hr:0x80041002
+Error: 80041002 
+NotIndexable
+
+property value SCATypeID is unknown
+01000000 0000001B 00000002 00000061
+00000063 00000002 00000061 FFFFFFFF
+ERROR: hr = (hr) Hr:0x80041002
+Error: 80041002 
+NotIndexable
+
+string length is property terminator
+01000000 0000001B 00000002 00000061
+00000008 FFFFFFFF 00000061 FFFFFFFF
+ERROR: hr = (hr) Hr:0x80041002
+Error: 80041002 
+ERROR: hr = (ReadIndexableProperty(pStream, bstrs.Count(), bstrs.Items(), &value, &canPropertyBeAdded)) Hr:0x80041002
+Error: 80041002 
+
+string length is longer than existed data
+01000000 0000001B 00000002 00000061
+00000008 000003E8 00000061 FFFFFFFF
+ERROR: hr = (hr) Hr:0x80041002
+Error: 80041002 
+ERROR: hr = (ReadIndexableProperty(pStream, bstrs.Count(), bstrs.Items(), &value, &canPropertyBeAdded)) Hr:0x80041002
+Error: 80041002 
+
+truncated, empty
+ERROR: hr = (hr) Hr:0x80041002
+Error: 80041002 
+ERROR: hr = (ReadIndexableProperty(pStream, bstrs.Count(), bstrs.Items(), &value, &canPropertyBeAdded)) Hr:0x80041002
+Error: 80041002 
+
+truncated, incomplete header
+00 00 00
+ERROR: hr = (hr) Hr:0x80041002
+Error: 80041002 
+ERROR: hr = (ReadIndexableProperty(pStream, bstrs.Count(), bstrs.Items(), &value, &canPropertyBeAdded)) Hr:0x80041002
+Error: 80041002 
+
+truncated, no value
+01000000
+ERROR: hr = (hr) Hr:0x80041002
+Error: 80041002 
+ERROR: hr = (ReadIndexableProperty(pStream, bstrs.Count(), bstrs.Items(), &value, &canPropertyBeAdded)) Hr:0x80041002
+Error: 80041002 
+
+truncated, incomplete SCATypeId
+01000000 1B
+ERROR: hr = (hr) Hr:0x80041002
+Error: 80041002 
+ERROR: hr = (ReadIndexableProperty(pStream, bstrs.Count(), bstrs.Items(), &value, &canPropertyBeAdded)) Hr:0x80041002
+Error: 80041002 
+
+truncated, missing property value
+01000000 0000001B 00000002 00000061
+ERROR: hr = (hr) Hr:0x80041002
+Error: 80041002 
+ERROR: hr = (ReadIndexableProperty(pStream, bstrs.Count(), bstrs.Items(), &value, &canPropertyBeAdded)) Hr:0x80041002
+Error: 80041002 
+
+truncated, missing property terminator
+01000000 0000001B 00000002 00000061
+00000008 00000002 00000061
+ERROR: hr = (hr) Hr:0x80041002
+Error: 80041002 
+a
+

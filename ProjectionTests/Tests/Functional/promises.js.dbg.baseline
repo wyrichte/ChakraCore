@@ -1,0 +1,3420 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 2243,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 2298,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 3066,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 3121,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 3887,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 3942,
+        "length": 39,
+        "text": "promise.operation.moveToCompleted(null)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 4718,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 4773,
+        "length": 39,
+        "text": "promise.operation.moveToCompleted(null)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 5648,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 5721,
+        "length": 26,
+        "text": "promise.operation.cancel()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 7286,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 7359,
+        "length": 26,
+        "text": "promise.operation.cancel()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 8916,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 8989,
+        "length": 31,
+        "text": "promise.operation.moveToError()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 10290,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 10363,
+        "length": 31,
+        "text": "promise.operation.moveToError()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 11545,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 11786,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 11729,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 11786,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 12463,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 12704,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 12647,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 12704,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 13383,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 13624,
+        "length": 39,
+        "text": "promise.operation.moveToCompleted(null)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 13567,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 13624,
+        "length": 39,
+        "text": "promise.operation.moveToCompleted(null)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 14309,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 14550,
+        "length": 39,
+        "text": "promise.operation.moveToCompleted(null)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 14493,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 14550,
+        "length": 39,
+        "text": "promise.operation.moveToCompleted(null)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 15232,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 15291,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 15560,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 15423,
+        "length": 181,
+        "text": "promise\n                .then(function (result) {\n                    completeCalled = completeCalled + \"second\";\n                    testLibraryStackFrame();\n                })",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 16270,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 16329,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 16598,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 16461,
+        "length": 181,
+        "text": "promise\n                .done(function (result) {\n                    completeCalled = completeCalled + \"second\";\n                    testLibraryStackFrame();\n                })",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 17309,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 17368,
+        "length": 39,
+        "text": "promise.operation.moveToCompleted(null)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 17638,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 17501,
+        "length": 181,
+        "text": "promise\n                .then(function (result) {\n                    completeCalled = completeCalled + \"second\";\n                    testLibraryStackFrame();\n                })",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 18355,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 18414,
+        "length": 39,
+        "text": "promise.operation.moveToCompleted(null)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 18684,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 18547,
+        "length": 181,
+        "text": "promise\n                .done(function (result) {\n                    completeCalled = completeCalled + \"second\";\n                    testLibraryStackFrame();\n                })",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 19465,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 19538,
+        "length": 31,
+        "text": "promise.operation.moveToError()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 19804,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 19615,
+        "length": 247,
+        "text": "promise\n            .then(function (result) { completeCalled = true; },\n                function (error) {\n                    errorCalled = errorCalled + \"second\";\n                    testLibraryStackFrame();\n                }\n            )",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 20680,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 20753,
+        "length": 31,
+        "text": "promise.operation.moveToError()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 21049,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 20830,
+        "length": 277,
+        "text": "promise\n            .done(function (result) {\n                completeCalled = true;\n            },\n                function (error) {\n                    errorCalled = errorCalled + \"second\";\n                    testLibraryStackFrame();\n                }\n            )",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 21805,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 22038,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 21979,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 22038,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 22811,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 23044,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 22985,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 23044,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 23821,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 24054,
+        "length": 39,
+        "text": "promise.operation.moveToCompleted(null)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 23995,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 24054,
+        "length": 39,
+        "text": "promise.operation.moveToCompleted(null)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 24835,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 25068,
+        "length": 39,
+        "text": "promise.operation.moveToCompleted(null)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 25009,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 25068,
+        "length": 39,
+        "text": "promise.operation.moveToCompleted(null)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 25832,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 25696,
+        "length": 335,
+        "text": "promise\n                .then(null, function (result) {\n                    errorCalled = errorCalled + \"first\";\n                    testLibraryStackFrame();\n                })\n                .then(null, function (result) {\n                    errorCalled = errorCalled + \"second\";\n                })\n                .cancel()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 26761,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 26948,
+        "length": 16,
+        "text": "promise.cancel()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 35614,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onProgress"
+      },
+      {
+        "start": 35720,
+        "length": 49,
+        "text": "promise.operation.progress(promise.operation, 10)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 35614,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onProgress"
+      },
+      {
+        "start": 35784,
+        "length": 49,
+        "text": "promise.operation.progress(promise.operation, 20)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 35614,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onProgress"
+      },
+      {
+        "start": 35848,
+        "length": 49,
+        "text": "promise.operation.progress(promise.operation, 99)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 35479,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 35943,
+        "length": 16,
+        "text": "promise.cancel()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 37265,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onProgress"
+      },
+      {
+        "start": 37371,
+        "length": 49,
+        "text": "promise.operation.progress(promise.operation, 10)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 37265,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onProgress"
+      },
+      {
+        "start": 37435,
+        "length": 49,
+        "text": "promise.operation.progress(promise.operation, 20)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 37265,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onProgress"
+      },
+      {
+        "start": 37499,
+        "length": 49,
+        "text": "promise.operation.progress(promise.operation, 99)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 37130,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 37594,
+        "length": 16,
+        "text": "promise.cancel()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 46725,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onProgress"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onProgress"
+      },
+      {
+        "start": 47098,
+        "length": 63,
+        "text": "chainedPromise.operation.progress(chainedPromise.operation, 10)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 46638,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 46857,
+        "length": 38,
+        "text": "chainedPromise.operation.moveToError()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onProgress"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onProgress"
+      },
+      {
+        "start": 47098,
+        "length": 63,
+        "text": "chainedPromise.operation.progress(chainedPromise.operation, 10)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 48360,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 48496,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 49943,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 50079,
+        "length": 38,
+        "text": "promise.operation.moveToCompleted(192)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 51504,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 51640,
+        "length": 16,
+        "text": "promise.cancel()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 53047,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 53183,
+        "length": 16,
+        "text": "promise.cancel()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 54590,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 54726,
+        "length": 31,
+        "text": "promise.operation.moveToError()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 56361,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 56497,
+        "length": 31,
+        "text": "promise.operation.moveToError()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 58130,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 58261,
+        "length": 31,
+        "text": "promise.operation.moveToError()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 59898,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 60029,
+        "length": 37,
+        "text": "promise.operation.moveToCompleted(23)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 61670,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 61801,
+        "length": 31,
+        "text": "promise.operation.moveToError()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 569,
+        "length": 6,
+        "text": "logger",
+        "frameDescription": "testLibraryStackFrame"
+      },
+      {
+        "start": 63438,
+        "length": 23,
+        "text": "testLibraryStackFrame()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onError"
+      },
+      {
+        "start": 63569,
+        "length": 37,
+        "text": "promise.operation.moveToCompleted(23)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 37562,
+        "length": 18,
+        "text": "currentTest.test()",
+        "frameDescription": "test"
+      },
+      {
+        "start": 24303,
+        "length": 6,
+        "text": "task()",
+        "frameDescription": "states.running"
+      },
+      {
+        "start": 27880,
+        "length": 22,
+        "text": "states[currentState]()",
+        "frameDescription": "runTasks"
+      },
+      {
+        "start": 30450,
+        "length": 10,
+        "text": "runTasks()",
+        "frameDescription": "run"
+      },
+      {
+        "start": 64790,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

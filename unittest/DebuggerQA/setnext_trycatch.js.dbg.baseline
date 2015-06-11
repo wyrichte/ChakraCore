@@ -1,0 +1,43 @@
+[
+  {
+    "setnextstatement": {
+      "from": 6,
+      "to": 91,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "a": "1"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 91,
+      "to": 171,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 255,
+      "to": 341,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "a": "1",
+      "a#1": "1"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 341,
+      "to": 423,
+      "IsAllowed": "No"
+    }
+  }
+]

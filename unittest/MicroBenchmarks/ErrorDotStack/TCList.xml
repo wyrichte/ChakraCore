@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Tests>
+    <!--
+    FileName    - .js file of tests
+    Priority    - 0,1,2,3
+    Description - Short description of test
+    Hosts       - Comma seperated list of Hosts [All, JC, JsHost, Browser, Cscript] (Browser tests don't run in console)
+    -->  
+  <Test>
+    <FileName>P0_ErrorDotStack_depth1.js</FileName>
+    <Priority>0</Priority>
+    <Description>Generate an Error.stack of length one repeatedly via a for loop</Description>
+    <Hosts>All</Hosts>
+  </Test>
+  <Test>
+    <FileName>P0_ErrorDotStack_depth5.js</FileName>
+    <Priority>0</Priority>
+    <Description>Generate a real-world Error.stack of length five repeatedly via a for loop</Description>
+    <Hosts>All</Hosts>
+  </Test>
+  <Test>
+    <FileName>P0_ErrorDotStack_depth16.js</FileName>
+    <Priority>0</Priority>
+    <Description>Generate a real-world Error.stack, based in part on recursion, of length 16 repeatedly via a for loop</Description>
+    <Hosts>All</Hosts>
+  </Test>
+
+  <Test>
+    <FileName>P1_ErrorDotStack_depth2.js</FileName>
+    <Priority>1</Priority>
+    <Description>Generate an Error.stack of length two repeatedly via global-level function calls</Description>
+    <Hosts>All</Hosts>
+  </Test>
+  <Test>
+    <FileName>P1_ErrorDotStack_depth5.js</FileName>
+    <Priority>1</Priority>
+    <Description>Generate a real-world Error.stack of length five repeatedly via global-level function calls</Description>
+    <Hosts>All</Hosts>
+  </Test>
+  <Test>
+    <FileName>P1_ErrorDotStack_depth16.js</FileName>
+    <Priority>1</Priority>
+    <Description>Generate a real-world Error.stack, based in part on recursion, of length 16 repeatedly via global-level function calls</Description>
+    <Hosts>All</Hosts>
+  </Test>
+  
+  <Test>
+    <FileName>P2_ErrorDotStack_depth1023.js</FileName>
+    <Priority>2</Priority>
+    <Description>Generate a very large recursion-based Error.stack of length 1,023 repeatedly via a for loop</Description>
+    <Hosts>All</Hosts>
+  </Test>
+
+</Tests>

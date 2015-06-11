@@ -1,0 +1,6 @@
+Script Profiler starts
+Dumping sorted function compiled events
+[FunctionCompiled]: Function: Global code, Line: 1, Column: 2, Character Position: 0
+[FunctionCompiled]: Function: f, Line: 1, Column: 2, Character Position: 0
+Passed: Validation
+Script Profiler ends

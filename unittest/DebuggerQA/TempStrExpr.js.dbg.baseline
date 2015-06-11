@@ -1,0 +1,420 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 41,
+        "length": 10,
+        "text": "return ++i",
+        "frameDescription": "incrementI"
+      },
+      {
+        "start": 164,
+        "length": 81,
+        "text": "WScript.Echo(`The count is ${incrementI() /**bp:resume('step_into');stack()**/}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 41,
+        "length": 10,
+        "text": "return ++i",
+        "frameDescription": "incrementI"
+      },
+      {
+        "start": 164,
+        "length": 81,
+        "text": "WScript.Echo(`The count is ${incrementI() /**bp:resume('step_into');stack()**/}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "i": "0"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 164,
+        "length": 81,
+        "text": "WScript.Echo(`The count is ${incrementI() /**bp:resume('step_into');stack()**/}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 257,
+        "length": 5,
+        "text": "i < 4",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 41,
+        "length": 10,
+        "text": "return ++i",
+        "frameDescription": "incrementI"
+      },
+      {
+        "start": 271,
+        "length": 102,
+        "text": "WScript.Echo(`The count is ${incrementI() /**bp:resume('step_into');stack();evaluate('i * i', 1)**/}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "i * i": "1"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 41,
+        "length": 10,
+        "text": "return ++i",
+        "frameDescription": "incrementI"
+      },
+      {
+        "start": 271,
+        "length": 102,
+        "text": "WScript.Echo(`The count is ${incrementI() /**bp:resume('step_into');stack();evaluate('i * i', 1)**/}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "i": "1"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 271,
+        "length": 102,
+        "text": "WScript.Echo(`The count is ${incrementI() /**bp:resume('step_into');stack();evaluate('i * i', 1)**/}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 257,
+        "length": 5,
+        "text": "i < 4",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "i * i": "4"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 41,
+        "length": 10,
+        "text": "return ++i",
+        "frameDescription": "incrementI"
+      },
+      {
+        "start": 271,
+        "length": 102,
+        "text": "WScript.Echo(`The count is ${incrementI() /**bp:resume('step_into');stack();evaluate('i * i', 1)**/}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "i * i": "4"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 41,
+        "length": 10,
+        "text": "return ++i",
+        "frameDescription": "incrementI"
+      },
+      {
+        "start": 271,
+        "length": 102,
+        "text": "WScript.Echo(`The count is ${incrementI() /**bp:resume('step_into');stack();evaluate('i * i', 1)**/}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "i": "2"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 271,
+        "length": 102,
+        "text": "WScript.Echo(`The count is ${incrementI() /**bp:resume('step_into');stack();evaluate('i * i', 1)**/}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 257,
+        "length": 5,
+        "text": "i < 4",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "i * i": "9"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 41,
+        "length": 10,
+        "text": "return ++i",
+        "frameDescription": "incrementI"
+      },
+      {
+        "start": 271,
+        "length": 102,
+        "text": "WScript.Echo(`The count is ${incrementI() /**bp:resume('step_into');stack();evaluate('i * i', 1)**/}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "i * i": "9"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 41,
+        "length": 10,
+        "text": "return ++i",
+        "frameDescription": "incrementI"
+      },
+      {
+        "start": 271,
+        "length": 102,
+        "text": "WScript.Echo(`The count is ${incrementI() /**bp:resume('step_into');stack();evaluate('i * i', 1)**/}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "i": "3"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 271,
+        "length": 102,
+        "text": "WScript.Echo(`The count is ${incrementI() /**bp:resume('step_into');stack();evaluate('i * i', 1)**/}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 257,
+        "length": 5,
+        "text": "i < 4",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "i * i": "16"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 455,
+        "length": 27,
+        "text": "WScript.Echo(substitutions)",
+        "frameDescription": "tempHandler"
+      },
+      {
+        "start": 558,
+        "length": 78,
+        "text": "tempHandler`The count is\n${++i /**bp:stack();evaluate('tempHandler',3)**/}\n`",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 455,
+        "length": 27,
+        "text": "WScript.Echo(substitutions)",
+        "frameDescription": "tempHandler"
+      },
+      {
+        "start": 558,
+        "length": 78,
+        "text": "tempHandler`The count is\n${++i /**bp:stack();evaluate('tempHandler',3)**/}\n`",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "arguments": {
+        "[Methods]": {
+          "callee": {
+            "__proto__": "<large string>",
+            "arguments": "{...}",
+            "caller": "null",
+            "length": "2",
+            "name": "tempHandler",
+            "prototype": "{...}"
+          },
+          "Symbol.iterator": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": "values"
+          }
+        },
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": "<large string>",
+            "__defineSetter__": "<large string>",
+            "__lookupGetter__": "<large string>",
+            "__lookupSetter__": "<large string>",
+            "constructor": "<large string>",
+            "hasOwnProperty": "<large string>",
+            "isPrototypeOf": "<large string>",
+            "propertyIsEnumerable": "<large string>",
+            "toLocaleString": "<large string>",
+            "toString": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": "null"
+        },
+        "length": "2",
+        "[0]": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "length": "0",
+            "Symbol.unscopables": "{...}"
+          },
+          "length": "2",
+          "raw": {
+            "__proto__": "[]",
+            "length": "2",
+            "[0]": "The count is\n",
+            "[1]": "\n"
+          },
+          "[0]": "The count is\n",
+          "[1]": "\n"
+        },
+        "[1]": "5"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 555,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "tempHandler"
+      },
+      {
+        "start": 558,
+        "length": 78,
+        "text": "tempHandler`The count is\n${++i /**bp:stack();evaluate('tempHandler',3)**/}\n`",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 750,
+        "length": 10,
+        "text": "return ++i",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 692,
+        "length": 117,
+        "text": "WScript.Echo(String.raw`The count is ${(function() {\n    return ++i; /**bp:stack();evaluate('String', 2)**/\n})()}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "String": {
+        "[Methods]": {
+          "fromCharCode": "<large string>",
+          "fromCodePoint": "<large string>",
+          "raw": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "1",
+        "name": "String",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "0"
+        }
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 692,
+        "length": 117,
+        "text": "WScript.Echo(String.raw`The count is ${(function() {\n    return ++i; /**bp:stack();evaluate('String', 2)**/\n})()}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

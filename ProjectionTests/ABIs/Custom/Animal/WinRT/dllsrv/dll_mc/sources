@@ -1,0 +1,9 @@
+!include ..\sources.inc
+TARGET_DESTINATION=Projection_mc\WinRt:Projection_mc\APPX
+
+INCLUDES= $(INCLUDES)\
+    $(OBJ_PATH)\..\..\..\..\TeachRT\WinRT\idl\dll_mc\$(O);\
+
+TARGETLIBS=$(TARGETLIBS)\
+    $(SDK_LIB_PATH)\mincore.lib \
+    

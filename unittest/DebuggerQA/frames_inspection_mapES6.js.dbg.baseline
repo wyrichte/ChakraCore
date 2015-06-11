@@ -1,0 +1,39 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 216,
+        "length": 3,
+        "text": "key",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Map.prototype.forEach"
+      },
+      {
+        "start": 164,
+        "length": 105,
+        "text": "map.forEach(function (key, val, map) {\n            key;/**bp:stack();setFrame(2);locals()**/\n        })",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 312,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "o": "1",
+      "map": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

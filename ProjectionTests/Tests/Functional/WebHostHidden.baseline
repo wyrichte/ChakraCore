@@ -1,0 +1,1594 @@
+WebHostHidden tests
+
+=================================================
+Starting [Test 1: Verify hidden class isnt visible]
+Pass: Animals.HiddenClass
+      Actual: undefined
+
+PASS [Test 1: Verify hidden class isnt visible]
+=================================================
+
+=================================================
+Starting [Test 2: Try to create a class which implements only a hidden interface]
+Pass: instanceof TypeError: Animals.VisibleClassWithHiddenInterfaceOnly: type is not constructible
+      Actual: true
+
+Pass: Exception message
+      Actual: Animals.VisibleClassWithHiddenInterfaceOnly: type is not constructible
+
+Pass: Exception caught trying to create Animals.VisibleClassWithHiddenInterfaceOnly
+      Actual: true
+
+PASS [Test 2: Try to create a class which implements only a hidden interface]
+=================================================
+
+=================================================
+Starting [Test 3: Try to create a class which implements a hidden interface and visible interface, but the hidden interface is the default interface]
+Pass: instanceof TypeError: Animals.VisibleClassWithDefaultHiddenInterface: type is not constructible
+      Actual: true
+
+Pass: Exception message
+      Actual: Animals.VisibleClassWithDefaultHiddenInterface: type is not constructible
+
+Pass: Exception caught trying to create a Animals.VisibleClassWithDefaultHiddenInterface
+      Actual: true
+
+PASS [Test 3: Try to create a class which implements a hidden interface and visible interface, but the hidden interface is the default interface]
+=================================================
+
+=================================================
+Starting [Test 4: Try to create a class which implements a hidden interface and visible interface, and the visible interface is the default interface]
+Pass: Able to successfully create Animals.VisibleClassWithDefaultVisibleInterface
+      Actual: false
+
+PASS [Test 4: Try to create a class which implements a hidden interface and visible interface, and the visible interface is the default interface]
+=================================================
+
+=================================================
+Starting [Test 5: Verify the members of Animals.VisibleClassWithDefaultVisibleInterface]
+Comment: typeof myObject: object
+Comment: Dump of properties : 
+    var myObjectMembers = [
+        ['call_DelegateUsing_HiddenClass_In', 'function', 1],
+        ['call_DelegateUsing_HiddenClass_Out', 'function', 1],
+        ['call_DelegateUsing_HiddenInterface_In', 'function', 1],
+        ['call_DelegateUsing_HiddenInterface_Out', 'function', 1],
+        ['call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_In', 'function', 1],
+        ['call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_Out', 'function', 1],
+        ['call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_In', 'function', 1],
+        ['call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_Out', 'function', 1],
+        ['call_HiddenDelegate', 'function', 1],
+        ['fillArray_HiddenClass', 'function', 1],
+        ['fillArray_HiddenInterface', 'function', 1],
+        ['fillArray_VisibleClassWithDefaultHiddenInterface', 'function', 1],
+        ['fillArray_VisibleClassWithDefaultVisibleInterface', 'function', 1],
+        ['fillArray_VisibleClassWithHiddenInterfaceOnly', 'function', 1],
+        ['get_HiddenDelegate', 'function', 0],
+        ['hiddenEnum_In', 'function', 1],
+        ['hiddenEnum_Out', 'function', 0],
+        ['hiddenOverload', 'function', 0],
+        ['hiddenStruct_In', 'function', 1],
+        ['hiddenStruct_Out', 'function', 0],
+        ['methodUsing_HiddenClass_In', 'function', 1],
+        ['methodUsing_HiddenClass_Out', 'function', 0],
+        ['methodUsing_HiddenInterface_In', 'function', 1],
+        ['methodUsing_HiddenInterface_Out', 'function', 0],
+        ['methodUsing_VisibleClassWithDefaultHiddenInterface_In', 'function', 1],
+        ['methodUsing_VisibleClassWithDefaultHiddenInterface_Out', 'function', 0],
+        ['methodUsing_VisibleClassWithDefaultVisibleInterface_In', 'function', 1],
+        ['methodUsing_VisibleClassWithDefaultVisibleInterface_Out', 'function', 0],
+        ['methodUsing_VisibleClassWithHiddenInterfaceOnly_In', 'function', 1],
+        ['methodUsing_VisibleClassWithHiddenInterfaceOnly_Out', 'function', 0],
+        ['passArray_HiddenClass', 'function', 1],
+        ['passArray_HiddenInterface', 'function', 1],
+        ['passArray_VisibleClassWithDefaultHiddenInterface', 'function', 1],
+        ['passArray_VisibleClassWithDefaultVisibleInterface', 'function', 1],
+        ['passArray_VisibleClassWithHiddenInterfaceOnly', 'function', 1],
+        ['property_HiddenClass', 'undefined'],
+        ['property_HiddenInterface', 'undefined'],
+        ['property_VisibleClassWithHiddenInterfaceOnly', 'undefined'],
+        ['property__VisibleClassWithDefaultHiddenInterface', 'undefined'],
+        ['property__VisibleClassWithDefaultVisibleInterface', 'object'],
+        ['receiveArray_HiddenClass', 'function', 0],
+        ['receiveArray_HiddenInterface', 'function', 0],
+        ['receiveArray_VisibleClassWithDefaultHiddenInterface', 'function', 0],
+        ['receiveArray_VisibleClassWithDefaultVisibleInterface', 'function', 0],
+        ['receiveArray_VisibleClassWithHiddenInterfaceOnly', 'function', 0],
+        ['structWithHiddenInnerStruct_In', 'function', 1],
+        ['structWithHiddenInnerStruct_Out', 'function', 0],
+        ['vector_HiddenClass_In', 'function', 1],
+        ['vector_HiddenClass_Out', 'function', 0],
+        ['vector_HiddenInterface_In', 'function', 1],
+        ['vector_HiddenInterface_Out', 'function', 0],
+        ['vector_VisibleClassWithDefaultHiddenInterface_In', 'function', 1],
+        ['vector_VisibleClassWithDefaultHiddenInterface_Out', 'function', 0],
+        ['vector_VisibleClassWithDefaultVisibleInterface_In', 'function', 1],
+        ['vector_VisibleClassWithDefaultVisibleInterface_Out', 'function', 0],
+        ['vector_VisibleClassWithHiddenInterfaceOnly_In', 'function', 1],
+        ['vector_VisibleClassWithHiddenInterfaceOnly_Out', 'function', 0],
+        ['visibleMethod', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: type
+      Actual: object
+
+Pass: name
+      Actual: call_DelegateUsing_HiddenClass_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][call_DelegateUsing_HiddenClass_In]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_HiddenClass_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][call_DelegateUsing_HiddenClass_Out]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_HiddenInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][call_DelegateUsing_HiddenInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_HiddenInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][call_DelegateUsing_HiddenInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_In]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_Out]
+      Actual: function
+
+Pass: name
+      Actual: call_HiddenDelegate
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][call_HiddenDelegate]
+      Actual: function
+
+Pass: name
+      Actual: fillArray_HiddenClass
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][fillArray_HiddenClass]
+      Actual: function
+
+Pass: name
+      Actual: fillArray_HiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][fillArray_HiddenInterface]
+      Actual: function
+
+Pass: name
+      Actual: fillArray_VisibleClassWithDefaultHiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][fillArray_VisibleClassWithDefaultHiddenInterface]
+      Actual: function
+
+Pass: name
+      Actual: fillArray_VisibleClassWithDefaultVisibleInterface
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][fillArray_VisibleClassWithDefaultVisibleInterface]
+      Actual: function
+
+Pass: name
+      Actual: fillArray_VisibleClassWithHiddenInterfaceOnly
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][fillArray_VisibleClassWithHiddenInterfaceOnly]
+      Actual: function
+
+Pass: name
+      Actual: get_HiddenDelegate
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][get_HiddenDelegate]
+      Actual: function
+
+Pass: name
+      Actual: hiddenEnum_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][hiddenEnum_In]
+      Actual: function
+
+Pass: name
+      Actual: hiddenEnum_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][hiddenEnum_Out]
+      Actual: function
+
+Pass: name
+      Actual: hiddenOverload
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][hiddenOverload]
+      Actual: function
+
+Pass: name
+      Actual: hiddenStruct_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][hiddenStruct_In]
+      Actual: function
+
+Pass: name
+      Actual: hiddenStruct_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][hiddenStruct_Out]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_HiddenClass_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][methodUsing_HiddenClass_In]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_HiddenClass_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][methodUsing_HiddenClass_Out]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_HiddenInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][methodUsing_HiddenInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_HiddenInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][methodUsing_HiddenInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_VisibleClassWithDefaultHiddenInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][methodUsing_VisibleClassWithDefaultHiddenInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_VisibleClassWithDefaultHiddenInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][methodUsing_VisibleClassWithDefaultHiddenInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_VisibleClassWithDefaultVisibleInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][methodUsing_VisibleClassWithDefaultVisibleInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_VisibleClassWithDefaultVisibleInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][methodUsing_VisibleClassWithDefaultVisibleInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_VisibleClassWithHiddenInterfaceOnly_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][methodUsing_VisibleClassWithHiddenInterfaceOnly_In]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_VisibleClassWithHiddenInterfaceOnly_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][methodUsing_VisibleClassWithHiddenInterfaceOnly_Out]
+      Actual: function
+
+Pass: name
+      Actual: passArray_HiddenClass
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][passArray_HiddenClass]
+      Actual: function
+
+Pass: name
+      Actual: passArray_HiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][passArray_HiddenInterface]
+      Actual: function
+
+Pass: name
+      Actual: passArray_VisibleClassWithDefaultHiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][passArray_VisibleClassWithDefaultHiddenInterface]
+      Actual: function
+
+Pass: name
+      Actual: passArray_VisibleClassWithDefaultVisibleInterface
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][passArray_VisibleClassWithDefaultVisibleInterface]
+      Actual: function
+
+Pass: name
+      Actual: passArray_VisibleClassWithHiddenInterfaceOnly
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][passArray_VisibleClassWithHiddenInterfaceOnly]
+      Actual: function
+
+Pass: name
+      Actual: property_HiddenClass
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][property_HiddenClass]
+      Actual: undefined
+
+Pass: name
+      Actual: property_HiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][property_HiddenInterface]
+      Actual: undefined
+
+Pass: name
+      Actual: property_VisibleClassWithHiddenInterfaceOnly
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][property_VisibleClassWithHiddenInterfaceOnly]
+      Actual: undefined
+
+Pass: name
+      Actual: property__VisibleClassWithDefaultHiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][property__VisibleClassWithDefaultHiddenInterface]
+      Actual: undefined
+
+Pass: name
+      Actual: property__VisibleClassWithDefaultVisibleInterface
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][property__VisibleClassWithDefaultVisibleInterface]
+      Actual: object
+
+Pass: name
+      Actual: receiveArray_HiddenClass
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][receiveArray_HiddenClass]
+      Actual: function
+
+Pass: name
+      Actual: receiveArray_HiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][receiveArray_HiddenInterface]
+      Actual: function
+
+Pass: name
+      Actual: receiveArray_VisibleClassWithDefaultHiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][receiveArray_VisibleClassWithDefaultHiddenInterface]
+      Actual: function
+
+Pass: name
+      Actual: receiveArray_VisibleClassWithDefaultVisibleInterface
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][receiveArray_VisibleClassWithDefaultVisibleInterface]
+      Actual: function
+
+Pass: name
+      Actual: receiveArray_VisibleClassWithHiddenInterfaceOnly
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][receiveArray_VisibleClassWithHiddenInterfaceOnly]
+      Actual: function
+
+Pass: name
+      Actual: structWithHiddenInnerStruct_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][structWithHiddenInnerStruct_In]
+      Actual: function
+
+Pass: name
+      Actual: structWithHiddenInnerStruct_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][structWithHiddenInnerStruct_Out]
+      Actual: function
+
+Pass: name
+      Actual: vector_HiddenClass_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][vector_HiddenClass_In]
+      Actual: function
+
+Pass: name
+      Actual: vector_HiddenClass_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][vector_HiddenClass_Out]
+      Actual: function
+
+Pass: name
+      Actual: vector_HiddenInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][vector_HiddenInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: vector_HiddenInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][vector_HiddenInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: vector_VisibleClassWithDefaultHiddenInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][vector_VisibleClassWithDefaultHiddenInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: vector_VisibleClassWithDefaultHiddenInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][vector_VisibleClassWithDefaultHiddenInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: vector_VisibleClassWithDefaultVisibleInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][vector_VisibleClassWithDefaultVisibleInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: vector_VisibleClassWithDefaultVisibleInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][vector_VisibleClassWithDefaultVisibleInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: vector_VisibleClassWithHiddenInterfaceOnly_In
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][vector_VisibleClassWithHiddenInterfaceOnly_In]
+      Actual: function
+
+Pass: name
+      Actual: vector_VisibleClassWithHiddenInterfaceOnly_Out
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][vector_VisibleClassWithHiddenInterfaceOnly_Out]
+      Actual: function
+
+Pass: name
+      Actual: visibleMethod
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][visibleMethod]
+      Actual: function
+
+Pass: name
+      Actual: toString
+
+Pass: typeof [object Animals.VisibleClassWithDefaultVisibleInterface][toString]
+      Actual: function
+
+Pass: number of members
+      Actual: 59
+
+PASS [Test 5: Verify the members of Animals.VisibleClassWithDefaultVisibleInterface]
+=================================================
+
+=================================================
+Starting [Test 6: Verify that calling a method that returns an explicitly hidden class fails]
+Pass: Exception message
+      Actual: The function 'methodUsing_HiddenClass_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.methodUsing_HiddenClass_Out
+      Actual: true
+
+PASS [Test 6: Verify that calling a method that returns an explicitly hidden class fails]
+=================================================
+
+=================================================
+Starting [Test 7: Verify that calling a method that requires an explicitly hidden class input parameter fails]
+Pass: Exception message
+      Actual: The function 'methodUsing_HiddenClass_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.methodUsing_HiddenClass_In
+      Actual: true
+
+PASS [Test 7: Verify that calling a method that requires an explicitly hidden class input parameter fails]
+=================================================
+
+=================================================
+Starting [Test 8: Verify that calling a method that returns a hidden interface fails]
+Pass: Exception message
+      Actual: The function 'methodUsing_HiddenInterface_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.methodUsing_HiddenInterface_Out
+      Actual: true
+
+PASS [Test 8: Verify that calling a method that returns a hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 9: Verify that calling a method that requires a hidden interface input parameter fails]
+Pass: Exception message
+      Actual: The function 'methodUsing_HiddenInterface_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.methodUsing_HiddenInterface_In
+      Actual: true
+
+PASS [Test 9: Verify that calling a method that requires a hidden interface input parameter fails]
+=================================================
+
+=================================================
+Starting [Test 10: Verify that calling a method that returns a class with a default hidden interface fails]
+Pass: Exception message
+      Actual: The function 'methodUsing_VisibleClassWithDefaultHiddenInterface_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.methodUsing_VisibleClassWithDefaultHiddenInterface_Out
+      Actual: true
+
+PASS [Test 10: Verify that calling a method that returns a class with a default hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 11: Verify that calling a method that requires a class with a default hidden interface input parameter fails]
+Pass: Exception message
+      Actual: The function 'methodUsing_VisibleClassWithDefaultHiddenInterface_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.methodUsing_VisibleClassWithDefaultHiddenInterface_In
+      Actual: true
+
+PASS [Test 11: Verify that calling a method that requires a class with a default hidden interface input parameter fails]
+=================================================
+
+=================================================
+Starting [Test 12: Verify that calling a method that returns a class implementing a hidden interface only fails]
+Pass: Exception message
+      Actual: The function 'methodUsing_VisibleClassWithHiddenInterfaceOnly_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.methodUsing_VisibleClassWithHiddenInterfaceOnly_Out
+      Actual: true
+
+PASS [Test 12: Verify that calling a method that returns a class implementing a hidden interface only fails]
+=================================================
+
+=================================================
+Starting [Test 13: Verify that calling a method that requires a class implementing a default hidden interface only input parameter fails]
+Pass: Exception message
+      Actual: The function 'methodUsing_VisibleClassWithHiddenInterfaceOnly_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.methodUsing_VisibleClassWithHiddenInterfaceOnly_In
+      Actual: true
+
+PASS [Test 13: Verify that calling a method that requires a class implementing a default hidden interface only input parameter fails]
+=================================================
+
+=================================================
+Starting [Test 14: Verify that calling a method that returns a class implementing a default visisble interface succeeds]
+Pass: Able to successfully call Animals.VisibleClassWithDefaultVisibleInterface.methodUsing_VisibleClassWithDefaultVisibleInterface_Out
+      Actual: false
+
+PASS [Test 14: Verify that calling a method that returns a class implementing a default visisble interface succeeds]
+=================================================
+
+=================================================
+Starting [Test 15: Verify that calling a method that requires a class implementing a default visible interface input parameter succeeds]
+Pass: Able to successfully call Animals.VisibleClassWithDefaultVisibleInterface.methodUsing_VisibleClassWithDefaultVisibleInterface_In
+      Actual: false
+
+PASS [Test 15: Verify that calling a method that requires a class implementing a default visible interface input parameter succeeds]
+=================================================
+
+=================================================
+Starting [Test 16: Verify that getting a property which is an explicit hidden class fails]
+Pass: Exception message
+      Actual: The function 'get_Property_HiddenClass' has an invalid signature and cannot be called
+
+Pass: Unable to successfully get Animals.VisibleClassWithDefaultVisibleInterface.property_HiddenClass
+      Actual: true
+
+PASS [Test 16: Verify that getting a property which is an explicit hidden class fails]
+=================================================
+
+=================================================
+Starting [Test 17: Verify that setting a property which is an explicit hidden class fails]
+Pass: Exception message
+      Actual: The function 'put_Property_HiddenClass' has an invalid signature and cannot be called
+
+Pass: Unable to successfully set Animals.VisibleClassWithDefaultVisibleInterface.property_HiddenClass
+      Actual: true
+
+PASS [Test 17: Verify that setting a property which is an explicit hidden class fails]
+=================================================
+
+=================================================
+Starting [Test 18: Verify that getting a property which is an explicit hidden interface fails]
+Pass: Exception message
+      Actual: The function 'get_Property_HiddenInterface' has an invalid signature and cannot be called
+
+Pass: Unable to successfully get Animals.VisibleClassWithDefaultVisibleInterface.property_HiddenInterface
+      Actual: true
+
+PASS [Test 18: Verify that getting a property which is an explicit hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 19: Verify that setting a property which is an explicit hidden interface fails]
+Pass: Exception message
+      Actual: The function 'put_Property_HiddenInterface' has an invalid signature and cannot be called
+
+Pass: Unable to successfully set Animals.VisibleClassWithDefaultVisibleInterface.property_HiddenInterface
+      Actual: true
+
+PASS [Test 19: Verify that setting a property which is an explicit hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 20: Verify that getting a property which is a class implementing a hidden interface only fails]
+Pass: Exception message
+      Actual: The function 'get_Property_VisibleClassWithHiddenInterfaceOnly' has an invalid signature and cannot be called
+
+Pass: Unable to successfully get Animals.VisibleClassWithDefaultVisibleInterface.property_VisibleClassWithHiddenInterfaceOnly
+      Actual: true
+
+PASS [Test 20: Verify that getting a property which is a class implementing a hidden interface only fails]
+=================================================
+
+=================================================
+Starting [Test 21: Verify that setting a property which is a class implementing a hidden interface only fails]
+Pass: Exception message
+      Actual: The function 'put_Property_VisibleClassWithHiddenInterfaceOnly' has an invalid signature and cannot be called
+
+Pass: Unable to successfully set Animals.VisibleClassWithDefaultVisibleInterface.property_VisibleClassWithHiddenInterfaceOnly
+      Actual: true
+
+PASS [Test 21: Verify that setting a property which is a class implementing a hidden interface only fails]
+=================================================
+
+=================================================
+Starting [Test 22: Verify that getting a property which is a class implementing a default hidden interface fails]
+Pass: Exception message
+      Actual: The function 'get_Property__VisibleClassWithDefaultHiddenInterface' has an invalid signature and cannot be called
+
+Pass: Unable to successfully get Animals.VisibleClassWithDefaultVisibleInterface.property__VisibleClassWithDefaultHiddenInterface
+      Actual: true
+
+PASS [Test 22: Verify that getting a property which is a class implementing a default hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 23: Verify that setting a property which is a class implementing a default hidden interface fails]
+Pass: Exception message
+      Actual: The function 'put_Property__VisibleClassWithDefaultHiddenInterface' has an invalid signature and cannot be called
+
+Pass: Unable to successfully set Animals.VisibleClassWithDefaultVisibleInterface.property__VisibleClassWithDefaultHiddenInterface
+      Actual: true
+
+PASS [Test 23: Verify that setting a property which is a class implementing a default hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 24: Verify that getting a property which is a class implementing a default visible interface succeeds]
+Pass: Able to successfully get Animals.VisibleClassWithDefaultVisibleInterface.property__VisibleClassWithDefaultVisibleInterface
+      Actual: false
+
+PASS [Test 24: Verify that getting a property which is a class implementing a default visible interface succeeds]
+=================================================
+
+=================================================
+Starting [Test 25: Verify that setting a property which is a class implementing a default visible interface succeeds]
+Pass: Able to successfully set Animals.VisibleClassWithDefaultVisibleInterface.property__VisibleClassWithDefaultHiddenInterface
+      Actual: false
+
+PASS [Test 25: Verify that setting a property which is a class implementing a default visible interface succeeds]
+=================================================
+
+=================================================
+Starting [Test 26: Verify that passing an array of a hidden interface fails]
+Pass: Exception message
+      Actual: The function 'passArray_HiddenInterface' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.passArray_HiddenInterface
+      Actual: true
+
+PASS [Test 26: Verify that passing an array of a hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 27: Verify that filling an array of a hidden interface fails]
+Pass: Exception message
+      Actual: The function 'fillArray_HiddenInterface' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.fillArray_HiddenInterface
+      Actual: true
+
+PASS [Test 27: Verify that filling an array of a hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 28: Verify that receiving an array of a hidden interface fails]
+Pass: Exception message
+      Actual: The function 'receiveArray_HiddenInterface' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.receiveArray_HiddenInterface
+      Actual: true
+
+PASS [Test 28: Verify that receiving an array of a hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 29: Verify that passing an array of an explicitly hidden class fails]
+Pass: Exception message
+      Actual: The function 'passArray_HiddenClass' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.passArray_HiddenClass
+      Actual: true
+
+PASS [Test 29: Verify that passing an array of an explicitly hidden class fails]
+=================================================
+
+=================================================
+Starting [Test 30: Verify that filling an array of an explicitly hidden class fails]
+Pass: Exception message
+      Actual: The function 'fillArray_HiddenClass' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.fillArray_HiddenClass
+      Actual: true
+
+PASS [Test 30: Verify that filling an array of an explicitly hidden class fails]
+=================================================
+
+=================================================
+Starting [Test 31: Verify that receiving an array of an explicitly hidden class fails]
+Pass: Exception message
+      Actual: The function 'receiveArray_HiddenClass' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.receiveArray_HiddenClass
+      Actual: true
+
+PASS [Test 31: Verify that receiving an array of an explicitly hidden class fails]
+=================================================
+
+=================================================
+Starting [Test 32: Verify that passing an array of a class implementing a hidden interface only fails]
+Pass: Exception message
+      Actual: The function 'passArray_VisibleClassWithHiddenInterfaceOnly' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.passArray_VisibleClassWithHiddenInterfaceOnly
+      Actual: true
+
+PASS [Test 32: Verify that passing an array of a class implementing a hidden interface only fails]
+=================================================
+
+=================================================
+Starting [Test 33: Verify that filling an array of a class implementing a hidden interface only fails]
+Pass: Exception message
+      Actual: The function 'fillArray_VisibleClassWithHiddenInterfaceOnly' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.fillArray_VisibleClassWithHiddenInterfaceOnly
+      Actual: true
+
+PASS [Test 33: Verify that filling an array of a class implementing a hidden interface only fails]
+=================================================
+
+=================================================
+Starting [Test 34: Verify that receiving an array of a class implementing a hidden interface only fails]
+Pass: Exception message
+      Actual: The function 'receiveArray_VisibleClassWithHiddenInterfaceOnly' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.receiveArray_VisibleClassWithHiddenInterfaceOnly
+      Actual: true
+
+PASS [Test 34: Verify that receiving an array of a class implementing a hidden interface only fails]
+=================================================
+
+=================================================
+Starting [Test 35: Verify that passing an array of a class with a default hidden interface fails]
+Pass: Exception message
+      Actual: The function 'passArray_VisibleClassWithDefaultHiddenInterface' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.passArray_VisibleClassWithDefaultHiddenInterface
+      Actual: true
+
+PASS [Test 35: Verify that passing an array of a class with a default hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 36: Verify that filling an array of a class with a default hidden interface fails]
+Pass: Exception message
+      Actual: The function 'fillArray_VisibleClassWithDefaultHiddenInterface' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.fillArray_VisibleClassWithDefaultHiddenInterface
+      Actual: true
+
+PASS [Test 36: Verify that filling an array of a class with a default hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 37: Verify that receiving an array of a class with a default hidden interface fails]
+Pass: Exception message
+      Actual: The function 'receiveArray_VisibleClassWithDefaultHiddenInterface' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.receiveArray_VisibleClassWithDefaultHiddenInterface
+      Actual: true
+
+PASS [Test 37: Verify that receiving an array of a class with a default hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 38: Verify that receiving an array of a class with a default hidden interface succeeds]
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.receiveArray_VisibleClassWithDefaultVisibleInterface
+      Actual: false
+
+PASS [Test 38: Verify that receiving an array of a class with a default hidden interface succeeds]
+=================================================
+
+=================================================
+Starting [Test 39: Verify that calling a method that requires an IVector of an explicitly hidden class fails]
+Pass: Exception message
+      Actual: The function 'vector_HiddenClass_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.vector_HiddenClass_In
+      Actual: true
+
+PASS [Test 39: Verify that calling a method that requires an IVector of an explicitly hidden class fails]
+=================================================
+
+=================================================
+Starting [Test 40: Verify that calling a method that returns an IVector of an explicitly hidden class fails]
+Pass: Exception message
+      Actual: The function 'vector_HiddenClass_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.vector_HiddenClass_In
+      Actual: true
+
+PASS [Test 40: Verify that calling a method that returns an IVector of an explicitly hidden class fails]
+=================================================
+
+=================================================
+Starting [Test 41: Verify that calling a method that requires an IVector of a hidden interface fails]
+Pass: Exception message
+      Actual: The function 'vector_HiddenInterface_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.vector_HiddenInterface_In
+      Actual: true
+
+PASS [Test 41: Verify that calling a method that requires an IVector of a hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 42: Verify that calling a method that returns an IVector of a hidden interface fails]
+Pass: Exception message
+      Actual: The function 'vector_HiddenInterface_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.vector_HiddenInterface_Out
+      Actual: true
+
+PASS [Test 42: Verify that calling a method that returns an IVector of a hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 43: Verify that calling a method that requires an IVector of a class with a default hidden interface fails]
+Pass: Exception message
+      Actual: The function 'vector_VisibleClassWithDefaultHiddenInterface_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.vector_VisibleClassWithDefaultHiddenInterface_In
+      Actual: true
+
+PASS [Test 43: Verify that calling a method that requires an IVector of a class with a default hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 44: Verify that calling a method that returns an IVector of a class with a default hidden interface fails]
+Pass: Exception message
+      Actual: The function 'vector_VisibleClassWithDefaultHiddenInterface_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.vector_VisibleClassWithDefaultHiddenInterface_Out
+      Actual: true
+
+PASS [Test 44: Verify that calling a method that returns an IVector of a class with a default hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 45: Verify that calling a method that requires an IVector of a class implementing a hidden interface only fails]
+Pass: Exception message
+      Actual: The function 'vector_VisibleClassWithHiddenInterfaceOnly_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.vector_VisibleClassWithHiddenInterfaceOnly_In
+      Actual: true
+
+PASS [Test 45: Verify that calling a method that requires an IVector of a class implementing a hidden interface only fails]
+=================================================
+
+=================================================
+Starting [Test 46: Verify that calling a method that returns an IVector of a class implementing a hidden interface only fails]
+Pass: Exception message
+      Actual: The function 'vector_VisibleClassWithHiddenInterfaceOnly_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.vector_VisibleClassWithHiddenInterfaceOnly_Out
+      Actual: true
+
+PASS [Test 46: Verify that calling a method that returns an IVector of a class implementing a hidden interface only fails]
+=================================================
+
+=================================================
+Starting [Test 47: Verify that calling a method that returns a hidden struct fails]
+Pass: Exception message
+      Actual: The function 'hiddenStruct_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.hiddenStruct_Out
+      Actual: true
+
+PASS [Test 47: Verify that calling a method that returns a hidden struct fails]
+=================================================
+
+=================================================
+Starting [Test 48: Verify that calling a method that requires a hidden struct fails]
+Pass: Exception message
+      Actual: The function 'hiddenStruct_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.hiddenStruct_In
+      Actual: true
+
+PASS [Test 48: Verify that calling a method that requires a hidden struct fails]
+=================================================
+
+=================================================
+Starting [Test 49: Verify that calling a method that returns a struct with a hidden field fails]
+Pass: Exception message
+      Actual: The function 'structWithHiddenInnerStruct_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.structWithHiddenInnerStruct_Out
+      Actual: true
+
+PASS [Test 49: Verify that calling a method that returns a struct with a hidden field fails]
+=================================================
+
+=================================================
+Starting [Test 50: Verify that calling a method that requires a struct with a hidden field fails]
+Pass: Exception message
+      Actual: The function 'structWithHiddenInnerStruct_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.structWithHiddenInnerStruct_In
+      Actual: true
+
+PASS [Test 50: Verify that calling a method that requires a struct with a hidden field fails]
+=================================================
+
+=================================================
+Starting [Test 51: Verify that calling a method returning a hidden delegate fails]
+Pass: Exception message
+      Actual: The function 'get_HiddenDelegate' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.get_HiddenDelegate
+      Actual: true
+
+PASS [Test 51: Verify that calling a method returning a hidden delegate fails]
+=================================================
+
+=================================================
+Starting [Test 52: Verify that calling a method requiring a hidden delegate fails]
+Pass: Exception message
+      Actual: The function 'call_HiddenDelegate' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.call_HiddenDelegate
+      Actual: true
+
+Pass: A Hidden delegate was verified to not have been called
+      Actual: false
+
+PASS [Test 52: Verify that calling a method requiring a hidden delegate fails]
+=================================================
+
+=================================================
+Starting [Test 53: Verify that calling a delegate requiring a hidden class fails]
+Pass: Exception message
+      Actual: The function 'call_DelegateUsing_HiddenClass_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.call_DelegateUsing_HiddenClass_In
+      Actual: true
+
+Pass: A delegate using a hidden class was verified to not have been called
+      Actual: false
+
+PASS [Test 53: Verify that calling a delegate requiring a hidden class fails]
+=================================================
+
+=================================================
+Starting [Test 54: Verify that method that takes delegate returning a hidden class fails]
+Pass: Exception message
+      Actual: The function 'call_DelegateUsing_HiddenClass_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.call_DelegateUsing_HiddenClass_Out
+      Actual: true
+
+Pass: A delegate returning a hidden class was verified to have been called
+      Actual: false
+
+PASS [Test 54: Verify that method that takes delegate returning a hidden class fails]
+=================================================
+
+=================================================
+Starting [Test 55: Verify that calling a delegate requiring a hidden interface fails]
+Pass: Exception message
+      Actual: The function 'call_DelegateUsing_HiddenInterface_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.call_DelegateUsing_HiddenInterface_In
+      Actual: true
+
+Pass: A delegate using a hidden interface was verified to not have been called
+      Actual: false
+
+PASS [Test 55: Verify that calling a delegate requiring a hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 56: Verify that calling a delegate returning a hidden interface fails]
+Pass: Exception message
+      Actual: The function 'call_DelegateUsing_HiddenInterface_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.call_DelegateUsing_HiddenInterface_In
+      Actual: true
+
+Pass: A delegate returning a hidden interface was verified to have been called
+      Actual: false
+
+PASS [Test 56: Verify that calling a delegate returning a hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 57: Verify that calling a delegate requiring a class with a default hidden interface fails]
+Pass: Exception message
+      Actual: The function 'call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_In
+      Actual: true
+
+Pass: A delegate using a class with a default hidden interface was verified to not have been called
+      Actual: false
+
+PASS [Test 57: Verify that calling a delegate requiring a class with a default hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 58: Verify that calling a delegate returning a class with a default hidden interface fails]
+Pass: Exception message
+      Actual: The function 'call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_Out
+      Actual: true
+
+Pass: A delegate returning a class with a default hidden interface was verified to have been called
+      Actual: false
+
+PASS [Test 58: Verify that calling a delegate returning a class with a default hidden interface fails]
+=================================================
+
+=================================================
+Starting [Test 59: Verify that calling a delegate requiring a class with a hidden interface only fails]
+Pass: Exception message
+      Actual: The function 'call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_In
+      Actual: true
+
+Pass: A delegate using a class with a hidden interface only was verified to not have been called
+      Actual: false
+
+PASS [Test 59: Verify that calling a delegate requiring a class with a hidden interface only fails]
+=================================================
+
+=================================================
+Starting [Test 60: Verify that calling a delegate returning a class with a hidden interface only fails]
+Pass: Exception message
+      Actual: The function 'call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_Out
+      Actual: true
+
+Pass: A delegate returning a class with a hidden interface only was verified to have been called
+      Actual: false
+
+PASS [Test 60: Verify that calling a delegate returning a class with a hidden interface only fails]
+=================================================
+
+=================================================
+Starting [Test 61: Verify that calling a method requiring a hidden enum fails]
+Pass: Exception message
+      Actual: The function 'hiddenEnum_In' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.hiddenEnum_In
+      Actual: true
+
+PASS [Test 61: Verify that calling a method requiring a hidden enum fails]
+=================================================
+
+=================================================
+Starting [Test 62: Verify that calling a method returning a hidden enum fails]
+Pass: Exception message
+      Actual: The function 'hiddenEnum_Out' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.hiddenEnum_Out
+      Actual: true
+
+PASS [Test 62: Verify that calling a method returning a hidden enum fails]
+=================================================
+
+=================================================
+Starting [Test 63: Verify that hidden enums are not defined]
+Pass: Animals.HiddenEnum
+      Actual: undefined
+
+PASS [Test 63: Verify that hidden enums are not defined]
+=================================================
+
+=================================================
+Starting [Test 64: Verify that hidden enums are not defined]
+Pass: undefined
+      Actual: Unable to get property 'first' of undefined or null reference
+
+Pass: Exception caught from Animals.HiddenEnum
+      Actual: true
+
+PASS [Test 64: Verify that hidden enums are not defined]
+=================================================
+
+=================================================
+Starting [Test 65: Verify that an overloaded method using a hidden param type is not callable]
+Pass: Exception message
+      Actual: The function 'hiddenOverload' has an invalid signature and cannot be called
+
+Pass: Exception caught from Animals.VisibleClassWithDefaultVisibleInterface.hiddenOverload
+      Actual: true
+
+PASS [Test 65: Verify that an overloaded method using a hidden param type is not callable]
+=================================================
+
+=================================================
+Starting [Test 66: Verify that an overloaded method using visible types is callable]
+Pass: Called Animals.VisibleClassWithDefaultVisibleInterface.hiddenOverload(5) successfully
+      Actual: 5
+
+Pass: Exception not caught from Animals.VisibleClassWithDefaultVisibleInterface.hiddenOverload(5)
+      Actual: false
+
+PASS [Test 66: Verify that an overloaded method using visible types is callable]
+=================================================
+
+=================================================
+Starting [Test 66: Verify that an static hidden interface methods and properties are hidden]
+Comment: typeof myObject: function
+Comment: Dump of properties : 
+    var myObjectMembers = [
+    ];
+Pass: type
+      Actual: function
+
+Pass: number of members
+      Actual: 0
+
+Comment: typeof myObject: object
+Comment: Dump of properties : 
+    var myObjectMembers = [
+        ['call_DelegateUsing_HiddenClass_In', 'function', 1],
+        ['call_DelegateUsing_HiddenClass_Out', 'function', 1],
+        ['call_DelegateUsing_HiddenInterface_In', 'function', 1],
+        ['call_DelegateUsing_HiddenInterface_Out', 'function', 1],
+        ['call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_In', 'function', 1],
+        ['call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_Out', 'function', 1],
+        ['call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_In', 'function', 1],
+        ['call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_Out', 'function', 1],
+        ['call_HiddenDelegate', 'function', 1],
+        ['fillArray_HiddenClass', 'function', 1],
+        ['fillArray_HiddenInterface', 'function', 1],
+        ['fillArray_VisibleClassWithDefaultHiddenInterface', 'function', 1],
+        ['fillArray_VisibleClassWithDefaultVisibleInterface', 'function', 1],
+        ['fillArray_VisibleClassWithHiddenInterfaceOnly', 'function', 1],
+        ['get_HiddenDelegate', 'function', 0],
+        ['hiddenEnum_In', 'function', 1],
+        ['hiddenEnum_Out', 'function', 0],
+        ['hiddenOverload', 'function', 0],
+        ['hiddenStruct_In', 'function', 1],
+        ['hiddenStruct_Out', 'function', 0],
+        ['methodUsing_HiddenClass_In', 'function', 1],
+        ['methodUsing_HiddenClass_Out', 'function', 0],
+        ['methodUsing_HiddenInterface_In', 'function', 1],
+        ['methodUsing_HiddenInterface_Out', 'function', 0],
+        ['methodUsing_VisibleClassWithDefaultHiddenInterface_In', 'function', 1],
+        ['methodUsing_VisibleClassWithDefaultHiddenInterface_Out', 'function', 0],
+        ['methodUsing_VisibleClassWithDefaultVisibleInterface_In', 'function', 1],
+        ['methodUsing_VisibleClassWithDefaultVisibleInterface_Out', 'function', 0],
+        ['methodUsing_VisibleClassWithHiddenInterfaceOnly_In', 'function', 1],
+        ['methodUsing_VisibleClassWithHiddenInterfaceOnly_Out', 'function', 0],
+        ['passArray_HiddenClass', 'function', 1],
+        ['passArray_HiddenInterface', 'function', 1],
+        ['passArray_VisibleClassWithDefaultHiddenInterface', 'function', 1],
+        ['passArray_VisibleClassWithDefaultVisibleInterface', 'function', 1],
+        ['passArray_VisibleClassWithHiddenInterfaceOnly', 'function', 1],
+        ['property_HiddenClass', 'undefined'],
+        ['property_HiddenInterface', 'undefined'],
+        ['property_VisibleClassWithHiddenInterfaceOnly', 'undefined'],
+        ['property__VisibleClassWithDefaultHiddenInterface', 'undefined'],
+        ['property__VisibleClassWithDefaultVisibleInterface', 'object'],
+        ['receiveArray_HiddenClass', 'function', 0],
+        ['receiveArray_HiddenInterface', 'function', 0],
+        ['receiveArray_VisibleClassWithDefaultHiddenInterface', 'function', 0],
+        ['receiveArray_VisibleClassWithDefaultVisibleInterface', 'function', 0],
+        ['receiveArray_VisibleClassWithHiddenInterfaceOnly', 'function', 0],
+        ['structWithHiddenInnerStruct_In', 'function', 1],
+        ['structWithHiddenInnerStruct_Out', 'function', 0],
+        ['vector_HiddenClass_In', 'function', 1],
+        ['vector_HiddenClass_Out', 'function', 0],
+        ['vector_HiddenInterface_In', 'function', 1],
+        ['vector_HiddenInterface_Out', 'function', 0],
+        ['vector_VisibleClassWithDefaultHiddenInterface_In', 'function', 1],
+        ['vector_VisibleClassWithDefaultHiddenInterface_Out', 'function', 0],
+        ['vector_VisibleClassWithDefaultVisibleInterface_In', 'function', 1],
+        ['vector_VisibleClassWithDefaultVisibleInterface_Out', 'function', 0],
+        ['vector_VisibleClassWithHiddenInterfaceOnly_In', 'function', 1],
+        ['vector_VisibleClassWithHiddenInterfaceOnly_Out', 'function', 0],
+        ['visibleMethod', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: type
+      Actual: object
+
+Pass: name
+      Actual: call_DelegateUsing_HiddenClass_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][call_DelegateUsing_HiddenClass_In]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_HiddenClass_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][call_DelegateUsing_HiddenClass_Out]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_HiddenInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][call_DelegateUsing_HiddenInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_HiddenInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][call_DelegateUsing_HiddenInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][call_DelegateUsing_VisibleClassWithDefaultHiddenInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_In]
+      Actual: function
+
+Pass: name
+      Actual: call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][call_DelegateUsing_VisibleClassWithHiddenInterfaceOnly_Out]
+      Actual: function
+
+Pass: name
+      Actual: call_HiddenDelegate
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][call_HiddenDelegate]
+      Actual: function
+
+Pass: name
+      Actual: fillArray_HiddenClass
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][fillArray_HiddenClass]
+      Actual: function
+
+Pass: name
+      Actual: fillArray_HiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][fillArray_HiddenInterface]
+      Actual: function
+
+Pass: name
+      Actual: fillArray_VisibleClassWithDefaultHiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][fillArray_VisibleClassWithDefaultHiddenInterface]
+      Actual: function
+
+Pass: name
+      Actual: fillArray_VisibleClassWithDefaultVisibleInterface
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][fillArray_VisibleClassWithDefaultVisibleInterface]
+      Actual: function
+
+Pass: name
+      Actual: fillArray_VisibleClassWithHiddenInterfaceOnly
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][fillArray_VisibleClassWithHiddenInterfaceOnly]
+      Actual: function
+
+Pass: name
+      Actual: get_HiddenDelegate
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][get_HiddenDelegate]
+      Actual: function
+
+Pass: name
+      Actual: hiddenEnum_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][hiddenEnum_In]
+      Actual: function
+
+Pass: name
+      Actual: hiddenEnum_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][hiddenEnum_Out]
+      Actual: function
+
+Pass: name
+      Actual: hiddenOverload
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][hiddenOverload]
+      Actual: function
+
+Pass: name
+      Actual: hiddenStruct_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][hiddenStruct_In]
+      Actual: function
+
+Pass: name
+      Actual: hiddenStruct_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][hiddenStruct_Out]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_HiddenClass_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][methodUsing_HiddenClass_In]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_HiddenClass_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][methodUsing_HiddenClass_Out]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_HiddenInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][methodUsing_HiddenInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_HiddenInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][methodUsing_HiddenInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_VisibleClassWithDefaultHiddenInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][methodUsing_VisibleClassWithDefaultHiddenInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_VisibleClassWithDefaultHiddenInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][methodUsing_VisibleClassWithDefaultHiddenInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_VisibleClassWithDefaultVisibleInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][methodUsing_VisibleClassWithDefaultVisibleInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_VisibleClassWithDefaultVisibleInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][methodUsing_VisibleClassWithDefaultVisibleInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_VisibleClassWithHiddenInterfaceOnly_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][methodUsing_VisibleClassWithHiddenInterfaceOnly_In]
+      Actual: function
+
+Pass: name
+      Actual: methodUsing_VisibleClassWithHiddenInterfaceOnly_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][methodUsing_VisibleClassWithHiddenInterfaceOnly_Out]
+      Actual: function
+
+Pass: name
+      Actual: passArray_HiddenClass
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][passArray_HiddenClass]
+      Actual: function
+
+Pass: name
+      Actual: passArray_HiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][passArray_HiddenInterface]
+      Actual: function
+
+Pass: name
+      Actual: passArray_VisibleClassWithDefaultHiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][passArray_VisibleClassWithDefaultHiddenInterface]
+      Actual: function
+
+Pass: name
+      Actual: passArray_VisibleClassWithDefaultVisibleInterface
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][passArray_VisibleClassWithDefaultVisibleInterface]
+      Actual: function
+
+Pass: name
+      Actual: passArray_VisibleClassWithHiddenInterfaceOnly
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][passArray_VisibleClassWithHiddenInterfaceOnly]
+      Actual: function
+
+Pass: name
+      Actual: property_HiddenClass
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][property_HiddenClass]
+      Actual: undefined
+
+Pass: name
+      Actual: property_HiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][property_HiddenInterface]
+      Actual: undefined
+
+Pass: name
+      Actual: property_VisibleClassWithHiddenInterfaceOnly
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][property_VisibleClassWithHiddenInterfaceOnly]
+      Actual: undefined
+
+Pass: name
+      Actual: property__VisibleClassWithDefaultHiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][property__VisibleClassWithDefaultHiddenInterface]
+      Actual: undefined
+
+Pass: name
+      Actual: property__VisibleClassWithDefaultVisibleInterface
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][property__VisibleClassWithDefaultVisibleInterface]
+      Actual: object
+
+Pass: name
+      Actual: receiveArray_HiddenClass
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][receiveArray_HiddenClass]
+      Actual: function
+
+Pass: name
+      Actual: receiveArray_HiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][receiveArray_HiddenInterface]
+      Actual: function
+
+Pass: name
+      Actual: receiveArray_VisibleClassWithDefaultHiddenInterface
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][receiveArray_VisibleClassWithDefaultHiddenInterface]
+      Actual: function
+
+Pass: name
+      Actual: receiveArray_VisibleClassWithDefaultVisibleInterface
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][receiveArray_VisibleClassWithDefaultVisibleInterface]
+      Actual: function
+
+Pass: name
+      Actual: receiveArray_VisibleClassWithHiddenInterfaceOnly
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][receiveArray_VisibleClassWithHiddenInterfaceOnly]
+      Actual: function
+
+Pass: name
+      Actual: structWithHiddenInnerStruct_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][structWithHiddenInnerStruct_In]
+      Actual: function
+
+Pass: name
+      Actual: structWithHiddenInnerStruct_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][structWithHiddenInnerStruct_Out]
+      Actual: function
+
+Pass: name
+      Actual: vector_HiddenClass_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][vector_HiddenClass_In]
+      Actual: function
+
+Pass: name
+      Actual: vector_HiddenClass_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][vector_HiddenClass_Out]
+      Actual: function
+
+Pass: name
+      Actual: vector_HiddenInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][vector_HiddenInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: vector_HiddenInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][vector_HiddenInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: vector_VisibleClassWithDefaultHiddenInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][vector_VisibleClassWithDefaultHiddenInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: vector_VisibleClassWithDefaultHiddenInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][vector_VisibleClassWithDefaultHiddenInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: vector_VisibleClassWithDefaultVisibleInterface_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][vector_VisibleClassWithDefaultVisibleInterface_In]
+      Actual: function
+
+Pass: name
+      Actual: vector_VisibleClassWithDefaultVisibleInterface_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][vector_VisibleClassWithDefaultVisibleInterface_Out]
+      Actual: function
+
+Pass: name
+      Actual: vector_VisibleClassWithHiddenInterfaceOnly_In
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][vector_VisibleClassWithHiddenInterfaceOnly_In]
+      Actual: function
+
+Pass: name
+      Actual: vector_VisibleClassWithHiddenInterfaceOnly_Out
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][vector_VisibleClassWithHiddenInterfaceOnly_Out]
+      Actual: function
+
+Pass: name
+      Actual: visibleMethod
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][visibleMethod]
+      Actual: function
+
+Pass: name
+      Actual: toString
+
+Pass: typeof [object Animals.VisibleClassWithVisibleInterfaceAndHiddenStaticInterface][toString]
+      Actual: function
+
+Pass: number of members
+      Actual: 59
+
+PASS [Test 66: Verify that an static hidden interface methods and properties are hidden]
+=================================================
+
+Passed: 67
+Failed: 0

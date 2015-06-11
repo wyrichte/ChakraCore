@@ -1,0 +1,17 @@
+[
+  {
+    "evaluate": {
+      "$newValue$=1": "1"
+    }
+  },
+  {
+    "evaluate": {
+      "$propertyName$=\"c\"": "Assignment to const"
+    }
+  },
+  {
+    "evaluate": {
+      "$mutationType$=\"delete\"": "Assignment to const"
+    }
+  }
+]

@@ -1,0 +1,42 @@
+<object>
+  <TestRuns>
+    <TestRun Name='DebuggerInterop_amd64' Arch='amd64'>
+        <Include>checkinbvt\devsvcs\debugger\interop</Include>
+        <Include>buildbvt\devsvcs\debugger\interop</Include>
+        <Include>selfhostbvt\devsvcs\debugger\interop</Include>
+        <TestDropDir>CoreCLR\Common</TestDropDir>
+        <TestDropDir>CoreCLRSDK\devsvcs\tests</TestDropDir>
+	<TestDropDir>Desktop\Tools</TestDropDir>
+        <TestDropDir>Desktop\devsvcs\tests</TestDropDir>
+        <TestDropDir>Desktop\devsvcs\tools</TestDropDir>
+        <SmartyArgs>/ttOS ELEV_LHULT_AMD64</SmartyArgs>
+    </TestRun>
+    <TestRun Name='DebuggerInterop_x86' Arch='x86'>
+        <Include>checkinbvt\devsvcs\debugger\interop</Include>
+        <Include>buildbvt\devsvcs\debugger\interop</Include>
+        <Include>selfhostbvt\devsvcs\debugger\interop</Include>
+        <TestDropDir>CoreCLR\Common</TestDropDir>
+        <TestDropDir>CoreCLRSDK\devsvcs\tests</TestDropDir>
+        <TestDropDir>Desktop\Tools</TestDropDir>
+        <TestDropDir>Desktop\devsvcs\tests</TestDropDir>
+        <TestDropDir>Desktop\devsvcs\tools</TestDropDir>
+        <SmartyArgs>/ttOS ELEV_LHULT_I386</SmartyArgs>
+    </TestRun>
+    <TestRun Name='DST_x86' Arch='x86'>
+        <Include>combined\devsvcs</Include>
+        <TestDropDir>Common</TestDropDir>
+        <TestDropDir>CoreCLR\Common</TestDropDir>
+        <TestDropDir>CoreCLRSDK\devsvcs\tests</TestDropDir>
+        <TestDropDir>Desktop</TestDropDir>
+        <SmartyArgs>/ttOS XPPRO_I386</SmartyArgs>
+    </TestRun>
+    <TestRun Name='DST_amd64' Arch='amd64'>
+        <Include>combined\devsvcs</Include>
+        <TestDropDir>Common</TestDropDir>
+        <TestDropDir>CoreCLR\Common</TestDropDir>
+        <TestDropDir>CoreCLRSDK\devsvcs\tests</TestDropDir>
+        <TestDropDir>Desktop</TestDropDir>
+        <SmartyArgs>/ttOS XPPRO_AMD64</SmartyArgs>
+    </TestRun>
+  </TestRuns>
+</object>

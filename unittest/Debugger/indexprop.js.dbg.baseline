@@ -1,0 +1,96 @@
+[
+  {
+    "locals": {
+      "this": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "2",
+        "[0]": "arg0",
+        "[1]": "arg1",
+        "[100]": "100"
+      },
+      "that": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "0",
+          "Symbol.unscopables": "{...}"
+        },
+        "length": "8",
+        "[0]": {
+          "__proto__": "false",
+          "[101]": "101"
+        },
+        "[1]": {
+          "__proto__": "0",
+          "[102]": "102"
+        },
+        "[2]": {
+          "__proto__": "",
+          "length": "6",
+          "[103]": "103"
+        },
+        "[3]": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "",
+          "prototype": "{...}",
+          "[104]": "104"
+        },
+        "[4]": {
+          "__proto__": "",
+          "description": "ErrorObj",
+          "message": "ErrorObj",
+          "stack": "<large string>",
+          "[105]": "105"
+        },
+        "[5]": {
+          "__proto__": "",
+          "global": "false",
+          "ignoreCase": "false",
+          "lastIndex": "0",
+          "multiline": "false",
+          "options": "",
+          "source": "regex",
+          "unicode": "false",
+          "[106]": "106"
+        },
+        "[6]": {
+          "__proto__": "Invalid Date",
+          "[107]": "107"
+        },
+        "[7]": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "size": "<large string>",
+          "[108]": "108"
+        }
+      },
+      "i": "109",
+      "[Globals]": {}
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[200]": "200"
+      }
+    }
+  }
+]

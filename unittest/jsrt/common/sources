@@ -1,0 +1,22 @@
+TARGETNAME                      =   UnitTest.JsRT.Common
+TARGETTYPE                      =   LIBRARY
+TARGET_DESTINATION              =   jscript\jsrt\unittest
+
+USE_MSVCRT                      =   1
+TEST_CODE                       =   1
+USE_NATIVE_EH                   =   1
+
+C_DEFINES                       =   $(C_DEFINES) -DUNICODE -D_UNICODE -DINLINE_TEST_METHOD_MARKUP
+
+INCLUDES                        =   $(INCLUDES);                                           \
+                                    $(JSCRIPT_ROOT)\dll\jscript;                           \
+                                    $(SDKTOOLS_INC_PATH)\WexTest\Cue;                      \
+                                    $(SDK_INC_PATH)\crt\stl70;                             \
+                                    $(_NTTREE);                                            \
+                                    ..\inc;                                                \
+
+PRECOMPILED_INCLUDE             =   StdAfx.h
+PRECOMPILED_SOURCEFILE          =   StdAfx.cpp
+PRECOMPILED_CXX                 =   1
+
+SOURCES                         =   Helpers.cpp                                            \

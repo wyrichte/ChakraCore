@@ -1,0 +1,9 @@
+Posting stack trace via ETW:
+	Frame 0: Name=0 (Function code), SourceLocationLength=67, SourceLocationStartIndex=45
+	Frame 1: Name=16 (bar), SourceLocationLength=39, SourceLocationStartIndex=40
+	Frame 2: Name=22 (foo), SourceLocationLength=35, SourceLocationStartIndex=174
+	Frame 3: Name=28 (Global code), SourceLocationLength=45, SourceLocationStartIndex=312
+NameBuffer = "Function code";"bar";"foo";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=1, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=1, operationName=anotherbiglongstringname, relatedContext=0)
+Using downlevel causality API (RoCausality) instead of WinRT-based API.
+1

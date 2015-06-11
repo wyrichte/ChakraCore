@@ -1,0 +1,139 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "false"
+      },
+      "a": "false",
+      "closureFoo": {
+        "__proto__": "<large string>",
+        "arguments": "{...}",
+        "caller": "null",
+        "length": "1",
+        "name": "closureFoo",
+        "prototype": "{...}"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "outer": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "false"
+      },
+      "inner": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "inner",
+        "prototype": "{...}"
+      },
+      "closureFoo": {
+        "__proto__": "<large string>",
+        "arguments": "{...}",
+        "caller": "null",
+        "length": "1",
+        "name": "closureFoo",
+        "prototype": "{...}"
+      },
+      "a": "false",
+      "[Globals]": {
+        "foo": "<large string>",
+        "outer": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {
+        "closureFoo": "<large string>",
+        "a": "false"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "outer": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "10"
+      },
+      "arg1": "10",
+      "foo1": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "arguments": "{...}",
+        "length": "1",
+        "name": "foo1",
+        "prototype": "{...}"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "outer": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "false"
+      },
+      "a": "false",
+      "closureFoo": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "arguments": "{...}",
+        "length": "1",
+        "name": "closureFoo",
+        "prototype": "{...}"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "outer": "<large string>"
+      }
+    }
+  }
+]

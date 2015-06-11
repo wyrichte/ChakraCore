@@ -1,0 +1,62 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 396,
+        "length": 15,
+        "text": "Print('Start!')",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  },
+  {
+    "log": "Do()"
+  },
+  {
+    "callstack": [
+      {
+        "start": 19,
+        "length": 59,
+        "text": "WScript.Echo(\"Do() - IsInJitMode() == \" +  Debug.isInJit())",
+        "frameDescription": "Do",
+        "documentId": 2
+      },
+      {
+        "start": 414,
+        "length": 4,
+        "text": "Do()",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  },
+  {
+    "log": "resumed"
+  },
+  {
+    "callstack": [
+      {
+        "start": 124,
+        "length": 62,
+        "text": "WScript.Echo(\"Print() - IsInJitMode() == \" +  Debug.isInJit())",
+        "frameDescription": "Print",
+        "documentId": 1
+      },
+      {
+        "start": 83,
+        "length": 39,
+        "text": "Print('foo callback to main document!')",
+        "frameDescription": "Do",
+        "documentId": 2
+      },
+      {
+        "start": 414,
+        "length": 4,
+        "text": "Do()",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  }
+]

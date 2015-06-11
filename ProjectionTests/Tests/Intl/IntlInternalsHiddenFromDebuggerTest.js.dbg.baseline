@@ -1,0 +1,70 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 233,
+        "length": 12,
+        "text": "return 'foo'",
+        "frameDescription": "toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.sort"
+      },
+      {
+        "start": 350,
+        "length": 21,
+        "text": "array.sort(c.compare)",
+        "frameDescription": "testCallback"
+      },
+      {
+        "start": 379,
+        "length": 14,
+        "text": "testCallback()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 233,
+        "length": 12,
+        "text": "return 'foo'",
+        "frameDescription": "toString"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Intl.Collator.prototype.compare"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Array.prototype.sort"
+      },
+      {
+        "start": 350,
+        "length": 21,
+        "text": "array.sort(c.compare)",
+        "frameDescription": "testCallback"
+      },
+      {
+        "start": 379,
+        "length": 14,
+        "text": "testCallback()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

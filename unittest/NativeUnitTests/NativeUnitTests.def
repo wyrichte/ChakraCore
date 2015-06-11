@@ -1,0 +1,6 @@
+
+LIBRARY NATIVEUNITTESTS
+
+EXPORTS
+    RunNativeTest 
+    CreateEventSink

@@ -1,0 +1,155 @@
+[
+  {
+    "log": "start"
+  },
+  {
+    "callstack": [
+      {
+        "start": 102,
+        "length": 2,
+        "text": "a1",
+        "frameDescription": "sub_expression_step_into"
+      },
+      {
+        "start": 766,
+        "length": 26,
+        "text": "sub_expression_step_into()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "stepOver1_at_obj_lit"
+  },
+  {
+    "callstack": [
+      {
+        "start": 496,
+        "length": 175,
+        "text": "var obj = { \n        a: a1,  \n        b: a1 + 20, \n        c:  {\n                ca: a1 * 2, \n                cb: foo(),\n                cc: a1\n            }\n        }",
+        "frameDescription": "sub_expression_step_into"
+      },
+      {
+        "start": 766,
+        "length": 26,
+        "text": "sub_expression_step_into()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "stepIn1_inside_foo"
+  },
+  {
+    "callstack": [
+      {
+        "start": 38,
+        "length": 13,
+        "text": "return a1 * 5",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 611,
+        "length": 9,
+        "text": "cb: foo()",
+        "frameDescription": "sub_expression_step_into"
+      },
+      {
+        "start": 766,
+        "length": 26,
+        "text": "sub_expression_step_into()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "stepOut1_back_in_caller"
+  },
+  {
+    "callstack": [
+      {
+        "start": 611,
+        "length": 9,
+        "text": "cb: foo()",
+        "frameDescription": "sub_expression_step_into"
+      },
+      {
+        "start": 766,
+        "length": 26,
+        "text": "sub_expression_step_into()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "stepOver2_next_statement"
+  },
+  {
+    "callstack": [
+      {
+        "start": 678,
+        "length": 33,
+        "text": "WScript.Echo(JSON.stringify(obj))",
+        "frameDescription": "sub_expression_step_into"
+      },
+      {
+        "start": 766,
+        "length": 26,
+        "text": "sub_expression_step_into()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a1": "10"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "a": "10",
+        "b": "30",
+        "c": "{...}"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "sub_expression_step_into": "<large string>",
+        "a1": "10"
+      }
+    }
+  },
+  {
+    "log": "BP1"
+  },
+  {
+    "callstack": [
+      {
+        "start": 678,
+        "length": 33,
+        "text": "WScript.Echo(JSON.stringify(obj))",
+        "frameDescription": "sub_expression_step_into"
+      },
+      {
+        "start": 766,
+        "length": 26,
+        "text": "sub_expression_step_into()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "obj": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

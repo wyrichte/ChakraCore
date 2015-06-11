@@ -1,0 +1,104 @@
+Intl DateTimeFormat Tests
+
+=================================================
+Starting [Test 1: Test Valid Options]
+Pass: Formatting year as numeric.
+      Actual: 2000
+
+Pass: Formatting year as 2-digit.
+      Actual: 00
+
+Pass: Formatting month as numeric.
+      Actual: 2
+
+Pass: Formatting month as 2-digit.
+      Actual: 02
+
+Pass: Formatting month as 2-digit.
+      Actual: February
+
+Pass: Formatting month as numeric.
+      Actual: Feb
+
+Pass: Formatting month as narrow.
+      Actual: Feb
+
+Pass: Formatting day as 2-digit.
+      Actual: 01
+
+Pass: Formatting day as numeric.
+      Actual: 1
+
+Pass: Formatting hour as 2-digit.
+      Actual: 01 AM
+
+Pass: Formatting hour as numeric.
+      Actual: 1 AM
+
+Pass: Formatting hour as 2-digit and minute as 2-digit.
+      Actual: 01:01 AM
+
+Pass: Formatting hour as 2-digit and minute as numeric.
+      Actual: 01:01 AM
+
+Pass: Formatting hour as 2-digit, minute as 2-digit and second as 2-digit.
+      Actual: 01:01:01 AM
+
+Pass: Formatting hour as 2-digit, minute as 2-digit and second as numeric.
+      Actual: 01:01:01 AM
+
+Pass: Formatting hour as numeric with hour12=true.
+      Actual: 1 AM
+
+Pass: Formatting hour as numeric with hour12=false.
+      Actual: 1:00
+
+PASS [Test 1: Test Valid Options]
+=================================================
+
+=================================================
+Starting [Test 2: Test Invalid Options]
+Pass: Checking exception method for correct values string. Looking for: ['2-digit', 'numeric']
+Message: Option value 'long' for 'year' is outside of valid range. Expected: ['2-digit', 'numeric']
+      Actual: true
+
+Pass: Checking exception method for correct values string. Looking for: ['2-digit', 'numeric', 'narrow', 'short', 'long']
+Message: Option value 'false' for 'month' is outside of valid range. Expected: ['2-digit', 'numeric', 'narrow', 'short', 'long']
+      Actual: true
+
+Pass: Checking exception method for correct values string. Looking for: ['2-digit', 'numeric']
+Message: Option value 'long' for 'day' is outside of valid range. Expected: ['2-digit', 'numeric']
+      Actual: true
+
+Pass: Checking exception method for correct values string. Looking for: ['2-digit', 'numeric']
+Message: Option value 'long' for 'hour' is outside of valid range. Expected: ['2-digit', 'numeric']
+      Actual: true
+
+Pass: Checking exception method for correct values string. Looking for: ['2-digit', 'numeric']
+Message: Option value 'long' for 'minute' is outside of valid range. Expected: ['2-digit', 'numeric']
+      Actual: true
+
+Pass: Checking exception method for correct values string. Looking for: ['2-digit', 'numeric']
+Message: Option value 'long' for 'second' is outside of valid range. Expected: ['2-digit', 'numeric']
+      Actual: true
+
+Pass: Checking exception method for correct values string. Looking for: ['narrow', 'short', 'long']
+Message: Option value 'numeric' for 'era' is outside of valid range. Expected: ['narrow', 'short', 'long']
+      Actual: true
+
+Pass: Checking exception method for correct values string. Looking for: ['lookup', 'best fit']
+Message: Option value 'long' for 'localeMatcher' is outside of valid range. Expected: ['lookup', 'best fit']
+      Actual: true
+
+Pass: Checking exception method for correct values string. Looking for: ['basic', 'best fit']
+Message: Option value 'long' for 'formatMatcher' is outside of valid range. Expected: ['basic', 'best fit']
+      Actual: true
+
+Pass: Hour12 special invalid option treatment.
+      Actual: true
+
+PASS [Test 2: Test Invalid Options]
+=================================================
+
+Passed: 2
+Failed: 0

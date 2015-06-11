@@ -1,0 +1,217 @@
+[
+  {
+    "log": "globObj"
+  },
+  {
+    "callstack": [
+      {
+        "start": 50,
+        "length": 9,
+        "text": "gb: foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "GlstepOver1"
+  },
+  {
+    "callstack": [
+      {
+        "start": 1586,
+        "length": 31,
+        "text": "sub_expression_step_into_more()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "start"
+  },
+  {
+    "callstack": [
+      {
+        "start": 342,
+        "length": 2,
+        "text": "a1",
+        "frameDescription": "sub_expression_step_into_more"
+      },
+      {
+        "start": 1586,
+        "length": 31,
+        "text": "sub_expression_step_into_more()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "stepOver1_at_obj_lit"
+  },
+  {
+    "callstack": [
+      {
+        "start": 1018,
+        "length": 520,
+        "text": "var obj = { \n        a: a1,  \n        b: a1++, \n        func : function(a, b) {\n            return 5;\n        },\n        globObj,\n        ev: eval('a1 + a1*2'),\n        c:  {\n                ca: a1 * 2, \n                cb: foo(),\n                cc: a1,\n                cd: bar(),\n                c3: a1 * 3\n            },\n        d: foo()    /**bp:  logJson('BP1'); stack(); resume('step_into');\n                            logJson('BP1stepIn1_inside_foo'); stack();\n                    **/\n        }",
+        "frameDescription": "sub_expression_step_into_more"
+      },
+      {
+        "start": 1586,
+        "length": 31,
+        "text": "sub_expression_step_into_more()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "stepIn1_inside_eval"
+  },
+  {
+    "callstack": [
+      {
+        "start": 1163,
+        "length": 21,
+        "text": "ev: eval('a1 + a1*2')",
+        "frameDescription": "sub_expression_step_into_more"
+      },
+      {
+        "start": 1586,
+        "length": 31,
+        "text": "sub_expression_step_into_more()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "stepIn3_inside_foo"
+  },
+  {
+    "callstack": [
+      {
+        "start": 219,
+        "length": 13,
+        "text": "return a1 * 5",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 1248,
+        "length": 9,
+        "text": "cb: foo()",
+        "frameDescription": "sub_expression_step_into_more"
+      },
+      {
+        "start": 1586,
+        "length": 31,
+        "text": "sub_expression_step_into_more()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "stepIn6_next_subexp"
+  },
+  {
+    "callstack": [
+      {
+        "start": 1276,
+        "length": 6,
+        "text": "cc: a1",
+        "frameDescription": "sub_expression_step_into_more"
+      },
+      {
+        "start": 1586,
+        "length": 31,
+        "text": "sub_expression_step_into_more()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "stepIn8_inside_bar"
+  },
+  {
+    "callstack": [
+      {
+        "start": 262,
+        "length": 8,
+        "text": "a1 += 11",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 1301,
+        "length": 9,
+        "text": "cd: bar()",
+        "frameDescription": "sub_expression_step_into_more"
+      },
+      {
+        "start": 1586,
+        "length": 31,
+        "text": "sub_expression_step_into_more()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "stepIn11_back_in_objLit"
+  },
+  {
+    "callstack": [
+      {
+        "start": 1301,
+        "length": 9,
+        "text": "cd: bar()",
+        "frameDescription": "sub_expression_step_into_more"
+      },
+      {
+        "start": 1586,
+        "length": 31,
+        "text": "sub_expression_step_into_more()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "BP1"
+  },
+  {
+    "callstack": [
+      {
+        "start": 1365,
+        "length": 8,
+        "text": "d: foo()",
+        "frameDescription": "sub_expression_step_into_more"
+      },
+      {
+        "start": 1586,
+        "length": 31,
+        "text": "sub_expression_step_into_more()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "log": "BP1stepIn1_inside_foo"
+  },
+  {
+    "callstack": [
+      {
+        "start": 219,
+        "length": 13,
+        "text": "return a1 * 5",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 1365,
+        "length": 8,
+        "text": "d: foo()",
+        "frameDescription": "sub_expression_step_into_more"
+      },
+      {
+        "start": 1586,
+        "length": 31,
+        "text": "sub_expression_step_into_more()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

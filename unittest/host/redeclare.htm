@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple test</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body>
+<script>
+function print(result)
+{
+WScript.Echo(result);
+}
+
+if (!window) {
+  window = new Object();
+}
+
+var cannotOverrideKeywords = ['document', 'window', 'navigator', 'sessionStorage', 'localStorage'];
+var cannotOverrideProperties = [document, window, navigator, sessionStorage, localStorage];
+
+var tests = [];
+function test1(propertyName) {
+eval(propertyName + '= function() {}');
+print(window[propertyName]);
+}
+tests.push(test1);
+
+function test2(propertyName) {
+eval('var ' + propertyName + '= new Object()');
+print(window[propertyName]);
+}
+tests.push(test2);
+
+function test3(propertyName) {
+window[propertyName] = new Object();
+print(window[propertyName]);
+}
+tests.push(test3);
+
+function test4(propertyName) {
+print(window[propertyName]);
+}
+tests.push(test4);
+
+for (var i in cannotOverrideKeywords) 
+    for (var j in tests)
+{
+    print('test'+j+' with ' + cannotOverrideKeywords[i]);
+    tests[j](cannotOverrideKeywords[i]);
+}
+
+tests = [];
+function test5(property) {
+property = function() {}
+}
+tests.push(test5);
+
+function test6(property) {
+property = new Object();
+}
+tests.push(test6);
+
+function test7(property) {
+print(property);
+}
+tests.push(test6);
+
+for (var i in cannotOverrideProperties) 
+    for (var j in tests)
+{
+    print('test'+j+' with ' + cannotOverrideProperties[i]);
+    tests[j](cannotOverrideProperties[i]);
+}
+
+
+"use strict";
+document = function() {}
+print(document);
+
+</script>
+</body>
+</html>

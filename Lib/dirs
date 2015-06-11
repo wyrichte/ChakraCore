@@ -1,0 +1,9 @@
+DIRS =  Common \
+        Parser \
+        Runtime \
+        Backend \
+        WinRT \
+        GuidParser \
+        MemProtectHeap \
+        Author{!amd64,!arm,!arm64} \
+        static{!min_rt} \

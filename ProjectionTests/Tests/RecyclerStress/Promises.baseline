@@ -1,0 +1,289 @@
+Promises tests
+
+=================================================
+Starting [Test 1: AsyncOut]
+PASS [Test 1: AsyncOut]
+=================================================
+
+=================================================
+Starting [Test 2: CompleteSuccessfully]
+PASS [Test 2: CompleteSuccessfully]
+=================================================
+
+=================================================
+Starting [Test 2-done: CompleteSuccessfully]
+PASS [Test 2-done: CompleteSuccessfully]
+=================================================
+
+=================================================
+Starting [Test 2.1: CompleteSuccessfully-null]
+PASS [Test 2.1: CompleteSuccessfully-null]
+=================================================
+
+=================================================
+Starting [Test 2.1-done: CompleteSuccessfully-null]
+PASS [Test 2.1-done: CompleteSuccessfully-null]
+=================================================
+
+=================================================
+Starting [Test 3: CompleteWithCancel]
+PASS [Test 3: CompleteWithCancel]
+=================================================
+
+=================================================
+Starting [Test 3-done: CompleteWithCancel]
+PASS [Test 3-done: CompleteWithCancel]
+=================================================
+
+=================================================
+Starting [Test 4: CompleteWithError]
+PASS [Test 4: CompleteWithError]
+=================================================
+
+=================================================
+Starting [Test 4-done: CompleteWithError]
+PASS [Test 4-done: CompleteWithError]
+=================================================
+
+=================================================
+Starting [Test 5: TwoThensFollowedByCompleted]
+PASS [Test 5: TwoThensFollowedByCompleted]
+=================================================
+
+=================================================
+Starting [Test 5-done: TwoDonesFollowedByCompleted]
+PASS [Test 5-done: TwoDonesFollowedByCompleted]
+=================================================
+
+=================================================
+Starting [Test 5.1: TwoThensFollowedByCompleted-null]
+PASS [Test 5.1: TwoThensFollowedByCompleted-null]
+=================================================
+
+=================================================
+Starting [Test 5.1-done: TwoDonesFollowedByCompleted-null]
+PASS [Test 5.1-done: TwoDonesFollowedByCompleted-null]
+=================================================
+
+=================================================
+Starting [Test 6: ThensFollowedByCompletedFollowedByThen]
+PASS [Test 6: ThensFollowedByCompletedFollowedByThen]
+=================================================
+
+=================================================
+Starting [Test 6-done: DoneFollowedByCompletedFollowedByDone]
+PASS [Test 6-done: DoneFollowedByCompletedFollowedByDone]
+=================================================
+
+=================================================
+Starting [Test 6.1: ThensFollowedByCompletedFollowedByThen-null]
+PASS [Test 6.1: ThensFollowedByCompletedFollowedByThen-null]
+=================================================
+
+=================================================
+Starting [Test 6.1-done: DoneFollowedByCompletedFollowedByDone-null]
+PASS [Test 6.1-done: DoneFollowedByCompletedFollowedByDone-null]
+=================================================
+
+=================================================
+Starting [Test 7: ThensFollowedByErrorFollowedByThen]
+PASS [Test 7: ThensFollowedByErrorFollowedByThen]
+=================================================
+
+=================================================
+Starting [Test 7-done: DoneFollowedByErrorFollowedByDone]
+PASS [Test 7-done: DoneFollowedByErrorFollowedByDone]
+=================================================
+
+=================================================
+Starting [Test 8: ChainedThensFollowedByCompleted]
+PASS [Test 8: ChainedThensFollowedByCompleted]
+=================================================
+
+=================================================
+Starting [Test 8-done: ThenDoneFollowedByCompleted]
+PASS [Test 8-done: ThenDoneFollowedByCompleted]
+=================================================
+
+=================================================
+Starting [Test 8.1: ChainedThensFollowedByCompleted-null]
+PASS [Test 8.1: ChainedThensFollowedByCompleted-null]
+=================================================
+
+=================================================
+Starting [Test 8.1-done: ThenDoneFollowedByCompleted-null]
+PASS [Test 8.1-done: ThenDoneFollowedByCompleted-null]
+=================================================
+
+=================================================
+Starting [Test 9: ChainedThensFollowedByCancel]
+PASS [Test 9: ChainedThensFollowedByCancel]
+=================================================
+
+=================================================
+Starting [Test 9-null: ThenDoneFollowedByCancel]
+PASS [Test 9-null: ThenDoneFollowedByCancel]
+=================================================
+
+=================================================
+Starting [Test 10: ExceptionThrownFromOnCompleteHandler]
+PASS [Test 10: ExceptionThrownFromOnCompleteHandler]
+=================================================
+
+=================================================
+Starting [Test 10-done: ExceptionThrownFromOnCompleteHandler-done]
+PASS [Test 10-done: ExceptionThrownFromOnCompleteHandler-done]
+=================================================
+
+=================================================
+Starting [Test 10.1: ExceptionThrownFromOnCompleteHandler-null]
+PASS [Test 10.1: ExceptionThrownFromOnCompleteHandler-null]
+=================================================
+
+=================================================
+Starting [Test 10.1-done: ExceptionThrownFromOnCompleteHandler-done-null]
+PASS [Test 10.1-done: ExceptionThrownFromOnCompleteHandler-done-null]
+=================================================
+
+=================================================
+Starting [Test 11: ExceptionThrownFromOnErrorHandler]
+PASS [Test 11: ExceptionThrownFromOnErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 11-done: ExceptionThrownFromOnErrorHandler]
+PASS [Test 11-done: ExceptionThrownFromOnErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 12: ProgressThenCancel]
+PASS [Test 12: ProgressThenCancel]
+=================================================
+
+=================================================
+Starting [Test 12-done: ProgressThenCancel]
+PASS [Test 12-done: ProgressThenCancel]
+=================================================
+
+=================================================
+Starting [Test 13: ExceptionFromProgress]
+PASS [Test 13: ExceptionFromProgress]
+=================================================
+
+=================================================
+Starting [Test 13-done: ExceptionFromProgress]
+PASS [Test 13-done: ExceptionFromProgress]
+=================================================
+
+=================================================
+Starting [Test 14: ExamineThen]
+Comment: then
+Comment: cancel
+Comment: done
+PASS [Test 14: ExamineThen]
+=================================================
+
+=================================================
+Starting [Test 14-done: ExamineDone]
+Comment: then
+Comment: cancel
+Comment: done
+PASS [Test 14-done: ExamineDone]
+=================================================
+
+=================================================
+Starting [Test 255219: No Progress Property]
+PASS [Test 255219: No Progress Property]
+=================================================
+
+=================================================
+Starting [Test 255219-done: No Progress Property]
+PASS [Test 255219-done: No Progress Property]
+=================================================
+
+=================================================
+Starting [Test 253937: Winery server ABI issue]
+PASS [Test 253937: Winery server ABI issue]
+=================================================
+
+=================================================
+Starting [Test 15: ErrorBeforeDoneWithNoErrorHandler]
+PASS [Test 15: ErrorBeforeDoneWithNoErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 16: CancelBeforeDoneWithNoErrorHandler]
+PASS [Test 16: CancelBeforeDoneWithNoErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 17: CancelAfterDoneWithNoErrorHandler]
+PASS [Test 17: CancelAfterDoneWithNoErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 18: ErrorAfterDoneWithNoErrorHandler]
+PASS [Test 18: ErrorAfterDoneWithNoErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 413280: Verify that we get an error from a chained promise]
+Pass: Expected E_OUTOFMEMORY error
+      Actual: Not enough storage is available to complete this operation.
+
+
+PASS [Test 413280: Verify that we get an error from a chained promise]
+=================================================
+
+=================================================
+Starting [Test 20: GetResultsReturnsErrorOnCompleted]
+PASS [Test 20: GetResultsReturnsErrorOnCompleted]
+=================================================
+
+=================================================
+Starting [Test 20-done: GetResultsReturnsErrorOnCompleted]
+PASS [Test 20-done: GetResultsReturnsErrorOnCompleted]
+=================================================
+
+=================================================
+Starting [Test 21: CancelReturnsError]
+PASS [Test 21: CancelReturnsError]
+=================================================
+
+=================================================
+Starting [Test 21-done: CancelReturnsError]
+PASS [Test 21-done: CancelReturnsError]
+=================================================
+
+=================================================
+Starting [Test 22: GetResultsSucceedsOnError]
+PASS [Test 22: GetResultsSucceedsOnError]
+=================================================
+
+=================================================
+Starting [Test 22-done: GetResultsSucceedsOnError]
+PASS [Test 22-done: GetResultsSucceedsOnError]
+=================================================
+
+=================================================
+Starting [Test 23: InvalidStatusPassedToCompleted]
+PASS [Test 23: InvalidStatusPassedToCompleted]
+=================================================
+
+=================================================
+Starting [Test 23-done: InvalidStatusPassedToCompleted]
+PASS [Test 23-done: InvalidStatusPassedToCompleted]
+=================================================
+
+=================================================
+Starting [Test 24: InvalidSenderPassedToCompleted]
+PASS [Test 24: InvalidSenderPassedToCompleted]
+=================================================
+
+=================================================
+Starting [Test 24-done: InvalidSenderPassedToCompleted]
+PASS [Test 24-done: InvalidSenderPassedToCompleted]
+=================================================
+
+Passed: 55
+Failed: 0

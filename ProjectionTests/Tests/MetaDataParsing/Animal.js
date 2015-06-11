@@ -1,0 +1,10 @@
+var animalType = typeof Animals.Animal;
+var singleIVectorType = typeof Animals.SingleIVector;
+var doubleIVectorType = typeof Animals.DoubleIVector;
+var multipleIVectorType = typeof Animals.MultipleIVector;
+var interfaceWithSingleIVectorType = typeof Animals.InterfaceWithSingleIVector;
+var interfaceWithDoubleIVectorType = typeof Animals.InterfaceWithDoubleIVector;
+var interfaceWithMultipleIVectorType = typeof Animals.InterfaceWithMultipleIVector;
+var RCIObservableType = typeof Animals.RCIObservable;
+var RCISingleObservableType = typeof Animals.RCISingleObservable;
+var RCIDoubleObservableType = typeof Animals.RCIDoubleObservable;

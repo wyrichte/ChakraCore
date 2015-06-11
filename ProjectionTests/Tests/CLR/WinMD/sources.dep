@@ -1,0 +1,6 @@
+PUBLIC_PASS0_CONSUMES= \
+    redist\mspartners\netfx45\core\binary_release|PASS0 \
+
+BUILD_PASS1_CONSUMES= \
+    inetcore\jscript\projectiontests\abis\custom\teachrt\winrt\idl\dll|PASS1 \
+

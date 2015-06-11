@@ -1,0 +1,20 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "0",
+      "[Scope]1": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "0",
+      "[Scope]1": "<large string>",
+      "[Globals]": ""
+    }
+  }
+]

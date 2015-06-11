@@ -1,0 +1,22 @@
+[
+  {
+    "evaluate": {
+      "test10_a": {
+        "[0]": "1",
+        "__proto__": "[]",
+        "length": "1",
+        "p": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "test10_a": {
+        "[0]": "1",
+        "__proto__": "[]",
+        "length": "1",
+        "p": "<large string>"
+      }
+    }
+  }
+]

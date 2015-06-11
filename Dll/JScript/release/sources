@@ -1,0 +1,26 @@
+!include ..\sources.inc
+
+TARGETNAME=chakra
+TARGET_DESTINATION=retail
+TARGETTYPE=DYNLINK
+GENERATE_MUI=1
+
+DLLDEF=$(OBJ_PATH)\$(O)\JScript9.def
+
+_NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WINTHRESHOLD)
+
+SOURCES = \
+    $(SOURCES) \
+    $(NON_LANGUAGE_SERVICE_SOURCES) \
+    ..\jscript9.rc \
+
+RESOURCE_FILE=..\jscript9.rc
+
+PASS0_PUBLISH= \
+    {..\jsrt.h=$(SDK_INC_PATH)\jsrt.h} \
+    {..\chakrart.h=$(SDK_INC_PATH)\chakrart.h} \
+
+PASS1_PUBLISH=\
+    {$(OBJ_PATH)\$(O)\chakra.lib=$(SDK_LIB_PATH)\chakrart.lib}
+
+PGI_LINK_FLAG=/GENPROFILE:MEMMAX=20971520

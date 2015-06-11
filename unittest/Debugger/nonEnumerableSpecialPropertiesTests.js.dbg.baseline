@@ -1,0 +1,1673 @@
+[
+  {
+    "evaluate": {
+      "arrBuffer": {
+        "__proto__": "[object ArrayBuffer]",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "byteLength": "5",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        }
+      },
+      "arrBuffer - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "arr": {
+        "__proto__": "[]",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "length": "5",
+        "length - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[0]": "1",
+        "[0] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[1]": "2",
+        "[1] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[2]": "3",
+        "[2] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[3]": "4",
+        "[3] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[4]": "5",
+        "[4] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        }
+      },
+      "arr - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "pixelArr": {
+        "__proto__": "[object Uint8ClampedArray]",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "buffer": "[object ArrayBuffer]",
+        "buffer - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2064
+        },
+        "byteLength": "4",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "BYTES_PER_ELEMENT": "1",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "length": "4",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[3]": "0",
+        "[3] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        }
+      },
+      "pixelArr - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "regex.constructor": {
+        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_IS_METHOD"
+          ],
+          "flagsAsValue": 272
+        },
+        "$'": "",
+        "$' - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "$&": "",
+        "$& - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "$_": "",
+        "$_ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "$`": "",
+        "$` - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "$+": "",
+        "$+ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "$1": "",
+        "$1 - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "$2": "",
+        "$2 - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "$3": "",
+        "$3 - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "$4": "",
+        "$4 - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "$5": "",
+        "$5 - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "$6": "",
+        "$6 - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "$7": "",
+        "$7 - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "$8": "",
+        "$8 - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "$9": "",
+        "$9 - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "index": "-1",
+        "index - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "input": "",
+        "input - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "lastMatch": "",
+        "lastMatch - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "lastParen": "",
+        "lastParen - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "leftContext": "",
+        "leftContext - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "length": "2",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "prototype": "",
+        "prototype - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2064
+        },
+        "rightContext": "",
+        "rightContext - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        }
+      },
+      "regex.constructor - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+          "DBGPROP_ATTRIB_VALUE_IS_METHOD"
+        ],
+        "flagsAsValue": 272
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "regex": {
+        "__proto__": "",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "global": "false",
+        "global - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "ignoreCase": "false",
+        "ignoreCase - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "lastIndex": "0",
+        "lastIndex - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "multiline": "false",
+        "multiline - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "options": "",
+        "options - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "source": ".\\s?",
+        "source - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        }
+      },
+      "regex - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "regex2": {
+        "__proto__": "",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "global": "true",
+        "global - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "ignoreCase": "true",
+        "ignoreCase - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "lastIndex": "0",
+        "lastIndex - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "multiline": "true",
+        "multiline - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "options": "gim",
+        "options - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
+        "source": ".\\s?",
+        "source - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        }
+      },
+      "regex2 - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "str": {
+        "__proto__": "",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING"
+          ],
+          "flagsAsValue": 1040
+        },
+        "length": "6",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        }
+      },
+      "str - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+          "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING"
+        ],
+        "flagsAsValue": 1040
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "int8Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_IS_FAKE",
+              "DBGPROP_ATTRIB_VALUE_IS_METHOD",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2352
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2064
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "BYTES_PER_ELEMENT": "1",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "byteLength": "1",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2064
+        },
+        "byteLength": "1",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "BYTES_PER_ELEMENT": "1",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "length": "1",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        }
+      },
+      "int8Arr - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "uint8Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_IS_FAKE",
+              "DBGPROP_ATTRIB_VALUE_IS_METHOD",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2352
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2064
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "BYTES_PER_ELEMENT": "1",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "byteLength": "2",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2064
+        },
+        "byteLength": "2",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "BYTES_PER_ELEMENT": "1",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "length": "2",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        }
+      },
+      "uint8Arr - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "int16Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_IS_FAKE",
+              "DBGPROP_ATTRIB_VALUE_IS_METHOD",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2352
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2064
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "BYTES_PER_ELEMENT": "2",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "byteLength": "6",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2064
+        },
+        "byteLength": "6",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "BYTES_PER_ELEMENT": "2",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "length": "3",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        }
+      },
+      "int16Arr - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "uint16Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_IS_FAKE",
+              "DBGPROP_ATTRIB_VALUE_IS_METHOD",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2352
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2064
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "BYTES_PER_ELEMENT": "2",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "byteLength": "8",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2064
+        },
+        "byteLength": "8",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "BYTES_PER_ELEMENT": "2",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "length": "4",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[3]": "0",
+        "[3] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        }
+      },
+      "uint16Arr - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "int32Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_IS_FAKE",
+              "DBGPROP_ATTRIB_VALUE_IS_METHOD",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2352
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2064
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "BYTES_PER_ELEMENT": "4",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "byteLength": "20",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2064
+        },
+        "byteLength": "20",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "BYTES_PER_ELEMENT": "4",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "length": "5",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[3]": "0",
+        "[3] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[4]": "0",
+        "[4] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        }
+      },
+      "int32Arr - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "uint32Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_IS_FAKE",
+              "DBGPROP_ATTRIB_VALUE_IS_METHOD",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2352
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2064
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "BYTES_PER_ELEMENT": "4",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "byteLength": "24",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2064
+        },
+        "byteLength": "24",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "BYTES_PER_ELEMENT": "4",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "length": "6",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[3]": "0",
+        "[3] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[4]": "0",
+        "[4] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[5]": "0",
+        "[5] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        }
+      },
+      "uint32Arr - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "float32Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_IS_FAKE",
+              "DBGPROP_ATTRIB_VALUE_IS_METHOD",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2352
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2064
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "BYTES_PER_ELEMENT": "4",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "byteLength": "28",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2064
+        },
+        "byteLength": "28",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "BYTES_PER_ELEMENT": "4",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "length": "7",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[3]": "0",
+        "[3] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[4]": "0",
+        "[4] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[5]": "0",
+        "[5] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[6]": "0",
+        "[6] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        }
+      },
+      "float32Arr - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "float64Arr": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "[Methods] - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_IS_FAKE",
+              "DBGPROP_ATTRIB_VALUE_IS_METHOD",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2352
+          },
+          "__proto__": "{...}",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2064
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "BYTES_PER_ELEMENT": "8",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+            ],
+            "flagsAsValue": 16
+          },
+          "byteLength": "64",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "DBGPROP_ATTRIB_VALUE_READONLY"
+            ],
+            "flagsAsValue": 2048
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2064
+        },
+        "byteLength": "64",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "BYTES_PER_ELEMENT": "8",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "length": "8",
+        "length - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 2048
+        },
+        "[0]": "0",
+        "[0] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[1]": "0",
+        "[1] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[2]": "0",
+        "[2] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[3]": "0",
+        "[3] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[4]": "0",
+        "[4] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[5]": "0",
+        "[5] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[6]": "0",
+        "[6] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[7]": "0",
+        "[7] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        }
+      },
+      "float64Arr - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+        ],
+        "flagsAsValue": 16
+      }
+    }
+  }
+]

@@ -1,0 +1,4603 @@
+String array as Vector view tests
+
+=================================================
+Starting [Test 1: MarshalInArrayAsVectorView]
+Comment: var myArray = ["Pink", "Yellow", "Green", "Red", "Tan", "Blue", "Black", "Brown", "Orange"];
+Comment: var myVectorView = (new Animals.Animal(1)).duplicateStringVectorView(myArray);
+Comment: verifyVectorView("myVectorView", myVectorView, ["Pink", "Yellow", "Green", "Red", "Tan", "Blue", "Black", "Brown", "Orange"])
+Comment: var myIterator = myVectorView.first()
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: Brown
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: Orange
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 14
+
+Pass: myVectorView.size
+      Actual: 9
+
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'string'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: string
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Pink
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Yellow
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Green
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Red
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Tan
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Blue
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Black
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Brown
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Orange
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Pink
+
+Pass: manyItems[1]
+      Actual: Yellow
+
+Pass: manyItems[2]
+      Actual: Green
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Red
+
+Pass: manyItems[1]
+      Actual: Tan
+
+Pass: manyItems[2]
+      Actual: Blue
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Black
+
+Pass: manyItems[1]
+      Actual: Brown
+
+Pass: manyItems[2]
+      Actual: Orange
+
+Pass: myIteratorForMany.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Pass: e.number while myVectorView.getAt(11)
+      Actual: -2147483637
+
+Pass: Expected exception was caught
+      Actual: true
+
+Comment: myVectorView::IndexOf
+Pass: index of myVectorView.indexOf("Yellow")
+      Actual: 1
+
+Pass: returnValue of myVectorView.indexOf("Yellow")
+      Actual: true
+
+Pass: returnValue of myVectorView.indexOf("Purple")
+      Actual: false
+
+PASS [Test 1: MarshalInArrayAsVectorView]
+=================================================
+
+=================================================
+Starting [Test 2: CheckIVectorViewLifeTime]
+Comment: var myArray = ["Pink", "Yellow", "Green", "Red", "Tan", "Blue", "Black", "Brown", "Orange"];
+Comment: var myVectorView = (new Animals.Animal(1)).duplicateStringVectorView(myArray);
+Comment: myArray = undefined
+Comment: verifyVectorView("myVectorView", myVectorView, ["Pink", "Yellow", "Green", "Red", "Tan", "Blue", "Black", "Brown", "Orange"])
+Comment: var myIterator = myVectorView.first()
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: Brown
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: Orange
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 14
+
+Pass: myVectorView.size
+      Actual: 9
+
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'string'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: string
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Pink
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Yellow
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Green
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Red
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Tan
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Blue
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Black
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Brown
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Orange
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Pink
+
+Pass: manyItems[1]
+      Actual: Yellow
+
+Pass: manyItems[2]
+      Actual: Green
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Red
+
+Pass: manyItems[1]
+      Actual: Tan
+
+Pass: manyItems[2]
+      Actual: Blue
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Black
+
+Pass: manyItems[1]
+      Actual: Brown
+
+Pass: manyItems[2]
+      Actual: Orange
+
+Pass: myIteratorForMany.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Pass: e.number while myVectorView.getAt(11)
+      Actual: -2147483637
+
+Pass: Expected exception was caught
+      Actual: true
+
+Comment: myVectorView::IndexOf
+Pass: index of myVectorView.indexOf("Yellow")
+      Actual: 1
+
+Pass: returnValue of myVectorView.indexOf("Yellow")
+      Actual: true
+
+Pass: returnValue of myVectorView.indexOf("Purple")
+      Actual: false
+
+PASS [Test 2: CheckIVectorViewLifeTime]
+=================================================
+
+=================================================
+Starting [Test 3: AlterArrayBeforeViewing]
+Comment: var myArray = ["Pink", "Yellow", "Green", "Red", "Tan", "Blue", "Black", "Brown", "Orange"];
+Comment: var myVectorView = (new Animals.Animal(1)).duplicateStringVectorView(myArray);
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: Brown
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: Orange
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 14
+
+Comment: myArray[11] = "Purple"
+Comment: verifyVectorView("myVectorView", myVectorView, ["Pink", "Yellow", "Green", "Red", "Tan", "Blue", "Black", "Brown", "Orange", "undefined", "undefined", "Purple"])
+Comment: var myIterator = myVectorView.first()
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['9', 'string'],
+        ['10', 'string'],
+        ['11', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: Brown
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: Orange
+
+Pass: myVectorView's property
+      Actual: 9
+
+Pass: typeof myVectorView["9"]
+      Actual: string
+
+Pass: myVectorView["9"]
+      Actual: undefined
+
+Pass: myVectorView's property
+      Actual: 10
+
+Pass: typeof myVectorView["10"]
+      Actual: string
+
+Pass: myVectorView["10"]
+      Actual: undefined
+
+Pass: myVectorView's property
+      Actual: 11
+
+Pass: typeof myVectorView["11"]
+      Actual: string
+
+Pass: myVectorView["11"]
+      Actual: Purple
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 17
+
+Pass: myVectorView.size
+      Actual: 12
+
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'string'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: string
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Pink
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Yellow
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Green
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Red
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Tan
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Blue
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Black
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Brown
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Orange
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: undefined
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: undefined
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Purple
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 12
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Pink
+
+Pass: manyItems[1]
+      Actual: Yellow
+
+Pass: manyItems[2]
+      Actual: Green
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Red
+
+Pass: manyItems[1]
+      Actual: Tan
+
+Pass: manyItems[2]
+      Actual: Blue
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Black
+
+Pass: manyItems[1]
+      Actual: Brown
+
+Pass: manyItems[2]
+      Actual: Orange
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: undefined
+
+Pass: manyItems[1]
+      Actual: undefined
+
+Pass: manyItems[2]
+      Actual: Purple
+
+Pass: myIteratorForMany.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 12
+
+Pass: e.number while myVectorView.getAt(15)
+      Actual: -2147483637
+
+Pass: Expected exception was caught
+      Actual: true
+
+Comment: myVectorView::IndexOf
+Pass: index of myVectorView.indexOf("Yellow")
+      Actual: 1
+
+Pass: returnValue of myVectorView.indexOf("Yellow")
+      Actual: true
+
+Pass: returnValue of myVectorView.indexOf("Purple")
+      Actual: true
+
+Pass: index of myVectorView.indexOf("Purple")
+      Actual: 11
+
+Pass: returnValue of myVectorView.indexOf("White")
+      Actual: false
+
+PASS [Test 3: AlterArrayBeforeViewing]
+=================================================
+
+=================================================
+Starting [Test 4: AlterArrayWhileViewing]
+Comment: var myArray = ["Pink", "Yellow", "Green", "Red", "Tan", "Blue", "Black", "Brown", "Orange"];
+Comment: var myVectorView = (new Animals.Animal(1)).duplicateStringVectorView(myArray);
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: Brown
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: Orange
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 14
+
+Comment: var myArrayToVerify = ["Pink", "Yellow", "Green", "Red", "Tan", "Blue", "Black", "Brown", "Orange"];
+Comment: var myIterator = myVectorView.first();
+Comment: verifyVectorViewRange("myVectorView", myVectorView, "myIterator", myIterator, "myIteratorMany", myIteratorMany, myArrayToVerify, 0, 2);
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: Brown
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: Orange
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 14
+
+Pass: myVectorView.size
+      Actual: 9
+
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'string'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: string
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Pink
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Yellow
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: number of members iterated over
+      Actual: 2
+
+Comment: gotManyItems: 2
+Pass: gotManyItems
+      Actual: 2
+
+Pass: manyItems[0]
+      Actual: Pink
+
+Pass: manyItems[1]
+      Actual: Yellow
+
+Pass: myIteratorMany.hasCurrent
+      Actual: true
+
+Pass: number of members iterated over
+      Actual: 2
+
+Comment: myArray[3] = "White";
+Comment: myArrayToVerify[3] = "White";
+Comment: verifyVectorViewRange("myVectorView", myVectorView, "myIterator", myIterator, "myIteratorMany", myIteratorMany, myArrayToVerify, 2, 5);
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: White
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: Brown
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: Orange
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 14
+
+Pass: myVectorView.size
+      Actual: 9
+
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'string'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: string
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Green
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: White
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Tan
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: number of members iterated over
+      Actual: 3
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Green
+
+Pass: manyItems[1]
+      Actual: White
+
+Pass: manyItems[2]
+      Actual: Tan
+
+Pass: myIteratorMany.hasCurrent
+      Actual: true
+
+Pass: number of members iterated over
+      Actual: 3
+
+Comment: myArray[5] = "Teal";
+Comment: myArrayToVerify[5] = "Teal";
+Comment: verifyVectorViewRange("myVectorView", myVectorView, "myIterator", myIterator, "myIteratorMany", myIteratorMany, myArrayToVerify, 5, 9);
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: White
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Teal
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: Brown
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: Orange
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 14
+
+Pass: myVectorView.size
+      Actual: 9
+
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'string'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: string
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Teal
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Black
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Brown
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Orange
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 4
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Teal
+
+Pass: manyItems[1]
+      Actual: Black
+
+Pass: manyItems[2]
+      Actual: Brown
+
+Comment: gotManyItems: 1
+Pass: gotManyItems
+      Actual: 1
+
+Pass: manyItems[0]
+      Actual: Orange
+
+Pass: myIteratorMany.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 4
+
+PASS [Test 4: AlterArrayWhileViewing]
+=================================================
+
+=================================================
+Starting [Test 5: AlterArrayLengthWhileViewing]
+Comment: var myArray = ["Pink", "Yellow", "Green", "Red", "Tan", "Blue", "Black", "Brown", "Orange"];
+Comment: var myVectorView = (new Animals.Animal(1)).duplicateStringVectorView(myArray);
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: Brown
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: Orange
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 14
+
+Comment: var myArrayToVerify = ["Pink", "Yellow", "Green", "Red", "Tan", "Blue", "Black", "Brown", "Orange"];
+Comment: var myIterator = myVectorView.first();
+Comment: verifyVectorViewRange("myVectorView", myVectorView, "myIterator", myIterator, "myIteratorMany", myIteratorMany, myArrayToVerify, 0, 2);
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: Brown
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: Orange
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 14
+
+Pass: myVectorView.size
+      Actual: 9
+
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'string'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: string
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Pink
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Yellow
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: number of members iterated over
+      Actual: 2
+
+Comment: gotManyItems: 2
+Pass: gotManyItems
+      Actual: 2
+
+Pass: manyItems[0]
+      Actual: Pink
+
+Pass: manyItems[1]
+      Actual: Yellow
+
+Pass: myIteratorMany.hasCurrent
+      Actual: true
+
+Pass: number of members iterated over
+      Actual: 2
+
+Comment: myArray.length = 7
+Comment: myArrayToVerify.length = 7
+Comment: verifyVectorViewRange("myVectorView", myVectorView, "myIterator", myIterator, "myIteratorMany", myIteratorMany, myArrayToVerify, 2, 7);
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 12
+
+Pass: myVectorView.size
+      Actual: 7
+
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'string'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: string
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Green
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Red
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Tan
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Blue
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Black
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 5
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Green
+
+Pass: manyItems[1]
+      Actual: Red
+
+Pass: manyItems[2]
+      Actual: Tan
+
+Comment: gotManyItems: 2
+Pass: gotManyItems
+      Actual: 2
+
+Pass: manyItems[0]
+      Actual: Blue
+
+Pass: manyItems[1]
+      Actual: Black
+
+Pass: myIteratorMany.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 5
+
+Comment: myArray.length = 10;
+Comment: myArrayToVerify = ["Pink", "Yellow", "Green", "Red", "Tan", "Blue", "Black", "undefined", "undefined", "undefined"];
+Comment: verifyVectorViewRange("myVectorView", myVectorView, "myIterator", myIterator, "myIteratorMany", myIteratorMany, myArrayToVerify, 7, 10);
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['9', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: undefined
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: undefined
+
+Pass: myVectorView's property
+      Actual: 9
+
+Pass: typeof myVectorView["9"]
+      Actual: string
+
+Pass: myVectorView["9"]
+      Actual: undefined
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 15
+
+Pass: myVectorView.size
+      Actual: 10
+
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'string'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: string
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: undefined
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: undefined
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: undefined
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 3
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: undefined
+
+Pass: manyItems[1]
+      Actual: undefined
+
+Pass: manyItems[2]
+      Actual: undefined
+
+Pass: myIteratorMany.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 3
+
+Comment: myArray.length = 13
+Comment: verify(myIterator.hasCurrent, true, "myIterator.hasCurrent");
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Comment: myArrayToVerify = ["Pink", "Yellow", "Green", "Red", "Tan", "Blue", "Black", "undefined", "undefined", "undefined", "undefined", "undefined", "undefined"];
+Comment: verifyVectorMembers("myVectorView", myVectorView, myArrayToVerify);
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['9', 'string'],
+        ['10', 'string'],
+        ['11', 'string'],
+        ['12', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: undefined
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: undefined
+
+Pass: myVectorView's property
+      Actual: 9
+
+Pass: typeof myVectorView["9"]
+      Actual: string
+
+Pass: myVectorView["9"]
+      Actual: undefined
+
+Pass: myVectorView's property
+      Actual: 10
+
+Pass: typeof myVectorView["10"]
+      Actual: string
+
+Pass: myVectorView["10"]
+      Actual: undefined
+
+Pass: myVectorView's property
+      Actual: 11
+
+Pass: typeof myVectorView["11"]
+      Actual: string
+
+Pass: myVectorView["11"]
+      Actual: undefined
+
+Pass: myVectorView's property
+      Actual: 12
+
+Pass: typeof myVectorView["12"]
+      Actual: string
+
+Pass: myVectorView["12"]
+      Actual: undefined
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 18
+
+Pass: myVectorView.size
+      Actual: 13
+
+Comment: myArray.length = 5
+Comment: verify(myIterator.hasCurrent, false, "myIterator.hasCurrent")
+Comment: myArrayToVerify.length = 5;
+Comment: verifyVectorMembers("myVectorView", myVectorView, myArrayToVerify);
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 10
+
+Pass: myVectorView.size
+      Actual: 5
+
+PASS [Test 5: AlterArrayLengthWhileViewing]
+=================================================
+
+=================================================
+Starting [Test 6: ProjectAlreadyMarshaledJsArrayAsVectorView]
+Comment: var myArray = ["Pink", "Yellow", "Blue", "Red", "Green", "Brown", "Tan", "Black", "White"];
+Comment: var myVectorView = (new Animals.Animal(1)).sendBackSameStringVectorView(myArray);
+Comment: verifyVectorView("myVectorView", myVectorView, myArray)
+Comment: var myIterator = myVectorView.first()
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Brown
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: White
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 14
+
+Pass: myVectorView.size
+      Actual: 9
+
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'string'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: string
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Pink
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Yellow
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Blue
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Red
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Green
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Brown
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Tan
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Black
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: White
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Pink
+
+Pass: manyItems[1]
+      Actual: Yellow
+
+Pass: manyItems[2]
+      Actual: Blue
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Red
+
+Pass: manyItems[1]
+      Actual: Green
+
+Pass: manyItems[2]
+      Actual: Brown
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Tan
+
+Pass: manyItems[1]
+      Actual: Black
+
+Pass: manyItems[2]
+      Actual: White
+
+Pass: myIteratorForMany.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Pass: !Array.isArray(myVectorView)
+      Actual: true
+
+Pass: myArray !== myVectorView
+      Actual: true
+
+Comment: myArray[5] = "Purple";
+Comment: verifyVectorView("myVectorView", myVectorView, myArray)
+Comment: var myIterator = myVectorView.first()
+Comment: typeof myVectorView: object
+Comment: Dump of properties : 
+    var myVectorViewMembers = [
+        ['0', 'string'],
+        ['1', 'string'],
+        ['2', 'string'],
+        ['3', 'string'],
+        ['4', 'string'],
+        ['5', 'string'],
+        ['6', 'string'],
+        ['7', 'string'],
+        ['8', 'string'],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['indexOf', 'function', 1],
+        ['size', 'number'],
+    ];
+Pass: typeof myVectorView
+      Actual: object
+
+Pass: myVectorView's property
+      Actual: 0
+
+Pass: typeof myVectorView["0"]
+      Actual: string
+
+Pass: myVectorView["0"]
+      Actual: Pink
+
+Pass: myVectorView's property
+      Actual: 1
+
+Pass: typeof myVectorView["1"]
+      Actual: string
+
+Pass: myVectorView["1"]
+      Actual: Yellow
+
+Pass: myVectorView's property
+      Actual: 2
+
+Pass: typeof myVectorView["2"]
+      Actual: string
+
+Pass: myVectorView["2"]
+      Actual: Blue
+
+Pass: myVectorView's property
+      Actual: 3
+
+Pass: typeof myVectorView["3"]
+      Actual: string
+
+Pass: myVectorView["3"]
+      Actual: Red
+
+Pass: myVectorView's property
+      Actual: 4
+
+Pass: typeof myVectorView["4"]
+      Actual: string
+
+Pass: myVectorView["4"]
+      Actual: Green
+
+Pass: myVectorView's property
+      Actual: 5
+
+Pass: typeof myVectorView["5"]
+      Actual: string
+
+Pass: myVectorView["5"]
+      Actual: Purple
+
+Pass: myVectorView's property
+      Actual: 6
+
+Pass: typeof myVectorView["6"]
+      Actual: string
+
+Pass: myVectorView["6"]
+      Actual: Tan
+
+Pass: myVectorView's property
+      Actual: 7
+
+Pass: typeof myVectorView["7"]
+      Actual: string
+
+Pass: myVectorView["7"]
+      Actual: Black
+
+Pass: myVectorView's property
+      Actual: 8
+
+Pass: typeof myVectorView["8"]
+      Actual: string
+
+Pass: myVectorView["8"]
+      Actual: White
+
+Pass: myVectorView's property
+      Actual: first
+
+Pass: typeof myVectorView["first"]
+      Actual: function
+
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["first"].length
+      Actual: 0
+
+Pass: myVectorView's property
+      Actual: getAt
+
+Pass: typeof myVectorView["getAt"]
+      Actual: function
+
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getAt"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: getMany
+
+Pass: typeof myVectorView["getMany"]
+      Actual: function
+
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["getMany"].length
+      Actual: 2
+
+Pass: myVectorView's property
+      Actual: indexOf
+
+Pass: typeof myVectorView["indexOf"]
+      Actual: function
+
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVectorView["indexOf"].length
+      Actual: 1
+
+Pass: myVectorView's property
+      Actual: size
+
+Pass: typeof myVectorView["size"]
+      Actual: number
+
+Pass: number of properties of myVectorView
+      Actual: 14
+
+Pass: myVectorView.size
+      Actual: 9
+
+Comment: typeof myIterator: object
+Comment: Dump of properties : 
+    var myIteratorMembers = [
+        ['current', 'string'],
+        ['getMany', 'function', 1],
+        ['hasCurrent', 'boolean'],
+        ['moveNext', 'function', 0],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myIterator
+      Actual: object
+
+Pass: myIterator's property
+      Actual: current
+
+Pass: typeof myIterator["current"]
+      Actual: string
+
+Pass: myIterator's property
+      Actual: getMany
+
+Pass: typeof myIterator["getMany"]
+      Actual: function
+
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myIterator["getMany"].length
+      Actual: 1
+
+Pass: myIterator's property
+      Actual: hasCurrent
+
+Pass: typeof myIterator["hasCurrent"]
+      Actual: boolean
+
+Pass: myIterator's property
+      Actual: moveNext
+
+Pass: typeof myIterator["moveNext"]
+      Actual: function
+
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["moveNext"].length
+      Actual: 0
+
+Pass: myIterator's property
+      Actual: toString
+
+Pass: typeof myIterator["toString"]
+      Actual: function
+
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myIterator["toString"].length
+      Actual: 0
+
+Pass: number of properties of myIterator
+      Actual: 5
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Pink
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Yellow
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Blue
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Red
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Green
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Purple
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Tan
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: Black
+
+Pass: myIterator.moveNext()
+      Actual: true
+
+Pass: myIterator.hasCurrent
+      Actual: true
+
+Pass: myIterator.current
+      Actual: White
+
+Pass: myIterator.moveNext()
+      Actual: false
+
+Pass: myIterator.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Pink
+
+Pass: manyItems[1]
+      Actual: Yellow
+
+Pass: manyItems[2]
+      Actual: Blue
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Red
+
+Pass: manyItems[1]
+      Actual: Green
+
+Pass: manyItems[2]
+      Actual: Purple
+
+Comment: gotManyItems: 3
+Pass: gotManyItems
+      Actual: 3
+
+Pass: manyItems[0]
+      Actual: Tan
+
+Pass: manyItems[1]
+      Actual: Black
+
+Pass: manyItems[2]
+      Actual: White
+
+Pass: myIteratorForMany.hasCurrent
+      Actual: false
+
+Pass: number of members iterated over
+      Actual: 9
+
+Pass: !Array.isArray(myVectorView)
+      Actual: true
+
+Pass: myArray !== myVectorView
+      Actual: true
+
+PASS [Test 6: ProjectAlreadyMarshaledJsArrayAsVectorView]
+=================================================
+
+=================================================
+Starting [Test 7: VectorGetMany]
+Comment: fill the manyItems by calling getMany
+Pass: gotManyItems
+      Actual: 5
+
+Pass: manyItems[0]
+      Actual: Blue
+
+Pass: manyItems[1]
+      Actual: Red
+
+Pass: manyItems[2]
+      Actual: Green
+
+Pass: manyItems[3]
+      Actual: Brown
+
+Pass: manyItems[4]
+      Actual: Tan
+
+PASS [Test 7: VectorGetMany]
+=================================================
+
+Passed: 7
+Failed: 0

@@ -1,0 +1,40 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "tt": "undefined",
+      "[Scope]1": {
+        "d2": "<large string>",
+        "d3": "<large string>",
+        "i": "true",
+        "f": "body",
+        "m": "{...}",
+        "g": "0",
+        "a": "0",
+        "b": "0",
+        "l": "0",
+        "n": "0",
+        "h": "0",
+        "o": "true",
+        "k": "undefined",
+        "c": "0",
+        "q": "true",
+        "p": "false"
+      },
+      "[Globals]": {
+        "Pass": "<large string>",
+        "test": "<large string>",
+        "top": "{...}"
+      }
+    }
+  }
+]

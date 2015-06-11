@@ -1,0 +1,1 @@
+powershell -executionpolicy bypass -command "&{.\run-package.ps1 -generate -name 'DevAppxTest' -path %~dp0 -register -appid wwa.bpt.testpicker}"

@@ -1,0 +1,27 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "1",
+      "y": "2",
+      "[Globals]": ""
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 275,
+      "to": 220,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "2",
+      "y": "3",
+      "[Globals]": ""
+    }
+  }
+]

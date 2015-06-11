@@ -1,0 +1,16 @@
+<title>Inner html </title>
+<body bgcolor = #ABCDaa onload="start()">
+<script type="text/javascript">
+    function changeText2() {
+        var userInput = document.getElementById('userInput').value;
+        document.getElementById('boldStuff2').innerHTML = userInput;
+    }
+    function start() {
+        document.getElementById('boldStuff2').innerHTML = "Inner html set by OnLoad";
+    }
+</script>
+<p>Welcome to the site <b id='boldStuff2'>Original inner html</b> </p> 
+<input type='text' id='userInput' value='Enter Text Here' />
+<input type='button' onclick='changeText2()' value='Change Text'/>
+</body>
+

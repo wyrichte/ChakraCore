@@ -1,0 +1,170 @@
+Activation tests
+
+=================================================
+Starting [Test 1: UnregisteredClassActivation]
+Pass: error.number
+      Actual: -2147221164
+
+Pass: Expected exception was caught
+      Actual: true
+
+PASS [Test 1: UnregisteredClassActivation]
+=================================================
+
+=================================================
+Starting [Test 2: UnregisteredNamespace]
+Pass: Animals.Godzilla
+      Actual: undefined
+
+PASS [Test 2: UnregisteredNamespace]
+=================================================
+
+=================================================
+Starting [Test 3: SimpleAnimalActivation]
+Pass: myAnimal.getNumLegs()
+      Actual: 20
+
+PASS [Test 3: SimpleAnimalActivation]
+=================================================
+
+=================================================
+Starting [Test 4: FactoryAnimalActivation: 1 argument]
+Pass: myAnimal.getNumLegs()
+      Actual: 1
+
+PASS [Test 4: FactoryAnimalActivation: 1 argument]
+=================================================
+
+=================================================
+Starting [Test 5: FactoryAnimalActivation: 2 arguments]
+Pass: myAnimal.weight
+      Actual: 4
+
+PASS [Test 5: FactoryAnimalActivation: 2 arguments]
+=================================================
+
+=================================================
+Starting [Test 6: FactoryAnimalActivation: 4 arguments]
+Pass: myAnimal.getNumLegs()
+      Actual: 58
+
+PASS [Test 6: FactoryAnimalActivation: 4 arguments]
+=================================================
+
+=================================================
+Starting [Test 7: FactoryAnimalActivation: 5 arguments]
+Pass: myAnimal.weight
+      Actual: 23
+
+Pass: myAnimal.getNumLegs()
+      Actual: 27
+
+PASS [Test 7: FactoryAnimalActivation: 5 arguments]
+=================================================
+
+=================================================
+Starting [Test 8: FactoryAnimalActivation: 6 arguments]
+Pass: myAnimal.getNumLegs()
+      Actual: 162
+
+PASS [Test 8: FactoryAnimalActivation: 6 arguments]
+=================================================
+
+=================================================
+Starting [Test 9: FactoryAnimalActivation: 10 arguments]
+Pass: myAnimal.getNumLegs()
+      Actual: 212
+
+PASS [Test 9: FactoryAnimalActivation: 10 arguments]
+=================================================
+
+=================================================
+Starting [Test 10: FishActivation: 0 arguments]
+Pass: myFish.getNumFins()
+      Actual: 5
+
+PASS [Test 10: FishActivation: 0 arguments]
+=================================================
+
+=================================================
+Starting [Test 11: FishActivation: 2 arguments]
+Pass: myFish.getNumFins()
+      Actual: 5
+
+PASS [Test 11: FishActivation: 2 arguments]
+=================================================
+
+=================================================
+Starting [Test 12: ChefActivation: 0 arguments]
+Pass: instanceof Error: Chef: function called with too few arguments
+      Actual: true
+
+Pass: error.description
+      Actual: Chef: function called with too few arguments
+
+Pass: Expected exception was caught
+      Actual: true
+
+PASS [Test 12: ChefActivation: 0 arguments]
+=================================================
+
+=================================================
+Starting [Test 13: ChefActivation: 3 arguments]
+Pass: myChef.name
+      Actual: Bob
+
+PASS [Test 13: ChefActivation: 3 arguments]
+=================================================
+
+=================================================
+Starting [Test 14: NonActivatableClassActivation]
+Pass: instanceof TypeError: Animals.Pomapoodle: type is not constructible
+      Actual: true
+
+Pass: error.description
+      Actual: Animals.Pomapoodle: type is not constructible
+
+Pass: Expected exception was caught
+      Actual: true
+
+PASS [Test 14: NonActivatableClassActivation]
+=================================================
+
+=================================================
+Starting [Test 15: CallOnNonActivatableClass]
+Pass: Animals.Pomapoodle.eatCookies(4)
+      Actual: 3
+
+PASS [Test 15: CallOnNonActivatableClass]
+=================================================
+
+=================================================
+Starting [Test 16: FactoryActivatableClassWithNoFactoryMethods]
+Pass: instanceof TypeError: Animals.EmptyClass: type is not constructible
+      Actual: true
+
+Pass: error.description
+      Actual: Animals.EmptyClass: type is not constructible
+
+Pass: Expected exception was caught
+      Actual: true
+
+PASS [Test 16: FactoryActivatableClassWithNoFactoryMethods]
+=================================================
+
+=================================================
+Starting [Test 16: Lengths of Constructor Functions]
+Pass: Animals.Animal.length
+      Actual: 0
+
+Pass: Animals.Fish.length
+      Actual: 0
+
+Pass: Fabrikam.Kitchen.Chef.length
+      Actual: 2
+
+PASS [Test 16: Lengths of Constructor Functions]
+=================================================
+
+Passed: 17
+Failed: 0

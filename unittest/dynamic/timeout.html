@@ -1,0 +1,40 @@
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<html>
+<head>
+<script>
+var i = 0;
+
+WScript.Echo("Baseline Working set:" + Debug.getWorkingSet().workingSet);
+
+// var numIters = 110000;
+var numIters = 40;
+
+function doTest(x)
+{
+    i = x + 1;
+
+    WScript.Echo("Iteration " + x + ", Working set:" + Debug.getWorkingSet().workingSet);
+    if (i > numIters) {
+        CollectGarbage();
+        CollectGarbage();
+        WScript.Echo("Working set after GC:" + Debug.getWorkingSet().workingSet);
+        WScript.Echo("Peak Working set:" + Debug.getWorkingSet().maxWorkingSet);
+        WScript.Quit();
+    }
+
+    if (i % 10 == 0) { WScript.Echo("GC"); CollectGarbage(); }
+
+    var fnName = "doTest" + i + "()";
+    setTimeout("(function " + fnName + " { doTest(" + i + "); })()", 500);
+}
+
+function start()
+{
+    WScript.SetKeepAlive();
+    doTest(0);
+}
+</script>
+</head>
+<body onload="start()">
+</body>
+</html>

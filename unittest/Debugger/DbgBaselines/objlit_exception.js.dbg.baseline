@@ -1,0 +1,149 @@
+[
+  {
+    "log": "Hit Exception"
+  },
+  {
+    "callstack": [
+      {
+        "start": 321,
+        "length": 10,
+        "text": "cb: foo1()",
+        "frameDescription": "bad_sub_expression"
+      },
+      {
+        "start": 875,
+        "length": 20,
+        "text": "bad_sub_expression()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a1": "10"
+      },
+      "{exception}": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "obj": "undefined",
+      "[Globals]": {
+        "foo": "<large string>",
+        "bad_sub_expression": "<large string>",
+        "sub_expression_exception": "<large string>",
+        "a1": "10"
+      }
+    }
+  },
+  {
+    "log": "BP1"
+  },
+  {
+    "callstack": [
+      {
+        "start": 430,
+        "length": 33,
+        "text": "WScript.Echo(JSON.stringify(obj))",
+        "frameDescription": "bad_sub_expression"
+      },
+      {
+        "start": 875,
+        "length": 20,
+        "text": "bad_sub_expression()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "obj": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "log": "Hit Exception"
+  },
+  {
+    "callstack": [
+      {
+        "start": 114,
+        "length": 17,
+        "text": "throw \"Foo Error\"",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 686,
+        "length": 9,
+        "text": "cb: foo()",
+        "frameDescription": "sub_expression_exception"
+      },
+      {
+        "start": 898,
+        "length": 26,
+        "text": "sub_expression_exception()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a1": "10"
+      },
+      "{exception}": "Foo Error",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "bad_sub_expression": "<large string>",
+        "sub_expression_exception": "<large string>",
+        "a1": "10"
+      }
+    }
+  },
+  {
+    "log": "BP2"
+  },
+  {
+    "callstack": [
+      {
+        "start": 787,
+        "length": 33,
+        "text": "WScript.Echo(JSON.stringify(obj))",
+        "frameDescription": "sub_expression_exception"
+      },
+      {
+        "start": 898,
+        "length": 26,
+        "text": "sub_expression_exception()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "obj": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<regress-exe>
+<!--
+    Use include_drtN tags to bucketize directories for JS DRT.
+    We have 5 DRT buckets allocated for JS unit tests.
+    Try to allocate directories into buckets so that the total 
+    time to execute each bucket is below 15 minutes.
+    Test directories not marked with an include_drtN tag will 
+    not be run as part of the DRTs.
+!-->
+<dir>
+  <default>
+    <files>InlineCaches</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>jd</files>
+    <tags>exclude_serialized,include_drt3</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>NativeUnitTests</files>
+    <tags>include_drt1</tags>
+  </default>
+</dir>
+<!-- 
+    Long-running tests which rarely fail can be excluded from 
+    SNAP runs via the exclude_snap and/or exclude_drt tags. 
+    Be careful when using these tags.
+!-->
+<dir>
+  <default>
+    <files>SunSpider</files>
+    <tags>exclude_snap</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>SunSpider1.0.2</files>
+    <tags>exclude_snap</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>SunSpiderFunctionality</files>
+    <tags>exclude_snap</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>V8</files>
+    <tags>exclude_snap</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>V8_Functionality</files>
+    <tags>exclude_snap</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>LetConst</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Basics</files>
+    <tags>include_drt3</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Generated</files>
+    <tags>include_drt1</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Closures</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Strings</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Date</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>EH</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Error</files>
+    <tags>include_drt3</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Boolean</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Number</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>ControlFlow</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Math</files>
+    <tags>include_drt3</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Array</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>TaggedIntegers</files>
+    <tags>include_drt2</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>TaggedFloats</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Optimizer</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Function</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Object</files>
+    <tags>include_drt2</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Regex</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Prototypes</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>GlobalFunctions</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Operators</files>
+    <tags>include_drt2</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Conversions</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>RWC</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>VT_DATE</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Lib</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>DirectAuthor</files>
+    <tags>exclude_apollo,include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>JSON</files>
+    <tags>include_drt3</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Intl</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Debugger</files>
+    <tags>exclude_serialized,include_drt3</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>DebuggerQA</files>
+    <tags>exclude_serialized,include_drt1</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Bugs</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>es5</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>strict</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Utf8</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Authoring</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>UnifiedRegex</files>
+    <tags>include_drt2</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>typedarray</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>sca</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>crossthread</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>bailout</files>
+    <tags>include_drt3</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Loop</files>
+    <tags>include_drt2</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>StackTrace</files>
+    <tags>include_drt3</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Miscellaneous</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>fieldopts</files>
+    <tags>include_drt3</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>FixedFields</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>HeapEnum</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<!-- These rejit tests use testtrace:inline and they are useless when we change the inlining heuristics
+<dir>
+  <default>
+    <files>rejit</files>
+    <tags>exclude_nonative,include_drt5</tags>
+  </default>
+</dir>
+!-->
+<dir>
+  <default>
+    <files>inlining</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>UnitTestFramework</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>InternalProfile</files>
+    <tags>include_drt2</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>DynamicCode</files>
+    <tags>include_drt3</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>es6</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>switchStatement</files>
+    <tags>include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>AsyncDebug</files>
+    <tags>exclude_serialized,include_drt4</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Profiler</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>host</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>stackfunc</files>
+    <tags>include_drt5,exclude_serialized</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>iasd</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>KrakenFunctionality</files>
+    <tags>include_drt5</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>PerfHint</files>
+    <tags>exclude_serialized,exclude_snap</tags>
+  </default>
+</dir>
+
+<dir>
+  <default>
+    <files>LanguageServicesQA</files>
+    <tags>exclude_apollo,exclude_serialized,exclude_amd64,exclude_arm,exclude_arm64</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>AsmJs</files>
+    <tags>exclude_apollo,exclude_dynapogo,exclude_serialized,exclude_arm,exclude_arm64</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>AsmJsFloat</files>
+    <tags>exclude_apollo,exclude_dynapogo,exclude_serialized,exclude_arm,exclude_arm64</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>SIMD.float32x4</files>
+    <tags>exclude_arm,exclude_arm64</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>SIMD.float64x2</files>
+    <tags>exclude_arm,exclude_arm64</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>SIMD.int32x4</files>
+    <tags>exclude_arm,exclude_arm64</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>SIMD.float32x4.asmjs</files>
+    <tags>exclude_arm,exclude_arm64</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>SIMD.float64x2.asmjs</files>
+    <tags>exclude_arm,exclude_arm64</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>SIMD.int32x4.asmjs</files>
+    <tags>exclude_arm,exclude_arm64</tags>
+  </default>
+</dir>
+<dir>
+    <default>
+      <files>SIMD.workloads.asmjs</files>
+      <tags>exclude_apollo,exclude_dynapogo,exclude_serialized,exclude_arm,exclude_arm64</tags>
+    </default>
+  </dir>
+</regress-exe>

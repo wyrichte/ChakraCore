@@ -1,0 +1,25 @@
+TARGETTYPE=NOTARGET
+
+_NT_TARGET_VERSION = $(_NT_TARGET_VERSION_WIN7)
+
+CONCURRENT_MIDL=0
+
+INCLUDES=$(INCLUDES);$(COREINCLUDES);$(SDK_LIB_PATH);$(SDK_INC_PATH)\atl30;$(PROJECT_INC_PATH);
+
+SDK_PUBLISH_PATH=$(SDK_INC_PATH)
+
+PUBLISH_FILES= \
+    {$(OBJ_PATH)\$(O)\edgescriptDirect.h=$(PROJECT_INC_PATH)\edgescriptDirect.h} \
+    {edgescriptDirect.idl=$(PROJECT_INC_PATH)\edgescriptDirect.idl} \
+    {edgejshostnativetest.h=$(PROJECT_INC_PATH)\edgejshostnativetest.h} \
+    {edgejsstatic.h=$(PROJECT_INC_PATH)\edgejsstatic.h} \
+
+SOURCES= \
+        edgescriptDirect.idl \
+
+# generates SAL annotations for our interface
+MIDL_OPTIMIZATION=$(MIDL_OPTIMIZATION) -sal_local
+
+# Set up the targets and publish pass
+#NTTARGETFILE0    = $(TARGET_FILES)
+PASS0_PUBLISH    = $(PUBLISH_FILES)

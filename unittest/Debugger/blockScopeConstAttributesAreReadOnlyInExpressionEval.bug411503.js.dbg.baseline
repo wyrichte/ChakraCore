@@ -1,0 +1,83 @@
+[
+  {
+    "evaluate": {
+      "c": "5",
+      "c - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_READONLY"
+        ],
+        "flagsAsValue": 2048
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "d": {
+        "[0]": "1",
+        "[0] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[1]": "2",
+        "[1] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "[2]": "3",
+        "[2] - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "__proto__": "[]",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "length": "3",
+        "length - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        }
+      },
+      "d - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+          "DBGPROP_ATTRIB_VALUE_READONLY"
+        ],
+        "flagsAsValue": 2064
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "e": {
+        "__proto__": "{...}",
+        "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "p": "1",
+        "p - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        },
+        "q": "2",
+        "q - [Attributes]": {
+          "flags": [],
+          "flagsAsValue": 0
+        }
+      },
+      "e - [Attributes]": {
+        "flags": [
+          "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
+          "DBGPROP_ATTRIB_VALUE_READONLY"
+        ],
+        "flagsAsValue": 2064
+      }
+    }
+  }
+]

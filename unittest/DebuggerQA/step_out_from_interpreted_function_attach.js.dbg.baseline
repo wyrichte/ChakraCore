@@ -1,0 +1,135 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 413,
+        "length": 1,
+        "text": "x",
+        "frameDescription": "baz"
+      },
+      {
+        "start": 328,
+        "length": 5,
+        "text": "baz()",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 190,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 664,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callcount": "5"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": "2",
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>",
+        "baz": "<large string>",
+        "Run": "<large string>",
+        "callcount": "5"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 336,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 190,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 664,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callcount": "5"
+      },
+      "[baz returned]": "undefined",
+      "[Return value]": "undefined",
+      "_bar": {
+        "__proto__": "[]",
+        "length": "0"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "_barargs": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>",
+        "baz": "<large string>",
+        "Run": "<large string>",
+        "callcount": "5"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callcount": "5"
+      },
+      "[bar returned]": "undefined",
+      "[Return value]": "undefined",
+      "_foo": "foo",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "_fooargs": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>",
+        "baz": "<large string>",
+        "Run": "<large string>",
+        "callcount": "5"
+      }
+    }
+  }
+]

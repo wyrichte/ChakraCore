@@ -1,0 +1,30 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 720,
+        "length": 18,
+        "text": "results.blahblah()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Promise.onSuccess"
+      },
+      {
+        "start": 892,
+        "length": 36,
+        "text": "promise.operation.moveToCompleted(0)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 1039,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

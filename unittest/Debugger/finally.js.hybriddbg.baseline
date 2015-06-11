@@ -1,0 +1,21 @@
+[
+  {
+    "log": "finallyBlock"
+  },
+  {
+    "callstack": [
+      {
+        "start": 86,
+        "length": 12,
+        "text": "var foo = 12",
+        "frameDescription": "Global code",
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY",
+          "JS_PROPERTY_FRAME_INFINALLYBLOCK"
+        ],
+        "flagsAsValue": 137
+      }
+    ]
+  }
+]

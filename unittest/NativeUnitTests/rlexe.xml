@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+<test>
+  <default>
+    <!-- 
+         KaushiS [5/2]: Excluding this on AMD64 until we produce correct line number for functions with
+         EH blocks.
+     -->
+    <tags>GetExtendedExceptionInfo,exclude_amd64,exclude_jsrt</tags>
+    <compile-flags>-WERExceptionSupport -nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
+    <files>dummy.js</files>
+    <baseline>GetExtendedExceptionInfo.baseline</baseline>
+  </default>
+</test>
+
+<test>
+  <default>
+    <!-- 
+         KaushiS [5/2]: Excluding this on AMD64 until we produce correct line number for functions with
+         EH blocks.
+     -->
+    <tags>GetExtendedExceptionInfo,exclude_amd64,exclude_jsrt</tags>
+    <compile-flags>-bgJit- -WERExceptionSupport -nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
+    <files>dummy.js</files>
+    <baseline>GetExtendedExceptionInfo.baseline</baseline>
+  </default>
+</test>
+
+<test>
+   <default>
+     <tags>exclude_fre,exclude_jsrt</tags>
+     <compile-flags>-nativetest:NativeUnitTests.dll FastDOM</compile-flags>
+     <files>dummy.js</files>
+     <baseline>FastDOM.baseline</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+     <tags>exclude_chk,exclude_jsrt</tags>
+     <compile-flags>-nativetest:NativeUnitTests.dll FastDOM</compile-flags>
+     <files>dummy.js</files>
+     <baseline>FastDOM.baseline</baseline>
+   </default>
+</test>
+
+<test>
+  <default>
+    <tags>StackTraceInline,fail,exclude_arm,exclude_jsrt</tags>
+    <compile-flags>-force:inline -WERExceptionSupport -nativetest:NativeUnitTests.dll StackTraceInline</compile-flags>
+    <files>dummy.js</files>
+    <baseline>StackTraceInline.baseline</baseline>
+  </default>
+</test>
+
+
+<test>
+  <default>
+    <tags>exclude_jsrt</tags>
+    <compile-flags>-nativetest:NativeUnitTests.dll Regex</compile-flags>
+    <files>dummy.js</files>
+    <baseline>Regex.baseline</baseline>
+  </default>
+</test>
+
+<test>
+  <default>
+    <tags>exclude_jsrt</tags>
+    <compile-flags>-es6- -KhronosInterop- -nativetest:NativeUnitTests.dll TypedArray</compile-flags>
+    <files>dummy.js</files>
+    <baseline>TypedArray.baseline</baseline>
+  </default>
+   <condition order="1" type="include">
+      <os>wp8</os>
+      <override>
+         <baseline>TypedArray.wp8.baseline</baseline>
+      </override>
+   </condition>
+</test>
+
+<test>
+  <default>
+    <tags>exclude_jsrt</tags>
+    <compile-flags>-ES6TypedArrayExtensions -KhronosInterop -nativetest:NativeUnitTests.dll TypedArrayES6</compile-flags>
+    <files>dummy.js</files>
+    <baseline>TypedArray.ES6.baseline</baseline>
+  </default>
+   <condition order="1" type="include">
+      <os>wp8</os>
+      <override>
+         <baseline>TypedArray.ES6.wp8.baseline</baseline>
+      </override>
+   </condition>
+</test>
+
+<test>
+  <default>
+    <tags>exclude_jsrt</tags>
+    <compile-flags>-nativetest:NativeUnitTests.dll Int64</compile-flags>
+    <files>dummy.js</files>
+    <baseline>Int64.baseline</baseline>
+  </default>
+</test>
+<test>
+  <default>
+    <tags>exclude_jsrt</tags>
+    <compile-flags>-nativetest:NativeUnitTests.dll BasicTest</compile-flags>
+    <files>dummy.js</files>
+    <baseline>BasicTest.baseline</baseline>
+  </default>
+</test>
+
+<test>
+  <default>
+    <tags>exclude_jsrt</tags>
+    <compile-flags>-nativetest:NativeUnitTests.dll ProfileCacheTests</compile-flags>
+    <files>profilecachetest1.js</files>
+    <baseline>ProfileCacheTests.baseline</baseline>
+  </default>
+</test>
+
+<test>
+   <default>
+     <compile-flags>-nativetest:NativeUnitTests.dll VersionTest</compile-flags>
+     <files>dummy.js</files>
+     <baseline>VersionTest.baseline</baseline>
+     <tags>exclude_apollo,exclude_arm,fail,exclude_jsrt</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+     <compile-flags>-nativetest:NativeUnitTests.dll ScriptDiagSerialization</compile-flags>
+     <files>dummy.js</files>
+     <baseline>ScriptDiagSerialization.baseline</baseline>
+     <tags>exclude_apollo,exclude_jsrt,exclude_dynapogo</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+     <compile-flags>-nativetest:NativeUnitTests.dll VarToNativeArrayTest</compile-flags>
+     <files>dummy.js</files>
+     <baseline>VarToNativeArray.baseline</baseline>
+     <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+     <compile-flags>-nativetest:NativeUnitTests.dll DirectAPITest</compile-flags>
+     <files>dummy.js</files>
+     <baseline>DirectAPITest.baseline</baseline>
+     <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
+   </default>
+</test>
+
+<test>
+   <default>
+     <compile-flags>-nativetest:NativeUnitTests.dll StaticLibVerifcationTest</compile-flags>
+     <files>dummy.js</files>
+     <baseline>StaticLibVerifcationTest.baseline</baseline>
+     <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
+   </default>
+   <condition order="1" type="include">
+          <target>amd64</target>
+          <override>
+                 <baseline>StaticLibVerifcationTest.amd64.baseline</baseline>
+          </override>
+        </condition>
+</test>
+
+<test>
+  <default>
+    <tags>exclude_jsrt</tags>
+    <compile-flags>-nativetest:NativeUnitTests.dll CreatePromiseTest</compile-flags>
+    <files>dummy.js</files>
+    <baseline>TestCreatePromise.baseline</baseline>
+  </default>
+</test>
+
+<test>
+  <default>
+    <tags>exclude_jsrt</tags>
+    <compile-flags>-nativetest:NativeUnitTests.dll ParseJsonTest</compile-flags>
+    <files>dummy.js</files>
+    <baseline>TestParseJson.baseline</baseline>
+  </default>
+</test>
+
+<!-- This test is disabled because we hit OS::2314105 when ran on fre. On chk, we would fail the ASSERT present in restore FPU 
+because in ExternalFunctionThunk we don't restore the FPCW because of performance reason. Enable this test when we decide to 
+restore the FPCW in ExternalFunctionThunk code path.  
+<test>
+  <default>
+    <tags>exclude_jsrt,exclude_chk</tags>
+    <compile-flags>-nativetest:NativeUnitTests.dll RunExternalFuncFpcwTest</compile-flags>
+    <files>dummy.js</files>
+    <baseline>RunExternalFuncFpcwTest.baseline</baseline>
+  </default>
+</test>
+-->
+
+
+</regress-exe>

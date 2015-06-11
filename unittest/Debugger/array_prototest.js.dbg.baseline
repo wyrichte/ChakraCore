@@ -1,0 +1,308 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "foo": "<large string>",
+          "foo1": "<large string>",
+          "foo2": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "j1": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "25",
+          "Symbol.unscopables": "{...}",
+          "[24]": "22"
+        },
+        "length": "1000000001",
+        "[1000000000]": "20"
+      },
+      "m1": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "25",
+          "Symbol.unscopables": "{...}",
+          "[24]": "22"
+        },
+        "length": "2",
+        "[0]": "2",
+        "[1]": "34"
+      },
+      "j2": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "25",
+          "Symbol.unscopables": "{...}",
+          "[24]": "22"
+        },
+        "length": "1",
+        "[0]": "j2"
+      },
+      "k1": {
+        "__proto__": {
+          "__proto__": "[...]",
+          "length": "1",
+          "[0]": "j2"
+        },
+        "length": "4",
+        "[3]": "123"
+      },
+      "dummy": "undefined",
+      "[Globals]": {
+        "foo": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "name": "foo",
+          "prototype": "{...}"
+        },
+        "foo1": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "foo1",
+          "prototype": "{...}"
+        },
+        "foo2": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "foo2",
+          "prototype": "{...}"
+        }
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "foo": "<large string>",
+          "foo1": "<large string>",
+          "foo2": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "j1": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "25",
+          "Symbol.unscopables": "{...}",
+          "[24]": "22"
+        },
+        "length": "1000000001",
+        "[1000000000]": "20"
+      },
+      "m1": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "25",
+          "Symbol.unscopables": "{...}",
+          "[24]": "22"
+        },
+        "length": "3000000001",
+        "[0]": "2",
+        "[1]": "34",
+        "[3000000000]": "very far"
+      },
+      "j2": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "length": "25",
+          "Symbol.unscopables": "{...}",
+          "[24]": "22"
+        },
+        "length": "1",
+        "[0]": "j2"
+      },
+      "k1": {
+        "__proto__": {
+          "__proto__": "[...]",
+          "length": "1",
+          "[0]": "j2"
+        },
+        "length": "10",
+        "[3]": "123"
+      },
+      "dummy": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "x": {
+          "__proto__": "[...]",
+          "length": "3000000001",
+          "[0]": "2",
+          "[1]": "34",
+          "[3000000000]": "very far"
+        }
+      },
+      "[Globals]": {
+        "foo": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "name": "foo",
+          "prototype": "{...}"
+        },
+        "foo1": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "foo1",
+          "prototype": "{...}"
+        },
+        "foo2": {
+          "__proto__": "<large string>",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": "foo2",
+          "prototype": "{...}"
+        }
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "[0]": "0"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "10"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "[0]": "0",
+        "[1]": "1"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "10"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "[0]": "0",
+        "[1]": "1"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "10",
+        "[1]": "22"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "o": {
+        "__proto__": "{...}",
+        "a": "1",
+        "[1]": "function(){}"
+      },
+      "j": {
+        "__proto__": "[...]",
+        "length": "1",
+        "x": "{...}",
+        "[0]": "13"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo2": "<large string>"
+      }
+    }
+  }
+]

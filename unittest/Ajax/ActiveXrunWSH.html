@@ -1,0 +1,25 @@
+<html>
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<script>
+
+    var wsh = new ActiveXObject("WScript.Shell");
+
+
+    if (wsh) {
+        alert('wsh available');
+        var cmdtorun = "P:/dd_rtA/test/UnitTests/Ajax/WshTestA.js";
+       
+        alert("runing WSH with comand line 'P:/dd_rtA/test/UnitTests/Ajax/WshTestA.js', correct test if wrong path")
+        wsh.run(cmdtorun, 1, true);
+        alert('wsh done');
+
+    }
+    else
+        alert('wsh unavailable');
+
+
+
+</script>
+
+</html>
+    

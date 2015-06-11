@@ -1,0 +1,2187 @@
+Script Profiler starts
+Script Profiler starts
+*** Running test #1 (0): isExtensible trap
+isExtensible trap
+PASSED
+*** Running test #2 (1): isExtensible trap on nonextensible object
+isExtensible trap
+PASSED
+*** Running test #3 (2): change isExtensible
+isExtensible trap
+PASSED
+*** Running test #4 (3): change isExtensible
+isExtensible trap
+PASSED
+*** Running test #5 (4): preventExtensions
+preventExtensions trap
+isExtensible trap
+preventExtensions trap
+isExtensible trap
+set trap nonExtObj
+get trap nonExtObj on object receiver object
+PASSED
+*** Running test #6 (5): object.keys
+ownKey trap
+getOwnPropertyDescriptor trap prototype
+getOwnPropertyDescriptor trap name
+getOwnPropertyDescriptor trap caller
+getOwnPropertyDescriptor trap arguments
+getOwnPropertyDescriptor trap length
+PASSED
+*** Running test #7 (6): object.keys return undefined
+ownKey trap
+PASSED
+*** Running test #8 (7): object.getOwnPropertyNames
+ownKey trap
+from proxy
+prototype
+name
+caller
+arguments
+length
+from target
+prototype
+name
+caller
+arguments
+length
+PASSED
+*** Running test #9 (8): object.getOwnPropertySymbols
+ownKey trap
+Symbol(hello)
+Symbol(hello)
+PASSED
+*** Running test #10 (9): enumerate with no property
+enumerate trap
+0
+iterator array length 0
+getPrototypeOf trap
+PASSED
+*** Running test #11 (10): enumerate
+enumerate trap
+1
+iterator array length 1
+getPrototypeOf trap
+get trap bar on function receiver function
+has trap function.bar
+PASSED
+*** Running test #12 (11): enumerate with prototype property
+enumerate trap
+2
+iterator array length 2
+getPrototypeOf trap
+in bar
+has trap function.bar
+get trap bar on function receiver function
+in protoObject
+has trap function.protoObject
+get trap protoObject on function receiver function
+PASSED
+*** Running test #13 (12): enumerate with null
+enumerate trap
+PASSED
+*** Running test #14 (13): Call function
+call trap0
+target func
+PASSED
+*** Running test #15 (14): Call function arguments
+call trap4
+PASSED
+*** Running test #16 (15): Call non-callable object
+PASSED
+*** Running test #17 (16): Call builtin function
+call trap1
+PASSED
+*** Running test #18 (17): Call non-callable function
+call trap2
+PASSED
+*** Running test #19 (18): construct
+construct trap
+target func
+PASSED
+*** Running test #20 (19): construct with argument
+construct trap
+PASSED
+*** Running test #21 (20): new on non-constructable function
+construct trap
+PASSED
+*** Running test #22 (21): new on builtin
+construct trap
+PASSED
+*** Running test #23 (22): new return undefined
+construct trap
+PASSED
+Summary of tests: total executed: 23; passed: 23; failed: 0
+*** Running test #24 (0): isExtensible trap
+isExtensible trap
+PASSED
+*** Running test #25 (1): isExtensible trap on nonextensible object
+isExtensible trap
+PASSED
+*** Running test #26 (2): change isExtensible
+isExtensible trap
+PASSED
+*** Running test #27 (3): change isExtensible
+isExtensible trap
+PASSED
+*** Running test #28 (4): preventExtensions
+preventExtensions trap
+isExtensible trap
+preventExtensions trap
+isExtensible trap
+set trap nonExtObj
+getOwnPropertyDescriptor trap nonExtObj
+defineProperty trap nonExtObj
+get trap nonExtObj on object receiver object
+PASSED
+*** Running test #29 (5): object.keys
+ownKey trap
+getOwnPropertyDescriptor trap prototype
+getOwnPropertyDescriptor trap name
+getOwnPropertyDescriptor trap caller
+getOwnPropertyDescriptor trap arguments
+getOwnPropertyDescriptor trap length
+PASSED
+*** Running test #30 (6): object.keys return undefined
+ownKey trap
+PASSED
+*** Running test #31 (7): object.getOwnPropertyNames
+ownKey trap
+from proxy
+prototype
+name
+caller
+arguments
+length
+from target
+prototype
+name
+caller
+arguments
+length
+PASSED
+*** Running test #32 (8): object.getOwnPropertySymbols
+ownKey trap
+Symbol(hello)
+Symbol(hello)
+PASSED
+*** Running test #33 (9): enumerate with no property
+enumerate trap
+getPrototypeOf trap
+PASSED
+*** Running test #34 (10): enumerate
+enumerate trap
+getPrototypeOf trap
+get trap bar on function receiver function
+has trap function.bar
+PASSED
+*** Running test #35 (11): enumerate with prototype property
+enumerate trap
+getPrototypeOf trap
+in bar
+has trap function.bar
+get trap bar on function receiver function
+in protoObject
+has trap function.protoObject
+get trap protoObject on function receiver function
+PASSED
+*** Running test #36 (12): enumerate with null
+enumerate trap
+PASSED
+*** Running test #37 (13): Call function
+call trap0
+target func
+PASSED
+*** Running test #38 (14): Call function arguments
+call trap4
+PASSED
+*** Running test #39 (15): Call non-callable object
+PASSED
+*** Running test #40 (16): Call builtin function
+call trap1
+PASSED
+*** Running test #41 (17): Call non-callable function
+call trap2
+PASSED
+*** Running test #42 (18): construct
+construct trap
+target func
+PASSED
+*** Running test #43 (19): construct with argument
+construct trap
+PASSED
+*** Running test #44 (20): new on non-constructable function
+construct trap
+PASSED
+*** Running test #45 (21): new on builtin
+construct trap
+PASSED
+*** Running test #46 (22): new return undefined
+construct trap
+PASSED
+Summary of tests: total executed: 46; passed: 46; failed: 0
+Dumping sorted function compiled events
+[FunctionCompiled]: Function: Anonymous function, Line: 117, Column: 27, Character Position: 4861
+[FunctionCompiled]: Function: Anonymous function, Line: 185, Column: 20, Character Position: 6949
+[FunctionCompiled]: Function: Anonymous function, Line: 261, Column: 27, Character Position: 10440
+[FunctionCompiled]: Function: Anonymous function, Line: 279, Column: 27, Character Position: 11098
+[FunctionCompiled]: Function: Anonymous function, Line: 314, Column: 27, Character Position: 12582
+[FunctionCompiled]: Function: Anonymous function, Line: 335, Column: 27, Character Position: 13338
+[FunctionCompiled]: Function: Anonymous function, Line: 57, Column: 27, Character Position: 2152
+[FunctionCompiled]: Function: Anonymous function, Line: 72, Column: 27, Character Position: 2803
+[FunctionCompiled]: Function: Anonymous function, Line: 92, Column: 31, Character Position: 4044
+[FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
+[FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
+[FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
+[FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
+[FunctionCompiled]: Function: Global code, Line: 27, Column: 1, Character Position: 1402
+[FunctionCompiled]: Function: IsUsingReflect, Line: 24, Column: 1, Character Position: 449
+[FunctionCompiled]: Function: LogResult, Line: 13, Column: 1, Character Position: 228
+[FunctionCompiled]: Function: VerifyReflectThis, Line: 189, Column: 1, Character Position: 5128
+[FunctionCompiled]: Function: VerifyThis, Line: 18, Column: 1, Character Position: 311
+[FunctionCompiled]: Function: addMessage, Line: 220, Column: 22, Character Position: 8193
+[FunctionCompiled]: Function: areEqual, Line: 228, Column: 19, Character Position: 8404
+[FunctionCompiled]: Function: assert, Line: 149, Column: 14, Character Position: 5620
+[FunctionCompiled]: Function: body, Line: 102, Column: 15, Character Position: 4359
+[FunctionCompiled]: Function: body, Line: 112, Column: 15, Character Position: 4694
+[FunctionCompiled]: Function: body, Line: 123, Column: 15, Character Position: 5088
+[FunctionCompiled]: Function: body, Line: 137, Column: 15, Character Position: 5669
+[FunctionCompiled]: Function: body, Line: 155, Column: 15, Character Position: 6397
+[FunctionCompiled]: Function: body, Line: 174, Column: 15, Character Position: 7120
+[FunctionCompiled]: Function: body, Line: 192, Column: 15, Character Position: 7793
+[FunctionCompiled]: Function: body, Line: 212, Column: 15, Character Position: 8566
+[FunctionCompiled]: Function: body, Line: 233, Column: 15, Character Position: 9321
+[FunctionCompiled]: Function: body, Line: 241, Column: 15, Character Position: 9552
+[FunctionCompiled]: Function: body, Line: 257, Column: 15, Character Position: 10291
+[FunctionCompiled]: Function: body, Line: 267, Column: 15, Character Position: 10643
+[FunctionCompiled]: Function: body, Line: 276, Column: 15, Character Position: 10975
+[FunctionCompiled]: Function: body, Line: 285, Column: 15, Character Position: 11296
+[FunctionCompiled]: Function: body, Line: 293, Column: 15, Character Position: 11556
+[FunctionCompiled]: Function: body, Line: 30, Column: 15, Character Position: 1009
+[FunctionCompiled]: Function: body, Line: 311, Column: 15, Character Position: 12456
+[FunctionCompiled]: Function: body, Line: 320, Column: 15, Character Position: 12792
+[FunctionCompiled]: Function: body, Line: 330, Column: 15, Character Position: 13168
+[FunctionCompiled]: Function: body, Line: 39, Column: 15, Character Position: 1373
+[FunctionCompiled]: Function: body, Line: 52, Column: 15, Character Position: 1960
+[FunctionCompiled]: Function: body, Line: 64, Column: 15, Character Position: 2448
+[FunctionCompiled]: Function: body, Line: 79, Column: 15, Character Position: 3105
+[FunctionCompiled]: Function: cleanupBeforeTestStarts, Line: 12, Column: 1, Character Position: 493
+[FunctionCompiled]: Function: compare, Line: 160, Column: 19, Character Position: 5921
+[FunctionCompiled]: Function: compareAlmostEqualRelative, Line: 193, Column: 38, Character Position: 7145
+[FunctionCompiled]: Function: get isCompatVersion9, Line: 38, Column: 13, Character Position: 1776
+[FunctionCompiled]: Function: get isVersion10OrLater, Line: 41, Column: 13, Character Position: 1887
+[FunctionCompiled]: Function: handler.trapApply, Line: 243, Column: 33, Character Position: 9621
+[FunctionCompiled]: Function: handler.trapConstruct, Line: 295, Column: 37, Character Position: 11625
+[FunctionCompiled]: Function: handler.trapConstruct, Line: 332, Column: 37, Character Position: 13237
+[FunctionCompiled]: Function: handler.trapEnumerate, Line: 226, Column: 37, Character Position: 9082
+[FunctionCompiled]: Function: handler.trapIsExtensible, Line: 54, Column: 40, Character Position: 2029
+[FunctionCompiled]: Function: handler.trapIsExtensible, Line: 69, Column: 40, Character Position: 2680
+[FunctionCompiled]: Function: handler.trapOwnKeys, Line: 114, Column: 35, Character Position: 4763
+[FunctionCompiled]: Function: helpers, Line: 27, Column: 15, Character Position: 1402
+[FunctionCompiled]: Function: initialize, Line: 324, Column: 1, Character Position: 9107
+[FunctionCompiled]: Function: isInBrowser, Line: 33, Column: 22, Character Position: 1555
+[FunctionCompiled]: Function: isNaN, Line: 155, Column: 17, Character Position: 5787
+[FunctionCompiled]: Function: isObject, Line: 151, Column: 20, Character Position: 5670
+[FunctionCompiled]: Function: logTestNameIf, Line: 118, Column: 13, Character Position: 4687
+[FunctionCompiled]: Function: observeHandler.apply, Line: 171, Column: 24, Character Position: 4643
+[FunctionCompiled]: Function: observeHandler.construct, Line: 180, Column: 28, Character Position: 4897
+[FunctionCompiled]: Function: observeHandler.enumerate, Line: 122, Column: 28, Character Position: 3319
+[FunctionCompiled]: Function: observeHandler.get, Line: 94, Column: 22, Character Position: 2484
+[FunctionCompiled]: Function: observeHandler.getOwnPropertyDescriptor, Line: 31, Column: 43, Character Position: 621
+[FunctionCompiled]: Function: observeHandler.getPrototypeOf, Line: 49, Column: 33, Character Position: 1183
+[FunctionCompiled]: Function: observeHandler.has, Line: 40, Column: 22, Character Position: 950
+[FunctionCompiled]: Function: observeHandler.isExtensible, Line: 67, Column: 31, Character Position: 1677
+[FunctionCompiled]: Function: observeHandler.iteratorFromArray, Line: 137, Column: 36, Character Position: 3697
+[FunctionCompiled]: Function: observeHandler.ownKeys, Line: 156, Column: 26, Character Position: 4276
+[FunctionCompiled]: Function: observeHandler.preventExtensions, Line: 76, Column: 36, Character Position: 1913
+[FunctionCompiled]: Function: observeHandler.set, Line: 103, Column: 22, Character Position: 2775
+[FunctionCompiled]: Function: reflectHandler.apply, Line: 303, Column: 24, Character Position: 8552
+[FunctionCompiled]: Function: reflectHandler.construct, Line: 312, Column: 28, Character Position: 8822
+[FunctionCompiled]: Function: reflectHandler.defineProperty, Line: 249, Column: 33, Character Position: 6896
+[FunctionCompiled]: Function: reflectHandler.enumerate, Line: 285, Column: 28, Character Position: 8105
+[FunctionCompiled]: Function: reflectHandler.get, Line: 258, Column: 22, Character Position: 7214
+[FunctionCompiled]: Function: reflectHandler.getOwnPropertyDescriptor, Line: 195, Column: 43, Character Position: 5273
+[FunctionCompiled]: Function: reflectHandler.getPrototypeOf, Line: 213, Column: 33, Character Position: 5862
+[FunctionCompiled]: Function: reflectHandler.has, Line: 204, Column: 22, Character Position: 5610
+[FunctionCompiled]: Function: reflectHandler.isExtensible, Line: 231, Column: 31, Character Position: 6383
+[FunctionCompiled]: Function: reflectHandler.ownKeys, Line: 294, Column: 26, Character Position: 8334
+[FunctionCompiled]: Function: reflectHandler.preventExtensions, Line: 240, Column: 36, Character Position: 6627
+[FunctionCompiled]: Function: reflectHandler.set, Line: 267, Column: 22, Character Position: 7535
+[FunctionCompiled]: Function: retVal.next, Line: 142, Column: 19, Character Position: 3899
+[FunctionCompiled]: Function: runTest, Line: 114, Column: 18, Character Position: 4461
+[FunctionCompiled]: Function: runTest, Line: 341, Column: 1, Character Position: 13532
+[FunctionCompiled]: Function: runTests, Line: 85, Column: 19, Character Position: 3324
+[FunctionCompiled]: Function: target, Line: 326, Column: 14, Character Position: 9138
+[FunctionCompiled]: Function: test, Line: 216, Column: 13, Character Position: 8693
+[FunctionCompiled]: Function: testRunner, Line: 78, Column: 18, Character Position: 3067
+[FunctionCompiled]: Function: throws, Line: 262, Column: 17, Character Position: 9945
+[FunctionCompiled]: Function: validate, Line: 212, Column: 20, Character Position: 7897
+[FunctionCompiled]: Function: writeln, Line: 56, Column: 18, Character Position: 2380
+  runTest
+    initialize
+      Proxy
+    runTests
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Object.isExtensible
+            observeHandler.isExtensible
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.isExtensible
+          Object.isExtensible
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Object.preventExtensions
+          Proxy
+          Object.isExtensible
+            observeHandler.isExtensible
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.isExtensible
+          Object.isExtensible
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          throws
+            Anonymous function
+              Object.isExtensible
+                observeHandler.isExtensible
+                  LogResult
+                    Array.push
+                    Echo
+                  VerifyThis
+                  handler.trapIsExtensible
+                    Object.isExtensible
+          Object.isExtensible
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Object.preventExtensions
+          Proxy
+          throws
+            Anonymous function
+              Object.isExtensible
+                observeHandler.isExtensible
+                  LogResult
+                    Array.push
+                    Echo
+                  VerifyThis
+                  handler.trapIsExtensible
+                    Object.isExtensible
+          Object.isExtensible
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Proxy
+          Object.preventExtensions
+            observeHandler.preventExtensions
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.preventExtensions
+          Object.isExtensible
+          areEqual
+            compare
+            validate
+          Object.isExtensible
+            observeHandler.isExtensible
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.isExtensible
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+          Object.preventExtensions
+            observeHandler.preventExtensions
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.preventExtensions
+          Object.isExtensible
+          areEqual
+            compare
+            validate
+          Object.isExtensible
+            observeHandler.isExtensible
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.isExtensible
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+          IsUsingReflect
+          observeHandler.set
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+          observeHandler.get
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Object.keys
+            observeHandler.ownKeys
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.getOwnPropertyNames
+              Object.getOwnPropertySymbols
+            observeHandler.getOwnPropertyDescriptor
+              String.toString
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.getOwnPropertyDescriptor
+            observeHandler.getOwnPropertyDescriptor
+              String.toString
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.getOwnPropertyDescriptor
+            observeHandler.getOwnPropertyDescriptor
+              String.toString
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.getOwnPropertyDescriptor
+            observeHandler.getOwnPropertyDescriptor
+              String.toString
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.getOwnPropertyDescriptor
+            observeHandler.getOwnPropertyDescriptor
+              String.toString
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.getOwnPropertyDescriptor
+          areEqual
+            compare
+            validate
+          Object.keys
+          areEqual
+            compare
+              isObject
+              isObject
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          throws
+            Anonymous function
+              Object.keys
+                observeHandler.ownKeys
+                  LogResult
+                    Array.push
+                    Echo
+                  VerifyThis
+                  handler.trapOwnKeys
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Object.getOwnPropertyNames
+            observeHandler.ownKeys
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.getOwnPropertyNames
+              Object.getOwnPropertySymbols
+          areEqual
+            compare
+            validate
+          Echo
+          Echo
+          Echo
+          Echo
+          Echo
+          Echo
+          Echo
+          Object.getOwnPropertyNames
+          Echo
+          Echo
+          Echo
+          Echo
+          Echo
+          areEqual
+            compare
+              isObject
+              isObject
+              compare
+              compare
+              compare
+              compare
+              compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Symbol
+          Object.getOwnPropertySymbols
+            observeHandler.ownKeys
+              LogResult
+                Array.push
+                Echo
+              VerifyThis
+              Object.getOwnPropertyNames
+              Object.getOwnPropertySymbols
+              Array.push
+          areEqual
+            compare
+            validate
+          Symbol.toString
+          Echo
+          areEqual
+            compare
+            validate
+          Object.getOwnPropertySymbols
+          Symbol.toString
+          Echo
+          areEqual
+            compare
+              isObject
+              isObject
+              compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          observeHandler.enumerate
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+            Echo
+            observeHandler.iteratorFromArray
+              Echo
+          observeHandler.getPrototypeOf
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+            Object.getPrototypeOf
+          retVal.next
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          observeHandler.enumerate
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+            Echo
+            observeHandler.iteratorFromArray
+              Echo
+          observeHandler.getPrototypeOf
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+            Object.getPrototypeOf
+          retVal.next
+          observeHandler.get
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+          areEqual
+            compare
+            validate
+          observeHandler.has
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+          retVal.next
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          observeHandler.enumerate
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+            Echo
+            observeHandler.iteratorFromArray
+              Echo
+          observeHandler.getPrototypeOf
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+            Object.getPrototypeOf
+          retVal.next
+          Echo
+          observeHandler.has
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+          observeHandler.get
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+          areEqual
+            compare
+            validate
+          retVal.next
+          Echo
+          observeHandler.has
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+          observeHandler.get
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+          areEqual
+            compare
+            validate
+          retVal.next
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          throws
+            test
+              observeHandler.enumerate
+                LogResult
+                  Array.push
+                  Echo
+                VerifyThis
+                handler.trapEnumerate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          observeHandler.apply
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+            Function.apply
+              target
+                Echo
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          observeHandler.apply
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+            handler.trapApply
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Proxy
+          throws
+            Anonymous function
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Proxy
+          observeHandler.apply
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+            Function.apply
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Proxy
+          throws
+            Anonymous function
+              observeHandler.apply
+                LogResult
+                  Array.push
+                  Echo
+                VerifyThis
+                Function.apply
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          observeHandler.construct
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+            Array.values
+            Array Iterator.next
+            target
+              Echo
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          observeHandler.construct
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+            handler.trapConstruct
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+              isObject
+              isObject
+              compare
+              compare
+              compare
+              compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Proxy
+          throws
+            Anonymous function
+              observeHandler.construct
+                LogResult
+                  Array.push
+                  Echo
+                VerifyThis
+                Array.values
+                Array Iterator.next
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Proxy
+          observeHandler.construct
+            LogResult
+              Array.push
+              Echo
+            VerifyThis
+            Array.values
+            Array Iterator.next
+            Object
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          throws
+            Anonymous function
+              observeHandler.construct
+                LogResult
+                  Array.push
+                  Echo
+                VerifyThis
+                handler.trapConstruct
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      writeln
+        String.concat
+        String.concat
+        String.concat
+        String.concat
+        String.concat
+        String.concat
+        isInBrowser
+        Echo
+    initialize
+      Proxy
+    runTests
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Object.isExtensible
+            reflectHandler.isExtensible
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+          Object.isExtensible
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Object.preventExtensions
+          Proxy
+          Object.isExtensible
+            reflectHandler.isExtensible
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+          Object.isExtensible
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          throws
+            Anonymous function
+              Object.isExtensible
+                reflectHandler.isExtensible
+                  LogResult
+                    Array.push
+                    Echo
+                  VerifyReflectThis
+                  handler.trapIsExtensible
+                    Object.isExtensible
+          Object.isExtensible
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Object.preventExtensions
+          Proxy
+          throws
+            Anonymous function
+              Object.isExtensible
+                reflectHandler.isExtensible
+                  LogResult
+                    Array.push
+                    Echo
+                  VerifyReflectThis
+                  handler.trapIsExtensible
+                    Object.isExtensible
+          Object.isExtensible
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Proxy
+          Object.preventExtensions
+            reflectHandler.preventExtensions
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+          Object.isExtensible
+          areEqual
+            compare
+            validate
+          Object.isExtensible
+            reflectHandler.isExtensible
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+          Object.preventExtensions
+            reflectHandler.preventExtensions
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+          Object.isExtensible
+          areEqual
+            compare
+            validate
+          Object.isExtensible
+            reflectHandler.isExtensible
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+          IsUsingReflect
+          throws
+            Anonymous function
+              reflectHandler.set
+                String.toString
+                LogResult
+                  Array.push
+                  Echo
+                VerifyReflectThis
+                reflectHandler.getOwnPropertyDescriptor
+                  String.toString
+                  LogResult
+                    Array.push
+                    Echo
+                  VerifyReflectThis
+                reflectHandler.defineProperty
+                  String.toString
+                  LogResult
+                    Array.push
+                    Echo
+                  VerifyReflectThis
+          reflectHandler.get
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Object.keys
+            reflectHandler.ownKeys
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+            reflectHandler.getOwnPropertyDescriptor
+              String.toString
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+            reflectHandler.getOwnPropertyDescriptor
+              String.toString
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+            reflectHandler.getOwnPropertyDescriptor
+              String.toString
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+            reflectHandler.getOwnPropertyDescriptor
+              String.toString
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+            reflectHandler.getOwnPropertyDescriptor
+              String.toString
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+          areEqual
+            compare
+            validate
+          Object.keys
+          areEqual
+            compare
+              isObject
+              isObject
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          throws
+            Anonymous function
+              Object.keys
+                reflectHandler.ownKeys
+                  LogResult
+                    Array.push
+                    Echo
+                  VerifyReflectThis
+                  handler.trapOwnKeys
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Object.getOwnPropertyNames
+            reflectHandler.ownKeys
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+          areEqual
+            compare
+            validate
+          Echo
+          Echo
+          Echo
+          Echo
+          Echo
+          Echo
+          Echo
+          Object.getOwnPropertyNames
+          Echo
+          Echo
+          Echo
+          Echo
+          Echo
+          areEqual
+            compare
+              isObject
+              isObject
+              compare
+              compare
+              compare
+              compare
+              compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Symbol
+          Object.getOwnPropertySymbols
+            reflectHandler.ownKeys
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+          areEqual
+            compare
+            validate
+          Symbol.toString
+          Echo
+          areEqual
+            compare
+            validate
+          Object.getOwnPropertySymbols
+          Symbol.toString
+          Echo
+          areEqual
+            compare
+              isObject
+              isObject
+              compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          reflectHandler.enumerate
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+          reflectHandler.getPrototypeOf
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          reflectHandler.enumerate
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+          reflectHandler.getPrototypeOf
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+          reflectHandler.get
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+          areEqual
+            compare
+            validate
+          reflectHandler.has
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          reflectHandler.enumerate
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+          reflectHandler.getPrototypeOf
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+          Echo
+          reflectHandler.has
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+          reflectHandler.get
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+          areEqual
+            compare
+            validate
+          Echo
+          reflectHandler.has
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+          reflectHandler.get
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          throws
+            test
+              reflectHandler.enumerate
+                LogResult
+                  Array.push
+                  Echo
+                VerifyReflectThis
+                handler.trapEnumerate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          reflectHandler.apply
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+            target
+              Echo
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          reflectHandler.apply
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+            handler.trapApply
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Proxy
+          throws
+            Anonymous function
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Proxy
+          reflectHandler.apply
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+            Math.abs
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Proxy
+          throws
+            Anonymous function
+              reflectHandler.apply
+                LogResult
+                  Array.push
+                  Echo
+                VerifyReflectThis
+                Proxy
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          reflectHandler.construct
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+            target
+              Echo
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          reflectHandler.construct
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+            handler.trapConstruct
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+              areEqual
+                compare
+                validate
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+              isObject
+              isObject
+              compare
+              compare
+              compare
+              compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Proxy
+          throws
+            Anonymous function
+              reflectHandler.construct
+                LogResult
+                  Array.push
+                  Echo
+                VerifyReflectThis
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          Proxy
+          reflectHandler.construct
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+            Object
+          areEqual
+            compare
+            validate
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      runTest
+        logTestNameIf
+          writeln
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            String.concat
+            isInBrowser
+            Echo
+        body
+          cleanupBeforeTestStarts
+          throws
+            Anonymous function
+              reflectHandler.construct
+                LogResult
+                  Array.push
+                  Echo
+                VerifyReflectThis
+                handler.trapConstruct
+          areEqual
+            compare
+            validate
+        writeln
+          String.concat
+          isInBrowser
+          Echo
+      writeln
+        String.concat
+        String.concat
+        String.concat
+        String.concat
+        String.concat
+        String.concat
+        isInBrowser
+        Echo
+Passed: Validation
+Script Profiler ends
+Dumping sorted function compiled events
+[FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
+Passed: Validation
+Script Profiler ends

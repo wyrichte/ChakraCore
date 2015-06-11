@@ -1,0 +1,176 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 105,
+        "length": 17,
+        "text": "if (this.WScript)",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "testFirstChanceException": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 105,
+        "length": 17,
+        "text": "if (this.WScript)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 303,
+        "length": 26,
+        "text": "testFirstChanceException()",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "testFirstChanceException": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "TrimStackTracePath": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 303,
+        "length": 26,
+        "text": "testFirstChanceException()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 41,
+        "length": 59,
+        "text": "return line && line.replace(/\\(.+unittest.[^\\\\/]*./ig, \"(\")",
+        "frameDescription": "TrimStackTracePath"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "<large string>",
+        "length": "1"
+      },
+      "line": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testFirstChanceException": "<large string>",
+        "TrimStackTracePath": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 41,
+        "length": 59,
+        "text": "return line && line.replace(/\\(.+unittest.[^\\\\/]*./ig, \"(\")",
+        "frameDescription": "TrimStackTracePath"
+      },
+      {
+        "start": 353,
+        "length": 42,
+        "text": "WScript.Echo(TrimStackTracePath(ex.stack))",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+  <test>
+    <default>
+      <files>Enum.js</files>
+      <baseline>Enum.baseline</baseline>
+      <compile-flags>-Configurable</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>EnumNotConfigurable.js</files>
+      <baseline>EnumNotConfigurable.baseline</baseline>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+  <!-- ProjectedObjectAtrributes*.js temporarily disabled on v5 AMD64 due to fluctuating baselines. See TFS Task 713351 -->
+  <test>
+    <default>
+      <files>ProjectedObjectAttributes.js</files>
+      <baseline>ProjectedObjectAttributes.baseline</baseline>
+      <compile-flags>-Configurable</compile-flags>
+      <tags>exclude_win7,exclude_amd64</tags>
+    </default>
+  </test>
+
+  <!-- Temporarily disabling for FI
+  <test>
+    <default>
+      <files>ProjectedObjectAttributesNotConfigurable.js</files>
+      <baseline>ProjectedObjectAttributesNotConfigurable.baseline</baseline>
+      <tags>exclude_win7,exclude_amd64</tags>
+    </default>
+  </test> -->
+
+  <test>
+    <default>
+      <files>NamespaceEnumerability.js</files>
+      <baseline>NamespaceEnumerability.baseline</baseline>
+      <compile-flags>-Configurable</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Mock.js</files>
+      <baseline>Mock.baseline</baseline>
+      <compile-flags>-Configurable</compile-flags>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>Mock.js</files>
+      <baseline>Mock.notConfigured.baseline</baseline>
+      <tags>exclude_win7</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <files>AllowForWebNamespaceEnumerability.js</files>
+      <baseline>AllowForWebNamespaceEnumerability.baseline</baseline>
+      <compile-flags>-hostType:3 -Configurable</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>AllowForWebNamespaceEnumerability.js</files>
+      <baseline>HostedAppAllowForWebNamespaceEnumerability.baseline</baseline>
+      <compile-flags>-hostType:3 -Configurable -WinRTConstructorAllowed</compile-flags>
+      <tags>exclude_win7,exclude_win8</tags>
+    </default>
+  </test>
+</regress-exe>

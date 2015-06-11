@@ -1,0 +1,431 @@
+AllowForWeb - Namespace Enumerability Tests
+
+=================================================
+Starting [Test 1: Namespace Enumerability -- own Winmd only (Winery)]
+Comment: for...in enumeration of Winery
+Pass: AllowForWebCustomAsyncInfo should be defined
+      Actual: function
+
+Pass: IEnumerable should be defined
+      Actual: object
+
+Pass: Overloading should be defined
+      Actual: object
+
+Pass: RWinery should be defined
+      Actual: function
+
+Pass: WinRTErrorTests should be defined
+      Actual: object
+
+Pass: reds should be defined
+      Actual: object
+
+Pass: sweets should be defined
+      Actual: object
+
+Pass: whites should be defined
+      Actual: object
+
+Comment: Object.keys enumeration of Winery
+Pass: AllowForWebCustomAsyncInfo should be defined
+      Actual: function
+
+Pass: IEnumerable should be defined
+      Actual: object
+
+Pass: Overloading should be defined
+      Actual: object
+
+Pass: RWinery should be defined
+      Actual: function
+
+Pass: WinRTErrorTests should be defined
+      Actual: object
+
+Pass: reds should be defined
+      Actual: object
+
+Pass: sweets should be defined
+      Actual: object
+
+Pass: whites should be defined
+      Actual: object
+
+Comment: Object.getOwnPropertyNames enumeration of Winery
+Pass: AllowForWebCustomAsyncInfo should be defined
+      Actual: function
+
+Pass: IEnumerable should be defined
+      Actual: object
+
+Pass: Overloading should be defined
+      Actual: object
+
+Pass: RWinery should be defined
+      Actual: function
+
+Pass: WinRTErrorTests should be defined
+      Actual: object
+
+Pass: reds should be defined
+      Actual: object
+
+Pass: sweets should be defined
+      Actual: object
+
+Pass: whites should be defined
+      Actual: object
+
+Pass: Object.Keys(Winery)
+      Actual: AllowForWebCustomAsyncInfo,IEnumerable,Overloading,RWinery,WinRTErrorTests,reds,sweets,whites
+
+Pass: typeof [object Winery.whites]
+      Actual: object
+
+Pass: typeof [object Winery.sweets]
+      Actual: object
+
+Pass: typeof [object Winery.reds]
+      Actual: object
+
+Pass: typeof [object WinRTErrorTests]
+      Actual: object
+
+Pass: typeof function RWinery() { [native code] }
+      Actual: function
+
+Pass: typeof [object Overloading]
+      Actual: object
+
+Pass: typeof [object IEnumerable]
+      Actual: object
+
+Pass: typeof function Winery.AllowForWebCustomAsyncInfo() { [native code] }
+      Actual: function
+
+Comment: Verify order of enumeration over Winery
+Pass: property: 0
+      Actual: AllowForWebCustomAsyncInfo
+
+Pass: property: 1
+      Actual: IEnumerable
+
+Pass: property: 2
+      Actual: Overloading
+
+Pass: property: 3
+      Actual: RWinery
+
+Pass: property: 4
+      Actual: WinRTErrorTests
+
+Pass: property: 5
+      Actual: reds
+
+Pass: property: 6
+      Actual: sweets
+
+Pass: property: 7
+      Actual: whites
+
+Pass: Total number of properties enumerated
+      Actual: 8
+
+PASS [Test 1: Namespace Enumerability -- own Winmd only (Winery)]
+=================================================
+
+=================================================
+Starting [Test 2: Namespace Enumerability -- no metadata of exact name (Fabrikam.Kitchen)]
+Comment: for...in enumeration of Fabrikam.Kitchen
+Pass: ChefCapabilities should be defined
+      Actual: object
+
+Pass: ChefRole should be defined
+      Actual: object
+
+Pass: CookieDoneness should be defined
+      Actual: object
+
+Comment: Object.keys enumeration of Fabrikam.Kitchen
+Pass: ChefCapabilities should be defined
+      Actual: object
+
+Pass: ChefRole should be defined
+      Actual: object
+
+Pass: CookieDoneness should be defined
+      Actual: object
+
+Comment: Object.getOwnPropertyNames enumeration of Fabrikam.Kitchen
+Pass: ChefCapabilities should be defined
+      Actual: object
+
+Pass: ChefRole should be defined
+      Actual: object
+
+Pass: CookieDoneness should be defined
+      Actual: object
+
+Pass: Object.Keys(Fabrikam.Kitchen)
+      Actual: ChefCapabilities,ChefRole,CookieDoneness
+
+Pass: typeof [object Fabrikam.Kitchen.CookieDoneness]
+      Actual: object
+
+Pass: typeof [object Fabrikam.Kitchen.ChefRole]
+      Actual: object
+
+Pass: typeof [object Fabrikam.Kitchen.ChefCapabilities]
+      Actual: object
+
+Comment: Verify order of enumeration over Fabrikam.Kitchen
+Pass: property: 0
+      Actual: ChefCapabilities
+
+Pass: property: 1
+      Actual: ChefRole
+
+Pass: property: 2
+      Actual: CookieDoneness
+
+Pass: Total number of properties enumerated
+      Actual: 3
+
+PASS [Test 2: Namespace Enumerability -- no metadata of exact name (Fabrikam.Kitchen)]
+=================================================
+
+=================================================
+Starting [Test 3: Namespace Enumerability -- both own and child namespace Winmds (DevTests)]
+Comment: addAndCheckProperty(lastUsedNamespace): adding empty property
+Comment: addAndCheckProperty(lastUsedNamespace): {"writable":true,"enumerable":true,"configurable":true}
+Pass: Able to add property: lastUsedNamespace
+      Actual: true
+
+Pass: Able to write to property: lastUsedNamespace
+      Actual: true
+
+Comment: for...in enumeration of DevTests
+Pass: Arm should be defined
+      Actual: object
+
+Pass: CamelCasing should be defined
+      Actual: object
+
+Pass: DateTimeAndTimeSpan should be defined
+      Actual: object
+
+Pass: Delegates should be defined
+      Actual: object
+
+Pass: GCPressure should be defined
+      Actual: object
+
+Pass: Repros should be defined
+      Actual: object
+
+Pass: SimpleTestNamespace should be defined
+      Actual: object
+
+Pass: Versioning should be defined
+      Actual: object
+
+Pass: lastUsedNamespace should be defined
+      Actual: object
+
+Pass: last should be defined
+      Actual: object
+
+Comment: Object.keys enumeration of DevTests
+Pass: Arm should be defined
+      Actual: object
+
+Pass: CamelCasing should be defined
+      Actual: object
+
+Pass: DateTimeAndTimeSpan should be defined
+      Actual: object
+
+Pass: Delegates should be defined
+      Actual: object
+
+Pass: GCPressure should be defined
+      Actual: object
+
+Pass: Repros should be defined
+      Actual: object
+
+Pass: SimpleTestNamespace should be defined
+      Actual: object
+
+Pass: Versioning should be defined
+      Actual: object
+
+Pass: lastUsedNamespace should be defined
+      Actual: object
+
+Pass: last should be defined
+      Actual: object
+
+Comment: Object.getOwnPropertyNames enumeration of DevTests
+Pass: Arm should be defined
+      Actual: object
+
+Pass: CamelCasing should be defined
+      Actual: object
+
+Pass: DateTimeAndTimeSpan should be defined
+      Actual: object
+
+Pass: Delegates should be defined
+      Actual: object
+
+Pass: GCPressure should be defined
+      Actual: object
+
+Pass: Repros should be defined
+      Actual: object
+
+Pass: SimpleTestNamespace should be defined
+      Actual: object
+
+Pass: Versioning should be defined
+      Actual: object
+
+Pass: lastUsedNamespace should be defined
+      Actual: object
+
+Pass: last should be defined
+      Actual: object
+
+Pass: Object.Keys(DevTests)
+      Actual: Arm,CamelCasing,DateTimeAndTimeSpan,Delegates,GCPressure,Repros,SimpleTestNamespace,Versioning,lastUsedNamespace,last
+
+Pass: typeof [object CamelCasing]
+      Actual: object
+
+Pass: typeof [object CamelCasing]
+      Actual: object
+
+Pass: typeof [object Versioning]
+      Actual: object
+
+Pass: typeof [object SimpleTestNamespace]
+      Actual: object
+
+Pass: typeof [object Repros]
+      Actual: object
+
+Pass: typeof [object GCPressure]
+      Actual: object
+
+Pass: typeof [object Delegates]
+      Actual: object
+
+Pass: typeof [object DateTimeAndTimeSpan]
+      Actual: object
+
+Pass: typeof [object CamelCasing]
+      Actual: object
+
+Pass: typeof [object Arm]
+      Actual: object
+
+Comment: Verify order of enumeration over DevTests
+Pass: property: 0
+      Actual: Arm
+
+Pass: property: 1
+      Actual: CamelCasing
+
+Pass: property: 2
+      Actual: DateTimeAndTimeSpan
+
+Pass: property: 3
+      Actual: Delegates
+
+Pass: property: 4
+      Actual: GCPressure
+
+Pass: property: 5
+      Actual: Repros
+
+Pass: property: 6
+      Actual: SimpleTestNamespace
+
+Pass: property: 7
+      Actual: Versioning
+
+Pass: property: 8
+      Actual: lastUsedNamespace
+
+Pass: property: 9
+      Actual: last
+
+Pass: Total number of properties enumerated
+      Actual: 10
+
+PASS [Test 3: Namespace Enumerability -- both own and child namespace Winmds (DevTests)]
+=================================================
+
+=================================================
+Starting [Test 4: Namespace Enumerability -- all namespace children are enumerable true]
+Comment: Verify all children of third party namespace (Winery) are enumerable true
+Pass: Enumerable: AllowForWebCustomAsyncInfo
+      Actual: true
+
+Pass: Enumerable: IEnumerable
+      Actual: true
+
+Pass: Enumerable: Overloading
+      Actual: true
+
+Pass: Enumerable: RWinery
+      Actual: true
+
+Pass: Enumerable: WinRTErrorTests
+      Actual: true
+
+Pass: Enumerable: reds
+      Actual: true
+
+Pass: Enumerable: sweets
+      Actual: true
+
+Pass: Enumerable: whites
+      Actual: true
+
+Pass: Enumerable: prototype
+      Actual: true
+
+Comment: Verify all children of third party namespace (Fabrikam.Kitchen) are enumerable true
+Pass: Enumerable: ChefCapabilities
+      Actual: true
+
+Pass: Enumerable: ChefRole
+      Actual: true
+
+Pass: Enumerable: CookieDoneness
+      Actual: true
+
+Pass: Enumerable: prototype
+      Actual: true
+
+Comment: Verify all children of third party namespace (Animals) are enumerable true
+Pass: Enumerable: Animal
+      Actual: true
+
+Pass: Enumerable: CollectionChangeType
+      Actual: true
+
+Pass: Enumerable: Phylum
+      Actual: true
+
+Pass: Enumerable: VariableProjection
+      Actual: true
+
+PASS [Test 4: Namespace Enumerability -- all namespace children are enumerable true]
+=================================================
+
+Passed: 4
+Failed: 0

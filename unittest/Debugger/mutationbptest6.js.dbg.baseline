@@ -1,0 +1,24 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Pending Mutation]": {
+        "a [Deleting]": ":)",
+        "[Property container obj]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "a": ":)"
+      },
+      "[Globals]": {}
+    }
+  }
+]

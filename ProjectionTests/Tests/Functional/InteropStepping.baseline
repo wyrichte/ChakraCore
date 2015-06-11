@@ -1,0 +1,9 @@
+Interop Stepping tests
+
+=================================================
+Starting [Test 1: Call all instrumented WinRT callout points.]
+PASS [Test 1: Call all instrumented WinRT callout points.]
+=================================================
+
+Passed: 1
+Failed: 0

@@ -1,0 +1,25 @@
+[
+  {
+    "evaluate": {
+      "arguments[0]": "10"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "10"
+      },
+      "x": "10",
+      "[Globals]": {
+        "foo": "<large string>"
+      }
+    }
+  }
+]

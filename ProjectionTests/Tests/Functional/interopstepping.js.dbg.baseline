@@ -1,0 +1,59 @@
+[
+  {
+    "log": "JS projection call"
+  },
+  {
+    "log": "fastPath"
+  },
+  {
+    "log": "fastPathIn"
+  },
+  {
+    "log": "fastPathOut"
+  },
+  {
+    "log": "fastPathInOut"
+  },
+  {
+    "log": "fastPathInIn"
+  },
+  {
+    "log": "staticFastPath"
+  },
+  {
+    "log": "staticFastPathIn"
+  },
+  {
+    "log": "staticFastPathOut"
+  },
+  {
+    "log": "staticFastPathInOut"
+  },
+  {
+    "log": "staticFastPathInIn"
+  },
+  {
+    "log": "slowPath"
+  },
+  {
+    "log": "staticSlowPath"
+  },
+  {
+    "log": "addEventListener"
+  },
+  {
+    "log": "removeEventListener"
+  },
+  {
+    "log": "new Windows.Storage.Streams.Buffer"
+  },
+  {
+    "log": "new Uint8Array"
+  },
+  {
+    "log": "new Uint8Array"
+  },
+  {
+    "log": "new Uint8Array"
+  }
+]

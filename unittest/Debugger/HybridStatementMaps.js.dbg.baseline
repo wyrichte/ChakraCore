@@ -1,0 +1,86 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 695,
+        "length": 5,
+        "text": "h = 1",
+        "frameDescription": "bar2"
+      },
+      {
+        "start": 5582,
+        "length": 18,
+        "text": "bar2.call(obj0, 1)",
+        "frameDescription": "bar3"
+      },
+      {
+        "start": 5614,
+        "length": 18,
+        "text": "bar3.call(obj1, 1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 5639,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 695,
+        "length": 5,
+        "text": "h = 1",
+        "frameDescription": "bar2"
+      },
+      {
+        "start": 5582,
+        "length": 18,
+        "text": "bar2.call(obj0, 1)",
+        "frameDescription": "bar3"
+      },
+      {
+        "start": 5614,
+        "length": 18,
+        "text": "bar3.call(obj1, 1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 5649,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 695,
+        "length": 5,
+        "text": "h = 1",
+        "frameDescription": "bar2"
+      },
+      {
+        "start": 5582,
+        "length": 18,
+        "text": "bar2.call(obj0, 1)",
+        "frameDescription": "bar3"
+      },
+      {
+        "start": 5614,
+        "length": 18,
+        "text": "bar3.call(obj1, 1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 5659,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

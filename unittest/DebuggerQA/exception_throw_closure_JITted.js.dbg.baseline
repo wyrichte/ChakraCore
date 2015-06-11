@@ -1,0 +1,12 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 221,
+        "length": 13,
+        "text": "callcount = x",
+        "frameDescription": "Anonymous function"
+      }
+    ]
+  }
+]

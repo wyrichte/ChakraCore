@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+<body onload="doTest();">
+    <iframe src="mapSet_marshall_child.html">
+    </iframe>
+    <script type="text/javascript">
+        function doTest() {    
+            if (this.WScript === undefined) {
+                this.WScript = { Echo: function (s) { console.log(s); }, TermHTML: function (){}, SetKeepAlive: function (){} };   
+            }
+            var mapObj = window.frames[0].getMap();
+            var setObj = window.frames[0].getSet();
+            WScript.Echo(mapObj);
+            WScript.Echo(setObj);
+            var worker = new Worker("mapSet_marshall_worker.js");
+            var count = 0;
+            worker.onmessage = function (event) {
+                WScript.Echo(event.data);
+                count++;
+                if (count == 2) {
+                    WScript.Quit();
+                }
+            }
+            worker.postMessage(mapObj);
+            worker.postMessage(setObj);
+            WScript.SetKeepAlive(1000);
+        }
+    </script>
+</body>
+</html>

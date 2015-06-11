@@ -1,0 +1,55 @@
+<job>
+	<runtime>
+		<named name="contents" helpstring="Path or URL of the sunspider-test-contents.js file" type="string" required="true"/>
+		<named name="prefix" helpstring="Path or URL of the sunspider-test-prefix.js file" type="string" required="true"/>
+		<named name="destination" helpstring="Path of the folder that the scripts will be created in" type="string" required="true"/>
+	</runtime>
+	<script language="JScript">
+	
+		function readFile(file)
+		{
+			var fs = new ActiveXObject("Scripting.FileSystemObject");
+			if (fs.FileExists(file))
+			{
+				var f = fs.OpenTextFile(file);
+				return f.ReadAll();
+			}
+			else
+			{
+				var xmlHttp = new ActiveXObject("MSXML2.XMLHTTP");
+				xmlHttp.open("GET", file, false);
+				xmlHttp.send();
+				return xmlHttp.responseText;
+			}
+		}
+	
+		eval(readFile(WScript.Arguments.Named.Item("contents")));
+		eval(readFile(WScript.Arguments.Named.Item("prefix")));
+		
+		if (testContents.length != tests.length)
+		{
+			WScript.StdErr.WriteLine("The number of tests in the contents file is unexpected: expected " + tests.length + ", found " + testContents.length + ".");
+			WScript.Quit(1);
+		}
+		
+		var destinationFolder = WScript.Arguments.Named.Item("destination");
+		if (destinationFolder.charAt(destinationFolder.length - 1) != '\\')
+		{
+			destinationFolder += '\\';
+		}
+		
+		var fs = new ActiveXObject("Scripting.FileSystemObject");
+		for (var i = 0; i < tests.length; i++) {
+			var contents = testContents[i];
+			contents = contents.replace(/[\s\S]*<!DOCTYPE[\s\S]*<head[\s\S]*<meta[\s\S]*<!--/im, "\/*");
+			contents = contents.replace(/-->[\s\S]*<script>/im, "*/\n");
+			contents = contents.replace(/location\.search\.indexOf\(\"type=new\"\) \> 0/im, "true");
+			contents = contents.replace(/record\((.*)\)\;/im, "WScript.Echo(\"### TIME:\", $1, \"ms\");");
+			contents = contents.replace(/<\/script>[\s\S]*/im, "");
+			
+			var file = fs.CreateTextFile(destinationFolder + tests[i] + ".js");
+			file.Write(contents);
+			file.Close();
+		}
+	</script>
+</job>

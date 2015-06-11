@@ -1,0 +1,2 @@
+#include "Microsoft-Scripting-Jscript9.InternalCounters.rc"
+#include "Microsoft-Scripting-JScript9.InternalEvents.rc"

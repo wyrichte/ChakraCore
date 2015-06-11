@@ -1,0 +1,4 @@
+    Number numberHours, Number price, Function onSuccess, Function onFailed, userContext
+Passed
+    Function onSuccess, Function onFailed, userContext
+Passed

@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=10">
+</head>
+<body onload="Run()">
+<iframe src="PixelArraycanvasFrame.html"></iframe>
+<canvas id="testCanvas" width="40" height="40" style="display:none"></canvas>
+<script type = "text/javascript">   
+var Run = function(){
+var cpArr = window.frames[0].getCPArray(1);
+    WScript.Echo(" In Parent,length is: " + cpArr.length);
+}
+</script>
+</body>
+</html>

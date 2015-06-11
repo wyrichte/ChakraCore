@@ -1,0 +1,69 @@
+// ES6 Function unit tests from bugfixes
+
+if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in jc/jshost
+    this.WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+}
+
+var tests = [
+    {
+        name: "OS1558391: assignment to 'length' after defineProperty with getter function should not trigger assertion",
+        body: function() {
+            function f() { }
+            Object.defineProperty(f, 'length', {
+                get: function () { }
+            });
+            assert.doesNotThrow(function () { f.length=1; }, "assertion failure on assignment to 'length' after defineProperty with getter");
+         }
+    },
+    {
+        name: "OS1616633: defineProperty with getter function after sealing a function object should not trigger assertion",
+        body: function() {
+            function g(name) {
+                var f=function () { }
+                Object.seal(f);
+                Object.defineProperty(f, name, {
+                    get: function () { }
+                    });
+            }
+            assert.doesNotThrow(function () { g('length') }, "assertion failure on defineProperty 'length' with getter after sealing a function object");
+            assert.doesNotThrow(function () { g('arguments') }, "assertion failure on defineProperty 'arguments' with getter after sealing a function object");
+            assert.doesNotThrow(function () { g('caller') }, "assertion failure on defineProperty 'caller' with getter after sealing a function object");
+         }
+    },
+    {
+        name: "OS1658052: defineProperty with value after sealing a function object should not trigger assertion",
+        body: function() {
+            function g(name) {
+                var f=function () { }
+                Object.seal(f);
+                Object.defineProperty(f, name, {
+                    value: 0
+                    });
+            }
+            assert.doesNotThrow(function () { g('length') }, "assertion failure on defineProperty 'length' with value after sealing a function object");
+            assert.doesNotThrow(function () { g('arguments') }, "assertion failure on defineProperty 'arguments' with value after sealing a function object");
+            assert.doesNotThrow(function () { g('caller') }, "assertion failure on defineProperty 'caller' with value after sealing a function object");
+         }
+    },
+    {
+        name: "OS1893544: defineProperty with {writable: false, configurable:true} after defineProperty with getter on a function object should not trigger assertion",
+        body: function() {
+            function g(name) {
+                var f=function () { }
+                Object.defineProperty(f, name, {
+                    get: function () { },
+                    });
+                Object.defineProperty(f, name, {
+                    writable: false,
+                    configurable: true
+                    });
+            }
+            assert.doesNotThrow(function () { g('length') }, "assertion failure on defineProperty 'length' with {writable: false, configurable:true} after defineProperty with getter on a function object");
+            assert.doesNotThrow(function () { g('arguments') }, "assertion failure on defineProperty 'arguments' with {writable: false, configurable:true} after defineProperty with getter on a function object");
+            assert.doesNotThrow(function () { g('caller') }, "assertion failure on defineProperty 'caller' with getter {writable: false, configurable:true} after defineProperty with getter on a function object");
+         }
+    },
+];
+
+testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });
+

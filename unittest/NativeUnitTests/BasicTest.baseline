@@ -1,0 +1,38 @@
+
+
+Running Basic Tests
+
+Test basic IActiveScirptDirect functionality
+1234567
+undefined
+propertyname is hello 
+throug interface access
+new Number(1234567);
+correct: same object
+isnumerable =1
+direct function name is function MyCallerTest() { [native code] }
+constrctor function name is function constructor() { [native code] }
+createtypedobject function name is [object constructor]
+Test ToString for fastdom
+test dom toString
+function my class() { [native code] }
+[object my class]
+[object my class]
+undefined
+Test array
+test array
+sum is190
+test VarToDate/DateToVar
+2011-06-20T22:54:51.244Z
+2011-06-20T22:54:51.244Z
+test VarToSYSTEMTIME/VarToSYSTEMTIME
+test IsPrimitiveType
+Test callable object
+we are in the object entry
+
+Test non-callable object
+Total Test Cases  0
+Passed:  0
+Failed   0
+
+

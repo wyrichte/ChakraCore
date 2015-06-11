@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple test</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body>
+
+<script type="text/javascript">
+// Regress Win8 569709
+// We change the behavior in IE11 just silently ignore this.
+function window() {}
+
+WScript.Echo("PASS");
+</script>
+
+</body>
+</html>

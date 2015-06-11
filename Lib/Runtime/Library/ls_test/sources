@@ -1,0 +1,3 @@
+C_DEFINES = $(C_DEFINES) -DLANGUAGE_SERVICE=1
+!include $(JSCRIPT_ROOT)\jslibtest.inc
+!include ..\sources.inc

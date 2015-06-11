@@ -1,0 +1,1716 @@
+null
+
+undefined
+
+true
+
+false
+
+-1073741825
+
+-1073741824
+
+-1073741823
+
+-234
+
+-1
+
+0
+
+1
+
+2
+
+123
+
+1073741822
+
+1073741823
+
+1073741824
+
+123.456
+
+-123.456
+
+Infinity
+
+-Infinity
+
+NaN
+
+30064771072
+
+-4294967295
+
+-8070730873353273345
+
+30064771072
+
+18446744069414584321
+
+10376013200356278271
+
+""
+
+"abc"
+0                              NoProperty
+1                              NoProperty
+2                              NoProperty
+
+"AbCd"
+0                              NoProperty
+1                              NoProperty
+2                              NoProperty
+3                              NoProperty
+
+"ABcdEFg\u0000Hij"
+0                              NoProperty
+1                              NoProperty
+2                              NoProperty
+3                              NoProperty
+4                              NoProperty
+5                              NoProperty
+6                              NoProperty
+7                              NoProperty
+8                              NoProperty
+9                              NoProperty
+10                             NoProperty
+
+true
+
+false
+
+"2011-04-15T21:47:42.658Z"
+
+12
+
+"String object"
+0                              NoProperty, CanAdd
+1                              NoProperty, CanAdd
+2                              NoProperty, CanAdd
+3                              NoProperty, CanAdd
+4                              NoProperty, CanAdd
+5                              NoProperty, CanAdd
+6                              NoProperty, CanAdd
+7                              NoProperty, CanAdd
+8                              NoProperty, CanAdd
+9                              NoProperty, CanAdd
+10                             NoProperty, CanAdd
+11                             NoProperty, CanAdd
+12                             NoProperty, CanAdd
+
+/./
+
+/./i
+
+/./g
+
+/./m
+
+/.*/i
+
+/\s+/gim
+
+/^.+abc$/gi
+
+/^s+regex.*$/gm
+
+{"p":null}
+p                              null
+
+{"p":undefined}
+p                              NotIndexable
+
+{"p":true}
+p                              NotIndexable
+
+{"p":false}
+p                              NotIndexable
+
+{"p":-1073741825}
+p                              -1073741825
+
+{"p":-1073741824}
+p                              -1073741824
+
+{"p":-1073741823}
+p                              -1073741823
+
+{"p":-234}
+p                              -234
+
+{"p":-1}
+p                              -1
+
+{"p":0}
+p                              0
+
+{"p":1}
+p                              1
+
+{"p":2}
+p                              2
+
+{"p":123}
+p                              123
+
+{"p":1073741822}
+p                              1073741822
+
+{"p":1073741823}
+p                              1073741823
+
+{"p":1073741824}
+p                              1073741824
+
+{"p":123.456}
+p                              123.456
+
+{"p":-123.456}
+p                              -123.456
+
+{"p":Infinity}
+p                              Infinity
+
+{"p":-Infinity}
+p                              -Infinity
+
+{"p":NaN}
+p                              NaN
+
+{"p":30064771072}
+p                              30064771072
+
+{"p":-4294967295}
+p                              -4294967295
+
+{"p":-8070730873353273345}
+p                              -8070730873353273345
+
+{"p":30064771072}
+p                              30064771072
+
+{"p":18446744069414584321}
+p                              18446744069414584321
+
+{"p":10376013200356278271}
+p                              10376013200356278271
+
+{"p":""}
+p                              
+
+{"p":"abc"}
+p                              abc
+
+{"p":"AbCd"}
+p                              AbCd
+
+{"p":"ABcdEFg\u0000Hij"}
+p                              ABcdEFg
+
+{"p":true}
+p                              NotIndexable
+
+{"p":false}
+p                              NotIndexable
+
+{"p":"2011-04-15T21:47:42.658Z"}
+p                              "2011-04-15T21:47:42.658Z"
+
+{"p":12}
+p                              12
+
+{"p":"String object"}
+p                              String object
+
+{"p":/./}
+p                              NotIndexable
+
+{"p":/./i}
+p                              NotIndexable
+
+{"p":/./g}
+p                              NotIndexable
+
+{"p":/./m}
+p                              NotIndexable
+
+{"p":/.*/i}
+p                              NotIndexable
+
+{"p":/\s+/gim}
+p                              NotIndexable
+
+{"p":/^.+abc$/gi}
+p                              NotIndexable
+
+{"p":/^s+regex.*$/gm}
+p                              NotIndexable
+
+{}
+
+{"a":1,"bb":"2"}
+a                              1
+bb                             2
+
+{"a":1,"bb":"2","":{}}
+a                              1
+bb                             2
+                               NotIndexable
+
+{"123":"6","a":1,"bb":"2","ccc":{"-":3,"d\u0000":4},"-1":5,"":7}
+123                            6
+a                              1
+bb                             2
+ccc                            NotIndexable
+-1                             5
+                               7
+
+{"a":{},"b":"(rt.a)"}
+a                              NotIndexable
+b                              NotIndexable
+
+{"a":{},"b":"(rt)"}
+a                              NotIndexable
+b                              NotIndexable
+
+{"a":{"b":null,"c":undefined,"d":{"e":"(rt)","f":"(rt.a)","g":"(rt.a.c)","h":"(rt.a)"}},"i":"(rt.a.d)","j":"(rt.a.d)"}
+a                              NotIndexable
+i                              NotIndexable
+j                              NotIndexable
+
+{}
+
+{"a":9,"b":10,"d":12}
+a                              9
+b                              10
+d                              12
+
+{"p0":null,"p1":undefined,"p2":true,"p3":false,"p4":-1073741825,"p5":-1073741824,"p6":-1073741823,"p7":-234,"p8":-1,"p9":0,"p10":1,"p11":2,"p12":123,"p13":1073741822,"p14":1073741823,"p15":1073741824,"p16":123.456,"p17":-123.456,"p18":Infinity,"p19":-Infinity,"p20":NaN,"p21":30064771072,"p22":-4294967295,"p23":-8070730873353273345,"p24":"(rt.p21)","p25":"(rt.p22)","p26":"(rt.p23)","p27":"","p28":"abc","p29":"AbCd","p30":"ABcdEFg\u0000Hij"}
+p0                             null
+p1                             NotIndexable
+p2                             NotIndexable
+p3                             NotIndexable
+p4                             -1073741825
+p5                             -1073741824
+p6                             -1073741823
+p7                             -234
+p8                             -1
+p9                             0
+p10                            1
+p11                            2
+p12                            123
+p13                            1073741822
+p14                            1073741823
+p15                            1073741824
+p16                            123.456
+p17                            -123.456
+p18                            Infinity
+p19                            -Infinity
+p20                            NaN
+p21                            30064771072
+p22                            -4294967295
+p23                            -8070730873353273345
+p24                            30064771072
+p25                            18446744069414584321
+p26                            10376013200356278271
+p27                            
+p28                            abc
+p29                            AbCd
+p30                            ABcdEFg
+
+{"p0":true,"p1":false,"p2":"2011-04-15T21:47:42.658Z","p3":12,"p4":"String object","p5":/./,"p6":/./i,"p7":/./g,"p8":/./m,"p9":/.*/i,"p10":/\s+/gim,"p11":/^.+abc$/gi,"p12":/^s+regex.*$/gm}
+p0                             NotIndexable
+p1                             NotIndexable
+p2                             "2011-04-15T21:47:42.658Z"
+p3                             12
+p4                             String object
+p5                             NotIndexable
+p6                             NotIndexable
+p7                             NotIndexable
+p8                             NotIndexable
+p9                             NotIndexable
+p10                            NotIndexable
+p11                            NotIndexable
+p12                            NotIndexable
+
+{"123":"6","a":1,"bb":"2","-":3,"d\u0000":4,"-1":5,"":7}
+123                            6
+a                              1
+bb                             2
+-                              3
+d 4
+-1                             5
+                               7
+
+{"a":{"a1":1,"a2":{"a21":2.1,"a22":{"a221":"a221","a222":2.22}}},"b":{"b1":"b1","b2":{"b21":"b21"}}}
+a.a1                           1
+a.a2.a21                       2.1
+a.a2.a22.a221                  a221
+a.a2.a22.a222                  2.22
+a.a2.a22.a223                  NoProperty, CanAdd
+b.b1                           b1
+b.b2.b21                       b21
+
+{"a":{"a1":"a1"},"b":{"b1":{"b11":{"b111":{"b1111":"(rt.a)"}}}},"c":"(rt.a)","d":"(rt)"}
+a.a1                           a1
+b.b1.b11.b111.b1111.a1         a1
+c.a1                           a1
+d.a.a1                         a1
+d.d.d.c.a1                     a1
+
+{"data":{"0":1,"1":2,"2":3,"3":4}}
+data                           NotIndexable
+
+{"a":{"a1":null,"a2":{"data":{"0":2,"1":3,"2":4,"3":5,"4":6,"5":7,"6":8,"7":9}}},"b":{"b1":undefined,"b2":"(rt.a.a2)","b3":"(rt.a.a2)"}}
+a.a2                           NotIndexable
+a.a2.width                     123
+b.b2.width                     123
+b.b2.height                    3456
+b.b3                           NotIndexable
+b.b3.data                      NotIndexable
+b.b3.type                      text/png
+b.b3.size                      18446744069414584321
+b.b3.compression               0.4
+b.b3.lastModifiedDate          "2011-11-15T13:44:00.000Z"
+
+{"abc":123}
+length                         NoProperty, CanAdd
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty, CanAdd
+length.length                  NoProperty, CanAdd
+length.abc.length              NoProperty, CanAdd
+
+{"length":123}
+length                         123
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty
+length.length                  NoProperty
+length.abc.length              NoProperty
+
+/abc/
+length                         NoProperty, CanAdd
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty, CanAdd
+length.length                  NoProperty, CanAdd
+length.abc.length              NoProperty, CanAdd
+
+[]
+length                         0
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty
+length.length                  NoProperty
+length.abc.length              NoProperty
+
+[...(179)]
+length                         179
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty
+length.length                  NoProperty
+length.abc.length              NoProperty
+
+[0,1,2,3,4,5,6,7,8,9,"(rt.0)","(rt.1)","(rt.2)","(rt.3)","(rt.4)","(rt.5)","(rt.6)","(rt.7)","(rt.8)","(rt.9)"...(28)]
+length                         28
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty
+length.length                  NoProperty
+length.abc.length              NoProperty
+
+"hello"
+length                         5
+lengt                          NoProperty
+lengtH                         NoProperty
+length                         NoProperty
+noprop.length                  NoProperty
+.length                        NoProperty
+length.                        NoProperty
+length.length                  NoProperty
+length.abc.length              NoProperty
+
+"hello"
+length                         5
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty
+length.length                  NoProperty
+length.abc.length              NoProperty
+
+/abcde/g
+source                         abcde
+global                         NotIndexable
+ignoreCase                     NotIndexable
+multiline                      NotIndexable
+source.length                  5
+sourcE                         NoProperty, CanAdd
+globaL                         NoProperty, CanAdd
+ignorecase                     NoProperty, CanAdd
+mulTiline                      NoProperty, CanAdd
+source.lEngth                  NoProperty
+.source                        NoProperty, CanAdd
+.global                        NoProperty, CanAdd
+.ignoreCase                    NoProperty, CanAdd
+.multiline                     NoProperty, CanAdd
+.source.length                 NoProperty, CanAdd
+source.                        NoProperty
+global.                        NoProperty
+ignoreCase.                    NoProperty
+multiline.                     NoProperty
+source.length.                 NoProperty
+source..length                 NoProperty
+source.source                  NoProperty
+global.global                  NoProperty
+ignoreCase.ignoreCase          NoProperty
+multiline.multiline            NoProperty
+source.length.length           NoProperty
+
+buf[]
+byteLength                     NoProperty, CanAdd
+
+buf[0,1,2]
+byteLength                     NoProperty, CanAdd
+
+buf[3,4,34,56]
+byteLength                     NoProperty, CanAdd
+
+buf[-1,2,-3,4,-5,6,-7]
+byteLength                     NoProperty, CanAdd
+
+i8[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i8[buf[0,1,2],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i8[buf[3,4,34,56],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i8[buf[-1,2,-3,4,-5,6,-7],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u8[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u8[buf[0,1,2],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u8[buf[3,4,34,56],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u8[buf[-1,2,-3,4,-5,6,-7],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i16[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i16[buf[0,0,1,0,2,0],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i16[buf[3,0,4,0,34,0,56,0],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i16[buf[-1,-1,2,0,-3,-1,4,0,-5,-1,6,0,-7,-1],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u16[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u16[buf[0,0,1,0,2,0],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u16[buf[3,0,4,0,34,0,56,0],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u16[buf[-1,-1,2,0,-3,-1,4,0,-5,-1,6,0,-7,-1],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i32[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i32[buf[0,0,0,0,1,0,0,0,2,0,0,0],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i32[buf[3,0,0,0,4,0,0,0,34,0,0,0,56,0,0,0],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i32[buf[-1,-1,-1,-1,2,0,0,0,-3,-1,-1,-1,4,0,0,0,-5,-1,-1,-1,6,0,0,0,-7,-1,-1,-1],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u32[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u32[buf[0,0,0,0,1,0,0,0,2,0,0,0],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u32[buf[3,0,0,0,4,0,0,0,34,0,0,0,56,0,0,0],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u32[buf[-1,-1,-1,-1,2,0,0,0,-3,-1,-1,-1,4,0,0,0,-5,-1,-1,-1,6,0,0,0,-7,-1,-1,-1],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f32[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f32[buf[0,0,0,0,0,0,-128,63,0,0,0,64],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f32[buf[0,0,64,64,0,0,-128,64,0,0,8,66,0,0,96,66],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f32[buf[0,0,-128,-65,0,0,0,64,0,0,64,-64,0,0,-128,64,0,0,-96,-64,0,0,-64,64,0,0,-32,-64],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f64[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f64[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,-16,63,0,0,0,0,0,0,0,64],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f64[buf[0,0,0,0,0,0,8,64,0,0,0,0,0,0,16,64,0,0,0,0,0,0,65,64,0,0,0,0,0,0,76,64],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f64[buf[0,0,0,0,0,0,-16,-65,0,0,0,0,0,0,0,64,0,0,0,0,0,0,8,-64,0,0,0,0,0,0,16,64,0,0,0,0,0,0,20,-64,0,0,0,0,0,0,24,64,0,0,0,0,0,0,28,-64],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+dv[buf[],byteOffset:0,byteLength:0]
+byteOffset                     NoProperty, CanAdd
+byteLength                     NoProperty, CanAdd
+
+dv[buf[0,1,2],byteOffset:0,byteLength:3]
+byteOffset                     NoProperty, CanAdd
+byteLength                     NoProperty, CanAdd
+
+dv[buf[3,4,34,56],byteOffset:0,byteLength:4]
+byteOffset                     NoProperty, CanAdd
+byteLength                     NoProperty, CanAdd
+
+dv[buf[-1,2,-3,4,-5,6,-7],byteOffset:0,byteLength:7]
+byteOffset                     NoProperty, CanAdd
+byteLength                     NoProperty, CanAdd
+
+i8[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u8[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i16[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u16[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i32[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u32[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f32[buf[0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f64[buf[0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+{"p0":i8[buf[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],byteOffset:0,length:1],"p1":u8["(rt.p0.buffer)",byteOffset:1,length:2],"p2":i16["(rt.p0.buffer)",byteOffset:2,length:3],"p3":u16["(rt.p0.buffer)",byteOffset:2,length:4],"p4":i32["(rt.p0.buffer)",byteOffset:4,length:0],"p5":u32["(rt.p0.buffer)",byteOffset:0,length:3],"p6":f32["(rt.p0.buffer)",byteOffset:4,length:3],"p7":f64["(rt.p0.buffer)",byteOffset:8,length:1],"p8":dv["(rt.p0.buffer)",byteOffset:3,byteLength:7]}
+p0                             NotIndexable
+p1                             NotIndexable
+p2                             NotIndexable
+p3                             NotIndexable
+p4                             NotIndexable
+p5                             NotIndexable
+p6                             NotIndexable
+p7                             NotIndexable
+p8                             NotIndexable
+
+[]
+
+[null]
+
+[undefined]
+
+[0]
+
+[...(2)]
+
+[0,null,undefined,,3,"4",{"a":5,"b":[6,7,8]}]
+
+[0,1,2]
+
+[1...10000:10000]
+
+[2...4294967294:4294967294,"4294967295":4294967295,"4294967296":4294967296]
+
+[{"a0":"(rt)","a1":"a1"},{"b":["(rt)","(rt)","(rt.0.a1)","(rt.1.b)"]}]
+
+[null,undefined,true,false,-1073741825,-1073741824,-1073741823,-234,-1,0,1,2,123,1073741822,1073741823,1073741824,123.456,-123.456,Infinity,-Infinity...(31)]
+
+[true,false,"2011-04-15T21:47:42.658Z",12,"String object",/./,/./i,/./g,/./m,/.*/i,/\s+/gim,/^.+abc$/gi,/^s+regex.*$/gm]
+
+["ab":4096]
+ab                             4096
+
+[null,"ab":4096]
+ab                             4096
+
+[undefined,"ab":4096]
+ab                             4096
+
+[0,"ab":4096]
+ab                             4096
+
+["ab":4096]
+ab                             4096
+
+[0,null,undefined,,3,"4",{"a":5,"b":[6,7,8]},"ab":4096]
+ab                             4096
+
+[0,1,2,"ab":4096]
+ab                             4096
+
+[1...10000:10000,"ab":4096]
+ab                             4096
+
+[2...4294967294:4294967294,"4294967295":4294967295,"4294967296":4294967296,"ab":4096]
+ab                             4096
+
+[{"a0":["(rt.0)",{"b":["(rt.0.a0)","(rt.0.a0)","a1","(rt.0.a0.1.b)"]}],"a1":"(rt.0.a0.1.b.2)"},"(rt.0.a0.1)","ab":4096]
+ab                             4096
+
+[null,undefined,true,false,-1073741825,-1073741824,-1073741823,-234,-1,0,1,2,123,1073741822,1073741823,1073741824,123.456,-123.456,Infinity,-Infinity...(31),"ab":4096]
+ab                             4096
+
+[true,false,"2011-04-15T21:47:42.658Z",12,"String object",/./,/./i,/./g,/./m,/.*/i,/\s+/gim,/^.+abc$/gi,/^s+regex.*$/gm,"ab":4096]
+ab                             4096
+
+[]
+
+[null]
+
+[undefined]
+
+[0]
+
+[...(2)]
+
+[0,null,undefined,,3,"4",{"a":5,"b":[6,7,8]}]
+
+[0,1,2]
+
+[1...10000:10000]
+
+[2...4294967294:4294967294,"4294967295":4294967295,"4294967296":4294967296]
+
+[{"a0":["(rt.0)",{"b":["(rt.0.a0)","(rt.0.a0)","a1","(rt.0.a0.1.b)"]}],"a1":"(rt.0.a0.1.b.2)"},"(rt.0.a0.1)"]
+
+[null,undefined,true,false,-1073741825,-1073741824,-1073741823,-234,-1,0,1,2,123,1073741822,1073741823,1073741824,123.456,-123.456,Infinity,-Infinity...(31)]
+
+[true,false,"2011-04-15T21:47:42.658Z",12,"String object",/./,/./i,/./g,/./m,/.*/i,/\s+/gim,/^.+abc$/gi,/^s+regex.*$/gm]
+
+["ab":4096]
+ab                             4096
+
+[null,"ab":4096]
+ab                             4096
+
+[undefined,"ab":4096]
+ab                             4096
+
+[0,"ab":4096]
+ab                             4096
+
+["ab":4096]
+ab                             4096
+
+[0,null,undefined,,3,"4",{"a":5,"b":[6,7,8]},"ab":4096]
+ab                             4096
+
+[0,1,2,"ab":4096]
+ab                             4096
+
+[1...10000:10000,"ab":4096]
+ab                             4096
+
+[2...4294967294:4294967294,"4294967295":4294967295,"4294967296":4294967296,"ab":4096]
+ab                             4096
+
+[{"a0":["(rt.0)",{"b":["(rt.0.a0)","(rt.0.a0)","a1","(rt.0.a0.1.b)"]}],"a1":"(rt.0.a0.1.b.2)"},"(rt.0.a0.1)","ab":4096]
+ab                             4096
+
+[null,undefined,true,false,-1073741825,-1073741824,-1073741823,-234,-1,0,1,2,123,1073741822,1073741823,1073741824,123.456,-123.456,Infinity,-Infinity...(31),"ab":4096]
+ab                             4096
+
+[true,false,"2011-04-15T21:47:42.658Z",12,"String object",/./,/./i,/./g,/./m,/.*/i,/\s+/gim,/^.+abc$/gi,/^s+regex.*$/gm,"ab":4096]
+ab                             4096
+
+{"a":["a1":"a1"],"b":[0,,2,"b1":"(rt.a)"]}
+a                              NotIndexable
+b                              NotIndexable
+b.b1.a1                        a1
+
+{"em":{ (Map) { } },"m1":{ (Map) { ["a":1] } },"m3":{ (Map) { ["b":2],["c":3],["d":4] } },"emwp":{ (Map) { },"x":5,"y":{"a":6} },"m1wp":{ (Map) { ["e":7] },"x":8,"y":{"a":9} },"m3wp":{ (Map) { ["f":10],["g":11],["h":12] },"x":13,"y":{"a":14} }}
+em                             NotIndexable
+m1                             NotIndexable
+m3                             NotIndexable
+emwp                           NotIndexable
+m1wp                           NotIndexable
+m3wp                           NotIndexable
+em.x                           NoProperty, CanAdd
+m1.x                           NoProperty, CanAdd
+m3.x                           NoProperty, CanAdd
+emwp.x                         5
+m1wp.x                         8
+m3wp.x                         13
+em.y.a                         NoProperty, CanAdd
+m1.y.a                         NoProperty, CanAdd
+m3.y.a                         NoProperty, CanAdd
+emwp.y.a                       6
+m1wp.y.a                       9
+m3wp.y.a                       14
+
+{"es":{ (Set) { } },"s1":{ (Set) { 1 } },"s3":{ (Set) { 2,3,4 } },"eswp":{ (Set) { },"x":5,"y":{"a":6} },"s1wp":{ (Set) { 7 },"x":8,"y":{"a":9} },"s3wp":{ (Set) { 10,11,12 },"x":13,"y":{"a":14} }}
+es                             NotIndexable
+s1                             NotIndexable
+s3                             NotIndexable
+eswp                           NotIndexable
+s1wp                           NotIndexable
+s3wp                           NotIndexable
+es.x                           NoProperty, CanAdd
+s1.x                           NoProperty, CanAdd
+s3.x                           NoProperty, CanAdd
+eswp.x                         5
+s1wp.x                         8
+s3wp.x                         13
+es.y.a                         NoProperty, CanAdd
+s1.y.a                         NoProperty, CanAdd
+s3.y.a                         NoProperty, CanAdd
+eswp.y.a                       6
+s1wp.y.a                       9
+s3wp.y.a                       14
+
+null
+
+undefined
+
+true
+
+false
+
+-1073741825
+
+-1073741824
+
+-1073741823
+
+-234
+
+-1
+
+0
+
+1
+
+2
+
+123
+
+1073741822
+
+1073741823
+
+1073741824
+
+123.456
+
+-123.456
+
+Infinity
+
+-Infinity
+
+NaN
+
+30064771072
+
+-4294967295
+
+-8070730873353273345
+
+30064771072
+
+18446744069414584321
+
+10376013200356278271
+
+""
+
+"abc"
+0                              NoProperty
+1                              NoProperty
+2                              NoProperty
+
+"AbCd"
+0                              NoProperty
+1                              NoProperty
+2                              NoProperty
+3                              NoProperty
+
+"ABcdEFg\u0000Hij"
+0                              NoProperty
+1                              NoProperty
+2                              NoProperty
+3                              NoProperty
+4                              NoProperty
+5                              NoProperty
+6                              NoProperty
+7                              NoProperty
+8                              NoProperty
+9                              NoProperty
+10                             NoProperty
+
+true
+
+false
+
+"2011-04-15T21:47:42.658Z"
+
+12
+
+"String object"
+0                              NoProperty, CanAdd
+1                              NoProperty, CanAdd
+2                              NoProperty, CanAdd
+3                              NoProperty, CanAdd
+4                              NoProperty, CanAdd
+5                              NoProperty, CanAdd
+6                              NoProperty, CanAdd
+7                              NoProperty, CanAdd
+8                              NoProperty, CanAdd
+9                              NoProperty, CanAdd
+10                             NoProperty, CanAdd
+11                             NoProperty, CanAdd
+12                             NoProperty, CanAdd
+
+/./
+
+/./i
+
+/./g
+
+/./m
+
+/.*/i
+
+/\s+/gim
+
+/^.+abc$/gi
+
+/^s+regex.*$/gm
+
+{"p":null}
+p                              null
+
+{"p":undefined}
+p                              NotIndexable
+
+{"p":true}
+p                              NotIndexable
+
+{"p":false}
+p                              NotIndexable
+
+{"p":-1073741825}
+p                              -1073741825
+
+{"p":-1073741824}
+p                              -1073741824
+
+{"p":-1073741823}
+p                              -1073741823
+
+{"p":-234}
+p                              -234
+
+{"p":-1}
+p                              -1
+
+{"p":0}
+p                              0
+
+{"p":1}
+p                              1
+
+{"p":2}
+p                              2
+
+{"p":123}
+p                              123
+
+{"p":1073741822}
+p                              1073741822
+
+{"p":1073741823}
+p                              1073741823
+
+{"p":1073741824}
+p                              1073741824
+
+{"p":123.456}
+p                              123.456
+
+{"p":-123.456}
+p                              -123.456
+
+{"p":Infinity}
+p                              Infinity
+
+{"p":-Infinity}
+p                              -Infinity
+
+{"p":NaN}
+p                              NaN
+
+{"p":30064771072}
+p                              30064771072
+
+{"p":-4294967295}
+p                              -4294967295
+
+{"p":-8070730873353273345}
+p                              -8070730873353273345
+
+{"p":30064771072}
+p                              30064771072
+
+{"p":18446744069414584321}
+p                              18446744069414584321
+
+{"p":10376013200356278271}
+p                              10376013200356278271
+
+{"p":""}
+p                              
+
+{"p":"abc"}
+p                              abc
+
+{"p":"AbCd"}
+p                              AbCd
+
+{"p":"ABcdEFg\u0000Hij"}
+p                              ABcdEFg
+
+{"p":true}
+p                              NotIndexable
+
+{"p":false}
+p                              NotIndexable
+
+{"p":"2011-04-15T21:47:42.658Z"}
+p                              "2011-04-15T21:47:42.658Z"
+
+{"p":12}
+p                              12
+
+{"p":"String object"}
+p                              String object
+
+{"p":/./}
+p                              NotIndexable
+
+{"p":/./i}
+p                              NotIndexable
+
+{"p":/./g}
+p                              NotIndexable
+
+{"p":/./m}
+p                              NotIndexable
+
+{"p":/.*/i}
+p                              NotIndexable
+
+{"p":/\s+/gim}
+p                              NotIndexable
+
+{"p":/^.+abc$/gi}
+p                              NotIndexable
+
+{"p":/^s+regex.*$/gm}
+p                              NotIndexable
+
+{}
+
+{"a":1,"bb":"2"}
+a                              1
+bb                             2
+
+{"a":1,"bb":"2","":{}}
+a                              1
+bb                             2
+                               NotIndexable
+
+{"123":"6","a":1,"bb":"2","ccc":{"-":3,"d\u0000":4},"-1":5,"":7}
+123                            6
+a                              1
+bb                             2
+ccc                            NotIndexable
+-1                             5
+                               7
+
+{"a":{},"b":"(rt.a)"}
+a                              NotIndexable
+b                              NotIndexable
+
+{"a":{},"b":"(rt)"}
+a                              NotIndexable
+b                              NotIndexable
+
+{"a":{"b":null,"c":undefined,"d":{"e":"(rt)","f":"(rt.a)","g":"(rt.a.c)","h":"(rt.a)"}},"i":"(rt.a.d)","j":"(rt.a.d)"}
+a                              NotIndexable
+i                              NotIndexable
+j                              NotIndexable
+
+{}
+
+{"a":9,"b":10,"d":12}
+a                              9
+b                              10
+d                              12
+
+{"p0":null,"p1":undefined,"p2":true,"p3":false,"p4":-1073741825,"p5":-1073741824,"p6":-1073741823,"p7":-234,"p8":-1,"p9":0,"p10":1,"p11":2,"p12":123,"p13":1073741822,"p14":1073741823,"p15":1073741824,"p16":123.456,"p17":-123.456,"p18":Infinity,"p19":-Infinity,"p20":NaN,"p21":30064771072,"p22":-4294967295,"p23":-8070730873353273345,"p24":"(rt.p21)","p25":"(rt.p22)","p26":"(rt.p23)","p27":"","p28":"abc","p29":"AbCd","p30":"ABcdEFg\u0000Hij"}
+p0                             null
+p1                             NotIndexable
+p2                             NotIndexable
+p3                             NotIndexable
+p4                             -1073741825
+p5                             -1073741824
+p6                             -1073741823
+p7                             -234
+p8                             -1
+p9                             0
+p10                            1
+p11                            2
+p12                            123
+p13                            1073741822
+p14                            1073741823
+p15                            1073741824
+p16                            123.456
+p17                            -123.456
+p18                            Infinity
+p19                            -Infinity
+p20                            NaN
+p21                            30064771072
+p22                            -4294967295
+p23                            -8070730873353273345
+p24                            30064771072
+p25                            18446744069414584321
+p26                            10376013200356278271
+p27                            
+p28                            abc
+p29                            AbCd
+p30                            ABcdEFg
+
+{"p0":true,"p1":false,"p2":"2011-04-15T21:47:42.658Z","p3":12,"p4":"String object","p5":/./,"p6":/./i,"p7":/./g,"p8":/./m,"p9":/.*/i,"p10":/\s+/gim,"p11":/^.+abc$/gi,"p12":/^s+regex.*$/gm}
+p0                             NotIndexable
+p1                             NotIndexable
+p2                             "2011-04-15T21:47:42.658Z"
+p3                             12
+p4                             String object
+p5                             NotIndexable
+p6                             NotIndexable
+p7                             NotIndexable
+p8                             NotIndexable
+p9                             NotIndexable
+p10                            NotIndexable
+p11                            NotIndexable
+p12                            NotIndexable
+
+{"123":"6","a":1,"bb":"2","-":3,"d\u0000":4,"-1":5,"":7}
+123                            6
+a                              1
+bb                             2
+-                              3
+d 4
+-1                             5
+                               7
+
+{"a":{"a1":1,"a2":{"a21":2.1,"a22":{"a221":"a221","a222":2.22}}},"b":{"b1":"b1","b2":{"b21":"b21"}}}
+a.a1                           1
+a.a2.a21                       2.1
+a.a2.a22.a221                  a221
+a.a2.a22.a222                  2.22
+a.a2.a22.a223                  NoProperty, CanAdd
+b.b1                           b1
+b.b2.b21                       b21
+
+{"a":{"a1":"a1"},"b":{"b1":{"b11":{"b111":{"b1111":"(rt.a)"}}}},"c":"(rt.a)","d":"(rt)"}
+a.a1                           a1
+b.b1.b11.b111.b1111.a1         a1
+c.a1                           a1
+d.a.a1                         a1
+d.d.d.c.a1                     a1
+
+{"data":{"0":1,"1":2,"2":3,"3":4}}
+data                           NotIndexable
+
+{"a":{"a1":null,"a2":{"data":{"0":2,"1":3,"2":4,"3":5,"4":6,"5":7,"6":8,"7":9}}},"b":{"b1":undefined,"b2":"(rt.a.a2)","b3":"(rt.a.a2)"}}
+a.a2                           NotIndexable
+a.a2.width                     123
+b.b2.width                     123
+b.b2.height                    3456
+b.b3                           NotIndexable
+b.b3.data                      NotIndexable
+b.b3.type                      text/png
+b.b3.size                      18446744069414584321
+b.b3.compression               0.4
+b.b3.lastModifiedDate          "2011-11-15T13:44:00.000Z"
+
+{"abc":123}
+length                         NoProperty, CanAdd
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty, CanAdd
+length.length                  NoProperty, CanAdd
+length.abc.length              NoProperty, CanAdd
+
+{"length":123}
+length                         123
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty
+length.length                  NoProperty
+length.abc.length              NoProperty
+
+/abc/
+length                         NoProperty, CanAdd
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty, CanAdd
+length.length                  NoProperty, CanAdd
+length.abc.length              NoProperty, CanAdd
+
+[]
+length                         0
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty
+length.length                  NoProperty
+length.abc.length              NoProperty
+
+[...(179)]
+length                         179
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty
+length.length                  NoProperty
+length.abc.length              NoProperty
+
+[0,1,2,3,4,5,6,7,8,9,"(rt.0)","(rt.1)","(rt.2)","(rt.3)","(rt.4)","(rt.5)","(rt.6)","(rt.7)","(rt.8)","(rt.9)"...(28)]
+length                         28
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty
+length.length                  NoProperty
+length.abc.length              NoProperty
+
+"hello"
+length                         5
+lengt                          NoProperty
+lengtH                         NoProperty
+length                         NoProperty
+noprop.length                  NoProperty
+.length                        NoProperty
+length.                        NoProperty
+length.length                  NoProperty
+length.abc.length              NoProperty
+
+"hello"
+length                         5
+lengt                          NoProperty, CanAdd
+lengtH                         NoProperty, CanAdd
+length                         NoProperty, CanAdd
+noprop.length                  NoProperty, CanAdd
+.length                        NoProperty, CanAdd
+length.                        NoProperty
+length.length                  NoProperty
+length.abc.length              NoProperty
+
+/abcde/g
+source                         abcde
+global                         NotIndexable
+ignoreCase                     NotIndexable
+multiline                      NotIndexable
+source.length                  5
+sourcE                         NoProperty, CanAdd
+globaL                         NoProperty, CanAdd
+ignorecase                     NoProperty, CanAdd
+mulTiline                      NoProperty, CanAdd
+source.lEngth                  NoProperty
+.source                        NoProperty, CanAdd
+.global                        NoProperty, CanAdd
+.ignoreCase                    NoProperty, CanAdd
+.multiline                     NoProperty, CanAdd
+.source.length                 NoProperty, CanAdd
+source.                        NoProperty
+global.                        NoProperty
+ignoreCase.                    NoProperty
+multiline.                     NoProperty
+source.length.                 NoProperty
+source..length                 NoProperty
+source.source                  NoProperty
+global.global                  NoProperty
+ignoreCase.ignoreCase          NoProperty
+multiline.multiline            NoProperty
+source.length.length           NoProperty
+
+buf[]
+byteLength                     NoProperty, CanAdd
+
+buf[0,1,2]
+byteLength                     NoProperty, CanAdd
+
+buf[3,4,34,56]
+byteLength                     NoProperty, CanAdd
+
+buf[-1,2,-3,4,-5,6,-7]
+byteLength                     NoProperty, CanAdd
+
+i8[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i8[buf[0,1,2],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i8[buf[3,4,34,56],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i8[buf[-1,2,-3,4,-5,6,-7],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u8[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u8[buf[0,1,2],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u8[buf[3,4,34,56],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u8[buf[-1,2,-3,4,-5,6,-7],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i16[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i16[buf[0,0,1,0,2,0],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i16[buf[3,0,4,0,34,0,56,0],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i16[buf[-1,-1,2,0,-3,-1,4,0,-5,-1,6,0,-7,-1],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u16[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u16[buf[0,0,1,0,2,0],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u16[buf[3,0,4,0,34,0,56,0],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u16[buf[-1,-1,2,0,-3,-1,4,0,-5,-1,6,0,-7,-1],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i32[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i32[buf[0,0,0,0,1,0,0,0,2,0,0,0],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i32[buf[3,0,0,0,4,0,0,0,34,0,0,0,56,0,0,0],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i32[buf[-1,-1,-1,-1,2,0,0,0,-3,-1,-1,-1,4,0,0,0,-5,-1,-1,-1,6,0,0,0,-7,-1,-1,-1],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u32[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u32[buf[0,0,0,0,1,0,0,0,2,0,0,0],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u32[buf[3,0,0,0,4,0,0,0,34,0,0,0,56,0,0,0],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u32[buf[-1,-1,-1,-1,2,0,0,0,-3,-1,-1,-1,4,0,0,0,-5,-1,-1,-1,6,0,0,0,-7,-1,-1,-1],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f32[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f32[buf[0,0,0,0,0,0,-128,63,0,0,0,64],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f32[buf[0,0,64,64,0,0,-128,64,0,0,8,66,0,0,96,66],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f32[buf[0,0,-128,-65,0,0,0,64,0,0,64,-64,0,0,-128,64,0,0,-96,-64,0,0,-64,64,0,0,-32,-64],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f64[buf[],byteOffset:0,length:0]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f64[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,-16,63,0,0,0,0,0,0,0,64],byteOffset:0,length:3]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f64[buf[0,0,0,0,0,0,8,64,0,0,0,0,0,0,16,64,0,0,0,0,0,0,65,64,0,0,0,0,0,0,76,64],byteOffset:0,length:4]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f64[buf[0,0,0,0,0,0,-16,-65,0,0,0,0,0,0,0,64,0,0,0,0,0,0,8,-64,0,0,0,0,0,0,16,64,0,0,0,0,0,0,20,-64,0,0,0,0,0,0,24,64,0,0,0,0,0,0,28,-64],byteOffset:0,length:7]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+dv[buf[],byteOffset:0,byteLength:0]
+byteOffset                     NoProperty, CanAdd
+byteLength                     NoProperty, CanAdd
+
+dv[buf[0,1,2],byteOffset:0,byteLength:3]
+byteOffset                     NoProperty, CanAdd
+byteLength                     NoProperty, CanAdd
+
+dv[buf[3,4,34,56],byteOffset:0,byteLength:4]
+byteOffset                     NoProperty, CanAdd
+byteLength                     NoProperty, CanAdd
+
+dv[buf[-1,2,-3,4,-5,6,-7],byteOffset:0,byteLength:7]
+byteOffset                     NoProperty, CanAdd
+byteLength                     NoProperty, CanAdd
+
+i8[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u8[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i16[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u16[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+i32[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+u32[buf[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f32[buf[0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1,0,0,-64,-1],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+f64[buf[0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1,0,0,0,0,0,0,-8,-1],byteOffset:0,length:65536]
+byteOffset                     NoProperty, CanAdd
+length                         NoProperty, CanAdd
+
+{"p0":i8[buf[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],byteOffset:0,length:1],"p1":u8["(rt.p0.buffer)",byteOffset:1,length:2],"p2":i16["(rt.p0.buffer)",byteOffset:2,length:3],"p3":u16["(rt.p0.buffer)",byteOffset:2,length:4],"p4":i32["(rt.p0.buffer)",byteOffset:4,length:0],"p5":u32["(rt.p0.buffer)",byteOffset:0,length:3],"p6":f32["(rt.p0.buffer)",byteOffset:4,length:3],"p7":f64["(rt.p0.buffer)",byteOffset:8,length:1],"p8":dv["(rt.p0.buffer)",byteOffset:3,byteLength:7]}
+p0                             NotIndexable
+p1                             NotIndexable
+p2                             NotIndexable
+p3                             NotIndexable
+p4                             NotIndexable
+p5                             NotIndexable
+p6                             NotIndexable
+p7                             NotIndexable
+p8                             NotIndexable
+
+[]
+
+[null]
+
+[undefined]
+
+[0]
+
+[...(2)]
+
+[0,null,undefined,,3,"4",{"a":5,"b":[6,7,8]}]
+
+[0,1,2]
+
+[1...10000:10000]
+
+[2...4294967294:4294967294,"4294967295":4294967295,"4294967296":4294967296]
+
+[{"a0":"(rt)","a1":"a1"},{"b":["(rt)","(rt)","(rt.0.a1)","(rt.1.b)"]}]
+
+[null,undefined,true,false,-1073741825,-1073741824,-1073741823,-234,-1,0,1,2,123,1073741822,1073741823,1073741824,123.456,-123.456,Infinity,-Infinity...(31)]
+
+[true,false,"2011-04-15T21:47:42.658Z",12,"String object",/./,/./i,/./g,/./m,/.*/i,/\s+/gim,/^.+abc$/gi,/^s+regex.*$/gm]
+
+["ab":4096]
+ab                             4096
+
+[null,"ab":4096]
+ab                             4096
+
+[undefined,"ab":4096]
+ab                             4096
+
+[0,"ab":4096]
+ab                             4096
+
+["ab":4096]
+ab                             4096
+
+[0,null,undefined,,3,"4",{"a":5,"b":[6,7,8]},"ab":4096]
+ab                             4096
+
+[0,1,2,"ab":4096]
+ab                             4096
+
+[1...10000:10000,"ab":4096]
+ab                             4096
+
+[2...4294967294:4294967294,"4294967295":4294967295,"4294967296":4294967296,"ab":4096]
+ab                             4096
+
+[{"a0":["(rt.0)",{"b":["(rt.0.a0)","(rt.0.a0)","a1","(rt.0.a0.1.b)"]}],"a1":"(rt.0.a0.1.b.2)"},"(rt.0.a0.1)","ab":4096]
+ab                             4096
+
+[null,undefined,true,false,-1073741825,-1073741824,-1073741823,-234,-1,0,1,2,123,1073741822,1073741823,1073741824,123.456,-123.456,Infinity,-Infinity...(31),"ab":4096]
+ab                             4096
+
+[true,false,"2011-04-15T21:47:42.658Z",12,"String object",/./,/./i,/./g,/./m,/.*/i,/\s+/gim,/^.+abc$/gi,/^s+regex.*$/gm,"ab":4096]
+ab                             4096
+
+[]
+
+[null]
+
+[undefined]
+
+[0]
+
+[...(2)]
+
+[0,null,undefined,,3,"4",{"a":5,"b":[6,7,8]}]
+
+[0,1,2]
+
+[1...10000:10000]
+
+[2...4294967294:4294967294,"4294967295":4294967295,"4294967296":4294967296]
+
+[{"a0":["(rt.0)",{"b":["(rt.0.a0)","(rt.0.a0)","a1","(rt.0.a0.1.b)"]}],"a1":"(rt.0.a0.1.b.2)"},"(rt.0.a0.1)"]
+
+[null,undefined,true,false,-1073741825,-1073741824,-1073741823,-234,-1,0,1,2,123,1073741822,1073741823,1073741824,123.456,-123.456,Infinity,-Infinity...(31)]
+
+[true,false,"2011-04-15T21:47:42.658Z",12,"String object",/./,/./i,/./g,/./m,/.*/i,/\s+/gim,/^.+abc$/gi,/^s+regex.*$/gm]
+
+["ab":4096]
+ab                             4096
+
+[null,"ab":4096]
+ab                             4096
+
+[undefined,"ab":4096]
+ab                             4096
+
+[0,"ab":4096]
+ab                             4096
+
+["ab":4096]
+ab                             4096
+
+[0,null,undefined,,3,"4",{"a":5,"b":[6,7,8]},"ab":4096]
+ab                             4096
+
+[0,1,2,"ab":4096]
+ab                             4096
+
+[1...10000:10000,"ab":4096]
+ab                             4096
+
+[2...4294967294:4294967294,"4294967295":4294967295,"4294967296":4294967296,"ab":4096]
+ab                             4096
+
+[{"a0":["(rt.0)",{"b":["(rt.0.a0)","(rt.0.a0)","a1","(rt.0.a0.1.b)"]}],"a1":"(rt.0.a0.1.b.2)"},"(rt.0.a0.1)","ab":4096]
+ab                             4096
+
+[null,undefined,true,false,-1073741825,-1073741824,-1073741823,-234,-1,0,1,2,123,1073741822,1073741823,1073741824,123.456,-123.456,Infinity,-Infinity...(31),"ab":4096]
+ab                             4096
+
+[true,false,"2011-04-15T21:47:42.658Z",12,"String object",/./,/./i,/./g,/./m,/.*/i,/\s+/gim,/^.+abc$/gi,/^s+regex.*$/gm,"ab":4096]
+ab                             4096
+
+{"a":["a1":"a1"],"b":[0,,2,"b1":"(rt.a)"]}
+a                              []
+b                              NotIndexable
+b.b1.a1                        a1
+
+{"em":{ (Map) { } },"m1":{ (Map) { ["a":1] } },"m3":{ (Map) { ["b":2],["c":3],["d":4] } },"emwp":{ (Map) { },"x":5,"y":{"a":6} },"m1wp":{ (Map) { ["e":7] },"x":8,"y":{"a":9} },"m3wp":{ (Map) { ["f":10],["g":11],["h":12] },"x":13,"y":{"a":14} }}
+em                             NotIndexable
+m1                             NotIndexable
+m3                             NotIndexable
+emwp                           NotIndexable
+m1wp                           NotIndexable
+m3wp                           NotIndexable
+em.x                           NoProperty, CanAdd
+m1.x                           NoProperty, CanAdd
+m3.x                           NoProperty, CanAdd
+emwp.x                         5
+m1wp.x                         8
+m3wp.x                         13
+em.y.a                         NoProperty, CanAdd
+m1.y.a                         NoProperty, CanAdd
+m3.y.a                         NoProperty, CanAdd
+emwp.y.a                       6
+m1wp.y.a                       9
+m3wp.y.a                       14
+
+{"es":{ (Set) { } },"s1":{ (Set) { 1 } },"s3":{ (Set) { 2,3,4 } },"eswp":{ (Set) { },"x":5,"y":{"a":6} },"s1wp":{ (Set) { 7 },"x":8,"y":{"a":9} },"s3wp":{ (Set) { 10,11,12 },"x":13,"y":{"a":14} }}
+es                             NotIndexable
+s1                             NotIndexable
+s3                             NotIndexable
+eswp                           NotIndexable
+s1wp                           NotIndexable
+s3wp                           NotIndexable
+es.x                           NoProperty, CanAdd
+s1.x                           NoProperty, CanAdd
+s3.x                           NoProperty, CanAdd
+eswp.x                         5
+s1wp.x                         8
+s3wp.x                         13
+es.y.a                         NoProperty, CanAdd
+s1.y.a                         NoProperty, CanAdd
+s3.y.a                         NoProperty, CanAdd
+eswp.y.a                       6
+s1wp.y.a                       9
+s3wp.y.a                       14
+

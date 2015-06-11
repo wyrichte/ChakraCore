@@ -1,0 +1,26 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 135,
+        "length": 26,
+        "text": "Map.prototype.has.call({})",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 281,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "2",
+      "[Globals]": ""
+    }
+  }
+]

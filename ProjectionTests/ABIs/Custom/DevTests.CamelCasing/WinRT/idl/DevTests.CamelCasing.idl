@@ -1,0 +1,838 @@
+//  Copyright (c) Microsoft Corporation. All rights reserved.
+//
+//  WindowsRuntimeAPISet
+
+import "oaidl.idl";
+import "ocidl.idl";
+import "hstring.idl";
+import "inspectable.idl";
+import "EventToken.idl";
+
+#include <sdkddkver.h>
+midl_pragma warning ( disable: 4066 )
+
+namespace DevTests.CamelCasing {
+
+    interface IStringVariations;
+    interface IStaticStringVariations;
+
+    [version(NTDDI_WIN8), object, uuid(F0228922-42FD-44B8-A642-070618FE72C2)]
+    delegate HRESULT CamelCasingHandler([in] IStringVariations *sender, [in] HSTRING firedFrom);
+
+    [version(NTDDI_WIN8), object, uuid(A0AE4393-A58E-4F60-996B-AAA04A0616F9)]
+    delegate HRESULT StaticCamelCasingHandler([in] IStaticStringVariations *sender, [in] HSTRING firedFrom);
+
+    [version(NTDDI_WIN8)]
+    typedef struct StructStringVariations
+    {
+        HSTRING PascalField;
+        HSTRING UPPERCASEFIELD;
+        HSTRING IInterfaceField;
+        HSTRING camelField;
+     
+        HSTRING _PrivatePascalField;
+        HSTRING _PRIVATEUPPERCASEFIELD;
+        HSTRING _IInterfacePrivateField;
+        HSTRING _privateCamelField;
+
+        HSTRING F12;
+        HSTRING HD1080p;
+        HSTRING SP800108CtrHmacMd5;
+        HSTRING UInt32;
+        HSTRING NONCASED_CHAR;
+        HSTRING IPTwoLetterAcronym;
+    } StructStringVariations;
+
+    [version(NTDDI_WIN8)]
+    typedef enum StringVariationsEvent
+    {
+        PascalEvent = 0, 
+        UPPERCASEEVENT, 
+        IInterfaceEvent, 
+        camelEvent,
+        _PrivatePascalEvent,
+        _PRIVATEUPPERCASEEVENT,
+        _IInterfacePrivateEvent,
+        _privateCamelEvent,
+        F8Event,
+        ECDH521Event,
+        UInt16Event,
+        NONCASED_EVENT,
+        UITwoLetterAcronymEvent
+    } StringVariationsEvent;
+
+    [version(NTDDI_WIN8)]
+    typedef enum StaticStringVariationsEvent
+    {
+        PascalStaticEvent = 0, 
+        UPPERCASESTATICEVENT, 
+        IInterfaceStaticEvent, 
+        camelStaticEvent,
+        _PrivatePascalStaticEvent,
+        _PRIVATEUPPERCASESTATICEVENT,
+        _IInterfacePrivateStaticEvent,
+        _privateCamelStaticEvent
+    } StaticStringVariationsEvent;
+
+    [version(NTDDI_WIN8), uuid(B536FF80-1408-481A-9FD2-1AE4D10E1B9B)]
+    interface IStringVariations : IInspectable
+    {
+        HRESULT FireEvent([in] StringVariationsEvent evt);
+    }
+
+    [version(NTDDI_WIN8), uuid(60C25910-4CC1-4D4A-A135-6077F25E5715)]
+    interface IStaticStringVariations : IInspectable
+    {
+        HRESULT StaticFireEvent([in] StaticStringVariationsEvent event);
+    }
+
+    [version(NTDDI_WIN8), uuid(9F756125-3945-4CEF-BD29-7E0D2F7DFA4B)]
+    interface ICasing : IInspectable
+    {
+        // Structs
+        [propget] HRESULT Struct([out,retval] StructStringVariations * value);
+
+        // Events
+        [eventadd] HRESULT PascalEvent(
+            [in] CamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT PascalEvent([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT UPPERCASEEVENT(
+            [in] CamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT UPPERCASEEVENT([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT IInterfaceEvent(
+            [in] CamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT IInterfaceEvent([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT camelEvent(
+            [in] CamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT camelEvent([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT F8Event(
+            [in] CamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT F8Event([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT ECDH521Event(
+            [in] CamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT ECDH521Event([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT UInt16Event(
+            [in] CamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT UInt16Event([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT NONCASED_EVENT(
+            [in] CamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT NONCASED_EVENT([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT UITwoLetterAcronymEvent(
+            [in] CamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT UITwoLetterAcronymEvent([in] EventRegistrationToken eventCookie);
+
+        // Properties
+        [propget] HRESULT PascalProperty([out,retval] HSTRING * value);
+        [propget] HRESULT PascalPropertyWritable([out,retval] int * value);
+        [propput] HRESULT PascalPropertyWritable([in] int value);
+
+        [propget] HRESULT ALLUPPERCASEPROPERTY([out,retval] HSTRING * value);
+
+        [propget] HRESULT IInterfacePropertyWritable([out,retval] int * value);
+        [propput] HRESULT IInterfacePropertyWritable([in] int value);
+
+        [propget] HRESULT camelProperty([out,retval] HSTRING * value);
+
+        // Methods
+        HRESULT PascalNotationMethod([out,retval]HSTRING * result);
+        HRESULT ALLUPPERCASEMETHOD([out,retval]HSTRING * result);
+        HRESULT IInterfaceMethod([out,retval]HSTRING * result);
+        HRESULT camelCaseMethod([out,retval]HSTRING * result);
+
+        // Additional strings
+        HRESULT F5([out,retval] HSTRING * result);
+        [propget] HRESULT HD720p([out,retval] HSTRING * value);
+        HRESULT SP80056aConcatMd5([out,retval] HSTRING * result);
+        [propget] HRESULT UInt8Array([out,retval] HSTRING * value);
+        [propget] HRESULT NONCASED_CHAR([out,retval] int * value);
+        [propput] HRESULT NONCASED_CHAR([in] int value);
+        HRESULT AITwoLetterAcronymMethod([out,retval] HSTRING * value);
+    }
+
+    [version(NTDDI_WIN8), uuid(2055AA2D-6FA7-4263-856C-82E3B40DC2AC)]
+    interface IPrivate : IInspectable
+    {
+        // Events
+        [eventadd] HRESULT _PrivatePascalEvent(
+            [in] CamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT _PrivatePascalEvent([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT _PRIVATEUPPERCASEEVENT(
+            [in] CamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT _PRIVATEUPPERCASEEVENT([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT _IInterfacePrivateEvent(
+            [in] CamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT _IInterfacePrivateEvent([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT _privateCamelEvent(
+            [in] CamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT _privateCamelEvent([in] EventRegistrationToken eventCookie);
+
+        // Properties
+        [propget] HRESULT _PrivatePascalProperty([out,retval] HSTRING * value);
+
+        [propget] HRESULT _PRIVATEUPPERCASEPROPERTYWRITABLE([out,retval] int * value);
+        [propput] HRESULT _PRIVATEUPPERCASEPROPERTYWRITABLE([in] int value);
+
+        [propget] HRESULT _IInterfacePrivateProperty([out,retval] HSTRING * value);
+
+        [propget] HRESULT _privateCamelPropertyWritable([out,retval] int * value);
+        [propput] HRESULT _privateCamelPropertyWritable([in] int value);
+
+        // Methods
+        HRESULT _PrivatePascalMethod([out,retval]HSTRING * result);
+        HRESULT _privateCamelMethod([out,retval]HSTRING * result);
+        HRESULT _PRIVATEUPPERCASEMETHOD([out,retval]HSTRING * result);
+        HRESULT _IInterfacePrivateMethod([out,retval]HSTRING * result);
+    }
+
+    [version(NTDDI_WIN8), uuid(A01BD350-1283-475E-8A05-81F7D080A8B7)]
+    interface ICasingStatic : IInspectable
+    {
+        // Events
+        [eventadd] HRESULT PascalStaticEvent(
+            [in] StaticCamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT PascalStaticEvent([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT UPPERCASESTATICEVENT(
+            [in] StaticCamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT UPPERCASESTATICEVENT([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT IInterfaceStaticEvent(
+            [in] StaticCamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT IInterfaceStaticEvent([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT camelStaticEvent(
+            [in] StaticCamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT camelStaticEvent([in] EventRegistrationToken eventCookie);
+
+        // Properties
+        [propget] HRESULT PascalStaticProperty([out,retval] HSTRING * value);
+        [propget] HRESULT PascalStaticPropertyWritable([out,retval] int * value);
+        [propput] HRESULT PascalStaticPropertyWritable([in] int value);
+
+        [propget] HRESULT ALLUPPERCASESTATICPROPERTYWRITABLE([out,retval] int * value);
+        [propput] HRESULT ALLUPPERCASESTATICPROPERTYWRITABLE([in] int value);
+
+        [propget] HRESULT IInterfaceStaticProperty([out,retval] HSTRING * value);
+
+        [propget] HRESULT camelStaticPropertyWritable([out,retval] int * value);
+        [propput] HRESULT camelStaticPropertyWritable([in] int value);
+
+        // Methods
+        HRESULT PascalStaticMethod([out,retval]HSTRING * result);
+        HRESULT ALLUPPERCASESTATICMETHOD([out,retval]HSTRING * result);
+        HRESULT IInterfaceStaticMethod([out,retval]HSTRING * result);
+        HRESULT camelStaticMethod([out,retval]HSTRING * result);
+
+        // Additional strings
+        HRESULT F11([out,retval] HSTRING * result);
+        [propget] HRESULT SMSReceived([out,retval] HSTRING * value);
+        HRESULT Y4Cb2Cr0([out,retval] HSTRING * result);
+        [propget] HRESULT UTF8([out,retval] HSTRING * value);
+        [propget] HRESULT NONCASED_CHARSTATIC([out,retval] int * value);
+        [propput] HRESULT NONCASED_CHARSTATIC([in] int value);
+        HRESULT MSTwoLetterAcronymMethod([out,retval] HSTRING * value);
+    }
+
+    [version(NTDDI_WIN8), uuid(8E9BD340-3BB9-4794-99B6-D1DA44C0C5B0)]
+    interface IPrivateStatic : IInspectable
+    {
+        // Events
+        [eventadd] HRESULT _PrivatePascalStaticEvent(
+            [in] StaticCamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT _PrivatePascalStaticEvent([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT _PRIVATEUPPERCASESTATICEVENT(
+            [in] StaticCamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT _PRIVATEUPPERCASESTATICEVENT([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT _IInterfacePrivateStaticEvent(
+            [in] StaticCamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT _IInterfacePrivateStaticEvent([in] EventRegistrationToken eventCookie);
+
+        [eventadd] HRESULT _privateCamelStaticEvent(
+            [in] StaticCamelCasingHandler * clickHandler,
+            [out,retval] EventRegistrationToken * eventCookie);
+        [eventremove] HRESULT _privateCamelStaticEvent([in] EventRegistrationToken eventCookie);
+
+        // Properties
+        [propget] HRESULT _PrivatePascalStaticPropertyWritable([out,retval] int * value);
+        [propput] HRESULT _PrivatePascalStaticPropertyWritable([in] int value);
+
+        [propget] HRESULT _PRIVATEUPPERCASESTATICPROPERTY([out,retval] HSTRING * value);
+
+        [propget] HRESULT _IInterfacePrivateStaticPropertyWritable([out,retval] int * value);
+        [propput] HRESULT _IInterfacePrivateStaticPropertyWritable([in] int value);
+
+        [propget] HRESULT _privateCamelStaticProperty([out,retval] HSTRING * value);
+
+        // Methods
+        HRESULT _PrivatePascalStaticMethod([out,retval]HSTRING * result);
+        HRESULT _privateCamelStaticMethod([out,retval]HSTRING * result);
+        HRESULT _PRIVATEUPPERCASESTATICMETHOD([out,retval]HSTRING * result);
+        HRESULT _IInterfacePrivateStaticMethod([out,retval]HSTRING * result);
+    }
+
+    [
+        version(NTDDI_WIN8), 
+        activatable(NTDDI_WIN8),
+        static(ICasingStatic, NTDDI_WIN8),
+        static(IPrivateStatic, NTDDI_WIN8),
+        static(IStaticStringVariations, NTDDI_WIN8)
+    ]
+    runtimeclass StringVariations
+    {
+        interface ICasing;
+        interface IPrivate;
+        [default] interface IStringVariations;
+    }
+
+    [version(NTDDI_WIN8), uuid(A5170241-A66A-4153-81E0-927F2DA5464C)]
+    interface IOverloadCasing : IInspectable
+    {
+        [overload("PascalNotationOverload")]
+        HRESULT PascalNotationOverload([out,retval]HSTRING * result);
+        [overload("PascalNotationOverload")]
+        HRESULT PascalNotationOverloadInt([in] int a, [out,retval]HSTRING * result);
+
+        [overload("ALLUPPERCASEOVERLOAD")]
+        HRESULT ALLUPPERCASEOVERLOAD([out,retval]HSTRING * result);
+        [overload("ALLUPPERCASEOVERLOAD")]
+        HRESULT ALLUPPERCASEOVERLOADINT([in] int a, [out,retval]HSTRING * result);
+
+        [overload("IInterfaceOverload")]
+        HRESULT IInterfaceOverload([out,retval]HSTRING * result);
+        [overload("IInterfaceOverload")]
+        HRESULT IInterfaceOverloadInt([in] int a, [out,retval]HSTRING * result);
+
+        [overload("camelCaseOverload")]
+        HRESULT camelCaseOverload([out,retval]HSTRING * result);
+        [overload("camelCaseOverload")]
+        HRESULT camelCaseOverloadInt([in] int a, [out,retval]HSTRING * result);
+    }
+
+    [version(NTDDI_WIN8), uuid(A70A1B55-D996-44C6-B397-0844E7F2E691)]
+    interface IPrivateOverloads : IInspectable
+    {
+        [overload("_PrivatePascalOverload")]
+        HRESULT _PrivatePascalOverload([out,retval]HSTRING * result);
+        [overload("_PrivatePascalOverload")]
+        HRESULT _PrivatePascalOverloadInt([in] int a, [out,retval]HSTRING * result);
+
+        [overload("_PRIVATEUPPERCASEOVERLOAD")]
+        HRESULT _PRIVATEUPPERCASEOVERLOAD([out,retval]HSTRING * result);
+        [overload("_PRIVATEUPPERCASEOVERLOAD")]
+        HRESULT _PRIVATEUPPERCASEOVERLOADINT([in] int a, [out,retval]HSTRING * result);
+
+        [overload("_IInterfacePrivateOverload")]
+        HRESULT _IInterfacePrivateOverload([out,retval]HSTRING * result);
+        [overload("_IInterfacePrivateOverload")]
+        HRESULT _IInterfacePrivateOverloadInt([in] int a, [out,retval]HSTRING * result);
+
+        [overload("_privateCamelOverload")]
+        HRESULT _privateCamelOverload([out,retval]HSTRING * result);
+        [overload("_privateCamelOverload")]
+        HRESULT _privateCamelOverloadInt([in] int a, [out,retval]HSTRING * result);
+    }
+
+    [version(NTDDI_WIN8), uuid(E18EEBED-253F-4A70-910C-0D3C502B0E9B)]
+    interface IOverloadCasingStatic : IInspectable
+    {
+        [overload("PascalStaticOverload")]
+        HRESULT PascalStaticOverload([out,retval]HSTRING * result);
+        [overload("PascalStaticOverload")]
+        HRESULT PascalStaticOverloadInt([in] int a, [out,retval]HSTRING * result);
+
+        [overload("UPPERCASESTATICOVERLOAD")]
+        HRESULT UPPERCASESTATICOVERLOAD([out,retval]HSTRING * result);
+        [overload("UPPERCASESTATICOVERLOAD")]
+        HRESULT UPPERCASESTATICOVERLOADINT([in] int a, [out,retval]HSTRING * result);
+
+        [overload("IInterfaceStaticOverload")]
+        HRESULT IInterfaceStaticOverload([out,retval]HSTRING * result);
+        [overload("IInterfaceStaticOverload")]
+        HRESULT IInterfaceStaticOverloadInt([in] int a, [out,retval]HSTRING * result);
+
+        [overload("camelStaticOverload")]
+        HRESULT camelStaticOverload([out,retval]HSTRING * result);
+        [overload("camelStaticOverload")]
+        HRESULT camelStaticOverloadInt([in] int a, [out,retval]HSTRING * result);
+    }
+
+    [version(NTDDI_WIN8), uuid(DAEE3543-9B12-49E6-B11A-DB624316D0F6)]
+    interface IPrivateOverloadsStatic : IInspectable
+    {
+        [overload("_PrivatePascalStaticOverload")]
+        HRESULT _PrivatePascalStaticOverload([out,retval]HSTRING * result);
+        [overload("_PrivatePascalStaticOverload")]
+        HRESULT _PrivatePascalStaticOverloadInt([in] int a, [out,retval]HSTRING * result);
+
+        [overload("_PRIVATEUPPERCASESTATICOVERLOAD")]
+        HRESULT _PRIVATEUPPERCASESTATICOVERLOAD([out,retval]HSTRING * result);
+        [overload("_PRIVATEUPPERCASESTATICOVERLOAD")]
+        HRESULT _PRIVATEUPPERCASESTATICOVERLOADINT([in] int a, [out,retval]HSTRING * result);
+
+        [overload("_IInterfacePrivateStaticOverload")]
+        HRESULT _IInterfacePrivateStaticOverload([out,retval]HSTRING * result);
+        [overload("_IInterfacePrivateStaticOverload")]
+        HRESULT _IInterfacePrivateStaticOverloadInt([in] int a, [out,retval]HSTRING * result);
+
+        [overload("_privateCamelStaticOverload")]
+        HRESULT _privateCamelStaticOverload([out,retval]HSTRING * result);
+        [overload("_privateCamelStaticOverload")]
+        HRESULT _privateCamelStaticOverloadInt([in] int a, [out,retval]HSTRING * result);
+    }
+
+    [
+        version(NTDDI_WIN8), 
+        activatable(NTDDI_WIN8),
+        static(IOverloadCasingStatic, NTDDI_WIN8),
+        static(IPrivateOverloadsStatic, NTDDI_WIN8)
+    ]
+    runtimeclass OverloadStringVariations
+    {
+        [default] interface IOverloadCasing;
+        interface IPrivateOverloads;
+    }
+    
+    namespace SimpleNameCollisions {
+        interface IInternalEventConflict;
+        interface IExternalEventConflict;
+        interface IExternalCamelConflict;
+
+        [version(NTDDI_WIN8), object, uuid(BE63ED97-0F20-4E08-BF3B-9AFB6B221AE6)]
+        delegate HRESULT InternalConflictHandler([in] IInternalEventConflict *sender, [in] HSTRING firedFrom);
+
+        [version(NTDDI_WIN8), object, uuid(E2C3AB66-7615-4489-92A2-C118B56C0712)]
+        delegate HRESULT ExternalConflictHandler([in] IExternalEventConflict *sender, [in] HSTRING firedFrom);
+
+        [version(NTDDI_WIN8), object, uuid(8BE3C813-D424-40D4-84E3-11EBFA8EE340)]
+        delegate HRESULT ExternalCamelConflictHandler([in] IExternalCamelConflict *sender, [in] HSTRING firedFrom);
+
+        [version(NTDDI_WIN8)]
+        typedef enum ConflictingEvents
+        {
+            InternalPascalEvent = 0,
+            InternalCamelEvent,
+            ExternalEvent,
+            ExternalCamelEvent
+        }ConflictingEvents;
+
+        [version(NTDDI_WIN8)]
+        typedef struct StructInternalConflict
+        {
+            int ConflictingField;
+        } StructInternalConflict;
+
+        [version(NTDDI_WIN8)]
+        typedef enum EnumInternalConflict
+        {
+            ConflictingField = 0
+        }EnumInternalConflict;
+
+        [version(NTDDI_WIN8), uuid(10799856-9DC7-4541-984C-ED8BD2132F06)]
+        interface IEmpty : IInspectable
+        {
+        }
+
+        [version(NTDDI_WIN8), uuid(4BDB3934-DE67-4A4D-9604-1D242868ECFD)]
+        interface IFireConflictingEvent : IInspectable
+        {
+            HRESULT FireEvent([in] ConflictingEvents evt);
+        }
+
+        [version(NTDDI_WIN8), uuid(959DA78B-FF24-48A6-970D-11A998C1F4B8)]
+        interface IStructConflict : IInspectable
+        {
+            [propget] HRESULT StructConflict([out,retval] StructInternalConflict * value);
+            [propput] HRESULT StructConflict([in] StructInternalConflict value);
+        }
+
+        [version(NTDDI_WIN8), uuid(302A7C4A-1829-40A5-A558-33E53784C55E)]
+        interface IInternalEventConflict : IInspectable
+        {
+            [eventadd] HRESULT ConflictingEvent(
+                [in] InternalConflictHandler * clickHandler,
+                [out,retval] EventRegistrationToken * eventCookie);
+            [eventremove] HRESULT ConflictingEvent([in] EventRegistrationToken eventCookie);
+
+            HRESULT addEventListener([out] HSTRING * result);
+
+            HRESULT RemoveEventListener([out] HSTRING * result);
+        }
+
+        [version(NTDDI_WIN8), uuid(203EB044-ACD8-4FC9-8616-278CA69550EF)]
+        interface IInternalConflict : IInspectable
+        {
+            [propget] HRESULT conflictingProperty([out,retval] int * value);
+            [propput] HRESULT conflictingProperty([in] int value);
+
+            HRESULT ConflictingMethod([in] int a, [out,retval]HSTRING * result);
+        }
+
+        [version(NTDDI_WIN8), uuid(795E4275-A8D5-4143-9435-0BFEB45604F5)]
+        interface IExternalEventConflict : IInspectable
+        {
+            [eventadd] HRESULT ConflictingEvent(
+                [in] ExternalConflictHandler * clickHandler,
+                [out,retval] EventRegistrationToken * eventCookie);
+            [eventremove] HRESULT ConflictingEvent([in] EventRegistrationToken eventCookie);
+        }
+
+        [version(NTDDI_WIN8), uuid(457C82C0-BA87-413E-BFAB-DEAA14A2D1CE)]
+        interface IExternalConflict : IInspectable
+        {
+            [propget] HRESULT ConflictingProperty([out,retval] HSTRING * value);
+
+            HRESULT ConflictingMethod([in] HSTRING a, [in] HSTRING b, [out,retval]HSTRING * result);
+        }
+
+        [version(NTDDI_WIN8), uuid(04DD00FC-12BA-47BB-8DCC-EC11DCB78005)]
+        interface IExternalConflict2 : IInspectable
+        {
+            [propget] HRESULT conflictingProperty([out,retval] HSTRING * value);
+            [propput] HRESULT conflictingProperty([in] HSTRING value);
+
+            HRESULT conflictingMethod([in] HSTRING a, [in] HSTRING b, [out,retval]HSTRING * result);
+        }
+
+        [version(NTDDI_WIN8), uuid(0BA09486-A47B-4BCE-AFD9-E98746D59420)]
+        interface IExternalPascalConflict : IInspectable
+        {
+            [propget] HRESULT ConflictingProperty([out,retval] int * value);
+            [propput] HRESULT ConflictingProperty([in] int value);
+
+            HRESULT ConflictingMethod([in] int a, [out,retval]HSTRING * result);
+        }
+
+        [version(NTDDI_WIN8), uuid(42FC5C90-4CD3-4E27-91DF-4EC6D80870CC)]
+        interface IExternalCamelEventConflict : IInspectable
+        {
+            [eventadd] HRESULT conflictingEvent(
+                [in] ExternalCamelConflictHandler * clickHandler,
+                [out,retval] EventRegistrationToken * eventCookie);
+            [eventremove] HRESULT conflictingEvent([in] EventRegistrationToken eventCookie);
+        }
+
+        [version(NTDDI_WIN8), uuid(80F6F188-2F5A-4321-9ED0-D97D6FB7DD3B)]
+        interface IExternalCamelConflict : IInspectable
+        {
+            [propget] HRESULT conflictingProperty([out,retval] int * value);
+
+            HRESULT conflictingMethod([in] int a, [out,retval]HSTRING * result);
+        }
+
+        [version(NTDDI_WIN8), uuid(5ED708FE-3DC3-411C-AB81-5EB4A54894A2)]
+        interface IDoubleConflict : IInspectable
+        {
+            [propget] HRESULT ConflictingProperty([out,retval] HSTRING * value);
+            [propput] HRESULT ConflictingProperty([in] HSTRING value);
+
+            HRESULT conflictingMethod([in] HSTRING a, [in] HSTRING b, [out,retval]HSTRING * result);
+        }
+
+        [version(NTDDI_WIN8), uuid(EEDD3B30-18DD-48A7-AC94-B6875323CC97)]
+        interface IEventMethodConflict : IInspectable
+        {
+            HRESULT AddEventListener([out] HSTRING * result);
+            [propget] HRESULT removeEventListener([out,retval] HSTRING * result);
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+        runtimeclass InternalConflict
+        {
+            [default] interface IInternalConflict;
+            interface IInternalEventConflict;
+            interface IStructConflict;
+            interface IFireConflictingEvent;
+        }
+
+        [
+            version(NTDDI_WIN8), 
+            static(IInternalConflict, NTDDI_WIN8),
+            static(IInternalEventConflict, NTDDI_WIN8),
+            static(IFireConflictingEvent, NTDDI_WIN8)
+        ]
+        runtimeclass StaticInternalConflict
+        {
+            [default] interface IEmpty;
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+        runtimeclass ExternalConflictSameCase
+        {
+            [default] interface IExternalConflict;
+            interface IExternalPascalConflict;
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+        runtimeclass ExternalConflictDifferentCase
+        {
+            [default] interface IExternalConflict;
+            interface IExternalEventConflict;
+            interface IExternalCamelConflict;
+            interface IExternalCamelEventConflict;
+            interface IEventMethodConflict;
+            interface IFireConflictingEvent;
+        }
+
+        [
+            version(NTDDI_WIN8), 
+            static(IExternalConflict, NTDDI_WIN8),
+            static(IExternalEventConflict, NTDDI_WIN8),
+            static(IEventMethodConflict, NTDDI_WIN8),
+            static(IFireConflictingEvent, NTDDI_WIN8)
+        ]
+        runtimeclass StaticExternalConflictDifferentCase
+        {
+            [default] interface IEmpty;
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+        runtimeclass InternalConflictWithExternalConflict
+        {
+            [default] interface IInternalConflict;
+            interface IExternalConflict;
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+        runtimeclass InternalConflictWithExternalConflict2
+        {
+            [default] interface IInternalConflict;
+            interface IExternalConflict2;
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+        runtimeclass DoubleConflict
+        {
+            interface IInternalConflict;
+            [default] interface IDoubleConflict;
+        }
+
+    }
+
+    namespace CrossMemberCollisions
+    {
+        [version(NTDDI_WIN8)]
+        typedef enum ConflictsWithBuiltIns
+        {
+            Apply = 0,
+            call,
+            Constructor,
+            hasOwnProperty,
+            IsPrototypeOf,
+            propertyIsEnumerable,
+            prototype,
+            ToLocalString,
+            ToString,
+            valueOf
+        }ConflictsWithBuiltIns;
+
+        [version(NTDDI_WIN8)]
+        typedef struct StructBuiltInConflict
+        {
+            int apply;
+            int Call;
+            int constructor;
+            int HasOwnProperty;
+            int isPrototypeOf;
+            int PropertyIsEnumerable;
+            int Prototype;
+            int toLocalString;
+            // int toString;
+            int ValueOf;
+        } StructBuiltInConflict;
+
+        [version(NTDDI_WIN8), uuid(6576ACD7-C1ED-4714-A71F-F87CE6CFBC3B)]
+        interface IStructBuiltInConflict : IInspectable
+        {
+            [propget] HRESULT StructBuiltInConflict([out,retval] StructBuiltInConflict * value);
+            [propput] HRESULT StructBuiltInConflict([in] StructBuiltInConflict value);
+        }
+
+        [version(NTDDI_WIN8), uuid(E31EEEF4-1FF8-43B9-892D-FD70386236DA)]
+        interface IBuiltInConflicts : IInspectable
+        {
+             [propget] HRESULT Apply([out,retval] HSTRING * value);
+             [propget] HRESULT hasOwnProperty([out,retval] int * value);
+             [propput] HRESULT hasOwnProperty([in] int value);
+             [propget] HRESULT isPrototypeOf([out,retval] HSTRING * value);
+             [propget] HRESULT Prototype([out,retval] HSTRING * value);
+             [propget] HRESULT ToString([out,retval] int * value);
+             [propput] HRESULT ToString([in] int value);
+
+             HRESULT Call([in] int a, [out,retval]HSTRING * result);
+             HRESULT constructor([in] int a, [out,retval]HSTRING * result);
+             HRESULT PropertyIsEnumerable([in] int a, [out,retval]HSTRING * result);
+             HRESULT toLocalString([in] int a, [out,retval]HSTRING * result);
+             HRESULT ValueOf([in] int a, [out,retval]HSTRING * result);
+             HRESULT Length([in] int a, [out,retval]HSTRING * result);
+        }
+
+        [version(NTDDI_WIN8), uuid(B0CF28E5-5893-4F5E-9475-48C0A61A35C4)]
+        interface ICamelLengthConflict : IInspectable
+        {
+             HRESULT length([in] int a, [out,retval]HSTRING * result);
+        }
+
+        [version(NTDDI_WIN8), uuid(D0032458-6171-495D-B310-EE3E75AD1211)]
+        interface IPascalLengthConflict : IInspectable
+        {
+             [propget] HRESULT Length([out,retval] HSTRING * value);
+        }
+
+        [version(NTDDI_WIN8), uuid(93060F60-80F1-47EA-98EC-8C5A5227FEF7)]
+        interface IDummyInterface : IInspectable
+        {
+             HRESULT GetName([out,retval] HSTRING * name);
+        }
+
+        [
+            version(NTDDI_WIN8), 
+            static(IBuiltInConflicts, NTDDI_WIN8)
+        ]
+        runtimeclass BuiltInConflictsStatic
+        {
+        }
+
+        [
+            version(NTDDI_WIN8), 
+            activatable(NTDDI_WIN8),
+        ]
+        runtimeclass BuiltInConflicts
+        {
+            [default] interface IBuiltInConflicts;
+            interface IStructBuiltInConflict;
+        }
+
+        [
+            version(NTDDI_WIN8), 
+            activatable(NTDDI_WIN8),
+            static(ICamelLengthConflict, NTDDI_WIN8)
+        ]
+        runtimeclass CamelLengthConflict
+        {
+            [default] interface IDummyInterface;
+        }
+
+        [
+            version(NTDDI_WIN8), 
+            activatable(NTDDI_WIN8),
+            static(IPascalLengthConflict, NTDDI_WIN8)
+        ]
+        runtimeclass PascalLengthConflict
+        {
+            [default] interface IDummyInterface;
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+        runtimeclass VectorLengthConflict
+        {
+            interface IBuiltInConflicts;
+            [default] interface IVector<int>;
+        }
+
+        [version(NTDDI_WIN8), uuid(F5DE3CCB-5D95-454A-BA76-66366A53B766)]
+        interface IInternalCrossMemberConflict : IInspectable
+        {
+            [propget] HRESULT conflicting([out,retval] HSTRING * value);
+
+            HRESULT ConflictingMethod([in] int a, [out,retval]HSTRING * result);
+        }
+
+        [version(NTDDI_WIN8), uuid(5CB7FB38-E58A-4E4C-92FC-07B1CF7E178F)]
+        interface IInternalCrossMemberConflict2 : IInspectable
+        {
+            [propget] HRESULT ConflictingProp([out,retval] HSTRING * value);
+
+            HRESULT conflicting([in] int a, [out,retval]HSTRING * result);
+        }
+
+        [version(NTDDI_WIN8), uuid(AD6C4BC5-A501-4891-B011-E62F66FFFF6E)]
+        interface IExternalPropertyConflict : IInspectable
+        {
+            [propget] HRESULT Conflicting([out,retval] int * value);
+            [propput] HRESULT Conflicting([in] int value);
+        }
+
+        [version(NTDDI_WIN8), uuid(579952B8-FD0F-41C6-AC0A-B038AD6A04EB)]
+        interface IExternalMethodConflict : IInspectable
+        {
+            HRESULT Conflicting([in] HSTRING a, [in] HSTRING b, [out,retval]HSTRING * result);
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+        runtimeclass InternalCrossMemberConflict
+        {
+            [default] interface IInternalCrossMemberConflict;
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+        runtimeclass ExternalPropPropConflict
+        {
+            interface IInternalCrossMemberConflict;
+            [default] interface IExternalPropertyConflict;
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+        runtimeclass ExternalPropMethodConflict
+        {
+            interface IInternalCrossMemberConflict;
+            [default] interface IExternalMethodConflict;
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+        runtimeclass ExternalMethodMethodConflict
+        {
+            interface IInternalCrossMemberConflict2;
+            [default] interface IExternalMethodConflict;
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+        runtimeclass ExternalMethodPropConflict
+        {
+            interface IInternalCrossMemberConflict2;
+            [default] interface IExternalPropertyConflict;
+        }
+
+        [version(NTDDI_WIN8), activatable(NTDDI_WIN8)]
+        runtimeclass DoubleCrossMemberConflict
+        {
+            [default] interface IInternalCrossMemberConflict;
+            interface IInternalCrossMemberConflict2;
+        }
+    }
+
+}
+
+

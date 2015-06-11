@@ -1,0 +1,53 @@
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script type="text/javascript" src="basichtmltest_js.js"></script>
+<script type="text/javascript">
+f0();
+
+(function foo(x) {
+    var a = {
+        a1: "a1",
+        a2: {
+            a21: "a21",
+            "1": 0
+        },
+        a3: [0, 1, 2, , 4],
+        "1": 1,
+        "2": 2,
+        "true": true,
+        "undefined": "undef",
+        __proto__: {ap: "ap"}
+    };
+    Object.defineProperty(a, "ah", { value: "non-enum", enumerable: false });
+    Object.defineProperty(a.__proto__, "aph", { value: "non-enum", enumerable: false });
+    Object.defineProperty(a, "getn", { get: function() { return "getv"; }, enumerable: false });
+    this.true = "this_true";
+
+    a;/**bp:locals();evaluate('a', 2)**/
+}).apply({thisp: "thisv"}, [12, 13]);
+
+
+function evalTest() {
+    var str = "function test1() {\n";
+        str += "(function() {\n"
+        str += "var k = 10;k++\n";
+        str += "var k2 = {};debugger; /**bp:locals()**/\n";
+        str += "})();\n";
+        str += "}\ntest1()";
+        eval(str);
+}
+function timerFunc()
+{
+    evalTest();
+    WScript.Echo("Pass");
+    WScript.Quit();
+}
+WScript.SetKeepAlive();
+setTimeout(timerFunc, 100);
+
+</script>
+</head>
+<body>
+</body>
+</html>

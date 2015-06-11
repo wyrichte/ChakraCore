@@ -1,0 +1,9 @@
+BUILD_PASS2_CONSUMES= \
+    inetcore\jscript\projectiontests\abis\custom\animal\winrt\dllsrv\dll|PASS2 \
+    inetcore\jscript\projectiontests\abis\custom\devtests.camelcasing\winrt\dllsrv\dll|PASS2 \
+    inetcore\jscript\projectiontests\abis\custom\devtests.repros\winrt\dllsrv\dll|PASS2 \
+    inetcore\jscript\projectiontests\abis\custom\devtests\winrt\dllsrv\dll|PASS2 \
+    inetcore\jscript\projectiontests\abis\custom\teachrt\winrt\dllsrv\dll|PASS2 \
+    inetcore\jscript\projectiontests\abis\custom\teachrt\winrt\idl\dll|PASS2 \
+    inetcore\jscript\projectiontests\abis\custom\winery\dllsrv\dll|PASS2 \
+

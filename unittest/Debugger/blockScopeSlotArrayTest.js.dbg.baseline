@@ -1,0 +1,22 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {
+        "a": "1"
+      },
+      "[Globals]": {
+        "test": "<large string>",
+        "g": "<large string>"
+      }
+    }
+  }
+]

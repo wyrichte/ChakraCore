@@ -1,0 +1,33 @@
+Print subtree at offset : 73
+	Total nodes : 1
+	apneNone : {kind : apnkFncDecl, min : 56, lim : 80, level : 0}
+Passed
+Print subtree at offset : 86
+	Total nodes : 4
+	apneNone : {kind : apnkClassDecl, min : 0, lim : 213, level : 0}
+	apneCtor : {kind : apnkFncDecl, min : 113, lim : 210, level : 1}
+	apneStaticMembers : {kind : apnkMember, min : 56, lim : 80, level : 1}
+	apneMembers : {kind : apnkList, min : 21, lim : 107, level : 1}
+Passed
+Print subtree at offset : 145
+	Total nodes : 12
+	apneNone : {kind : apnkFncDecl, min : 113, lim : 210, level : 0}
+	apneArgument : {kind : apnkVarDecl, min : 125, lim : 126, level : 1}
+	apneBody : {kind : apnkList, min : 155, lim : 210, level : 1}
+	apneListItem : {kind : apnkIf, min : 155, lim : 189, level : 2}
+	apneCondition : {kind : apnkGt, min : 159, lim : 164, level : 3}
+	apneLeft : {kind : apnkName, min : 159, lim : 160, level : 4}
+	apneRight : {kind : apnkInt, min : 163, lim : 164, level : 4}
+	apneThen : {kind : apnkAsg, min : 179, lim : 189, level : 3}
+	apneLeft : {kind : apnkDot, min : 179, lim : 185, level : 4}
+	apneLeft : {kind : apnkThis, min : 179, lim : 183, level : 5}
+	apneRight : {kind : apnkName, min : 184, lim : 185, level : 5}
+	apneRight : {kind : apnkName, min : 188, lim : 189, level : 4}
+Passed
+Print subtree at offset : 243
+	Total nodes : 4
+	apneNone : {kind : apnkFncDecl, min : 243, lim : 273, level : 0}
+	apneBody : {kind : apnkList, min : 257, lim : 273, level : 1}
+	apneListItem : {kind : apnkReturn, min : 257, lim : 271, level : 2}
+	apneValue : {kind : apnkStr, min : 264, lim : 271, level : 3}
+Passed

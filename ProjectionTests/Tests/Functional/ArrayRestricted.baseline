@@ -1,0 +1,13 @@
+Arrays projection test case (restricted due to slowness on amd64)
+
+=================================================
+Starting [Test fpa2: Out of memory]
+Comment: Verify that the exception is thrown when pass string array pattern is used
+Pass: r.passRetrievableStringArray(arr); returned (Error: Out of memory)
+      Actual: true
+
+PASS [Test fpa2: Out of memory]
+=================================================
+
+Passed: 1
+Failed: 0

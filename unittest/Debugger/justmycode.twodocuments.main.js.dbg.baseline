@@ -1,0 +1,69 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 161,
+        "length": 4,
+        "text": "Do()",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  },
+  {
+    "log": "Do()"
+  },
+  {
+    "callstack": [
+      {
+        "start": 18,
+        "length": 39,
+        "text": "Print('foo callback to main document!')",
+        "frameDescription": "Do",
+        "documentId": 2
+      },
+      {
+        "start": 161,
+        "length": 4,
+        "text": "Do()",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  },
+  {
+    "log": "skip the main document Print call"
+  },
+  {
+    "callstack": [
+      {
+        "start": 60,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Do",
+        "documentId": 2
+      },
+      {
+        "start": 161,
+        "length": 4,
+        "text": "Do()",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  },
+  {
+    "log": "back to main()"
+  },
+  {
+    "callstack": [
+      {
+        "start": 444,
+        "length": 19,
+        "text": "Print('Completed!')",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  }
+]

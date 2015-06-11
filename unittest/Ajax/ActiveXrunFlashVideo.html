@@ -1,0 +1,69 @@
+<!--
+<p>
+<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0"
+width=300 height=300 id="myFlash">
+  <param name=movie value="SBD.swf">
+  <param name=quality value=high>
+  <param name="swliveconnect" value="true">
+    <embed src="SBD.swf" quality="high" width="366" height="142"
+    type="application/x-shockwave-flash"
+    pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"
+    name="myFlash" swliveconnect="true">
+    </embed> 
+</object>
+</p>-->
+
+
+<html>
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<!--<object width="550" height="400">
+<param name="movie" value="SBD.swf">
+<embed src="SBD.swf" width="550" height="400">
+</embed>
+</object>    -->
+
+
+<script>
+
+    if (window.ActiveXObject) {
+
+        var swf = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
+        if (swf) {
+            document.write('Shockwave available');
+            document.write("<br/>");
+            var version = swf.GetVariable('$version');
+            document.write("version= " + version);
+            document.write("<br/>");
+
+            // Create object elements accordingly
+            document.write('<object width="550" height="400">');
+            document.write('<param name="movie" value="SBD.swf">');
+            document.write('<embed src="SBD.swf" width="550" height="400">');
+            document.write('</embed>');
+            document.write('</object>');
+
+        }
+        else
+           document.write('Shockwave unavailable');    
+        // This is a browser that understands ActiveX
+
+
+    }
+
+//    if (window.ActiveXObject) {
+//        // This is a browser that understands ActiveX
+//        // Create object elements accordingly
+//        document.write('<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"');
+//        document.write(' codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0"');
+//        document.write(' width="366" height="142" id="myFlash">');
+//        document.write(' <param name="movie" value="javascript_to_flash.swf">');
+//        document.write(' <param name=quality value=high>');
+//        document.write(' <param name="swliveconnect" value="true">');
+//        document.write('</object>');
+
+//    }
+
+</script>
+
+</html>

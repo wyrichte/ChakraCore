@@ -1,0 +1,21 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "Hello World"
+      },
+      "a": "Hello",
+      "[Globals]": {
+        "F1": "<large string>",
+        "F2": "<large string>"
+      }
+    }
+  }
+]

@@ -1,0 +1,30 @@
+TARGETNAME=JScript.Exe.common
+TARGETTYPE=LIBRARY
+
+# Turns on fretest for test code lib
+!include $(JSCRIPT_ROOT)\jslibtest.inc
+
+C_DEFINES =$(C_DEFINES) -DWINNT -DUNICODE -D_UNICODE -DWIN32_DCOM
+
+INCLUDES=$(JSCRIPT_ROOT)\dll\jscript;$(COREINCLUDES);$(COM_INC_PATH);$(DS_INC_PATH);$(SDK_INC_PATH)\crt\stl70;$(OBJ_PATH)\..\..\dll\jscript\$(O);$(OBJ_PATH)\$(O)
+
+USE_STL=1
+STL_VER=70
+USE_ATL=1
+
+NTTARGETFILE0 = $(OBJ_PATH)\$(O)\dbgcontroller.js.encoded
+
+SOURCES= \
+    WScript.cpp \
+    HostConfigFlags.cpp \
+    JScript9Interface.cpp \
+    TestLargeAddress.cpp \
+    DebuggerController.cpp 
+
+PRECOMPILED_INCLUDE=stdafx.h
+PRECOMPILED_SOURCEFILE=stdafx.cpp
+PRECOMPILED_CXX=1
+
+
+PASS1_BINPLACE= \
+       -:DEST jscript dbgcontroller.js \

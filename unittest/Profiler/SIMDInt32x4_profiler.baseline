@@ -1,0 +1,288 @@
+test SIMDInt32x4.....
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 WithLane......
+Correct
+Correct
+Correct
+>> Fail!
+test SIMDInt32x4 Conversion......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 BinaryOp......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 UnaryOp......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 CompareOp......
+SIMDInt32x4 lessThan
+Correct
+Correct
+Correct
+Correct
+SIMDInt32x4 equal
+Correct
+Correct
+Correct
+Correct
+SIMDInt32x4 greaterThan
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 Shuffle......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 ShuffleMix......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 Select......
+Correct
+Correct
+Correct
+Correct
+Script Profiler starts
+test SIMDInt32x4.....
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 WithLane......
+Correct
+Correct
+Correct
+>> Fail!
+test SIMDInt32x4 Conversion......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 BinaryOp......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 UnaryOp......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 CompareOp......
+SIMDInt32x4 lessThan
+Correct
+Correct
+Correct
+Correct
+SIMDInt32x4 equal
+Correct
+Correct
+Correct
+Correct
+SIMDInt32x4 greaterThan
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 Shuffle......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 ShuffleMix......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+test SIMDInt32x4 Select......
+Correct
+Correct
+Correct
+Correct
+Dumping sorted function compiled events
+[FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
+[FunctionCompiled]: Function: equal, Line: 1, Column: 1, Character Position: 0
+[FunctionCompiled]: Function: testSIMDInt32x4, Line: 9, Column: 1, Character Position: 141
+[FunctionCompiled]: Function: testSIMDInt32x4_BinaryOp, Line: 72, Column: 1, Character Position: 1802
+[FunctionCompiled]: Function: testSIMDInt32x4_CompareOp, Line: 173, Column: 1, Character Position: 4976
+[FunctionCompiled]: Function: testSIMDInt32x4_Select, Line: 245, Column: 1, Character Position: 6923
+[FunctionCompiled]: Function: testSIMDInt32x4_Shuffle, Line: 202, Column: 1, Character Position: 5724
+[FunctionCompiled]: Function: testSIMDInt32x4_ShuffleMix, Line: 223, Column: 1, Character Position: 6292
+[FunctionCompiled]: Function: testSIMDInt32x4_UnaryOp, Line: 156, Column: 1, Character Position: 4563
+[FunctionCompiled]: Function: testSIMDInt32x4_conversion, Line: 38, Column: 1, Character Position: 937
+Passed: Validation
+Script Profiler ends

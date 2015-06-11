@@ -1,0 +1,34 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<html>
+LibraryCodeChildThrowThroughWindow
+<script>
+function remotebar()
+{
+    function Run() {
+        var testpass = true;
+
+        var intl = Intl.Collator();
+
+        var afun = {
+            toString: function () {
+                x++;     // <-- Reference Error
+                return "a";
+            }
+        };
+
+        var res = intl.compare(afun, "b");
+        WScript.Echo('PASSED');
+    }
+
+    Run()
+}
+
+function remotefoo()
+{
+    remotebar();
+}
+
+parent.remotefoo = remotefoo;
+
+</script>
+</html>

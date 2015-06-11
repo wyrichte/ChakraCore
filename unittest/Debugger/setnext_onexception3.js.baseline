@@ -1,0 +1,4 @@
+ReferenceError: 'debugger1' is undefined
+	at eval code (setnext_onexception3.js:1:1)
+	at foo() (setnext_onexception3.js:6:2)
+	at Global code (setnext_onexception3.js:8:1)

@@ -1,0 +1,110 @@
+Struct tests
+
+=================================================
+Starting [Test 1: BasicString - Basic round-trip of a string]
+Pass: myAnimal.marshalHSTRING("abc")
+      Actual: abc
+
+PASS [Test 1: BasicString - Basic round-trip of a string]
+=================================================
+
+=================================================
+Starting [Test 2: NullInOutString - Null string in-out]
+Pass: myAnimal.marshalHSTRING(null)
+      Actual: null
+
+Pass: typeof null
+      Actual: string
+
+PASS [Test 2: NullInOutString - Null string in-out]
+=================================================
+
+=================================================
+Starting [Test 3: NullOutString - Null string]
+Pass: myAnimal.getNULLHSTRING()
+      Actual: 
+
+Pass: typeof null
+      Actual: string
+
+PASS [Test 3: NullOutString - Null string]
+=================================================
+
+=================================================
+Starting [Test 4: EmptyString - Empty string]
+Pass: myAnimal.marshalHSTRING("")
+      Actual: 
+
+PASS [Test 4: EmptyString - Empty string]
+=================================================
+
+=================================================
+Starting [Test 5: IntString - String conversion to integer]
+Pass: myAnimal.marshalHSTRING(123)
+      Actual: 123
+
+PASS [Test 5: IntString - String conversion to integer]
+=================================================
+
+=================================================
+Starting [Test 6: StringStruct - A struct with strings in it]
+Pass: type
+      Actual: object
+
+Pass: common : string = 'Wolverine'
+      Actual: common : string = 'Wolverine'
+
+Pass: scientific : string = 'Gulo gulo'
+      Actual: scientific : string = 'Gulo gulo'
+
+Pass: alsoKnownAs : string = 'Skunk Bear'
+      Actual: alsoKnownAs : string = 'Skunk Bear'
+
+Pass: number of members
+      Actual: 3
+
+PASS [Test 6: StringStruct - A struct with strings in it]
+=================================================
+
+=================================================
+Starting [Test 7: RoundTripStringStruct - Round trip a struct with strings in it]
+Pass: type
+      Actual: object
+
+Pass: common : string = 'Wolverine'
+      Actual: common : string = 'Wolverine'
+
+Pass: scientific : string = 'Gulo gulo'
+      Actual: scientific : string = 'Gulo gulo'
+
+Pass: alsoKnownAs : string = 'Skunk Bear'
+      Actual: alsoKnownAs : string = 'Skunk Bear'
+
+Pass: number of members
+      Actual: 3
+
+PASS [Test 7: RoundTripStringStruct - Round trip a struct with strings in it]
+=================================================
+
+=================================================
+Starting [Test 8: RoundTripJsOriginatedStringStruct - Round trip a struct with strings in it that originated from JS]
+Pass: type
+      Actual: object
+
+Pass: common : string = 'xyz'
+      Actual: common : string = 'xyz'
+
+Pass: scientific : string = '123'
+      Actual: scientific : string = '123'
+
+Pass: alsoKnownAs : string = 'lmn'
+      Actual: alsoKnownAs : string = 'lmn'
+
+Pass: number of members
+      Actual: 3
+
+PASS [Test 8: RoundTripJsOriginatedStringStruct - Round trip a struct with strings in it that originated from JS]
+=================================================
+
+Passed: 8
+Failed: 0

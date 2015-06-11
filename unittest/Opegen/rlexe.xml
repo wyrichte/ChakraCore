@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+<test>
+    <default>
+        <files>Multiplicative.js</files>
+        <baseline>Multiplicative.baseline</baseline>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>Additive.js</files>
+        <baseline>Additive.baseline</baseline>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>Shift.js</files>
+        <baseline>Shift.baseline</baseline>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>Relational.js</files>
+        <baseline>Relational.baseline</baseline>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>Equality.js</files>
+        <baseline>Equality.baseline</baseline>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>Bitwise.js</files>
+        <baseline>Bitwise.baseline</baseline>
+    </default>
+</test>
+
+<test>
+    <default>
+        <files>Logical.js</files>
+        <baseline>Logical.baseline</baseline>
+    </default>
+</test>
+
+</regress-exe>

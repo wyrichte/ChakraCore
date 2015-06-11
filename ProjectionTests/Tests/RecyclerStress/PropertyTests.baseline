@@ -1,0 +1,213 @@
+Property tests
+
+=================================================
+Starting [Test 1: GetProperty]
+Pass: myAnimal.weight
+      Actual: 50
+
+PASS [Test 1: GetProperty]
+=================================================
+
+=================================================
+Starting [Test 2: SetProperty]
+Pass: myAnimal.weight
+      Actual: 100
+
+PASS [Test 2: SetProperty]
+=================================================
+
+=================================================
+Starting [Test 3: SetPropertyFail]
+Pass: instanceof WinRTError: Unspecified error
+
+      Actual: true
+
+Pass: Error caught
+      Actual: WinRTError
+
+Pass: e.number
+      Actual: -2147467259
+
+Pass: myAnimal.weight
+      Actual: 100
+
+PASS [Test 3: SetPropertyFail]
+=================================================
+
+=================================================
+Starting [Test Bug133943 - 1: property test - assign null (interface)]
+Pass: myAnimal.mother
+      Actual: null
+
+PASS [Test Bug133943 - 1: property test - assign null (interface)]
+=================================================
+
+=================================================
+Starting [Test Bug133943 - 2: property test - assign undefined (interface)]
+Pass: myAnimal.mother
+      Actual: null
+
+PASS [Test Bug133943 - 2: property test - assign undefined (interface)]
+=================================================
+
+=================================================
+Starting [Test Win8: 195355: struct and enum properties]
+Pass: Actual Dimensions should be defined
+      Actual: [object Animals.Dimensions]
+
+Pass: length
+      Actual: length
+
+Pass: typeof myAnimal.myDimensions[length]
+      Actual: number
+
+Pass: myAnimal.myDimensions[length]
+      Actual: 180
+
+Pass: width
+      Actual: width
+
+Pass: typeof myAnimal.myDimensions[width]
+      Actual: number
+
+Pass: myAnimal.myDimensions[width]
+      Actual: 360
+
+Pass: Actual Dimensions should be defined
+      Actual: [object Animals.Dimensions]
+
+Pass: length
+      Actual: length
+
+Pass: typeof myAnimal.myDimensions[length]
+      Actual: number
+
+Pass: myAnimal.myDimensions[length]
+      Actual: 200
+
+Pass: width
+      Actual: width
+
+Pass: typeof myAnimal.myDimensions[width]
+      Actual: number
+
+Pass: myAnimal.myDimensions[width]
+      Actual: 400
+
+Pass: myAnimal.myPhylum
+      Actual: 1
+
+Pass: myAnimal.myPhylum
+      Actual: 3
+
+PASS [Test Win8: 195355: struct and enum properties]
+=================================================
+
+=================================================
+Starting [Test Win8: 837548 - 1: Read-only property versioned to read-write property]
+Pass: obj.testProperty should be defined
+      Actual: 0
+
+Pass: obj.testProperty property descriptor should be defined
+      Actual: [object Object]
+
+Pass: typeof 
+function get_TestProperty() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function put_TestProperty() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: obj.testProperty
+      Actual: 0
+
+Pass: obj.testProperty
+      Actual: 42
+
+PASS [Test Win8: 837548 - 1: Read-only property versioned to read-write property]
+=================================================
+
+=================================================
+Starting [Test Win8: 837548 - 2: Versioned Property conflicting with property from other interface]
+Pass: obj.testProperty should not be defined
+      Actual: undefined
+
+Pass: obj['DevTests.Repros.VersionedProperties.IReadOnlyProperty.testProperty'] should be defined
+      Actual: 0
+
+Pass: obj['DevTests.Repros.VersionedProperties.IToReadWriteProperty.testProperty'] should not be defined
+      Actual: undefined
+
+Pass: obj['DevTests.Repros.VersionedProperties.IConflictingReadWriteProperty.testProperty'] should be defined
+      Actual: DevTests.Repros.VersionedProperties.IConflictingReadWriteProperty.testProperty
+
+Pass: obj['DevTests.Repros.VersionedProperties.IReadOnlyProperty.testProperty'] property descriptor should be defined
+      Actual: [object Object]
+
+Pass: typeof 
+function get_TestProperty() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function put_TestProperty() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: obj['DevTests.Repros.VersionedProperties.IToReadWriteProperty.testProperty'] property descriptor should not be defined
+      Actual: undefined
+
+Pass: obj['DevTests.Repros.VersionedProperties.IConflictingReadWriteProperty.testProperty'] property descriptor should be defined
+      Actual: [object Object]
+
+Pass: typeof 
+function get_TestProperty() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: typeof 
+function put_TestProperty() {
+    [native code]
+}
+
+      Actual: function
+
+Pass: obj['DevTests.Repros.VersionedProperties.IReadOnlyProperty.testProperty']
+      Actual: 0
+
+Pass: obj['DevTests.Repros.VersionedProperties.IToReadWriteProperty.testProperty']
+      Actual: undefined
+
+Pass: obj['DevTests.Repros.VersionedProperties.IConflictingReadWriteProperty.testProperty']
+      Actual: DevTests.Repros.VersionedProperties.IConflictingReadWriteProperty.testProperty
+
+Pass: obj['DevTests.Repros.VersionedProperties.IConflictingReadWriteProperty.testProperty']
+      Actual: hello!
+
+Pass: obj['DevTests.Repros.VersionedProperties.IReadOnlyProperty.testProperty']
+      Actual: 42
+
+Pass: obj['DevTests.Repros.VersionedProperties.IToReadWriteProperty.testProperty']
+      Actual: undefined
+
+Pass: obj['DevTests.Repros.VersionedProperties.IReadOnlyProperty.testProperty']
+      Actual: 42
+
+PASS [Test Win8: 837548 - 2: Versioned Property conflicting with property from other interface]
+=================================================
+
+Passed: 8
+Failed: 0

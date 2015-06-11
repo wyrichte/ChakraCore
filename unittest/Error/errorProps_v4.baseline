@@ -1,0 +1,128 @@
+Error.prototype
+  ToString = Error
+  Properties = 
+    name	  isOwn = true	 value = Error
+    message	  isOwn = true	 value = 
+RangeError.prototype
+  ToString = RangeError
+  Properties = 
+    name	  isOwn = true	 value = RangeError
+    message	  isOwn = true	 value = 
+ConversionError.prototype
+ReferenceError: 'ConversionError' is undefined
+
+Error
+  ToString = function Error() { [native code] }
+  Properties = 
+    name	  isOwn = true	 value = Error
+    message	  isOwn = false	 value = undefined
+    stackTraceLimit	  isOwn = true	 value = 10
+
+new Error()
+  ToString = Error
+  Properties = 
+    name	  isOwn = false	 value = Error
+    message	  isOwn = false	 value = 
+    number	  isOwn = true	 value = 0
+    description	  isOwn = true	 value = 
+    stack	  isOwn = true	 value = Error
+   at Global code (errorprops.js:47:1)
+
+new Error(undefined)
+  ToString = Error
+  Properties = 
+    name	  isOwn = false	 value = Error
+    message	  isOwn = false	 value = 
+    description	  isOwn = true	 value = undefined
+    stack	  isOwn = true	 value = Error
+   at Global code (errorprops.js:51:1)
+
+new Error(null)
+  ToString = Error: null
+  Properties = 
+    name	  isOwn = false	 value = Error
+    message	  isOwn = true	 value = null
+    description	  isOwn = true	 value = null
+    stack	  isOwn = true	 value = Error: null
+   at Global code (errorprops.js:55:1)
+
+new Error("Hello")
+  ToString = Error: Hello
+  Properties = 
+    name	  isOwn = false	 value = Error
+    message	  isOwn = true	 value = Hello
+    description	  isOwn = true	 value = Hello
+    stack	  isOwn = true	 value = Error: Hello
+   at Global code (errorprops.js:59:1)
+
+new Error(100, "With a number")
+  ToString = Error: With a number
+  Properties = 
+    name	  isOwn = false	 value = Error
+    message	  isOwn = true	 value = With a number
+    number	  isOwn = true	 value = 100
+    description	  isOwn = true	 value = With a number
+    stack	  isOwn = true	 value = Error: With a number
+   at Global code (errorprops.js:63:1)
+
+new Error("Hello"); name=undefined
+  ToString = Error: Hello
+  Properties = 
+    name	  isOwn = true	 value = undefined
+    message	  isOwn = true	 value = Hello
+    description	  isOwn = true	 value = Hello
+    stack	  isOwn = true	 value = Error: Hello
+   at Global code (errorprops.js:67:1)
+    name	  isOwn = true	 value = undefined
+
+new ReferenceError("I'm a reference error")
+  ToString = ReferenceError: I'm a reference error
+  Properties = 
+    name	  isOwn = false	 value = ReferenceError
+    message	  isOwn = true	 value = I'm a reference error
+    stack	  isOwn = true	 value = ReferenceError: I'm a reference error
+   at Global code (errorprops.js:72:1)
+ReferenceError: 'RegExpError' is undefined
+
+new TypeError()
+  ToString = TypeError
+  Properties = 
+    name	  isOwn = false	 value = TypeError
+    message	  isOwn = false	 value = 
+    stack	  isOwn = true	 value = TypeError
+   at Global code (errorprops.js:82:1)
+
+new TypeError(undefined)
+  ToString = TypeError
+  Properties = 
+    name	  isOwn = false	 value = TypeError
+    message	  isOwn = false	 value = 
+    stack	  isOwn = true	 value = TypeError
+   at Global code (errorprops.js:86:1)
+
+new TypeError(null)
+  ToString = TypeError: null
+  Properties = 
+    name	  isOwn = false	 value = TypeError
+    message	  isOwn = true	 value = null
+    stack	  isOwn = true	 value = TypeError: null
+   at Global code (errorprops.js:90:1)
+
+new TypeError("With a undef name")
+  ToString = Error: With a undef name
+  Properties = 
+    name	  isOwn = true	 value = undefined
+    message	  isOwn = true	 value = With a undef name
+    stack	  isOwn = true	 value = Error: With a undef name
+   at Global code (errorprops.js:95:1)
+    name	  isOwn = true	 value = undefined
+
+Runtime TypeError()
+  ToString = ReferenceError: 'boo' is undefined
+  Properties = 
+    name	  isOwn = false	 value = ReferenceError
+    message	  isOwn = true	 value = 'boo' is undefined
+    description	  isOwn = true	 value = 'boo' is undefined
+    number	  isOwn = true	 value = -2146823279
+    stack	  isOwn = true	 value = ReferenceError: 'boo' is undefined
+   at Global code (errorprops.js:103:5)

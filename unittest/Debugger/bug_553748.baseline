@@ -1,0 +1,18 @@
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 4) (bar), LineNumber : 10, ColumnNumber : 8
+StackFramesEvent: Frame : (MethodID : 1) (Global code), LineNumber : 15, ColumnNumber : 0
+ReferenceError: 'ddd' is undefined
+   at bar (bug_553748.html:11:38)
+   at Global code (bug_553748.html:16:1)
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 2) (foo), LineNumber : 3, ColumnNumber : 26
+StackFramesEvent: Frame : (MethodID : 6) (onload), LineNumber : 18, ColumnNumber : 14
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 7) (foo1), LineNumber : 18, ColumnNumber : 50
+StackFramesEvent: Frame : (MethodID : 6) (onload), LineNumber : 18, ColumnNumber : 152
+ReferenceError: 'ddd' is undefined
+   at foo1 (bug_553748.html:19:80)
+   at onload (bug_553748.html:19:153)

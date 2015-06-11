@@ -1,0 +1,2786 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3319,
+        "length": 33,
+        "text": "var v12352 = new v12338.v12339(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3357,
+        "length": 35,
+        "text": "var v12353 = new v12338.v12339(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3401,
+        "length": 37,
+        "text": "var v12354 = new v12338.v12339(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3495,
+        "length": 33,
+        "text": "var v12355 = new v12338.v12340(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3533,
+        "length": 35,
+        "text": "var v12356 = new v12338.v12340(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3577,
+        "length": 37,
+        "text": "var v12357 = new v12338.v12340(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3663,
+        "length": 33,
+        "text": "var v12358 = new v12338.v12341(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 2903,
+        "length": 39,
+        "text": "this.v12346 = new v12338.v12339(v12347)",
+        "frameDescription": "v12338.v12341.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3663,
+        "length": 33,
+        "text": "var v12358 = new v12338.v12341(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3701,
+        "length": 35,
+        "text": "var v12359 = new v12338.v12341(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 2903,
+        "length": 39,
+        "text": "this.v12346 = new v12338.v12339(v12347)",
+        "frameDescription": "v12338.v12341.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3701,
+        "length": 35,
+        "text": "var v12359 = new v12338.v12341(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3741,
+        "length": 37,
+        "text": "var v12360 = new v12338.v12341(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 2903,
+        "length": 39,
+        "text": "this.v12346 = new v12338.v12339(v12347)",
+        "frameDescription": "v12338.v12341.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3741,
+        "length": 37,
+        "text": "var v12360 = new v12338.v12341(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3827,
+        "length": 33,
+        "text": "var v12361 = new v12338.v12342(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3176,
+        "length": 39,
+        "text": "this.v12348 = new v12338.v12339(v12336)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3827,
+        "length": 33,
+        "text": "var v12361 = new v12338.v12342(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3228,
+        "length": 46,
+        "text": "this.v12349 = new v12338.v12339(v12350,v12351)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3827,
+        "length": 33,
+        "text": "var v12361 = new v12338.v12342(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3865,
+        "length": 50,
+        "text": "var v12362 = new v12338.v12342(1,(++ obj0.length))",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3176,
+        "length": 39,
+        "text": "this.v12348 = new v12338.v12339(v12336)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3865,
+        "length": 50,
+        "text": "var v12362 = new v12338.v12342(1,(++ obj0.length))",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3228,
+        "length": 46,
+        "text": "this.v12349 = new v12338.v12339(v12350,v12351)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3865,
+        "length": 50,
+        "text": "var v12362 = new v12338.v12342(1,(++ obj0.length))",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3924,
+        "length": 37,
+        "text": "var v12363 = new v12338.v12342(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3176,
+        "length": 39,
+        "text": "this.v12348 = new v12338.v12339(v12336)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3924,
+        "length": 37,
+        "text": "var v12363 = new v12338.v12342(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3228,
+        "length": 46,
+        "text": "this.v12349 = new v12338.v12339(v12350,v12351)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3924,
+        "length": 37,
+        "text": "var v12363 = new v12338.v12342(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4071,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3319,
+        "length": 33,
+        "text": "var v12352 = new v12338.v12339(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3357,
+        "length": 35,
+        "text": "var v12353 = new v12338.v12339(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3401,
+        "length": 37,
+        "text": "var v12354 = new v12338.v12339(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3495,
+        "length": 33,
+        "text": "var v12355 = new v12338.v12340(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3533,
+        "length": 35,
+        "text": "var v12356 = new v12338.v12340(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3577,
+        "length": 37,
+        "text": "var v12357 = new v12338.v12340(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3663,
+        "length": 33,
+        "text": "var v12358 = new v12338.v12341(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 2903,
+        "length": 39,
+        "text": "this.v12346 = new v12338.v12339(v12347)",
+        "frameDescription": "v12338.v12341.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3663,
+        "length": 33,
+        "text": "var v12358 = new v12338.v12341(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3701,
+        "length": 35,
+        "text": "var v12359 = new v12338.v12341(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 2903,
+        "length": 39,
+        "text": "this.v12346 = new v12338.v12339(v12347)",
+        "frameDescription": "v12338.v12341.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3701,
+        "length": 35,
+        "text": "var v12359 = new v12338.v12341(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3741,
+        "length": 37,
+        "text": "var v12360 = new v12338.v12341(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 2903,
+        "length": 39,
+        "text": "this.v12346 = new v12338.v12339(v12347)",
+        "frameDescription": "v12338.v12341.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3741,
+        "length": 37,
+        "text": "var v12360 = new v12338.v12341(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3827,
+        "length": 33,
+        "text": "var v12361 = new v12338.v12342(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3176,
+        "length": 39,
+        "text": "this.v12348 = new v12338.v12339(v12336)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3827,
+        "length": 33,
+        "text": "var v12361 = new v12338.v12342(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3228,
+        "length": 46,
+        "text": "this.v12349 = new v12338.v12339(v12350,v12351)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3827,
+        "length": 33,
+        "text": "var v12361 = new v12338.v12342(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3865,
+        "length": 50,
+        "text": "var v12362 = new v12338.v12342(1,(++ obj0.length))",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3176,
+        "length": 39,
+        "text": "this.v12348 = new v12338.v12339(v12336)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3865,
+        "length": 50,
+        "text": "var v12362 = new v12338.v12342(1,(++ obj0.length))",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3228,
+        "length": 46,
+        "text": "this.v12349 = new v12338.v12339(v12350,v12351)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3865,
+        "length": 50,
+        "text": "var v12362 = new v12338.v12342(1,(++ obj0.length))",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3924,
+        "length": 37,
+        "text": "var v12363 = new v12338.v12342(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3176,
+        "length": 39,
+        "text": "this.v12348 = new v12338.v12339(v12336)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3924,
+        "length": 37,
+        "text": "var v12363 = new v12338.v12342(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3228,
+        "length": 46,
+        "text": "this.v12349 = new v12338.v12339(v12350,v12351)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3924,
+        "length": 37,
+        "text": "var v12363 = new v12338.v12342(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4101,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3319,
+        "length": 33,
+        "text": "var v12352 = new v12338.v12339(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3357,
+        "length": 35,
+        "text": "var v12353 = new v12338.v12339(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3401,
+        "length": 37,
+        "text": "var v12354 = new v12338.v12339(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3495,
+        "length": 33,
+        "text": "var v12355 = new v12338.v12340(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3533,
+        "length": 35,
+        "text": "var v12356 = new v12338.v12340(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3577,
+        "length": 37,
+        "text": "var v12357 = new v12338.v12340(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3663,
+        "length": 33,
+        "text": "var v12358 = new v12338.v12341(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 2903,
+        "length": 39,
+        "text": "this.v12346 = new v12338.v12339(v12347)",
+        "frameDescription": "v12338.v12341.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3663,
+        "length": 33,
+        "text": "var v12358 = new v12338.v12341(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3701,
+        "length": 35,
+        "text": "var v12359 = new v12338.v12341(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 2903,
+        "length": 39,
+        "text": "this.v12346 = new v12338.v12339(v12347)",
+        "frameDescription": "v12338.v12341.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3701,
+        "length": 35,
+        "text": "var v12359 = new v12338.v12341(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3741,
+        "length": 37,
+        "text": "var v12360 = new v12338.v12341(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 2903,
+        "length": 39,
+        "text": "this.v12346 = new v12338.v12339(v12347)",
+        "frameDescription": "v12338.v12341.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3741,
+        "length": 37,
+        "text": "var v12360 = new v12338.v12341(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3827,
+        "length": 33,
+        "text": "var v12361 = new v12338.v12342(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3176,
+        "length": 39,
+        "text": "this.v12348 = new v12338.v12339(v12336)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3827,
+        "length": 33,
+        "text": "var v12361 = new v12338.v12342(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3228,
+        "length": 46,
+        "text": "this.v12349 = new v12338.v12339(v12350,v12351)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3827,
+        "length": 33,
+        "text": "var v12361 = new v12338.v12342(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3865,
+        "length": 50,
+        "text": "var v12362 = new v12338.v12342(1,(++ obj0.length))",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3176,
+        "length": 39,
+        "text": "this.v12348 = new v12338.v12339(v12336)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3865,
+        "length": 50,
+        "text": "var v12362 = new v12338.v12342(1,(++ obj0.length))",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3228,
+        "length": 46,
+        "text": "this.v12349 = new v12338.v12339(v12350,v12351)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3865,
+        "length": 50,
+        "text": "var v12362 = new v12338.v12342(1,(++ obj0.length))",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3924,
+        "length": 37,
+        "text": "var v12363 = new v12338.v12342(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3176,
+        "length": 39,
+        "text": "this.v12348 = new v12338.v12339(v12336)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3924,
+        "length": 37,
+        "text": "var v12363 = new v12338.v12342(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3228,
+        "length": 46,
+        "text": "this.v12349 = new v12338.v12339(v12350,v12351)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3924,
+        "length": 37,
+        "text": "var v12363 = new v12338.v12342(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4112,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3319,
+        "length": 33,
+        "text": "var v12352 = new v12338.v12339(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3357,
+        "length": 35,
+        "text": "var v12353 = new v12338.v12339(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3401,
+        "length": 37,
+        "text": "var v12354 = new v12338.v12339(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3495,
+        "length": 33,
+        "text": "var v12355 = new v12338.v12340(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3533,
+        "length": 35,
+        "text": "var v12356 = new v12338.v12340(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3577,
+        "length": 37,
+        "text": "var v12357 = new v12338.v12340(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3663,
+        "length": 33,
+        "text": "var v12358 = new v12338.v12341(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 2903,
+        "length": 39,
+        "text": "this.v12346 = new v12338.v12339(v12347)",
+        "frameDescription": "v12338.v12341.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3663,
+        "length": 33,
+        "text": "var v12358 = new v12338.v12341(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3701,
+        "length": 35,
+        "text": "var v12359 = new v12338.v12341(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 2903,
+        "length": 39,
+        "text": "this.v12346 = new v12338.v12339(v12347)",
+        "frameDescription": "v12338.v12341.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3701,
+        "length": 35,
+        "text": "var v12359 = new v12338.v12341(1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3741,
+        "length": 37,
+        "text": "var v12360 = new v12338.v12341(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 2903,
+        "length": 39,
+        "text": "this.v12346 = new v12338.v12339(v12347)",
+        "frameDescription": "v12338.v12341.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3741,
+        "length": 37,
+        "text": "var v12360 = new v12338.v12341(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3827,
+        "length": 33,
+        "text": "var v12361 = new v12338.v12342(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3176,
+        "length": 39,
+        "text": "this.v12348 = new v12338.v12339(v12336)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3827,
+        "length": 33,
+        "text": "var v12361 = new v12338.v12342(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3228,
+        "length": 46,
+        "text": "this.v12349 = new v12338.v12339(v12350,v12351)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3827,
+        "length": 33,
+        "text": "var v12361 = new v12338.v12342(1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3865,
+        "length": 50,
+        "text": "var v12362 = new v12338.v12342(1,(++ obj0.length))",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3176,
+        "length": 39,
+        "text": "this.v12348 = new v12338.v12339(v12336)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3865,
+        "length": 50,
+        "text": "var v12362 = new v12338.v12342(1,(++ obj0.length))",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3228,
+        "length": 46,
+        "text": "this.v12349 = new v12338.v12339(v12350,v12351)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3865,
+        "length": 50,
+        "text": "var v12362 = new v12338.v12342(1,(++ obj0.length))",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3924,
+        "length": 37,
+        "text": "var v12363 = new v12338.v12342(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3176,
+        "length": 39,
+        "text": "this.v12348 = new v12338.v12339(v12336)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3924,
+        "length": 37,
+        "text": "var v12363 = new v12338.v12342(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1403,
+        "length": 5,
+        "text": "a = 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1534,
+        "length": 20,
+        "text": "func2.call(obj1 , 1)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3228,
+        "length": 46,
+        "text": "this.v12349 = new v12338.v12339(v12350,v12351)",
+        "frameDescription": "v12338.v12342.prototype.method0"
+      },
+      {
+        "start": 1565,
+        "length": 35,
+        "text": "this.method0.apply(this, arguments)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 3924,
+        "length": 37,
+        "text": "var v12363 = new v12338.v12342(1,1,1)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 4172,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

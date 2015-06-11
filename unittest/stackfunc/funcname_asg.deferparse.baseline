@@ -1,0 +1,9 @@
+HasFuncDecl: test
+HasFuncDecl: f1
+HasFuncDecl: test
+HasFuncDecl: f1
+HasMaybeEscapedUse: i
+HasFuncAssignment: f
+DoStackNestedFunc: test (function  (#1.1), #2)
+1
+1

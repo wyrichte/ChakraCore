@@ -1,0 +1,14 @@
+[
+  {
+    "evaluate": {
+      "ab - [Type]": "Object, (ArrayBuffer)",
+      "ab": "<large string>"
+    }
+  },
+  {
+    "evaluate": {
+      "ta - [Type]": "Object, (Uint8Array)",
+      "ta": "<large string>"
+    }
+  }
+]

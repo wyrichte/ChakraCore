@@ -1,0 +1,3 @@
+DIRS=\
+    dll{noncrit} \
+    dll_mc{noncrit} \

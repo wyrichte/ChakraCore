@@ -1,0 +1,46 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 746,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 753,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "stepOutFromInterpretedToJitFunc"
+      },
+      {
+        "start": 1095,
+        "length": 33,
+        "text": "stepOutFromInterpretedToJitFunc()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1043,
+        "length": 18,
+        "text": "return o.prop0 + 1",
+        "frameDescription": "func2"
+      },
+      {
+        "start": 1073,
+        "length": 14,
+        "text": "func2(litObj0)",
+        "frameDescription": "stepOutOfValueOf"
+      },
+      {
+        "start": 1131,
+        "length": 18,
+        "text": "stepOutOfValueOf()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

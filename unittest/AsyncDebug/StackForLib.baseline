@@ -1,0 +1,49 @@
+Posting stack trace via ETW:
+	Frame 0: Name=0 (callBadFormat), SourceLocationLength=47, SourceLocationStartIndex=76
+	Frame 1: Name=16 (toString), SourceLocationLength=15, SourceLocationStartIndex=325
+	Frame 2: Name=27 (Intl.Collator.prototype.compare), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 3: Name=61 (Array.prototype.sort), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 4: Name=84 (Anonymous function), SourceLocationLength=28, SourceLocationStartIndex=414
+	Frame 5: Name=105 (runTest), SourceLocationLength=6, SourceLocationStartIndex=30
+	Frame 6: Name=115 (Global code), SourceLocationLength=255, SourceLocationStartIndex=192
+NameBuffer = "callBadFormat";"toString";"Intl.Collator.prototype.compare";"Array.prototype.sort";"Anonymous function";"runTest";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=1, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=1, operationName=opId1, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (bad_locale.toString), SourceLocationLength=47, SourceLocationStartIndex=501
+	Frame 1: Name=22 (Anonymous function), SourceLocationLength=23, SourceLocationStartIndex=940
+	Frame 2: Name=43 (runTest), SourceLocationLength=6, SourceLocationStartIndex=30
+	Frame 3: Name=53 (Anonymous function), SourceLocationLength=63, SourceLocationStartIndex=909
+	Frame 4: Name=74 (Array.prototype.forEach), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 5: Name=100 (Global code), SourceLocationLength=123, SourceLocationStartIndex=857
+NameBuffer = "bad_locale.toString";"Anonymous function";"runTest";"Anonymous function";"Array.prototype.forEach";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=2, operationName=opId2, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (bad_locale.toString), SourceLocationLength=47, SourceLocationStartIndex=501
+	Frame 1: Name=22 (Anonymous function), SourceLocationLength=23, SourceLocationStartIndex=1161
+	Frame 2: Name=43 (runTest), SourceLocationLength=6, SourceLocationStartIndex=30
+	Frame 3: Name=53 (Anonymous function), SourceLocationLength=71, SourceLocationStartIndex=1126
+	Frame 4: Name=74 (Array.prototype.forEach), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 5: Name=100 (Anonymous function), SourceLocationLength=175, SourceLocationStartIndex=1031
+	Frame 6: Name=121 (Global code), SourceLocationLength=228, SourceLocationStartIndex=987
+NameBuffer = "bad_locale.toString";"Anonymous function";"runTest";"Anonymous function";"Array.prototype.forEach";"Anonymous function";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=3, operationName=opId2, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (bad_locale.toString), SourceLocationLength=47, SourceLocationStartIndex=501
+	Frame 1: Name=22 (Anonymous function), SourceLocationLength=23, SourceLocationStartIndex=1161
+	Frame 2: Name=43 (runTest), SourceLocationLength=6, SourceLocationStartIndex=30
+	Frame 3: Name=53 (Anonymous function), SourceLocationLength=71, SourceLocationStartIndex=1126
+	Frame 4: Name=74 (Array.prototype.forEach), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 5: Name=100 (Anonymous function), SourceLocationLength=175, SourceLocationStartIndex=1031
+	Frame 6: Name=121 (Global code), SourceLocationLength=228, SourceLocationStartIndex=987
+NameBuffer = "bad_locale.toString";"Anonymous function";"runTest";"Anonymous function";"Array.prototype.forEach";"Anonymous function";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=4, operationName=opId2, relatedContext=0)
+Posting stack trace via ETW:
+	Frame 0: Name=0 (bad_locale.toString), SourceLocationLength=47, SourceLocationStartIndex=501
+	Frame 1: Name=22 (Anonymous function), SourceLocationLength=23, SourceLocationStartIndex=1161
+	Frame 2: Name=43 (runTest), SourceLocationLength=6, SourceLocationStartIndex=30
+	Frame 3: Name=53 (Anonymous function), SourceLocationLength=71, SourceLocationStartIndex=1126
+	Frame 4: Name=74 (Array.prototype.forEach), SourceLocationLength=0, SourceLocationStartIndex=0
+	Frame 5: Name=100 (Anonymous function), SourceLocationLength=175, SourceLocationStartIndex=1031
+	Frame 6: Name=121 (Global code), SourceLocationLength=228, SourceLocationStartIndex=987
+NameBuffer = "bad_locale.toString";"Anonymous function";"runTest";"Anonymous function";"Array.prototype.forEach";"Anonymous function";"Global code";
+Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=2, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=5, operationName=opId2, relatedContext=0)

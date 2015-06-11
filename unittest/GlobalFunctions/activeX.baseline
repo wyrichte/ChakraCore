@@ -1,0 +1,47 @@
+
+function ActiveXObject() {
+    [native code]
+}
+
+[object Object]
+check methods
+ActiveXObject.apply:false
+ActiveXObject.call:false
+ActiveXObject.constructor:false
+ActiveXObject.hasOwnProperty:false
+ActiveXObject.isPrototypeOf:false
+ActiveXObject.length:true
+ActiveXObject.propertyIsEnumerable:false
+ActiveXObject.prototype:true
+ActiveXObject.toLocaleString:false
+ActiveXObject.prototype.apply:false
+ActiveXObject.prototype.call:false
+ActiveXObject.prototype.constructor:true
+ActiveXObject.prototype.hasOwnProperty:false
+ActiveXObject.prototype.isPrototypeOf:false
+ActiveXObject.prototype.length:false
+ActiveXObject.prototype.propertyIsEnumerable:false
+ActiveXObject.prototype.prototype:false
+ActiveXObject.prototype.toLocaleString:false
+ActiveXObject.length:1
+ActiveXObject.prototype:[object Object]
+ActiveXObject.prototype.length:undefined
+ActiveXObject.prototype
+i:x value:hello
+ActiveXObject
+i:k value:20
+i:y value:bar
+Flag test on ActiveXObject.length
+ActiveXObject.length:1
+ActiveXObject.length:1
+Flag test on ActiveXObject.prototype
+[object Object]
+[object Object]
+
+Flag test on ActiveXObject
+
+function ActiveXObject() {
+    [native code]
+}
+
+10

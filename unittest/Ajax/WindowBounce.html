@@ -1,0 +1,83 @@
+<html>
+
+<title>Window Bounce</title>
+<body>
+<script>
+    var bounce = {
+        x: 0, y: 0, w: 200, h: 200,  // Window position and size
+        dx: 5, dy: 5,              // Window velocity
+        interval: 100,            // Milliseconds between updates
+        win: null,                // The window we will create
+        timer: null,              // Return value of setInterval( )
+
+        // Start the animation
+        start: function() {
+            // Start with the window in the center of the screen
+            var sw = 600 //screen.width;
+            var bw = bounce.w;
+            var sh = 400;  //screen.height;
+            var bh = bounce.h;
+            bounce.x = (sw - bw) / 2;
+            bounce.y = (sh - bh) / 2;
+
+            // Create the window that we're going to move around
+            // The javascript: URL is simply a way to display a short document
+            // The final argument specifies the window size
+            bounce.win = window.open('javascript:"<h1>BOUNCE!</h1>"', "",
+                                  "left=" + bounce.x + ",top=" + bounce.y +
+                                  ",width=" + bounce.w + ",height=" + bounce.h +
+                                  ",status=yes");
+
+            // Use setInterval( ) to call the nextFrame( ) method every interval
+            // milliseconds. Store the return value so that we can stop the
+            // animation by passing it to clearInterval( ).
+            bounce.timer = window.setInterval(bounce.nextFrame, bounce.interval);
+        },
+
+        // Stop the animation
+        stop: function() {
+            window.clearInterval(bounce.timer);                // Cancel timer
+            if (!bounce.win.closed) bounce.win.close(); // Close window
+        },
+
+        // Display the next frame of the animation.  Invoked by setInterval( )
+        nextFrame: function() {
+            // If the user closed the window, stop the animation
+            if (bounce.win.closed) {
+                clearInterval(bounce.timer);
+                return;
+            }
+
+            // Bounce if we have reached the right or left edge
+            var saw = 500;  //screen.availWidth;
+            var sah = 500;  //screen.availHeight;
+            if ((bounce.x + bounce.dx > (saw - bounce.w)) ||
+             (bounce.x + bounce.dx < 0)) bounce.dx = -bounce.dx;
+
+            // Bounce if we have reached the bottom or top edge
+            if ((bounce.y + bounce.dy > (sah - bounce.h)) ||
+             (bounce.y + bounce.dy < 0)) bounce.dy = -bounce.dy;
+
+            // Update the current position of the window
+            bounce.x += bounce.dx;
+            bounce.y += bounce.dy;
+
+            // Finally, move the window to the new position
+            bounce.win.moveTo(bounce.x, bounce.y);
+
+            // Display current position in window status line
+            bounce.win.defaultStatus = "(" + bounce.x + "," + bounce.y + ")";
+        },
+        
+        // Stop the animation
+        move: function() {
+        nextFrame();
+        }
+    }
+</script>
+<button onclick="bounce.start( )">Start</button>
+<button onclick="bounce.stop( )">Stop</button>
+<button onclick="bounce.move( )">Move</button>
+</body>
+</html>
+

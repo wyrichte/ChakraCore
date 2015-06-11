@@ -1,0 +1,197 @@
+Promise Tests
+
+=================================================
+Starting [Test 1: Without Any Then Handler]
+MemoryTrace: Created Projection Object: 0    UnknownRefCount = 3
+Comment: Get the promise object
+MemoryTrace: Created Projection Object: 1    UnknownRefCount = 4
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 0  1  
+ProjectionObjects  Deleted : 0  1  
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 1: Without Any Then Handler]
+=================================================
+
+=================================================
+Starting [Test 2: Complete successfully]
+MemoryTrace: Created Projection Object: 2    UnknownRefCount = 3
+Comment: Get the promise object
+MemoryTrace: Created Projection Object: 3    UnknownRefCount = 4
+Comment: Add Completed Handler
+MemoryTrace: Created Unknown Object: 0    Type = Delegate
+MemoryTrace: Created Unknown Object: 1    Type = Delegate
+Comment: Simulate the completion
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 2  3  
+ProjectionObjects  Deleted : 2  3  
+Unknowns  Created : 0  1  
+Unknowns  Deleted : 0  1  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 2: Complete successfully]
+=================================================
+
+=================================================
+Starting [Test 3: Complete with Cancel]
+MemoryTrace: Created Projection Object: 4    UnknownRefCount = 3
+Comment: Get the promise object
+MemoryTrace: Created Projection Object: 5    UnknownRefCount = 4
+Comment: Add Completed and Error handler
+MemoryTrace: Created Unknown Object: 2    Type = Delegate
+MemoryTrace: Created Unknown Object: 3    Type = Delegate
+Comment: Simulate asynchronous cancel
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 4  5  
+ProjectionObjects  Deleted : 4  5  
+Unknowns  Created : 2  3  
+Unknowns  Deleted : 2  3  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 3: Complete with Cancel]
+=================================================
+
+=================================================
+Starting [Test 4: Complete with error]
+MemoryTrace: Created Projection Object: 6    UnknownRefCount = 3
+Comment: Get the promise object
+MemoryTrace: Created Projection Object: 7    UnknownRefCount = 4
+Comment: Add Completed and Error handler
+MemoryTrace: Created Unknown Object: 4    Type = Delegate
+MemoryTrace: Created Unknown Object: 5    Type = Delegate
+Comment: Simulate asynchronous error
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 6  7  
+ProjectionObjects  Deleted : 6  7  
+Unknowns  Created : 4  5  
+Unknowns  Deleted : 4  5  
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 4: Complete with error]
+=================================================
+
+=================================================
+Starting [Test 5: Promise that doesnt cleanup its own handlers in close]
+Comment: Get the AsyncInfo from the vector
+MemoryTrace: Created Projection Object: 8    UnknownRefCount = 3
+MemoryTrace: Created Projection Object: 9    UnknownRefCount = 4
+MemoryTrace: Created Projection Object: 10    UnknownRefCount = 5
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 8  9  10  
+ProjectionObjects  Deleted : 8  9  
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+MemoryTrace: Created Unknown Object: 6    Type = Delegate
+MemoryTrace: Created Unknown Object: 7    Type = Delegate
+Comment: Simulate the completion
+Pass: complete called
+      Actual: true
+
+Pass: result from the completion
+      Actual: 192
+
+Comment: Perform gc
+MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
+
+MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
+ProjectionObjects  Created : 
+ProjectionObjects  Deleted : 10  
+Unknowns  Created : 6  7  
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: GlobalObject::EntryCollectGarbage Exit
+Comment: GC complete
+PASS [Test 5: Promise that doesnt cleanup its own handlers in close]
+=================================================
+
+Passed: 5
+Failed: 0
+
+MemoryTrace: Stats after ProjectionContextClose
+ProjectionObjects  Created : 
+ProjectionObjects  Deleted : 
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+MemoryTrace: ScriptContext Close
+
+MemoryTrace: Stats after scriptSite close
+ProjectionObjects  Created : 
+ProjectionObjects  Deleted : 
+Unknowns  Created : 
+Unknowns  Deleted : 
+FinalizableArrayBuffer Created : 
+FinalizableArrayBuffer Deleted : 
+
+
+ProjectionObjects status:
+
+Id		Status		CreationUnkRef
+10		Destroyed	5				
+9		Destroyed	4				
+8		Destroyed	3				
+7		Destroyed	4				
+6		Destroyed	3				
+5		Destroyed	4				
+4		Destroyed	3				
+3		Destroyed	4				
+2		Destroyed	3				
+1		Destroyed	4				
+0		Destroyed	3				
+
+Alive: 0		Dead: 11
+
+
+
+Unknowns status:
+
+Id		Status		Type
+7		Alive		Delegate
+6		Alive		Delegate
+5		Destroyed	Delegate
+4		Destroyed	Delegate
+3		Destroyed	Delegate
+2		Destroyed	Delegate
+1		Destroyed	Delegate
+0		Destroyed	Delegate
+
+Alive: 2		Dead: 6
+
+
+
+FinalizableArrayBuffer status:
+
+Id		Status		NumberOfElements		BufferAllocatedUsing
+
+Alive: 0		Dead: 0

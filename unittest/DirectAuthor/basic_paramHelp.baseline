@@ -1,0 +1,29 @@
+Passed
+Passed
+    a
+Passed
+    type, handler
+Passed
+    ab, cd, ef
+Passed
+ERROR: in strict comparison mode expected to find '0' parameters for the function but found 3 in function help list at (offset 188)
+ERROR: hr = (failed ? ((HRESULT)0x80004005L) : ((HRESULT)0L)) Hr:0x80004005
+Failed
+Passed
+Passed
+Passed
+ERROR: in strict comparison mode expected to find '2' parameters for the function but found 3 in function help list at (offset 220)
+ERROR: hr = (failed ? ((HRESULT)0x80004005L) : ((HRESULT)0L)) Hr:0x80004005
+Failed
+Passed
+ERROR: in strict comparison mode expected to find 'c' at index 0 but found a in function help list at (offset 236)
+ERROR: in strict comparison mode expected to find 'a' at index 1 but found b in function help list at (offset 236)
+ERROR: in strict comparison mode expected to find 'b' at index 2 but found c in function help list at (offset 236)
+ERROR: expected 'c' in the function help list, but it was not found (offset 236)
+ERROR: expected 'a' in the function help list, but it was not found (offset 236)
+ERROR: expected 'b' in the function help list, but it was not found (offset 236)
+ERROR: hr = (failed ? ((HRESULT)0x80004005L) : ((HRESULT)0L)) Hr:0x80004005
+Failed
+Passed
+Passed
+Passed

@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BAC13F31-4792-4328-8F60-E59F65C6B359}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PerformanceTests</RootNamespace>
+    <AssemblyName>PerformanceTests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <BuildArch>x86</BuildArch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;Codemarkers_IncludeBrowserToolsMarkers, Codemarkers_IncludeAppEnum</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <BuildType>chk</BuildType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;Codemarkers_IncludeBrowserToolsMarkers, Codemarkers_IncludeAppEnum</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <BuildType>fre</BuildType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Internal.Performance.CodeMarkers.DesignTime, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>CodeMarkers\Microsoft.Internal.Performance.CodeMarkers.DesignTime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="VenusAPI\Microsoft.JScript.AuthoringServices.dll" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DirectAuthorTests\DirectAuthorTests.csproj">
+      <Project>{30F4FE63-FC81-4904-9CD2-B1C9101B219C}</Project>
+      <Name>DirectAuthorTests</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeMarkers\ManagedCodeMarkers.cs" />
+    <Compile Include="Box4AsContextFileTests.cs" />
+    <Compile Include="DomAsContextFileTests.cs" />
+    <Compile Include="ExtensionsTests.cs" />
+    <Compile Include="OpenMailTests.cs" />
+    <Compile Include="RegressionTests.cs" />
+    <Compile Include="SolitaireTests.cs" />
+    <Compile Include="Box4Tests.cs" />
+    <Compile Include="JQueryTests.cs" />
+    <Compile Include="DomTests.cs" />
+    <Compile Include="PerformanceTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Files\Box4\box4.js" />
+    <Content Include="Files\Box4\box4_error.js" />
+    <Content Include="Files\Dom_js\dom_error.js" />
+    <Content Include="Files\JQuery\jquery-1.2.6-vsdoc_error.js" />
+    <Content Include="Files\JQuery\jquery-1.2.6-vsdoc.js" />
+    <Content Include="Files\OpenMail\openmail_init.js" />
+    <Content Include="Files\SolitaireApp\cards.js" />
+    <Content Include="Files\SolitaireApp\cardsui.js" />
+    <Content Include="Files\SolitaireApp\cardTests.js" />
+    <Content Include="Files\SolitaireApp\default.js" />
+    <Content Include="Files\SolitaireApp\gameController.js" />
+    <Content Include="Files\SolitaireApp\js\base.js" />
+    <Content Include="Files\SolitaireApp\js\ui.js" />
+    <Content Include="Files\SolitaireApp\js\wwaapp.js" />
+    <Content Include="Files\SolitaireApp\js\xhr.js" />
+    <Content Include="Files\SolitaireApp\simpleAnim.js" />
+    <Content Include="Files\SolitaireApp\winrt\winrt.js" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

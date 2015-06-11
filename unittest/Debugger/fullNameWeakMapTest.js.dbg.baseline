@@ -1,0 +1,10 @@
+[
+  {
+    "evaluate": {
+      "weakMap": {
+        "weakMap.__proto__": "{...}",
+        "weakMap": "size = 3"
+      }
+    }
+  }
+]

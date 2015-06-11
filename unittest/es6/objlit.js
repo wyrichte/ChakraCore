@@ -1,0 +1,270 @@
+if (this.WScript && this.WScript.LoadScriptFile) {
+  this.WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+}
+
+var tests = [
+    {
+        name: "Identifier = value shorthand",
+        body: function() {
+            var str = "prop";
+            assert.areEqual({ str : str }, { str } );
+            assert.areEqual({"b" : 123, str : str, "foo" : "bar"}, {"b" : 123, str, "foo" : "bar"});
+        }
+    },
+    {
+        name: "Method shorthand",
+        body: function() {
+            var obj = {
+            foo() { return "foo"; }
+            };
+
+            assert.areEqual(obj.foo(), "foo");
+            assert.areEqual(({ foo: function() { }, foo() { return "foo"; } }).foo(), "foo"); 
+            assert.areEqual(({ foo(x) { }, foo() { return "foo"; } }).foo(), "foo");
+        }
+    },
+    {
+        name: "Computed property names",
+        body: function() {
+            var obj = {
+                ["foo" + "bar"]         : 1,
+                [1 * 10 * 10]           : 2,
+                ["foobar", "notfoobar"] : 3, // Should evaluate to notfoobar
+
+                // computed function name
+                ["bar" + "foo"] () { return 4 },
+                [2 * 10 * 10] () { return 5 },
+                ["barfoo", "notbarfoo"] () { return 6 },
+
+                // computed get/set method name
+                set ["boo" + "far" ] (a) { this.x = a * 2 },
+                get ["boo" + "far" ] () { return this.x },
+                set [3 * 10 * 10] (a) { this.y = a * a },
+                get [3 * 10 * 10] () { return this.y },
+                set ["boofar", "notboofar"] (a) { this.z = a / 3 },
+                get ["boofar", "notboofar"] () { return this.z }
+            };
+
+            assert.areEqual(1, obj.foobar, "String concat expr as property name");
+            assert.areEqual(2, obj[100], "Math expr as property name");
+            assert.areEqual(3, obj.notfoobar, "Element list as property name");
+
+            assert.areEqual(4, obj.barfoo(), "String concat expr as method name");
+            assert.areEqual(5, obj[200] (), "Math expr as method name");
+            assert.areEqual(6, obj.notbarfoo(), "Element list as method name");
+
+            obj.boofar=7;
+            assert.areEqual(14, obj.boofar, "String concat expr as setter/getter method names");
+            obj[300]=8;
+            assert.areEqual(64, obj[300], "Math expr as setter/getter method names");
+            obj.notboofar=9;
+            assert.areEqual(3, obj.notboofar, "Element list as setter/getter method names");
+
+            var protoObj = {
+                ["__proto__"] : { abc : 123 }
+            };
+            assert.areEqual(protoObj.abc, undefined, "__proto__ does not get assigned as the intrinsic proto when used as a computed property name");
+            var nestedProtoObj = {
+                ["__proto__"] : {
+                    ["__" + "proto" + "__"] : {
+                        abc : 123
+                    }
+                }
+            };
+            assert.areEqual(nestedProtoObj.abc, undefined, "Nested dynamic __proto__ literals");
+            protoObj = {
+                "__proto__" : { abc : 123 }
+            };
+            assert.areEqual(protoObj.abc, 123, "__proto__ get assigned when used as a normal production");
+
+            assert.throws(function () { eval("var b = { ['str'] }"); },            SyntaxError, "Invalid computed identifier shorthand");
+        }
+    },
+    {
+        name: "Duplicate property handling",
+        body: function () {
+            // Valid overwrite cases: old style definitions and computed property names
+            var obj = {
+                foobar          : 1,
+                "foobar"        : 2,
+                ["foo" + "bar"] : 3,
+                ["foo" + "bar"] : 4
+            }
+            assert.areEqual(obj.foobar, 4, "Opt-in duplicate property handling");
+
+            var obj2 = {
+                ["foo" + "bar"] : 1,
+                ["foo" + "bar"] : 2
+            }
+            assert.areEqual(obj2.foobar, 2, "Duplicate computed property names are allowed");
+
+            // Valid cases
+            var a = "str";
+            assert.areEqual("str", ({ a, a }).a, "Duplicate identifier references");
+            assert.areEqual("str", ({ 'foo' : '1', foo() { return "str"; } }).foo(), "Duplicate data property and method definition");
+            assert.areEqual("str", ({ set foo(x) { }, foo : "str" }).foo, "Duplicate accessors and data property");
+            assert.areEqual("str", ({ get foo() {}, set foo(x) { }, foo(x) { return "str"; } }).foo(), "Duplicate accessors and method definition");
+            assert.areEqual("a", ({ get foo() { return "str"; }, set foo(x) { }, ["foo"] : "a" }).foo, "Duplicate accessors and computed property");
+        }
+    },
+    {
+    name: "BLUE 552728: Object Literal: Use of keywords is not throwing syntax error",
+    body: function () {
+        // The following definitions ignore 'yield'
+        var keywords = ["break", "case", "catch", "class", "const", "continue", "debugger", "default", "delete", "do",
+                        "else", "export", "extends", "finally", "for", "function", "if", "import", "in", "instanceof",
+                        "new", "return", "super", "switch", "this", "throw", "try", "typeof", "var", "void", "while",
+                        "with"];
+        var futureStrict = ["implements", "let", "private", "public", "interface", "package", "protected", "static"];
+
+        // Strict mode rules
+        for (var keyword in futureStrict) {
+            assert.throws(function () { eval("use strict; var " + keyword + " = 1; var o = { " + keyword + " };"); }, SyntaxError, keyword + " is a forbidden identifier reference");
+        }
+        // TODO (tcare): When generators are implemented, add a test case where the yield operator is used.
+        assert.throws(function () { eval("use strict; var yield = 1; var o = { yield }; "); }, SyntaxError);
+
+        // Non-strict mode rules
+        for (var keyword in keywords) {
+            assert.throws(function () { eval("var " + keyword + " = 1; var o = { " + keyword + " };"); }, SyntaxError, keyword + " is a forbidden identifier reference");
+        }
+        var yield = 1;
+        var yieldObj = { yield }; // No error
+    }
+    },
+    {
+        name: "BLUE 551475: Duplicate property definition not throwing syntax error",
+        body: function () {
+            assert.areEqual(3, ({ set b(v) { }, b : 3 }).b, "Duplicate set accessor and data property");
+            assert.areEqual(3, ({ get b() { }, b : 3 }).b, "Duplicate get accessor and data property");
+            assert.areEqual(4, ({ b : 3, get b() { return 4; } }).b, "Duplicate data property and set accessor");
+        }
+    },
+    {
+        name: "BLUE 594468: Computed properties in nested object and function return statements cause assertion",
+        body: function () {
+            () => {
+                return {
+                    ["a"]: null
+                }
+            }
+        }
+    },
+    {
+        name: "BLUE 563637: Computed property ordering causes crash",
+        body: function () {
+            var a = {
+                ["a"] : 10,
+                b() {
+                    return this.a;
+                }
+            };
+
+            // The implementation of computed properties causes object literals to
+            // be constructed (InitFld) up to the first computed property, then StElem
+            // for each computed property and StFld for any other non-computed properties.
+            // The following test cases test these transitions.
+            var original = {
+                a : 1,
+                b : 2,
+                c : 3,
+                d : 4,
+                e : 5
+            };
+
+            var orderOne = {
+                a : 1,
+                b : 2,
+                ["c"] : 3,
+                d : 4,
+                e : 5
+            };
+
+            var orderTwo = {
+                a : 1,
+                b : 2,
+                c : 3,
+                d : 4,
+                ["e"] : 5
+            };
+
+            var orderThree = {
+                ["a"] : 1,
+                b : 2,
+                c : 3,
+                d : 4,
+                e : 5
+            };
+
+            var orderFour = {
+                ["a"] : 1,
+                b : 2,
+                ["c"] : 3,
+                d : 4,
+                ["e"] : 5
+            };
+
+            assert.areEqual(original, orderOne);
+            assert.areEqual(original, orderTwo);
+            assert.areEqual(original, orderThree);
+            assert.areEqual(original, orderFour);
+        }
+    },
+    {
+        name: "BLUE 603997: Method formals redeclaration error",
+        body: function() {
+            assert.doesNotThrow(function() { eval("var obj = { method(a) { var a; } };"); },                  "Object literal method with a var redeclaration does not throw");
+            assert.throws(function() { eval("var obj = { method(a) { let a; } };"); },           SyntaxError, "Object literal method with a let redeclaration throws",       "Let/Const redeclaration");
+            assert.throws(function() { eval("var obj = { method(a) { const a; } };"); },         SyntaxError, "Object literal method with a const redeclaration throws",     "Let/Const redeclaration");
+
+            assert.doesNotThrow(function() { eval("var obj = { method(a,b,c) { var b; } };"); },              "Object literal method with a var redeclaration does not throw");
+            assert.throws(function() { eval("var obj = { method(a,b,c) { let b; } };"); },       SyntaxError, "Object literal method with a let redeclaration throws",       "Let/Const redeclaration");
+            assert.throws(function() { eval("var obj = { method(a,b,c) { const b; } };"); },     SyntaxError, "Object literal method with a const redeclaration throws",     "Let/Const redeclaration");
+
+            assert.doesNotThrow(function() { eval("var obj = { set method(a) { var a; } };"); },              "Object literal set method with a var redeclaration does not throw");
+            assert.throws(function() { eval("var obj = { set method(a) { let a; } };"); },       SyntaxError, "Object literal set method with a let redeclaration throws",   "Let/Const redeclaration");
+            assert.throws(function() { eval("var obj = { set method(a) { const a; } };"); },     SyntaxError, "Object literal set method with a const redeclaration throws", "Let/Const redeclaration");
+        }
+    },
+    {
+        name: "BLUE 618132: __proto__ after a computed property",
+        body: function () {
+            var p = { p: 123 };
+            var o = {
+                ['someprop'] : 'someprop',
+                __proto__: p
+            };
+
+            assert.areEqual(p, Object.getPrototypeOf(o));
+            assert.isTrue(!o.hasOwnProperty("__proto__"));
+            assert.areEqual(123, o.p);
+            assert.areEqual('someprop', o.someprop);
+            assert.areEqual(p, Object.getPrototypeOf(o));
+        }
+    },
+    {
+        name: "BLUE 617446: Arguments identifier syntax",
+        body: function () {
+            function foo() {
+                var args = { arguments };
+                return [args.arguments[0], args.arguments[1], args.arguments.length];
+            }
+
+            assert.areEqual([undefined, undefined, 0], foo(),         "Arguments object correctly works with identifier syntax");
+            assert.areEqual([-1, 1, 2],                foo(-1, 1),    "Arguments object correctly works with identifier syntax");
+            assert.areEqual([-1, 1, 3],                foo(-1, 1, 0), "Arguments object correctly works with identifier syntax");
+        }
+    },
+    {
+        name: "__proto__ productions",
+        body: function() {
+            assert.throws(function() { eval("{ __proto__ : Function.prototype, __proto__ : Array.prototype }"); }, SyntaxError, "More than one regular productions can't define __proto__");
+            var __proto__ = {};
+            assert.throws(function() { eval("var o = { __proto__ : Function.prototype, __proto__, __proto__ : Array.prototype };"); }, SyntaxError, "More than one regular productions can't define __proto__ even if there are other productions present");
+            assert.doesNotThrow(function() { eval("var o = { __proto__, __proto__ : Object.prototype, __proto__() {}, __proto__ };"); }, "Except the regular production other productions can occur more than one time");
+            assert.doesNotThrow(function() { eval("var o = { ['__proto__'] : Array.prototype, __proto__ : Object.prototype, ['__proto__'] : {} };"); }, "More than one computed property names yielding the property name as __proto__ are allowed");
+        }
+    }
+];
+
+testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });

@@ -1,0 +1,13 @@
+JavascriptError: Out of stack space
+	at Recurring functions on call stack truncated due to stack overflow (oos1.js:1:1)
+	at oos() (oos1.js:4:5)
+	at oos() (oos1.js:4:5)
+	at oos() (oos1.js:4:5)
+	at oos() (oos1.js:4:5)
+	at oos() (oos1.js:4:5)
+	at oos() (oos1.js:4:5)
+	at oos() (oos1.js:4:5)
+	at oos() (oos1.js:4:5)
+	at oos() (oos1.js:4:5)
+	at oos() (oos1.js:4:5)
+	at Global code (oos1.js:8:5)

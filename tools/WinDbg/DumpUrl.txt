@@ -1,0 +1,32 @@
+$$
+$$ WinDbg script to dump the current URL
+$$
+
+.if (${/d:$arg1} & $scmp("${$arg1}", "-?") == 0)
+{
+    .printf "Usage: DumpUrl [scriptContext]\n" 
+    .printf "  scriptContext\taddress of a script context. If not specified, uses the scriptContext variable in the current frame\n" 
+}
+.else
+{
+    r @$t1 = 0
+    .if (${/d:$arg1}) 
+    { 
+        r? @$t1 = (jscript9!Js::ScriptContext*)${$arg1} 
+    } 
+    .else 
+    { 
+        r? @$t1 = (jscript9!Js::ScriptContext*)scriptContext 
+    }
+
+    .if ( @@c++( @$t1->globalObject->directHostObject != 0) )
+    {
+        .printf "IE9 mode, using script context: 0x%08x\n", @$t1
+        ?? @@c++( (*(mshtml!COmWindowProxy **)(((jscript9!Js::CustomExternalObject *)@$t1->globalObject->directHostObject)+1))->_pCWindow->_pMarkup->_pHtmCtx->_pDwnInfo->_cusUri )
+    }
+    .else
+    {
+        .printf "IE8 mode, using script context: 0x%08x\n", @$t1
+       ?? @@c++( ((mshtml!COmWindowProxy *)((mshtml!TEAROFF_THUNK *)((jscript9!HostObject *)@$t1->globalObject->hostObject)->hostDispatch->refCountedHostVariant->hostVariant->varDispatch.ppdispVal)->pvObject1)->_pCWindow->_pMarkup->_pHtmCtx->_pDwnInfo->_cusUri )
+    }
+}

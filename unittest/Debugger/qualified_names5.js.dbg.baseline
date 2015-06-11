@@ -1,0 +1,66 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 125,
+        "length": 1,
+        "text": "x",
+        "frameDescription": "obj[1]"
+      },
+      {
+        "start": 340,
+        "length": 8,
+        "text": "obj[1]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 183,
+        "length": 1,
+        "text": "x",
+        "frameDescription": "obj[x]"
+      },
+      {
+        "start": 351,
+        "length": 8,
+        "text": "obj[2]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 245,
+        "length": 1,
+        "text": "x",
+        "frameDescription": "obj[]"
+      },
+      {
+        "start": 362,
+        "length": 8,
+        "text": "obj[4]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 308,
+        "length": 1,
+        "text": "x",
+        "frameDescription": "obj[3.4456]"
+      },
+      {
+        "start": 373,
+        "length": 15,
+        "text": "obj[\"3.4456\"]()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "inner": "<large string>",
+      "a": "undefined",
+      "b": "[Uninitialized block variable]",
+      "c": "[Uninitialized block variable]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "inner": "<large string>",
+      "a": "0",
+      "b": "[Uninitialized block variable]",
+      "c": "[Uninitialized block variable]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "inner": "<large string>",
+      "a": "0",
+      "b": "1",
+      "c": "[Uninitialized block variable]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "inner": "<large string>",
+      "a": "0",
+      "b": "1",
+      "c": "2",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "blockScopeSlotArrayDeadZoneTest",
+      "[Globals]": ""
+    }
+  }
+]

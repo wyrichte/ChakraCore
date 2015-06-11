@@ -1,0 +1,28 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 112,
+        "length": 26,
+        "text": "for (var i in nonExistVar)",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 423,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 462,
+        "length": 26,
+        "text": "for (var i in nonExistVar)",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

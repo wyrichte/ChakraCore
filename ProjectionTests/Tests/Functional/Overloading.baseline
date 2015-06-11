@@ -1,0 +1,876 @@
+overloads
+
+=================================================
+Starting [Test 1: Simple Default Overload Set]
+Pass: draw(5)
+      Actual: IA.Draw(HSTRING) Called
+
+Pass: typeof [object Winery.Overloading.SimpleDefaultOverloadSet.C]
+      Actual: object
+
+Pass: draw should be defined
+      Actual: function
+
+Pass: typeof function draw() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+PASS [Test 1: Simple Default Overload Set]
+=================================================
+
+=================================================
+Starting [Test 2: Simple Conflict]
+Pass: Winery.Overloading.SimpleConflict.IA.draw
+      Actual: IA.Draw(int) Called
+
+Pass: Winery.Overloading.SimpleConflict.IB.draw
+      Actual: IB.Draw(HSTRING) Called
+
+Pass: typeof [object Winery.Overloading.SimpleConflict.C]
+      Actual: object
+
+Pass: Winery.Overloading.SimpleConflict.IA.draw should be defined
+      Actual: function
+
+Pass: typeof function Winery.Overloading.SimpleConflict.IA.draw() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.SimpleConflict.IB.draw should be defined
+      Actual: function
+
+Pass: typeof function Winery.Overloading.SimpleConflict.IB.draw() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+PASS [Test 2: Simple Conflict]
+=================================================
+
+=================================================
+Starting [Test 3: Inherited Overload]
+Pass: draw
+      Actual: IA.Draw(int) Called
+
+Pass: draw
+      Actual: IB.Draw(HSTRING,HSTRING) Called
+
+Pass: typeof [object Winery.Overloading.InheritedConflict.C]
+      Actual: object
+
+Pass: draw should be defined
+      Actual: function
+
+Pass: typeof function draw() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+PASS [Test 3: Inherited Overload]
+=================================================
+
+=================================================
+Starting [Test 4: Overload combining with Overload Set]
+Pass: draw
+      Actual: IA.Draw(int) Called
+
+Pass: draw
+      Actual: IB.Draw(HSTRING,HSTRING) Called
+
+Pass: draw
+      Actual: IC.Draw(int,int,int) Called
+
+Pass: draw
+      Actual: IC.Draw(HSTRING,HSTRING,HSTRING,HSTRING) Called
+
+Pass: typeof [object Winery.Overloading.NameConflictingWithOverloadSet.C]
+      Actual: object
+
+Pass: draw should be defined
+      Actual: function
+
+Pass: typeof function draw() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+PASS [Test 4: Overload combining with Overload Set]
+=================================================
+
+=================================================
+Starting [Test 5: Diamond]
+Pass: undefined
+      Actual: IRoot.Draw(int) Called
+
+Pass: typeof [object Winery.Overloading.Diamond.C]
+      Actual: object
+
+Pass: draw should be defined
+      Actual: function
+
+Pass: typeof function draw() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+PASS [Test 5: Diamond]
+=================================================
+
+=================================================
+Starting [Test 6: Simple Default Overload Set With Too Few Parameters]
+Pass: c.draw() returned (Error: draw: function called with too few arguments)
+      Actual: true
+
+PASS [Test 6: Simple Default Overload Set With Too Few Parameters]
+=================================================
+
+=================================================
+Starting [Test 7: Simple Default Overload Set With Too Many Parameters]
+Pass: c.draw(1,2)
+      Actual: IA.Draw(HSTRING) Called
+
+PASS [Test 7: Simple Default Overload Set With Too Many Parameters]
+=================================================
+
+=================================================
+Starting [Test 8: Simple Conflict  With Too Few Parameters]
+Pass: c["Winery.Overloading.SimpleConflict.IA.draw"]() returned (Error: Winery.Overloading.SimpleConflict.IA.draw: function called with too few arguments)
+      Actual: true
+
+Pass: c["Winery.Overloading.SimpleConflict.IB.draw"]() returned (Error: Winery.Overloading.SimpleConflict.IB.draw: function called with too few arguments)
+      Actual: true
+
+PASS [Test 8: Simple Conflict  With Too Few Parameters]
+=================================================
+
+=================================================
+Starting [Test 9: Simple Conflict With Too Many Parameters]
+Pass: undefined
+      Actual: IA.Draw(int) Called
+
+Pass: undefined
+      Actual: IB.Draw(HSTRING) Called
+
+PASS [Test 9: Simple Conflict With Too Many Parameters]
+=================================================
+
+=================================================
+Starting [Test 10: Simple Overload set With Too Few Parameters]
+Pass: c.draw() returned (Error: draw: function called with too few arguments)
+      Actual: true
+
+PASS [Test 10: Simple Overload set With Too Few Parameters]
+=================================================
+
+=================================================
+Starting [Test 11: Simple Overload Set With Too Many Parameters]
+Pass: undefined
+      Actual: IA.Draw(HSTRING,HSTRING) Called
+
+PASS [Test 11: Simple Overload Set With Too Many Parameters]
+=================================================
+
+=================================================
+Starting [Test 12: Inherited Conflict With Too Few Parameters]
+Pass: c.draw returned (Error: draw: function called with too few arguments)
+      Actual: true
+
+PASS [Test 12: Inherited Conflict With Too Few Parameters]
+=================================================
+
+=================================================
+Starting [Test 13: Inherited Conflict With Too Many Parameters]
+Pass: undefined
+      Actual: IB.Draw(HSTRING,HSTRING) Called
+
+PASS [Test 13: Inherited Conflict With Too Many Parameters]
+=================================================
+
+=================================================
+Starting [Test 14: Name Conflicting With Overload Set With Too Few Parameters]
+Pass: c.draw() returned (Error: draw: function called with too few arguments)
+      Actual: true
+
+PASS [Test 14: Name Conflicting With Overload Set With Too Few Parameters]
+=================================================
+
+=================================================
+Starting [Test 15: Name Conflicting With Overload Set With Too Many Parameters]
+Pass: c.draw(1,2)
+      Actual: IB.Draw(HSTRING,HSTRING) Called
+
+Pass: c.draw('hello','hello',3)
+      Actual: IC.Draw(int,int,int) Called
+
+Pass: c.draw('hello','hello','hello','hello',5)
+      Actual: IC.Draw(HSTRING,HSTRING,HSTRING,HSTRING) Called
+
+PASS [Test 15: Name Conflicting With Overload Set With Too Many Parameters]
+=================================================
+
+=================================================
+Starting [Test 16: Overload in Simple Activatable]
+Pass: c.toSandwich()
+      Actual: 1
+
+Pass: c.toSandwich(0)
+      Actual: 0
+
+Pass: c.toSandwich(10)
+      Actual: 1
+
+PASS [Test 16: Overload in Simple Activatable]
+=================================================
+
+=================================================
+Starting [Test 17: Simple Default Overload Set]
+Pass: draw(5)
+      Actual: IA.Draw(HSTRING) Called
+
+Pass: typeof [object Winery.Overloading.SimpleDefaultOverloadSet.C]
+      Actual: object
+
+Pass: draw should be defined
+      Actual: function
+
+Pass: typeof function draw() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+PASS [Test 17: Simple Default Overload Set]
+=================================================
+
+=================================================
+Starting [Test 18: Simple Conflict]
+Pass: Winery.Overloading.SimpleConflict.IA.draw
+      Actual: IA.Draw(int) Called
+
+Pass: Winery.Overloading.SimpleConflict.IB.draw
+      Actual: IB.Draw(HSTRING) Called
+
+Pass: typeof [object Winery.Overloading.SimpleConflict.C]
+      Actual: object
+
+Pass: Winery.Overloading.SimpleConflict.IA.draw should be defined
+      Actual: function
+
+Pass: typeof function Winery.Overloading.SimpleConflict.IA.draw() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.SimpleConflict.IB.draw should be defined
+      Actual: function
+
+Pass: typeof function Winery.Overloading.SimpleConflict.IB.draw() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+PASS [Test 18: Simple Conflict]
+=================================================
+
+=================================================
+Starting [Test 19: Inherited Conflict]
+Pass: draw
+      Actual: IA.Draw(int) Called
+
+Pass: draw
+      Actual: IB.Draw(HSTRING,HSTRING) Called
+
+Pass: typeof [object Winery.Overloading.InheritedConflict.C]
+      Actual: object
+
+Pass: draw should be defined
+      Actual: function
+
+Pass: typeof function draw() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+PASS [Test 19: Inherited Conflict]
+=================================================
+
+=================================================
+Starting [Test 20: Name Conflicting With Overload Set]
+Pass: draw
+      Actual: IA.Draw(int) Called
+
+Pass: draw
+      Actual: IB.Draw(HSTRING,HSTRING) Called
+
+Pass: draw
+      Actual: IC.Draw(int,int,int) Called
+
+Pass: draw
+      Actual: IC.Draw(HSTRING,HSTRING,HSTRING,HSTRING) Called
+
+Pass: typeof [object Winery.Overloading.NameConflictingWithOverloadSet.C]
+      Actual: object
+
+Pass: draw should be defined
+      Actual: function
+
+Pass: typeof function draw() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+PASS [Test 20: Name Conflicting With Overload Set]
+=================================================
+
+=================================================
+Starting [Test 21: Diamond]
+Pass: undefined
+      Actual: IRoot.Draw(int) Called
+
+Pass: typeof [object Winery.Overloading.Diamond.C]
+      Actual: object
+
+Pass: draw should be defined
+      Actual: function
+
+Pass: typeof function draw() { [native code] }
+      Actual: function
+
+Pass: toString should be defined
+      Actual: function
+
+Pass: typeof function toString() { [native code] }
+      Actual: function
+
+PASS [Test 21: Diamond]
+=================================================
+
+=================================================
+Starting [Test 22: Simple Default Overload Set With Too Few Parameters]
+Pass: c.draw() returned (Error: draw: function called with too few arguments)
+      Actual: true
+
+PASS [Test 22: Simple Default Overload Set With Too Few Parameters]
+=================================================
+
+=================================================
+Starting [Test 23: Simple Default Overload Set With Too Many Parameters]
+Pass: c.draw(1,2)
+      Actual: IA.Draw(HSTRING) Called
+
+PASS [Test 23: Simple Default Overload Set With Too Many Parameters]
+=================================================
+
+=================================================
+Starting [Test 24: Simple Conflict  With Too Few Parameters]
+Pass: c["Winery.Overloading.SimpleConflict.IA.draw"]() returned (Error: Winery.Overloading.SimpleConflict.IA.draw: function called with too few arguments)
+      Actual: true
+
+Pass: c["Winery.Overloading.SimpleConflict.IB.draw"]() returned (Error: Winery.Overloading.SimpleConflict.IB.draw: function called with too few arguments)
+      Actual: true
+
+PASS [Test 24: Simple Conflict  With Too Few Parameters]
+=================================================
+
+=================================================
+Starting [Test 25: Simple Conflict With Too Many Parameters]
+Pass: undefined
+      Actual: IA.Draw(int) Called
+
+Pass: undefined
+      Actual: IB.Draw(HSTRING) Called
+
+PASS [Test 25: Simple Conflict With Too Many Parameters]
+=================================================
+
+=================================================
+Starting [Test 26: Simple Overload set With Too Few Parameters]
+Pass: c.draw() returned (Error: draw: function called with too few arguments)
+      Actual: true
+
+PASS [Test 26: Simple Overload set With Too Few Parameters]
+=================================================
+
+=================================================
+Starting [Test 27: Simple Overload Set With Too Many Parameters]
+Pass: undefined
+      Actual: IA.Draw(HSTRING,HSTRING) Called
+
+PASS [Test 27: Simple Overload Set With Too Many Parameters]
+=================================================
+
+=================================================
+Starting [Test 28: Inherited Conflict With Too Few Parameters]
+Pass: c.draw returned (Error: draw: function called with too few arguments)
+      Actual: true
+
+PASS [Test 28: Inherited Conflict With Too Few Parameters]
+=================================================
+
+=================================================
+Starting [Test 29: Inherited Conflict With Too Many Parameters]
+Pass: undefined
+      Actual: IB.Draw(HSTRING,HSTRING) Called
+
+PASS [Test 29: Inherited Conflict With Too Many Parameters]
+=================================================
+
+=================================================
+Starting [Test 30: Name Conflicting With Overload Set With Too Few Parameters]
+Pass: c["Winery.Overloading.NameConflictingWithOverloadSet.IA.draw"]() returned (Error: draw: function called with too few arguments)
+      Actual: true
+
+PASS [Test 30: Name Conflicting With Overload Set With Too Few Parameters]
+=================================================
+
+=================================================
+Starting [Test 31: Name Conflicting With Overload Set With Too Many Parameters]
+Pass: c.draw(1,2)
+      Actual: IB.Draw(HSTRING,HSTRING) Called
+
+Pass: c.('hello','hello',3)
+      Actual: IC.Draw(int,int,int) Called
+
+Pass: c.draw('hello','hello','hello','hello',5)
+      Actual: IC.Draw(HSTRING,HSTRING,HSTRING,HSTRING) Called
+
+PASS [Test 31: Name Conflicting With Overload Set With Too Many Parameters]
+=================================================
+
+=================================================
+Starting [Test 32: Overload in Simple Activatable]
+Pass: c.toSandwich()
+      Actual: 1
+
+Pass: c.toSandwich(0)
+      Actual: 0
+
+Pass: c.toSandwich(10)
+      Actual: 1
+
+PASS [Test 32: Overload in Simple Activatable]
+=================================================
+
+=================================================
+Starting [Test 33: Overload in Simple Activatable where overloaded methods are not marked with default_overload and the overloaded methods are defined in a seperate winmd]
+Pass: c.makeBurger()
+      Actual: 100
+
+Pass: c.makeBurger(0,1)
+      Actual: 50
+
+Pass: c.makeBurger(1, 1)
+      Actual: 0
+
+PASS [Test 33: Overload in Simple Activatable where overloaded methods are not marked with default_overload and the overloaded methods are defined in a seperate winmd]
+=================================================
+
+=================================================
+Starting [Test 34: Simple Static Conflict]
+Pass: typeof function Winery.Overloading.SimpleStaticConflict.Access() { [native code] }
+      Actual: function
+
+Pass: doSomething should be defined
+      Actual: function
+
+Pass: typeof function doSomething() { [native code] }
+      Actual: function
+
+Pass: doSomethingNotOverloaded should be defined
+      Actual: function
+
+Pass: typeof function doSomethingNotOverloaded() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.SimpleStaticConflict.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflict.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflict.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflict.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflict.Access.doSomething(true) (as c)
+      Actual: SimpleStaticConflict.IA.DoSomething(boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflict.Access.doSomething(true)
+      Actual: SimpleStaticConflict.IA.DoSomething(boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflict.Access.doSomething(true, true) (as c)
+      Actual: SimpleStaticConflict.IB.DoSomething2(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflict.Access.doSomething(true, true)
+      Actual: SimpleStaticConflict.IB.DoSomething2(boolean, boolean) called
+
+Pass: Object.getOwnPropertyDescriptor c.doSomething()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+Pass: Object.getOwnPropertyDescriptor Winery.Overloading.SimpleStaticConflict.Access.doSomething() to c.doSomething()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+PASS [Test 34: Simple Static Conflict]
+=================================================
+
+=================================================
+Starting [Test 35: Simple Static Conflict with Different Arity]
+Pass: typeof function Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access() { [native code] }
+      Actual: function
+
+Pass: doAnotherThing should be defined
+      Actual: function
+
+Pass: typeof function doAnotherThing() { [native code] }
+      Actual: function
+
+Pass: doSomething should be defined
+      Actual: function
+
+Pass: typeof function doSomething() { [native code] }
+      Actual: function
+
+Pass: doSomethingNotOverloaded should be defined
+      Actual: function
+
+Pass: typeof function doSomethingNotOverloaded() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.SimpleStaticConflictWithDifferentArity.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflictWithDifferentArity.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithDifferentArity.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflictWithDifferentArity.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access.doSomething(true) (as c)
+      Actual: SimpleStaticConflictWithDifferentArity.IB.DoSomething2(boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access.doSomething(true, true) (as c)
+      Actual: SimpleStaticConflictWithDifferentArity.IA.DoSomething(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access.doSomething(true)
+      Actual: SimpleStaticConflictWithDifferentArity.IB.DoSomething2(boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access.doSomething(true, true)
+      Actual: SimpleStaticConflictWithDifferentArity.IA.DoSomething(boolean, boolean) called
+
+Pass: Object.getOwnPropertyDescriptor c.doSomething()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+Pass: Object.getOwnPropertyDescriptor Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access.doSomething() to c.doSomething()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+Pass: Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access.doAnotherThing(true) (as c)
+      Actual: SimpleStaticConflictWithDifferentArity.IA.DoAnotherThing(boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access.doAnotherThing(true, true) (as c)
+      Actual: SimpleStaticConflictWithDifferentArity.IB.DoAnotherThing2(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access.doAnotherThing(true)
+      Actual: SimpleStaticConflictWithDifferentArity.IA.DoAnotherThing(boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access.doAnotherThing(true, true)
+      Actual: SimpleStaticConflictWithDifferentArity.IB.DoAnotherThing2(boolean, boolean) called
+
+Pass: Object.getOwnPropertyDescriptor c.doAnotherThing()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+Pass: Object.getOwnPropertyDescriptor Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access.doAnotherThing() to c.doAnotherThing()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+PASS [Test 35: Simple Static Conflict with Different Arity]
+=================================================
+
+=================================================
+Starting [Test 36: Simple Static Conflict with default overload last]
+Pass: typeof function Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.Access() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.IA.doSomething should be defined
+      Actual: function
+
+Pass: typeof function Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.IA.doSomething() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.IB.doSomething should be defined
+      Actual: function
+
+Pass: typeof function Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.IB.doSomething() { [native code] }
+      Actual: function
+
+Pass: doSomethingNotOverloaded should be defined
+      Actual: function
+
+Pass: typeof function doSomethingNotOverloaded() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflictDefaultOverloadLast.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflictDefaultOverloadLast.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.Access.doSomething(true, true) (as c)
+      Actual: SimpleStaticConflictDefaultOverloadLast.IA.DoSomething(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.Access.doSomething(true, true)
+      Actual: SimpleStaticConflictDefaultOverloadLast.IA.DoSomething(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.Access.IB.doSomething(true, true) (as c)
+      Actual: SimpleStaticConflictDefaultOverloadLast.IB.DoSomething2(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.Access.IB.doSomething(true, true)
+      Actual: SimpleStaticConflictDefaultOverloadLast.IB.DoSomething2(boolean, boolean) called
+
+Pass: Object.getOwnPropertyDescriptor c.IA()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+Pass: Object.getOwnPropertyDescriptor Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.Access.IA.doSomething() to c.IA.doSomething()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+Pass: Object.getOwnPropertyDescriptor c.IB()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+Pass: Object.getOwnPropertyDescriptor Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.Access.IB.doSomething() to c.IB.doSomething()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+PASS [Test 36: Simple Static Conflict with default overload last]
+=================================================
+
+=================================================
+Starting [Test 37: Simple Static Conflict with versioning]
+Pass: typeof function Winery.Overloading.SimpleStaticConflictVersioned.Access() { [native code] }
+      Actual: function
+
+Pass: doSomething should be defined
+      Actual: function
+
+Pass: typeof function doSomething() { [native code] }
+      Actual: function
+
+Pass: doSomethingNotOverloaded should be defined
+      Actual: function
+
+Pass: typeof function doSomethingNotOverloaded() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.SimpleStaticConflictVersioned.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflictVersioned.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersioned.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflictVersioned.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersioned.Access.doSomething(true) (as c)
+      Actual: SimpleStaticConflictVersioned.IB.DoSomething2(boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersioned.Access.doSomething(true)
+      Actual: SimpleStaticConflictVersioned.IB.DoSomething2(boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersioned.Access.doSomething(true, true) (as c)
+      Actual: SimpleStaticConflictVersioned.IA.DoSomething(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersioned.Access.doSomething(true, true)
+      Actual: SimpleStaticConflictVersioned.IA.DoSomething(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersioned.Access.doSomething(true, true, true) (as c)
+      Actual: SimpleStaticConflictVersioned.IC.DoSomething3(boolean, boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersioned.Access.doSomething(true, true, true)
+      Actual: SimpleStaticConflictVersioned.IC.DoSomething3(boolean, boolean, boolean) called
+
+Pass: Object.getOwnPropertyDescriptor c.doSomething()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+Pass: Object.getOwnPropertyDescriptor Winery.Overloading.SimpleStaticConflictVersioned.Access.doSomething() to c.doSomething()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+PASS [Test 37: Simple Static Conflict with versioning]
+=================================================
+
+=================================================
+Starting [Test 38: Simple Static Conflict with versioning (with overloaded within same interface)]
+Pass: typeof function Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.Access() { [native code] }
+      Actual: function
+
+Pass: doSomething should be defined
+      Actual: function
+
+Pass: typeof function doSomething() { [native code] }
+      Actual: function
+
+Pass: doSomethingNotOverloaded should be defined
+      Actual: function
+
+Pass: typeof function doSomethingNotOverloaded() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.Access.doSomething(true) (as c)
+      Actual: SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.IB.DoSomething2(boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.Access.doSomething(true)
+      Actual: SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.IB.DoSomething2(boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.Access.doSomething(true, true) (as c)
+      Actual: SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.IA.DoSomething(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.Access.doSomething(true, true)
+      Actual: SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.IA.DoSomething(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.Access.doSomething(true, true, true) (as c)
+      Actual: SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.IB.DoSomething3(boolean, boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.Access.doSomething(true, true, true)
+      Actual: SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.IB.DoSomething3(boolean, boolean, boolean) called
+
+Pass: Object.getOwnPropertyDescriptor c.doSomething()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+Pass: Object.getOwnPropertyDescriptor Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.Access.doSomething() to c.doSomething()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+PASS [Test 38: Simple Static Conflict with versioning (with overloaded within same interface)]
+=================================================
+
+=================================================
+Starting [Test 39: Simple Static Conflict with same arity (across interfaces)]
+Pass: typeof function Winery.Overloading.SimpleStaticConflictWithSameArity.Access() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.SimpleStaticConflictWithSameArity.IA.doSomething should be defined
+      Actual: function
+
+Pass: typeof function Winery.Overloading.SimpleStaticConflictWithSameArity.IA.doSomething() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.SimpleStaticConflictWithSameArity.IB.doSomething should be defined
+      Actual: function
+
+Pass: typeof function Winery.Overloading.SimpleStaticConflictWithSameArity.IB.doSomething() { [native code] }
+      Actual: function
+
+Pass: doSomethingNotOverloaded should be defined
+      Actual: function
+
+Pass: typeof function doSomethingNotOverloaded() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.SimpleStaticConflictWithSameArity.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflictWithSameArity.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithSameArity.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflictWithSameArity.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithSameArity.Access.doSomething(true, true) (as c)
+      Actual: SimpleStaticConflictWithSameArity.IA.DoSomething(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithSameArity.Access.doSomething(true, true)
+      Actual: SimpleStaticConflictWithSameArity.IA.DoSomething(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithSameArity.Access.IB.doSomething(true, true) (as c)
+      Actual: SimpleStaticConflictWithSameArity.IB.DoSomething2(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithSameArity.Access.IB.doSomething(true, true)
+      Actual: SimpleStaticConflictWithSameArity.IB.DoSomething2(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithSameArity.Access.IB.doSomething(string) (as c)
+      Actual: SimpleStaticConflictWithSameArity.IB.DoSomething3(HSTRING) called
+
+Pass: Winery.Overloading.SimpleStaticConflictWithSameArity.Access.IB.doSomething(string)
+      Actual: SimpleStaticConflictWithSameArity.IB.DoSomething3(HSTRING) called
+
+Pass: Object.getOwnPropertyDescriptor c.IA()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+Pass: Object.getOwnPropertyDescriptor Winery.Overloading.SimpleStaticConflictWithSameArity.Access.IA.doSomething() to c.IA.doSomething()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+Pass: Object.getOwnPropertyDescriptor c.IB()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+Pass: Object.getOwnPropertyDescriptor Winery.Overloading.SimpleStaticConflictWithSameArity.Access.IB.doSomething() to c.IB.doSomething()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+PASS [Test 39: Simple Static Conflict with same arity (across interfaces)]
+=================================================
+
+=================================================
+Starting [Test 40: Simple Static Conflict with same arity (within interfaces)]
+Pass: typeof function Winery.Overloading.SimpleStaticConflictWithinInterface.Access() { [native code] }
+      Actual: function
+
+Pass: doSomething should be defined
+      Actual: function
+
+Pass: typeof function doSomething() { [native code] }
+      Actual: function
+
+Pass: doSomethingNotOverloaded should be defined
+      Actual: function
+
+Pass: typeof function doSomethingNotOverloaded() { [native code] }
+      Actual: function
+
+Pass: Winery.Overloading.SimpleStaticConflict.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflictWithinInterface.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflict.IA.doSomethingNotOverloaded(true, true)
+      Actual: SimpleStaticConflictWithinInterface.IA.DoSomethingNotOverloaded(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflict.Access.doSomething(true, true) (as c)
+      Actual: SimpleStaticConflictWithinInterface.IA.DoSomething2(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflict.Access.doSomething(true, true)
+      Actual: SimpleStaticConflictWithinInterface.IA.DoSomething2(boolean, boolean) called
+
+Pass: Winery.Overloading.SimpleStaticConflict.Access.IA.doSomething(string) (as c)
+      Actual: SimpleStaticConflictWithinInterface.IA.DoSomething(HSTRING) called
+
+Pass: Winery.Overloading.SimpleStaticConflict.Access.IA.doSomething(string)
+      Actual: SimpleStaticConflictWithinInterface.IA.DoSomething(HSTRING) called
+
+Pass: Object.getOwnPropertyDescriptor c.IA()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+Pass: Object.getOwnPropertyDescriptor Winery.Overloading.SimpleStaticConflictWithinInterface.Access.IA.doSomething() to c.IA.doSomething()
+      Actual: {"writable":false,"enumerable":true,"configurable":false}
+
+PASS [Test 40: Simple Static Conflict with same arity (within interfaces)]
+=================================================
+
+Passed: 40
+Failed: 0

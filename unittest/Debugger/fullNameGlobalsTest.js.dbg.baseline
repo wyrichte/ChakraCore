@@ -1,0 +1,20 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "this.__proto__": "{...}",
+        "this.g": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "arguments.__proto__": "{...}",
+        "arguments.length": "0"
+      },
+      "[Globals]": {
+        "test": "function test() {\n    /**bp:locals(1, LOCALS_FULLNAME)**/\n}",
+        "g": "{...}"
+      }
+    }
+  }
+]

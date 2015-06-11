@@ -1,0 +1,448 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "null"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callee": "<large string>",
+        "caller": "<large string>",
+        "length": "2",
+        "[0]": "null",
+        "[1]": "strict mode"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "undefined"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callee": "<large string>",
+        "caller": "<large string>",
+        "length": "2",
+        "[0]": "undefined",
+        "[1]": "strict mode"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "false"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "true"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "true",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callee": "<large string>",
+        "caller": "<large string>",
+        "length": "2",
+        "[0]": "true",
+        "[1]": "strict mode"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "0"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "123"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "123",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callee": "<large string>",
+        "caller": "<large string>",
+        "length": "2",
+        "[0]": "123",
+        "[1]": "strict mode"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "",
+        "length": "12"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "String Value"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "String Value",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callee": "<large string>",
+        "caller": "<large string>",
+        "length": "2",
+        "[0]": "String Value",
+        "[1]": "strict mode"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "false"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "false"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "false"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callee": "<large string>",
+        "caller": "<large string>",
+        "length": "2",
+        "[0]": "false",
+        "[1]": "strict mode"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "0"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "45"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "0"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callee": "<large string>",
+        "caller": "<large string>",
+        "length": "2",
+        "[0]": "45",
+        "[1]": "strict mode"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "",
+        "length": "13"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "String Object"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "",
+        "length": "13"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callee": "<large string>",
+        "caller": "<large string>",
+        "length": "2",
+        "[0]": "String Object",
+        "[1]": "strict mode"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "[]",
+        "length": "2",
+        "[0]": "0",
+        "[1]": "1"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "[0,1]"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "[]",
+        "length": "2",
+        "[0]": "0",
+        "[1]": "1"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callee": "<large string>",
+        "caller": "<large string>",
+        "length": "2",
+        "[0]": "[0,1]",
+        "[1]": "strict mode"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "{...}",
+        "obj": "member"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "{...}"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "{...}",
+        "obj": "member"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callee": "<large string>",
+        "caller": "<large string>",
+        "length": "2",
+        "[0]": "{...}",
+        "[1]": "strict mode"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "{...}"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callee": "<large string>",
+        "caller": "<large string>",
+        "length": "2",
+        "[0]": "{...}",
+        "[1]": "strict mode"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callee": "<large string>",
+        "caller": "<large string>",
+        "length": "0"
+      },
+      "[Globals]": {
+        "f1": "<large string>",
+        "f2": "<large string>"
+      }
+    }
+  }
+]

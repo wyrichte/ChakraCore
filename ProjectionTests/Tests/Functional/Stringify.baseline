@@ -1,0 +1,135 @@
+JSON.Stringify / Int64 interaction tests
+
+=================================================
+Starting [Test 0: BLUE: 202724 - JSON.stringify() fails with long long values returned from WinRT]
+Pass: JSON.stringify(a.testBug202724_GetInt64()) should be defined
+      Actual: 4294967296
+
+PASS [Test 0: BLUE: 202724 - JSON.stringify() fails with long long values returned from WinRT]
+=================================================
+
+=================================================
+Starting [Test 1: BLUE: 202724 - JSON.stringify() fails with unsigned long long values returned from WinRT]
+Pass: JSON.stringify(a.testBug202724_GetUInt64()) should be defined
+      Actual: 4294967296
+
+PASS [Test 1: BLUE: 202724 - JSON.stringify() fails with unsigned long long values returned from WinRT]
+=================================================
+
+=================================================
+Starting [Test 2: JSON.stringify() called with replacer function to ignore Int64 value]
+Pass: JSON.stringify() result should be defined
+      Actual: {
+ "v1": 1,
+ "v3": 4294967297
+}
+
+PASS [Test 2: JSON.stringify() called with replacer function to ignore Int64 value]
+=================================================
+
+=================================================
+Starting [Test 3: JSON.stringify() called with replacer function which returns Int64 values]
+Pass: JSON.stringify() result should be defined
+      Actual: {
+ "v1": 4294967296,
+ "v2": 4294967296,
+ "v3": 4294967297
+}
+
+PASS [Test 3: JSON.stringify() called with replacer function which returns Int64 values]
+=================================================
+
+=================================================
+Starting [Test 4: JSON.stringify() called with simple replacer and value contains Int64 value]
+Pass: JSON.stringify() result should be defined
+      Actual: {
+ "v1": 1,
+ "v2": 4294967296,
+ "v3": 4294967297
+}
+
+PASS [Test 4: JSON.stringify() called with simple replacer and value contains Int64 value]
+=================================================
+
+=================================================
+Starting [Test 5: JSON.stringify() called with Int64 space argument]
+Pass: JSON.stringify() result should be defined
+      Actual: {
+          "v1": 1,
+          "v2": 4294967296,
+          "v3": 4294967297
+}
+
+PASS [Test 5: JSON.stringify() called with Int64 space argument]
+=================================================
+
+=================================================
+Starting [Test 6: JSON.stringify() called with Int64 space argument (converted to JavascriptNumber)]
+Pass: JSON.stringify() result should be defined
+      Actual: {
+          "v1": 1,
+          "v2": 4294967296,
+          "v3": 4294967297
+}
+
+PASS [Test 6: JSON.stringify() called with Int64 space argument (converted to JavascriptNumber)]
+=================================================
+
+=================================================
+Starting [Test 7: JSON.stringify() called with array replacer argument]
+Pass: JSON.stringify() result should be defined
+      Actual: {"v1":1,"v2":4294967296,"v3":4294967297}
+
+PASS [Test 7: JSON.stringify() called with array replacer argument]
+=================================================
+
+=================================================
+Starting [Test 8: JSON.stringify() called with array replacer argument containing Int64 value]
+Pass: JSON.stringify() result should be defined
+      Actual: {"v2":4294967296}
+
+PASS [Test 8: JSON.stringify() called with array replacer argument containing Int64 value]
+=================================================
+
+=================================================
+Starting [Test 9: JSON.stringify() called with array replacer argument containing numeric values (Including Int64)]
+Pass: JSON.stringify() result should be defined
+      Actual: {"2":4294967296}
+
+PASS [Test 9: JSON.stringify() called with array replacer argument containing numeric values (Including Int64)]
+=================================================
+
+=================================================
+Starting [Test 10: JSON.stringify() called with object containing mixture of numeric and Int64 keys and replacer values]
+Pass: JSON.stringify() result should be defined
+      Actual: {"1":4294967296,"2":4294967296,"4294967296":4294967296,"v":4294967296}
+
+PASS [Test 10: JSON.stringify() called with object containing mixture of numeric and Int64 keys and replacer values]
+=================================================
+
+=================================================
+Starting [Test 11: JSON.stringify() called with array value object containing Int64 values]
+Pass: JSON.stringify() result should be defined
+      Actual: [1,4294967295,4294967296,4294967297]
+
+PASS [Test 11: JSON.stringify() called with array value object containing Int64 values]
+=================================================
+
+=================================================
+Starting [Test 12: JSON.stringify() called with numeric key and replacer value (Int64 value binding)]
+Pass: JSON.stringify() result should be defined
+      Actual: {"200":200}
+
+PASS [Test 12: JSON.stringify() called with numeric key and replacer value (Int64 value binding)]
+=================================================
+
+=================================================
+Starting [Test 13: JSON.stringify() called with replacer including Int64 value matching object key]
+Pass: JSON.stringify() result should be defined
+      Actual: {"4294967296":4294967296}
+
+PASS [Test 13: JSON.stringify() called with replacer including Int64 value matching object key]
+=================================================
+
+Passed: 14
+Failed: 0

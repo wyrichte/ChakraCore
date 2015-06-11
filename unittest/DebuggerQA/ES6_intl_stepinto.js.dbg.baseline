@@ -1,0 +1,12 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "[get compare returned]": "<large string>",
+      "[Intl.Collator.prototype.compare returned]": "-1",
+      "arguments": "{...}",
+      "intl": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

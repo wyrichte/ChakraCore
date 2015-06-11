@@ -1,0 +1,121 @@
+[
+  {
+    "evaluate": {
+      "a + 1": "Use before declaration"
+    }
+  },
+  {
+    "evaluate": {
+      "a + 1": "1"
+    }
+  },
+  {
+    "evaluate": {
+      "c + '1'": "Use before declaration"
+    }
+  },
+  {
+    "evaluate": {
+      "c + '1'": "11"
+    }
+  },
+  {
+    "log": "Outside block"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "0",
+      "c": "1",
+      "b": "1",
+      "d": "abc",
+      "[Globals]": ""
+    }
+  },
+  {
+    "log": "Block with let"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "[Uninitialized block variable]",
+      "a": "0",
+      "c": "1",
+      "b#1": "1",
+      "d": "abc",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "b": "[Uninitialized block variable]"
+    }
+  },
+  {
+    "evaluate": {
+      "b//": "Use before declaration"
+    }
+  },
+  {
+    "evaluate": {
+      "b": "22"
+    }
+  },
+  {
+    "evaluate": {
+      "b//": "22"
+    }
+  },
+  {
+    "log": "Block with const"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "d": "[Uninitialized block variable]",
+      "a": "0",
+      "c": "1",
+      "b": "1",
+      "d#1": "abc",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "d": "[Uninitialized block variable]"
+    }
+  },
+  {
+    "evaluate": {
+      "d//": "Use before declaration"
+    }
+  },
+  {
+    "evaluate": {
+      "const d = 5; d;": "5"
+    }
+  },
+  {
+    "evaluate": {
+      "d": "[Uninitialized block variable]"
+    }
+  },
+  {
+    "evaluate": {
+      "d = 5; d;": "Assignment to const"
+    }
+  },
+  {
+    "evaluate": {
+      "d": "33"
+    }
+  },
+  {
+    "evaluate": {
+      "d//": "33"
+    }
+  }
+]

@@ -1,0 +1,510 @@
+[
+  {
+    "evaluate": {
+      "val": "Array.prototype"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "{...}",
+        "f.length": "0",
+        "Symbol.unscopables": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Boolean.prototype"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Function.prototype"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "{...}",
+        "f.arguments": "null",
+        "f.caller": "null",
+        "f.length": "0",
+        "f.name": ""
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Error.prototype"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "{...}",
+        "f.message": "",
+        "f.name": "Error"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "String.prototype"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "{...}",
+        "f.length": "0"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "RegExp.prototype"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "{...}",
+        "f.global": "false",
+        "f.ignoreCase": "false",
+        "f.lastIndex": "0",
+        "f.multiline": "false",
+        "f.options": "",
+        "f.source": "(?:)",
+        "f.unicode": "false"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Map.prototype"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "{...}",
+        "f.size": "Map.prototype.size: 'this' is not a Map object"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Uint8Array.prototype"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "{...}",
+        "f.BYTES_PER_ELEMENT": "1"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Array.prototype.forEach"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "f.arguments": "null",
+        "f.length": "1",
+        "f.name": "forEach"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Math.sin"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "f.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "f.arguments": "null",
+        "f.caller": "null",
+        "f.length": "1",
+        "f.name": "sin"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Intl"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Math"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "{...}",
+        "f.E": "2.718281828459045",
+        "f.LN2": "0.6931471805599453",
+        "f.LN10": "2.302585092994046",
+        "f.LOG2E": "1.4426950408889633",
+        "f.LOG10E": "0.4342944819032518",
+        "f.PI": "3.141592653589793",
+        "f.SQRT1_2": "0.7071067811865476",
+        "f.SQRT2": "1.4142135623730951"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Array"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "f.arguments": "null",
+        "f.caller": "null",
+        "f.length": "1",
+        "f.name": "Array",
+        "f.prototype": "[]"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Number"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "f.arguments": "null",
+        "f.caller": "null",
+        "f.EPSILON": "2.220446049250313e-16",
+        "f.length": "1",
+        "f.MAX_SAFE_INTEGER": "9007199254740991",
+        "f.MAX_VALUE": "1.7976931348623157e+308",
+        "f.MIN_SAFE_INTEGER": "-9007199254740991",
+        "f.MIN_VALUE": "5e-324",
+        "f.name": "Number",
+        "f.NaN": "NaN",
+        "f.NEGATIVE_INFINITY": "-Infinity",
+        "f.POSITIVE_INFINITY": "Infinity",
+        "f.prototype": "0"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "ArrayBuffer"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "f.arguments": "null",
+        "f.caller": "null",
+        "f.length": "1",
+        "f.name": "ArrayBuffer",
+        "f.prototype": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Error"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "f.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "f.arguments": "null",
+        "f.caller": "null",
+        "f.length": "1",
+        "f.name": "Error",
+        "f.prototype": "",
+        "f.stackTraceLimit": "10"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Date"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "f.arguments": "null",
+        "f.caller": "null",
+        "f.length": "7",
+        "f.name": "Date",
+        "f.prototype": "Invalid Date"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "String"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "f.arguments": "null",
+        "f.caller": "null",
+        "f.length": "1",
+        "f.name": "String",
+        "f.prototype": ""
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "Set"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "f.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "f.arguments": "null",
+        "f.caller": "null",
+        "f.length": "0",
+        "f.name": "Set",
+        "f.prototype": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "new ArrayBuffer()"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "f.__proto__": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "new Array()"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "f.__proto__": "[]",
+        "f.length": "0"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "new String()"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "f.__proto__": "",
+        "f.length": "0"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "new RegExp()"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "f.__proto__": "",
+        "f.global": "false",
+        "f.ignoreCase": "false",
+        "f.lastIndex": "0",
+        "f.multiline": "false",
+        "f.options": "",
+        "f.source": "(?:)",
+        "f.unicode": "false"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "new Boolean()"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "f.__proto__": "false"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "new Number()"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "f.__proto__": "0"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "new Float32Array()"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "f.__proto__": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "new Map()"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "f.__proto__": "{...}",
+        "f": "size = 0"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "(new Map()).__proto__"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "{...}",
+        "f.size": "Map.prototype.size: 'this' is not a Map object"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "new Function()"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "f.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "f.arguments": "null",
+        "f.caller": "null",
+        "f.length": "0",
+        "f.name": "anonymous",
+        "f.prototype": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "arguments"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "{...}",
+        "f.length": "3",
+        "f[0]": "arguments",
+        "f[1]": "29",
+        "f[2]": "[...]"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "arguments.callee"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "f.arguments": "{...}",
+        "f.length": "1",
+        "f.name": "",
+        "f.prototype": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "val": "arguments.callee.caller"
+    }
+  },
+  {
+    "evaluate": {
+      "f": {
+        "[Methods]": "{...}",
+        "f.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "f.arguments": "null",
+        "f.length": "1",
+        "f.name": "forEach"
+      }
+    }
+  }
+]

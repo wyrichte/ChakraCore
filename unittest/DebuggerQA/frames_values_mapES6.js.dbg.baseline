@@ -1,0 +1,212 @@
+[
+  {
+    "evaluate": {
+      "map": {
+        "__proto__": {
+          "[Methods]": {
+            "clear": "<large string>",
+            "constructor": "<large string>",
+            "delete": "<large string>",
+            "entries": "<large string>",
+            "forEach": "<large string>",
+            "get": "<large string>",
+            "has": "<large string>",
+            "keys": "<large string>",
+            "set": "<large string>",
+            "Symbol.iterator": "<large string>",
+            "values": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "size": "1"
+        },
+        "[Map]": {
+          "0": {
+            "key": "undefined",
+            "value": "undefined"
+          }
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "map.set()": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "size": "1"
+        },
+        "[Map]": {
+          "0": "<large string>"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "map.size==2": "false"
+    }
+  },
+  {
+    "evaluate": {
+      "map.clear()": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 151,
+        "length": 9,
+        "text": "var x = 1",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 107,
+        "length": 8,
+        "text": "bar(map)",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 492,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "map": {
+        "__proto__": {
+          "[Methods]": {
+            "clear": "<large string>",
+            "constructor": "<large string>",
+            "delete": "<large string>",
+            "entries": "<large string>",
+            "forEach": "<large string>",
+            "get": "<large string>",
+            "has": "<large string>",
+            "keys": "<large string>",
+            "set": "<large string>",
+            "Symbol.iterator": "<large string>",
+            "values": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "size": "0"
+        },
+        "[Map]": "size = 0"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "map": {
+        "__proto__": {
+          "[Methods]": {
+            "clear": "<large string>",
+            "constructor": "<large string>",
+            "delete": "<large string>",
+            "entries": "<large string>",
+            "forEach": "<large string>",
+            "get": "<large string>",
+            "has": "<large string>",
+            "keys": "<large string>",
+            "set": "<large string>",
+            "Symbol.iterator": "<large string>",
+            "values": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "size": "1"
+        },
+        "[Map]": {
+          "0": {
+            "key": "undefined",
+            "value": "undefined"
+          }
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "map.set()": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "size": "1"
+        },
+        "[Map]": {
+          "0": "<large string>"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "map.size==2": "false"
+    }
+  },
+  {
+    "evaluate": {
+      "map.clear()": "undefined"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 151,
+        "length": 9,
+        "text": "var x = 1",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 107,
+        "length": 8,
+        "text": "bar(map)",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 492,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "map": {
+        "__proto__": {
+          "[Methods]": {
+            "clear": "<large string>",
+            "constructor": "<large string>",
+            "delete": "<large string>",
+            "entries": "<large string>",
+            "forEach": "<large string>",
+            "get": "<large string>",
+            "has": "<large string>",
+            "keys": "<large string>",
+            "set": "<large string>",
+            "Symbol.iterator": "<large string>",
+            "values": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "size": "0"
+        },
+        "[Map]": "size = 0"
+      }
+    }
+  }
+]

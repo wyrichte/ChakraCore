@@ -1,0 +1,6 @@
+// BEGIN POSTLUDE
+RunTest();
+var _interval = new Date() - _startDate;
+
+echo("### TIME: " + _interval + " ms");
+// END POSTLUDE

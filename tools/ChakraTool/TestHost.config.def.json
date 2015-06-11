@@ -1,0 +1,213 @@
+{
+    // Test Harness operation flags
+    optin: {
+        type: Boolean,
+        defaultValue: false,
+        lookupFromEnvironment: true,
+        environmentKey: "_optinenv",
+        description: "Forces the Test Harness to work in opt-in model, as opposed to default opt-out model."
+    },
+
+    defaultTestsToRun: {
+        type: Array,
+        defaultValue: ["projection",
+        "unit",
+        "jsls",
+        "jsrt"],
+        description: "The default tests to run, if optin model isn't specified and the tests aren't opted out of."
+    },
+
+    workingDir: {
+        type: Directory,
+        defaultValue: undefined,
+        description: "The working directory where all the output files should go"
+    },
+
+
+    // Test Harness Envrionment flags
+    os: {
+        type: Enum(["win7","win8","winBlue"]),
+        defaultValue: "WinBlue",
+        description: "The OS version to run the package with."
+    },
+
+    platform: {
+        type: Enum(["x86", "amd64", "arm"]),
+        defaultValue: "x86",
+        lookupFromEnvironment: true,
+        environmentKey: "build.arch",
+        description: "The build architecture flag."
+    },
+
+    buildType: {
+        type: Enum(["fre", "chk"]),
+        defaultValue: "chk",
+        lookupFromEnvironment: true,
+        environmentKey: "build.type",
+        description: "The build type flag."
+    },
+
+    buildAlt: {
+        type: String,
+        defaultValue: undefined,
+        lookupFromEnvironment: true,
+        environmentKey: "_BuildAlt",
+        description: "Not sure."
+    },
+
+    freTest: {
+        type: Boolean,
+        defaultValue: false,
+        lookupFromEnvironment: true,
+        envrionmentKey: "FRETEST",
+        decription: "This flag specifies if it is executing in FRE-TEST mode."
+    },
+
+    systemDrive: {
+        type: Directory,
+        defaultValue: "c:",
+        lookupFromEnvironment: true,
+        environmentKey: "systemdrive",
+        description: "The System Drive."
+    },
+
+    sdxRoot: {
+        type: Directory,
+        defaultValue: undefined,
+        lookupFromEnvironment: true,
+        envrionmentKey: "SDXROOT",
+        description: "Enlistment root directory."
+    },
+
+    objRoot: {
+        type: Directory,
+        defaultValue: undefined,
+        lookupFromEnvironment: true,
+        environmentKey: "object_root",
+        description: "Built obj root directory."
+    },
+
+    tempRoot: {
+        type: Directory,
+        defaultValue: undefined,
+        lookupFromEnvironment: true,
+        environmentKey: "TEMP",
+        description: "Temporary directory."
+    },
+
+    binRoot: {
+        type: Directory,
+        defaultValue: undefined,
+        lookupFromEnvironment: true,
+        environmentKey: "_nttree",
+        description: "Root binary directory path."
+    },
+
+    jsBinRoot: {
+        type: Directory,
+        defaultValue: "{0}\\jscript",
+        defaultValueReferences: ["binRoot"],
+        description: "JS binary directory path."
+    },
+
+    jshostPath: {
+        type: File,
+        defaultValue: "{0}\\jshost.exe",
+        defaultValueReferences: ["jsBinRoot"],
+        description: "JsHost binary path"
+    },
+
+    jcPath: {
+        type: File,
+        defaultValue: "{0}\\jc.exe",
+        defaultValueReferences: ["jsBinRoot"],
+        description: "JC binary path"
+    },
+
+    jsRoot: {
+        type: Directory,
+        defaultValue: "{0}\\inetcore\\jscript",
+        defaultValueReferences: ["sdxRoot"],
+        description: "JScript root in the enlistment."
+    },
+
+    jsToolsRoot: {
+        type: Directory,
+        defaultValue: "{0}\\tools",
+        defaultValueReferences: ["jsRoot"],
+        description: "Tools directory under jscript enlistment directory"
+    },
+
+    snap: {
+        type: Boolean,
+        defaultValue: false,
+        description: "This flag specifies if it is executing in snap."
+    },
+
+    drt: {
+        type: Boolean,
+        defaultValue: false,
+        description: "This flag specifies if it is executing in a drt."
+    },
+
+    numberOfProcessors: {
+        type: Number,
+        defaultValue: 1,
+        lookupFromEnvironment: true,
+        environmentKey: "NUMBER_OF_PROCESSORS",
+        description: "The number of processors availabel on the system."
+    },
+
+
+    //Logging
+    verboseLogFileName: {
+        type: String,
+        defaultValue: "verbose.log",
+        description: "The name of the output file for verbose logging."
+    },
+
+    errorLogFileName: {
+        type: String,
+        defaultValue: "errors.log",
+        description: "The name of the output file for error logging."
+    },
+
+
+    baseLogDirectory: {
+        type: String,
+        defaultValue: ".\\logs",
+        description: "The root logging directory that will contain all the logs."
+    },
+
+    trace: {
+        type: ArrayOf(TraceItem),
+        defaultValue: ["*.Diagnostics",
+        "Setup",
+        "Operation"],
+        description: "A list of actions for which the logger will output to the console window."
+    },
+
+    traceErrors: {
+        type: ArrayOf(TraceItem),
+        defaultValue: ["*.*"],
+        description: "A list of tags for which the logger will not output to the console window."
+    },
+
+    traceTestOutput: {
+        type: Boolean,
+        defaultValue: false,
+        description: "States whether the logger should output test output to the console window."
+    },
+
+    traceTestSummary: {
+        type: Boolean,
+        defaultValue: true,
+        description: "States whether the logger should output test summary to the console window."
+    },
+
+    traceTestErrors: {
+        type: Boolean,
+        defaultValue: true,
+        description: "States whether the logger should output test errors to the console window."
+    }
+}

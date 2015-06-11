@@ -1,0 +1,2331 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "a": "1",
+        "b": "2"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "{...}"
+      },
+      "i": "0",
+      "p": "undefined",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 325,
+        "length": 57,
+        "text": "eval(\"obj.prop\" + i + \" = i; /**bp:locals(1);stack()**/\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Scope]1": {
+        "obj": "{...}",
+        "arguments": "{...}",
+        "i": "0",
+        "p": "undefined"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 13,
+        "text": "obj.prop0 = i",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 325,
+        "length": 57,
+        "text": "eval(\"obj.prop\" + i + \" = i; /**bp:locals(1);stack()**/\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "a": "1",
+        "b": "2",
+        "prop0": "0"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "{...}"
+      },
+      "i": "1",
+      "p": "undefined",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 325,
+        "length": 57,
+        "text": "eval(\"obj.prop\" + i + \" = i; /**bp:locals(1);stack()**/\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Scope]1": {
+        "obj": "{...}",
+        "arguments": "{...}",
+        "i": "1",
+        "p": "undefined"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 13,
+        "text": "obj.prop1 = i",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 325,
+        "length": 57,
+        "text": "eval(\"obj.prop\" + i + \" = i; /**bp:locals(1);stack()**/\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "a": "1",
+        "b": "2",
+        "prop0": "0",
+        "prop1": "1"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "{...}"
+      },
+      "i": "2",
+      "p": "undefined",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 325,
+        "length": 57,
+        "text": "eval(\"obj.prop\" + i + \" = i; /**bp:locals(1);stack()**/\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Scope]1": {
+        "obj": "{...}",
+        "arguments": "{...}",
+        "i": "2",
+        "p": "undefined"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 13,
+        "text": "obj.prop2 = i",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 325,
+        "length": 57,
+        "text": "eval(\"obj.prop\" + i + \" = i; /**bp:locals(1);stack()**/\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "a": "1",
+        "b": "2",
+        "prop0": "0",
+        "prop1": "1",
+        "prop2": "2"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "{...}"
+      },
+      "i": "3",
+      "p": "a",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "0",
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "a",
+        "[1]": "a",
+        "[2]": "a",
+        "[3]": "a"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "var i = 0",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "4",
+      "i": "4",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "a",
+        "[1]": "a",
+        "[2]": "a",
+        "[3]": "a"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "return sum",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "a": "5",
+        "b": "2",
+        "prop0": "0",
+        "prop1": "1",
+        "prop2": "2"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "{...}"
+      },
+      "i": "3",
+      "p": "b",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "0",
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "b",
+        "[1]": "b",
+        "[2]": "b",
+        "[3]": "b"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "var i = 0",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "4",
+      "i": "4",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "b",
+        "[1]": "b",
+        "[2]": "b",
+        "[3]": "b"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "return sum",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "a": "5",
+        "b": "6",
+        "prop0": "0",
+        "prop1": "1",
+        "prop2": "2"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "{...}"
+      },
+      "i": "3",
+      "p": "prop0",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "0",
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "prop0",
+        "[1]": "prop0",
+        "[2]": "prop0",
+        "[3]": "prop0"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "var i = 0",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "4",
+      "i": "4",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "prop0",
+        "[1]": "prop0",
+        "[2]": "prop0",
+        "[3]": "prop0"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "return sum",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "a": "5",
+        "b": "6",
+        "prop0": "4",
+        "prop1": "1",
+        "prop2": "2"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "{...}"
+      },
+      "i": "3",
+      "p": "prop1",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "0",
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "prop1",
+        "[1]": "prop1",
+        "[2]": "prop1",
+        "[3]": "prop1"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "var i = 0",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "4",
+      "i": "4",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "prop1",
+        "[1]": "prop1",
+        "[2]": "prop1",
+        "[3]": "prop1"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "return sum",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "a": "5",
+        "b": "6",
+        "prop0": "4",
+        "prop1": "5",
+        "prop2": "2"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "{...}"
+      },
+      "i": "3",
+      "p": "prop2",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "0",
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "prop2",
+        "[1]": "prop2",
+        "[2]": "prop2",
+        "[3]": "prop2"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "var i = 0",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "4",
+      "i": "4",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "prop2",
+        "[1]": "prop2",
+        "[2]": "prop2",
+        "[3]": "prop2"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "return sum",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 531,
+        "length": 15,
+        "text": "f({a: 1, b: 2})",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "[]",
+        "length": "5",
+        "[0]": "1",
+        "[1]": "2",
+        "[2]": "3",
+        "[3]": "4",
+        "[4]": "5"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "[1,2,3,4,5]"
+      },
+      "i": "0",
+      "p": "undefined",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 325,
+        "length": 57,
+        "text": "eval(\"obj.prop\" + i + \" = i; /**bp:locals(1);stack()**/\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Scope]1": {
+        "obj": "[1,2,3,4,5]",
+        "arguments": "{...}",
+        "i": "0",
+        "p": "undefined"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 13,
+        "text": "obj.prop0 = i",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 325,
+        "length": 57,
+        "text": "eval(\"obj.prop\" + i + \" = i; /**bp:locals(1);stack()**/\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "[]",
+        "length": "5",
+        "prop0": "0",
+        "[0]": "1",
+        "[1]": "2",
+        "[2]": "3",
+        "[3]": "4",
+        "[4]": "5"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "[1,2,3,4,5]"
+      },
+      "i": "1",
+      "p": "undefined",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 325,
+        "length": 57,
+        "text": "eval(\"obj.prop\" + i + \" = i; /**bp:locals(1);stack()**/\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Scope]1": {
+        "obj": "[1,2,3,4,5]",
+        "arguments": "{...}",
+        "i": "1",
+        "p": "undefined"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 13,
+        "text": "obj.prop1 = i",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 325,
+        "length": 57,
+        "text": "eval(\"obj.prop\" + i + \" = i; /**bp:locals(1);stack()**/\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "[]",
+        "length": "5",
+        "prop0": "0",
+        "prop1": "1",
+        "[0]": "1",
+        "[1]": "2",
+        "[2]": "3",
+        "[3]": "4",
+        "[4]": "5"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "[1,2,3,4,5]"
+      },
+      "i": "2",
+      "p": "undefined",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 325,
+        "length": 57,
+        "text": "eval(\"obj.prop\" + i + \" = i; /**bp:locals(1);stack()**/\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Scope]1": {
+        "obj": "[1,2,3,4,5]",
+        "arguments": "{...}",
+        "i": "2",
+        "p": "undefined"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 13,
+        "text": "obj.prop2 = i",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 325,
+        "length": 57,
+        "text": "eval(\"obj.prop\" + i + \" = i; /**bp:locals(1);stack()**/\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "[]",
+        "length": "5",
+        "prop0": "0",
+        "prop1": "1",
+        "prop2": "2",
+        "[0]": "1",
+        "[1]": "2",
+        "[2]": "3",
+        "[3]": "4",
+        "[4]": "5"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "[1,2,3,4,5]"
+      },
+      "i": "3",
+      "p": "0",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "0",
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "0",
+        "[1]": "0",
+        "[2]": "0",
+        "[3]": "0"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "var i = 0",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "4",
+      "i": "4",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "0",
+        "[1]": "0",
+        "[2]": "0",
+        "[3]": "0"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "return sum",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "[]",
+        "length": "5",
+        "prop0": "0",
+        "prop1": "1",
+        "prop2": "2",
+        "[0]": "5",
+        "[1]": "2",
+        "[2]": "3",
+        "[3]": "4",
+        "[4]": "5"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "[5,2,3,4,5]"
+      },
+      "i": "3",
+      "p": "1",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "0",
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "1",
+        "[1]": "1",
+        "[2]": "1",
+        "[3]": "1"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "var i = 0",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "4",
+      "i": "4",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "1",
+        "[1]": "1",
+        "[2]": "1",
+        "[3]": "1"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "return sum",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "[]",
+        "length": "5",
+        "prop0": "0",
+        "prop1": "1",
+        "prop2": "2",
+        "[0]": "5",
+        "[1]": "6",
+        "[2]": "3",
+        "[3]": "4",
+        "[4]": "5"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "[5,6,3,4,5]"
+      },
+      "i": "3",
+      "p": "2",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "0",
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "2",
+        "[1]": "2",
+        "[2]": "2",
+        "[3]": "2"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "var i = 0",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "4",
+      "i": "4",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "2",
+        "[1]": "2",
+        "[2]": "2",
+        "[3]": "2"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "return sum",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "[]",
+        "length": "5",
+        "prop0": "0",
+        "prop1": "1",
+        "prop2": "2",
+        "[0]": "5",
+        "[1]": "6",
+        "[2]": "7",
+        "[3]": "4",
+        "[4]": "5"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "[5,6,7,4,5]"
+      },
+      "i": "3",
+      "p": "3",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "0",
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "3",
+        "[1]": "3",
+        "[2]": "3",
+        "[3]": "3"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "var i = 0",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "4",
+      "i": "4",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "3",
+        "[1]": "3",
+        "[2]": "3",
+        "[3]": "3"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "return sum",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "[]",
+        "length": "5",
+        "prop0": "0",
+        "prop1": "1",
+        "prop2": "2",
+        "[0]": "5",
+        "[1]": "6",
+        "[2]": "7",
+        "[3]": "8",
+        "[4]": "5"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "[5,6,7,8,5]"
+      },
+      "i": "3",
+      "p": "4",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "0",
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "4",
+        "[1]": "4",
+        "[2]": "4",
+        "[3]": "4"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "var i = 0",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "4",
+      "i": "4",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "4",
+        "[1]": "4",
+        "[2]": "4",
+        "[3]": "4"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "return sum",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "[]",
+        "length": "5",
+        "prop0": "0",
+        "prop1": "1",
+        "prop2": "2",
+        "[0]": "5",
+        "[1]": "6",
+        "[2]": "7",
+        "[3]": "8",
+        "[4]": "9"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "[5,6,7,8,9]"
+      },
+      "i": "3",
+      "p": "prop0",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "0",
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "prop0",
+        "[1]": "prop0",
+        "[2]": "prop0",
+        "[3]": "prop0"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "var i = 0",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "4",
+      "i": "4",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "prop0",
+        "[1]": "prop0",
+        "[2]": "prop0",
+        "[3]": "prop0"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "return sum",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "[]",
+        "length": "5",
+        "prop0": "4",
+        "prop1": "1",
+        "prop2": "2",
+        "[0]": "5",
+        "[1]": "6",
+        "[2]": "7",
+        "[3]": "8",
+        "[4]": "9"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "[5,6,7,8,9]"
+      },
+      "i": "3",
+      "p": "prop1",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "0",
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "prop1",
+        "[1]": "prop1",
+        "[2]": "prop1",
+        "[3]": "prop1"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "var i = 0",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "4",
+      "i": "4",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "prop1",
+        "[1]": "prop1",
+        "[2]": "prop1",
+        "[3]": "prop1"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "return sum",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "obj": {
+        "__proto__": "[]",
+        "length": "5",
+        "prop0": "4",
+        "prop1": "5",
+        "prop2": "2",
+        "[0]": "5",
+        "[1]": "6",
+        "[2]": "7",
+        "[3]": "8",
+        "[4]": "9"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "[5,6,7,8,9]"
+      },
+      "i": "3",
+      "p": "prop2",
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "0",
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "prop2",
+        "[1]": "prop2",
+        "[2]": "prop2",
+        "[3]": "prop2"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 82,
+        "length": 9,
+        "text": "var i = 0",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "sum": "4",
+      "i": "4",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "4",
+        "[0]": "prop2",
+        "[1]": "prop2",
+        "[2]": "prop2",
+        "[3]": "prop2"
+      },
+      "[Globals]": {
+        "h": "<large string>",
+        "g": "<large string>",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 202,
+        "length": 10,
+        "text": "return sum",
+        "frameDescription": "g"
+      },
+      {
+        "start": 448,
+        "length": 20,
+        "text": "obj[p] += g(p,p,p,p)",
+        "frameDescription": "f"
+      },
+      {
+        "start": 549,
+        "length": 14,
+        "text": "f([1,2,3,4,5])",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

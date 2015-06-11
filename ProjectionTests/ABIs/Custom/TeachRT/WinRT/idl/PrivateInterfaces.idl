@@ -1,0 +1,25 @@
+//  Copyright (c) Microsoft Corporation. All rights reserved.
+//
+//  WindowsRuntimeAPISet
+
+// This idl file only exists to specialize IVector<ICookie*> the 
+// metadata from this file should never be published. Hopefully
+// this is a temporary work around that will not be necessary
+// in the near future. 
+
+import "oaidl.idl";
+import "Inspectable.idl";
+import "EventToken.idl";
+import "AsyncInfo.idl";
+import "Fabrikam.idl";
+
+#include <sdkddkver.h>
+
+namespace Fabrikam.Kitchen
+{
+    [version(NTDDI_WIN8), uuid(16FBF95F-E5A7-4A6B-AA2A-E97F9EDE7EC8)]
+    interface ICollectionWorkAround : IInspectable
+    {
+        HRESULT UsesIVector([in] IVector<ICookie> *vector);
+    }
+}

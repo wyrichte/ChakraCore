@@ -1,0 +1,28 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "[Pending Mutation]": {
+        "x [Adding]": "1",
+        "[Property container obj]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {
+        "f2": "<large string>"
+      },
+      "[Scope]2": {
+        "obj": "{...}"
+      },
+      "[Globals]": {
+        "f1": "<large string>"
+      }
+    }
+  }
+]

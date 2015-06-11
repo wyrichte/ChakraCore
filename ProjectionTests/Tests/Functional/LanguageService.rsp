@@ -1,0 +1,10 @@
+﻿Animals.winmd
+DevTests.CamelCasing.winmd
+DevTests.Repros.winmd
+DevTests.winmd
+Fabrikam.Kitchen.winmd
+windows.winmd
+Winery.winmd
+-rootNamespace 
+reflect
+Reflect.js

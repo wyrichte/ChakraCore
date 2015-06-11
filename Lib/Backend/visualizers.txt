@@ -1,0 +1,316 @@
+; Tooltip visualizers for Js back-end types in Visual Studio.
+; Copy paste the text bellow into the '[Visualizer]' section our of your 
+; <VS_install_path>\Common7\Packages\Debugger\AutoExp.dat file
+
+[Visualizer]
+
+; Js back-end Types
+
+Js::OpCode{ 
+	preview 
+	( 
+		[*(Js::OpCodeNames+$c._value),s]
+	) 
+}
+
+
+IR::IntConstOpnd {
+	preview
+	(
+		$c.m_value
+	)
+}
+
+IR::FloatConstOpnd {
+	preview
+	(
+		$c.m_value
+	)
+}
+
+IR::HelperCallOpnd {
+	preview
+	(
+		[*(JnHelperMethodNames+$c.m_fnHelper),s]
+	)
+}
+
+StackSym {
+	preview
+	(
+		#if (&$e == 0)
+		(
+			"null"
+		)
+		#else
+		(#(
+			"s", $e.m_id
+		))
+	)
+}
+
+PropertySym {
+	preview
+	(#(
+		#if (&$e == 0)
+		(
+			"null"
+		)
+		#else
+		(#(
+			"p", $e.m_id
+		))
+	))
+}
+
+Sym {
+	preview
+	(
+		#if ($e.m_kind == SymKindStack)
+		(
+			((StackSym*)&$e)
+		)
+		#elif ($e.m_kind == SymKindProperty)
+		(
+			((PropertySym*)&$e)
+		)
+	)
+}
+
+IR::SymOpnd {
+	preview
+	(
+		#if ($e.m_sym != 0)
+		(
+			$e.m_sym
+		)
+	)
+}
+
+IR::RegOpnd {
+	preview
+	(#(
+		#if ($e.m_sym != 0)
+		(
+			$e.m_sym
+		),
+
+		#if ($e.m_reg != 0)
+		(
+			#( "(", $e.m_reg, ")" )
+		)
+	))
+}
+
+IR::MemRefOpnd {
+	preview
+	(#(
+
+		"[", [$e.m_memLoc, X], "]"
+	))
+}
+
+IR::IndirOpnd {
+	preview
+	(#(
+		"[", $e.m_baseOpnd, 
+
+		#if ($e.m_indexOpnd != 0)
+		(#( 
+			"+", $e.m_indexOpnd
+		)),
+
+		#if ($e.m_scale != 0)
+		(#(
+		 	"*", $e.m_scale
+		)),
+
+		"]"
+	))
+}
+
+IR::Opnd {
+	preview
+	(      
+		#if ($e.m_kind == OpndKindIntConst)
+		(
+			[*(IR::IntConstOpnd*)&$e]
+		)
+		#elif ($e.m_kind == OpndKindReg)
+		(
+			((IR::RegOpnd*)&$e)
+		)
+		#elif ($e.m_kind == OpndKindFloatConst)
+		(
+			[*(IR::FloatConstOpnd*)&$e]
+		)
+		#elif ($e.m_kind == OpndKindSym)
+		(
+			((IR::SymOpnd*)&$e)
+		)
+		#elif ($e.m_kind == OpndKindAtom)
+		(
+			((IR::AtomOpnd*)&$e)
+		)
+		#elif ($e.m_kind == OpndKindIndir)
+		(
+			((IR::IndirOpnd*)&$e)
+		)
+		#elif ($e.m_kind == OpndKindHelperCall)
+		(
+			[*(IR::HelperCallOpnd*)&$e]
+		)
+		#elif ($e.m_kind == OpndKindMemRef)
+		(
+			[*(IR::MemRefOpnd*)&$e]
+		)
+)	)
+}
+
+IR::Instr {
+	preview 
+	(
+		#if (&$e == 0)
+		(
+			"NULL"
+		)
+		#else
+		(#( 
+			#if ($c.m_dst != 0)
+			(
+				#( [$c.m_dst], " = " )
+			),
+
+			$c.m_opcode, "  " ,
+
+			#if ($c.m_src1 != 0)
+			(
+				#( 
+					[$c.m_src1] ,
+					#if ($c.m_src2 != 0)
+					(
+						#( ", ", [$c.m_src2] )
+					)
+				)
+			)
+		))
+	)
+}
+
+BasicBlock {
+	preview
+	(
+		#(
+			"Block ", $e.number, "  In(",
+
+			#list
+			(
+				head : $e.predList,
+				next : next
+			) : $e.data->predBlock->number ,
+			") Out(",
+			#list
+			(
+				head : $e.succList,
+				next : next
+			) : $e.data->succBlock->number ,
+			")"
+		)
+	)
+}
+
+;------------------------------------------------------------------------------
+;  BVUnit
+;------------------------------------------------------------------------------
+BVUnit{
+	preview
+	(
+		#(
+			"[", $e.len, "](",
+			#array
+			(
+				expr :	
+					#if((($e.word >> $i)) & 1)
+					(
+						#([$i, u])
+					)
+					#else
+					( 
+						#([0, u]) 
+					),
+				size : $e.BitsPerWord
+			), 
+			")"
+		)
+	)
+}
+
+
+;------------------------------------------------------------------------------
+;  BVFixed
+;------------------------------------------------------------------------------
+BVFixed{
+	preview
+	(
+		#(
+			"[", $e.len, "](",
+			#array
+			(
+				expr :
+					#if( ($e.data[$i /
+$e.data[0].BitsPerWord].word >> ($i % $e.data[0].BitsPerWord)) & 1)
+					(
+						#([$i, u])
+					)
+					#else
+					( 
+						#([0, u]) 
+					),
+				size :	$e.len;
+			), 
+			")"
+		)
+	)
+	children
+	(
+		#array
+		(
+			expr : $e.data[$i],
+			size : $e.len / $e.data[0].BitsPerWord;
+		)
+	)
+}
+
+;------------------------------------------------------------------------------
+;  BVSparse
+;------------------------------------------------------------------------------
+BVSparse{
+	preview
+	(
+		#(
+			"[",
+
+			#list
+			(
+				head : $e.head,
+				next : next
+			) :
+			#array
+			(
+				expr :	
+					#if((($e.data.word >> $i)) & 1)
+					(
+						#([$i+$e.startIndex, u])
+					)
+					#else
+					( 
+						#([0,u])
+					),
+				size : $e.data.BitsPerWord
+			), 
+
+			"]"
+		)
+	)
+}
+

@@ -1,0 +1,111 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "2",
+        "[0]": "8",
+        "[1]": "2"
+      },
+      "a": "8",
+      "b": "2",
+      "s": {
+        "__proto__": "[]",
+        "length": "3",
+        "[0]": "3",
+        "[1]": "5",
+        "[2]": "7"
+      },
+      "s2": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "s2",
+        "prototype": "{...}"
+      },
+      "[Scope]1": {
+        "j": "<large string>"
+      },
+      "[Globals]": {
+        "foo": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "2",
+        "[0]": "8",
+        "[1]": "2"
+      },
+      "a": "8",
+      "b": "2",
+      "bar1": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "2",
+        "name": "bar1",
+        "prototype": "{...}"
+      },
+      "bar2": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "2",
+        "name": "bar2",
+        "prototype": "{...}"
+      },
+      "c": "41",
+      "m2": {
+        "__proto__": "{...}"
+      },
+      "k": {
+        "__proto__": "Invalid Date"
+      },
+      "y": "10",
+      "j": "<large string>",
+      "[Globals]": {
+        "foo": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "z1": "20",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "2",
+        "[0]": "16",
+        "[1]": "4"
+      },
+      "z3": "2",
+      "z2": "31",
+      "a": "16",
+      "b": "4",
+      "[Scope]1": {
+        "j": "<large string>"
+      },
+      "[Globals]": {
+        "foo": "<large string>"
+      }
+    }
+  }
+]

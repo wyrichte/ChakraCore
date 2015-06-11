@@ -1,0 +1,4 @@
+PUBLIC_PASS0_CONSUMES= \
+    com\published\idlole\publish|PASS0 \
+    minkernel\published\base|PASS0 \
+

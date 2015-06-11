@@ -1,0 +1,45 @@
+TypeError: Function 'Intl.Collator.supportedLocalesOf' is not a constructor
+TypeError: Function 'Intl.NumberFormat.supportedLocalesOf' is not a constructor
+TypeError: Function 'Intl.DateTimeFormat.supportedLocalesOf' is not a constructor
+RangeError: Option value 'incorrect' for 'localeMatcher' is outside of valid range. Expected: ['best fit', 'lookup']
+RangeError: Option value 'incorrect' for 'localeMatcher' is outside of valid range. Expected: ['best fit', 'lookup']
+RangeError: Option value 'incorrect' for 'localeMatcher' is outside of valid range. Expected: ['best fit', 'lookup']
+TypeError: Object expected
+TypeError: Object expected
+TypeError: Object expected
+en
+en-US
+en
+0
+0
+0
+en
+en-US
+en
+en
+en-US
+en
+en
+en-US
+en
+0
+0
+0
+en
+en-US
+en
+en
+en-US
+en
+en
+en-US
+en
+0
+0
+0
+en
+en-US
+en
+en
+en-US
+en

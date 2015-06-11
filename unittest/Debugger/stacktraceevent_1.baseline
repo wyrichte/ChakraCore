@@ -1,0 +1,28 @@
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 2) (zee), LineNumber : 3, ColumnNumber : 3
+StackFramesEvent: Frame : (MethodID : 3) (bar), LineNumber : 10, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 4) (foo), LineNumber : 13, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 1) (Global code), LineNumber : 16, ColumnNumber : 0
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 2) (zee), LineNumber : 4, ColumnNumber : 3
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 1) (Global code), LineNumber : 18, ColumnNumber : 0
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 6) (callBadFormat), LineNumber : 28, ColumnNumber : 8
+StackFramesEvent: Frame : (MethodID : 8) (toString), LineNumber : 35, ColumnNumber : 54
+StackFramesEvent: Frame : (NameBufferIndex : 0) (Intl.Collator.prototype.compare), LineNumber : 0, ColumnNumber : 0
+StackFramesEvent: Frame : (NameBufferIndex : 34) (Array.prototype.sort), LineNumber : 0, ColumnNumber : 0
+StackFramesEvent: Frame : (MethodID : 7) (Anonymous function), LineNumber : 39, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 5) (runTest), LineNumber : 21, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 1) (Global code), LineNumber : 32, ColumnNumber : 0
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 79) (Anonymous function), LineNumber : 2, ColumnNumber : 0
+StackFramesEvent: Frame : (MethodID : 78) (test1), LineNumber : 1, ColumnNumber : 1
+StackFramesEvent: Frame : (MethodID : 77) (eval code), LineNumber : 5, ColumnNumber : 0
+StackFramesEvent: Frame : (MethodID : 9) (evalTest), LineNumber : 48, ColumnNumber : 8
+StackFramesEvent: Frame : (MethodID : 1) (Global code), LineNumber : 50, ColumnNumber : 0

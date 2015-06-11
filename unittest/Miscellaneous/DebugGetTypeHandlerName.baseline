@@ -1,0 +1,7 @@
+The argument does not have a type handler
+class Js::PathTypeHandler const *
+class Js::SimplePathTypeHandler const *
+class Js::SimpleDictionaryTypeHandlerBase<unsigned short,class Js::PropertyRecord const *,0> const *
+class Js::DictionaryTypeHandlerBase<unsigned short> const *
+The argument does not have a type handler
+The argument does not have a type handler

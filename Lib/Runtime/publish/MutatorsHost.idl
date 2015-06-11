@@ -1,0 +1,29 @@
+/********************************************************
+*                                                       *
+*   Copyright (C) Microsoft. All rights reserved.       *
+*                                                       *
+********************************************************/
+import "oaidl.idl";
+import "ocidl.idl";
+import "dispex.idl";
+
+[
+    uuid(0f9686a8-4543-4613-8157-7fea609690e4),
+    version(1.0),
+    helpstring("MutatorsHost")
+]
+library MutatorsHost
+{
+    importlib("stdole2.tlb");
+
+    [
+        object,
+        uuid(5540AC81-3DF8-442b-82A5-6DD37039D386),
+        local
+    ]
+    interface IMutatorsHost : IUnknown {
+        HRESULT Test();
+        HRESULT ModifySource([in] LPCWSTR in, [out,retval] LPCWSTR *out);
+        HRESULT ModifySourceWithMutators([in] LPCWSTR in, [in] LPCWSTR mutators, [out,retval] LPCWSTR *out);
+    };
+};

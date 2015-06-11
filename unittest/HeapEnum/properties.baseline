@@ -1,0 +1,235 @@
+
+
+===========>Starting Heap Dump for specific object<===============
+
+ type: ObjectObject flags: (new) optional info records (2)
+ |  [Prototype] type: ObjectObject flags: (new) optional info records (2)
+ |  |  [Prototype] type: Null flags: (new) optional info records (0)
+ |  |  [Properties] count: 13
+ |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    [Prototype] type: FunctionObject flags: (new) optional info records (1)
+ |  |  |    |  [Prototype] type: ObjectObject (seen)
+ |  |  | 1 hasOwnProperty: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 length: value: 1.000000
+ |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: hasOwnProperty
+ |  |  |    |    [Prototype] type: StringObject flags: (new) optional info records (2)
+ |  |  |    |    |  [Internal property] type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    |  |    [Internal property] value: (empty string)
+ |  |  |    |    |  |    [Prototype] type: StringObject (seen)
+ |  |  |    |    |  [Prototype] type: ObjectObject (seen)
+ |  |  | 2 propertyIsEnumerable: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 length: value: 1.000000
+ |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: propertyIsEnumerable
+ |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  | 3 isPrototypeOf: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 length: value: 1.000000
+ |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: isPrototypeOf
+ |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  | 4 toLocaleString: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 length: value: 0.000000
+ |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: toLocaleString
+ |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  | 5 toString: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 length: value: 0.000000
+ |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: toString
+ |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  | 6 valueOf: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 length: value: 0.000000
+ |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: valueOf
+ |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  | 7 __proto__: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 3
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: (empty string)
+ |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  |    | 2 length: value: 0.000000
+ |  |  | 8 __proto__: rsFlags: setter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 3
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: (empty string)
+ |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  |    | 2 length: value: 1.000000
+ |  |  | 9 __defineGetter__: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 length: value: 2.000000
+ |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: __defineGetter__
+ |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  | 10 __defineSetter__: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 length: value: 2.000000
+ |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: __defineSetter__
+ |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  | 11 __lookupGetter__: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 length: value: 1.000000
+ |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: __lookupGetter__
+ |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  | 12 __lookupSetter__: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 length: value: 1.000000
+ |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: __lookupSetter__
+ |  |  |    |    [Prototype] type: StringObject (seen)
+ |  [Properties] count: 13
+ |  | 0 x: type: ObjectObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 3
+ |  |    | 0 p1: value: 1.000000
+ |  |    | 1 p2: value: 2.000000
+ |  |    | 2 p3: value: 3.000000
+ |  | 1 y: type: ObjectObject flags: (new) optional info records (3)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 3
+ |  |    | 0 property1: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: Object name property 1
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  |    | 1 property2: type: ObjectObject (seen)
+ |  |    | 2 property3: type: StringObject flags: (new) optional info records (2)
+ |  |    |    [Internal property] type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    |    [Internal property] value: embedded array element 1
+ |  |    |    |    [Prototype] type: StringObject (seen)
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  |    [Array elements] count: 4
+ |  |    | 0: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: y_1
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  |    | 1: value: 2.000000
+ |  |    | 2: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: y_3
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  |    | 3: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: y_4
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  | 2 delete2ndIndexProp: type: ObjectObject flags: (new) optional info records (3)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 3
+ |  |    | 0 prop1: type: ObjectObject (seen)
+ |  |    | 1 prop2: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: Second name property
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  |    | 2 prop3: type: ObjectObject flags: (new) optional info records (1)
+ |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |    [Array elements] count: 3
+ |  |    | 0: type: String (seen)
+ |  |    | 1: value: 2.000000
+ |  |    | 3: type: String (seen)
+ |  | 3 delete2ndNameProp: type: ObjectObject flags: (new) optional info records (3)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 2
+ |  |    | 0 prop1: type: ObjectObject (seen)
+ |  |    | 1 prop3: type: ObjectObject flags: (new) optional info records (1)
+ |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |    [Array elements] count: 3
+ |  |    | 0: type: String (seen)
+ |  |    | 1: value: 2.000000
+ |  |    | 3: type: String (seen)
+ |  | 4 z: type: ObjectObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 3
+ |  |    | 0 prop1: type: ObjectObject (seen)
+ |  |    | 1 prop2: type: String (seen)
+ |  |    | 2 prop3: type: ObjectObject flags: (new) optional info records (1)
+ |  |    |    [Prototype] type: ObjectObject (seen)
+ |  | 5 sparse: type: ObjectObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Array elements] count: 3
+ |  |    | 10: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: Index 10 element in sparse array
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  |    | 100: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: Index 100 element in sparse array
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  |    | 1000: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: Index 1000 element in sparse array
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  | 6 sparse2: type: ObjectObject flags: (new) optional info records (1)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  | 7 sparseAllDeleted: type: ObjectObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Array elements] count: 1
+ |  |    | 1000: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: Single element in 2nd sparse array
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  | 8 protoObject: type: ObjectObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 2
+ |  |    | 0 fooprop1: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: foo prop 1
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  |    | 1 fooprop2: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: foo prop 2
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  | 9 CtorFunctionNewProto: type: FunctionObject flags: (new) optional info records (4)
+ |  |    [Prototype] type: FunctionObject (seen)
+ |  |    [Function name] HETest.CtorFunctionNewProto
+ |  |    [Properties] count: 2
+ |  |    | 0 prototype: type: ObjectObject (seen)
+ |  |    | 1 name: type: String (seen)
+ |  |    [Relationships] count: 3
+ |  |    | 0 sourceUrl: value: properties.js
+ |  |    | 1 sourceRow: value: 52.000000
+ |  |    | 2 sourceCol: value: 31.000000
+ |  | 10 newCtorFunctionNewProto: type: ObjectObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 1
+ |  |    | 0 pProp1: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: CtorFunctionNewProto Prop1
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  | 11 CtorFunctionSameProto: type: FunctionObject flags: (new) optional info records (4)
+ |  |    [Prototype] type: FunctionObject (seen)
+ |  |    [Function name] HETest.CtorFunctionSameProto
+ |  |    [Properties] count: 2
+ |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |    |    [Properties] count: 1
+ |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |    | 1 name: type: String (seen)
+ |  |    [Relationships] count: 3
+ |  |    | 0 sourceUrl: value: properties.js
+ |  |    | 1 sourceRow: value: 55.000000
+ |  |    | 2 sourceCol: value: 32.000000
+ |  | 12 newCtorFunctionSameProto: type: ObjectObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 1
+ |  |    | 0 qprop1: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: CtorFunctionSameProto prop1
+ |  |    |    [Prototype] type: StringObject (seen)
+
+==========>End Heap Dump<===============
+
+

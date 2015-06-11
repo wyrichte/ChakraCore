@@ -1,0 +1,41 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "bar": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 229,
+      "to": 494,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 278,
+      "to": 381,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "foo": "<large string>",
+      "Run": "<large string>",
+      "a": "1",
+      "count": "1",
+      "b": "2"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 606,
+      "to": 381,
+      "IsAllowed": "No"
+    }
+  }
+]

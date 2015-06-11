@@ -1,0 +1,222 @@
+[
+  {
+    "log": "CS#0: entry"
+  },
+  {
+    "callstack": [
+      {
+        "start": 382,
+        "length": 5,
+        "text": "Do(2)",
+        "frameDescription": "Global code",
+        "documentId": 1,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    ]
+  },
+  {
+    "log": "CS#1: 2nd level - i=0"
+  },
+  {
+    "callstack": [
+      {
+        "start": 30,
+        "length": 59,
+        "text": "WScript.Echo(\"DO() - IsInJitMode() == \" +  Debug.isInJit())",
+        "frameDescription": "Do",
+        "documentId": 2,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      },
+      {
+        "start": 382,
+        "length": 5,
+        "text": "Do(2)",
+        "frameDescription": "Global code",
+        "documentId": 1,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    ]
+  },
+  {
+    "log": "CS#2: back to main, print i==0, will throw - in a try block"
+  },
+  {
+    "callstack": [
+      {
+        "start": 124,
+        "length": 62,
+        "text": "WScript.Echo(\"Print() - IsInJitMode() == \" +  Debug.isInJit())",
+        "frameDescription": "Print",
+        "documentId": 1,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      },
+      {
+        "start": 245,
+        "length": 28,
+        "text": "Print('Do() with i=' + i, i)",
+        "frameDescription": "Do",
+        "documentId": 2,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY",
+          "JS_PROPERTY_FRAME_INTRYBLOCK"
+        ],
+        "flagsAsValue": 41
+      },
+      {
+        "start": 382,
+        "length": 5,
+        "text": "Do(2)",
+        "frameDescription": "Global code",
+        "documentId": 1,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    ]
+  },
+  {
+    "log": "CS#3: exceptionBlock"
+  },
+  {
+    "callstack": [
+      {
+        "start": 848,
+        "length": 34,
+        "text": "WScript.Echo(\"Caught error: \" + e)",
+        "frameDescription": "Do",
+        "documentId": 2,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY",
+          "JS_PROPERTY_FRAME_INCATCHBLOCK"
+        ],
+        "flagsAsValue": 73
+      },
+      {
+        "start": 382,
+        "length": 5,
+        "text": "Do(2)",
+        "frameDescription": "Global code",
+        "documentId": 1,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    ]
+  },
+  {
+    "log": "CS#4: print with 2nd i"
+  },
+  {
+    "callstack": [
+      {
+        "start": 124,
+        "length": 62,
+        "text": "WScript.Echo(\"Print() - IsInJitMode() == \" +  Debug.isInJit())",
+        "frameDescription": "Print",
+        "documentId": 1,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      },
+      {
+        "start": 245,
+        "length": 28,
+        "text": "Print('Do() with i=' + i, i)",
+        "frameDescription": "Do",
+        "documentId": 2,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY",
+          "JS_PROPERTY_FRAME_INTRYBLOCK"
+        ],
+        "flagsAsValue": 41
+      },
+      {
+        "start": 382,
+        "length": 5,
+        "text": "Do(2)",
+        "frameDescription": "Global code",
+        "documentId": 1,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    ]
+  },
+  {
+    "log": "CS#5: end do()"
+  },
+  {
+    "callstack": [
+      {
+        "start": 201,
+        "length": 3,
+        "text": "i++",
+        "frameDescription": "Do",
+        "documentId": 2,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      },
+      {
+        "start": 382,
+        "length": 5,
+        "text": "Do(2)",
+        "frameDescription": "Global code",
+        "documentId": 1,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    ]
+  },
+  {
+    "log": "CS#6: back to main"
+  },
+  {
+    "callstack": [
+      {
+        "start": 768,
+        "length": 19,
+        "text": "Print('Completed!')",
+        "frameDescription": "Global code",
+        "documentId": 1,
+        "flags": [
+          "JS_PROPERTY_HAS_CHILDREN",
+          "JS_PROPERTY_READONLY"
+        ],
+        "flagsAsValue": 9
+      }
+    ]
+  }
+]

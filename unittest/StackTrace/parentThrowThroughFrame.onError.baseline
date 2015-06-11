@@ -1,0 +1,3 @@
+[window.onerror] msg: This is my error
+                 relativeUrl: StackTrace/parentThrowThroughFrame.onError.html
+                 line: 7

@@ -1,0 +1,136 @@
+Struct tests
+In AnimalFactory::Create
+PASS	1: BasicGetDimensions - Ensure that GetDimensions returns what we expect
+	Pass: type
+		  Actual: object
+
+	Pass: length : number = '180'
+		  Actual: length : number = '180'
+
+	Pass: width : number = '360'
+		  Actual: width : number = '360'
+
+	Pass: number of members
+		  Actual: 2
+
+PASS	2: MarshalInlineStruct - Make sure that we can marshal an inline struct
+	Pass: type
+		  Actual: object
+
+	Pass: length : number = '92'
+		  Actual: length : number = '92'
+
+	Pass: width : number = '181'
+		  Actual: width : number = '181'
+
+	Pass: number of members
+		  Actual: 2
+
+PASS	3: MarshalCoercibleInlineStruct - Make sure that we can marshal an inline struct
+	Pass: type
+		  Actual: object
+
+	Pass: length : number = '192'
+		  Actual: length : number = '192'
+
+	Pass: width : number = '186'
+		  Actual: width : number = '186'
+
+	Pass: number of members
+		  Actual: 2
+
+PASS	4: MarshalNullDimensions - Behavior of null dimensions
+	Comment: Caught error: Object expected
+	Pass: error caught
+		  Actual: -2146823281
+
+	Pass: error.description
+		  Actual: Object expected
+
+PASS	5: RoundTripFromWinRT - Make sure that we can marshal an inline struct
+	Pass: type
+		  Actual: object
+
+	Pass: length : number = '180'
+		  Actual: length : number = '180'
+
+	Pass: width : number = '360'
+		  Actual: width : number = '360'
+
+	Pass: number of members
+		  Actual: 2
+
+	Pass: Do not expect == of roundtripped object
+		  Actual: true
+
+	Pass: Do not expect === of roundtripped object
+		  Actual: true
+
+PASS	6: SimpleNestedStruct - Make sure that we can marshal an inline struct
+	Pass: type
+		  Actual: object
+
+	Pass: inner : object = '[object Animals._InnerStruct]'
+		  Actual: inner : object = '[object Animals._InnerStruct]'
+
+	Pass: number of members
+		  Actual: 1
+
+	Pass: type
+		  Actual: object
+
+	Pass: a : number = '100'
+		  Actual: a : number = '100'
+
+	Pass: number of members
+		  Actual: 1
+
+PASS	7: MarshalInlineNestedStruct - Check inline nested struct
+	Pass: type
+		  Actual: object
+
+	Pass: inner : object = '[object Animals._InnerStruct]'
+		  Actual: inner : object = '[object Animals._InnerStruct]'
+
+	Pass: number of members
+		  Actual: 1
+
+	Pass: type
+		  Actual: object
+
+	Pass: a : number = '52'
+		  Actual: a : number = '52'
+
+	Pass: number of members
+		  Actual: 1
+
+PASS	8: RoundtripNestedStruct - Make sure a nested struct can round trip from WinRT object and back through
+	Pass: type
+		  Actual: object
+
+	Pass: inner : object = '[object Animals._InnerStruct]'
+		  Actual: inner : object = '[object Animals._InnerStruct]'
+
+	Pass: number of members
+		  Actual: 1
+
+	Pass: type
+		  Actual: object
+
+	Pass: a : number = '100'
+		  Actual: a : number = '100'
+
+	Pass: number of members
+		  Actual: 1
+
+PASS	9: MarshalNullNestedStruct - Null in the case of an inner struct
+	Comment: Caught error: Object expected
+	Pass: error caught
+		  Actual: -2146823281
+
+	Pass: error.description
+		  Actual: Object expected
+
+
+Passed: 9
+Failed: 0

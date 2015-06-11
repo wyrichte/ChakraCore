@@ -1,0 +1,131 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "sum": "1",
+      "k": "10",
+      "i": "0",
+      "s": "undefined",
+      "m": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 120,
+      "to": 355,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "sum": "1",
+      "k": "10",
+      "i": "0",
+      "s": "undefined",
+      "m": "m",
+      "[Globals]": ""
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 373,
+      "to": 561,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 373,
+      "to": 60,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "sum": "121",
+      "k": "10",
+      "i": "15",
+      "s": "undefined",
+      "m": "m",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "sum": "121",
+      "k": "50",
+      "i": "15",
+      "s": "s",
+      "m": "m",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "message",
+      "m": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 615,
+      "to": 904,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "ret": "22"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "input": "11",
+      "[Globals]": {
+        "f": "<large string>",
+        "f2": "<large string>",
+        "f3": "<large string>",
+        "f4": "<large string>",
+        "ret": "22"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "ret": "22"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "input": "11",
+      "[Globals]": {
+        "f": "<large string>",
+        "f2": "<large string>",
+        "f3": "<large string>",
+        "f4": "<large string>",
+        "ret": "22"
+      }
+    }
+  }
+]

@@ -1,0 +1,62 @@
+EXPORTS
+
+;--------------------------------------------------------------------
+; Core exports provided by the ExtCpp framework.
+;--------------------------------------------------------------------
+
+    DebugExtensionInitialize
+    DebugExtensionUninitialize
+    DebugExtensionNotify
+    help
+
+;--------------------------------------------------------------------
+; Extension commands.
+;--------------------------------------------------------------------
+
+    prop
+    var
+    var2
+    url
+    ldsym
+    jsstream
+    findblock
+    gcstats
+    jstack
+    drpids
+    oi
+    count
+    stack
+    frame
+    eval
+    utmode
+    findref
+    showroots
+    showpinned
+    markmap
+;    markobj
+    savegraph
+    slist
+    dlist
+    dumptrace
+    recycler
+    tc
+    showblockinfo
+;    uiserver
+    arrseg
+    irinstr
+    irfunc
+    bc
+    jsobjectstats
+    stst
+    pagealloc
+    hbm
+    hbstats
+    swb
+    memstats
+    lsprimarytext
+    lscontextpath
+    findpage
+    mpheap
+    bv
+    sourceInfos
+

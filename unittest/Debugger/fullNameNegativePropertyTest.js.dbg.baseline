@@ -1,0 +1,84 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "this.__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "arguments.__proto__": "{...}",
+        "arguments.length": "0"
+      },
+      "arr": {
+        "arr.__proto__": "[]",
+        "arr['-1']": "negative property",
+        "arr['-123456']": "-123456",
+        "arr['-987654']": "{...}",
+        "arr.length": "4",
+        "arr[0]": "1",
+        "arr[1]": "2",
+        "arr[2]": "3",
+        "arr[3]": "4"
+      },
+      "[Globals]": {
+        "test": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "arr": {
+        "arr.__proto__": {
+          "[Methods]": {
+            "arr.__proto__.concat": "function concat() { [native code] }",
+            "arr.__proto__.constructor": "function Array() { [native code] }",
+            "arr.__proto__.every": "function every() { [native code] }",
+            "arr.__proto__.filter": "function filter() { [native code] }",
+            "arr.__proto__.forEach": "function forEach() { [native code] }",
+            "arr.__proto__.indexOf": "function indexOf() { [native code] }",
+            "arr.__proto__.join": "function join() { [native code] }",
+            "arr.__proto__.lastIndexOf": "function lastIndexOf() { [native code] }",
+            "arr.__proto__.map": "function map() { [native code] }",
+            "arr.__proto__.pop": "function pop() { [native code] }",
+            "arr.__proto__.push": "function push() { [native code] }",
+            "arr.__proto__.reduce": "function reduce() { [native code] }",
+            "arr.__proto__.reduceRight": "function reduceRight() { [native code] }",
+            "arr.__proto__.reverse": "function reverse() { [native code] }",
+            "arr.__proto__.shift": "function shift() { [native code] }",
+            "arr.__proto__.slice": "function slice() { [native code] }",
+            "arr.__proto__.some": "function some() { [native code] }",
+            "arr.__proto__.sort": "function sort() { [native code] }",
+            "arr.__proto__.splice": "function splice() { [native code] }",
+            "arr.__proto__.toLocaleString": "function toLocaleString() { [native code] }",
+            "arr.__proto__.toString": "function toString() { [native code] }",
+            "arr.__proto__.unshift": "function unshift() { [native code] }"
+          },
+          "arr.__proto__.__proto__": {
+            "[Methods]": "{...}",
+            "arr.__proto__.__proto__.__proto__": "null"
+          },
+          "arr.__proto__.length": "0"
+        },
+        "arr['-1']": "negative property",
+        "arr['-123456']": "-123456",
+        "arr['-987654']": {
+          "arr['-987654'].__proto__": {
+            "[Methods]": "{...}",
+            "arr['-987654'].__proto__.__proto__": "null"
+          },
+          "arr['-987654'].a": {
+            "arr['-987654'].a.__proto__": "{...}",
+            "arr['-987654'].a.b": "1",
+            "arr['-987654'].a.c": "2"
+          }
+        },
+        "arr.length": "4",
+        "arr[0]": "1",
+        "arr[1]": "2",
+        "arr[2]": "3",
+        "arr[3]": "4"
+      }
+    }
+  }
+]

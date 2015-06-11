@@ -1,0 +1,770 @@
+<?xml version="1.0"?>
+<regress-exe>
+    <test>
+        <default>
+            <files>Instance_NoEventHandler.js</files>
+            <baseline>Instance_NoEventHandler.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_NoEventHandler.js</files>
+            <baseline>Instance_NoEventHandler.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_AddEventListener.js</files>
+            <baseline>Instance_AddEventListener.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_AddEventListener.js</files>
+            <baseline>Instance_AddEventListener.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_RemoveEventListener.js</files>
+            <baseline>Instance_RemoveEventListener.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_RemoveEventListener.js</files>
+            <baseline>Instance_RemoveEventListener.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_OnEventHandler.js</files>
+            <baseline>Instance_OnEventHandler.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_OnEventHandler.js</files>
+            <baseline>Instance_OnEventHandler.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_OnEventHandlerSetNull.js</files>
+            <baseline>Instance_OnEventHandlerSetNull.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_OnEventHandlerSetNull.js</files>
+            <baseline>Instance_OnEventHandlerSetNull.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_AddEventListenerAndOnEventHandler.js</files>
+            <baseline>Instance_AddEventListenerAndOnEventHandler.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_AddEventListenerAndOnEventHandler.js</files>
+            <baseline>Instance_AddEventListenerAndOnEventHandler.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_NonEventHandlingRuntimeClass.js</files>
+            <baseline>Instance_NonEventHandlingRuntimeClass.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_NonEventHandlingRuntimeClass.js</files>
+            <baseline>Instance_NonEventHandlingRuntimeClass.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_NonEventHandlingIVector.js</files>
+            <baseline>Instance_NonEventHandlingIVector.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_NonEventHandlingIVector.js</files>
+            <baseline>Instance_NonEventHandlingIVector.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_EventHandlingIVectorWithoutEvents.js</files>
+            <baseline>Instance_EventHandlingIVectorWithoutEvents.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_EventHandlingIVectorWithoutEvents.js</files>
+            <baseline>Instance_EventHandlingIVectorWithoutEvents.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_EventHandlingIVector_AddEventListener.js</files>
+            <baseline>Instance_EventHandlingIVector_AddEventListener.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_EventHandlingIVector_AddEventListener.js</files>
+            <baseline>Instance_EventHandlingIVector_AddEventListener.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_EventHandlingIVector_RemoveEventListener.js</files>
+            <baseline>Instance_EventHandlingIVector_RemoveEventListener.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_EventHandlingIVector_RemoveEventListener.js</files>
+            <baseline>Instance_EventHandlingIVector_RemoveEventListener.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_EventHandlingIVector_OnEventHandler.js</files>
+            <baseline>Instance_EventHandlingIVector_OnEventHandler.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_EventHandlingIVector_OnEventHandler.js</files>
+            <baseline>Instance_EventHandlingIVector_OnEventHandler.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_EventHandlingIVector_OnEventHandlerSetNull.js</files>
+            <baseline>Instance_EventHandlingIVector_OnEventHandlerSetNull.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_EventHandlingIVector_OnEventHandlerSetNull.js</files>
+            <baseline>Instance_EventHandlingIVector_OnEventHandlerSetNull.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_EventHandlingIVector_AddEventListenerAndOnEventHandler.js</files>
+            <baseline>Instance_EventHandlingIVector_AddEventListenerAndOnEventHandler.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Instance_EventHandlingIVector_AddEventListenerAndOnEventHandler.js</files>
+            <baseline>Instance_EventHandlingIVector_AddEventListenerAndOnEventHandler.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_GCPressure_Low.js</files>
+            <baseline>Instance_GCPressure_Low.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_GCPressure_Low.js</files>
+            <baseline>Instance_GCPressure_Low.2.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_GCPressure_Medium.js</files>
+            <baseline>Instance_GCPressure_Medium.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_GCPressure_Medium.js</files>
+            <baseline>Instance_GCPressure_Medium.2.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_GCPressure_High.js</files>
+            <baseline>Instance_GCPressure_High.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Instance_GCPressure_High.js</files>
+            <baseline>Instance_GCPressure_High.2.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>RuntimeClass_SimpleActivableWithoutEvents.js</files>
+            <baseline>RuntimeClass_SimpleActivableWithoutEvents.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>RuntimeClass_SimpleActivableWithoutEvents.js</files>
+            <baseline>RuntimeClass_SimpleActivableWithoutEvents.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>RuntimeClass_OverloadedConstructorWithoutEvents.js</files>
+            <baseline>RuntimeClass_OverloadedConstructorWithoutEvents.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>RuntimeClass_OverloadedConstructorWithoutEvents.js</files>
+            <baseline>RuntimeClass_OverloadedConstructorWithoutEvents.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>RuntimeClass_WithEvents_NoEventHandler.js</files>
+            <baseline>RuntimeClass_WithEvents_NoEventHandler.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>RuntimeClass_WithEvents_NoEventHandler.js</files>
+            <baseline>RuntimeClass_WithEvents_NoEventHandler.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>RuntimeClass_WithEvents_AddEventListener.js</files>
+            <baseline>RuntimeClass_WithEvents_AddEventListener.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>RuntimeClass_WithEvents_AddEventListener.js</files>
+            <baseline>RuntimeClass_WithEvents_AddEventListener.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>RuntimeClass_WithEvents_RemoveEventListener.js</files>
+            <baseline>RuntimeClass_WithEvents_RemoveEventListener.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>RuntimeClass_WithEvents_RemoveEventListener.js</files>
+            <baseline>RuntimeClass_WithEvents_RemoveEventListener.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>RuntimeClass_WithEvents_SetEventHandler.js</files>
+            <baseline>RuntimeClass_WithEvents_SetEventHandler.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>RuntimeClass_WithEvents_SetEventHandler.js</files>
+            <baseline>RuntimeClass_WithEvents_SetEventHandler.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>RuntimeClass_WithEvents_SetEventHandlerNull.js</files>
+            <baseline>RuntimeClass_WithEvents_SetEventHandlerNull.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>RuntimeClass_WithEvents_SetEventHandlerNull.js</files>
+            <baseline>RuntimeClass_WithEvents_SetEventHandlerNull.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>RuntimeClass_WithEvents_AddEventListenerAndSetEventHandler.js</files>
+            <baseline>RuntimeClass_WithEvents_AddEventListenerAndSetEventHandler.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>RuntimeClass_WithEvents_AddEventListenerAndSetEventHandler.js</files>
+            <baseline>RuntimeClass_WithEvents_AddEventListenerAndSetEventHandler.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>RuntimeClass_GCPressure_Low.js</files>
+            <baseline>RuntimeClass_GCPressure_Low.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>RuntimeClass_GCPressure_Low.js</files>
+            <baseline>RuntimeClass_GCPressure_Low.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>RuntimeClass_GCPressure_Medium.js</files>
+            <baseline>RuntimeClass_GCPressure_Medium.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>RuntimeClass_GCPressure_Medium.js</files>
+            <baseline>RuntimeClass_GCPressure_Medium.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>RuntimeClass_GCPressure_High.js</files>
+            <baseline>RuntimeClass_GCPressure_High.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>RuntimeClass_GCPressure_High.js</files>
+            <baseline>RuntimeClass_GCPressure_High.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Namespace.js</files>
+            <baseline>Namespace.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Namespace.js</files>
+            <baseline>Namespace.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Namespace_AccessedSingleRC.js</files>
+            <baseline>Namespace_AccessedSingleRC.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Namespace_AccessedSingleRC.js</files>
+            <baseline>Namespace_AccessedSingleRC.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Namespace_Enumerated.js</files>
+            <baseline>Namespace_Enumerated.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Namespace_Enumerated.js</files>
+            <baseline>Namespace_Enumerated.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Delegate.js</files>
+            <baseline>Delegate.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Delegate.js</files>
+            <baseline>Delegate.baseline</baseline>
+            <compile-flags> -EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Vector.js</files>
+            <baseline>Vector.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Vector.js</files>
+            <baseline>Vector.baseline</baseline>
+            <compile-flags> -EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>VectorView.js</files>
+            <baseline>VectorView.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>VectorView.js</files>
+            <baseline>VectorView.baseline</baseline>
+            <compile-flags> -EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Iterator.js</files>
+            <baseline>Iterator.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Iterator.js</files>
+            <baseline>Iterator.baseline</baseline>
+            <compile-flags> -EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>Iterable.js</files>
+            <baseline>Iterable.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>Iterable.js</files>
+            <baseline>Iterable.baseline</baseline>
+            <compile-flags> -EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>ObjectAsIReference.js</files>
+            <baseline>ObjectAsIReference.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>ObjectAsIReference.js</files>
+            <baseline>ObjectAsIReference.baseline</baseline>
+            <compile-flags> -EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>ObjectAsIReferenceArray_NoExternal.js</files>
+            <baseline>ObjectAsIReferenceArray_NoExternal.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>ObjectAsIReferenceArray_NoExternal.js</files>
+            <baseline>ObjectAsIReferenceArray_NoExternal.baseline</baseline>
+            <compile-flags> -EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>ObjectAsIReferenceArray_External.js</files>
+            <baseline>ObjectAsIReferenceArray_External.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>ObjectAsIReferenceArray_External.js</files>
+            <baseline>ObjectAsIReferenceArray_External.baseline</baseline>
+            <compile-flags> -EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>TypedArray_Basic.js</files>
+            <baseline>TypedArray_Basic.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>TypedArray_Basic.js</files>
+            <baseline>TypedArray_Basic.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>TypedArray_String.js</files>
+            <baseline>TypedArray_String.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>TypedArray_String.js</files>
+            <baseline>TypedArray_String.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>TypedArray_RuntimeClass.js</files>
+            <baseline>TypedArray_RuntimeClass.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>TypedArray_RuntimeClass.js</files>
+            <baseline>TypedArray_RuntimeClass.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>TypedArray_IVector.js</files>
+            <baseline>TypedArray_IVector.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>TypedArray_IVector.js</files>
+            <baseline>TypedArray_IVector.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>TypedArray_Delegate.js</files>
+            <baseline>TypedArray_Delegate.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>TypedArray_Delegate.js</files>
+            <baseline>TypedArray_Delegate.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+
+    <test>
+        <default>
+            <files>TypedArray_JSDelegate.js</files>
+            <baseline>TypedArray_JSDelegate.baseline</baseline>
+            <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+    <test>
+        <default>
+            <files>TypedArray_JSDelegate.js</files>
+            <baseline>TypedArray_JSDelegate.baseline</baseline>
+            <compile-flags>-EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+            <tags>exclude_win7,exclude_fre</tags>
+        </default>
+    </test>
+</regress-exe>

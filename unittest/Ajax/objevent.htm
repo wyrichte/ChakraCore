@@ -1,0 +1,38 @@
+
+<html>
+<script>
+function window::onerror(sMsg,sUrl,nLine) {
+	alert("hi" + sMsg + sUrl + nLine);
+}
+
+
+eval("function window::onfocus() { alert('on focus'); }");
+
+</script>
+<span id="testscriptbuiltin">Click me Built In - JScript</span>
+<script language=JScript>
+
+
+function testscriptbuiltin::onclick()
+    {
+  	alert("jscript onclick");
+    }
+
+
+</script>
+
+<br>
+
+<span id="testscriptbuiltin">Click me Built In - VBScript</span>
+<script language=VBScript>
+
+sub testscriptbuiltin_onclick()
+   alert("VBScript onclick")
+end sub
+</script>
+<script>
+bad stuff
+</script>
+
+</html>
+

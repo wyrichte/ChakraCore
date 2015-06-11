@@ -1,0 +1,32 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "a": "[1,2,check]"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "3",
+        "[0]": "1",
+        "[1]": "2",
+        "[2]": "check"
+      },
+      "x": "1",
+      "y": "2",
+      "z": "check",
+      "[Globals]": {
+        "bar": "<large string>",
+        "foo": "<large string>",
+        "a": "[1,2,check]"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "bar(...arguments)": "true"
+    }
+  }
+]

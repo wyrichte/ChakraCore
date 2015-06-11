@@ -1,0 +1,23 @@
+=== Before change ===
+old old
+ENC: QueryEdit: 1 requests
+ENC: editnestchangeclosure2.js (107,187):
+/**edit(nest)**/
+    return function f() {
+        return "ol...
+===>
+ var x = a;
+ return function f() {
+     return x;
+ };
+...
+ENC: === AST Diffing ===
+ENC: Update: FuncDecl function foo(a) {..    /**edit( -> FuncDecl function foo(a) {..     var x =
+ENC: Update: FuncDecl function f() {..        return  -> FuncDecl function f() {..     return x;.
+ENC: === Semantic Changes ===
+ENC: UpdateFunction: FuncDecl function foo(a) {..    /**edit( -> FuncDecl function foo(a) {..     var x =
+ENC:     Old functionBody: foo
+ENC: MoveFunction: FuncDecl function test() {..    WScript. -> FuncDecl function test() {..    WScript.
+ENC:     Old functionBody: test
+=== After change ===
+old new

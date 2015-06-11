@@ -1,0 +1,26 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 80,
+        "length": 13,
+        "text": "throw 'Error'",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 49,
+        "length": 54,
+        "text": "WScript.Echo(`${(function(){\n\tthrow 'Error';\n})()}`)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "Error",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

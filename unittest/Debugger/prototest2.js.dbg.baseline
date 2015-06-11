@@ -1,0 +1,109 @@
+[
+  {
+    "locals": {
+      "this": {
+        "__proto__": {
+          "__proto__": "{...}",
+          "protop": "123"
+        },
+        "thisp": "1"
+      },
+      "arguments": "null",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[prototype]": {
+          "[prototype]": "{...}",
+          "protop": "123"
+        },
+        "thisp": "1"
+      },
+      "arguments": "null",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": {
+          "__proto__": "{...}",
+          "protop": "123"
+        },
+        "thisp": "1"
+      },
+      "arguments": "null",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[prototype]": {
+          "[prototype]": "{...}",
+          "protop": "123"
+        },
+        "thisp": "1"
+      },
+      "arguments": "null",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": {
+          "__proto__": "{...}",
+          "protop": "123"
+        },
+        "thisp": "1"
+      },
+      "arguments": "null",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[prototype]": {
+          "[prototype]": "{...}",
+          "pp2": "2"
+        },
+        "thisp": "1"
+      },
+      "arguments": "null",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[prototype]": {
+          "[prototype]": {
+            "[Methods]": "{...}",
+            "__proto__": "123"
+          },
+          "pp2": "2"
+        },
+        "thisp": "1"
+      },
+      "arguments": "null",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": {
+          "__proto__": "{...}",
+          "pp2": "2"
+        },
+        "thisp": "1"
+      },
+      "arguments": "null",
+      "[Globals]": ""
+    }
+  }
+]

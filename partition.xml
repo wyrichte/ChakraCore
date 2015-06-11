@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourcePartition Name="Chakra" Description="Chakra Javascript Engine" Owners="edmaurer" Branches="fbl_ie_stage_dev3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file://redmond/osg/Release/CORE/BnB/ENG/SourcePartition/Schemas/SourcePartitionV1.xsd" />

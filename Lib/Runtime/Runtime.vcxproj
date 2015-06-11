@@ -1,0 +1,1200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="chk|Win32">
+      <Configuration>chk</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="chk|x64">
+      <Configuration>chk</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fretest|Win32">
+      <Configuration>fretest</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fretest|x64">
+      <Configuration>fretest</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fre|Win32">
+      <Configuration>fre</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fre|x64">
+      <Configuration>fre</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-chk|Win32">
+      <Configuration>jsls-chk</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-chk|x64">
+      <Configuration>jsls-chk</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-fre|Win32">
+      <Configuration>jsls-fre</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-fre|x64">
+      <Configuration>jsls-fre</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{706083F7-6AA4-4558-A153-6352EF9110F5}</ProjectGuid>
+    <RootNamespace>JS</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fre|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='chk|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fre|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='chk|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="..\..\VcProjBuild.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fre|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='chk|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fre|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='chk|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='chk|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='chk|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='chk|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='chk|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='chk|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='fre|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='fre|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='fre|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='fre|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='fre|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" />
+    <IncludePath Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'">$(IntDir)\..\manifests-inbox;$(IncludePath);$(PUBLIC_ROOT)\internal\minwin\priv_sdk\inc</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;..;..\..\Publish;..\Common;..\Parser;..\Backend;$(IntDir)..\Manifests;$(IntDir)..\Common;$(IntDir)..\Publish;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings);4702</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;DBG;DBG_DUMP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>LANGUAGE_SERVICE=1;WIN32;_DEBUG;_CONSOLE;DBG;DBG_DUMP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='chk|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;DBG;DBG_DUMP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;DBG;DBG_DUMP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>LANGUAGE_SERVICE=1;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fre|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ByteCode\AsmJSByteCodeDumper.cpp" />
+    <ClCompile Include="ByteCode\AsmJsByteCodeWriter.cpp" />
+    <ClCompile Include="ByteCode\OpCodeUtil.cpp" />
+    <ClCompile Include="ByteCode\OpCodeUtilAsmJs.cpp" />
+    <ClCompile Include="ByteCode\ScopeInfo.cpp" />
+    <ClCompile Include="ByteCode\StatementReader.cpp" />
+    <ClCompile Include="Library\JavascriptSIMDFloat32x4.cpp" />
+    <ClCompile Include="Library\JavascriptSIMDFloat64x2.cpp" />
+    <ClCompile Include="Library\JavascriptSIMDInt32x4.cpp" />
+    <ClCompile Include="Library\SIMDFloat32x4Lib.cpp" />
+    <ClCompile Include="Library\SIMDFloat32x4Operation.cpp" />
+    <ClCompile Include="Library\SIMDfloat32x4OperationX86X64.cpp" />
+    <ClCompile Include="Library\SIMDFloat64x2Lib.cpp" />
+    <ClCompile Include="Library\SIMDFloat64x2Operation.cpp" />
+    <ClCompile Include="Library\SIMDfloat64x2OperationX86X64.cpp" />
+    <ClCompile Include="Library\SIMDInt32x4Lib.cpp" />
+    <ClCompile Include="Library\SIMDInt32x4Operation.cpp" />
+    <ClCompile Include="Library\SIMDInt32x4OperationX86X64.cpp" />
+    <ClCompile Include="Telemetry\ESBuiltIns\ESBuiltInsDatabase.cpp" />
+    <ClCompile Include="Language\amd64\AsmJSJitTemplate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\amd64</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Language\amd64\stackframe.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\amd64</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\amd64</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Language\arm\stackframe.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)\arm</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)\arm</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Language\AsmJS.cpp" />
+    <ClCompile Include="Language\AsmJSBytecodeGenerator.cpp" />
+    <ClCompile Include="Language\AsmJSCodeGenerator.cpp" />
+    <ClCompile Include="Language\AsmJSEncoder.cpp" />
+    <ClCompile Include="Language\AsmJSLink.cpp" />
+    <ClCompile Include="Language\AsmJSModule.cpp" />
+    <ClCompile Include="Language\AsmJSTypes.cpp" />
+    <ClCompile Include="Language\AsmJSUtils.cpp" />
+    <ClCompile Include="Language\ByteCodeSerializer.cpp">
+      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\base\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="Language\CacheOperators.cpp" />
+    <ClCompile Include="Language\CallInfo.cpp" />
+    <ClCompile Include="Language\i386\AsmJSJitTemplate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)\i386</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Library\CharStringCache.cpp" />
+    <ClCompile Include="Language\CodeGenRecyclableData.cpp" />
+    <ClCompile Include="Language\DynamicProfileInfo.cpp" />
+    <ClCompile Include="Language\DynamicProfileMutator.cpp" />
+    <ClCompile Include="Language\DynamicProfileStorage.cpp" />
+    <ClCompile Include="Language\ExecutionMode.cpp" />
+    <ClCompile Include="Language\FunctionCodeGenJitTimeData.cpp" />
+    <ClCompile Include="Language\FunctionCodeGenRuntimeData.cpp" />
+    <ClCompile Include="Language\i386\stackframe.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)\i386</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)\i386</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Language\InlineCache.cpp" />
+    <ClCompile Include="Language\JavascriptExceptionOperators.cpp" />
+    <ClCompile Include="Language\JavascriptMathOperators.cpp" />
+    <ClCompile Include="Language\MutationBreakpoint.cpp" />
+    <ClCompile Include="Language\ProfilingHelpers.cpp" />
+    <ClCompile Include="Language\PropertyRecord.cpp" />
+    <ClCompile Include="Language\ReadOnlyDynamicProfileInfo.cpp" />
+    <ClCompile Include="Language\SourceContextInfo.cpp" />
+    <ClCompile Include="Language\SourceDynamicProfileManager.cpp" />
+    <ClCompile Include="Language\SourceHolder.cpp" />
+    <ClCompile Include="Language\StackTraceArguments.cpp" />
+    <ClCompile Include="Language\Utf8SourceInfo.cpp" />
+    <ClCompile Include="Language\ValueType.cpp" />
+    <ClCompile Include="Library\ArrayBuffer.cpp" />
+    <ClCompile Include="Library\AsyncDebug.cpp" />
+    <ClCompile Include="Library\BoundFunction.cpp" />
+    <ClCompile Include="Library\BoundFunctionType.cpp" />
+    <ClCompile Include="Library\BufferStringBuilder.cpp" />
+    <ClCompile Include="Library\CommonExternalApiImpl.cpp" />
+    <ClCompile Include="Library\CompoundString.cpp" />
+    <ClCompile Include="Library\Constants.cpp" />
+    <ClCompile Include="Library\dataview.cpp" />
+    <ClCompile Include="Library\Debug.cpp" />
+    <ClCompile Include="Library\DelayLoadLibrary.cpp" />
+    <ClCompile Include="Library\EngineInterfaceObject.cpp" />
+    <ClCompile Include="Library\Entropy.cpp" />
+    <ClCompile Include="Library\EtwTrace.cpp" />
+    <ClCompile Include="Library\Exception.cpp" />
+    <ClCompile Include="Library\ExpirableObject.cpp" />
+    <ClCompile Include="Library\HostLogger.cpp" />
+    <ClCompile Include="Library\IteratorObjectEnumerator.cpp" />
+    <ClCompile Include="Library\JavascriptArrayIterator.cpp" />
+    <ClCompile Include="Library\JavascriptBuiltInFunctions.cpp" />
+    <ClCompile Include="Library\JavascriptEnumeratorIterator.cpp" />
+    <ClCompile Include="Library\JavascriptErrorDebug.cpp" />
+    <ClCompile Include="Library\JavascriptExternalFunction.cpp" />
+    <ClCompile Include="Language\ScriptContextOptimizationOverrideInfo.cpp" />
+    <ClCompile Include="Library\JavascriptGenerator.cpp" />
+    <ClCompile Include="Library\JavascriptGeneratorFunction.cpp" />
+    <ClCompile Include="Library\JavascriptGeneratorFunctionType.cpp" />
+    <ClCompile Include="Library\JavascriptMap.cpp" />
+    <ClCompile Include="Library\JavascriptMapIterator.cpp" />
+    <ClCompile Include="Library\JavascriptPixelArray.cpp" />
+    <ClCompile Include="Library\JavascriptPixelArrayEnumerator.cpp" />
+    <ClCompile Include="Library\JavascriptPixelArrayType.cpp" />
+    <ClCompile Include="Library\JavascriptPromise.cpp" />
+    <ClCompile Include="Library\JavascriptProxy.cpp" />
+    <ClCompile Include="Library\JavascriptReflect.cpp" />
+    <ClCompile Include="Library\JavascriptRegExpEnumerator.cpp" />
+    <ClCompile Include="Library\JavascriptSet.cpp" />
+    <ClCompile Include="Library\JavascriptSetIterator.cpp" />
+    <ClCompile Include="Library\JavascriptStringIterator.cpp" />
+    <ClCompile Include="Library\JavascriptSymbol.cpp" />
+    <ClCompile Include="Library\JavascriptSymbolObject.cpp" />
+    <ClCompile Include="Library\JavascriptSymbolObjectType.cpp" />
+    <ClCompile Include="Library\JavascriptSymbolType.cpp" />
+    <ClCompile Include="Library\JavascriptTypedObjectSlotAccessorFunction.cpp" />
+    <ClCompile Include="Library\JavascriptWeakMap.cpp" />
+    <ClCompile Include="Library\JavascriptWeakSet.cpp" />
+    <ClCompile Include="Library\JavascriptWinRTDate.cpp" />
+    <ClCompile Include="Library\JnDebugHelp.cpp" />
+    <ClCompile Include="Library\javascripttypednumber.cpp" />
+    <ClCompile Include="Library\JSONParser.cpp" />
+    <ClCompile Include="Library\JSONScanner.cpp" />
+    <ClCompile Include="Library\JSONString.cpp" />
+    <ClCompile Include="Library\ProfileString.cpp" />
+    <ClCompile Include="Library\RoCausality.Win7.cpp" />
+    <ClCompile Include="Library\RootObjectBase.cpp" />
+    <ClCompile Include="Library\RuntimeFunction.cpp" />
+    <ClCompile Include="Library\ScriptFunction.cpp" />
+    <ClCompile Include="Library\ScriptFunctionType.cpp" />
+    <ClCompile Include="Library\ScriptMemoryDumper.cpp" />
+    <ClCompile Include="Library\SingleCharString.cpp" />
+    <ClCompile Include="Library\StackProber.cpp" />
+    <ClCompile Include="Library\StackScriptFunction.cpp" />
+    <ClCompile Include="Library\StringCopyInfo.cpp" />
+    <ClCompile Include="Library\Telemetry.cpp" />
+    <ClCompile Include="Library\TestEtwEventSink.cpp" />
+    <ClCompile Include="Library\ThreadBoundThreadContextManager.cpp" />
+    <ClCompile Include="Library\ThreadContext.cpp" />
+    <ClCompile Include="Library\ThreadContextTLSEntry.cpp" />
+    <ClCompile Include="Library\ThrowErrorObject.cpp" />
+    <ClCompile Include="Library\TypedArray.cpp" />
+    <ClCompile Include="Library\typedArrayEnumerator.cpp" />
+    <ClCompile Include="Library\WindowsFoundationAdapter.cpp" />
+    <ClCompile Include="Library\WindowsGlobalizationAdapter.cpp" />
+    <ClCompile Include="Telemetry\ESBuiltIns\ESBuiltInsOpcodeTelemetry.cpp" />
+    <ClCompile Include="Telemetry\ESBuiltIns\ESBuiltInsTelemetryProvider.cpp" />
+    <ClCompile Include="Telemetry\IScriptContextTelemetryProvider.cpp" />
+    <ClCompile Include="Telemetry\OpcodeTelemetry.cpp" />
+    <ClCompile Include="Telemetry\ScriptContextTelemetry.cpp" />
+    <ClCompile Include="Telemetry\ScriptEngineTelemetry.cpp" />
+    <ClCompile Include="Types\ActivationObjectType.cpp" />
+    <ClCompile Include="Library\ArgumentsObject.cpp" />
+    <ClCompile Include="Library\ArgumentsObjectEnumerator.cpp" />
+    <ClCompile Include="Library\ArgumentsObjectType.cpp" />
+    <ClCompile Include="ByteCode\ByteBlock.cpp" />
+    <ClCompile Include="ByteCode\ByteCodeDumper.cpp" />
+    <ClCompile Include="ByteCode\ByteCodeGenerator.cpp" />
+    <ClCompile Include="ByteCode\ByteCodeReader.cpp" />
+    <ClCompile Include="ByteCode\ByteCodeWriter.cpp" />
+    <ClCompile Include="Library\ConcatString.cpp" />
+    <ClCompile Include="Library\DateImplementation.cpp" />
+    <ClCompile Include="Library\HiResTimer.cpp" />
+    <ClCompile Include="Types\ArrayObject.cpp" />
+    <ClCompile Include="Types\CrossSite.cpp" />
+    <ClCompile Include="Types\DeferredTypeHandler.cpp" />
+    <ClCompile Include="Language\diagobjectmodel.cpp" />
+    <ClCompile Include="Language\DiagProbe.cpp" />
+    <ClCompile Include="Language\ProbeContainer.cpp" />
+    <ClCompile Include="Language\DiagHelperMethodWrapper.cpp" />
+    <ClCompile Include="Language\DiagStackFrame.cpp" />
+    <ClCompile Include="Types\DictionaryTypeHandler.cpp" />
+    <ClCompile Include="Types\DOMFastPath.cpp" />
+    <ClCompile Include="Types\DynamicObject.cpp" />
+    <ClCompile Include="Types\DynamicObjectEnumerator.cpp" />
+    <ClCompile Include="Types\DynamicObjectSnapshotEnumerator.cpp" />
+    <ClCompile Include="Types\DynamicObjectSnapshotEnumeratorWPCache.cpp" />
+    <ClCompile Include="Types\DynamicType.cpp" />
+    <ClCompile Include="Library\ForInObjectEnumerator.cpp" />
+    <ClCompile Include="Types\ExternalType.cpp" />
+    <ClCompile Include="Types\FunctionBody.cpp" />
+    <ClCompile Include="Library\GlobalObject.cpp" />
+    <ClCompile Include="Library\GlobalObjectType.cpp" />
+    <ClCompile Include="Library\TaggedInt.cpp" />
+    <ClCompile Include="Language\InterpreterStackFrame.cpp" />
+    <ClCompile Include="Library\ES5Array.cpp" />
+    <ClCompile Include="Library\ES5ArrayEnumerator.cpp" />
+    <ClCompile Include="Library\ES5ArrayTypeHandler.cpp" />
+    <ClCompile Include="Library\JavascriptArray.cpp" />
+    <ClCompile Include="Library\JavascriptArrayEnumeratorBase.cpp" />
+    <ClCompile Include="Library\JavascriptArrayEnumerator.cpp" />
+    <ClCompile Include="Library\JavascriptArraySnapshotEnumerator.cpp" />
+    <ClCompile Include="Library\JavascriptArrayType.cpp" />
+    <ClCompile Include="Library\JavascriptBoolean.cpp" />
+    <ClCompile Include="Library\JavascriptBooleanObject.cpp" />
+    <ClCompile Include="Library\JavascriptBooleanObjectType.cpp" />
+    <ClCompile Include="Library\JavascriptBooleanType.cpp" />
+    <ClCompile Include="Language\JavascriptConversion.cpp" />
+    <ClCompile Include="Library\JavascriptDate.cpp" />
+    <ClCompile Include="Library\JavascriptDateType.cpp" />
+    <ClCompile Include="Types\FunctionInfo.cpp" />
+    <ClCompile Include="Types\JavascriptEnumerator.cpp" />
+    <ClCompile Include="Library\JavascriptError.cpp" />
+    <ClCompile Include="Types\JavascriptExceptionObject.cpp" />
+    <ClCompile Include="Library\JavascriptFunction.cpp" />
+    <ClCompile Include="Library\JavascriptFunctionType.cpp" />
+    <ClCompile Include="Library\JavascriptLibrary.cpp" />
+    <ClCompile Include="Library\JavascriptNumber.cpp" />
+    <ClCompile Include="Library\JavascriptNumberObject.cpp" />
+    <ClCompile Include="Library\JavascriptNumberObjectType.cpp" />
+    <ClCompile Include="Library\JavascriptObject.cpp" />
+    <ClCompile Include="Language\JavascriptOperators.cpp" />
+    <ClCompile Include="Library\JavascriptRegExpConstructor.cpp" />
+    <ClCompile Include="Library\JavascriptRegExpConstructorType.cpp" />
+    <ClCompile Include="Library\JavascriptRegularExpression.cpp" />
+    <ClCompile Include="Library\JavascriptRegularExpressionResult.cpp" />
+    <ClCompile Include="Library\JavascriptRegularExpressionType.cpp" />
+    <ClCompile Include="Language\JavascriptStackWalker.cpp" />
+    <ClCompile Include="Library\JavascriptString.cpp" />
+    <ClCompile Include="Library\JavascriptStringEnumerator.cpp" />
+    <ClCompile Include="Library\JavascriptStringType.cpp" />
+    <ClCompile Include="Library\JavascriptVariantDate.cpp" />
+    <ClCompile Include="Library\JavascriptVariantDateType.cpp" />
+    <ClCompile Include="Library\JSONStack.cpp" />
+    <ClCompile Include="Library\JSON.cpp" />
+    <ClCompile Include="Library\LiteralString.cpp" />
+    <ClCompile Include="Library\LiteralStringObject.cpp" />
+    <ClCompile Include="Library\LiteralStringObjectType.cpp" />
+    <ClCompile Include="Library\Math.cpp" />
+    <ClCompile Include="Library\moduleroot.cpp" />
+    <ClCompile Include="Library\ModuleRootType.cpp" />
+    <ClCompile Include="Types\MissingPropertyTypeHandler.cpp" />
+    <ClCompile Include="Types\NullTypeHandler.cpp" />
+    <ClCompile Include="ByteCode\Opcodes.cpp" />
+    <ClCompile Include="Types\PathTypeHandler.cpp" />
+    <ClCompile Include="Types\PerfHint.cpp" />
+    <ClCompile Include="Types\PropertyDescriptor.cpp" />
+    <ClCompile Include="Library\ObjectPrototypeObject.cpp" />
+    <ClCompile Include="Library\PropertyString.cpp" />
+    <ClCompile Include="Types\RecyclableObject.cpp" />
+    <ClCompile Include="Library\RegexHelper.cpp" />
+    <ClCompile Include="Language\ScriptContext.cpp" />
+    <ClCompile Include="Language\ScriptContextProfiler.cpp" />
+    <ClCompile Include="Types\SimpleDictionaryTypeHandler.cpp" />
+    <ClCompile Include="Types\SimpleDictionaryUnorderedTypeHandler.cpp" />
+    <ClCompile Include="Types\SimpleTypeHandler.cpp" />
+    <ClCompile Include="Language\SourceMutator.cpp" />
+    <ClCompile Include="Library\SparseArraySegment.cpp" />
+    <ClCompile Include="Types\SpreadArgument.cpp" />
+    <ClCompile Include="Types\StaticType.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='chk|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fre|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Library\SubString.cpp" />
+    <ClCompile Include="Types\TempArenaAllocatorObject.cpp" />
+    <ClCompile Include="Types\Type.cpp" />
+    <ClCompile Include="Types\TypeHandler.cpp" />
+    <ClCompile Include="Types\TypePath.cpp" />
+    <ClCompile Include="Library\UriHelper.cpp" />
+    <ClCompile Include="Types\TypePropertyCache.cpp" />
+    <ClCompile Include="Types\WithScopeObject.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ByteCode\AsmJSByteCodeDumper.h" />
+    <ClInclude Include="ByteCode\AsmJsByteCodeWriter.h" />
+    <ClInclude Include="ByteCode\ExtendedOpCodeList.h" />
+    <ClInclude Include="ByteCode\ExtendedOpCodeListAsmJs.h" />
+    <ClInclude Include="ByteCode\LayoutTypes.h" />
+    <ClInclude Include="ByteCode\LayoutTypesAsmJs.h" />
+    <ClInclude Include="ByteCode\OpCodeList.h" />
+    <ClInclude Include="ByteCode\OpCodeListAsmJs.h" />
+    <ClInclude Include="ByteCode\OpCodesAsmJs.h" />
+    <ClInclude Include="ByteCode\OpCodesSimd.h" />
+    <ClInclude Include="ByteCode\OpCodeUtil.h" />
+    <ClInclude Include="ByteCode\OpCodeUtilAsmJs.h" />
+    <ClInclude Include="ByteCode\OpLayoutsAsmJs.h" />
+    <ClInclude Include="ByteCode\OpLayoutsCommon.h" />
+    <ClInclude Include="ByteCode\ScopeInfo.h" />
+    <ClInclude Include="ByteCode\StatementReader.h" />
+    <ClInclude Include="DiagGlobalList.h" />
+    <ClInclude Include="DiagVTableList.h" />
+    <ClInclude Include="Library\JavascriptSIMDFloat32x4.h" />
+    <ClInclude Include="Library\JavascriptSIMDFloat64x2.h" />
+    <ClInclude Include="Library\JavascriptSIMDInt32x4.h" />
+    <ClInclude Include="Library\SIMDFloat32x4Lib.h" />
+    <ClInclude Include="Library\SIMDFloat32x4Operation.h" />
+    <ClInclude Include="Library\SIMDFloat64x2Lib.h" />
+    <ClInclude Include="Library\SIMDFloat64x2Operation.h" />
+    <ClInclude Include="Library\SIMDInt32x4Lib.h" />
+    <ClInclude Include="Library\SIMDInt32x4Operation.h" />
+    <ClInclude Include="Library\SIMDShuffleMasks.h" />
+    <ClInclude Include="Telemetry\ESBuiltIns\ESBuiltInsDatabase.h" />
+    <ClInclude Include="InternalPropertyList.h" />
+    <ClInclude Include="Language\amd64\stackframe.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Language\arm\stackframe.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Language\AsmJS.h" />
+    <ClInclude Include="Language\AsmJSBytecodeGenerator.h" />
+    <ClInclude Include="Language\AsmJSCodeGenerator.h" />
+    <ClInclude Include="Language\AsmJSEncoder.h" />
+    <ClInclude Include="Language\AsmJSJitTemplate.h" />
+    <ClInclude Include="Language\AsmJSLink.h" />
+    <ClInclude Include="Language\AsmJSModule.h" />
+    <ClInclude Include="Language\AsmJSTypes.h" />
+    <ClInclude Include="Language\AsmJSUtils.h" />
+    <ClInclude Include="Language\byteCodeCacheReleaseFileVersion.h" />
+    <ClInclude Include="Language\ByteCodeSerializer.h" />
+    <ClInclude Include="Language\CacheOperators.h" />
+    <ClInclude Include="Language\i386\AsmJsInstructionTemplate.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Language\InterpreterProcessOpCodeAsmJs.h" />
+    <ClInclude Include="Library\CharStringCache.h" />
+    <ClInclude Include="Language\CodeGenRecyclableData.h" />
+    <ClInclude Include="Language\DynamicProfileInfo.h" />
+    <ClInclude Include="Language\DynamicProfileMutator.h" />
+    <ClInclude Include="Language\DynamicProfileStorage.h" />
+    <ClInclude Include="Language\EvalMapRecord.h" />
+    <ClInclude Include="Language\ExecutionMode.h" />
+    <ClInclude Include="Language\ExecutionModes.h" />
+    <ClInclude Include="Language\FunctionCodeGenJitTimeData.h" />
+    <ClInclude Include="Language\FunctionCodeGenRuntimeData.h" />
+    <ClInclude Include="Language\i386\stackframe.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Language\InlineCache.h" />
+    <ClInclude Include="Language\InlineCachePointerArray.h" />
+    <ClInclude Include="Language\JavascriptExceptionOperators.h" />
+    <ClInclude Include="Language\JavascriptMathOperators.h" />
+    <ClInclude Include="Language\LeaveScriptObject.h" />
+    <ClInclude Include="Language\MutationBreakpoint.h" />
+    <ClInclude Include="Language\ProfilingHelpers.h" />
+    <ClInclude Include="Language\PropertyRecord.h" />
+    <ClInclude Include="Language\ReadOnlyDynamicProfileInfo.h" />
+    <ClInclude Include="Language\SourceContextInfo.h" />
+    <ClInclude Include="Language\SourceDynamicProfileManager.h" />
+    <ClInclude Include="Language\SourceHolder.h" />
+    <ClInclude Include="Language\StackTraceArguments.h" />
+    <ClInclude Include="Language\Utf8SourceInfo.h" />
+    <ClInclude Include="Language\ValueType.h" />
+    <ClInclude Include="Language\ValueTypes.h" />
+    <ClInclude Include="LibraryFunction.h" />
+    <ClInclude Include="Library\ArrayBuffer.h" />
+    <ClInclude Include="Library\AsyncDebug.h" />
+    <ClInclude Include="Library\BoundFunction.h" />
+    <ClInclude Include="Library\BufferStringBuilder.h" />
+    <ClInclude Include="Library\BuiltInFlags.h" />
+    <ClInclude Include="Library\CompoundString.h" />
+    <ClInclude Include="Library\Constants.h" />
+    <ClInclude Include="Library\dataview.h" />
+    <ClInclude Include="Library\DateImplementationData.h" />
+    <ClInclude Include="Library\Debug.h" />
+    <ClInclude Include="Library\DelayLoadLibrary.h" />
+    <ClInclude Include="Library\DOMFastPathInfo.h" />
+    <ClInclude Include="Library\EngineInterfaceObject.h" />
+    <ClInclude Include="Library\EngineInterfaceObjectBuiltIns.h" />
+    <ClInclude Include="Library\Entropy.h" />
+    <ClInclude Include="Library\ES5ArrayIndexEnumerator.h" />
+    <ClInclude Include="Library\ES5ArrayNonIndexEnumerator.h" />
+    <ClInclude Include="Library\EtwTrace.h" />
+    <ClInclude Include="Library\Exception.h" />
+    <ClInclude Include="Library\ExpirableObject.h" />
+    <ClInclude Include="Library\HostLogger.h" />
+    <ClInclude Include="Library\HostObjectBase.h" />
+    <ClInclude Include="Library\InJavascript\intl.js.bc.32b.h" />
+    <ClInclude Include="Library\InJavascript\intl.js.bc.64b.h" />
+    <ClInclude Include="Library\InJavascript\Promise.js.bc.32b.h" />
+    <ClInclude Include="Library\InJavascript\Promise.js.bc.64b.h" />
+    <ClInclude Include="Library\IteratorObjectEnumerator.h" />
+    <ClInclude Include="Library\JavascriptArrayEnumeratorBase.h" />
+    <ClInclude Include="Library\JavascriptArrayIndexEnumerator.h" />
+    <ClInclude Include="Library\JavascriptArrayIterator.h" />
+    <ClInclude Include="Library\JavascriptArrayNonIndexSnapshotEnumerator.h" />
+    <ClInclude Include="Library\JavascriptArraySnapshotEnumerator.h" />
+    <ClInclude Include="Library\JavascriptBuiltInFunctionList.h" />
+    <ClInclude Include="Library\JavascriptBuiltInFunctions.h" />
+    <ClInclude Include="Library\JavascriptEnumeratorIterator.h" />
+    <ClInclude Include="Library\JavascriptErrorDebug.h" />
+    <ClInclude Include="Library\JavascriptExternalFunction.h" />
+    <ClInclude Include="Language\ScriptContextOptimizationOverrideInfo.h" />
+    <ClInclude Include="Library\JavascriptGenerator.h" />
+    <ClInclude Include="Library\JavascriptGeneratorFunction.h" />
+    <ClInclude Include="Library\JavascriptMap.h" />
+    <ClInclude Include="Library\JavascriptMapIterator.h" />
+    <ClInclude Include="Library\JavascriptPixelArray.h" />
+    <ClInclude Include="Library\JavascriptPixelArrayEnumerator.h" />
+    <ClInclude Include="Library\JavascriptPromise.h" />
+    <ClInclude Include="Library\JavascriptProxy.h" />
+    <ClInclude Include="Library\JavascriptRegExpEnumerator.h" />
+    <ClInclude Include="Library\JavascriptReflect.h" />
+    <ClInclude Include="Library\JavascriptSet.h" />
+    <ClInclude Include="Library\JavascriptSetIterator.h" />
+    <ClInclude Include="Library\JavascriptStringIterator.h" />
+    <ClInclude Include="Library\JavascriptStringTagEntries.h" />
+    <ClInclude Include="Library\JavascriptSymbol.h" />
+    <ClInclude Include="Library\JavascriptSymbolObject.h" />
+    <ClInclude Include="Library\javascripttypednumber.h" />
+    <ClInclude Include="Library\JavascriptTypedObjectSlotAccessorFunction.h" />
+    <ClInclude Include="Library\JavascriptWeakMap.h" />
+    <ClInclude Include="Library\JavascriptWeakSet.h" />
+    <ClInclude Include="Library\JavascriptWinRTDate.h" />
+    <ClInclude Include="Library\JavascriptWinRTFunction.h" />
+    <ClInclude Include="Library\JSONParser.h" />
+    <ClInclude Include="Library\JSONScanner.h" />
+    <ClInclude Include="Library\JSONString.h" />
+    <ClInclude Include="Library\MapOrSetDataList.h" />
+    <ClInclude Include="Library\ProfileString.h" />
+    <ClInclude Include="Library\RoCausality.Win7.h" />
+    <ClInclude Include="Library\RootObjectBase.h" />
+    <ClInclude Include="Library\RuntimeFunction.h" />
+    <ClInclude Include="Library\SameValueComparer.h" />
+    <ClInclude Include="Library\ScriptFunction.h" />
+    <ClInclude Include="Library\ScriptFunctionType.h" />
+    <ClInclude Include="Library\ScriptMemoryDumper.h" />
+    <ClInclude Include="Library\SingleCharString.h" />
+    <ClInclude Include="Library\StackProber.h" />
+    <ClInclude Include="Library\StackScriptFunction.h" />
+    <ClInclude Include="Library\StringCopyInfo.h" />
+    <ClInclude Include="Library\Telemetry.h" />
+    <ClInclude Include="Library\TestEtwEventSink.h" />
+    <ClInclude Include="Library\ThreadBoundThreadContextManager.h" />
+    <ClInclude Include="Library\ThreadContext.h" />
+    <ClInclude Include="Library\ThreadContextTLSEntry.h" />
+    <ClInclude Include="Library\threadservicewrapper.h" />
+    <ClInclude Include="Library\ThrowErrorObject.h" />
+    <ClInclude Include="Library\typedarray.h" />
+    <ClInclude Include="Library\typedArrayEnumerator.h" />
+    <ClInclude Include="Library\WindowsFoundationAdapter.h" />
+    <ClInclude Include="RuntimeCommon.h" />
+    <ClInclude Include="Library\WindowsGlobalizationAdapter.h" />
+    <ClInclude Include="SerializableFunctionFields.h" />
+    <ClInclude Include="Telemetry\ESBuiltIns\ESBuiltInsOpcodeTelemetry.h" />
+    <ClInclude Include="Telemetry\ESBuiltIns\ESBuiltInsTelemetryProvider.h" />
+    <ClInclude Include="Telemetry\IOpcodeTelemetry.h" />
+    <ClInclude Include="Telemetry\IScriptContextTelemetryProvider.h" />
+    <ClInclude Include="Telemetry\OpcodeTelemetry.h" />
+    <ClInclude Include="Telemetry\ScriptContextTelemetry.h" />
+    <ClInclude Include="Telemetry\ScriptEngineTelemetry.h" />
+    <ClInclude Include="Telemetry\TelemetryList.includes.h" />
+    <ClInclude Include="Types\ActivationObjectType.h" />
+    <ClInclude Include="Language\Arguments.h" />
+    <ClInclude Include="Library\ArgumentsObject.h" />
+    <ClInclude Include="Library\ArgumentsObjectEnumerator.h" />
+    <ClInclude Include="ByteCode\ByteBlock.h" />
+    <ClInclude Include="ByteCode\ByteCodeDumper.h" />
+    <ClInclude Include="ByteCode\ByteCodeGenerator.h" />
+    <ClInclude Include="ByteCode\ByteCodeReader.h" />
+    <ClInclude Include="ByteCode\ByteCodeWriter.h" />
+    <ClInclude Include="Language\CallInfo.h" />
+    <ClInclude Include="Library\ConcatString.h" />
+    <ClInclude Include="Library\DateImplementation.h" />
+    <ClInclude Include="Library\HiResTimer.h" />
+    <ClInclude Include="Types\ArrayObject.h" />
+    <ClInclude Include="Types\CopyOnWrite.h" />
+    <ClInclude Include="Types\CrossSite.h" />
+    <ClInclude Include="Types\CrossSiteEnumerator.h" />
+    <ClInclude Include="Types\CrossSiteObject.h" />
+    <ClInclude Include="Types\DeferredTypeHandler.h" />
+    <ClInclude Include="Language\diagobjectmodel.h" />
+    <ClInclude Include="Language\DiagProbe.h" />
+    <ClInclude Include="Language\ProbeContainer.h" />
+    <ClInclude Include="Language\DiagHelperMethodWrapper.h" />
+    <ClInclude Include="Language\DiagStackFrame.h" />
+    <ClInclude Include="Types\DictionaryPropertyDescriptor.h" />
+    <ClInclude Include="Types\DictionaryTypeHandler.h" />
+    <ClInclude Include="Types\domfastpath.h" />
+    <ClInclude Include="Types\DOMFastpathinfolist.h" />
+    <ClInclude Include="Types\DynamicObject.h" />
+    <ClInclude Include="Types\DynamicObjectEnumerator.h" />
+    <ClInclude Include="Types\DynamicObjectSnapshotEnumerator.h" />
+    <ClInclude Include="Types\DynamicObjectSnapshotEnumeratorWPCache.h" />
+    <ClInclude Include="Types\DynamicType.h" />
+    <ClInclude Include="Library\ForInObjectEnumerator.h" />
+    <ClInclude Include="Types\ExternalObject.h" />
+    <ClInclude Include="Types\FunctionBody.h" />
+    <ClInclude Include="Library\GlobalObject.h" />
+    <ClInclude Include="Library\TaggedInt.h" />
+    <ClInclude Include="Language\InterpreterStackFrame.h" />
+    <ClInclude Include="Types\FunctionInfo.h" />
+    <ClInclude Include="Types\IWalkPropertyCallback.h" />
+    <ClInclude Include="Library\ES5Array.h" />
+    <ClInclude Include="Library\ES5ArrayEnumerator.h" />
+    <ClInclude Include="Library\ES5ArrayTypeHandler.h" />
+    <ClInclude Include="Library\JavascriptArray.h" />
+    <ClInclude Include="Library\JavascriptArrayEnumerator.h" />
+    <ClInclude Include="Library\JavascriptBoolean.h" />
+    <ClInclude Include="Library\JavascriptBooleanObject.h" />
+    <ClInclude Include="Language\JavascriptConversion.h" />
+    <ClInclude Include="Library\JavascriptDate.h" />
+    <ClInclude Include="Types\JavascriptEnumerator.h" />
+    <ClInclude Include="Library\JavascriptError.h" />
+    <ClInclude Include="Types\JavascriptExceptionContext.h" />
+    <ClInclude Include="Types\JavascriptExceptionObject.h" />
+    <ClInclude Include="Library\JavascriptFunction.h" />
+    <ClInclude Include="Library\JavascriptLibrary.h" />
+    <ClInclude Include="Library\JavascriptNumber.h" />
+    <ClInclude Include="Library\JavascriptNumberObject.h" />
+    <ClInclude Include="Library\JavascriptObject.h" />
+    <ClInclude Include="Language\JavascriptOperators.h" />
+    <ClInclude Include="Library\JavascriptRegExpConstructor.h" />
+    <ClInclude Include="Library\JavascriptRegularExpression.h" />
+    <ClInclude Include="Library\JavascriptRegularExpressionResult.h" />
+    <ClInclude Include="Language\JavascriptFunctionArgIndex.h" />
+    <ClInclude Include="Language\JavascriptStackWalker.h" />
+    <ClInclude Include="Library\JavascriptString.h" />
+    <ClInclude Include="Library\JavascriptStringEnumerator.h" />
+    <ClInclude Include="Library\JavascriptVariantDate.h" />
+    <ClInclude Include="Library\JnDirectFields.h" />
+    <ClInclude Include="Library\JSONStack.h" />
+    <ClInclude Include="Library\JSON.h" />
+    <ClInclude Include="Library\LiteralString.h" />
+    <ClInclude Include="Library\LiteralStringObject.h" />
+    <ClInclude Include="Library\MathLibrary.h" />
+    <ClInclude Include="Library\moduleroot.h" />
+    <ClInclude Include="Types\MissingPropertyTypeHandler.h" />
+    <ClInclude Include="Types\NullTypeHandler.h" />
+    <ClInclude Include="ByteCode\OpCodes.h" />
+    <ClInclude Include="ByteCode\OpLayouts.h" />
+    <ClInclude Include="Types\PathTypeHandler.h" />
+    <ClInclude Include="Types\PerfHint.h" />
+    <ClInclude Include="Types\PerfHintDescriptions.h" />
+    <ClInclude Include="Types\PropertyDescriptor.h" />
+    <ClInclude Include="Library\ObjectPrototypeObject.h" />
+    <ClInclude Include="Library\PropertyString.h" />
+    <ClInclude Include="Types\RecyclableObject.h" />
+    <ClInclude Include="Library\RegexHelper.h" />
+    <ClInclude Include="Runtime.h" />
+    <ClInclude Include="Language\ScriptContext.h" />
+    <ClInclude Include="Language\ScriptContextProfiler.h" />
+    <ClInclude Include="Types\SimpleDictionaryPropertyDescriptor.h" />
+    <ClInclude Include="Types\SimpleDictionaryTypeHandler.h" />
+    <ClInclude Include="Types\SimpleDictionaryUnorderedTypeHandler.h" />
+    <ClInclude Include="Types\SimplePropertyDescriptor.h" />
+    <ClInclude Include="Types\SimpleTypeHandler.h" />
+    <ClInclude Include="Language\SourceMutator.h" />
+    <ClInclude Include="Library\SparseArraySegment.h" />
+    <ClInclude Include="Types\SpreadArgument.h" />
+    <ClInclude Include="Types\StaticType.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="Library\SubString.h" />
+    <ClInclude Include="Types\TempArenaAllocatorObject.h" />
+    <ClInclude Include="Types\Type.h" />
+    <ClInclude Include="Types\TypeHandler.h" />
+    <ClInclude Include="Types\TypeId.h" />
+    <ClInclude Include="Types\TypePath.h" />
+    <ClInclude Include="Library\UriHelper.h" />
+    <ClInclude Include="Types\TypePropertyCache.h" />
+    <ClInclude Include="Types\WithScopeObject.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="Language\arm\arm_CallEhFrame.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </MASM>
+    <MASM Include="Library\arm\arm_DeferredDeserializeThunk.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </MASM>
+    <None Include="ByteCode\ByteBlock.inl" />
+    <None Include="ByteCode\ByteCodeReader.inl" />
+    <MASM Include="Language\amd64\JavascriptOperatorsA.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </MASM>
+    <MASM Include="Language\amd64\amd64_Thunks.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </MASM>
+    <None Include="Language\amd64\stackframe.inl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="Language\arm\arm_Thunks.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="Language\AsmJSEncoder.inl" />
+    <None Include="Language\AsmJSEncoderHandler.inl" />
+    <None Include="Language\CacheOperators.inl" />
+    <None Include="Language\i386\AsmJsInstructionTemplate.inl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="Library\CharStringCache.inl" />
+    <None Include="Language\InlineCache.inl" />
+    <None Include="Language\InlineCachePointerArray.inl" />
+    <None Include="Language\InterpreterHandler.inl" />
+    <None Include="Language\InterpreterHandlerAsmJs.inl" />
+    <None Include="Language\InterpreterLoop.inl" />
+    <MASM Include="Library\amd64\javascriptfunctiona.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+    </MASM>
+    <None Include="Language\JavascriptExceptionOperators.inl" />
+    <None Include="Language\JavascriptMathOperators.inl" />
+    <None Include="Language\JavascriptObject.inl" />
+    <None Include="Library\arm\arm_CallFunction.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="Library\arm\arm_DeferredParsingThunk.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="Library\ConcatString.inl" />
+    <None Include="Library\InJavascript\BuildGenByteCodeBin.cmd" />
+    <None Include="Library\InJavascript\GenByteCode.cmd" />
+    <None Include="Library\InJavascript\Intl.js" />
+    <None Include="Library\InJavascript\Promise.js" />
+    <None Include="Library\InJavascript\WarnGenByteCode.cmd" />
+    <None Include="Library\JavascriptArrayIterator.inl" />
+    <None Include="Library\JavascriptMap.inl" />
+    <None Include="Library\JavascriptMapIterator.inl" />
+    <None Include="Library\JavascriptPixelArray.inl" />
+    <None Include="Library\JavascriptRegularExpressionResult.inl" />
+    <None Include="Library\JavascriptSet.inl" />
+    <None Include="Library\JavascriptSetIterator.inl" />
+    <None Include="Library\JavascriptStringIterator.inl" />
+    <None Include="Library\JavascriptSymbol.inl" />
+    <None Include="Library\JavascriptWeakMap.inl" />
+    <None Include="Library\JavascriptWeakSet.inl" />
+    <None Include="Library\JavascriptWinRTDate.inl" />
+    <None Include="Library\RegexHelper.inl" />
+    <None Include="Library\SparseArraySegment.inl" />
+    <None Include="Telemetry\dirs" />
+    <None Include="Telemetry\ESBuiltIns\ESBuiltInsDatabase.inc" />
+    <None Include="Telemetry\ESBuiltIns\ESBuiltInsTypeNames.inc" />
+    <None Include="Telemetry\ESBuiltIns\ESBuiltInsTypeNames.trie.Generator.js" />
+    <None Include="Telemetry\ESBuiltIns\ESBuiltInsTypeNames.trie.inc" />
+    <None Include="Telemetry\ESBuiltIns\sources.inc" />
+    <None Include="Telemetry\ESBuiltIns\TraceLogList.Generator.js" />
+    <None Include="Telemetry\ESBuiltIns\TraceLogList.inc" />
+    <None Include="Telemetry\sources.inc" />
+    <None Include="Telemetry\TelemetryList.inc" />
+    <None Include="Types\DynamicObject.inl" />
+    <None Include="Types\DynamicType.inl" />
+    <None Include="Types\FunctionBody.inl" />
+    <None Include="Library\GlobalObject.inl" />
+    <None Include="Library\TaggedInt.inl" />
+    <None Include="Language\InterpreterStackFrame.inl" />
+    <None Include="Library\JavascriptArray.inl" />
+    <None Include="Library\JavascriptBoolean.inl" />
+    <None Include="Language\JavascriptConversion.inl" />
+    <None Include="Library\JavascriptDate.inl" />
+    <None Include="Library\JavascriptFunction.inl" />
+    <None Include="Library\JavascriptLibrary.inl" />
+    <None Include="Library\JavascriptNumber.inl" />
+    <None Include="Language\JavascriptOperators.inl" />
+    <None Include="Library\JavascriptRegularExpression.inl" />
+    <None Include="Library\JavascriptString.inl" />
+    <None Include="Library\JavascriptVariantDate.inl" />
+    <None Include="Types\RecyclableObject.inl" />
+    <None Include="Language\ScriptContext.inl" />
+    <None Include="Types\TypeHandler.inl" />
+    <None Include="Types\TypePropertyCache.inl" />
+    <None Include="Language\DiagHelperMethodWrapper.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Telemetry\README - Instructions on adding new aspects.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+  </ImportGroup>
+</Project>

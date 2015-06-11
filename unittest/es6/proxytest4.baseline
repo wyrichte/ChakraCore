@@ -1,0 +1,220 @@
+*** Running test #1 (0): isExtensible trap
+isExtensible trap
+PASSED
+*** Running test #2 (1): isExtensible trap on nonextensible object
+isExtensible trap
+PASSED
+*** Running test #3 (2): change isExtensible
+isExtensible trap
+PASSED
+*** Running test #4 (3): change isExtensible
+isExtensible trap
+PASSED
+*** Running test #5 (4): preventExtensions
+preventExtensions trap
+isExtensible trap
+preventExtensions trap
+isExtensible trap
+set trap nonExtObj
+get trap nonExtObj on object receiver object
+PASSED
+*** Running test #6 (5): object.keys
+ownKey trap
+getOwnPropertyDescriptor trap prototype
+getOwnPropertyDescriptor trap name
+getOwnPropertyDescriptor trap caller
+getOwnPropertyDescriptor trap arguments
+getOwnPropertyDescriptor trap length
+PASSED
+*** Running test #7 (6): object.keys return undefined
+ownKey trap
+PASSED
+*** Running test #8 (7): object.getOwnPropertyNames
+ownKey trap
+from proxy
+prototype
+name
+caller
+arguments
+length
+from target
+prototype
+name
+caller
+arguments
+length
+PASSED
+*** Running test #9 (8): object.getOwnPropertySymbols
+ownKey trap
+Symbol(hello)
+Symbol(hello)
+PASSED
+*** Running test #10 (9): enumerate with no property
+enumerate trap
+0
+iterator array length 0
+getPrototypeOf trap
+PASSED
+*** Running test #11 (10): enumerate
+enumerate trap
+1
+iterator array length 1
+getPrototypeOf trap
+get trap bar on function receiver function
+has trap function.bar
+PASSED
+*** Running test #12 (11): enumerate with prototype property
+enumerate trap
+2
+iterator array length 2
+getPrototypeOf trap
+in bar
+has trap function.bar
+get trap bar on function receiver function
+in protoObject
+has trap function.protoObject
+get trap protoObject on function receiver function
+PASSED
+*** Running test #13 (12): enumerate with null
+enumerate trap
+PASSED
+*** Running test #14 (13): Call function
+call trap0
+target func
+PASSED
+*** Running test #15 (14): Call function arguments
+call trap4
+PASSED
+*** Running test #16 (15): Call non-callable object
+PASSED
+*** Running test #17 (16): Call builtin function
+call trap1
+PASSED
+*** Running test #18 (17): Call non-callable function
+call trap2
+PASSED
+*** Running test #19 (18): construct
+construct trap
+target func
+PASSED
+*** Running test #20 (19): construct with argument
+construct trap
+PASSED
+*** Running test #21 (20): new on non-constructable function
+construct trap
+PASSED
+*** Running test #22 (21): new on builtin
+construct trap
+PASSED
+*** Running test #23 (22): new return undefined
+construct trap
+PASSED
+Summary of tests: total executed: 23; passed: 23; failed: 0
+*** Running test #24 (0): isExtensible trap
+isExtensible trap
+PASSED
+*** Running test #25 (1): isExtensible trap on nonextensible object
+isExtensible trap
+PASSED
+*** Running test #26 (2): change isExtensible
+isExtensible trap
+PASSED
+*** Running test #27 (3): change isExtensible
+isExtensible trap
+PASSED
+*** Running test #28 (4): preventExtensions
+preventExtensions trap
+isExtensible trap
+preventExtensions trap
+isExtensible trap
+set trap nonExtObj
+getOwnPropertyDescriptor trap nonExtObj
+defineProperty trap nonExtObj
+get trap nonExtObj on object receiver object
+PASSED
+*** Running test #29 (5): object.keys
+ownKey trap
+getOwnPropertyDescriptor trap prototype
+getOwnPropertyDescriptor trap name
+getOwnPropertyDescriptor trap caller
+getOwnPropertyDescriptor trap arguments
+getOwnPropertyDescriptor trap length
+PASSED
+*** Running test #30 (6): object.keys return undefined
+ownKey trap
+PASSED
+*** Running test #31 (7): object.getOwnPropertyNames
+ownKey trap
+from proxy
+prototype
+name
+caller
+arguments
+length
+from target
+prototype
+name
+caller
+arguments
+length
+PASSED
+*** Running test #32 (8): object.getOwnPropertySymbols
+ownKey trap
+Symbol(hello)
+Symbol(hello)
+PASSED
+*** Running test #33 (9): enumerate with no property
+enumerate trap
+getPrototypeOf trap
+PASSED
+*** Running test #34 (10): enumerate
+enumerate trap
+getPrototypeOf trap
+get trap bar on function receiver function
+has trap function.bar
+PASSED
+*** Running test #35 (11): enumerate with prototype property
+enumerate trap
+getPrototypeOf trap
+in bar
+has trap function.bar
+get trap bar on function receiver function
+in protoObject
+has trap function.protoObject
+get trap protoObject on function receiver function
+PASSED
+*** Running test #36 (12): enumerate with null
+enumerate trap
+PASSED
+*** Running test #37 (13): Call function
+call trap0
+target func
+PASSED
+*** Running test #38 (14): Call function arguments
+call trap4
+PASSED
+*** Running test #39 (15): Call non-callable object
+PASSED
+*** Running test #40 (16): Call builtin function
+call trap1
+PASSED
+*** Running test #41 (17): Call non-callable function
+call trap2
+PASSED
+*** Running test #42 (18): construct
+construct trap
+target func
+PASSED
+*** Running test #43 (19): construct with argument
+construct trap
+PASSED
+*** Running test #44 (20): new on non-constructable function
+construct trap
+PASSED
+*** Running test #45 (21): new on builtin
+construct trap
+PASSED
+*** Running test #46 (22): new return undefined
+construct trap
+PASSED
+Summary of tests: total executed: 46; passed: 46; failed: 0

@@ -1,0 +1,14 @@
+GetStructure : getting all nodes
+Total nodes : 5
+{ asnkGlobal, containerName : , itemName : , range : {0 : 64}, HasChildren : yes }
+{ asnkFunction, containerName : k(), itemName : k(), range : {0 : 64}, HasChildren : yes }
+{ asnkObjectLiteral, containerName : obj, itemName : , range : {32 : 64}, HasChildren : yes }
+{ asnkRegion, containerName : , itemName : , range : {22 : 64}, HasChildren : no }
+{ asnkFunction, containerName : , itemName : set obj[](?), range : {62 : 64}, HasChildren : no }
+GetStructure : Displaying structure graph
+asnkGlobal
+    k()
+        obj
+            asnkRegion
+            set obj[](?)
+Passed

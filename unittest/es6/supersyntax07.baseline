@@ -1,0 +1,4 @@
+statements before super reference executed as expected
+ReferenceError: 'super' can only be accessed from a subclass method
+	at mysuper() (supersyntax07.js:1:20)
+	at Global code (supersyntax07.js:3:1)

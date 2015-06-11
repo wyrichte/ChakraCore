@@ -1,0 +1,574 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>array.js</files>
+      <baseline>array.baseline</baseline>
+      <compile-flags>-es6-</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>array.js</files>
+      <baseline>array.es6.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>arraybuffer.js</files>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>blockScopeSlotArrayTest.js</files>
+      <compile-flags>-es6classes</compile-flags>
+      <baseline>blockScopeSlotArrayTest.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>blockScopeSlotArrayTest.js</files>
+      <compile-flags>-forceserialized -es6classes</compile-flags>
+      <baseline>blockScopeSlotArrayTest.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>blockScopeActivationObjectAsSlotArray.js</files>
+      <compile-flags>-es6classes</compile-flags>
+      <baseline>blockScopeActivationObjectAsSlotArray.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>blockScopeActivationObjectAsSlotArray.js</files>
+      <compile-flags>-forceserialized -es6classes</compile-flags>
+      <baseline>blockScopeActivationObjectAsSlotArray.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>blockScopeSlotArrayNestedFunctionDeclarationTest.bug287382.js</files>
+      <compile-flags>-es6classes</compile-flags>
+      <baseline>blockScopeSlotArrayNestedFunctionDeclarationTest.bug287382.baseline</baseline>
+    </default>
+  </test>
+
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>arguments.js</files>
+      <baseline>arguments.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>attributes.js</files>
+      <baseline>attributes.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>boundfunction.js</files>
+      <baseline>boundfunction.baseline</baseline>
+      <compile-flags>-es6-</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>boundfunction.js</files>
+      <compile-flags>-es6classes -es6functionnamefull</compile-flags>
+      <baseline>boundfunction.es6.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64,exclude_serialized</tags>
+      <compile-flags>-forceserialized -Intl- -ES6- -disableDebugObject -dumpHeap</compile-flags>
+      <files>deferDeserializeTest.js</files>
+      <baseline>deferDeserializeTest.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm,exclude_serialized</tags>
+      <compile-flags>-forceserialized -Intl- -ES6- -disableDebugObject -dumpHeap</compile-flags>
+      <files>deferDeserializeTest.js</files>
+      <baseline>deferDeserializeTest.amd64.baseline</baseline>
+    </default>
+  </test>
+
+  <!-- These tests should only be run during the interpreted phase. On x86fre, they do not produce profile data so the dynapogo phase would fail. !-->
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_dynapogo</tags>
+      <compile-flags>-nativetest:NativeUnitTests.dll HeapEnum</compile-flags>
+      <files>DoPrivateDumpHeap.js</files>
+      <baseline>DoPrivateDumpHeap.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_dynapogo</tags>
+      <compile-flags>-nativetest:NativeUnitTests.dll HeapEnum</compile-flags>
+      <files>DoOneEnumWithNewEngine.js</files>
+      <baseline>DoOneEnumWithNewEngine.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_dynapogo</tags>
+      <compile-flags>-nativetest:NativeUnitTests.dll HeapEnum</compile-flags>
+      <files>DoMultipleEnumsWithinOneEngine.js</files>
+      <baseline>DoMultipleEnumsWithinOneEngine.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_dynapogo</tags>
+      <compile-flags>-nativetest:NativeUnitTests.dll HeapEnum</compile-flags>
+      <files>DoMultipleEnumsAcrossEngines.js</files>
+      <baseline>DoMultipleEnumsAcrossEngines.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_dynapogo</tags>
+      <compile-flags>-nativetest:NativeUnitTests.dll HeapEnum</compile-flags>
+      <files>DoHeapSummary.js</files>
+      <baseline>DoHeapSummary.baseline</baseline>
+    </default>
+  </test>
+
+  <!-- This test is a dummy, generating profile data for the NativeUnitTests.dll tests below !-->
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_dynapogo</tags>
+      <compile-flags>-dynamicprofilecache:profile.dpl.dummy</compile-flags>
+      <files>attributes.js</files>
+      <baseline>attributes.baseline</baseline>
+    </default>
+  </test>
+
+  <!-- These tests are for the dynapogo pass - they consume the dummy profile data built above !-->
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_interpreted</tags>
+      <compile-flags>-dynamicprofileinput:profile.dpl.dummy -nativetest:NativeUnitTests.dll HeapEnum</compile-flags>
+      <files>DoPrivateDumpHeap.js</files>
+      <baseline>DoPrivateDumpHeap.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_interpreted</tags>
+      <compile-flags>-dynamicprofileinput:profile.dpl.dummy -nativetest:NativeUnitTests.dll HeapEnum</compile-flags>
+      <files>DoOneEnumWithNewEngine.js</files>
+      <baseline>DoOneEnumWithNewEngine.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_interpreted</tags>
+      <compile-flags>-dynamicprofileinput:profile.dpl.dummy -nativetest:NativeUnitTests.dll HeapEnum</compile-flags>
+      <files>DoMultipleEnumsWithinOneEngine.js</files>
+      <baseline>DoMultipleEnumsWithinOneEngine.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_interpreted</tags>
+      <compile-flags>-dynamicprofileinput:profile.dpl.dummy -nativetest:NativeUnitTests.dll HeapEnum</compile-flags>
+      <files>DoMultipleEnumsAcrossEngines.js</files>
+      <baseline>DoMultipleEnumsAcrossEngines.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>properties.js</files>
+      <baseline>properties.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>ES5ArrayGetterSetters.js</files>
+      <baseline>ES5ArrayGetterSetters.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>deletedProperties.js</files>
+      <baseline>deletedProperties.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>regex.js</files>
+      <baseline>regex.baseline</baseline>
+      <compile-flags>-es6-</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>regex.js</files>
+      <baseline>regex.es6.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>internalProperties.js</files>
+      <baseline>internalProperties.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>string.js</files>
+      <baseline>string.baseline</baseline>
+      <compile-flags>-es6-</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>string.js</files>
+      <baseline>string.es6.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>TypedArray.js</files>
+      <baseline>TypedArray.baseline</baseline>
+      <compile-flags>-es6- -KhronosInterop-</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>TypedArray.js</files>
+      <baseline>TypedArray.es6.baseline</baseline>
+      <compile-flags>-KhronosInterop -es6tostringtag -ES6TypedArrayExtensions</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>CopyOnWrite.js</files>
+      <baseline>CopyOnWrite.baseline</baseline>
+      <compile-flags>-es6-</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>CopyOnWrite.js</files>
+      <baseline>CopyOnWrite.es6.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>closure.js</files>
+      <baseline>closure.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>closure2.js</files>
+      <compile-flags>-es6classes</compile-flags>
+      <baseline>closure2.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>closure_catch.js</files>
+      <compile-flags>-es6classes</compile-flags>
+      <baseline>closure_catch.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_serialized</tags>
+      <files>closure2.js</files>
+      <baseline>closure2.baseline</baseline>
+      <compile-flags>-forceserialized -es6classes</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>closure_binding.js</files>
+      <baseline>closure_binding.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64</tags>
+      <files>closure_nested.js</files>
+      <baseline>closure_nested.baseline</baseline>
+      <compile-flags>-force:deferparse</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <files>closure_nested.js</files>
+      <baseline>closure_nested.amd64.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64</tags>
+      <files>closure_nested_eval.js</files>
+      <baseline>closure_nested_eval.baseline</baseline>
+      <compile-flags>-es6-</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64</tags>
+      <files>closure_nested_eval.js</files>
+      <baseline>closure_nested_eval.es6.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <files>closure_nested_eval.js</files>
+      <baseline>closure_nested_eval.amd64.baseline</baseline>
+      <compile-flags>-es6-</compile-flags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum</tags>
+      <files>SimpleDom.html</files>
+      <baseline>SimpleDom.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum</tags>
+      <files>EventHandler.html</files>
+      <baseline>EventHandler.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64</tags>
+      <files>errorObjectGetterSetterTest.js</files>
+      <baseline>errorObjectGetterSetterTest.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <files>errorObjectGetterSetterTest.js</files>
+      <baseline>errorObjectGetterSetterTest.amd64.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>getterTest.js</files>
+      <baseline>getterTest.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>setterTest.js</files>
+      <baseline>setterTest.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <!--
+         JenH [03/14/12]: Enable when support Trident reporting of frames via global
+      -->
+      <tags>HeapEnum,fail</tags>
+      <files>SimpleParentWithFrame.html</files>
+      <baseline>SimpleParentWithFrame.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum</tags>
+      <files>SimpleFastDOM.html</files>
+      <baseline>SimpleFastDom.baseline</baseline>
+    </default>
+  </test>
+
+   <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <compile-flags>-Intl-</compile-flags>
+      <files>mapsetweakmap.js</files>
+      <baseline>mapsetweakmap.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64,exclude_arm</tags>
+      <compile-flags>-DeletedPropertyReuseThreshold:1 -Intl-</compile-flags>
+      <files>objhashtable.js</files>
+      <baseline>objhashtable.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <compile-flags>-DeletedPropertyReuseThreshold:1 -Intl-</compile-flags>
+      <files>objhashtable.js</files>
+      <baseline>objhashtable.amd64.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_arm</tags>
+      <files>multifuncdecl.js</files>
+      <compile-flags>-es6classes</compile-flags>
+      <baseline>multifuncdecl.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <!-- Reduce baseline variation matrix by disabling EnableFunctionSourceReportForHeapEnum -->
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64</tags>
+      <compile-flags>-Intl- -ES6- -disableDebugObject -dumpHeap -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+      <files>letconst-undeclblockvar.js</files>
+      <baseline>letconst-undeclblockvar.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <!-- Reduce baseline variation matrix by disabling EnableFunctionSourceReportForHeapEnum -->
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <compile-flags>-Intl- -ES6- -disableDebugObject -dumpHeap -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+      <files>letconst-undeclblockvar.js</files>
+      <baseline>letconst-undeclblockvar.amd64.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64</tags>
+      <compile-flags>-Intl- -ES6- -disableDebugObject -dumpHeap</compile-flags>
+      <files>letconst-globals.js</files>
+      <baseline>letconst-globals.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <compile-flags>-Intl- -ES6- -disableDebugObject -dumpHeap</compile-flags>
+      <files>letconst-globals.js</files>
+      <baseline>letconst-globals.amd64.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <compile-flags>-ES6Symbol</compile-flags>
+      <files>symbols.js</files>
+      <baseline>symbols.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>dataview_546996.js</files>
+      <baseline>dataview_546996.baseline</baseline>
+      <compile-flags>-ES6TypedArrayExtensions</compile-flags>
+    </default>
+  </test>
+    <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <compile-flags>-ES6Lambda -ES6Classes</compile-flags>
+      <files>lambda.js</files>
+      <baseline>lambda.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>proxy.js</files>
+      <baseline>proxy.baseline</baseline>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <compile-flags>-ES6Iterators -es6tostringtag</compile-flags>
+      <files>iterators.js</files>
+      <baseline>iterators.baseline</baseline>
+    </default>
+  </test>
+</regress-exe>

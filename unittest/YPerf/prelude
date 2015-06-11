@@ -1,0 +1,15 @@
+// BEGIN PRELUDE
+function echo(o) {
+    try {
+        document.write(o + "<br/>");
+    } catch (ex) {
+        try {
+            WScript.Echo("" + o);
+        } catch (ex2) {
+            print("" + o);
+        }
+    }
+}
+
+var _startDate = new Date();
+// END PRELUDE

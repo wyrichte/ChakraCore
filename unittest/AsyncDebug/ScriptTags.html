@@ -1,0 +1,49 @@
+<meta http-equiv="X-UA-Compatible" content="IE=11" />
+<html>
+<head>
+<script type="text/javascript">
+
+var echo;
+if (document == undefined) {
+	echo = WScript.Echo;
+} else {
+	echo = function(str) {
+		var parentdiv = document.getElementById("resultdiv");
+		var pnode = document.createElement("p");
+		var txtnode = document.createTextNode(str);
+		pnode.appendChild(txtnode);
+		parentdiv.appendChild(pnode);
+	}
+}
+
+function baz(operationName, logLevel) {
+	return Debug.msTraceAsyncOperationStarting(operationName, logLevel);
+}
+
+</script>
+
+<script type="text/javascript">
+
+function bar(operationName, logLevel) {
+	return baz(operationName, logLevel);
+}
+
+</script>
+
+<script type="text/javascript">
+
+var funcbarwrapper = new Function("operationName", "logLevel", "return bar(operationName, logLevel);");
+
+function foo(operationName, logLevel) {
+	return foowrapper(operationName, logLevel);
+}
+
+eval("function foowrapper(operationName, logLevel) { return funcbarwrapper(operationName, logLevel); }");
+
+</script>
+
+</head>
+<body onload="echo(foo('somestring', 0));">
+<div id="resultdiv">Results:</div>
+</body>
+</html>

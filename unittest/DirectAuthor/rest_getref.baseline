@@ -1,0 +1,4 @@
+Identifier : values and references found : 2
+	{ range : [25, 31], kind : asrfAuthoritative asrfLValue asrfLocalReference }
+	{ range : [102, 108], kind : asrfAuthoritative asrfRValue asrfLocalReference }
+Passed

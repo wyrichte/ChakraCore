@@ -1,0 +1,13 @@
+*** Running test #1 (test01): no args
+PASSED
+*** Running test #2 (test02): wrong this
+PASSED
+*** Running test #3 (test03): missing isNonUserCode
+PASSED
+*** Running test #4 (test04): Wrong isNonUserCode
+PASSED
+*** Running test #5 (test05): isNonUserCode=true
+PASSED
+*** Running test #6 (test06): isNonUserCode=false
+PASSED
+Summary of tests: total executed: 6; passed: 6; failed: 0

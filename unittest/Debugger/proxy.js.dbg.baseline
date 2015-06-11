@@ -1,0 +1,218 @@
+[
+  {
+    "evaluate": {
+      "a": {
+        "[Proxy]": {
+          "[target]": "{...}",
+          "[handler]": "{...}"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {},
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "assert": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "helpers": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "isCompatVersion9": "false",
+          "isVersion10OrLater": "true"
+        },
+        "testRunner": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "tests": {
+          "__proto__": "[]",
+          "length": "3",
+          "[0]": "{...}",
+          "[1]": "{...}",
+          "[2]": "{...}"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "handler": {
+        "[Methods]": {
+          "get": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "target": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a": "1",
+        "b": "2",
+        "c": "3",
+        "[1]": "2",
+        "[2]": "3"
+      },
+      "test2": {
+        "1": "2",
+        "2": "3",
+        "[Proxy]": {
+          "[target]": "{...}",
+          "[handler]": "{...}"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a": "1",
+        "b": "2",
+        "c": "3"
+      },
+      "[Globals]": {
+        "tests": {
+          "__proto__": "[]",
+          "length": "3",
+          "[0]": "{...}",
+          "[1]": "{...}",
+          "[2]": "{...}"
+        },
+        "helpers": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "isCompatVersion9": "false",
+          "isVersion10OrLater": "true"
+        },
+        "testRunner": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "assert": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "test3": {
+        "[Proxy]": {
+          "[target]": "{...}",
+          "[handler]": "{...}"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "A": "1",
+        "B": "2",
+        "C": "3"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "get": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "3",
+        "[0]": {
+          "__proto__": "{...}",
+          "A": "1",
+          "B": "2",
+          "C": "3"
+        },
+        "[1]": "foo",
+        "[2]": {
+          "[Proxy]": "{...}",
+          "__proto__": "{...}",
+          "A": "1",
+          "B": "2",
+          "C": "3"
+        }
+      },
+      "obj": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "A": "1",
+        "B": "2",
+        "C": "3"
+      },
+      "name": "foo",
+      "receiver": {
+        "[Proxy]": {
+          "[target]": "{...}",
+          "[handler]": "{...}"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "A": "1",
+        "B": "2",
+        "C": "3"
+      },
+      "[Globals]": {
+        "tests": {
+          "__proto__": "[]",
+          "length": "3",
+          "[0]": "{...}",
+          "[1]": "{...}",
+          "[2]": "{...}"
+        },
+        "helpers": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "isCompatVersion9": "false",
+          "isVersion10OrLater": "true"
+        },
+        "testRunner": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "assert": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      }
+    }
+  }
+]

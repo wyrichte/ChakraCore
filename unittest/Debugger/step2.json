@@ -1,0 +1,374 @@
+{
+  "testname" : "a test to validate the step-in/out/over",
+  "owner" : "AkroshG",
+  "validated" : false,
+  "timeout" : 100000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "commands" :
+  [
+{
+  "action": "open",
+  "args": [
+    "scripts\\control2.js"
+  ],
+  "events": [
+    {
+      "scriptOpen": "scripts\\control2.js"
+    }
+  ]
+},
+
+{
+  "action": "setBp",
+  "args": [
+    "control2.js",
+    "411"
+  ],
+  "events": [
+    {
+      "breakpointSet": {
+        "start": 414,
+        "length": 4,
+        "text": "f5()"
+      }
+    }
+  ]
+},
+
+{
+  "action": "setBp",
+  "args": [
+    "control2.js",
+    "180"
+  ],
+  "events": [
+    {
+      "breakpointSet": {
+        "start": 175,
+        "length": 8,
+        "text": "var i =4"
+      }
+    }
+  ]
+},
+
+{
+  "action": "launch",
+  "args": [],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+
+{
+  "action": "callstack",
+  "args": [],
+  "events": [
+    {
+      "callstack": [
+        {
+          "start": 414,
+          "length": 4,
+          "text": "f5()",
+          "frameDescription": "Global code"
+        }
+      ]
+    }
+  ]
+},
+
+{
+  "action": "step",
+  "args": [
+    "in"
+  ],
+  "events": [
+    {
+      "breakpoint": "step"
+    }
+  ]
+},
+
+{
+  "action": "callstack",
+  "args": [],
+  "events": [
+    {
+      "callstack": [
+        {
+          "start": 389,
+          "length": 7,
+          "text": "throw 1",
+          "frameDescription": "f5"
+        },
+        {
+          "start": 414,
+          "length": 4,
+          "text": "f5()",
+          "frameDescription": "Global code"
+        }
+      ]
+    }
+  ]
+},
+
+{
+  "action": "go",
+  "args": [
+		"wait"
+		],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+
+{
+  "action": "callstack",
+  "args": [],
+  "events": [
+    {
+      "callstack": [
+        {
+          "start": 175,
+          "length": 8,
+          "text": "var i =4",
+          "frameDescription": "f2"
+        },
+        {
+          "start": 302,
+          "length": 14,
+          "text": "var val = f2()",
+          "frameDescription": "f4"
+        },
+        {
+          "start": 243,
+          "length": 4,
+          "text": "f4()",
+          "frameDescription": "f3"
+        },
+        {
+          "start": 441,
+          "length": 4,
+          "text": "f3()",
+          "frameDescription": "Global code"
+        }
+      ]
+    }
+  ]
+},
+
+{
+  "action": "step",
+  "args": [
+    "over"
+  ],
+  "events": [
+    {
+      "breakpoint": "step"
+    }
+  ]
+},
+
+{
+  "action": "step",
+  "args": [
+    "over"
+  ],
+  "events": [
+    {
+      "breakpoint": "step"
+    }
+  ]
+},
+
+{
+  "action": "callstack",
+  "args": [],
+  "events": [
+    {
+      "callstack": [
+        {
+          "start": 206,
+          "length": 8,
+          "text": "return j",
+          "frameDescription": "f2"
+        },
+        {
+          "start": 302,
+          "length": 14,
+          "text": "var val = f2()",
+          "frameDescription": "f4"
+        },
+        {
+          "start": 243,
+          "length": 4,
+          "text": "f4()",
+          "frameDescription": "f3"
+        },
+        {
+          "start": 441,
+          "length": 4,
+          "text": "f3()",
+          "frameDescription": "Global code"
+        }
+      ]
+    }
+  ]
+},
+
+
+{
+  "action": "step",
+  "args": [
+    "out"
+  ],
+  "events": [
+    {
+      "breakpoint": "step"
+    }
+  ]
+},
+
+{
+  "action": "callstack",
+  "args": [],
+  "events": [
+    {
+      "callstack": [
+        {
+          "start": 302,
+          "length": 14,
+          "text": "var val = f2()",
+          "frameDescription": "f4"
+        },
+        {
+          "start": 243,
+          "length": 4,
+          "text": "f4()",
+          "frameDescription": "f3"
+        },
+        {
+          "start": 441,
+          "length": 4,
+          "text": "f3()",
+          "frameDescription": "Global code"
+        }
+      ]
+    }
+  ]
+},
+
+{
+  "action": "step",
+  "args": [
+    "in"
+  ],
+  "events": [
+    {
+      "breakpoint": "step"
+    }
+  ]
+},
+
+{
+  "action": "step",
+  "args": [
+    "in"
+  ],
+  "events": [
+    {
+      "breakpoint": "step"
+    }
+  ]
+},
+
+{
+  "action": "callstack",
+  "args": [],
+  "events": [
+    {
+      "callstack": [
+        {
+          "start": 350,
+          "length": 10,
+          "text": "return val",
+          "frameDescription": "f4"
+        },
+        {
+          "start": 243,
+          "length": 4,
+          "text": "f4()",
+          "frameDescription": "f3"
+        },
+        {
+          "start": 441,
+          "length": 4,
+          "text": "f3()",
+          "frameDescription": "Global code"
+        }
+      ]
+    }
+  ]
+},
+
+{
+  "action": "step",
+  "args": [
+    "over"
+  ],
+  "events": [
+    {
+      "breakpoint": "step"
+    }
+  ]
+},
+
+{
+  "action": "callstack",
+  "args": [],
+  "events": [
+    {
+      "callstack": [
+        {
+          "start": 363,
+          "length": 1,
+          "text": "}",
+          "frameDescription": "f4"
+        },
+        {
+          "start": 243,
+          "length": 4,
+          "text": "f4()",
+          "frameDescription": "f3"
+        },
+        {
+          "start": 441,
+          "length": 4,
+          "text": "f3()",
+          "frameDescription": "Global code"
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [],
+  "events": []
+},
+
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+
+  ]
+
+}
+

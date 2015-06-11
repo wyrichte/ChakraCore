@@ -1,0 +1,28 @@
+=== Before change ===
+abc
+def
+ENC: QueryEdit: 1 requests
+ENC: editmoveupdate2.js (70,297):
+/**edit(test)**/
+function f1(a) {
+    return a;
+}
+function ...
+===>
+ function foo() {
+     function f1(a) {
+         return a + a...
+ENC: === AST Diffing ===
+ENC: Update: FuncDecl function foo() {..    var v0, v -> FuncDecl function foo() {..     function
+ENC: Update: FuncDecl function f1(a) {..    return a; -> FuncDecl function f1(a) {..         retu
+ENC: Move: FuncDecl function f1(a) {..    return a; -> FuncDecl function f1(a) {..         retu
+ENC: === Semantic Changes ===
+ENC: DeleteFunction: FuncDecl function f1(a) {..    return a;
+ENC:     Old functionBody: f1
+ENC: UpdateFunction: FuncDecl function foo() {..    var v0, v -> FuncDecl function foo() {..     function
+ENC:     Old functionBody: foo
+ENC: MoveFunction: FuncDecl function test() {..    WScript. -> FuncDecl function test() {..    WScript.
+ENC:     Old functionBody: test
+=== After change ===
+abc
+defdef

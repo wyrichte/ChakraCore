@@ -1,0 +1,296 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 105,
+        "length": 17,
+        "text": "if (this.WScript)",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "testCallback": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 105,
+        "length": 17,
+        "text": "if (this.WScript)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 465,
+        "length": 14,
+        "text": "testCallback()",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "testCallback": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "TrimStackTracePath": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 465,
+        "length": 14,
+        "text": "testCallback()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 210,
+        "length": 173,
+        "text": "var array =\n    [\n        {\n            toString: function ()\n            {\n                throw new Error('Throwing...');\n            }\n        },\n        5\n    ]",
+        "frameDescription": "testCallback"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "array": "undefined",
+      "c": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testCallback": "<large string>",
+        "TrimStackTracePath": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 210,
+        "length": 173,
+        "text": "var array =\n    [\n        {\n            toString: function ()\n            {\n                throw new Error('Throwing...');\n            }\n        },\n        5\n    ]",
+        "frameDescription": "testCallback"
+      },
+      {
+        "start": 465,
+        "length": 14,
+        "text": "testCallback()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 391,
+        "length": 27,
+        "text": "var c = new Intl.Collator()",
+        "frameDescription": "testCallback"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "array": {
+        "[0]": "{...}",
+        "[1]": "5",
+        "__proto__": "[]"
+      },
+      "c": "undefined",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testCallback": "<large string>",
+        "TrimStackTracePath": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 391,
+        "length": 27,
+        "text": "var c = new Intl.Collator()",
+        "frameDescription": "testCallback"
+      },
+      {
+        "start": 465,
+        "length": 14,
+        "text": "testCallback()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 41,
+        "length": 59,
+        "text": "return line && line.replace(/\\(.+unittest.[^\\\\/]*./ig, \"(\")",
+        "frameDescription": "TrimStackTracePath"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "[0]": "<large string>",
+        "length": "1"
+      },
+      "line": "<large string>",
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "testCallback": "<large string>",
+        "TrimStackTracePath": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 41,
+        "length": 59,
+        "text": "return line && line.replace(/\\(.+unittest.[^\\\\/]*./ig, \"(\")",
+        "frameDescription": "TrimStackTracePath"
+      },
+      {
+        "start": 503,
+        "length": 42,
+        "text": "WScript.Echo(TrimStackTracePath(ex.stack))",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

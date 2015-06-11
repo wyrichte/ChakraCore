@@ -1,0 +1,25 @@
+[
+  {
+    "setnextstatement": {
+      "from": 113,
+      "to": 151,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 151,
+        "length": 20,
+        "text": "WScript.Echo(\"Pass\")",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 198,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

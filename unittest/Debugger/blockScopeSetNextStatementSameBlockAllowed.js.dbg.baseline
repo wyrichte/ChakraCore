@@ -1,0 +1,18 @@
+[
+  {
+    "setnextstatement": {
+      "from": 255,
+      "to": 234,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "1",
+      "[Globals]": ""
+    }
+  }
+]

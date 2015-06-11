@@ -1,0 +1,109 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {
+        "f1": "<large string>",
+        "g": "<large string>",
+        "a": "10",
+        "s": "undefined"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "inEvalFunc1": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "f1": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f1",
+        "prototype": "{...}"
+      },
+      "g": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "g",
+        "prototype": "{...}"
+      },
+      "a": "10",
+      "s": "undefined",
+      "[Globals]": {
+        "foo": "<large string>",
+        "inEvalFunc1": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "t": {
+        "__proto__": "",
+        "description": "<large string>",
+        "message": "<large string>",
+        "number": "-2146823279",
+        "stack": "<large string>"
+      },
+      "f1": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f1",
+        "prototype": "{...}"
+      },
+      "g": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "g",
+        "prototype": "{...}"
+      },
+      "a": "10",
+      "s": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "2",
+        "name": "s",
+        "prototype": "{...}"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "inEvalFunc1": "<large string>"
+      }
+    }
+  }
+]

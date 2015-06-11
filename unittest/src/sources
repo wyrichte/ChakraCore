@@ -1,0 +1,72 @@
+TEST_CODE=1
+
+!include $(INETCORE_DIR)\ieunittest.inc
+
+# Don't disable warnings
+MSC_WARNING_LEVEL=/W4 /WX
+
+DLLDEF=
+TARGETTYPE=DYNLINK
+TARGETNAME=ut_jscript
+USE_STL=1
+USE_ATL=1
+USE_RTTI=1
+
+# Turns on fretest for test code
+!include $(JSCRIPT_ROOT)\jslibtest.inc
+
+C_DEFINES =$(C_DEFINES) -DWINNT -DUNICODE -D_UNICODE
+
+INCLUDES= \
+          $(INCLUDES);    \
+          $(COREINCLUDES); \
+          $(SDK_INC_PATH)\crt\stl70; \
+          $(SDK_INC_PATH)\atl30; \
+          $(SDKTOOLS_INC_PATH)\WexTest\Cue; \
+
+PRECOMPILED_INCLUDE=stdafx.h
+PRECOMPILED_SOURCEFILE=stdafx.cpp
+PRECOMPILED_CXX=1
+
+LINKLIBS= \
+!IF (!$(FREEBUILD) || defined(FRETEST) || defined(NTTESTENV)) && "$(TARGET_DIRECTORY)" != "arm" && "$(TARGET_DIRECTORY)" != "arm64"
+    ..\..\tools\external\lib\$(TARGET_DIRECTORY)\jitprofiling.lib \
+!ENDIF
+    $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
+    $(OBJECT_INETCORE_DIR)\lib\codex\iel1\$(O)\codex_iel1.lib \
+    $(INETCORE_LIB_PATH)\iertutilp.lib \
+    $(INETCORE_LIB_PATH)\IESettingsId.lib \
+    $(INETCORE_LIB_PATH)\IESettingsApi.lib \
+    $(OBJECT_INETCORE_DIR)\lib\common\iel1_sp\$(O)\ieshare_common_iel1.lib \
+    $(JS_LIBS_COMMON) \
+    $(JS_LIBS_RUNTIME) \
+
+TARGETLIBS=     \
+    $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
+    $(MINCORE_SDK_LIB_PATH)\mincore_fw.lib    \
+    $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \
+    $(SDK_LIB_PATH)\Uuid.lib \
+    $(SDK_LIB_PATH)\muiload.lib \
+    $(SDK_LIB_PATH)\ole32.lib \
+    $(SDK_LIB_PATH)\version.lib \
+!if !$(FREEBUILD)
+    $(SDK_LIB_PATH)\dbghelp.lib \
+    $(SDK_LIB_PATH)\user32.lib \
+    $(MINCORE_PRIV_SDK_LIB_VPATH)\ext-ms-win-ntuser-dialogbox-l1.lib \
+!endif
+    $(SDKTOOLS_LIB_PATH)\WexTest\Cue\Wex.Common.lib \
+    $(SDKTOOLS_LIB_PATH)\WexTest\Cue\Wex.Logger.lib \
+    
+DELAYLOAD = $(DELAYLOAD) \
+!IF (!$(FREEBUILD))
+    ext-ms-win-ntuser-dialogbox-l1-1-0.dll; \
+!ENDIF
+
+ALLOW_NT_STYLE_DLOAD_ERROR_HANDLER=1
+DLOAD_ERROR_HANDLER=kernelbase.dll
+
+SOURCES= \
+    dllmain.cxx \
+    allocatorTest.cxx   \
+    tests.cxx \
+    CustomHeapTests.cpp \

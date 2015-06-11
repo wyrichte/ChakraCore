@@ -1,0 +1,22 @@
+[
+  {
+    "evaluate": {
+      "a": "[Uninitialized block variable]"
+    }
+  },
+  {
+    "evaluate": {
+      "a": "0"
+    }
+  },
+  {
+    "evaluate": {
+      "c": "[Uninitialized block variable]"
+    }
+  },
+  {
+    "evaluate": {
+      "c": "1"
+    }
+  }
+]

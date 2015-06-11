@@ -1,0 +1,59 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "baselineCounter": "0",
+        "baselineFile": "false",
+        "baselineHandler": "0",
+        "desc": "<large string>",
+        "id": "1",
+        "pass": "true",
+        "useGlobalThis": "false"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "err1": {
+        "__proto__": "",
+        "description": "",
+        "number": "0",
+        "stack": "<large string>"
+      },
+      "[Globals]": {
+        "navigator": "{...}",
+        "testcase": "{...}",
+        "runsExecuted": "0",
+        "runsToExecute": "1",
+        "_verify": "<large string>",
+        "_assert": "<large string>",
+        "_fail": "<large string>",
+        "getLocalizedError": "<large string>",
+        "Run": "<large string>",
+        "runner": "{...}",
+        "TestCase": "<large string>",
+        "logger": "{...}",
+        "IE7STANDARDSMODE": "7",
+        "IE8STANDARDSMODE": "8",
+        "IE9STANDARDSMODE": "9",
+        "IE10STANDARDSMODE": "10",
+        "getHOSTMode": "<large string>",
+        "X86MODE": "x86",
+        "X64MODE": "x64",
+        "ARMMODE": "arm",
+        "getIEArchitecture": "<large string>",
+        "Utils": "{...}",
+        "Chakra": "{...}",
+        "VBS_apglobal_init": "<large string>",
+        "apGlobalObj": "null",
+        "verify": "<large string>",
+        "assert": "<large string>",
+        "fail": "<large string>",
+        "Loader42_FilenName": "<large string>"
+      }
+    }
+  }
+]

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="BinaryFeatureControlOverrides.cpp" />
+    <ClCompile Include="StdAfx.cpp" />
+    <ClCompile Include="Wrapper.cpp" />
+    <ClCompile Include="TsGen.cpp" />
+    <ClCompile Include="TSFileDumper.cpp" />
+    <ClCompile Include="TSWrapper.cpp" />
+    <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="StringUtils.cpp" />
+    <ClCompile Include="XmlReader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="jskwd.h" />
+    <ClInclude Include="Prolog.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="Wrapper.h" />
+    <ClInclude Include="TSFileDumper.h" />
+    <ClInclude Include="TSWrapper.h" />
+    <ClInclude Include="Settings.h" />
+    <ClInclude Include="TSGenException.h" />
+    <ClInclude Include="StringUtils.h" />
+    <ClInclude Include="macros.h" />
+    <ClInclude Include="HelperTypesDefinitions.h" />
+    <ClInclude Include="XmlReader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="TsGen.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TsGen.rc" />
+  </ItemGroup>
+</Project>

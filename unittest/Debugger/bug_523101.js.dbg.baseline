@@ -1,0 +1,70 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 52,
+        "length": 5,
+        "text": "x = 1",
+        "frameDescription": "bar2"
+      },
+      {
+        "start": 313,
+        "length": 18,
+        "text": "y = bar2({ a: 1 })",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 402,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "<large string>",
+      "a": "<large string>",
+      "bar2": "<large string>",
+      "a#1": "<large string>",
+      "b#1": "<large string>",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 52,
+        "length": 5,
+        "text": "x = 1",
+        "frameDescription": "bar2"
+      },
+      {
+        "start": 313,
+        "length": 18,
+        "text": "y = bar2({ a: 1 })",
+        "frameDescription": "test0"
+      },
+      {
+        "start": 412,
+        "length": 7,
+        "text": "test0()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "<large string>",
+      "a": "<large string>",
+      "bar2": "<large string>",
+      "a#1": "<large string>",
+      "b#1": "<large string>",
+      "[Globals]": ""
+    }
+  }
+]

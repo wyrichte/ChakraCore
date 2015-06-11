@@ -1,0 +1,20 @@
+TEST_CODE=1
+TARGETTYPE    = NOTARGET
+TARGET_DESTINATION = Projection\DevTests
+
+PASS1_BINPLACE= \
+    .\..\*.js \
+    -:DEST Projection\DevTests\Registration .\..\Registration\*.* \
+    -:DEST Projection\APPX ..\projectionsGlue.js \
+    $(INETCORE_TST_INC_PATH)\bpt\*.* \
+	-:DEST Projection\SNAP \
+	..\rlexedirs.xml \
+	..\runalltests.cmd \
+	..\runtests.cmd \
+	..\setenv.cmd \
+	..\setup.cmd \
+    ..\unregisterall.cmd \
+
+
+PASS0_PUBLISH=\
+    {..\projectionsGlue.js=$(INETCORE_INC_PATH)\bpt\edgeprojectionsGlue.js} \

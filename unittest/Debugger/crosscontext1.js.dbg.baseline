@@ -1,0 +1,152 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "testFunction": "<large string>",
+      "TestObject": "<large string>",
+      "testFoo": "test foo",
+      "testObject": "{...}",
+      "testBoolean": "true",
+      "testNumber1": "3.14",
+      "testArray": "[1,2,3]"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "p2": "10",
+      "p3": "20",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "x": "{...}"
+      },
+      "test": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "test",
+        "prototype": "{...}"
+      },
+      "foo": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo",
+        "prototype": "{...}"
+      },
+      "x": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "p2": "10",
+        "p3": "20",
+        "Reflect": "{...}",
+        "SCA": "{...}",
+        "testArray": "[1,2,3]",
+        "testBoolean": "true",
+        "testFoo": "test foo",
+        "testNumber1": "3.14",
+        "testObject": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 172,
+        "length": 19,
+        "text": "x.testFunction(foo)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 317,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "in test",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 128,
+        "length": 3,
+        "text": "m++",
+        "frameDescription": "testFunction"
+      },
+      {
+        "start": 172,
+        "length": 19,
+        "text": "x.testFunction(foo)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 317,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "fn": "<large string>",
+      "testString": "test string",
+      "m": "11",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 289,
+        "length": 3,
+        "text": "str",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 192,
+        "length": 4,
+        "text": "fn()",
+        "frameDescription": "testFunction"
+      },
+      {
+        "start": 172,
+        "length": 19,
+        "text": "x.testFunction(foo)",
+        "frameDescription": "test"
+      },
+      {
+        "start": 317,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

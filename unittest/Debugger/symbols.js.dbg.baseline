@@ -1,0 +1,254 @@
+[
+  {
+    "evaluate": {
+      "o": {
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": {
+              "__proto__": {
+                "[Methods]": "{...}",
+                "__proto__": "{...}",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": ""
+              },
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "<large string>"
+            },
+            "__defineSetter__": {
+              "__proto__": {
+                "[Methods]": "{...}",
+                "__proto__": "{...}",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": ""
+              },
+              "arguments": "null",
+              "caller": "null",
+              "length": "2",
+              "name": "<large string>"
+            },
+            "__lookupGetter__": {
+              "__proto__": {
+                "[Methods]": "{...}",
+                "__proto__": "{...}",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": ""
+              },
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "__lookupSetter__": {
+              "__proto__": {
+                "[Methods]": "{...}",
+                "__proto__": "{...}",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": ""
+              },
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "constructor": {
+              "[Methods]": {
+                "assign": "<large string>",
+                "create": "<large string>",
+                "defineProperties": "<large string>",
+                "defineProperty": "<large string>",
+                "freeze": "<large string>",
+                "getOwnPropertyDescriptor": "<large string>",
+                "getOwnPropertyNames": "<large string>",
+                "getOwnPropertySymbols": "<large string>",
+                "getPrototypeOf": "<large string>",
+                "is": "<large string>",
+                "isExtensible": "<large string>",
+                "isFrozen": "<large string>",
+                "isSealed": "<large string>",
+                "keys": "<large string>",
+                "preventExtensions": "<large string>",
+                "seal": "<large string>",
+                "setPrototypeOf": "<large string>"
+              },
+              "__proto__": {
+                "[Methods]": "{...}",
+                "__proto__": "{...}",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": ""
+              },
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "Object",
+              "prototype": {
+                "[Methods]": "{...}",
+                "__proto__": "null"
+              }
+            },
+            "hasOwnProperty": {
+              "__proto__": {
+                "[Methods]": "{...}",
+                "__proto__": "{...}",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": ""
+              },
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "isPrototypeOf": {
+              "__proto__": {
+                "[Methods]": "{...}",
+                "__proto__": "{...}",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": ""
+              },
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "isPrototypeOf"
+            },
+            "propertyIsEnumerable": {
+              "__proto__": {
+                "[Methods]": "{...}",
+                "__proto__": "{...}",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": ""
+              },
+              "arguments": "null",
+              "caller": "null",
+              "length": "1",
+              "name": "<large string>"
+            },
+            "toLocaleString": {
+              "__proto__": {
+                "[Methods]": "{...}",
+                "__proto__": "{...}",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": ""
+              },
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "<large string>"
+            },
+            "toString": {
+              "__proto__": {
+                "[Methods]": "{...}",
+                "__proto__": "{...}",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": ""
+              },
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "toString"
+            },
+            "valueOf": {
+              "__proto__": {
+                "[Methods]": "{...}",
+                "__proto__": "{...}",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": ""
+              },
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "valueOf"
+            }
+          },
+          "__proto__": "null"
+        },
+        "my symbol": "<large string>",
+        "my symbol object": {
+          "__proto__": {
+            "[Methods]": {
+              "constructor": {
+                "[Methods]": "{...}",
+                "__proto__": "<large string>",
+                "arguments": "null",
+                "caller": "null",
+                "hasInstance": "<large string>",
+                "isConcatSpreadable": "<large string>",
+                "iterator": "<large string>",
+                "length": "0",
+                "name": "Symbol",
+                "prototype": "{...}",
+                "toPrimitive": "<large string>",
+                "toStringTag": "<large string>",
+                "unscopables": "<large string>"
+              },
+              "Symbol.toPrimitive": {
+                "__proto__": "<large string>",
+                "arguments": "null",
+                "caller": "null",
+                "length": "1",
+                "name": "<large string>"
+              },
+              "toString": {
+                "__proto__": "<large string>",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": "toString"
+              },
+              "valueOf": {
+                "__proto__": "<large string>",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": "valueOf"
+              }
+            },
+            "__proto__": {
+              "[Methods]": {
+                "__defineGetter__": "<large string>",
+                "__defineSetter__": "<large string>",
+                "__lookupGetter__": "<large string>",
+                "__lookupSetter__": "<large string>",
+                "constructor": "<large string>",
+                "hasOwnProperty": "<large string>",
+                "isPrototypeOf": "<large string>",
+                "propertyIsEnumerable": "<large string>",
+                "toLocaleString": "<large string>",
+                "toString": "<large string>",
+                "valueOf": "<large string>"
+              },
+              "__proto__": "null"
+            },
+            "Symbol.toStringTag": "Symbol"
+          }
+        },
+        "short symbol name": "Symbol(s)",
+        "string": "[\"string\"]",
+        "symbol with no name": "Symbol()",
+        "Symbol.iterator": "[@@iterator]"
+      }
+    }
+  }
+]

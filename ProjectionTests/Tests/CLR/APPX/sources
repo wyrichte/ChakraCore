@@ -1,0 +1,8 @@
+!undef USE_MSVCRT
+TARGETTYPE = APPX
+TARGETNAME = ProjectionCLRTests
+TARGET_DESTINATION = Projection
+CODE_SIGN_EKU = CS 
+
+SOURCES = \
+    clrappx.appxsources

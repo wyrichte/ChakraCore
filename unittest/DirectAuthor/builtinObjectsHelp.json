@@ -1,0 +1,4688 @@
+{
+  "testname" : "JS function help",
+  "owner" : "basipov",
+  "validated" : true,
+  "timeout" : 1000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "_comment1" : "Put an underscore \"_\" prefix to comment out a header field.",
+  "_comment2" : "No field in the schema uses the underscore prefix",
+  "runAuthoringTest" : true,
+  "commands" :
+  [
+{
+  "action": "getFunctionHelp",
+  "args": [
+    "builtinObjectsHelp.js"
+  ],
+  "events": [
+    {
+      "functionHelpTests": [
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 38,
+          "extentLength": 6,
+          "functionHelp": {
+            "functionName": "eval",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 51,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "parseInt",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "string",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  },
+                  {
+                    "name": "radix",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 68,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "parseFloat",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "string",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 87,
+          "extentLength": 7,
+          "functionHelp": {
+            "functionName": "isNaN",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "number",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 101,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "isFinite",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "number",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 118,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "decodeURI",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "encodedURI",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 136,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "decodeURIComponent",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "encodedURIComponent",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 163,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "encodeURI",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "uri",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 181,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "encodeURIComponent",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "uriComponent",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 208,
+          "extentLength": 8,
+          "functionHelp": {
+            "functionName": "escape",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "string",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 223,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "unescape",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "string",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 240,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "Object",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": []
+              },
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "value",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 259,
+          "extentLength": 14,
+          "functionHelp": {
+            "functionName": "Function",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Function",
+                "returnValueDescription": "",
+                "parameters": []
+              },
+              {
+                "description": "",
+                "returnType": "Function",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "p",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  },
+                  {
+                    "name": "body",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 280,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "Array",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": []
+              },
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "item1",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "...",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 298,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "String",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              },
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "value",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 317,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "Boolean",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": []
+              },
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "value",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 337,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "Number",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              },
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "value",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 356,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "Date",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": []
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "string",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "value",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "year",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "month",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "date",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "year",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "month",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "date",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "hours",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "minutes",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "seconds",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "ms",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 373,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "RegExp",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "RegExp",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "pattern",
+                    "description": "",
+                    "type": "RegExp",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "RegExp",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "pattern",
+                    "description": "",
+                    "type": "RegExp",
+                    "signature": {}
+                  },
+                  {
+                    "name": "flags",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 392,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "Error",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Error",
+                "returnValueDescription": "",
+                "parameters": []
+              },
+              {
+                "description": "",
+                "returnType": "Error",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "message",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 441,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "parse",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "text",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "text",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  },
+                  {
+                    "name": "reviver",
+                    "description": "",
+                    "type": "Function",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 460,
+          "extentLength": 16,
+          "functionHelp": {
+            "functionName": "stringify",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "value",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "value",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  },
+                  {
+                    "name": "replacer",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "value",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  },
+                  {
+                    "name": "replacer",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  },
+                  {
+                    "name": "space",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 520,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "exec",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "string",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 546,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "test",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "string",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 572,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "toString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 634,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "toString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 696,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "getPrototypeOf",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 726,
+          "extentLength": 33,
+          "functionHelp": {
+            "functionName": "getOwnPropertyDescriptor",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  },
+                  {
+                    "name": "P",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 766,
+          "extentLength": 28,
+          "functionHelp": {
+            "functionName": "getOwnPropertyNames",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 801,
+          "extentLength": 15,
+          "functionHelp": {
+            "functionName": "create",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  },
+                  {
+                    "name": "Properties",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 823,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "defineProperty",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  },
+                  {
+                    "name": "P",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  },
+                  {
+                    "name": "Attributes",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 853,
+          "extentLength": 25,
+          "functionHelp": {
+            "functionName": "defineProperties",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  },
+                  {
+                    "name": "Properties",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 885,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "seal",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 905,
+          "extentLength": 15,
+          "functionHelp": {
+            "functionName": "freeze",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 927,
+          "extentLength": 26,
+          "functionHelp": {
+            "functionName": "preventExtensions",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 960,
+          "extentLength": 17,
+          "functionHelp": {
+            "functionName": "isSealed",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 984,
+          "extentLength": 17,
+          "functionHelp": {
+            "functionName": "isFrozen",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1008,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "isExtensible",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1036,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "keys",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "O",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1058,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "toString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1088,
+          "extentLength": 29,
+          "functionHelp": {
+            "functionName": "toLocaleString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1124,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "valueOf",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1153,
+          "extentLength": 29,
+          "functionHelp": {
+            "functionName": "hasOwnProperty",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "V",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1189,
+          "extentLength": 28,
+          "functionHelp": {
+            "functionName": "isPrototypeOf",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "V",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1224,
+          "extentLength": 35,
+          "functionHelp": {
+            "functionName": "propertyIsEnumerable",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "V",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1300,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "toString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1331,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "valueOf",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1396,
+          "extentLength": 25,
+          "functionHelp": {
+            "functionName": "toString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1428,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "apply",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "thisArg",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  },
+                  {
+                    "name": "argArray",
+                    "description": "",
+                    "type": "Array",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1457,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "call",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "thisArg",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "thisArg",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  },
+                  {
+                    "name": "arg1",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "thisArg",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  },
+                  {
+                    "name": "arg1",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "arg2",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "...",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1485,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "bind",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "thisArg",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "thisArg",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  },
+                  {
+                    "name": "arg1",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "thisArg",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  },
+                  {
+                    "name": "arg1",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "arg2",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "...",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1545,
+          "extentLength": 15,
+          "functionHelp": {
+            "functionName": "isArray",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "arg",
+                    "description": "",
+                    "type": "Object",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1569,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "toString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1598,
+          "extentLength": 28,
+          "functionHelp": {
+            "functionName": "toLocaleString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1633,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "concat",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "item1",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "...",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1660,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "join",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "separator",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1685,
+          "extentLength": 17,
+          "functionHelp": {
+            "functionName": "pop",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1709,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "push",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "item1",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "...",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1734,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "reverse",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1762,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "shift",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Object",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1788,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "slice",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "start",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "end",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1814,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "sort",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "comparefn",
+                    "description": "",
+                    "type": "Function",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1839,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "splice",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "start",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "deleteCount",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "start",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "deleteCount",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "...",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1866,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "unshift",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "item1",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "...",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1894,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "indexOf",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "searchElement",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "searchElement",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "fromIndex",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1922,
+          "extentLength": 25,
+          "functionHelp": {
+            "functionName": "lastIndexOf",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "searchElement",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "searchElement",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "fromIndex",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1954,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "every",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "thisArg",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1980,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "some",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "thisArg",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2005,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "every",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "thisArg",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2031,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "forEach",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "thisArg",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2059,
+          "extentLength": 17,
+          "functionHelp": {
+            "functionName": "map",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "thisArg",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2083,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "filter",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "thisArg",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2110,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "reduce",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "initialValue",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2137,
+          "extentLength": 25,
+          "functionHelp": {
+            "functionName": "reduceRight",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Boolean",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "callbackfn",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "initialValue",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2202,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "fromCharCode",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "char0",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "...",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2230,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "toString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2260,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "valueOf",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2289,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "charAt",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "pos",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2317,
+          "extentLength": 25,
+          "functionHelp": {
+            "functionName": "charCodeAt",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "pos",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2349,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "concat",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "string1",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  },
+                  {
+                    "name": "...",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2377,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "indexOf",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "searchString",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  },
+                  {
+                    "name": "position",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2406,
+          "extentLength": 26,
+          "functionHelp": {
+            "functionName": "lastIndexOf",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "searchString",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  },
+                  {
+                    "name": "position",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2439,
+          "extentLength": 28,
+          "functionHelp": {
+            "functionName": "localeCompare",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "that",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  },
+                  {
+                    "name": "position",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2474,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "match",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "regexp",
+                    "description": "",
+                    "type": "RegExp",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2501,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "replace",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "searchValue",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  },
+                  {
+                    "name": "replaceValue",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2530,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "slice",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "start",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "end",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2557,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "split",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "separator",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  },
+                  {
+                    "name": "limit",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Array",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "separator",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  },
+                  {
+                    "name": "limit",
+                    "description": "",
+                    "type": "RegExp",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2584,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "substring",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "start",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "end",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2615,
+          "extentLength": 26,
+          "functionHelp": {
+            "functionName": "toLowerCase",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2648,
+          "extentLength": 32,
+          "functionHelp": {
+            "functionName": "toLocaleLowerCase",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2687,
+          "extentLength": 26,
+          "functionHelp": {
+            "functionName": "toUpperCase",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2720,
+          "extentLength": 32,
+          "functionHelp": {
+            "functionName": "toLocaleUpperCase",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2759,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "trim",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2785,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "substr",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "start",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "length",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2846,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "toString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              },
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "radix",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2876,
+          "extentLength": 29,
+          "functionHelp": {
+            "functionName": "toLocaleString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2912,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "valueOf",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2941,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "toFixed",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              },
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "fractionDigits",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2970,
+          "extentLength": 28,
+          "functionHelp": {
+            "functionName": "toExponential",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              },
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "fractionDigits",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3005,
+          "extentLength": 26,
+          "functionHelp": {
+            "functionName": "toPrecision",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              },
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "precision",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3069,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "abs",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3086,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "acos",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3104,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "asin",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3122,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "atan",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3140,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "atan2",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3159,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "ceil",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3177,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "cos",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3194,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "exp",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3211,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "floor",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3230,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "log",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3247,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "max",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "value1",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "value2",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "...",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3264,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "min",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "value1",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "value2",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "...",
+                    "description": "",
+                    "type": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3281,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "pow",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3298,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "random",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3318,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "round",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3337,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "sin",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3354,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "sqrt",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3372,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "tan",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3420,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "parse",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "string",
+                    "description": "",
+                    "type": "String",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3439,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "UTC",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "year",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "month",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "date",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "year",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "month",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "date",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "hours",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "minutes",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "seconds",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "ms",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3456,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "now",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3473,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "toString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3501,
+          "extentLength": 25,
+          "functionHelp": {
+            "functionName": "toDateString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3533,
+          "extentLength": 25,
+          "functionHelp": {
+            "functionName": "toTimeString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3565,
+          "extentLength": 27,
+          "functionHelp": {
+            "functionName": "toLocaleString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3599,
+          "extentLength": 31,
+          "functionHelp": {
+            "functionName": "toLocaleDateString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3637,
+          "extentLength": 31,
+          "functionHelp": {
+            "functionName": "toLocaleTimeString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3675,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "valueOf",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3702,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "getTime",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3729,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "getFullYear",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3760,
+          "extentLength": 27,
+          "functionHelp": {
+            "functionName": "getUTCFullYear",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3794,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "getMonth",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3822,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "getUTCMonth",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3853,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "getDate",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3880,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "getUTCDate",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3910,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "getDay",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3936,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "getUTCDay",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3965,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "getHours",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3993,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "getUTCHours",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4024,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "getMinutes",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4054,
+          "extentLength": 26,
+          "functionHelp": {
+            "functionName": "getUTCMinutes",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4087,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "getSeconds",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4117,
+          "extentLength": 26,
+          "functionHelp": {
+            "functionName": "getUTCSeconds",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4150,
+          "extentLength": 28,
+          "functionHelp": {
+            "functionName": "getMilliseconds",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4185,
+          "extentLength": 31,
+          "functionHelp": {
+            "functionName": "getUTCMilliseconds",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4223,
+          "extentLength": 30,
+          "functionHelp": {
+            "functionName": "getTimezoneOffset",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4260,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "setTime",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "time",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4287,
+          "extentLength": 28,
+          "functionHelp": {
+            "functionName": "setMilliseconds",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "ms",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4322,
+          "extentLength": 31,
+          "functionHelp": {
+            "functionName": "setUTCMilliseconds",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "ms",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4360,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "setSeconds",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "sec",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "sec",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "ms",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4390,
+          "extentLength": 26,
+          "functionHelp": {
+            "functionName": "setUTCSeconds",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "ms",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "sec",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "ms",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4423,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "setMinutes",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "sec",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "sec",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "ms",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4453,
+          "extentLength": 26,
+          "functionHelp": {
+            "functionName": "setUTCMinutes",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "sec",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "sec",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "ms",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4486,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "setHours",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "hour",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "hour",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "sec",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "hour",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "sec",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "ms",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4514,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "setUTCHours",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "hour",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "hour",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "sec",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "hour",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "sec",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "ms",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4545,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "setDate",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "date",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4572,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "setUTCDate",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "date",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4602,
+          "extentLength": 21,
+          "functionHelp": {
+            "functionName": "setMonth",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "month",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "month",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "date",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4630,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "setUTCMonth",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "month",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "month",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "date",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4661,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "setFullYear",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "year",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "year",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "month",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "year",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "month",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "date",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4692,
+          "extentLength": 27,
+          "functionHelp": {
+            "functionName": "setUTCFullYear",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "year",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "year",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "month",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              },
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "year",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "month",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  },
+                  {
+                    "name": "date",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4726,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "toUTCString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4757,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "toISOString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4788,
+          "extentLength": 19,
+          "functionHelp": {
+            "functionName": "toJSON",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "key",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4814,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "getYear",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Number",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4841,
+          "extentLength": 20,
+          "functionHelp": {
+            "functionName": "setYear",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "Date",
+                "returnValueDescription": "",
+                "parameters": [
+                  {
+                    "name": "year",
+                    "description": "",
+                    "type": "Number",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4868,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "toGMTString",
+            "signatures": [
+              {
+                "description": "",
+                "returnType": "String",
+                "returnValueDescription": "",
+                "parameters": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

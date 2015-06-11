@@ -1,0 +1,44 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "callcount": "5"
+      },
+      "[baz returned]": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "_bar": {
+        "__proto__": "[]",
+        "length": "0"
+      },
+      "[Globals]": {
+        "foo": "<large string>",
+        "bar": "<large string>",
+        "baz": "<large string>",
+        "Run": "<large string>",
+        "callcount": "5"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 235,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 553,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  }
+]

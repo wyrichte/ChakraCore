@@ -1,0 +1,7 @@
+TEST_CODE=1
+TARGETTYPE    = NOTARGET
+TARGETNAME    = Winery
+TARGET_DESTINATION = Projection\WinRT:Projection\APPX
+
+PASS0_BINPLACE= \
+    Winery.man

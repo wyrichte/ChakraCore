@@ -1,0 +1,974 @@
+Parameter tests
+
+=================================================
+Starting [Test 1: multiOutBool Test]
+Pass: reta
+      Actual: true
+
+Pass: retb
+      Actual: false
+
+PASS [Test 1: multiOutBool Test]
+=================================================
+
+=================================================
+Starting [Test 2: multiOutUInt8 Test]
+Pass: reta
+      Actual: 0
+
+Pass: retb
+      Actual: 255
+
+PASS [Test 2: multiOutUInt8 Test]
+=================================================
+
+=================================================
+Starting [Test 3: multiOutInt32 Test]
+Pass: reta
+      Actual: -1
+
+Pass: retb
+      Actual: 1
+
+PASS [Test 3: multiOutInt32 Test]
+=================================================
+
+=================================================
+Starting [Test 4: multiOutUInt32 Test]
+Pass: reta
+      Actual: 4294967295
+
+Pass: retb
+      Actual: 0
+
+PASS [Test 4: multiOutUInt32 Test]
+=================================================
+
+=================================================
+Starting [Test 5: multiOutInt64 Test]
+Pass: reta
+      Actual: -1
+
+Pass: retb
+      Actual: 4294967297
+
+PASS [Test 5: multiOutInt64 Test]
+=================================================
+
+=================================================
+Starting [Test 6: multiOutUInt64 Test]
+Pass: reta
+      Actual: 0
+
+Pass: retb
+      Actual: 4294967297
+
+PASS [Test 6: multiOutUInt64 Test]
+=================================================
+
+=================================================
+Starting [Test 7: multiOutSingle Test]
+Pass: reta
+      Actual: 24
+
+Pass: retb
+      Actual: -56
+
+PASS [Test 7: multiOutSingle Test]
+=================================================
+
+=================================================
+Starting [Test 8: multiOutDouble Test]
+Pass: reta
+      Actual: 2.4
+
+Pass: retb
+      Actual: -7.8
+
+PASS [Test 8: multiOutDouble Test]
+=================================================
+
+=================================================
+Starting [Test 9: multiOutChar16 Test]
+Pass: reta
+      Actual: a
+
+Pass: retb
+      Actual:  
+
+PASS [Test 9: multiOutChar16 Test]
+=================================================
+
+=================================================
+Starting [Test 10: mixedInOutBool Test]
+Pass: reta
+      Actual: true
+
+Pass: retb
+      Actual: false
+
+PASS [Test 10: mixedInOutBool Test]
+=================================================
+
+=================================================
+Starting [Test 11: mixedInOutUInt8 Test]
+Pass: reta
+      Actual: 0
+
+Pass: retb
+      Actual: 255
+
+PASS [Test 11: mixedInOutUInt8 Test]
+=================================================
+
+=================================================
+Starting [Test 12: mixedInOutInt32 Test]
+Pass: reta
+      Actual: -1
+
+Pass: retb
+      Actual: 1
+
+PASS [Test 12: mixedInOutInt32 Test]
+=================================================
+
+=================================================
+Starting [Test 13: mixedInOutUInt32 Test]
+Pass: reta
+      Actual: 4294967295
+
+Pass: retb
+      Actual: 0
+
+PASS [Test 13: mixedInOutUInt32 Test]
+=================================================
+
+=================================================
+Starting [Test 14: mixedInOutInt64 Test]
+Pass: reta
+      Actual: -1
+
+Pass: retb
+      Actual: 4294967297
+
+PASS [Test 14: mixedInOutInt64 Test]
+=================================================
+
+=================================================
+Starting [Test 15: mixedInOutInt64 Test]
+Pass: reta
+      Actual: 0
+
+Pass: retb
+      Actual: 4294967297
+
+PASS [Test 15: mixedInOutInt64 Test]
+=================================================
+
+=================================================
+Starting [Test 16: mixedInOutInt64 Test]
+Pass: reta
+      Actual: 24
+
+Pass: retb
+      Actual: -56
+
+PASS [Test 16: mixedInOutInt64 Test]
+=================================================
+
+=================================================
+Starting [Test 17: mixedInOutDouble Test]
+Pass: reta
+      Actual: 2.4
+
+Pass: retb
+      Actual: -7.8
+
+PASS [Test 17: mixedInOutDouble Test]
+=================================================
+
+=================================================
+Starting [Test 18: mixedInOutChar16 Test]
+Pass: reta
+      Actual: a
+
+Pass: retb
+      Actual:  
+
+PASS [Test 18: mixedInOutChar16 Test]
+=================================================
+
+=================================================
+Starting [Test 19: layoutMany Test]
+Pass: reta
+      Actual: 0
+
+Pass: retb
+      Actual: -1
+
+Pass: retc
+      Actual: 255
+
+Pass: retd
+      Actual: 5.6
+
+Pass: rete
+      Actual: 128
+
+Pass: retf
+      Actual: 73
+
+Pass: retg
+      Actual: -12.45
+
+Pass: reth
+      Actual: 2147483647
+
+Pass: reti
+      Actual: 0
+
+PASS [Test 19: layoutMany Test]
+=================================================
+
+=================================================
+Starting [Test 20: multiFloat3 Test]
+Pass: reta
+      Actual: 15
+
+Pass: retb
+      Actual: -3
+
+Pass: retc
+      Actual: 76
+
+PASS [Test 20: multiFloat3 Test]
+=================================================
+
+=================================================
+Starting [Test 21: multiFloat4 Test]
+Pass: reta
+      Actual: -107
+
+Pass: retb
+      Actual: 23
+
+Pass: retc
+      Actual: -9
+
+Pass: retd
+      Actual: 91
+
+PASS [Test 21: multiFloat4 Test]
+=================================================
+
+=================================================
+Starting [Test 22: multiDouble3 Test]
+Pass: reta
+      Actual: 1.5
+
+Pass: retb
+      Actual: -12
+
+Pass: retc
+      Actual: 7.6
+
+PASS [Test 22: multiDouble3 Test]
+=================================================
+
+=================================================
+Starting [Test 23: multiDouble4 Test]
+Pass: reta
+      Actual: -10.7
+
+Pass: retb
+      Actual: 2.3
+
+Pass: retc
+      Actual: -0.9
+
+Pass: retd
+      Actual: 9.1
+
+PASS [Test 23: multiDouble4 Test]
+=================================================
+
+=================================================
+Starting [Test 24: floatOffsetChar Test]
+Pass: reta
+      Actual: a
+
+Pass: retb
+      Actual: 22
+
+PASS [Test 24: floatOffsetChar Test]
+=================================================
+
+=================================================
+Starting [Test 25: floatOffsetByte Test]
+Pass: reta
+      Actual: 127
+
+Pass: retb
+      Actual: -45
+
+PASS [Test 25: floatOffsetByte Test]
+=================================================
+
+=================================================
+Starting [Test 26: floatOffsetInt Test]
+Pass: reta
+      Actual: 378
+
+Pass: retb
+      Actual: 1
+
+PASS [Test 26: floatOffsetInt Test]
+=================================================
+
+=================================================
+Starting [Test 27: floatOffsetInt64 Test]
+Pass: reta
+      Actual: 4294967297
+
+Pass: retb
+      Actual: -2
+
+PASS [Test 27: floatOffsetInt64 Test]
+=================================================
+
+=================================================
+Starting [Test 28: floatOffset2Int Test]
+Pass: reta
+      Actual: 0
+
+Pass: retb
+      Actual: -3
+
+Pass: retc
+      Actual: 40
+
+PASS [Test 28: floatOffset2Int Test]
+=================================================
+
+=================================================
+Starting [Test 29: doubleOffsetChar Test]
+Pass: reta
+      Actual: a
+
+Pass: retb
+      Actual: 2.2
+
+PASS [Test 29: doubleOffsetChar Test]
+=================================================
+
+=================================================
+Starting [Test 30: doubleOffsetByte Test]
+Pass: reta
+      Actual: 127
+
+Pass: retb
+      Actual: -4.5
+
+PASS [Test 30: doubleOffsetByte Test]
+=================================================
+
+=================================================
+Starting [Test 31: doubleOffsetInt Test]
+Pass: reta
+      Actual: 378
+
+Pass: retb
+      Actual: 1
+
+PASS [Test 31: doubleOffsetInt Test]
+=================================================
+
+=================================================
+Starting [Test 32: doubleOffsetInt64 Test]
+Pass: reta
+      Actual: 4294967297
+
+Pass: retb
+      Actual: -2
+
+PASS [Test 32: doubleOffsetInt64 Test]
+=================================================
+
+=================================================
+Starting [Test 33: doubleOffset2Int Test]
+Pass: reta
+      Actual: 0
+
+Pass: retb
+      Actual: -3
+
+Pass: retc
+      Actual: 4
+
+PASS [Test 33: doubleOffset2Int Test]
+=================================================
+
+=================================================
+Starting [Test 34: multiOutHSTRING Test]
+Pass: reta
+      Actual: parameter a
+
+Pass: retb
+      Actual: value of b
+
+PASS [Test 34: multiOutHSTRING Test]
+=================================================
+
+=================================================
+Starting [Test 35: multiOutPhylum Test]
+Pass: reta
+      Actual: 0
+
+Pass: retb
+      Actual: 35
+
+PASS [Test 35: multiOutPhylum Test]
+=================================================
+
+=================================================
+Starting [Test 36: multiOutDimensions Test]
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: 10
+
+Pass: obj[field]
+      Actual: 14
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: 42
+
+Pass: obj[field]
+      Actual: 121
+
+PASS [Test 36: multiOutDimensions Test]
+=================================================
+
+=================================================
+Starting [Test 37: multiOutIFish Test]
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj.getNumFins()
+      Actual: 5
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj.getNumFins()
+      Actual: 12
+
+PASS [Test 37: multiOutIFish Test]
+=================================================
+
+=================================================
+Starting [Test 39: multiOutFish Test]
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj.getNumFins()
+      Actual: 5
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj.getNumFins()
+      Actual: 12
+
+PASS [Test 39: multiOutFish Test]
+=================================================
+
+=================================================
+Starting [Test 40: mixedInOutHSTRING Test]
+Pass: reta
+      Actual: parameter a
+
+Pass: retb
+      Actual: value of b
+
+PASS [Test 40: mixedInOutHSTRING Test]
+=================================================
+
+=================================================
+Starting [Test 41: mixedInOutPhylum Test]
+Pass: reta
+      Actual: 0
+
+Pass: retb
+      Actual: 35
+
+PASS [Test 41: mixedInOutPhylum Test]
+=================================================
+
+=================================================
+Starting [Test 42: mixedInOutDimensions Test]
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: 10
+
+Pass: obj[field]
+      Actual: 14
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: 42
+
+Pass: obj[field]
+      Actual: 121
+
+PASS [Test 42: mixedInOutDimensions Test]
+=================================================
+
+=================================================
+Starting [Test 43: mixedInOutIFish Test]
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj.getNumFins()
+      Actual: 5
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj.getNumFins()
+      Actual: 12
+
+PASS [Test 43: mixedInOutIFish Test]
+=================================================
+
+=================================================
+Starting [Test 45: mixedInOutFish Test]
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj.getNumFins()
+      Actual: 5
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj.getNumFins()
+      Actual: 12
+
+PASS [Test 45: mixedInOutFish Test]
+=================================================
+
+=================================================
+Starting [Test 46: layoutStructs Test]
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: -1
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: 100
+
+Pass: obj[field]
+      Actual: 365
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: 0
+
+Pass: obj[field]
+      Actual: [object Animals._InnerStruct]
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: Common Wombat
+
+Pass: obj[field]
+      Actual: Vombatus ursinis
+
+Pass: obj[field]
+      Actual: Coarse-haired Wombat
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: 7
+
+Pass: obj[field]
+      Actual: 0
+
+PASS [Test 46: layoutStructs Test]
+=================================================
+
+=================================================
+Starting [Test 47: layoutBasicWithStructs Test]
+Pass: reta
+      Actual: 255
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: 42
+
+Pass: retc
+      Actual: -100
+
+Pass: retd
+      Actual: 12.34
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: Long-tailed Chinchilla
+
+Pass: obj[field]
+      Actual: Chinchilla lanigera
+
+Pass: obj[field]
+      Actual: Chilean, coastal, or lesser chinchilla
+
+Pass: retf
+      Actual: 13
+
+Pass: retg
+      Actual: 0
+
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: -3
+
+Pass: obj[field]
+      Actual: 52
+
+Pass: reti
+      Actual: -512
+
+PASS [Test 47: layoutBasicWithStructs Test]
+=================================================
+
+=================================================
+Starting [Test 48: floatOffsetStruct Test]
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: Naked Mole Rat
+
+Pass: obj[field]
+      Actual: Heterocephalus glaber
+
+Pass: obj[field]
+      Actual: sand puppy or desert mole rat
+
+Pass: retb
+      Actual: 82
+
+PASS [Test 48: floatOffsetStruct Test]
+=================================================
+
+=================================================
+Starting [Test 49: doubleOffsetStruct Test]
+Pass: typeof expectedOutput
+      Actual: object
+
+Pass: obj[field]
+      Actual: Pygmy Hippopotamus
+
+Pass: obj[field]
+      Actual: Choeropsis liberiensis
+
+Pass: obj[field]
+      Actual: Mini Hippo
+
+Pass: retb
+      Actual: 0.82
+
+PASS [Test 49: doubleOffsetStruct Test]
+=================================================
+
+=================================================
+Starting [Test 50: SetAndGetNumLegs Test]
+PASS [Test 50: SetAndGetNumLegs Test]
+=================================================
+
+=================================================
+Starting [Test 51: SetAndGetGreeting Test]
+PASS [Test 51: SetAndGetGreeting Test]
+=================================================
+
+=================================================
+Starting [Test 52: Pass in the Big struct]
+Pass: result.eType
+      Actual: 2
+
+Pass: result.index
+      Actual: 38
+
+Pass: result.previousIndex
+      Actual: 49
+
+Pass: result.objectId
+      Actual: delegateWithOutParamTestCase
+
+PASS [Test 52: Pass in the Big struct]
+=================================================
+
+=================================================
+Starting [Test 53: Receive big struct as out param]
+Pass: result.eType
+      Actual: 2
+
+Pass: result.index
+      Actual: 38
+
+Pass: result.previousIndex
+      Actual: 49
+
+Pass: result.objectId
+      Actual: DelegateWithInParamTestCase
+
+PASS [Test 53: Receive big struct as out param]
+=================================================
+
+=================================================
+Starting [Test 54: Marshal in and out Packed Byte]
+Pass: outValue.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: outValue.field0
+      Actual: 80
+
+Pass: outValue.field0 == inValue.field0
+      Actual: true
+
+PASS [Test 54: Marshal in and out Packed Byte]
+=================================================
+
+=================================================
+Starting [Test 55: Marshal in and out Packed Booleans]
+Pass: outValue.toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: outValue.field0
+      Actual: false
+
+Pass: outValue.field1
+      Actual: true
+
+Pass: outValue.field2
+      Actual: false
+
+Pass: outValue.field3
+      Actual: false
+
+Pass: outValue.field0 === inValue.field0
+      Actual: true
+
+Pass: outValue.field1 === inValue.field1
+      Actual: true
+
+Pass: outValue.field2 === inValue.field2
+      Actual: true
+
+Pass: outValue.field3 === inValue.field3
+      Actual: true
+
+PASS [Test 55: Marshal in and out Packed Booleans]
+=================================================
+
+=================================================
+Starting [Test 56: Marshal in and out odd sized struct]
+Pass: outValue.toString()
+      Actual: [object Animals.OddSizedStruct]
+
+Pass: outValue.field0
+      Actual: 50
+
+Pass: outValue.field1
+      Actual: 100
+
+Pass: outValue.field2
+      Actual: 150
+
+Pass: outValue.field0 === inValue.field0
+      Actual: true
+
+Pass: outValue.field1 === inValue.field1
+      Actual: true
+
+Pass: outValue.field2 === inValue.field2
+      Actual: true
+
+PASS [Test 56: Marshal in and out odd sized struct]
+=================================================
+
+=================================================
+Starting [Test 57: Marshal in and out small complex struct]
+Pass: outValue.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: outValue.field0
+      Actual: 50
+
+Pass: outValue.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: outValue.field1.field0
+      Actual: 100
+
+Pass: outValue.field2
+      Actual: 150
+
+Pass: outValue.field0 === inValue.field0
+      Actual: true
+
+Pass: outValue.field1.field0 === inValue.field1.field0
+      Actual: true
+
+Pass: outValue.field2 === inValue.field2
+      Actual: true
+
+PASS [Test 57: Marshal in and out small complex struct]
+=================================================
+
+=================================================
+Starting [Test 58: Marshal in and out big complex struct]
+Pass: outValue.toString()
+      Actual: [object Animals.BigComplexStruct]
+
+Pass: outValue.field0
+      Actual: 5
+
+Pass: outValue.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: outValue.field1.field0
+      Actual: 10
+
+Pass: outValue.field2
+      Actual: 15
+
+Pass: outValue.field3.toString()
+      Actual: [object Animals.PackedBoolean4]
+
+Pass: outValue.field3.field0
+      Actual: true
+
+Pass: outValue.field3.field1
+      Actual: true
+
+Pass: outValue.field3.field2
+      Actual: false
+
+Pass: outValue.field3.field3
+      Actual: false
+
+Pass: outValue.field3.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: outValue.field4.field0
+      Actual: 20
+
+Pass: outValue.field4.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: outValue.field4.field1.field0
+      Actual: 25
+
+Pass: outValue.field4.field2
+      Actual: 30
+
+Pass: outValue.field5.toString()
+      Actual: [object Animals.SmallComplexStruct]
+
+Pass: outValue.field5.field0
+      Actual: 35
+
+Pass: outValue.field5.field1.toString()
+      Actual: [object Animals.PackedByte]
+
+Pass: outValue.field5.field1.field0
+      Actual: 40
+
+Pass: outValue.field5.field2
+      Actual: 45
+
+Pass: outValue.field6
+      Actual: 50
+
+Pass: outValue.field7
+      Actual: 55
+
+Pass: outValue.field0 === inValue.field0
+      Actual: true
+
+Pass: outValue.field1.field0 === inValue.field1.field0
+      Actual: true
+
+Pass: outValue.field2 === inValue.field2
+      Actual: true
+
+Pass: outValue.field3.field0 === inValue.field3.field0
+      Actual: true
+
+Pass: outValue.field3.field1 === inValue.field3.field1
+      Actual: true
+
+Pass: outValue.field3.field2 === inValue.field3.field2
+      Actual: true
+
+Pass: outValue.field3.field3 === inValue.field3.field3
+      Actual: true
+
+Pass: outValue.field4.field0 === inValue.field4.field0
+      Actual: true
+
+Pass: outValue.field4.field1.field0 === inValue.field4.field1.field0
+      Actual: true
+
+Pass: outValue.field4.field2 === inValue.field4.field2
+      Actual: true
+
+Pass: outValue.field5.field0 === inValue.field5.field0
+      Actual: true
+
+Pass: outValue.field5.field1.field0 === inValue.field5.field1.field0
+      Actual: true
+
+Pass: outValue.field5.field2 === inValue.field5.field2
+      Actual: true
+
+Pass: outValue.field6 === inValue.field6
+      Actual: true
+
+Pass: outValue.field7 === inValue.field7
+      Actual: true
+
+PASS [Test 58: Marshal in and out big complex struct]
+=================================================
+
+Passed: 56
+Failed: 0

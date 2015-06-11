@@ -1,0 +1,19 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "0",
+      "[Globals]": {
+        "detachBasicTest": "<large string>"
+      }
+    }
+  }
+]

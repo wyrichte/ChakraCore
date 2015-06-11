@@ -1,0 +1,1 @@
+powershell -executionpolicy bypass -command "&{.\run-package.ps1 -name '*DevAppxTest*' -path %~dp0\appxmanifest.xml -runonly -appid wwa.bpt.testpicker}"

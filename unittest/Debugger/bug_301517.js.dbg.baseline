@@ -1,0 +1,17 @@
+[
+  {
+    "evaluate": {
+      "JSON.stringify(this);": "{}"
+    }
+  },
+  {
+    "evaluate": {
+      "JSON.stringify(this);": "{}"
+    }
+  },
+  {
+    "evaluate": {
+      "JSON.stringify(this);": "{}"
+    }
+  }
+]

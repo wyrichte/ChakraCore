@@ -1,0 +1,27 @@
+=== Before change ===
+old f1
+old f2
+ENC: QueryEdit: 1 requests
+ENC: edittopmove.js (28,287):
+/**edit(top)**/
+function f1() {
+    WScript.Echo("old f1");
+...
+===>
+ function f2() {
+    WScript.Echo("old f2");
+ }
+
+ function ...
+ENC: === AST Diffing ===
+ENC: Reorder: FuncDecl function f1() {..    WScript.Ec -> FuncDecl function f1() {..     WScript.E
+ENC: === Semantic Changes ===
+ENC: MoveFunction: FuncDecl function f1() {..    WScript.Ec -> FuncDecl function f1() {..     WScript.E
+ENC:     Old functionBody: f1
+ENC: MoveFunction: FuncDecl function f2() {..    WScript.Ec -> FuncDecl function f2() {..    WScript.Ec
+ENC:     Old functionBody: f2
+ENC: MoveFunction: FuncDecl function test() {..    WScript. -> FuncDecl function test() {..    WScript.
+ENC:     Old functionBody: test
+=== After change ===
+old f1
+old f2

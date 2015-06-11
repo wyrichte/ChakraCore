@@ -1,0 +1,4321 @@
+PropertySet Tests
+
+=================================================
+Starting [Test 1: MarshalOut : Empty PropertySet]
+Comment: typeof myPropertySet: object
+Comment: Dump of properties : 
+    var myPropertySetMembers = [
+        ['addEventListener', 'function', 2],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getView', 'function', 0],
+        ['hasKey', 'function', 1],
+        ['insert', 'function', 2],
+        ['lookup', 'function', 1],
+        ['onmapchanged', 'object'],
+        ['remove', 'function', 1],
+        ['removeEventListener', 'function', 2],
+        ['size', 'number'],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myPropertySet
+      Actual: object
+
+Pass: myPropertySet's property
+      Actual: addEventListener
+
+Pass: typeof myPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["addEventListener"].length
+      Actual: 2
+
+Pass: myPropertySet's property
+      Actual: clear
+
+Pass: typeof myPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["clear"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: first
+
+Pass: typeof myPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["first"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: getView
+
+Pass: typeof myPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["getView"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: hasKey
+
+Pass: typeof myPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet["hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["hasKey"].length
+      Actual: 1
+
+Pass: myPropertySet's property
+      Actual: insert
+
+Pass: typeof myPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet["insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["insert"].length
+      Actual: 2
+
+Pass: myPropertySet's property
+      Actual: lookup
+
+Pass: typeof myPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet["lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["lookup"].length
+      Actual: 1
+
+Pass: myPropertySet's property
+      Actual: onmapchanged
+
+Pass: typeof myPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property
+      Actual: remove
+
+Pass: typeof myPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet["remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["remove"].length
+      Actual: 1
+
+Pass: myPropertySet's property
+      Actual: removeEventListener
+
+Pass: typeof myPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["removeEventListener"].length
+      Actual: 2
+
+Pass: myPropertySet's property
+      Actual: size
+
+Pass: typeof myPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property
+      Actual: toString
+
+Pass: typeof myPropertySet["toString"]
+      Actual: function
+
+Pass: myPropertySet["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["toString"].length
+      Actual: 0
+
+Pass: number of properties of myPropertySet
+      Actual: 12
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+PASS [Test 1: MarshalOut : Empty PropertySet]
+=================================================
+
+=================================================
+Starting [Test 2: MarshalOut : Set the properties]
+Pass: myPropertySet["name"]
+      Actual: TRex
+
+Pass: myPropertySet["Type"]
+      Actual: 13
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 2
+
+Pass: Key (0): myPropertySet
+      Actual: name
+
+Pass: Value (0): myPropertySet
+      Actual: TRex
+
+Pass: Key (1): myPropertySet
+      Actual: Type
+
+Pass: Value (1): myPropertySet
+      Actual: 13
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Pass: myPropertySet["name"]
+      Actual: Nemo
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 2
+
+Pass: Key (0): myPropertySet
+      Actual: name
+
+Pass: Value (0): myPropertySet
+      Actual: Nemo
+
+Pass: Key (1): myPropertySet
+      Actual: Type
+
+Pass: Value (1): myPropertySet
+      Actual: 13
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Pass: myPropertySet[0]
+      Actual: 70
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 3
+
+Pass: Key (0): myPropertySet
+      Actual: 0
+
+Pass: Value (0): myPropertySet
+      Actual: 70
+
+Pass: Key (1): myPropertySet
+      Actual: name
+
+Pass: Value (1): myPropertySet
+      Actual: Nemo
+
+Pass: Key (2): myPropertySet
+      Actual: Type
+
+Pass: Value (2): myPropertySet
+      Actual: 13
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Pass: myPropertySet["4"]
+      Actual: AnotherProperty
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 4
+
+Pass: Key (0): myPropertySet
+      Actual: 0
+
+Pass: Value (0): myPropertySet
+      Actual: 70
+
+Pass: Key (1): myPropertySet
+      Actual: 4
+
+Pass: Value (1): myPropertySet
+      Actual: AnotherProperty
+
+Pass: Key (2): myPropertySet
+      Actual: name
+
+Pass: Value (2): myPropertySet
+      Actual: Nemo
+
+Pass: Key (3): myPropertySet
+      Actual: Type
+
+Pass: Value (3): myPropertySet
+      Actual: 13
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Pass: myPropertySet["Type"]
+      Actual: null
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 4
+
+Pass: Key (0): myPropertySet
+      Actual: 0
+
+Pass: Value (0): myPropertySet
+      Actual: 70
+
+Pass: Key (1): myPropertySet
+      Actual: 4
+
+Pass: Value (1): myPropertySet
+      Actual: AnotherProperty
+
+Pass: Key (2): myPropertySet
+      Actual: name
+
+Pass: Value (2): myPropertySet
+      Actual: Nemo
+
+Pass: Key (3): myPropertySet
+      Actual: Type
+
+Pass: Value (3): myPropertySet
+      Actual: null
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Pass: myPropertySet["undefinedProperty"]
+      Actual: undefined
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 4
+
+Pass: Key (0): myPropertySet
+      Actual: 0
+
+Pass: Value (0): myPropertySet
+      Actual: 70
+
+Pass: Key (1): myPropertySet
+      Actual: 4
+
+Pass: Value (1): myPropertySet
+      Actual: AnotherProperty
+
+Pass: Key (2): myPropertySet
+      Actual: name
+
+Pass: Value (2): myPropertySet
+      Actual: Nemo
+
+Pass: Key (3): myPropertySet
+      Actual: Type
+
+Pass: Value (3): myPropertySet
+      Actual: null
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Pass: myPropertySet["Type"]
+      Actual: null
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 4
+
+Pass: Key (0): myPropertySet
+      Actual: 0
+
+Pass: Value (0): myPropertySet
+      Actual: 70
+
+Pass: Key (1): myPropertySet
+      Actual: 4
+
+Pass: Value (1): myPropertySet
+      Actual: AnotherProperty
+
+Pass: Key (2): myPropertySet
+      Actual: name
+
+Pass: Value (2): myPropertySet
+      Actual: Nemo
+
+Pass: Key (3): myPropertySet
+      Actual: Type
+
+Pass: Value (3): myPropertySet
+      Actual: null
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+PASS [Test 2: MarshalOut : Set the properties]
+=================================================
+
+=================================================
+Starting [Test 3: MarshalOut : Delete the properties]
+Pass: myPropertySet["name"]
+      Actual: TRex
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 1
+
+Pass: Key (0): myPropertySet
+      Actual: name
+
+Pass: Value (0): myPropertySet
+      Actual: TRex
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 1
+
+Pass: myPropertySet["name"]
+      Actual: undefined
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Pass: myPropertySet[0]
+      Actual: 70
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 1
+
+Pass: Key (0): myPropertySet
+      Actual: 0
+
+Pass: Value (0): myPropertySet
+      Actual: 70
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 1
+
+Pass: myPropertySet[0]
+      Actual: undefined
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Pass: myPropertySet["4"]
+      Actual: AnotherProperty
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 1
+
+Pass: Key (0): myPropertySet
+      Actual: 4
+
+Pass: Value (0): myPropertySet
+      Actual: AnotherProperty
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 1
+
+Pass: myPropertySet["4"]
+      Actual: undefined
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Pass: delete myPropertySet["undefinedProperty"]
+      Actual: false
+
+Pass: myPropertySet["undefinedProperty"]
+      Actual: undefined
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Pass: delete myPropertySet[75]
+      Actual: false
+
+Pass: myPropertySet[75]
+      Actual: undefined
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+PASS [Test 3: MarshalOut : Delete the properties]
+=================================================
+
+=================================================
+Starting [Test 4: MarshalOut : Enumerator]
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 1
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 2
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 3
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 4
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 8
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 11
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 0
+
+Pass: All prototype members read?
+      Actual: 12
+
+Comment: Add some properties and then verify enumerator
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 4
+
+Pass: Key (0): myPropertySet
+      Actual: 0
+
+Pass: Value (0): myPropertySet
+      Actual: 70
+
+Pass: Key (1): myPropertySet
+      Actual: 4
+
+Pass: Value (1): myPropertySet
+      Actual: AnotherProperty
+
+Pass: Key (2): myPropertySet
+      Actual: name
+
+Pass: Value (2): myPropertySet
+      Actual: Nemo
+
+Pass: Key (3): myPropertySet
+      Actual: Type
+
+Pass: Value (3): myPropertySet
+      Actual: null
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: 0
+
+Pass: typeof myPropertySet["0"]
+      Actual: number
+
+Pass: myPropertySet["0"]
+      Actual: 70
+
+Pass: myPropertySet's property: 1
+      Actual: 4
+
+Pass: typeof myPropertySet["4"]
+      Actual: string
+
+Pass: myPropertySet["4"]
+      Actual: AnotherProperty
+
+Pass: myPropertySet's property: 2
+      Actual: name
+
+Pass: typeof myPropertySet["name"]
+      Actual: string
+
+Pass: myPropertySet["name"]
+      Actual: Nemo
+
+Pass: myPropertySet's property: 3
+      Actual: Type
+
+Pass: typeof myPropertySet["Type"]
+      Actual: object
+
+Pass: myPropertySet["Type"]
+      Actual: null
+
+Pass: myPropertySet's property: 4
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 8
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 11
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 12
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 13
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 14
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 15
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 4
+
+Pass: All prototype members read?
+      Actual: 12
+
+PASS [Test 4: MarshalOut : Enumerator]
+=================================================
+
+=================================================
+Starting [Test 5: MarshalOut : Modifying values in Enumerator]
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 5
+
+Pass: Key (0): myPropertySet
+      Actual: father
+
+Pass: Value (0): myPropertySet
+      Actual: Marlin
+
+Pass: Key (1): myPropertySet
+      Actual: Alive
+
+Pass: Value (1): myPropertySet
+      Actual: true
+
+Pass: Key (2): myPropertySet
+      Actual: Name
+
+Pass: Value (2): myPropertySet
+      Actual: nemo
+
+Pass: Key (3): myPropertySet
+      Actual: FearForSwimming
+
+Pass: Value (3): myPropertySet
+      Actual: false
+
+Pass: Key (4): myPropertySet
+      Actual: Type
+
+Pass: Value (4): myPropertySet
+      Actual: null
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: father
+
+Pass: typeof myPropertySet["father"]
+      Actual: string
+
+Pass: myPropertySet["father"]
+      Actual: Marlin
+
+Pass: myPropertySet's property: 1
+      Actual: Alive
+
+Pass: typeof myPropertySet["Alive"]
+      Actual: boolean
+
+Pass: myPropertySet["Alive"]
+      Actual: true
+
+Pass: myPropertySet's property: 2
+      Actual: Name
+
+Pass: typeof myPropertySet["Name"]
+      Actual: string
+
+Pass: myPropertySet["Name"]
+      Actual: nemo
+
+Pass: myPropertySet's property: 3
+      Actual: FearForSwimming
+
+Pass: typeof myPropertySet["FearForSwimming"]
+      Actual: boolean
+
+Pass: myPropertySet["FearForSwimming"]
+      Actual: false
+
+Pass: myPropertySet's property: 4
+      Actual: Type
+
+Pass: typeof myPropertySet["Type"]
+      Actual: object
+
+Pass: myPropertySet["Type"]
+      Actual: null
+
+Pass: myPropertySet's property: 5
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 8
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 11
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 12
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 13
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 14
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 15
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 16
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 5
+
+Pass: All prototype members read?
+      Actual: 12
+
+Pass: * myPropertySet's property: 0
+      Actual: father
+
+Pass: * typeof myPropertySet["father"]
+      Actual: string
+
+Pass: * myPropertySet["father"]
+      Actual: Marlin
+
+Pass: * myPropertySet's property: 1
+      Actual: Alive
+
+Pass: * typeof myPropertySet["Alive"]
+      Actual: boolean
+
+Pass: * myPropertySet["Alive"]
+      Actual: true
+
+Pass: * myPropertySet's property: 2
+      Actual: Name
+
+Pass: * typeof myPropertySet["Name"]
+      Actual: string
+
+Pass: * myPropertySet["Name"]
+      Actual: nemo
+
+Comment: *** Modify the properties while enumerating : Start ***
+Pass: myPropertySet["Name"]
+      Actual: Nemo
+
+Pass: myPropertySet["Type"]
+      Actual: Fish
+
+Pass: myPropertySet["Adventurous"]
+      Actual: true
+
+Pass: myPropertySet["NewToSwimming"]
+      Actual: false
+
+Pass: myPropertySet["father"]
+      Actual: undefined
+
+Pass: myPropertySet["FearForSwimming"]
+      Actual: undefined
+
+Comment: *** Modify the properties while enumerating : End ***
+Pass: * myPropertySet's property: 3
+      Actual: Type
+
+Pass: * typeof myPropertySet["Type"]
+      Actual: string
+
+Pass: * myPropertySet["Type"]
+      Actual: Fish
+
+Pass: * myPropertySet's property: 4
+      Actual: addEventListener
+
+Pass: * typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: * myPropertySet's property: 5
+      Actual: clear
+
+Pass: * typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: * myPropertySet's property: 6
+      Actual: first
+
+Pass: * typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: * myPropertySet's property: 7
+      Actual: getView
+
+Pass: * typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: * myPropertySet's property: 8
+      Actual: hasKey
+
+Pass: * typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: * myPropertySet's property: 9
+      Actual: insert
+
+Pass: * typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: * myPropertySet's property: 10
+      Actual: lookup
+
+Pass: * typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: * myPropertySet's property: 11
+      Actual: onmapchanged
+
+Pass: * typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: * myPropertySet's property: 12
+      Actual: remove
+
+Pass: * typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: * myPropertySet's property: 13
+      Actual: removeEventListener
+
+Pass: * typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: * myPropertySet's property: 14
+      Actual: size
+
+Pass: * typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: * myPropertySet's property: 15
+      Actual: toString
+
+Pass: * typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: * All propertySet contents read?
+      Actual: 4
+
+Pass: * All prototype members read?
+      Actual: 12
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 5
+
+Pass: Key (0): myPropertySet
+      Actual: Adventurous
+
+Pass: Value (0): myPropertySet
+      Actual: true
+
+Pass: Key (1): myPropertySet
+      Actual: Alive
+
+Pass: Value (1): myPropertySet
+      Actual: true
+
+Pass: Key (2): myPropertySet
+      Actual: Name
+
+Pass: Value (2): myPropertySet
+      Actual: Nemo
+
+Pass: Key (3): myPropertySet
+      Actual: NewToSwimming
+
+Pass: Value (3): myPropertySet
+      Actual: false
+
+Pass: Key (4): myPropertySet
+      Actual: Type
+
+Pass: Value (4): myPropertySet
+      Actual: Fish
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: Adventurous
+
+Pass: typeof myPropertySet["Adventurous"]
+      Actual: boolean
+
+Pass: myPropertySet["Adventurous"]
+      Actual: true
+
+Pass: myPropertySet's property: 1
+      Actual: Alive
+
+Pass: typeof myPropertySet["Alive"]
+      Actual: boolean
+
+Pass: myPropertySet["Alive"]
+      Actual: true
+
+Pass: myPropertySet's property: 2
+      Actual: Name
+
+Pass: typeof myPropertySet["Name"]
+      Actual: string
+
+Pass: myPropertySet["Name"]
+      Actual: Nemo
+
+Pass: myPropertySet's property: 3
+      Actual: NewToSwimming
+
+Pass: typeof myPropertySet["NewToSwimming"]
+      Actual: boolean
+
+Pass: myPropertySet["NewToSwimming"]
+      Actual: false
+
+Pass: myPropertySet's property: 4
+      Actual: Type
+
+Pass: typeof myPropertySet["Type"]
+      Actual: string
+
+Pass: myPropertySet["Type"]
+      Actual: Fish
+
+Pass: myPropertySet's property: 5
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 8
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 11
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 12
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 13
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 14
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 15
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 16
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 5
+
+Pass: All prototype members read?
+      Actual: 12
+
+PASS [Test 5: MarshalOut : Modifying values in Enumerator]
+=================================================
+
+=================================================
+Starting [Test 6: MarshalOut : Name conflicting properties : 0, 32 and insert]
+Comment: *** Setup prototype for conflicting properties
+Comment: typeof myPropertySet: object
+Comment: Dump of properties : 
+    var myPropertySetMembers = [
+        ['addEventListener', 'function', 2],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getView', 'function', 0],
+        ['hasKey', 'function', 1],
+        ['insert', 'function', 2],
+        ['lookup', 'function', 1],
+        ['onmapchanged', 'object'],
+        ['remove', 'function', 1],
+        ['removeEventListener', 'function', 2],
+        ['size', 'number'],
+        ['toString', 'function', 0],
+        ['0', 'string'],
+        ['32', 'string'],
+    ];
+Pass: typeof myPropertySet
+      Actual: object
+
+Pass: myPropertySet's property
+      Actual: addEventListener
+
+Pass: typeof myPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["addEventListener"].length
+      Actual: 2
+
+Pass: myPropertySet's property
+      Actual: clear
+
+Pass: typeof myPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["clear"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: first
+
+Pass: typeof myPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["first"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: getView
+
+Pass: typeof myPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["getView"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: hasKey
+
+Pass: typeof myPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet["hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["hasKey"].length
+      Actual: 1
+
+Pass: myPropertySet's property
+      Actual: insert
+
+Pass: typeof myPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet["insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["insert"].length
+      Actual: 2
+
+Pass: myPropertySet's property
+      Actual: lookup
+
+Pass: typeof myPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet["lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["lookup"].length
+      Actual: 1
+
+Pass: myPropertySet's property
+      Actual: onmapchanged
+
+Pass: typeof myPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property
+      Actual: remove
+
+Pass: typeof myPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet["remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["remove"].length
+      Actual: 1
+
+Pass: myPropertySet's property
+      Actual: removeEventListener
+
+Pass: typeof myPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["removeEventListener"].length
+      Actual: 2
+
+Pass: myPropertySet's property
+      Actual: size
+
+Pass: typeof myPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property
+      Actual: toString
+
+Pass: typeof myPropertySet["toString"]
+      Actual: function
+
+Pass: myPropertySet["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["toString"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: 0
+
+Pass: typeof myPropertySet["0"]
+      Actual: string
+
+Pass: myPropertySet's property
+      Actual: 32
+
+Pass: typeof myPropertySet["32"]
+      Actual: string
+
+Pass: number of properties of myPropertySet
+      Actual: 14
+
+Comment: *** Set conflicting properties using index operation
+Pass: myPropertySet.hasKey("insert")
+      Actual: false
+
+Pass: typeof myPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet["insert"].toString()
+      Actual: function insert() { [native code] }
+
+Pass: myPropertySet.hasKey("0")
+      Actual: false
+
+Pass: myPropertySet["0"]
+      Actual: 0 Property
+
+Pass: myPropertySet.hasKey("32")
+      Actual: false
+
+Pass: myPropertySet["32"]
+      Actual: 32 Property
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 1
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 2
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 3
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 4
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 8
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 11
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: myPropertySet's property: 12
+      Actual: 0
+
+Pass: typeofmyPropertySet["0"]
+      Actual: string
+
+Pass: myPropertySet's property: 13
+      Actual: 32
+
+Pass: typeofmyPropertySet["32"]
+      Actual: string
+
+Pass: All propertySet contents read?
+      Actual: 0
+
+Pass: All prototype members read?
+      Actual: 14
+
+Comment: *** Add propertySet members using .insert method
+Pass: myPropertySet.hasKey("insert")
+      Actual: true
+
+Pass: myPropertySet.lookup("insert")
+      Actual: TRex
+
+Pass: typeof myPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet["insert"].toString()
+      Actual: function insert() { [native code] }
+
+Pass: myPropertySet.hasKey("0")
+      Actual: true
+
+Pass: myPropertySet.lookup("0")
+      Actual: TRex0
+
+Pass: myPropertySet["0"]
+      Actual: 0 Property
+
+Pass: myPropertySet.hasKey("32")
+      Actual: true
+
+Pass: myPropertySet.lookup("32")
+      Actual: TRex32
+
+Pass: myPropertySet["32"]
+      Actual: 32 Property
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 3
+
+Pass: Key (0): myPropertySet
+      Actual: 0
+
+Pass: Value (0): myPropertySet
+      Actual: TRex0
+
+Pass: Key (1): myPropertySet
+      Actual: 32
+
+Pass: Value (1): myPropertySet
+      Actual: TRex32
+
+Pass: Key (2): myPropertySet
+      Actual: insert
+
+Pass: Value (2): myPropertySet
+      Actual: TRex
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 1
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 2
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 3
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 4
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 8
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 11
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: myPropertySet's property: 12
+      Actual: 0
+
+Pass: typeofmyPropertySet["0"]
+      Actual: string
+
+Pass: myPropertySet's property: 13
+      Actual: 32
+
+Pass: typeofmyPropertySet["32"]
+      Actual: string
+
+Pass: All propertySet contents read?
+      Actual: 0
+
+Pass: All prototype members read?
+      Actual: 14
+
+Comment: *** Delete the conflicting properties - shouldnt change anything
+Pass: myPropertySet.hasKey("insert")
+      Actual: true
+
+Pass: myPropertySet.lookup("insert")
+      Actual: TRex
+
+Pass: typeof myPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet["insert"].toString()
+      Actual: function insert() { [native code] }
+
+Pass: myPropertySet.hasKey("0")
+      Actual: true
+
+Pass: myPropertySet.lookup("0")
+      Actual: TRex0
+
+Pass: myPropertySet["0"]
+      Actual: 0 Property
+
+Pass: myPropertySet.hasKey("32")
+      Actual: true
+
+Pass: myPropertySet.lookup("32")
+      Actual: TRex32
+
+Pass: myPropertySet["32"]
+      Actual: 32 Property
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 3
+
+Pass: Key (0): myPropertySet
+      Actual: 0
+
+Pass: Value (0): myPropertySet
+      Actual: TRex0
+
+Pass: Key (1): myPropertySet
+      Actual: 32
+
+Pass: Value (1): myPropertySet
+      Actual: TRex32
+
+Pass: Key (2): myPropertySet
+      Actual: insert
+
+Pass: Value (2): myPropertySet
+      Actual: TRex
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 1
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 2
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 3
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 4
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 8
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 11
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: myPropertySet's property: 12
+      Actual: 0
+
+Pass: typeofmyPropertySet["0"]
+      Actual: string
+
+Pass: myPropertySet's property: 13
+      Actual: 32
+
+Pass: typeofmyPropertySet["32"]
+      Actual: string
+
+Pass: All propertySet contents read?
+      Actual: 0
+
+Pass: All prototype members read?
+      Actual: 14
+
+Comment: *** Set floating point properties
+Pass: myPropertySet.hasKey("0.0")
+      Actual: true
+
+Pass: myPropertySet.lookup("0.0")
+      Actual: TRex0.0
+
+Pass: myPropertySet["0.0"]
+      Actual: TRex0.0
+
+Pass: myPropertySet.hasKey("32.56")
+      Actual: true
+
+Pass: myPropertySet.lookup("32.56")
+      Actual: TRex32.56
+
+Pass: myPropertySet["32.56"]
+      Actual: TRex32.56
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 5
+
+Pass: Key (0): myPropertySet
+      Actual: 0.0
+
+Pass: Value (0): myPropertySet
+      Actual: TRex0.0
+
+Pass: Key (1): myPropertySet
+      Actual: 32.56
+
+Pass: Value (1): myPropertySet
+      Actual: TRex32.56
+
+Pass: Key (2): myPropertySet
+      Actual: 0
+
+Pass: Value (2): myPropertySet
+      Actual: TRex0
+
+Pass: Key (3): myPropertySet
+      Actual: 32
+
+Pass: Value (3): myPropertySet
+      Actual: TRex32
+
+Pass: Key (4): myPropertySet
+      Actual: insert
+
+Pass: Value (4): myPropertySet
+      Actual: TRex
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: 0.0
+
+Pass: typeof myPropertySet["0.0"]
+      Actual: string
+
+Pass: myPropertySet["0.0"]
+      Actual: TRex0.0
+
+Pass: myPropertySet's property: 1
+      Actual: 32.56
+
+Pass: typeof myPropertySet["32.56"]
+      Actual: string
+
+Pass: myPropertySet["32.56"]
+      Actual: TRex32.56
+
+Pass: myPropertySet's property: 2
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 3
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 4
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 8
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 10
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 11
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 12
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 13
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: myPropertySet's property: 14
+      Actual: 0
+
+Pass: typeofmyPropertySet["0"]
+      Actual: string
+
+Pass: myPropertySet's property: 15
+      Actual: 32
+
+Pass: typeofmyPropertySet["32"]
+      Actual: string
+
+Pass: All propertySet contents read?
+      Actual: 2
+
+Pass: All prototype members read?
+      Actual: 14
+
+Comment: *** Delete the object.prototype properties
+Pass: myPropertySet["0"]
+      Actual: TRex0
+
+Pass: myPropertySet["32"]
+      Actual: TRex32
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 5
+
+Pass: Key (0): myPropertySet
+      Actual: 0.0
+
+Pass: Value (0): myPropertySet
+      Actual: TRex0.0
+
+Pass: Key (1): myPropertySet
+      Actual: 32.56
+
+Pass: Value (1): myPropertySet
+      Actual: TRex32.56
+
+Pass: Key (2): myPropertySet
+      Actual: 0
+
+Pass: Value (2): myPropertySet
+      Actual: TRex0
+
+Pass: Key (3): myPropertySet
+      Actual: 32
+
+Pass: Value (3): myPropertySet
+      Actual: TRex32
+
+Pass: Key (4): myPropertySet
+      Actual: insert
+
+Pass: Value (4): myPropertySet
+      Actual: TRex
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 5
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: 0.0
+
+Pass: typeof myPropertySet["0.0"]
+      Actual: string
+
+Pass: myPropertySet["0.0"]
+      Actual: TRex0.0
+
+Pass: myPropertySet's property: 1
+      Actual: 32.56
+
+Pass: typeof myPropertySet["32.56"]
+      Actual: string
+
+Pass: myPropertySet["32.56"]
+      Actual: TRex32.56
+
+Pass: myPropertySet's property: 2
+      Actual: 0
+
+Pass: typeof myPropertySet["0"]
+      Actual: string
+
+Pass: myPropertySet["0"]
+      Actual: TRex0
+
+Pass: myPropertySet's property: 3
+      Actual: 32
+
+Pass: typeof myPropertySet["32"]
+      Actual: string
+
+Pass: myPropertySet["32"]
+      Actual: TRex32
+
+Pass: myPropertySet's property: 4
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 8
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 11
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 12
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 13
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 14
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 15
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 4
+
+Pass: All prototype members read?
+      Actual: 12
+
+PASS [Test 6: MarshalOut : Name conflicting properties : 0, 32 and insert]
+=================================================
+
+=================================================
+Starting [Test 7: MarshalOut : Name conflicting properties : 0.0, 32.14, 38.1, 38]
+Comment: *** Setup prototype for conflicting properties
+Comment: typeof myPropertySet: object
+Comment: Dump of properties : 
+    var myPropertySetMembers = [
+        ['addEventListener', 'function', 2],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getView', 'function', 0],
+        ['hasKey', 'function', 1],
+        ['insert', 'function', 2],
+        ['lookup', 'function', 1],
+        ['onmapchanged', 'object'],
+        ['remove', 'function', 1],
+        ['removeEventListener', 'function', 2],
+        ['size', 'number'],
+        ['toString', 'function', 0],
+        ['38', 'string'],
+        ['0.0', 'string'],
+        ['32.14', 'string'],
+        ['38.1', 'string'],
+    ];
+Pass: typeof myPropertySet
+      Actual: object
+
+Pass: myPropertySet's property
+      Actual: addEventListener
+
+Pass: typeof myPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["addEventListener"].length
+      Actual: 2
+
+Pass: myPropertySet's property
+      Actual: clear
+
+Pass: typeof myPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["clear"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: first
+
+Pass: typeof myPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["first"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: getView
+
+Pass: typeof myPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["getView"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: hasKey
+
+Pass: typeof myPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet["hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["hasKey"].length
+      Actual: 1
+
+Pass: myPropertySet's property
+      Actual: insert
+
+Pass: typeof myPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet["insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["insert"].length
+      Actual: 2
+
+Pass: myPropertySet's property
+      Actual: lookup
+
+Pass: typeof myPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet["lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["lookup"].length
+      Actual: 1
+
+Pass: myPropertySet's property
+      Actual: onmapchanged
+
+Pass: typeof myPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property
+      Actual: remove
+
+Pass: typeof myPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet["remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["remove"].length
+      Actual: 1
+
+Pass: myPropertySet's property
+      Actual: removeEventListener
+
+Pass: typeof myPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["removeEventListener"].length
+      Actual: 2
+
+Pass: myPropertySet's property
+      Actual: size
+
+Pass: typeof myPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property
+      Actual: toString
+
+Pass: typeof myPropertySet["toString"]
+      Actual: function
+
+Pass: myPropertySet["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["toString"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: 38
+
+Pass: typeof myPropertySet["38"]
+      Actual: string
+
+Pass: myPropertySet's property
+      Actual: 0.0
+
+Pass: typeof myPropertySet["0.0"]
+      Actual: string
+
+Pass: myPropertySet's property
+      Actual: 32.14
+
+Pass: typeof myPropertySet["32.14"]
+      Actual: string
+
+Pass: myPropertySet's property
+      Actual: 38.1
+
+Pass: typeof myPropertySet["38.1"]
+      Actual: string
+
+Pass: number of properties of myPropertySet
+      Actual: 16
+
+Comment: *** Set conflicting properties using index operation
+Pass: myPropertySet.hasKey("0.0")
+      Actual: false
+
+Pass: myPropertySet["0.0"]
+      Actual: 0.0 Property
+
+Pass: myPropertySet.hasKey("32.14")
+      Actual: false
+
+Pass: myPropertySet["32.14"]
+      Actual: 32.14 Property
+
+Pass: myPropertySet.hasKey("38.1")
+      Actual: false
+
+Pass: myPropertySet["38.1"]
+      Actual: 38.1 Property
+
+Pass: myPropertySet.hasKey("38")
+      Actual: false
+
+Pass: myPropertySet["38"]
+      Actual: 38 Property
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 1
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 2
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 3
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 4
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 8
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 11
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: myPropertySet's property: 12
+      Actual: 38
+
+Pass: typeofmyPropertySet["38"]
+      Actual: string
+
+Pass: myPropertySet's property: 13
+      Actual: 0.0
+
+Pass: typeofmyPropertySet["0.0"]
+      Actual: string
+
+Pass: myPropertySet's property: 14
+      Actual: 32.14
+
+Pass: typeofmyPropertySet["32.14"]
+      Actual: string
+
+Pass: myPropertySet's property: 15
+      Actual: 38.1
+
+Pass: typeofmyPropertySet["38.1"]
+      Actual: string
+
+Pass: All propertySet contents read?
+      Actual: 0
+
+Pass: All prototype members read?
+      Actual: 16
+
+Comment: *** Add propertySet members using .insert method
+Pass: myPropertySet.hasKey("0.0")
+      Actual: true
+
+Pass: myPropertySet.lookup("0.0")
+      Actual: TRex0.0
+
+Pass: myPropertySet["0.0"]
+      Actual: 0.0 Property
+
+Pass: myPropertySet.hasKey("32.14")
+      Actual: true
+
+Pass: myPropertySet.lookup("32.14")
+      Actual: TRex32.14
+
+Pass: myPropertySet["32.14"]
+      Actual: 32.14 Property
+
+Pass: myPropertySet.hasKey("38.1")
+      Actual: true
+
+Pass: myPropertySet.lookup("38.1")
+      Actual: TRex38.1
+
+Pass: myPropertySet["38.1"]
+      Actual: 38.1 Property
+
+Pass: myPropertySet.hasKey("38")
+      Actual: true
+
+Pass: myPropertySet.lookup("38")
+      Actual: TRex38
+
+Pass: myPropertySet["38"]
+      Actual: 38 Property
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 4
+
+Pass: Key (0): myPropertySet
+      Actual: 38.1
+
+Pass: Value (0): myPropertySet
+      Actual: TRex38.1
+
+Pass: Key (1): myPropertySet
+      Actual: 0.0
+
+Pass: Value (1): myPropertySet
+      Actual: TRex0.0
+
+Pass: Key (2): myPropertySet
+      Actual: 38
+
+Pass: Value (2): myPropertySet
+      Actual: TRex38
+
+Pass: Key (3): myPropertySet
+      Actual: 32.14
+
+Pass: Value (3): myPropertySet
+      Actual: TRex32.14
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 1
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 2
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 3
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 4
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 8
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 11
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: myPropertySet's property: 12
+      Actual: 38
+
+Pass: typeofmyPropertySet["38"]
+      Actual: string
+
+Pass: myPropertySet's property: 13
+      Actual: 0.0
+
+Pass: typeofmyPropertySet["0.0"]
+      Actual: string
+
+Pass: myPropertySet's property: 14
+      Actual: 32.14
+
+Pass: typeofmyPropertySet["32.14"]
+      Actual: string
+
+Pass: myPropertySet's property: 15
+      Actual: 38.1
+
+Pass: typeofmyPropertySet["38.1"]
+      Actual: string
+
+Pass: All propertySet contents read?
+      Actual: 0
+
+Pass: All prototype members read?
+      Actual: 16
+
+Comment: *** Delete the conflicting properties - shouldnt change anything
+Pass: myPropertySet.hasKey("0.0")
+      Actual: true
+
+Pass: myPropertySet.lookup("0.0")
+      Actual: TRex0.0
+
+Pass: myPropertySet["0.0"]
+      Actual: 0.0 Property
+
+Pass: myPropertySet.hasKey("32.14")
+      Actual: true
+
+Pass: myPropertySet.lookup("32.14")
+      Actual: TRex32.14
+
+Pass: myPropertySet["32.14"]
+      Actual: 32.14 Property
+
+Pass: myPropertySet.hasKey("38.1")
+      Actual: true
+
+Pass: myPropertySet.lookup("38.1")
+      Actual: TRex38.1
+
+Pass: myPropertySet["38.1"]
+      Actual: 38.1 Property
+
+Pass: myPropertySet.hasKey("38")
+      Actual: true
+
+Pass: myPropertySet.lookup("38")
+      Actual: TRex38
+
+Pass: myPropertySet["38"]
+      Actual: 38 Property
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 4
+
+Pass: Key (0): myPropertySet
+      Actual: 38.1
+
+Pass: Value (0): myPropertySet
+      Actual: TRex38.1
+
+Pass: Key (1): myPropertySet
+      Actual: 0.0
+
+Pass: Value (1): myPropertySet
+      Actual: TRex0.0
+
+Pass: Key (2): myPropertySet
+      Actual: 38
+
+Pass: Value (2): myPropertySet
+      Actual: TRex38
+
+Pass: Key (3): myPropertySet
+      Actual: 32.14
+
+Pass: Value (3): myPropertySet
+      Actual: TRex32.14
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 4
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 1
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 2
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 3
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 4
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 8
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 11
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: myPropertySet's property: 12
+      Actual: 38
+
+Pass: typeofmyPropertySet["38"]
+      Actual: string
+
+Pass: myPropertySet's property: 13
+      Actual: 0.0
+
+Pass: typeofmyPropertySet["0.0"]
+      Actual: string
+
+Pass: myPropertySet's property: 14
+      Actual: 32.14
+
+Pass: typeofmyPropertySet["32.14"]
+      Actual: string
+
+Pass: myPropertySet's property: 15
+      Actual: 38.1
+
+Pass: typeofmyPropertySet["38.1"]
+      Actual: string
+
+Pass: All propertySet contents read?
+      Actual: 0
+
+Pass: All prototype members read?
+      Actual: 16
+
+Comment: *** Set floating point properties
+Pass: myPropertySet.hasKey("0")
+      Actual: true
+
+Pass: myPropertySet.lookup("0")
+      Actual: TRex0
+
+Pass: myPropertySet["0"]
+      Actual: TRex0
+
+Pass: myPropertySet.hasKey("32")
+      Actual: true
+
+Pass: myPropertySet.lookup("32")
+      Actual: TRex32
+
+Pass: myPropertySet["32"]
+      Actual: TRex32
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 6
+
+Pass: Key (0): myPropertySet
+      Actual: 38.1
+
+Pass: Value (0): myPropertySet
+      Actual: TRex38.1
+
+Pass: Key (1): myPropertySet
+      Actual: 0.0
+
+Pass: Value (1): myPropertySet
+      Actual: TRex0.0
+
+Pass: Key (2): myPropertySet
+      Actual: 0
+
+Pass: Value (2): myPropertySet
+      Actual: TRex0
+
+Pass: Key (3): myPropertySet
+      Actual: 38
+
+Pass: Value (3): myPropertySet
+      Actual: TRex38
+
+Pass: Key (4): myPropertySet
+      Actual: 32
+
+Pass: Value (4): myPropertySet
+      Actual: TRex32
+
+Pass: Key (5): myPropertySet
+      Actual: 32.14
+
+Pass: Value (5): myPropertySet
+      Actual: TRex32.14
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 6
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: 0
+
+Pass: typeof myPropertySet["0"]
+      Actual: string
+
+Pass: myPropertySet["0"]
+      Actual: TRex0
+
+Pass: myPropertySet's property: 1
+      Actual: 32
+
+Pass: typeof myPropertySet["32"]
+      Actual: string
+
+Pass: myPropertySet["32"]
+      Actual: TRex32
+
+Pass: myPropertySet's property: 2
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 3
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 4
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 8
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 10
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 11
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 12
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 13
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: myPropertySet's property: 14
+      Actual: 38
+
+Pass: typeofmyPropertySet["38"]
+      Actual: string
+
+Pass: myPropertySet's property: 15
+      Actual: 0.0
+
+Pass: typeofmyPropertySet["0.0"]
+      Actual: string
+
+Pass: myPropertySet's property: 16
+      Actual: 32.14
+
+Pass: typeofmyPropertySet["32.14"]
+      Actual: string
+
+Pass: myPropertySet's property: 17
+      Actual: 38.1
+
+Pass: typeofmyPropertySet["38.1"]
+      Actual: string
+
+Pass: All propertySet contents read?
+      Actual: 2
+
+Pass: All prototype members read?
+      Actual: 16
+
+Comment: *** Delete the object.prototype properties
+Pass: myPropertySet["0.0"]
+      Actual: TRex0.0
+
+Pass: myPropertySet["32.14"]
+      Actual: TRex32.14
+
+Pass: myPropertySet["38"]
+      Actual: TRex38
+
+Pass: myPropertySet["38.1"]
+      Actual: TRex38.1
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 6
+
+Pass: Key (0): myPropertySet
+      Actual: 38.1
+
+Pass: Value (0): myPropertySet
+      Actual: TRex38.1
+
+Pass: Key (1): myPropertySet
+      Actual: 0.0
+
+Pass: Value (1): myPropertySet
+      Actual: TRex0.0
+
+Pass: Key (2): myPropertySet
+      Actual: 0
+
+Pass: Value (2): myPropertySet
+      Actual: TRex0
+
+Pass: Key (3): myPropertySet
+      Actual: 38
+
+Pass: Value (3): myPropertySet
+      Actual: TRex38
+
+Pass: Key (4): myPropertySet
+      Actual: 32
+
+Pass: Value (4): myPropertySet
+      Actual: TRex32
+
+Pass: Key (5): myPropertySet
+      Actual: 32.14
+
+Pass: Value (5): myPropertySet
+      Actual: TRex32.14
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 6
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: 38.1
+
+Pass: typeof myPropertySet["38.1"]
+      Actual: string
+
+Pass: myPropertySet["38.1"]
+      Actual: TRex38.1
+
+Pass: myPropertySet's property: 1
+      Actual: 0.0
+
+Pass: typeof myPropertySet["0.0"]
+      Actual: string
+
+Pass: myPropertySet["0.0"]
+      Actual: TRex0.0
+
+Pass: myPropertySet's property: 2
+      Actual: 0
+
+Pass: typeof myPropertySet["0"]
+      Actual: string
+
+Pass: myPropertySet["0"]
+      Actual: TRex0
+
+Pass: myPropertySet's property: 3
+      Actual: 38
+
+Pass: typeof myPropertySet["38"]
+      Actual: string
+
+Pass: myPropertySet["38"]
+      Actual: TRex38
+
+Pass: myPropertySet's property: 4
+      Actual: 32
+
+Pass: typeof myPropertySet["32"]
+      Actual: string
+
+Pass: myPropertySet["32"]
+      Actual: TRex32
+
+Pass: myPropertySet's property: 5
+      Actual: 32.14
+
+Pass: typeof myPropertySet["32.14"]
+      Actual: string
+
+Pass: myPropertySet["32.14"]
+      Actual: TRex32.14
+
+Pass: myPropertySet's property: 6
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 8
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 11
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 12
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 13
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 14
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 15
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 16
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 17
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 6
+
+Pass: All prototype members read?
+      Actual: 12
+
+PASS [Test 7: MarshalOut : Name conflicting properties : 0.0, 32.14, 38.1, 38]
+=================================================
+
+=================================================
+Starting [Test 8: MarshalOut : Name conflicting properties onmapchanged]
+Comment: *** Set conflicting properties using index operation
+Pass: myPropertySet.hasKey("onmapchanged")
+      Actual: false
+
+Pass: myPropertySet["onmapchanged"]
+      Actual: null
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 1
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 2
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 3
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 4
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 8
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 11
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 0
+
+Pass: All prototype members read?
+      Actual: 12
+
+Comment: *** Add propertySet members using .insert method
+Pass: myPropertySet.hasKey("onmapchanged")
+      Actual: true
+
+Pass: myPropertySet.lookup("onmapchanged")
+      Actual: TRex
+
+Pass: myPropertySet["onmapchanged"]
+      Actual: null
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 1
+
+Pass: Key (0): myPropertySet
+      Actual: onmapchanged
+
+Pass: Value (0): myPropertySet
+      Actual: TRex
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 1
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 1
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 2
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 3
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 4
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 8
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 11
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 0
+
+Pass: All prototype members read?
+      Actual: 12
+
+Comment: *** Delete the conflicting properties - shouldnt change anything
+Pass: myPropertySet.hasKey("onmapchanged")
+      Actual: true
+
+Pass: myPropertySet.lookup("onmapchanged")
+      Actual: TRex
+
+Pass: myPropertySet["onmapchanged"]
+      Actual: null
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 1
+
+Pass: Key (0): myPropertySet
+      Actual: onmapchanged
+
+Pass: Value (0): myPropertySet
+      Actual: TRex
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 1
+
+Comment: Verifying enumerator of : myPropertySet
+Pass: myPropertySet's property: 0
+      Actual: addEventListener
+
+Pass: typeofmyPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 1
+      Actual: clear
+
+Pass: typeofmyPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet's property: 2
+      Actual: first
+
+Pass: typeofmyPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet's property: 3
+      Actual: getView
+
+Pass: typeofmyPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet's property: 4
+      Actual: hasKey
+
+Pass: typeofmyPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet's property: 5
+      Actual: insert
+
+Pass: typeofmyPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet's property: 6
+      Actual: lookup
+
+Pass: typeofmyPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet's property: 7
+      Actual: onmapchanged
+
+Pass: typeofmyPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property: 8
+      Actual: remove
+
+Pass: typeofmyPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet's property: 9
+      Actual: removeEventListener
+
+Pass: typeofmyPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet's property: 10
+      Actual: size
+
+Pass: typeofmyPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property: 11
+      Actual: toString
+
+Pass: typeofmyPropertySet["toString"]
+      Actual: function
+
+Pass: All propertySet contents read?
+      Actual: 0
+
+Pass: All prototype members read?
+      Actual: 12
+
+PASS [Test 8: MarshalOut : Name conflicting properties onmapchanged]
+=================================================
+
+=================================================
+Starting [Test 9: MarshalIn : PropertySet]
+Pass: Animals.Animal.SendBackSamePropertySet(myPropertySet)
+      Actual: [object Windows.Foundation.Collections.PropertySet]
+
+Comment: typeof myPropertySet: object
+Comment: Dump of properties : 
+    var myPropertySetMembers = [
+        ['addEventListener', 'function', 2],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getView', 'function', 0],
+        ['hasKey', 'function', 1],
+        ['insert', 'function', 2],
+        ['lookup', 'function', 1],
+        ['onmapchanged', 'object'],
+        ['remove', 'function', 1],
+        ['removeEventListener', 'function', 2],
+        ['size', 'number'],
+        ['toString', 'function', 0],
+    ];
+Pass: typeof myPropertySet
+      Actual: object
+
+Pass: myPropertySet's property
+      Actual: addEventListener
+
+Pass: typeof myPropertySet["addEventListener"]
+      Actual: function
+
+Pass: myPropertySet["addEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["addEventListener"].length
+      Actual: 2
+
+Pass: myPropertySet's property
+      Actual: clear
+
+Pass: typeof myPropertySet["clear"]
+      Actual: function
+
+Pass: myPropertySet["clear"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["clear"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: first
+
+Pass: typeof myPropertySet["first"]
+      Actual: function
+
+Pass: myPropertySet["first"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["first"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: getView
+
+Pass: typeof myPropertySet["getView"]
+      Actual: function
+
+Pass: myPropertySet["getView"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["getView"].length
+      Actual: 0
+
+Pass: myPropertySet's property
+      Actual: hasKey
+
+Pass: typeof myPropertySet["hasKey"]
+      Actual: function
+
+Pass: myPropertySet["hasKey"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["hasKey"].length
+      Actual: 1
+
+Pass: myPropertySet's property
+      Actual: insert
+
+Pass: typeof myPropertySet["insert"]
+      Actual: function
+
+Pass: myPropertySet["insert"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["insert"].length
+      Actual: 2
+
+Pass: myPropertySet's property
+      Actual: lookup
+
+Pass: typeof myPropertySet["lookup"]
+      Actual: function
+
+Pass: myPropertySet["lookup"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["lookup"].length
+      Actual: 1
+
+Pass: myPropertySet's property
+      Actual: onmapchanged
+
+Pass: typeof myPropertySet["onmapchanged"]
+      Actual: object
+
+Pass: myPropertySet's property
+      Actual: remove
+
+Pass: typeof myPropertySet["remove"]
+      Actual: function
+
+Pass: myPropertySet["remove"].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["remove"].length
+      Actual: 1
+
+Pass: myPropertySet's property
+      Actual: removeEventListener
+
+Pass: typeof myPropertySet["removeEventListener"]
+      Actual: function
+
+Pass: myPropertySet["removeEventListener"].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["removeEventListener"].length
+      Actual: 2
+
+Pass: myPropertySet's property
+      Actual: size
+
+Pass: typeof myPropertySet["size"]
+      Actual: number
+
+Pass: myPropertySet's property
+      Actual: toString
+
+Pass: typeof myPropertySet["toString"]
+      Actual: function
+
+Pass: myPropertySet["toString"].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myPropertySet["toString"].length
+      Actual: 0
+
+Pass: number of properties of myPropertySet
+      Actual: 12
+
+Pass: Marshaling object as PropertySet returned (TypeError: Type mismatch)
+      Actual: true
+
+PASS [Test 9: MarshalIn : PropertySet]
+=================================================
+
+=================================================
+Starting [Test 10: MarshalOut : PropertySet IMap methods and [] mixing]
+Comment: *** Set property using [] operation
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 3
+
+Pass: Key (0): myPropertySet
+      Actual: prop2
+
+Pass: Value (0): myPropertySet
+      Actual: Property 2
+
+Pass: Key (1): myPropertySet
+      Actual: prop1
+
+Pass: Value (1): myPropertySet
+      Actual: Property 1
+
+Pass: Key (2): myPropertySet
+      Actual: prop3
+
+Pass: Value (2): myPropertySet
+      Actual: Property 3
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: *** Add property override using insert method
+Pass: myPropertySet.insert("prop2", "Override property 2")
+      Actual: true
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 3
+
+Pass: Key (0): myPropertySet
+      Actual: prop2
+
+Pass: Value (0): myPropertySet
+      Actual: Override Property 2
+
+Pass: Key (1): myPropertySet
+      Actual: prop1
+
+Pass: Value (1): myPropertySet
+      Actual: Property 1
+
+Pass: Key (2): myPropertySet
+      Actual: prop3
+
+Pass: Value (2): myPropertySet
+      Actual: Property 3
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 3
+
+Comment: *** Remove property using remove method
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 2
+
+Pass: Key (0): myPropertySet
+      Actual: prop2
+
+Pass: Value (0): myPropertySet
+      Actual: Override Property 2
+
+Pass: Key (1): myPropertySet
+      Actual: prop3
+
+Pass: Value (1): myPropertySet
+      Actual: Property 3
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Comment: *** Clear all properties using clear method
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+PASS [Test 10: MarshalOut : PropertySet IMap methods and [] mixing]
+=================================================
+
+=================================================
+Starting [Test 11: MarshalOut : PropertySet IObservable methods and [] mixing]
+Comment: ** Set event handler
+Pass: myPropertySet.onmapchanged
+      Actual: function mapChangedEvent(ev) {
+                logger.comment("*** mapChanegdEvent : start ***");
+
+                verify(ev.type, "mapchanged", "ev.type");
+                verify(ev.target, myPropertySet, "ev.target");
+
+                verify(ev.collectionChange, expectedCollectionChange, "ev.collectionChange");
+                verify(ev.key, expectedKey, "ev.key");
+
+                verifyPropertyContents("ev.target", ev.target, expectedContents);
+
+                eventCount++;
+
+                logger.comment("*** mapChanegdEvent : end ***");
+            }
+
+Comment: ** Set property using [] operation
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.PropertySet]
+
+Pass: ev.collectionChange
+      Actual: 1
+
+Pass: ev.key
+      Actual: prop1
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 1
+
+Pass: Key (0): ev.target
+      Actual: prop1
+
+Pass: Value (0): ev.target
+      Actual: Property 1
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 1
+
+Comment: *** mapChanegdEvent : end ***
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 1
+
+Pass: Key (0): myPropertySet
+      Actual: prop1
+
+Pass: Value (0): myPropertySet
+      Actual: Property 1
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 1
+
+Comment: ** Set property using insert method
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.PropertySet]
+
+Pass: ev.collectionChange
+      Actual: 1
+
+Pass: ev.key
+      Actual: prop2
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 2
+
+Pass: Key (0): ev.target
+      Actual: prop2
+
+Pass: Value (0): ev.target
+      Actual: Property 2
+
+Pass: Key (1): ev.target
+      Actual: prop1
+
+Pass: Value (1): ev.target
+      Actual: Property 1
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Comment: *** mapChanegdEvent : end ***
+Pass: myPropertySet.insert("prop2", "Property 2")
+      Actual: false
+
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 2
+
+Pass: Key (0): myPropertySet
+      Actual: prop2
+
+Pass: Value (0): myPropertySet
+      Actual: Property 2
+
+Pass: Key (1): myPropertySet
+      Actual: prop1
+
+Pass: Value (1): myPropertySet
+      Actual: Property 1
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Comment: ** Change property using [] operation
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.PropertySet]
+
+Pass: ev.collectionChange
+      Actual: 3
+
+Pass: ev.key
+      Actual: prop1
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 2
+
+Pass: Key (0): ev.target
+      Actual: prop2
+
+Pass: Value (0): ev.target
+      Actual: Property 2
+
+Pass: Key (1): ev.target
+      Actual: prop1
+
+Pass: Value (1): ev.target
+      Actual: Changed Property 1
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Comment: *** mapChanegdEvent : end ***
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 2
+
+Pass: Key (0): myPropertySet
+      Actual: prop2
+
+Pass: Value (0): myPropertySet
+      Actual: Property 2
+
+Pass: Key (1): myPropertySet
+      Actual: prop1
+
+Pass: Value (1): myPropertySet
+      Actual: Changed Property 1
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Comment: ** Change property using insert method
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.PropertySet]
+
+Pass: ev.collectionChange
+      Actual: 3
+
+Pass: ev.key
+      Actual: prop2
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 2
+
+Pass: Key (0): ev.target
+      Actual: prop2
+
+Pass: Value (0): ev.target
+      Actual: Changed Property 2
+
+Pass: Key (1): ev.target
+      Actual: prop1
+
+Pass: Value (1): ev.target
+      Actual: Changed Property 1
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Comment: *** mapChanegdEvent : end ***
+Pass: myPropertySet.insert("prop2", "Changed Property 2")
+      Actual: true
+
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 2
+
+Pass: Key (0): myPropertySet
+      Actual: prop2
+
+Pass: Value (0): myPropertySet
+      Actual: Changed Property 2
+
+Pass: Key (1): myPropertySet
+      Actual: prop1
+
+Pass: Value (1): myPropertySet
+      Actual: Changed Property 1
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 2
+
+Comment: ** Remove property using delete operation
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.PropertySet]
+
+Pass: ev.collectionChange
+      Actual: 2
+
+Pass: ev.key
+      Actual: prop2
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 1
+
+Pass: Key (0): ev.target
+      Actual: prop1
+
+Pass: Value (0): ev.target
+      Actual: Changed Property 1
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 1
+
+Comment: *** mapChanegdEvent : end ***
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 1
+
+Pass: Key (0): myPropertySet
+      Actual: prop1
+
+Pass: Value (0): myPropertySet
+      Actual: Changed Property 1
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 1
+
+Comment: ** Remove property using remove method
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.PropertySet]
+
+Pass: ev.collectionChange
+      Actual: 2
+
+Pass: ev.key
+      Actual: prop1
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Comment: *** mapChanegdEvent : end ***
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Comment: ** Setting key insert using [] operation
+Pass: Event Count
+      Actual: 0
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Comment: ** Setting key insert using insert method
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.PropertySet]
+
+Pass: ev.collectionChange
+      Actual: 1
+
+Pass: ev.key
+      Actual: insert
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 1
+
+Pass: Key (0): ev.target
+      Actual: insert
+
+Pass: Value (0): ev.target
+      Actual: Insert Property
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 1
+
+Comment: *** mapChanegdEvent : end ***
+Pass: myPropertySet.insert("insert", "Insert Property")
+      Actual: false
+
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 1
+
+Pass: Key (0): myPropertySet
+      Actual: insert
+
+Pass: Value (0): myPropertySet
+      Actual: Insert Property
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 1
+
+Comment: ** Clear all properties using clear method
+Comment: *** mapChanegdEvent : start ***
+Pass: ev.type
+      Actual: mapchanged
+
+Pass: ev.target
+      Actual: [object Windows.Foundation.Collections.PropertySet]
+
+Pass: ev.collectionChange
+      Actual: 0
+
+Pass: ev.key
+      Actual: 
+
+Comment: Verifying contents of : ev.target
+Pass: ev.target.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Comment: *** mapChanegdEvent : end ***
+Pass: Event Count
+      Actual: 1
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 0
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 0
+
+Comment: ** remove event handler
+Pass: myPropertySet.onmapchanged
+      Actual: null
+
+Comment: ** Set new property using [] operation
+Pass: Event Count
+      Actual: 0
+
+Comment: Verifying contents of : myPropertySet
+Pass: myPropertySet.size
+      Actual: 1
+
+Pass: Key (0): myPropertySet
+      Actual: prop3
+
+Pass: Value (0): myPropertySet
+      Actual: Property 3
+
+Pass: AllIterator members read
+      Actual: true
+
+Pass: All expected members found
+      Actual: 1
+
+PASS [Test 11: MarshalOut : PropertySet IObservable methods and [] mixing]
+=================================================
+
+Passed: 11
+Failed: 0

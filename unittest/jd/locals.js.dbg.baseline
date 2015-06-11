@@ -1,0 +1,130 @@
+[
+  {
+    "locals": {
+      "this - [Type]": "Object",
+      "this": {
+        "__proto__ - [Type]": "Object",
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Null",
+          "__proto__": "null"
+        }
+      },
+      "arguments - [Type]": "Object, (Arguments)",
+      "arguments": {
+        "[Methods]": {
+          "callee - [Type]": "Object, (Function)",
+          "callee": "function f1(){\n\n    var n = null;\n    var u = undefined;\n    var a;\n    \n    /**bp:locals(2, LOCALS_TYPE)**/\n}",
+          "Symbol.iterator - [Type]": "Object, (Function)",
+          "Symbol.iterator": "function values() { [native code] }"
+        },
+        "__proto__ - [Type]": "Object",
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Null",
+          "__proto__": "null"
+        },
+        "length - [Type]": "Number",
+        "length": "0"
+      },
+      "n - [Type]": "Null",
+      "n": "null",
+      "u - [Type]": "Undefined",
+      "u": "undefined",
+      "a - [Type]": "Undefined",
+      "a": "undefined",
+      "[Globals]": {}
+    }
+  },
+  {
+    "locals": {
+      "this - [Type]": "Object",
+      "this": {
+        "__proto__ - [Type]": "Object",
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Null",
+          "__proto__": "null"
+        }
+      },
+      "arguments - [Type]": "Object, (Arguments)",
+      "arguments": {
+        "[Methods]": {
+          "callee - [Type]": "Object, (Function)",
+          "callee": "function f2(){\n    var n;\n    var u;\n    var n1 = null;\n    var n2;\n    \n    (function(){\n        n = null;\n        u = undefined;\n    })();\n    \n    /**bp:locals(2, LOCALS_TYPE)**/\n}",
+          "Symbol.iterator - [Type]": "Object, (Function)",
+          "Symbol.iterator": "function values() { [native code] }"
+        },
+        "__proto__ - [Type]": "Object",
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Null",
+          "__proto__": "null"
+        },
+        "length - [Type]": "Number",
+        "length": "0"
+      },
+      "n1 - [Type]": "Null",
+      "n1": "null",
+      "n2 - [Type]": "Undefined",
+      "n2": "undefined",
+      "n - [Type]": "Null",
+      "n": "null",
+      "u - [Type]": "Undefined",
+      "u": "undefined",
+      "[Globals]": {}
+    }
+  },
+  {
+    "locals": {
+      "this - [Type]": "Object",
+      "this": {
+        "__proto__ - [Type]": "Object",
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Null",
+          "__proto__": "null"
+        }
+      },
+      "arguments - [Type]": "Object, (Arguments)",
+      "arguments": {
+        "[Methods]": {
+          "callee - [Type]": "Object, (Function)",
+          "callee": "function f3(){\n    var n = null;\n    var u = undefined;\n\n    eval(\"\");\n\n    /**bp:locals(2, LOCALS_TYPE)**/\n}",
+          "Symbol.iterator - [Type]": "Object, (Function)",
+          "Symbol.iterator": "function values() { [native code] }"
+        },
+        "__proto__ - [Type]": "Object",
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Null",
+          "__proto__": "null"
+        },
+        "length - [Type]": "Number",
+        "length": "0"
+      },
+      "n - [Type]": "Null",
+      "n": "null",
+      "u - [Type]": "Undefined",
+      "u": "undefined",
+      "[Scope]1": {
+        "f3 - [Type]": "Object, (Function)",
+        "f3": {
+          "__proto__ - [Type]": "Object, (Function)",
+          "__proto__": "\nfunction() {\n    [native code]\n}\n",
+          "arguments - [Type]": "Object, (Arguments)",
+          "arguments": "{...}",
+          "caller - [Type]": "Null",
+          "caller": "null",
+          "length - [Type]": "Number",
+          "length": "0",
+          "name - [Type]": "String",
+          "name": "f3",
+          "prototype - [Type]": "Object, (f3)",
+          "prototype": "{...}"
+        }
+      },
+      "[Globals]": {}
+    }
+  }
+]

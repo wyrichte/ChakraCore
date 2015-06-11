@@ -1,0 +1,27 @@
+<html>
+<body  onload="OnLoad()" > 
+<script>
+function GetRoundtripTimeFunction()
+{
+  
+    return function() 
+    {
+ 
+    }
+
+}
+
+
+
+function OnLoad()
+{
+  var img = new Image();
+
+  img.onload = GetRoundtripTimeFunction();
+
+}
+</script>
+</body>
+
+</html>
+

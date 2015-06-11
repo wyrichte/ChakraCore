@@ -1,0 +1,33 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 132,
+        "length": 11,
+        "text": "var foo = 1",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 375,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 452,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "x": "100",
+      "y": "100",
+      "[Globals]": ""
+    }
+  }
+]

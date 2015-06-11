@@ -1,0 +1,152 @@
+{
+  "testname" : "Authoring Tokens - Test colorization tokens for a source file",
+  "owner" : "chuckj",
+  "validated" : true,
+  "timeout" : 1000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "_comment1" : "Supply a file with at least one error",
+  "_comment2" : "",
+  "runAuthoringTest" : true,
+  "commands" :
+  [
+{
+  "action": "getTokenRanges",
+  "args": [
+    "bug66801.js"
+  ],
+  "events": [
+    {
+      "lines": [
+        {
+          "line": 0,
+          "level": 0,
+          "tokens": [
+            {
+              "start": 0,
+              "end": 3,
+              "kind": "keyword"
+            },
+            {
+              "start": 4,
+              "end": 6,
+              "kind": "identifier"
+            },
+            {
+              "start": 7,
+              "end": 8,
+              "kind": "operator"
+            },
+            {
+              "start": 9,
+              "end": 17,
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "line": 1,
+          "level": 0,
+          "tokens": [
+            {
+              "start": 0,
+              "end": 20,
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "line": 2,
+          "level": 0,
+          "tokens": [
+            {
+              "start": 0,
+              "end": 15,
+              "kind": "string"
+            },
+            {
+              "start": 15,
+              "end": 16,
+              "kind": "operator"
+            }
+          ]
+        },
+        {
+          "line": 3,
+          "level": 0,
+          "tokens": []
+        },
+        {
+          "line": 4,
+          "level": 0,
+          "tokens": [
+            {
+              "start": 0,
+              "end": 3,
+              "kind": "keyword"
+            },
+            {
+              "start": 4,
+              "end": 6,
+              "kind": "identifier"
+            },
+            {
+              "start": 7,
+              "end": 8,
+              "kind": "operator"
+            },
+            {
+              "start": 9,
+              "end": 17,
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "line": 5,
+          "level": 0,
+          "tokens": [
+            {
+              "start": 0,
+              "end": 20,
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "line": 6,
+          "level": 0,
+          "tokens": [
+            {
+              "start": 0,
+              "end": 15,
+              "kind": "string"
+            },
+            {
+              "start": 15,
+              "end": 16,
+              "kind": "operator"
+            }
+          ]
+        },
+        {
+          "line": 7,
+          "level": 0,
+          "tokens": []
+        },
+        {
+          "line": 8,
+          "level": 0,
+          "tokens": []
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

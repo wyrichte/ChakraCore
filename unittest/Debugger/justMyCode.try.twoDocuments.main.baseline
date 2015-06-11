@@ -1,0 +1,10 @@
+Print() - IsInJitMode() == false
+Start!
+DO() - IsInJitMode() == false
+Print() - IsInJitMode() == false
+Do() with i=0
+Caught error: throw at 1st iteration!
+Print() - IsInJitMode() == false
+Do() with i=1
+Print() - IsInJitMode() == false
+Completed!

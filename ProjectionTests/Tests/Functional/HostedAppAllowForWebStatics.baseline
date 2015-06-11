@@ -1,0 +1,4092 @@
+Statics test for allowForWeb hosted app
+
+=================================================
+Starting [Test 0: Verify that members appear the same before and after a method call]
+Comment: Objectdump: 
+    var objectDumpMembers = [
+        ['animalObjectSize', 'number'],
+        ['callDelegateWithExtinct', 'function', 1],
+        ['callDelegateWithFish', 'function', 1],
+        ['callDelegateWithIFish', 'function', 1],
+        ['callDelegateWithInFloat', 'function', 2],
+        ['callDelegateWithInOutBigComplexStruct', 'function', 2],
+        ['callDelegateWithInOutFloat', 'function', 6],
+        ['callDelegateWithInOutOddSizedStruct', 'function', 2],
+        ['callDelegateWithInOutPackedBoolean', 'function', 2],
+        ['callDelegateWithInOutPackedByte', 'function', 2],
+        ['callDelegateWithInOutSmallComplexStruct', 'function', 2],
+        ['callDelegateWithInParam_BigStruct', 'function', 5],
+        ['callDelegateWithLikeToSwim', 'function', 1],
+        ['callDelegateWithOutFloat', 'function', 1],
+        ['callDelegateWithOutParam_BigStruct', 'function', 1],
+        ['callMyFishMethod', 'function', 1],
+        ['dinoDefault', 'function', 0],
+        ['dinoDefaultVector', 'function', 0],
+        ['dinoMarshalAs', 'function', 0],
+        ['fillUInt8Array', 'function', 2],
+        ['getAnswer', 'function', 0],
+        ['getBigComplexStructArray', 'function', 0],
+        ['getCLSID', 'function', 0],
+        ['getDoubleObservableMap', 'function', 0],
+        ['getNullAsAnimal', 'function', 0],
+        ['getNullAsMap', 'function', 0],
+        ['getNullAsObservableVector', 'function', 0],
+        ['getNullAsPropertyValue', 'function', 0],
+        ['getNullAsVector', 'function', 0],
+        ['getObservableStringIntegerMap', 'function', 0],
+        ['getOddSizedStructArray', 'function', 0],
+        ['getOneAnimal', 'function', 0],
+        ['getOneEmptyGRCNFail', 'function', 0],
+        ['getOneEmptyGRCNInterface', 'function', 0],
+        ['getOneEmptyGRCNNull', 'function', 0],
+        ['getOneMap', 'function', 0],
+        ['getOneObservableVector', 'function', 0],
+        ['getOnePropertyValue', 'function', 0],
+        ['getOneVector', 'function', 0],
+        ['getPackedBooleanArray', 'function', 0],
+        ['getPackedByteArray', 'function', 0],
+        ['getRefCount', 'function', 1],
+        ['getSmallComplexStructArray', 'function', 0],
+        ['getStaticAnimalAsInspectable', 'function', 0],
+        ['getStaticAnimalAsStaticInterface', 'function', 0],
+        ['getStringHiddenTypeMap', 'function', 0],
+        ['getStringIntegerMap', 'function', 0],
+        ['isLovable', 'boolean'],
+        ['marshalInAndOutBigComplexStruct', 'function', 1],
+        ['marshalInAndOutOddSizedStruct', 'function', 1],
+        ['marshalInAndOutPackedBoolean', 'function', 1],
+        ['marshalInAndOutPackedByte', 'function', 1],
+        ['marshalInAndOutSmallComplexStruct', 'function', 1],
+        ['methodWithInParam_BigStruct', 'function', 1],
+        ['methodWithOutParam_BigStruct', 'function', 4],
+        ['multiplyNumbers', 'function', 2],
+        ['myDino', 'undefined'],
+        ['myExtinct', 'object'],
+        ['myFish', 'undefined'],
+        ['myFishRefCount', 'number'],
+        ['myIFish', 'object'],
+        ['myLikeToSwim', 'object'],
+        ['myStaticArrayProp', 'object'],
+        ['myStaticArrayPropHSTRING', 'object'],
+        ['myToaster', 'undefined'],
+        ['myToasterRefCount', 'number'],
+        ['passUInt8Array', 'function', 1],
+        ['sendBackSameDino', 'function', 1],
+        ['sendBackSameExtinct', 'function', 1],
+        ['sendBackSameFish', 'function', 1],
+        ['sendBackSameIDino', 'function', 1],
+        ['sendBackSameIFish', 'function', 1],
+        ['sendBackSameInspectableVector', 'function', 1],
+        ['sendBackSameLikeToSwim', 'function', 1],
+        ['sendBackSamePropertySet', 'function', 1],
+        ['staticFastPath', 'function', 0],
+        ['staticFastPathIn', 'function', 1],
+        ['staticFastPathInIn', 'function', 2],
+        ['staticFastPathInOut', 'function', 1],
+        ['staticFastPathOut', 'function', 0],
+        ['staticSlowPath', 'function', 6],
+        ['takeANap', 'function', 1],
+        ['testDefaultAnimal', 'function', 1],
+        ['testDefaultDino', 'function', 1],
+        ['testDefaultFish', 'function', 1],
+        ['testDefaultMultipleIVector', 'function', 1],
+    ];
+Pass: type
+      Actual: function
+
+Pass: name
+      Actual: animalObjectSize
+
+Pass: typeof function Animal() { [native code] }[animalObjectSize]
+      Actual: number
+
+Pass: name
+      Actual: callDelegateWithExtinct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithExtinct]
+      Actual: function
+
+Pass: callDelegateWithExtinct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithExtinct.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithFish
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithFish]
+      Actual: function
+
+Pass: callDelegateWithFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithFish.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithIFish
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithIFish]
+      Actual: function
+
+Pass: callDelegateWithIFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithIFish.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithInFloat
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInFloat]
+      Actual: function
+
+Pass: callDelegateWithInFloat.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInFloat.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutBigComplexStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutBigComplexStruct]
+      Actual: function
+
+Pass: callDelegateWithInOutBigComplexStruct.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutBigComplexStruct.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutFloat
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutFloat]
+      Actual: function
+
+Pass: callDelegateWithInOutFloat.length
+      Actual: 6
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutFloat.length
+      Actual: 6
+
+Pass: name
+      Actual: callDelegateWithInOutOddSizedStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutOddSizedStruct]
+      Actual: function
+
+Pass: callDelegateWithInOutOddSizedStruct.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutOddSizedStruct.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutPackedBoolean
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutPackedBoolean]
+      Actual: function
+
+Pass: callDelegateWithInOutPackedBoolean.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutPackedBoolean.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutPackedByte
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutPackedByte]
+      Actual: function
+
+Pass: callDelegateWithInOutPackedByte.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutPackedByte.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutSmallComplexStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutSmallComplexStruct]
+      Actual: function
+
+Pass: callDelegateWithInOutSmallComplexStruct.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutSmallComplexStruct.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInParam_BigStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInParam_BigStruct]
+      Actual: function
+
+Pass: callDelegateWithInParam_BigStruct.length
+      Actual: 5
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInParam_BigStruct.length
+      Actual: 5
+
+Pass: name
+      Actual: callDelegateWithLikeToSwim
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithLikeToSwim]
+      Actual: function
+
+Pass: callDelegateWithLikeToSwim.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithLikeToSwim.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithOutFloat
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithOutFloat]
+      Actual: function
+
+Pass: callDelegateWithOutFloat.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithOutFloat.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithOutParam_BigStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithOutParam_BigStruct]
+      Actual: function
+
+Pass: callDelegateWithOutParam_BigStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithOutParam_BigStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: callMyFishMethod
+
+Pass: typeof function Animal() { [native code] }[callMyFishMethod]
+      Actual: function
+
+Pass: callMyFishMethod.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callMyFishMethod.length
+      Actual: 1
+
+Pass: name
+      Actual: dinoDefault
+
+Pass: typeof function Animal() { [native code] }[dinoDefault]
+      Actual: function
+
+Pass: dinoDefault.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: dinoDefault.length
+      Actual: 0
+
+Pass: name
+      Actual: dinoDefaultVector
+
+Pass: typeof function Animal() { [native code] }[dinoDefaultVector]
+      Actual: function
+
+Pass: dinoDefaultVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: dinoDefaultVector.length
+      Actual: 0
+
+Pass: name
+      Actual: dinoMarshalAs
+
+Pass: typeof function Animal() { [native code] }[dinoMarshalAs]
+      Actual: function
+
+Pass: dinoMarshalAs.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: dinoMarshalAs.length
+      Actual: 0
+
+Pass: name
+      Actual: fillUInt8Array
+
+Pass: typeof function Animal() { [native code] }[fillUInt8Array]
+      Actual: function
+
+Pass: fillUInt8Array.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: fillUInt8Array.length
+      Actual: 2
+
+Pass: name
+      Actual: getAnswer
+
+Pass: typeof function Animal() { [native code] }[getAnswer]
+      Actual: function
+
+Pass: getAnswer.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getAnswer.length
+      Actual: 0
+
+Pass: name
+      Actual: getBigComplexStructArray
+
+Pass: typeof function Animal() { [native code] }[getBigComplexStructArray]
+      Actual: function
+
+Pass: getBigComplexStructArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getBigComplexStructArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getCLSID
+
+Pass: typeof function Animal() { [native code] }[getCLSID]
+      Actual: function
+
+Pass: getCLSID.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getCLSID.length
+      Actual: 0
+
+Pass: name
+      Actual: getDoubleObservableMap
+
+Pass: typeof function Animal() { [native code] }[getDoubleObservableMap]
+      Actual: function
+
+Pass: getDoubleObservableMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getDoubleObservableMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsAnimal
+
+Pass: typeof function Animal() { [native code] }[getNullAsAnimal]
+      Actual: function
+
+Pass: getNullAsAnimal.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsAnimal.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsMap
+
+Pass: typeof function Animal() { [native code] }[getNullAsMap]
+      Actual: function
+
+Pass: getNullAsMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsObservableVector
+
+Pass: typeof function Animal() { [native code] }[getNullAsObservableVector]
+      Actual: function
+
+Pass: getNullAsObservableVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsObservableVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsPropertyValue
+
+Pass: typeof function Animal() { [native code] }[getNullAsPropertyValue]
+      Actual: function
+
+Pass: getNullAsPropertyValue.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsPropertyValue.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsVector
+
+Pass: typeof function Animal() { [native code] }[getNullAsVector]
+      Actual: function
+
+Pass: getNullAsVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getObservableStringIntegerMap
+
+Pass: typeof function Animal() { [native code] }[getObservableStringIntegerMap]
+      Actual: function
+
+Pass: getObservableStringIntegerMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getObservableStringIntegerMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getOddSizedStructArray
+
+Pass: typeof function Animal() { [native code] }[getOddSizedStructArray]
+      Actual: function
+
+Pass: getOddSizedStructArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOddSizedStructArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneAnimal
+
+Pass: typeof function Animal() { [native code] }[getOneAnimal]
+      Actual: function
+
+Pass: getOneAnimal.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneAnimal.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNFail
+
+Pass: typeof function Animal() { [native code] }[getOneEmptyGRCNFail]
+      Actual: function
+
+Pass: getOneEmptyGRCNFail.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNFail.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNInterface
+
+Pass: typeof function Animal() { [native code] }[getOneEmptyGRCNInterface]
+      Actual: function
+
+Pass: getOneEmptyGRCNInterface.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNInterface.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNNull
+
+Pass: typeof function Animal() { [native code] }[getOneEmptyGRCNNull]
+      Actual: function
+
+Pass: getOneEmptyGRCNNull.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNNull.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneMap
+
+Pass: typeof function Animal() { [native code] }[getOneMap]
+      Actual: function
+
+Pass: getOneMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneObservableVector
+
+Pass: typeof function Animal() { [native code] }[getOneObservableVector]
+      Actual: function
+
+Pass: getOneObservableVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneObservableVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getOnePropertyValue
+
+Pass: typeof function Animal() { [native code] }[getOnePropertyValue]
+      Actual: function
+
+Pass: getOnePropertyValue.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOnePropertyValue.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneVector
+
+Pass: typeof function Animal() { [native code] }[getOneVector]
+      Actual: function
+
+Pass: getOneVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getPackedBooleanArray
+
+Pass: typeof function Animal() { [native code] }[getPackedBooleanArray]
+      Actual: function
+
+Pass: getPackedBooleanArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getPackedBooleanArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getPackedByteArray
+
+Pass: typeof function Animal() { [native code] }[getPackedByteArray]
+      Actual: function
+
+Pass: getPackedByteArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getPackedByteArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getRefCount
+
+Pass: typeof function Animal() { [native code] }[getRefCount]
+      Actual: function
+
+Pass: getRefCount.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: getRefCount.length
+      Actual: 1
+
+Pass: name
+      Actual: getSmallComplexStructArray
+
+Pass: typeof function Animal() { [native code] }[getSmallComplexStructArray]
+      Actual: function
+
+Pass: getSmallComplexStructArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getSmallComplexStructArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getStaticAnimalAsInspectable
+
+Pass: typeof function Animal() { [native code] }[getStaticAnimalAsInspectable]
+      Actual: function
+
+Pass: getStaticAnimalAsInspectable.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStaticAnimalAsInspectable.length
+      Actual: 0
+
+Pass: name
+      Actual: getStaticAnimalAsStaticInterface
+
+Pass: typeof function Animal() { [native code] }[getStaticAnimalAsStaticInterface]
+      Actual: function
+
+Pass: getStaticAnimalAsStaticInterface.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStaticAnimalAsStaticInterface.length
+      Actual: 0
+
+Pass: name
+      Actual: getStringHiddenTypeMap
+
+Pass: typeof function Animal() { [native code] }[getStringHiddenTypeMap]
+      Actual: function
+
+Pass: getStringHiddenTypeMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStringHiddenTypeMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getStringIntegerMap
+
+Pass: typeof function Animal() { [native code] }[getStringIntegerMap]
+      Actual: function
+
+Pass: getStringIntegerMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStringIntegerMap.length
+      Actual: 0
+
+Pass: name
+      Actual: isLovable
+
+Pass: typeof function Animal() { [native code] }[isLovable]
+      Actual: boolean
+
+Pass: name
+      Actual: marshalInAndOutBigComplexStruct
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutBigComplexStruct]
+      Actual: function
+
+Pass: marshalInAndOutBigComplexStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutBigComplexStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInAndOutOddSizedStruct
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutOddSizedStruct]
+      Actual: function
+
+Pass: marshalInAndOutOddSizedStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutOddSizedStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInAndOutPackedBoolean
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutPackedBoolean]
+      Actual: function
+
+Pass: marshalInAndOutPackedBoolean.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutPackedBoolean.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInAndOutPackedByte
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutPackedByte]
+      Actual: function
+
+Pass: marshalInAndOutPackedByte.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutPackedByte.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInAndOutSmallComplexStruct
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutSmallComplexStruct]
+      Actual: function
+
+Pass: marshalInAndOutSmallComplexStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutSmallComplexStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: methodWithInParam_BigStruct
+
+Pass: typeof function Animal() { [native code] }[methodWithInParam_BigStruct]
+      Actual: function
+
+Pass: methodWithInParam_BigStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: methodWithInParam_BigStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: methodWithOutParam_BigStruct
+
+Pass: typeof function Animal() { [native code] }[methodWithOutParam_BigStruct]
+      Actual: function
+
+Pass: methodWithOutParam_BigStruct.length
+      Actual: 4
+
+Comment: Setting length of function to be 10
+Pass: methodWithOutParam_BigStruct.length
+      Actual: 4
+
+Pass: name
+      Actual: multiplyNumbers
+
+Pass: typeof function Animal() { [native code] }[multiplyNumbers]
+      Actual: function
+
+Pass: multiplyNumbers.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multiplyNumbers.length
+      Actual: 2
+
+Pass: name
+      Actual: myDino
+
+Pass: typeof function Animal() { [native code] }[myDino]
+      Actual: undefined
+
+Pass: name
+      Actual: myExtinct
+
+Pass: typeof function Animal() { [native code] }[myExtinct]
+      Actual: object
+
+Pass: name
+      Actual: myFish
+
+Pass: typeof function Animal() { [native code] }[myFish]
+      Actual: undefined
+
+Pass: name
+      Actual: myFishRefCount
+
+Pass: typeof function Animal() { [native code] }[myFishRefCount]
+      Actual: number
+
+Pass: name
+      Actual: myIFish
+
+Pass: typeof function Animal() { [native code] }[myIFish]
+      Actual: object
+
+Pass: name
+      Actual: myLikeToSwim
+
+Pass: typeof function Animal() { [native code] }[myLikeToSwim]
+      Actual: object
+
+Pass: name
+      Actual: myStaticArrayProp
+
+Pass: typeof function Animal() { [native code] }[myStaticArrayProp]
+      Actual: object
+
+Pass: name
+      Actual: myStaticArrayPropHSTRING
+
+Pass: typeof function Animal() { [native code] }[myStaticArrayPropHSTRING]
+      Actual: object
+
+Pass: name
+      Actual: myToaster
+
+Pass: typeof function Animal() { [native code] }[myToaster]
+      Actual: undefined
+
+Pass: name
+      Actual: myToasterRefCount
+
+Pass: typeof function Animal() { [native code] }[myToasterRefCount]
+      Actual: number
+
+Pass: name
+      Actual: passUInt8Array
+
+Pass: typeof function Animal() { [native code] }[passUInt8Array]
+      Actual: function
+
+Pass: passUInt8Array.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: passUInt8Array.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameDino
+
+Pass: typeof function Animal() { [native code] }[sendBackSameDino]
+      Actual: function
+
+Pass: sendBackSameDino.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameDino.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameExtinct
+
+Pass: typeof function Animal() { [native code] }[sendBackSameExtinct]
+      Actual: function
+
+Pass: sendBackSameExtinct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameExtinct.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameFish
+
+Pass: typeof function Animal() { [native code] }[sendBackSameFish]
+      Actual: function
+
+Pass: sendBackSameFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameFish.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameIDino
+
+Pass: typeof function Animal() { [native code] }[sendBackSameIDino]
+      Actual: function
+
+Pass: sendBackSameIDino.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameIDino.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameIFish
+
+Pass: typeof function Animal() { [native code] }[sendBackSameIFish]
+      Actual: function
+
+Pass: sendBackSameIFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameIFish.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameInspectableVector
+
+Pass: typeof function Animal() { [native code] }[sendBackSameInspectableVector]
+      Actual: function
+
+Pass: sendBackSameInspectableVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameInspectableVector.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameLikeToSwim
+
+Pass: typeof function Animal() { [native code] }[sendBackSameLikeToSwim]
+      Actual: function
+
+Pass: sendBackSameLikeToSwim.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameLikeToSwim.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSamePropertySet
+
+Pass: typeof function Animal() { [native code] }[sendBackSamePropertySet]
+      Actual: function
+
+Pass: sendBackSamePropertySet.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSamePropertySet.length
+      Actual: 1
+
+Pass: name
+      Actual: staticFastPath
+
+Pass: typeof function Animal() { [native code] }[staticFastPath]
+      Actual: function
+
+Pass: staticFastPath.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: staticFastPath.length
+      Actual: 0
+
+Pass: name
+      Actual: staticFastPathIn
+
+Pass: typeof function Animal() { [native code] }[staticFastPathIn]
+      Actual: function
+
+Pass: staticFastPathIn.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: staticFastPathIn.length
+      Actual: 1
+
+Pass: name
+      Actual: staticFastPathInIn
+
+Pass: typeof function Animal() { [native code] }[staticFastPathInIn]
+      Actual: function
+
+Pass: staticFastPathInIn.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: staticFastPathInIn.length
+      Actual: 2
+
+Pass: name
+      Actual: staticFastPathInOut
+
+Pass: typeof function Animal() { [native code] }[staticFastPathInOut]
+      Actual: function
+
+Pass: staticFastPathInOut.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: staticFastPathInOut.length
+      Actual: 1
+
+Pass: name
+      Actual: staticFastPathOut
+
+Pass: typeof function Animal() { [native code] }[staticFastPathOut]
+      Actual: function
+
+Pass: staticFastPathOut.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: staticFastPathOut.length
+      Actual: 0
+
+Pass: name
+      Actual: staticSlowPath
+
+Pass: typeof function Animal() { [native code] }[staticSlowPath]
+      Actual: function
+
+Pass: staticSlowPath.length
+      Actual: 6
+
+Comment: Setting length of function to be 10
+Pass: staticSlowPath.length
+      Actual: 6
+
+Pass: name
+      Actual: takeANap
+
+Pass: typeof function Animal() { [native code] }[takeANap]
+      Actual: function
+
+Pass: takeANap.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: takeANap.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultAnimal
+
+Pass: typeof function Animal() { [native code] }[testDefaultAnimal]
+      Actual: function
+
+Pass: testDefaultAnimal.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultAnimal.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultDino
+
+Pass: typeof function Animal() { [native code] }[testDefaultDino]
+      Actual: function
+
+Pass: testDefaultDino.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultDino.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultFish
+
+Pass: typeof function Animal() { [native code] }[testDefaultFish]
+      Actual: function
+
+Pass: testDefaultFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultFish.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultMultipleIVector
+
+Pass: typeof function Animal() { [native code] }[testDefaultMultipleIVector]
+      Actual: function
+
+Pass: testDefaultMultipleIVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultMultipleIVector.length
+      Actual: 1
+
+Pass: number of members
+      Actual: 86
+
+Comment: Objectdump: 
+    var objectDumpMembers = [
+        ['animalObjectSize', 'number'],
+        ['callDelegateWithExtinct', 'function', 1],
+        ['callDelegateWithFish', 'function', 1],
+        ['callDelegateWithIFish', 'function', 1],
+        ['callDelegateWithInFloat', 'function', 2],
+        ['callDelegateWithInOutBigComplexStruct', 'function', 2],
+        ['callDelegateWithInOutFloat', 'function', 6],
+        ['callDelegateWithInOutOddSizedStruct', 'function', 2],
+        ['callDelegateWithInOutPackedBoolean', 'function', 2],
+        ['callDelegateWithInOutPackedByte', 'function', 2],
+        ['callDelegateWithInOutSmallComplexStruct', 'function', 2],
+        ['callDelegateWithInParam_BigStruct', 'function', 5],
+        ['callDelegateWithLikeToSwim', 'function', 1],
+        ['callDelegateWithOutFloat', 'function', 1],
+        ['callDelegateWithOutParam_BigStruct', 'function', 1],
+        ['callMyFishMethod', 'function', 1],
+        ['dinoDefault', 'function', 0],
+        ['dinoDefaultVector', 'function', 0],
+        ['dinoMarshalAs', 'function', 0],
+        ['fillUInt8Array', 'function', 2],
+        ['getAnswer', 'function', 0],
+        ['getBigComplexStructArray', 'function', 0],
+        ['getCLSID', 'function', 0],
+        ['getDoubleObservableMap', 'function', 0],
+        ['getNullAsAnimal', 'function', 0],
+        ['getNullAsMap', 'function', 0],
+        ['getNullAsObservableVector', 'function', 0],
+        ['getNullAsPropertyValue', 'function', 0],
+        ['getNullAsVector', 'function', 0],
+        ['getObservableStringIntegerMap', 'function', 0],
+        ['getOddSizedStructArray', 'function', 0],
+        ['getOneAnimal', 'function', 0],
+        ['getOneEmptyGRCNFail', 'function', 0],
+        ['getOneEmptyGRCNInterface', 'function', 0],
+        ['getOneEmptyGRCNNull', 'function', 0],
+        ['getOneMap', 'function', 0],
+        ['getOneObservableVector', 'function', 0],
+        ['getOnePropertyValue', 'function', 0],
+        ['getOneVector', 'function', 0],
+        ['getPackedBooleanArray', 'function', 0],
+        ['getPackedByteArray', 'function', 0],
+        ['getRefCount', 'function', 1],
+        ['getSmallComplexStructArray', 'function', 0],
+        ['getStaticAnimalAsInspectable', 'function', 0],
+        ['getStaticAnimalAsStaticInterface', 'function', 0],
+        ['getStringHiddenTypeMap', 'function', 0],
+        ['getStringIntegerMap', 'function', 0],
+        ['isLovable', 'boolean'],
+        ['marshalInAndOutBigComplexStruct', 'function', 1],
+        ['marshalInAndOutOddSizedStruct', 'function', 1],
+        ['marshalInAndOutPackedBoolean', 'function', 1],
+        ['marshalInAndOutPackedByte', 'function', 1],
+        ['marshalInAndOutSmallComplexStruct', 'function', 1],
+        ['methodWithInParam_BigStruct', 'function', 1],
+        ['methodWithOutParam_BigStruct', 'function', 4],
+        ['multiplyNumbers', 'function', 2],
+        ['myDino', 'undefined'],
+        ['myExtinct', 'object'],
+        ['myFish', 'undefined'],
+        ['myFishRefCount', 'number'],
+        ['myIFish', 'object'],
+        ['myLikeToSwim', 'object'],
+        ['myStaticArrayProp', 'object'],
+        ['myStaticArrayPropHSTRING', 'object'],
+        ['myToaster', 'undefined'],
+        ['myToasterRefCount', 'number'],
+        ['passUInt8Array', 'function', 1],
+        ['sendBackSameDino', 'function', 1],
+        ['sendBackSameExtinct', 'function', 1],
+        ['sendBackSameFish', 'function', 1],
+        ['sendBackSameIDino', 'function', 1],
+        ['sendBackSameIFish', 'function', 1],
+        ['sendBackSameInspectableVector', 'function', 1],
+        ['sendBackSameLikeToSwim', 'function', 1],
+        ['sendBackSamePropertySet', 'function', 1],
+        ['staticFastPath', 'function', 0],
+        ['staticFastPathIn', 'function', 1],
+        ['staticFastPathInIn', 'function', 2],
+        ['staticFastPathInOut', 'function', 1],
+        ['staticFastPathOut', 'function', 0],
+        ['staticSlowPath', 'function', 6],
+        ['takeANap', 'function', 1],
+        ['testDefaultAnimal', 'function', 1],
+        ['testDefaultDino', 'function', 1],
+        ['testDefaultFish', 'function', 1],
+        ['testDefaultMultipleIVector', 'function', 1],
+    ];
+Pass: type
+      Actual: function
+
+Pass: name
+      Actual: animalObjectSize
+
+Pass: typeof function Animal() { [native code] }[animalObjectSize]
+      Actual: number
+
+Pass: name
+      Actual: callDelegateWithExtinct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithExtinct]
+      Actual: function
+
+Pass: callDelegateWithExtinct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithExtinct.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithFish
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithFish]
+      Actual: function
+
+Pass: callDelegateWithFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithFish.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithIFish
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithIFish]
+      Actual: function
+
+Pass: callDelegateWithIFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithIFish.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithInFloat
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInFloat]
+      Actual: function
+
+Pass: callDelegateWithInFloat.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInFloat.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutBigComplexStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutBigComplexStruct]
+      Actual: function
+
+Pass: callDelegateWithInOutBigComplexStruct.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutBigComplexStruct.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutFloat
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutFloat]
+      Actual: function
+
+Pass: callDelegateWithInOutFloat.length
+      Actual: 6
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutFloat.length
+      Actual: 6
+
+Pass: name
+      Actual: callDelegateWithInOutOddSizedStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutOddSizedStruct]
+      Actual: function
+
+Pass: callDelegateWithInOutOddSizedStruct.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutOddSizedStruct.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutPackedBoolean
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutPackedBoolean]
+      Actual: function
+
+Pass: callDelegateWithInOutPackedBoolean.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutPackedBoolean.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutPackedByte
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutPackedByte]
+      Actual: function
+
+Pass: callDelegateWithInOutPackedByte.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutPackedByte.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutSmallComplexStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutSmallComplexStruct]
+      Actual: function
+
+Pass: callDelegateWithInOutSmallComplexStruct.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutSmallComplexStruct.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInParam_BigStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInParam_BigStruct]
+      Actual: function
+
+Pass: callDelegateWithInParam_BigStruct.length
+      Actual: 5
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInParam_BigStruct.length
+      Actual: 5
+
+Pass: name
+      Actual: callDelegateWithLikeToSwim
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithLikeToSwim]
+      Actual: function
+
+Pass: callDelegateWithLikeToSwim.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithLikeToSwim.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithOutFloat
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithOutFloat]
+      Actual: function
+
+Pass: callDelegateWithOutFloat.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithOutFloat.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithOutParam_BigStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithOutParam_BigStruct]
+      Actual: function
+
+Pass: callDelegateWithOutParam_BigStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithOutParam_BigStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: callMyFishMethod
+
+Pass: typeof function Animal() { [native code] }[callMyFishMethod]
+      Actual: function
+
+Pass: callMyFishMethod.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callMyFishMethod.length
+      Actual: 1
+
+Pass: name
+      Actual: dinoDefault
+
+Pass: typeof function Animal() { [native code] }[dinoDefault]
+      Actual: function
+
+Pass: dinoDefault.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: dinoDefault.length
+      Actual: 0
+
+Pass: name
+      Actual: dinoDefaultVector
+
+Pass: typeof function Animal() { [native code] }[dinoDefaultVector]
+      Actual: function
+
+Pass: dinoDefaultVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: dinoDefaultVector.length
+      Actual: 0
+
+Pass: name
+      Actual: dinoMarshalAs
+
+Pass: typeof function Animal() { [native code] }[dinoMarshalAs]
+      Actual: function
+
+Pass: dinoMarshalAs.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: dinoMarshalAs.length
+      Actual: 0
+
+Pass: name
+      Actual: fillUInt8Array
+
+Pass: typeof function Animal() { [native code] }[fillUInt8Array]
+      Actual: function
+
+Pass: fillUInt8Array.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: fillUInt8Array.length
+      Actual: 2
+
+Pass: name
+      Actual: getAnswer
+
+Pass: typeof function Animal() { [native code] }[getAnswer]
+      Actual: function
+
+Pass: getAnswer.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getAnswer.length
+      Actual: 0
+
+Pass: name
+      Actual: getBigComplexStructArray
+
+Pass: typeof function Animal() { [native code] }[getBigComplexStructArray]
+      Actual: function
+
+Pass: getBigComplexStructArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getBigComplexStructArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getCLSID
+
+Pass: typeof function Animal() { [native code] }[getCLSID]
+      Actual: function
+
+Pass: getCLSID.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getCLSID.length
+      Actual: 0
+
+Pass: name
+      Actual: getDoubleObservableMap
+
+Pass: typeof function Animal() { [native code] }[getDoubleObservableMap]
+      Actual: function
+
+Pass: getDoubleObservableMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getDoubleObservableMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsAnimal
+
+Pass: typeof function Animal() { [native code] }[getNullAsAnimal]
+      Actual: function
+
+Pass: getNullAsAnimal.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsAnimal.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsMap
+
+Pass: typeof function Animal() { [native code] }[getNullAsMap]
+      Actual: function
+
+Pass: getNullAsMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsObservableVector
+
+Pass: typeof function Animal() { [native code] }[getNullAsObservableVector]
+      Actual: function
+
+Pass: getNullAsObservableVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsObservableVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsPropertyValue
+
+Pass: typeof function Animal() { [native code] }[getNullAsPropertyValue]
+      Actual: function
+
+Pass: getNullAsPropertyValue.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsPropertyValue.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsVector
+
+Pass: typeof function Animal() { [native code] }[getNullAsVector]
+      Actual: function
+
+Pass: getNullAsVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getObservableStringIntegerMap
+
+Pass: typeof function Animal() { [native code] }[getObservableStringIntegerMap]
+      Actual: function
+
+Pass: getObservableStringIntegerMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getObservableStringIntegerMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getOddSizedStructArray
+
+Pass: typeof function Animal() { [native code] }[getOddSizedStructArray]
+      Actual: function
+
+Pass: getOddSizedStructArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOddSizedStructArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneAnimal
+
+Pass: typeof function Animal() { [native code] }[getOneAnimal]
+      Actual: function
+
+Pass: getOneAnimal.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneAnimal.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNFail
+
+Pass: typeof function Animal() { [native code] }[getOneEmptyGRCNFail]
+      Actual: function
+
+Pass: getOneEmptyGRCNFail.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNFail.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNInterface
+
+Pass: typeof function Animal() { [native code] }[getOneEmptyGRCNInterface]
+      Actual: function
+
+Pass: getOneEmptyGRCNInterface.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNInterface.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNNull
+
+Pass: typeof function Animal() { [native code] }[getOneEmptyGRCNNull]
+      Actual: function
+
+Pass: getOneEmptyGRCNNull.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNNull.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneMap
+
+Pass: typeof function Animal() { [native code] }[getOneMap]
+      Actual: function
+
+Pass: getOneMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneObservableVector
+
+Pass: typeof function Animal() { [native code] }[getOneObservableVector]
+      Actual: function
+
+Pass: getOneObservableVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneObservableVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getOnePropertyValue
+
+Pass: typeof function Animal() { [native code] }[getOnePropertyValue]
+      Actual: function
+
+Pass: getOnePropertyValue.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOnePropertyValue.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneVector
+
+Pass: typeof function Animal() { [native code] }[getOneVector]
+      Actual: function
+
+Pass: getOneVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getPackedBooleanArray
+
+Pass: typeof function Animal() { [native code] }[getPackedBooleanArray]
+      Actual: function
+
+Pass: getPackedBooleanArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getPackedBooleanArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getPackedByteArray
+
+Pass: typeof function Animal() { [native code] }[getPackedByteArray]
+      Actual: function
+
+Pass: getPackedByteArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getPackedByteArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getRefCount
+
+Pass: typeof function Animal() { [native code] }[getRefCount]
+      Actual: function
+
+Pass: getRefCount.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: getRefCount.length
+      Actual: 1
+
+Pass: name
+      Actual: getSmallComplexStructArray
+
+Pass: typeof function Animal() { [native code] }[getSmallComplexStructArray]
+      Actual: function
+
+Pass: getSmallComplexStructArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getSmallComplexStructArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getStaticAnimalAsInspectable
+
+Pass: typeof function Animal() { [native code] }[getStaticAnimalAsInspectable]
+      Actual: function
+
+Pass: getStaticAnimalAsInspectable.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStaticAnimalAsInspectable.length
+      Actual: 0
+
+Pass: name
+      Actual: getStaticAnimalAsStaticInterface
+
+Pass: typeof function Animal() { [native code] }[getStaticAnimalAsStaticInterface]
+      Actual: function
+
+Pass: getStaticAnimalAsStaticInterface.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStaticAnimalAsStaticInterface.length
+      Actual: 0
+
+Pass: name
+      Actual: getStringHiddenTypeMap
+
+Pass: typeof function Animal() { [native code] }[getStringHiddenTypeMap]
+      Actual: function
+
+Pass: getStringHiddenTypeMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStringHiddenTypeMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getStringIntegerMap
+
+Pass: typeof function Animal() { [native code] }[getStringIntegerMap]
+      Actual: function
+
+Pass: getStringIntegerMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStringIntegerMap.length
+      Actual: 0
+
+Pass: name
+      Actual: isLovable
+
+Pass: typeof function Animal() { [native code] }[isLovable]
+      Actual: boolean
+
+Pass: name
+      Actual: marshalInAndOutBigComplexStruct
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutBigComplexStruct]
+      Actual: function
+
+Pass: marshalInAndOutBigComplexStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutBigComplexStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInAndOutOddSizedStruct
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutOddSizedStruct]
+      Actual: function
+
+Pass: marshalInAndOutOddSizedStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutOddSizedStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInAndOutPackedBoolean
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutPackedBoolean]
+      Actual: function
+
+Pass: marshalInAndOutPackedBoolean.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutPackedBoolean.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInAndOutPackedByte
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutPackedByte]
+      Actual: function
+
+Pass: marshalInAndOutPackedByte.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutPackedByte.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInAndOutSmallComplexStruct
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutSmallComplexStruct]
+      Actual: function
+
+Pass: marshalInAndOutSmallComplexStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutSmallComplexStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: methodWithInParam_BigStruct
+
+Pass: typeof function Animal() { [native code] }[methodWithInParam_BigStruct]
+      Actual: function
+
+Pass: methodWithInParam_BigStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: methodWithInParam_BigStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: methodWithOutParam_BigStruct
+
+Pass: typeof function Animal() { [native code] }[methodWithOutParam_BigStruct]
+      Actual: function
+
+Pass: methodWithOutParam_BigStruct.length
+      Actual: 4
+
+Comment: Setting length of function to be 10
+Pass: methodWithOutParam_BigStruct.length
+      Actual: 4
+
+Pass: name
+      Actual: multiplyNumbers
+
+Pass: typeof function Animal() { [native code] }[multiplyNumbers]
+      Actual: function
+
+Pass: multiplyNumbers.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multiplyNumbers.length
+      Actual: 2
+
+Pass: name
+      Actual: myDino
+
+Pass: typeof function Animal() { [native code] }[myDino]
+      Actual: undefined
+
+Pass: name
+      Actual: myExtinct
+
+Pass: typeof function Animal() { [native code] }[myExtinct]
+      Actual: object
+
+Pass: name
+      Actual: myFish
+
+Pass: typeof function Animal() { [native code] }[myFish]
+      Actual: undefined
+
+Pass: name
+      Actual: myFishRefCount
+
+Pass: typeof function Animal() { [native code] }[myFishRefCount]
+      Actual: number
+
+Pass: name
+      Actual: myIFish
+
+Pass: typeof function Animal() { [native code] }[myIFish]
+      Actual: object
+
+Pass: name
+      Actual: myLikeToSwim
+
+Pass: typeof function Animal() { [native code] }[myLikeToSwim]
+      Actual: object
+
+Pass: name
+      Actual: myStaticArrayProp
+
+Pass: typeof function Animal() { [native code] }[myStaticArrayProp]
+      Actual: object
+
+Pass: name
+      Actual: myStaticArrayPropHSTRING
+
+Pass: typeof function Animal() { [native code] }[myStaticArrayPropHSTRING]
+      Actual: object
+
+Pass: name
+      Actual: myToaster
+
+Pass: typeof function Animal() { [native code] }[myToaster]
+      Actual: undefined
+
+Pass: name
+      Actual: myToasterRefCount
+
+Pass: typeof function Animal() { [native code] }[myToasterRefCount]
+      Actual: number
+
+Pass: name
+      Actual: passUInt8Array
+
+Pass: typeof function Animal() { [native code] }[passUInt8Array]
+      Actual: function
+
+Pass: passUInt8Array.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: passUInt8Array.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameDino
+
+Pass: typeof function Animal() { [native code] }[sendBackSameDino]
+      Actual: function
+
+Pass: sendBackSameDino.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameDino.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameExtinct
+
+Pass: typeof function Animal() { [native code] }[sendBackSameExtinct]
+      Actual: function
+
+Pass: sendBackSameExtinct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameExtinct.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameFish
+
+Pass: typeof function Animal() { [native code] }[sendBackSameFish]
+      Actual: function
+
+Pass: sendBackSameFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameFish.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameIDino
+
+Pass: typeof function Animal() { [native code] }[sendBackSameIDino]
+      Actual: function
+
+Pass: sendBackSameIDino.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameIDino.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameIFish
+
+Pass: typeof function Animal() { [native code] }[sendBackSameIFish]
+      Actual: function
+
+Pass: sendBackSameIFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameIFish.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameInspectableVector
+
+Pass: typeof function Animal() { [native code] }[sendBackSameInspectableVector]
+      Actual: function
+
+Pass: sendBackSameInspectableVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameInspectableVector.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameLikeToSwim
+
+Pass: typeof function Animal() { [native code] }[sendBackSameLikeToSwim]
+      Actual: function
+
+Pass: sendBackSameLikeToSwim.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameLikeToSwim.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSamePropertySet
+
+Pass: typeof function Animal() { [native code] }[sendBackSamePropertySet]
+      Actual: function
+
+Pass: sendBackSamePropertySet.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSamePropertySet.length
+      Actual: 1
+
+Pass: name
+      Actual: staticFastPath
+
+Pass: typeof function Animal() { [native code] }[staticFastPath]
+      Actual: function
+
+Pass: staticFastPath.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: staticFastPath.length
+      Actual: 0
+
+Pass: name
+      Actual: staticFastPathIn
+
+Pass: typeof function Animal() { [native code] }[staticFastPathIn]
+      Actual: function
+
+Pass: staticFastPathIn.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: staticFastPathIn.length
+      Actual: 1
+
+Pass: name
+      Actual: staticFastPathInIn
+
+Pass: typeof function Animal() { [native code] }[staticFastPathInIn]
+      Actual: function
+
+Pass: staticFastPathInIn.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: staticFastPathInIn.length
+      Actual: 2
+
+Pass: name
+      Actual: staticFastPathInOut
+
+Pass: typeof function Animal() { [native code] }[staticFastPathInOut]
+      Actual: function
+
+Pass: staticFastPathInOut.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: staticFastPathInOut.length
+      Actual: 1
+
+Pass: name
+      Actual: staticFastPathOut
+
+Pass: typeof function Animal() { [native code] }[staticFastPathOut]
+      Actual: function
+
+Pass: staticFastPathOut.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: staticFastPathOut.length
+      Actual: 0
+
+Pass: name
+      Actual: staticSlowPath
+
+Pass: typeof function Animal() { [native code] }[staticSlowPath]
+      Actual: function
+
+Pass: staticSlowPath.length
+      Actual: 6
+
+Comment: Setting length of function to be 10
+Pass: staticSlowPath.length
+      Actual: 6
+
+Pass: name
+      Actual: takeANap
+
+Pass: typeof function Animal() { [native code] }[takeANap]
+      Actual: function
+
+Pass: takeANap.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: takeANap.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultAnimal
+
+Pass: typeof function Animal() { [native code] }[testDefaultAnimal]
+      Actual: function
+
+Pass: testDefaultAnimal.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultAnimal.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultDino
+
+Pass: typeof function Animal() { [native code] }[testDefaultDino]
+      Actual: function
+
+Pass: testDefaultDino.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultDino.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultFish
+
+Pass: typeof function Animal() { [native code] }[testDefaultFish]
+      Actual: function
+
+Pass: testDefaultFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultFish.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultMultipleIVector
+
+Pass: typeof function Animal() { [native code] }[testDefaultMultipleIVector]
+      Actual: function
+
+Pass: testDefaultMultipleIVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultMultipleIVector.length
+      Actual: 1
+
+Pass: number of members
+      Actual: 86
+
+PASS [Test 0: Verify that members appear the same before and after a method call]
+=================================================
+
+=================================================
+Starting [Test 1: Verify Static Methods on ABI factory]
+Comment: Objectdump: 
+    var objectDumpMembers = [
+        ['animalObjectSize', 'number'],
+        ['callDelegateWithExtinct', 'function', 1],
+        ['callDelegateWithFish', 'function', 1],
+        ['callDelegateWithIFish', 'function', 1],
+        ['callDelegateWithInFloat', 'function', 2],
+        ['callDelegateWithInOutBigComplexStruct', 'function', 2],
+        ['callDelegateWithInOutFloat', 'function', 6],
+        ['callDelegateWithInOutOddSizedStruct', 'function', 2],
+        ['callDelegateWithInOutPackedBoolean', 'function', 2],
+        ['callDelegateWithInOutPackedByte', 'function', 2],
+        ['callDelegateWithInOutSmallComplexStruct', 'function', 2],
+        ['callDelegateWithInParam_BigStruct', 'function', 5],
+        ['callDelegateWithLikeToSwim', 'function', 1],
+        ['callDelegateWithOutFloat', 'function', 1],
+        ['callDelegateWithOutParam_BigStruct', 'function', 1],
+        ['callMyFishMethod', 'function', 1],
+        ['dinoDefault', 'function', 0],
+        ['dinoDefaultVector', 'function', 0],
+        ['dinoMarshalAs', 'function', 0],
+        ['fillUInt8Array', 'function', 2],
+        ['getAnswer', 'function', 0],
+        ['getBigComplexStructArray', 'function', 0],
+        ['getCLSID', 'function', 0],
+        ['getDoubleObservableMap', 'function', 0],
+        ['getNullAsAnimal', 'function', 0],
+        ['getNullAsMap', 'function', 0],
+        ['getNullAsObservableVector', 'function', 0],
+        ['getNullAsPropertyValue', 'function', 0],
+        ['getNullAsVector', 'function', 0],
+        ['getObservableStringIntegerMap', 'function', 0],
+        ['getOddSizedStructArray', 'function', 0],
+        ['getOneAnimal', 'function', 0],
+        ['getOneEmptyGRCNFail', 'function', 0],
+        ['getOneEmptyGRCNInterface', 'function', 0],
+        ['getOneEmptyGRCNNull', 'function', 0],
+        ['getOneMap', 'function', 0],
+        ['getOneObservableVector', 'function', 0],
+        ['getOnePropertyValue', 'function', 0],
+        ['getOneVector', 'function', 0],
+        ['getPackedBooleanArray', 'function', 0],
+        ['getPackedByteArray', 'function', 0],
+        ['getRefCount', 'function', 1],
+        ['getSmallComplexStructArray', 'function', 0],
+        ['getStaticAnimalAsInspectable', 'function', 0],
+        ['getStaticAnimalAsStaticInterface', 'function', 0],
+        ['getStringHiddenTypeMap', 'function', 0],
+        ['getStringIntegerMap', 'function', 0],
+        ['isLovable', 'boolean'],
+        ['marshalInAndOutBigComplexStruct', 'function', 1],
+        ['marshalInAndOutOddSizedStruct', 'function', 1],
+        ['marshalInAndOutPackedBoolean', 'function', 1],
+        ['marshalInAndOutPackedByte', 'function', 1],
+        ['marshalInAndOutSmallComplexStruct', 'function', 1],
+        ['methodWithInParam_BigStruct', 'function', 1],
+        ['methodWithOutParam_BigStruct', 'function', 4],
+        ['multiplyNumbers', 'function', 2],
+        ['myDino', 'undefined'],
+        ['myExtinct', 'object'],
+        ['myFish', 'undefined'],
+        ['myFishRefCount', 'number'],
+        ['myIFish', 'object'],
+        ['myLikeToSwim', 'object'],
+        ['myStaticArrayProp', 'object'],
+        ['myStaticArrayPropHSTRING', 'object'],
+        ['myToaster', 'undefined'],
+        ['myToasterRefCount', 'number'],
+        ['passUInt8Array', 'function', 1],
+        ['sendBackSameDino', 'function', 1],
+        ['sendBackSameExtinct', 'function', 1],
+        ['sendBackSameFish', 'function', 1],
+        ['sendBackSameIDino', 'function', 1],
+        ['sendBackSameIFish', 'function', 1],
+        ['sendBackSameInspectableVector', 'function', 1],
+        ['sendBackSameLikeToSwim', 'function', 1],
+        ['sendBackSamePropertySet', 'function', 1],
+        ['staticFastPath', 'function', 0],
+        ['staticFastPathIn', 'function', 1],
+        ['staticFastPathInIn', 'function', 2],
+        ['staticFastPathInOut', 'function', 1],
+        ['staticFastPathOut', 'function', 0],
+        ['staticSlowPath', 'function', 6],
+        ['takeANap', 'function', 1],
+        ['testDefaultAnimal', 'function', 1],
+        ['testDefaultDino', 'function', 1],
+        ['testDefaultFish', 'function', 1],
+        ['testDefaultMultipleIVector', 'function', 1],
+    ];
+Pass: type
+      Actual: function
+
+Pass: name
+      Actual: animalObjectSize
+
+Pass: typeof function Animal() { [native code] }[animalObjectSize]
+      Actual: number
+
+Pass: name
+      Actual: callDelegateWithExtinct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithExtinct]
+      Actual: function
+
+Pass: callDelegateWithExtinct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithExtinct.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithFish
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithFish]
+      Actual: function
+
+Pass: callDelegateWithFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithFish.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithIFish
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithIFish]
+      Actual: function
+
+Pass: callDelegateWithIFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithIFish.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithInFloat
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInFloat]
+      Actual: function
+
+Pass: callDelegateWithInFloat.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInFloat.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutBigComplexStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutBigComplexStruct]
+      Actual: function
+
+Pass: callDelegateWithInOutBigComplexStruct.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutBigComplexStruct.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutFloat
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutFloat]
+      Actual: function
+
+Pass: callDelegateWithInOutFloat.length
+      Actual: 6
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutFloat.length
+      Actual: 6
+
+Pass: name
+      Actual: callDelegateWithInOutOddSizedStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutOddSizedStruct]
+      Actual: function
+
+Pass: callDelegateWithInOutOddSizedStruct.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutOddSizedStruct.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutPackedBoolean
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutPackedBoolean]
+      Actual: function
+
+Pass: callDelegateWithInOutPackedBoolean.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutPackedBoolean.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutPackedByte
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutPackedByte]
+      Actual: function
+
+Pass: callDelegateWithInOutPackedByte.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutPackedByte.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInOutSmallComplexStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInOutSmallComplexStruct]
+      Actual: function
+
+Pass: callDelegateWithInOutSmallComplexStruct.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInOutSmallComplexStruct.length
+      Actual: 2
+
+Pass: name
+      Actual: callDelegateWithInParam_BigStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithInParam_BigStruct]
+      Actual: function
+
+Pass: callDelegateWithInParam_BigStruct.length
+      Actual: 5
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithInParam_BigStruct.length
+      Actual: 5
+
+Pass: name
+      Actual: callDelegateWithLikeToSwim
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithLikeToSwim]
+      Actual: function
+
+Pass: callDelegateWithLikeToSwim.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithLikeToSwim.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithOutFloat
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithOutFloat]
+      Actual: function
+
+Pass: callDelegateWithOutFloat.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithOutFloat.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithOutParam_BigStruct
+
+Pass: typeof function Animal() { [native code] }[callDelegateWithOutParam_BigStruct]
+      Actual: function
+
+Pass: callDelegateWithOutParam_BigStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithOutParam_BigStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: callMyFishMethod
+
+Pass: typeof function Animal() { [native code] }[callMyFishMethod]
+      Actual: function
+
+Pass: callMyFishMethod.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callMyFishMethod.length
+      Actual: 1
+
+Pass: name
+      Actual: dinoDefault
+
+Pass: typeof function Animal() { [native code] }[dinoDefault]
+      Actual: function
+
+Pass: dinoDefault.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: dinoDefault.length
+      Actual: 0
+
+Pass: name
+      Actual: dinoDefaultVector
+
+Pass: typeof function Animal() { [native code] }[dinoDefaultVector]
+      Actual: function
+
+Pass: dinoDefaultVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: dinoDefaultVector.length
+      Actual: 0
+
+Pass: name
+      Actual: dinoMarshalAs
+
+Pass: typeof function Animal() { [native code] }[dinoMarshalAs]
+      Actual: function
+
+Pass: dinoMarshalAs.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: dinoMarshalAs.length
+      Actual: 0
+
+Pass: name
+      Actual: fillUInt8Array
+
+Pass: typeof function Animal() { [native code] }[fillUInt8Array]
+      Actual: function
+
+Pass: fillUInt8Array.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: fillUInt8Array.length
+      Actual: 2
+
+Pass: name
+      Actual: getAnswer
+
+Pass: typeof function Animal() { [native code] }[getAnswer]
+      Actual: function
+
+Pass: getAnswer.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getAnswer.length
+      Actual: 0
+
+Pass: name
+      Actual: getBigComplexStructArray
+
+Pass: typeof function Animal() { [native code] }[getBigComplexStructArray]
+      Actual: function
+
+Pass: getBigComplexStructArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getBigComplexStructArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getCLSID
+
+Pass: typeof function Animal() { [native code] }[getCLSID]
+      Actual: function
+
+Pass: getCLSID.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getCLSID.length
+      Actual: 0
+
+Pass: name
+      Actual: getDoubleObservableMap
+
+Pass: typeof function Animal() { [native code] }[getDoubleObservableMap]
+      Actual: function
+
+Pass: getDoubleObservableMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getDoubleObservableMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsAnimal
+
+Pass: typeof function Animal() { [native code] }[getNullAsAnimal]
+      Actual: function
+
+Pass: getNullAsAnimal.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsAnimal.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsMap
+
+Pass: typeof function Animal() { [native code] }[getNullAsMap]
+      Actual: function
+
+Pass: getNullAsMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsObservableVector
+
+Pass: typeof function Animal() { [native code] }[getNullAsObservableVector]
+      Actual: function
+
+Pass: getNullAsObservableVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsObservableVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsPropertyValue
+
+Pass: typeof function Animal() { [native code] }[getNullAsPropertyValue]
+      Actual: function
+
+Pass: getNullAsPropertyValue.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsPropertyValue.length
+      Actual: 0
+
+Pass: name
+      Actual: getNullAsVector
+
+Pass: typeof function Animal() { [native code] }[getNullAsVector]
+      Actual: function
+
+Pass: getNullAsVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getNullAsVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getObservableStringIntegerMap
+
+Pass: typeof function Animal() { [native code] }[getObservableStringIntegerMap]
+      Actual: function
+
+Pass: getObservableStringIntegerMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getObservableStringIntegerMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getOddSizedStructArray
+
+Pass: typeof function Animal() { [native code] }[getOddSizedStructArray]
+      Actual: function
+
+Pass: getOddSizedStructArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOddSizedStructArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneAnimal
+
+Pass: typeof function Animal() { [native code] }[getOneAnimal]
+      Actual: function
+
+Pass: getOneAnimal.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneAnimal.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNFail
+
+Pass: typeof function Animal() { [native code] }[getOneEmptyGRCNFail]
+      Actual: function
+
+Pass: getOneEmptyGRCNFail.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNFail.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNInterface
+
+Pass: typeof function Animal() { [native code] }[getOneEmptyGRCNInterface]
+      Actual: function
+
+Pass: getOneEmptyGRCNInterface.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNInterface.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneEmptyGRCNNull
+
+Pass: typeof function Animal() { [native code] }[getOneEmptyGRCNNull]
+      Actual: function
+
+Pass: getOneEmptyGRCNNull.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneEmptyGRCNNull.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneMap
+
+Pass: typeof function Animal() { [native code] }[getOneMap]
+      Actual: function
+
+Pass: getOneMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneObservableVector
+
+Pass: typeof function Animal() { [native code] }[getOneObservableVector]
+      Actual: function
+
+Pass: getOneObservableVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneObservableVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getOnePropertyValue
+
+Pass: typeof function Animal() { [native code] }[getOnePropertyValue]
+      Actual: function
+
+Pass: getOnePropertyValue.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOnePropertyValue.length
+      Actual: 0
+
+Pass: name
+      Actual: getOneVector
+
+Pass: typeof function Animal() { [native code] }[getOneVector]
+      Actual: function
+
+Pass: getOneVector.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getOneVector.length
+      Actual: 0
+
+Pass: name
+      Actual: getPackedBooleanArray
+
+Pass: typeof function Animal() { [native code] }[getPackedBooleanArray]
+      Actual: function
+
+Pass: getPackedBooleanArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getPackedBooleanArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getPackedByteArray
+
+Pass: typeof function Animal() { [native code] }[getPackedByteArray]
+      Actual: function
+
+Pass: getPackedByteArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getPackedByteArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getRefCount
+
+Pass: typeof function Animal() { [native code] }[getRefCount]
+      Actual: function
+
+Pass: getRefCount.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: getRefCount.length
+      Actual: 1
+
+Pass: name
+      Actual: getSmallComplexStructArray
+
+Pass: typeof function Animal() { [native code] }[getSmallComplexStructArray]
+      Actual: function
+
+Pass: getSmallComplexStructArray.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getSmallComplexStructArray.length
+      Actual: 0
+
+Pass: name
+      Actual: getStaticAnimalAsInspectable
+
+Pass: typeof function Animal() { [native code] }[getStaticAnimalAsInspectable]
+      Actual: function
+
+Pass: getStaticAnimalAsInspectable.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStaticAnimalAsInspectable.length
+      Actual: 0
+
+Pass: name
+      Actual: getStaticAnimalAsStaticInterface
+
+Pass: typeof function Animal() { [native code] }[getStaticAnimalAsStaticInterface]
+      Actual: function
+
+Pass: getStaticAnimalAsStaticInterface.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStaticAnimalAsStaticInterface.length
+      Actual: 0
+
+Pass: name
+      Actual: getStringHiddenTypeMap
+
+Pass: typeof function Animal() { [native code] }[getStringHiddenTypeMap]
+      Actual: function
+
+Pass: getStringHiddenTypeMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStringHiddenTypeMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getStringIntegerMap
+
+Pass: typeof function Animal() { [native code] }[getStringIntegerMap]
+      Actual: function
+
+Pass: getStringIntegerMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStringIntegerMap.length
+      Actual: 0
+
+Pass: name
+      Actual: isLovable
+
+Pass: typeof function Animal() { [native code] }[isLovable]
+      Actual: boolean
+
+Pass: name
+      Actual: marshalInAndOutBigComplexStruct
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutBigComplexStruct]
+      Actual: function
+
+Pass: marshalInAndOutBigComplexStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutBigComplexStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInAndOutOddSizedStruct
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutOddSizedStruct]
+      Actual: function
+
+Pass: marshalInAndOutOddSizedStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutOddSizedStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInAndOutPackedBoolean
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutPackedBoolean]
+      Actual: function
+
+Pass: marshalInAndOutPackedBoolean.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutPackedBoolean.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInAndOutPackedByte
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutPackedByte]
+      Actual: function
+
+Pass: marshalInAndOutPackedByte.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutPackedByte.length
+      Actual: 1
+
+Pass: name
+      Actual: marshalInAndOutSmallComplexStruct
+
+Pass: typeof function Animal() { [native code] }[marshalInAndOutSmallComplexStruct]
+      Actual: function
+
+Pass: marshalInAndOutSmallComplexStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: marshalInAndOutSmallComplexStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: methodWithInParam_BigStruct
+
+Pass: typeof function Animal() { [native code] }[methodWithInParam_BigStruct]
+      Actual: function
+
+Pass: methodWithInParam_BigStruct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: methodWithInParam_BigStruct.length
+      Actual: 1
+
+Pass: name
+      Actual: methodWithOutParam_BigStruct
+
+Pass: typeof function Animal() { [native code] }[methodWithOutParam_BigStruct]
+      Actual: function
+
+Pass: methodWithOutParam_BigStruct.length
+      Actual: 4
+
+Comment: Setting length of function to be 10
+Pass: methodWithOutParam_BigStruct.length
+      Actual: 4
+
+Pass: name
+      Actual: multiplyNumbers
+
+Pass: typeof function Animal() { [native code] }[multiplyNumbers]
+      Actual: function
+
+Pass: multiplyNumbers.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multiplyNumbers.length
+      Actual: 2
+
+Pass: name
+      Actual: myDino
+
+Pass: typeof function Animal() { [native code] }[myDino]
+      Actual: undefined
+
+Pass: name
+      Actual: myExtinct
+
+Pass: typeof function Animal() { [native code] }[myExtinct]
+      Actual: object
+
+Pass: name
+      Actual: myFish
+
+Pass: typeof function Animal() { [native code] }[myFish]
+      Actual: undefined
+
+Pass: name
+      Actual: myFishRefCount
+
+Pass: typeof function Animal() { [native code] }[myFishRefCount]
+      Actual: number
+
+Pass: name
+      Actual: myIFish
+
+Pass: typeof function Animal() { [native code] }[myIFish]
+      Actual: object
+
+Pass: name
+      Actual: myLikeToSwim
+
+Pass: typeof function Animal() { [native code] }[myLikeToSwim]
+      Actual: object
+
+Pass: name
+      Actual: myStaticArrayProp
+
+Pass: typeof function Animal() { [native code] }[myStaticArrayProp]
+      Actual: object
+
+Pass: name
+      Actual: myStaticArrayPropHSTRING
+
+Pass: typeof function Animal() { [native code] }[myStaticArrayPropHSTRING]
+      Actual: object
+
+Pass: name
+      Actual: myToaster
+
+Pass: typeof function Animal() { [native code] }[myToaster]
+      Actual: undefined
+
+Pass: name
+      Actual: myToasterRefCount
+
+Pass: typeof function Animal() { [native code] }[myToasterRefCount]
+      Actual: number
+
+Pass: name
+      Actual: passUInt8Array
+
+Pass: typeof function Animal() { [native code] }[passUInt8Array]
+      Actual: function
+
+Pass: passUInt8Array.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: passUInt8Array.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameDino
+
+Pass: typeof function Animal() { [native code] }[sendBackSameDino]
+      Actual: function
+
+Pass: sendBackSameDino.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameDino.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameExtinct
+
+Pass: typeof function Animal() { [native code] }[sendBackSameExtinct]
+      Actual: function
+
+Pass: sendBackSameExtinct.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameExtinct.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameFish
+
+Pass: typeof function Animal() { [native code] }[sendBackSameFish]
+      Actual: function
+
+Pass: sendBackSameFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameFish.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameIDino
+
+Pass: typeof function Animal() { [native code] }[sendBackSameIDino]
+      Actual: function
+
+Pass: sendBackSameIDino.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameIDino.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameIFish
+
+Pass: typeof function Animal() { [native code] }[sendBackSameIFish]
+      Actual: function
+
+Pass: sendBackSameIFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameIFish.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameInspectableVector
+
+Pass: typeof function Animal() { [native code] }[sendBackSameInspectableVector]
+      Actual: function
+
+Pass: sendBackSameInspectableVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameInspectableVector.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameLikeToSwim
+
+Pass: typeof function Animal() { [native code] }[sendBackSameLikeToSwim]
+      Actual: function
+
+Pass: sendBackSameLikeToSwim.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameLikeToSwim.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSamePropertySet
+
+Pass: typeof function Animal() { [native code] }[sendBackSamePropertySet]
+      Actual: function
+
+Pass: sendBackSamePropertySet.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSamePropertySet.length
+      Actual: 1
+
+Pass: name
+      Actual: staticFastPath
+
+Pass: typeof function Animal() { [native code] }[staticFastPath]
+      Actual: function
+
+Pass: staticFastPath.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: staticFastPath.length
+      Actual: 0
+
+Pass: name
+      Actual: staticFastPathIn
+
+Pass: typeof function Animal() { [native code] }[staticFastPathIn]
+      Actual: function
+
+Pass: staticFastPathIn.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: staticFastPathIn.length
+      Actual: 1
+
+Pass: name
+      Actual: staticFastPathInIn
+
+Pass: typeof function Animal() { [native code] }[staticFastPathInIn]
+      Actual: function
+
+Pass: staticFastPathInIn.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: staticFastPathInIn.length
+      Actual: 2
+
+Pass: name
+      Actual: staticFastPathInOut
+
+Pass: typeof function Animal() { [native code] }[staticFastPathInOut]
+      Actual: function
+
+Pass: staticFastPathInOut.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: staticFastPathInOut.length
+      Actual: 1
+
+Pass: name
+      Actual: staticFastPathOut
+
+Pass: typeof function Animal() { [native code] }[staticFastPathOut]
+      Actual: function
+
+Pass: staticFastPathOut.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: staticFastPathOut.length
+      Actual: 0
+
+Pass: name
+      Actual: staticSlowPath
+
+Pass: typeof function Animal() { [native code] }[staticSlowPath]
+      Actual: function
+
+Pass: staticSlowPath.length
+      Actual: 6
+
+Comment: Setting length of function to be 10
+Pass: staticSlowPath.length
+      Actual: 6
+
+Pass: name
+      Actual: takeANap
+
+Pass: typeof function Animal() { [native code] }[takeANap]
+      Actual: function
+
+Pass: takeANap.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: takeANap.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultAnimal
+
+Pass: typeof function Animal() { [native code] }[testDefaultAnimal]
+      Actual: function
+
+Pass: testDefaultAnimal.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultAnimal.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultDino
+
+Pass: typeof function Animal() { [native code] }[testDefaultDino]
+      Actual: function
+
+Pass: testDefaultDino.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultDino.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultFish
+
+Pass: typeof function Animal() { [native code] }[testDefaultFish]
+      Actual: function
+
+Pass: testDefaultFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultFish.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultMultipleIVector
+
+Pass: typeof function Animal() { [native code] }[testDefaultMultipleIVector]
+      Actual: function
+
+Pass: testDefaultMultipleIVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultMultipleIVector.length
+      Actual: 1
+
+Pass: number of members
+      Actual: 86
+
+PASS [Test 1: Verify Static Methods on ABI factory]
+=================================================
+
+=================================================
+Starting [Test 2: Verify Static Methods do not exist on ABI instance]
+Pass: type
+      Actual: object
+
+Pass: animalObjectSize
+      Actual: undefined
+
+Pass: callDelegateWithExtinct
+      Actual: undefined
+
+Pass: callDelegateWithFish
+      Actual: undefined
+
+Pass: callDelegateWithIFish
+      Actual: undefined
+
+Pass: callDelegateWithInFloat
+      Actual: undefined
+
+Pass: callDelegateWithInOutBigComplexStruct
+      Actual: undefined
+
+Pass: callDelegateWithInOutFloat
+      Actual: undefined
+
+Pass: callDelegateWithInOutOddSizedStruct
+      Actual: undefined
+
+Pass: callDelegateWithInOutPackedBoolean
+      Actual: undefined
+
+Pass: callDelegateWithInOutPackedByte
+      Actual: undefined
+
+Pass: callDelegateWithInOutSmallComplexStruct
+      Actual: undefined
+
+Pass: callDelegateWithInParam_BigStruct
+      Actual: undefined
+
+Pass: callDelegateWithLikeToSwim
+      Actual: undefined
+
+Pass: callDelegateWithOutFloat
+      Actual: undefined
+
+Pass: callDelegateWithOutParam_BigStruct
+      Actual: undefined
+
+Pass: callMyFishMethod
+      Actual: undefined
+
+Pass: dinoDefault
+      Actual: undefined
+
+Pass: dinoDefaultVector
+      Actual: undefined
+
+Pass: dinoMarshalAs
+      Actual: undefined
+
+Pass: fillUInt8Array
+      Actual: undefined
+
+Pass: getAnswer
+      Actual: undefined
+
+Pass: getBigComplexStructArray
+      Actual: undefined
+
+Pass: getCLSID
+      Actual: undefined
+
+Pass: getDoubleObservableMap
+      Actual: undefined
+
+Pass: getNullAsAnimal
+      Actual: undefined
+
+Pass: getNullAsMap
+      Actual: undefined
+
+Pass: getNullAsObservableVector
+      Actual: undefined
+
+Pass: getNullAsPropertyValue
+      Actual: undefined
+
+Pass: getNullAsVector
+      Actual: undefined
+
+Pass: getObservableStringIntegerMap
+      Actual: undefined
+
+Pass: getOddSizedStructArray
+      Actual: undefined
+
+Pass: getOneAnimal
+      Actual: undefined
+
+Pass: getOneEmptyGRCNFail
+      Actual: undefined
+
+Pass: getOneEmptyGRCNInterface
+      Actual: undefined
+
+Pass: getOneEmptyGRCNNull
+      Actual: undefined
+
+Pass: getOneMap
+      Actual: undefined
+
+Pass: getOneObservableVector
+      Actual: undefined
+
+Pass: getOnePropertyValue
+      Actual: undefined
+
+Pass: getOneVector
+      Actual: undefined
+
+Pass: getPackedBooleanArray
+      Actual: undefined
+
+Pass: getPackedByteArray
+      Actual: undefined
+
+Pass: getRefCount
+      Actual: undefined
+
+Pass: getSmallComplexStructArray
+      Actual: undefined
+
+Pass: getStaticAnimalAsInspectable
+      Actual: undefined
+
+Pass: getStaticAnimalAsStaticInterface
+      Actual: undefined
+
+Pass: getStringHiddenTypeMap
+      Actual: undefined
+
+Pass: getStringIntegerMap
+      Actual: undefined
+
+Pass: isLovable
+      Actual: undefined
+
+Pass: marshalInAndOutBigComplexStruct
+      Actual: undefined
+
+Pass: marshalInAndOutOddSizedStruct
+      Actual: undefined
+
+Pass: marshalInAndOutPackedBoolean
+      Actual: undefined
+
+Pass: marshalInAndOutPackedByte
+      Actual: undefined
+
+Pass: marshalInAndOutSmallComplexStruct
+      Actual: undefined
+
+Pass: methodWithInParam_BigStruct
+      Actual: undefined
+
+Pass: methodWithOutParam_BigStruct
+      Actual: undefined
+
+Pass: multiplyNumbers
+      Actual: undefined
+
+Pass: myDino
+      Actual: undefined
+
+Pass: myExtinct
+      Actual: undefined
+
+Pass: myFish
+      Actual: undefined
+
+Pass: myFishRefCount
+      Actual: undefined
+
+Pass: myIFish
+      Actual: undefined
+
+Pass: myLikeToSwim
+      Actual: undefined
+
+Pass: myStaticArrayProp
+      Actual: undefined
+
+Pass: myStaticArrayPropHSTRING
+      Actual: undefined
+
+Pass: myToaster
+      Actual: undefined
+
+Pass: myToasterRefCount
+      Actual: undefined
+
+Pass: passUInt8Array
+      Actual: undefined
+
+Pass: sendBackSameDino
+      Actual: undefined
+
+Pass: sendBackSameExtinct
+      Actual: undefined
+
+Pass: sendBackSameFish
+      Actual: undefined
+
+Pass: sendBackSameIDino
+      Actual: undefined
+
+Pass: sendBackSameIFish
+      Actual: undefined
+
+Pass: sendBackSameInspectableVector
+      Actual: undefined
+
+Pass: sendBackSameLikeToSwim
+      Actual: undefined
+
+Pass: sendBackSamePropertySet
+      Actual: undefined
+
+Pass: staticFastPath
+      Actual: undefined
+
+Pass: staticFastPathIn
+      Actual: undefined
+
+Pass: staticFastPathInIn
+      Actual: undefined
+
+Pass: staticFastPathInOut
+      Actual: undefined
+
+Pass: staticFastPathOut
+      Actual: undefined
+
+Pass: staticSlowPath
+      Actual: undefined
+
+Pass: takeANap
+      Actual: undefined
+
+Pass: testDefaultAnimal
+      Actual: undefined
+
+Pass: testDefaultDino
+      Actual: undefined
+
+Pass: testDefaultFish
+      Actual: undefined
+
+Pass: testDefaultMultipleIVector
+      Actual: undefined
+
+PASS [Test 2: Verify Static Methods do not exist on ABI instance]
+=================================================
+
+=================================================
+Starting [Test 3: Make static method calls]
+Pass: animalFactory.multiplyNumbers(8, 9)
+      Actual: 72
+
+Pass: animalFactory.getAnswer()
+      Actual: 42
+
+Pass: animalFactory.isLovable
+      Actual: false
+
+Pass: animalFactory.isLovable
+      Actual: true
+
+Pass: animalFactory.takeANap(5)
+      Actual: false
+
+Pass: animalFactory.takeANap(20)
+      Actual: true
+
+Pass: Exception was caught while calling animalFactory.takeANap(-1)
+      Actual: true
+
+PASS [Test 3: Make static method calls]
+=================================================
+
+=================================================
+Starting [Test 4: Get static interface as Inspectable]
+Pass: IStaticAnimal2 returned as IInspectable should throw error because of failing GetRuntimeClassName returned (TypeError: getStaticAnimalAsInspectable: could not convert return value to IInspectable)
+      Actual: true
+
+PASS [Test 4: Get static interface as Inspectable]
+=================================================
+
+=================================================
+Starting [Test 5: Get static interface as IStaticInterface]
+Pass: staticAnimal2 != null
+      Actual: true
+
+Pass: staticAnimal2 instanceof Animals.Animal
+      Actual: false
+
+Comment: Objectdump: 
+    var objectDumpMembers = [
+        ['animalObjectSize', 'number'],
+        ['callDelegateWithFish', 'function', 1],
+        ['callDelegateWithIFish', 'function', 1],
+        ['callDelegateWithLikeToSwim', 'function', 1],
+        ['callMyFishMethod', 'function', 1],
+        ['getCLSID', 'function', 0],
+        ['getDoubleObservableMap', 'function', 0],
+        ['getObservableStringIntegerMap', 'function', 0],
+        ['getRefCount', 'function', 1],
+        ['getStaticAnimalAsInspectable', 'function', 0],
+        ['getStaticAnimalAsStaticInterface', 'function', 0],
+        ['getStringHiddenTypeMap', 'function', 0],
+        ['getStringIntegerMap', 'function', 0],
+        ['multiplyNumbers', 'function', 2],
+        ['myFish', 'undefined'],
+        ['myFishRefCount', 'number'],
+        ['myIFish', 'object'],
+        ['myLikeToSwim', 'object'],
+        ['myStaticArrayProp', 'object'],
+        ['myStaticArrayPropHSTRING', 'object'],
+        ['myToaster', 'undefined'],
+        ['myToasterRefCount', 'number'],
+        ['sendBackSameFish', 'function', 1],
+        ['sendBackSameIFish', 'function', 1],
+        ['sendBackSameLikeToSwim', 'function', 1],
+        ['sendBackSamePropertySet', 'function', 1],
+        ['testDefaultAnimal', 'function', 1],
+        ['testDefaultDino', 'function', 1],
+        ['testDefaultFish', 'function', 1],
+        ['testDefaultMultipleIVector', 'function', 1],
+        ['toString', 'function', 0],
+    ];
+Pass: type
+      Actual: object
+
+Pass: name
+      Actual: animalObjectSize
+
+Pass: typeof [object Animals.IStaticAnimal2][animalObjectSize]
+      Actual: number
+
+Pass: name
+      Actual: callDelegateWithFish
+
+Pass: typeof [object Animals.IStaticAnimal2][callDelegateWithFish]
+      Actual: function
+
+Pass: callDelegateWithFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithFish.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithIFish
+
+Pass: typeof [object Animals.IStaticAnimal2][callDelegateWithIFish]
+      Actual: function
+
+Pass: callDelegateWithIFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithIFish.length
+      Actual: 1
+
+Pass: name
+      Actual: callDelegateWithLikeToSwim
+
+Pass: typeof [object Animals.IStaticAnimal2][callDelegateWithLikeToSwim]
+      Actual: function
+
+Pass: callDelegateWithLikeToSwim.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callDelegateWithLikeToSwim.length
+      Actual: 1
+
+Pass: name
+      Actual: callMyFishMethod
+
+Pass: typeof [object Animals.IStaticAnimal2][callMyFishMethod]
+      Actual: function
+
+Pass: callMyFishMethod.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: callMyFishMethod.length
+      Actual: 1
+
+Pass: name
+      Actual: getCLSID
+
+Pass: typeof [object Animals.IStaticAnimal2][getCLSID]
+      Actual: function
+
+Pass: getCLSID.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getCLSID.length
+      Actual: 0
+
+Pass: name
+      Actual: getDoubleObservableMap
+
+Pass: typeof [object Animals.IStaticAnimal2][getDoubleObservableMap]
+      Actual: function
+
+Pass: getDoubleObservableMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getDoubleObservableMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getObservableStringIntegerMap
+
+Pass: typeof [object Animals.IStaticAnimal2][getObservableStringIntegerMap]
+      Actual: function
+
+Pass: getObservableStringIntegerMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getObservableStringIntegerMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getRefCount
+
+Pass: typeof [object Animals.IStaticAnimal2][getRefCount]
+      Actual: function
+
+Pass: getRefCount.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: getRefCount.length
+      Actual: 1
+
+Pass: name
+      Actual: getStaticAnimalAsInspectable
+
+Pass: typeof [object Animals.IStaticAnimal2][getStaticAnimalAsInspectable]
+      Actual: function
+
+Pass: getStaticAnimalAsInspectable.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStaticAnimalAsInspectable.length
+      Actual: 0
+
+Pass: name
+      Actual: getStaticAnimalAsStaticInterface
+
+Pass: typeof [object Animals.IStaticAnimal2][getStaticAnimalAsStaticInterface]
+      Actual: function
+
+Pass: getStaticAnimalAsStaticInterface.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStaticAnimalAsStaticInterface.length
+      Actual: 0
+
+Pass: name
+      Actual: getStringHiddenTypeMap
+
+Pass: typeof [object Animals.IStaticAnimal2][getStringHiddenTypeMap]
+      Actual: function
+
+Pass: getStringHiddenTypeMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStringHiddenTypeMap.length
+      Actual: 0
+
+Pass: name
+      Actual: getStringIntegerMap
+
+Pass: typeof [object Animals.IStaticAnimal2][getStringIntegerMap]
+      Actual: function
+
+Pass: getStringIntegerMap.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: getStringIntegerMap.length
+      Actual: 0
+
+Pass: name
+      Actual: multiplyNumbers
+
+Pass: typeof [object Animals.IStaticAnimal2][multiplyNumbers]
+      Actual: function
+
+Pass: multiplyNumbers.length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: multiplyNumbers.length
+      Actual: 2
+
+Pass: name
+      Actual: myFish
+
+Pass: typeof [object Animals.IStaticAnimal2][myFish]
+      Actual: undefined
+
+Pass: name
+      Actual: myFishRefCount
+
+Pass: typeof [object Animals.IStaticAnimal2][myFishRefCount]
+      Actual: number
+
+Pass: name
+      Actual: myIFish
+
+Pass: typeof [object Animals.IStaticAnimal2][myIFish]
+      Actual: object
+
+Pass: name
+      Actual: myLikeToSwim
+
+Pass: typeof [object Animals.IStaticAnimal2][myLikeToSwim]
+      Actual: object
+
+Pass: name
+      Actual: myStaticArrayProp
+
+Pass: typeof [object Animals.IStaticAnimal2][myStaticArrayProp]
+      Actual: object
+
+Pass: name
+      Actual: myStaticArrayPropHSTRING
+
+Pass: typeof [object Animals.IStaticAnimal2][myStaticArrayPropHSTRING]
+      Actual: object
+
+Pass: name
+      Actual: myToaster
+
+Pass: typeof [object Animals.IStaticAnimal2][myToaster]
+      Actual: undefined
+
+Pass: name
+      Actual: myToasterRefCount
+
+Pass: typeof [object Animals.IStaticAnimal2][myToasterRefCount]
+      Actual: number
+
+Pass: name
+      Actual: sendBackSameFish
+
+Pass: typeof [object Animals.IStaticAnimal2][sendBackSameFish]
+      Actual: function
+
+Pass: sendBackSameFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameFish.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameIFish
+
+Pass: typeof [object Animals.IStaticAnimal2][sendBackSameIFish]
+      Actual: function
+
+Pass: sendBackSameIFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameIFish.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSameLikeToSwim
+
+Pass: typeof [object Animals.IStaticAnimal2][sendBackSameLikeToSwim]
+      Actual: function
+
+Pass: sendBackSameLikeToSwim.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSameLikeToSwim.length
+      Actual: 1
+
+Pass: name
+      Actual: sendBackSamePropertySet
+
+Pass: typeof [object Animals.IStaticAnimal2][sendBackSamePropertySet]
+      Actual: function
+
+Pass: sendBackSamePropertySet.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: sendBackSamePropertySet.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultAnimal
+
+Pass: typeof [object Animals.IStaticAnimal2][testDefaultAnimal]
+      Actual: function
+
+Pass: testDefaultAnimal.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultAnimal.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultDino
+
+Pass: typeof [object Animals.IStaticAnimal2][testDefaultDino]
+      Actual: function
+
+Pass: testDefaultDino.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultDino.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultFish
+
+Pass: typeof [object Animals.IStaticAnimal2][testDefaultFish]
+      Actual: function
+
+Pass: testDefaultFish.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultFish.length
+      Actual: 1
+
+Pass: name
+      Actual: testDefaultMultipleIVector
+
+Pass: typeof [object Animals.IStaticAnimal2][testDefaultMultipleIVector]
+      Actual: function
+
+Pass: testDefaultMultipleIVector.length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: testDefaultMultipleIVector.length
+      Actual: 1
+
+Pass: name
+      Actual: toString
+
+Pass: typeof [object Animals.IStaticAnimal2][toString]
+      Actual: function
+
+Pass: toString.length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: toString.length
+      Actual: 0
+
+Pass: number of members
+      Actual: 31
+
+PASS [Test 5: Get static interface as IStaticInterface]
+=================================================
+
+Passed: 6
+Failed: 0

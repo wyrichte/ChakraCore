@@ -1,0 +1,83 @@
+[
+  {
+    "setnextstatement": {
+      "from": 2,
+      "to": 112,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "undefined",
+      "a1": "undefined"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 112,
+      "to": 253,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "undefined",
+      "a1": "undefined"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 253,
+      "to": 329,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "undefined",
+      "a1": "undefined"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 385,
+      "to": 499,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "b1": "1",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "undefined",
+      "a1": "1"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 499,
+      "to": 596,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "undefined",
+      "a1": "1"
+    }
+  }
+]

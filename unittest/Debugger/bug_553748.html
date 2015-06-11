@@ -1,0 +1,21 @@
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script> function foo() { Debug.emitStackTraceEvent()
+}
+function TrimStackTracePath(line) {
+    return line && line.replace(/\(.+unittest.debugger./ig, "(");
+}
+function bar() {
+    try {
+        Debug.emitStackTraceEvent(); ddd.aaa = 10;
+    } catch(e) {
+        WScript.Echo(TrimStackTracePath(e.stack));
+    }; 
+}
+bar();
+</script>
+</head>
+<body onload="foo();foo1 = function foo1() { try {Debug.emitStackTraceEvent(); ddd.aaa = 10;} catch(e) {WScript.Echo(TrimStackTracePath(e.stack));}; }; foo1();">
+</body>
+</html>

@@ -1,0 +1,10 @@
+ERROR: duplicate breakpoints named bp1
+Marker1
+
+Should not print this - innerfn- bar
+Marker2
+Marker3 should be skipped
+Passed
+
+Check
+Passed2

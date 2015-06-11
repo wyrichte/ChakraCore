@@ -1,0 +1,79 @@
+[
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 26,
+        "length": 10,
+        "text": "var k = 10",
+        "frameDescription": "test1"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 322,
+        "length": 25,
+        "text": "Print('test1 Completed!')",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[test1 returned]": "undefined",
+      "Print": "<large string>",
+      "callback": "<large string>",
+      "test1": "<large string>",
+      "testInternal": "<large string>",
+      "test2": "<large string>"
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 201,
+        "length": 11,
+        "text": "test2_sub()",
+        "frameDescription": "test2"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 182,
+        "length": 17,
+        "text": "return \"callback\"",
+        "frameDescription": "callback"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 523,
+        "length": 25,
+        "text": "Print('test2 Completed!')",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[test2 returned]": "undefined",
+      "Print": "<large string>",
+      "callback": "<large string>",
+      "test1": "<large string>",
+      "testInternal": "<large string>",
+      "test2": "<large string>"
+    }
+  }
+]

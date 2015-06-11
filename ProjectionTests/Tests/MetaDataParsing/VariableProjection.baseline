@@ -1,0 +1,1718 @@
+WinRT VariableProjection Tests
+
+=================================================
+Starting [Test 1: Ensure all the test functions on Animals.VariableProjection.testingClass are a function object]
+Pass: Ensuring "testDelegateWithPartialInterfaceOutParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithPartialInterfaceInParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithExtendsPartialInterfaceOutParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithExtendsPartialInterfaceInParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithExtendsMissingInterfaceOutParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithExtendsMissingInterfaceInParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithPartialAndMissingInterfaceClassOutParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithPartialAndMissingInterfaceClassInParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithExtendsInterfaceClassOutParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithExtendsInterfaceClassInParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithExtendsReverseInterfaceClassOutParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithExtendsReverseInterfaceClassInParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithMissingBoolInParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithMissingBoolOutParameter" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkMissingBool" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkMissingBoolOut" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkPartialAndMissingInterfaceClass" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkPartialAndMissingInterfaceClassOut" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkPartialInterface" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkPartialInterfaceOut" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkExtendsPartialInterface" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkExtendsPartialInterfaceOut" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkExtendsMissingInterface" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkExtendsMissingInterfaceOut" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkExtendsInterfaceClass" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkExtendsInterfaceClassOut" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkExtendsReverseInterfaceClass" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "checkExtendsReverseInterfaceClassOut" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "testDelegateWithPartialStructOutParameter" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "testDelegateWithPartialStructInParameter" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "testDelegateWithPartialStructInRefParameter" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "testDelegateWithMissingEnumInParameter" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "testDelegateWithMissingEnumOutParameter" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkMissingStructByRef" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkPartialStructByRef" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkPartialStructWithEnumByRef" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "testDelegateWithMissingTypeOutParameter" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "testDelegateWithMissingTypeInParameter" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "testDelegateWithMissingAndPartialInterfaceClassOutParameter" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "testDelegateWithMissingAndPartialInterfaceClassInParameter" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkMissingStruct" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkMissingStructOut" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkPartialStruct" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkPartialStructOut" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkPartialStructWithEnum" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkPartialStructWithEnumOut" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkMissingEnum" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkMissingEnumOut" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkMissingAndPartialInterfaceClass" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkMissingAndPartialInterfaceClassOut" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkMissingInterface" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkMissingInterfaceOut" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkMissingDelegate" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "checkMissingDelegateOut" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingBoolProp" has a getter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "missingBoolProp" has a setter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialAndMissingInterfaceClassProp" has a getter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialAndMissingInterfaceClassProp" has a setter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialInterfaceProp" has a getter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialInterfaceProp" has a setter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "extendsPartialInterfaceProp" has a getter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "extendsPartialInterfaceProp" has a setter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "extendsMissingInterfaceProp" has a getter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "extendsMissingInterfaceProp" has a setter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "extendsInterfaceClassProp" has a getter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "extendsInterfaceClassProp" has a setter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "extendsReverseInterfaceClassProp" has a getter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "extendsReverseInterfaceClassProp" has a setter on Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "missingStructProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "partialStructProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "partialStructWithEnumProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingEnumProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingAndPartialInterfaceClassProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingDelegateProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+PASS [Test 1: Ensure all the test functions on Animals.VariableProjection.testingClass are a function object]
+=================================================
+
+=================================================
+Starting [Test 2: Attempt to construct the runtime classes.]
+Pass: The class TestingClass was constructed, verifying thats the desired behavior.
+      Actual: true
+
+Pass: The class PartialAndMissingInterfaceClass was constructed, verifying thats the desired behavior.
+      Actual: true
+
+Pass: The class ExtendsInterfaceClass was constructed, verifying thats the desired behavior.
+      Actual: true
+
+Pass: The class MissingAndPartialInterfaceClass wasn't constructed, verifying thats the desired behavior. Ex was: TypeError: Animals.VariableProjection.MissingAndPartialInterfaceClass: type is not constructible
+      Actual: false
+
+Pass: The class ExtendsReverseInterfaceClass was constructed, verifying thats the desired behavior.
+      Actual: true
+
+Pass: The class MissingType wasn't constructed, verifying thats the desired behavior. Ex was: TypeError: Object doesn't support this action
+      Actual: false
+
+PASS [Test 2: Attempt to construct the runtime classes.]
+=================================================
+
+=================================================
+Starting [Test 3: Delegates with resolvable interface types, but without all interface implementations resolvable.]
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+PASS [Test 3: Delegates with resolvable interface types, but without all interface implementations resolvable.]
+=================================================
+
+=================================================
+Starting [Test 4: Delegates with resolvable runtime class types, but without all interface implementations resolvable.]
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+PASS [Test 4: Delegates with resolvable runtime class types, but without all interface implementations resolvable.]
+=================================================
+
+=================================================
+Starting [Test 5: Test Events]
+Pass: Test for whether the event 'invalidevent' listener has been called or not.
+      Actual: false
+
+Pass: Test for whether the event 'missingStructEvent' listener has been called or not.
+      Actual: false
+
+Pass: Test for whether the event 'partialstructevent' listener has been called or not.
+      Actual: false
+
+Pass: Test for whether the event 'partialstructwithenumevent' listener has been called or not.
+      Actual: false
+
+Pass: Test for whether the event 'missingenumevent' listener has been called or not.
+      Actual: false
+
+Pass: Test for whether the event 'missingandpartialinterfaceclassevent' listener has been called or not.
+      Actual: false
+
+Pass: Test for whether the event 'missinginterfaceevent' listener has been called or not.
+      Actual: false
+
+Pass: Test for whether the event 'missingdelegateevent' listener has been called or not.
+      Actual: false
+
+Pass: Ensuring that we have a boolean.
+      Actual: boolean
+
+Pass: Test for whether the event 'missingboolevent' listener has been called or not.
+      Actual: true
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Test for whether the event 'partialandmissinginterfaceclassevent' listener has been called or not.
+      Actual: true
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Test for whether the event 'partialinterfaceevent' listener has been called or not.
+      Actual: true
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Test for whether the event 'extendspartialinterfaceevent' listener has been called or not.
+      Actual: true
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Test for whether the event 'extendsmissinginterfaceevent' listener has been called or not.
+      Actual: true
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Test for whether the event 'extendsinterfaceclassevent' listener has been called or not.
+      Actual: true
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Test for whether the event 'extendsreverseinterfaceclassevent' listener has been called or not.
+      Actual: true
+
+PASS [Test 5: Test Events]
+=================================================
+
+=================================================
+Starting [Test 6: Test delegates with arguments that are of unresolvable types]
+PASS [Test 6: Test delegates with arguments that are of unresolvable types]
+=================================================
+
+=================================================
+Starting [Test 7: Test delegates with arguments whos types resolvable]
+Pass: Ensuring that we have a boolean.
+      Actual: boolean
+
+Pass: Ensuring that we have a boolean.
+      Actual: boolean
+
+Pass: Ensuring that we have a boolean.
+      Actual: boolean
+
+Pass: Ensuring that we have a boolean.
+      Actual: boolean
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+Pass: Ensuring "add" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Ensuring "partialStructMethod" is not a function of Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingTypeProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Ensuring "missingInterfaceProp" is not a property on Animals.VariableProjection.TestingClass.
+      Actual: undefined
+
+Pass: Verifying that the object's add function behaves as expected.
+      Actual: 45
+
+Pass: Ensuring "divide" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's divide function behaves as expected.
+      Actual: 44
+
+Pass: Ensuring "subtract" is a function of Animals.VariableProjection.TestingClass.
+      Actual: function
+
+Pass: Verifying that the object's subtract function behaves as expected.
+      Actual: 43
+
+PASS [Test 7: Test delegates with arguments whos types resolvable]
+=================================================
+
+=================================================
+Starting [Test 8: Test delay resolving parameter type]
+PASS [Test 8: Test delay resolving parameter type]
+=================================================
+
+Passed: 8
+Failed: 0

@@ -1,0 +1,247 @@
+[
+  {
+    "evaluate": {
+      "set": {
+        "set.__proto__": {
+          "[Methods]": {
+            "set.__proto__.add": {
+              "set.__proto__.add.__proto__": {
+                "[Methods]": "{...}",
+                "set.__proto__.add.__proto__.__proto__": "{...}",
+                "set.__proto__.add.__proto__.arguments": "null",
+                "set.__proto__.add.__proto__.caller": "null",
+                "set.__proto__.add.__proto__.length": "0",
+                "set.__proto__.add.__proto__.name": ""
+              },
+              "set.__proto__.add.arguments": "null",
+              "set.__proto__.add.caller": "null",
+              "set.__proto__.add.length": "1",
+              "set.__proto__.add.name": "add"
+            },
+            "set.__proto__.clear": {
+              "set.__proto__.clear.__proto__": {
+                "[Methods]": "{...}",
+                "set.__proto__.clear.__proto__.__proto__": "{...}",
+                "set.__proto__.clear.__proto__.arguments": "null",
+                "set.__proto__.clear.__proto__.caller": "null",
+                "set.__proto__.clear.__proto__.length": "0",
+                "set.__proto__.clear.__proto__.name": ""
+              },
+              "set.__proto__.clear.arguments": "null",
+              "set.__proto__.clear.caller": "null",
+              "set.__proto__.clear.length": "0",
+              "set.__proto__.clear.name": "clear"
+            },
+            "set.__proto__.constructor": {
+              "set.__proto__.constructor.__proto__": {
+                "[Methods]": "{...}",
+                "set.__proto__.constructor.__proto__.__proto__": "{...}",
+                "set.__proto__.constructor.__proto__.arguments": "null",
+                "set.__proto__.constructor.__proto__.caller": "null",
+                "set.__proto__.constructor.__proto__.length": "0",
+                "set.__proto__.constructor.__proto__.name": ""
+              },
+              "set.__proto__.constructor.arguments": "null",
+              "set.__proto__.constructor.caller": "null",
+              "set.__proto__.constructor.length": "0",
+              "set.__proto__.constructor.name": "Set",
+              "set.__proto__.constructor.prototype": {
+                "[Methods]": "{...}",
+                "set.__proto__.constructor.prototype.__proto__": "{...}",
+                "set.__proto__.constructor.prototype.size": "Set.prototype.size: 'this' is not a Set object"
+              }
+            },
+            "set.__proto__.delete": {
+              "set.__proto__.delete.__proto__": {
+                "[Methods]": "{...}",
+                "set.__proto__.delete.__proto__.__proto__": "{...}",
+                "set.__proto__.delete.__proto__.arguments": "null",
+                "set.__proto__.delete.__proto__.caller": "null",
+                "set.__proto__.delete.__proto__.length": "0",
+                "set.__proto__.delete.__proto__.name": ""
+              },
+              "set.__proto__.delete.arguments": "null",
+              "set.__proto__.delete.caller": "null",
+              "set.__proto__.delete.length": "1",
+              "set.__proto__.delete.name": "delete"
+            },
+            "set.__proto__.entries": {
+              "set.__proto__.entries.__proto__": {
+                "[Methods]": "{...}",
+                "set.__proto__.entries.__proto__.__proto__": "{...}",
+                "set.__proto__.entries.__proto__.arguments": "null",
+                "set.__proto__.entries.__proto__.caller": "null",
+                "set.__proto__.entries.__proto__.length": "0",
+                "set.__proto__.entries.__proto__.name": ""
+              },
+              "set.__proto__.entries.arguments": "null",
+              "set.__proto__.entries.caller": "null",
+              "set.__proto__.entries.length": "0",
+              "set.__proto__.entries.name": "entries"
+            },
+            "set.__proto__.forEach": {
+              "set.__proto__.forEach.__proto__": {
+                "[Methods]": "{...}",
+                "set.__proto__.forEach.__proto__.__proto__": "{...}",
+                "set.__proto__.forEach.__proto__.arguments": "null",
+                "set.__proto__.forEach.__proto__.caller": "null",
+                "set.__proto__.forEach.__proto__.length": "0",
+                "set.__proto__.forEach.__proto__.name": ""
+              },
+              "set.__proto__.forEach.arguments": "null",
+              "set.__proto__.forEach.caller": "null",
+              "set.__proto__.forEach.length": "1",
+              "set.__proto__.forEach.name": "forEach"
+            },
+            "set.__proto__.has": {
+              "set.__proto__.has.__proto__": {
+                "[Methods]": "{...}",
+                "set.__proto__.has.__proto__.__proto__": "{...}",
+                "set.__proto__.has.__proto__.arguments": "null",
+                "set.__proto__.has.__proto__.caller": "null",
+                "set.__proto__.has.__proto__.length": "0",
+                "set.__proto__.has.__proto__.name": ""
+              },
+              "set.__proto__.has.arguments": "null",
+              "set.__proto__.has.caller": "null",
+              "set.__proto__.has.length": "1",
+              "set.__proto__.has.name": "has"
+            },
+            "set.__proto__.keys": {
+              "set.__proto__.keys.__proto__": {
+                "[Methods]": "{...}",
+                "set.__proto__.keys.__proto__.__proto__": "{...}",
+                "set.__proto__.keys.__proto__.arguments": "null",
+                "set.__proto__.keys.__proto__.caller": "null",
+                "set.__proto__.keys.__proto__.length": "0",
+                "set.__proto__.keys.__proto__.name": ""
+              },
+              "set.__proto__.keys.arguments": "null",
+              "set.__proto__.keys.caller": "null",
+              "set.__proto__.keys.length": "0",
+              "set.__proto__.keys.name": "values"
+            },
+            "Symbol.iterator": {
+              "__proto__": {
+                "[Methods]": "{...}",
+                "__proto__": "{...}",
+                "arguments": "null",
+                "caller": "null",
+                "length": "0",
+                "name": ""
+              },
+              "arguments": "null",
+              "caller": "null",
+              "length": "0",
+              "name": "values"
+            },
+            "set.__proto__.values": {
+              "set.__proto__.values.__proto__": {
+                "[Methods]": "{...}",
+                "set.__proto__.values.__proto__.__proto__": "{...}",
+                "set.__proto__.values.__proto__.arguments": "null",
+                "set.__proto__.values.__proto__.caller": "null",
+                "set.__proto__.values.__proto__.length": "0",
+                "set.__proto__.values.__proto__.name": ""
+              },
+              "set.__proto__.values.arguments": "null",
+              "set.__proto__.values.caller": "null",
+              "set.__proto__.values.length": "0",
+              "set.__proto__.values.name": "values"
+            }
+          },
+          "set.__proto__.__proto__": {
+            "[Methods]": {
+              "set.__proto__.__proto__.__defineGetter__": {
+                "set.__proto__.__proto__.__defineGetter__.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.__defineGetter__.arguments": "null",
+                "set.__proto__.__proto__.__defineGetter__.caller": "null",
+                "set.__proto__.__proto__.__defineGetter__.length": "2",
+                "set.__proto__.__proto__.__defineGetter__.name": "__defineGetter__"
+              },
+              "set.__proto__.__proto__.__defineSetter__": {
+                "set.__proto__.__proto__.__defineSetter__.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.__defineSetter__.arguments": "null",
+                "set.__proto__.__proto__.__defineSetter__.caller": "null",
+                "set.__proto__.__proto__.__defineSetter__.length": "2",
+                "set.__proto__.__proto__.__defineSetter__.name": "__defineSetter__"
+              },
+              "set.__proto__.__proto__.__lookupGetter__": {
+                "set.__proto__.__proto__.__lookupGetter__.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.__lookupGetter__.arguments": "null",
+                "set.__proto__.__proto__.__lookupGetter__.caller": "null",
+                "set.__proto__.__proto__.__lookupGetter__.length": "1",
+                "set.__proto__.__proto__.__lookupGetter__.name": "__lookupGetter__"
+              },
+              "set.__proto__.__proto__.__lookupSetter__": {
+                "set.__proto__.__proto__.__lookupSetter__.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.__lookupSetter__.arguments": "null",
+                "set.__proto__.__proto__.__lookupSetter__.caller": "null",
+                "set.__proto__.__proto__.__lookupSetter__.length": "1",
+                "set.__proto__.__proto__.__lookupSetter__.name": "__lookupSetter__"
+              },
+              "set.__proto__.__proto__.constructor": {
+                "[Methods]": "{...}",
+                "set.__proto__.__proto__.constructor.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.constructor.arguments": "null",
+                "set.__proto__.__proto__.constructor.caller": "null",
+                "set.__proto__.__proto__.constructor.length": "1",
+                "set.__proto__.__proto__.constructor.name": "Object",
+                "set.__proto__.__proto__.constructor.prototype": "{...}"
+              },
+              "set.__proto__.__proto__.hasOwnProperty": {
+                "set.__proto__.__proto__.hasOwnProperty.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.hasOwnProperty.arguments": "null",
+                "set.__proto__.__proto__.hasOwnProperty.caller": "null",
+                "set.__proto__.__proto__.hasOwnProperty.length": "1",
+                "set.__proto__.__proto__.hasOwnProperty.name": "hasOwnProperty"
+              },
+              "set.__proto__.__proto__.isPrototypeOf": {
+                "set.__proto__.__proto__.isPrototypeOf.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.isPrototypeOf.arguments": "null",
+                "set.__proto__.__proto__.isPrototypeOf.caller": "null",
+                "set.__proto__.__proto__.isPrototypeOf.length": "1",
+                "set.__proto__.__proto__.isPrototypeOf.name": "isPrototypeOf"
+              },
+              "set.__proto__.__proto__.propertyIsEnumerable": {
+                "set.__proto__.__proto__.propertyIsEnumerable.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.propertyIsEnumerable.arguments": "null",
+                "set.__proto__.__proto__.propertyIsEnumerable.caller": "null",
+                "set.__proto__.__proto__.propertyIsEnumerable.length": "1",
+                "set.__proto__.__proto__.propertyIsEnumerable.name": "propertyIsEnumerable"
+              },
+              "set.__proto__.__proto__.toLocaleString": {
+                "set.__proto__.__proto__.toLocaleString.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.toLocaleString.arguments": "null",
+                "set.__proto__.__proto__.toLocaleString.caller": "null",
+                "set.__proto__.__proto__.toLocaleString.length": "0",
+                "set.__proto__.__proto__.toLocaleString.name": "toLocaleString"
+              },
+              "set.__proto__.__proto__.toString": {
+                "set.__proto__.__proto__.toString.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.toString.arguments": "null",
+                "set.__proto__.__proto__.toString.caller": "null",
+                "set.__proto__.__proto__.toString.length": "0",
+                "set.__proto__.__proto__.toString.name": "toString"
+              },
+              "set.__proto__.__proto__.valueOf": {
+                "set.__proto__.__proto__.valueOf.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.valueOf.arguments": "null",
+                "set.__proto__.__proto__.valueOf.caller": "null",
+                "set.__proto__.__proto__.valueOf.length": "0",
+                "set.__proto__.__proto__.valueOf.name": "valueOf"
+              }
+            },
+            "set.__proto__.__proto__.__proto__": "null"
+          },
+          "set.__proto__.size": "3"
+        },
+        "set": {
+          "0": "1",
+          "1": "2",
+          "2": "3"
+        }
+      }
+    }
+  }
+]

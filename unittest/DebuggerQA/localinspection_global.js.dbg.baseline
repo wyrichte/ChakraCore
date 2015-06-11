@@ -1,0 +1,1054 @@
+[
+  {
+    "evaluate": {
+      "e": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "message": "",
+          "name": "Error"
+        },
+        "description": "",
+        "number": "0",
+        "stack": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "e": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "",
+          "message": "",
+          "name": "EvalError"
+        },
+        "stack": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "e": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "",
+          "message": "",
+          "name": "RangeError"
+        },
+        "stack": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "e": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "",
+          "message": "",
+          "name": "<large string>"
+        },
+        "stack": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "e": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "",
+          "message": "",
+          "name": "SyntaxError"
+        },
+        "stack": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "e": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "",
+          "message": "",
+          "name": "TypeError"
+        },
+        "stack": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "e": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "",
+          "message": "",
+          "name": "URIError"
+        },
+        "stack": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "__fn": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": "anonymous",
+            "prototype": "{...}"
+          },
+          "_fn": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": "_fn",
+            "prototype": "{...}"
+          },
+          "fn": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": "fn",
+            "prototype": "{...}"
+          }
+        },
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": "<large string>",
+            "__defineSetter__": "<large string>",
+            "__lookupGetter__": "<large string>",
+            "__lookupSetter__": "<large string>",
+            "constructor": "<large string>",
+            "hasOwnProperty": "<large string>",
+            "isPrototypeOf": "<large string>",
+            "propertyIsEnumerable": "<large string>",
+            "toLocaleString": "<large string>",
+            "toString": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": "null"
+        },
+        "_arr": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "length": "0",
+            "Symbol.unscopables": "{...}"
+          },
+          "length": "0"
+        },
+        "_bool": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}"
+          }
+        },
+        "_map": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "size": "<large string>"
+          },
+          "[Map]": "size = 0"
+        },
+        "_num": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}"
+          }
+        },
+        "_obj": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        },
+        "_set": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "size": "<large string>"
+          },
+          "[Set]": "size = 0"
+        },
+        "_str": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "length": "0"
+          },
+          "length": "4"
+        },
+        "_weakmap": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}"
+          },
+          "[WeakMap]": "size = 0"
+        },
+        "arr": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}",
+            "length": "0",
+            "Symbol.unscopables": "{...}"
+          },
+          "length": "0"
+        },
+        "bool": "false",
+        "dt": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "{...}"
+          }
+        },
+        "intl": {
+          "[Methods]": {
+            "Collator": "<large string>",
+            "DateTimeFormat": "<large string>",
+            "NumberFormat": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        },
+        "math": {
+          "[Methods]": {
+            "abs": "<large string>",
+            "acos": "<large string>",
+            "acosh": "<large string>",
+            "asin": "<large string>",
+            "asinh": "<large string>",
+            "atan": "<large string>",
+            "atan2": "<large string>",
+            "atanh": "<large string>",
+            "cbrt": "<large string>",
+            "ceil": "<large string>",
+            "clz32": "<large string>",
+            "cos": "<large string>",
+            "cosh": "<large string>",
+            "exp": "<large string>",
+            "expm1": "<large string>",
+            "floor": "<large string>",
+            "fround": "<large string>",
+            "hypot": "<large string>",
+            "imul": "<large string>",
+            "log": "<large string>",
+            "log1p": "<large string>",
+            "log2": "<large string>",
+            "log10": "<large string>",
+            "max": "<large string>",
+            "min": "<large string>",
+            "pow": "<large string>",
+            "random": "<large string>",
+            "round": "<large string>",
+            "sign": "<large string>",
+            "sin": "<large string>",
+            "sinh": "<large string>",
+            "sqrt": "<large string>",
+            "tan": "<large string>",
+            "tanh": "<large string>",
+            "trunc": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "E": "<large string>",
+          "LN2": "<large string>",
+          "LN10": "<large string>",
+          "LOG2E": "<large string>",
+          "LOG10E": "<large string>",
+          "PI": "<large string>",
+          "SQRT1_2": "<large string>",
+          "SQRT2": "<large string>"
+        },
+        "num": "1",
+        "obj": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        },
+        "str": "test"
+      },
+      "fn": {
+        "__proto__": {
+          "[Methods]": {
+            "apply": "<large string>",
+            "bind": "<large string>",
+            "call": "<large string>",
+            "constructor": "<large string>",
+            "toMethod": "<large string>",
+            "toString": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "fn",
+        "prototype": {
+          "[Methods]": {
+            "constructor": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        }
+      },
+      "num": "1",
+      "_num": {
+        "__proto__": {
+          "[Methods]": {
+            "constructor": "<large string>",
+            "toExponential": "<large string>",
+            "toFixed": "<large string>",
+            "toLocaleString": "<large string>",
+            "toPrecision": "<large string>",
+            "toString": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        }
+      },
+      "bool": "false",
+      "_bool": {
+        "__proto__": {
+          "[Methods]": {
+            "constructor": "<large string>",
+            "toString": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        }
+      },
+      "str": "test",
+      "_str": {
+        "__proto__": {
+          "[Methods]": {
+            "anchor": "<large string>",
+            "big": "<large string>",
+            "blink": "<large string>",
+            "bold": "<large string>",
+            "charAt": "<large string>",
+            "charCodeAt": "<large string>",
+            "codePointAt": "<large string>",
+            "concat": "<large string>",
+            "constructor": "<large string>",
+            "endsWith": "<large string>",
+            "fixed": "<large string>",
+            "fontcolor": "<large string>",
+            "fontsize": "<large string>",
+            "includes": "<large string>",
+            "indexOf": "<large string>",
+            "italics": "<large string>",
+            "lastIndexOf": "<large string>",
+            "link": "<large string>",
+            "localeCompare": "<large string>",
+            "match": "<large string>",
+            "normalize": "<large string>",
+            "repeat": "<large string>",
+            "replace": "<large string>",
+            "search": "<large string>",
+            "slice": "<large string>",
+            "small": "<large string>",
+            "split": "<large string>",
+            "startsWith": "<large string>",
+            "strike": "<large string>",
+            "sub": "<large string>",
+            "substr": "<large string>",
+            "substring": "<large string>",
+            "sup": "<large string>",
+            "Symbol.iterator": "<large string>",
+            "toLocaleLowerCase": "<large string>",
+            "toLocaleUpperCase": "<large string>",
+            "toLowerCase": "<large string>",
+            "toString": "<large string>",
+            "toUpperCase": "<large string>",
+            "trim": "<large string>",
+            "trimLeft": "<large string>",
+            "trimRight": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "length": "0"
+        },
+        "length": "4"
+      },
+      "arr": {
+        "__proto__": {
+          "[Methods]": {
+            "concat": "<large string>",
+            "constructor": "<large string>",
+            "copyWithin": "<large string>",
+            "entries": "<large string>",
+            "every": "<large string>",
+            "fill": "<large string>",
+            "filter": "<large string>",
+            "find": "<large string>",
+            "findIndex": "<large string>",
+            "forEach": "<large string>",
+            "indexOf": "<large string>",
+            "join": "<large string>",
+            "keys": "<large string>",
+            "lastIndexOf": "<large string>",
+            "map": "<large string>",
+            "pop": "<large string>",
+            "push": "<large string>",
+            "reduce": "<large string>",
+            "reduceRight": "<large string>",
+            "reverse": "<large string>",
+            "shift": "<large string>",
+            "slice": "<large string>",
+            "some": "<large string>",
+            "sort": "<large string>",
+            "splice": "<large string>",
+            "Symbol.iterator": "<large string>",
+            "toLocaleString": "<large string>",
+            "toString": "<large string>",
+            "unshift": "<large string>",
+            "values": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "length": "0",
+          "Symbol.unscopables": {
+            "__proto__": "{...}",
+            "copyWithin": "true",
+            "entries": "true",
+            "fill": "true",
+            "find": "true",
+            "findIndex": "true",
+            "keys": "true",
+            "values": "true"
+          }
+        },
+        "length": "0"
+      },
+      "_arr": {
+        "__proto__": {
+          "[Methods]": {
+            "concat": "<large string>",
+            "constructor": "<large string>",
+            "copyWithin": "<large string>",
+            "entries": "<large string>",
+            "every": "<large string>",
+            "fill": "<large string>",
+            "filter": "<large string>",
+            "find": "<large string>",
+            "findIndex": "<large string>",
+            "forEach": "<large string>",
+            "indexOf": "<large string>",
+            "join": "<large string>",
+            "keys": "<large string>",
+            "lastIndexOf": "<large string>",
+            "map": "<large string>",
+            "pop": "<large string>",
+            "push": "<large string>",
+            "reduce": "<large string>",
+            "reduceRight": "<large string>",
+            "reverse": "<large string>",
+            "shift": "<large string>",
+            "slice": "<large string>",
+            "some": "<large string>",
+            "sort": "<large string>",
+            "splice": "<large string>",
+            "Symbol.iterator": "<large string>",
+            "toLocaleString": "<large string>",
+            "toString": "<large string>",
+            "unshift": "<large string>",
+            "values": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "length": "0",
+          "Symbol.unscopables": {
+            "__proto__": "{...}",
+            "copyWithin": "true",
+            "entries": "true",
+            "fill": "true",
+            "find": "true",
+            "findIndex": "true",
+            "keys": "true",
+            "values": "true"
+          }
+        },
+        "length": "0"
+      },
+      "_fn": {
+        "__proto__": {
+          "[Methods]": {
+            "apply": "<large string>",
+            "bind": "<large string>",
+            "call": "<large string>",
+            "constructor": "<large string>",
+            "toMethod": "<large string>",
+            "toString": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "_fn",
+        "prototype": {
+          "[Methods]": {
+            "constructor": "function () { }"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        }
+      },
+      "__fn": {
+        "__proto__": {
+          "[Methods]": {
+            "apply": "<large string>",
+            "bind": "<large string>",
+            "call": "<large string>",
+            "constructor": "<large string>",
+            "toMethod": "<large string>",
+            "toString": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "anonymous",
+        "prototype": {
+          "[Methods]": {
+            "constructor": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        }
+      },
+      "intl": {
+        "[Methods]": {
+          "Collator": {
+            "[Methods]": "{...}",
+            "__proto__": "<large string>",
+            "arguments": "<large string>",
+            "caller": "<large string>",
+            "length": "0",
+            "name": "Collator",
+            "prototype": "{...}"
+          },
+          "DateTimeFormat": {
+            "[Methods]": "{...}",
+            "__proto__": "<large string>",
+            "__relevantExtensionKeys": "[\"ca\",\"nu\"]",
+            "arguments": "<large string>",
+            "caller": "<large string>",
+            "length": "0",
+            "name": "<large string>",
+            "prototype": "{...}"
+          },
+          "NumberFormat": {
+            "[Methods]": "{...}",
+            "__proto__": "<large string>",
+            "arguments": "<large string>",
+            "caller": "<large string>",
+            "length": "0",
+            "name": "NumberFormat",
+            "prototype": "{...}"
+          }
+        },
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": "<large string>",
+            "__defineSetter__": "<large string>",
+            "__lookupGetter__": "<large string>",
+            "__lookupSetter__": "<large string>",
+            "constructor": "<large string>",
+            "hasOwnProperty": "<large string>",
+            "isPrototypeOf": "<large string>",
+            "propertyIsEnumerable": "<large string>",
+            "toLocaleString": "<large string>",
+            "toString": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": "null"
+        }
+      },
+      "_map": {
+        "__proto__": {
+          "[Methods]": {
+            "clear": "<large string>",
+            "constructor": "<large string>",
+            "delete": "<large string>",
+            "entries": "<large string>",
+            "forEach": "<large string>",
+            "get": "<large string>",
+            "has": "<large string>",
+            "keys": "<large string>",
+            "set": "<large string>",
+            "Symbol.iterator": "<large string>",
+            "values": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "size": "<large string>"
+        },
+        "[Map]": "size = 0"
+      },
+      "_set": {
+        "__proto__": {
+          "[Methods]": {
+            "add": "<large string>",
+            "clear": "<large string>",
+            "constructor": "<large string>",
+            "delete": "<large string>",
+            "entries": "<large string>",
+            "forEach": "<large string>",
+            "has": "<large string>",
+            "keys": "<large string>",
+            "Symbol.iterator": "<large string>",
+            "values": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "size": "<large string>"
+        },
+        "[Set]": "size = 0"
+      },
+      "_weakmap": {
+        "__proto__": {
+          "[Methods]": {
+            "constructor": "<large string>",
+            "delete": "<large string>",
+            "get": "<large string>",
+            "has": "<large string>",
+            "set": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        },
+        "[WeakMap]": "size = 0"
+      },
+      "obj": {
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": "<large string>",
+            "__defineSetter__": "<large string>",
+            "__lookupGetter__": "<large string>",
+            "__lookupSetter__": "<large string>",
+            "constructor": "<large string>",
+            "hasOwnProperty": "<large string>",
+            "isPrototypeOf": "<large string>",
+            "propertyIsEnumerable": "<large string>",
+            "toLocaleString": "<large string>",
+            "toString": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": "null"
+        }
+      },
+      "_obj": {
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": "<large string>",
+            "__defineSetter__": "<large string>",
+            "__lookupGetter__": "<large string>",
+            "__lookupSetter__": "<large string>",
+            "constructor": "<large string>",
+            "hasOwnProperty": "<large string>",
+            "isPrototypeOf": "<large string>",
+            "propertyIsEnumerable": "<large string>",
+            "toLocaleString": "<large string>",
+            "toString": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": "null"
+        }
+      },
+      "math": {
+        "[Methods]": {
+          "abs": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "abs"
+          },
+          "acos": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "acos"
+          },
+          "acosh": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "acosh"
+          },
+          "asin": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "asin"
+          },
+          "asinh": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "asinh"
+          },
+          "atan": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "atan"
+          },
+          "atan2": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "2",
+            "name": "atan2"
+          },
+          "atanh": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "atanh"
+          },
+          "cbrt": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "cbrt"
+          },
+          "ceil": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "ceil"
+          },
+          "clz32": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "clz32"
+          },
+          "cos": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "cos"
+          },
+          "cosh": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "cosh"
+          },
+          "exp": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "exp"
+          },
+          "expm1": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "expm1"
+          },
+          "floor": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "floor"
+          },
+          "fround": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "fround"
+          },
+          "hypot": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "2",
+            "name": "hypot"
+          },
+          "imul": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "2",
+            "name": "imul"
+          },
+          "log": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "log"
+          },
+          "log1p": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "log1p"
+          },
+          "log2": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "log2"
+          },
+          "log10": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "log10"
+          },
+          "max": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "2",
+            "name": "max"
+          },
+          "min": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "2",
+            "name": "min"
+          },
+          "pow": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "2",
+            "name": "pow"
+          },
+          "random": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "0",
+            "name": "random"
+          },
+          "round": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "round"
+          },
+          "sign": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "sign"
+          },
+          "sin": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "sin"
+          },
+          "sinh": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "sinh"
+          },
+          "sqrt": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "sqrt"
+          },
+          "tan": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "tan"
+          },
+          "tanh": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "tanh"
+          },
+          "trunc": {
+            "__proto__": "<large string>",
+            "arguments": "null",
+            "caller": "null",
+            "length": "1",
+            "name": "trunc"
+          }
+        },
+        "__proto__": {
+          "[Methods]": {
+            "__defineGetter__": "<large string>",
+            "__defineSetter__": "<large string>",
+            "__lookupGetter__": "<large string>",
+            "__lookupSetter__": "<large string>",
+            "constructor": "<large string>",
+            "hasOwnProperty": "<large string>",
+            "isPrototypeOf": "<large string>",
+            "propertyIsEnumerable": "<large string>",
+            "toLocaleString": "<large string>",
+            "toString": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": "null"
+        },
+        "E": "<large string>",
+        "LN2": "<large string>",
+        "LN10": "<large string>",
+        "LOG2E": "<large string>",
+        "LOG10E": "<large string>",
+        "PI": "<large string>",
+        "SQRT1_2": "<large string>",
+        "SQRT2": "<large string>"
+      },
+      "dt": {
+        "__proto__": {
+          "[Methods]": {
+            "constructor": "<large string>",
+            "getDate": "<large string>",
+            "getDay": "<large string>",
+            "getFullYear": "<large string>",
+            "getHours": "<large string>",
+            "getMilliseconds": "<large string>",
+            "getMinutes": "<large string>",
+            "getMonth": "<large string>",
+            "getSeconds": "<large string>",
+            "getTime": "<large string>",
+            "getTimezoneOffset": "<large string>",
+            "getUTCDate": "<large string>",
+            "getUTCDay": "<large string>",
+            "getUTCFullYear": "<large string>",
+            "getUTCHours": "<large string>",
+            "getUTCMilliseconds": "<large string>",
+            "getUTCMinutes": "<large string>",
+            "getUTCMonth": "<large string>",
+            "getUTCSeconds": "<large string>",
+            "getVarDate": "<large string>",
+            "getYear": "<large string>",
+            "setDate": "<large string>",
+            "setFullYear": "<large string>",
+            "setHours": "<large string>",
+            "setMilliseconds": "<large string>",
+            "setMinutes": "<large string>",
+            "setMonth": "<large string>",
+            "setSeconds": "<large string>",
+            "setTime": "<large string>",
+            "setUTCDate": "<large string>",
+            "setUTCFullYear": "<large string>",
+            "setUTCHours": "<large string>",
+            "setUTCMilliseconds": "<large string>",
+            "setUTCMinutes": "<large string>",
+            "setUTCMonth": "<large string>",
+            "setUTCSeconds": "<large string>",
+            "setYear": "<large string>",
+            "toDateString": "<large string>",
+            "toGMTString": "<large string>",
+            "toISOString": "<large string>",
+            "toJSON": "<large string>",
+            "toLocaleDateString": "<large string>",
+            "toLocaleString": "<large string>",
+            "toLocaleTimeString": "<large string>",
+            "toString": "<large string>",
+            "toTimeString": "<large string>",
+            "toUTCString": "<large string>",
+            "valueOf": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        }
+      }
+    }
+  }
+]

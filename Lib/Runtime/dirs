@@ -1,0 +1,8 @@
+DIRS=\
+    bytecode \
+    Math \
+    language \
+    types    \
+    library  \
+    publish \
+    Telemetry \

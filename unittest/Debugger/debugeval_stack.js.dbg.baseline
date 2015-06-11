@@ -1,0 +1,46 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 1096,
+        "length": 51,
+        "text": "diagnosticsScript.debugEval(evalStr, isNonUserCode)",
+        "frameDescription": "testExceptionInDebugEval"
+      },
+      {
+        "start": 1303,
+        "length": 30,
+        "text": "testExceptionInDebugEval(true)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 29,
+        "length": 38,
+        "text": "throw new Error('ex inside debugEval')",
+        "frameDescription": "insideDebugEval"
+      },
+      {
+        "start": 72,
+        "length": 17,
+        "text": "insideDebugEval()",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 1096,
+        "length": 51,
+        "text": "diagnosticsScript.debugEval(evalStr, isNonUserCode)",
+        "frameDescription": "testExceptionInDebugEval"
+      },
+      {
+        "start": 1336,
+        "length": 31,
+        "text": "testExceptionInDebugEval(false)",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

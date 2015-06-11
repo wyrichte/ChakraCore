@@ -1,0 +1,38 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "10",
+      "[Scope]1": "",
+      "[Scope]2": "f1",
+      "[Scope]3": "f0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": "11"
+    }
+  },
+  {
+    "evaluate": {
+      "j": "10"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c31": "undefined",
+      "c32": "undefined",
+      "a": "12",
+      "[Scope]1": "",
+      "[Scope]2": "f1",
+      "[Scope]3": "f0",
+      "[Globals]": ""
+    }
+  }
+]

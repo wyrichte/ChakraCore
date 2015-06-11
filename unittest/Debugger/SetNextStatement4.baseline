@@ -1,0 +1,15 @@
+foo1
+0
+foo2
+1
+2
+3
+foo3
+4
+5
+foo3.after loop
+foo4
+foo4.else
+foo5
+in try.in finally.in nested try.finally done.
+done

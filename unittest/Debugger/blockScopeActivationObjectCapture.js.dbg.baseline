@@ -1,0 +1,97 @@
+[
+  {
+    "locals": {
+      "this": {
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "level2Func": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "1",
+        "name": "level2Func",
+        "prototype": "{...}"
+      },
+      "level_1_identifier_0": "level1_0",
+      "level_1_identifier_1": "level1_1",
+      "level_1_identifier_2": "[Uninitialized block variable]",
+      "verify": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "3",
+        "name": "verify",
+        "prototype": "{...}"
+      },
+      "level_0_identifier_0": "level0",
+      "level2Func#1": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "1",
+        "name": "level2Func",
+        "prototype": "{...}"
+      },
+      "[Globals]": {
+        "verify": "function verify(){}",
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "level_0_identifier_0": "level0"
+    }
+  },
+  {
+    "evaluate": {
+      "level_1_identifier_0": "level1_0"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "level_2_identifier_0": "level2",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "level2"
+      },
+      "level_2_identifier_1": "level2",
+      "[Scope]1": {
+        "level2Func": "<large string>",
+        "level_1_identifier_0": "level1_0",
+        "level_1_identifier_1": "level1_1",
+        "level_1_identifier_2": "undefined"
+      },
+      "[Scope]2": {
+        "verify": "<large string>",
+        "level_0_identifier_0": "level0",
+        "level2Func": "<large string>"
+      },
+      "[Globals]": {
+        "verify": "function verify(){}",
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "level_0_identifier_0": "level0"
+    }
+  },
+  {
+    "evaluate": {
+      "level_1_identifier_0": "level1_0"
+    }
+  }
+]

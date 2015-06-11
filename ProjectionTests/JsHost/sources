@@ -1,0 +1,6 @@
+TEST_CODE=1
+TARGETTYPE    = NOTARGET
+TARGET_DESTINATION = Projection\DevTests\Configs
+
+PASS_INDEPENDENT_BINPLACE= \
+    .\*.config

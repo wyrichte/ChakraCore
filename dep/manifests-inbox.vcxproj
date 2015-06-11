@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="chk|Win32">
+      <Configuration>chk</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="chk|x64">
+      <Configuration>chk</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fretest|Win32">
+      <Configuration>fretest</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fretest|x64">
+      <Configuration>fretest</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fre|Win32">
+      <Configuration>fre</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fre|x64">
+      <Configuration>fre</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-chk|Win32">
+      <Configuration>jsls-chk</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-chk|x64">
+      <Configuration>jsls-chk</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-fre|Win32">
+      <Configuration>jsls-fre</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="jsls-fre|x64">
+      <Configuration>jsls-fre</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\manifests\Microsoft-Scripting-chakra.man">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">mc.exe  /h $(IntDir) /W $(PUBLIC_ROOT)\sdk\inc\winmeta.xml /w $(PUBLIC_ROOT)\sdk\inc\eventman.xsd /r $(IntDir) /z  %(Filename)Events -um -t $(RazzleToolPath)\providers\Vista  /v %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">mc.exe  /h $(IntDir) /W $(PUBLIC_ROOT)\sdk\inc\winmeta.xml /w $(PUBLIC_ROOT)\sdk\inc\eventman.xsd /r $(IntDir) /z  %(Filename)Events -um -t $(RazzleToolPath)\providers\Vista  /v %(FullPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">$(IntDir)%(Filename)Events.rc;$(IntDir)%(Filename)Events_MSG00001.bin;$(IntDir)%(Filename)EventsTEMP.bin;$(IntDir)%(Filename)Events.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">$(IntDir)%(Filename)Events.rc;$(IntDir)%(Filename)Events_MSG00001.bin;$(IntDir)%(Filename)EventsTEMP.bin;%(IntDir)%(Filename)Events.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">mc.exe  /h $(IntDir) /W $(PUBLIC_ROOT)\sdk\inc\winmeta.xml /w $(PUBLIC_ROOT)\sdk\inc\eventman.xsd /r $(IntDir) /z  %(Filename)Events -um -t $(RazzleToolPath)\providers\Vista  /v %(FullPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">$(IntDir)%(Filename)Events.rc;$(IntDir)%(Filename)Events_MSG00001.bin;$(IntDir)%(Filename)EventsTEMP.bin;%(IntDir)%(Filename)Events.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">mc.exe  /h $(IntDir) /W $(PUBLIC_ROOT)\sdk\inc\winmeta.xml /w $(PUBLIC_ROOT)\sdk\inc\eventman.xsd /r $(IntDir) /z  %(Filename)Events -um -t $(RazzleToolPath)\providers\Vista  /v %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">mc.exe  /h $(IntDir) /W $(PUBLIC_ROOT)\sdk\inc\winmeta.xml /w $(PUBLIC_ROOT)\sdk\inc\eventman.xsd /r $(IntDir) /z  %(Filename)Events -um -t $(RazzleToolPath)\providers\Vista  /v %(FullPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">$(IntDir)%(Filename)Events.rc;$(IntDir)%(Filename)Events_MSG00001.bin;$(IntDir)%(Filename)EventsTEMP.bin;%(IntDir)%(Filename)Events.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">$(IntDir)%(Filename)Events.rc;$(IntDir)%(Filename)Events_MSG00001.bin;$(IntDir)%(Filename)EventsTEMP.bin;%(IntDir)%(Filename)Events.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='chk|x64'">mc.exe  /h $(IntDir) /W $(PUBLIC_ROOT)\sdk\inc\winmeta.xml /w $(PUBLIC_ROOT)\sdk\inc\eventman.xsd /r $(IntDir) /z  %(Filename)Events -um -t $(RazzleToolPath)\providers\Vista  /v %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">mc.exe  /h $(IntDir) /W $(PUBLIC_ROOT)\sdk\inc\winmeta.xml /w $(PUBLIC_ROOT)\sdk\inc\eventman.xsd /r $(IntDir) /z  %(Filename)Events -um -t $(RazzleToolPath)\providers\Vista  /v %(FullPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='chk|x64'">$(IntDir)%(Filename)Events.rc;$(IntDir)%(Filename)Events_MSG00001.bin;$(IntDir)%(Filename)EventsTEMP.bin;%(IntDir)%(Filename)Events.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">$(IntDir)%(Filename)Events.rc;$(IntDir)%(Filename)Events_MSG00001.bin;$(IntDir)%(Filename)EventsTEMP.bin;%(IntDir)%(Filename)Events.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">mc.exe  /h $(IntDir) /W $(PUBLIC_ROOT)\sdk\inc\winmeta.xml /w $(PUBLIC_ROOT)\sdk\inc\eventman.xsd /r $(IntDir) /z  %(Filename)Events -um -t $(RazzleToolPath)\providers\Vista  /v %(FullPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">$(IntDir)%(Filename)Events.rc;$(IntDir)%(Filename)Events_MSG00001.bin;$(IntDir)%(Filename)EventsTEMP.bin;%(IntDir)%(Filename)Events.h</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='fre|x64'">mc.exe  /h $(IntDir) /W $(PUBLIC_ROOT)\sdk\inc\winmeta.xml /w $(PUBLIC_ROOT)\sdk\inc\eventman.xsd /r $(IntDir) /z  %(Filename)Events -um -t $(RazzleToolPath)\providers\Vista  /v %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">mc.exe  /h $(IntDir) /W $(PUBLIC_ROOT)\sdk\inc\winmeta.xml /w $(PUBLIC_ROOT)\sdk\inc\eventman.xsd /r $(IntDir) /z  %(Filename)Events -um -t $(RazzleToolPath)\providers\Vista  /v %(FullPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='fre|x64'">$(IntDir)%(Filename)Events.rc;$(IntDir)%(Filename)Events_MSG00001.bin;$(IntDir)%(Filename)EventsTEMP.bin;%(IntDir)%(Filename)Events.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">$(IntDir)%(Filename)Events.rc;$(IntDir)%(Filename)Events_MSG00001.bin;$(IntDir)%(Filename)EventsTEMP.bin;%(IntDir)%(Filename)Events.h</Outputs>
+      <SubType>Designer</SubType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\manifests\Microsoft-Scripting-JScript9diag.man" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{14BBB4B1-DA6A-4C69-BF07-F8D4865E0815}</ProjectGuid>
+    <RootNamespace>manifests-inbox</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='chk|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='chk|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fre|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fre|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="..\VcProjBuild.props" />
+  <Import Project="ExternalDependencyCommon.targets" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='chk|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fre|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='fretest|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

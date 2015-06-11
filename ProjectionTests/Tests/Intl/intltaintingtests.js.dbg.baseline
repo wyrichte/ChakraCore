@@ -1,0 +1,1370 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 11,
+        "length": 18,
+        "text": "var failed = false",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "undefined",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "failed": "undefined",
+      "getErrorFunction": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "generalTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "objectTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "arrayTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "stringTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "otherProtototypeTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 11,
+        "length": 18,
+        "text": "var failed = false",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 1479,
+        "length": 65,
+        "text": "Object.getPrototypeOf = getErrorFunction(\"Object.getPrototypeOf\")",
+        "frameDescription": "objectTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1479,
+        "length": 65,
+        "text": "Object.getPrototypeOf = getErrorFunction(\"Object.getPrototypeOf\")",
+        "frameDescription": "objectTainting"
+      },
+      {
+        "start": 3966,
+        "length": 16,
+        "text": "objectTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 1811,
+        "length": 33,
+        "text": "new Intl.NumberFormat().format(5)",
+        "frameDescription": "objectTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1811,
+        "length": 33,
+        "text": "new Intl.NumberFormat().format(5)",
+        "frameDescription": "objectTainting"
+      },
+      {
+        "start": 3966,
+        "length": 16,
+        "text": "objectTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 1988,
+        "length": 49,
+        "text": "WScript.Echo(\"Passed object prototype tainting!\")",
+        "frameDescription": "objectTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1988,
+        "length": 49,
+        "text": "WScript.Echo(\"Passed object prototype tainting!\")",
+        "frameDescription": "objectTainting"
+      },
+      {
+        "start": 3966,
+        "length": 16,
+        "text": "objectTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 3989,
+        "length": 15,
+        "text": "arrayTainting()",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "failed": "false",
+      "getErrorFunction": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "generalTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "objectTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "arrayTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "stringTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "otherProtototypeTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3989,
+        "length": 15,
+        "text": "arrayTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 2100,
+        "length": 14,
+        "text": "failed = false",
+        "frameDescription": "arrayTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2100,
+        "length": 14,
+        "text": "failed = false",
+        "frameDescription": "arrayTainting"
+      },
+      {
+        "start": 3989,
+        "length": 15,
+        "text": "arrayTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 2435,
+        "length": 33,
+        "text": "new Intl.NumberFormat().format(5)",
+        "frameDescription": "arrayTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2435,
+        "length": 33,
+        "text": "new Intl.NumberFormat().format(5)",
+        "frameDescription": "arrayTainting"
+      },
+      {
+        "start": 3989,
+        "length": 15,
+        "text": "arrayTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 2636,
+        "length": 48,
+        "text": "WScript.Echo(\"Passed array prototype tainting!\")",
+        "frameDescription": "arrayTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2636,
+        "length": 48,
+        "text": "WScript.Echo(\"Passed array prototype tainting!\")",
+        "frameDescription": "arrayTainting"
+      },
+      {
+        "start": 3989,
+        "length": 15,
+        "text": "arrayTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 2748,
+        "length": 14,
+        "text": "failed = false",
+        "frameDescription": "stringTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2748,
+        "length": 14,
+        "text": "failed = false",
+        "frameDescription": "stringTainting"
+      },
+      {
+        "start": 4011,
+        "length": 16,
+        "text": "stringTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 3115,
+        "length": 33,
+        "text": "new Intl.NumberFormat().format(5)",
+        "frameDescription": "stringTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3115,
+        "length": 33,
+        "text": "new Intl.NumberFormat().format(5)",
+        "frameDescription": "stringTainting"
+      },
+      {
+        "start": 4011,
+        "length": 16,
+        "text": "stringTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3159,
+        "length": 59,
+        "text": "new Intl.DateTimeFormat(\"en\", { month: \"short\" }).format(5)",
+        "frameDescription": "stringTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3159,
+        "length": 59,
+        "text": "new Intl.DateTimeFormat(\"en\", { month: \"short\" }).format(5)",
+        "frameDescription": "stringTainting"
+      },
+      {
+        "start": 4011,
+        "length": 16,
+        "text": "stringTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 3316,
+        "length": 49,
+        "text": "WScript.Echo(\"Passed string prototype tainting!\")",
+        "frameDescription": "stringTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3316,
+        "length": 49,
+        "text": "WScript.Echo(\"Passed string prototype tainting!\")",
+        "frameDescription": "stringTainting"
+      },
+      {
+        "start": 4011,
+        "length": 16,
+        "text": "stringTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 3439,
+        "length": 14,
+        "text": "failed = false",
+        "frameDescription": "otherProtototypeTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3439,
+        "length": 14,
+        "text": "failed = false",
+        "frameDescription": "otherProtototypeTainting"
+      },
+      {
+        "start": 4034,
+        "length": 26,
+        "text": "otherProtototypeTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 3700,
+        "length": 33,
+        "text": "new Intl.NumberFormat().format(5)",
+        "frameDescription": "otherProtototypeTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3700,
+        "length": 33,
+        "text": "new Intl.NumberFormat().format(5)",
+        "frameDescription": "otherProtototypeTainting"
+      },
+      {
+        "start": 4034,
+        "length": 26,
+        "text": "otherProtototypeTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 3901,
+        "length": 38,
+        "text": "WScript.Echo(\"Passed other tainting!\")",
+        "frameDescription": "otherProtototypeTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 3901,
+        "length": 38,
+        "text": "WScript.Echo(\"Passed other tainting!\")",
+        "frameDescription": "otherProtototypeTainting"
+      },
+      {
+        "start": 4034,
+        "length": 26,
+        "text": "otherProtototypeTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 267,
+        "length": 14,
+        "text": "failed = false",
+        "frameDescription": "generalTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 267,
+        "length": 14,
+        "text": "failed = false",
+        "frameDescription": "generalTainting"
+      },
+      {
+        "start": 4067,
+        "length": 17,
+        "text": "generalTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 472,
+        "length": 35,
+        "text": "String = getErrorFunction(\"String\")",
+        "frameDescription": "generalTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 472,
+        "length": 35,
+        "text": "String = getErrorFunction(\"String\")",
+        "frameDescription": "generalTainting"
+      },
+      {
+        "start": 4067,
+        "length": 17,
+        "text": "generalTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 718,
+        "length": 214,
+        "text": "Math = {\n            abs: getErrorFunction(\"Math.abs\"),\n            floor: getErrorFunction(\"Math.floor\"),\n            max: getErrorFunction(\"Math.max\"),\n            pow: getErrorFunction(\"Math.pow\")\n        }",
+        "frameDescription": "generalTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 718,
+        "length": 214,
+        "text": "Math = {\n            abs: getErrorFunction(\"Math.abs\"),\n            floor: getErrorFunction(\"Math.floor\"),\n            max: getErrorFunction(\"Math.max\"),\n            pow: getErrorFunction(\"Math.pow\")\n        }",
+        "frameDescription": "generalTainting"
+      },
+      {
+        "start": 4067,
+        "length": 17,
+        "text": "generalTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 1041,
+        "length": 33,
+        "text": "new Intl.NumberFormat().format(5)",
+        "frameDescription": "generalTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1041,
+        "length": 33,
+        "text": "new Intl.NumberFormat().format(5)",
+        "frameDescription": "generalTainting"
+      },
+      {
+        "start": 4067,
+        "length": 17,
+        "text": "generalTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 1274,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "generalTainting"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Scope]1": {},
+      "[Globals]": {
+        "WScript": "{...}",
+        "SCA": "{...}",
+        "ImageData": "<large string>",
+        "failed": "false",
+        "getErrorFunction": "<large string>",
+        "generalTainting": "<large string>",
+        "objectTainting": "<large string>",
+        "arrayTainting": "<large string>",
+        "stringTainting": "<large string>",
+        "otherProtototypeTainting": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1274,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "generalTainting"
+      },
+      {
+        "start": 4067,
+        "length": 17,
+        "text": "generalTainting()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Global code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Debug": "{...}",
+        "failed": "false",
+        "Infinity": "Infinity",
+        "Intl": "{...}",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "SCA": "{...}",
+        "undefined": "undefined",
+        "WScript": "{...}"
+      },
+      "WScript": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Arguments": "[]",
+        "StdErr": "{...}"
+      },
+      "SCA": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "ImageData": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "failed": "false",
+      "getErrorFunction": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "generalTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "objectTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "arrayTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "stringTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      },
+      "otherProtototypeTainting": {
+        "__proto__": "<large string>",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

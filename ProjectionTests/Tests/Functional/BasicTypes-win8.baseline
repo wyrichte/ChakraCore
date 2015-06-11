@@ -1,0 +1,586 @@
+type tests
+
+=================================================
+Starting [Test 0: marshalUInt32]
+Pass: typeof  6
+      Actual: number
+
+Pass: UInt32
+      Actual: 6
+
+PASS [Test 0: marshalUInt32]
+=================================================
+
+=================================================
+Starting [Test 1: marshalInt64]
+Pass: typeof  52
+      Actual: number
+
+Pass: Int64
+      Actual: 52
+
+PASS [Test 1: marshalInt64]
+=================================================
+
+=================================================
+Starting [Test 2: marshalInt32]
+Pass: typeof  5
+      Actual: number
+
+Pass: Int32
+      Actual: 5
+
+PASS [Test 2: marshalInt32]
+=================================================
+
+=================================================
+Starting [Test 3: marshalDouble]
+Pass: typeof  1.1
+      Actual: number
+
+Pass: Double
+      Actual: 1.1
+
+PASS [Test 3: marshalDouble]
+=================================================
+
+=================================================
+Starting [Test 4: marshalBool]
+Pass: typeof  true
+      Actual: boolean
+
+Pass: Bool
+      Actual: true
+
+PASS [Test 4: marshalBool]
+=================================================
+
+=================================================
+Starting [Test 5: marshalBool]
+Pass: typeof  false
+      Actual: boolean
+
+Pass: Bool
+      Actual: false
+
+PASS [Test 5: marshalBool]
+=================================================
+
+=================================================
+Starting [Test 6: marshalChar16]
+Pass: typeof  a
+      Actual: string
+
+Pass: Char16
+      Actual: a
+
+PASS [Test 6: marshalChar16]
+=================================================
+
+=================================================
+Starting [Test 7: marshalUInt8]
+Pass: typeof  7
+      Actual: number
+
+Pass: UInt8
+      Actual: 7
+
+PASS [Test 7: marshalUInt8]
+=================================================
+
+=================================================
+Starting [Test 8: marshalSingle]
+Pass: typeof  59
+      Actual: number
+
+Pass: Single
+      Actual: 59
+
+PASS [Test 8: marshalSingle]
+=================================================
+
+=================================================
+Starting [Test 9: marshalUInt64]
+Pass: typeof  53
+      Actual: number
+
+Pass: UInt64
+      Actual: 53
+
+PASS [Test 9: marshalUInt64]
+=================================================
+
+=================================================
+Starting [Test 10: marshalInt16]
+Pass: typeof  53
+      Actual: number
+
+Pass: Int16
+      Actual: 53
+
+PASS [Test 10: marshalInt16]
+=================================================
+
+=================================================
+Starting [Test 11: marshalUInt16]
+Pass: typeof  53
+      Actual: number
+
+Pass: UInt16
+      Actual: 53
+
+PASS [Test 11: marshalUInt16]
+=================================================
+
+=================================================
+Starting [Test 12: marshalInt16]
+Pass: typeof  -1
+      Actual: number
+
+Pass: Int16
+      Actual: -1
+
+PASS [Test 12: marshalInt16]
+=================================================
+
+=================================================
+Starting [Test 13: marshalInt16]
+Pass: typeof  0
+      Actual: number
+
+Pass: Int16
+      Actual: 0
+
+PASS [Test 13: marshalInt16]
+=================================================
+
+=================================================
+Starting [Test 14: marshalInt16]
+Pass: typeof  -1
+      Actual: number
+
+Pass: Int16
+      Actual: -1
+
+PASS [Test 14: marshalInt16]
+=================================================
+
+=================================================
+Starting [Test 15: marshalInt16]
+Pass: typeof  1
+      Actual: number
+
+Pass: Int16
+      Actual: 1
+
+PASS [Test 15: marshalInt16]
+=================================================
+
+=================================================
+Starting [Test 16: marshalInt16]
+Pass: typeof  -1
+      Actual: number
+
+Pass: Int16
+      Actual: -1
+
+PASS [Test 16: marshalInt16]
+=================================================
+
+=================================================
+Starting [Test 17: marshalUInt16]
+Pass: typeof  65535
+      Actual: number
+
+Pass: UInt16
+      Actual: 65535
+
+PASS [Test 17: marshalUInt16]
+=================================================
+
+=================================================
+Starting [Test 18: marshalUInt16]
+Pass: typeof  0
+      Actual: number
+
+Pass: UInt16
+      Actual: 0
+
+PASS [Test 18: marshalUInt16]
+=================================================
+
+=================================================
+Starting [Test 19: marshalUInt16]
+Pass: typeof  65535
+      Actual: number
+
+Pass: UInt16
+      Actual: 65535
+
+PASS [Test 19: marshalUInt16]
+=================================================
+
+=================================================
+Starting [Test 20: marshalUInt16]
+Pass: typeof  1
+      Actual: number
+
+Pass: UInt16
+      Actual: 1
+
+PASS [Test 20: marshalUInt16]
+=================================================
+
+=================================================
+Starting [Test 21: marshalUInt16]
+Pass: typeof  65535
+      Actual: number
+
+Pass: UInt16
+      Actual: 65535
+
+PASS [Test 21: marshalUInt16]
+=================================================
+
+=================================================
+Starting [Test 22: marshalInt32]
+Pass: typeof  -1
+      Actual: number
+
+Pass: Int32
+      Actual: -1
+
+PASS [Test 22: marshalInt32]
+=================================================
+
+=================================================
+Starting [Test 23: marshalInt32]
+Pass: typeof  0
+      Actual: number
+
+Pass: Int32
+      Actual: 0
+
+PASS [Test 23: marshalInt32]
+=================================================
+
+=================================================
+Starting [Test 24: marshalInt32]
+Pass: typeof  -1
+      Actual: number
+
+Pass: Int32
+      Actual: -1
+
+PASS [Test 24: marshalInt32]
+=================================================
+
+=================================================
+Starting [Test 25: marshalInt32]
+Pass: typeof  1
+      Actual: number
+
+Pass: Int32
+      Actual: 1
+
+PASS [Test 25: marshalInt32]
+=================================================
+
+=================================================
+Starting [Test 26: marshalInt32]
+Pass: typeof  -1
+      Actual: number
+
+Pass: Int32
+      Actual: -1
+
+PASS [Test 26: marshalInt32]
+=================================================
+
+=================================================
+Starting [Test 27: marshalUInt8]
+Pass: typeof  255
+      Actual: number
+
+Pass: UInt8
+      Actual: 255
+
+PASS [Test 27: marshalUInt8]
+=================================================
+
+=================================================
+Starting [Test 28: marshalUInt8]
+Pass: typeof  0
+      Actual: number
+
+Pass: UInt8
+      Actual: 0
+
+PASS [Test 28: marshalUInt8]
+=================================================
+
+=================================================
+Starting [Test 29: marshalUInt8]
+Pass: typeof  255
+      Actual: number
+
+Pass: UInt8
+      Actual: 255
+
+PASS [Test 29: marshalUInt8]
+=================================================
+
+=================================================
+Starting [Test 30: marshalUInt8]
+Pass: typeof  1
+      Actual: number
+
+Pass: UInt8
+      Actual: 1
+
+PASS [Test 30: marshalUInt8]
+=================================================
+
+=================================================
+Starting [Test 31: marshalUInt8]
+Pass: typeof  255
+      Actual: number
+
+Pass: UInt8
+      Actual: 255
+
+PASS [Test 31: marshalUInt8]
+=================================================
+
+=================================================
+Starting [Test 32: marshalUInt32]
+Pass: typeof  4294967295
+      Actual: number
+
+Pass: UInt32
+      Actual: 4294967295
+
+PASS [Test 32: marshalUInt32]
+=================================================
+
+=================================================
+Starting [Test 33: marshalUInt32]
+Pass: typeof  0
+      Actual: number
+
+Pass: UInt32
+      Actual: 0
+
+PASS [Test 33: marshalUInt32]
+=================================================
+
+=================================================
+Starting [Test 34: marshalUInt32]
+Pass: typeof  4294967295
+      Actual: number
+
+Pass: UInt32
+      Actual: 4294967295
+
+PASS [Test 34: marshalUInt32]
+=================================================
+
+=================================================
+Starting [Test 35: marshalUInt32]
+Pass: typeof  1
+      Actual: number
+
+Pass: UInt32
+      Actual: 1
+
+PASS [Test 35: marshalUInt32]
+=================================================
+
+=================================================
+Starting [Test 36: marshalUInt32]
+Pass: typeof  4294967295
+      Actual: number
+
+Pass: UInt32
+      Actual: 4294967295
+
+PASS [Test 36: marshalUInt32]
+=================================================
+
+=================================================
+Starting [Test 37: marshalBool]
+Pass: typeof  true
+      Actual: boolean
+
+Pass: Bool
+      Actual: true
+
+PASS [Test 37: marshalBool]
+=================================================
+
+=================================================
+Starting [Test 38: marshalBool]
+Pass: typeof  true
+      Actual: boolean
+
+Pass: Bool
+      Actual: true
+
+PASS [Test 38: marshalBool]
+=================================================
+
+=================================================
+Starting [Test 39: marshalBool]
+Pass: typeof  true
+      Actual: boolean
+
+Pass: Bool
+      Actual: true
+
+PASS [Test 39: marshalBool]
+=================================================
+
+=================================================
+Starting [Test 40: marshalBool]
+Pass: typeof  false
+      Actual: boolean
+
+Pass: Bool
+      Actual: false
+
+PASS [Test 40: marshalBool]
+=================================================
+
+=================================================
+Starting [Test 41: marshalBool]
+Pass: typeof  true
+      Actual: boolean
+
+Pass: Bool
+      Actual: true
+
+PASS [Test 41: marshalBool]
+=================================================
+
+=================================================
+Starting [Test 42: marshalChar16]
+Pass: Char16 : expected error
+      Actual: TypeError: Could not convert argument to type 'char'
+
+PASS [Test 42: marshalChar16]
+=================================================
+
+=================================================
+Starting [Test 43: marshalChar16]
+Pass: Char16 : expected error
+      Actual: TypeError: Could not convert argument to type 'char'
+
+PASS [Test 43: marshalChar16]
+=================================================
+
+=================================================
+Starting [Test 44: marshalChar16]
+Pass: Char16 : expected error
+      Actual: TypeError: Could not convert argument to type 'char'
+
+PASS [Test 44: marshalChar16]
+=================================================
+
+=================================================
+Starting [Test 45: marshalChar16]
+Pass: Char16 : expected error
+      Actual: TypeError: Could not convert argument to type 'char'
+
+PASS [Test 45: marshalChar16]
+=================================================
+
+=================================================
+Starting [Test 46: marshalUInt32]
+Pass: typeof  0
+      Actual: number
+
+Pass: UInt32
+      Actual: 0
+
+PASS [Test 46: marshalUInt32]
+=================================================
+
+=================================================
+Starting [Test 47: marshalInt64]
+Pass: typeof  0
+      Actual: number
+
+Pass: Int64
+      Actual: 0
+
+PASS [Test 47: marshalInt64]
+=================================================
+
+=================================================
+Starting [Test 48: marshalInt32]
+Pass: typeof  0
+      Actual: number
+
+Pass: Int32
+      Actual: 0
+
+PASS [Test 48: marshalInt32]
+=================================================
+
+=================================================
+Starting [Test 49: marshalDouble]
+Pass: typeof  0
+      Actual: number
+
+Pass: Double
+      Actual: 0
+
+PASS [Test 49: marshalDouble]
+=================================================
+
+=================================================
+Starting [Test 50: marshalBool]
+Pass: typeof  false
+      Actual: boolean
+
+Pass: Bool
+      Actual: false
+
+PASS [Test 50: marshalBool]
+=================================================
+
+=================================================
+Starting [Test 51: marshalUInt8]
+Pass: typeof  0
+      Actual: number
+
+Pass: UInt8
+      Actual: 0
+
+PASS [Test 51: marshalUInt8]
+=================================================
+
+=================================================
+Starting [Test 52: marshalSingle]
+Pass: typeof  0
+      Actual: number
+
+Pass: Single
+      Actual: 0
+
+PASS [Test 52: marshalSingle]
+=================================================
+
+=================================================
+Starting [Test 53: marshalUInt64]
+Pass: typeof  0
+      Actual: number
+
+Pass: UInt64
+      Actual: 0
+
+PASS [Test 53: marshalUInt64]
+=================================================
+
+Passed: 54
+Failed: 0

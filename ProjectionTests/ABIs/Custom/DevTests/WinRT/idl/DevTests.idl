@@ -1,0 +1,974 @@
+//  Copyright (c) Microsoft Corporation. All rights reserved.
+//
+//  WindowsRuntimeAPISet
+
+import "oaidl.idl";
+import "ocidl.idl";
+import "hstring.idl";
+import "inspectable.idl";
+import "Windows.Foundation.idl";
+
+#include <sdkddkver.h>
+
+midl_pragma warning ( disable: 5083 )
+
+namespace DevTests {
+    
+    namespace DateTimeAndTimeSpan {
+
+        typedef unsigned short t_UInt16;
+        typedef unsigned int t_UInt32;
+
+        [version(NTDDI_WIN8)]
+        typedef struct DummyDateTime
+        {
+            __int64 UniversalTime;
+        } DummyDateTime;
+
+        [version(NTDDI_WIN8)]
+        typedef struct DummyTimeSpan
+        {
+            __int64 Duration;
+        } DummyTimeSpan;
+
+        [version(NTDDI_WIN8)]
+        typedef struct EventLog
+        {
+            HSTRING EventName;
+            Windows.Foundation.DateTime StartTime;
+            Windows.Foundation.TimeSpan Duration;
+        } EventLog;
+
+        [version(NTDDI_WIN8), uuid(7BF1A678-558A-4FE1-872D-1F2ACF9E8EDA)]
+        interface IDateTimeTests : IInspectable
+        {
+            [propget] HRESULT DateTime([out,retval] Windows.Foundation.DateTime * value);
+            [propput] HRESULT DateTime([in] Windows.Foundation.DateTime value);
+
+            [overload("VerifyDateTime"), default_overload]
+            HRESULT VerifyDateTimeInt([in] Windows.Foundation.DateTime date, [in] __int64 expected, [out,retval] boolean * equal);
+            [overload("VerifyDateTime"), default_overload]
+            HRESULT VerifyDateTimeSystemTime([in] Windows.Foundation.DateTime date, [in] t_UInt16 year, [in] t_UInt16 month, 
+                [in] t_UInt16 day, [in] t_UInt16 hour, [in] t_UInt16 minute, [in] t_UInt16 second, 
+                [in] t_UInt16 milliseconds, [in] t_UInt16 offset, [out,retval] boolean * equal);
+
+            [overload("ProduceDateTime"), default_overload]
+            HRESULT ProduceDateTimeInt([in] __int64 value, [out,retval] Windows.Foundation.DateTime * date);
+            [overload("ProduceDateTime"), default_overload]
+            HRESULT ProduceDateTimeSystemTime([in] t_UInt16 year, [in] t_UInt16 month, [in] t_UInt16 day, 
+                [in] t_UInt16 hour, [in] t_UInt16 minute, [in] t_UInt16 second, [in] t_UInt16 milliseconds, 
+                [in] t_UInt16 offset, [out] Windows.Foundation.DateTime * date);
+
+            HRESULT DateTimeCmp([in] Windows.Foundation.DateTime a, [in] Windows.Foundation.DateTime b, [out,retval] __int64 * difference);
+            HRESULT CmpDateTimeToStored([in] Windows.Foundation.DateTime date, [out,retval] __int64 * difference);
+            HRESULT RoundTripDateTime([in] Windows.Foundation.DateTime _in, [out,retval] Windows.Foundation.DateTime * _out);
+            HRESULT MarshalDummyDateTime([in] DummyDateTime _in, [out,retval] DummyDateTime * _out);
+            HRESULT ResetDateTime([in] Windows.Foundation.DateTime _in, [out,retval] Windows.Foundation.DateTime * _out);
+        }
+
+        [version(NTDDI_WIN8), uuid(4D698A54-BBDD-496D-A51C-54A96D2A2719)]
+        interface ITimeSpanTests : IInspectable
+        {
+            [propget] HRESULT TimeSpan([out,retval] Windows.Foundation.TimeSpan* value);
+            [propput] HRESULT TimeSpan([in] Windows.Foundation.TimeSpan value);
+
+            HRESULT VerifyTimeSpan([in] Windows.Foundation.TimeSpan span, [in] __int64 expected, [out,retval] boolean * equal);
+            HRESULT ProduceTimeSpan([in] __int64 value, [out,retval] Windows.Foundation.TimeSpan * span);
+            HRESULT TimeSpanCmp([in] Windows.Foundation.TimeSpan a, [in] Windows.Foundation.TimeSpan b, [out,retval] __int64 * difference);
+            HRESULT CmpTimeSpanToStored([in] Windows.Foundation.TimeSpan span, [out,retval] __int64 * difference);
+            HRESULT RoundTripTimeSpan([in] Windows.Foundation.TimeSpan _in, [out,retval] Windows.Foundation.TimeSpan * _out);
+            HRESULT MarshalDummyTimeSpan([in] DummyTimeSpan _in, [out,retval] DummyTimeSpan * _out);
+            HRESULT ResetTimeSpan([in] Windows.Foundation.TimeSpan _in, [out,retval] Windows.Foundation.TimeSpan * _out);
+        }
+
+        [version(NTDDI_WIN8), uuid(86ABEB56-B7CF-4D17-BDDE-121091A967A9)]
+        interface IOtherTests : IInspectable
+        {
+            HRESULT MarshalEventLog([in] EventLog _in, [out] EventLog * _out);
+            HRESULT CreateInt64([in] t_UInt32 high, [in] t_UInt32 low, [out,retval] __int64 * result);
+            HRESULT GetInt64Max([out,retval] __int64 * max);
+            HRESULT GetInt64Min([out,retval] __int64 * min);
+            HRESULT VerifyInt64Max([in] __int64 value, [out,retval] boolean * equal);
+            HRESULT Int64Cmp([in] __int64 a, [in] __int64 b, [out,retval] __int64 * difference);
+            HRESULT DateInStringOut([in] Windows.Foundation.DateTime date, [out,retval] HSTRING * result);
+        }
+
+        [
+            activatable(NTDDI_WIN8),
+            version(NTDDI_WIN8)
+        ]
+        runtimeclass Tests
+        {
+            [default] interface IDateTimeTests;
+            interface ITimeSpanTests;
+            interface IOtherTests;
+        }
+    } // namespace DateTimeAndTimeSpan
+
+    // ARM-specific tests. These excersice ARM-specific boundary conditions, OK to run on other platforms as well.
+    // Note: that all methods always pass 'this' parameter as implicit 1st parameter.
+    // Note: it seems that in WinRT there is no way to define empty struct. So, no tests for empty structs.
+    namespace Arm 
+    {
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Int_Int64
+        {
+            int i0;
+            __int64 i1;
+        } Struct_Int_Int64;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Int_Int64_Int
+        {
+            int i0;
+            __int64 i1;
+            int i2;
+        } Struct_Int_Int64_Int;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Int_Float
+        {
+            int i0;
+            float f0;
+        } Struct_Int_Float;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Float_Double
+        {
+            float f0;
+            double d0;
+        } Struct_Float_Double;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_DoubleX2
+        {
+            double d0;
+            double d1;
+        } Struct_DoubleX2;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_DoubleX3_Inner_DoubleX2
+        {
+            double d0;
+            double d1;
+            double d2;
+            Struct_DoubleX2 inner;
+        } Struct_DoubleX3_Inner_DoubleX2;
+        
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Double
+        {
+            double d0;
+        } Struct_Double;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Float_Inner_Double
+        {
+            float f0;
+            Struct_Double inner;
+        } Struct_Float_Inner_Double;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Float
+        {
+            float f0;
+        } Struct_Float;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Inner_Float
+        {
+            Struct_Float inner;
+        } Struct_Inner_Float;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Inner_Inner_Float
+        {
+            Struct_Inner_Float inner;
+        } Struct_Inner_Inner_Float;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Double_Inner_Inner_Float
+        {
+            double d0;
+            Struct_Inner_Inner_Float inner;
+        } Struct_Double_Inner_Inner_Float;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Double_Inner_Double_Inner_Inner_Float
+        {
+            double d0;
+            Struct_Double_Inner_Inner_Float inner;
+        } Struct_Double_Inner_Double_Inner_Inner_Float;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Double_Inner_Double_Inner_Double_Inner_Inner_Float
+        {
+            double d0;
+            Struct_Double_Inner_Double_Inner_Inner_Float inner;
+        } Struct_Double_Inner_Double_Inner_Double_Inner_Inner_Float;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_FloatX4
+        {
+            float f0;
+            float f1;
+            float f2;
+            float f3;
+        } Struct_FloatX4;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_FloatX5
+        {
+            float f0;
+            float f1;
+            float f2;
+            float f3;
+            float f4;
+        } Struct_FloatX5;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_DoubleX4
+        {
+            double d0;
+            double d1;
+            double d2;
+            double d3;
+        } Struct_DoubleX4;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_DoubleX5
+        {
+            double d0;
+            double d1;
+            double d2;
+            double d3;
+            double d4;
+        } Struct_DoubleX5;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_FloatX2
+        {
+            float f0;
+            float f1;
+        } Struct_FloatX2;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_FloatX2_Inner_FloatX2
+        {
+            float f0;
+            float f1;
+            Struct_FloatX2 inner;
+        } Struct_FloatX2_Inner_FloatX2;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Float_Inner_Inner_Float
+        {
+            float f0;
+            Struct_Inner_Inner_Float inner;
+        } Struct_Float_Inner_Inner_Float;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_FloatX2_Inner_Float_Inner_Float_Inner_Inner_Float
+        {
+            float f0;
+            float f1;
+            Struct_Float_Inner_Inner_Float inner;
+        } Struct_FloatX2_Float_Inner_Float_Inner_Inner_Float;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Struct_Inner_X3_Double
+        {
+            Struct_Double inner1;
+            Struct_Double inner2;
+            Struct_Double inner3;
+        } Struct_Inner_X3_Double;
+
+        // Scenario-based tests for marshaling from Javascript to WinRT.
+        [version(NTDDI_WIN8), uuid(86ABEB56-B7CF-4D17-BDDE-121091A967AA)]
+        interface IJsToWinRTTests : IInspectable
+        {
+            [propget] HRESULT Result([out, retval] HSTRING* value);
+
+            // 01: simple case: 4 ints go to regs, 5th to the stack.
+            HRESULT IntX4([in] int r1, [in] int r2, [in] int r3, [in] int s0);
+
+            // 02: int64 with alignment: r1 is a hole.
+            HRESULT Int64_Int([in] __int64 r2r3, [in] int s0);
+
+            // 03: int64, make sure we don't split but leave r3 as hole.
+            HRESULT Int_Int_Int64([in] int r1, [in] int r2, __int64 s0);
+
+            // 04: float: simple case: #17 goes to the stack
+            HRESULT FloatX17([in] float f0, [in] float f1, [in] float f2, [in] float f3, 
+                             [in] float f4, [in] float f5, [in] float f6, [in] float f7, 
+                             [in] float f8, [in] float f9, [in] float fa, [in] float fb, 
+                             [in] float fc, [in] float fd, [in] float fe, [in] float ff, 
+                             [in] float s0);
+
+            // 05: double: simple case: #9 goes to the stack
+            HRESULT DoubleX9([in] double d0, [in] double d1, [in] double d2, [in] double d3, 
+                             [in] double d4, [in] double d5, [in] double d6, [in] double d7, 
+                             [in] double s0);
+            
+            // 06: mixed float/double: no stack: make sure holes are populated and no splits
+            HRESULT MixedFloatDoubleLeaveFillHole(
+                [in] float f0,  [in] double f2f3, [in] float f1, // 4 float slots
+                [in] float f4, [in] float f5, [in] float f6,     // f7 = hole hole would be filled later
+                [in] double f8f9, [in] double f10f11, 
+                [in] double f12f13, [in] float f7, [in] float f14, double s0); // last double would go to the stack, leaving f15 = hole
+
+            // 07: simple mix of ints and floats
+            HRESULT MixedIntsAndFloats([in] float f0, [in] int i1, [in] double f2f3, [in] __int64 i2i3, [in] float f1, [in] int s0);
+
+            // 08: after float goes to stack, all ints and floats go to the stack
+            HRESULT AfterFloatisOverflownToStackEverythingGoesToStack(
+                [in] double d0, [in] double d1, [in] double d2, [in] double d3, 
+                [in] double d4, [in] double d5, [in] double d6, [in] double d7, 
+                [in] double s0s1, [in] int s2, [in] double s4s5);
+
+            // 09: structs: test the alignment inside the struct
+            HRESULT Structs_Int_Int64(Struct_Int_Int64 data);
+
+            // 10: structs: test the split -- 2nd int goes to the stack
+            HRESULT Structs_Int_Int64_Int(Struct_Int_Int64_Int data);
+
+            // 11: structs: if there is a float and non-float, it goes to general regs and not float regs
+            HRESULT Structs_Int_Float(Struct_Int_Float data);
+            
+            // 12: structs: Non-HFP: float and double -- must go to general regs
+            HRESULT Structs_Float_Double(Struct_Float_Double data);
+
+            // 13: structs: Non-HFP: inner struct, same type -- more than 4 args
+            HRESULT Structs_DoubleX3_Inner_DoubleX2(Struct_DoubleX3_Inner_DoubleX2 data);
+
+            // 14: structs: Non-HFP: inner struct, different type { float, double }
+            HRESULT Structs_Float_Inner_Double(Struct_Float_Inner_Double data);
+
+            // 15: structs: Non-HFP: deep inner struct, different type { double, { double, { double, { { float } } } } }
+            HRESULT Structs_Double_Inner_Double_Inner_Double_Inner_Inner_Float(Struct_Double_Inner_Double_Inner_Double_Inner_Inner_Float data);
+
+            // 16: structs: HFP: 4 floats - regs { float, float, float, float } -- all must go to the regs
+            HRESULT Structs_FloatX4(Struct_FloatX4 data);
+
+            // 17: structs: Non-HFP: 4+ floats - stack { float, float, float, float, float } -- all must go to the stack
+            HRESULT Structs_FloatX5(Struct_FloatX5 data);
+
+            // 18: structs: HFP: 4 doubles - regs { double, double, double, double } -- all must go to the regs
+            HRESULT Structs_DoubleX4(Struct_DoubleX4 data);
+
+            // 19: structs: HFP: 4+ doubles - stack { double, double, double, double, double } -- all must go to the stack
+            HRESULT Structs_DoubleX5(Struct_DoubleX5 data);
+
+            // 20: structs: HFP: inner struct, same type { float, float, { float, float } }
+            HRESULT Structs_FloatX2_Inner_FloatX2(Struct_FloatX2_Inner_FloatX2 data);
+
+            // 21: structs: HFP: inner struct, same type { float, float, { float, { { float } } } }
+            HRESULT Structs_FloatX2_Float_Inner_Float_Inner_Inner_Float(Struct_FloatX2_Float_Inner_Float_Inner_Inner_Float data);
+
+            // 22: structs: HFP: 3 inner structs, same type { { double }, { double }, { double } }
+            HRESULT Structs_Inner_X3_Double(Struct_Inner_X3_Double data);
+
+            // 23: structs: HFP: float HFP and float { { float }, float }
+            HRESULT Structs_Inner_Float_Pop_Float(Struct_Float data, float f0);
+
+            // 24: structs: double never split HFP { double, double, double, double, { double, double, double, double, double }}
+            HRESULT Structs_DoubleX4_Inner_DoubleX5(double d0, double d1, double d2, double d3, Struct_DoubleX5 s0);
+        };
+
+        [
+            activatable(NTDDI_WIN8),
+            version(NTDDI_WIN8)
+        ]
+        runtimeclass Tests
+        {
+            [default] interface IJsToWinRTTests;
+        }
+    } // namespace Arm
+
+    namespace SimpleTestNamespace
+    {
+        [version(NTDDI_WIN8), uuid(BDD1D741-CC42-4CA6-8A19-76F7C7EC5B40)]
+        interface IEmptyInterface : IInspectable
+        {
+        }
+
+        [version(NTDDI_WIN8), uuid(93BDBF34-FFAA-4B40-80AB-9F6DF5439D99)]
+        interface ISimpleInterface : IInspectable
+        {
+            HRESULT SetMessage([in] HSTRING message);
+            HRESULT GetMessage([out,retval] HSTRING * message);
+            [propget] HRESULT Value([out,retval] int * value);
+            [propput] HRESULT Value([in] int value);
+        }
+
+        [
+            activatable(NTDDI_WIN8),
+            version(NTDDI_WIN8)
+        ]
+        runtimeclass SimpleClass
+        {
+            [default] interface ISimpleInterface;
+            interface IEmptyInterface;
+        }
+    }
+
+    namespace GCPressure
+    {
+        [version(NTDDI_WIN8), uuid(F6E12566-B8AB-49A7-B96F-09759614B8D0)]
+        interface IEmptyInterface : IInspectable
+        {
+        }
+
+        [
+            activatable(NTDDI_WIN8),
+            version(NTDDI_WIN8),
+            gc_pressure(Windows.Foundation.Metadata.GCPressureAmount.Low)
+        ]
+        runtimeclass SmallClass
+        {
+            [default] interface IEmptyInterface;
+        }
+
+        [
+            activatable(NTDDI_WIN8),
+            version(NTDDI_WIN8),
+            gc_pressure(Windows.Foundation.Metadata.GCPressureAmount.Medium)
+        ]
+        runtimeclass MediumClass
+        {
+            [default] interface IEmptyInterface;
+        }
+
+        [
+            activatable(NTDDI_WIN8),
+            version(NTDDI_WIN8),
+            gc_pressure(Windows.Foundation.Metadata.GCPressureAmount.High)
+        ]
+        runtimeclass LargeClass
+        {
+            [default] interface IEmptyInterface;
+        }
+    }
+
+#define NTDDI_MOCK_WIN8SP1  0x06020100
+#define NTDDI_MOCK_WIN9     0x06030000
+#define NTDDI_MOCK_WIN9SP1  0x06030100
+#define NTDDI_MAX           0xFFFFFFFE
+
+    namespace Versioning
+    {
+        /*                         *
+         * --- Versioned Enums --- *
+         *                         */
+        [version(0)]
+        typedef enum VersionedEnumFields
+        {
+            [version(0)] Min = 0, 
+            [version(NTDDI_WIN8)] Win8, 
+            [version(NTDDI_MOCK_WIN8SP1)] Win8SP1, 
+            [version(NTDDI_MOCK_WIN9)] Win9,
+            [version(NTDDI_MAX)] Max
+        } VersionedEnumFields;
+
+        [version(0)]
+        typedef enum MinVersionEnum
+        {
+            Min = 0
+        } MinVersionEnum;
+
+        [version(NTDDI_WIN8)]
+        typedef enum Win8Enum
+        {
+            Win8 = NTDDI_WIN8
+        } Win8Enum;
+
+        [version(NTDDI_MOCK_WIN8SP1)]
+        typedef enum Win8SP1Enum
+        {
+            Win8SP1 = NTDDI_MOCK_WIN8SP1
+        } Win8SP1Enum;
+
+        [version(NTDDI_MOCK_WIN9)]
+        typedef enum Win9Enum
+        {
+            Win9 = NTDDI_MOCK_WIN9
+        } Win9Enum;
+
+        [flags,version(NTDDI_MAX)]
+        typedef enum MaxVersionEnum
+        {
+            Max = NTDDI_MAX
+        } MaxVersionEnum;
+
+
+        /*                           *
+         * --- Versioned Structs --- *
+         *                           */
+        [version(0)]
+        typedef struct MinVersionStruct
+        {
+            int a;
+            boolean b;
+        } MinVersionStruct;
+
+        [version(NTDDI_WIN8)]
+        typedef struct Win8Struct
+        {
+            int a;
+            boolean b;
+        } Win8Struct;
+
+        [version(NTDDI_MOCK_WIN8SP1)]
+        typedef struct Win8SP1Struct
+        {
+            int a;
+            boolean b;
+        } Win8SP1Struct;
+
+        [version(NTDDI_MOCK_WIN9)]
+        typedef struct Win9Struct
+        {
+            int a;
+            boolean b;
+        } Win9Struct;
+
+        [version(NTDDI_MAX)]
+        typedef struct MaxVersionStruct
+        {
+            int a;
+            boolean b;
+        } MaxVersionStruct;
+
+
+        /*                             *
+         * --- Versioned Delegates --- *
+         *                             */
+        interface IMinVersionInterface;
+        interface IWin8Interface;
+        runtimeclass Win9Class;
+
+        [version(0), uuid(ED27821A-16EC-4B7F-8D1C-018ADB97BE6B)]
+        delegate HRESULT MinVersionDelegate([in] IMinVersionInterface* value);
+
+        [version(NTDDI_WIN8), uuid(E9B17656-AFA1-4ED4-9D5D-915C33517BC2)]
+        delegate HRESULT Win8Delegate([in] Win8SP1Struct value);
+
+        [version(NTDDI_MOCK_WIN8SP1), uuid(E3032026-5904-461B-B19B-42498FDFDDDD)]
+        delegate HRESULT Win8SP1Delegate([in] MaxVersionEnum value);
+
+        [version(NTDDI_MOCK_WIN9), uuid(D7BE67A8-8B7A-46B7-823E-C58FBB4D6661)]
+        delegate HRESULT Win9Delegate([in] Win9Class* value);
+
+        [version(NTDDI_MAX), uuid(6FABD3E9-A8F1-48A5-B111-B31B1E05AFC5)]
+        delegate HRESULT MaxVersionDelegate([in] IWin8Interface* value);
+
+
+        /*                              *
+         * --- Versioned Interfaces --- *
+         *                              */
+        [version(0), uuid(E4A4FAB5-F840-4113-ACD9-51B632786E4F)]
+        interface IMinVersionInterface : IInspectable
+        {
+            [propget] HRESULT MinVersion([out,retval] unsigned int * ver);
+        }
+
+        [version(NTDDI_WIN8), uuid(AE4A8BF8-3E9C-41C7-B7C2-263E8898E4F1)]
+        interface IWin8Interface : IInspectable
+        {
+            [propget] HRESULT Win8Version([out,retval] unsigned int * ver);
+        }
+
+        [version(NTDDI_MOCK_WIN8SP1), uuid(9F70C741-9BE6-43AE-B7CD-0D5D8F5E8718)]
+        interface IWin8SP1Interface : IInspectable
+        {
+            [propget] HRESULT Win8SP1Version([out,retval] unsigned int * ver);
+        }
+
+        [version(NTDDI_MOCK_WIN9), uuid(49403CB3-15FB-4CB4-9151-6682A1F1F05D)]
+        interface IWin9Interface : IInspectable
+        {
+            [propget] HRESULT Win9Version([out,retval] unsigned int * ver);
+        }
+
+        [version(NTDDI_MAX), uuid(75F0A157-CDBA-4606-805A-CE5BAC1A91BD)]
+        interface IMaxVersionInterface : IInspectable
+        {
+            [propget] HRESULT MaxVersion([out,retval] unsigned int * ver);
+        }
+
+        [version(0), uuid(2711179A-A6F9-463A-BC9F-1CDD68591AE7)]
+        interface IActivationValue : IInspectable
+        {
+            [propget] HRESULT ActivationValue([out,retval] int * value);
+        }
+
+
+        /*                            *
+         * --- Factory Interfaces --- *
+         *                            */
+        runtimeclass MinVersionClass;
+        runtimeclass Win8Class;
+        runtimeclass Win8SP1Class;
+
+        [version(NTDDI_MOCK_WIN8SP1), uuid(4CBD9A46-AFC8-4A4F-A36E-DBC58F511FE5)]
+        interface IMinFactory : IInspectable
+        {
+            HRESULT CreateClass([in] int ver, [out,retval] MinVersionClass ** instance);
+        }
+
+        [version(NTDDI_WIN8), uuid(D1B2ADF3-2762-4EA0-9A1F-86B3C77E4E9A)]
+        interface IWin8Factory : IInspectable
+        {
+            HRESULT CreateClass([in] int ver, [out,retval] Win8Class ** instance);
+        }
+
+        [version(NTDDI_WIN8), uuid(95B1E6D1-A798-4103-A230-4EE72F6C853F)]
+        interface IWin8SP1Factory : IInspectable
+        {
+            HRESULT CreateClass([in] int ver, [out,retval] Win8SP1Class ** instance);
+        }
+
+        [version(NTDDI_WIN8), uuid(B5BABAFB-A74A-425C-B799-2E5D73A6497C)]
+        interface IWin9Factory : IInspectable
+        {
+            HRESULT CreateClass([in] int ver, [out,retval] Win9Class ** instance);
+        }
+
+
+        /*                                  *
+         * --- Versioned Runtimeclasses --- *
+         *                                  */
+
+        // Versioning behavior of MinVersionClass
+        //  0 -- no applicable activatable or static attributes, only default interface available
+        //  NTDDI_WIN8 --no change
+        //  NTDDI_MOCK_WIN8SP1 -- simple activatable, factory activatable, static members of IWin8SP1Interface
+        //  NTDDI_MOCK_WIN9 -- instance members of IWin9Interface
+        //  NTDDI_MAX -- instance members of IMaxVersionInterface
+        [
+            activatable(NTDDI_MOCK_WIN8SP1),
+            activatable(IMinFactory,NTDDI_MOCK_WIN8SP1),
+            static(IWin8SP1Interface, NTDDI_MOCK_WIN8SP1),
+            version(0)
+        ]
+        runtimeclass MinVersionClass
+        {
+            [default] interface IMinVersionInterface;
+            interface IMaxVersionInterface;
+            [version(NTDDI_MOCK_WIN9)] interface IWin9Interface;
+            interface IActivationValue;
+        }
+
+        // Versioning behavior of Win8Class
+        //  NTDDI_WIN8 -- factory activatable, static members of IWin8Interface, default instance members
+        //  NTDDI_MOCK_WIN8SP1 -- instance members of IWin8SP1Interface
+        //  NTDDI_MOCK_WIN9 -- simple activatable
+        //  NTDDI_MAX -- no change
+        [
+            activatable(NTDDI_MOCK_WIN9),
+            activatable(IWin8Factory, NTDDI_WIN8),
+            static(IWin8Interface, NTDDI_WIN8),
+            version(NTDDI_WIN8)
+        ]
+        runtimeclass Win8Class
+        {
+            [default, version(NTDDI_WIN8)] interface IMinVersionInterface;
+            [version(NTDDI_MOCK_WIN8SP1)] interface IWin8SP1Interface;
+            interface IActivationValue;
+        }
+
+        // Versioning behavior of Win8SP1Class
+        //  NTDDI_MOCK_WIN8SP1 -- simple activatable, default instance members
+        //  NTDDI_MOCK_WIN9 -- factory activatable, static members of IWin8Interface
+        //  NTDDI_MAX -- instance members of IWin9Interface
+        [
+            activatable(NTDDI_MOCK_WIN8SP1),
+            activatable(IWin8SP1Factory,NTDDI_MOCK_WIN9),
+            static(IWin8Interface, NTDDI_MOCK_WIN9),
+            version(NTDDI_MOCK_WIN8SP1)
+        ]
+        runtimeclass Win8SP1Class
+        {
+            [default] interface IMinVersionInterface;
+            [version(NTDDI_MAX)] interface IWin9Interface;
+            interface IActivationValue;
+        }
+
+        // Versioning behavior of Win9Class
+        //  NTDDI_MOCK_WIN9 -- simple activatable, factory activatable, default instance members, 
+        //                     static members of IMinVersionInterface, instance members of IWin9Interface
+        //  NTDDI_MAX -- no change
+        [
+            activatable(NTDDI_MOCK_WIN9),
+            activatable(IWin9Factory,NTDDI_MOCK_WIN9),
+            static(IMinVersionInterface, NTDDI_MOCK_WIN9),
+            version(NTDDI_MOCK_WIN9)
+        ]
+        runtimeclass Win9Class
+        {
+            [default, version(NTDDI_MOCK_WIN9)] interface IWin8Interface;
+            interface IWin9Interface;
+            interface IActivationValue;
+        }
+
+        // Versioning behavior of MaxVersionClass
+        //  NTDDI_MAX -- simple activatable, instance members of IMaxVersionInterface
+        [
+            activatable(NTDDI_MAX),
+            version(NTDDI_MAX)
+        ]
+        runtimeclass MaxVersionClass
+        {
+            [default] interface IMaxVersionInterface;
+        }
+
+
+        /*                                    *
+         * --- Marshaling Versioned Types --- *
+         *                                    */
+        [version(0), uuid(942896E1-3347-44A8-83B5-F678E65B4A17)]
+        interface IMarshalVersionedTypes : IInspectable
+        {
+            // Version 0 types
+            HRESULT MinVersionInterfaceIn([in] IMinVersionInterface * value);
+            HRESULT MinVersionClassIn([in] MinVersionClass * value);
+            HRESULT MinVersionStructIn([in] MinVersionStruct value);
+            HRESULT MinVersionStructOut([out] MinVersionStruct * value);
+            HRESULT MinVersionEnumIn([in] MinVersionEnum value);
+            HRESULT MinVersionEnumOut([out] MinVersionEnum * value);
+            HRESULT CallMinVersionDelegate([in] int inputVersion, [in] MinVersionDelegate * value);
+            HRESULT MinVersionInterfaceVectorIn([in] IVector<IMinVersionInterface *> * value);
+
+            // Version NTDDI_WIN8 types
+            HRESULT Win8InterfaceIn([in] IWin8Interface * value);
+            HRESULT Win8ClassIn([in] Win8Class * value);
+            HRESULT Win8StructIn([in] Win8Struct value);
+            HRESULT Win8StructOut([out] Win8Struct * value);
+            HRESULT Win8EnumIn([in] Win8Enum value);
+            HRESULT Win8EnumOut([out] Win8Enum * value);
+            HRESULT CallWin8Delegate([in] Win8Delegate * value);
+            HRESULT Win8InterfaceVectorIn([in] IVector<IWin8Interface *> * value);
+
+            // Version NTDDI_MOCK_WIN8SP1 types
+            HRESULT Win8SP1InterfaceIn([in] IWin8SP1Interface * value);
+            HRESULT Win8SP1ClassIn([in] Win8SP1Class * value);
+            HRESULT Win8SP1StructIn([in] Win8SP1Struct value);
+            HRESULT Win8SP1StructOut([out] Win8SP1Struct * value);
+            HRESULT Win8SP1EnumIn([in] Win8SP1Enum value);
+            HRESULT Win8SP1EnumOut([out] Win8SP1Enum * value);
+            HRESULT CallWin8SP1Delegate([in] Win8SP1Delegate * value);
+            HRESULT Win8SP1InterfaceVectorIn([in] IVector<IWin8SP1Interface *> * value);
+
+            // Version NTDDI_MOCK_WIN9 types
+            HRESULT Win9InterfaceIn([in] IWin9Interface * value);
+            HRESULT Win9ClassIn([in] Win9Class * value);
+            HRESULT Win9StructIn([in] Win9Struct value);
+            HRESULT Win9StructOut([out] Win9Struct * value);
+            HRESULT Win9EnumIn([in] Win9Enum value);
+            HRESULT Win9EnumOut([out] Win9Enum * value);
+            HRESULT CallWin9Delegate([in] Win9Delegate * value);
+            HRESULT Win9InterfaceVectorIn([in] IVector<IWin9Interface *> * value);
+
+            // Version NTDDI_MAX types
+            HRESULT MaxVersionInterfaceIn([in] IMaxVersionInterface * value);
+            HRESULT MaxVersionClassIn([in] MaxVersionClass * value);
+            HRESULT MaxVersionStructIn([in] MaxVersionStruct value);
+            HRESULT MaxVersionStructOut([out] MaxVersionStruct * value);
+            HRESULT MaxVersionEnumIn([in] MaxVersionEnum value);
+            HRESULT MaxVersionEnumOut([out] MaxVersionEnum * value);
+            HRESULT CallMaxVersionDelegate([in] MaxVersionDelegate * value);
+            HRESULT MaxVersionInterfaceVectorIn([in] IVector<IMaxVersionInterface *> * value);
+        }
+
+        [
+            activatable(0),
+            version(0)
+        ]
+        runtimeclass MarshalVersionedTypes
+        {
+            [default] interface IMarshalVersionedTypes;
+        }
+
+
+        /*                                    *
+         * --- Versioning and Collections --- *
+         *                                    */
+        [version(0), uuid(55FBDF10-9428-4242-8E88-7099A488E94F)]
+        interface IDefault : IInspectable
+        {
+            HRESULT HasDefault([out] boolean * result);
+        }
+
+        [version(0), uuid(4D62F4F8-41D2-4ADF-B6D3-A3BC428B8273)]
+        interface IRequiresVector : IInspectable requires IVector<int>
+        {
+            HRESULT HasIRequiresVector([out] boolean * result);
+        }
+
+        [version(0), uuid(67876694-F165-41AA-9EB9-8F9999CD807C)]
+        interface IRequiresObservableVector : IInspectable requires IObservableVector<int>
+        {
+            HRESULT HasIRequiresObservableVector([out] boolean * result);
+        }
+
+        [
+            activatable(0),
+            version(0)
+        ]
+        runtimeclass VectorInt
+        {
+            [default] interface IDefault;
+            interface IVector<int>;
+        }
+
+        [
+            activatable(0),
+            version(0)
+        ]
+        runtimeclass ObservableVectorInt
+        {
+            [default] interface IDefault;
+            interface IObservableVector<int>;
+        }
+
+        [
+            activatable(0),
+            version(0)
+        ]
+        runtimeclass RequiresVectorInt
+        {
+            [default] interface IRequiresVector;
+        }
+
+        [
+            activatable(0),
+            version(0)
+        ]
+        runtimeclass RequiresObservableVectorInt
+        {
+            [default] interface IRequiresObservableVector;
+        }
+
+        [
+            activatable(NTDDI_WIN8),
+            version(NTDDI_WIN8)
+        ]
+        runtimeclass VersionedVectorInt
+        {
+            [default] interface IDefault;
+            [version(NTDDI_MAX)] interface IVector<int>;
+        }
+
+        [
+            activatable(NTDDI_WIN8),
+            version(NTDDI_WIN8)
+        ]
+        runtimeclass VersionedObservableVectorInt
+        {
+            [default] interface IDefault;
+            [version(NTDDI_MOCK_WIN8SP1)] interface IObservableVector<int>;
+        }
+
+        [
+            activatable(NTDDI_WIN8),
+            version(NTDDI_WIN8)
+        ]
+        runtimeclass VectorVersionedT
+        {
+            [default] interface IDefault;
+            interface IVector<IWin9Interface *>;
+        }
+
+        [
+            activatable(NTDDI_WIN8),
+            version(NTDDI_WIN8)
+        ]
+        runtimeclass ObservableVectorVersionedT
+        {
+            [default] interface IDefault;
+            interface IObservableVector<IWin9Interface *>;
+        }
+    }
+
+    namespace Delegates
+    {
+        interface ITestClass;
+        runtimeclass TestClass;
+
+        [version(NTDDI_WIN8)]
+        typedef enum FailureCondition
+        {
+            JSException = 0,
+            FailToMarshal,
+            NullOutParam
+        } FailureCondition;
+
+        [flags,version(NTDDI_WIN8)]
+        typedef enum Params
+        {
+            None = 0x0,
+            Str = 0x1,
+            Num = 0x2,
+            Input = 0x4,
+            Class = 0x8,
+            IFace = 0x10
+        } Params;
+
+        [version(NTDDI_WIN8)]
+        typedef struct TestStruct
+        {
+            int Integer;
+            double Double;
+            boolean Boolean;
+        } TestStruct;
+
+        [version(NTDDI_WIN8), uuid(C0CD3B1A-D609-4E8F-B91C-693AC4F63848)]
+        delegate HRESULT TestDelegate([out] HSTRING* str, [out] int* num, [in] IInspectable* input, [out] TestClass** rc, [out] ITestClass** iface);
+
+        [version(NTDDI_WIN8), uuid(A261A031-5D4B-4275-93A0-A8BB17AFEB9B)]
+        interface ITestClass : IInspectable
+        {
+            HRESULT VerifyTestDelegateFailure([in] FailureCondition failure, [in] Params invalidParams, [in] TestDelegate* func);
+            HRESULT VerifyTestDelegateOutParams([in] Params undef, [in] Params nul, [in] TestDelegate* func);
+        }
+
+        runtimeclass StaticTestClass;
+
+        [deprecated("devtest is getting old.", deprecate, NTDDI_WINBLUE)]
+        [version(NTDDI_WIN8), uuid(06caf35c-2359-4d2c-aac6-822f4082e8aa),exclusiveto(StaticTestClass)]
+        interface IMethodStatics : IInspectable
+        {
+            HRESULT OperationOutStatic([out] long* result);
+            HRESULT OperationOutStaticNotFastPath([in] double num1, [in] double num2, [in] double num3, [out, retval]double* sum) = 0;
+
+            [deprecated("Changed my mind; \"don't put this prop.", remove, NTDDI_WINBLUE)]
+            [propput] HRESULT ExceptionalPropStatic([in] HSTRING exceptionallyMeaningless);
+            [deprecated("Actually, don't even use the prop at all.", remove, NTDDI_WINBLUE)]
+            [propget] HRESULT ExceptionalPropStatic([out, retval] HSTRING *exceptionallyMeaningless);
+        }
+
+        [version(NTDDI_WIN8), uuid(35e823a8-8940-4d8f-b2ba-d818f4a37a0c)]
+        interface IBaseInterface : IInspectable
+        {
+        }
+
+        [
+            version(NTDDI_WIN8),
+            activatable(NTDDI_WIN8),
+            static(IMethodStatics, NTDDI_WIN8)
+        ]
+        runtimeclass StaticTestClass
+        {
+            [default] interface IBaseInterface;
+        }
+
+        [
+            version(NTDDI_WIN8),
+            activatable(NTDDI_WIN8),
+        ]
+        runtimeclass TestClass
+        {
+            [default] interface ITestClass;
+        }
+    }
+}

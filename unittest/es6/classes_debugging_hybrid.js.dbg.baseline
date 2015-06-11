@@ -1,0 +1,389 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 623,
+        "length": 14,
+        "text": "return super()",
+        "frameDescription": "b.prototype.method"
+      },
+      {
+        "start": 1092,
+        "length": 15,
+        "text": "classb.method()",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 1228,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 358,
+        "length": 20,
+        "text": "return \"hello world\"",
+        "frameDescription": "a.prototype.method"
+      },
+      {
+        "start": 623,
+        "length": 14,
+        "text": "return super()",
+        "frameDescription": "b.prototype.method"
+      },
+      {
+        "start": 1092,
+        "length": 15,
+        "text": "classb.method()",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 1228,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 750,
+        "length": 14,
+        "text": "super.method()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 682,
+        "length": 101,
+        "text": "return (() => {\n            /**bp:stack();locals()**/\n            super.method();\n            })()",
+        "frameDescription": "b.prototype.method2"
+      },
+      {
+        "start": 1116,
+        "length": 16,
+        "text": "classb.method2()",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 1228,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "undefined",
+      "arguments": "{...}",
+      "[Scope]1": "b.prototype.method2",
+      "[Scope]2": "",
+      "[Scope]3": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 358,
+        "length": 20,
+        "text": "return \"hello world\"",
+        "frameDescription": "a.prototype.method"
+      },
+      {
+        "start": 750,
+        "length": 14,
+        "text": "super.method()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 682,
+        "length": 101,
+        "text": "return (() => {\n            /**bp:stack();locals()**/\n            super.method();\n            })()",
+        "frameDescription": "b.prototype.method2"
+      },
+      {
+        "start": 1116,
+        "length": 16,
+        "text": "classb.method2()",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 1228,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 886,
+        "length": 21,
+        "text": "return super.method()",
+        "frameDescription": "b.prototype.method3"
+      },
+      {
+        "start": 1141,
+        "length": 16,
+        "text": "classb.method3()",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 1228,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 358,
+        "length": 20,
+        "text": "return \"hello world\"",
+        "frameDescription": "a.prototype.method"
+      },
+      {
+        "start": 886,
+        "length": 21,
+        "text": "return super.method()",
+        "frameDescription": "b.prototype.method3"
+      },
+      {
+        "start": 1141,
+        "length": 16,
+        "text": "classb.method3()",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 1228,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1011,
+        "length": 14,
+        "text": "return super()",
+        "frameDescription": "b.staticMethod"
+      },
+      {
+        "start": 1166,
+        "length": 16,
+        "text": "b.staticMethod()",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 1228,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "constructor(...args) { super(...args); }",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 482,
+        "length": 15,
+        "text": "return \"static\"",
+        "frameDescription": "a.staticMethod"
+      },
+      {
+        "start": 1011,
+        "length": 14,
+        "text": "return super()",
+        "frameDescription": "b.staticMethod"
+      },
+      {
+        "start": 1166,
+        "length": 16,
+        "text": "b.staticMethod()",
+        "frameDescription": "body"
+      },
+      {
+        "start": 5017,
+        "length": 10,
+        "text": "testBody()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 3920,
+        "length": 45,
+        "text": "this.runTest(i, tests[i].name, tests[i].body)",
+        "frameDescription": "runTests"
+      },
+      {
+        "start": 1228,
+        "length": 26,
+        "text": "testRunner.runTests(tests)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "constructor(...args) { super(...args); }",
+      "arguments": "{...}",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "constructor() {}",
+      "b": "constructor(...args) { super(...args); }",
+      "classb": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

@@ -1,0 +1,19 @@
+ActiveScriptError_DelegateFailure_Throw.js(11, 9) JavaScript runtime error: 
+Restricted Error String: (null)
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x80004005
+Error Type: Generic error
+Stack info:
+frame 0: delegateFunc(object), line: 10, characterPosition: 8
+ActiveScriptError_DelegateFailure_Throw.js(14, 5) JavaScript runtime error: Unspecified error
+
+All out parameters initialized
+Restricted Error String: All out parameters initialized
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x80004005
+Error Type: WinRT error
+Stack info:
+frame 0: Anonymous function(), line: 13, characterPosition: 4
+frame 1: Global code, line: 2, characterPosition: 1

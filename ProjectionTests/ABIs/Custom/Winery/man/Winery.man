@@ -1,0 +1,447 @@
+﻿<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<assembly
+    xmlns="urn:schemas-microsoft-com:asm.v3"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    manifestVersion="1.0"
+    >
+    <assemblyIdentity
+        buildType="$(build.buildType)"
+        language="neutral"
+        name="Microsoft-Windows-WinRT-Samples-Winery"
+        processorArchitecture="$(build.arch)"
+        publicKeyToken="$(Build.WindowsPublicKeyToken)"
+        version="$(build.version)"
+        versionScope="nonSxS"
+      />
+    <file
+        destinationPath="$(runtime.system32)"
+        importPath="$(build.nttree)\"
+        name="Winery.dll"
+        sourceName="Winery.dll"
+        sourcePath=".\"
+      >
+        <securityDescriptor name="WRP_FILE_DEFAULT_SDDL"/>
+    </file>
+    <registryKeys>
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Winery.RWinery">
+            <registryValue
+                name="ActivationType"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="CLSID"
+                value="{02A755AF-A55F-4c63-8A52-7A427083A1D8}"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="DllPath"
+                value="$(runtime.system32)\Winery.dll"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="Threading"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="TrustLevel"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+        </registryKey>
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{02A755AF-A55F-4c63-8A52-7A427083A1D8}">
+            <registryValue
+                name="ActivatableClassId"
+                value="Winery.RWinery"
+                valueType="REG_SZ"
+          />
+        </registryKey>
+
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Winery.WinRTErrorTests.RestrictedErrorAccess">
+            <registryValue
+                name="ActivationType"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="CLSID"
+                value="{48D5B21D-CB1E-4716-8D37-8E5409A00EAA}"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="DllPath"
+                value="$(runtime.system32)\Winery.dll"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="Threading"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="TrustLevel"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+        </registryKey>
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{48D5B21D-CB1E-4716-8D37-8E5409A00EAA}">
+            <registryValue
+                name="ActivatableClassId"
+                value="Winery.WinRTErrorTests.RestrictedErrorAccess"
+                valueType="REG_SZ"
+          />
+        </registryKey>
+
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Winery.WinRTErrorTests.RestrictedErrorAccessInstance">
+            <registryValue
+                name="ActivationType"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="CLSID"
+                value="{932CFA29-059F-4FAF-AD78-AE0375C69761}"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="DllPath"
+                value="$(runtime.system32)\Winery.dll"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="Threading"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="TrustLevel"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+        </registryKey>
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{932CFA29-059F-4FAF-AD78-AE0375C69761}">
+            <registryValue
+                name="ActivatableClassId"
+                value="Winery.WinRTErrorTests.RestrictedErrorAccessInstance"
+                valueType="REG_SZ"
+          />
+        </registryKey>
+
+        <!-- SimpleStaticConflictServer -->
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Winery.Overloading.SimpleStaticConflict.Access">
+            <registryValue
+                name="ActivationType"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="CLSID"
+                value="{17288EEC-184A-47B3-95A6-F151D6AB921A}"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="DllPath"
+                value="$(runtime.system32)\Winery.dll"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="Threading"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="TrustLevel"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+        </registryKey>
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{17288EEC-184A-47B3-95A6-F151D6AB921A}">
+            <registryValue
+                name="ActivatableClassId"
+                value="Winery.Overloading.SimpleStaticConflict.Access"
+                valueType="REG_SZ"
+          />
+        </registryKey>
+
+        <!-- SimpleStaticConflictWithSameArity -->
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Winery.Overloading.SimpleStaticConflictWithSameArity.Access">
+            <registryValue
+                name="ActivationType"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="CLSID"
+                value="{98245EB0-9205-4AFD-86A2-975217BCC744}"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="DllPath"
+                value="$(runtime.system32)\Winery.dll"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="Threading"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="TrustLevel"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+        </registryKey>
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{98245EB0-9205-4AFD-86A2-975217BCC744}">
+            <registryValue
+                name="ActivatableClassId"
+                value="Winery.Overloading.SimpleStaticConflictWithSameArity.Access"
+                valueType="REG_SZ"
+          />
+        </registryKey>
+
+        <!-- SimpleStaticConflictWithinInterface -->
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Winery.Overloading.SimpleStaticConflictWithinInterface.Access">
+            <registryValue
+                name="ActivationType"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="CLSID"
+                value="{419B9B28-0C7B-4D0D-B4C5-C81C4574395E}"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="DllPath"
+                value="$(runtime.system32)\Winery.dll"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="Threading"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="TrustLevel"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+        </registryKey>
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{419B9B28-0C7B-4D0D-B4C5-C81C4574395E}">
+            <registryValue
+                name="ActivatableClassId"
+                value="Winery.Overloading.SimpleStaticConflictWithinInterface.Access"
+                valueType="REG_SZ"
+          />
+        </registryKey>
+
+        <!-- SimpleStaticConflictWithDifferentArityAccessServer -->
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access">
+            <registryValue
+                name="ActivationType"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="CLSID"
+                value="{DD503747-64ED-429A-B8E3-3C1834310A44}"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="DllPath"
+                value="$(runtime.system32)\Winery.dll"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="Threading"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="TrustLevel"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+        </registryKey>
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{DD503747-64ED-429A-B8E3-3C1834310A44}">
+            <registryValue
+                name="ActivatableClassId"
+                value="Winery.Overloading.SimpleStaticConflictWithDifferentArity.Access"
+                valueType="REG_SZ"
+          />
+        </registryKey>
+
+        <!-- SimpleStaticConflictDefaultOverloadLastServer -->
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.Access">
+            <registryValue
+                name="ActivationType"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="CLSID"
+                value="{DF36EA6F-D6C1-453C-9F3D-7E3A8B8886DC}"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="DllPath"
+                value="$(runtime.system32)\Winery.dll"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="Threading"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="TrustLevel"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+        </registryKey>
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{DF36EA6F-D6C1-453C-9F3D-7E3A8B8886DC}">
+            <registryValue
+                name="ActivatableClassId"
+                value="Winery.Overloading.SimpleStaticConflictDefaultOverloadLast.Access"
+                valueType="REG_SZ"
+          />
+        </registryKey>
+
+        <!-- SimpleStaticConflictVersionedServer -->
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Winery.Overloading.SimpleStaticConflictVersioned.Access">
+            <registryValue
+                name="ActivationType"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="CLSID"
+                value="{4E864BC2-9CA3-4889-A1A9-AB8C82F03E45}"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="DllPath"
+                value="$(runtime.system32)\Winery.dll"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="Threading"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="TrustLevel"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+        </registryKey>
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{4E864BC2-9CA3-4889-A1A9-AB8C82F03E45}">
+            <registryValue
+                name="ActivatableClassId"
+                value="Winery.Overloading.SimpleStaticConflictVersioned.Access"
+                valueType="REG_SZ"
+          />
+        </registryKey>
+
+        <!-- SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface -->
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.Access">
+            <registryValue
+                name="ActivationType"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="CLSID"
+                value="{28002569-968F-413D-83C0-F94189892386}"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="DllPath"
+                value="$(runtime.system32)\Winery.dll"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="Threading"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="TrustLevel"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+        </registryKey>
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{28002569-968F-413D-83C0-F94189892386}">
+            <registryValue
+                name="ActivatableClassId"
+                value="Winery.Overloading.SimpleStaticConflictVersionedWithMultipleOverloadsPerInterface.Access"
+                valueType="REG_SZ"
+          />
+        </registryKey>
+
+        <!-- StaticConflictWithRequiresInterface -->
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Winery.Overloading.StaticConflictWithRequiresInterface.Access">
+            <registryValue
+                name="ActivationType"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="CLSID"
+                value="{49D0A39C-BE04-4530-9915-88C79F28E9EA}"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="DllPath"
+                value="$(runtime.system32)\Winery.dll"
+                valueType="REG_SZ"
+          />
+            <registryValue
+                name="Threading"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <registryValue
+                name="TrustLevel"
+                value="00000000"
+                valueType="REG_DWORD"
+          />
+            <securityDescriptor name="WRP_REGKEY_DEFAULT_SDDL"/>
+        </registryKey>
+        <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{49D0A39C-BE04-4530-9915-88C79F28E9EA}">
+            <registryValue
+                name="ActivatableClassId"
+                value="Winery.Overloading.StaticConflictWithRequiresInterface.Access"
+                valueType="REG_SZ"
+          />
+        </registryKey>
+    </registryKeys>
+    <trustInfo>
+        <security>
+            <accessControl>
+                <securityDescriptorDefinitions>
+                    <securityDescriptorDefinition
+                        name="WRP_REGKEY_DEFAULT_SDDL"
+                        sddl="$(build.wrpRegKeySddl)"
+              />
+                    <securityDescriptorDefinition
+                        name="WRP_FILE_DEFAULT_SDDL"
+                        sddl="$(build.wrpFileSddl)"
+              />
+                </securityDescriptorDefinitions>
+            </accessControl>
+        </security>
+    </trustInfo>
+</assembly>

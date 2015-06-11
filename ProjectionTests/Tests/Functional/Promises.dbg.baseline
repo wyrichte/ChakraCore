@@ -1,0 +1,715 @@
+Promises tests
+
+=================================================
+Starting [Test 1: AsyncOut]
+PASS [Test 1: AsyncOut]
+=================================================
+
+=================================================
+Starting [Test 2: CompleteSuccessfully]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:70:17)
+   at Promise.onSuccess (native code)
+PASS [Test 2: CompleteSuccessfully]
+=================================================
+
+=================================================
+Starting [Test 2-done: CompleteSuccessfully]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:96:17)
+   at Promise.onSuccess (native code)
+PASS [Test 2-done: CompleteSuccessfully]
+=================================================
+
+=================================================
+Starting [Test 2.1: CompleteSuccessfully-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:121:17)
+   at Promise.onSuccess (native code)
+PASS [Test 2.1: CompleteSuccessfully-null]
+=================================================
+
+=================================================
+Starting [Test 2.1-done: CompleteSuccessfully-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:146:17)
+   at Promise.onSuccess (native code)
+PASS [Test 2.1-done: CompleteSuccessfully-null]
+=================================================
+
+=================================================
+Starting [Test 3: CompleteWithCancel]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:173:21)
+   at Promise.onError (native code)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 3: CompleteWithCancel]
+=================================================
+
+=================================================
+Starting [Test 3-done: CompleteWithCancel]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:215:21)
+   at Promise.onError (native code)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 3-done: CompleteWithCancel]
+=================================================
+
+=================================================
+Starting [Test 4: CompleteWithError]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:257:21)
+   at Promise.onError (native code)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 4: CompleteWithError]
+=================================================
+
+=================================================
+Starting [Test 4-done: CompleteWithError]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:293:21)
+   at Promise.onError (native code)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 4-done: CompleteWithError]
+=================================================
+
+=================================================
+Starting [Test 5: TwoThensFollowedByCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:326:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:331:17)
+   at Promise.onSuccess (native code)
+PASS [Test 5: TwoThensFollowedByCompleted]
+=================================================
+
+=================================================
+Starting [Test 5-done: TwoDonesFollowedByCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:353:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:358:17)
+   at Promise.onSuccess (native code)
+PASS [Test 5-done: TwoDonesFollowedByCompleted]
+=================================================
+
+=================================================
+Starting [Test 5.1: TwoThensFollowedByCompleted-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:381:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:386:17)
+   at Promise.onSuccess (native code)
+PASS [Test 5.1: TwoThensFollowedByCompleted-null]
+=================================================
+
+=================================================
+Starting [Test 5.1-done: TwoDonesFollowedByCompleted-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:408:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:413:17)
+   at Promise.onSuccess (native code)
+PASS [Test 5.1-done: TwoDonesFollowedByCompleted-null]
+=================================================
+
+=================================================
+Starting [Test 6: ThensFollowedByCompletedFollowedByThen]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:435:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:441:21)
+   at Promise.onSuccess (native code)
+   at test (promises.js:438:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+PASS [Test 6: ThensFollowedByCompletedFollowedByThen]
+=================================================
+
+=================================================
+Starting [Test 6-done: DoneFollowedByCompletedFollowedByDone]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:463:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:469:21)
+   at Promise.onSuccess (native code)
+   at test (promises.js:466:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+PASS [Test 6-done: DoneFollowedByCompletedFollowedByDone]
+=================================================
+
+=================================================
+Starting [Test 6.1: ThensFollowedByCompletedFollowedByThen-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:491:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:497:21)
+   at Promise.onSuccess (native code)
+   at test (promises.js:494:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+PASS [Test 6.1: ThensFollowedByCompletedFollowedByThen-null]
+=================================================
+
+=================================================
+Starting [Test 6.1-done: DoneFollowedByCompletedFollowedByDone-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:519:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:525:21)
+   at Promise.onSuccess (native code)
+   at test (promises.js:522:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+PASS [Test 6.1-done: DoneFollowedByCompletedFollowedByDone-null]
+=================================================
+
+=================================================
+Starting [Test 7: ThensFollowedByErrorFollowedByThen]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:549:21)
+   at Promise.onError (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:557:21)
+   at Promise.onError (native code)
+   at test (promises.js:553:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+PASS [Test 7: ThensFollowedByErrorFollowedByThen]
+=================================================
+
+=================================================
+Starting [Test 7-done: DoneFollowedByErrorFollowedByDone]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:586:21)
+   at Promise.onError (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:596:21)
+   at Promise.onError (native code)
+   at test (promises.js:590:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+PASS [Test 7-done: DoneFollowedByErrorFollowedByDone]
+=================================================
+
+=================================================
+Starting [Test 8: ChainedThensFollowedByCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:621:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:625:21)
+   at Promise.onSuccess (native code)
+   at Promise.onSuccess (native code)
+PASS [Test 8: ChainedThensFollowedByCompleted]
+=================================================
+
+=================================================
+Starting [Test 8-done: ThenDoneFollowedByCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:648:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:652:21)
+   at Promise.onSuccess (native code)
+   at Promise.onSuccess (native code)
+PASS [Test 8-done: ThenDoneFollowedByCompleted]
+=================================================
+
+=================================================
+Starting [Test 8.1: ChainedThensFollowedByCompleted-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:675:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:679:21)
+   at Promise.onSuccess (native code)
+   at Promise.onSuccess (native code)
+PASS [Test 8.1: ChainedThensFollowedByCompleted-null]
+=================================================
+
+=================================================
+Starting [Test 8.1-done: ThenDoneFollowedByCompleted-null]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:702:21)
+   at Promise.onSuccess (native code)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:706:21)
+   at Promise.onSuccess (native code)
+   at Promise.onSuccess (native code)
+PASS [Test 8.1-done: ThenDoneFollowedByCompleted-null]
+=================================================
+
+=================================================
+Starting [Test 9: ChainedThensFollowedByCancel]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:729:21)
+   at Promise.onError (native code)
+PASS [Test 9: ChainedThensFollowedByCancel]
+=================================================
+
+=================================================
+Starting [Test 9-null: ThenDoneFollowedByCancel]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:755:21)
+   at Promise.onError (native code)
+PASS [Test 9-null: ThenDoneFollowedByCancel]
+=================================================
+
+=================================================
+Starting [Test 10: ExceptionThrownFromOnCompleteHandler]
+PASS [Test 10: ExceptionThrownFromOnCompleteHandler]
+=================================================
+
+=================================================
+Starting [Test 10-done: ExceptionThrownFromOnCompleteHandler-done]
+PASS [Test 10-done: ExceptionThrownFromOnCompleteHandler-done]
+=================================================
+
+=================================================
+Starting [Test 10.1: ExceptionThrownFromOnCompleteHandler-null]
+PASS [Test 10.1: ExceptionThrownFromOnCompleteHandler-null]
+=================================================
+
+=================================================
+Starting [Test 10.1-done: ExceptionThrownFromOnCompleteHandler-done-null]
+PASS [Test 10.1-done: ExceptionThrownFromOnCompleteHandler-done-null]
+=================================================
+
+=================================================
+Starting [Test 11: ExceptionThrownFromOnErrorHandler]
+PASS [Test 11: ExceptionThrownFromOnErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 11-done: ExceptionThrownFromOnErrorHandler]
+PASS [Test 11-done: ExceptionThrownFromOnErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 12: ProgressThenCancel]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:964:107)
+   at Promise.onProgress (native code)
+   at test (promises.js:968:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:964:107)
+   at Promise.onProgress (native code)
+   at test (promises.js:969:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:964:107)
+   at Promise.onProgress (native code)
+   at test (promises.js:970:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:963:96)
+   at Promise.onError (native code)
+PASS [Test 12: ProgressThenCancel]
+=================================================
+
+=================================================
+Starting [Test 12-done: ProgressThenCancel]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1004:107)
+   at Promise.onProgress (native code)
+   at test (promises.js:1008:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1004:107)
+   at Promise.onProgress (native code)
+   at test (promises.js:1009:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1004:107)
+   at Promise.onProgress (native code)
+   at test (promises.js:1010:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1003:96)
+   at Promise.onError (native code)
+PASS [Test 12-done: ProgressThenCancel]
+=================================================
+
+=================================================
+Starting [Test 13: ExceptionFromProgress]
+PASS [Test 13: ExceptionFromProgress]
+=================================================
+
+=================================================
+Starting [Test 13-done: ExceptionFromProgress]
+PASS [Test 13-done: ExceptionFromProgress]
+=================================================
+
+=================================================
+Starting [Test 14: ExamineThen]
+Comment: then
+Comment: cancel
+Comment: done
+PASS [Test 14: ExamineThen]
+=================================================
+
+=================================================
+Starting [Test 14-done: ExamineDone]
+Comment: then
+Comment: cancel
+Comment: done
+PASS [Test 14-done: ExamineDone]
+=================================================
+
+=================================================
+Starting [Test 255219: No Progress Property]
+PASS [Test 255219: No Progress Property]
+=================================================
+
+=================================================
+Starting [Test 255219-done: No Progress Property]
+PASS [Test 255219-done: No Progress Property]
+=================================================
+
+=================================================
+Starting [Test 253937: Winery server ABI issue]
+PASS [Test 253937: Winery server ABI issue]
+=================================================
+
+=================================================
+Starting [Test 15: ErrorBeforeDoneWithNoErrorHandler]
+PASS [Test 15: ErrorBeforeDoneWithNoErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 16: CancelBeforeDoneWithNoErrorHandler]
+PASS [Test 16: CancelBeforeDoneWithNoErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 17: CancelAfterDoneWithNoErrorHandler]
+PASS [Test 17: CancelAfterDoneWithNoErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 18: ErrorAfterDoneWithNoErrorHandler]
+PASS [Test 18: ErrorAfterDoneWithNoErrorHandler]
+=================================================
+
+=================================================
+Starting [Test 413280: Verify that we get an error from a chained promise]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1274:21)
+   at Promise.onProgress (native code)
+   at Promise.onProgress (native code)
+   at test (promises.js:1281:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+Pass: Expected E_OUTOFMEMORY error
+      Actual: Not enough storage is available to complete this operation.
+
+
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1272:21)
+   at Promise.onError (native code)
+   at Promise.onError (native code)
+PASS [Test 413280: Verify that we get an error from a chained promise]
+=================================================
+
+=================================================
+Starting [Test 20: GetResultsReturnsErrorOnCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1312:21)
+   at Promise.onError (native code)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 20: GetResultsReturnsErrorOnCompleted]
+=================================================
+
+=================================================
+Starting [Test 20-done: GetResultsReturnsErrorOnCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1352:21)
+   at Promise.onError (native code)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 20-done: GetResultsReturnsErrorOnCompleted]
+=================================================
+
+=================================================
+Starting [Test 21: CancelReturnsError]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1392:21)
+   at Promise.onError (native code)
+   at test (promises.js:1396:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 21: CancelReturnsError]
+=================================================
+
+=================================================
+Starting [Test 21-done: CancelReturnsError]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1432:21)
+   at Promise.onError (native code)
+   at test (promises.js:1436:13)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (promises.js:1723:112)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 21-done: CancelReturnsError]
+=================================================
+
+=================================================
+Starting [Test 22: GetResultsSucceedsOnError]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1472:21)
+   at Promise.onError (native code)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 22: GetResultsSucceedsOnError]
+=================================================
+
+=================================================
+Starting [Test 22-done: GetResultsSucceedsOnError]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1516:21)
+   at Promise.onError (native code)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 22-done: GetResultsSucceedsOnError]
+=================================================
+
+=================================================
+Starting [Test 23: InvalidStatusPassedToCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1560:21)
+   at Promise.onError (native code)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 23: InvalidStatusPassedToCompleted]
+=================================================
+
+=================================================
+Starting [Test 23-done: InvalidStatusPassedToCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1604:21)
+   at Promise.onError (native code)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 23-done: InvalidStatusPassedToCompleted]
+=================================================
+
+=================================================
+Starting [Test 24: InvalidSenderPassedToCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1648:21)
+   at Promise.onError (native code)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 24: InvalidSenderPassedToCompleted]
+=================================================
+
+=================================================
+Starting [Test 24-done: InvalidSenderPassedToCompleted]
+Comment: Error: my throw
+   at testLibraryStackFrame (promises.js:11:13)
+   at Anonymous function (promises.js:1692:21)
+   at Promise.onError (native code)
+Comment: [object Object]
+Fail: asyncOpSource info should not be available when not running under debugger
+      Expected: false
+      Actual: true
+
+
+
+FAIL [Test 24-done: InvalidSenderPassedToCompleted]
+=================================================
+
+Passed: 41
+Failed: 14

@@ -1,0 +1,26 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "obj": "{...}"
+      },
+      "[Pending Mutation]": {
+        "prop [Changing]": "p",
+        "[New Value]": "10",
+        "[Property container obj]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "changeProp": "<large string>",
+        "changePropAgain": "<large string>",
+        "obj": "{...}"
+      }
+    }
+  }
+]

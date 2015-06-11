@@ -1,0 +1,3900 @@
+RCSingleObservable Vector Collections test
+Comment: animalFactory = Animals.Animal
+Comment: myAnimal = new animalFactory(1)
+Comment: 
+function IsLessThan50(x)
+{
+    if (x < 50)
+    {
+        return true;
+    }
+    return false;
+}
+Comment: 
+function IsLessThan70(x)
+{
+    if (x < 70)
+    {
+        return true;
+    }
+    return false;
+}
+Comment: 
+function IsLessThan101(x)
+{
+    if (x < 101)
+    {
+        return true;
+    }
+    return false;
+}
+Comment: 
+function IsGreaterThan100(x)
+{
+    if (x > 100)
+    {
+        return true;
+    }
+    return false;
+}
+
+=================================================
+Starting [Test 1: MarshalRCSingleObservableVector]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: typeof myVector: object
+Comment: Dump of properties : 
+    var myVectorMembers = [
+        ['0', 'number'],
+        ['1', 'number'],
+        ['2', 'number'],
+        ['3', 'number'],
+        ['4', 'number'],
+        ['5', 'number'],
+        ['6', 'number'],
+        ['7', 'number'],
+        ['8', 'number'],
+        ['addEventListener', 'function', 2],
+        ['append', 'function', 1],
+        ['clear', 'function', 0],
+        ['first', 'function', 0],
+        ['getAt', 'function', 1],
+        ['getMany', 'function', 2],
+        ['getView', 'function', 0],
+        ['indexOf', 'function', 1],
+        ['insertAt', 'function', 2],
+        ['onvectorchanged', 'object'],
+        ['removeAt', 'function', 1],
+        ['removeAtEnd', 'function', 0],
+        ['removeEventListener', 'function', 2],
+        ['replaceAll', 'function', 1],
+        ['setAt', 'function', 2],
+        ['size', 'number'],
+    ];
+Pass: typeof myVector
+      Actual: object
+
+Pass: myVector : property 0
+      Actual: 0
+
+Pass: typeof myVector[0]
+      Actual: number
+
+Pass: myVector : property 1
+      Actual: 1
+
+Pass: typeof myVector[1]
+      Actual: number
+
+Pass: myVector : property 2
+      Actual: 2
+
+Pass: typeof myVector[2]
+      Actual: number
+
+Pass: myVector : property 3
+      Actual: 3
+
+Pass: typeof myVector[3]
+      Actual: number
+
+Pass: myVector : property 4
+      Actual: 4
+
+Pass: typeof myVector[4]
+      Actual: number
+
+Pass: myVector : property 5
+      Actual: 5
+
+Pass: typeof myVector[5]
+      Actual: number
+
+Pass: myVector : property 6
+      Actual: 6
+
+Pass: typeof myVector[6]
+      Actual: number
+
+Pass: myVector : property 7
+      Actual: 7
+
+Pass: typeof myVector[7]
+      Actual: number
+
+Pass: myVector : property 8
+      Actual: 8
+
+Pass: typeof myVector[8]
+      Actual: number
+
+Pass: myVector : property addEventListener
+      Actual: addEventListener
+
+Pass: typeof myVector[addEventListener]
+      Actual: function
+
+Pass: myVector[addEventListener].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector[addEventListener].length
+      Actual: 2
+
+Pass: myVector : property append
+      Actual: append
+
+Pass: typeof myVector[append]
+      Actual: function
+
+Pass: myVector[append].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector[append].length
+      Actual: 1
+
+Pass: myVector : property clear
+      Actual: clear
+
+Pass: typeof myVector[clear]
+      Actual: function
+
+Pass: myVector[clear].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector[clear].length
+      Actual: 0
+
+Pass: myVector : property first
+      Actual: first
+
+Pass: typeof myVector[first]
+      Actual: function
+
+Pass: myVector[first].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector[first].length
+      Actual: 0
+
+Pass: myVector : property getAt
+      Actual: getAt
+
+Pass: typeof myVector[getAt]
+      Actual: function
+
+Pass: myVector[getAt].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector[getAt].length
+      Actual: 1
+
+Pass: myVector : property getMany
+      Actual: getMany
+
+Pass: typeof myVector[getMany]
+      Actual: function
+
+Pass: myVector[getMany].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector[getMany].length
+      Actual: 2
+
+Pass: myVector : property getView
+      Actual: getView
+
+Pass: typeof myVector[getView]
+      Actual: function
+
+Pass: myVector[getView].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector[getView].length
+      Actual: 0
+
+Pass: myVector : property indexOf
+      Actual: indexOf
+
+Pass: typeof myVector[indexOf]
+      Actual: function
+
+Pass: myVector[indexOf].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector[indexOf].length
+      Actual: 1
+
+Pass: myVector : property insertAt
+      Actual: insertAt
+
+Pass: typeof myVector[insertAt]
+      Actual: function
+
+Pass: myVector[insertAt].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector[insertAt].length
+      Actual: 2
+
+Pass: myVector : property onvectorchanged
+      Actual: onvectorchanged
+
+Pass: typeof myVector[onvectorchanged]
+      Actual: object
+
+Pass: myVector : property removeAt
+      Actual: removeAt
+
+Pass: typeof myVector[removeAt]
+      Actual: function
+
+Pass: myVector[removeAt].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector[removeAt].length
+      Actual: 1
+
+Pass: myVector : property removeAtEnd
+      Actual: removeAtEnd
+
+Pass: typeof myVector[removeAtEnd]
+      Actual: function
+
+Pass: myVector[removeAtEnd].length
+      Actual: 0
+
+Comment: Setting length of function to be 10
+Pass: myVector[removeAtEnd].length
+      Actual: 0
+
+Pass: myVector : property removeEventListener
+      Actual: removeEventListener
+
+Pass: typeof myVector[removeEventListener]
+      Actual: function
+
+Pass: myVector[removeEventListener].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector[removeEventListener].length
+      Actual: 2
+
+Pass: myVector : property replaceAll
+      Actual: replaceAll
+
+Pass: typeof myVector[replaceAll]
+      Actual: function
+
+Pass: myVector[replaceAll].length
+      Actual: 1
+
+Comment: Setting length of function to be 10
+Pass: myVector[replaceAll].length
+      Actual: 1
+
+Pass: myVector : property setAt
+      Actual: setAt
+
+Pass: typeof myVector[setAt]
+      Actual: function
+
+Pass: myVector[setAt].length
+      Actual: 2
+
+Comment: Setting length of function to be 10
+Pass: myVector[setAt].length
+      Actual: 2
+
+Pass: myVector : property size
+      Actual: size
+
+Pass: typeof myVector[size]
+      Actual: number
+
+Pass: number of members of myVector
+      Actual: 25
+
+PASS [Test 1: MarshalRCSingleObservableVector]
+=================================================
+
+=================================================
+Starting [Test 2: RCSingleObservableVectorAsArray_Index_length]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: myVector[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVector.length
+      Actual: 9
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 3
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 6
+
+Pass: myVector[6]
+      Actual: 7
+
+Pass: myVector[7]
+      Actual: 8
+
+Pass: myVector[8]
+      Actual: 9
+
+Comment: myVector[2] = 78;
+Comment: myVector[9]: 1,2,78,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,78,4,5,6,7,8,9
+Pass: myVector.length
+      Actual: 9
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 78
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 6
+
+Pass: myVector[6]
+      Actual: 7
+
+Pass: myVector[7]
+      Actual: 8
+
+Pass: myVector[8]
+      Actual: 9
+
+Comment: myVector[9] = 10;
+Comment: myVector[10]: 1,2,78,4,5,6,7,8,9,10
+Comment: myArray[10]: 1,2,78,4,5,6,7,8,9,10
+Pass: myVector.length
+      Actual: 10
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 78
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 6
+
+Pass: myVector[6]
+      Actual: 7
+
+Pass: myVector[7]
+      Actual: 8
+
+Pass: myVector[8]
+      Actual: 9
+
+Pass: myVector[9]
+      Actual: 10
+
+Comment: var n = delete myVector[5]
+Pass: n
+      Actual: false
+
+Comment: myVector[10]: 1,2,78,4,5,6,7,8,9,10
+Comment: myArray[10]: 1,2,78,4,5,6,7,8,9,10
+Pass: myVector.length
+      Actual: 10
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 78
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 6
+
+Pass: myVector[6]
+      Actual: 7
+
+Pass: myVector[7]
+      Actual: 8
+
+Pass: myVector[8]
+      Actual: 9
+
+Pass: myVector[9]
+      Actual: 10
+
+Comment: n = delete myVector[12]
+Pass: n
+      Actual: false
+
+Comment: myVector[10]: 1,2,78,4,5,6,7,8,9,10
+Comment: myArray[10]: 1,2,78,4,5,6,7,8,9,10
+Pass: myVector.length
+      Actual: 10
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 78
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 6
+
+Pass: myVector[6]
+      Actual: 7
+
+Pass: myVector[7]
+      Actual: 8
+
+Pass: myVector[8]
+      Actual: 9
+
+Pass: myVector[9]
+      Actual: 10
+
+Comment: n = delete myVector
+Pass: n
+      Actual: false
+
+Comment: myVector[10]: 1,2,78,4,5,6,7,8,9,10
+Comment: myArray[10]: 1,2,78,4,5,6,7,8,9,10
+Pass: myVector.length
+      Actual: 10
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 78
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 6
+
+Pass: myVector[6]
+      Actual: 7
+
+Pass: myVector[7]
+      Actual: 8
+
+Pass: myVector[8]
+      Actual: 9
+
+Pass: myVector[9]
+      Actual: 10
+
+Comment: myVector[12] = 12
+Comment: myVector[10]: 1,2,78,4,5,6,7,8,9,10
+Comment: myArray[10]: 1,2,78,4,5,6,7,8,9,10
+Pass: myVector.length
+      Actual: 10
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 78
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 6
+
+Pass: myVector[6]
+      Actual: 7
+
+Pass: myVector[7]
+      Actual: 8
+
+Pass: myVector[8]
+      Actual: 9
+
+Pass: myVector[9]
+      Actual: 10
+
+Pass: myVector[12]
+      Actual: undefined
+
+Comment: myVector.length = 11
+Pass: e.toString()
+      Actual: Error: Object doesn't support this action
+
+Pass: Expected exception was caught
+      Actual: true
+
+Comment: myVector[10]: 1,2,78,4,5,6,7,8,9,10
+Comment: myArray[10]: 1,2,78,4,5,6,7,8,9,10
+Pass: myVector.length
+      Actual: 10
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 78
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 6
+
+Pass: myVector[6]
+      Actual: 7
+
+Pass: myVector[7]
+      Actual: 8
+
+Pass: myVector[8]
+      Actual: 9
+
+Pass: myVector[9]
+      Actual: 10
+
+Comment: myVector.length = 5;
+Comment: myVector[5]: 1,2,78,4,5
+Comment: myArray[5]: 1,2,78,4,5
+Pass: myVector.length
+      Actual: 5
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 78
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Comment: myVector.length = 30;
+Pass: e.toString()
+      Actual: Error: Object doesn't support this action
+
+Pass: Expected exception was caught
+      Actual: true
+
+Comment: myVector[5]: 1,2,78,4,5
+Comment: myArray[5]: 1,2,78,4,5
+Pass: myVector.length
+      Actual: 5
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 78
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Comment: myVector.length = 'abc';
+Pass: e.toString()
+      Actual: RangeError: Array length must be assigned a finite positive number
+
+Pass: Expected exception was caught
+      Actual: true
+
+Comment: myVector[5]: 1,2,78,4,5
+Comment: myArray[5]: 1,2,78,4,5
+Pass: myVector.length
+      Actual: 5
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 78
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Comment: myVector.length = 0;
+Comment: myVector[0]: 
+Comment: myArray[0]: 
+Pass: myVector.length
+      Actual: 0
+
+PASS [Test 2: RCSingleObservableVectorAsArray_Index_length]
+=================================================
+
+=================================================
+Starting [Test 3: RCSingleObservableVectorAsArray_Push_Pop]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [] to myVector
+Comment: myVector[0]: 
+Comment: var n = myVector.pop()
+Pass: n
+      Actual: undefined
+
+Comment: myVector[0]: 
+Comment: myArray[0]: 
+Pass: myVector.length
+      Actual: 0
+
+Pass: myVector.push(11)
+      Actual: 1
+
+Pass: myVector.push(22)
+      Actual: 2
+
+Pass: myVector.push(33)
+      Actual: 3
+
+Pass: myVector.push(44)
+      Actual: 4
+
+Pass: myVector.push(55)
+      Actual: 5
+
+Pass: myVector.push(66)
+      Actual: 6
+
+Pass: myVector.push(77)
+      Actual: 7
+
+Comment: myVector[7]: 11,22,33,44,55,66,77
+Comment: myArray[7]: 11,22,33,44,55,66,77
+Pass: myVector.length
+      Actual: 7
+
+Pass: myVector[0]
+      Actual: 11
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector.push(11, 22, 33, 44, 55, 66)
+      Actual: 13
+
+Comment: myVector[13]: 11,22,33,44,55,66,77,11,22,33,44,55,66
+Comment: myArray[13]: 11,22,33,44,55,66,77,11,22,33,44,55,66
+Pass: myVector.length
+      Actual: 13
+
+Pass: myVector[0]
+      Actual: 11
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: Array.prototype.push.call(myVector, 100)
+      Actual: 14
+
+Comment: myVector[14]: 11,22,33,44,55,66,77,11,22,33,44,55,66,100
+Comment: myArray[14]: 11,22,33,44,55,66,77,11,22,33,44,55,66,100
+Pass: myVector.length
+      Actual: 14
+
+Pass: myVector[0]
+      Actual: 11
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: myVector[13]
+      Actual: 100
+
+Comment: n = myVector.pop()
+Pass: e.toString()
+      Actual: TypeError: Object doesn't support this action
+
+Pass: Expected exception was caught
+      Actual: true
+
+Comment: myVector[14]: 11,22,33,44,55,66,77,11,22,33,44,55,66,100
+Comment: myArray[14]: 11,22,33,44,55,66,77,11,22,33,44,55,66,100
+Pass: myVector.length
+      Actual: 14
+
+Pass: myVector[0]
+      Actual: 11
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: myVector[13]
+      Actual: 100
+
+Comment: n = Array.prototype.pop.call(myVector);
+Pass: e.toString()
+      Actual: TypeError: Object doesn't support this action
+
+Pass: Expected exception was caught
+      Actual: true
+
+Comment: myVector[14]: 11,22,33,44,55,66,77,11,22,33,44,55,66,100
+Comment: myArray[14]: 11,22,33,44,55,66,77,11,22,33,44,55,66,100
+Pass: myVector.length
+      Actual: 14
+
+Pass: myVector[0]
+      Actual: 11
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: myVector[13]
+      Actual: 100
+
+PASS [Test 3: RCSingleObservableVectorAsArray_Push_Pop]
+=================================================
+
+=================================================
+Starting [Test 4: RCSingleObservableVectorAsArray_Shift_Unshift]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [11,22,33,44,55,66,77,11,22,33,44,55,66,100] to myVector
+Comment: myVector[14]: 11,22,33,44,55,66,77,11,22,33,44,55,66,100
+Comment: myVector.shift()
+Pass: e.toString()
+      Actual: TypeError: Object doesn't support this action
+
+Pass: Expected exception was caught
+      Actual: true
+
+Comment: myVector[14]: 22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Comment: myArray[14]: 22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.length
+      Actual: 14
+
+Pass: myVector[0]
+      Actual: 22
+
+Pass: myVector[1]
+      Actual: 33
+
+Pass: myVector[2]
+      Actual: 44
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 66
+
+Pass: myVector[5]
+      Actual: 77
+
+Pass: myVector[6]
+      Actual: 11
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 33
+
+Pass: myVector[9]
+      Actual: 44
+
+Pass: myVector[10]
+      Actual: 55
+
+Pass: myVector[11]
+      Actual: 66
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector.unshift()
+      Actual: 14
+
+Comment: myVector[14]: 22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Comment: myArray[14]: 22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.length
+      Actual: 14
+
+Pass: myVector[0]
+      Actual: 22
+
+Pass: myVector[1]
+      Actual: 33
+
+Pass: myVector[2]
+      Actual: 44
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 66
+
+Pass: myVector[5]
+      Actual: 77
+
+Pass: myVector[6]
+      Actual: 11
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 33
+
+Pass: myVector[9]
+      Actual: 44
+
+Pass: myVector[10]
+      Actual: 55
+
+Pass: myVector[11]
+      Actual: 66
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector.unshift(0)
+      Actual: 15
+
+Comment: myVector[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Comment: myArray[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.length
+      Actual: 15
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Comment: myVector.unshift(25, 50, 100)
+Pass: e.toString()
+      Actual: TypeError: Object doesn't support this action
+
+Pass: Expected exception was caught
+      Actual: true
+
+Comment: myVector[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Comment: myArray[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.length
+      Actual: 15
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+PASS [Test 4: RCSingleObservableVectorAsArray_Shift_Unshift]
+=================================================
+
+=================================================
+Starting [Test 5: RCSingleObservableVectorAsArray_Slice]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [0,22,33,44,55,66,77,11,22,33,44,55,66,100,100] to myVector
+Comment: myVector[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.slice()
+      Actual: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+
+Comment: myVector[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Comment: myArray[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.length
+      Actual: 15
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector.slice(5, 2)
+      Actual: 
+
+Comment: myVector[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Comment: myArray[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.length
+      Actual: 15
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector.slice(5, 8)
+      Actual: 66,77,11
+
+Comment: myVector[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Comment: myArray[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.length
+      Actual: 15
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector.slice(5)
+      Actual: 66,77,11,22,33,44,55,66,100,100
+
+Comment: myVector[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Comment: myArray[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.length
+      Actual: 15
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector.slice(-2)
+      Actual: 100,100
+
+Comment: myVector[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Comment: myArray[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.length
+      Actual: 15
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector.slice(-7, -2)
+      Actual: 22,33,44,55,66
+
+Comment: myVector[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Comment: myArray[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.length
+      Actual: 15
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+PASS [Test 5: RCSingleObservableVectorAsArray_Slice]
+=================================================
+
+=================================================
+Starting [Test 6: RCSingleObservableVectorAsArray_Splice]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [0,22,33,44,55,66,77,11,22,33,44,55,66,100,100] to myVector
+Comment: myVector[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.splice()
+      Actual: 
+
+Comment: myVector[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Comment: myArray[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.length
+      Actual: 15
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector.splice(5, 0)
+      Actual: 
+
+Comment: myVector[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Comment: myArray[15]: 0,22,33,44,55,66,77,11,22,33,44,55,66,100,100
+Pass: myVector.length
+      Actual: 15
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 66
+
+Pass: myVector[6]
+      Actual: 77
+
+Pass: myVector[7]
+      Actual: 11
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 55
+
+Pass: myVector[12]
+      Actual: 66
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Comment: myVector.splice(5, 2)
+Pass: e.toString()
+      Actual: TypeError: Object doesn't support this action
+
+Pass: Expected exception was caught
+      Actual: true
+
+Comment: myVector[15]: 0,22,33,44,55,11,22,33,44,55,66,100,100,100,100
+Comment: myArray[15]: 0,22,33,44,55,11,22,33,44,55,66,100,100,100,100
+Pass: myVector.length
+      Actual: 15
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 33
+
+Pass: myVector[3]
+      Actual: 44
+
+Pass: myVector[4]
+      Actual: 55
+
+Pass: myVector[5]
+      Actual: 11
+
+Pass: myVector[6]
+      Actual: 22
+
+Pass: myVector[7]
+      Actual: 33
+
+Pass: myVector[8]
+      Actual: 44
+
+Pass: myVector[9]
+      Actual: 55
+
+Pass: myVector[10]
+      Actual: 66
+
+Pass: myVector[11]
+      Actual: 100
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector.splice(2, 2, 14, 98, 54)
+      Actual: 33,44
+
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Comment: myArray[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 14
+
+Pass: myVector[3]
+      Actual: 98
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 55
+
+Pass: myVector[6]
+      Actual: 11
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 33
+
+Pass: myVector[9]
+      Actual: 44
+
+Pass: myVector[10]
+      Actual: 55
+
+Pass: myVector[11]
+      Actual: 66
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 100
+
+Comment: myVector.splice(4, 0, 32, 83)
+Pass: e.toString()
+      Actual: TypeError: Object doesn't support this action
+
+Pass: Expected exception was caught
+      Actual: true
+
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Comment: myArray[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 14
+
+Pass: myVector[3]
+      Actual: 98
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 55
+
+Pass: myVector[6]
+      Actual: 11
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 33
+
+Pass: myVector[9]
+      Actual: 44
+
+Pass: myVector[10]
+      Actual: 55
+
+Pass: myVector[11]
+      Actual: 66
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 100
+
+PASS [Test 6: RCSingleObservableVectorAsArray_Splice]
+=================================================
+
+=================================================
+Starting [Test 7: RCSingleObservableVectorAsArray_Every]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100] to myVector
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Pass: myVector.every(IsLessThan70)
+      Actual: false
+
+Pass: myVector.every(IsLessThan101)
+      Actual: true
+
+PASS [Test 7: RCSingleObservableVectorAsArray_Every]
+=================================================
+
+=================================================
+Starting [Test 8: RCSingleObservableVectorAsArray_Some]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100] to myVector
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Pass: myVector.some(IsLessThan70)
+      Actual: true
+
+Pass: myVector.some(IsGreaterThan100)
+      Actual: false
+
+PASS [Test 8: RCSingleObservableVectorAsArray_Some]
+=================================================
+
+=================================================
+Starting [Test 9: RCSingleObservableVectorAsArray_Filter]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100] to myVector
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Pass: myVector.filter(IsLessThan50)
+      Actual: 0,22,14,11,22,33,44
+
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Comment: myArray[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 14
+
+Pass: myVector[3]
+      Actual: 98
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 55
+
+Pass: myVector[6]
+      Actual: 11
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 33
+
+Pass: myVector[9]
+      Actual: 44
+
+Pass: myVector[10]
+      Actual: 55
+
+Pass: myVector[11]
+      Actual: 66
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 100
+
+Pass: myVector.filter(IsGreaterThan100)
+      Actual: 
+
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Comment: myArray[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 14
+
+Pass: myVector[3]
+      Actual: 98
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 55
+
+Pass: myVector[6]
+      Actual: 11
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 33
+
+Pass: myVector[9]
+      Actual: 44
+
+Pass: myVector[10]
+      Actual: 55
+
+Pass: myVector[11]
+      Actual: 66
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 100
+
+PASS [Test 9: RCSingleObservableVectorAsArray_Filter]
+=================================================
+
+=================================================
+Starting [Test 10: RCSingleObservableVectorAsArray_ForEach]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100] to myVector
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Comment: 
+function forEachMethod(x, idx)
+{
+    print('[' + idx + ']', '=', x);
+}
+Comment: myVector.forEach(forEachMethod);
+Comment: [0]
+Comment: [1]
+Comment: [2]
+Comment: [3]
+Comment: [4]
+Comment: [5]
+Comment: [6]
+Comment: [7]
+Comment: [8]
+Comment: [9]
+Comment: [10]
+Comment: [11]
+Comment: [12]
+Comment: [13]
+Comment: [14]
+Comment: [15]
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Comment: myArray[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 14
+
+Pass: myVector[3]
+      Actual: 98
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 55
+
+Pass: myVector[6]
+      Actual: 11
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 33
+
+Pass: myVector[9]
+      Actual: 44
+
+Pass: myVector[10]
+      Actual: 55
+
+Pass: myVector[11]
+      Actual: 66
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 100
+
+PASS [Test 10: RCSingleObservableVectorAsArray_ForEach]
+=================================================
+
+=================================================
+Starting [Test 11: RCSingleObservableVectorAsArray_Map]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100] to myVector
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Comment: 
+function mapMethod(x)
+{
+    if (IsLessThan50(x))
+    {
+        return x;
+    }
+    return -1;
+}
+Pass: myVector.map(mapMethod)
+      Actual: 0,22,14,-1,-1,-1,11,22,33,44,-1,-1,-1,-1,-1,-1
+
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Comment: myArray[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 14
+
+Pass: myVector[3]
+      Actual: 98
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 55
+
+Pass: myVector[6]
+      Actual: 11
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 33
+
+Pass: myVector[9]
+      Actual: 44
+
+Pass: myVector[10]
+      Actual: 55
+
+Pass: myVector[11]
+      Actual: 66
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 100
+
+PASS [Test 11: RCSingleObservableVectorAsArray_Map]
+=================================================
+
+=================================================
+Starting [Test 12: RCSingleObservableVectorAsArray_Reduce_ReduceRight]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100] to myVector
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Comment: 
+function doTotal(a, b)
+{
+    return a + b;
+}
+Pass: myVector.reduce(doTotal)
+      Actual: 874
+
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Comment: myArray[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 14
+
+Pass: myVector[3]
+      Actual: 98
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 55
+
+Pass: myVector[6]
+      Actual: 11
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 33
+
+Pass: myVector[9]
+      Actual: 44
+
+Pass: myVector[10]
+      Actual: 55
+
+Pass: myVector[11]
+      Actual: 66
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 100
+
+Pass: myVector.reduceRight(doTotal)
+      Actual: 874
+
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Comment: myArray[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 22
+
+Pass: myVector[2]
+      Actual: 14
+
+Pass: myVector[3]
+      Actual: 98
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 55
+
+Pass: myVector[6]
+      Actual: 11
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 33
+
+Pass: myVector[9]
+      Actual: 44
+
+Pass: myVector[10]
+      Actual: 55
+
+Pass: myVector[11]
+      Actual: 66
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 100
+
+PASS [Test 12: RCSingleObservableVectorAsArray_Reduce_ReduceRight]
+=================================================
+
+=================================================
+Starting [Test 13: RCSingleObservableVectorAsArray_Reverse_Sort]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100] to myVector
+Comment: myVector[16]: 0,22,14,98,54,55,11,22,33,44,55,66,100,100,100,100
+Comment: var a = myVector.sort();
+Pass: a === myVector
+      Actual: true
+
+Comment: myVector[16]: 0,100,100,100,100,11,14,22,22,33,44,54,55,55,66,98
+Comment: myArray[16]: 0,100,100,100,100,11,14,22,22,33,44,54,55,55,66,98
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 100
+
+Pass: myVector[2]
+      Actual: 100
+
+Pass: myVector[3]
+      Actual: 100
+
+Pass: myVector[4]
+      Actual: 100
+
+Pass: myVector[5]
+      Actual: 11
+
+Pass: myVector[6]
+      Actual: 14
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 54
+
+Pass: myVector[12]
+      Actual: 55
+
+Pass: myVector[13]
+      Actual: 55
+
+Pass: myVector[14]
+      Actual: 66
+
+Pass: myVector[15]
+      Actual: 98
+
+Comment: a = myVector.reverse();
+Pass: a === myVector
+      Actual: true
+
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Comment: myArray[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 98
+
+Pass: myVector[1]
+      Actual: 66
+
+Pass: myVector[2]
+      Actual: 55
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 44
+
+Pass: myVector[6]
+      Actual: 33
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 14
+
+Pass: myVector[10]
+      Actual: 11
+
+Pass: myVector[11]
+      Actual: 100
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 0
+
+Comment: a = Array.prototype.sort.call(myVector)
+Pass: a === myVector
+      Actual: true
+
+Comment: myVector[16]: 0,100,100,100,100,11,14,22,22,33,44,54,55,55,66,98
+Comment: myArray[16]: 0,100,100,100,100,11,14,22,22,33,44,54,55,55,66,98
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 0
+
+Pass: myVector[1]
+      Actual: 100
+
+Pass: myVector[2]
+      Actual: 100
+
+Pass: myVector[3]
+      Actual: 100
+
+Pass: myVector[4]
+      Actual: 100
+
+Pass: myVector[5]
+      Actual: 11
+
+Pass: myVector[6]
+      Actual: 14
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 33
+
+Pass: myVector[10]
+      Actual: 44
+
+Pass: myVector[11]
+      Actual: 54
+
+Pass: myVector[12]
+      Actual: 55
+
+Pass: myVector[13]
+      Actual: 55
+
+Pass: myVector[14]
+      Actual: 66
+
+Pass: myVector[15]
+      Actual: 98
+
+Comment: a = Array.prototype.reverse.call(myVector);
+Pass: a === myVector
+      Actual: true
+
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Comment: myArray[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 98
+
+Pass: myVector[1]
+      Actual: 66
+
+Pass: myVector[2]
+      Actual: 55
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 44
+
+Pass: myVector[6]
+      Actual: 33
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 14
+
+Pass: myVector[10]
+      Actual: 11
+
+Pass: myVector[11]
+      Actual: 100
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 0
+
+PASS [Test 13: RCSingleObservableVectorAsArray_Reverse_Sort]
+=================================================
+
+=================================================
+Starting [Test 14: RCSingleObservableVectorAsArray_Concat]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0] to myVector
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.concat([1,2,3])
+      Actual: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0,1,2,3
+
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Comment: myArray[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 98
+
+Pass: myVector[1]
+      Actual: 66
+
+Pass: myVector[2]
+      Actual: 55
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 44
+
+Pass: myVector[6]
+      Actual: 33
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 14
+
+Pass: myVector[10]
+      Actual: 11
+
+Pass: myVector[11]
+      Actual: 100
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 0
+
+Comment: var mySecondVector = new Animals.RCISingleObservable();
+Comment: mySecondVector[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: mySecondVector.length
+      Actual: 9
+
+Pass: mySecondVector[0]
+      Actual: 1
+
+Pass: mySecondVector[1]
+      Actual: 2
+
+Pass: mySecondVector[2]
+      Actual: 3
+
+Pass: mySecondVector[3]
+      Actual: 4
+
+Pass: mySecondVector[4]
+      Actual: 5
+
+Pass: mySecondVector[5]
+      Actual: 6
+
+Pass: mySecondVector[6]
+      Actual: 7
+
+Pass: mySecondVector[7]
+      Actual: 8
+
+Pass: mySecondVector[8]
+      Actual: 9
+
+Pass: myVector.concat(mySecondVector)
+      Actual: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0,1,2,3,4,5,6,7,8,9
+
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Comment: myArray[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 98
+
+Pass: myVector[1]
+      Actual: 66
+
+Pass: myVector[2]
+      Actual: 55
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 44
+
+Pass: myVector[6]
+      Actual: 33
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 14
+
+Pass: myVector[10]
+      Actual: 11
+
+Pass: myVector[11]
+      Actual: 100
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 0
+
+Comment: mySecondVector[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: mySecondVector.length
+      Actual: 9
+
+Pass: mySecondVector[0]
+      Actual: 1
+
+Pass: mySecondVector[1]
+      Actual: 2
+
+Pass: mySecondVector[2]
+      Actual: 3
+
+Pass: mySecondVector[3]
+      Actual: 4
+
+Pass: mySecondVector[4]
+      Actual: 5
+
+Pass: mySecondVector[5]
+      Actual: 6
+
+Pass: mySecondVector[6]
+      Actual: 7
+
+Pass: mySecondVector[7]
+      Actual: 8
+
+Pass: mySecondVector[8]
+      Actual: 9
+
+Comment: var jsArray = [1,2,3];
+Pass: jsArray.concat(myVector)
+      Actual: 1,2,3,98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Comment: myArray[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 98
+
+Pass: myVector[1]
+      Actual: 66
+
+Pass: myVector[2]
+      Actual: 55
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 44
+
+Pass: myVector[6]
+      Actual: 33
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 14
+
+Pass: myVector[10]
+      Actual: 11
+
+Pass: myVector[11]
+      Actual: 100
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 0
+
+Pass: jsArray
+      Actual: 1,2,3
+
+Pass: myVector.concat(1,2,3,4)
+      Actual: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0,1,2,3,4
+
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Comment: myArray[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 98
+
+Pass: myVector[1]
+      Actual: 66
+
+Pass: myVector[2]
+      Actual: 55
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 44
+
+Pass: myVector[6]
+      Actual: 33
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 14
+
+Pass: myVector[10]
+      Actual: 11
+
+Pass: myVector[11]
+      Actual: 100
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 0
+
+PASS [Test 14: RCSingleObservableVectorAsArray_Concat]
+=================================================
+
+=================================================
+Starting [Test 15: RCSingleObservableVectorAsArray_Join]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0] to myVector
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.join(' , ')
+      Actual: 98 , 66 , 55 , 55 , 54 , 44 , 33 , 22 , 22 , 14 , 11 , 100 , 100 , 100 , 100 , 0
+
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Comment: myArray[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 98
+
+Pass: myVector[1]
+      Actual: 66
+
+Pass: myVector[2]
+      Actual: 55
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 44
+
+Pass: myVector[6]
+      Actual: 33
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 14
+
+Pass: myVector[10]
+      Actual: 11
+
+Pass: myVector[11]
+      Actual: 100
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 0
+
+Pass: myVector.join([9,'b','c'])
+      Actual: 989,b,c669,b,c559,b,c559,b,c549,b,c449,b,c339,b,c229,b,c229,b,c149,b,c119,b,c1009,b,c1009,b,c1009,b,c1009,b,c0
+
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Comment: myArray[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 98
+
+Pass: myVector[1]
+      Actual: 66
+
+Pass: myVector[2]
+      Actual: 55
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 44
+
+Pass: myVector[6]
+      Actual: 33
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 14
+
+Pass: myVector[10]
+      Actual: 11
+
+Pass: myVector[11]
+      Actual: 100
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 0
+
+Comment: var mySecondVector = new Animals.RCISingleObservable();
+Comment: mySecondVector[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: mySecondVector.length
+      Actual: 9
+
+Pass: mySecondVector[0]
+      Actual: 1
+
+Pass: mySecondVector[1]
+      Actual: 2
+
+Pass: mySecondVector[2]
+      Actual: 3
+
+Pass: mySecondVector[3]
+      Actual: 4
+
+Pass: mySecondVector[4]
+      Actual: 5
+
+Pass: mySecondVector[5]
+      Actual: 6
+
+Pass: mySecondVector[6]
+      Actual: 7
+
+Pass: mySecondVector[7]
+      Actual: 8
+
+Pass: mySecondVector[8]
+      Actual: 9
+
+Pass: myVector.join(mySecondVector)
+      Actual: 981,2,3,4,5,6,7,8,9661,2,3,4,5,6,7,8,9551,2,3,4,5,6,7,8,9551,2,3,4,5,6,7,8,9541,2,3,4,5,6,7,8,9441,2,3,4,5,6,7,8,9331,2,3,4,5,6,7,8,9221,2,3,4,5,6,7,8,9221,2,3,4,5,6,7,8,9141,2,3,4,5,6,7,8,9111,2,3,4,5,6,7,8,91001,2,3,4,5,6,7,8,91001,2,3,4,5,6,7,8,91001,2,3,4,5,6,7,8,91001,2,3,4,5,6,7,8,90
+
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Comment: myArray[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 98
+
+Pass: myVector[1]
+      Actual: 66
+
+Pass: myVector[2]
+      Actual: 55
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 44
+
+Pass: myVector[6]
+      Actual: 33
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 14
+
+Pass: myVector[10]
+      Actual: 11
+
+Pass: myVector[11]
+      Actual: 100
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 0
+
+Comment: mySecondVector[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: mySecondVector.length
+      Actual: 9
+
+Pass: mySecondVector[0]
+      Actual: 1
+
+Pass: mySecondVector[1]
+      Actual: 2
+
+Pass: mySecondVector[2]
+      Actual: 3
+
+Pass: mySecondVector[3]
+      Actual: 4
+
+Pass: mySecondVector[4]
+      Actual: 5
+
+Pass: mySecondVector[5]
+      Actual: 6
+
+Pass: mySecondVector[6]
+      Actual: 7
+
+Pass: mySecondVector[7]
+      Actual: 8
+
+Pass: mySecondVector[8]
+      Actual: 9
+
+Comment: var jsArray = [1,2,3];
+Pass: jsArray.join(myVector)
+      Actual: 198,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0298,66,55,55,54,44,33,22,22,14,11,100,100,100,100,03
+
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Comment: myArray[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 98
+
+Pass: myVector[1]
+      Actual: 66
+
+Pass: myVector[2]
+      Actual: 55
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 44
+
+Pass: myVector[6]
+      Actual: 33
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 14
+
+Pass: myVector[10]
+      Actual: 11
+
+Pass: myVector[11]
+      Actual: 100
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 0
+
+Pass: jsArray
+      Actual: 1,2,3
+
+PASS [Test 15: RCSingleObservableVectorAsArray_Join]
+=================================================
+
+=================================================
+Starting [Test 16: RCSingleObservableVectorAsArray_IndexOf]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0] to myVector
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: Array.prototype.indexOf.call(myVector, 55)
+      Actual: 2
+
+Pass: Array.prototype.indexOf.call(myVector, 786)
+      Actual: -1
+
+Pass: Array.prototype.indexOf.call(myVector, 55, 5)
+      Actual: -1
+
+Pass: Array.prototype.indexOf.call(myVector, 22, 8)
+      Actual: 8
+
+Pass: Array.prototype.indexOf.call(myVector, 22, 7)
+      Actual: 7
+
+Pass: myVector.indexOf(55)
+      Actual: 2
+
+Pass: myVector.indexOf(786)
+      Actual: false
+
+Pass: myVector.indexOf(22, 8)
+      Actual: 7
+
+PASS [Test 16: RCSingleObservableVectorAsArray_IndexOf]
+=================================================
+
+=================================================
+Starting [Test 17: RCSingleObservableVectorAsArray_LastIndexOf]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0] to myVector
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.lastIndexOf(55)
+      Actual: 3
+
+Pass: myVector.lastIndexOf(786)
+      Actual: -1
+
+Pass: myVector.lastIndexOf(22, 3)
+      Actual: -1
+
+Pass: myVector.lastIndexOf(22, 8)
+      Actual: 8
+
+Pass: myVector.lastIndexOf(22, 7)
+      Actual: 7
+
+PASS [Test 17: RCSingleObservableVectorAsArray_LastIndexOf]
+=================================================
+
+=================================================
+Starting [Test 18: RCSingleObservableVectorAsArray_IsArray_Apply]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0] to myVector
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: Array.isArray(myVector)
+      Actual: false
+
+Pass: Array.apply(this, myVector)
+      Actual: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Comment: myArray[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 98
+
+Pass: myVector[1]
+      Actual: 66
+
+Pass: myVector[2]
+      Actual: 55
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 44
+
+Pass: myVector[6]
+      Actual: 33
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 14
+
+Pass: myVector[10]
+      Actual: 11
+
+Pass: myVector[11]
+      Actual: 100
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 0
+
+Pass: new Array(myVector)
+      Actual: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Comment: myArray[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Pass: myVector.length
+      Actual: 16
+
+Pass: myVector[0]
+      Actual: 98
+
+Pass: myVector[1]
+      Actual: 66
+
+Pass: myVector[2]
+      Actual: 55
+
+Pass: myVector[3]
+      Actual: 55
+
+Pass: myVector[4]
+      Actual: 54
+
+Pass: myVector[5]
+      Actual: 44
+
+Pass: myVector[6]
+      Actual: 33
+
+Pass: myVector[7]
+      Actual: 22
+
+Pass: myVector[8]
+      Actual: 22
+
+Pass: myVector[9]
+      Actual: 14
+
+Pass: myVector[10]
+      Actual: 11
+
+Pass: myVector[11]
+      Actual: 100
+
+Pass: myVector[12]
+      Actual: 100
+
+Pass: myVector[13]
+      Actual: 100
+
+Pass: myVector[14]
+      Actual: 100
+
+Pass: myVector[15]
+      Actual: 0
+
+PASS [Test 18: RCSingleObservableVectorAsArray_IsArray_Apply]
+=================================================
+
+=================================================
+Starting [Test 19: RCSingleObservableVectorAsArray_PropertyOperations]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: Applying Array [98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0] to myVector
+Comment: myVector[16]: 98,66,55,55,54,44,33,22,22,14,11,100,100,100,100,0
+Comment: Enumerating over: myVector
+Comment: 	0
+Comment: 	1
+Comment: 	2
+Comment: 	3
+Comment: 	4
+Comment: 	5
+Comment: 	6
+Comment: 	7
+Comment: 	8
+Comment: 	9
+Comment: 	10
+Comment: 	11
+Comment: 	12
+Comment: 	13
+Comment: 	14
+Comment: 	15
+Comment: 	addEventListener
+Comment: 	append
+Comment: 	clear
+Comment: 	first
+Comment: 	getAt
+Comment: 	getMany
+Comment: 	getView
+Comment: 	indexOf
+Comment: 	insertAt
+Comment: 	onvectorchanged
+Comment: 	removeAt
+Comment: 	removeAtEnd
+Comment: 	removeEventListener
+Comment: 	replaceAll
+Comment: 	setAt
+Comment: 	size
+Pass: Enumerate children
+      Actual: true
+
+Comment: Checking if object has property: 3
+Pass: Object has property: 3
+      Actual: true
+
+Comment: Checking if object has property: 18
+Pass: Object has property: 18
+      Actual: false
+
+Comment: Attempting to set property (6) to: [88]
+Pass: Able to write to property: 6
+      Actual: true
+
+Comment: Attempting to set property (18) to: [11]
+Pass: Able to write to property: 18
+      Actual: false
+
+Comment: Attempting to set property (16) to: [111]
+Pass: Able to write to property: 16
+      Actual: true
+
+Comment: Attempting to add property: 4
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot redefine non-configurable property '4'
+Pass: Able to add property: 4
+      Actual: false
+
+Comment: Attempting to add property: 17
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property '17': object is not extensible
+Pass: Able to add property: 17
+      Actual: false
+
+Comment: Attempting to add property: 20
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property '20': object is not extensible
+Pass: Able to add property: 20
+      Actual: false
+
+Comment: Attempting to delete property: 4
+Pass: Object has property [4]
+      Actual: true
+
+Pass: Able to delete property: 4
+      Actual: false
+
+Comment: Attempting to delete property: 10
+Pass: Object has property [10]
+      Actual: true
+
+Pass: Able to delete property: 10
+      Actual: false
+
+Comment: Attempting to add property: FavoriteRecipe
+Comment: got exception when calling addAndCheckProperty: TypeError: Cannot define property 'FavoriteRecipe': object is not extensible
+Pass: Able to add property: FavoriteRecipe
+      Actual: false
+
+Comment: Attempting to set property (FavoriteRecipe) to: [Almond Cake]
+Pass: Able to write to property: FavoriteRecipe
+      Actual: false
+
+PASS [Test 19: RCSingleObservableVectorAsArray_PropertyOperations]
+=================================================
+
+=================================================
+Starting [Test 20: RCSingleObservableVectorAsArray_Prototype]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: myVector[9]: 1,2,3,4,5,6,7,8,9
+Comment: var mySecondVector = new Animals.RCISingleObservable()
+Comment: myVector: 1,2,3,4,5,6,7,8,9
+Comment: mySecondVector: 1,2,3,4,5,6,7,8,9
+Pass: Object.getPrototypeOf(myVector) === Object.getPrototypeOf(mySecondVector)
+      Actual: true
+
+Comment: Array.prototype.arrayTestProperty = "Array's Array Test Property"
+Comment: Object.prototype.arrayTestProperty = "Object's Array Test Property"
+Comment: Object.prototype.objectTestProperty = "Object's Object Test Property";
+Pass: myVector.arrayTestProperty
+      Actual: Array's Array Test Property
+
+Pass: myVector.objectTestProperty
+      Actual: Object's Object Test Property
+
+Pass: mySecondVector.arrayTestProperty
+      Actual: Array's Array Test Property
+
+Pass: mySecondVector.objectTestProperty
+      Actual: Object's Object Test Property
+
+Comment: delete Array.prototype.arrayTestProperty
+Comment: delete Object.prototype.arrayTestProperty
+Comment: delete Object.prototype.objectTestProperty
+PASS [Test 20: RCSingleObservableVectorAsArray_Prototype]
+=================================================
+
+=================================================
+Starting [Test 21: RCSingleObservableVectorAsArray_Events]
+Comment: myVector = new Animals.RCISingleObservable();
+Comment: myVector[9]: 1,2,3,4,5,6,7,8,9
+Comment: myVector[9]: 1,2,3,4,5,6,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,6,7,8,9
+Pass: myVector.length
+      Actual: 9
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 3
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 6
+
+Pass: myVector[6]
+      Actual: 7
+
+Pass: myVector[7]
+      Actual: 8
+
+Pass: myVector[8]
+      Actual: 9
+
+Comment: myVector.addEventListener('vectorchanged', vectorChanged);
+Comment: myVector[5] = 88;
+Comment: *** ObservableVector Change invoke
+Comment:     newObservableVector: 1,2,3,4,5,88,7,8,9
+Comment:     vectorChangedArgs.index: 5
+Comment:     vectorChangedArgs.collectionChange: 3
+Comment: *** ObservableVector Change End
+Comment: Verifying results that were received in delegate
+Comment: vectorChanged.myObservableVector[9]: 1,2,3,4,5,88,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,88,7,8,9
+Pass: vectorChanged.myObservableVector.length
+      Actual: 9
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 1
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 2
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[3]
+      Actual: 4
+
+Pass: vectorChanged.myObservableVector[4]
+      Actual: 5
+
+Pass: vectorChanged.myObservableVector[5]
+      Actual: 88
+
+Pass: vectorChanged.myObservableVector[6]
+      Actual: 7
+
+Pass: vectorChanged.myObservableVector[7]
+      Actual: 8
+
+Pass: vectorChanged.myObservableVector[8]
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 5
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 3
+
+Comment: myVector[9]: 1,2,3,4,5,88,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,88,7,8,9
+Pass: myVector.length
+      Actual: 9
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 3
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 88
+
+Pass: myVector[6]
+      Actual: 7
+
+Pass: myVector[7]
+      Actual: 8
+
+Pass: myVector[8]
+      Actual: 9
+
+Comment: myVector.insertAt(5, 1800);
+Comment: *** ObservableVector Change invoke
+Comment:     newObservableVector: 1,2,3,4,5,1800,88,7,8,9
+Comment:     vectorChangedArgs.index: 5
+Comment:     vectorChangedArgs.collectionChange: 1
+Comment: *** ObservableVector Change End
+Comment: Verifying results that were received in delegate
+Comment: vectorChanged.myObservableVector[10]: 1,2,3,4,5,1800,88,7,8,9
+Comment: myArray[10]: 1,2,3,4,5,1800,88,7,8,9
+Pass: vectorChanged.myObservableVector.length
+      Actual: 10
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 1
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 2
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[3]
+      Actual: 4
+
+Pass: vectorChanged.myObservableVector[4]
+      Actual: 5
+
+Pass: vectorChanged.myObservableVector[5]
+      Actual: 1800
+
+Pass: vectorChanged.myObservableVector[6]
+      Actual: 88
+
+Pass: vectorChanged.myObservableVector[7]
+      Actual: 7
+
+Pass: vectorChanged.myObservableVector[8]
+      Actual: 8
+
+Pass: vectorChanged.myObservableVector[9]
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 5
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 1
+
+Comment: myVector[10]: 1,2,3,4,5,1800,88,7,8,9
+Comment: myArray[10]: 1,2,3,4,5,1800,88,7,8,9
+Pass: myVector.length
+      Actual: 10
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 3
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 1800
+
+Pass: myVector[6]
+      Actual: 88
+
+Pass: myVector[7]
+      Actual: 7
+
+Pass: myVector[8]
+      Actual: 8
+
+Pass: myVector[9]
+      Actual: 9
+
+Comment: myVector.removeAt(5)
+Comment: *** ObservableVector Change invoke
+Comment:     newObservableVector: 1,2,3,4,5,88,7,8,9
+Comment:     vectorChangedArgs.index: 5
+Comment:     vectorChangedArgs.collectionChange: 2
+Comment: *** ObservableVector Change End
+Comment: Verifying results that were received in delegate
+Comment: vectorChanged.myObservableVector[9]: 1,2,3,4,5,88,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,88,7,8,9
+Pass: vectorChanged.myObservableVector.length
+      Actual: 9
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 1
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 2
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[3]
+      Actual: 4
+
+Pass: vectorChanged.myObservableVector[4]
+      Actual: 5
+
+Pass: vectorChanged.myObservableVector[5]
+      Actual: 88
+
+Pass: vectorChanged.myObservableVector[6]
+      Actual: 7
+
+Pass: vectorChanged.myObservableVector[7]
+      Actual: 8
+
+Pass: vectorChanged.myObservableVector[8]
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 5
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 2
+
+Comment: myVector[9]: 1,2,3,4,5,88,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,88,7,8,9
+Pass: myVector.length
+      Actual: 9
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 3
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 88
+
+Pass: myVector[6]
+      Actual: 7
+
+Pass: myVector[7]
+      Actual: 8
+
+Pass: myVector[8]
+      Actual: 9
+
+Comment: myVector.append(1800);
+Comment: *** ObservableVector Change invoke
+Comment:     newObservableVector: 1,2,3,4,5,88,7,8,9,1800
+Comment:     vectorChangedArgs.index: 9
+Comment:     vectorChangedArgs.collectionChange: 1
+Comment: *** ObservableVector Change End
+Comment: Verifying results that were received in delegate
+Comment: vectorChanged.myObservableVector[10]: 1,2,3,4,5,88,7,8,9,1800
+Comment: myArray[10]: 1,2,3,4,5,88,7,8,9,1800
+Pass: vectorChanged.myObservableVector.length
+      Actual: 10
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 1
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 2
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[3]
+      Actual: 4
+
+Pass: vectorChanged.myObservableVector[4]
+      Actual: 5
+
+Pass: vectorChanged.myObservableVector[5]
+      Actual: 88
+
+Pass: vectorChanged.myObservableVector[6]
+      Actual: 7
+
+Pass: vectorChanged.myObservableVector[7]
+      Actual: 8
+
+Pass: vectorChanged.myObservableVector[8]
+      Actual: 9
+
+Pass: vectorChanged.myObservableVector[9]
+      Actual: 1800
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 1
+
+Comment: myVector[10]: 1,2,3,4,5,88,7,8,9,1800
+Comment: myArray[10]: 1,2,3,4,5,88,7,8,9,1800
+Pass: myVector.length
+      Actual: 10
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 3
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 88
+
+Pass: myVector[6]
+      Actual: 7
+
+Pass: myVector[7]
+      Actual: 8
+
+Pass: myVector[8]
+      Actual: 9
+
+Pass: myVector[9]
+      Actual: 1800
+
+Comment: myVector.removeAtEnd()
+Comment: *** ObservableVector Change invoke
+Comment:     newObservableVector: 1,2,3,4,5,88,7,8,9
+Comment:     vectorChangedArgs.index: 9
+Comment:     vectorChangedArgs.collectionChange: 2
+Comment: *** ObservableVector Change End
+Comment: Verifying results that were received in delegate
+Comment: vectorChanged.myObservableVector[9]: 1,2,3,4,5,88,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,88,7,8,9
+Pass: vectorChanged.myObservableVector.length
+      Actual: 9
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 1
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 2
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[3]
+      Actual: 4
+
+Pass: vectorChanged.myObservableVector[4]
+      Actual: 5
+
+Pass: vectorChanged.myObservableVector[5]
+      Actual: 88
+
+Pass: vectorChanged.myObservableVector[6]
+      Actual: 7
+
+Pass: vectorChanged.myObservableVector[7]
+      Actual: 8
+
+Pass: vectorChanged.myObservableVector[8]
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 9
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 2
+
+Comment: myVector[9]: 1,2,3,4,5,88,7,8,9
+Comment: myArray[9]: 1,2,3,4,5,88,7,8,9
+Pass: myVector.length
+      Actual: 9
+
+Pass: myVector[0]
+      Actual: 1
+
+Pass: myVector[1]
+      Actual: 2
+
+Pass: myVector[2]
+      Actual: 3
+
+Pass: myVector[3]
+      Actual: 4
+
+Pass: myVector[4]
+      Actual: 5
+
+Pass: myVector[5]
+      Actual: 88
+
+Pass: myVector[6]
+      Actual: 7
+
+Pass: myVector[7]
+      Actual: 8
+
+Pass: myVector[8]
+      Actual: 9
+
+Comment: myVector.clear()
+Comment: *** ObservableVector Change invoke
+Comment:     newObservableVector: 
+Comment:     vectorChangedArgs.index: 0
+Comment:     vectorChangedArgs.collectionChange: 0
+Comment: *** ObservableVector Change End
+Comment: Verifying results that were received in delegate
+Comment: vectorChanged.myObservableVector[0]: 
+Comment: myArray[0]: 
+Pass: vectorChanged.myObservableVector.length
+      Actual: 0
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 0
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 0
+
+Comment: myVector[0]: 
+Comment: myArray[0]: 
+Pass: myVector.length
+      Actual: 0
+
+Comment: myVector.replaceAll([50, 100, 150])
+Comment: *** ObservableVector Change invoke
+Comment:     newObservableVector: 50,100,150
+Comment:     vectorChangedArgs.index: 0
+Comment:     vectorChangedArgs.collectionChange: 0
+Comment: *** ObservableVector Change End
+Comment: Verifying results that were received in delegate
+Comment: vectorChanged.myObservableVector[3]: 50,100,150
+Comment: myArray[3]: 50,100,150
+Pass: vectorChanged.myObservableVector.length
+      Actual: 3
+
+Pass: vectorChanged.myObservableVector[0]
+      Actual: 50
+
+Pass: vectorChanged.myObservableVector[1]
+      Actual: 100
+
+Pass: vectorChanged.myObservableVector[2]
+      Actual: 150
+
+Pass: vectorChanged.vectorChangedArgs.index
+      Actual: 0
+
+Pass: vectorChanged.vectorChangedArgs.collectionChange
+      Actual: 0
+
+Comment: myVector[3]: 50,100,150
+Comment: myArray[3]: 50,100,150
+Pass: myVector.length
+      Actual: 3
+
+Pass: myVector[0]
+      Actual: 50
+
+Pass: myVector[1]
+      Actual: 100
+
+Pass: myVector[2]
+      Actual: 150
+
+PASS [Test 21: RCSingleObservableVectorAsArray_Events]
+=================================================
+
+Passed: 21
+Failed: 0

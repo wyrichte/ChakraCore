@@ -1,0 +1,17 @@
+INCLUDES= $(COREINCLUDES);regalloc
+
+INCLUDES=$(INCLUDES);..\amd64
+
+AMD64_SOURCES= \
+    ..\AgenPeeps.cpp \
+    ..\DisassembleX86.cpp \
+    ..\LowerMDShared.cpp \
+    ..\LowerMDSharedSimd128.cpp \
+    ..\amd64\EncoderMD.cpp \
+    ..\amd64\LinearScanMD.cpp \
+    ..\amd64\LinearScanMdA.asm \
+    ..\amd64\LowererMDArch.cpp \
+    ..\amd64\PeepsMD.cpp \
+    ..\PrologEncoder.cpp \
+    ..\amd64\PrologEncoderMD.cpp \
+    ..\amd64\Thunks.asm \

@@ -1,0 +1,13 @@
+[
+  {
+    "evaluate": {
+      "o": {
+        "o.__proto__": {
+          "[Methods]": "{...}",
+          "o.__proto__.__proto__": "null"
+        },
+        "my symbol": "Symbol(my value)"
+      }
+    }
+  }
+]

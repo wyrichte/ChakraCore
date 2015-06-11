@@ -1,0 +1,4 @@
+ReferenceError: 'v20' is undefined
+	at func4() (blue_641922.js:47:9)
+	at test0() (blue_641922.js:57:9)
+	at Global code (blue_641922.js:87:1)

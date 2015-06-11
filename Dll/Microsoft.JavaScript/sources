@@ -1,0 +1,37 @@
+URT_VER=4.5
+TARGETNAME=Microsoft.JavaScript
+TARGETTYPE=DYNLINK
+TARGET_DESTINATION=jscript\jsrt
+CODE_ANALYSIS=1
+ASSEMBLY_IDENTITY_PUBLIC_KEY_NAME=none
+
+USER_CS_FLAGS=$(USER_CS_FLAGS) /doc:$(OBJ_PATH)\$(O)\$(TARGETNAME).xml
+
+SOURCES= \
+    Assembly.cs \
+    Microsoft\JavaScript\JavaScriptBackgroundWorkItemCallback.cs \
+    Microsoft\JavaScript\JavaScriptBeforeCollectCallback.cs \
+    Microsoft\JavaScript\JavaScriptContext.cs \
+    Microsoft\JavaScript\JavaScriptEngineException.cs \
+    Microsoft\JavaScript\JavaScriptErrorCode.cs \
+    Microsoft\JavaScript\JavaScriptException.cs \
+    Microsoft\JavaScript\JavaScriptFatalException.cs \
+    Microsoft\JavaScript\JavaScriptMemoryAllocationCallback.cs \
+    Microsoft\JavaScript\JavaScriptMemoryEventType.cs \
+    Microsoft\JavaScript\JavaScriptNativeFunction.cs \
+    Microsoft\JavaScript\JavaScriptObjectFinalizeCallback.cs \
+    Microsoft\JavaScript\JavaScriptPropertyId.cs \
+    Microsoft\JavaScript\JavaScriptRuntime.cs \
+    Microsoft\JavaScript\JavaScriptRuntimeAttributes.cs \
+    Microsoft\JavaScript\JavaScriptScriptException.cs \
+    Microsoft\JavaScript\JavaScriptSourceContext.cs \
+    Microsoft\JavaScript\JavaScriptThreadServiceCallback.cs \
+    Microsoft\JavaScript\JavaScriptUsageException.cs \
+    Microsoft\JavaScript\JavaScriptValue.cs \
+    Microsoft\JavaScript\JavaScriptValueType.cs \
+    Microsoft\JavaScript\Native.cs \
+
+REFERENCES= \
+    $(CLR_REF_PATH)\System.metadata_dll;
+
+PASS2_BINPLACE=$(OBJ_PATH)\$(O)\$(TARGETNAME).xml

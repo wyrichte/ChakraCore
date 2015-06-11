@@ -1,0 +1,47 @@
+[
+  {
+    "evaluate": {
+      "obj.a": "1"
+    }
+  },
+  {
+    "evaluate": {
+      "obj.b": "2"
+    }
+  },
+  {
+    "evaluate": {
+      "obj.a": "1"
+    }
+  },
+  {
+    "evaluate": {
+      "obj.b": "2"
+    }
+  },
+  {
+    "evaluate": {
+      "obj.a": "1"
+    }
+  },
+  {
+    "evaluate": {
+      "obj.b": "2"
+    }
+  },
+  {
+    "evaluate": {
+      "obj.a": "1"
+    }
+  },
+  {
+    "evaluate": {
+      "obj.b": "2"
+    }
+  },
+  {
+    "evaluate": {
+      "obj.c": "10"
+    }
+  }
+]

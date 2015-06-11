@@ -1,0 +1,23 @@
+[
+  {
+    "setnextstatement": {
+      "from": 228,
+      "to": 288,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 385,
+      "to": 508,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 587,
+      "to": 442,
+      "IsAllowed": "Yes"
+    }
+  }
+]

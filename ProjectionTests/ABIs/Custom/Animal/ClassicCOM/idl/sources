@@ -1,0 +1,6 @@
+TARGETTYPE    = NOTARGET
+IDL_TYPE=winrt
+TARGET_DESTINATION = Projection\ClassicCom
+
+SOURCES = \
+    Animal.idl

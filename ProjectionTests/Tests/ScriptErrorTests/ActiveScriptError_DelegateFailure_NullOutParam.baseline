@@ -1,0 +1,18 @@
+ActiveScriptError_DelegateFailure_NullOutParam.js(1, 1) JavaScript runtime error: 
+Restricted Error String: (null)
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x80004003
+Error Type: Generic error
+Stack info:
+ActiveScriptError_DelegateFailure_NullOutParam.js(14, 5) JavaScript runtime error: Invalid pointer
+
+All valid out parameters initialized
+Restricted Error String: All valid out parameters initialized
+Null Restricted Error Reference
+Capability SID: (null)
+EXCEPINFO scode: 0x80004003
+Error Type: WinRT error
+Stack info:
+frame 0: Anonymous function(), line: 13, characterPosition: 4
+frame 1: Global code, line: 2, characterPosition: 1

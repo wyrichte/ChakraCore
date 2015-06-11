@@ -1,0 +1,44 @@
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 3) (callBadFormat), LineNumber : 5, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 5) (toString), LineNumber : 13, ColumnNumber : 54
+StackFramesEvent: Frame : (NameBufferIndex : 0) (Intl.Collator.prototype.compare), LineNumber : 0, ColumnNumber : 0
+StackFramesEvent: Frame : (NameBufferIndex : 34) (Array.prototype.sort), LineNumber : 0, ColumnNumber : 0
+StackFramesEvent: Frame : (MethodID : 4) (Anonymous function), LineNumber : 17, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 2) (runTest), LineNumber : 1, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 1) (Global code), LineNumber : 10, ColumnNumber : 0
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 6) (bad_locale.toString), LineNumber : 21, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 8) (Anonymous function), LineNumber : 35, ColumnNumber : 8
+StackFramesEvent: Frame : (MethodID : 2) (runTest), LineNumber : 1, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 7) (Anonymous function), LineNumber : 34, ColumnNumber : 4
+StackFramesEvent: Frame : (NameBufferIndex : 0) (Array.prototype.forEach), LineNumber : 0, ColumnNumber : 0
+StackFramesEvent: Frame : (MethodID : 1) (Global code), LineNumber : 33, ColumnNumber : 0
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 6) (bad_locale.toString), LineNumber : 21, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 11) (Anonymous function), LineNumber : 44, ColumnNumber : 12
+StackFramesEvent: Frame : (MethodID : 2) (runTest), LineNumber : 1, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 10) (Anonymous function), LineNumber : 43, ColumnNumber : 8
+StackFramesEvent: Frame : (NameBufferIndex : 0) (Array.prototype.forEach), LineNumber : 0, ColumnNumber : 0
+StackFramesEvent: Frame : (MethodID : 9) (Anonymous function), LineNumber : 42, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 1) (Global code), LineNumber : 40, ColumnNumber : 2
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 6) (bad_locale.toString), LineNumber : 21, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 11) (Anonymous function), LineNumber : 44, ColumnNumber : 12
+StackFramesEvent: Frame : (MethodID : 2) (runTest), LineNumber : 1, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 10) (Anonymous function), LineNumber : 43, ColumnNumber : 8
+StackFramesEvent: Frame : (NameBufferIndex : 0) (Array.prototype.forEach), LineNumber : 0, ColumnNumber : 0
+StackFramesEvent: Frame : (MethodID : 9) (Anonymous function), LineNumber : 42, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 1) (Global code), LineNumber : 40, ColumnNumber : 2
+StackFramesEvent: 
+Posting stack trace via ETW:
+StackFramesEvent: Frame : (MethodID : 6) (bad_locale.toString), LineNumber : 21, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 11) (Anonymous function), LineNumber : 44, ColumnNumber : 12
+StackFramesEvent: Frame : (MethodID : 2) (runTest), LineNumber : 1, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 10) (Anonymous function), LineNumber : 43, ColumnNumber : 8
+StackFramesEvent: Frame : (NameBufferIndex : 0) (Array.prototype.forEach), LineNumber : 0, ColumnNumber : 0
+StackFramesEvent: Frame : (MethodID : 9) (Anonymous function), LineNumber : 42, ColumnNumber : 4
+StackFramesEvent: Frame : (MethodID : 1) (Global code), LineNumber : 40, ColumnNumber : 2

@@ -1,0 +1,24 @@
+TARGETNAME = jd
+TARGETTYPE = DYNLINK
+
+JD_PRIVATE = 1
+!include ..\sources.inc
+
+C_DEFINES = $(C_DEFINES) /DJD_PRIVATE_CMDS /DMPH_CMDS
+
+SOURCES = \
+        ..\jd.cpp \
+        ..\jd.rc \
+        ..\ScriptDebugSite.cpp \
+        ..\diag.cpp \
+        ..\jdrecycler.cpp \
+        ..\jdbackend.cpp \
+        ..\jdbytecode.cpp \
+        ..\RecyclerList.cpp \
+        ..\RecyclerRoots.cpp \
+        ..\RemoteTypeHandler.cpp \
+        ..\RemotePageAllocator.cpp \
+        ..\RemoteThreadContext.cpp \
+        ..\RemoteRecycler.cpp \
+        ..\util.cpp \
+        ..\collections.cpp \        

@@ -1,0 +1,68 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "MyObj": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a": {
+          "__proto__": "{...}",
+          "x": "2"
+        },
+        "b": {
+          "__proto__": "{...}",
+          "y": "2"
+        },
+        "myObjInst": {
+          "__proto__": "{...}",
+          "z": "1",
+          "[1]": "MyObjIndex"
+        }
+      },
+      "MyObj": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "MyObj",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "a": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "x": "2"
+      },
+      "b": {
+        "__proto__": {
+          "__proto__": "{...}",
+          "x": "2"
+        },
+        "y": "2"
+      },
+      "myObjInst": {
+        "__proto__": {
+          "__proto__": "{...}",
+          "y": "2"
+        },
+        "z": "1",
+        "[1]": "MyObjIndex"
+      }
+    }
+  }
+]

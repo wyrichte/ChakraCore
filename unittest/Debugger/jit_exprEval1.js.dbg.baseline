@@ -1,0 +1,310 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[]",
+      "sub": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "22.2"
+      },
+      "arg": "22.2",
+      "b1": "10",
+      "obj1": {
+        "__proto__": "{...}",
+        "a1": "20"
+      },
+      "obj4": "<large string>",
+      "[Scope]1": {
+        "x": "20"
+      },
+      "[Globals]": {
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F5": "<large string>",
+        "Run": "<large string>",
+        "Bar": "<large string>",
+        "F6": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "obj1": {
+        "__proto__": "{...}",
+        "a1": "20"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "b1": "10"
+    }
+  },
+  {
+    "evaluate": {
+      "obj4": "<large string>"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "y": {
+        "__proto__": "{...}",
+        "y1": "1"
+      },
+      "t1": "22.2",
+      "f6": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "arguments": "{...}",
+        "length": "1",
+        "name": "f6",
+        "prototype": "{...}"
+      },
+      "x": "20",
+      "[Globals]": {
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F5": "<large string>",
+        "Run": "<large string>",
+        "Bar": "<large string>",
+        "F6": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "x": "20"
+    }
+  },
+  {
+    "evaluate": {
+      "y.y1=3": "3"
+    }
+  },
+  {
+    "evaluate": {
+      "y": {
+        "__proto__": "{...}",
+        "y1": "3"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "x+y.y1": "23"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[]",
+      "sub": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "22.2"
+      },
+      "arg": "22.2",
+      "b1": "10",
+      "obj1": {
+        "__proto__": "{...}",
+        "a1": "20"
+      },
+      "obj4": "<large string>",
+      "[Scope]1": {
+        "x": "20"
+      },
+      "[Globals]": {
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F5": "<large string>",
+        "Run": "<large string>",
+        "Bar": "<large string>",
+        "F6": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "obj1": {
+        "__proto__": "{...}",
+        "a1": "20"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "b1": "10"
+    }
+  },
+  {
+    "evaluate": {
+      "obj4": "<large string>"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "y": {
+        "__proto__": "{...}",
+        "y1": "1"
+      },
+      "t1": "22.2",
+      "f6": {
+        "[Methods]": "{...}",
+        "__proto__": "<large string>",
+        "arguments": "{...}",
+        "length": "1",
+        "name": "f6",
+        "prototype": "{...}"
+      },
+      "x": "20",
+      "[Globals]": {
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F5": "<large string>",
+        "Run": "<large string>",
+        "Bar": "<large string>",
+        "F6": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "x": "20"
+    }
+  },
+  {
+    "evaluate": {
+      "y.y1=3": "3"
+    }
+  },
+  {
+    "evaluate": {
+      "y": {
+        "__proto__": "{...}",
+        "y1": "3"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "x+y.y1": "23"
+    }
+  },
+  {
+    "evaluate": {
+      "m": "10"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c": "undefined",
+      "m": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "x": "2",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F5": "<large string>",
+        "Run": "<large string>",
+        "Bar": "<large string>",
+        "F6": "<large string>"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "m": "10"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c": "1",
+      "m": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "x": "2",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "2",
+        "[0]": "1",
+        "[1]": "4"
+      },
+      "[Globals]": {
+        "F2": "<large string>",
+        "F3": "<large string>",
+        "F5": "<large string>",
+        "Run": "<large string>",
+        "Bar": "<large string>",
+        "F6": "<large string>"
+      }
+    }
+  }
+]

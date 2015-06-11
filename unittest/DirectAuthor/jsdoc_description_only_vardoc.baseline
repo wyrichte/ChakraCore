@@ -1,0 +1,16 @@
+JsDocCommentsParser::ParseVarDocComments:
+{
+  input :
+  {
+    text : "*\r\n * I am a global variable\r\n \r\n"
+  },
+  output :
+  {
+    VarDocComments :
+    {
+
+        description : "I am a global variable"
+    }
+  }
+}
+Passed

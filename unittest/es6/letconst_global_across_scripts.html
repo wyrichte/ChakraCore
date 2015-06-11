@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Basic Let/Const globals across scripts test</title>
+</head>
+<body>
+    <script type="text/javascript" src="letconst_global.js"></script>
+    <script type="text/javascript">
+        // this will add a property to the global object named 'shadow_let'
+        // and the next script will declare a let variable with the same
+        // name that should shadow it when accessed by naked reference.
+        // Likewise for 'shadow_const'.
+        shadow_let = 'global undecl shadow_let';
+        shadow_const = 'global undecl shadow_const';
+    </script>
+    <script type="text/javascript" src="letconst_global_across_scripts.js"></script>
+</body>
+</html>

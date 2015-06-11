@@ -1,0 +1,3 @@
+oldF.after throw
+ERROR: hr = (hr) Hr:0x80041000
+test2.test.after throw

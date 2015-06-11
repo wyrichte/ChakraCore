@@ -1,0 +1,13 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 376,
+        "length": 4,
+        "text": "Do()",
+        "frameDescription": "Global code",
+        "documentId": 1
+      }
+    ]
+  }
+]

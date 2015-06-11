@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<regress-exe>
+
+<test>
+   <default>
+      <files>tmp1.js</files>
+      <command>cmd1.cmd</command>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>tmp1.js</files>
+      <command>cmd2.cmd</command>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>tmp1.js</files>
+      <command>cmd3.cmd</command>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>tmp1.js</files>
+      <command>cmd4.cmd</command>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>tmp1.js</files>
+      <command>cmd5.cmd</command>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>tmp1.js</files>
+      <command>baseline1.cmd</command>
+      <baseline>baseline1.bsl</baseline>
+   </default>
+</test>
+
+<test>
+   <default>
+      <files>tmp1.js</files>
+      <command>baseline2.cmd</command>
+      <baseline>baseline2.bsl</baseline>
+   </default>
+</test>
+
+</regress-exe>

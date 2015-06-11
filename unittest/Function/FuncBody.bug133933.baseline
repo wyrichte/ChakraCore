@@ -1,0 +1,334 @@
+
+
+  Line   2: function getUnicodeString() {
+  Col    1: ^
+
+
+  Line   6: function run() {
+  Col    1: ^
+
+
+  Line   2: function getUnicodeString() {
+  Col    1: ^
+LANG: ar
+      %{followers_count} followers:   %{followers_count}
+      100K+: +100 
+      10k unit: 10  
+      Follow: 
+      Follow %{screen_name}:  %{screen_name}
+      K: 
+      M: 
+      Tweet: 
+      Tweet %{hashtag}:  %{hashtag}
+      Tweet to %{name}:   %{name}
+      Twitter Stream:   
+LANG: da
+      %{followers_count} followers: %{followers_count} følgere
+      100K+: 100K+
+      10k unit: 10k enhed
+      Follow: Følg
+      Follow %{screen_name}: Følg %{screen_name}
+      K: K
+      M: M
+      Tweet: Tweet
+      Tweet %{hashtag}: Tweet %{hashtag}
+      Tweet to %{name}: Tweet til %{name}
+      Twitter Stream: Twitter-strøm
+LANG: de
+      %{followers_count} followers: %{followers_count} Follower
+      100K+: 100Tsd+
+      10k unit: 10tsd-Einheit
+      Follow: Folgen
+      Follow %{screen_name}: %{screen_name} folgen
+      K: Tsd
+      M: M
+      Tweet: Twittern
+      Tweet %{hashtag}: Tweet %{hashtag}
+      Tweet to %{name}: Tweet an %{name}
+      Twitter Stream: Twitter Stream
+LANG: es
+      %{followers_count} followers: %{followers_count} seguidores
+      100K+: 100K+
+      10k unit: 10k unidad
+      Follow: Seguir
+      Follow %{screen_name}: Seguir a %{screen_name}
+      K: K
+      M: M
+      Tweet: Twittear
+      Tweet %{hashtag}: Twittear %{hashtag}
+      Tweet to %{name}: Twittear a %{name}
+      Twitter Stream: Cronología de Twitter
+LANG: fa
+      %{followers_count} followers: %{followers_count} 
+      100K+: >
+      10k unit:  
+      Follow:  
+      Follow %{screen_name}:   %{screen_name}
+      K: 
+      M: 
+      Tweet: 
+      Tweet %{hashtag}:   %{hashtag}
+      Tweet to %{name}:  %{name}  
+      Twitter Stream:  
+LANG: fi
+      %{followers_count} followers: %{followers_count} seuraajaa
+      100K+: 100 000+
+      10k unit: 10 000 yksikköä
+      Follow: Seuraa
+      Follow %{screen_name}: Seuraa käyttäjää %{screen_name}
+      K: tuhatta
+      M: milj.
+      Tweet: Twiittaa
+      Tweet %{hashtag}: Twiittaa %{hashtag}
+      Tweet to %{name}: Twiittaa käyttäjälle %{name}
+      Twitter Stream: Twitter-virta
+LANG: fil
+      %{followers_count} followers: %{followers_count} mga tagasunod
+      100K+: 100K+
+      10k unit: 10k yunit
+      Follow: Sundan
+      Follow %{screen_name}: Sundan si %{screen_name}
+      K: K
+      M: M
+      Tweet: I-tweet
+      Tweet %{hashtag}: I-tweet ang %{hashtag}
+      Tweet to %{name}: Mag-Tweet kay %{name}
+      Twitter Stream: Stream ng Twitter
+LANG: fr
+      %{followers_count} followers: %{followers_count} abonnés
+      100K+: 100K+
+      10k unit: unité de 10k
+      Follow: Suivre
+      Follow %{screen_name}: Suivre %{screen_name}
+      K: K
+      M: M
+      Tweet: Tweeter
+      Tweet %{hashtag}: Tweeter %{hashtag}
+      Tweet to %{name}: Tweeter à %{name}
+      Twitter Stream: Flux Twitter
+LANG: he
+      %{followers_count} followers: %{followers_count} 
+      100K+:  
+      10k unit:  
+      Follow: 
+      Follow %{screen_name}:   %{screen_name}
+      K: 
+      M: 
+      Tweet: 
+      Tweet %{hashtag}:  %{hashtag}
+      Tweet to %{name}:   %{name}
+      Twitter Stream:   
+LANG: hi
+      %{followers_count} followers: %{followers_count} 
+      100K+: 1 +
+      10k unit: 10  
+      Follow: 
+      Follow %{screen_name}: %{screen_name}   
+      K: 
+      M: 
+      Tweet: 
+      Tweet %{hashtag}:  %{hashtag}
+      Tweet to %{name}: %{name}   
+      Twitter Stream:  
+LANG: hu
+      %{followers_count} followers: %{followers_count} követ
+      100K+: 100E+
+      10k unit: 10E+
+      Follow: Követés
+      Follow %{screen_name}: %{screen_name} követése
+      K: E
+      M: M
+      Tweet: Tweet
+      Tweet %{hashtag}: %{hashtag} tweetelése
+      Tweet to %{name}: Tweet küldése neki: %{name}
+      Twitter Stream: Twitter Hírfolyam
+LANG: id
+      %{followers_count} followers: %{followers_count} pengikut
+      100K+: 100 ribu+
+      10k unit: 10 ribu unit
+      Follow: Ikuti
+      Follow %{screen_name}: Ikuti %{screen_name}
+      K: &nbsp;ribu
+      M: &nbsp;juta
+      Tweet: Tweet
+      Tweet %{hashtag}: Tweet %{hashtag}
+      Tweet to %{name}: Tweet ke %{name}
+      Twitter Stream: Aliran Twitter
+LANG: it
+      %{followers_count} followers: %{followers_count} follower
+      100K+: 100K+
+      10k unit: 10k unità
+      Follow: Segui
+      Follow %{screen_name}: Segui %{screen_name}
+      K: K
+      M: M
+      Tweet: Tweet
+      Tweet %{hashtag}: Twitta %{hashtag}
+      Tweet to %{name}: Twitta a %{name}
+      Twitter Stream: Twitter Stream
+LANG: ja
+      %{followers_count} followers: %{followers_count}
+      100K+: 100K
+      10k unit: 
+      Follow: 
+      Follow %{screen_name}: %{screen_name}
+      K: K
+      M: M
+      Tweet: 
+      Tweet %{hashtag}: %{hashtag} 
+      Tweet to %{name}: %{name}
+      Twitter Stream: Twitter
+LANG: ko
+      %{followers_count} followers: %{followers_count} 
+      100K+: 100 
+      10k unit:  
+      Follow: 
+      Follow %{screen_name}: %{screen_name} 
+      K: 
+      M: 
+      Tweet: 
+      Tweet %{hashtag}: %{hashtag}  
+      Tweet to %{name}: %{name} 
+      Twitter Stream:  
+LANG: msa
+      %{followers_count} followers: %{followers_count} pengikut
+      100K+: 100 ribu+
+      10k unit: 10 ribu unit
+      Follow: Ikut
+      Follow %{screen_name}: Ikut %{screen_name}
+      K: ribu
+      M: juta
+      Tweet: Tweet
+      Tweet %{hashtag}: Tweet %{hashtag}
+      Tweet to %{name}: Tweet kepada %{name}
+      Twitter Stream: Strim Twitter
+LANG: nl
+      %{followers_count} followers: %{followers_count} volgers
+      100K+: 100k+
+      10k unit: 10k-eenheid
+      Follow: Volgen
+      Follow %{screen_name}: %{screen_name} volgen
+      K: k
+      M:  mln.
+      Tweet: Tweeten
+      Tweet %{hashtag}: %{hashtag} tweeten
+      Tweet to %{name}: Tweeten naar %{name}
+      Twitter Stream: Twitter Stream
+LANG: no
+      %{followers_count} followers: %{followers_count} følgere
+      100K+: 100K+
+      10k unit: 10k 
+      Follow: Følg
+      Follow %{screen_name}: Følg %{screen_name}
+      K: K
+      M: M
+      Tweet: Tweet
+      Tweet %{hashtag}: Tweet %{hashtag}
+      Tweet to %{name}: Send tweet til %{name}
+      Twitter Stream: Twitter-strøm
+LANG: pl
+      %{followers_count} followers: %{followers_count} obserwujcych
+      100K+: 100 tys.+
+      10k unit: 10 tys.
+      Follow: Obserwuj
+      Follow %{screen_name}: Obserwuj %{screen_name}
+      K: tys.
+      M: mln
+      Tweet: Tweetnij
+      Tweet %{hashtag}: Tweetnij %{hashtag}
+      Tweet to %{name}: Tweetnij do %{name}
+      Twitter Stream: Strumie Twittera
+LANG: pt
+      %{followers_count} followers: %{followers_count} seguidores
+      100K+: +100 mil
+      10k unit: 10 mil unidades
+      Follow: Seguir
+      Follow %{screen_name}: Seguir %{screen_name}
+      K: Mil
+      M: M
+      Tweet: Tweetar
+      Tweet %{hashtag}: Tweetar %{hashtag}
+      Tweet to %{name}: Tweetar para %{name}
+      Twitter Stream: Transmissões do Twitter
+LANG: ru
+      %{followers_count} followers: : %{followers_count} 
+      100K+: 100 .+
+      10k unit:  10k
+      Follow: 
+      Follow %{screen_name}:  %{screen_name}
+      K: .
+      M: .
+      Tweet: 
+      Tweet %{hashtag}:  %{hashtag}
+      Tweet to %{name}:  %{name}
+      Twitter Stream:   
+LANG: sv
+      %{followers_count} followers: %{followers_count} följare
+      100K+: 100K+
+      10k unit: 10k
+      Follow: Följ
+      Follow %{screen_name}: Följ %{screen_name}
+      K: K
+      M: M
+      Tweet: Tweeta
+      Tweet %{hashtag}: Tweeta %{hashtag}
+      Tweet to %{name}: Tweeta till %{name}
+      Twitter Stream: Twitterflöde
+LANG: th
+      %{followers_count} followers: %{followers_count} 
+      100K+: 100+
+      10k unit:  10
+      Follow: 
+      Follow %{screen_name}:  %{screen_name}
+      K: 
+      M: 
+      Tweet: 
+      Tweet %{hashtag}:  %{hashtag}
+      Tweet to %{name}:  %{name}
+LANG: tr
+      %{followers_count} followers: %{followers_count} takipçi
+      100K+: +100 bin
+      10k unit: 10 bin birim
+      Follow: Takip et
+      Follow %{screen_name}: Takip et: %{screen_name}
+      K: bin
+      M: milyon
+      Tweet: Tweetle
+      Tweet %{hashtag}: Tweetle: %{hashtag}
+      Tweet to %{name}: Tweetle: %{name}
+      Twitter Stream: Twitter Ak
+LANG: ur
+      %{followers_count} followers: %{followers_count} 
+      100K+: 1 +
+      10k unit:   
+      Follow:  
+      Follow %{screen_name}: %{screen_name}   
+      K: 
+      M: 
+      Tweet:  
+      Tweet %{hashtag}:   %{hashtag}
+      Tweet to %{name}: %{name}   
+      Twitter Stream:  
+LANG: zh-cn
+      %{followers_count} followers: %{followers_count} 
+      100K+: 10+
+      10k unit: 1
+      Follow: 
+      Follow %{screen_name}:  %{screen_name}
+      K: 
+      M: 
+      Tweet: 
+      Tweet %{hashtag}:  %{hashtag} 
+      Tweet to %{name}:  %{name}
+      Twitter Stream: Twitter 
+LANG: zh-tw
+      %{followers_count} followers: %{followers_count} 
+      100K+: 
+      10k unit: 1 
+      Follow: 
+      Follow %{screen_name}:  %{screen_name}
+      K: 
+      M: 
+      Tweet: 
+      Tweet %{hashtag}: %{hashtag}
+      Tweet to %{name}: %{name}

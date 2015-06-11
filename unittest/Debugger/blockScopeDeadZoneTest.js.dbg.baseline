@@ -1,0 +1,56 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "[Uninitialized block variable]",
+      "cConst": "[Uninitialized block variable]",
+      "a": "0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "1",
+      "cConst": "2",
+      "a": "0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "dConst": "[Uninitialized block variable]",
+      "e": "[Uninitialized block variable]",
+      "b": "1",
+      "cConst": "2",
+      "a": "0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "dConst": "3",
+      "e": "4",
+      "b": "1",
+      "cConst": "2",
+      "a": "0",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "1",
+      "cConst": "2",
+      "a": "0",
+      "[Globals]": ""
+    }
+  }
+]

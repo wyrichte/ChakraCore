@@ -1,0 +1,40 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 83,
+        "length": 6,
+        "text": "return",
+        "frameDescription": "callback"
+      },
+      {
+        "start": 262,
+        "length": 42,
+        "text": "diagnosticsScript.debugEval(evalStr, true)",
+        "frameDescription": "testDebugEval"
+      },
+      {
+        "start": 312,
+        "length": 15,
+        "text": "testDebugEval()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 307,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "testDebugEval"
+      },
+      {
+        "start": 312,
+        "length": 15,
+        "text": "testDebugEval()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

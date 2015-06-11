@@ -1,0 +1,25 @@
+EXPORTS
+
+;--------------------------------------------------------------------
+; Core exports provided by the ExtCpp framework.
+;--------------------------------------------------------------------
+
+    DebugExtensionInitialize
+    DebugExtensionUninitialize
+    DebugExtensionNotify
+    help
+
+;--------------------------------------------------------------------
+; Extension commands.
+;--------------------------------------------------------------------
+
+    echo
+    utmode
+    jsstack
+    ldsym
+    verifyOM
+    bp 
+    asyncBreak
+    writedump
+    readdump
+    testdump

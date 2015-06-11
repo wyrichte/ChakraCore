@@ -1,0 +1,1413 @@
+{
+  "testname" : "JS function help",
+  "owner" : "basipov",
+  "validated" : true,
+  "timeout" : 1000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "_comment1" : "Put an underscore \"_\" prefix to comment out a header field.",
+  "_comment2" : "No field in the schema uses the underscore prefix",
+  "runAuthoringTest" : true,
+  "commands" :
+  [
+{
+  "action": "getFunctionHelp",
+  "args": [
+    "..\\..\\Lib\\Author\\References\\libhelp.js",
+    "functionHelp.js"
+  ],
+  "events": [
+    {
+      "functionHelpTests": [
+        {
+          "currentParameterIndex": 3,
+          "extentOffset": 107,
+          "extentLength": 15,
+          "functionHelp": {
+            "functionName": "fnc",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "aa",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "bb",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "cc",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "dd",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 309,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "testobjmethod1",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "param1",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 514,
+          "extentLength": 42,
+          "functionHelp": {
+            "functionName": "testobjmethod1",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "param1",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 742,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "testobjmethod1",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "param1",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 968,
+          "extentLength": 4,
+          "functionHelp": {
+            "functionName": "m2",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "b",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 1,
+          "extentOffset": 981,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "m2",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "b",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1130,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "methodid",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "b",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "c",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1247,
+          "extentLength": 8,
+          "functionHelp": {
+            "functionName": "doWork",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "w",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1407,
+          "extentLength": 7,
+          "functionHelp": {
+            "functionName": "",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "bb",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "cc",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1498,
+          "extentLength": 24,
+          "functionHelp": {
+            "functionName": "doWork",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "w",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1599,
+          "extentLength": 8,
+          "functionHelp": {
+            "functionName": "doWork",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "w",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1714,
+          "extentLength": 5,
+          "functionHelp": {
+            "functionName": "f",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "b",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1828,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "doWork",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "w",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 1944,
+          "extentLength": 13,
+          "functionHelp": {
+            "functionName": "viaCtor",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "cparam",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2088,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "outer",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "c",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "d",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2217,
+          "extentLength": 11,
+          "functionHelp": {
+            "functionName": "nested1",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "param1",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "param2",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2395,
+          "extentLength": 14,
+          "functionHelp": {
+            "functionName": "inner1Var",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a1",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "b1",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2557,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "f2",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2566,
+          "extentLength": 4,
+          "functionHelp": {
+            "functionName": "f2",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2557,
+          "extentLength": 23,
+          "functionHelp": {
+            "functionName": "f2",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 1,
+          "extentOffset": 2584,
+          "extentLength": 9,
+          "functionHelp": {
+            "functionName": "f1",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2663,
+          "extentLength": 3,
+          "functionHelp": {
+            "functionName": "f",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "b",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 2788,
+          "extentLength": 8,
+          "functionHelp": {
+            "functionName": "func",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "parameterName",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3006,
+          "extentLength": 9,
+          "functionHelp": {
+            "functionName": "method1",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "b",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3022,
+          "extentLength": 9,
+          "functionHelp": {
+            "functionName": "method2",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "y",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3038,
+          "extentLength": 9,
+          "functionHelp": {
+            "functionName": "method3",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3054,
+          "extentLength": 9,
+          "functionHelp": {
+            "functionName": "method4",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "e",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3216,
+          "extentLength": 9,
+          "functionHelp": {
+            "functionName": "method1",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "b",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "c",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "d",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3267,
+          "extentLength": 9,
+          "functionHelp": {
+            "functionName": "method1",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "b",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "c",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "d",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3422,
+          "extentLength": 3,
+          "functionHelp": {
+            "functionName": "m",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "b",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3553,
+          "extentLength": 8,
+          "functionHelp": {
+            "functionName": "doWork",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "w",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 3842,
+          "extentLength": 10,
+          "functionHelp": {
+            "functionName": "field1",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "x",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4058,
+          "extentLength": 16,
+          "functionHelp": {
+            "functionName": "shouldAppear",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4267,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "nested1",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "param1",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "param2",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4449,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "outer2",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "o21",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "o22",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 1,
+          "extentOffset": 4613,
+          "extentLength": 39,
+          "functionHelp": {
+            "functionName": "foo",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "id",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "name",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "str",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 4784,
+          "extentLength": 18,
+          "functionHelp": {
+            "functionName": "superclass",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "p1",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "p2",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 5023,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "b",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 5112,
+          "extentLength": 22,
+          "functionHelp": {
+            "functionName": "",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "a",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "b",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 5242,
+          "extentLength": 12,
+          "functionHelp": {
+            "functionName": "toString",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {
+                  "type": "String",
+                  "description": "",
+                  "locid": "",
+                  "elementType": "",
+                  "helpKeyword": ""
+                },
+                "parameters": [
+                  {
+                    "name": "radix",
+                    "description": "",
+                    "type": "Number",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "currentParameterIndex": 0,
+          "extentOffset": 5447,
+          "extentLength": 9,
+          "functionHelp": {
+            "functionName": "method1",
+            "signatures": [
+              {
+                "description": "",
+                "locid": "",
+                "externalFile": "",
+                "externalid": "",
+                "helpKeyword": "",
+                "returnValue": {},
+                "parameters": [
+                  {
+                    "name": "p1",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  },
+                  {
+                    "name": "p2",
+                    "description": "",
+                    "type": "",
+                    "locid": "",
+                    "elementType": "",
+                    "signature": {}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "diagStatus": 5
+        },
+        {
+          "diagStatus": 5
+        },
+        {
+          "diagStatus": 1
+        },
+        {
+          "diagStatus": 5
+        }
+      ]
+    }
+  ]
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

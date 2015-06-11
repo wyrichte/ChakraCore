@@ -1,0 +1,10 @@
+DIRS = \
+    publish0{!min_rt} \ 
+    publish{!min_rt} \ 
+    manifests{!MOBILECORE} \
+    Lib \
+    Exe \
+    Dll{!min_rt} \
+    tools{!min_rt} \
+    ProjectionTests{!EXCLUDE_IE_MAIN,!min_rt}\
+    unittest{!min_rt} \

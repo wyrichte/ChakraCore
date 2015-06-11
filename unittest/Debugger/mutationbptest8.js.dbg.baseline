@@ -1,0 +1,198 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "obj1": "{...}",
+        "obj2": "undefined",
+        "x": "1"
+      },
+      "[Pending Mutation]": {
+        "bar [Adding]": "{...}",
+        "[Property container obj1]": "{...}"
+      },
+      "foo1": {
+        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo1",
+        "prototype": "{...}"
+      },
+      "foo2": {
+        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo2",
+        "prototype": "{...}"
+      },
+      "x": "1",
+      "obj2": "undefined",
+      "obj1": {
+        "__proto__": "{...}",
+        "foo": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 175,
+        "length": 20,
+        "text": "obj1.bar = { a : 1 }",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "obj1": "{...}",
+        "obj2": "{...}",
+        "x": "1"
+      },
+      "[Pending Mutation]": {
+        "foo [Changing]": "{...}",
+        "[New Value]": "1",
+        "[Property container obj2]": "{...}"
+      },
+      "foo1": {
+        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo1",
+        "prototype": "{...}"
+      },
+      "foo2": {
+        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo2",
+        "prototype": "{...}"
+      },
+      "x": "1",
+      "obj2": {
+        "__proto__": "{...}",
+        "foo": "{...}"
+      },
+      "obj1": {
+        "__proto__": "{...}",
+        "bar": "{...}",
+        "foo": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 287,
+        "length": 12,
+        "text": "obj2.foo = 1",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "obj1": "{...}",
+        "obj2": "{...}",
+        "obj3": "{...}",
+        "x": "1"
+      },
+      "[Pending Mutation]": {
+        "foo [Deleting]": "{...}",
+        "[Property container obj3]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": "1",
+      "[Globals]": {
+        "foo1": "<large string>",
+        "foo2": "<large string>",
+        "x": "1",
+        "obj2": "{...}",
+        "obj1": "{...}",
+        "obj3": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 422,
+        "length": 15,
+        "text": "delete obj3.foo",
+        "frameDescription": "foo1"
+      },
+      {
+        "start": 443,
+        "length": 6,
+        "text": "foo1()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "obj1": "{...}",
+        "obj2": "{...}",
+        "obj3": "{...}",
+        "x": "1"
+      },
+      "[Pending Mutation]": {
+        "foo [Changing]": "{...}",
+        "[New Value]": "function sin() { [native code] }",
+        "[Property container obj4]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "obj4": {
+        "__proto__": "{...}",
+        "foo": "{...}"
+      },
+      "x": "1",
+      "[Globals]": {
+        "foo1": "<large string>",
+        "foo2": "<large string>",
+        "x": "1",
+        "obj2": "{...}",
+        "obj1": "{...}",
+        "obj3": "{...}"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 573,
+        "length": 19,
+        "text": "obj4.foo = Math.sin",
+        "frameDescription": "foo2"
+      },
+      {
+        "start": 598,
+        "length": 6,
+        "text": "foo2()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

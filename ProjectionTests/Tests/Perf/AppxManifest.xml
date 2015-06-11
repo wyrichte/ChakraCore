@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <!--IDENTITY-->
+  <Identity Name="Microsoft-Windows-Projections-Performance"
+          ProcessorArchitecture="neutral"
+          Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          Version="1.0.0.0"  ResourceId="neutral" />
+
+  <!--Properties-->
+  <Properties>
+    <Logo>tile.png</Logo>
+    <PublisherDisplayName>Microsoft Corporation</PublisherDisplayName>
+    <DisplayName>Projections Performance</DisplayName>
+    <Description>Projections Performance</Description>
+  </Properties>
+
+  <!--RESOURCES-->
+  <Resources>
+    <Resource Language="en-us"/>
+  </Resources>
+	
+  <Prerequisites>
+    <OSMinVersion>6.2</OSMinVersion>
+    <OSMaxVersionTested>6.2</OSMaxVersionTested>
+  </Prerequisites>
+
+  <!--APPLICATIONS-->
+  <Applications>
+    <Application Id="WWA.BPT.ProjectionsPerf" StartPage="default.html">
+      <VisualElements DisplayName="ProjectionsPerf" Logo="tile.png" SmallLogo="tile.png" Description="Test app" ForegroundText="light" BackgroundColor="#aa00aa">
+        <DefaultTile ShortName="ProjPerf"/>
+        <SplashScreen BackgroundColor="red" Image="tile.png"/>
+      </VisualElements>
+    </Application>
+
+    <Application Id="WWA.BPT.ColdStartBothInProc" StartPage="ColdStartBothInProc.html">
+      <VisualElements DisplayName="ProjectionsPerf" Logo="tile.png" SmallLogo="tile.png" Description="Test app" ForegroundText="light" BackgroundColor="#aa00aa">
+        <DefaultTile ShortName="ProjPerf"/>
+        <SplashScreen BackgroundColor="red" Image="tile.png"/>
+      </VisualElements>
+    </Application>
+
+
+    <Application Id="WWA.BPT.ColdStartForeignCall" StartPage="ColdStartForeignCall.html">
+      <VisualElements DisplayName="ProjectionsPerf" Logo="tile.png" SmallLogo="tile.png" Description="Test app" ForegroundText="light" BackgroundColor="#aa00aa">
+        <DefaultTile ShortName="ProjPerf"/>
+        <SplashScreen BackgroundColor="red" Image="tile.png"/>
+      </VisualElements>
+    </Application>
+
+
+    <Application Id="WWA.BPT.ColdStartLocalCall" StartPage="ColdStartLocalCall.html">
+      <VisualElements DisplayName="ProjectionsPerf" Logo="tile.png" SmallLogo="tile.png" Description="Test app" ForegroundText="light" BackgroundColor="#aa00aa">
+        <DefaultTile ShortName="ProjPerf"/>
+        <SplashScreen BackgroundColor="red" Image="tile.png"/>
+      </VisualElements>
+    </Application>
+
+
+    <Application Id="WWA.BPT.ColdStartMtaInProc" StartPage="ColdStartMtaInProc.html">
+      <VisualElements DisplayName="ProjectionsPerf" Logo="tile.png" SmallLogo="tile.png" Description="Test app" ForegroundText="light" BackgroundColor="#aa00aa">
+        <DefaultTile ShortName="ProjPerf"/>
+        <SplashScreen BackgroundColor="red" Image="tile.png"/>
+      </VisualElements>
+    </Application>
+
+
+    <Application Id="WWA.BPT.ColdStartStaInProc" StartPage="ColdStartStaInProc.html">
+      <VisualElements DisplayName="ProjectionsPerf" Logo="tile.png" SmallLogo="tile.png" Description="Test app" ForegroundText="light" BackgroundColor="#aa00aa">
+        <DefaultTile ShortName="ProjPerf"/>
+        <SplashScreen BackgroundColor="red" Image="tile.png"/>
+      </VisualElements>
+    </Application>
+
+
+    <Application Id="WWA.BPT.ColdStartVoidCall" StartPage="ColdStartVoidCall.html">
+      <VisualElements DisplayName="ProjectionsPerf" Logo="tile.png" SmallLogo="tile.png" Description="Test app" ForegroundText="light" BackgroundColor="#aa00aa">
+        <DefaultTile ShortName="ProjPerf"/>
+        <SplashScreen BackgroundColor="red" Image="tile.png"/>
+      </VisualElements>
+    </Application>
+  </Applications>
+</Package>

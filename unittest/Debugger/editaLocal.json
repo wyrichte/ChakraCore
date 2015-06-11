@@ -1,0 +1,144 @@
+{
+  "testname" : "a test to edit a local with a value",
+  "owner" : "AkroshG",
+  "validated" : false,
+  "timeout" : 5000,
+  "binRootEnv" : "_NTTREE",
+  "targetHost" : "chakra.dll",
+  "commands" :
+  [
+{
+  "action": "open",
+  "args": [
+    "scripts\\variableInspect.js"
+  ],
+  "events": [
+    {
+      "scriptOpen": "scripts\\variableInspect.js"
+    }
+  ]
+},
+{
+  "action": "setBp",
+  "args": [
+    "variableInspect.js",
+    "188"
+  ],
+  "events": [
+    {
+      "breakpointSet": {
+        "start": 188,
+        "length": 15,
+        "text": "obj.exp2 = f1()"
+      }
+    }
+  ]
+},
+{
+  "action": "launch",
+  "args": [],
+  "events": [
+    {
+      "breakpoint": "breakpoint"
+    }
+  ]
+},
+{
+  "action": "locals",
+  "args": [
+    1
+  ],
+  "events": [
+    {
+      "locals": {
+        "f1": {
+          "__proto__": "_bigstr",
+          "arguments": "null",
+          "caller": "null",
+          "length": "2",
+          "name": "f1",
+          "prototype": "{...}"
+        },
+        "array": {
+          "__proto__": "[]",
+          "length": "0"
+        },
+        "obj": {
+          "__proto__": "{...}",
+          "exp1": "msg"
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "editLocal",
+  "args": [
+    "obj",
+    "exp1",
+    "\"changed to this\""
+  ],
+  "events": [
+    {
+      "editLocal": "SUCCESS"
+    }
+  ]
+},
+{
+  "action": "evaluate",
+  "args": [
+    "obj",
+    2
+  ],
+  "events": [
+    {
+      "evaluate": {
+        "obj": {
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          },
+          "exp1": "changed to this"
+        }
+      }
+    }
+  ]
+},
+{
+  "action": "editLocal",
+  "args": [
+    "obj",
+    "1234"
+  ],
+  "events": [
+    {
+      "editLocal": "SUCCESS"
+    }
+  ]
+},
+{
+  "action": "evaluate",
+  "args": [
+    "obj",
+    2
+  ],
+  "events": [
+    {
+      "evaluate": {
+        "obj": "1234"
+      }
+    }
+  ]
+},
+{
+  "action": "go",
+  "args": [],
+  "events": []
+},
+{
+  "action": "quit",
+  "args": [],
+  "events": []
+}
+  ]
+}

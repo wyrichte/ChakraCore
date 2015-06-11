@@ -1,0 +1,27 @@
+[
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "<large string>",
+      "arguments": "{...}",
+      "a": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 98,
+        "length": 29,
+        "text": "JSON.parse(\"I AM WRONG JSON\")",
+        "frameDescription": "f"
+      },
+      {
+        "start": 135,
+        "length": 5,
+        "text": "f(10)",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]
