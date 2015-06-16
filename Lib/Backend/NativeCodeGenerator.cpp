@@ -909,6 +909,10 @@ NativeCodeGenerator::IsValidVar(const Js::Var var, Recycler *const recycler)
     return true;
 }
 
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+volatile UINT_PTR NativeCodeGenerator::CodegenFailureSeed = 0;
+#endif
+
 void
 NativeCodeGenerator::CodeGen(PageAllocator * pageAllocator, CodeGenWorkItem* workItem, const bool foreground)
 {
@@ -917,6 +921,38 @@ NativeCodeGenerator::CodeGen(PageAllocator * pageAllocator, CodeGenWorkItem* wor
         // Func::Codegen has a lot of things on the stack, so probe the stack here instead
         PROBE_STACK(scriptContext, Js::Constants::MinStackJITCompile);
     }
+    
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+    if (!foreground && Js::Configuration::Global.flags.IsEnabled(Js::InduceCodeGenFailureFlag))
+    {
+        if (NativeCodeGenerator::CodegenFailureSeed == 0)
+        {
+            // Initialize the seed
+            NativeCodeGenerator::CodegenFailureSeed = Js::Configuration::Global.flags.InduceCodeGenFailureSeed;
+            if (NativeCodeGenerator::CodegenFailureSeed == 0)
+            {
+                LARGE_INTEGER ctr;
+                ::QueryPerformanceCounter(&ctr);
+
+                NativeCodeGenerator::CodegenFailureSeed = ctr.HighPart ^ ctr.LowPart;
+                srand((uint)NativeCodeGenerator::CodegenFailureSeed);
+            }
+        }
+
+        int v = rand() % 100;
+        if (v < Js::Configuration::Global.flags.InduceCodeGenFailure)
+        {
+            switch (v % 3)
+            {
+            case 0: Js::Throw::OutOfMemory(); break;
+            case 1: throw Js::StackOverflowException(); break;
+            case 2: throw Js::OperationAbortedException(); break;
+            default:
+                Assert(false);
+            }
+        }
+    }
+#endif
 
     bool irviewerInstance = false;
 #ifdef IR_VIEWER
@@ -1282,7 +1318,9 @@ NativeCodeGenerator::CheckCodeGenDone(
     Assert(!function || function->GetFunctionBody() == functionBody);
     Assert(!function || function->GetFunctionEntryPointInfo() == entryPointInfo);
     // Job was processed or failed and cleaned up
-    Assert(entryPointInfo->IsCodeGenDone() || entryPointInfo->IsCleanedUp());
+    // We won't call CheckCodeGenDone if the job is still pending since
+    // PrioritizeJob will return false
+    Assert(entryPointInfo->IsCodeGenDone() || entryPointInfo->IsCleanedUp() || entryPointInfo->IsPendingCleanup());
 
     if (!functionBody->GetHasBailoutInstrInJittedCode() && functionBody->GetHasAllocatedLoopHeaders() && (!functionBody->GetIsAsmJsFunction() || !(((Js::FunctionEntryPointInfo*)functionBody->GetDefaultEntryPointInfo())->GetIsTJMode())))
     {
@@ -1316,6 +1354,10 @@ NativeCodeGenerator::CheckCodeGenDone(
         // or use the original entry point, which should be the delay interpreter thunk or dynamic interpreter thunk 
         address = functionBody->GetScriptContext()->CurrentThunk == ProfileEntryThunk ? ProfileEntryThunk : (functionBody->GetIsAsmJsFunction()) ? (Js::JavascriptMethod)entryPointInfo->address : functionBody->GetOriginalEntryPoint();
         entryPointInfo->address = address;
+        if (entryPointInfo->IsPendingCleanup())
+        {
+            entryPointInfo->Cleanup(false /* isShutdown */, true /* capture cleanup stack */);
+        }
     }    
     else
     {
@@ -1540,8 +1582,7 @@ NativeCodeGenerator::Prioritize(JsUtil::Job *const job, const bool forceAddJobTo
     }
     catch (...)
     {
-        Assert(!functionBody->GetIsAsmjsMode());
-        // Add the item back to the list if AddToJitQueue throws. The position in the list is not imprortant.
+        // Add the item back to the list if AddToJitQueue throws. The position in the list is not important.
         workItem->ResetJitMode();        
         workItems.LinkToEnd(workItem);
         throw;
@@ -1670,7 +1711,17 @@ NativeCodeGenerator::JobProcessed(JsUtil::Job *const job, const bool succeeded)
 
             if (entryPointInfo)
             {
-                entryPointInfo->Cleanup(false /* isShutdown */, true /* capture cleanup stack */); 
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+                switch (job->failureReason)
+                {
+                case Job::FailureReason::OOM: entryPointInfo->SetCleanupReason(Js::EntryPointInfo::CodeGenFailedOOM); break;
+                case Job::FailureReason::StackOverflow: entryPointInfo->SetCleanupReason(Js::EntryPointInfo::CodeGenFailedStackOverflow); break;
+                case Job::FailureReason::Aborted: entryPointInfo->SetCleanupReason(Js::EntryPointInfo::CodeGenFailedAborted); break;
+                default: Assert(job->failureReason == Job::FailureReason::NotFailed);
+                }
+#endif
+
+                entryPointInfo->SetPendingCleanup();
             }
 
             functionCodeGen->OnWorkItemProcessFail(this);

@@ -5,6 +5,11 @@
 #pragma once
 
 class CAppWebBrowser;
+struct SExpandoInfo
+{
+    TCHAR * name;
+    VARTYPE type;
+};
 
 class CApp : public IPropertyNotifySink, IOleClientSite, IOleInPlaceSite, IDocHostUIHandler, IOleCommandTarget, IServiceProvider, IDispatch, IBrowserService, IDocObjectService
 {
@@ -220,6 +225,13 @@ private:
     // Persistence helpers
     HRESULT LoadURLFromFile();
     HRESULT LoadURLFromMoniker();
+    HRESULT SimulateShowMessage(VARIANT* pvarIn, VARIANT* pvaOut);
+    HRESULT  GetParamsFromEvent(  
+    __in IHTMLEventObj         * pEventObj,  
+    __in unsigned int            cExpandos,  
+    __out_ecount(cExpandos) DISPID                  aDispid [],  
+    __out_ecount(cExpandos) VARIANT                 aVariant [],  
+    __in_ecount(cExpandos)  const SExpandoInfo      aExpandos []);
     void SetHostToDebugMode();
 
     IHTMLDocument2* m_pMSHTML;

@@ -305,10 +305,9 @@ namespace Js
             moduleName = mCompiler->GetModuleFunctionName()->Psz();
         }
 
-        Output::Print( L"\n%s%s(%d, %d)\n\tAsm.js Compilation Error function : %s::%s\n\t%s\n\n", 
-                       filename, ext, line + 1, col + 1,
-                       moduleName, mFunction->GetName()->Psz(), msg );
-        Output::Flush();
+        AsmJSCompiler::OutputError(mCompiler->GetScriptContext(),
+            L"\n%s%s(%d, %d)\n\tAsm.js Compilation Error function : %s::%s\n\t%s\n",
+            filename, ext, line + 1, col + 1, moduleName, mFunction->GetName()->Psz(), msg);
     }
 
     void AsmJSByteCodeGenerator::DefineLabels()
@@ -2931,7 +2930,7 @@ namespace Js
 
         return EmitExpressionInfo( AsmJsType::Void );
     }
-
+    
     void AsmJSByteCodeGenerator::EmitEmptyByteCode( FuncInfo* funcInfo, ByteCodeGenerator* byteCodeGen  )
     {
         funcInfo->byteCodeFunction->SetGrfscr(byteCodeGen->GetFlags());

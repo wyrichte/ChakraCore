@@ -2487,6 +2487,12 @@ IRBuilder::BuildProfiledReg2(Js::OpCode newOpcode, uint32 offset, Js::RegSlot ds
                 ))
             {
                 arrayType = arrayType.SetArrayTypeId(Js::TypeIds_Array);
+
+                // An opnd's value type will get replaced in the forward phase when it is not fixed. Store the array type in the
+                // ProfiledInstr.
+                Js::LdElemInfo *const newLdElemInfo = JitAnew(m_func->m_alloc, Js::LdElemInfo, *ldElemInfo);
+                newLdElemInfo->arrayType = arrayType;
+                ldElemInfo = newLdElemInfo;
             }
             src1Opnd->SetValueType(arrayType);
 
@@ -3612,6 +3618,11 @@ StSlotCommon:
         regOpnd = this->BuildSrcOpnd(regSlot);
 
         instr = IR::Instr::New(newOpcode, fieldSymOpnd, regOpnd, m_func);
+        if (newOpcode == Js::OpCode::StSlotChkUndecl)
+        {
+            // ChkUndecl includes an implicit read of the destination. Communicate the liveness by using the destination in src2.
+            instr->SetSrc2(fieldSymOpnd);
+        }
         break;
 
     default:
@@ -4661,6 +4672,21 @@ IRBuilder::BuildElementI(Js::OpCode newOpcode, uint32 offset, Js::RegSlot baseRe
             ))
         {
             arrayType = arrayType.SetArrayTypeId(Js::TypeIds_Array);
+
+            // An opnd's value type will get replaced in the forward phase when it is not fixed. Store the array type in the
+            // ProfiledInstr.
+            if(isProfiledLoad)
+            {
+                Js::LdElemInfo *const newLdElemInfo = JitAnew(m_func->m_alloc, Js::LdElemInfo, *ldElemInfo);
+                newLdElemInfo->arrayType = arrayType;
+                ldElemInfo = newLdElemInfo;
+            }
+            else
+            {
+                Js::StElemInfo *const newStElemInfo = JitAnew(m_func->m_alloc, Js::StElemInfo, *stElemInfo);
+                newStElemInfo->arrayType = arrayType;
+                stElemInfo = newStElemInfo;
+            }
         }
         indirOpnd->GetBaseOpnd()->SetValueType(arrayType);
 
@@ -4872,6 +4898,16 @@ IRBuilder::BuildElementUnsigned1(Js::OpCode newOpcode, uint32 offset, Js::RegSlo
     if (simpleJit)
     {
         instr = IR::JitProfilingInstr::New(opcode, indirOpnd, regOpnd, m_func);
+    }
+    else if(opcode == Js::OpCode::StElemC && !baseOpnd->GetValueType().IsUninitialized())
+    {
+        // An opnd's value type will get replaced in the forward phase when it is not fixed. Store the array type in the
+        // ProfiledInstr.
+        IR::ProfiledInstr *const profiledInstr = IR::ProfiledInstr::New(opcode, indirOpnd, regOpnd, m_func);
+        Js::StElemInfo *const stElemInfo = JitAnew(m_func->m_alloc, Js::StElemInfo);
+        stElemInfo->arrayType = baseOpnd->GetValueType();
+        profiledInstr->u.stElemInfo = stElemInfo;
+        instr = profiledInstr;
     }
     else
     {

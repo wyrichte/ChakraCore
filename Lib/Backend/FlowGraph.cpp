@@ -84,12 +84,14 @@ FlowGraph::Build(void)
                         argInstr->m_opcode != Js::OpCode::ArgOut_A_FromStackArgs &&
                         argInstr->m_opcode != Js::OpCode::ArgOut_A_SpreadArg)
                     {
-                        
-                        // Need to always generate byte code arg out capture, 
-                        // because bailout can't resture from the arg out as it is
-                        // replaced by new sym for register calling convention in lower
-                        argInstr->GenerateBytecodeArgOutCapture();
-
+                        // don't have bailout in asm.js so we don't need BytecodeArgOutCapture
+                        if (!argInstr->m_func->GetJnFunction()->GetIsAsmjsMode())
+                        {
+                            // Need to always generate byte code arg out capture, 
+                            // because bailout can't resture from the arg out as it is
+                            // replaced by new sym for register calling convention in lower
+                            argInstr->GenerateBytecodeArgOutCapture();
+                        }
                         // Check if the instruction is already next
                         if (argInstr != argInsertInstr->m_prev)
                         {
@@ -105,6 +107,7 @@ FlowGraph::Build(void)
         }
     }
     NEXT_INSTR_IN_FUNC_BACKWARD;
+    this->func->isFlowGraphValid = true;
 
     // We've been walking backward so that edge lists would be in the right order. Now walk the blocks
     // forward to number the blocks in lexical order.
@@ -165,7 +168,6 @@ FlowGraph::Build(void)
         //Sort loop lists only if there is break block removal. 
         SortLoopLists();
     }
-
 #if DBG_DUMP
     this->Dump(false, null);
 #endif
@@ -663,7 +665,7 @@ FlowGraph::FindLoops()
         } NEXT_SUCCESSOR_BLOCK;
         if (block->isLoopHeader && block->loop == NULL)
         {
-            // We would have build a loop for it if it was a loop...
+            // We would have built a loop for it if it was a loop...
             block->isLoopHeader = false;
             block->GetFirstInstr()->AsLabelInstr()->m_isLoopTop = false;
         }
@@ -699,6 +701,7 @@ FlowGraph::BuildLoop(BasicBlock *headBlock, BasicBlock *tailBlock, Loop *parentL
     if (parentLoop && loop->headBlock->number > parentLoop->headBlock->number)
     {
         loop->parent = parentLoop;
+        parentLoop->isLeaf = false;
     }
     loop->hasDeadStoreCollectionPass = false;
     loop->hasDeadStorePrepass = false;
@@ -778,6 +781,7 @@ FlowGraph::WalkLoopBlocks(BasicBlock *block, Loop *loop, JitArenaAllocator *temp
                     && (pred->loop->parent == NULL || pred->loop->parent->headBlock->number < loop->headBlock->number))
                 {                                        
                     pred->loop->parent = loop;
+                    loop->isLeaf = false;
                     if (pred->loop->hasCall)
                     {
                         loop->SetHasCall();
@@ -1061,8 +1065,7 @@ FlowGraph::Destroy(void)
             if (loopTail)
             {
                 AssertMsg(loopTail->GetLastInstr()->IsBranchInstr(), "LastInstr of loop should always be a branch no?");
-                IR::BranchInstr *lastLoopBackBranch = loopTail->GetLastInstr()->AsBranchInstr();
-                lastLoopBackBranch->m_isLoopTail = true;
+                block->loop->SetLoopTopInstr(block->GetFirstInstr()->AsLabelInstr());
             }
             else
             {
@@ -1228,6 +1231,8 @@ FlowGraph::Destroy(void)
         } NEXT_BLOCK_DEAD_OR_ALIVE;
     }
 #endif
+
+    this->func->isFlowGraphValid = false;
 }
 
 // Propagate the region forward from the block's predecessor(s), tracking the effect
@@ -2774,9 +2779,27 @@ Loop::CanHoistInvariants()
 IR::LabelInstr *
 Loop::GetLoopTopInstr() const
 {
-    IR::LabelInstr * instr = this->GetHeadBlock()->GetFirstInstr()->AsLabelInstr();
-    Assert(instr->m_isLoopTop);
+    IR::LabelInstr * instr = nullptr;
+    if (this->topFunc->isFlowGraphValid)
+    {
+        instr = this->GetHeadBlock()->GetFirstInstr()->AsLabelInstr();
+    }
+    else
+    {
+        // Flowgraph gets teared down after the globopt, so can't get the loopTop from the head block.
+        instr = this->loopTopLabel;
+    }
+    if (instr)
+    {
+        Assert(instr->m_isLoopTop);
+    }
     return instr;
+}
+
+void
+Loop::SetLoopTopInstr(IR::LabelInstr * loopTop)
+{
+    this->loopTopLabel = loopTop;
 }
 
 #if DBG_DUMP

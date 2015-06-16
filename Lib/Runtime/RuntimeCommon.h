@@ -215,9 +215,6 @@ namespace JSON
 #define JS_DIAG_VALUE_JavascriptRegExpConstructor   L"{...}"
 #define JS_DIAG_TYPE_JavascriptRegExpConstructor    L"Object, (RegExp constructor)"
 
-#define JS_DIAG_VALUE_JavascriptSafeArrayObject     L"[...]"
-#define JS_DIAG_TYPE_JavascriptSafeArrayObject      L"Object, SafeArray"
-
 #define JS_DEFAULT_CTOR_DISPLAY_STRING              L"constructor() {}"
 #define JS_DEFAULT_EXTENDS_CTOR_DISPLAY_STRING      L"constructor(...args) { super(...args); }"
 
@@ -252,9 +249,9 @@ struct _SIMDValue
     bool operator==(const _SIMDValue& r)
     {
         // don't compare f64/f32 because NaN bit patterns will not be considered equal.
-        return (this->i32[SIMD_X] == r.i32[SIMD_X] && 
+        return (this->i32[SIMD_X] == r.i32[SIMD_X] &&
             this->i32[SIMD_Y] == r.i32[SIMD_Y] &&
-            this->i32[SIMD_Z] == r.i32[SIMD_Z] && 
+            this->i32[SIMD_Z] == r.i32[SIMD_Z] &&
             this->i32[SIMD_W] == r.i32[SIMD_W]);
     }
     bool IsZero()

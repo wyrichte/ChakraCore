@@ -434,26 +434,15 @@ namespace Js
     {
         Var func = JavascriptOperators::GetProperty(iterator, PropertyIds::next, scriptContext);
 
-        if (!JavascriptFunction::Is(func))
+        if (!JavascriptConversion::IsCallable(func))
         {
             JavascriptError::ThrowTypeError(scriptContext, JSERR_NeedFunction);
         }
 
-        JavascriptFunction* function = JavascriptFunction::FromVar(func);
-        Var result;
-
-        if (value == nullptr)
-        {
-            Js::Var args[] = { iterator };
-            Js::CallInfo callInfo(Js::CallFlags_Value, _countof(args));
-            result = function->CallFunction(Js::Arguments(callInfo, args));
-        }
-        else
-        {
-            Js::Var args[] = { iterator, value };
-            Js::CallInfo callInfo(Js::CallFlags_Value, _countof(args));
-            result = function->CallFunction(Js::Arguments(callInfo, args));
-        }
+        RecyclableObject* callable = RecyclableObject::FromVar(func);
+        Js::Var args[] = { iterator, value };
+        Js::CallInfo callInfo(Js::CallFlags_Value, _countof(args) + (value == nullptr ? - 1 : 0));
+        Var result = JavascriptFunction::CallFunction<true>(callable, callable->GetEntryPoint(), Js::Arguments(callInfo, args));
 
         if (!JavascriptOperators::IsObject(result))
         {

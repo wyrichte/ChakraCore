@@ -216,14 +216,14 @@ namespace Js
 
             if (!constSymSource)
             {
-                return m.Fail(coercionNode, L"Identifier not globally declared\n");
+                return m.Fail(coercionNode, L"Identifier not globally declared");
             }
 
             AsmJsVar * constSrc = constSymSource->Cast<AsmJsVar>();
 
             if (constSymSource->GetSymbolType() != AsmJsSymbol::Variable || constSrc->isMutable())
             {
-                return m.Fail(coercionNode, L"Unannotated variables must be constant\n");
+                return m.Fail(coercionNode, L"Unannotated variables must be constant");
             }
 
             if (constSrc->GetType().isSigned())
@@ -534,7 +534,7 @@ namespace Js
 
                     if (simdFunc->GetName() != nullptr)
                     {
-                        Output::Print(L"Warning: SIMD Builtin already defined for var %s", simdFunc->GetName()->Psz());
+                        OutputMessage(m.GetScriptContext(), DEIT_ASMJS_FAILED, L"Warning: SIMD Builtin already defined for var %s", simdFunc->GetName()->Psz());
                     }
                     simdFunc->SetName(varName);
                     if (!m.DefineIdentifier(varName, simdFunc))
@@ -556,8 +556,7 @@ namespace Js
                     auto func = mathBuiltin.u.func;
                     if (func->GetName() != nullptr)
                     {
-                        Output::Print(L"Warning: Math Builtin already defined for var %s", func->GetName()->Psz());
-                        Output::Flush();
+                        OutputMessage(m.GetScriptContext(), DEIT_ASMJS_FAILED, L"Warning: Math Builtin already defined for var %s", func->GetName()->Psz());
                     }
                     func->SetName(varName);
                     if (!m.DefineIdentifier(varName, func))
@@ -585,8 +584,7 @@ namespace Js
             {
                 if (arrayBuiltin.mFunc->GetName() != nullptr)
                 {
-                    Output::Print(L"Warning: Typed array builtin already defined for var %s", arrayBuiltin.mFunc->GetName()->Psz());
-                    Output::Flush();
+                    OutputMessage(m.GetScriptContext(), DEIT_ASMJS_FAILED, L"Warning: Typed array builtin already defined for var %s", arrayBuiltin.mFunc->GetName()->Psz());
                 }
                 arrayBuiltin.mFunc->SetName(varName);
                 if (!m.DefineIdentifier(varName, arrayBuiltin.mFunc))
@@ -618,7 +616,7 @@ namespace Js
 
             if (operation->GetName() != nullptr)
             {
-                Output::Print(L"Warning: SIMD Builtin already defined for var %s", operation->GetName()->Psz());
+                OutputMessage(m.GetScriptContext(), DEIT_ASMJS_FAILED, L"Warning: SIMD Builtin already defined for var %s", operation->GetName()->Psz());
             }
 
             // bind operation to var
@@ -647,7 +645,7 @@ namespace Js
         m.GetByteCodeGenerator()->AssignPropertyId(name);
         if (m.LookupIdentifier(name))
         {
-            return m.FailName(var, L"import variable %s names must be unique\n", name);
+            return m.FailName(var, L"import variable %s names must be unique", name);
         }
 
         if (!CheckModuleLevelName(m, var, name))
@@ -657,7 +655,7 @@ namespace Js
         
         if (!var->sxVar.pnodeInit)
         {
-            return m.Fail(var, L"module import needs initializer\n");
+            return m.Fail(var, L"module import needs initializer");
         }
 
         ParseNode *initNode = var->sxVar.pnodeInit;
@@ -671,7 +669,7 @@ namespace Js
             }
             else
             {
-                return m.FailName(var, L"Failed to declare numeric var %s\n", name);
+                return m.FailName(var, L"Failed to declare numeric var %s", name);
             }
         }
 
@@ -711,7 +709,7 @@ namespace Js
         }
 
 
-        return m.Fail( initNode, L"Failed to recognise global variable\n" );
+        return m.Fail( initNode, L"Failed to recognise global variable" );
     }
 
     bool
@@ -815,7 +813,7 @@ varDeclEnd:
         AsmJsFunc* func = m.CreateNewFunctionEntry(fncNode);
         if (!func)
         {
-            return m.Fail(fncNode, L"      Error creating function entry\n");
+            return m.Fail(fncNode, L"      Error creating function entry");
         }
         return true;
     }
@@ -1020,20 +1018,20 @@ varDeclEnd:
                 //Check name
                 if( sym->GetSymbolType() != AsmJsSymbol::FuncPtrTable )
                 {
-                    return m.FailName( varStmt, L"Variable %s is already defined\n", tableName );
+                    return m.FailName( varStmt, L"Variable %s is already defined", tableName );
                 }
 
                 AsmJsFunctionTable* table = sym->Cast<AsmJsFunctionTable>();
                 if( table->IsDefined() )
                 {
-                    return m.FailName( varStmt, L"Multiple declaration of function table %s\n", tableName );
+                    return m.FailName( varStmt, L"Multiple declaration of function table %s", tableName );
                 }
 
                 // Check content of the array
                 uint count = nodeInit->sxArrLit.count;
                 if( table->GetSize() != count )
                 {
-                    return m.FailName( varStmt, L"Invalid size of function table %s\n", tableName );
+                    return m.FailName( varStmt, L"Invalid size of function table %s", tableName );
                 }
 
                 // Set the content of the array in the table
@@ -1079,7 +1077,7 @@ varDeclEnd:
 
         if( !m.AreAllFuncTableDefined() )
         {
-            return m.Fail(list, L"Some function table were used but not defined\n");
+            return m.Fail(list, L"Some function table were used but not defined");
         }
 
         m.SetCurrentParseNode(list);
@@ -1164,10 +1162,7 @@ varDeclEnd:
         m.CommitModule();
         m.AccumulateCompileTime(AsmJsCompilation::Module);
 
-        if( PHASE_TRACE1( AsmjsPhase ) )
-        {
-            m.PrintCompileTrace();
-        }
+        m.PrintCompileTrace();
 
         return true;
 
@@ -1183,23 +1178,47 @@ AsmJsCompilationError:
         return false;
     }
 
-    bool
-    AsmJSCompiler::EstablishPreconditions(ExclusiveContext *cx, AsmJSParser &parser)
-    {
-        return true;
-    }
-
     bool AsmJSCompiler::Compile(ExclusiveContext *cx, AsmJSParser parser, ParseNode *stmtList)
     {
-        if (!EstablishPreconditions(cx, parser))
-        {
-            return false;
-        }
-
         if (!CheckModule(cx, parser, stmtList))
         {
+            OutputError(cx->scriptContext, L"Asm.js compilation failed.");
             return false;
         }
         return true;
     }
+
+    void AsmJSCompiler::OutputError(ScriptContext * scriptContext, const wchar * message, ...)
+    {
+        va_list argptr;
+        va_start(argptr, message);
+        VOutputMessage(scriptContext, DEIT_ASMJS_FAILED, message, argptr);
+    }
+
+    void AsmJSCompiler::OutputMessage(ScriptContext * scriptContext, const DEBUG_EVENT_INFO_TYPE messageType, const wchar * message, ...)
+    {
+        va_list argptr;
+        va_start(argptr, message);
+        VOutputMessage(scriptContext, messageType, message, argptr);
+    }
+
+    void AsmJSCompiler::VOutputMessage(ScriptContext * scriptContext, const DEBUG_EVENT_INFO_TYPE messageType, const wchar * message, va_list argptr)
+    {
+        wchar_t buf[2048];
+        size_t size;
+
+        size = _vsnwprintf_s(buf, _countof(buf), _TRUNCATE, message, argptr);
+        if (size == -1)
+        {
+            size = 2048;
+        }
+        scriptContext->RaiseMessageToDebugger(messageType, buf, scriptContext->GetUrl());
+        if (PHASE_TRACE1(AsmjsPhase) || PHASE_TESTTRACE1(AsmjsPhase))
+        {
+            Output::PrintBuffer(buf, size);
+            Output::Print(L"\n");
+            Output::Flush();
+        }
+    }
 }
+

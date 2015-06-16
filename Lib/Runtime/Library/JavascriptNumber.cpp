@@ -100,20 +100,6 @@ namespace Js
         return JavascriptNumber::NewInlined(value,scriptContext);
     }
 
-    bool JavascriptNumber::TryGetInt32Value(const double value, int32 *const int32Value)
-    {
-        Assert(int32Value);
-
-        const int32 i = static_cast<int32>(value);
-        if(static_cast<double>(i) != value || IsNegZero(value))
-        {
-            return false;
-        }
-
-        *int32Value = i;
-        return true;
-    }
-
     bool JavascriptNumber::TryGetInt32OrUInt32Value(const double value, int32 *const int32Value, bool *const isInt32)
     {
         Assert(int32Value);

@@ -862,6 +862,56 @@ ushort HeapBlockHelper::GetMediumHeapBlockObjectIndex(ExtRemoteTyped heapBlockOb
     return validPointerArray.ArrayElement(offset).GetUshort();
 }
 
+PCSTR EXT_CLASS_BASE::GetPageAllocatorType()
+{
+    static char* pageAllocatorTypeName = nullptr;
+    if (pageAllocatorTypeName == nullptr) {
+        pageAllocatorTypeName = "Memory::PageAllocatorBase<Memory::VirtualAllocWrapper>";
+        if (!CheckTypeName(pageAllocatorTypeName))
+        {
+            pageAllocatorTypeName = "PageAllocator";
+        }
+    }
+    return pageAllocatorTypeName;
+}
+
+PCSTR EXT_CLASS_BASE::GetSegmentType()
+{
+    static char* segmentTypeName = nullptr;
+    if (segmentTypeName == nullptr) {
+        segmentTypeName = "Memory::SegmentBase<Memory::VirtualAllocWrapper>";
+        if (!CheckTypeName(segmentTypeName))
+        {
+            segmentTypeName = "Segment";
+        }
+    }
+    return segmentTypeName;
+}
+PCSTR EXT_CLASS_BASE::GetPageSegmentType()
+{
+    static char* pageSegmentTypeName = nullptr;
+    if (pageSegmentTypeName == nullptr) {
+        pageSegmentTypeName = "Memory::PageSegmentBase<Memory::VirtualAllocWrapper>";
+        if (!CheckTypeName(pageSegmentTypeName))
+        {
+            pageSegmentTypeName = "PageSegment";
+        }
+    }
+    return pageSegmentTypeName;
+}
+
+bool EXT_CLASS_BASE::CheckTypeName(PCSTR typeName, ULONG* typeId /*= nullptr*/)
+{
+    char buf[MAX_SYM_NAME];
+    ULONG id = 0;
+    sprintf_s(buf, "%s!%s", typeName, GetModuleName());
+    HRESULT hr = this->m_Symbols2->GetSymbolTypeId(buf, &id, NULL);
+    if (typeId != nullptr)
+    {
+        *typeId = id;
+    }
+    return hr == S_OK;
+}
 
 
 JD_PRIVATE_COMMAND(markmap,
@@ -1543,7 +1593,7 @@ JD_PRIVATE_COMMAND(findblock,
 void EXT_CLASS_BASE::DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmentList, PageAllocatorStats& stats, CommandOutputType outputType, bool pageSegment)
 {
     ULONG64 segmentListAddress = segmentList.GetPointerTo().GetPtr();
-    PCSTR segmentType = (pageSegment ? "PageSegment" : "Segment");
+    PCSTR segmentType = (pageSegment ? GetPageSegmentType() : GetSegmentType());
     RemoteListIterator<false> pageSegmentListIterator(segmentType, segmentListAddress);
 
     ULONG64 totalSize = 0;
@@ -1570,13 +1620,13 @@ void EXT_CLASS_BASE::DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmen
         {
             if (pageSegment)
             {
-                PCSTR fullyQualifiedSegmentType = FillModuleAndMemoryNS("%s!%sPageSegment");
+                PCSTR fullyQualifiedSegmentType = FillModuleV("%s!%s",GetModuleName(), GetPageSegmentType());
                 Dml("<link cmd=\"?? (%s*) 0x%p\">PageSegment</link>: ",
                     fullyQualifiedSegmentType, addressOfSegment);
             }
             else
             {
-                PCSTR fullyQualifiedSegmentType = FillModuleAndMemoryNS("%s!%sSegment");
+                PCSTR fullyQualifiedSegmentType = FillModuleV("%s!%s", GetModuleName(), GetSegmentType());
                 Dml("<link cmd=\"?? (%s*) 0x%p\">Segment</link>: ",
                     fullyQualifiedSegmentType, addressOfSegment);
             }
@@ -1594,6 +1644,7 @@ void EXT_CLASS_BASE::DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmen
 
 void EXT_CLASS_BASE::DisplayPageAllocatorInfo(ExtRemoteTyped pageAllocator, CommandOutputType outputType)
 {
+    pageAllocator = CastWithVtable(pageAllocator);
     Out("Page Allocator: 0x%x\n", pageAllocator.m_Offset);
 
     if (outputType == CommandOutputType::SummaryOutputType)
@@ -1629,8 +1680,8 @@ void EXT_CLASS_BASE::DisplayPageAllocatorInfo(ExtRemoteTyped pageAllocator, Comm
         }
 
         if (freePageList != 0)
-        {
-            RemoteListIterator<true> iter("PageAllocator::FreePageEntry", freePageList + alignment);
+        {   
+            RemoteListIterator<true> iter(this->FillModuleV("%s::FreePageEntry", this->GetPageAllocatorType()), freePageList + alignment);
 
             while (iter.Next())
             {
@@ -1654,7 +1705,7 @@ void EXT_CLASS_BASE::DisplayPageAllocatorInfo(ExtRemoteTyped pageAllocator, Comm
 
         if (pendingZeroPageList != 0)
         {
-            RemoteListIterator<true> iter("PageAllocator::FreePageEntry", pendingZeroPageList + alignment);
+            RemoteListIterator<true> iter(this->FillModuleV("%s::FreePageEntry", this->GetPageAllocatorType()), pendingZeroPageList + alignment);
 
             while (iter.Next())
             {
@@ -1693,8 +1744,7 @@ JD_PRIVATE_COMMAND(pagealloc,
         if (!HasUnnamedArg(0) && GetUnnamedArgU64(0) != 0)
         {
             Out("Recycler is 0x%p\n", GetUnnamedArgU64(0));
-
-            recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sPageAllocator*)@$extin"), GetUnnamedArgU64(0));
+            recycler = ExtRemoteTyped(FillModuleV("(%s!%s*)@$extin", this->GetModuleName(), this->GetPageAllocatorType()), GetUnnamedArgU64(0));
         }
         else
         {
@@ -1706,7 +1756,7 @@ JD_PRIVATE_COMMAND(pagealloc,
     {
         Out("Allocator is 0x%p\n", GetUnnamedArgU64(0));
 
-        pageAllocator = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sPageAllocator*)@$extin"), GetUnnamedArgU64(0));
+        pageAllocator = ExtRemoteTyped(FillModuleV("(%s!%s*)@$extin", this->GetModuleName(), this->GetPageAllocatorType()), GetUnnamedArgU64(0));
     }
 
     CommandOutputType outputType = NormalOutputType;

@@ -53,6 +53,7 @@ HELPERCALL(LdThis, Js::JavascriptOperators::OP_GetThis, 0)
 HELPERCALL(LdThisNoFastPath, Js::JavascriptOperators::OP_GetThisNoFastPath, 0)
 HELPERCALL(StrictLdThis, Js::JavascriptOperators::OP_StrictGetThis, 0)
 HELPERCALL(Op_LdElemUndef, Js::JavascriptOperators::OP_LoadUndefinedToElement, 0)
+HELPERCALL(Op_LdElemUndefDynamic, Js::JavascriptOperators::OP_LoadUndefinedToElementDynamic, 0)
 HELPERCALL(Op_LdElemUndefScoped, Js::JavascriptOperators::OP_LoadUndefinedToElementScoped, 0)
 HELPERCALL(Op_EnsureNoRootProperty, Js::JavascriptOperators::OP_EnsureNoRootProperty, AttrCanThrow)
 HELPERCALL(Op_EnsureNoRootRedeclProperty, Js::JavascriptOperators::OP_EnsureNoRootRedeclProperty, AttrCanThrow)
@@ -307,8 +308,8 @@ HELPERCALL(Op_UInt32ToAtomInPlace, Js::JavascriptOperators::UInt32ToVarInPlace, 
 HELPERCALL(AllocUninitializedNumber, Js::JavascriptOperators::AllocUninitializedNumber, 0)
 #endif
 
-HELPERCALL(Op_TryCatch, Js::JavascriptExceptionOperators::OP_TryCatch, 0)
-HELPERCALL(Op_TryFinally, Js::JavascriptExceptionOperators::OP_TryFinally, AttrCanThrow)
+HELPERCALL(Op_TryCatch, nullptr, 0)
+HELPERCALL(Op_TryFinally, nullptr, AttrCanThrow)
 #if _M_X64
 HELPERCALL(Op_ReturnFromCallWithFakeFrame, amd64_ReturnFromCallWithFakeFrame, 0)
 #endif
@@ -464,57 +465,61 @@ HELPERCALL(BoxStackNumber, Js::JavascriptNumber::BoxStackNumber, 0)
 HELPERCALL(GetNonzeroInt32Value_NoTaggedIntCheck, Js::JavascriptNumber::GetNonzeroInt32Value_NoTaggedIntCheck, 0)
 HELPERCALL(IsNegZero, Js::JavascriptNumber::IsNegZero, 0)
 
-HELPERCALL(MemCmp, (int (*)(void *, void *, size_t))memcmp, 0)
-HELPERCALL(MemCpy, (int (*)(void *, void *, size_t))memcpy, 0)
+HELPERCALL(DirectMath_Pow, (double(*)(double, double))Js::JavascriptNumber::DirectPow, 0)
+HELPERCALL(DirectMath_Random, (double(*)(Js::ScriptContext*))Js::SSE2::JavascriptMath::Random, 0)
+
+
+//
+// Putting dllimport function ptr in JnHelperMethodAddresses will cause the table to be allocated in read-write memory
+// as dynamic initialization is require to load these addresses.  Use nullptr instead and handle these function in GetNonTableMethodAddress().
+//
+
+HELPERCALL(MemCmp, nullptr, 0)
+HELPERCALL(MemCpy, nullptr, 0)
 
 #ifdef _M_IX86
-HELPERCALL(DirectMath_Acos, (double (*)(double))__libm_sse2_acos, 0)
-HELPERCALL(DirectMath_Asin, (double (*)(double))__libm_sse2_asin, 0)
-HELPERCALL(DirectMath_Atan, (double (*)(double))__libm_sse2_atan, 0)
-HELPERCALL(DirectMath_Atan2, (double (*)(double, double))__libm_sse2_atan2, 0)
-HELPERCALL(DirectMath_Cos, (double (*)(double))__libm_sse2_cos, 0)
-HELPERCALL(DirectMath_Exp, (double (*)(double))__libm_sse2_exp, 0)
-HELPERCALL(DirectMath_Log, (double (*)(double))__libm_sse2_log, 0)
-HELPERCALL(DirectMath_Pow, (double (*)(double, double))Js::JavascriptNumber::DirectPow, 0)
-HELPERCALL(DirectMath_Random, (double (*)(Js::ScriptContext*))Js::SSE2::JavascriptMath::Random, 0)
-HELPERCALL(DirectMath_Sin, (double (*)(double))__libm_sse2_sin, 0)
-HELPERCALL(DirectMath_Tan, (double (*)(double))__libm_sse2_tan, 0)
+HELPERCALL(DirectMath_Acos, nullptr, 0)
+HELPERCALL(DirectMath_Asin, nullptr, 0)
+HELPERCALL(DirectMath_Atan, nullptr, 0)
+HELPERCALL(DirectMath_Atan2, nullptr, 0)
+HELPERCALL(DirectMath_Cos, nullptr, 0)
+HELPERCALL(DirectMath_Exp, nullptr, 0)
+HELPERCALL(DirectMath_Log, nullptr, 0)
+HELPERCALL(DirectMath_Sin, nullptr, 0)
+HELPERCALL(DirectMath_Tan, nullptr, 0)
 #elif defined(_M_X64)
 // AMD64 regular CRT calls -- on AMD64 calling convention is already what we want -- args in XMM0, XMM1 rather than on stack which is slower.
-HELPERCALL(DirectMath_Acos, (double (*)(double))acos, 0)
-HELPERCALL(DirectMath_Asin, (double (*)(double))asin, 0)
-HELPERCALL(DirectMath_Atan, (double (*)(double))atan, 0)
-HELPERCALL(DirectMath_Atan2, (double (*)(double, double))atan2, 0)
-HELPERCALL(DirectMath_Cos, (double (*)(double))cos, 0)
-HELPERCALL(DirectMath_Exp, (double (*)(double))exp, 0)
-HELPERCALL(DirectMath_Log, (double (*)(double))log, 0)
-HELPERCALL(DirectMath_Pow, (double (*)(double, double))Js::JavascriptNumber::DirectPow, 0)
-HELPERCALL(DirectMath_Random, (double (*)(Js::ScriptContext*))Js::SSE2::JavascriptMath::Random, 0)
-HELPERCALL(DirectMath_Sin, (double (*)(double))sin, 0)
-HELPERCALL(DirectMath_Tan, (double (*)(double))tan, 0)
-HELPERCALL(DirectMath_FloorDb, (double (*)(double))floor, 0)
-HELPERCALL(DirectMath_FloorFlt, (float (*)(float))floor, 0)
-HELPERCALL(DirectMath_CeilDb, (double (*)(double))ceil, 0)
-HELPERCALL(DirectMath_CeilFlt, (float (*)(float))ceil, 0)
+HELPERCALL(DirectMath_Acos, nullptr, 0)
+HELPERCALL(DirectMath_Asin, nullptr, 0)
+HELPERCALL(DirectMath_Atan, nullptr, 0)
+HELPERCALL(DirectMath_Atan2, nullptr, 0)
+HELPERCALL(DirectMath_Cos, nullptr, 0)
+HELPERCALL(DirectMath_Exp, nullptr, 0)
+HELPERCALL(DirectMath_Log, nullptr, 0)
+HELPERCALL(DirectMath_Sin, nullptr, 0)
+HELPERCALL(DirectMath_Tan, nullptr, 0)
+HELPERCALL(DirectMath_FloorDb, nullptr, 0)
+HELPERCALL(DirectMath_FloorFlt, nullptr, 0)
+HELPERCALL(DirectMath_CeilDb, nullptr, 0)
+HELPERCALL(DirectMath_CeilFlt, nullptr, 0)
 #elif defined(_M_ARM32_OR_ARM64)
 // ARM is similar to AMD64 -- regular CRT calls as calling convention is already what we want -- args/result in VFP registers.
-HELPERCALL(DirectMath_Acos, (double (*)(double))acos, 0)
-HELPERCALL(DirectMath_Asin, (double (*)(double))asin, 0)
-HELPERCALL(DirectMath_Atan, (double (*)(double))atan, 0)
-HELPERCALL(DirectMath_Atan2, (double (*)(double, double))atan2, 0)
-HELPERCALL(DirectMath_Cos, (double (*)(double))cos, 0)
-HELPERCALL(DirectMath_Exp, (double (*)(double))exp, 0)
-HELPERCALL(DirectMath_Log, (double (*)(double))log, 0)
-HELPERCALL(DirectMath_Pow, (double (*)(double, double))Js::JavascriptNumber::DirectPow, 0)
-HELPERCALL(DirectMath_Random, (double (*)(Js::ScriptContext*))Js::SSE2::JavascriptMath::Random, 0)
-HELPERCALL(DirectMath_Sin, (double (*)(double))sin, 0)
-HELPERCALL(DirectMath_Tan, (double(*)(double))tan, 0)
+HELPERCALL(DirectMath_Acos, nullptr, 0)
+HELPERCALL(DirectMath_Asin, nullptr, 0)
+HELPERCALL(DirectMath_Atan, nullptr, 0)
+HELPERCALL(DirectMath_Atan2, nullptr, 0)
+HELPERCALL(DirectMath_Cos, nullptr, 0)
+HELPERCALL(DirectMath_Exp, nullptr, 0)
+HELPERCALL(DirectMath_Log, nullptr, 0)
+HELPERCALL(DirectMath_Sin, nullptr, 0)
+HELPERCALL(DirectMath_Tan, nullptr, 0)
 #endif
 
 #ifdef _CONTROL_FLOW_GUARD
-HELPERCALL(GuardCheckCall, __guard_check_icall_fptr, 0 )
+HELPERCALL(GuardCheckCall, nullptr, 0)
 #endif
 
+// This is statically initialized.
 #ifdef _M_IX86
 HELPERCALL( CRT_chkstk, _chkstk, 0 )
 #else

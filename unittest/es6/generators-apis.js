@@ -19,7 +19,7 @@ function checkAttributes(name, o, p, a) {
 }
 
 var tests = [
-    {
+   {
         name: "GeneratorFunction is not exposed on the global object",
         body: function () {
             assert.isFalse(globObj.hasOwnProperty("GeneratorFunction"), "Global object does not have property named GeneratorFunction");
@@ -36,8 +36,8 @@ var tests = [
             assert.isTrue(gf.hasOwnProperty("prototype"), "Generator function objects have a 'prototype' property");
 
             checkAttributes("gf", gf, "length", { writable: false, enumerable: false, configurable: true });
-            checkAttributes("gf", gf, "arguments", { enumerable: false, configurable: true });
-            checkAttributes("gf", gf, "caller", { enumerable: false, configurable: true });
+            checkAttributes("gf", gf, "arguments", { enumerable: false, configurable: false });
+            checkAttributes("gf", gf, "caller", { enumerable: false, configurable: false });
             checkAttributes("gf", gf, "prototype", { writable: false, enumerable: false, configurable: true });
 
             assert.isFalse(gf.prototype.hasOwnProperty("constructor"), "Generator function prototype objects do not get a 'constructor' property");

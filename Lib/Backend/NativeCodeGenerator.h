@@ -8,6 +8,10 @@ struct CodeGenWorkItem;
 class PEWriter;
 class NativeCodeGenerator sealed : public JsUtil::WaitableJobManager
 {
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+    static volatile UINT_PTR CodegenFailureSeed;
+#endif
+
     friend JsUtil::ForegroundJobProcessor;
     friend JsUtil::BackgroundJobProcessor;
     friend Js::RemoteScriptContext;

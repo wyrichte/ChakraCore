@@ -42,12 +42,16 @@ private:
     uint16          loopNest;
     IR::LabelInstr * lastOpHelperLabel;    
     Region *        curRegion;
+    SListBase<Loop*> * extendedLifetimesLoopList;
 public:
     SCCLiveness(Func *func, JitArenaAllocator *tempAlloc) : func(func), 
         tempAlloc(tempAlloc), loopNest(0), lastCall(0), lastNonOpHelperCall(0),
         curLoop(NULL), lastOpHelperLabel(NULL), opHelperBlockList(tempAlloc), 
         curRegion(NULL), lifetimeList(tempAlloc),
-        totalOpHelperFullVisitedLength(0) {}
+        totalOpHelperFullVisitedLength(0) 
+    {
+        extendedLifetimesLoopList = JitAnew(tempAlloc, SListBase<Loop *>);
+    }
 
     void            Build();
 #if DBG_DUMP

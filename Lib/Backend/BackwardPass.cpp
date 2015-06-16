@@ -3789,7 +3789,7 @@ BackwardPass::ProcessPropertySymOpndUse(IR::PropertySymOpnd * opnd)
         }
 
         bool doesNotNeedTypeTransition = false;
-        if ((opnd->IsMono() || !isStore && opnd->HasEquivalentTypeSet()) && !opnd->HasTypeMismatch() && func->DoGlobOpt())
+        if (!opnd->HasTypeMismatch() && func->DoGlobOpt())
         {
             doesNotNeedTypeTransition = isStore;
             TrackAddPropertyTypes(opnd, block);

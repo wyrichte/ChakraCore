@@ -100,7 +100,6 @@ namespace Js
         template<bool includeSymbols>
         static void GetPropertyRecordFromVar(Var propertyKey, ScriptContext* scriptContext, const PropertyRecord** propertyRecord);
         static BOOL DefineOwnPropertyHelper(RecyclableObject* obj, PropertyId propId, const PropertyDescriptor& descriptor, ScriptContext* scriptContext);
-        static BOOL DefineOwnPropertyHelperImpl(RecyclableObject* obj, PropertyId propId, const PropertyDescriptor& descriptor, ScriptContext* scriptContext);
         static Var ToStringHelper(Var thisArg, ScriptContext* scriptContext);
         static Var LegacyToStringHelper(ScriptContext* scriptContext, TypeId type);
         static JavascriptString* ToStringTagHelper(Var thisArg, ScriptContext* scriptContext, TypeId type);

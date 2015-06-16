@@ -121,6 +121,8 @@ public:
     using ValueType::IsObject;
     using ValueType::IsLikelyObject;
     using ValueType::IsNotObject;
+    using ValueType::CanMergeToObject;
+    using ValueType::CanMergeToSpecificObjectType;
 
     using ValueType::IsRegExp;
     using ValueType::IsLikelyRegExp;
@@ -1226,6 +1228,7 @@ private:
     PropertySym *               propertySymUse;
 
     BVSparse<JitArenaAllocator> *  lengthEquivBv;
+    BVSparse<JitArenaAllocator> *  argumentsEquivBv;
 
     GlobOptBlockData            blockData;
 
@@ -1613,6 +1616,7 @@ private:
     void                    ProcessFieldKills(IR::Instr * instr);
     void                    KillLiveFields(StackSym * stackSym, BVSparse<JitArenaAllocator> * bv);
     void                    KillLiveFields(PropertySym * propertySym, BVSparse<JitArenaAllocator> * bv);
+    void                    KillLiveFields(BVSparse<JitArenaAllocator> *const propertyEquivSet, BVSparse<JitArenaAllocator> *const bv) const;
     void                    KillLiveElems(IR::IndirOpnd * indirOpnd, BVSparse<JitArenaAllocator> * bv, bool inGlobOpt, Func *func);
     void                    KillAllFields(BVSparse<JitArenaAllocator> * bv);
     void                    SetAnyPropertyMayBeWrittenTo();

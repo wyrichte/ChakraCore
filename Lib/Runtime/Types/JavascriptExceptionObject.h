@@ -23,7 +23,7 @@ namespace Js {
         JavascriptExceptionObject(Var object, ScriptContext * scriptContext, JavascriptExceptionContext* exceptionContextIn, bool isPendingExceptionObject = false) : 
             thrownObject(object), isPendingExceptionObject(isPendingExceptionObject),
             scriptContext(scriptContext), isDebuggerSkip(false), byteCodeOffsetAfterDebuggerSkip(Constants::InvalidByteCodeOffset), hasDebuggerLogged(false), canLanguageServiceSkip(false),
-            isFirstChance(false), isExceptionCaughtInNonUserCode(false), ignoreAdvanceToNextStatement(false), hostWrapperCreateFunc(null), isGeneratorReturnException(false)
+            isFirstChance(false), isExceptionCaughtInNonUserCode(false), ignoreAdvanceToNextStatement(false), isForceCatchException(false), hostWrapperCreateFunc(null), isGeneratorReturnException(false)
         { 
             if (exceptionContextIn)
             {
@@ -71,6 +71,16 @@ namespace Js {
         bool IsDebuggerSkip()
         {
             return isDebuggerSkip;
+        }
+
+        void SetForceCatchException(bool force)
+        {
+            isForceCatchException = force;
+        }
+
+        bool IsForceCatchException()
+        {
+            return isForceCatchException;
         }
 
         int GetByteCodeOffsetAfterDebuggerSkip()
@@ -189,6 +199,7 @@ namespace Js {
         bool     ignoreAdvanceToNextStatement;  // This will be set when user had setnext while sitting on the exception
                                                 // So the exception eating logic shouldn't try and advance to next statement again.
         bool     isGeneratorReturnException;
+        bool     isForceCatchException;         // Used only in Language service mode
         HostWrapperCreateFuncType hostWrapperCreateFunc;
 
         JavascriptExceptionContext exceptionContext;

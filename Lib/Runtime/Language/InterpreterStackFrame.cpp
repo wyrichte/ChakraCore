@@ -1924,7 +1924,7 @@ namespace Js
             }
             if (exception)
             {
-                if (LanguageServiceExceptionSkippingEnabled())
+                if (LanguageServiceExceptionSkippingEnabled() && !exception->IsForceCatchException())
                 {
                     if (
                         // We should only skip an exception if we have already exited out of first interpreter frame that saw the exception.
@@ -2142,8 +2142,7 @@ namespace Js
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
         if (Configuration::Global.flags.ForceAsmJsLinkFail)
         {
-            Output::Print(L"AsmJs Runtime Error : Forcing link failure\n");
-            Output::Flush();
+            AsmJSCompiler::OutputError(this->scriptContext, L"Asm.js Runtime Error : Forcing link failure");
             return this->ProcessLinkFailedAsmJsModule();
         }
 #endif
@@ -2161,8 +2160,7 @@ namespace Js
         if( m_inSlotsCount != info->GetArgInCount() + 1 )
         {
             // Error reparse without asm.js
-            Output::Print(L"AsmJs Runtime Error : Invalid module argument count\n");
-            Output::Flush();
+            AsmJSCompiler::OutputError(this->scriptContext, L"Asm.js Runtime Error : Invalid module argument count");
             return this->ProcessLinkFailedAsmJsModule();
         }
 
@@ -2212,8 +2210,7 @@ namespace Js
         }
         else if(this->CheckAndResetImplicitCall(prevDisableImplicitFlags, saveImplicitcallFlags))
         {
-            Output::Print(L"AsmJs Runtime Error : Params have side effects\n");
-            Output::Flush();
+            AsmJSCompiler::OutputError(this->scriptContext, L"Asm.js Runtime Error : Params have side effects");
              return this->ProcessLinkFailedAsmJsModule();
         }
         // Initialise Variables
@@ -2253,15 +2250,17 @@ namespace Js
             // check if there is implicit call and if there is implicit call then clear the disableimplicitcall flag
             if (this->CheckAndResetImplicitCall(prevDisableImplicitFlags, saveImplicitcallFlags))
             {
-                // Runtime error
-                Output::Print(L"AsmJs Runtime Error : Accessing var import %s has side effects\n", this->scriptContext->GetPropertyName(import.field)->GetBuffer());
-                Output::Flush();
+                AsmJSCompiler::OutputError(this->scriptContext, L"Asm.js Runtime Error : Accessing var import %s has side effects", this->scriptContext->GetPropertyName(import.field)->GetBuffer());
                 return this->ProcessLinkFailedAsmJsModule();
             }
-            if (!TaggedNumber::Is(value) && (!RecyclableObject::Is(value) || DynamicType::Is(RecyclableObject::FromVar(value)->GetTypeId())))
+            if (CONFIG_FLAG(AsmJsEdge))
             {
-                Output::Print(L"AsmJs Runtime Error : Var import %s must be primitive\n", this->scriptContext->GetPropertyName(import.field)->GetBuffer());
-                goto linkFailure;
+                // emscripten had a bug which caused this check to fail in some circumstances, so this check fails for some demos
+                if (!TaggedNumber::Is(value) && (!RecyclableObject::Is(value) || DynamicType::Is(RecyclableObject::FromVar(value)->GetTypeId())))
+                {
+                    AsmJSCompiler::OutputError(this->scriptContext, L"Asm.js Runtime Error : Var import %s must be primitive", this->scriptContext->GetPropertyName(import.field)->GetBuffer());
+                    goto linkFailure;
+                }
             }
 
             if( import.type.isInt() )
@@ -2306,13 +2305,20 @@ namespace Js
                 };
                 if (!valid)
                 {
-                    Output::Print(L"AsmJs Runtime Error : Foreign var import %s is not SIMD type\n", this->scriptContext->GetPropertyName(import.field)->GetBuffer());
                     // link failure of SIMD values imports.
+                    AsmJSCompiler::OutputError(this->scriptContext, L"Asm.js Runtime Error : Foreign var import %s is not SIMD type", this->scriptContext->GetPropertyName(import.field)->GetBuffer());
                     goto linkFailure;
                 }
                 localSimdSlots[import.location] = val;
             }
 #endif
+            // check for implicit call after converting to number
+            if (this->CheckAndResetImplicitCall(prevDisableImplicitFlags, saveImplicitcallFlags))
+            {
+                // Runtime error
+                AsmJSCompiler::OutputError(this->scriptContext, L"Asm.js Runtime Error : Accessing var import %s has side effects", this->scriptContext->GetPropertyName(import.field)->GetBuffer());
+                return this->ProcessLinkFailedAsmJsModule();
+            }
         }
         // Load external functions
         for( int i = 0; i < info->GetFunctionImportCount(); i++ )
@@ -2323,15 +2329,12 @@ namespace Js
             // check if there is implicit call and if there is implicit call then clear the disableimplicitcall flag
             if (this->CheckAndResetImplicitCall(prevDisableImplicitFlags, saveImplicitcallFlags))
             {
-                // Runtime error
-                Output::Print(L"AsmJs Runtime Error : Accessing foreign function import %s has side effects\n", this->scriptContext->GetPropertyName(import.field)->GetBuffer());
-                Output::Flush();
+                AsmJSCompiler::OutputError(this->scriptContext, L"Asm.js Runtime Error : Accessing foreign function import %s has side effects", this->scriptContext->GetPropertyName(import.field)->GetBuffer());
                 return this->ProcessLinkFailedAsmJsModule();
             }
             if( !JavascriptFunction::Is( importFunc ) )
             {
-                // Runtime error
-                Output::Print(L"AsmJs Runtime Error : Foreign function import %s is not a function\n", this->scriptContext->GetPropertyName(import.field)->GetBuffer());
+                AsmJSCompiler::OutputError(this->scriptContext, L"Asm.js Runtime Error : Foreign function import %s is not a function", this->scriptContext->GetPropertyName(import.field)->GetBuffer());
                 goto linkFailure;
             }
             localFunctionImports[import.location] = importFunc;
@@ -2429,7 +2432,6 @@ namespace Js
         return exportFunc;
 
     linkFailure:
-        Output::Flush();
         threadContext->SetDisableImplicitFlags(prevDisableImplicitFlags);
         threadContext->SetImplicitCallFlags(saveImplicitcallFlags);
         return this->ProcessLinkFailedAsmJsModule();
@@ -2437,6 +2439,7 @@ namespace Js
 
     Var InterpreterStackFrame::ProcessLinkFailedAsmJsModule()
     {
+        AsmJSCompiler::OutputError(this->scriptContext, L"asm.js linking failed.");
         ScriptFunction * funcObj = GetJavascriptFunction();
         ScriptFunction::ReparseAsmJsModule(&funcObj);
         const bool doProfile =
@@ -2995,7 +2998,7 @@ namespace Js
     template <class T>
     void InterpreterStackFrame::OP_GetMethodProperty(unaligned T *playout)
     {
-		Var varInstance = GetReg(playout->Instance);
+        Var varInstance = GetReg(playout->Instance);
         JavascriptLibrary::CheckAndConvertCopyOnAccessNativeIntArray<Var>(varInstance);
         PropertyId propertyId = GetPropertyIdFromCacheId(playout->inlineCacheIndex);
         RecyclableObject* obj = NULL;
@@ -3627,7 +3630,7 @@ namespace Js
                 GetInlineCache(playout->inlineCacheIndex),
                 playout->inlineCacheIndex,
                 GetFunctionBody(),
-				instance);
+                instance);
         
         SetReg(playout->Value, value);
 
@@ -4604,17 +4607,17 @@ namespace Js
         if (arrayInfo && arrayInfo->IsNativeIntArray())
         {
 
-			if (JavascriptLibrary::IsCopyOnAccessArrayCallSite(lib, arrayInfo, ints->count))
-			{
+            if (JavascriptLibrary::IsCopyOnAccessArrayCallSite(lib, arrayInfo, ints->count))
+            {
                 Assert(lib->cacheForCopyOnAccessArraySegments);
-				arr = scriptContext->GetLibrary()->CreateCopyOnAccessNativeIntArrayLiteral(arrayInfo, functionBody, ints);
-			}
-			else
-			{
-				arr = scriptContext->GetLibrary()->CreateNativeIntArrayLiteral(ints->count);
-				SparseArraySegment<int32> *segment = (SparseArraySegment<int32>*)arr->GetHead();
-				JavascriptOperators::AddIntsToArraySegment(segment, ints);
-			}
+                arr = scriptContext->GetLibrary()->CreateCopyOnAccessNativeIntArrayLiteral(arrayInfo, functionBody, ints);
+            }
+            else
+            {
+                arr = scriptContext->GetLibrary()->CreateNativeIntArrayLiteral(ints->count);
+                SparseArraySegment<int32> *segment = (SparseArraySegment<int32>*)arr->GetHead();
+                JavascriptOperators::AddIntsToArraySegment(segment, ints);
+            }
 
             JavascriptNativeIntArray *intArray = reinterpret_cast<JavascriptNativeIntArray*>(arr);
             Recycler *recycler = scriptContext->GetRecycler();
@@ -5587,8 +5590,16 @@ namespace Js
     template <typename T>
     void InterpreterStackFrame::OP_LdElementUndefined(const unaligned OpLayoutT_ElementU<T>* playout)
     {
-        JavascriptOperators::OP_LoadUndefinedToElement(GetReg(playout->Instance),
-            this->m_functionBody->GetReferencedPropertyId(playout->PropertyIdIndex));
+        if (this->m_functionBody->IsEval())
+        {
+            JavascriptOperators::OP_LoadUndefinedToElementDynamic(GetReg(playout->Instance),
+                this->m_functionBody->GetReferencedPropertyId(playout->PropertyIdIndex), GetScriptContext());
+        }
+        else
+        {
+            JavascriptOperators::OP_LoadUndefinedToElement(GetReg(playout->Instance),
+                this->m_functionBody->GetReferencedPropertyId(playout->PropertyIdIndex));
+        }
     }
 
     template <typename T>
@@ -5687,7 +5698,7 @@ namespace Js
                 throw exception;
             }
 
-            if (BinaryFeatureControl::LanguageService() && scriptContext->IsInDebugMode())
+            if (BinaryFeatureControl::LanguageService() && scriptContext->IsInDebugMode() && !exception->IsForceCatchException())
             {
                 if (scriptContext->GetThreadContext()->Diagnostics->languageServiceEnabled)
                 {

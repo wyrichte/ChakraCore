@@ -1528,8 +1528,6 @@ IRBuilderAsmJs::BuildAsmCall(Js::OpCodeAsmJs newOpcode, uint32 offset, Js::ArgSl
             break;
 
         case Js::AsmJsRetType::Which::Void:
-            dstRegSlot = GetRegSlotFromVarReg(ret);
-            dstOpnd = BuildDstOpnd(dstRegSlot, TyVar);
             break;
 
 #ifdef SIMD_JS_ENABLED
@@ -1544,7 +1542,12 @@ IRBuilderAsmJs::BuildAsmCall(Js::OpCodeAsmJs newOpcode, uint32 offset, Js::ArgSl
             Assume(UNREACHED);
         }
 
-        instr = IR::Instr::New(Js::OpCode::AsmJsCallI, dstOpnd, srcOpnd, m_func);
+        instr = IR::Instr::New(Js::OpCode::AsmJsCallI, m_func);
+        instr->SetSrc1(srcOpnd);
+        if (dstOpnd)
+        {
+            instr->SetDst(dstOpnd);
+        }
 
         argOffset = m_argOffsetStack->Pop();
         argOffset -= MachPtr;

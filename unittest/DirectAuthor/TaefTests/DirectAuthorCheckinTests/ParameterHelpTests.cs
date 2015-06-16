@@ -687,6 +687,7 @@ function MissingSignatureClosingTag() {
         }
 
         [TestMethod]
+        [Ignore]// in the new spec the method createTextRange has been removed 
         [WorkItem(197171)]
         public void DomOptionalArguments()
         {

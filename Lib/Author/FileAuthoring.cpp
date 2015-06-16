@@ -25,7 +25,7 @@ namespace Authoring
         const wchar_t capturingProxyHolderProxyPropertyName[] = L"proxy";
         const wchar_t capturingProxyHolderPropertiesPropertyName[] = L"properties";
     }
-    
+
     class PropertyFilter
     {
     public:
@@ -145,9 +145,9 @@ namespace Authoring
             {
                 auto LCurly = m_lsExtension->LCurly(node);
                 auto RCurly = m_lsExtension->RCurly(node);
-                // We want the parameter help when the cursor is at the opening curly, for example: 
-                //   f(|{}) 
-                // or: 
+                // We want the parameter help when the cursor is at the opening curly, for example:
+                //   f(|{})
+                // or:
                 //   function() |{};
                 auto min = LCurly ? LCurly + 1 : node->ichMin;
                 auto lim = RCurly ? RCurly : node->ichLim;
@@ -346,7 +346,7 @@ namespace Authoring
 
 
             // Use the new context path
-            m_scriptContextPath.Assign(newScriptContextPath); 
+            m_scriptContextPath.Assign(newScriptContextPath);
 
             // Reset the change flag after the new context path has been populated
             m_contextChanged = false;
@@ -401,7 +401,7 @@ namespace Authoring
     void FileAuthoring::DecommitUnusedPages()
     {
         auto scriptContext = m_rootScriptContext;
-        if (scriptContext) 
+        if (scriptContext)
             AuthoringFactory::DecommitUnusedPages(scriptContext->GetThreadContext()->GetPageAllocator());
     }
 
@@ -416,7 +416,7 @@ namespace Authoring
 
         if (fullContext || (IsScriptContextPathValid() && m_scriptContextPath->IsUpToDate()))
         {
-            // Ensure we never parse in a polluted context. 
+            // Ensure we never parse in a polluted context.
             // Also refresh the context when source has changed.
             if (this->m_polluted || sourceChanged)
                 ReleasePrimaryContext();
@@ -456,9 +456,9 @@ namespace Authoring
     {
         METHOD_PREFIX;
 
-        // Applying context files may result in detecting new asynchrony script requests, which means that the context is 
+        // Applying context files may result in detecting new asynchrony script requests, which means that the context is
         // not complete. Make sure ApplyContext always result in complete context.
-        hr = EnsureQuiescentContext([&]()->HRESULT 
+        hr = EnsureQuiescentContext([&]()->HRESULT
         {
             INTERNALMETHOD_PREFIX;
 
@@ -505,7 +505,7 @@ namespace Authoring
 
             Assert(IsScriptContextValid());
             m_scriptContext->ForceNoNative();
-            m_scriptContext->SetInDebugMode();            
+            m_scriptContext->SetInDebugMode();
             m_scriptContext->SetCanOptimizeGlobalLookupFlag(false);
 
             // The scriptcontext is invalidated. Invalidate the parse tree if we have not done that already.
@@ -589,7 +589,7 @@ namespace Authoring
             authorProbe.SetKeepLoopGuardOnUninstall(doNotDisableLoopGuard);
             ExecuteRootFunction(authorProbe, jsFunc, arguments, result, doNotReportPhase);
         },
-        0, 
+        0,
         jsFunc->GetFunctionBody());
 
         METHOD_POSTFIX;
@@ -610,8 +610,8 @@ namespace Authoring
                 Js::Var result;
                 ExecuteFunction(executeSetter, arguments, &result);
             }
-        }, 
-        m_scriptContext, 
+        },
+        m_scriptContext,
         obj,
         obj,
         Convert::ToVar(propertyName, m_scriptContext),
@@ -633,8 +633,8 @@ namespace Authoring
             *result = nullptr;
             if (executeGetter)
                 ExecuteFunction(executeGetter, arguments, result);
-        }, 
-        m_scriptContext, 
+        },
+        m_scriptContext,
         obj,
         obj,
         Convert::ToVar(propertyName, m_scriptContext));
@@ -674,7 +674,7 @@ namespace Authoring
                 }
 
                 Js::Var varResult;
-                ExecuteRootFunction(authorProbe, jsFunc, jsArguments, &varResult); 
+                ExecuteRootFunction(authorProbe, jsFunc, jsArguments, &varResult);
 
                 if (authorProbe.Triggered())
                 {
@@ -698,7 +698,7 @@ namespace Authoring
                         args[0] = m_scriptContext->GetGlobalObject();
                         Js::Arguments jsArguments(1, args);
 
-                        ExecuteRootFunction(authorProbe, callLss, jsArguments, &varResult); 
+                        ExecuteRootFunction(authorProbe, callLss, jsArguments, &varResult);
 
                         // if we have a better value set it.
                         if (authorProbe.Triggered())
@@ -733,7 +733,7 @@ namespace Authoring
         METHOD_POSTFIX;
     }
 
-    // Sets result to a non-null value if a result was found. 
+    // Sets result to a non-null value if a result was found.
     // HRESULT is used to only indicate a abnormal termination.
     HRESULT FileAuthoring::Execute(ParseNode *expr, AuthorCompletionDiagnosticFlags *diagFlags, bool isFinalPass, Js::Var *var)
     {
@@ -804,9 +804,9 @@ namespace Authoring
             exprContainer->InstallProbe(breakpointLocation);
         AuthoringProbe authorProbe(slot, exprContainer, enableLoopGuardsOnAsyncBreak, breakpointLocation, diagCallback, isFinalPass);
         InstallProbe(&authorProbe);
-            
+
         operation(authorProbe);
-            
+
         UnistallProbe(&authorProbe);
         if (breakpointLocation != -1)
             exprContainer->UninstallProbe(breakpointLocation);
@@ -1000,12 +1000,12 @@ namespace Authoring
         AuthorCompletionDiagnosticFlags tmpDiagFlags = AuthorCompletionDiagnosticFlags(acdfNone);
 
         // Try executing the entire script and see if we hit the expression.
-        // Note: The logic for flagging the final execution pass is approximate. 
+        // Note: The logic for flagging the final execution pass is approximate.
         // It may not be correct in the presence of async requests added as a result of directed execution.
         IfFailGo(Execute(pnode, &tmpDiagFlags, /*isFinalPass*/false, &value));
 
         // Prevent the value from begin collected prematurely.
-        if (value) 
+        if (value)
             JsHelpers::PreventRecycling(m_scriptContext, value);
 
         // Check if the execution resulted in new async script requests being added
@@ -1084,7 +1084,7 @@ namespace Authoring
 
         IfFailGo(TestAbort());
 
-        // Executing the primary file may result in detecting new asynchrony script requests, which means that the context is 
+        // Executing the primary file may result in detecting new asynchrony script requests, which means that the context is
         // not complete. If detected, rebuild the context, and reparse the primary file and retry.
         hr = EnsureQuiescentContext([&]() -> HRESULT
         {
@@ -1109,7 +1109,7 @@ namespace Authoring
                 // If we are in an dot expression then we want the left hand side.
                 if (leftOfDot && current->nop == knopDot && current->sxBin.pnode1) {
                     // We don't need to remember that we are in a dot expression since
-                    // the right is probably not valid (the user is int he middle of 
+                    // the right is probably not valid (the user is int he middle of
                     // typing it.
                     current = current->sxBin.pnode1;
                 }
@@ -1119,9 +1119,9 @@ namespace Authoring
                     // If the node is the target of a call or an assignemnt statement the
                     // value will not be loaded (calls of dotted methods, for example, are
                     // called directly with a call-field instruction, and assignment calls
-                    // are generated using a instruction field set). In this case we want to 
-                    // Get the value of the left-hand side of the dotted expression but 
-                    // remember the name 
+                    // are generated using a instruction field set). In this case we want to
+                    // Get the value of the left-hand side of the dotted expression but
+                    // remember the name
                     nameNode = current->sxBin.pnode2; // Remember the name.
                     current = current->sxBin.pnode1; // Get the value of the left-hand side of the dot.
                 }
@@ -1178,9 +1178,9 @@ namespace Authoring
     }
 
     // Called to unwrap undefined and null values that are standing in the place of another object. This happens, for example, when a <field ...> comment
-    // is given for a field but the object has not been initialized yet. By JavaScript semantics, accessing such a property must result in undefined. 
-    // The runtime, (throught the language service hooks) creates a new object of undefined type to stand-in for the value of the property so the value 
-    // is still undefined but the type information declared in the <field ...> data can be retrieved even when the field access has long since 
+    // is given for a field but the object has not been initialized yet. By JavaScript semantics, accessing such a property must result in undefined.
+    // The runtime, (throught the language service hooks) creates a new object of undefined type to stand-in for the value of the property so the value
+    // is still undefined but the type information declared in the <field ...> data can be retrieved even when the field access has long since
     // disappeared. This routine retrives the value that the undefined value is standing in for.
     Js::Var FileAuthoring::UnwrapUndefined(Js::Var value, bool *isTrackingValue)
     {
@@ -1352,7 +1352,7 @@ namespace Authoring
     HRESULT FileAuthoring::AddCompletionsImpl(Js::Var value, Completions *completions, bool ownOnly, bool excludeObjectPrototype, bool excludeConstructor, bool checkWith, AuthorScope defaultScope, PropertyFilter propertyFilter)
     {
         METHOD_PREFIX;
-        
+
         bool isTrackingValue = false;
         value = UnwrapUndefined(value, &isTrackingValue);
         if (isTrackingValue)
@@ -1373,7 +1373,7 @@ namespace Authoring
 
         if (rootObject->GetTypeId() == Js::TypeIds_Function)
             AddStaticFieldsDoc(completions->Alloc(), static_cast<Js::JavascriptFunction*>(rootObject));
-        
+
         // Prevent the value from being lost during garbage collection
         JsHelpers::PreventRecycling(m_scriptContext, value);
 
@@ -1528,7 +1528,7 @@ namespace Authoring
         if (!JsHelpers::GetProperty<bool>(func, Names::staticFieldsDocApplied, nullptr, scriptContext))
         {
             // Try to get function doc comments to see if we have any <field static='true'> entries.
-            // For each entry, add field doc comments to the function object. 
+            // For each entry, add field doc comments to the function object.
 
             FunctionDocComments* funcDoc = nullptr;
             IfFailGo(this->GetFuncDocComments(alloc, func, &funcDoc));
@@ -1606,7 +1606,7 @@ namespace Authoring
     {
         METHOD_PREFIX;
 
-        // Executing the primary file may result in detecting new asynchrony script requests, which means that the context is 
+        // Executing the primary file may result in detecting new asynchrony script requests, which means that the context is
         // not complete. If detected, rebuild the context, and reparse the primary file and retry.
         hr = EnsureQuiescentContext([&]()->HRESULT
         {
@@ -1675,7 +1675,7 @@ namespace Authoring
     }
 
     template <class Handler>
-    struct ForEachPolicy: WalkerPolicyBase<bool, Handler> 
+    struct ForEachPolicy: WalkerPolicyBase<bool, Handler>
     {
         inline bool ContinueWalk(bool result) { return result; }
         bool WalkFirstChild(ParseNode *&pnode, Context context) { return context(pnode); }
@@ -1703,11 +1703,11 @@ namespace Authoring
         charcount_t ichMin;
         charcount_t ichLim;
 
-        ScopeSymbol(IdentPtr name, SymbolScopeKind kind, charcount_t ichMin, charcount_t ichLim): 
+        ScopeSymbol(IdentPtr name, SymbolScopeKind kind, charcount_t ichMin, charcount_t ichLim):
             name(name), kind(kind), ichMin(ichMin), ichLim(ichLim) { }
     };
 
-    
+
     template <typename THandler, typename TRecurse>
     void ProcessScopes(ParseNodePtr pnodeScopes, THandler handler, TRecurse recurseBlock)
     {
@@ -1740,7 +1740,7 @@ namespace Authoring
     //
     //  function bar(p_a) { var p_b; function foo(a, b) { var c = 1; with (d) { | } } }
     //
-    // would get transformed into 
+    // would get transformed into
     //
     //  function bar(p_a) { var p_b; function foo(a, b) { var _$with_1; var c = 1; with(_$with_1 = d) { { _$with_1: _$with_1, c: c, b: b, a: a, p_b: p_b, p_a: p_a, $isParameter: {a:true, b:true, p_a: true} } }
     //
@@ -1757,7 +1757,7 @@ namespace Authoring
 
             int withCounter = 1;
             wchar_t withTemp[] = L"_$with_ ";
-            Assert(AllocSize(withTemp) - 2 == 7); 
+            Assert(AllocSize(withTemp) - 2 == 7);
             wchar_t* withTempSlot = &withTemp[7]; // Using 7 instead of AllocSize(withTemp) - 2 here because using AllocSize() confuses PreFix.
             ParseNodePtr parent = nullptr;
 
@@ -1794,7 +1794,7 @@ namespace Authoring
                     add(decl->sxVar.pid, sskLocal, decl, current, nameMin, nameLim);
                 }
             };
-            
+
             // Find all the symbols in scope and store them in a symbol array marking what
             // kind of symbol it is (a local, parameter or a with expression).
 
@@ -1907,7 +1907,7 @@ namespace Authoring
                     break;
 
                 case knopWith:
-                    // Add the with expression by copying it into a unique local variable and then 
+                    // Add the with expression by copying it into a unique local variable and then
                     // capturing the local variable into the scope object.
                     if (current->sxWith.pnodeObj)
                     {
@@ -1918,16 +1918,16 @@ namespace Authoring
                         add(withTempName, sskWith, nullptr, nullptr, 0, 0);
 
                         // Replace the with expression with an assignment to the variable to capture the with value.
-                        current->sxWith.pnodeObj = parser->CreateBinNode(knopAsg, 
-                            parser->CreateNameNode(withTempName, current->sxWith.pnodeObj->ichMin, current->sxWith.pnodeObj->ichMin), 
+                        current->sxWith.pnodeObj = parser->CreateBinNode(knopAsg,
+                            parser->CreateNameNode(withTempName, current->sxWith.pnodeObj->ichMin, current->sxWith.pnodeObj->ichMin),
                             current->sxWith.pnodeObj);
                     }
                 }
 
                 auto betterParent = [&](ParseNodePtr node) {
-                    return containsCursor(node) && (node->nop == knopList || node->nop == knopBlock) ? node : nullptr; 
+                    return containsCursor(node) && (node->nop == knopList || node->nop == knopBlock) ? node : nullptr;
                 };
-                if ( !parent && (current != start || current->nop == knopWith || current->nop == knopProg) ) 
+                if ( !parent && (current != start || current->nop == knopWith || current->nop == knopProg) )
                 {
                     // Record the parent if we see a good potential parent.
                     switch (current->nop)
@@ -1943,14 +1943,14 @@ namespace Authoring
                         parent = betterParent(current->sxBlock.pnodeStmt);
                         break;
 
-                    case knopFncDecl: 
+                    case knopFncDecl:
                     case knopProg:
                         parent = betterParent(current->sxFnc.pnodeBody);
                         break;
 
                     case knopCase:
                         // A knopCase cannot be a parent unless it already has a body.
-                        if (!current->sxCase.pnodeBody) 
+                        if (!current->sxCase.pnodeBody)
                             continue;
 
                         parent = betterParent(current->sxCase.pnodeBody);
@@ -1989,7 +1989,7 @@ namespace Authoring
                     {
                         *members = pnode;
                     }
-                    else 
+                    else
                     {
                         *members = parser->CreateBinNode(knopList, *members, pnode);
                         members = &(*members)->sxBin.pnode2;
@@ -2014,13 +2014,13 @@ namespace Authoring
                             append(parser->CreateBinNode(knopMember, parser->CreateNameNode(CreatePidFromLiteral(parser, Names::isParameter)), parameters), literalMembers);
                         }
 
-                        append(parser->CreateBinNode(knopMember, parser->CreateNameNode(symbol->name), parser->CreateNode(knopTrue)), parametersMembers);                
+                        append(parser->CreateBinNode(knopMember, parser->CreateNameNode(symbol->name), parser->CreateNode(knopTrue)), parametersMembers);
                     }
 
                     // Record the offset of the node that defines the symbol in _$offsets
                     if (symbol->ichMin || symbol->ichLim)
                     {
-                        // If the symbol's span has a non-zero min offset or a non-zero lim offset 
+                        // If the symbol's span has a non-zero min offset or a non-zero lim offset
                         // (in the case that the symbol begins at offset 0), record the definition.
                         if (!offsetMembers)
                         {
@@ -2032,7 +2032,7 @@ namespace Authoring
                     }
                 }
 
-                // make sure the list is a statement list, and not a list of array values or object memebers
+                // make sure the list is a statement list, and not a list of array values or object members
                 auto isStatementList =  [&](ParseNodePtr pnode, ParseNodePtr parent) {
                     return pnode && pnode->nop == knopList && parent && parent->nop != knopArray && parent->nop != knopObject;
                 };
@@ -2082,6 +2082,20 @@ namespace Authoring
                         parent->sxCase.pnodeBody = parser->CreateBinNode(knopList, asgScope, parent->sxCase.pnodeBody);
                     }
                 }
+                else if (parent->nop == knopFncDecl && ASTHelpers::IsArgument(parent, start))
+                {
+                    if (parent->sxFnc.pnodeBody)
+                    {
+                        ApplyLocation(asgScope, parent->ichLim);
+                        parent->sxFnc.pnodeBody = parser->CreateBinNode(knopList, asgScope, parent->sxFnc.pnodeBody);
+                    }
+                    else
+                    {
+                        ApplyLocation(asgScope, parent->ichLim);
+                        parent->sxFnc.pnodeBody = asgScope;
+                    }
+                }
+
                 // Place the scope record after the child by replacing with a node containing both.
                 else if (child)
                 {
@@ -2290,7 +2304,7 @@ namespace Authoring
                                             Js::JavascriptFunction* getInstanceByTypeString = Js::JavascriptFunction::FromVar(getInstanceByTypeStringVar);
                                             Js::Var value = nullptr;
                                             ExecuteFunction(getInstanceByTypeString, arguments, &value);
-                                            
+
                                             while (value != nullptr && members.Count() > 0)
                                             {
                                                 value = JsHelpers::GetPropertyVar(Js::RecyclableObject::FromVar(value), members.Pop(), scriptContext);
@@ -2309,11 +2323,11 @@ namespace Authoring
                                     scriptContext->GetGlobalObject(),
                                     Convert::ToVar(param->type, m_scriptContext));
                                     IfFailGo(hr);
-                                    
+
                                 }
                             }
                         }
-                        
+
                         if (!(*objectLiteralCompletionAvailable))
                         {
                             if (function->GetFunctionBody() != nullptr)
@@ -2409,7 +2423,7 @@ namespace Authoring
         unsigned short argsCount = (unsigned short)(paramIndexOfCall + 2);
         for (int i = 0; i < paramIndexOfCall + 1; i++)
         {
-            // Since this is a heuristic anyway, the best guess argument value are 'true' values 
+            // Since this is a heuristic anyway, the best guess argument value are 'true' values
             // so that there is a check on the argument value, it is easier to get in those branches.
             targetFunctionArgs[i] = Convert::ToVar(true, function->GetScriptContext());
         }
@@ -2457,9 +2471,9 @@ namespace Authoring
 
         METHOD_POSTFIX;
     }
-    
-    static tokens rwss_version10[] = { tkBREAK, tkCASE, tkCATCH, tkCONTINUE, tkDEBUGGER, tkDEFAULT, tkDELETE, tkDO, tkELSE, tkFALSE, 
-        tkFINALLY, tkFOR, tkFUNCTION, tkIF, tkIN, tkINSTANCEOF, tkNEW, tkNULL, tkRETURN, tkSWITCH, tkTHIS, tkTHROW, tkTRUE, 
+
+    static tokens rwss_version10[] = { tkBREAK, tkCASE, tkCATCH, tkCONTINUE, tkDEBUGGER, tkDEFAULT, tkDELETE, tkDO, tkELSE, tkFALSE,
+        tkFINALLY, tkFOR, tkFUNCTION, tkIF, tkIN, tkINSTANCEOF, tkNEW, tkNULL, tkRETURN, tkSWITCH, tkTHIS, tkTHROW, tkTRUE,
         tkTRY, tkTYPEOF, tkVAR, tkVOID, tkWHILE, tkWITH };
     static tokens rwss_version11[] = { tkCONST, tkLET };
     static tokens rwss_version12[] = { tkCLASS, tkSUPER, tkEXTENDS };
@@ -2501,13 +2515,13 @@ namespace Authoring
 
             // Find the node that contains the cursor.
             ParseNodeCursor cursor(localArena, &m_primaryTree);
-            cursor.SeekToOffset(offset);            
+            cursor.SeekToOffset(offset);
 
             if (!cursor.RightOfDot())
             {
                 AddReservedWordList(completions, rwss_version10, sizeof(rwss_version10)/sizeof(rwss_version10[0]));
                 AddReservedWordList(completions, rwss_version11, sizeof(rwss_version11)/sizeof(rwss_version11[0]));
-                AddReservedWordList(completions, rwss_version12, sizeof(rwss_version12) / sizeof(rwss_version12[0]));                
+                AddReservedWordList(completions, rwss_version12, sizeof(rwss_version12) / sizeof(rwss_version12[0]));
             }
         }
 
@@ -2571,7 +2585,7 @@ namespace Authoring
     {
         Assert(scriptContext || IsScriptContextValid());
 
-        if (!scriptContext) 
+        if (!scriptContext)
             scriptContext = m_scriptContext;
 
         if (m_primaryFile && m_primaryFile->IsSourceAtIndex(scriptContext, sourceIndex))
@@ -2601,13 +2615,13 @@ namespace Authoring
     {
         Assert(callNode != nullptr);
 
-        if(callNode->nop != knopCall) 
+        if(callNode->nop != knopCall)
         {
             return;
         }
 
         // Adding a . operator to call target will force it to be loaded into a register.
-        // Since the call is not actually happening during execution we don't care that the target 
+        // Since the call is not actually happening during execution we don't care that the target
         // is always resolved as undefined.
         ParseNodePtr pnodeName = parser->CreateNameNode(CreatePidFromLiteral(parser, Names::dummy));
         pnodeName->ichMin = callNode->ichLim;
@@ -2693,7 +2707,7 @@ namespace Authoring
         Assert(IsScriptContextValid());
 
         // A function can have a _$doc property which points to a function containing the comments
-        auto docFunc = JsHelpers::GetProperty<Js::JavascriptFunction*>(func, Names::_doc, alloc, m_scriptContext);            
+        auto docFunc = JsHelpers::GetProperty<Js::JavascriptFunction*>(func, Names::_doc, alloc, m_scriptContext);
         if(docFunc)
             func = docFunc;
 
@@ -2706,7 +2720,7 @@ namespace Authoring
         {
             if(jsFuncBody->GetSource() && jsFuncBody->IsDynamicFunction())
             {
-                // This is a function defined via Function ctor, like this: 
+                // This is a function defined via Function ctor, like this:
                 //    new Function("param1", "param2", "return param1+param2")
                 TextBuffer js(alloc);
                 js.AddUtf8(jsFuncBody->GetSource(), jsFuncBody->LengthInChars());
@@ -2731,7 +2745,7 @@ namespace Authoring
 
         *result = nullptr;
 
-        AuthorDiagStatus unused = AuthorDiagStatus(); 
+        AuthorDiagStatus unused = AuthorDiagStatus();
         diagStatus = diagStatus ? diagStatus : &unused;
 
         Assert(IsScriptContextValid());
@@ -2784,12 +2798,12 @@ namespace Authoring
         Js::ParseableFunctionInfo *body = nullptr;
         if (function) body = function->GetParseableFunctionInfo();
 
-        if (!body) 
+        if (!body)
         {
             // ParseNode is not available for the function. This is going to be the case for native functions.
             *diagStatus = adsFunctionDeclarationUnavailable;
             return S_OK;
-        }       
+        }
 
         bool isValid = true;
         charcount_t functionStartPosition;
@@ -2798,7 +2812,7 @@ namespace Authoring
         charcount_t  functionEndPosition;
         srcFile->ForEachArgument(&localArena, m_scriptContext, function, [&](ParseNode* arg, bool isRest)
         {
-            if (isValid) 
+            if (isValid)
             {
                 if (arg->nop != knopVarDecl || !arg->sxVar.pid)
                     isValid = false;
@@ -2830,7 +2844,7 @@ namespace Authoring
             JsValueDoc* fieldDoc = nullptr;
             if (parentObject)
             {
-                // In case of a member function try to get the field doc comments as they might be used if function doc comments are not available. 
+                // In case of a member function try to get the field doc comments as they might be used if function doc comments are not available.
                 auto docRef = JsValueDoc::GetFieldDoc(&localArena, parentObject, name, m_scriptContext);
                 if (docRef && docRef->isDefinitionRef)
                 {
@@ -2891,7 +2905,6 @@ namespace Authoring
         case Js::TypeIds_String:
             return atString;
         case Js::TypeIds_Enumerator:
-        case Js::TypeIds_SafeArray:
         case Js::TypeIds_VariantDate:
         case Js::TypeIds_HostDispatch:
         case Js::TypeIds_Object:
@@ -2913,7 +2926,6 @@ namespace Authoring
         case Js::TypeIds_GlobalObject:
         case Js::TypeIds_ExtensionEnumerator:
         case Js::TypeIds_ModuleRoot:
-        case Js::TypeIds_SafeArrayObject:
         case Js::TypeIds_Arguments:
         case Js::TypeIds_ArrayIterator:
         case Js::TypeIds_MapIterator:
@@ -2937,7 +2949,7 @@ namespace Authoring
         ValidateArg(fileAuthoring || contextPath);
         ValidateArg(docCommentRef);
         Validate(docCommentRef->isDefinitionRef);
-        
+
         doc = nullptr;
         file = fileAuthoring ? fileAuthoring->GetAuthoringFileById(docCommentRef->fileId) : contextPath->GetAuthoringFileById(docCommentRef->fileId);
         if(file)
@@ -2946,7 +2958,7 @@ namespace Authoring
             auto comment = file->GetNodeComments(alloc, docCommentRef->pos, commenttypeAnyDoc);
             if(comment)
             {
-                // Field or a variable 
+                // Field or a variable
                 if(scope != ascopeMember)
                 {
                     Authoring::VarDocComments* varDoc = nullptr;
@@ -2957,10 +2969,10 @@ namespace Authoring
                     }
                 }
 
-                // Global variables are a special case. 
+                // Global variables are a special case.
                 // They may be accessed as a variable or as a field of the global object.
                 // They can be documented using <var> element above them or using intellisense.annotate in which case the doc comment will be a <field> element.
-                // So for global variables, when parsing as variable doc comment fails, and the doc comment is an annotation, try parsing as a field doc comment. 
+                // So for global variables, when parsing as variable doc comment fails, and the doc comment is an annotation, try parsing as a field doc comment.
                 if(scope == ascopeMember || (scope == ascopeGlobal && docCommentRef->annotation && !doc))
                 {
                     Authoring::FieldDocComments* fieldDoc = nullptr;
@@ -3041,14 +3053,14 @@ namespace Authoring
 
         if(jsParentObj)
         {
-            // Try to get field doc comments. 
+            // Try to get field doc comments.
             // Global variables also have field doc comments on the global object.
             fieldDoc = JsValueDoc::GetFieldDoc(alloc, jsParentObj, name, scriptContext);
         }
 
         if(fieldDoc)
         {
-            // Start with field doc comments if available. 
+            // Start with field doc comments if available.
             doc = fieldDoc;
         }
         else if (fileId > 0)
@@ -3077,15 +3089,15 @@ namespace Authoring
         // If doc comments were attached by <returns>, <param> or <var> try to use them.
         // If field doc comments were available, merge the information.
         // For example:
-        //      function A() { 
+        //      function A() {
         //          /// <returns type='A' />
         //      }
         //      ///<var>a variable</var>
         //      var a = A();
-        //      a| <= COMPLETION HINT WILL SHOW: A a, a variable 
+        //      a| <= COMPLETION HINT WILL SHOW: A a, a variable
         //                                       ^    ^----- DESCRIPTION FROM <var>
         //                                       |---------- TYPE FROM <returns>
-        //                                          
+        //
         if(attachedDoc && !attachedDoc->IsEmpty())
         {
             Assert(attachedDoc->isDefinitionRef == false);
@@ -3117,19 +3129,19 @@ namespace Authoring
         }
 
         symbolHelp->Initialize(
-            authorType, 
-            scope, 
-            doc ? doc->type : nullptr, 
-            name, 
-            doc ? doc->description : nullptr, 
-            doc ? doc->locid : nullptr, 
-            doc ? doc->elementType : nullptr, 
-            doc ? doc->helpKeyword : nullptr, 
-            doc ? doc->externalFile : nullptr, 
-            doc ? doc->externalid : nullptr, 
+            authorType,
+            scope,
+            doc ? doc->type : nullptr,
+            name,
+            doc ? doc->description : nullptr,
+            doc ? doc->locid : nullptr,
+            doc ? doc->elementType : nullptr,
+            doc ? doc->helpKeyword : nullptr,
+            doc ? doc->externalFile : nullptr,
+            doc ? doc->externalid : nullptr,
             deprecated,
             compatibleWith,
-            funcHelp, 
+            funcHelp,
             file && !(file->IsDisableRewrite()) ? file : nullptr);
 
         *result = symbolHelp;
@@ -3137,14 +3149,14 @@ namespace Authoring
         METHOD_POSTFIX;
     }
 
-    FileAuthoring::FileAuthoring(AuthoringFactory *factory, AuthoringServicesInfo *authoringServicesInfo, Js::ScriptContext *scriptContext, IAuthorFileContext *fileContext): 
+    FileAuthoring::FileAuthoring(AuthoringFactory *factory, AuthoringServicesInfo *authoringServicesInfo, Js::ScriptContext *scriptContext, IAuthorFileContext *fileContext):
     PhaseReporter(fileContext, authoringServicesInfo),
         SimpleComObjectWithAlloc<IAuthorFileAuthoring>(scriptContext->GetThreadContext()->GetPageAllocator(), L"ls: FileAuthoring"),
         m_contextAlloc(HeapNew(ArenaAllocator, L"ls: FileAuthoring", scriptContext->GetThreadContext()->GetPageAllocator(), Js::Throw::OutOfMemory)),
         m_factory(factory),
         m_rootScriptContext(scriptContext),
         m_leafScriptContext(NULL),
-        m_scriptContext(NULL), 
+        m_scriptContext(NULL),
         m_parseOnlyScriptContext(NULL),
         m_primaryFile(NULL),
         m_primaryTree(Alloc()),
@@ -3158,13 +3170,13 @@ namespace Authoring
         m_scriptContextPathComplete(false),
         _completionLists(Alloc()),
         m_diagCallback(NULL)
-    { 
-        m_fileContext->AddRef(); 
+    {
+        m_fileContext->AddRef();
         authoringServicesInfo->RegisterFileAuthoring(this);
     }
 
     void FileAuthoring::OnDelete()
-    { 
+    {
         if (m_authoringServicesInfo)
         {
             m_authoringServicesInfo->UnregisterFileAuthoring(this);
@@ -3188,7 +3200,7 @@ namespace Authoring
         // Assume Completions object is calling RemoveCompletionList upon disposal.
         while(_completionLists.Count())
             _completionLists.Item(_completionLists.Count() - 1)->EngineClosing();
-       
+
         this->OnDelete();
     }
 
@@ -3307,7 +3319,7 @@ namespace Authoring
             STDMETHOD_PREFIX;
 
             ValidateArg(prefixes);
-            
+
             for (unsigned int i = 0; i < count; i++)
             {
                 ValidateArg(prefixes[i].taskCommentPrefixText)
@@ -3380,23 +3392,23 @@ namespace Authoring
                     {
                         if (*cursor == '\r' || *cursor == '\n')
                         {
-                            // At this point buffer[i] = '\r' (or '\n'), buffer[begin] = 'T', so the span should start with begin and 
+                            // At this point buffer[i] = '\r' (or '\n'), buffer[begin] = 'T', so the span should start with begin and
                             // the length is given by i - begin
-                            // 
+                            //
                             // For example, consider
-                            // 
+                            //
                             // // TODO: Hello\r
                             // 0123456789ABCDE
                             //    ^          ^
-                            // 
+                            //
                             // offset = 3
                             // length = 14 - 3 = 11
-                            // 
-                            // Of course, begin is the offset with respect to the comment, we need to return the offset 
+                            //
+                            // Of course, begin is the offset with respect to the comment, we need to return the offset
                             // with respect to the document.
-                            // 
+                            //
                             // The 2 is due to the fact that comment table actually remove the /* or // from the buffer.
-                            // 
+                            //
                             taskComments->Add(min + begin + 2, i - begin, priority);
                             state = STATE_LINE_START;
                         }
@@ -3449,7 +3461,7 @@ namespace Authoring
         ParseNodeVisitor<RegionPreorderAddPolicy> visitor;
         RegionPreorderAddContext context(regions, m_primaryTree.LanguageServiceExtension());
         visitor.Visit(m_primaryTree.TreeRoot(), &context);
-        
+
         for (CommentTableIterator* commentIterator = this->GetPrimaryFile()->GetCommentTable()->GetIterator(/* groupAdjacentComments = */true); commentIterator->HasNext(); commentIterator->MoveNext())
         {
             int min, lim;
@@ -3545,10 +3557,14 @@ namespace Authoring
             return false;
         }
 
+        
         switch (current->nop)
         {
-            
         case knopStr:
+            {
+                ParseNodePtr parent = cursor->Parent();
+                return parent != nullptr && parent->nop == knopMember && *completionRangeMode == LanguageServiceExtension::CompletionRangeMode::ObjectLiteralNames;
+            }
         case knopInt:
         case knopFlt:
         case knopRegExp:
@@ -3557,17 +3573,17 @@ namespace Authoring
         case knopSetMember:
            return false;
         case knopDot:
-            // Check if the dot operator is following a numerical literal or an erroneous expression something 
-            // like "while().", which results in an operator dot, with an error node at the left side.  
-            if (current->sxBin.pnode1 && 
+            // Check if the dot operator is following a numerical literal or an erroneous expression something
+            // like "while().", which results in an operator dot, with an error node at the left side.
+            if (current->sxBin.pnode1 &&
                 (cursor->IsErrorNode(current->sxBin.pnode1) || cursor->IsNumericLiteral(current->sxBin.pnode1)))
                 return false;
             // intended fall through
         default:
             {
                 ParseNodePtr parent = cursor->Parent();
-                // Something like "while().", which results in an operator dot, with an error node at the left side.  
-                if(parent && parent->nop == knopDot && 
+                // Something like "while().", which results in an operator dot, with an error node at the left side.
+                if(parent && parent->nop == knopDot &&
                     parent->sxBin.pnode1 != nullptr && cursor->IsErrorNode(parent->sxBin.pnode1))
                 {
                     return false;
@@ -3590,7 +3606,7 @@ namespace Authoring
             return true;
         }
 
-        // Do not include token ichMin to support function help in a case like:  f(|'').  
+        // Do not include token ichMin to support function help in a case like:  f(|'').
         if (current->ichMin == cursor->Offset())
         {
             return true;
@@ -3652,7 +3668,7 @@ namespace Authoring
 #ifdef DEBUG
         IfFailGo(TestHasActiveCursors());
 #endif
-        
+
         {
             // Create a bit vector to ensure we don't return duplicates
             ArenaAllocator localArena(L"ls: Completions", m_rootScriptContext->GetThreadContext()->GetPageAllocator(), Js::Throw::OutOfMemory);
@@ -3679,7 +3695,7 @@ namespace Authoring
                     UpdateExtent(completions, current, m_primaryTree.LanguageServiceExtension());
                 else
                     completions->SetExtent(offset, 0);
-                
+
                 bool isObjectLiteral = (cursor.Current() != nullptr && cursor.Current()->nop == knopObject) || completionRangeMode == LanguageServiceExtension::CompletionRangeMode::ObjectLiteralNames;
 
                 if (flags & acfImplicitRequest)
@@ -3756,7 +3772,7 @@ namespace Authoring
                     {
                         Assert(IsScriptContextValid());
 
-                        // The previous cursor might not be valid because one of the above calls could cause a 
+                        // The previous cursor might not be valid because one of the above calls could cause a
                         // reparse. This can happen, for example, when the primary file invokes a script loader.
                         ParseNodeCursor cursor(&localArena, &m_primaryTree);
                         cursor.SeekToOffset(offset);
@@ -3778,14 +3794,14 @@ namespace Authoring
         Output::Print(L"Primary instruction executed: %d\n", InstructionsExecuted(m_scriptContext));
 #endif
 #endif
-        
-        // Define FORCE_LS_RECYCLING to diagnose garbage collection related issues in the language service. This forces garbage collection to occur 
+
+        // Define FORCE_LS_RECYCLING to diagnose garbage collection related issues in the language service. This forces garbage collection to occur
         // when all the lifetimes have been extended.
 #ifdef FORCE_LS_RECYCLING
         m_scriptContext->GetThreadContext()->GetRecycler()->CollectNow<CollectionFlags::CollectNowForceInThread>();
 #endif
         *result = completions.Detach();
-        
+
         STDMETHOD_POSTFIX_CLEAN_START;
         Phase(afpDormant);
         DecommitUnusedPages();
@@ -3881,7 +3897,7 @@ Error:
             AuthorScope scope = ascopeUnknown;
             bool found = false;
             auto fileAuthoring = this;
-            IfFailGo(GetSingleCompletion(&localArena, fileAuthoring, offset, name, [&](Completions::InternalCompletion* completion) 
+            IfFailGo(GetSingleCompletion(&localArena, fileAuthoring, offset, name, [&](Completions::InternalCompletion* completion)
             {
                 if (completion && completion->hintInfo)
                 {
@@ -3922,8 +3938,8 @@ Error:
         if (m_progress && m_hurrySkipped < HURRY_SKIP_LIMIT)
         {
             // Using an intellisense extension the executing code indicates that it is actually making progress and is not
-            // stuck in an infinite loop. We should give it more time to execute. Record that we saw the progress and then 
-            // continue as if hurry wasn't called. We will eventually ignore progress calls as the code might be wrong about 
+            // stuck in an infinite loop. We should give it more time to execute. Record that we saw the progress and then
+            // continue as if hurry wasn't called. We will eventually ignore progress calls as the code might be wrong about
             // making progress.
             m_hurrySkipped++;
             m_progress = false;
@@ -3935,7 +3951,7 @@ Error:
         m_hurryCalled = true;
 
         // Protecting this clause with a critical section. This check and access of m_currentProbe is a race condition,
-        // because Hurry() is called from a separate thread. 
+        // because Hurry() is called from a separate thread.
         AutoCriticalSection autocs(&hurryCriticalSection);
         if (m_currentProbe && m_executingContext && (phaseId == 0 || phaseId == m_phaseId))
         {
@@ -4040,7 +4056,7 @@ Error:
         IfFailGo(UpdatePrimary(true));
 
         // Introduce scope
-        { 
+        {
             // Find the node that contains the cursor.
             ParseNodeCursor cursor(alloc, &m_primaryTree);
             cursor.SeekToOffset(offset);
@@ -4100,10 +4116,10 @@ Error:
     STDMETHODIMP FileAuthoring::GetFunctionHelp(
         __in long offset,
         __in AuthorFunctionHelpFlags flags,
-        __out_ecount(1) DWORD *currentParameterIndex, 
+        __out_ecount(1) DWORD *currentParameterIndex,
         __inout_opt AuthorFileRegion *extent,
         __out AuthorDiagStatus *diagStatus,
-        __out IAuthorFunctionHelp **result 
+        __out IAuthorFunctionHelp **result
         )
     {
         return DebugApiWrapper([&]
@@ -4139,7 +4155,7 @@ Error:
         ArenaAllocator localArena(L"ls:GetFunctionHelp", m_rootScriptContext->GetThreadContext()->GetPageAllocator(), Js::Throw::OutOfMemory);
 
         // Introduce scope
-        { 
+        {
             // Find the node that contains the cursor.
             ParseNodeCursor cursor(&localArena, &m_primaryTree);
             cursor.SeekToOffset(offset);
@@ -4159,7 +4175,7 @@ Error:
                 return S_OK;
             }
 
-            ParseNode* funcOrProgNode = cursor.Up(IsFuncDeclOrProg); 
+            ParseNode* funcOrProgNode = cursor.Up(IsFuncDeclOrProg);
             if(!funcOrProgNode)
             {
                 // No parent function / program
@@ -4226,9 +4242,9 @@ Error:
             Js::Var callTargetValue = nullptr;
             Js::RecyclableObject* parentObject = nullptr;
 
-            // Executing the primary file may result in detecting new asynchrony script requests, which means that the context is 
+            // Executing the primary file may result in detecting new asynchrony script requests, which means that the context is
             // not complete. If detected, retry.
-            hr = EnsureQuiescentContext([&]()->HRESULT 
+            hr = EnsureQuiescentContext([&]()->HRESULT
             {
                 INTERNALMETHOD_PREFIX;
 
@@ -4242,7 +4258,7 @@ Error:
 
             if (!callTargetValue)
             {
-                *diagStatus = adsNoEvaluationResult; 
+                *diagStatus = adsNoEvaluationResult;
                 return S_OK;
             }
 
@@ -4257,15 +4273,15 @@ Error:
             IfFailGo(TestAbort());
 
             IfFailGo(GetFunctionHelp(localFuncAlias, funcObj, parentObject, diagStatus, result));
-            
+
             // No function help returned
-            if(!(*result)) 
+            if(!(*result))
                 return S_OK;
 
             Assert(IsScriptContextValid());
-            
+
             LangSvcExtensibility extensibility(&localArena, m_scriptContext, this);
-            extensibility.FireOnParameterHelp(m_rootScriptContext->GetThreadContext()->GetPageAllocator(), 
+            extensibility.FireOnParameterHelp(m_rootScriptContext->GetThreadContext()->GetPageAllocator(),
                 *result, offset, Js::JavascriptFunction::FromVar(callTargetValue), parentObject);
         }
 
@@ -4342,7 +4358,7 @@ Error:
                 *fileId = this->GetFileIdOf(body->GetSourceIndex());
 
                 // Parse the function to see if we can find a better location for the name.
-            
+
                 AuthoringFileHandle* handle = GetAuthoringFileById(*fileId);
                 if (handle)
                 {
@@ -4413,7 +4429,7 @@ Error:
             auto name = AllocInternalString(&localArena, parseNode->sxPid.pid, true);
             bool found = false;
 
-            IfFailGo(GetSingleCompletion(&localArena, this, offset, name, [&](Completions::InternalCompletion* completion) 
+            IfFailGo(GetSingleCompletion(&localArena, this, offset, name, [&](Completions::InternalCompletion* completion)
             {
                 if (completion && completion->hintInfo)
                 {
@@ -4432,9 +4448,9 @@ Error:
             {
                 if (fileId <= 0 &&
                     !TryToGetLocationFromFieldDefinition(&localArena, parentObject, name, &fileId, &sourceOffset) &&
-                    value && 
+                    value &&
                     Js::RecyclableObject::Is(value))
-                {               
+                {
                     auto instance = Js::RecyclableObject::FromVar(value);
 
                     if (!TryToGetLocationFromObjectDefinitionLocation(&localArena, instance, &fileId, &sourceOffset) &&
@@ -4583,7 +4599,7 @@ Error:
 
         // Collect the static structure before any modifications are made for execution.
         AddStaticStructure(structure, &local, m_primaryTree.TreeRoot());
-        
+
         // Execute the primary script and then collect the results of the execution.
         Assert(IsScriptContextValid());
 

@@ -503,6 +503,7 @@ public:
 private:
     bool usesAuxSlot : 1;
     Js::PropertyIndex slotIndex;
+    uint16 checkedTypeSetIndex;
 
 public:
     union
@@ -718,6 +719,18 @@ public:
     {
         Assert(HasObjTypeSpecFldInfo());
         slotIndex = index;
+    }
+
+    uint16 GetCheckedTypeSetIndex() const
+    {
+        Assert(HasEquivalentTypeSet());
+        return checkedTypeSetIndex;
+    }
+
+    void SetCheckedTypeSetIndex(uint16 index)
+    {
+        Assert(HasEquivalentTypeSet());
+        checkedTypeSetIndex = index;
     }
 
     Js::PropertyId GetPropertyId() const

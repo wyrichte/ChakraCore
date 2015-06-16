@@ -99,7 +99,8 @@ public:
     void SetObjectMarkedBit(void* objectAddress) override;
     bool FindHeapObject(void* objectAddress, Recycler * recycler, FindHeapObjectFlags flags, RecyclerHeapObjectInfo& heapObject) override;
     virtual size_t GetObjectSize(void* object) override;
-    
+    bool FindImplicitRootObject(void* objectAddress, Recycler * recycler, RecyclerHeapObjectInfo& heapObject);
+
     size_t GetPageCount() const { return pageCount; }
     LargeHeapBlock * GetNextBlock() { return next; }
     void SetNextBlock(LargeHeapBlock * next) { this->next = next; }

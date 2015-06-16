@@ -3,6 +3,14 @@
 
 <test>
   <default>
+    <files>bug_os2938261.js</files>
+    <compile-flags>-ls</compile-flags>
+    <tags>BugFix,exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+  </default>
+</test>
+
+<test>
+  <default>
     <files>react.js</files>
     <compile-flags>-ls -autogs</compile-flags>
     <baseline>react.baseline</baseline>
@@ -69,6 +77,30 @@
 <test>
   <default>
     <files>execution_object_literal_intellisense_2.js</files>
+    <compile-flags>-ls</compile-flags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+  </default>
+</test>
+
+<test>
+  <default>
+    <files>execution_object_literal_intellisense_3.js</files>
+    <compile-flags>-ls</compile-flags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+  </default>
+</test>
+
+<test>
+  <default>
+    <files>execution_object_literal_intellisense_4.js</files>
+    <compile-flags>-ls</compile-flags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+  </default>
+</test>
+
+<test>
+  <default>
+    <files>class_member_should_not_trigger_intellisense.js</files>
     <compile-flags>-ls</compile-flags>
     <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
   </default>
@@ -1282,6 +1314,14 @@
 <test>
   <default>
     <files>bug_os2559521.js</files>
+    <command>jshost.exe</command>
+    <compile-flags>-ls</compile-flags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,BugFix</tags>
+  </default>
+</test>
+<test>
+  <default>
+    <files>bug_osg2784928.js</files>
     <command>jshost.exe</command>
     <compile-flags>-ls</compile-flags>
     <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,BugFix</tags>

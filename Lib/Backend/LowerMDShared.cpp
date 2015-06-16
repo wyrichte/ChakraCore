@@ -5953,7 +5953,7 @@ LowererMD::SaveDoubleToVar(IR::RegOpnd * dstOpnd, IR::RegOpnd *opndFloat, IR::In
         symVTableDst = IR::SymOpnd::New(tempNumberSym, TyMachPtr, this->m_func);
         symDblDst = IR::SymOpnd::New(tempNumberSym, (uint32)Js::JavascriptNumber::GetValueOffset(), TyFloat64, this->m_func);
         symTypeDst = IR::SymOpnd::New(tempNumberSym, (uint32)Js::JavascriptNumber::GetOffsetOfType(), TyMachPtr, this->m_func);
-        if (this->m_lowerer->outterMostLoopLabel == null)
+        if (this->m_lowerer->outerMostLoopLabel == null)
         {
             // If we are not in loop, just insert in place
             numberInitInsertInstr = instrInsert;
@@ -5962,7 +5962,7 @@ LowererMD::SaveDoubleToVar(IR::RegOpnd * dstOpnd, IR::RegOpnd *opndFloat, IR::In
         {
             // Otherwise, initialize in the outter most loop top if we haven't initailize it yet.
             numberInitInsertInstr = this->m_lowerer->initializedTempSym->TestAndSet(tempNumberSym->m_id) ? 
-                null : this->m_lowerer->outterMostLoopLabel;
+                null : this->m_lowerer->outerMostLoopLabel;
         }
     }
     else
@@ -8527,7 +8527,6 @@ LowererMD::LowerFloatCondBranch(IR::BranchInstr *instrBranch, bool ignoreNan)
     //  Jcc $L
 
     instr = IR::BranchInstr::New(brOpcode, instrBranch->GetTarget(), func);
-    instr->AsBranchInstr()->m_isLoopTail = instrBranch->m_isLoopTail;
     instrBranch->InsertBefore(instr);
 
     instrBranch->Remove();

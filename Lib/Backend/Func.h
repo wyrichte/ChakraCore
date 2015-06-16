@@ -139,6 +139,7 @@ public:
       isGetterSetter(isGetterSetter),
       frameInfo(nullptr),
       isTJLoopBody(false),
+      isFlowGraphValid(false),
 #if DBG
       m_callSiteCount(0),
 #endif
@@ -697,6 +698,7 @@ public:
     bool                hasImplicitCalls: 1;
     bool                hasTempObjectProducingInstr:1; //Atleast one instruction which can produce temp object
     bool                isTJLoopBody : 1;
+    bool                isFlowGraphValid : 1;
 #if DBG
     bool                hasCalledSetDoFastPaths:1;
     bool                isPostLower:1;

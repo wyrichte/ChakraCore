@@ -88,7 +88,7 @@ namespace Authoring
     }
 
     /// Force the execution of Catch statements, through rewriting the tree.
-    /// The catch body is wrapped in a function and called within the try body.
+    /// We will force throwing a javascript exception - which will trigger the catch body execution
     ///
     /// A try/catch statement like this:
     ///     try {
@@ -101,15 +101,15 @@ namespace Authoring
     /// Should be transformed to:
     ///     try {
     ///              sxTry.pnodeBody
-    ///              (function (e) { sxCatch.pnodeBody }).call(new Error());
+    ///              _$forceCatchException(new Error())
     ///     }
     ///     catch (e) {
+    ///            sxCatch.pnodeBody
     ///     }
     ///
-    /// This is complicated because the AST has a scope thread that parallels the main AST edges that needs to be kept up to date as well.
-    /// Any scopes in the catch must be moved into the new function and out of the catch. Any vars declared in the catch must be moved
-    /// into the new function and out of the old function. In ES5 mode (non-block scope functions), the functions must also be moved from
-    /// the parent function to the new function. In ES6 modes, this happens when the block scopes are moved.
+    /// by _$forceCatchException(new Error()) - we are trying to mimic 'throw new Error();' as Language service have suppressed all 'throw's 
+    /// so we need to call helper function do that.
+
     void DirectExecution::ForceCatch(Parser* parser, ParseNode* pnodeTryCatch, ParseNode* pnodeParentFunction)
     {
         Assert(parser);
@@ -117,17 +117,10 @@ namespace Authoring
         Assert(pnodeParentFunction && (pnodeParentFunction->nop == knopFncDecl || pnodeParentFunction->nop == knopProg));
 
         ParseNode* pnodeTry = pnodeTryCatch->sxTryCatch.pnodeTry;
-        ParseNode* pnodeCatch = pnodeTryCatch->sxTryCatch.pnodeCatch;
 
-        Assert(pnodeTry != NULL && pnodeCatch != NULL);
+        Assert(pnodeTry != nullptr && pnodeTryCatch->sxTryCatch.pnodeCatch != nullptr);
 
-        // get the min and lim before the transformation
-        // Note: the wrapper function body should maintain the same min and lim as the catch body to allow 
-        //       for rewriting nested catches.
-        charcount_t catchIchMin = ActualMin(pnodeCatch);
-        charcount_t catchIchLim = ActualLim(pnodeCatch);
-
-        // locate the try and catch bodies
+        // locate the try body
         ParseNode** pnodeTryBody = nullptr;
         ParseNode* pnodeParentScope = nullptr;
         if (pnodeTry->sxTry.pnodeBody && pnodeTry->sxTry.pnodeBody->nop == knopBlock)
@@ -138,167 +131,31 @@ namespace Authoring
             pnodeParentScope = tryBlock; 
         }
         AssertMsg(pnodeTryBody, "ForceCatch couldn't find the try body");
-
-        ParseNode* pnodeCatchBlock = pnodeCatch->sxCatch.pnodeBody;
-        if (pnodeCatchBlock && pnodeCatchBlock->nop != knopBlock) pnodeCatchBlock = nullptr;
-        AssertMsg(pnodeCatchBlock, "ForceCatch couldn't find the catch body");
-
-        // If we cannot find the try and catch bodies we cannot rewrite. It is better to return no results than crash, so just don't rewrite.
-        if (!pnodeTryBody || !pnodeCatchBlock) return;
-
-        // Create the scope for the new function that contains all the scopes that are currently in the catch. In ES5 (non-block scope functions) 
-        // the functions are in the parent function scope, not in the catch block's scope so we need to check there as well.
-
-        // Find and move the functions for ES5 (non-block scope functions)
-        ParseNodePtr pnodeNewFncScope = nullptr;
-        ParseNodePtr* ppnodeNewFncScope = &pnodeNewFncScope;
-        ParseNodePtr* ppnodeScope = pnodeParentFunction->nop == knopProg
-                                    ? pnodeParentFunction->sxFnc.GetParamScopeRef()
-                                    : pnodeParentFunction->sxFnc.GetBodyScopeRef();
-        while (*ppnodeScope)
+        if (pnodeTryBody == nullptr)
         {
-            auto nop = (*ppnodeScope)->nop;
-            if (nop == knopFncDecl && ContainsNode(pnodeCatch, *ppnodeScope))
-            {
-                *ppnodeNewFncScope = *ppnodeScope;
-                ppnodeNewFncScope  = &((*ppnodeScope)->sxFnc.pnodeNext);
-
-                *ppnodeScope = (*ppnodeScope)->sxFnc.pnodeNext;
-                continue;
-            }
-
-            ppnodeScope = ASTHelpers::Scope::GetNextRef(*ppnodeScope);
+            // If we cannot find the try body it is better to return no results than crash.
+            return;
         }
 
-        // Attach the catch block to the scope.
-        *ppnodeNewFncScope = pnodeCatchBlock;
-
-        // Build the var list for the new function by removing all vars that are in the catch from the old
-        // function and put them into the new one.
-        ParseNodePtr pnodeNewVarThread = nullptr;
-        ParseNodePtr* pnodeNewVarThreadEnd = &pnodeNewVarThread;
-        ParseNodePtr* pnodeParentVars = &pnodeParentFunction->sxFnc.pnodeVars;
-
-        ArenaAllocator localArena(L"ls: ForceCatch", parser->GetScriptContext()->GetThreadContext()->GetPageAllocator(), Js::Throw::OutOfMemory);
-        JsUtil::BaseHashSet<IdentPtr, ArenaAllocator> functionsDeclaredOutsideCatchBlock(&localArena, 0);
-        bool filledFuncDeclSet = false;
-        
-        while (*pnodeParentVars)
-        {
-            ParseNodePtr current = *pnodeParentVars;
-            if (current->sxVar.isBlockScopeFncDeclVar)
-            {
-                if (!filledFuncDeclSet)
-                {
-                    ASTHelpers::Scope::TraverseBlocksExcept(pnodeParentFunction->sxFnc.pnodeScopes, pnodeCatch->sxCatch.pnodeBody, [&](ParseNodePtr pnodeScopeNode) {
-                        if (pnodeScopeNode->nop == knopFncDecl)
-                            functionsDeclaredOutsideCatchBlock.AddNew(pnodeScopeNode->sxFnc.pid);
-                    });
-                    filledFuncDeclSet = true;
-                }
-
-                if (!functionsDeclaredOutsideCatchBlock.ContainsKey(current->sxVar.pid))
-                {
-                    // Otherwise, the function was only declared within our catch block and we are about to move it out.
-                    // Therefore we need to remove the current var declaration since it is no longer needed in the parent function.
-                    *pnodeParentVars = current->sxVar.pnodeNext;
-                    current->sxVar.pnodeNext = nullptr;
-                }
-                else
-                    pnodeParentVars = &current->sxVar.pnodeNext;
-            }
-            else if (ContainsNode(pnodeCatch, current))
-            {
-                // Remove the var from the parents var list.
-                *pnodeParentVars = current->sxVar.pnodeNext;
-                current->sxVar.pnodeNext = nullptr;
-
-                // Add the var to the new functions var list.
-                *pnodeNewVarThreadEnd = current;
-                pnodeNewVarThreadEnd = &current->sxVar.pnodeNext;
-            }
-            else
-                pnodeParentVars = &current->sxVar.pnodeNext;
-        }
+        charcount_t tryBodyIchLim = ActualLim(pnodeTry);
 
         ASTBuilder<> ast(parser, pnodeParentFunction);
-        ast.SetScope(pnodeParentScope);
-        ast.SetExtent(catchIchLim, catchIchLim);
-        ParseNodePtr pnodeCallArguments = ast.List(
-                                ast.This(), 
-                                ast.New(
-                                    ast.Name(Names::Error), 
-                                    nullptr
-                                    )
-                                );
+        ast.SetExtent(tryBodyIchLim, tryBodyIchLim);
 
-        ParseNodePtr pnodeFormalArguments = nullptr;
-        if (pnodeCatch->sxCatch.pnodeParam)
+        // constructing - _$forceCatchException(new Error())
+        auto pnodeCallNode = ast.Call(
+            ast.Name(Names::forceCatchException),
+            ast.New(ast.Name(Names::Error), nullptr));
+
+        if (*pnodeTryBody != nullptr)
         {
-            ast.SetExtentAs(pnodeCatch->sxCatch.pnodeParam);
-            pnodeFormalArguments = ast.Param(pnodeCatch->sxCatch.pnodeParam->sxPid.pid);
-        }
-
-        ast.SetExtent(catchIchMin, catchIchLim);
-        auto pnodeNewFunctionNode =  ast.Function(
-                                nullptr, 
-                                pnodeCatchBlock, 
-                                pnodeNewFncScope, 
-                                ast.List(
-                                    pnodeFormalArguments));
-        auto pnodeCallNode   = ast.Call(
-                                ast.Dot(
-                                    pnodeNewFunctionNode,
-                                    ast.Name(Names::call)
-                                    ),
-                                pnodeCallArguments);
-        pnodeNewFunctionNode->sxFnc.pnodeVars = pnodeNewVarThread;
-
-        // Adjust the nested count of the parent
-        // The catch body may have functions defined in it. The newly created function nested count is the number of function defined in the catch body
-        // And since we are moving the catch body to the new function, we should remove the functions from the nested function count of the parent.
-        Assert(pnodeParentFunction->sxFnc.nestedCount >= pnodeNewFunctionNode->sxFnc.nestedCount);
-        ASTHelpers::Scope::SetNestedCount(parser, pnodeParentFunction, pnodeParentFunction->sxFnc.nestedCount - pnodeNewFunctionNode->sxFnc.nestedCount);
-
-        // If the parent function has a node that calls eval() it might be in the code we moved. If so we need to mark the new function as calling eval.
-        if (pnodeParentFunction->nop == knopProg || pnodeParentFunction->sxFnc.CallsEval())
-        {
-            bool evalCallFound = false;
-            
-            ASTHelpers::Visit(pnodeNewFunctionNode->sxFnc.pnodeBody, [&](ParseNodePtr pnode) -> bool {
-                switch (pnode->nop) 
-                {
-                case knopCall:
-                    if (pnode->sxCall.isEvalCall)
-                        evalCallFound = true;
-                    break;
-                case knopFncDecl:
-                    return false;
-                }
-                return !evalCallFound;
-            });
-
-            if (evalCallFound)
-                pnodeNewFunctionNode->sxFnc.SetCallsEval(true);
-        }
-
-        // add the call to the try statment
-        if (*pnodeTryBody != NULL)
-        {
-            ast.SetExtent(pnodeTry->ichMin, catchIchLim);
-            *pnodeTryBody = ast.List( *pnodeTryBody, pnodeCallNode);
+            ast.SetExtent(pnodeTry->ichMin, tryBodyIchLim);
+            *pnodeTryBody = ast.List(*pnodeTryBody, pnodeCallNode);
         }
         else
         {
             *pnodeTryBody = pnodeCallNode;
         }
-        pnodeTry->ichLim = catchIchLim;
-
-        // Now replace the catch body with an empty block.
-        ast.SetExtent(catchIchLim);
-        auto newBlock = ast.Block();
-        pnodeCatch->sxCatch.pnodeBody = newBlock;
-        pnodeCatch->sxCatch.pnodeScopes = newBlock;
     }
 
     bool DirectExecution::Preorder(ParseNode* pnode, Context context)

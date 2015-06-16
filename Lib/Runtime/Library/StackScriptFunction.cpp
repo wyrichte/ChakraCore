@@ -192,7 +192,7 @@ namespace Js
                 {
                     Assert(!hasInlineeToBox);
                     
-                    Assert(interpreterFrame->GetJavascriptFunction() == caller);
+                    Assert(StackScriptFunction::GetCurrentFunctionObject(interpreterFrame->GetJavascriptFunction()) == caller);
 
                     if (callerFunctionBody->DoStackFrameDisplay())
                     {

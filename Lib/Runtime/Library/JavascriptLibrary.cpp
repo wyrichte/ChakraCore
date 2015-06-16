@@ -340,7 +340,7 @@ namespace Js
                 DynamicType::New(scriptContext, TypeIds_BooleanObject, objectPrototype, nullptr,
                 DeferredTypeHandler<InitializeBooleanPrototype>::GetDefaultInstance()));
 
-            double initDateValue = JavascriptNumber::NaN;            
+            double initDateValue = JavascriptNumber::NaN;
 
             datePrototype = RecyclerNewZ(recycler, JavascriptDate, initDateValue,
                 DynamicType::New(scriptContext, TypeIds_Date, objectPrototype, nullptr,
@@ -399,7 +399,7 @@ namespace Js
             errorPrototype = RecyclerNew(this->GetRecycler(), JavascriptError,
                 DynamicType::New(scriptContext, TypeIds_Error, objectPrototype, nullptr,
                 DeferredTypeHandler<InitializeErrorPrototype>::GetDefaultInstance()),
-                /*isExternalError*/FALSE, /*isPrototype*/TRUE);            
+                /*isExternalError*/FALSE, /*isPrototype*/TRUE);
 
             evalErrorPrototype = RecyclerNew(this->GetRecycler(), JavascriptError,
                 DynamicType::New(scriptContext, TypeIds_Error, errorPrototype, nullptr,
@@ -614,7 +614,7 @@ namespace Js
         typeErrorType = DynamicType::New(scriptContext, TypeIds_Error, typeErrorPrototype, nullptr,
             SimplePathTypeHandler::New(scriptContext, scriptContext->GetRootPath(), 0, 0, 0, true, true), true, true);
         uriErrorType = DynamicType::New(scriptContext, TypeIds_Error, uriErrorPrototype, nullptr,
-            SimplePathTypeHandler::New(scriptContext, scriptContext->GetRootPath(), 0, 0, 0, true, true), true, true);      
+            SimplePathTypeHandler::New(scriptContext, scriptContext->GetRootPath(), 0, 0, 0, true, true), true, true);
 
         if (config->IsWinRTEnabled())
         {
@@ -690,7 +690,7 @@ namespace Js
         {
             functionTypeHandler = NullTypeHandler<false>::GetDefaultInstance();
         }
-       
+
         if (config->IsES6FunctionNameEnabled())
         {
             functionWithPrototypeTypeHandler = &SharedFunctionWithPrototypeTypeHandler;
@@ -700,7 +700,7 @@ namespace Js
             functionWithPrototypeTypeHandler = &SharedFunctionWithPrototypeTypeHandlerV11;
         }
         functionWithPrototypeTypeHandler->SetHasKnownSlot0();
-        
+
         externalFunctionWithDeferredPrototypeType = CreateDeferredPrototypeFunctionType(JavascriptExternalFunction::ExternalFunctionThunk, true);
         wrappedFunctionWithDeferredPrototypeType = CreateDeferredPrototypeFunctionType(JavascriptExternalFunction::WrappedFunctionThunk, true);
         stdCallFunctionWithDeferredPrototypeType = CreateDeferredPrototypeFunctionType(JavascriptExternalFunction::StdCallExternalFunctionThunk, true);
@@ -733,7 +733,7 @@ namespace Js
         numberTypeDynamic = DynamicType::New(scriptContext, TypeIds_NumberObject, numberPrototype, nullptr, NullTypeHandler<false>::GetDefaultInstance(), true, true);
 
 #ifdef SIMD_JS_ENABLED
-        // SIMD 
+        // SIMD
         // Initialize types
         if (Js::Configuration::Global.flags.Simdjs)
         {
@@ -777,7 +777,7 @@ namespace Js
         // Initialize regex types
         TypePath *const regexResultPath = TypePath::New(recycler);
         regexResultPath->Add(BuiltInPropertyRecords::input);
-        regexResultPath->Add(BuiltInPropertyRecords::index);        
+        regexResultPath->Add(BuiltInPropertyRecords::index);
         regexResultType = DynamicType::New(scriptContext, TypeIds_Array, arrayPrototype, nullptr,
             SimplePathTypeHandler::New(scriptContext, regexResultPath, regexResultPath->GetPathLength(), JavascriptRegularExpressionResult::InlineSlotCount, sizeof(JavascriptArray), true, true), true, true);
 
@@ -1347,7 +1347,7 @@ namespace Js
         // WARNING: Any objects here using DeferredTypeHandler need to appear in EnsureLibraryReadyForHybridDebugging
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        RecyclableObject* globalObjectPrototype = GetObjectPrototype();        
+        RecyclableObject* globalObjectPrototype = GetObjectPrototype();
         globalObject->SetPrototype(globalObjectPrototype);
         Recycler * recycler = this->GetRecycler();
 
@@ -1493,7 +1493,7 @@ namespace Js
             AddFunctionToLibraryObject(globalObject, PropertyIds::ScriptEngineBuildVersion, &GlobalObject::EntryInfo::ScriptEngineBuildVersion, 0);
             AddFunctionToLibraryObject(globalObject, PropertyIds::CollectGarbage, &GlobalObject::EntryInfo::CollectGarbage, 0);
         }
-       
+
 #ifdef IR_VIEWER
         if (Js::Configuration::Global.flags.IsEnabled(Js::IRViewerFlag))
         {
@@ -1570,7 +1570,7 @@ namespace Js
             AddMember(globalObject, PropertyIds::SIMD, simdObject);
         }
 #endif
-        
+
         debugObject = nullptr;
         diagnosticsScriptObject = nullptr;
 
@@ -1698,7 +1698,7 @@ namespace Js
             DynamicType::New(scriptContext, TypeIds_Object, objectPrototype, nullptr,
             DeferredTypeHandler<InitializeJSONObject>::GetDefaultInstance()));
         AddMember(globalObject, PropertyIds::JSON, JSONObject);
-    
+
 #ifdef ENABLE_INTL_OBJECT
         //If we are or win8 or later; then the default value for the flag; or enabled value for the flag (-Intl and -Intl-) dictates if Intl is available.
         //If we are on win7; then the flag has to be specified force it on (or off); the default value is ignored
@@ -1882,7 +1882,7 @@ namespace Js
         {
             library->AddMember(arrayConstructor, PropertyIds::name, scriptContext->GetPropertyString(PropertyIds::Array), PropertyConfigurable);
         }
-        builtinFuncs[BuiltinFunction::Array_IsArray] = library->AddFunctionToLibraryObject(arrayConstructor, PropertyIds::isArray, &JavascriptArray::EntryInfo::IsArray, 1);        
+        builtinFuncs[BuiltinFunction::Array_IsArray] = library->AddFunctionToLibraryObject(arrayConstructor, PropertyIds::isArray, &JavascriptArray::EntryInfo::IsArray, 1);
 
         // Array.from and Array.of are implemented as part of the ES6 TypedArray feature
         if (scriptContext->GetConfig()->IsES6TypedArrayExtensionsEnabled())
@@ -1937,7 +1937,7 @@ namespace Js
 
         builtinFuncs[BuiltinFunction::Array_Unshift]            = library->AddFunctionToLibraryObject(arrayPrototype, PropertyIds::unshift,         &JavascriptArray::EntryInfo::Unshift,           1);
 
-        
+
         builtinFuncs[BuiltinFunction::Array_IndexOf]        = library->AddFunctionToLibraryObject(arrayPrototype, PropertyIds::indexOf,         &JavascriptArray::EntryInfo::IndexOf,           1);
         /* No inlining                Array_Every          */ library->AddFunctionToLibraryObject(arrayPrototype, PropertyIds::every,           &JavascriptArray::EntryInfo::Every,             1);
         /* No inlining                Array_Filter         */ library->AddFunctionToLibraryObject(arrayPrototype, PropertyIds::filter,          &JavascriptArray::EntryInfo::Filter,            1);
@@ -1946,7 +1946,7 @@ namespace Js
         /* No inlining                Array_Map            */ library->AddFunctionToLibraryObject(arrayPrototype, PropertyIds::map,             &JavascriptArray::EntryInfo::Map,               1);
         /* No inlining                Array_Reduce         */ library->AddFunctionToLibraryObject(arrayPrototype, PropertyIds::reduce,          &JavascriptArray::EntryInfo::Reduce,            1);
         /* No inlining                Array_ReduceRight    */ library->AddFunctionToLibraryObject(arrayPrototype, PropertyIds::reduceRight,     &JavascriptArray::EntryInfo::ReduceRight,       1);
-        /* No inlining                Array_Some           */ library->AddFunctionToLibraryObject(arrayPrototype, PropertyIds::some,            &JavascriptArray::EntryInfo::Some,              1);        
+        /* No inlining                Array_Some           */ library->AddFunctionToLibraryObject(arrayPrototype, PropertyIds::some,            &JavascriptArray::EntryInfo::Some,              1);
 
         if (scriptContext->GetConfig()->IsES6StringExtensionsEnabled()) // This is not a typo, Array.prototype.find and .findIndex are part of the ES6 Improved String APIs feature
         {
@@ -2150,7 +2150,7 @@ namespace Js
         library->AddAccessorsToLibraryObject(typedarrayPrototype, PropertyIds::byteLength, &TypedArrayBase::EntryInfo::GetterByteLength, nullptr);
         library->AddAccessorsToLibraryObject(typedarrayPrototype, PropertyIds::byteOffset, &TypedArrayBase::EntryInfo::GetterByteOffset, nullptr);
         library->AddAccessorsToLibraryObject(typedarrayPrototype, PropertyIds::length, &TypedArrayBase::EntryInfo::GetterLength, nullptr);
-        
+
         if (scriptContext->GetConfig()->IsES6ToStringTagEnabled())
         {
             library->AddAccessorsToLibraryObjectWithName(typedarrayPrototype, PropertyIds::_symbolToStringTag,
@@ -2265,8 +2265,8 @@ namespace Js
         JavascriptLibrary* library = pixelArrayConstructor->GetLibrary();
         library->AddMember(pixelArrayConstructor, PropertyIds::length, TaggedInt::ToVarUnchecked(1), PropertyNone);
         library->AddMember(pixelArrayConstructor, PropertyIds::prototype, scriptContext->GetLibrary()->pixelArrayPrototype, PropertyNone);
-        
-        // Note: PixelArray constructor object does not have a .name property per spec, unlike other function object built-ins.  Further, 
+
+        // Note: PixelArray constructor object does not have a .name property per spec, unlike other function object built-ins.  Further,
         // the deprecation of PixelArrays no longer warrant the addition of IE12+ features
 
         pixelArrayConstructor->SetHasNoEnumerableProperties(true);
@@ -2338,7 +2338,7 @@ namespace Js
         library->AddMember(prototype, PropertyIds::constructor, library->errorConstructor);
 
         bool hasNoEnumerableProperties = true;
-        PropertyAttributes prototypeNameMessageAttributes = PropertyConfigurable | PropertyWritable;     
+        PropertyAttributes prototypeNameMessageAttributes = PropertyConfigurable | PropertyWritable;
 
         library->AddMember(prototype, PropertyIds::name, library->CreateStringFromCppLiteral(L"Error"), prototypeNameMessageAttributes);
         library->AddMember(prototype, PropertyIds::message, library->GetEmptyString(), prototypeNameMessageAttributes);
@@ -2368,7 +2368,7 @@ namespace Js
     INIT_ERROR_CONSTRUCTOR(ReferenceError);
     INIT_ERROR_CONSTRUCTOR(SyntaxError);
     INIT_ERROR_CONSTRUCTOR(TypeError);
-    INIT_ERROR_CONSTRUCTOR(URIError);    
+    INIT_ERROR_CONSTRUCTOR(URIError);
     INIT_ERROR_CONSTRUCTOR(WinRTError);
 
 #define INIT_ERROR_PROTOTYPE(error) \
@@ -2390,7 +2390,7 @@ namespace Js
     INIT_ERROR_PROTOTYPE(ReferenceError);
     INIT_ERROR_PROTOTYPE(SyntaxError);
     INIT_ERROR_PROTOTYPE(TypeError);
-    INIT_ERROR_PROTOTYPE(URIError);    
+    INIT_ERROR_PROTOTYPE(URIError);
     INIT_ERROR_PROTOTYPE(WinRTError);
 
     void JavascriptLibrary::InitializeBooleanConstructor(DynamicObject* booleanConstructor, DeferredTypeHandlerBase * typeHandler, DeferredInitializeMode mode)
@@ -2445,13 +2445,13 @@ namespace Js
             library->AddMember(symbolConstructor, PropertyIds::isConcatSpreadable, library->GetSymbolIsConcatSpreadable(), PropertyNone);
         }
         library->AddMember(symbolConstructor, PropertyIds::iterator, library->GetSymbolIterator(), PropertyNone);
-        
+
         if (scriptContext->GetConfig()->IsES6ToPrimitiveEnabled())
         {
             library->AddMember(symbolConstructor, PropertyIds::toPrimitive, library->GetSymbolToPrimitive(), PropertyNone);
         }
 
-        if (scriptContext->GetConfig()->IsES6ToStringTagEnabled()) 
+        if (scriptContext->GetConfig()->IsES6ToStringTagEnabled())
         {
             library->AddMember(symbolConstructor, PropertyIds::toStringTag, library->GetSymbolToStringTag(), PropertyNone);
         }
@@ -2473,7 +2473,7 @@ namespace Js
 
         library->AddMember(symbolPrototype, PropertyIds::constructor, library->symbolConstructor);
 
-        if (scriptContext->GetConfig()->IsES6ToStringTagEnabled()) 
+        if (scriptContext->GetConfig()->IsES6ToStringTagEnabled())
         {
             library->AddMember(symbolPrototype, PropertyIds::_symbolToStringTag, library->CreateStringFromCppLiteral(L"Symbol"), PropertyConfigurable);
         }
@@ -2724,9 +2724,9 @@ namespace Js
         scriptContext->SetBuiltInLibraryFunction(JavascriptDate::EntryInfo::ToDateString.GetOriginalEntryPoint(),
             library->AddFunctionToLibraryObject(datePrototype, PropertyIds::toDateString, &JavascriptDate::EntryInfo::ToDateString, 0));
         scriptContext->SetBuiltInLibraryFunction(JavascriptDate::EntryInfo::ToISOString.GetOriginalEntryPoint(),
-            library->AddFunctionToLibraryObject(datePrototype, PropertyIds::toISOString, &JavascriptDate::EntryInfo::ToISOString, 0));        
+            library->AddFunctionToLibraryObject(datePrototype, PropertyIds::toISOString, &JavascriptDate::EntryInfo::ToISOString, 0));
         scriptContext->SetBuiltInLibraryFunction(JavascriptDate::EntryInfo::ToJSON.GetOriginalEntryPoint(),
-             library->AddFunctionToLibraryObject(datePrototype, PropertyIds::toJSON, &JavascriptDate::EntryInfo::ToJSON, 1));        
+             library->AddFunctionToLibraryObject(datePrototype, PropertyIds::toJSON, &JavascriptDate::EntryInfo::ToJSON, 1));
         scriptContext->SetBuiltInLibraryFunction(JavascriptDate::EntryInfo::ToLocaleDateString.GetOriginalEntryPoint(),
             library->AddFunctionToLibraryObject(datePrototype, PropertyIds::toLocaleDateString, &JavascriptDate::EntryInfo::ToLocaleDateString, 0));
         scriptContext->SetBuiltInLibraryFunction(JavascriptDate::EntryInfo::ToLocaleString.GetOriginalEntryPoint(),
@@ -2790,7 +2790,7 @@ namespace Js
         JavascriptFunction *func = library->AddFunctionToLibraryObject(functionPrototype, PropertyIds::apply, &JavascriptFunction::EntryInfo::Apply, 2);
         builtinFuncs[BuiltinFunction::Function_Apply] = func;
 
-        library->AddFunctionToLibraryObject(functionPrototype, PropertyIds::bind, &JavascriptFunction::EntryInfo::Bind, 1);        
+        library->AddFunctionToLibraryObject(functionPrototype, PropertyIds::bind, &JavascriptFunction::EntryInfo::Bind, 1);
         func = library->AddFunctionToLibraryObject(functionPrototype, PropertyIds::call, &JavascriptFunction::EntryInfo::Call, 1);
         builtinFuncs[BuiltinFunction::Function_Call] = func;
         library->AddFunctionToLibraryObject(functionPrototype, PropertyIds::toString, &JavascriptFunction::EntryInfo::ToString, 0);
@@ -2920,7 +2920,7 @@ namespace Js
         typeHandler->Convert(simdObject, mode, 2);
         ScriptContext* scriptContext = simdObject->GetScriptContext();
         JavascriptLibrary* library = simdObject->GetLibrary();
-        
+
         // TODO: Add these function to SIMD prototype objects
         // SIMD review: considering using same machanism as signMask?
         library->simdFloat32x4ToStringFunction = library->DefaultCreateFunction(&JavascriptSIMDFloat32x4::EntryInfo::ToString, 1, nullptr, nullptr, PropertyIds::toString);
@@ -3000,13 +3000,13 @@ namespace Js
         library->AddFunctionToLibraryObject(float64x2Function, PropertyIds::min,    &SIMDFloat64x2Lib::EntryInfo::Min, 3);
         library->AddFunctionToLibraryObject(float64x2Function, PropertyIds::max,    &SIMDFloat64x2Lib::EntryInfo::Max, 3);
         library->AddFunctionToLibraryObject(float64x2Function, PropertyIds::scale,  &SIMDFloat64x2Lib::EntryInfo::Scale, 3);
-        // unary ops                             
+        // unary ops
         library->AddFunctionToLibraryObject(float64x2Function, PropertyIds::abs,    &SIMDFloat64x2Lib::EntryInfo::Abs, 2);
         library->AddFunctionToLibraryObject(float64x2Function, PropertyIds::neg,    &SIMDFloat64x2Lib::EntryInfo::Neg, 2);
         library->AddFunctionToLibraryObject(float64x2Function, PropertyIds::sqrt,   &SIMDFloat64x2Lib::EntryInfo::Sqrt, 2);
         library->AddFunctionToLibraryObject(float64x2Function, PropertyIds::reciprocal,     &SIMDFloat64x2Lib::EntryInfo::Reciprocal, 2);
         library->AddFunctionToLibraryObject(float64x2Function, PropertyIds::reciprocalSqrt, &SIMDFloat64x2Lib::EntryInfo::ReciprocalSqrt, 2);
-        // compare ops                           
+        // compare ops
         library->AddFunctionToLibraryObject(float64x2Function, PropertyIds::lessThan,           &SIMDFloat64x2Lib::EntryInfo::LessThan, 3);
         library->AddFunctionToLibraryObject(float64x2Function, PropertyIds::lessThanOrEqual,    &SIMDFloat64x2Lib::EntryInfo::LessThanOrEqual, 3);
         library->AddFunctionToLibraryObject(float64x2Function, PropertyIds::equal,              &SIMDFloat64x2Lib::EntryInfo::Equal, 3);
@@ -3023,13 +3023,13 @@ namespace Js
         // Int32x4
         JavascriptFunction* int32x4Function = library->AddFunctionToLibraryObject(simdObject, PropertyIds::int32x4, &SIMDInt32x4Lib::EntryInfo::Int32x4, 5);
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::zero, &SIMDInt32x4Lib::EntryInfo::Zero, 1);
-        library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::splat, &SIMDInt32x4Lib::EntryInfo::Splat, 2); 
+        library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::splat, &SIMDInt32x4Lib::EntryInfo::Splat, 2);
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::bool_, &SIMDInt32x4Lib::EntryInfo::Bool, 5);
-        library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::withX, &SIMDInt32x4Lib::EntryInfo::WithX, 3); 
+        library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::withX, &SIMDInt32x4Lib::EntryInfo::WithX, 3);
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::withY, &SIMDInt32x4Lib::EntryInfo::WithY, 3);
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::withZ, &SIMDInt32x4Lib::EntryInfo::WithZ, 3);
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::withW, &SIMDInt32x4Lib::EntryInfo::WithW, 3);
-        library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::withFlagX, &SIMDInt32x4Lib::EntryInfo::WithFlagX, 3); 
+        library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::withFlagX, &SIMDInt32x4Lib::EntryInfo::WithFlagX, 3);
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::withFlagY, &SIMDInt32x4Lib::EntryInfo::WithFlagY, 3);
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::withFlagZ, &SIMDInt32x4Lib::EntryInfo::WithFlagZ, 3);
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::withFlagW, &SIMDInt32x4Lib::EntryInfo::WithFlagW, 3);
@@ -3046,14 +3046,14 @@ namespace Js
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::or, &SIMDInt32x4Lib::EntryInfo::Or, 3);
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::xor, &SIMDInt32x4Lib::EntryInfo::Xor, 3);
 #if 0 // polyfill does not support min, max and abs for SIMD int32x4
-        library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::min, &SIMDInt32x4Lib::EntryInfo::Min, 3);  
-        library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::max, &SIMDInt32x4Lib::EntryInfo::Max, 3);  
+        library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::min, &SIMDInt32x4Lib::EntryInfo::Min, 3);
+        library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::max, &SIMDInt32x4Lib::EntryInfo::Max, 3);
         // unary ops
-        library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::abs, &SIMDInt32x4Lib::EntryInfo::Abs, 2);   
-#endif 
+        library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::abs, &SIMDInt32x4Lib::EntryInfo::Abs, 2);
+#endif
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::neg, &SIMDInt32x4Lib::EntryInfo::Neg, 2);
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::not, &SIMDInt32x4Lib::EntryInfo::Not, 2);
-        // compare ops                           
+        // compare ops
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::lessThan, &SIMDInt32x4Lib::EntryInfo::LessThan, 3);
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::equal, &SIMDInt32x4Lib::EntryInfo::Equal, 3);
         library->AddFunctionToLibraryObject(int32x4Function, PropertyIds::greaterThan, &SIMDInt32x4Lib::EntryInfo::GreaterThan, 3);
@@ -3136,7 +3136,7 @@ namespace Js
         vtableAddresses[VTableValue::VtableJavascriptBoolean] = VirtualTableInfo<Js::JavascriptBoolean>::Address;
         vtableAddresses[VTableValue::VtableSmallDynamicObjectSnapshotEnumeratorWPCache] = VirtualTableInfo<Js::DynamicObjectSnapshotEnumeratorWPCache<Js::BigPropertyIndex,true,false>>::Address;
         vtableAddresses[VTableValue::VtableJavascriptArray] = VirtualTableInfo<Js::JavascriptArray>::Address;
-        vtableAddresses[VTableValue::VtableInt8Array] = VirtualTableInfo<Js::Int8Array>::Address;        
+        vtableAddresses[VTableValue::VtableInt8Array] = VirtualTableInfo<Js::Int8Array>::Address;
         vtableAddresses[VTableValue::VtableUint8Array] = VirtualTableInfo<Js::Uint8Array>::Address;
         vtableAddresses[VTableValue::VtableUint8ClampedArray] = VirtualTableInfo<Js::Uint8ClampedArray>::Address;
         vtableAddresses[VTableValue::VtableInt16Array] = VirtualTableInfo<Js::Int16Array>::Address;
@@ -3149,7 +3149,7 @@ namespace Js
         vtableAddresses[VTableValue::VtableInt64Array] = VirtualTableInfo<Js::Int64Array>::Address;
         vtableAddresses[VTableValue::VtableUint64Array] = VirtualTableInfo<Js::Uint64Array>::Address;
 
-        vtableAddresses[VTableValue::VtableInt8VirtualArray] = VirtualTableInfo<Js::Int8VirtualArray>::Address;        
+        vtableAddresses[VTableValue::VtableInt8VirtualArray] = VirtualTableInfo<Js::Int8VirtualArray>::Address;
         vtableAddresses[VTableValue::VtableUint8VirtualArray] = VirtualTableInfo<Js::Uint8VirtualArray>::Address;
         vtableAddresses[VTableValue::VtableUint8ClampedVirtualArray] = VirtualTableInfo<Js::Uint8ClampedVirtualArray>::Address;
         vtableAddresses[VTableValue::VtableInt16VirtualArray] = VirtualTableInfo<Js::Int16VirtualArray>::Address;
@@ -3250,7 +3250,6 @@ namespace Js
             this->arrayIteratorPrototype,
             this->promisePrototype,
             this->javascriptEnumeratorIteratorPrototype,
-            this->safeArrayPrototype,
             this->generatorFunctionPrototype,
             this->generatorPrototype,
             this->errorPrototype,
@@ -3259,7 +3258,7 @@ namespace Js
             this->referenceErrorPrototype,
             this->syntaxErrorPrototype,
             this->typeErrorPrototype,
-            this->uriErrorPrototype,            
+            this->uriErrorPrototype,
             this->winrtErrorPrototype,
 
             this->objectConstructor,
@@ -4080,12 +4079,12 @@ namespace Js
         if (scriptContext->GetConfig()->IsES6FunctionNameEnabled())
         {
             library->AddMember(objectConstructor, PropertyIds::name, scriptContext->GetPropertyString(PropertyIds::Object), PropertyConfigurable);
-        }        
+        }
         //Supported in IE8 standards and above
         scriptContext->SetBuiltInLibraryFunction(JavascriptObject::EntryInfo::DefineProperty.GetOriginalEntryPoint(),
             library->AddFunctionToLibraryObject(objectConstructor, PropertyIds::defineProperty, &JavascriptObject::EntryInfo::DefineProperty, 3));
         scriptContext->SetBuiltInLibraryFunction(JavascriptObject::EntryInfo::GetOwnPropertyDescriptor.GetOriginalEntryPoint(),
-            library->AddFunctionToLibraryObject(objectConstructor, PropertyIds::getOwnPropertyDescriptor, &JavascriptObject::EntryInfo::GetOwnPropertyDescriptor, 2));            
+            library->AddFunctionToLibraryObject(objectConstructor, PropertyIds::getOwnPropertyDescriptor, &JavascriptObject::EntryInfo::GetOwnPropertyDescriptor, 2));
         scriptContext->SetBuiltInLibraryFunction(JavascriptObject::EntryInfo::DefineProperties.GetOriginalEntryPoint(),
             library->AddFunctionToLibraryObject(objectConstructor, PropertyIds::defineProperties, &JavascriptObject::EntryInfo::DefineProperties, 2));
         library->AddFunctionToLibraryObject(objectConstructor, PropertyIds::create, &JavascriptObject::EntryInfo::Create, 2);
@@ -4106,9 +4105,9 @@ namespace Js
         scriptContext->SetBuiltInLibraryFunction(JavascriptObject::EntryInfo::Keys.GetOriginalEntryPoint(),
             library->AddFunctionToLibraryObject(objectConstructor, PropertyIds::keys, &JavascriptObject::EntryInfo::Keys, 1));
         scriptContext->SetBuiltInLibraryFunction(JavascriptObject::EntryInfo::GetOwnPropertyNames.GetOriginalEntryPoint(),
-            library->AddFunctionToLibraryObject(objectConstructor, PropertyIds::getOwnPropertyNames, &JavascriptObject::EntryInfo::GetOwnPropertyNames, 1));                
+            library->AddFunctionToLibraryObject(objectConstructor, PropertyIds::getOwnPropertyNames, &JavascriptObject::EntryInfo::GetOwnPropertyNames, 1));
         scriptContext->SetBuiltInLibraryFunction(JavascriptObject::EntryInfo::SetPrototypeOf.GetOriginalEntryPoint(),
-            library->AddFunctionToLibraryObject(objectConstructor, PropertyIds::setPrototypeOf, &JavascriptObject::EntryInfo::SetPrototypeOf, 2));    
+            library->AddFunctionToLibraryObject(objectConstructor, PropertyIds::setPrototypeOf, &JavascriptObject::EntryInfo::SetPrototypeOf, 2));
         if (scriptContext->GetConfig()->IsES6SymbolEnabled())
         {
             scriptContext->SetBuiltInLibraryFunction(JavascriptObject::EntryInfo::GetOwnPropertySymbols.GetOriginalEntryPoint(),
@@ -4219,18 +4218,18 @@ namespace Js
         JavascriptFunction ** builtinFuncs = library->GetBuiltinFunctions();
         library->AddMember(stringConstructor, PropertyIds::length, TaggedInt::ToVarUnchecked(1), PropertyNone);
         library->AddMember(stringConstructor, PropertyIds::prototype, library->stringPrototype, PropertyNone);
-        
+
         if (scriptContext->GetConfig()->IsES6FunctionNameEnabled())
         {
             library->AddMember(stringConstructor, PropertyIds::name, scriptContext->GetPropertyString(PropertyIds::String), PropertyConfigurable);
         }
 
-       
+
         builtinFuncs[BuiltinFunction::String_FromCharCode]  = library->AddFunctionToLibraryObject(stringConstructor, PropertyIds::fromCharCode,  &JavascriptString::EntryInfo::FromCharCode,  1);
         if(scriptContext->GetConfig()->IsES6UnicodeExtensionsEnabled())
         {
             builtinFuncs[BuiltinFunction::String_FromCodePoint] = library->AddFunctionToLibraryObject(stringConstructor, PropertyIds::fromCodePoint, &JavascriptString::EntryInfo::FromCodePoint, 1);
-        }        
+        }
 
         if (scriptContext->GetConfig()->IsES6StringTemplateEnabled())
         {
@@ -4279,7 +4278,7 @@ namespace Js
                                                                   library->AddFunctionToLibraryObject(stringPrototype, PropertyIds::toString,           &JavascriptString::EntryInfo::ToString,             0));
         builtinFuncs[BuiltinFunction::String_ToUpperCase]       = library->AddFunctionToLibraryObject(stringPrototype, PropertyIds::toUpperCase,        &JavascriptString::EntryInfo::ToUpperCase,          0);
         builtinFuncs[BuiltinFunction::String_Trim]              = library->AddFunctionToLibraryObject(stringPrototype, PropertyIds::trim,               &JavascriptString::EntryInfo::Trim,                 0);
-        
+
         scriptContext->SetBuiltInLibraryFunction(JavascriptString::EntryInfo::ValueOf.GetOriginalEntryPoint(),
                                                                   library->AddFunctionToLibraryObject(stringPrototype, PropertyIds::valueOf,            &JavascriptString::EntryInfo::ValueOf,              0));
 
@@ -4512,7 +4511,7 @@ namespace Js
         library->AddFunctionToLibraryObject(arrayIteratorPrototype, PropertyIds::next, &JavascriptArrayIterator::EntryInfo::Next, 0);
         library->AddFunctionToLibraryObjectWithName(arrayIteratorPrototype, PropertyIds::_symbolIterator, PropertyIds::_RuntimeFunctionNameId_iterator,
             &JavascriptArrayIterator::EntryInfo::SymbolIterator, 0);
-        
+
         if (scriptContext->GetConfig()->IsES6ToStringTagEnabled())
         {
             library->AddMember(arrayIteratorPrototype, PropertyIds::_symbolToStringTag, library->CreateStringFromCppLiteral(L"Array Iterator"), PropertyConfigurable);
@@ -4549,7 +4548,7 @@ namespace Js
         library->AddFunctionToLibraryObject(setIteratorPrototype, PropertyIds::next, &JavascriptSetIterator::EntryInfo::Next, 0);
         library->AddFunctionToLibraryObjectWithName(setIteratorPrototype, PropertyIds::_symbolIterator, PropertyIds::_RuntimeFunctionNameId_iterator,
             &JavascriptSetIterator::EntryInfo::SymbolIterator, 0);
-        
+
         if (scriptContext->GetConfig()->IsES6ToStringTagEnabled())
         {
             library->AddMember(setIteratorPrototype, PropertyIds::_symbolToStringTag, library->CreateStringFromCppLiteral(L"Set Iterator"), PropertyConfigurable);
@@ -4567,7 +4566,7 @@ namespace Js
         library->AddFunctionToLibraryObject(stringIteratorPrototype, PropertyIds::next, &JavascriptStringIterator::EntryInfo::Next, 0);
         library->AddFunctionToLibraryObjectWithName(stringIteratorPrototype, PropertyIds::_symbolIterator, PropertyIds::_RuntimeFunctionNameId_iterator,
             &JavascriptStringIterator::EntryInfo::SymbolIterator, 0);
-        
+
         if (scriptContext->GetConfig()->IsES6ToStringTagEnabled())
         {
             library->AddMember(stringIteratorPrototype, PropertyIds::_symbolToStringTag, library->CreateStringFromCppLiteral(L"String Iterator"), PropertyConfigurable);
@@ -4767,7 +4766,7 @@ namespace Js
             RecyclableObject::DefaultEntryPoint, SimplePathTypeHandler::New(scriptContext, scriptContext->GetRootPath(), 0, 0, 0, true, true), true, true);
         uriErrorType = DynamicType::New(scriptContext, TypeIds_Error, objectPrototype,
             RecyclableObject::DefaultEntryPoint, SimplePathTypeHandler::New(scriptContext, scriptContext->GetRootPath(), 0, 0, 0, true, true), true, true);
-       
+
         if (scriptContext->GetConfig()->IsWinRTEnabled())
         {
             winrtErrorType = DynamicType::New(scriptContext, TypeIds_Error, objectPrototype,
@@ -4831,7 +4830,7 @@ namespace Js
         referenceErrorPrototype = CopyObject(scriptContext, originalLibrary->referenceErrorPrototype);
         syntaxErrorPrototype = CopyObject(scriptContext, originalLibrary->syntaxErrorPrototype);
         typeErrorPrototype = CopyObject(scriptContext, originalLibrary->typeErrorPrototype);
-        uriErrorPrototype = CopyObject(scriptContext, originalLibrary->uriErrorPrototype);        
+        uriErrorPrototype = CopyObject(scriptContext, originalLibrary->uriErrorPrototype);
         winrtErrorPrototype = CopyObject(scriptContext, originalLibrary->winrtErrorPrototype);
 
         mapPrototype = CopyObject(scriptContext, originalLibrary->mapPrototype);
@@ -4922,7 +4921,7 @@ namespace Js
 
     JavascriptFunction* JavascriptLibrary::AddFunction(DynamicObject* object, PropertyId propertyId, RuntimeFunction* function)
     {
-       
+
        AddMember(object, propertyId, function);
        function->SetFunctionNameId(TaggedInt::ToVarUnchecked((int)propertyId));
        return function;
@@ -4960,7 +4959,8 @@ namespace Js
 
         if (getterFunctionInfo != nullptr)
         {
-            RuntimeFunction* getterFunction = DefaultCreateFunction(getterFunctionInfo, 0, nullptr, nullptr, name);
+            Var name_withGetPrefix = LiteralString::Concat(LiteralString::NewCopySz(L"get ", scriptContext), scriptContext->GetPropertyString(name));
+            RuntimeFunction* getterFunction = DefaultCreateFunction(getterFunctionInfo, 0, nullptr, nullptr, name_withGetPrefix);
             getterFunction->SetPropertyWithAttributes(PropertyIds::length, TaggedInt::ToVarUnchecked(0), PropertyNone, nullptr);
             getter = getterFunction;
         }
@@ -4971,7 +4971,8 @@ namespace Js
 
         if (setterFunctionInfo != nullptr)
         {
-            RuntimeFunction* setterFunction = DefaultCreateFunction(setterFunctionInfo, 0, nullptr, nullptr, name);
+            Var name_withSetPrefix = LiteralString::Concat(LiteralString::NewCopySz(L"set ", scriptContext), scriptContext->GetPropertyString(name));
+            RuntimeFunction* setterFunction = DefaultCreateFunction(setterFunctionInfo, 0, nullptr, nullptr, name_withSetPrefix);
             setterFunction->SetPropertyWithAttributes(PropertyIds::length, TaggedInt::ToVarUnchecked(1), PropertyNone, nullptr);
             setter = setterFunction;
         }
@@ -5313,7 +5314,7 @@ namespace Js
         Var length = nullptr;
         Var prototype = nullptr;
         PropertyValueInfo info;
-        
+
         BOOL builtinFuncHasLength = func->GetProperty(func, PropertyIds::length, &length, &info, scriptContext);
         BOOL builtinFuncHasPrototype = func->GetProperty(func, PropertyIds::prototype, &prototype, &info, scriptContext);
 
@@ -5334,7 +5335,7 @@ namespace Js
     void JavascriptLibrary::AddStringTemplateCallsiteObject(RecyclableObject* callsite)
     {
         this->EnsureStringTemplateCallsiteObjectList();
-        
+
         RecyclerWeakReference<RecyclableObject>* callsiteRef = this->GetRecycler()->CreateWeakReferenceHandle<RecyclableObject>(callsite);
 
         this->stringTemplateCallsiteObjectList->Item(callsiteRef);
@@ -5541,7 +5542,7 @@ namespace Js
         y = y->sxStrTemplate.pnodeStringRawLiterals;
 
         // If one of the templates only includes one string value, the raw literals ParseNode will
-        // be a knopStr instead of knopList. 
+        // be a knopStr instead of knopList.
         if (x->nop != y->nop)
         {
             return false;
@@ -5552,7 +5553,7 @@ namespace Js
 
         while (x->nop == knopList)
         {
-            // If y is knopStr here, that means x has more strings in the list than y does. 
+            // If y is knopStr here, that means x has more strings in the list than y does.
             if (y->nop != knopList)
             {
                 return false;

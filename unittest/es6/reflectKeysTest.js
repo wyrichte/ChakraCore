@@ -42,5 +42,18 @@ function test2() {
 
 }
 
+function test3() {
+    var x = {};
+    Object.defineProperty(x, "a", { value: 5, enumerable: true });
+    Object.defineProperty(x, "b", { get: function () { return 23; }, enumerable: true });
+    var p = new Proxy(x, {
+        getOwnPropertyDescriptor: function (target, propert) {
+            return Reflect.getOwnPropertyDescriptor(target, propert);
+        }
+    });
+    print(Object.keys(p));
+}
+
 test1();
 test2();
+test3();

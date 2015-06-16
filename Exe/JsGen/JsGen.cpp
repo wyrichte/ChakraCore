@@ -250,7 +250,7 @@ struct MetadataContext : ProjectionModel::ITypeResolver, Metadata::IStringConver
     MetadataContext(ArenaAllocator * alloc, IMetaDataDispenser * dispenser, ImmutableList<LPCWSTR> * winmds, ImmutableList<LPCWSTR> * references, bool enableVersioningAllAssemblies) 
         : alloc(alloc), dispenser(dispenser), assemblies(nullptr), referenceAssemblies(nullptr), nextTypeId(1000), enableVersioningAllAssemblies(enableVersioningAllAssemblies)
     {
-        roParameterizedIIDDelayLoad.Ensure();
+        roParameterizedIIDDelayLoad.EnsureFromSystemDirOnly();
 
         metadata = Anew(alloc, TMetadata, alloc);
         typeDefs = Anew(alloc, TTypeDefs, alloc);

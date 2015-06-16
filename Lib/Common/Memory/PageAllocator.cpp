@@ -397,6 +397,54 @@ PageSegmentBase<T>::ReleasePages(__in void * address, uint pageCount)
 }
 
 template<typename T>
+void
+PageSegmentBase<T>::ChangeSegmentProtection(DWORD protectFlags, DWORD expectedOldProtectFlags)
+{
+    // TODO: There is a discrepency in PageSegmentBase
+    // The segment page count is initialized in PageSegmentBase::Initialize. It takes into account
+    // the guard pages + any additional pages for alignment.
+    // However, the free page count is calculated for the segment before initialize is called.
+    // In practice, what happens is the following. The initial segment page count is 256. This
+    // ends up being the free page count too. When initialize is called, we allocate the guard 
+    // pages and the alignment pages, which causes the total page count to be 272. The segment 
+    // page count is then calculated as total - guard, which means 256 <= segmentPageCount < totalPageCount
+    // The code in PageSegment's constructor will mark the pages between 256 and 272 as in use,
+    // which is why it generally works. However, it breaks in the case where we want to know the end
+    // address of the page. It should really be address + 256 * 4k but this->GetEndAddress will return
+    // a value greater than that. Need to do a pass through the counts and make sure that it's rational.
+    // For now, simply calculate the end address from the allocator's page count
+    char* segmentEndAddress = this->address + (this->allocator->GetMaxAllocPageCount() * AutoSystemInfo::PageSize);
+
+    for (char* address = this->address; address < segmentEndAddress; address += AutoSystemInfo::PageSize)
+    {
+        if (!IsFreeOrDecommitted(address))
+        {
+            char* endAddress = address;
+            do
+            {
+                endAddress += AutoSystemInfo::PageSize;
+            } while (endAddress < segmentEndAddress && !IsFreeOrDecommitted(endAddress));
+
+            Assert(((uintptr_t)(endAddress - address)) < UINT_MAX);
+            DWORD regionSize = (DWORD) (endAddress - address);
+            DWORD oldProtect = 0;
+
+#if DBG
+            MEMORY_BASIC_INFORMATION info = { 0 };
+            ::VirtualQuery(address, &info, sizeof(MEMORY_BASIC_INFORMATION));
+            Assert(info.Protect == expectedOldProtectFlags);
+#endif
+
+            BOOL fSuccess = ::VirtualProtect(address, regionSize, protectFlags, &oldProtect);
+            Assert(fSuccess == TRUE);
+            Assert(oldProtect == expectedOldProtectFlags);
+
+            address = endAddress;
+        }
+    }
+}
+
+template<typename T>
 template <bool onlyUpdateState>
 void 
 PageSegmentBase<T>::DecommitPages(__in void * address, uint pageCount)

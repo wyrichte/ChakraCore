@@ -238,7 +238,7 @@ namespace Js
     {
         if (!this->m_isInit)
         {
-            DelayLoadLibrary::Ensure();
+            DelayLoadLibrary::EnsureFromSystemDirOnly();
             
 #if DBG
             // This unused variable is to allow one to see the value of lastError in case both LoadLibrary (DelayLoadLibrary::Ensure has one) fail.
@@ -249,7 +249,7 @@ namespace Js
             //Perform a check to see if Windows.Globalization.dll was loaded; if not try loading jsIntl.dll as we are on Win7.
             if (m_hModule == nullptr)
             {
-                m_hModule = LoadLibraryEx(GetWin7LibraryName(), nullptr, 0);
+                m_hModule = LoadLibraryEx(GetWin7LibraryName(), nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
             }
 #if DBG
             AssertMsg(m_hModule != nullptr, "This assert means that we failed to load Windows.Globalization.dll, on rare occasion there might be a reason to ignore this assert but should be carefully assesed.");

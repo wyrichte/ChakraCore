@@ -59,7 +59,7 @@ namespace JsDiag
         static CString ReadStringLen(IVirtualReader* reader, const wchar_t* addr, charcount_t len);
         static CString ReadPropertyName(IVirtualReader* reader, const PropertyRecord* propertyRecord);
         CString ReadPropertyName(const PropertyRecord* propertyRecord) const;
-        
+
         bool ReadString(JavascriptString* s, _Out_writes_to_(bufLen, *actual) wchar_t* buf, _In_ charcount_t bufLen, _Out_ charcount_t* actual);
         CString ReadString(JavascriptString* s);
 
@@ -397,7 +397,7 @@ namespace JsDiag
     private:
         UINT GetStringLength() const { return static_cast<UINT>(m_str.GetLength() - 2); }  // unquoted
     };
-    
+
     // --------------------------------------------------------------------------------------------
     // JavascriptPointer property holds a native WinRT pointer.
     // --------------------------------------------------------------------------------------------
@@ -887,7 +887,7 @@ namespace JsDiag
         {
             return true;
         }
-        
+
         if (m_methodGroup && m_methodGroup->TryGetProperty(name, ppDebugProperty)) // We have some properties in [Methods] group
         {
             return true;
@@ -995,7 +995,7 @@ namespace JsDiag
     typedef JavascriptCollectionWalker<SetGroupProperty> JavascriptSetWalker;
     typedef JavascriptCollectionWalker<WeakMapGroupProperty> JavascriptWeakMapWalker;
     typedef JavascriptCollectionWalker<WeakSetGroupProperty> JavascriptWeakSetWalker;
-    
+
     //
     // Represents JavascriptMap property.
     //
@@ -1287,19 +1287,6 @@ namespace JsDiag
         void GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue);
     };
 
-    class ATL_NO_VTABLE JavascriptSafeArrayObjectWalker:
-        public ObjectWalker<JavascriptSafeArrayObjectWalker>
-    {
-    };
-
-    class ATL_NO_VTABLE JavascriptSafeArrayObjectProperty:
-        public DynamicObjectProperty<JavascriptSafeArrayObjectProperty, RemoteDynamicObject, JavascriptSafeArrayObjectWalker>
-    {
-    public:
-        LPCWSTR GetType() const { return JS_DIAG_TYPE_JavascriptSafeArrayObject; }
-        LPCWSTR GetValue(UINT nRadix) const { return JS_DIAG_VALUE_JavascriptSafeArrayObject; }
-    };
-
     //
     // Base Array property walker. Displays index properties before normal (non-index) object properties hierarchy.
     //
@@ -1343,7 +1330,7 @@ namespace JsDiag
             {
                 return true;
             }
-                        
+
             if (name == L"length") // Supports evaluation of array.length. It may not be listed by walker.
             {
                 m_context->CreateDebugProperty(PROPERTY_INFO(name, m_arrayLength), GetOwnerDebugProperty(), ppDebugProperty);
@@ -1928,7 +1915,7 @@ namespace JsDiag
     public:
         static LPCWSTR GetDisplayName() { return L"arguments"; }
         static LPCWSTR GetDisplayType() { return L"Object, (Arguments)"; }
-        
+
         LPCWSTR GetType() const { return GetDisplayType(); }
 
         // Supports WalkerPolicy

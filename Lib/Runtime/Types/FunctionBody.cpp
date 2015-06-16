@@ -717,11 +717,13 @@ namespace Js
         ulong grfscr = funcBody->GetGrfscr() | fscrDeferredFnc | fscrDeferredFncExpression;
 
         uint nextFunctionId = funcBody->GetLocalFunctionId();
-        hrParser = ps->ParseSourceWithOffset(parseTree, pszStart, offset, length, charOffset, isCesu8, grfscr, se,
-            &nextFunctionId, funcBody->GetRelativeLineNumber(), funcBody->GetSourceContextInfo(),
-            funcBody, false, false);
-        Assert(funcBody->deferredParseNextFunctionId == nextFunctionId);
 
+        // if parser throws, it will be caught by function trying to bytecode gen the asm.js module, so don't need to catch/rethrow here
+        hrParser = ps->ParseSourceWithOffset(parseTree, pszStart, offset, length, charOffset, isCesu8, grfscr, se,
+                    &nextFunctionId, funcBody->GetRelativeLineNumber(), funcBody->GetSourceContextInfo(),
+                    funcBody, false, false);
+
+        Assert(FAILED(hrParser) || funcBody->deferredParseNextFunctionId == nextFunctionId);
         if (FAILED(hrParser))
         {
             hrParseCodeGen = MapDeferredReparseError(hrParser, *se); // Map certain errors like OOM/OOS
@@ -731,6 +733,15 @@ namespace Js
         if (!SUCCEEDED(hrParser))
         {
             JavascriptError::ThrowError(m_scriptContext, VBSERR_InternalError);
+        }
+        else if (!SUCCEEDED(hrParseCodeGen))
+        {
+            // special casing VBSERR_OutOfStack as per Parse method above
+            if (hrParseCodeGen == VBSERR_OutOfStack)
+            {
+                JavascriptError::ThrowStackOverflowError(m_scriptContext);
+            }
+            JavascriptError::MapAndThrowError(m_scriptContext, hrParseCodeGen);
         }
 
         UpdateFunctionBodyImpl(funcBody);
@@ -7337,6 +7348,10 @@ namespace Js
             ReleasePendingWorkItem();
         }
 
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+        this->SetCleanupReason(CleanupReason::CleanUpForFinalize);
+#endif
+
         this->Cleanup(isShutdown, false);
 
 #if DBG
@@ -7346,7 +7361,7 @@ namespace Js
             this->cleanupStack = nullptr;
         }
 #endif
-
+        
         this->library = null;
     }
 
@@ -7615,6 +7630,9 @@ namespace Js
     void FunctionEntryPointInfo::OnNativeCodeInstallFailure()
     {
         this->Invalidate(false);
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+        this->SetCleanupReason(CleanupReason::NativeCodeInstallFailure);
+#endif
         this->Cleanup(false, true /* capture cleanup stack */);
     }
 

@@ -233,6 +233,8 @@ GlobOpt::Optimize()
     if (!func->DoGlobOpt())
     {
         this->lengthEquivBv = nullptr;
+        argumentsEquivBv = nullptr;
+
         // Still need to run the dead store phase to calculate the live reg on back edge
         this->BackwardPass(Js::DeadStorePhase);
         CannotAllocateArgumentsObjectOnStack();
@@ -240,7 +242,8 @@ GlobOpt::Optimize()
     }
 
     {
-        this->lengthEquivBv = this->func->m_symTable->m_propertyEquivBvMap->Lookup(Js::PropertyIds::length, null); //used to kill live "length" property
+        this->lengthEquivBv = this->func->m_symTable->m_propertyEquivBvMap->Lookup(Js::PropertyIds::length, null); // used to kill live "length" properties
+        argumentsEquivBv = func->m_symTable->m_propertyEquivBvMap->Lookup(Js::PropertyIds::arguments, nullptr); // used to kill live "arguments" properties
 
         // The backward phase need the glob opt's alloc to allocate the propertyTypeValueMap
         // in GlobOpt::EnsurePropertyTypeValue, and ranges of instructions where int overflow may be ignored
@@ -4582,7 +4585,8 @@ GlobOpt::OptSrc(IR::Opnd *opnd, IR::Instr * *pInstr, Value **indirIndexValRef, I
                 case Js::OpCode::BrOnNoProperty:
                 case Js::OpCode::BrOnHasProperty:
                 case Js::OpCode::LdMethodFldPolyInlineMiss:
-                    return NULL;
+                case Js::OpCode::StSlotChkUndecl:
+                    return nullptr;
                 };
 
                 if (instr->CallsGetter())
@@ -4649,6 +4653,12 @@ GlobOpt::OptSrc(IR::Opnd *opnd, IR::Instr * *pInstr, Value **indirIndexValRef, I
             opnd = this->CopyProp(opnd, instr, val, parentIndirOpnd);
         }
 
+        // Check if we freed the operand.
+        if (opnd == nullptr)
+        {
+            return nullptr;
+        }
+
         // In a loop prepass, determine stack syms that are used before they are defined in the root loop for which the prepass
         // is being done. This information is used to do type specialization conversions in the landing pad where appropriate.
         if(IsLoopPrePass() &&
@@ -4695,40 +4705,42 @@ GlobOpt::OptSrc(IR::Opnd *opnd, IR::Instr * *pInstr, Value **indirIndexValRef, I
     if (val)
     {
         ValueType valueType(val->GetValueInfo()->Type());
-        if (valueType.IsLikelyNativeArray() &&
-            !valueType.IsObject() &&
-            opnd->GetValueType().IsLikelyObject() &&
-            opnd->GetValueType().GetObjectType() == valueType.GetObjectType() &&
-            (opnd->GetValueType().HasVarElements() || valueType.HasIntElements() && opnd->GetValueType().HasFloatElements()))
+        if (valueType.IsLikelyNativeArray() && !valueType.IsObject() && instr->IsProfiledInstr())
         {
             // See if we have profile data for the array type
-            bool hasProfiledArrayType;
+            IR::ProfiledInstr *const profiledInstr = instr->AsProfiledInstr();
+            ValueType profiledArrayType;
             switch(instr->m_opcode)
             {
                 case Js::OpCode::LdElemI_A:
-                    hasProfiledArrayType =
-                        instr->GetSrc1()->IsIndirOpnd() && opnd == instr->GetSrc1()->AsIndirOpnd()->GetBaseOpnd();
+                    if(instr->GetSrc1()->IsIndirOpnd() && opnd == instr->GetSrc1()->AsIndirOpnd()->GetBaseOpnd())
+                    {
+                        profiledArrayType = profiledInstr->u.ldElemInfo->GetArrayType();
+                    }
                     break;
 
                 case Js::OpCode::StElemI_A:
                 case Js::OpCode::StElemI_A_Strict:
                 case Js::OpCode::StElemC:
-                    hasProfiledArrayType =
-                        instr->GetDst()->IsIndirOpnd() && opnd == instr->GetDst()->AsIndirOpnd()->GetBaseOpnd();
+                    if(instr->GetDst()->IsIndirOpnd() && opnd == instr->GetDst()->AsIndirOpnd()->GetBaseOpnd())
+                    {
+                        profiledArrayType = profiledInstr->u.stElemInfo->GetArrayType();
+                    }
                     break;
 
                 case Js::OpCode::LdLen_A:
-                    hasProfiledArrayType = instr->GetSrc1()->IsRegOpnd() && opnd == instr->GetSrc1();
-                    break;
-
-                default:
-                    hasProfiledArrayType = false;
+                    if(instr->GetSrc1()->IsRegOpnd() && opnd == instr->GetSrc1())
+                    {
+                        profiledArrayType = profiledInstr->u.ldElemInfo->GetArrayType();
+                    }
                     break;
             }
-            if(hasProfiledArrayType)
+            if(profiledArrayType.IsLikelyObject() &&
+                profiledArrayType.GetObjectType() == valueType.GetObjectType() &&
+                (profiledArrayType.HasVarElements() || valueType.HasIntElements() && profiledArrayType.HasFloatElements()))
             {
                 // Merge array type we pulled from profile with type propagated by dataflow.
-                valueType = valueType.Merge(opnd->GetValueType()).SetHasNoMissingValues(valueType.HasNoMissingValues());
+                valueType = valueType.Merge(profiledArrayType).SetHasNoMissingValues(valueType.HasNoMissingValues());
                 ChangeValueType(currentBlock, FindValue(blockData.symToValueMap, opnd->AsRegOpnd()->m_sym), valueType, false);
             }
         }        
@@ -5213,6 +5225,17 @@ GlobOpt::CopyProp(IR::Opnd *opnd, IR::Instr *instr, Value *val, IR::IndirOpnd *p
         case Js::OpCode::TypeofElem:
             instr->m_opcode = Js::OpCode::Typeof;
             break;
+
+        case Js::OpCode::StSlotChkUndecl:
+            if (instr->GetSrc2() == opnd)
+            {
+                // Src2 here should refer to the same location as the Dst operand, which we need to keep live
+                // due to the implicit read for ChkUndecl.
+                instr->m_opcode = Js::OpCode::StSlot;
+                instr->FreeSrc2();
+                opnd = nullptr;
+            }
+            break;
         }
         return opnd;
     }
@@ -5364,6 +5387,17 @@ GlobOpt::CopyPropReplaceOpnd(IR::Instr * instr, IR::Opnd * opnd, StackSym * copy
         else
         {
             instr->m_opcode = Js::OpCode::Ld_A;
+        }
+        break;
+
+    case Js::OpCode::StSlotChkUndecl:
+        if (instr->GetSrc2()->IsRegOpnd())
+        {
+            // Src2 here should refer to the same location as the Dst operand, which we need to keep live
+            // due to the implicit read for ChkUndecl.
+            instr->m_opcode = Js::OpCode::StSlot;
+            instr->FreeSrc2();
+            return nullptr;
         }
         break;
 
@@ -13370,6 +13404,7 @@ void GlobOpt::VerifyArrayValueInfoForTracking(
     }
 
     Assert(
+        !isJsArray ||
         DoArrayCheckHoist(valueInfo->Type(), implicitCallsLoop) ||
         (
             ignoreKnownImplicitCalls &&
@@ -13447,16 +13482,19 @@ void GlobOpt::DoTrackNewValueForKills(Value *const value)
         implicitCallsLoop = currentBlock->loop;
     }
 
-    if(!DoArrayCheckHoist(valueInfo->Type(), implicitCallsLoop))
+    if(isJsArray)
     {
-        // Array opts are disabled for this value type, so treat it as an indefinite value type going forward
-        valueInfo->Type() = valueInfo->Type().ToLikely();
-        return;
-    }
+        if(!DoArrayCheckHoist(valueInfo->Type(), implicitCallsLoop))
+        {
+            // Array opts are disabled for this value type, so treat it as an indefinite value type going forward
+            valueInfo->Type() = valueInfo->Type().ToLikely();
+            return;
+        }
 
-    if(isJsArray && valueInfo->HasNoMissingValues() && !DoArrayMissingValueCheckHoist())
-    {
-        valueInfo->Type() = valueInfo->Type().SetHasNoMissingValues(false);
+        if(valueInfo->HasNoMissingValues() && !DoArrayMissingValueCheckHoist())
+        {
+            valueInfo->Type() = valueInfo->Type().SetHasNoMissingValues(false);
+        }
     }
 
     VerifyArrayValueInfoForTracking(valueInfo, isJsArray, currentBlock);
@@ -13562,6 +13600,10 @@ void GlobOpt::TrackValueInfoChangeForKills(BasicBlock *const block, Value *const
     Assert(newValueInfo);
 
     ValueInfo *const oldValueInfo = value->GetValueInfo();
+    if(oldValueInfo->IsAnyOptimizedArray())
+    {
+        VerifyArrayValueInfoForTracking(oldValueInfo, oldValueInfo->IsArrayOrObjectWithArray(), block);
+    }
     const bool trackOldValueInfo =
         oldValueInfo->IsArrayOrObjectWithArray() ||
         (
@@ -13570,11 +13612,11 @@ void GlobOpt::TrackValueInfoChangeForKills(BasicBlock *const block, Value *const
             oldValueInfo->AsArrayValueInfo()->HeadSegmentLengthSym()
         );
     Assert(trackOldValueInfo == block->globOptData.valuesToKillOnCalls->ContainsKey(value));
-    if(trackOldValueInfo)
-    {
-        VerifyArrayValueInfoForTracking(oldValueInfo, oldValueInfo->IsArrayOrObjectWithArray(), block);
-    }
 
+    if(newValueInfo->IsAnyOptimizedArray())
+    {
+        VerifyArrayValueInfoForTracking(newValueInfo, newValueInfo->IsArrayOrObjectWithArray(), block);
+    }
     const bool trackNewValueInfo =
         newValueInfo->IsArrayOrObjectWithArray() ||
         (
@@ -13582,10 +13624,6 @@ void GlobOpt::TrackValueInfoChangeForKills(BasicBlock *const block, Value *const
             newValueInfo->IsArrayValueInfo() &&
             newValueInfo->AsArrayValueInfo()->HeadSegmentLengthSym()
         );
-    if(trackNewValueInfo)
-    {
-        VerifyArrayValueInfoForTracking(newValueInfo, newValueInfo->IsArrayOrObjectWithArray(), block);
-    }
 
     if(trackOldValueInfo == trackNewValueInfo)
     {
@@ -14325,19 +14363,15 @@ void GlobOpt::OptArraySrc(IR::Instr * *const instrRef)
                 }
 
                 // The value types should be the same, except:
-                //     - The value type in the landing pad is Uninitialized or [Likely]UninitializedObject. Typically, these
-                //       cases will use BailOnNoProfile, but that can be disabled due to excessive bailouts. Those two value
-                //       types merge aggressively to the other side's object type, so the value type may have started off as
-                //       Uninitialized or [Likely]UninitializedObject, and changed in the loop to an array type during the a
-                //       prepass.
+                //     - The value type in the landing pad is a type that can merge to a specific object type. Typically, these
+                //       cases will use BailOnNoProfile, but that can be disabled due to excessive bailouts. Those value types
+                //       merge aggressively to the other side's object type, so the value type may have started off as
+                //       Uninitialized, [Likely]Undefined|Null, [Likely]UninitializedObject, etc., and changed in the loop to an
+                //       array type during a prepass.
                 //     - StElems in the loop can kill the no-missing-values info
                 //     - The native array type may be made more conservative based on profile data by an instruction in the loop
                 Assert(
-                    baseValueInLoopLandingPad->GetValueInfo()->IsUninitialized() ||
-                    (
-                        baseValueInLoopLandingPad->GetValueInfo()->IsLikelyObject() &&
-                        baseValueInLoopLandingPad->GetValueInfo()->GetObjectType() == ObjectType::UninitializedObject
-                    ) ||
+                    baseValueInLoopLandingPad->GetValueInfo()->CanMergeToSpecificObjectType() ||
                     baseValueInLoopLandingPad->GetValueInfo()->Type().SetCanBeTaggedValue(false) == 
                         baseValueType.SetCanBeTaggedValue(false) ||
                     baseValueInLoopLandingPad->GetValueInfo()->Type().SetHasNoMissingValues(false).SetCanBeTaggedValue(false) ==
@@ -15706,6 +15740,7 @@ JsArrayKills GlobOpt::CheckJsArrayKills(IR::Instr *const instr)
     // the fact that the 'this' parameter is an array (when implicit calls are disabled), we don't have a way to say the value
     // type is definitely array but it likely has no missing values. So, these will kill the definite value type as well, making
     // it likely array, such that the array checks will have to be redone.
+    const bool useValueTypes = !IsLoopPrePass(); // source value types are not guaranteed to be correct in a loop prepass
     switch(instr->m_opcode)
     {
         case Js::OpCode::StElemI_A:
@@ -15716,8 +15751,9 @@ JsArrayKills GlobOpt::CheckJsArrayKills(IR::Instr *const instr)
             {
                 break;
             }
-            const ValueType baseValueType = instr->GetDst()->AsIndirOpnd()->GetBaseOpnd()->GetValueType();
-            if(baseValueType.IsNotArrayOrObjectWithArray())
+            const ValueType baseValueType =
+                useValueTypes ? instr->GetDst()->AsIndirOpnd()->GetBaseOpnd()->GetValueType() : ValueType::Uninitialized;
+            if(useValueTypes && baseValueType.IsNotArrayOrObjectWithArray())
             {
                 break;
             }
@@ -15729,7 +15765,9 @@ JsArrayKills GlobOpt::CheckJsArrayKills(IR::Instr *const instr)
                     kills.SetKillsArrayHeadSegments();
                     kills.SetKillsArrayHeadSegmentLengths();
                 }
-                if(doArrayLengthHoist && !baseValueType.IsNotArray() && stElemInfo->LikelyStoresOutsideArrayBounds())
+                if(doArrayLengthHoist &&
+                    !(useValueTypes && baseValueType.IsNotArray()) &&
+                    stElemInfo->LikelyStoresOutsideArrayBounds())
                 {
                     kills.SetKillsArrayLengths();
                 }
@@ -15741,7 +15779,7 @@ JsArrayKills GlobOpt::CheckJsArrayKills(IR::Instr *const instr)
         case Js::OpCode::DeleteElemIStrict_A:
             Assert(instr->GetSrc1());
             if(!instr->GetSrc1()->IsIndirOpnd() ||
-                instr->GetSrc1()->AsIndirOpnd()->GetBaseOpnd()->GetValueType().IsNotArrayOrObjectWithArray())
+                useValueTypes && instr->GetSrc1()->AsIndirOpnd()->GetBaseOpnd()->GetValueType().IsNotArrayOrObjectWithArray())
             {
                 break;
             }
@@ -15777,8 +15815,7 @@ JsArrayKills GlobOpt::CheckJsArrayKills(IR::Instr *const instr)
                 break;
             }
 
-            Value *const baseValue = FindValue(dst->GetObjectSym());
-            if(baseValue && baseValue->GetValueInfo()->IsNotArray())
+            if(useValueTypes && dst->GetPropertyOwnerValueType().IsNotArray())
             {
                 // Setting the 'length' property of an object that is not an array, even if it has an internal array, does
                 // not kill the head segment or head segment length of any arrays
@@ -15804,7 +15841,7 @@ JsArrayKills GlobOpt::CheckJsArrayKills(IR::Instr *const instr)
 
             const ValueType arrayValueType(arrayOpnd->GetValueType());
 
-            if(!arrayOpnd->IsRegOpnd() || arrayValueType.IsNotArrayOrObjectWithArray())
+            if(!arrayOpnd->IsRegOpnd() || useValueTypes && arrayValueType.IsNotArrayOrObjectWithArray())
             {
                 break;
             }
@@ -15820,16 +15857,16 @@ JsArrayKills GlobOpt::CheckJsArrayKills(IR::Instr *const instr)
                 kills.SetKillsArrayHeadSegmentLengths();
             }
 
-            if(doArrayLengthHoist && !arrayValueType.IsNotArray())
+            if(doArrayLengthHoist && !(useValueTypes && arrayValueType.IsNotArray()))
             {
                 kills.SetKillsArrayLengths();
             }
 
             //Don't kill NativeArray, if there is no mismatch between array's type and element's type.
-            if(doNativeArrayTypeSpec && !(arrayValueType.IsNativeArray() &&
+            if(doNativeArrayTypeSpec && !(useValueTypes && arrayValueType.IsNativeArray() &&
                 (arrayValueType.IsLikelyNativeIntArray() && instr->GetSrc2()->IsInt32()) ||
                 (arrayValueType.IsLikelyNativeFloatArray() && instr->GetSrc2()->IsFloat()))
-                && !arrayValueType.IsNotNativeArray())
+                && !(useValueTypes && arrayValueType.IsNotNativeArray()))
             {
                 kills.SetKillsNativeArrays();
             }
@@ -15843,7 +15880,7 @@ JsArrayKills GlobOpt::CheckJsArrayKills(IR::Instr *const instr)
             Assert(arrayOpnd);
 
             const ValueType arrayValueType(arrayOpnd->GetValueType());
-            if(!arrayOpnd->IsRegOpnd() || arrayValueType.IsNotArrayOrObjectWithArray())
+            if(!arrayOpnd->IsRegOpnd() || useValueTypes && arrayValueType.IsNotArrayOrObjectWithArray())
             {
                 break;
             }
@@ -15853,7 +15890,7 @@ JsArrayKills GlobOpt::CheckJsArrayKills(IR::Instr *const instr)
                 kills.SetKillsArrayHeadSegmentLengths();
             }
 
-            if(doArrayLengthHoist && !arrayValueType.IsNotArray())
+            if(doArrayLengthHoist && !(useValueTypes && arrayValueType.IsNotArray()))
             {
                 kills.SetKillsArrayLengths();
             }
@@ -15868,7 +15905,7 @@ JsArrayKills GlobOpt::CheckJsArrayKills(IR::Instr *const instr)
             IR::Opnd *const arrayOpnd = instr->FindCallArgumentOpnd(1);
             Assert(arrayOpnd);
             const ValueType arrayValueType(arrayOpnd->GetValueType());
-            if(!arrayOpnd->IsRegOpnd() || arrayValueType.IsNotArrayOrObjectWithArray())
+            if(!arrayOpnd->IsRegOpnd() || useValueTypes && arrayValueType.IsNotArrayOrObjectWithArray())
             {
                 break;
             }
@@ -15901,7 +15938,7 @@ JsArrayKills GlobOpt::CheckJsArrayKills(IR::Instr *const instr)
                 }
             }
 
-            if(doArrayLengthHoist && !arrayValueType.IsNotArray())
+            if(doArrayLengthHoist && !(useValueTypes && arrayValueType.IsNotArray()))
             {
                 switch(helperMethod)
                 {
@@ -15913,7 +15950,7 @@ JsArrayKills GlobOpt::CheckJsArrayKills(IR::Instr *const instr)
                 }
             }
 
-            if(doNativeArrayTypeSpec && !arrayValueType.IsNotNativeArray())
+            if(doNativeArrayTypeSpec && !(useValueTypes && arrayValueType.IsNotNativeArray()))
             {
                 switch(helperMethod)
                 {

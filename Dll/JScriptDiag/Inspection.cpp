@@ -151,7 +151,7 @@ namespace JsDiag
                 return listener->EnumProperty(Js::Constants::NoProperty, prop);
             });
         }
-        
+
         __super::EnumNonIndexProperties(listener, originalObject, requireEnumerable);
     }
 
@@ -252,7 +252,7 @@ namespace JsDiag
         if (bstr == null)
         {
             static const int bufSize = 256;
-            wchar_t szBuffer[bufSize]; //TODO: This seems overly generous         
+            wchar_t szBuffer[bufSize]; //TODO: This seems overly generous
 
             if(Js::NumberUtilities::FNonZeroFiniteDblToStr(value, szBuffer, bufSize))
             {
@@ -381,7 +381,7 @@ namespace JsDiag
     }
 
     void JavascriptPointerProperty::GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue)
-    { 
+    {
         WCHAR valueString[70]; // Max is size 64 for base 2, and 1 for NULL, and 2 more prefix
         int prefixLen = 0;
         if(nRadix == 16)
@@ -750,7 +750,7 @@ namespace JsDiag
         if (function.IsScriptFunction())
         {
             pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::length, function.GetLength());
-        } 
+        }
 		else if (function.IsBoundFunction(m_context))
 		{
 			PROPERTY_INFO propInfo;
@@ -762,11 +762,11 @@ namespace JsDiag
 				propInfo.name = s_lengthPropertyName;
 				pThis()->InsertItem(propInfo);
 			}
-			else																						
+			else
 			{
 				pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::length, value);
 			}
-			
+
 		}
 
         __super::InsertSpecialProperties(var);
@@ -801,7 +801,7 @@ namespace JsDiag
         RemoteArgumentsObject arguments(reader, static_cast<const ArgumentsObject*>(var));
         RemoteScriptContext scriptContext(reader, var);
         RemoteScriptConfiguration scriptConfiguration(reader, scriptContext.GetConfig());
-       
+
         __super::InsertSpecialProperties(var);
     }
 
@@ -880,7 +880,7 @@ namespace JsDiag
         {
             str = fakeScriptContext.GetLibrary()->GetFunctionDisplayString();
         }
-        
+
         *pValue = str.AllocSysString();
     }
 
@@ -1033,7 +1033,7 @@ namespace JsDiag
         while (m_iter.MoveNext())
         {
             m_next++;
-            
+
             if (m_iter.GetIndex() == index)
             {
                 m_context->CreateDebugProperty(m_iter.GetPropertyInfo(), GetOwnerDebugProperty(), ppDebugProperty);
@@ -1197,7 +1197,7 @@ namespace JsDiag
                 segment = (Js::SparseArraySegment<T>*)seg->next;
                 continue;
             }
-        
+
             if (seg->left < m_end)
             {
                 // Found segment. Set start index and endIndex
@@ -1340,7 +1340,7 @@ namespace JsDiag
     {
         const EntryType* p1 = reinterpret_cast<const EntryType*>(item1);
         const EntryType* p2 = reinterpret_cast<const EntryType*>(item2);
- 
+
         Assert(p1->Key() != p2->Key());
         return p1->Key() < p2->Key() ? -1 : 1;
     }
@@ -1348,13 +1348,13 @@ namespace JsDiag
     template <bool requireEnumerable>
     void RemoteES5ArrayItemEnumerator<requireEnumerable>::Init(InspectionContext* context, const ES5Array* arr, uint start, uint end)
     {
-        auto reader = context->GetReader();        
+        auto reader = context->GetReader();
         end = min(end, RemoteJavascriptArray(reader, arr)->length);
 
         m_dataEnumerator.Init(context, arr, start, end);
 
         RemoteDynamicObject obj(reader, arr);
-        RemoteData<DynamicType> type(reader, obj->GetDynamicType());        
+        RemoteData<DynamicType> type(reader, obj->GetDynamicType());
         RemoteData<ES5ArrayTypeHandler> typeHandler(reader, (ES5ArrayTypeHandler*)type->GetTypeHandler()); //CONSIDER: small/big ES5ArrayTypeHandler
         m_descriptorEnumerator.Init(reader, typeHandler->indexPropertyMap, start, end);
 
@@ -1514,7 +1514,7 @@ namespace JsDiag
 
             return true;
         };
-        
+
         // Collect disconnected args from object
         RemoteDynamicObject obj(reader, instance);
         if (obj.HasObjectArray(m_context))
@@ -1541,7 +1541,7 @@ namespace JsDiag
             m_context->CreateDebugProperty(PROPERTY_INFO(arr), /*parent*/nullptr, &prop);
             prop->EnumItems(&localListener, start, end, requireEnumerable);
         }
-        
+
         // Ensure enumerated named args if not already
         enumNamed();
     }
@@ -2227,10 +2227,6 @@ namespace JsDiag
             CreateComObject<JavascriptStringObjectProperty>(this, info, parent, ppDebugProperty);
             return;
 
-        case Js::TypeIds_SafeArrayObject:
-            CreateComObject<JavascriptSafeArrayObjectProperty>(this, info, parent, ppDebugProperty);
-            return;
-
         case Js::TypeIds_Arguments:
             CreateComObject<ArgumentsObjectProperty>(this, info, parent, ppDebugProperty);
             return;
@@ -2414,7 +2410,7 @@ namespace JsDiag
     bool InspectionContext::IsMshtmlObject(Js::TypeId typeId)
     {
         // OS 2113442 - EdgeHtmlDac.dll is not present currently. Stop inspecting html objects for now and return false from here.
-        // We have removed the call to EnsureReadyIfHybridDebugging from JavascriptLibrary::CreateExternalConstructor because 
+        // We have removed the call to EnsureReadyIfHybridDebugging from JavascriptLibrary::CreateExternalConstructor because
         // calling EnsureReadyIfHybridDebugging will call EnsureObjectReady which try to create the object and go back to trident.
         // Since the call CreateExternalConstructor would have not returned to trident there is no constructor on trident side and it can't create the object
         // When we fix the EdgeHtmlDac.dll load issue we need to check if HTML objects are inspected properly and if not we need to fix them by deferring the HTML objects somehow

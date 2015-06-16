@@ -30,8 +30,6 @@
 #include "customEnumerator.h"
 #include "ErrorTypeHelper.h"
 #include "EnumVariantEnumerator.h"
-#include "JavascriptSafeArray.h"
-#include "JavascriptSafeArrayObject.h"
 #include "classfac.h"
 #include "siteserv.h"
 #include "hostvariant.h"
@@ -147,7 +145,7 @@
 #include "TestHooks.h"
 #include "DOMProperties.h"
 #if !defined(USED_IN_STATIC_LIB)
-#include "ActiveScriptProfilerHeapEnum.h" 
+#include "ActiveScriptProfilerHeapEnum.h"
 #endif
 #ifdef EDIT_AND_CONTINUE
 #include "pnodediff.h"

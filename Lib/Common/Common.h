@@ -396,22 +396,6 @@ private:
 };
 #define AUTO_TIMESTAMP(Field) AutoTimestamp timestamp_##Field(&telemetryBlock->Field##StartTime, &telemetryBlock->Field##EndTime);
 
-#if DBG
-template<class Fn>
-#pragma warning( push )
-#pragma warning( disable : 4512 )
-class ExitVerifier
-{
-public:
-    const Fn& callback;
-    ExitVerifier(const Fn& callback) :callback(callback){}
-    ~ExitVerifier(){ callback(); }
-};
-#pragma warning( pop )
-#define AUTO_INTEGRITY_CHECK(checker) auto __checker = checker; \
-    ExitVerifier<decltype(__checker)> __exitVerifier(__checker);
-#endif
-
 // Header files
 #include "core\BinaryFeatureControl.h"
 #include "TemplateParameter.h"

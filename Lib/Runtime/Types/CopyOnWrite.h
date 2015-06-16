@@ -160,12 +160,10 @@ namespace Js {
                                 (originalObject->IsEnumerable(id) ? PropertyEnumerable : PropertyNone) |
                                 (originalObject->IsWritable(id) ? PropertyWritable : PropertyNone) |
                                 (originalObject->IsConfigurable(id) ? PropertyConfigurable : PropertyNone);
-                            if (attributes != PropertyDynamicTypeDefaults)
-                            {
-                                Var value = scriptContext->CopyOnWrite(enumerator->GetCurrentValue());
-                                this->SetPropertyWithAttributes(id, value, attributes, nullptr);
-                                continue;
-                            }
+
+                            Var value = scriptContext->CopyOnWrite(enumerator->GetCurrentValue());
+                            this->SetPropertyWithAttributes(id, value, attributes, nullptr);
+                            continue;
                         }
 
                         Var value = scriptContext->CopyOnWrite(enumerator->GetCurrentValue());

@@ -116,7 +116,7 @@ namespace Js
                 Var thirdArgument = args[3];
                 // TODO: Change length of ArrayObject from uint32 to uint64?
                 mappedLength = (int32)JavascriptConversion::ToLength(thirdArgument, scriptContext);
-                AssertMsg(mappedLength > 0, "Mapped Length of dataview should never be less than 0.");
+                AssertMsg(mappedLength >= 0, "Mapped Length of dataview should never be less than 0.");
 
                 // mappedLength and offset will always be >= 0, so no need to typecast to uint64
                 if ((uint32)(mappedLength + offset) > byteLength)

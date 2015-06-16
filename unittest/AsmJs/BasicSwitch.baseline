@@ -1,3 +1,4 @@
+Successfully compiled asm.js code
 f1 a[0](undefined) = 0
 f2 a[0](undefined) = 0
 f1 a[1](null) = 0

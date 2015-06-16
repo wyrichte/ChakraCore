@@ -484,7 +484,7 @@ namespace Js
         template <typename T>
         static JavascriptString* JoinArrayHelper(T * arr, JavascriptString* separatorStr, ScriptContext* scriptContext);
         static JavascriptString* JoinOtherHelper(RecyclableObject *object, JavascriptString* separatorStr, ScriptContext* scriptContext);
-        virtual int32 HeadSegmentIndexOfHelper(Var search, uint32 fromIndex, uint32 toIndex, bool * mustContinue, ScriptContext * scriptContext);
+        virtual int32 HeadSegmentIndexOfHelper(Var search, uint32 &fromIndex, uint32 toIndex, ScriptContext * scriptContext);
 
 
 
@@ -903,7 +903,7 @@ namespace Js
         static DynamicType * GetInitialType(ScriptContext * scriptContext);
         static JavascriptNativeIntArray * BoxStackInstance(JavascriptNativeIntArray * instance);
     private:
-        virtual int32 HeadSegmentIndexOfHelper(Var search, uint32 fromIndex, uint32 toIndex, bool * mustContinue, ScriptContext * scriptContext) override;
+        virtual int32 HeadSegmentIndexOfHelper(Var search, uint32 &fromIndex, uint32 toIndex, ScriptContext * scriptContext) override;
     };
 
     class JavascriptCopyOnAccessNativeIntArray : public JavascriptNativeIntArray
@@ -1019,7 +1019,7 @@ namespace Js
         static JavascriptNativeFloatArray * BoxStackInstance(JavascriptNativeFloatArray * instance);
         static double Pop(ScriptContext * scriptContext, Var nativeFloatArray);
     private:
-        virtual int32 HeadSegmentIndexOfHelper(Var search, uint32 fromIndex, uint32 toIndex, bool * mustContinue, ScriptContext * scriptContext);
+        virtual int32 HeadSegmentIndexOfHelper(Var search, uint32 &fromIndex, uint32 toIndex, ScriptContext * scriptContext) override;
     };
 
 #ifdef ARRLOG

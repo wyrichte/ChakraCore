@@ -138,4 +138,13 @@
   </default>
 </test>
 
+
+<test>
+  <default>
+    <files>bug_OS_2903083.js</files>
+    <compile-flags>-force:cachedscope</compile-flags>
+    <tags>BugFix</tags>
+  </default>
+</test>
+
 </regress-exe>

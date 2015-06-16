@@ -21,7 +21,6 @@ namespace Js
     class AsmJSCompiler
     {
     public:
-        static bool EstablishPreconditions( ExclusiveContext *cx, AsmJSParser &parser );
         static bool CheckModule( ExclusiveContext *cx, AsmJSParser &parser, ParseNode *stmtList );
         static bool CheckIdentifier( AsmJsModuleCompiler &m, ParseNode *usepn, PropertyName name );
         static bool CheckModuleLevelName( AsmJsModuleCompiler &m, ParseNode *usepn, PropertyName name );
@@ -45,6 +44,9 @@ namespace Js
         static bool CheckModuleReturn( AsmJsModuleCompiler& m );
         static bool CheckFuncPtrTables( AsmJsModuleCompiler &m );
 
+        static void OutputError(ScriptContext * scriptContext, const wchar * message, ...);
+        static void OutputMessage(ScriptContext * scriptContext, const DEBUG_EVENT_INFO_TYPE messageType, const wchar * message, ...);
+        static void VOutputMessage(ScriptContext * scriptContext, const DEBUG_EVENT_INFO_TYPE messageType, const wchar * message, va_list argptr);
     public:
         bool static Compile(ExclusiveContext *cx, AsmJSParser parser, ParseNode *stmtList);
     };

@@ -160,6 +160,13 @@ LargeHeapBucket::PageHeapAlloc(Recycler * recycler, size_t size, ObjectInfoBits 
 #endif
 
     LargeHeapBlock * heapBlock = LargeHeapBlock::New(address, pageCount, segment, 1, nullptr);
+    if (!heapBlock)
+    {
+        recycler->GetRecyclerLargeBlockPageAllocator()->SuspendIdleDecommit();
+        recycler->GetRecyclerLargeBlockPageAllocator()->Release(address, actualPageCount, segment);
+        recycler->GetRecyclerLargeBlockPageAllocator()->ResumeIdleDecommit();
+        return null;
+    }
     heapBlock->actualPageCount = actualPageCount;
     heapBlock->guardPageAddress = guardPageAddress;
     heapBlock->guardPageOldProtectFlags = guardPageOldProtectFlags;
@@ -183,17 +190,10 @@ LargeHeapBucket::PageHeapAlloc(Recycler * recycler, size_t size, ObjectInfoBits 
         EventWriteJSCRIPT_INTERNAL_RECYCLER_EXTRALARGE_OBJECT_ALLOC(size);
     }
 #endif
-    if (!heapBlock)
-    {
-        recycler->GetRecyclerLargeBlockPageAllocator()->SuspendIdleDecommit();
-        recycler->GetRecyclerLargeBlockPageAllocator()->Release(address, actualPageCount, segment);
-        recycler->GetRecyclerLargeBlockPageAllocator()->ResumeIdleDecommit();
-        return null;
-    }
+
 #ifdef PARTIAL_GC_ENABLED
     recycler->autoHeap.uncollectedNewPageCount += pageCount;
 #endif
-
 
     RECYCLER_SLOW_CHECK(this->heapInfo->heapBlockCount[HeapBlock::HeapBlockType::LargeBlockType]++);
 

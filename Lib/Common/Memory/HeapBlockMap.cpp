@@ -567,6 +567,7 @@ HeapBlockMap32::ForEachSegment(Recycler * recycler, Fn func)
 
             char * segmentStart = currentSegment->GetAddress();
             size_t segmentLength = currentSegment->GetPageCount() * PageSize;
+
             PageAllocator* segmentPageAllocator = (PageAllocator*)currentSegment->GetAllocator();
 
             Assert(segmentPageAllocator == block->GetPageAllocator(recycler));
@@ -587,7 +588,7 @@ HeapBlockMap32::ForEachSegment(Recycler * recycler, Fn func)
             }
 #endif
 
-            func(segmentStart, segmentLength, segmentPageAllocator);
+            func(segmentStart, segmentLength, currentSegment, segmentPageAllocator);
         }
     }
 }
@@ -595,7 +596,7 @@ HeapBlockMap32::ForEachSegment(Recycler * recycler, Fn func)
 void
 HeapBlockMap32::ResetWriteWatch(Recycler * recycler)
 {
-    this->ForEachSegment(recycler, [=] (char * segmentStart, size_t segmentLength, PageAllocator * segmentPageAllocator) {
+    this->ForEachSegment(recycler, [=] (char * segmentStart, size_t segmentLength, Segment * segment, PageAllocator * segmentPageAllocator) {
 
         Assert(segmentLength % AutoSystemInfo::PageSize == 0);
         
@@ -715,6 +716,34 @@ HeapBlockMap32::GetHeapBlockForRescan(HeapBlockMap32::L2MapChunk* chunk, uint id
     return (MediumFinalizableHeapBlock*)chunk->map[id2];
 }
 
+void
+HeapBlockMap32::MakeAllPagesReadOnly(Recycler* recycler)
+{
+    this->ChangeProtectionLevel(recycler, PAGE_READONLY, PAGE_READWRITE);
+}
+
+void
+HeapBlockMap32::MakeAllPagesReadWrite(Recycler* recycler)
+{
+    this->ChangeProtectionLevel(recycler, PAGE_READWRITE, PAGE_READONLY);
+}
+
+void
+HeapBlockMap32::ChangeProtectionLevel(Recycler* recycler, DWORD protectFlags, DWORD expectedOldFlags)
+{
+    this->ForEachSegment(recycler, [&](char* segmentStart, size_t segmentLength, Segment* currentSegment, PageAllocator* segmentPageAllocator)
+    {
+        // Ideally, we shouldn't to exclude LargeBlocks here but guest arenas are allocated
+        // from this allocator and we touch them during marking if they're pending delete
+        if ((segmentPageAllocator != recycler->GetRecyclerLeafPageAllocator())
+            && (segmentPageAllocator != recycler->GetRecyclerLargeBlockPageAllocator()))
+        {
+            Assert(currentSegment->IsPageSegment());
+            ((PageSegment*)currentSegment)->ChangeSegmentProtection(protectFlags, expectedOldFlags);
+        }
+    });
+}
+
 uint
 HeapBlockMap32::Rescan(Recycler * recycler, bool resetWriteWatch)
 {
@@ -724,7 +753,7 @@ HeapBlockMap32::Rescan(Recycler * recycler, bool resetWriteWatch)
     uint scannedPageCount = 0;
     bool anyObjectsScannedOnPage = false;
     
-    this->ForEachSegment(recycler, [&] (char * segmentStart, size_t segmentLength, PageAllocator * segmentPageAllocator) {
+    this->ForEachSegment(recycler, [&] (char * segmentStart, size_t segmentLength, Segment * currentSegment, PageAllocator * segmentPageAllocator) {
         Assert(segmentLength % AutoSystemInfo::PageSize == 0);
         
         // Call GetWriteWatch for Small non-leaf segments.
@@ -807,7 +836,7 @@ HeapBlockMap32::OOMRescan(Recycler * recycler)
 {
     // Loop through segments and find pages that need OOM Rescan.
     
-    this->ForEachSegment(recycler, [=] (char * segmentStart, size_t segmentLength, PageAllocator * segmentPageAllocator) {
+    this->ForEachSegment(recycler, [=] (char * segmentStart, size_t segmentLength, Segment * currentSegment, PageAllocator * segmentPageAllocator) {
         Assert(segmentLength % AutoSystemInfo::PageSize == 0);
         
         // Process Small non-leaf segments (including write barrier blocks).
@@ -947,13 +976,14 @@ HeapBlockMap32::RescanHeapBlockOnOOM(TBlockType* heapBlock, char* pageAddress, H
 // This function is called in-thread after Sweep, to find empty L2 Maps and release them.
 
 void
-HeapBlockMap32::Cleanup()
+HeapBlockMap32::Cleanup(bool concurrentFindImplicitRoot)
 {
     for (uint id1 = 0; id1 < L1Count; id1++)
     {
         L2MapChunk * l2map = map[id1];
         if (l2map != null && l2map->IsEmpty())
         {
+            // Concurrent searches for implicit roots will never see empty L2 maps.
             map[id1] = null;
             NoMemProtectHeapDelete(l2map);
             Assert(count > 0);
@@ -1167,6 +1197,10 @@ HeapBlockMap64::FindOrInsertNode(void * address)
         {
             node->nodeIndex = GetNodeIndex(address);
             node->next = list;
+#ifdef _M_ARM64
+            // For ARM we need to make sure that the list remains traversible during this insert.
+            MemoryBarrier();
+#endif
             list = node;
         }
     }
@@ -1216,6 +1250,28 @@ HeapBlockMap64::ResetWriteWatch(Recycler * recycler)
     }
 }
 
+void
+HeapBlockMap64::MakeAllPagesReadOnly(Recycler* recycler)
+{
+    Node * node = this->list;
+    while (node != null)
+    {
+        node->map.MakeAllPagesReadOnly(recycler);
+        node = node->next;
+    }
+}
+
+void
+HeapBlockMap64::MakeAllPagesReadWrite(Recycler* recycler)
+{
+    Node * node = this->list;
+    while (node != null)
+    {
+        node->map.MakeAllPagesReadWrite(recycler);
+        node = node->next;
+    }
+}
+
 uint
 HeapBlockMap64::Rescan(Recycler * recycler, bool resetWriteWatch)
 {
@@ -1243,16 +1299,18 @@ HeapBlockMap64::OOMRescan(Recycler * recycler)
 }
 
 void 
-HeapBlockMap64::Cleanup()
+HeapBlockMap64::Cleanup(bool concurrentFindImplicitRoot)
 {
     Node ** prevnext = &this->list;
     Node * node = *prevnext;    
     while (node != null)
     {
-        node->map.Cleanup();
+        node->map.Cleanup(concurrentFindImplicitRoot);
         Node * nextNode = node->next;
-        if (node->map.Empty())
+        if (!concurrentFindImplicitRoot && node->map.Empty())
         {            
+            // Concurrent traversals of the node list would result in a race and possible UAF.
+            // Currently we simply defer node free for the lifetime of the heap (only affects MemProtect).
             *prevnext = node->next;
             NoMemProtectHeapDelete(node);
         }

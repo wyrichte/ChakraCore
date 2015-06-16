@@ -106,12 +106,16 @@ namespace Js
     }
 #endif
 
-    bool EquivalentTypeSet::Contains(const Js::Type * type) const
+    bool EquivalentTypeSet::Contains(const Js::Type * type, uint16* pIndex) const
     {
         for (uint16 ti = 0; ti < this->count; ti++)
         {
             if (this->types[ti] == type)
             {
+                if (pIndex)
+                {
+                    *pIndex = ti;
+                }
                 return true;
             }
         }

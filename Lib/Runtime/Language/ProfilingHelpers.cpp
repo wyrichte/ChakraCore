@@ -908,7 +908,7 @@ namespace Js
         Var val = nullptr;
         ScriptContext *scriptContext = functionBody->GetScriptContext();
 
-        BEGIN_TYPEOF_ERROR_HANDLER(scriptContext);
+        BEGIN_PROFILED_TYPEOF_ERROR_HANDLER(scriptContext);
         val = ProfiledLdFld<Root, Method, CallApplyTarget>(
             instance,
             propertyId,
@@ -916,7 +916,7 @@ namespace Js
             inlineCacheIndex,
             functionBody,
             instance);
-        END_TYPEOF_ERROR_HANDLER(scriptContext, val);
+        END_PROFILED_TYPEOF_ERROR_HANDLER(scriptContext, val, functionBody, inlineCacheIndex);
 
         return val;
     }

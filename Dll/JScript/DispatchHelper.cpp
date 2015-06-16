@@ -87,7 +87,7 @@ void DispatchHelper::MarshalJsVarToDispatchVariant(Js::Var var,VARIANT *pVar)
     jsdisp = JavascriptDispatch::Create<true>(obj);
     AssertMsg(jsdisp->GetObject() == var, "Bad dispatch map entry");
     pVar->vt = VT_DISPATCH;
-        
+
     HRESULT hr = jsdisp->QueryInterface(IID_IDispatchEx, (void**)&pVar->pdispVal);
     Assert(hr == S_OK);
 }
@@ -225,14 +225,6 @@ HRESULT DispatchHelper::MarshalJsVarToVariant(Js::Var var,VARIANT *pVar)
                 break;
             }
 
-            case Js::TypeIds_SafeArrayObject:
-#ifdef DBG
-            {
-                Js::RecyclableObject* tempRecyclableObj = Js::RecyclableObject::FromVar(var);
-                AssertMsg(tempRecyclableObj->GetScriptContext()->GetConfig()->GetHostType() != Js::HostTypeApplication, 
-                    "JavascriptSafeArrayObject is disabled for WWA. We should never get here.");
-            }
-#endif
             case Js::TypeIds_Object:
             case Js::TypeIds_Function:
             case Js::TypeIds_Array:
@@ -309,20 +301,6 @@ HRESULT DispatchHelper::MarshalJsVarToVariant(Js::Var var,VARIANT *pVar)
             {
                 pVar->vt = VT_DATE;
                 pVar->dblVal = Js::JavascriptVariantDate::FromVar(var)->GetValue();
-                break;
-            }
-
-            case Js::TypeIds_SafeArray:
-            {
-                Js::JavascriptSafeArray* safeArrayObj = Js::JavascriptSafeArray::FromVar(var);
-                AssertMsg(safeArrayObj->GetScriptContext()->GetConfig()->GetHostType() != Js::HostTypeApplication, 
-                    "JavascriptSafeArray is disabled for WWA. We should never get here.");
-
-                hr = SafeArrayCopy(safeArrayObj->GetSafeArray(), &(pVar->parray));
-                if (SUCCEEDED(hr))
-                {
-                    pVar->vt = safeArrayObj->GetSafeArrayVarType(); // Change vt after successful copy
-                }
                 break;
             }
 
@@ -728,17 +706,10 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
         case VTE_ARRAY_BYTE:
         case VTE_ARRAY:
         {
-            if (scriptContext->GetConfig()->GetHostType() == Js::HostTypeApplication)
-            {
-                // JavascriptSafeArray/JavascriptSafeArrayObject is deprecatecd for WWAs.
-                // Do what's the default: just wrap it with HostDispatch and use as opaque object.
-                goto LDefault;
-            }
-            else
-            {
-                *pAtom = ScriptSite::FromScriptContext(scriptContext)->CreateJavascriptSafeArray(pVar->vt, pVar->parray);
-            }
-            break;
+            // JavascriptSafeArray/JavascriptSafeArrayObject is deprecated for all hos types.
+            // Do what's the default: just wrap it with HostDispatch and use as opaque object.
+            // This was previously wrapped in a SafeArray type
+            goto LDefault;
         }
 
         case VTE_BYREF_VARIANT:
@@ -1373,7 +1344,7 @@ HRESULT DispatchHelper::GetDateDefaultStringBstr(VARIANT *pvarRes, Js::YMD *pymd
         {
             // Non-US time zone.
             bs.AppendSz(OLESTR("UTC"));
-            min = ptzd->offset;            
+            min = ptzd->offset;
             if (0 != min)
             {
                 if (min < 0)
@@ -1448,7 +1419,7 @@ HRESULT DispatchHelper::ConvertToString(VARIANT *src, VARIANT* dst, Js::ScriptCo
 {
     Assert(scriptContext);
 
-    HRESULT hr = NOERROR;    
+    HRESULT hr = NOERROR;
     OLECHAR sz[256];
     // check the pointer before we de-reference it.
     if (NULL == dst)

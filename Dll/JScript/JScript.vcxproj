@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="chk|Win32">
@@ -54,14 +54,12 @@
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <UseOfATL>static</UseOfATL>
-    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <UseOfATL>static</UseOfATL>
-    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -467,10 +465,6 @@
     <ClCompile Include="JavascriptDispatch.cpp" />
     <ClCompile Include="JavascriptExternalOperators.cpp" />
     <ClCompile Include="JavascriptPixelArrayDispatch.cpp" />
-    <ClCompile Include="JavascriptSafeArray.cpp" />
-    <ClCompile Include="JavascriptSafeArrayObject.cpp" />
-    <ClCompile Include="JavascriptSafeArrayObjectType.cpp" />
-    <ClCompile Include="JavascriptSafeArrayType.cpp" />
     <ClCompile Include="javascriptThreadService.cpp" />
     <ClCompile Include="jsfac.cpp" />
     <ClCompile Include="jsrt.cpp" />
@@ -676,8 +670,6 @@
     <ClInclude Include="JavascriptDispatch.h" />
     <ClInclude Include="JavascriptExternalOperators.h" />
     <ClInclude Include="javascriptpixelarraydispatch.h" />
-    <ClInclude Include="JavascriptSafeArray.h" />
-    <ClInclude Include="JavascriptSafeArrayObject.h" />
     <ClInclude Include="javascriptThreadService.h" />
     <ClInclude Include="JnDOMDirectFields.h" />
     <ClInclude Include="jscriptdllcommon.h" />

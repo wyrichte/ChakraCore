@@ -291,6 +291,26 @@ namespace Projection
             invoker.SetIsInAsyncInterface();
         }
 
+        if (thisInfo->GetSpecialization() != nullptr && 
+            thisInfo->GetSpecialization()->specializationType == specPromiseSpecialization &&
+            (0 == wcscmp(StringOfId(scriptContext, rtmethod->nameId), L"put_Progress")))
+        {
+            // N.B. For IAsyncInfoWithProgress put_Progress supplies a delegate that accepts (IInspectable* operation, T progress).
+            // Our existing delegate wrappers do not understand how to marshal type T, which is passed by value and not
+            // as an IInspectable pointer.  STA threads can implicitly marshal this data through COM.  MTA threads do not
+            // know how to marshal this data back to the correct Js thread.  Therfore we disable the progress call until a solution
+            // can be implemented.
+            APTTYPE aptType = APTTYPE_CURRENT;
+            APTTYPEQUALIFIER aptQualifier = APTTYPEQUALIFIER_NONE;
+
+            if (CoGetApartmentType(&aptType, &aptQualifier) != S_OK ||
+                (aptType != APTTYPE_STA &&
+                 aptType != APTTYPE_MAINSTA))
+            {
+                return scriptContext->GetLibrary()->GetUndefined();
+            }
+        }
+
         switch(thisInfo->thisType)
         {
         case thisDelegate:

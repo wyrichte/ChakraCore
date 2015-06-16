@@ -1287,6 +1287,7 @@ STDAPI_(JsErrorCode) JsGetValueType(JsValueRef value, JsValueType *type)
             break;
         case Js::TypeIds_Array:
         case Js::TypeIds_NativeIntArray:
+        case Js::TypeIds_CopyOnAccessNativeIntArray:
         case Js::TypeIds_NativeFloatArray:
         case Js::TypeIds_ES5Array:
             *type = JsArray;
@@ -1300,9 +1301,6 @@ STDAPI_(JsErrorCode) JsGetValueType(JsValueRef value, JsValueType *type)
         case Js::TypeIds_DataView:
             *type = JsDataView;
             break;
-        case Js::TypeIds_CopyOnAccessNativeIntArray:
-            Assert(false);
-            // fall-through
         default:
             if (Js::TypedArrayBase::Is(typeId))
             {

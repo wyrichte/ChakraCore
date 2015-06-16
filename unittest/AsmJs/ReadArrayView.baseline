@@ -1,3 +1,4 @@
+Successfully compiled asm.js code
 read8    HEAP8  [0]   = all[0](undefined); = 0
 read16   HEAP16 [0]   = all[0](undefined); = 0
 read32   HEAP32 [0]   = all[0](undefined); = 0

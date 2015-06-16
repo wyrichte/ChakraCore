@@ -16,7 +16,7 @@ void UCrtC99MathApis::Ensure()
         return;
     }
 
-    DelayLoadLibrary::Ensure();
+    DelayLoadLibrary::EnsureFromSystemDirOnly();
 
     if (IsAvailable())
     {

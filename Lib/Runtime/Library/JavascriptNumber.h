@@ -50,7 +50,21 @@ namespace Js
         static bool IsPosInf(double value);
         static bool IsNegInf(double value);
 
-        static bool TryGetInt32Value(const double value, int32 *const int32Value);
+        template<bool acceptNegZero = false>
+        static bool TryGetInt32Value(const double value, int32 *const int32Value)
+        {
+            Assert(int32Value);
+
+            const int32 i = static_cast<int32>(value);
+            if (static_cast<double>(i) != value || (!acceptNegZero && IsNegZero(value)))
+            {
+                return false;
+            }
+
+            *int32Value = i;
+            return true;
+        }
+
         static bool TryGetInt32OrUInt32Value(const double value, int32 *const int32Value, bool *const isInt32);
         static bool IsInt32(const double value);
         static bool IsInt32OrUInt32(const double value);

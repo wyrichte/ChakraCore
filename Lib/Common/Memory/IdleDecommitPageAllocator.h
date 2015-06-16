@@ -1,7 +1,8 @@
 //----------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
-
+namespace Memory
+{
 enum IdleDecommitSignal
 {
     IdleDecommitSignal_None,
@@ -77,3 +78,5 @@ public:
     }
 #endif
 };
+
+}

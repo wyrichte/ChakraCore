@@ -4,6 +4,9 @@
 
 #pragma once
 
+namespace Memory
+{
+
 #ifdef LEAK_REPORT
 
 class LeakReport
@@ -63,3 +66,4 @@ private:
 #define LEAK_REPORT_PRINT(msg, ...)
 #define AUTO_LEAK_REPORT_SECTION(msg, ...)
 #endif
+}

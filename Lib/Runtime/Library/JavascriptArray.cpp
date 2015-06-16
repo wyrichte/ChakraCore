@@ -3390,12 +3390,11 @@ namespace Js
 
         if (pArr)
         {
-            bool mustContinue;
-            index = pArr->HeadSegmentIndexOfHelper(search, fromIndex, length, &mustContinue,  scriptContext);
+            index = pArr->HeadSegmentIndexOfHelper(search, fromIndex, length, scriptContext);
 
             // If we found the search value in the head segment, or if we determined there is no need to search other segments, 
             // we stop right here.
-            if (index != -1 || !mustContinue)
+            if (index != -1 || fromIndex == -1)
             {
                 return JavascriptNumber::ToVar(index, scriptContext);
             }
@@ -3538,15 +3537,11 @@ namespace Js
         return TaggedInt::ToVarUnchecked(-1);
     }
 
-    int32 JavascriptArray::HeadSegmentIndexOfHelper(Var search, uint32 fromIndex, uint32 toIndex, bool* mustContinue, ScriptContext * scriptContext)
+    int32 JavascriptArray::HeadSegmentIndexOfHelper(Var search, uint32 &fromIndex, uint32 toIndex, ScriptContext * scriptContext)
     {
         Assert(Is(GetTypeId()) && !JavascriptNativeArray::Is(GetTypeId()));
-        Assert(mustContinue != null);
 
-        // To be safe, we start off asssuming the search must be continued after this method.
-        *mustContinue = true;
-
-        if (!HasNoMissingValues())
+        if (!HasNoMissingValues() || fromIndex >= GetHead()->length)
         {
             return -1;
         }
@@ -3564,27 +3559,23 @@ namespace Js
             {
                 if (search == element)
                 {
-                    *mustContinue = false;
                     return i;
                 }
             }
             else if (JavascriptOperators::StrictEqual(element, search, scriptContext))
             {
-                *mustContinue = false;
                 return i;
             }
         }
 
         // Element not found in the head segment. Keep looking only if the range of indices extends past
         // the head segment.
-        *mustContinue = toIndex >= head->length;
+        fromIndex = toIndex > GetHead()->length ? GetHead()->length : -1;
         return -1;
     }
 
-    int32 JavascriptNativeIntArray::HeadSegmentIndexOfHelper(Var search, uint32 fromIndex, uint32 toIndex, bool* mustContinue, ScriptContext * scriptContext)
+    int32 JavascriptNativeIntArray::HeadSegmentIndexOfHelper(Var search, uint32 &fromIndex, uint32 toIndex, ScriptContext * scriptContext)
     {
-        Assert(mustContinue != null);
-
         // We proceed largely in the same manner as in JavascriptArray's version of this method (see comments there for more information),
         // except when we can further optimize thanks to the knowledge that all elements in the array are int32's. This allows for two additional optimizations:
         // 1. Only tagged ints or JavascriptNumbers that can be represented as int32 can be strict equal to some element in the array (all int32). Thus, if
@@ -3592,10 +3583,7 @@ namespace Js
         // 2. If the search value is a number that can be represented as int32, then we inspect the elements, but we don't need to perform the full strict equality algorithm. 
         // Instead we can use simple C++ equality (which in case of such values is equivalent to strict equality in JavaScript).
 
-        // To be safe, we start off asssuming the search must be continued after this method.
-        *mustContinue = true;
-
-        if (!HasNoMissingValues())
+        if (!HasNoMissingValues() || fromIndex >= GetHead()->length)
         {
             return -1;
         }
@@ -3604,8 +3592,8 @@ namespace Js
         if (!isSearchTaggedInt && !JavascriptNumber::Is_NoTaggedIntCheck(search))
         {
             // The value can't be in the array, but it could be in a prototype, and we can only guarantee that
-            // the head segment has no gaps. TODO: prevent re-examination of head segment.
-            *mustContinue = toIndex >= GetHead()->length;
+            // the head segment has no gaps.
+            fromIndex = toIndex > GetHead()->length ? GetHead()->length : -1;
             return -1;
         }
         int32 searchAsInt32;
@@ -3613,11 +3601,11 @@ namespace Js
         {
             searchAsInt32 = TaggedInt::ToInt32(search);
         }
-        else if (!JavascriptNumber::TryGetInt32Value(JavascriptNumber::GetValue(search), &searchAsInt32))
+        else if (!JavascriptNumber::TryGetInt32Value<true>(JavascriptNumber::GetValue(search), &searchAsInt32))
         {
             // The value can't be in the array, but it could be in a prototype, and we can only guarantee that
-            // the head segment has no gaps. TODO: prevent re-examination of head segment.
-            *mustContinue = toIndex >= GetHead()->length;
+            // the head segment has no gaps.
+            fromIndex = toIndex > GetHead()->length ? GetHead()->length : -1;
             return -1;
         }
 
@@ -3632,21 +3620,18 @@ namespace Js
             int32 element = head->GetElement(i);
             if (searchAsInt32 == element)
             {
-                *mustContinue = false;
                 return i;
             }
         }
 
         // Element not found in the head segment. Keep looking only if the range of indices extends past
         // the head segment.
-        *mustContinue = toIndex >= head->length;
+        fromIndex = toIndex > GetHead()->length ? GetHead()->length : -1;
         return -1;
     }
 
-    int32 JavascriptNativeFloatArray::HeadSegmentIndexOfHelper(Var search, uint32 fromIndex, uint32 toIndex, bool* mustContinue, ScriptContext * scriptContext)
+    int32 JavascriptNativeFloatArray::HeadSegmentIndexOfHelper(Var search, uint32 &fromIndex, uint32 toIndex, ScriptContext * scriptContext)
     {
-        Assert(mustContinue != null);
-
         // We proceed largely in the same manner as in JavascriptArray's version of this method (see comments there for more information),
         // except when we can further optimize thanks to the knowledge that all elements in the array are doubles. This allows for two additional optimizations:
         // 1. Only tagged ints or JavascriptNumbers can be strict equal to some element in the array (all doubles). Thus, if
@@ -3654,10 +3639,7 @@ namespace Js
         // 2. If the search value is a number, then we inspect the elements, but we don't need to perform the full strict equality algorithm. 
         // Instead we can use simple C++ equality (which in case of such values is equivalent to strict equality in JavaScript).
 
-        // To be safe, we start off assuming the search must be continued after this method.
-        *mustContinue = true;
-
-        if (!HasNoMissingValues())
+        if (!HasNoMissingValues() || fromIndex >= GetHead()->length)
         {
             return -1;
         }
@@ -3666,8 +3648,8 @@ namespace Js
         if (!isSearchTaggedInt && !JavascriptNumber::Is_NoTaggedIntCheck(search))
         {
             // The value can't be in the array, but it could be in a prototype, and we can only guarantee that
-            // the head segment has no gaps. TODO: prevent re-examination of head segment.
-            *mustContinue = toIndex >= GetHead()->length;
+            // the head segment has no gaps.
+            fromIndex = toIndex > GetHead()->length ? GetHead()->length : -1;
             return -1;
         }
 
@@ -3685,12 +3667,11 @@ namespace Js
             double element = head->GetElement(i);
             if (element == searchAsDouble)
             {
-                *mustContinue = false;
                 return i;
             }
         }
 
-        *mustContinue = toIndex >= head->length;
+        fromIndex = toIndex > GetHead()->length ? GetHead()->length : -1;
         return -1;
     }
 
@@ -5474,7 +5455,7 @@ Case0:
                         continue;
                     }
 
-                    JavascriptOperators::OP_SetElementI_UInt32(newObj, i, element, scriptContext, PropertyOperation_ThrowIfNotExtensible);
+                    JavascriptArray::SetArrayLikeObjects(newObj, i, element);
                 }
             }
         }
@@ -6666,7 +6647,7 @@ Case0:
                    }
                    else
                    {
-                       pNewObj->SetItem(i, element, PropertyOperation_ThrowIfNotExtensible);
+                       JavascriptArray::SetArrayLikeObjects(pNewObj, i, element);
                    }
                }
             }
@@ -8370,7 +8351,7 @@ Case0:
                 }
                 else
                 {
-                    JavascriptOperators::SetItem(newObj, newObj, k, mappedValue, scriptContext, PropertyOperation_ThrowIfNotExtensible);
+                    JavascriptArray::SetArrayLikeObjects(RecyclableObject::FromVar(newObj), k, mappedValue);
                 }
             }
         }
@@ -8415,7 +8396,7 @@ Case0:
                 }
                 else
                 {
-                    JavascriptOperators::SetItem(newObj, newObj, k, mappedValue, scriptContext, PropertyOperation_ThrowIfNotExtensible);
+                    JavascriptArray::SetArrayLikeObjects(RecyclableObject::FromVar(newObj), k, mappedValue);
                 }
             }
         }
@@ -8566,7 +8547,7 @@ Case0:
                     }
                     else
                     {
-                        JavascriptOperators::OP_SetElementI_UInt32(newObj, i++, element, scriptContext, PropertyOperation_ThrowIfNotExtensible);
+                        JavascriptArray::SetArrayLikeObjects(RecyclableObject::FromVar(newObj), i++, element);
                     }
                 }
             }
@@ -9101,7 +9082,7 @@ Case0:
                 }
                 else
                 {
-                    JavascriptOperators::OP_SetElementI_UInt32(newObj, k, nextValue, scriptContext, Js::PropertyOperation_ThrowIfNotExtensible);
+                    JavascriptArray::SetArrayLikeObjects(RecyclableObject::FromVar(newObj), k, nextValue);
                 }
 
                 k++;
@@ -9170,7 +9151,7 @@ Case0:
                 }
                 else
                 {
-                    JavascriptOperators::OP_SetElementI_UInt32(newObj, k, kValue, scriptContext, Js::PropertyOperation_ThrowIfNotExtensible);
+                    JavascriptArray::SetArrayLikeObjects(RecyclableObject::FromVar(newObj), k, kValue);
                 }
             }
 
@@ -9265,8 +9246,7 @@ Case0:
             for (uint32 k = 0; k < len; k++)
             {
                 Var kValue = args[k + 1];
-
-                JavascriptOperators::OP_SetElementI_UInt32(newObj, k, kValue, scriptContext, Js::PropertyOperation_ThrowIfNotExtensible);
+                JavascriptArray::SetArrayLikeObjects(RecyclableObject::FromVar(newObj), k, kValue);
             }
         }
 

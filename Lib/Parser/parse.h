@@ -392,6 +392,7 @@ private:
     // Should be under #if ERROR_RECOVERY, but can't change the size of Parser for LS
     IdentPtr            m_pidError;
     IdentPtr            m_pidDeclError;     // Used for member declarations to avoid cases of infinite recursion due to interaction with missing ident errors
+
 protected:
     Js::ScriptContext* m_scriptContext;
 
@@ -766,6 +767,7 @@ private:
         const bool isSourceElementList = false,
         _Out_opt_ bool* strictModeOn = NULL);
     bool FastScanFormalsAndBody();
+    bool ScanAheadToFunctionEnd(uint count);
 
     bool DoParallelParse(ParseNodePtr pnodeFnc) const;
     bool ParseDeferredFunction(BackgroundParser *backgroundParser);

@@ -526,11 +526,13 @@ private:
     Js::ImplicitCallFlags implicitCallFlags;
     BasicBlock *        headBlock;
 public:
+    Func *              topFunc;
     uint32              loopNumber;
     SList<BasicBlock *> blockList;
     Loop *              next;
     Loop *              parent;
     BasicBlock *        landingPad;
+    IR::LabelInstr *    loopTopLabel;
     BVSparse<JitArenaAllocator> *varSymsOnEntry;
     BVSparse<JitArenaAllocator> *int32SymsOnEntry;
     BVSparse<JitArenaAllocator> *lossyInt32SymsOnEntry; // see GlobOptData::liveLossyInt32Syms
@@ -570,6 +572,9 @@ public:
     bool                hasHoistedFields : 1;
     bool                needImplicitCallBailoutChecksForJsArrayCheckHoist : 1;
     bool                allFieldsKilled : 1;
+    bool                isLeaf : 1;
+    bool                isProcessed : 1; // Set and reset at varying places according to the phase we're in. 
+                                         // For example, in the lowerer, it'll be set to true when we process the loopTop for a certain loop
 
     struct RegAlloc
     {
@@ -590,8 +595,11 @@ public:
 
 public:
     Loop(JitArenaAllocator * alloc, Func *func)
-        : blockList(alloc),
+        : topFunc(func),
+        blockList(alloc),
+        parent(nullptr),
         landingPad(NULL),
+        loopTopLabel(nullptr),
         symsUsedBeforeDefined(null),
         likelyIntSymsUsedBeforeDefined(null),
         likelyNumberSymsUsedBeforeDefined(null),
@@ -606,6 +614,8 @@ public:
         loopCountBasedBoundBaseSyms(nullptr),
         isDead(false),
         allFieldsKilled(false),
+        isLeaf(true),
+        isProcessed(false),
         initialValueFieldMap(alloc)
     {
         this->loopNumber = ++func->loopCount;
@@ -622,6 +632,7 @@ public:
     bool                CanDoFieldHoist();    
     void                SetHasCall();
     IR::LabelInstr *    GetLoopTopInstr() const;
+    void                SetLoopTopInstr(IR::LabelInstr * loopTop);
     Func *              GetFunc() const { return GetLoopTopInstr()->m_func; }
 #if DBG_DUMP
     bool                GetHasCall() const { return hasCall; }

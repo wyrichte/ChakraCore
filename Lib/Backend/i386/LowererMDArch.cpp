@@ -559,8 +559,9 @@ LowererMDArch::LowerInlineSpreadArgOutLoop(IR::Instr *callInstr, IR::RegOpnd *in
 
     IR::LabelInstr *startLoopLabel = IR::LabelInstr::New(Js::OpCode::Label, func);
     startLoopLabel->m_isLoopTop = true;
-    Loop *loop = JitAnew(func->m_alloc, Loop, func->m_alloc, func);
+    Loop *loop = JitAnew(func->m_alloc, Loop, func->m_alloc, this->m_func);
     startLoopLabel->SetLoop(loop);
+    loop->SetLoopTopInstr(startLoopLabel);
     loop->regAlloc.liveOnBackEdgeSyms = AllocatorNew(JitArenaAllocator, func->m_alloc, BVSparse<JitArenaAllocator>, func->m_alloc);
     loop->regAlloc.liveOnBackEdgeSyms->Set(indexOpnd->m_sym->m_id);
     loop->regAlloc.liveOnBackEdgeSyms->Set(arrayElementsStartOpnd->m_sym->m_id);
@@ -576,13 +577,12 @@ LowererMDArch::LowerInlineSpreadArgOutLoop(IR::Instr *callInstr, IR::RegOpnd *in
     callInstr->InsertBefore(argout);
     this->lowererMD->LoadDynamicArgument(argout);
 
-    IR::BranchInstr *endLoopInstr = this->lowererMD->m_lowerer->InsertCompareBranch(indexOpnd,
-                                                                                    IR::IntConstOpnd::New(0, TyUint8, func),
-                                                                                    Js::OpCode::BrNeq_A,
-                                                                                    true,
-                                                                                    startLoopLabel,
-                                                                                    callInstr);
-    endLoopInstr->m_isLoopTail = true;
+    this->lowererMD->m_lowerer->InsertCompareBranch(indexOpnd,
+                                                    IR::IntConstOpnd::New(0, TyUint8, func),
+                                                    Js::OpCode::BrNeq_A,
+                                                    true,
+                                                    startLoopLabel,
+                                                    callInstr);
 }
 
 IR::Instr *
@@ -860,15 +860,16 @@ LowererMDArch::LowerAsmJsCallI(IR::Instr * callInstr)
     IR::Instr * retInstr = callInstr;
     callInstr->m_opcode = Js::OpCode::CALL;
 
-    IRType dstType = callInstr->GetDst()->GetType();
-    IR::Instr * movInstr = callInstr->SinkDst(GetAssignOp(dstType));
+    if (callInstr->GetDst())
+    {
+        IRType dstType = callInstr->GetDst()->GetType();
+        IR::Instr * movInstr = callInstr->SinkDst(GetAssignOp(dstType));
 
-    RegNum returnReg = GetRegReturn(dstType);
-    callInstr->GetDst()->AsRegOpnd()->SetReg(returnReg);
-    movInstr->GetSrc1()->AsRegOpnd()->SetReg(returnReg);
-    Assert(movInstr);
-    retInstr = movInstr;
-
+        RegNum returnReg = GetRegReturn(dstType);
+        callInstr->GetDst()->AsRegOpnd()->SetReg(returnReg);
+        movInstr->GetSrc1()->AsRegOpnd()->SetReg(returnReg);
+        retInstr = movInstr;
+    }
 
     return retInstr;
 }
@@ -3652,9 +3653,9 @@ LowererMDArch::GenerateArgOutForStackArgs(IR::Instr* callInstr, IR::Instr* stack
 
     IR::LabelInstr* startLoop = IR::LabelInstr::New(Js::OpCode::Label, func);
     startLoop->m_isLoopTop = true;
-    Loop *loop = JitAnew(this->m_func->m_alloc, Loop, this->m_func->m_alloc, func);
+    Loop *loop = JitAnew(this->m_func->m_alloc, Loop, this->m_func->m_alloc, this->m_func);
     startLoop->SetLoop(loop);
-
+    loop->SetLoopTopInstr(startLoop);
     loop->regAlloc.liveOnBackEdgeSyms = JitAnew(func->m_alloc, BVSparse<JitArenaAllocator>, func->m_alloc);
 
     callInstr->InsertBefore(startLoop);
@@ -3677,7 +3678,6 @@ LowererMDArch::GenerateArgOutForStackArgs(IR::Instr* callInstr, IR::Instr* stack
     this->lowererMD->EmitInt4Instr(subInstr);
 
     IR::BranchInstr *tailBranch = IR::BranchInstr::New(Js::OpCode::JNE, startLoop, func);
-    tailBranch->m_isLoopTail = true;
     callInstr->InsertBefore(tailBranch);
 
     loop->regAlloc.liveOnBackEdgeSyms->Set(ldLenDstOpnd->m_sym->m_id);

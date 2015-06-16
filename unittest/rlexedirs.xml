@@ -450,6 +450,12 @@
 </dir>
 <dir>
   <default>
+    <files>AsmJsParser</files>
+    <tags>exclude_apollo,exclude_dynapogo,exclude_serialized,exclude_arm,exclude_arm64</tags>
+  </default>
+</dir>
+<dir>
+  <default>
     <files>SIMD.float32x4</files>
     <tags>exclude_arm,exclude_arm64</tags>
   </default>

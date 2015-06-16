@@ -112,7 +112,7 @@ ValueType ValueType::Verify(const ValueType valueType)
     Assert(
         valueType.OneOn(Bits::Object) ||
         valueType.OneOn(Bits::Int) ||
-        !valueType.AnyOn(Bits::IntCanBeUntagged | Bits::IntIsLikelyUntagged));
+        valueType.AnyOnExcept(Bits::IntCanBeUntagged | Bits::IntIsLikelyUntagged));
     Assert(
         valueType.OneOn(Bits::Object) ||
         !valueType.AllEqual(Bits::IntCanBeUntagged | Bits::IntIsLikelyUntagged, Bits::IntIsLikelyUntagged));
@@ -498,6 +498,17 @@ bool ValueType::IsNotObject() const
     return AnyOnExcept(Bits::Likely | Bits::Object | Bits::PrimitiveOrObject);
 }
 
+bool ValueType::CanMergeToObject() const
+{
+    Assert(!IsLikelyObject());
+    return AnyOnExcept(BitPattern(VALUE_TYPE_NONOBJECT_BIT_COUNT, VALUE_TYPE_COMMON_BIT_COUNT));
+}
+
+bool ValueType::CanMergeToSpecificObjectType() const
+{
+    return IsLikelyObject() ? GetObjectType() == ObjectType::UninitializedObject : CanMergeToObject();
+}
+
 bool ValueType::IsRegExp() const
 {
     return IsObject() && GetObjectType() == ObjectType::RegExp;
@@ -861,13 +872,13 @@ bool ValueType::IsSubsetOf(
     if(OneOn(Bits::Object))
     {
         if(!other.OneOn(Bits::Object))
-            return other.OneOn(Bits::PrimitiveOrObject);
+            return other.OneOn(Bits::PrimitiveOrObject) || !other.IsDefinite() && other.CanMergeToObject();
     }
     else
     {
         if(!other.OneOn(Bits::Object))
             return other.AllOn(bits);
-        return AnyOnExcept(BitPattern(VALUE_TYPE_NONOBJECT_BIT_COUNT, VALUE_TYPE_COMMON_BIT_COUNT));
+        return CanMergeToObject();
     }
     if(other.GetObjectType() == ObjectType::UninitializedObject && GetObjectType() != ObjectType::UninitializedObject)
         return true; // object types other than UninitializedObject are a subset of UninitializedObject regardless of the Likely bit
@@ -1070,12 +1081,12 @@ ValueType ValueType::MergeWithObject(const ValueType other) const
 
     if(OneOn(Bits::Object))
     {
-        if(!other.AnyOn(BitPattern(VALUE_TYPE_NONOBJECT_BIT_COUNT, VALUE_TYPE_COMMON_BIT_COUNT)))
+        if(other.CanMergeToObject())
             return Verify(merged);
         return Verify(ToPrimitiveOrObject().bits | other.bits); // see ToPrimitiveOrObject
     }
     Assert(other.OneOn(Bits::Object));
-    if(AnyOnExcept(BitPattern(VALUE_TYPE_NONOBJECT_BIT_COUNT, VALUE_TYPE_COMMON_BIT_COUNT)))
+    if(CanMergeToObject())
         return Verify(merged);
     return Verify(bits | other.ToPrimitiveOrObject().bits); // see ToPrimitiveOrObject
 }
@@ -1435,7 +1446,11 @@ size_t ValueType::GetLowestBitIndex(const Bits b)
 
 void ValueType::ToVerboseString(char (&str)[VALUE_TYPE_MAX_STRING_SIZE]) const
 {
-    Assert(!IsUninitialized());
+    if(IsUninitialized())
+    {
+        strcpy_s(str, "Uninitialized");
+        return;
+    }
 
     Bits b = bits;
     if(OneOn(Bits::Object))
@@ -1534,13 +1549,7 @@ void ValueType::ToString(wchar (&str)[VALUE_TYPE_MAX_STRING_SIZE]) const
 
 void ValueType::ToString(char (&str)[VALUE_TYPE_MAX_STRING_SIZE]) const
 {
-    if(IsUninitialized())
-    {
-        strcpy_s(str, "Uninitialized");
-        return;
-    }
-
-    if(CONFIG_FLAG(Verbose))
+    if(IsUninitialized() || CONFIG_FLAG(Verbose))
     {
         ToVerboseString(str);
         return;

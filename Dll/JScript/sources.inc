@@ -138,10 +138,6 @@ SOURCES= \
         ..\JavascriptDispatch.cpp \
         ..\JavascriptExternalOperators.cpp \
         ..\JavascriptPixelArrayDispatch.cpp \
-        ..\JavascriptSafeArray.cpp \
-        ..\JavascriptSafeArrayObject.cpp \
-        ..\JavascriptSafeArrayObjectType.cpp \
-        ..\JavascriptSafeArrayType.cpp \
         ..\javascriptThreadService.cpp \
         ..\jscriptinfo.idl \
         ..\jsfac.cpp \

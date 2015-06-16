@@ -55,7 +55,7 @@ namespace DirectAuthorCheckinTests
                 new { Position = 1254, Length = 1, Message = "Can't have 'break' outside of loop", MessageID = 1019 },
                 new { Position = 1311, Length = 6, Message = "'return' statement outside of function", MessageID = 1018 },
                 new { Position = 1376, Length = 1, Message = "Expected ';'", MessageID = 1004 },
-                new { Position = 1434, Length = 1, Message = "Expected '=>'", MessageID = 1062 },
+                new { Position = 1434, Length = 1, Message = "Syntax error", MessageID = 1002 },
                 new { Position = 1499, Length = 1, Message = "Invalid use of the ... operator. Spread can only be used in call arguments or an array literal.", MessageID = 1057 },
                 new { Position = 1609, Length = 5, Message = "Invalid use of the 'super' keyword", MessageID = 1058},
             };

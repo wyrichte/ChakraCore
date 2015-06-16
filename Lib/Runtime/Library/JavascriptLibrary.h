@@ -233,7 +233,7 @@ namespace Js
         DynamicType * referenceErrorType;
         DynamicType * syntaxErrorType;
         DynamicType * typeErrorType;
-        DynamicType * uriErrorType;        
+        DynamicType * uriErrorType;
         DynamicType * winrtErrorType;
         StaticType  * numberTypeStatic;
         StaticType  * int64NumberTypeStatic;
@@ -305,11 +305,6 @@ namespace Js
         StaticType * hostDispatchType;
         DynamicType * hostObjectType;
         DynamicObject* missingPropertyHolder;
-
-        StaticType * safeArrayTypeStatic;
-        DynamicType * safeArrayTypeDynamic;
-        JavascriptFunction * safeArrayConstructor;
-        DynamicObject * safeArrayPrototype;
 
         StaticType* throwErrorObjectType;
 
@@ -567,7 +562,7 @@ namespace Js
         DynamicType * GetReferenceErrorType() const { return referenceErrorType; }
         DynamicType * GetSyntaxErrorType() const { return syntaxErrorType; }
         DynamicType * GetTypeErrorType() const { return typeErrorType; }
-        DynamicType * GetURIErrorType() const { return uriErrorType; }        
+        DynamicType * GetURIErrorType() const { return uriErrorType; }
         DynamicType * GetWinRTErrorType() const { return winrtErrorType; }
         StaticType  * GetNumberTypeStatic() const { return numberTypeStatic; }
         StaticType  * GetInt64TypeStatic() const { return int64NumberTypeStatic; }
@@ -814,12 +809,10 @@ namespace Js
 
         StaticType * GetDispMemberProxyType() { return dispMemberProxyType; }
         StaticType * GetHostDispatchType() { return hostDispatchType; }
-        StaticType * GetJavascriptSafeArrayType() { return safeArrayTypeStatic; }
         DynamicType * GetHostObjectType() { return hostObjectType;}
 
         DynamicType * GetModuleRootType() { return moduleRootType; }
         DynamicType * GetExtensionEnumeratorType() { return extensionEnumeratorType; }
-        DynamicType * JavascriptSafeArrayObjectType() { return safeArrayTypeDynamic; }
 
         void SetCrossSiteForSharedFunctionType(JavascriptFunction * function, bool useSlotAccessCrossSiteThunk);
 

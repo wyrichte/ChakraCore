@@ -56,6 +56,8 @@ public:
     uint GetMarkCount(void* address, uint pageCount);
     template <bool interlocked>
     void Mark(void * candidate, MarkContext * markContext);
+    template <bool interlocked>
+    void MarkInterior(void * candidate, MarkContext * markContext);
 
     bool IsMarked(void * address) const;
     void SetMark(void * address);
@@ -66,9 +68,11 @@ public:
 #ifdef CONCURRENT_GC_ENABLED
     void ResetWriteWatch(Recycler * recycler);
     uint Rescan(Recycler * recycler, bool resetWriteWatch);
+    void MakeAllPagesReadOnly(Recycler* recycler);
+    void MakeAllPagesReadWrite(Recycler* recycler);
 #endif
 
-    void Cleanup();
+    void Cleanup(bool concurrentFindImplicitRoot);
 
     void OOMRescan(Recycler * recycler);
 
@@ -90,6 +94,8 @@ private:
 
     template <class Fn>
     void ForEachSegment(Recycler * recycler, Fn func);
+
+    void ChangeProtectionLevel(Recycler* recycler, DWORD protectFlags, DWORD expectedOldFlags);
 
     static uint GetLevel1Id(void * address)
     {
@@ -171,6 +177,12 @@ private:
 #endif        
     };
 
+    template <bool interlocked>
+    bool MarkInternal(L2MapChunk * chunk, void * candidate);
+
+    template <bool interlocked, bool updateChunk>
+    bool MarkInteriorInternal(L2MapChunk *& chunk, void * originalCandidate, void * realCandidate);
+
     template <typename TBlockType>
     TBlockType* GetHeapBlockForRescan(L2MapChunk* chunk, uint id2) const;
 
@@ -227,6 +239,8 @@ public:
     uint GetMarkCount(void* address, uint pageCount);
     template <bool interlocked>
     void Mark(void * candidate, MarkContext * markContext);
+    template <bool interlocked>
+    void MarkInterior(void * candidate, MarkContext * markContext);
 
     bool IsMarked(void * address) const;
     void SetMark(void * address);
@@ -237,9 +251,11 @@ public:
 #ifdef CONCURRENT_GC_ENABLED
     void ResetWriteWatch(Recycler * recycler);
     uint Rescan(Recycler * recycler, bool resetWriteWatch);
+    void MakeAllPagesReadOnly(Recycler* recycler);
+    void MakeAllPagesReadWrite(Recycler* recycler);
 #endif
 
-    void Cleanup();
+    void Cleanup(bool concurrentFindImplicitRoot);
 
     void OOMRescan(Recycler * recycler);
 

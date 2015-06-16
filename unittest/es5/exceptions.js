@@ -1,6 +1,6 @@
 
-//Note: some of the tests make use of host objects which are not available in jc mode. 
-// Keeping the tests for easy pick and verify on IE 
+//Note: some of the tests make use of host objects which are not available in jc mode.
+// Keeping the tests for easy pick and verify on IE
 
 // VB code to create a VB array
 //Dim cache
@@ -34,126 +34,126 @@ function write(a) {
  try
  {
    Array.prototype.sort.call(document);
-	write(" Array.prototype.sort.slice(document); ends without error;- expected ES5 ")
+    write(" Array.prototype.sort.slice(document); ends without error;- expected ES5 ")
  }
  catch(o)
  {
-	 write(" Array.prototype.sort.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
+     write(" Array.prototype.sort.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
  }
 
  try
  {
    Array.prototype.slice.call(document);
-	write(" Array.prototype.shift.slice(document); ends without error;- expected ES5 ")
+    write(" Array.prototype.shift.slice(document); ends without error;- expected ES5 ")
  }
  catch(o)
  {
-	 write(" Array.prototype.slice.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
+     write(" Array.prototype.slice.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
  }
 
  try
  {
    Array.prototype.shift.call(document);
-	write(" Array.prototype.shift.call(document); ends without error;- expected ES5 ")
+    write(" Array.prototype.shift.call(document); ends without error;- expected ES5 ")
  }
  catch(o)
  {
-	 write(" Array.prototype.shift.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
+     write(" Array.prototype.shift.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
  }
 
  try
  {
    Array.prototype.reverse.call(document);
-	write(" Array.prototype.reverse.call(document); ends without error;- expected ES5 ")
+    write(" Array.prototype.reverse.call(document); ends without error;- expected ES5 ")
  }
  catch(o)
  {
-	 write(" Array.prototype.reverse.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
+     write(" Array.prototype.reverse.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
  }
 
  try
  {
    Array.prototype.push.call(document);
-	write(" Array.prototype.push.call(document); ends without error;- expected ES5 ")
+    write(" Array.prototype.push.call(document); ends without error;- expected ES5 ")
  }
  catch(o)
  {
-	 write(" Array.prototype.push.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
+     write(" Array.prototype.push.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
  }
 
  try
  {
    Array.prototype.pop.call(document);
-	write(" Array.prototype.pop.call(document); ends without error;- expected ES5 ")
+    write(" Array.prototype.pop.call(document); ends without error;- expected ES5 ")
  }
  catch(o)
  {
-	 write(" Array.prototype.pop.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
+     write(" Array.prototype.pop.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
  }
 
  try
  {
    Array.prototype.join.call(document);
-	write(" Array.prototype.join.call(document); ends without error;- expected ES5 ")
+    write(" Array.prototype.join.call(document); ends without error;- expected ES5 ")
  }
  catch(o)
  {
-	 write(" Array.prototype.join.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
+     write(" Array.prototype.join.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
  }
 
  try
  {
    Object.prototype.propertyIsEnumerable.call(document);
-	write(" Object.prototype.propertyIsEnumerable.call(document); ends without error;- expected ES5 ")
+    write(" Object.prototype.propertyIsEnumerable.call(document); ends without error;- expected ES5 ")
  }
  catch(o)
  {
-	 write(" Object.prototype.propertyIsEnumerable.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
+     write(" Object.prototype.propertyIsEnumerable.call(document);; throws;;   -expected: es3 TypeError ::: " + o)
  }
 
  try
  {
     delete this;
-	write(" delete this; ends without error; ")
+    write(" delete this; ends without error; ")
  }
  catch(o)
  {
-	 write(" delete this; throws;;   -expected: es3, es5 TypeError ::: " + o)
+     write(" delete this; throws;;   -expected: es3, es5 TypeError ::: " + o)
  }
 
  try
  {
     var xnew = new Object();
-	var y = new xnew(); 
-	write(" var xnew = new Object(); var y = new xnew(); ends without error; ")
+    var y = new xnew();
+    write(" var xnew = new Object(); var y = new xnew(); ends without error; ")
  }
  catch(o)
  {
-	 write(" var xnew = new Object(); var y = new xnew(); throws;;   -expected: es3, es5 TypeError ::: " + o)
- }
- 
-
- try
- {
-    var x = new Object();
-	var y = x.ffm; 
-	write(" var x = new Object(); var y = x.ffm; ends without error; ")
- }
- catch(o)
- {
-	 write(" var x = new Object(); var y = x.ffm; throws;;   -expected: es3, es5 TypeError ::: " + o)
+     write(" var xnew = new Object(); var y = new xnew(); throws;;   -expected: es3, es5 TypeError ::: " + o)
  }
 
 
  try
  {
     var x = new Object();
-	x.ff(); 
-	write(" var x = new Object(); x.ff() ends without error; ")
+    var y = x.ffm;
+    write(" var x = new Object(); var y = x.ffm; ends without error; ")
  }
  catch(o)
  {
-	 write("var x = new Object(); x.ff() throws;;   -expected: es3, es5 TypeError ::: " + o)
+     write(" var x = new Object(); var y = x.ffm; throws;;   -expected: es3, es5 TypeError ::: " + o)
+ }
+
+
+ try
+ {
+    var x = new Object();
+    x.ff();
+    write(" var x = new Object(); x.ff() ends without error; ")
+ }
+ catch(o)
+ {
+     write("var x = new Object(); x.ff() throws;;   -expected: es3, es5 TypeError ::: " + o)
  }
 
 
@@ -163,23 +163,23 @@ function write(a) {
  try
  {
     var x = function ff(){return "inner";}();
-	//write("var x = function f(){return \"inner\";}(); done , no exception:  x = " + x)
-	ff(); 
-	write("var x = function f(){return \"inner\";}() ends without error; ")
+    //write("var x = function f(){return \"inner\";}(); done , no exception:  x = " + x)
+    ff();
+    write("var x = function f(){return \"inner\";}() ends without error; ")
  }
  catch(o)
  {
-	 write("var x = function f(){return \"inner\";}();   -expected: es3, es5 R3eferenceError ::: " + o)
+     write("var x = function f(){return \"inner\";}();   -expected: es3, es5 R3eferenceError ::: " + o)
  }
 
  try
  {
-	fg(); 
-	write("call to undefined fg() ends without error;  ")
+    fg();
+    write("call to undefined fg() ends without error;  ")
  }
  catch(o)
  {
-	 write("call to undefined fg() throws;   -expected: es3 - TypeError, es5-ReferenceError ::: " + o)
+     write("call to undefined fg() throws;   -expected: es3 - TypeError, es5-ReferenceError ::: " + o)
  }
 
 
@@ -301,80 +301,6 @@ catch(o)
 }
 
 
-// --- VB arrays-----------
-
-//15.12+3.4.3
-try
-{
-    var vba = CreateVBArray();
-    var vbn = new VBArray(vba);
-    vbn.getItem();
-    write("vbn.getItem();  - no exception: not expected es3, es5")
-}
-catch(o)
-{
-    write("vbn.getItem(); - RangeError exception : expected es3, es5 ::: " + o)
-}
-try
-{
-    var vba = CreateVBArray();
-    var vbn = new VBArray(vba);
-    vbn.getItem(1,2,3,4);
-    write("vbn.getItem(1,2,3,4);  - no exception: not expected es3, es5")
-}
-catch(o)
-{
-    write("vbn.getItem(1,2,3,4); - RangeError exception : expected es3, es5 ::: " + o)
-}
-
-//15.12+3.4.4
-try
-{
-    var vbn = new Array();
-    VBArray.prototype.lbound.apply(vbn);
-    write("vbnArray.lbound();  - no exception: not expected es3, es5")
-}
-catch(o)
-{
-    write("vbnArray.lbound(); - TypeError exception : expected es3, es5 ::: " + o)
-}
-try
-{
-    var vba = CreateVBArray();
-    var vbn = new VBArray(vba);
-    vbn.lbound(5);
-    write("vbn.lbound(5);  - no exception: not expected es3, es5")
-}
-catch(o)
-{
-    write("vbn.lbound(5); - RangeError exception : expected es3, es5 ::: " + o)
-}
-
-
-//15.12+3.4.6
-try
-{
-    var vbn = new Array();
-    VBArray.prototype.ubound.apply(vbn);
-    write("vbnArray.ubound();  - no exception: not expected es3, es5")
-}
-catch(o)
-{
-    write("vbnArray.ubound(); - Type Error exception : expected es3, es5 ::: " + o)
-}
-try
-{
-    var vba = CreateVBArray();
-    var vbn = new VBArray(vba);
-    vbn.lbound(5);
-    write("vbn.ubound(5);  - no exception: not expected es3, es5")
-}
-catch(o)
-{
-    write("vbn.ubound(5); - RangeError exception : expected es3, es5 ::: " + o)
-}
-
-
 // --- EvalError-----------
 //15.11.6.1
 
@@ -419,7 +345,7 @@ catch(o)
     write("f = new Function(\"a\", \"b\", \"return a+b.\"); -expected es3 and es5-SyntaxError exception ::: " + o)
 }
 
-// regex 
+// regex
 // 15.10.2.5
 try
 {

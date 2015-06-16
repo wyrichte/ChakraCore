@@ -1245,7 +1245,7 @@ Cloner::Finish()
     this->RetargetClonedBranches();
     if (this->lowerer)
     {
-        lowerer->LowerRange(this->instrFirst, this->instrLast, false, false, 0);
+        lowerer->LowerRange(this->instrFirst, this->instrLast, false, false);
     }
 }
 

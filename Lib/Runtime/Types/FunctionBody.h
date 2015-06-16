@@ -341,8 +341,8 @@ namespace Js
             CodeGenRecorded,    // backend completed, but job still pending
             CodeGenDone,        // code gen job succesfully completed
             JITCapReached,      // workitem created but JIT cap reached
+            PendingCleanup,     // workitem needs to be cleaned up but couldn't for some reason- it'll be cleaned up at the next opportunity
             CleanedUp           // the entry point has been cleaned up
-
         };
 
         class JitTransferData
@@ -450,6 +450,17 @@ namespace Js
         StackBackTrace*    cleanupStack;
 #endif
 
+    public:
+        enum CleanupReason
+        {
+            NotCleanedUp,
+            CodeGenFailedOOM,
+            CodeGenFailedStackOverflow,
+            CodeGenFailedAborted,
+            NativeCodeInstallFailure,
+            CleanUpForFinalize
+        };
+
     private:
         typedef SListCounted<ConstructorCache*, Recycler> ConstructorCacheList;
         ConstructorCacheList* constructorCaches;
@@ -466,6 +477,9 @@ namespace Js
 
         uint32 pendingPolymorphicCacheState;
         State state; // Single state member so users can query state w/o a lock
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+        CleanupReason cleanupReason;
+#endif
         BYTE   pendingInlinerVersion;
         bool   isLoopBody;
         ImplicitCallFlags pendingImplicitCallFlags;
@@ -484,6 +498,7 @@ namespace Js
             isLoopBody(isLoopBody), registeredEquivalentTypeCacheRef(nullptr), isAsmJsFunction(false), bailoutRecordMap(nullptr)
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
             , cleanupStack(nullptr)
+            , cleanupReason(NotCleanedUp)
 #endif
 #if DBG_DUMP | defined(VTUNE_PROFILING)
             , nativeOffsetMaps(&HeapAllocator::Instance)
@@ -567,6 +582,23 @@ namespace Js
         {
             return this->GetState() == CleanedUp;
         }
+
+        bool IsPendingCleanup() const
+        {
+            return this->GetState() == PendingCleanup;
+        }
+
+        void SetPendingCleanup()
+        {
+            this->state = PendingCleanup;
+        }
+
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+        void SetCleanupReason(CleanupReason reason)
+        {
+            this->cleanupReason = reason;
+        }
+#endif
 
         bool IsLoopBody() const
         {
@@ -699,6 +731,11 @@ namespace Js
             Assert(state != NotScheduled);
             Assert(state == CleanedUp && this->workItem == NULL ||
                 state != CleanedUp);
+
+            if (state == PendingCleanup)
+            {
+                return nullptr;
+            }
 
             return this->workItem;
         }

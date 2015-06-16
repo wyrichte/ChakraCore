@@ -1053,3 +1053,15 @@ test64(0);
     test65(o, "a");
     test65(o, "a");
 })();
+
+function test66() {
+    var a = test66a(0);
+    var b = test66a();
+    return a + b;
+
+    function test66a() {
+        return test66a.arguments.length;
+    }
+}
+WScript.Echo("test66: " + test66());
+WScript.Echo("test66: " + test66());

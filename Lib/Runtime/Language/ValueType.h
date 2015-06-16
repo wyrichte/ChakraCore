@@ -171,6 +171,8 @@ public:
     bool IsObject() const;
     bool IsLikelyObject() const;
     bool IsNotObject() const;
+    bool CanMergeToObject() const;
+    bool CanMergeToSpecificObjectType() const;
 
     bool IsRegExp() const;
     bool IsLikelyRegExp() const;

@@ -12,7 +12,7 @@ var tests = [
             Object.defineProperty(f, 'length', {
                 get: function () { }
             });
-            assert.doesNotThrow(function () { f.length=1; }, "assertion failure on assignment to 'length' after defineProperty with getter");
+            assert.doesNotThrow(function () { f.length = 1; }, "assertion failure on assignment to 'length' after defineProperty with getter");
          }
     },
     {
@@ -26,8 +26,8 @@ var tests = [
                     });
             }
             assert.doesNotThrow(function () { g('length') }, "assertion failure on defineProperty 'length' with getter after sealing a function object");
-            assert.doesNotThrow(function () { g('arguments') }, "assertion failure on defineProperty 'arguments' with getter after sealing a function object");
-            assert.doesNotThrow(function () { g('caller') }, "assertion failure on defineProperty 'caller' with getter after sealing a function object");
+            assert.throws(function () { g('arguments') }, TypeError, "Cannot redefine non-configurable property 'arguments'");
+            assert.throws(function () { g('caller') }, TypeError, "Cannot redefine non-configurable property 'caller'");
          }
     },
     {
@@ -41,8 +41,8 @@ var tests = [
                     });
             }
             assert.doesNotThrow(function () { g('length') }, "assertion failure on defineProperty 'length' with value after sealing a function object");
-            assert.doesNotThrow(function () { g('arguments') }, "assertion failure on defineProperty 'arguments' with value after sealing a function object");
-            assert.doesNotThrow(function () { g('caller') }, "assertion failure on defineProperty 'caller' with value after sealing a function object");
+            assert.throws(function () { g('arguments') }, TypeError, "Cannot redefine non-configurable property 'arguments'");
+            assert.throws(function () { g('caller') }, TypeError, "Cannot redefine non-configurable property 'caller'");
          }
     },
     {
@@ -59,8 +59,8 @@ var tests = [
                     });
             }
             assert.doesNotThrow(function () { g('length') }, "assertion failure on defineProperty 'length' with {writable: false, configurable:true} after defineProperty with getter on a function object");
-            assert.doesNotThrow(function () { g('arguments') }, "assertion failure on defineProperty 'arguments' with {writable: false, configurable:true} after defineProperty with getter on a function object");
-            assert.doesNotThrow(function () { g('caller') }, "assertion failure on defineProperty 'caller' with getter {writable: false, configurable:true} after defineProperty with getter on a function object");
+            assert.throws(function () { g('arguments') }, TypeError, "Cannot redefine non-configurable property 'arguments'");
+            assert.throws(function () { g('caller') }, TypeError, "Cannot redefine non-configurable property 'caller'");
          }
     },
 ];

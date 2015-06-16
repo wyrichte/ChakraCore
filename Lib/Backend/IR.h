@@ -646,7 +646,6 @@ class BranchInstr : public Instr
 {
 
 public:
-    bool                 m_isLoopTail;
     bool                 m_isAirlock : 1;
     bool                 m_isSwitchBr : 1;
     bool                 m_isOrphanedLeave : 1; // A Leave in a loop body in a try, most likely generated because of a return statement.
@@ -661,7 +660,7 @@ public:
     static BranchInstr * New(Js::OpCode opcode, Opnd* destOpnd, LabelInstr * branchTarget, Opnd *srcOpnd, Func *func);
     static BranchInstr * New(Js::OpCode opcode, LabelInstr * branchTarget, Opnd *src1Opnd, Opnd *src2Opnd, Func *func);
 
-    BranchInstr(bool hasBailOutInfo = false) : Instr(hasBailOutInfo), m_branchTarget(null), m_isLoopTail(false), m_isAirlock(false), m_isSwitchBr(false), m_isOrphanedLeave(false)
+    BranchInstr(bool hasBailOutInfo = false) : Instr(hasBailOutInfo), m_branchTarget(null), m_isAirlock(false), m_isSwitchBr(false), m_isOrphanedLeave(false)
     {
 #if DBG
         m_isMultiBranch = false;
@@ -684,6 +683,7 @@ public:
     void                SetByteCodeReg(Js::RegSlot reg) { m_byteCodeReg = reg; }
     Js::RegSlot         GetByteCodeReg() { return m_byteCodeReg; }
     bool                HasByteCodeReg() { return m_byteCodeReg != Js::Constants::NoRegister; }
+    bool                IsLoopTail(Func * func);
 
 public:
     Lifetime **         m_regContent;

@@ -117,7 +117,6 @@ var g = {
 
         var regex0 = /abcd/;
         var regexCon = regex0.constructor;
-        var vbarray0 = VBArray;
 
         /**bp:locals(2, LOCALS_TYPE)**/
     }

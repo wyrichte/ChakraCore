@@ -144,8 +144,12 @@ var _$getInstanceByTypeString;
             //
             var myProxy = _$createProxyWithoutTarget();
             ctor._$instanceProxies = myProxy;
-            result = new ctor();
-            ctor._$instanceProxies = null;
+            try {
+                result = new ctor();
+            }
+            finally {
+                ctor._$instanceProxies = null;
+            }
             _$updateProxyTarget(myProxy, result);
         }
 

@@ -51,7 +51,6 @@ TYPENAME_MAP( TypeIds_Number, Number )
 TYPENAME_MAP( TypeIds_Int64Number, Number )
 TYPENAME_MAP( TypeIds_UInt64Number, Number )
 TYPENAME_MAP( TypeIds_String, String )
-TYPENAME_MAP( TypeIds_SafeArray, Array )
 TYPENAME_MAP( TypeIds_Symbol, Symbol )
 /*TYPENAME_MAP( TypeIds_Enumerator, Object )*/
 TYPENAME_MAP( TypeIds_VariantDate, Date )
@@ -71,7 +70,6 @@ TYPENAME_MAP( TypeIds_BooleanObject, Boolean )
 TYPENAME_MAP( TypeIds_NumberObject, Number )
 TYPENAME_MAP( TypeIds_StringObject, String )
 /*TYPENAME_MAP( TypeIds_ExtensionEnumerator,  )*/
-TYPENAME_MAP( TypeIds_SafeArrayObject, Array )
 /*TYPENAME_MAP( TypeIds_Arguments, Array? )*/
 TYPENAME_MAP( TypeIds_ES5Array, Array )
 TYPENAME_MAP( TypeIds_PixelArray, Array )

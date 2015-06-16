@@ -158,8 +158,7 @@
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 2
  |  |    |  |    | 0 length: value: 0.000000
- |  |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
- |  |    |  |    |    [Internal property] value: size
+ |  |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (1)
  |  |    |  |    |    [Prototype] type: StringObject (seen)
  |  |    |  | 8 size: rsFlags: setter type: FunctionObject flags: (new) optional info records (1)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
@@ -250,7 +249,8 @@
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 2
  |  |    |  |    | 0 length: value: 0.000000
- |  |    |  |    | 1 name: type: String (seen)
+ |  |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (1)
+ |  |    |  |    |    [Prototype] type: StringObject (seen)
  |  |    |  | 7 size: rsFlags: setter type: FunctionObject (seen)
  |  |    |  | 8 entries: type: FunctionObject flags: (new) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)

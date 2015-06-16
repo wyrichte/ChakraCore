@@ -37,7 +37,7 @@
     /// <summary>
     ///     An error code returned from a Chakra hosting API.
     /// </summary>
-    typedef _Return_type_success_(return == 0) enum JsErrorCode : unsigned int
+    typedef _Return_type_success_(return == 0) enum _JsErrorCode : unsigned int
     {
         /// <summary>
         ///     Success error code.
@@ -127,7 +127,7 @@
         /// </summary>
         JsCannotSetProjectionEnqueueCallback,
         /// <summary>
-        ///     Failed to start WinRT projection.
+        ///     Failed to start projection.
         /// </summary>
         JsErrorCannotStartProjection,
         /// <summary>
@@ -188,7 +188,7 @@
         ///     A fatal error in the engine has occurred.
         /// </summary>
         JsErrorFatal,
-    };
+    } JsErrorCode;
 
     /// <summary>
     ///     A handle to a Chakra runtime.
@@ -279,7 +279,7 @@
     /// <summary>
     ///     Attributes of a runtime.
     /// </summary>
-    typedef enum JsRuntimeAttributes
+    typedef enum _JsRuntimeAttributes
     {
         /// <summary>
         ///     No special attributes.
@@ -308,12 +308,12 @@
         ///     Using <c>eval</c> or <c>function</c> constructor will throw an exception.
         /// </summary>
         JsRuntimeAttributeDisableEval = 0x00000010,
-    };
+    } JsRuntimeAttributes;
 
     /// <summary>
     ///     The type of a typed JavaScript array.
     /// </summary>
-    typedef enum JsTypedArrayType
+    typedef enum _JsTypedArrayType
     {
         /// <summary>
         ///     An int8 array.
@@ -351,12 +351,12 @@
         ///     A float64 array.
         /// </summary>
         JsArrayTypeFloat64
-    };
+    } JsTypedArrayType;
 
     /// <summary>
     ///     Allocation callback event type.
     /// </summary>
-    typedef enum JsMemoryEventType
+    typedef enum _JsMemoryEventType
     {
         /// <summary>
         ///     Indicates a request for memory allocation.
@@ -370,7 +370,7 @@
         ///     Indicates a failed allocation event.
         /// </summary>
         JsMemoryFailure = 2
-    };
+    } JsMemoryEventType;
 
     /// <summary>
     ///     User implemented callback routine for memory allocation events
@@ -435,13 +435,13 @@
     /// <summary>
     ///     Version of the runtime.
     /// </summary>
-    typedef enum JsRuntimeVersion
+    typedef enum _JsRuntimeVersion
     {
         /// <summary>
         ///     Create runtime with highest version present on the machine at runtime.
         /// </summary>
         JsRuntimeVersionEdge = -1,
-    };
+    } JsRuntimeVersion;
 
     /// <summary>
     ///     Create runtime with IE10 version.
@@ -979,7 +979,7 @@
     /// <summary>
     ///     Type enumeration of a JavaScript property
     /// </summary>
-    typedef enum JsPropertyIdType {
+    typedef enum _JsPropertyIdType {
         /// <summary>
         ///     Type enumeration of a JavaScript string property
         /// </summary>
@@ -988,7 +988,7 @@
         ///     Type enumeration of a JavaScript symbol property
         /// </summary>
         JsPropertyIdTypeSymbol
-    };
+    } JsPropertyIdType;
 
     /// <summary>
     ///     Gets the type of property
@@ -1055,7 +1055,7 @@
     ///     Requires an active script context.
     /// </remarks>
     /// <param name="object">The object from which to get the property symbols.</param>
-    /// <param name="propertyNames">An array of property symbols.</param>
+    /// <param name="propertySymbols">An array of property symbols.</param>
     /// <returns>
     ///     The code <c>JsNoError</c> if the operation succeeded, a failure code otherwise.
     /// </returns>
@@ -1171,7 +1171,7 @@
     /// <summary>
     ///     The JavaScript type of a JsValueRef.
     /// </summary>
-    typedef enum JsValueType
+    typedef enum _JsValueType
     {
         /// <summary>
         ///     The value is the <c>undefined</c> value.
@@ -1225,7 +1225,7 @@
         ///     The value is a JavaScript DataView object value.
         /// </summary>
         JsDataView = 12,
-    };
+    } JsValueType;
 
     /// <summary>
     ///     Gets the JavaScript type of a JsValueRef.
@@ -1687,8 +1687,8 @@
     /// </remarks>
     /// <param name="object">The object that contains the property.</param>
     /// <param name="propertyId">The ID of the property.</param>
-    /// <param name="result">Whether the property was deleted.</param>
     /// <param name="useStrictRules">The property set should follow strict mode rules.</param>
+    /// <param name="result">Whether the property was deleted.</param>
     /// <returns>
     ///     The code <c>JsNoError</c> if the operation succeeded, a failure code otherwise.
     /// </returns>
@@ -2470,7 +2470,7 @@
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///     The projected value can be used by script to call a WinRT object.
+    ///     The projected value can be used by script to call an IInspectable object.
     ///     Hosts are responsible for enforcing COM threading rules.
     ///     </para>
     ///     <para>
@@ -2535,9 +2535,9 @@
     /// <remarks>
     ///     Requires calling JsSetProjectionEnqueueCallback to receive callbacks.
     /// </remarks>
-    /// <param name="jsCallbck">The callback to be invoked on the original thread.</param>
-    /// <param name="callbackState">The applications context.</param>
+    /// <param name="jsCallback">The callback to be invoked on the original thread.</param>
     /// <param name="jsContext">The Jsrt context that must be passed into jsCallback.</param>
+    /// <param name="callbackState">The state passed to <c>JsSetProjectionEnqueueCallback</c>.</param>
     typedef void (CALLBACK *JsProjectionEnqueueCallback)(_In_ JsProjectionCallback jsCallback, _In_ JsProjectionCallbackContext jsContext, _In_opt_ void *callbackState);
 
     /// <summary>
@@ -2545,28 +2545,34 @@
     ///     callers required thread.
     /// </summary>
     /// <remarks>
-    ///     Requires an active script context.
-    ///     The call should be coming from a different COM apartment or from a different thread in the same MTA.
+    ///     <para>Requires an active script context.</para>
+    ///     <para>
+    ///     The caller must be running in an different thread in the MTA or free threaded apartment.
+    ///     When running on STA,COM manages the return to the required thread.
+    ///     </para>
     /// </remarks>
-    /// <param name="projectionEnqueueContext">
+    /// <param name="projectionEnqueueCallback">
     ///     The callback that will be invoked any time a projection completion occurs on a background thread.
     /// </param>
-    /// <param name="callbackState">The application context provided to projectionEnqueueContext</param>
+    /// <param name="callbackState">
+    ///     User provided state that will be passed back to the callback.
+    /// </param>
     /// <returns>
     ///     The code <c>JsNoError</c> if the operation succeeded, a failure code otherwise.
     /// </returns>
     STDAPI_(JsErrorCode)
         JsSetProjectionEnqueueCallback(
         _In_ JsProjectionEnqueueCallback projectionEnqueueCallback,
-        _In_opt_ void *projectionEnqueueContext);
+        _In_opt_ void *callbackState);
 
     /// <summary>
-    ///     Project a WinRT namespace.
+    ///     Project a UWP namespace.
     /// </summary>
     /// <remarks>
-    ///     Requires an active script context.
+    ///     <para>Requires an active script context.</para>
+    ///     <para>WinRT was the platform name before Universal Windows Platform (UWP).</para>
     /// </remarks>
-    /// <param name="namespaceName">The WinRT namespace to be projected.</param>
+    /// <param name="namespaceName">The UWP namespace to be projected.</param>
     /// <returns>
     ///     The code <c>JsNoError</c> if the operation succeeded, a failure code otherwise.
     /// </returns>

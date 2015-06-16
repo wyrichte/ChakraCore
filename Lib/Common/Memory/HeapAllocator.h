@@ -56,6 +56,8 @@
 #define NoCheckHeapDeletePlus(size, obj) AllocatorDeletePlus(NoCheckHeapAllocator, &NoCheckHeapAllocator::Instance, size, obj)
 #define NoCheckHeapDeleteArray(count, obj) AllocatorDeleteArray(NoCheckHeapAllocator, &NoCheckHeapAllocator::Instance, count, obj)
 
+namespace Memory
+{
 #ifdef HEAP_TRACK_ALLOC
 
 struct HeapAllocatorData;
@@ -308,7 +310,87 @@ public:
     void ClearTrackAllocInfo(TrackAllocData* data = NULL);
 #endif
 };
+#endif
 
+class NoCheckHeapAllocator
+{
+public:
+    static const bool FakeZeroLengthArray = false;
+    char * Alloc(size_t byteSize)
+    {
+        if (processHeap == NULL)
+        {
+            processHeap = GetProcessHeap();
+        }
+        char * buffer = (char*)HeapAlloc(processHeap, 0, byteSize);
+        if (buffer == null)
+        {
+            // NoCheck heap allocator is only used by debug only code, and if we fail to allocate
+            // memory, we will just raise an exceptio nand kill the process
+            DebugHeap_OOM_fatal_error();
+        }
+        return buffer;
+    }
+    char * AllocZero(size_t byteSize)
+    {
+        if (processHeap == NULL)
+        {
+            processHeap = GetProcessHeap();
+        }
+        char * buffer = (char*)HeapAlloc(processHeap, HEAP_ZERO_MEMORY, byteSize);
+        if (buffer == null)
+        {
+            // NoCheck heap allocator is only used by debug only code, and if we fail to allocate
+            // memory, we will just raise an exceptio nand kill the process
+            DebugHeap_OOM_fatal_error();
+        }
+        return buffer;
+    }
+    void Free(void * buffer, size_t byteSize)
+    {
+        Assert(processHeap != NULL);
+        HeapFree(processHeap, 0, buffer);
+    }
+
+#ifdef TRACK_ALLOC
+    // Doesn't support tracking information, dummy implementation
+    NoCheckHeapAllocator * TrackAllocInfo(TrackAllocData const& data) { return this; }
+    void ClearTrackAllocInfo(TrackAllocData* data = NULL) {}
+#endif
+    static NoCheckHeapAllocator Instance;
+    static HANDLE processHeap;
+};
+
+#ifdef CHECK_MEMORY_LEAK
+class MemoryLeakCheck
+{
+public:
+    MemoryLeakCheck() : head(NULL), tail(NULL), leakedBytes(0), leakedCount(0), enableOutput(true) {}
+    ~MemoryLeakCheck();
+    static void AddLeakDump(wchar_t const * dump, size_t bytes, size_t count);
+    static void SetEnableOutput(bool flag) { leakCheck.enableOutput = flag; }
+    static bool IsEnableOutput() { return leakCheck.enableOutput; }
+private:
+    static MemoryLeakCheck leakCheck;
+
+    struct LeakRecord
+    {
+        wchar_t const * dump;
+        LeakRecord * next;
+    };
+
+    CriticalSection cs;
+    LeakRecord * head;
+    LeakRecord * tail;
+    size_t leakedBytes;
+    size_t leakedCount;
+
+    bool enableOutput;
+};
+#endif
+} // namespace Memory
+
+#ifdef INTERNAL_MEM_PROTECT_HEAP_ALLOC
 //----------------------------------------
 // NoThrowNoMemProtectHeapAllocator overrides
 //----------------------------------------
@@ -409,55 +491,6 @@ operator delete(void * obj, NoThrowHeapAllocator * alloc, char * (NoThrowHeapAll
     alloc->Free(obj, (size_t)-1);
 }
 
-class NoCheckHeapAllocator
-{
-public:
-    static const bool FakeZeroLengthArray = false;
-    char * Alloc(size_t byteSize)
-    {
-        if (processHeap == NULL)
-        {
-            processHeap = GetProcessHeap();
-        }
-        char * buffer = (char*)HeapAlloc(processHeap, 0, byteSize);
-        if (buffer == null)
-        {
-            // NoCheck heap allocator is only used by debug only code, and if we fail to allocate
-            // memory, we will just raise an exceptio nand kill the process
-            DebugHeap_OOM_fatal_error();
-        }
-        return buffer;
-    }
-    char * AllocZero(size_t byteSize)
-    {
-        if (processHeap == NULL)
-        {
-            processHeap = GetProcessHeap();
-        }
-        char * buffer = (char*)HeapAlloc(processHeap, HEAP_ZERO_MEMORY, byteSize);
-        if (buffer == null)
-        {
-            // NoCheck heap allocator is only used by debug only code, and if we fail to allocate
-            // memory, we will just raise an exceptio nand kill the process
-            DebugHeap_OOM_fatal_error();
-        }
-        return buffer;
-    }
-    void Free(void * buffer, size_t byteSize)
-    {
-        Assert(processHeap != NULL);
-        HeapFree(processHeap, 0, buffer);
-    }
-
-#ifdef TRACK_ALLOC
-    // Doesn't support tracking information, dummy implementation
-    NoCheckHeapAllocator * TrackAllocInfo(TrackAllocData const& data) { return this; }
-    void ClearTrackAllocInfo(TrackAllocData* data = NULL) {}
-#endif
-    static NoCheckHeapAllocator Instance;
-    static HANDLE processHeap;
-};
-
 
 template <>
 __inline void * __cdecl
@@ -498,32 +531,3 @@ operator delete(void * obj, NoCheckHeapAllocator * alloc, char * (NoCheckHeapAll
 {
     alloc->Free(obj, (size_t)-1);
 }
-
-
-#ifdef CHECK_MEMORY_LEAK
-class MemoryLeakCheck
-{
-public:
-    MemoryLeakCheck() : head(NULL), tail(NULL), leakedBytes(0), leakedCount(0), enableOutput(true) {}
-    ~MemoryLeakCheck();
-    static void AddLeakDump(wchar_t const * dump, size_t bytes, size_t count);
-    static void SetEnableOutput(bool flag) { leakCheck.enableOutput = flag; }
-    static bool IsEnableOutput() { return leakCheck.enableOutput; }
-private:
-    static MemoryLeakCheck leakCheck;
-
-    struct LeakRecord
-    {
-        wchar_t const * dump;
-        LeakRecord * next;
-    };
-
-    CriticalSection cs;
-    LeakRecord * head;
-    LeakRecord * tail;
-    size_t leakedBytes;
-    size_t leakedCount;
-
-    bool enableOutput;
-};
-#endif

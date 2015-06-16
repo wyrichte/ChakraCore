@@ -800,20 +800,6 @@ public:
 
 #undef ASSERT_THREAD
 
-//we don't need these for the ArenaAllocator
-#if 0
-inline void __cdecl
-operator delete(void * obj, ArenaAllocator * alloc, char * (ArenaAllocator::*AllocFunc)(size_t))
-{
-    alloc->Free(obj, (size_t)-1);
-}
-
-inline void __cdecl
-operator delete(void * obj, ArenaAllocator * alloc, char * (ArenaAllocator::*AllocFunc)(size_t), size_t plusSize)
-{
-    alloc->Free(obj, (size_t)-1);
-}
-#endif
 class RefCounted
 {
     volatile long refCount;
@@ -984,3 +970,17 @@ public:
 };
 }
 
+//we don't need these for the ArenaAllocator
+#if 0
+inline void __cdecl
+operator delete(void * obj, ArenaAllocator * alloc, char * (ArenaAllocator::*AllocFunc)(size_t))
+{
+    alloc->Free(obj, (size_t)-1);
+}
+
+inline void __cdecl
+operator delete(void * obj, ArenaAllocator * alloc, char * (ArenaAllocator::*AllocFunc)(size_t), size_t plusSize)
+{
+    alloc->Free(obj, (size_t)-1);
+}
+#endif

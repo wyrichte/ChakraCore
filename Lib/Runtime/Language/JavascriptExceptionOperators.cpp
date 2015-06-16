@@ -559,6 +559,18 @@ namespace Js
     }
 #endif
 
+    void JavascriptExceptionOperators::ThrowForceCatchException(JavascriptError *jsError, ScriptContext* scriptContext)
+    {
+        Assert(jsError != nullptr);
+        Assert(scriptContext != nullptr);
+        Assert(BinaryFeatureControl::LanguageService());
+
+        JavascriptExceptionObject * exceptionObject = RecyclerNew(scriptContext->GetRecycler(), JavascriptExceptionObject, jsError, scriptContext, nullptr/*exceptionContextIn*/);
+        exceptionObject->SetForceCatchException(true);
+
+        throw exceptionObject;
+    }
+
     void JavascriptExceptionOperators::Throw(Var object, ScriptContext * scriptContext)
     {
 #if defined(DBG) && defined(_M_IX86)
@@ -1016,6 +1028,14 @@ namespace Js
         AssertMsg(args.Info.Count > 0, "Should always have implicit 'this'");
 
         ScriptContext *scriptContext = function->GetScriptContext();
+
+        // If the first argument to the accessor is not a recyclable object, return undefined
+        // This behaviour is compatible with Chromes. 
+        if (!RecyclableObject::Is(args[0]))
+        {
+            return scriptContext->GetLibrary()->GetUndefined();
+        }
+        
         RecyclableObject *obj = RecyclableObject::FromVar(args[0]);
 
         // If an argument was passed to the accessor, it is being called as a setter.

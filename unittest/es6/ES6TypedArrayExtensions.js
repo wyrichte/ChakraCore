@@ -95,9 +95,7 @@ var tests = [
                 assert.areEqual(undefined, descriptor.set, displayName + ".set === undefined");
                 assert.areEqual(0, descriptor.get.length, displayName + ".get.length === 0");
                 
-                var functionToString = descriptor.get.toString();
-                var actualName = functionToString.substring(9, functionToString.indexOf('('))
-                
+                var actualName = descriptor.get.toString();
                 assert.areEqual(functionName, actualName, displayName + ".get.name = " + functionName);
             }
             function verifyTypedArrayPrototypePropertyFunction(obj, name, len, displayName) {
@@ -123,11 +121,11 @@ var tests = [
             assert.isTrue(typedArrayPrototype === Float32Array.prototype.__proto__, "All TypedArray prototypes have their [[prototype]] slot set to the %TypedArrayPrototype% intrinsic");
             assert.isTrue(typedArrayPrototype === Float64Array.prototype.__proto__, "All TypedArray prototypes have their [[prototype]] slot set to the %TypedArrayPrototype% intrinsic");
 
-            verifyTypedArrayPrototypePropertyAccessor(typedArrayPrototype, "buffer", "%TypedArrayPrototype%.buffer");
-            verifyTypedArrayPrototypePropertyAccessor(typedArrayPrototype, "byteLength", "%TypedArrayPrototype%.byteLength");
-            verifyTypedArrayPrototypePropertyAccessor(typedArrayPrototype, "byteOffset", "%TypedArrayPrototype%.byteOffset");
-            verifyTypedArrayPrototypePropertyAccessor(typedArrayPrototype, "length", "%TypedArrayPrototype%.length");
-            verifyTypedArrayPrototypePropertyAccessor(typedArrayPrototype, Symbol.toStringTag, "%TypedArrayPrototype%[@@toStringTag]", "[Symbol.toStringTag]");
+            verifyTypedArrayPrototypePropertyAccessor(typedArrayPrototype, "buffer", "%TypedArrayPrototype%.buffer", "get buffer");
+            verifyTypedArrayPrototypePropertyAccessor(typedArrayPrototype, "byteLength", "%TypedArrayPrototype%.byteLength", "get byteLength");
+            verifyTypedArrayPrototypePropertyAccessor(typedArrayPrototype, "byteOffset", "%TypedArrayPrototype%.byteOffset", "get byteOffset");
+            verifyTypedArrayPrototypePropertyAccessor(typedArrayPrototype, "length", "%TypedArrayPrototype%.length", "get length");
+            verifyTypedArrayPrototypePropertyAccessor(typedArrayPrototype, Symbol.toStringTag, "%TypedArrayPrototype%[@@toStringTag]", "get [Symbol.toStringTag]");
             
             verifyTypedArrayPrototypePropertyFunction(typedArrayPrototype, "set", 2, "%TypedArrayPrototype%.set");
             verifyTypedArrayPrototypePropertyFunction(typedArrayPrototype, "subarray", 2, "%TypedArrayPrototype%.subarray");

@@ -501,7 +501,7 @@ LowererMDArch::LowerCallArgs(IR::Instr *callInstr, ushort callFlags, Js::ArgSlot
     // Machine dependent lowering
     //
 
-    if (startCallInstr->m_opcode != Js::OpCode::StartCallAsmJsI)
+    if (callInstr->m_opcode != Js::OpCode::AsmJsCallI)
     {
         // Push argCount
         IR::IntConstOpnd *argCountOpnd = Lowerer::MakeCallInfoConst(callFlags, argCount, m_func);
@@ -607,39 +607,11 @@ LowererMDArch::GeneratePreCall(IR::Instr * callInstr, IR::Opnd  *functionObjOpnd
         insertBeforeInstrForCFGCheck = callInstr;
     }
 
-    IR::RegOpnd * functionTypeRegOpnd = null;
-
-    // For calls to fixed functions we load the function's type directly from the known (hard-coded) function object address.
-    // For other calls, we need to load it from the function object stored in a register operand.
-    if (functionObjOpnd->IsAddrOpnd() && functionObjOpnd->AsAddrOpnd()->m_isFunction)
-    {
-        functionTypeRegOpnd = this->lowererMD->m_lowerer->GenerateFunctionTypeFromFixedFunctionObject(insertBeforeInstrForCFGCheck, functionObjOpnd);
-    }
-    else if (functionObjOpnd->IsRegOpnd())
-    {
-        AssertMsg(functionObjOpnd->AsRegOpnd()->m_sym->IsStackSym(), "Expected call target to be a stack symbol.");
-
-        functionTypeRegOpnd = IR::RegOpnd::New(TyMachReg, m_func);
-        // functionTypeRegOpnd(RAX) = MOV function->type
-        {
-            IR::IndirOpnd * functionTypeIndirOpnd = IR::IndirOpnd::New(functionObjOpnd->AsRegOpnd(),
-                Js::DynamicObject::GetOffsetOfType(), TyMachReg, m_func);
-            IR::Instr * mov  = IR::Instr::New(Js::OpCode::MOV, functionTypeRegOpnd, functionTypeIndirOpnd, m_func);
-            insertBeforeInstrForCFGCheck->InsertBefore(mov);
-        }
-    }
-    else
-    {
-        AssertMsg(false, "Unexpected call target operand type.");
-    }
-
-    IR::RegOpnd *entryPointRegOpnd = functionTypeRegOpnd;
-    entryPointRegOpnd->m_isCallArg = true;
-
-    IR::IndirOpnd *entryPointIndirOpnd;
+    IR::RegOpnd * functionTypeRegOpnd = nullptr;
+    IR::IndirOpnd * entryPointIndirOpnd = nullptr;
     if (callInstr->m_opcode == Js::OpCode::AsmJsCallI)
     {
-        IR::RegOpnd* functionTypeRegOpnd = IR::RegOpnd::New(TyMachReg, m_func);
+        functionTypeRegOpnd = IR::RegOpnd::New(TyMachReg, m_func);
 
         IR::IndirOpnd* functionInfoIndirOpnd = IR::IndirOpnd::New(functionObjOpnd->AsRegOpnd(), Js::RecyclableObject::GetTypeOffset(), TyMachReg, m_func);
 
@@ -657,9 +629,36 @@ LowererMDArch::GeneratePreCall(IR::Instr * callInstr, IR::Opnd  *functionObjOpnd
     }
     else
     {
+        // For calls to fixed functions we load the function's type directly from the known (hard-coded) function object address.
+        // For other calls, we need to load it from the function object stored in a register operand.
+        if (functionObjOpnd->IsAddrOpnd() && functionObjOpnd->AsAddrOpnd()->m_isFunction)
+        {
+            functionTypeRegOpnd = this->lowererMD->m_lowerer->GenerateFunctionTypeFromFixedFunctionObject(insertBeforeInstrForCFGCheck, functionObjOpnd);
+        }
+        else if (functionObjOpnd->IsRegOpnd())
+        {
+            AssertMsg(functionObjOpnd->AsRegOpnd()->m_sym->IsStackSym(), "Expected call target to be a stack symbol.");
+
+            functionTypeRegOpnd = IR::RegOpnd::New(TyMachReg, m_func);
+            // functionTypeRegOpnd(RAX) = MOV function->type
+            {
+                IR::IndirOpnd * functionTypeIndirOpnd = IR::IndirOpnd::New(functionObjOpnd->AsRegOpnd(),
+                    Js::DynamicObject::GetOffsetOfType(), TyMachReg, m_func);
+                IR::Instr * mov = IR::Instr::New(Js::OpCode::MOV, functionTypeRegOpnd, functionTypeIndirOpnd, m_func);
+                insertBeforeInstrForCFGCheck->InsertBefore(mov);
+            }
+        }
+        else
+        {
+            AssertMsg(false, "Unexpected call target operand type.");
+        }
         // entryPointRegOpnd(RAX) = MOV type->entryPoint
         entryPointIndirOpnd = IR::IndirOpnd::New(functionTypeRegOpnd, Js::Type::GetOffsetOfEntryPoint(), TyMachPtr, m_func);
     }
+
+    IR::RegOpnd *entryPointRegOpnd = functionTypeRegOpnd;
+    entryPointRegOpnd->m_isCallArg = true;
+
     IR::Instr *mov = IR::Instr::New(Js::OpCode::MOV, entryPointRegOpnd, entryPointIndirOpnd, m_func);
     insertBeforeInstrForCFGCheck->InsertBefore(mov);
 

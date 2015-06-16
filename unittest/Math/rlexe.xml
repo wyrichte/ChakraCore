@@ -114,6 +114,15 @@
 
 <test>
    <default>
+      <files>ceilfloor.js</files>
+      <baseline>ceilfloor.baseline</baseline>
+      <compile-flags>-sse:3</compile-flags>
+      <tags>fail_mutators</tags>
+   </default>
+</test>
+
+<test>
+   <default>
       <files>sin.js</files>
       <baseline>sin.baseline</baseline>
    </default>

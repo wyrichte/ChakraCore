@@ -50,6 +50,42 @@ const void *const*GetHelperMethods()
 static const void *const* pJnHelperMethodAddresses = JnHelperMethodAddresses;
 #endif
 
+#if ENABLE_DEBUG_CONFIG_OPTIONS && defined(_CONTROL_FLOW_GUARD)
+class HelperTableCheck
+{
+public:
+    HelperTableCheck() {
+        CheckJnHelperTable(JnHelperMethodAddresses); 
+#if defined(_M_IX86) 
+        CheckJnHelperTable(JnHelperMethodAddresses_SSE2);
+#endif
+    }
+};
+
+// Dummy global to trigger CheckJnHelperTable call at load time.
+static HelperTableCheck LoadTimeHelperTableCheck;
+
+void CheckJnHelperTable(const void * const *table)
+{
+    MEMORY_BASIC_INFORMATION memBuffer;
+
+    // Make sure the helper table is in read-only memory for security reasons.
+    SIZE_T byteCount;
+    byteCount = VirtualQuery(table, &memBuffer, sizeof(memBuffer));
+
+    Assert(byteCount);
+
+    // Note: .rdata is merged with .text on x86.
+    if (memBuffer.Protect != PAGE_READONLY && memBuffer.Protect != PAGE_EXECUTE_READ)
+    {
+        AssertMsg(false, "JnHelperMethodAddress table needs to be read-only for security reasons");
+
+        Fatal();
+    }
+}
+#endif
+
+
 static void const* helperMethodWrappers[] = {
     &Js::HelperMethodWrapper0,
     &Js::HelperMethodWrapper1,
@@ -109,6 +145,155 @@ GetMethodAddress(IR::HelperCallOpnd* opnd)
     return GetMethodOriginalAddress(opnd->m_fnHelper);
 }
 
+// TODO:  Remove this define once makes it into WINNT.h
+#ifndef DECLSPEC_GUARDIGNORE  
+#if (_MSC_FULL_VER >= 170065501)  
+#define DECLSPEC_GUARDIGNORE  __declspec(guard(ignore))  
+#else  
+#define DECLSPEC_GUARDIGNORE  
+#endif  
+#endif 
+
+// We need the helper table to be in read-only memory for obvious security reasons.
+// Import function ptr require dynamic initialization, and cause the table to be in read-write memory.
+// Additionally, all function ptrs are automatically marked as safe CFG addresses by the compiler.
+// __declspec(guard(ignore)) can be used on methods to have the compiler not mark these as valid CFG targets.
+DECLSPEC_GUARDIGNORE __declspec(noinline) void * const GetNonTableMethodAddress(JnHelperMethod helperMethod)
+{
+    switch (helperMethod)
+    {
+    //
+    //  DllImport methods
+    //
+#if defined(_M_X64)
+    case HelperDirectMath_FloorDb:
+        return (double(*)(double))floor;
+
+    case HelperDirectMath_FloorFlt:
+        return (float(*)(float))floor;
+
+    case HelperDirectMath_CeilDb:
+        return (double(*)(double))ceil;
+
+    case HelperDirectMath_CeilFlt:
+        return (float(*)(float))ceil;
+
+#elif defined(_M_IX86)
+
+    case HelperDirectMath_Acos: 
+        return (double(*)(double))__libm_sse2_acos;
+
+    case HelperDirectMath_Asin:
+        return (double(*)(double))__libm_sse2_asin;
+
+    case HelperDirectMath_Atan:
+        return (double(*)(double))__libm_sse2_atan;
+
+    case HelperDirectMath_Atan2:
+        return (double(*)(double, double))__libm_sse2_atan2;
+
+    case HelperDirectMath_Cos:
+        return (double(*)(double))__libm_sse2_cos;
+
+    case HelperDirectMath_Exp:
+        return (double(*)(double))__libm_sse2_exp;
+
+    case HelperDirectMath_Log:
+        return (double(*)(double))__libm_sse2_log;
+
+    case HelperDirectMath_Sin:
+        return (double(*)(double))__libm_sse2_sin;
+
+    case HelperDirectMath_Tan:
+        return (double(*)(double))__libm_sse2_tan;
+#endif
+
+#ifdef _CONTROL_FLOW_GUARD
+    case HelperGuardCheckCall:
+        return __guard_check_icall_fptr;
+#endif
+
+    //
+    // These are statically initialized to an import thunk, but let's keep them out of the table in case a new CRT changes this
+    //
+    case HelperMemCmp:
+        return (int(*)(void *, void *, size_t))memcmp;
+
+    case HelperMemCpy:
+        return (int(*)(void *, void *, size_t))memcpy;
+
+#if defined(_M_X64)
+    case HelperDirectMath_Acos:
+        return (double(*)(double))acos;
+
+    case HelperDirectMath_Asin:
+        return (double(*)(double))asin;
+
+    case HelperDirectMath_Atan:
+        return (double(*)(double))atan;
+
+    case HelperDirectMath_Atan2:
+        return (double(*)(double, double))atan2;
+
+    case HelperDirectMath_Cos:
+        return (double(*)(double))cos;
+
+    case HelperDirectMath_Exp:
+        return (double(*)(double))exp;
+
+    case HelperDirectMath_Log:
+        return (double(*)(double))log;
+
+    case HelperDirectMath_Sin:
+        return (double(*)(double))sin;
+
+    case HelperDirectMath_Tan:
+        return (double(*)(double))tan;
+
+#elif defined(_M_ARM32_OR_ARM64)
+    case HelperDirectMath_Acos:
+        return (double(*)(double))acos;
+
+    case HelperDirectMath_Asin:
+        return (double(*)(double))asin;
+
+    case HelperDirectMath_Atan:
+        return (double(*)(double))atan;
+
+    case HelperDirectMath_Atan2:
+        return (double(*)(double, double))atan2;
+
+    case HelperDirectMath_Cos:
+        return (double(*)(double))cos;
+
+    case HelperDirectMath_Exp:
+        return (double(*)(double))exp;
+
+    case HelperDirectMath_Log:
+        return (double(*)(double))log;
+
+    case HelperDirectMath_Sin:
+        return (double(*)(double))sin;
+
+    case HelperDirectMath_Tan:
+        return (double(*)(double))tan;
+#endif
+
+    //
+    // Methods that we don't want to get marked as CFG targets as they make unprotected calls
+    //
+    case HelperOp_TryCatch:
+        return Js::JavascriptExceptionOperators::OP_TryCatch;
+
+    case HelperOp_TryFinally:
+        return Js::JavascriptExceptionOperators::OP_TryFinally;
+    }
+
+    Assume(UNREACHED);
+
+    return nullptr;
+}
+
 ///----------------------------------------------------------------------------
 ///
 /// GetMethodOriginalAddress
@@ -119,9 +304,13 @@ GetMethodAddress(IR::HelperCallOpnd* opnd)
 ///----------------------------------------------------------------------------
 void const * GetMethodOriginalAddress(JnHelperMethod helperMethod)
 {
-    return pJnHelperMethodAddresses[static_cast<WORD>(helperMethod)];
+    const void *address = pJnHelperMethodAddresses[static_cast<WORD>(helperMethod)];
+    if (address == nullptr)
+    {
+        return GetNonTableMethodAddress(helperMethod);
+    }
+    return address;
 }
-
 
 #if DBG_DUMP || defined(ENABLE_IR_VIEWER)
 

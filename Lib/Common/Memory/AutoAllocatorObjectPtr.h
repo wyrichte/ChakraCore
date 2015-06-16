@@ -3,6 +3,8 @@
 //----------------------------------------------------------------------------
 #pragma once
 
+namespace Memory
+{
 // This object ensures DeleteObject (AllocatorDelete) for an allocator allocated object.
 template <typename T, typename TAllocator>
 class AutoAllocatorObjectPtr : public BasePtr<T>
@@ -106,3 +108,4 @@ private:
         }
     }
 };
+}

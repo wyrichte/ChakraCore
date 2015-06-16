@@ -6,6 +6,8 @@
 
 #pragma once
 
+namespace Memory
+{
 #ifdef PROFILE_RECYCLER_ALLOC
 #ifdef RECYCLER_DUMP_OBJECT_GRAPH
 class RecyclerObjectDumper
@@ -47,3 +49,4 @@ void DumpRecyclerObjectGraph();
 #else
 #define AUTO_REGISTER_RECYCLER_OBJECT_DUMPER(T, func)
 #endif
+}

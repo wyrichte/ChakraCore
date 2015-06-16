@@ -1,0 +1,65 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "foo": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "a": {
+          "__proto__": "[]",
+          "length": "10",
+          "[0]": "1",
+          "[1]": "2",
+          "[2]": "3",
+          "[3]": "4",
+          "[4]": "5",
+          "[5]": "6",
+          "[6]": "7",
+          "[7]": "8",
+          "[8]": "9",
+          "[9]": "10"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "length": "0"
+      },
+      "x": "undefined",
+      "[Globals]": {
+        "foo": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "name": "foo",
+          "prototype": "{...}"
+        },
+        "a": {
+          "__proto__": "[]",
+          "length": "10",
+          "[0]": "1",
+          "[1]": "2",
+          "[2]": "3",
+          "[3]": "4",
+          "[4]": "5",
+          "[5]": "6",
+          "[6]": "7",
+          "[7]": "8",
+          "[8]": "9",
+          "[9]": "10"
+        }
+      }
+    }
+  }
+]

@@ -566,6 +566,10 @@ namespace Js
             return evalArg;
         }
 
+        // It might happen that no script parsed on this context (scriptContext) till now,
+        // so this Eval acts as the first source compile for scriptContext, tranisition to debugMode as needed
+        scriptContext->TransitionToDebugModeIfFirstSource(/* utf8SourceInfo = */ nullptr);
+
         JavascriptString *argString = JavascriptString::FromVar(evalArg);
         ScriptFunction *pfuncScript;
         wchar_t const * sourceString = argString->GetSz();

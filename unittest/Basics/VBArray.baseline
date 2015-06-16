@@ -1,7 +1,0 @@
-function
-function VBArray() { [native code] }
-function lbound() { [native code] }
-function ubound() { [native code] }
-function dimensions() { [native code] }
-function getItem() { [native code] }
-function toArray() { [native code] }

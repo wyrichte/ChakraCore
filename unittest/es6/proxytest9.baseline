@@ -55,3 +55,6 @@ get trap :__lookupGetter__
 getOwnPropertyDescriptor trap :A
 get trap :__lookupSetter__
 getOwnPropertyDescriptor trap :A
+123
+my proxy ownKeys
+length

@@ -141,6 +141,7 @@ namespace DirectAuthorCheckinTests
         }
 
         [TestMethod]
+        [Ignore] // in the new spec the method createTextRange has been removed 
         [WorkItem(197171)]
         new public void DomOptionalArguments()
         {

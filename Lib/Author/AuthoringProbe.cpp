@@ -127,6 +127,9 @@ namespace Authoring
                     // Skip all exceptions
                     if(pHaltState->exceptionObject)
                     {
+                        // We shouldn't have debug-dispatched the ForceCatch execution exception - so we shouldn't be here.
+                        Assert(!pHaltState->exceptionObject->IsForceCatchException());
+
                         pHaltState->exceptionObject->SetDebuggerSkip(true);
                         m_ignoreNextCleanup = true;
 

@@ -692,6 +692,7 @@ public:
     // Helper method
     static void HandleResumeAction(Js::InterpreterHaltState* pHaltState, BREAKRESUMEACTION resumeAction);
     static void RaiseMessageToDebugger(Js::ScriptContext * scriptContext, DWORD messageType, LPCWSTR message, LPCWSTR url);
+    static void TransitionToDebugModeIfFirstSource(Js::ScriptContext * scriptContext, Js::Utf8SourceInfo * sourceInfo);
 
     // *** ScriptEngine ***
 
@@ -1148,7 +1149,7 @@ public:
     //     prefixed with Dbg.
 
     BOOL IsDebuggerEnvironmentAvailable(bool requery = false);
-    HRESULT TranisitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf8SourceInfo = nullptr);
+    HRESULT TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf8SourceInfo);
     bool CanRegisterDebugSources();
     HRESULT DbgHandleBreakpoint(BREAKREASON br, BREAKRESUMEACTION* pBra);
     HRESULT DbgRegisterScriptBlock(CScriptBody* pbody, DWORD_PTR dwDebugSourceContext, LPCWSTR title = NULL);

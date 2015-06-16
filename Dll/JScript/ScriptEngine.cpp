@@ -348,6 +348,7 @@ ScriptEngine::EnsureScriptContext()
     newScriptContext->DispatchProfileInoke = DispMemberProxy::ProfileInvoke;
 
     newScriptContext->SetRaiseMessageToDebuggerFunction(ScriptEngine::RaiseMessageToDebugger);
+    newScriptContext->SetTransitionToDebugModeIfFirstSourceFn(ScriptEngine::TransitionToDebugModeIfFirstSource);
     bool forceDiagMode = CONFIG_FLAG(ForceDiagnosticsMode);
 
     // For now if the debugging Script option in IE is enabled then we use the interpreter
@@ -2996,10 +2997,10 @@ BOOL ScriptEngine::IsDebuggerEnvironmentAvailable(bool requery)
     return FALSE;
 }
 
-HRESULT ScriptEngine::TranisitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf8SourceInfo)
+HRESULT ScriptEngine::TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf8SourceInfo)
 {
     HRESULT hr = S_OK;
-    OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::TranisitionToDebugModeIfFirstSource scriptEngine 0x%p, scriptContext 0x%p, m_isFirstSourceCompile %d\n", this, scriptContext, m_isFirstSourceCompile);
+    OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::TransitionToDebugModeIfFirstSource scriptEngine 0x%p, scriptContext 0x%p, m_isFirstSourceCompile %d\n", this, scriptContext, m_isFirstSourceCompile);
     if (m_isFirstSourceCompile)
     {
         if (!m_hasFailedToAttachDetach)
@@ -3024,6 +3025,9 @@ HRESULT ScriptEngine::TranisitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* ut
             }
         }
         m_isFirstSourceCompile = FALSE;
+
+        // Let's remove the transition function from script context - so that Eval call does not come all the way over here.
+        this->scriptContext->SetTransitionToDebugModeIfFirstSourceFn(nullptr);
     }
     return hr;
 }
@@ -6759,7 +6763,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
     // or page is refreshed when F12 is opened attach won't be called and we will directly go into debug mode.
     // EnsureScriptContext should take care of it but there are few cases when host is not in debug mode when we call EnsureScriptContext
     // so we will only transition to debug mode when first source is compiled. m_isFirstSourceCompile takes care of it
-    hr = this->TranisitionToDebugModeIfFirstSource(utf8SourceInfo);
+    hr = this->TransitionToDebugModeIfFirstSource(utf8SourceInfo);
 
     if (grfscr & fscrImplicitThis)
     {
@@ -8312,6 +8316,20 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::SetActivityId(__in const GUID* pActivity
     else
     {
         return E_INVALIDARG;
+    }
+}
+/*static*/
+void ScriptEngine::TransitionToDebugModeIfFirstSource(Js::ScriptContext *scriptContext, Js::Utf8SourceInfo *sourceInfo)
+{
+    ScriptSite * scriptSite = ScriptSite::FromScriptContext(scriptContext);
+    if (scriptSite)
+    {
+        ScriptEngine* scriptEngine = scriptSite->GetScriptEngine();
+
+        if (scriptEngine != nullptr)
+        {
+            scriptEngine->TransitionToDebugModeIfFirstSource(sourceInfo); // Omitting the result of this function
+        }
     }
 }
 

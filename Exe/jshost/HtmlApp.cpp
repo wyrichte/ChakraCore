@@ -338,8 +338,124 @@ STDMETHODIMP CApp::Exec(
 
         case OLECMDID_SHOWMESSAGE:
             wprintf(L"Exec: Ignore DocHostUIHandler command %d\n", nCmdID);
+            // trident calls into here to show script abort dialog, we don't want to abort everytime.
+            // we can also have some kind of heuristic here to test abort.
+            if (pvaIn && V_VT(pvaIn) == VT_UNKNOWN)
+            {
+                SimulateShowMessage(pvaIn, pvaOut);
+            }
             return S_OK;
         }
+    }
+
+Error:
+    return hr;
+}
+
+HRESULT  
+CApp::GetParamsFromEvent(  
+    __in IHTMLEventObj         * pEventObj,  
+    __in unsigned int            cExpandos,  
+    __out_ecount(cExpandos) DISPID                  aDispid [],  
+    __out_ecount(cExpandos) VARIANT                 aVariant [],  
+    __in_ecount(cExpandos)  const SExpandoInfo      aExpandos [])  
+{  
+    HRESULT hr;
+    CComPtr<IDispatchEx> pDispatchEx = nullptr;  
+    unsigned int i;  
+  
+    if (!pEventObj || !aVariant || !aExpandos)  
+    {  
+        return E_INVALIDARG;  
+    }  
+  
+    for (i = 0; i < cExpandos; i++)  
+    {  
+        VariantInit(aVariant + i);  
+        aDispid[i] = DISPID_UNKNOWN;  
+    }  
+  
+    IfFailGo(pEventObj->QueryInterface(IID_PPV_ARGS(&pDispatchEx)));  
+  
+    for (i = 0; i < cExpandos; i++)  
+    {  
+        CComBSTR bstrName;  
+        DISPPARAMS dispparamsNoArgs;  
+  
+        bstrName.Attach(aExpandos[i].name);  
+  
+        IfFailGo(pDispatchEx->GetDispID(  
+            bstrName,  
+            fdexNameCaseSensitive,  
+            aDispid + i));  
+  
+        dispparamsNoArgs = { nullptr, nullptr, 0, 0 };  
+        IfFailGo(pDispatchEx->InvokeEx(  
+            aDispid[i],  
+            LOCALE_USER_DEFAULT,  
+            DISPATCH_PROPERTYGET,  
+            &dispparamsNoArgs,  
+            aVariant + i,  
+            NULL,  
+            NULL));  
+
+        bstrName.Detach();
+    }  
+
+Error:
+    return hr;  
+}  
+  
+HRESULT CApp::SimulateShowMessage(VARIANT* pvarIn, VARIANT* pvaOut)
+{
+    HRESULT hr = NOERROR;
+
+    static const int MAX_STRING_RESOURCE_LENGTH = 65535;
+    static const LPCWSTR qcStartString = L"Stop running this script?";
+    static const SExpandoInfo s_aMessageExpandos[] =
+    {
+        { TEXT("messageText"), VT_BSTR },
+        { TEXT("messageCaption"), VT_BSTR },
+        { TEXT("messageStyle"), VT_I4 },
+        { TEXT("messageHelpFile"), VT_BSTR },
+        { TEXT("messageHelpContext"), VT_I4 }
+    };
+
+    enum MessageEnum
+    {
+        MessageText,
+        MessageCaption,
+        MessageStyle,
+        MessageHelpFile,
+        MessageHelpContext
+    };
+
+    static const int cExpandos = ARRAYSIZE(s_aMessageExpandos);
+    CComPtr<IUnknown> pUnk = V_UNKNOWN(pvarIn);
+    DISPID aDispid[cExpandos];
+    CComVariant aVariant[cExpandos];
+    CComPtr<IHTMLEventObj> pEvent = nullptr;
+    CComPtr<IHTMLDocument2> pOmDoc = nullptr;
+    CComPtr<IHTMLWindow2> pOmWindow = nullptr;
+    LPCWSTR lpstrText;
+
+    // Get the event parameter from the CDoc which has the text of message that will be shown.
+    IfFailGo(pUnk->QueryInterface(IID_PPV_ARGS(&pOmDoc)));
+    IfFailGo(pOmDoc->get_parentWindow(&pOmWindow));
+    IfFailGo(pOmWindow->get_event(&pEvent));
+    IfFailGo(GetParamsFromEvent(
+        pEvent,
+        cExpandos,
+        aDispid,
+        aVariant,
+        s_aMessageExpandos));
+
+    // Get the message text to be shown
+    lpstrText = V_BSTR(&aVariant[MessageText]);
+    if (lpstrText && memcmp(lpstrText, qcStartString, wcslen(qcStartString) * 2) == 0)
+    {
+         pvaOut->vt = VT_I4;
+         pvaOut->intVal = IDNO;
     }
 
 Error:

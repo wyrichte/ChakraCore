@@ -10,7 +10,7 @@
 // ToDo: Assert that these don't collide with PROFILER_HEAP_OBJECT_FLAGS.
 const ULONG ActiveScriptProfilerHeapEnum::PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_SCOPE_SLOT_ARRAY = 0x80000000;
 const ULONG ActiveScriptProfilerHeapEnum::PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_BOUND_FUNCTION_ARGUMENT_LIST = 0x40000000;
-const ULONG ActiveScriptProfilerHeapEnum::INTERNAL_PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_MASK = 
+const ULONG ActiveScriptProfilerHeapEnum::INTERNAL_PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_MASK =
     PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_SCOPE_SLOT_ARRAY |
     PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_BOUND_FUNCTION_ARGUMENT_LIST;
 
@@ -41,10 +41,9 @@ const ActiveScriptProfilerHeapEnum::InternalTypeIdMap ActiveScriptProfilerHeapEn
     { Js::TypeIds_Int64Number, HeapObjectType_Number},
     { Js::TypeIds_UInt64Number, HeapObjectType_Number},
     { Js::TypeIds_String, HeapObjectType_String},
-    { Js::TypeIds_SafeArray, HeapObjectType_SafeArrayObject },
     { Js::TypeIds_Symbol, HeapObjectType_Symbol },
     { Js::TypeIds_Enumerator, HeapObjectType_Invalid},
-    { Js::TypeIds_VariantDate, HeapObjectType_GetVarDateFunctionObject },    
+    { Js::TypeIds_VariantDate, HeapObjectType_GetVarDateFunctionObject },
 #ifdef SIMD_JS_ENABLED
     { Js::TypeIds_SIMDFloat32x4, HeapObjectType_SIMD },
     { Js::TypeIds_SIMDFloat64x2, HeapObjectType_SIMD },
@@ -67,7 +66,6 @@ const ActiveScriptProfilerHeapEnum::InternalTypeIdMap ActiveScriptProfilerHeapEn
     { Js::TypeIds_NumberObject, HeapObjectType_NumberObject},
     { Js::TypeIds_StringObject, HeapObjectType_StringObject},
     { Js::TypeIds_ExtensionEnumerator, HeapObjectType_ExtensionEnumeratorObject},
-    { Js::TypeIds_SafeArrayObject, HeapObjectType_SafeArrayObject},
     { Js::TypeIds_Arguments, HeapObjectType_ArgumentObject},
     { Js::TypeIds_ES5Array, HeapObjectType_ArrayObject},
     { Js::TypeIds_PixelArray, HeapObjectType_CanvasPixelArray},
@@ -151,12 +149,11 @@ void ActiveScriptProfilerHeapEnum::CreateTypeNameIds()
     typeNameIdMap[HeapObjectType_NumberObject].typeNameId = GetPropertyId(L"NumberObject");
     typeNameIdMap[HeapObjectType_ObjectObject].typeNameId = GetPropertyId(L"ObjectObject");
     typeNameIdMap[HeapObjectType_RegexObject].typeNameId = GetPropertyId(L"RegexObject");
-    typeNameIdMap[HeapObjectType_SafeArrayObject].typeNameId = GetPropertyId(L"SafeArrayObject");
     typeNameIdMap[HeapObjectType_StringObject].typeNameId = GetPropertyId(L"StringObject");
     typeNameIdMap[HeapObjectType_TypedArrayObject].typeNameId = GetPropertyId(L"TypedArrayObject");
     typeNameIdMap[HeapObjectType_GlobalObject].typeNameId = GetPropertyId(L"GlobalObject");
     typeNameIdMap[HeapObjectType_FormObject].typeNameId = GetPropertyId(L"FormObject");
-    typeNameIdMap[HeapObjectType_Scope].typeNameId = GetPropertyId(L"Scope");    
+    typeNameIdMap[HeapObjectType_Scope].typeNameId = GetPropertyId(L"Scope");
     typeNameIdMap[HeapObjectType_HostObject].typeNameId = GetPropertyId(L"HostObject");
     typeNameIdMap[HeapObjectType_DOM].typeNameId = GetPropertyId(L"DOMObject");
     typeNameIdMap[HeapObjectType_WinRT].typeNameId = GetPropertyId(WinRTObjectType);
@@ -294,12 +291,12 @@ STDMETHODIMP ActiveScriptProfilerHeapEnum::Summarize(PROFILER_HEAP_SUMMARY* pHea
     }
     pHeapSummary->totalHeapSize = 0;
 
-    HRESULT hr = S_OK;    
+    HRESULT hr = S_OK;
     BEGIN_TRANSLATE_EXCEPTION_TO_HRESULT
     {
         EnumerateHeap([](ProfilerHeapObject* snapshotObj) -> bool {
             AssertMsg(FALSE, "Function should never be called");
-            return false; 
+            return false;
         }, pHeapSummary);
     }
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
@@ -318,7 +315,7 @@ STDMETHODIMP ActiveScriptProfilerHeapEnum::Init()
         IFFAILRET(hr);
     }
     HRESULT hr = S_OK;
-    
+
     m_scriptEngine.GetScriptContext()->SetHeapEnum(this);
     BEGIN_TRANSLATE_EXCEPTION_TO_HRESULT
     {
@@ -518,9 +515,9 @@ STDMETHODIMP ActiveScriptProfilerHeapEnum::FreeObjectAndOptionalInfo(__in ULONG 
     return S_OK;
 }
 
-void ActiveScriptProfilerHeapEnum::FreeBSTR(HostProfilerHeapObject *externalObject) 
+void ActiveScriptProfilerHeapEnum::FreeBSTR(HostProfilerHeapObject *externalObject)
 {
-    for (UINT i = 0; i < externalObject->optionalInfoCount; i ++) 
+    for (UINT i = 0; i < externalObject->optionalInfoCount; i ++)
     {
         ProfilerHeapObjectOptionalInfo* optionalInfo = (ProfilerHeapObjectOptionalInfo*)&externalObject->optionalInfo;
         if (optionalInfo->infoType == PROFILER_HEAP_OBJECT_OPTIONAL_INFO_RELATIONSHIPS)
@@ -619,7 +616,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
     return element;
 }
 
-ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::CreateBoundFunctionArgsElement(Var* args, UINT allocatedSizeInGC, UINT numberOfElements) 
+ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::CreateBoundFunctionArgsElement(Var* args, UINT allocatedSizeInGC, UINT numberOfElements)
 {
     Assert(numberOfElements > 0);
     UINT propertiesAllocSize = offsetof(ProfilerHeapObjectOptionalInfo, indexPropertyList.elements) + sizeof(PROFILER_HEAP_OBJECT_RELATIONSHIP)*(numberOfElements);
@@ -641,7 +638,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
         properties.elements[i].relationshipId = i;
         FillProperty(m_scriptEngine.GetScriptContext(), args[i], properties.elements[i]);
     }
-   
+
     return element;
 }
 
@@ -653,9 +650,9 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
     USHORT optionalInfoCount = 1;
     PropertyId * propertyIds = NULL;
     Js::DebuggerScope::DebuggerScopePropertyList* propertyList = NULL;
-    
+
     Js::ScopeSlots slotArray(scopeSlotArray);
-    
+
     UINT propertyCount = 0;
     if (slotArray.IsFunctionScopeSlotArray())
     {
@@ -686,9 +683,9 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
         UINT maxPropertyCount = (allocatedSizeInGC / sizeof(scopeSlotArray[0])) - Js::ScopeSlots::FirstSlotIndex;
         // When the slot array is smaller than the minimum heap size, we can't tell the length. It's initialized to zero, so use
         // that to find the end of the slot array.
-    
+
         for (propertyCount = 0; propertyCount < maxPropertyCount && scopeSlotArray[propertyCount + Js::ScopeSlots::FirstSlotIndex] != 0; propertyCount++);
-        Assert(propertyCount != 0);        
+        Assert(propertyCount != 0);
     }
 
     UINT headerAllocSize =  ProfilerHeapObject::AllocHeaderSize();
@@ -712,7 +709,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
         optionalInfoNext->functionName = functionName;
         optionalInfoNext = (ProfilerHeapObjectOptionalInfo*)((char *)optionalInfoNext + functionNameAllocSize);
     }
-    
+
     optionalInfoNext->infoType = PROFILER_HEAP_OBJECT_OPTIONAL_INFO_NAME_PROPERTIES;
     PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST& properties = optionalInfoNext->namePropertyList;
 
@@ -754,7 +751,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
         FillProperty(m_scriptEngine.GetScriptContext(), slotValue, properties.elements[elementIndex]);
         elementIndex++;
     }
- 
+
     Assert(elementIndex == properties.count);
     return element;
 }
@@ -867,7 +864,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
         indexPropertiesAllocSize = indexPropertyCount == 0 ? 0 :
             offsetof(ProfilerHeapObjectOptionalInfo, indexPropertyList.elements) + sizeof(PROFILER_HEAP_OBJECT_RELATIONSHIP)*(indexPropertyCount);
     }
-    
+
     if (Js::JavascriptMap::Is(obj))
     {
         collectionCount = GetMapCollectionCount(Js::JavascriptMap::FromVar(obj));
@@ -898,7 +895,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
         Assert(funcInfo);
         if (funcInfo->HasParseableInfo())
         {
-            // Note: for dynamic scripts (Function Code, Eval Code) do no provide source info (there's no url, etc), 
+            // Note: for dynamic scripts (Function Code, Eval Code) do no provide source info (there's no url, etc),
             // per agreement with F12 Memory Profiler team.
             Js::ParseableFunctionInfo* parseableInfo = funcInfo->GetParseableFunctionInfo();
             Assert(parseableInfo);
@@ -909,7 +906,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
         }
         else
         {
-            if (funcInfo->IsDeferredDeserializeFunction()) 
+            if (funcInfo->IsDeferredDeserializeFunction())
             {
                 relationshipCount = _countof(c_functionRelationshipNames);
             }
@@ -1081,7 +1078,7 @@ HRESULT ActiveScriptProfilerHeapEnum::GetHeapObjectInfo(Var instance, HostProfil
     {
         hr = pfGetHeapObjectInfo(instance, heapObjOut, returnResult);
     }
-    else 
+    else
 #endif
     if (m_heapEnumHost)
     {
@@ -1106,10 +1103,6 @@ UINT ActiveScriptProfilerHeapEnum::GetObjectSize(void* obj, size_t size)
         if (Js::JavascriptPixelArray::Is(obj))
         {
             return UInt32Math::Add(size, Js::JavascriptPixelArray::FromVar(obj)->GetBufferLength(), Js::Throw::OutOfMemory);
-        }
-        if (Js::JavascriptSafeArray::Is(obj))
-        {
-            return UInt32Math::Add(size, Js::JavascriptSafeArray::FromVar(obj)->GetSafeArraySize(), Js::Throw::OutOfMemory);
         }
         if (Js::JavascriptArray::Is(obj))
         {
@@ -1136,7 +1129,7 @@ UINT ActiveScriptProfilerHeapEnum::GetNamePropertySlotCount(Js::RecyclableObject
         Js::JavascriptOperators::HasOwnPropertyNoHostObjectForHeapEnum(obj, relationshipId, obj->GetScriptContext(), getter, setter))
     {
         // Will take up two slots if have a getter and a setter, otherwise one if either data property or have only one of getter/setter
-        count = (getter && setter) ? 2 : 1; 
+        count = (getter && setter) ? 2 : 1;
     }
 #if DBG_EXTRAFIELD
     if (count == 0 && Js::Configuration::Global.flags.ValidateHeapEnum)
@@ -1151,7 +1144,7 @@ UINT ActiveScriptProfilerHeapEnum::GetNamePropertySlotCount(Js::RecyclableObject
     return count;
 }
 
-Js::PropertyId 
+Js::PropertyId
 ActiveScriptProfilerHeapEnum::GetPropertyIdByIndex(Js::RecyclableObject * obj, Js::PropertyIndex i)
 {
 #if DBG
@@ -1504,7 +1497,7 @@ STDMETHODIMP ActiveScriptProfilerHeapEnum::GetNameIdMap(__out_ecount(*pcelt) LPC
 
     LPCWSTR* propertyMap = (LPCWSTR*)CoTaskMemAlloc(sizeof(LPCWSTR) * propertyNameListCount);
     IfNullReturnError(propertyMap, E_OUTOFMEMORY);
-    
+
     for (uint i = 0; i < enginePropertyCount; i++)
     {
         propertyMap[i] = threadContext->IsActivePropertyId(i) ? threadContext->GetPropertyName(i)->GetBuffer() : NULL;
@@ -1567,7 +1560,7 @@ void ActiveScriptProfilerHeapEnum::Visit(void* obj, ULONG flags, UINT numberOfEl
     }
 }
 
-// If the host generates any relationships with external object addresses in them, it will provide a 
+// If the host generates any relationships with external object addresses in them, it will provide a
 // corresponding HostProfilerHeapObject* in the heapObjElem->hostInfo->externalObjects array.
 // Enumerator will just enqueue those to be reported later.
 void ActiveScriptProfilerHeapEnum::EnqueueExternalObjects(HostProfilerHeapObject* hostInfo)
@@ -1612,7 +1605,7 @@ void ActiveScriptProfilerHeapEnum::VisitRoot(JavascriptDispatch* javascriptDispa
     UINT allocSize = headerAllocSize + internalPropertyAllocSize;
     ProfilerHeapObject* heapObjElem = AllocateElement(allocSize, PROFILER_HEAP_OBJECT_NAME_ID_UNAVAILABLE);
     heapObjElem->jsInfo.flags = PROFILER_HEAP_OBJECT_FLAGS_IS_ROOT | PROFILER_HEAP_OBJECT_FLAGS_NEW_STATE_UNAVAILABLE | PROFILER_HEAP_OBJECT_FLAGS_EXTERNAL_DISPATCH | PROFILER_HEAP_OBJECT_FLAGS_SIZE_APPROXIMATE;
-    heapObjElem->jsInfo.externalAddress = javascriptDispatch;    
+    heapObjElem->jsInfo.externalAddress = javascriptDispatch;
     heapObjElem->jsInfo.optionalInfoCount = 1;
     ProfilerHeapObjectOptionalInfo* internalProperty = (ProfilerHeapObjectOptionalInfo*)(&heapObjElem->jsInfo.optionalInfo);
     internalProperty->infoType = PROFILER_HEAP_OBJECT_OPTIONAL_INFO_INTERNAL_PROPERTY;
@@ -1637,7 +1630,7 @@ void ActiveScriptProfilerHeapEnum::VisitRoot(CUnknownImpl *unknownImpl)
         ProfilerHeapObject* heapObjElem = AllocateElement(allocSize, GetPropertyId(unknownImpl->GetFullTypeName()));
 
         heapObjElem->jsInfo.flags = PROFILER_HEAP_OBJECT_FLAGS_IS_ROOT | PROFILER_HEAP_OBJECT_FLAGS_NEW_STATE_UNAVAILABLE | PROFILER_HEAP_OBJECT_FLAGS_EXTERNAL_UNKNOWN | PROFILER_HEAP_OBJECT_FLAGS_SIZE_UNAVAILABLE | unknownImpl->GetWinrtTypeFlags();
-        heapObjElem->jsInfo.externalAddress = unknownImpl->GetUnknown();    
+        heapObjElem->jsInfo.externalAddress = unknownImpl->GetUnknown();
         heapObjElem->jsInfo.optionalInfoCount = 1;
         ProfilerHeapObjectOptionalInfo* optionalInfo = (ProfilerHeapObjectOptionalInfo*)(&heapObjElem->jsInfo.optionalInfo);
         unknownImpl->FillHeapObjectRelationshipInfo(optionalInfo);
@@ -1791,9 +1784,9 @@ void ActiveScriptProfilerHeapEnum::FillRelationships(Js::RecyclableObject* obj, 
             sourceName = deferDeserializeFunctionInfo->GetSourceInfo(lineNumber, columnNumber);
         }
 
-        // Notes: 
+        // Notes:
         // - the order here must match one in c_functionRelationshipNames.
-        // - row and col are for beginning of the function.            
+        // - row and col are for beginning of the function.
         FillStringRelationship(relationships.elements[relationshipCount++], propId++, sourceName);
         FillNumberRelationship(relationships.elements[relationshipCount++], propId++, lineNumber);
         FillNumberRelationship(relationships.elements[relationshipCount++], propId++, columnNumber);
@@ -1874,8 +1867,7 @@ USHORT ActiveScriptProfilerHeapEnum::GetInternalPropertyCount(Js::RecyclableObje
 {
     USHORT count = 0;
 
-    if (Js::JavascriptSafeArrayObject::Is(obj) ||
-        obj->GetProxiedObjectForHeapEnum() ||
+    if (obj->GetProxiedObjectForHeapEnum() ||
         Js::JavascriptStringObject::Is(obj) ||
         IsReportableJavascriptString(obj) ||
         Js::TypedArrayBase::Is(obj) ||
@@ -1900,7 +1892,7 @@ USHORT ActiveScriptProfilerHeapEnum::GetInternalPropertyCount(Js::RecyclableObje
             count += 1;
         }
     }
-    else if (IsBoundFunction(obj)) 
+    else if (IsBoundFunction(obj))
     {
         Js::BoundFunction* boundFunction = (Js::BoundFunction*)Js::JavascriptFunction::FromVar(obj);
         count += 1;
@@ -1933,15 +1925,10 @@ void ActiveScriptProfilerHeapEnum::FillInternalProperty(Js::RecyclableObject* ob
         return;
     }
 
-    if (Js::JavascriptSafeArrayObject::Is(obj))
-    {
-        SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_HEAP_OBJECT);
-        optionalInfo->internalProperty.objectId = (PROFILER_HEAP_OBJECT_ID)Js::JavascriptSafeArrayObject::FromVar(obj)->GetJavascriptSafeArray();
-    }
-    else if (Js::JavascriptStringObject::Is(obj))
+    if (Js::JavascriptStringObject::Is(obj))
     {
         // JavascriptStringObjects simply wrap JavascriptString objects so we report inner JavascriptString as an internal property.
-        // It's possible we could just return the underlying string buffer (wrapped by JavascriptString) but we would not then be able to 
+        // It's possible we could just return the underlying string buffer (wrapped by JavascriptString) but we would not then be able to
         // tell when two JavascriptStringObjects wrap the same JavascriptString since we don't have the heap address for the JavascriptString - we only get the string value.
         // Also, concat strings which alias other JavascriptStrings have their buffer set to NULL so we would need to do some special-casing.
 
@@ -1975,7 +1962,7 @@ void ActiveScriptProfilerHeapEnum::FillInternalProperty(Js::RecyclableObject* ob
         SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_HEAP_OBJECT);
         optionalInfo->internalProperty.objectId = (PROFILER_HEAP_OBJECT_ID)globalObject->GetLibrary()->GetRegExpConstructor();
 
-        if(globalObject->GetSecureDirectHostObject() != NULL) 
+        if(globalObject->GetSecureDirectHostObject() != NULL)
         {
             optionalInfo = GetNextOptionalInfo(optionalInfo);
             optionalInfo->infoType = PROFILER_HEAP_OBJECT_OPTIONAL_INFO_INTERNAL_PROPERTY;
@@ -1989,7 +1976,7 @@ void ActiveScriptProfilerHeapEnum::FillInternalProperty(Js::RecyclableObject* ob
         SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_HEAP_OBJECT);
         optionalInfo->internalProperty.objectId = (PROFILER_HEAP_OBJECT_ID)boundFunction->GetTargetFunction();
 
-        if (boundFunction->GetBoundThis() != NULL) 
+        if (boundFunction->GetBoundThis() != NULL)
         {
             optionalInfo = GetNextOptionalInfo(optionalInfo);
             optionalInfo->infoType = PROFILER_HEAP_OBJECT_OPTIONAL_INFO_INTERNAL_PROPERTY;
@@ -1997,7 +1984,7 @@ void ActiveScriptProfilerHeapEnum::FillInternalProperty(Js::RecyclableObject* ob
             optionalInfo->internalProperty.objectId = (PROFILER_HEAP_OBJECT_ID)boundFunction->GetBoundThis();
         }
 
-        if (boundFunction->GetArgsCountForHeapEnum() > 0) 
+        if (boundFunction->GetArgsCountForHeapEnum() > 0)
         {
             optionalInfo = GetNextOptionalInfo(optionalInfo);
             optionalInfo->infoType = PROFILER_HEAP_OBJECT_OPTIONAL_INFO_INTERNAL_PROPERTY;
@@ -2020,7 +2007,7 @@ void ActiveScriptProfilerHeapEnum::FillInternalProperty(Js::RecyclableObject* ob
             subString->value = jsString->GetString();
             optionalInfo->internalProperty.subString = subString;
         }
-        else 
+        else
         {
             SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_STRING);
             optionalInfo->internalProperty.stringValue = jsString->GetString();
@@ -2157,7 +2144,7 @@ void ActiveScriptProfilerHeapEnum::VisitDependencies(T* obj, USHORT optionalInfo
                     ULONG flags = 0;
                     if (!AutoSystemInfo::IsJscriptModulePointer(reinterpret_cast<void*>(v)))
                     {
-                        flags = PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_SCOPE_SLOT_ARRAY | 
+                        flags = PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_SCOPE_SLOT_ARRAY |
                             (IsSiteClosed(flags) ? PROFILER_HEAP_OBJECT_FLAGS_SITE_CLOSED : 0);
                     }
                     Visit((void*)scopeList.scopes[j], flags);
@@ -2197,7 +2184,7 @@ ULONG ActiveScriptProfilerHeapEnum::GetInternalPropertyFlags(PROFILER_HEAP_OBJEC
     if (internalProp->objectId == 0) return 0;
     INT_PTR v = *(INT_PTR *)internalProp->objectId;
     if (AutoSystemInfo::IsJscriptModulePointer(reinterpret_cast<void*>(v))) return 0;
-    return PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_BOUND_FUNCTION_ARGUMENT_LIST; 
+    return PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_BOUND_FUNCTION_ARGUMENT_LIST;
 }
 
 
@@ -2259,7 +2246,7 @@ __inline void ActiveScriptProfilerHeapEnum::AddObjectToSummary(ProfilerHeapObjec
     FreeObjectAndOptionalInfo(obj);
 }
 
-template <typename Fn> 
+template <typename Fn>
 void ActiveScriptProfilerHeapEnum::EnumerateHeap(Fn callback, PROFILER_HEAP_SUMMARY* pHeapSummary)
 {
     bool continueEnum = true;
@@ -2281,11 +2268,11 @@ void ActiveScriptProfilerHeapEnum::EnumerateHeap(Fn callback, PROFILER_HEAP_SUMM
         if (m_scanQueue.Empty())
         {
             // are done with GC mark bits now. This allows post-enumeration operations that
-            // execute js w/o having to release the enum pointer. 
+            // execute js w/o having to release the enum pointer.
             delete m_autoSetupRecyclerForNonCollectingMark;
             m_autoSetupRecyclerForNonCollectingMark = NULL;
 #ifdef HEAP_ENUMERATION_VALIDATION
-            static_assert( (INTERNAL_PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_MASK & (PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_UNREPORTED_LIBRARY_OBJECT | PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_UNREPORTED_USER_OBJECT)) == 0, 
+            static_assert( (INTERNAL_PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_MASK & (PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_UNREPORTED_LIBRARY_OBJECT | PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_UNREPORTED_USER_OBJECT)) == 0,
                 "PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_UNREPORTED_OBJECT collision");
             if (Js::Configuration::Global.flags.ValidateHeapEnum)
             {
@@ -2333,52 +2320,52 @@ ProfilerHeapObjectOptionalInfo* ActiveScriptProfilerHeapEnum::GetNextOptionalInf
     {
     case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_INTERNAL_PROPERTY:
         {
-            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo + 
+            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo +
                 offsetof(ProfilerHeapObjectOptionalInfo, internalProperty) + sizeof(((ProfilerHeapObjectOptionalInfo*)0)->internalProperty));
         }
     case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_PROTOTYPE:
         {
-            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo + 
+            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo +
                 offsetof(ProfilerHeapObjectOptionalInfo, prototype) + sizeof(((ProfilerHeapObjectOptionalInfo*)0)->prototype));
         }
     case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_FUNCTION_NAME:
         {
-            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo + 
+            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo +
                 offsetof(ProfilerHeapObjectOptionalInfo, functionName) + sizeof(((ProfilerHeapObjectOptionalInfo*)0)->functionName));
         }
     case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_SCOPE_LIST:
         {
-            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo + 
+            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo +
                 offsetof(ProfilerHeapObjectOptionalInfo, scopeList.scopes) + sizeof(PROFILER_HEAP_OBJECT_ID)*(optionalInfo->scopeList.count));
         }
     case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_NAME_PROPERTIES:
         {
-            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo + 
+            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo +
                 offsetof(ProfilerHeapObjectOptionalInfo, namePropertyList.elements) + sizeof(PROFILER_HEAP_OBJECT_RELATIONSHIP)*(optionalInfo->namePropertyList.count));
         }
     case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_INDEX_PROPERTIES:
         {
-            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo + 
+            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo +
                 offsetof(ProfilerHeapObjectOptionalInfo, indexPropertyList.elements) + sizeof(PROFILER_HEAP_OBJECT_RELATIONSHIP)*(optionalInfo->indexPropertyList.count));
         }
     case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_RELATIONSHIPS:
         {
-            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo + 
+            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo +
                 offsetof(ProfilerHeapObjectOptionalInfo, relationshipList.elements) + sizeof(PROFILER_HEAP_OBJECT_RELATIONSHIP)*(optionalInfo->relationshipList.count));
         }
     case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_ELEMENT_ATTRIBUTES_SIZE:
         {
-            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo + 
+            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo +
                 offsetof(ProfilerHeapObjectOptionalInfo, elementAttributesSize) + sizeof(((ProfilerHeapObjectOptionalInfo*)0)->elementAttributesSize));
         }
     case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_ELEMENT_TEXT_CHILDREN_SIZE:
         {
-            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo + 
+            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo +
                 offsetof(ProfilerHeapObjectOptionalInfo, elementTextChildrenSize) + sizeof(((ProfilerHeapObjectOptionalInfo*)0)->elementTextChildrenSize));
         }
     case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_WINRTEVENTS:
         {
-            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo + 
+            return (ProfilerHeapObjectOptionalInfo*)((char*)optionalInfo +
                 offsetof(ProfilerHeapObjectOptionalInfo, eventList.elements) + sizeof(PROFILER_HEAP_OBJECT_RELATIONSHIP)*(optionalInfo->eventList.count));
         }
     case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_MAP_COLLECTION_LIST:
@@ -2459,7 +2446,7 @@ ActiveScriptProfilerHeapEnum::VtableMap::VtableMap() :
 {
 }
 
-ActiveScriptProfilerHeapEnum::VtableMap::~VtableMap()   
+ActiveScriptProfilerHeapEnum::VtableMap::~VtableMap()
 {
     // We don't care to check for multi-thread access as the initialization of the vtablehash map
     // is done under a lock
@@ -2475,12 +2462,12 @@ ActiveScriptProfilerHeapEnum::VtableMap::Initialize()
     }
 
     AutoCriticalSection autocs(ThreadContext::GetCriticalSection());
-     
+
     // recheck after taking the critical section
     if (m_vtableMapHash != null)
     {
         return;
     }
-    m_vtableMapHash = CreateVtableHashMap(&arenaAllocator);    
+    m_vtableMapHash = CreateVtableHashMap(&arenaAllocator);
 }
 #endif

@@ -5,7 +5,7 @@
 
 #include "StdAfx.h"
 namespace Js{
-    bool ASMLink::CheckArrayBuffer(Var bufferView, const AsmJsModuleInfo * info)
+    bool ASMLink::CheckArrayBuffer(ScriptContext* scriptContext, Var bufferView, const AsmJsModuleInfo * info)
     {
         if (!bufferView)
         {
@@ -14,19 +14,32 @@ namespace Js{
 
         if (!JavascriptArrayBuffer::Is(bufferView))
         {
-            Output::Print(L"AsmJs Runtime Error : Buffer parameter is not an Array buffer\n");
+            AsmJSCompiler::OutputError(scriptContext, L"Asm.js Runtime Error : Buffer parameter is not an Array buffer");
             return false;
         }
         JavascriptArrayBuffer* buffer = (JavascriptArrayBuffer*)bufferView;
         if (buffer->GetByteLength() <= info->GetMaxHeapAccess())
         {
-            Output::Print(L"AsmJs Runtime Error : Buffer bytelength is smaller than constant accesses\n");
+            AsmJSCompiler::OutputError(scriptContext, L"Asm.js Runtime Error : Buffer bytelength is smaller than constant accesses");
             return false;
+        }
+        if (info->GetUsesChangeHeap())
+        {
+            if (buffer->GetByteLength() < 0x1000000)
+            {
+                Output::Print(L"Asm.js Runtime Error : Buffer bytelength is not a valid size for asm.js\n");
+                return false;
+            }
+            if (info->GetMaxHeapAccess() >= 0x1000000)
+            {
+                Output::Print(L"Asm.js Runtime Error : Cannot have such large constant accesses\n");
+                return false;
+            }
         }
 
         if (!buffer->IsValidAsmJsBufferLength(buffer->GetByteLength(), true))
         {
-            Output::Print(L"AsmJs Runtime Error : Buffer bytelength is not a valid size for asm.js\n");
+            AsmJSCompiler::OutputError(scriptContext, L"Asm.js Runtime Error : Buffer bytelength is not a valid size for asm.js");
             return false;
         }
 
@@ -42,18 +55,13 @@ namespace Js{
         Assert(foreign);
         if (!RecyclableObject::Is(foreign))
         {
-            Output::Print(L"AsmJs Runtime Error : FFI is not an object\n");
+            AsmJSCompiler::OutputError(scriptContext, L"Asm.js Runtime Error : FFI is not an object");
             return false;
         }
         TypeId foreignObjType = RecyclableObject::FromVar(foreign)->GetTypeId();
-        if (StaticType::Is(foreignObjType))
+        if (StaticType::Is(foreignObjType) || TypeIds_Proxy == foreignObjType)
         {
-            Output::Print(L"AsmJs Runtime Error : FFI is not an object\n");
-            return false;
-        }
-        if (TypeIds_Proxy == foreignObjType)
-        {
-            Output::Print(L"AsmJs Runtime Error : FFI is a proxy object\n");
+            AsmJSCompiler::OutputError(scriptContext, L"Asm.js Runtime Error : FFI is not an object");
             return false;
         }
         return true;
@@ -70,18 +78,13 @@ namespace Js{
         Assert(stdlib);
         if (!RecyclableObject::Is(stdlib))
         {
-            Output::Print(L"AsmJs Runtime Error : StdLib is not an object\n");
+            AsmJSCompiler::OutputError(scriptContext, L"Asm.js Runtime Error : StdLib is not an object");
             return false;
         }
         TypeId stdLibObjType = RecyclableObject::FromVar(stdlib)->GetTypeId();
-        if (StaticType::Is(stdLibObjType))
+        if (StaticType::Is(stdLibObjType) || TypeIds_Proxy == stdLibObjType)
         {
-            Output::Print(L"AsmJs Runtime Error : StdLib is not an object\n");
-            return false;
-        }
-        if (TypeIds_Proxy == stdLibObjType)
-        {
-            Output::Print(L"AsmJs Runtime Error : StdLib is a proxy object\n");
+            AsmJSCompiler::OutputError(scriptContext, L"Asm.js Runtime Error : StdLib is not an object");
             return false;
         }
 
@@ -91,7 +94,7 @@ namespace Js{
             Var asmInfinityObj = JavascriptOperators::OP_GetProperty(stdlib, PropertyIds::Infinity, scriptContext);
             if (asmInfinityObj  != library->GetPositiveInfinite())
             {
-                Output::Print(L"AsmJs Runtime Error : Math constant Infinity is invalid \n");
+                AsmJSCompiler::OutputError(scriptContext, L"Asm.js Runtime Error : Math constant Infinity is invalid");
                 return false;
             } 
         }
@@ -100,7 +103,7 @@ namespace Js{
             Var asmNaNObj = JavascriptOperators::OP_GetProperty(stdlib, PropertyIds::NaN, scriptContext);
             if (asmNaNObj != library->GetNaN())
             {
-                Output::Print(L"AsmJs Runtime Error : Math constant NaN is invalid \n");
+                AsmJSCompiler::OutputError(scriptContext, L"Asm.js Runtime Error : Math constant NaN is invalid");
                 return false;
             }            
         }
@@ -115,7 +118,7 @@ namespace Js{
             AsmJSMathBuiltinFunction mathBuiltinFunc = (AsmJSMathBuiltinFunction)i;
             if (!CheckMathLibraryMethod(scriptContext, asmMathObject, mathBuiltinFunc))
             {
-                Output::Print(L"AsmJs Runtime Error : Math builtin function is invalid \n");
+                AsmJSCompiler::OutputError(scriptContext, L"Asm.js Runtime Error : Math builtin function is invalid");
                 return false;
             }
         }
@@ -129,7 +132,7 @@ namespace Js{
             AsmJSTypedArrayBuiltinFunction arrayBuiltinFunc = (AsmJSTypedArrayBuiltinFunction)i;
             if (!CheckArrayLibraryMethod(scriptContext, stdlib, arrayBuiltinFunc))
             {
-                Output::Print(L"AsmJs Runtime Error : Array builtin function is invalid \n");
+                AsmJSCompiler::OutputError(scriptContext, L"Asm.js Runtime Error : Array builtin function is invalid");
                 return false;
             }
         }
@@ -545,7 +548,7 @@ namespace Js{
 
     bool ASMLink::CheckParams(ScriptContext* scriptContext, AsmJsModuleInfo* info, const Var stdlib, const Var foreign, const Var bufferView)
     {
-        if (CheckStdLib(scriptContext, info, stdlib) && CheckArrayBuffer(bufferView, info) && CheckFFI(scriptContext, info, stdlib))
+        if (CheckStdLib(scriptContext, info, stdlib) && CheckArrayBuffer(scriptContext, bufferView, info) && CheckFFI(scriptContext, info, stdlib))
         {
             return true;
         }

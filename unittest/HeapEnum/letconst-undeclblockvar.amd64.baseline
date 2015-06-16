@@ -67,7 +67,7 @@
  |  |    |  |  |    [Properties] count: 1
  |  |    |  |  |    | 0 length: value: 1.000000
  |  [Prototype] type: ObjectObject (seen)
- |  [Properties] count: 60
+ |  [Properties] count: 59
  |  | 0 NaN: value: -1.#IND00
  |  | 1 Infinity: value: 1.#INF00
  |  | 2 undefined: type: Undefined flags: (new) optional info records (1)
@@ -245,15 +245,7 @@
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    |    [Properties] count: 1
  |  |    |    | 0 length: value: 0.000000
- |  | 52 VBArray: type: FunctionObject flags: (new) optional info records (2)
- |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Properties] count: 2
- |  |    | 0 prototype: type: SafeArrayObject flags: (new) optional info records (2)
- |  |    |    [Internal property] type: SafeArrayObject flags: (new) optional info records (1)
- |  |    |    |    [Prototype] type: SafeArrayObject (seen)
- |  |    |    [Prototype] type: ObjectObject (seen)
- |  |    | 1 length: value: 1.000000
- |  | 53 WScript: type: ObjectObject flags: (new) optional info records (2)
+ |  | 52 WScript: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
  |  |    [Properties] count: 25
  |  |    | 0 Echo: type: FunctionObject flags: (new) optional info records (1)
@@ -322,9 +314,9 @@
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    | 24 TestConstructor: type: FunctionObject flags: (new) optional info records (1)
  |  |    |    [Prototype] type: FunctionObject (seen)
- |  | 54 print: type: FunctionObject flags: (new) optional info records (1)
+ |  | 53 print: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 55 SCA: type: ObjectObject flags: (new) optional info records (2)
+ |  | 54 SCA: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
  |  |    [Properties] count: 7
  |  |    | 0 serialize: type: FunctionObject flags: (new) optional info records (1)
@@ -341,20 +333,20 @@
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    | 6 makeUint64: type: FunctionObject flags: (new) optional info records (1)
  |  |    |    [Prototype] type: FunctionObject (seen)
- |  | 56 ImageData: type: FunctionObject flags: (new) optional info records (2)
+ |  | 55 ImageData: type: FunctionObject flags: (new) optional info records (2)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Properties] count: 1
  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
  |  |    |    [Prototype] type: ObjectObject (seen)
  |  |    |    [Properties] count: 1
  |  |    |    | 0 constructor: type: FunctionObject (seen)
- |  | 57 testScopeSlotArray: type: FunctionObject flags: (new) optional info records (2)
+ |  | 56 testScopeSlotArray: type: FunctionObject flags: (new) optional info records (2)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] testScopeSlotArray
- |  | 58 testActivationObject: type: FunctionObject flags: (new) optional info records (2)
+ |  | 57 testActivationObject: type: FunctionObject flags: (new) optional info records (2)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] testActivationObject
- |  | 59 func: type: FunctionObject flags: (new) optional info records (3)
+ |  | 58 func: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] func
  |  |    [Scopes] count: 1

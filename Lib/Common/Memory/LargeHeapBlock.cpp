@@ -604,7 +604,7 @@ LargeHeapBlock::SetObjectMarkedBit(void* objectAddress)
 }
 
 bool
-LargeHeapBlock::FindHeapObject(void* objectAddress, Recycler * recycler, FindHeapObjectFlags, RecyclerHeapObjectInfo& heapObject)
+LargeHeapBlock::FindImplicitRootObject(void* objectAddress, Recycler * recycler, RecyclerHeapObjectInfo& heapObject)
 {
     if (!IsValidObject(objectAddress))
     {
@@ -613,7 +613,7 @@ LargeHeapBlock::FindHeapObject(void* objectAddress, Recycler * recycler, FindHea
 
     LargeObjectHeader* pHeader = NULL;
 
-    if (! GetObjectHeader(objectAddress, &pHeader))
+    if (!GetObjectHeader(objectAddress, &pHeader))
     {
         return false;
     }
@@ -625,6 +625,13 @@ LargeHeapBlock::FindHeapObject(void* objectAddress, Recycler * recycler, FindHea
     heapObject = RecyclerHeapObjectInfo(objectAddress, recycler, this, pHeader->GetAttributesPtr());
 #endif
     return true;
+}
+
+bool
+LargeHeapBlock::FindHeapObject(void* objectAddress, Recycler * recycler, FindHeapObjectFlags, RecyclerHeapObjectInfo& heapObject)
+{
+    // Currently the same actual implementation (flags is ignored)
+    return FindImplicitRootObject(objectAddress, recycler, heapObject);
 }
 
 bool

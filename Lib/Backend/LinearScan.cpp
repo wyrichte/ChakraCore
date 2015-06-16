@@ -426,27 +426,33 @@ LinearScan::CheckIfInLoop(IR::Instr *instr)
     {
         // Look for end of loop
 
-        AssertMsg(this->loopTail != 0, "Something is wrong here....");
+        AssertMsg(this->curLoop->regAlloc.loopEnd != 0, "Something is wrong here....");
 
-        if (instr->GetNumber() >= this->loopTail)
+        if (instr->GetNumber() >= this->curLoop->regAlloc.loopEnd)
         {
             AssertMsg(instr->IsBranchInstr(), "Loop tail should be a branchInstr");
-            Assert(this->loopNest == 1);
-            this->loopTail = 0;
-            this->liveOnBackEdgeSyms->ClearAll();
-        }
-        if (instr->IsBranchInstr() && instr->AsBranchInstr()->m_isLoopTail)
-        {
-            this->loopNest--;
-            this->curLoop = this->curLoop->parent;
-            Assert(!this->loopNest || this->curLoop);
+            while (this->IsInLoop() && instr->GetNumber() >= this->curLoop->regAlloc.loopEnd)
+            {
+                this->loopNest--;
+                this->curLoop->isProcessed = true;
+                this->curLoop = this->curLoop->parent;
+                if (this->loopNest == 0)
+                {
+                    this->liveOnBackEdgeSyms->ClearAll();
+                }
+            }
         }
     }
     if (instr->IsLabelInstr() && instr->AsLabelInstr()->m_isLoopTop)
     {
         IR::LabelInstr * labelInstr = instr->AsLabelInstr();
         Loop *parentLoop = this->curLoop;
+        if (parentLoop)
+        {
+            parentLoop->isLeaf = false;
+        }
         this->curLoop = labelInstr->GetLoop();
+        this->curLoop->isProcessed = false;
         // Lexically nested may not always nest in a flow based way:
         //      while(i--) {
         //          if (cond) {
@@ -468,27 +474,6 @@ LinearScan::CheckIfInLoop(IR::Instr *instr)
         this->curLoop->regAlloc.regUseBv = 0;
 
         this->liveOnBackEdgeSyms->Or(this->curLoop->regAlloc.liveOnBackEdgeSyms);
-
-        if (!this->IsInLoop())
-        {
-            // Look for loop start
-
-            uint32 lastBranchNum = 0;
-
-            // Find back edge
-            FOREACH_SLISTCOUNTED_ENTRY(IR::BranchInstr *, ref, &labelInstr->labelRefs)
-            {
-                if (ref->GetNumber() > lastBranchNum)
-                {
-                    lastBranchNum = ref->GetNumber();
-                }
-            }
-            NEXT_SLISTCOUNTED_ENTRY;
-
-            AssertMsg(instr->GetNumber() < lastBranchNum, "Didn't find back-end...");
-
-            this->loopTail = lastBranchNum;
-        }
         this->loopNest++;
     }
     return this->IsInLoop();
@@ -550,7 +535,7 @@ LinearScan::CheckOpHelper(IR::Instr *instr)
                         }
                         else
                         {
-                            Assert(!instr->AsBranchInstr()->m_isLoopTail);
+                            Assert(!instr->AsBranchInstr()->IsLoopTail(this->func));
                             continue;
                         }
                     }
@@ -4280,8 +4265,8 @@ LinearScan::InsertAirlock(IR::BranchInstr *branchInstr, IR::LabelInstr *labelIns
     // L1:                 L2:
     //                       <new block>
     //                     L1:
-    // An airlock is needed when we need to add code on a flow arc, and the code code 
-    // can't be added directly at the source or synk of that flow arc without impacting other
+    // An airlock is needed when we need to add code on a flow arc, and the code can't 
+    // be added directly at the source or sink of that flow arc without impacting other
     // code paths.
 
     bool isOpHelper = labelInstr->isOpHelper;
@@ -4314,10 +4299,10 @@ LinearScan::InsertAirlock(IR::BranchInstr *branchInstr, IR::LabelInstr *labelIns
         }
     }
 #endif
-    IR::Instr * prevInstr = labelInstr->GetPrevRealInstrOrLabel();
     bool replaced = branchInstr->ReplaceTarget(labelInstr, airlockLabel);
     Assert(replaced);
 
+    IR::Instr * prevInstr = labelInstr->GetPrevRealInstrOrLabel();
     if (prevInstr->HasFallThrough())
     {
         IR::BranchInstr *branchOverAirlock = IR::BranchInstr::New(LowererMD::MDUncondBranchOpcode, labelInstr, this->func);
@@ -4530,7 +4515,7 @@ void LinearScan::PrintStats() const
             continue;
 
         case IR::InstrKindBranch:
-            if (instr->AsBranchInstr()->m_isLoopTail)
+            if (instr->AsBranchInstr()->IsLoopTail(this->func))
             {
                 loopNest++;
             }

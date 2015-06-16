@@ -94,7 +94,7 @@ HRESULT ScriptSite::GetExternalJitData(ExternalJitData id, void *data) const
     case ExternalJitData_CustomExternalObjectOperations:
     {
         CustomExternalObjectOperations *ceoData = (CustomExternalObjectOperations*)data;
-        
+
         ceoData->offsetOfOperationsUsage = Js::CustomExternalType::GetOffsetOfUsage();
         ceoData->operationFlagEquals = OperationFlag_Equals;
         ceoData->operationFlagStrictEquals = OperationFlag_StrictEquals;
@@ -356,16 +356,16 @@ void ScriptSite::Close()
     // Log out any relevant telemetry data.
     bool isJSRT = false;
     ThreadContext* threadContext = this->GetScriptSiteContext()->GetThreadContext();
-    DWORD hostType = scriptEngine->GetHostType(); // 0 for JShost, 1 for browser, 2 for WWA/JSRT, 3 for webview in WWA/XAML        
+    DWORD hostType = scriptEngine->GetHostType(); // 0 for JShost, 1 for browser, 2 for WWA/JSRT, 3 for webview in WWA/XAML
     if (threadContext != NULL)
     {
-        isJSRT = !(threadContext->GetIsThreadBound());        
+        isJSRT = !(threadContext->GetIsThreadBound());
     }
     if (!isNonPrimaryEngine || isJSRT)
     {
         g_TraceLoggingClient->FireSiteNavigation(this->GetScriptSiteContext()->GetUrl(), scriptEngine->GetActivityId(), hostType,isJSRT);
     }
-   
+
 
 
 
@@ -1308,9 +1308,15 @@ HRESULT ScriptSite::Execute(__in Js::RecyclableObject *pScrObj, __in Js::Argumen
     {
         return hr;
     }
+    uint argCount = args->Info.Count;
+    if (args->Info.Flags & CallFlags_CallEval)
+    {
+        Assert(argCount >= 1);
+        argCount--;
+    }
     {
         BEGIN_TRANSLATE_OOM_TO_HRESULT
-            for (unsigned int i = 0; i < args->Info.Count; i++)
+            for (unsigned int i = 0; i < argCount; i++)
             {
                 args->Values[i] = Js::CrossSite::MarshalVar(functionScriptContext, args->Values[i]);
             }
@@ -1504,13 +1510,13 @@ ScriptSite::DisposeScriptByFaultInjectionEventHandler(Js::ScriptContext * script
     ScriptEngine* scriptEngine = scriptSite->GetScriptEngine();
     if (scriptEngine)
     {
-        
+
         HRESULT hr = scriptEngine->SetScriptState(SCRIPTSTATE::SCRIPTSTATE_CLOSED);
-        if (FAILED(hr)) 
+        if (FAILED(hr))
         {
             AssertMsg(FALSE, "Call to SetScriptState() failed.");
         }
-        else 
+        else
         {
             SCRIPTSTATE ss;
             scriptEngine->GetScriptState(&ss);
@@ -1539,7 +1545,6 @@ ScriptSite::InitializeExternalLibrary()
 {
     InitializeTypes();
     InitializeDebugObject();
-    InitializeSafeArray();
 
     if (GetScriptSiteContext()->IsDiagnosticsScriptContext())
     {
@@ -1742,70 +1747,6 @@ void ScriptSite::InitializeEditTest()
     library->AddFunctionToLibraryObjectWithPropertyName(editTest, L"AstDiff", &Js::EditTest::EntryInfo::AstDiff, 2);
 }
 #endif
-
-
-
-void ScriptSite::InitializeSafeArrayPrototype(Js::DynamicObject* safeArrayPrototype, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode)
-{
-    typeHandler->Convert(safeArrayPrototype, mode, 7);
-
-    Js::JavascriptLibrary* library = safeArrayPrototype->GetLibrary();
-
-    library->AddMember(safeArrayPrototype, Js::PropertyIds::constructor, library->safeArrayConstructor, PropertyNone);
-
-    library->AddFunctionToLibraryObjectWithPropertyName(safeArrayPrototype, L"lbound", &Js::JavascriptSafeArrayObject::EntryInfo::ToLbound, 0);
-    library->AddFunctionToLibraryObjectWithPropertyName(safeArrayPrototype, L"ubound", &Js::JavascriptSafeArrayObject::EntryInfo::ToUbound, 0);
-    library->AddFunctionToLibraryObjectWithPropertyName(safeArrayPrototype, L"dimensions", &Js::JavascriptSafeArrayObject::EntryInfo::ToDimensions, 0);
-    library->AddFunctionToLibraryObjectWithPropertyName(safeArrayPrototype, L"getItem", &Js::JavascriptSafeArrayObject::EntryInfo::ToGetItem, 0);
-    library->AddFunctionToLibraryObjectWithPropertyName(safeArrayPrototype, L"toArray", &Js::JavascriptSafeArrayObject::EntryInfo::ToArray, 0);
-    library->AddFunctionToLibraryObject(safeArrayPrototype, Js::PropertyIds::valueOf, &Js::JavascriptSafeArrayObject::EntryInfo::ValueOf, 0);
-}
-
-void ScriptSite::InitializeSafeArray()
-{
-    Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    if (scriptContext->GetConfig()->GetHostType() != Js::HostTypeApplication)
-    {
-        // Note: Any new function addition/deletion/modification should also be updated in ScriptSite::RegisterSafeArray
-        // so that the update is in sync with profiler
-        Js::JavascriptLibrary* library = scriptContext->GetLibrary();
-
-        Recycler* recycler = scriptContext->GetRecycler();
-        Js::JavascriptSafeArrayObject * safeArrayPrototype = RecyclerNew(recycler, Js::JavascriptSafeArrayObject, null,
-            Js::DynamicType::New(scriptContext, Js::TypeIds_SafeArrayObject, library->GetLibraryBase()->objectPrototype, null,
-            Js::DeferredTypeHandler<InitializeSafeArrayPrototype>::GetDefaultInstance()));
-
-        library->safeArrayTypeStatic = Js::StaticType::New(scriptContext, Js::TypeIds_SafeArray, safeArrayPrototype, null);
-        library->safeArrayTypeDynamic = Js::DynamicType::New(scriptContext, Js::TypeIds_SafeArrayObject, safeArrayPrototype, null,
-            Js::SimplePathTypeHandler::New(scriptContext, scriptContext->GetRootPath(), 0, 0, 0, true, true), true, true);
-
-        // Init safeArrayPrototype (which requires safeArrayTypeStatic)
-        safeArrayPrototype->InitPrototype(this);
-
-        Js::PropertyId const propertyId = scriptContext->GetOrAddPropertyIdTracked(L"VBArray", 7);
-        library->safeArrayConstructor = library->AddFunctionToLibraryObjectWithPrototype(scriptContext->GetGlobalObject(), propertyId,
-            &Js::JavascriptSafeArrayObject::EntryInfo::NewInstance, 1, safeArrayPrototype);
-
-        library->safeArrayPrototype = safeArrayPrototype;
-    }
-}
-
-Js::JavascriptSafeArray* ScriptSite::CreateJavascriptSafeArray(VARTYPE vt, SAFEARRAY* psa)
-{
-    Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    Js::JavascriptSafeArray* psaObject =
-        RecyclerNewFinalized(this->GetRecycler(), Js::JavascriptSafeArray, this, vt, psa, scriptContext->GetLibrary()->GetJavascriptSafeArrayType());
-
-    return psaObject;
-}
-
-Js::JavascriptSafeArrayObject* ScriptSite::CreateJavascriptSafeArrayObject(Js::JavascriptSafeArray* pObj)
-{
-    Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    Js::JavascriptSafeArrayObject* vbo = RecyclerNew(this->GetRecycler(), Js::JavascriptSafeArrayObject, pObj,
-        scriptContext->GetLibrary()->JavascriptSafeArrayObjectType());
-    return vbo;
-}
 
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
 #if DBG_DUMP
@@ -2183,7 +2124,6 @@ HRESULT ScriptSite::RegisterExternalLibrary(Js::ScriptContext *pScriptContext)
     HRESULT hr = S_OK;
 
     REGISTER_OBJECT(Debug);
-    REGISTER_OBJECT(SafeArray);
 
     return hr;
 }
@@ -2222,27 +2162,6 @@ HRESULT ScriptSite::RegisterDebug(Js::ScriptContext *pScriptContext)
         REG_OBJECTS_LIB_FUNC(msTraceAsyncOperationCompleted, AsyncDebug::CompleteAsyncOperation);
     }
 
-    return hr;
-}
-
-
-
-HRESULT ScriptSite::RegisterSafeArray(Js::ScriptContext *pScriptContext)
-{
-    Assert(pScriptContext);
-    HRESULT hr = S_OK;
-    if (pScriptContext->GetConfig()->GetHostType() != Js::HostTypeApplication)
-    {
-        const wchar_t *pwszObjectName = L"VBArray";
-
-        REG_GLOBAL_DYNAMIC_LIB_FUNC(pwszObjectName, 7, Js::JavascriptSafeArrayObject::NewInstance);
-        REG_OBJECTS_DYNAMIC_LIB_FUNC(L"lbound", Js::JavascriptSafeArrayObject::EntryToLbound);
-        REG_OBJECTS_DYNAMIC_LIB_FUNC(L"ubound", Js::JavascriptSafeArrayObject::EntryToUbound);
-        REG_OBJECTS_DYNAMIC_LIB_FUNC(L"dimensions", Js::JavascriptSafeArrayObject::EntryToDimensions);
-        REG_OBJECTS_DYNAMIC_LIB_FUNC(L"getItem", Js::JavascriptSafeArrayObject::EntryToGetItem);
-        REG_OBJECTS_DYNAMIC_LIB_FUNC(L"toArray", Js::JavascriptSafeArrayObject::EntryToArray);
-        REG_OBJECTS_LIB_FUNC(valueOf, Js::JavascriptSafeArrayObject::EntryValueOf);
-    }
     return hr;
 }
 
@@ -2292,7 +2211,6 @@ HRESULT ScriptSite::VerifyDOMSecurity(Js::ScriptContext* targetContext, Js::Var 
 
     return hr;
 }
-
 
 HRESULT ScriptSite::CheckCrossDomainScriptContext(__in Js::ScriptContext* remoteScriptContext)
 {

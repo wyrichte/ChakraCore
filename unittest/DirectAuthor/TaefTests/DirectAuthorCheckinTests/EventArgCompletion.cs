@@ -476,6 +476,7 @@ namespace DirectAuthorCheckinTests
         }
 
         [TestMethod]
+        [Ignore] /// The new IE spec doesn't define method "applyElement" any more
         [WorkItem(326542)]
         public void ApplyElement()
         {

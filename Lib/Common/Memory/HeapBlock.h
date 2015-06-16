@@ -427,6 +427,8 @@ public:
         ushort pageObjectCount;
     };
 
+    bool FindImplicitRootObject(void* candidate, Recycler* recycler, RecyclerHeapObjectInfo& heapObject);
+
     SmallHeapBlockT* next;
 
     FreeObject* freeObjectList;
@@ -663,6 +665,7 @@ public:
 #endif
 
     static ushort GetAddressBitIndex(void * objectAddress);
+    static void * GetRealAddressFromInterior(void * objectAddress, uint objectSize, byte bucketIndex);
 
 protected:
     static size_t GetAllocPlusSize(uint objectCount);

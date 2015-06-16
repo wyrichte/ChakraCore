@@ -2,6 +2,12 @@
 <regress-exe>
 <test>
    <default>
+      <files>equiv-finaltypeandpoly.js</files>
+      <compile-flags>-maxSimpleJitRunCount:2</compile-flags>
+   </default>
+</test>
+<test>
+   <default>
       <files>equiv-missing.js</files>
       <baseline>equiv-missing.baseline</baseline>
    </default>
@@ -23,6 +29,12 @@
    <default>
       <files>equiv-needmonocheck.js</files>
       <compile-flags>-maxsimplejitruncount:4 -force:inline</compile-flags>
+   </default>
+</test>
+<test>
+   <default>
+      <files>equiv-needsmonocheck2.js</files>
+      <baseline>equiv-needsmonocheck2.baseline</baseline>
    </default>
 </test>
 <test>

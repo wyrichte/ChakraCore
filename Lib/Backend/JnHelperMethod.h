@@ -31,8 +31,13 @@ enum JnHelperMethod
 
 class HelperCallOpnd;
 
+// Verify the table is read-only.
+void CheckJnHelperTable(const void * const *table);
+
 // Return address of the hepler which can be intercepted by debugger wrapper.
 void const* GetMethodAddress(HelperCallOpnd* opnd);
+
+void * const GetNonTableMethodAddress(JnHelperMethod helperMethod);
 
 // Returns the original address of the helper, this one is never the intercepted by debugger helper.
 void const* GetMethodOriginalAddress(JnHelperMethod helperMethod);

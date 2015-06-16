@@ -72,6 +72,13 @@ private:
     static const BYTE ThunkAddressOffset;
     static const BYTE FunctionBodyOffset;
     static const BYTE DynamicThunkAddressOffset;
+    static const BYTE InterpreterThunkEmitter::CallBlockStartAddrOffset;
+    static const BYTE InterpreterThunkEmitter::ThunkSizeOffset;
+    static const BYTE InterpreterThunkEmitter::ErrorOffset;
+#if defined(_M_ARM)
+    static const BYTE InterpreterThunkEmitter::CallBlockStartAddressInstrOffset;
+    static const BYTE InterpreterThunkEmitter::CallThunkSizeInstrOffset;
+#endif
     static const BYTE InterpreterThunk[];
 
     // Call buffer includes a call to the inner interpreter thunk and eventual jump to the epilog
@@ -88,7 +95,7 @@ private:
 
     /* ------private helpers -----------*/
     void NewThunkBlock();
-    void EncodeInterpreterThunk(__in_bcount(thunkSize) BYTE* thunkBuffer, __in const DWORD thunkSize);
+    void EncodeInterpreterThunk(__inout_bcount(thunkSize) BYTE* thunkBuffer, __in BYTE* thunkBufferStartAddress, __inout const DWORD thunkSize, __in_bcount(epilogSize) BYTE* epilogStart, __in const DWORD epilogSize);
 #if defined(_M_ARM32_OR_ARM64)
     DWORD EncodeMove(DWORD opCode, int reg, DWORD imm16);
     void GeneratePdata(__in const BYTE* entryPoint, __in const DWORD functionSize, __inout RUNTIME_FUNCTION* function);
@@ -100,6 +107,7 @@ private:
     template<class T>
     inline static void Emit(__in_bcount(sizeof(T) + offset) BYTE* dest, __in const DWORD offset, __in const T value)
     {
+        AssertMsg(*(T*) (dest + offset) == 0, "Overwriting an already existing opcode?");
         *(T*)(dest + offset) = value;
     };
 public:

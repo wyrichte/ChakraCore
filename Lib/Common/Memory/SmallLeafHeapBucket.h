@@ -1,7 +1,8 @@
 //----------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
-
+namespace Memory
+{
 template <class TBlockAttributes>
 class SmallLeafHeapBucketT : public HeapBucketT<SmallLeafHeapBlockT<TBlockAttributes>>
 {
@@ -34,3 +35,4 @@ protected:
 
 typedef SmallLeafHeapBucketT<SmallAllocationBlockAttributes>  SmallLeafHeapBucket;
 typedef SmallLeafHeapBucketT<MediumAllocationBlockAttributes> MediumLeafHeapBucket;
+}

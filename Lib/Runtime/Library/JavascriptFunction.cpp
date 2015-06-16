@@ -1383,10 +1383,9 @@ LABEL1:
         return this->constructorCache;
     }
 
-    void JavascriptFunction::SetConstructorCacheToDefault()
+    void JavascriptFunction::ResetConstructorCacheToDefault()
     {
         Assert(this->constructorCache != null);
-        Assert(this->GetScriptContext()->IsInDebugOrSourceRundownMode());
 
         if (!this->constructorCache->IsDefault())
         {

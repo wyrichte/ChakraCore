@@ -152,7 +152,7 @@ public:
         PsapiLibrary() : DelayLoadLibrary(),
             getProcessMemoryInfo(NULL)
         {
-            this->Ensure();
+            this->EnsureFromSystemDirOnly();
         }
 
         LPCTSTR GetLibraryName() const { return L"psapi.dll"; } 

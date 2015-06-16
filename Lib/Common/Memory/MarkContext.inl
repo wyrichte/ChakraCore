@@ -112,7 +112,9 @@ void MarkContext::Mark(void * candidate, void * parentReference)
 
     if (interior)
     {
-        this->MarkInterior<parallel>(candidate);
+        Assert(recycler->enableScanInteriorPointers
+            || (!recycler->IsConcurrentState() && recycler->collectionState != CollectionStateParallelMark));
+        recycler->heapBlockMap.MarkInterior<parallel>(candidate, this);
         return;
     }
 
@@ -127,31 +129,6 @@ void MarkContext::Mark(void * candidate, void * parentReference)
 #ifdef RECYCLER_MARK_TRACK
     this->OnObjectMarked(candidate, parentReference);
 #endif
-}
-
-template <bool parallel>
-__inline
-void MarkContext::MarkInterior(void * candidate)
-{
-    Assert(recycler->enableScanInteriorPointers
-        || (!recycler->IsConcurrentState() && recycler->collectionState != CollectionStateParallelMark));   
-
-    HeapBlock * heapBlock = recycler->heapBlockMap.GetHeapBlock(candidate);
-    if (heapBlock == NULL)
-    {
-        RECYCLER_STATS_INC(recycler, tryMarkInteriorNonRecyclerMemoryCount);
-        return;
-    }
-    
-    byte * realAddress = heapBlock->GetRealAddressFromInterior(candidate);
-    if (realAddress)
-    {
-        // REVIEW: We look up the heap block twice, but for large heap block
-        // it might be from different check in the heap block map, which will 
-        // have to look up again anyway.  
-        // May be we can optimize the small heap block case?
-        recycler->heapBlockMap.Mark<parallel>(realAddress, this);
-    }
 }
 
 __inline

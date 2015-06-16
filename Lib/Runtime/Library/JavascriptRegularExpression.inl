@@ -23,8 +23,6 @@ namespace Js
         this->pattern = pattern;
     }
 
-
-    __declspec(safebuffers)
     inline JavascriptRegExp* JavascriptRegExp::GetJavascriptRegExp(Var var, ScriptContext* scriptContext)
     {
         if (JavascriptRegExp::Is(var))

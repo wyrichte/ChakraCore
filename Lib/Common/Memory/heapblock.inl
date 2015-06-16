@@ -135,6 +135,21 @@ void SmallHeapBlockT<TBlockAttributes>::ScanNewImplicitRootsBase(Fn fn)
     this->markCount = (ushort)localMarkCount;
 }
 
+template <class TBlockAttributes>
+bool
+SmallHeapBlockT<TBlockAttributes>::FindImplicitRootObject(void* candidate, Recycler* recycler, RecyclerHeapObjectInfo& heapObject)
+{
+    ushort index = GetAddressIndex(candidate);
+
+    if (index == InvalidAddressBit)
+    {
+        return false;
+    }
+
+    byte& attributes = ObjectInfo(index);
+    heapObject = RecyclerHeapObjectInfo(candidate, recycler, this, &attributes);
+    return true;
+}
 
 template <typename Fn>
 bool 

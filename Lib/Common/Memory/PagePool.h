@@ -8,7 +8,8 @@
 // This allows us to free the pages when we know it is multi-thread safe to do so,
 // e.g. after all parallel marking is completed.
 
-
+namespace Memory
+{
 class PagePoolPage
 {
 private:
@@ -101,4 +102,4 @@ public:
     bool IsEmpty() const { return (freePageList == null); }
 #endif
 };
-
+}

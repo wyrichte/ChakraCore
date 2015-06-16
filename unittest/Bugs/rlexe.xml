@@ -34,6 +34,14 @@
 
 <test>
     <default>
+        <files>bug_OS_1197716.js</files>
+        <compile-flags>-deferparse</compile-flags>
+        <tags>BugFix</tags>
+    </default>
+</test>
+
+<test>
+    <default>
         <files>calliput.js</files>
         <baseline>calliput.baseline</baseline>
     </default>

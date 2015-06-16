@@ -32,7 +32,8 @@ Recycler::IntegrateBlock(char * blockAddress, PageSegment * segment, size_t allo
     return success;
 }
 
-
+namespace Memory
+{
 class DummyVTableObject : public FinalizableObject
 {
 public:
@@ -40,6 +41,7 @@ public:
     virtual void Dispose(bool isShutdown) {}
     virtual void Mark(Recycler * recycler) {}
 };
+}
 
 template <ObjectInfoBits attributes, bool nothrow>
 __inline char *
@@ -453,6 +455,23 @@ SmallHeapBlockT<TBlockAttributes>::GetObjectIndexFromBitIndex(ushort bitIndex)
     return objectIndex;
 }
 
+template <class TBlockAttributes>
+__forceinline void *
+SmallHeapBlockT<TBlockAttributes>::GetRealAddressFromInterior(void * interiorAddress, uint objectSize, byte bucketIndex)
+{
+    const ValidPointers<TBlockAttributes> validPointers = HeapInfo::GetValidPointersMapForBucket<TBlockAttributes>(bucketIndex);
+    size_t rawInteriorAddress = reinterpret_cast<size_t>(interiorAddress);
+    size_t baseAddress = rawInteriorAddress & ~(TBlockAttributes::PageCount * AutoSystemInfo::PageSize - 1);
+    ushort offset = (ushort)(rawInteriorAddress - baseAddress);
+    offset = validPointers.GetInteriorAddressIndex(offset >> HeapConstants::ObjectAllocationShift);
+
+    if (offset == SmallHeapBlockT<TBlockAttributes>::InvalidAddressBit)
+    {
+        return nullptr;
+    }
+
+    return reinterpret_cast<void*>(baseAddress + offset * objectSize);
+}
 
 __inline void
 Recycler::NotifyFree(__in char *address, size_t size)
@@ -513,4 +532,37 @@ Recycler::NotifyFree(__in char *address, size_t size)
         collectionStats.objectSweptFreeListBytes += size;
     }
 #endif
+}
+
+__inline size_t
+RecyclerHeapObjectInfo::GetSize() const
+{
+    Assert(m_heapBlock);
+
+    size_t size;
+#if LARGEHEAPBLOCK_ENCODING
+    if (isUsingLargeHeapBlock)
+    {
+        size = m_largeHeapBlockHeader->objectSize;
+    }
+#else
+    if (m_heapBlock->IsLargeHeapBlock())
+    {
+        size = ((LargeHeapBlock*)m_heapBlock)->GetObjectSize();
+    }
+#endif
+    else
+    {
+        // All small heap block types have the same layout for the object size field.
+        // TODO: consider refactoring the shared parts of SmallHeapBlockT into a non-template base class.
+        size = ((SmallHeapBlock*)m_heapBlock)->GetObjectSize();
+    }
+
+#ifdef RECYCLER_MEMORY_VERIFY
+    if (m_recycler->VerifyEnabled())
+    {
+        size -= *(size_t *)(((char *)m_address) + size - sizeof(size_t));
+    }
+#endif
+    return size;
 }

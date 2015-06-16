@@ -234,6 +234,21 @@ function test12() {
     p.__lookupSetter__("A");
 }
 
+function test13() {
+    function Foo() { }
+
+    Object.defineProperty(Foo, 'length', { value: 123, enumerable: true, configurable: false });
+    print(Foo.length);
+
+    var x = new Proxy(Foo, {
+        ownKeys: function (target) {
+            print("my proxy ownKeys");
+            return Reflect.ownKeys(target);
+        }
+    });
+    print(Object.keys(x));
+}
+
 
 test0();
 test1();
@@ -248,3 +263,4 @@ test9();
 test10();
 test11();
 test12();
+test13();

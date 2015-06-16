@@ -304,10 +304,7 @@ public:
 
     HRESULT PollHalt(void);
     HRESULT HandleHalt(void);
-    void GetStatementCount(ulong *pluHi, ulong *pluLo);                
-
-    Js::JavascriptSafeArray* CreateJavascriptSafeArray(VARTYPE vt, SAFEARRAY* psa);
-    Js::JavascriptSafeArrayObject* CreateJavascriptSafeArrayObject(Js::JavascriptSafeArray* pObj);
+    void GetStatementCount(ulong *pluHi, ulong *pluLo);
 
     static ScriptSite * FromScriptContext(Js::ScriptContext *);
 
@@ -363,10 +360,10 @@ private:
         __in IDispatch* dispatch);
 
     HRESULT CheckIsSiteAlive();
-    HRESULT VerifyStackOnEntry(BOOL allowedInHeapEnum = FALSE);    
+    HRESULT VerifyStackOnEntry(BOOL allowedInHeapEnum = FALSE);
 
     void InitializeExternalLibrary();
-    void InitializeTypes();   
+    void InitializeTypes();
     void InitializeDebugObject();
     void InitializeDiagnosticsScriptObject();
 
@@ -376,18 +373,14 @@ private:
 
     static void __cdecl InitializeDebugObjectType(Js::DynamicObject* mathObject, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode);
 
-    void InitializeSafeArray();
-    static void __cdecl InitializeSafeArrayPrototype(Js::DynamicObject* safeArrayPrototype, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode);    
-
     static void ScriptStartEventHandler(Js::ScriptContext * scriptContext);
     static void ScriptEndEventHandler(Js::ScriptContext * scriptContext);
 
 #ifdef FAULT_INJECTION
     static void DisposeScriptByFaultInjectionEventHandler(Js::ScriptContext * scriptContext);
 #endif
-    
+
     static inline HRESULT RegisterDebug(Js::ScriptContext *pContext);
-    static inline HRESULT RegisterSafeArray(Js::ScriptContext *pContext);
 
     static HRESULT ReportError(Js::JavascriptExceptionObject * pError, Js::ScriptContext* requestContext);
     void EnsureDefaultDOMAccessors(unsigned int slotIndex);

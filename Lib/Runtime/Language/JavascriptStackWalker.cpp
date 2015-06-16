@@ -430,7 +430,7 @@ namespace Js
                     {
                         inlinedFramesBeingWalked = inlinedFrameWalker.Next(inlinedFrameCallInfo);
                         Assert(inlinedFramesBeingWalked);
-                        Assert(this->interpreterFrame->GetJavascriptFunction() == inlinedFrameWalker.GetFunctionObject());
+                        Assert(StackScriptFunction::GetCurrentFunctionObject(this->interpreterFrame->GetJavascriptFunction()) == inlinedFrameWalker.GetFunctionObject());
                         // We're now back in the state where currentFrame == physical frame of the inliner, but
                         // since interpreterFrame != null, we'll pick values from the interpreterFrame (the bailout
                         // frame of the inliner). Set a flag to tell the stackwalker that it needs to start from the
@@ -440,7 +440,7 @@ namespace Js
             }
             else
             {
-                Assert(this->interpreterFrame == null || this->interpreterFrame->GetJavascriptFunction() == function);
+                Assert(this->interpreterFrame == null || StackScriptFunction::GetCurrentFunctionObject(this->interpreterFrame->GetJavascriptFunction()) == function);
                 if (this->interpreterFrame)
                 {
                     previousInterpreterFrameIsFromBailout = false;
@@ -830,7 +830,7 @@ namespace Js
         }
         else
         {
-            return (JavascriptFunction *)this->GetCurrentArgv()[JavascriptFunctionArgIndex_Function];
+            return  StackScriptFunction::GetCurrentFunctionObject((JavascriptFunction *)this->GetCurrentArgv()[JavascriptFunctionArgIndex_Function]);
         }
     }
 
@@ -1086,7 +1086,7 @@ namespace Js
         InlinedFrameWalker::InlinedFrame *const currentFrame = GetCurrentFrame();
         Assert(currentFrame);
 
-        return currentFrame->function;
+        return StackScriptFunction::GetCurrentFunctionObject(currentFrame->function);
     }
 
     void InlinedFrameWalker::SetFunctionObject(Js::JavascriptFunction * function)

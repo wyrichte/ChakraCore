@@ -215,7 +215,6 @@ private:
     BYTE            GetMod(size_t offset,  bool baseRegIsEBP, int * pDispSize);
     BYTE            GetMod(IR::SymOpnd * opnd, int * pDispSize, RegNum& rmReg);
     BYTE            GetMod(IR::IndirOpnd * opnd, int * pDispSize);
-    void            MarkLoopLabelToAlign(IR::BranchInstr *instr);
 
 private:
     Func *          m_func;

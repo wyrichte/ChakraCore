@@ -221,20 +221,6 @@ namespace Js
             return function->GetLibrary()->GetUndefined();
         }
 
-        // It might happen that no script parsed on this context (targetScriptContext) till now,
-        // so DebugEval acts as the first source compile for targetScriptContext, tranisition to debugMode as needed
-        ScriptSite * targetScriptSite = ScriptSite::FromScriptContext(targetScriptContext);
-        AssertMsg(targetScriptSite, "How come we don't have targetScriptSite?");
-        if (targetScriptSite)
-        {
-            ScriptEngine* targetScriptEngine = targetScriptSite->GetScriptEngine();
-            AssertMsg(targetScriptEngine, "How come we don't have targetScriptEngine?");
-            if (targetScriptEngine)
-            {
-                targetScriptEngine->TranisitionToDebugModeIfFirstSource(/* utf8SourceInfo = */ nullptr);
-            }
-        }
-
         bool isLibraryCode = !!JavascriptBoolean::FromVar(isNonUserCodeArg)->GetValue();
 
         bool registerDocument = !isLibraryCode; // LibraryCode should not be registered

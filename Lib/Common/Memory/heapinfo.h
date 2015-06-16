@@ -347,6 +347,12 @@ public:
     {
         return smallAllocValidPointersMap.GetInvalidBitVector(bucketIndex);
     }
+
+    template <typename TBlockAttributes>
+    static typename ValidPointers<TBlockAttributes> const GetValidPointersMapForBucket(uint bucketIndex)
+    {
+        return smallAllocValidPointersMap.GetValidPointersForIndex(bucketIndex);
+    }
     
     template <>
     static typename SmallHeapBlockT<MediumAllocationBlockAttributes>::SmallHeapBlockBitVector const * GetInvalidBitVector<MediumAllocationBlockAttributes>(uint objectSize)
@@ -358,6 +364,12 @@ public:
     static typename SmallHeapBlockT<MediumAllocationBlockAttributes>::SmallHeapBlockBitVector const * GetInvalidBitVectorForBucket<MediumAllocationBlockAttributes>(uint bucketIndex)
     {
         return mediumAllocValidPointersMap.GetInvalidBitVector(bucketIndex);
+    }
+
+    template <>
+    static typename ValidPointers<MediumAllocationBlockAttributes> const GetValidPointersMapForBucket<MediumAllocationBlockAttributes>(uint bucketIndex)
+    {
+        return mediumAllocValidPointersMap.GetValidPointersForIndex(bucketIndex);
     }
 
     Recycler* GetRecycler(){ return recycler; }
@@ -442,6 +454,7 @@ private:
 
     friend class Recycler;
     friend class HeapBucket;
+    friend class HeapBlockMap32;
     friend class LargeHeapBucket;
     template <typename TBlockType>
     friend class HeapBucketT;

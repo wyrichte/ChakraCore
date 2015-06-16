@@ -4,7 +4,8 @@
 
 #pragma once
 
-
+namespace Memory
+{
 #define KILOBYTES * 1024
 #define MEGABYTES * 1024 KILOBYTES
 #define MEGABYTES_OF_PAGES * 1024 * 1024 / AutoSystemInfo::PageSize;
@@ -76,3 +77,4 @@ private:
     static const size_t DefaultMinBackgroundRepeatMarkRescanBytes = 1 MEGABYTES;
 #endif
 };
+}

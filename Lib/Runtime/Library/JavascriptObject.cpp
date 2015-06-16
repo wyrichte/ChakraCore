@@ -1559,11 +1559,11 @@ namespace Js
         uint32 length = keys->GetLength();
         Var nextKey;
         const PropertyRecord* propertyRecord = nullptr;
-        PropertyDescriptor propertyDescriptor;
         PropertyId propertyId;
         Var propValue = nullptr;
         for (uint32 j = 0; j < length; j++)
         {
+            PropertyDescriptor propertyDescriptor;
             nextKey = keys->DirectGetItem(j);
             JavascriptObject::GetPropertyRecordFromVar<true>(nextKey, scriptContext, &propertyRecord);
             propertyId = propertyRecord->GetPropertyId();
@@ -1810,12 +1810,13 @@ namespace Js
         //        4.  ReturnIfAbrupt(desc).
         //        5.  Append the pair(a two element List) consisting of nextKey and desc to the end of descriptors.
         Var nextKey;
-        PropertyDescriptor propertyDescriptor;
+        
         const PropertyRecord* propertyRecord = nullptr;
         PropertyId propertyId;
         Var descObj;
         for (uint32 j = 0; j < length; j++)
         {
+            PropertyDescriptor propertyDescriptor;
             nextKey = keys->DirectGetItem(j);
             JavascriptObject::GetPropertyRecordFromVar<true>(nextKey, scriptContext, &propertyRecord);
             propertyId = propertyRecord->GetPropertyId();

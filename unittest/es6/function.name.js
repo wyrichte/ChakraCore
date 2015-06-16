@@ -287,7 +287,7 @@ var tests = [
             var oGet = Object.getOwnPropertyDescriptor(obj,"getter")
             var oSet = Object.getOwnPropertyDescriptor(obj,"setter");
             var oRuntime = Object.getOwnPropertyDescriptor(Map.prototype,"size");
-            assert.areEqual("size",oRuntime.get.name, "");
+            assert.areEqual("get size",oRuntime.get.name, "");
             assert.areEqual(undefined,oRuntime.set, "");
             assert.areEqual("prop",obj.prop.name,"lambda function name is assigned to prop");
             assert.areEqual("named",obj.noOverride.name, "noOverride inherits name from function named");

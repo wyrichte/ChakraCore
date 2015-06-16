@@ -44,13 +44,13 @@ class Lowerer
     friend class Func;
 
 public:
-    Lowerer(Func * func) : m_func(func), m_lowererMD(func), nextStackFunctionOpnd(nullptr), outterMostLoopLabel(null), 
+    Lowerer(Func * func) : m_func(func), m_lowererMD(func), nextStackFunctionOpnd(nullptr), outerMostLoopLabel(null),
         initializedTempSym(null), addToLiveOnBackEdgeSyms(nullptr), currentRegion(nullptr)
     {
     }
 
     void Lower();
-    void LowerRange(IR::Instr *instrStart, IR::Instr *instrEnd, bool defaultDoFastPath, bool defaultDoLoopFastPath, int loopNest);
+    void LowerRange(IR::Instr *instrStart, IR::Instr *instrEnd, bool defaultDoFastPath, bool defaultDoLoopFastPath);
     void LowerPrologEpilog();
     void LowerPrologEpilogAsmJs();
     void LowerGeneratorResumeJumpTable();
@@ -60,7 +60,7 @@ public:
     IR::Instr *PeepShl(IR::Instr *instr);
     IR::Instr *PeepBrBool(IR::Instr *instr);
     uint DoLoopProbeAndNumber(IR::BranchInstr *branchInstr);
-    void InsertOneLoopProbe(IR::Instr *insertInstr, IR::LabelInstr *loopLabel, bool isLoopTail);
+    void InsertOneLoopProbe(IR::Instr *insertInstr, IR::LabelInstr *loopLabel);
     void FinalLower();
     void EHBailoutPatchUp();
     inline Js::ScriptContext* GetScriptContext()
@@ -202,8 +202,10 @@ private:
     IR::Instr*      LowerMultiBr(IR::Instr * instr, IR::JnHelperMethod helperMethod);
     IR::Instr*      LowerMultiBr(IR::Instr * instr);
     IR::Instr *     LowerElementUndefined(IR::Instr * instr, IR::JnHelperMethod helper);
+    IR::Instr *     LowerElementUndefinedMem(IR::Instr * instr, IR::JnHelperMethod helper);
     IR::Instr *     LowerElementUndefinedScoped(IR::Instr * instr, IR::JnHelperMethod helper);
     IR::Instr *     LowerElementUndefinedScopedMem(IR::Instr * instr, IR::JnHelperMethod helper);
+    IR::Instr *     LowerLdElemUndef(IR::Instr * instr);
     IR::Instr *     LowerRestParameter(IR::Opnd *formalsOpnd, IR::Opnd *dstOpnd, IR::Opnd *excessOpnd, IR::Instr *instr, IR::RegOpnd *generatorArgsPtrOpnd);
     IR::Instr *     LowerArgIn(IR::Instr *instr);
     IR::Instr *     LowerArgInAsmJs(IR::Instr *instr);
@@ -567,7 +569,7 @@ private:
     LowererMD       m_lowererMD;
     JitArenaAllocator *m_alloc;
     IR::Opnd       * nextStackFunctionOpnd;
-    IR::LabelInstr * outterMostLoopLabel;
+    IR::LabelInstr * outerMostLoopLabel;
     BVSparse<JitArenaAllocator> * initializedTempSym;
     BVSparse<JitArenaAllocator> * addToLiveOnBackEdgeSyms;
     Region *        currentRegion;

@@ -9,6 +9,8 @@ CompileAssert(false)
 #endif
 #pragma once
 
+namespace Memory
+{
 #define XDATA_SIZE (72)
 
 struct XDataAllocation : public SecondaryAllocation
@@ -111,4 +113,4 @@ private:
     void ClearFreeList();
     void Register(XDataAllocation* const xdata, ULONG_PTR functionStart, DWORD functionSize);
 };
-
+}

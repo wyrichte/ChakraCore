@@ -1792,7 +1792,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetScriptType(
     case Js::TypeIds_StringIterator:
     case Js::TypeIds_Generator:
     case Js::TypeIds_Promise:
-    case Js::TypeIds_SafeArrayObject:
     case Js::TypeIds_Arguments:
     case Js::TypeIds_ActivationObject:
     case Js::TypeIds_ArrayBuffer:
@@ -1833,7 +1832,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetScriptType(
         break;
 
     case Js::TypeIds_Enumerator:
-    case Js::TypeIds_SafeArray:
     case Js::TypeIds_VariantDate:
          return E_FAIL; //CJScript9Holder::ChangeTypeFromVar will take care of the conversion
 

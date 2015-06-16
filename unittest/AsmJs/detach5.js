@@ -21,7 +21,7 @@ function AsmModule(stdlib,foreign,buffer) {
 this['byteLength'] =
   Function.prototype.call.bind(Object.getOwnPropertyDescriptor(ArrayBuffer.prototype, 'byteLength').get);
 var stdlib = this;
-var buffer = new ArrayBuffer(1<<20);
+var buffer = new ArrayBuffer(0x1000000);
 var env = {detachBuffer:function(){Debug.detachAndFreeObject(buffer); print("success");}}
 var asmModule = AsmModule(stdlib,env,buffer);
 try {

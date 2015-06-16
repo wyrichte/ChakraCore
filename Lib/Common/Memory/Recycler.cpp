@@ -177,6 +177,9 @@ Recycler::Recycler(AllocationPolicyManager * policyManager, IdleDecommitPageAllo
     forcePartialScanStack(false),
 #endif
 #endif
+#if defined(RECYCLER_DUMP_OBJECT_GRAPH) || defined(LEAK_REPORT) || defined(CHECK_MEMORY_LEAK)
+    isPrimaryMarkContextInitialized(false),
+#endif
     allowDispose(false),
     hasDisposableObject(false),
     tickCountNextDispose(0),
@@ -737,6 +740,9 @@ Recycler::Initialize(const bool forceInThread, JsUtil::ThreadService *threadServ
 #endif
 
     markContext.Init();
+#if defined(RECYCLER_DUMP_OBJECT_GRAPH) || defined(LEAK_REPORT) || defined(CHECK_MEMORY_LEAK)
+    isPrimaryMarkContextInitialized = true;
+#endif
 
 #ifdef RECYCLER_PAGE_HEAP
     isPageHeapEnabled = autoHeap.IsPageHeapEnabled();
@@ -1030,7 +1036,11 @@ bool Recycler::ExplicitFreeInternal(void* buffer, size_t size, size_t sizeCat)
     Assert((info.GetAttributes() & ~ObjectInfoBits::LeafBit) == 0);          // Only NoBit or LeafBit
 
 #if DBG || defined(RECYCLER_MEMORY_VERIFY) || defined(RECYCLER_PAGE_HEAP)
-    
+    // Either the mainThreadHandle is null (we're not thread bound)
+    // or we should be calling this function on the main script thread
+    Assert(this->mainThreadHandle == NULL || 
+        ::GetCurrentThreadId() == ::GetThreadId(this->mainThreadHandle));
+
     HeapBlock* heapBlock = this->FindHeapBlock(buffer);
     
     Assert(heapBlock != null);
@@ -1363,7 +1373,12 @@ Recycler::ScanArena(ArenaData * alloc, bool background)
 #endif
 
     // The arena has been scanned so the full blocks can be rearranged at this point
-    alloc->SetLockBlockList(false);
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+    if (background || !GetRecyclerFlagsTable().RecyclerProtectPagesOnRescan)
+#endif
+    {
+        alloc->SetLockBlockList(false);
+    }
 
     return scanRootBytes;
 }
@@ -1601,6 +1616,7 @@ Recycler::FindRoots()
         {
             Assert(this->hasPendingDeleteGuestArena);
             allocator.SetLockBlockList(false);
+
             guestArenaIter.RemoveCurrent(&HeapAllocator::Instance);
         }
         else if (this->backgroundFinishMarkCount == 0)
@@ -1814,24 +1830,41 @@ template <bool parallel, bool interior>
 void
 Recycler::ProcessMarkContext(MarkContext * markContext)
 {
-    // The markContext as passed is one of the markContexts that lives on the Recycler.
-    // Copy it locally for processing.
-    // This serves two purposes:
-    // (1) Allow for better codegen because the markContext is local and we don't need to track the this pointer separately
-    //      (because all the key processing is inlined into this function).
-    // (2) Ensure we don't have weird cache behavior because we're accidentally writing to the same cache line from
-    //      multiple threads during parallel marking.
+    // Copying the markContext onto the stack messes up tracked object handling, because
+    // the tracked object will call TryMark[Non]Interior to report its references.
+    // These functions implicitly use the main markContext on the Recycler, but this will
+    // be overridden if we're processing the main markContext here.
+    // So, don't do this if we are going to process tracked objects.
+    // (This will be the case if we're not queuing and we're not in partial mode, which ignores tracked objects.)
+    // In this case we shouldn't be parallel anyway, so we don't need to worry about cache behavior.
+    // We should revisit how we manage markContexts in general in the future, and clean this up 
+    // by passing the MarkContext through to the tracked object's Mark method.
+    if (this->inPartialCollectMode || DoQueueTrackedObject())
+    {
+        // The markContext as passed is one of the markContexts that lives on the Recycler.
+        // Copy it locally for processing.
+        // This serves two purposes:
+        // (1) Allow for better codegen because the markContext is local and we don't need to track the this pointer separately
+        //      (because all the key processing is inlined into this function).
+        // (2) Ensure we don't have weird cache behavior because we're accidentally writing to the same cache line from
+        //      multiple threads during parallel marking.
 
-    MarkContext localMarkContext = *markContext;
+        MarkContext localMarkContext = *markContext;
 
-    // Do the actual marking.    
-    localMarkContext.ProcessMark<parallel, interior>();
+        // Do the actual marking.    
+        localMarkContext.ProcessMark<parallel, interior>();
 
-    // Copy back to the original location.
-    *markContext = localMarkContext;
+        // Copy back to the original location.
+        *markContext = localMarkContext;
 
-    // Clear the local mark context so destructor asserts won't fire
-    localMarkContext.Clear();
+        // Clear the local mark context so destructor asserts won't fire
+        localMarkContext.Clear();
+    }
+    else
+    {
+        Assert(!parallel);
+        markContext->ProcessMark<parallel, interior>();
+    }
 }
 
 void
@@ -2511,6 +2544,29 @@ bool
 Recycler::QueueTrackedObject(FinalizableObject * trackableObject)
 {
     return markContext.AddTrackedObject(trackableObject);
+}
+
+bool
+Recycler::FindImplicitRootObject(void* candidate, RecyclerHeapObjectInfo& heapObject)
+{
+    HeapBlock* heapBlock = FindHeapBlock(candidate);
+    if (heapBlock == nullptr)
+    {
+        return false;
+    }
+
+    if (heapBlock->GetHeapBlockType() < HeapBlock::HeapBlockType::SmallAllocBlockTypeCount)
+    {
+        return ((SmallHeapBlock*)heapBlock)->FindImplicitRootObject(candidate, this, heapObject);
+    }
+    else if (!heapBlock->IsLargeHeapBlock())
+    {
+        return ((MediumHeapBlock*)heapBlock)->FindImplicitRootObject(candidate, this, heapObject);
+    }
+    else
+    {
+        return ((LargeHeapBlock*)heapBlock)->FindImplicitRootObject(candidate, this, heapObject);
+    }
 }
 
 bool
@@ -4960,6 +5016,33 @@ Recycler::FlushBackgroundPages()
 #endif
 }
 
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+AutoProtectPages::AutoProtectPages(Recycler* recycler, bool protectEnabled) :
+    isReadOnly(false),
+    recycler(recycler)
+{
+    if (protectEnabled)
+    {
+        recycler->heapBlockMap.MakeAllPagesReadOnly(recycler);
+        isReadOnly = true;
+    }
+}
+
+AutoProtectPages::~AutoProtectPages()
+{
+    Unprotect();
+}
+
+void AutoProtectPages::Unprotect()
+{
+    if (isReadOnly)
+    {
+        recycler->heapBlockMap.MakeAllPagesReadWrite(recycler);
+        isReadOnly = false;
+    }
+}
+#endif
+
 BOOL
 Recycler::FinishConcurrentCollect(CollectionFlags flags)
 {
@@ -5008,6 +5091,17 @@ Recycler::FinishConcurrentCollect(CollectionFlags flags)
 #endif
         collectionState = CollectionStateRescanFindRoots;
 
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+        // TODO: Change this behavior
+        // ProtectPagesOnRescan is not supported in PageHeap mode because the page protection is changed
+        // outside the PageAllocator in PageHeap mode and so pages are not in the state that the 
+        // PageAllocator expects when it goes to change the page protection
+        // One viable fix is to move the guard page protection logic outside of the heap blocks 
+        // and into the page allocator
+        AssertMsg(!(IsPageHeapEnabled() && GetRecyclerFlagsTable().RecyclerProtectPagesOnRescan), "ProtectPagesOnRescan not supported in page heap mode");
+        AutoProtectPages protectPages(this, GetRecyclerFlagsTable().RecyclerProtectPagesOnRescan);
+#endif
+
         const bool backgroundFinishMark = !forceInThread && concurrent && ((flags & CollectOverride_BackgroundFinishMark) != 0);
         const DWORD finishMarkWaitTime = RecyclerHeuristic::BackgroundFinishMarkWaitTime(backgroundFinishMark, GetRecyclerFlagsTable());
         size_t rescanRootBytes = FinishMark(finishMarkWaitTime);
@@ -5034,6 +5128,10 @@ Recycler::FinishConcurrentCollect(CollectionFlags flags)
         {
             this->VerifyMark();
         }
+#endif
+
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+        protectPages.Unprotect();
 #endif
 
         needConcurrentSweep = this->Sweep(rescanRootBytes, concurrent, true);
@@ -7411,7 +7509,7 @@ Recycler::ReportLeaksOnProcessDetach()
 void
 Recycler::CheckLeaks(wchar_t const * header)
 {
-    if (GetRecyclerFlagsTable().CheckMemoryLeak)
+    if (GetRecyclerFlagsTable().CheckMemoryLeak && this->isPrimaryMarkContextInitialized)
     {
         if (GetRecyclerFlagsTable().ForceMemoryLeak)
         {

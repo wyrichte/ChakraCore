@@ -14,6 +14,7 @@ PHASE(All)
         PHASE(FunctionSourceInfoParse)
         PHASE(StringTemplateParse)
         PHASE(SkipNestedDeferred)
+        PHASE(ScanAhead)
         PHASE(ParallelParse)
     PHASE(ByteCode)
         PHASE(CachedScope)
@@ -351,6 +352,7 @@ PHASE(All)
 #define DEFAULT_CONFIG_BgJitDelay           (30)
 #endif
 #define DEFAULT_CONFIG_ASMJS                (false)
+#define DEFAULT_CONFIG_AsmJsEdge            (false)
 #define DEFAULT_CONFIG_AsmJsStopOnError     (false) 
 #ifdef SIMD_JS_ENABLED
 #define DEFAULT_CONFIG_SIMDJS               (false) 
@@ -563,6 +565,8 @@ PHASE(All)
 #define DEFAULT_CONFIG_SwitchOptHolesThreshold  (50)     //Maximum percentage of holes (missing case values in a switch statement) with which a jump table can be created
 #define DEFAULT_CONFIG_MaxLinearStringCaseCount (4)     // Maximum number of String cases (in switch statement) for which instructions can be generated linearly.
 
+#define DEFAULT_CONFIG_MinDeferredFuncTokenCount (20)   // Minimum size in tokens of a defer-parsed function
+
 #if DBG
 #define DEFAULT_CONFIG_SkipFuncCountForBailOnNoProfile (0) //Initial Number of functions in a func body to be skipped from forcibly inserting BailOnNoProfile.
 #endif
@@ -622,6 +626,8 @@ PHASE(All)
 #define DEFAULT_CONFIG_RecyclerForceMarkInterior (false)
 
 #define DEFAULT_CONFIG_MemProtectHeap (false)
+
+#define DEFAULT_CONFIG_InduceCodeGenFailure (30) // When -InduceCodeGenFailure is passed in, 30% of JIT allocations will fail
 
 #define DEFAULT_CONFIG_SkipSplitWhenResultIgnored (false)
 
@@ -732,9 +738,10 @@ FLAGNR(Boolean, ArenaUseHeapAlloc     , "Arena use heap to allocate memory inste
 #endif
 FLAGNR(Boolean, ValidateInlineStack, "Does a stack walk on helper calls to validate inline stack is correctly restored", false)
 FLAGNR(Boolean, AsmDiff               , "Dump the IR without memory locations and varying parameters.", false)
-FLAGNR(String,  AsmDumpMode           , "Dump the final assembly to a file without memory locations and varying parameters\n\t\t\t\t\tThe 'filename' is the file where the assembly will be dumped. Dump to console if no file is specified\n", NULL)
+FLAGNR(String,  AsmDumpMode           , "Dump the final assembly to a file without memory locations and varying parameters\n\t\t\t\t\tThe 'filename' is the file where the assembly will be dumped. Dump to console if no file is specified", NULL)
 FLAGPR_REGOVR_ASMJS(Boolean, AsmjsAll, Asmjs          , "Enable Asmjs", DEFAULT_CONFIG_ASMJS)
 FLAGNR(Boolean, AsmJsStopOnError      , "Stop execution on any AsmJs validation errors", DEFAULT_CONFIG_AsmJsStopOnError)
+FLAGNR(Boolean, AsmJsEdge             , "Enable asm.js features which may have backward incompatible changes or not validate on old demos", DEFAULT_CONFIG_AsmJsEdge)
 
 #ifdef SIMD_JS_ENABLED
 FLAGPR_REGOVR_ASMJS(Boolean, AsmjsAll, Simdjs, "Enable Simdjs", DEFAULT_CONFIG_SIMDJS)
@@ -849,10 +856,13 @@ FLAGNR(Boolean, ScriptADS,              "Enable Script dynamic analysis", DEFAUL
 // ES6 (BLUE+1) features/flags
 
 // Master ES6 flag to enable STABLE ES6 features/flags
-FLAGR(Boolean, ES6                         , "Enable ES6 stable features",                         DEFAULT_CONFIG_ES6)
+FLAGR(Boolean, ES6                         , "Enable ES6 stable features",                        DEFAULT_CONFIG_ES6)
 
 // Master ES6 flag to enable ALL sub ES6 features/flags
-FLAGNRC(Boolean, ES6All                     , "Enable all ES6 features, both stable and unstable", DEFAULT_CONFIG_ES6All)
+FLAGNRC(Boolean, ES6All                    , "Enable all ES6 features, both stable and unstable", DEFAULT_CONFIG_ES6All)
+
+// Master ES6 flag to enable Threshold ES6 featues/flags
+FLAGNRC(Boolean, ES6Experimental           , "Enable all experimental features",                  DEFAULT_CONFIG_ES6All)
 
 // Per ES6 feature/flag
 
@@ -965,6 +975,8 @@ FLAGNR(String, FaultInjectionStackHash, "Match stacks hash on chakra frames to i
 FLAGNR(Number, FaultInjectionScriptContextToTerminateCount, "Script context# COUNT % (Number of script contexts) to terminate", 1)
 //FLAGNR(Number,  FaultInjectionStackHashFrameCount , "Stack frame count for FaultInjectionStackHash, default: MAX_FRAME_COUNT",64)
 #endif
+FLAGNR(Number, InduceCodeGenFailure, "Probability of a codegen job failing.", DEFAULT_CONFIG_InduceCodeGenFailure)
+FLAGNR(Number, InduceCodeGenFailureSeed, "Seed used while calculating codegen failure probability", 0)
 FLAGNR(Number, InjectPartiallyInitializedInterpreterFrameError, "The number of interpreter stack frame (with 1 being bottom-most) to inject error before the frame is initialized.", DEFAULT_CONFIG_InjectPartiallyInitializedInterpreterFrameError)
 FLAGNR(Number, InjectPartiallyInitializedInterpreterFrameErrorType, "Type of error to inject: 0 - debug break, 1 - exception.", DEFAULT_CONFIG_InjectPartiallyInitializedInterpreterFrameErrorType)
 FLAGNR(Boolean, GenerateByteCodeBufferReturnsCantGenerate, "Serialized byte code generation always returns SCRIPT_E_CANT_GENERATE", false)
@@ -1051,6 +1063,7 @@ FLAGNR(Number,  MaxSingleCharStrJumpTableSize, "Maximum single char string jump 
 FLAGNR(Number,  MaxSingleCharStrJumpTableRatio, "Maximum single char string jump table size as multiples of the actual case arm", DEFAULT_CONFIG_MaxSingleCharStrJumpTableRatio)
 FLAGNR(Number,  MinSwitchJumpTableSize , "Minimum size of the jump table, that is created for consecutive integer case arms in a Switch Statement",DEFAULT_CONFIG_MinSwitchJumpTableSize)
 FLAGNR(Number,  MaxLinearStringCaseCount,  "Maximum number of string cases(in switch statement) for which instructions can be generated linearly",DEFAULT_CONFIG_MaxLinearStringCaseCount)
+FLAGR(Number,   MinDeferredFuncTokenCount, "Minimum length in tokens of defer-parsed function", DEFAULT_CONFIG_MinDeferredFuncTokenCount)
 #if DBG
 FLAGNR(Number,  SkipFuncCountForBailOnNoProfile,  "Initial Number of functions in a func body to be skipped from forcibly inserting BailOnNoProfile.", DEFAULT_CONFIG_SkipFuncCountForBailOnNoProfile)
 #endif
@@ -1150,6 +1163,7 @@ FLAGNR(Phases,  RecyclerVerify         , "Verify recycler memory", )
 FLAGNR(Number,  RecyclerVerifyPadSize  , "Padding size to verify recycler memory", 12)
 #endif
 FLAGNR(Boolean, RecyclerTest           , "Run recycler tests instead of executing script", false)
+FLAGNR(Boolean, RecyclerProtectPagesOnRescan, "Temporarily switch all pages to read only during rescan", false)
 #ifdef RECYCLER_VERIFY_MARK
 FLAGNR(Boolean, RecyclerVerifyMark    , "verify concurrent gc", false)
 #endif

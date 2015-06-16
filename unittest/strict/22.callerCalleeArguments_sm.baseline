@@ -56,15 +56,19 @@ TypeError: Accessing the 'arguments' property of a function is not allowed in st
 TypeError: Cannot redefine non-configurable property 'caller'
 
 var foo = function(){"use strict";};(function(){Object.defineProperty(foo, "caller", {value: 0});})();
+TypeError: Cannot redefine non-configurable property 'caller'
 
 var foo = function(){"use strict";};(function(){"use strict";Object.defineProperty(foo, "caller", {value: 0});})();
+TypeError: Cannot redefine non-configurable property 'caller'
 
 (function(){"use strict";Object.defineProperty(arguments, "callee", {value: 0});})();
 TypeError: Cannot redefine non-configurable property 'callee'
 
 var foo = function(){"use strict";};(function(){Object.defineProperty(foo, "arguments", {value: 0});})();
+TypeError: Cannot redefine non-configurable property 'arguments'
 
 var foo = function(){"use strict";};(function(){"use strict";Object.defineProperty(foo, "arguments", {value: 0});})();
+TypeError: Cannot redefine non-configurable property 'arguments'
 
 (function(){"use strict";var descriptor = Object.getOwnPropertyDescriptor(arguments, "caller");if(descriptor.hasOwnProperty("get")) safeCall(descriptor.get);if(descriptor.hasOwnProperty("set")) safeCall(descriptor.set);})();
 TypeError: Accessing the 'caller' property of a function or arguments object is not allowed in strict mode

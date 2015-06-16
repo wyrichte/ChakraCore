@@ -177,7 +177,7 @@ namespace Js
     BOOL CustomExternalObject::HasProperty(PropertyId propertyId)
     {
         BOOL notPresent=false;
-        if (!this->IsObjectAlive())
+        if (!this->VerifyObjectAlive())
         {
             return FALSE;
         }
@@ -724,15 +724,18 @@ namespace Js
 
     BOOL CustomExternalObject::HasItem(uint32 index)
     {
-        BOOL notPresent=false;
-        if (!this->IsObjectAlive())
+        if (!this->VerifyObjectAlive())
         {
             return FALSE;
         }
+
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::HasItem(index);
         }
+
+        BOOL notPresent=false;
+
         // we don't throw in HasItem, but possibly throw in GetItem
         // this is consistent with HostDispatch code path as well.
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_hasOwnItem)

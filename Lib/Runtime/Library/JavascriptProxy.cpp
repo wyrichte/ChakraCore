@@ -505,22 +505,8 @@ namespace Js
 
     BOOL JavascriptProxy::GetInternalProperty(Var instance, PropertyId internalPropertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
     {
-        // this is kind of like internal slot; we should forward the call.
-        if (this->target == nullptr)
-        {
-            // the proxy has been revoked; typeerror.
-            JavascriptError::ThrowTypeError(requestContext, JSERR_ErrorOnRevokedProxy, L"internal slot");
-        }
-        // Reject implicit call
-        ThreadContext* threadContext = GetScriptContext()->GetThreadContext();
-        if (threadContext->IsDisableImplicitCall())
-        {
-            threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-            return FALSE;
-        }
-        PropertyValueInfo::SetNoCache(info, this);
-        PropertyValueInfo::DisablePrototypeCache(info, this); // We can't cache prototype property either
-        return target->GetInternalProperty(instance, internalPropertyId, value, nullptr, requestContext);
+        // the spec change to not recognizing internal slots in proxy. We should remove the ability to forward to internal slots.
+        return FALSE;
     }
 
     BOOL JavascriptProxy::GetAccessors(PropertyId propertyId, Var* getter, Var* setter, ScriptContext * requestContext)
@@ -2114,7 +2100,6 @@ namespace Js
         */
 
         JavascriptArray* trapResult = scriptContext->GetLibrary()->CreateArray(0);
-        PropertyDescriptor targetKeyPropertyDescriptor;
         bool isConfigurableKeyMissingFromTrapResult = false;
         bool isNonconfigurableKeyMissingFromTrapResult = false;
         bool isKeyMissingFromTrapResult = false;
@@ -2182,6 +2167,7 @@ namespace Js
                     isKeyMissingFromTrapResult = true;
                 }
 
+                PropertyDescriptor targetKeyPropertyDescriptor;
                 if (Js::JavascriptOperators::GetOwnPropertyDescriptor(target, propertyId, scriptContext, &targetKeyPropertyDescriptor) && !targetKeyPropertyDescriptor.IsConfigurable())
                 {
                     isAnyNonconfigurableKeyPresent = true;

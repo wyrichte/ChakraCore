@@ -4,6 +4,9 @@
 
 #pragma once
 
+// Disable the warning about no matching operator delete found, we don't need those for the Arena and Recycler
+#pragma warning(disable:4291)
+
 // Page heap mode is supported currently only in the Recycler
 // Defining here so that other allocators can take advantage of this
 // in the future
@@ -14,27 +17,6 @@ enum PageHeapMode
     PageHeapModeBlockEnd = 2    // Allocate the object at the end of the page
 };
 
-// For the debugger extension, we don't need the placement news
-#ifndef JD_PRIVATE
-__inline void * __cdecl
-operator new(
-    size_t byteSize, 
-    void * previousAllocation) throw()
-{
-    return previousAllocation;
-}
-
-
-__inline  void __cdecl
-operator delete(
-    void * allocationToFree,                // Allocation to free
-    void * previousAllocation               // Previously allocated memory
-    ) throw()
-{
-
-}
-#endif
-
 #if PROFILE_DICTIONARY
 #include "DictionaryStats.h"
 #endif
@@ -43,6 +25,8 @@ operator delete(
 #define DbgMemFill 0XFE
 #endif
 
+namespace Memory
+{
 #ifdef TRACK_ALLOC
 struct TrackAllocData
 {
@@ -226,112 +210,6 @@ struct ForceLeafAllocator
     typedef TAllocator AllocatorType;
 };
 
-//----------------------------------------
-// throwing operator new overrides
-//----------------------------------------
-template <typename TAllocator>
-void * __cdecl
-operator new(size_t byteSize, TAllocator * alloc, char * (TAllocator::*AllocFunc)(size_t))
-{
-    AssertCanHandleOutOfMemory();
-    Assert(byteSize != 0);
-    void * buffer = (alloc->*AllocFunc)(byteSize);
-    Assume( buffer != null);
-    return buffer;
-}
-
-template <typename TAllocator>
-__inline void * __cdecl
-operator new[](size_t byteSize, TAllocator * alloc, char * (TAllocator::*AllocFunc)(size_t))
-{
-    AssertCanHandleOutOfMemory();
-    Assert(byteSize != 0 || !TAllocator::FakeZeroLengthArray);
-    void * buffer = (alloc->*AllocFunc)(byteSize);
-    Assume( buffer != null);
-    return buffer;
-}
-
-// Disable the warning about no matching operator delete found, we don't need those for the Arena and Recycler
-#pragma warning(disable:4291)
-
-
-template <typename TAllocator>
-__inline void * __cdecl
-operator new(size_t byteSize, TAllocator * alloc, char * (TAllocator::*AllocFunc)(size_t), size_t plusSize)
-{
-    AssertCanHandleOutOfMemory();
-    Assert(byteSize != 0);
-    //Assert(plusSize != 0);
-    // byteSize is usually a compile-time constant, so put it on the RHS of the add for
-    // slightly better (smaller and faster) code.
-    void * buffer = (alloc->*AllocFunc)(AllocSizeMath::Add(plusSize, byteSize));
-    Assume(buffer != null);
-    return buffer;
-}
-
-//----------------------------------------
-// nothrow operator new overrides
-//----------------------------------------
-template <typename TAllocator>
-__inline void * __cdecl
-operator new(size_t byteSize, TAllocator * alloc, bool nothrow, char * (TAllocator::*AllocFunc)(size_t))
-{
-    Assert(nothrow);
-    Assert(byteSize != 0);
-    void * buffer = (alloc->*AllocFunc)(byteSize);
-    return buffer;
-}
-
-
-template <typename TAllocator>
-__inline void * __cdecl
-operator new[](size_t byteSize, TAllocator * alloc, bool nothrow, char * (TAllocator::*AllocFunc)(size_t))
-{
-    Assert(nothrow);
-    Assert(byteSize != 0 || !TAllocator::FakeZeroLengthArray);
-    void * buffer = (alloc->*AllocFunc)(byteSize);
-    return buffer;
-}
-
-
-// Disable the warning about no matching operator delete found, we don't need those for the Arena and Recycler
-#pragma warning(disable:4291)
-
-
-template <typename TAllocator>
-__inline void * __cdecl
-operator new(size_t byteSize, TAllocator * alloc, bool nothrow, char * (TAllocator::*AllocFunc)(size_t), size_t plusSize)
-{
-    Assert(nothrow);
-    Assert(byteSize != 0);
-    //Assert(plusSize != 0);
-    // byteSize is usually a compile-time constant, so put it on the RHS of the add for
-    // slightly better (smaller and faster) code.
-    void * buffer = (alloc->*AllocFunc)(AllocSizeMath::Add(plusSize, byteSize));
-    return buffer;
-}
-
-
-template <typename TAllocator>
-__inline void * __cdecl
-operator new(size_t byteSize, TAllocator * alloc, bool nothrow, char * (TAllocator::*AllocFunc)(size_t), size_t plusSize, bool prefix)
-{
-    Assert(nothrow);
-    Assert(prefix);
-    Assert(byteSize != 0);
-    Assert(plusSize != 0);
-
-    // NOTE: This may cause the object not be double aligned
-    Assert(plusSize == Math::Align<size_t>(plusSize, sizeof(size_t)));
-
-    // byteSize is usually a compile-time constant, so put it on the RHS of the add for
-    // slightly better (smaller and faster) code.
-    char * buffer = (alloc->*AllocFunc)(AllocSizeMath::Add(plusSize, byteSize));
-
-    // This seems to generate the most compact code
-    return buffer + (buffer > 0 ? plusSize : (size_t) buffer);
-}
-
 template <typename TAllocator, typename T>
 void DeleteObject(typename AllocatorInfo<TAllocator, T>::AllocatorType * allocator, T * obj)
 {
@@ -425,8 +303,6 @@ void DeleteArray(typename AllocatorInfo<TAllocator, T>::AllocatorType * allocato
     dest->field = src->field; \
     src->field = 0;
 
-namespace Memory
-{
 class Allocator
 {
 public:
@@ -440,7 +316,6 @@ public:
     void (*outOfMemoryFunc)();
     void (*recoverMemoryFunc)();
 };
-}
 
 template<typename TKey, typename TData>
 struct SimpleHashEntry {
@@ -885,4 +760,128 @@ void AssertValue(void * mem, T value, uint byteCount)
         Assert(*(T *)(((char *)mem) + i) == value);
     }
 #endif
+}
+}
+
+// For the debugger extension, we don't need the placement news
+#ifndef JD_PRIVATE
+__inline void * __cdecl
+operator new(
+size_t byteSize,
+void * previousAllocation) throw()
+{
+    return previousAllocation;
+}
+
+
+__inline  void __cdecl
+operator delete(
+void * allocationToFree,                // Allocation to free
+void * previousAllocation               // Previously allocated memory
+) throw()
+{
+
+}
+#endif
+
+//----------------------------------------
+// throwing operator new overrides
+//----------------------------------------
+template <typename TAllocator>
+void * __cdecl
+operator new(size_t byteSize, TAllocator * alloc, char * (TAllocator::*AllocFunc)(size_t))
+{
+    AssertCanHandleOutOfMemory();
+    Assert(byteSize != 0);
+    void * buffer = (alloc->*AllocFunc)(byteSize);
+    Assume(buffer != null);
+    return buffer;
+}
+
+template <typename TAllocator>
+__inline void * __cdecl
+operator new[](size_t byteSize, TAllocator * alloc, char * (TAllocator::*AllocFunc)(size_t))
+{
+    AssertCanHandleOutOfMemory();
+    Assert(byteSize != 0 || !TAllocator::FakeZeroLengthArray);
+    void * buffer = (alloc->*AllocFunc)(byteSize);
+    Assume(buffer != null);
+    return buffer;
+}
+
+// Disable the warning about no matching operator delete found, we don't need those for the Arena and Recycler
+#pragma warning(disable:4291)
+
+
+template <typename TAllocator>
+__inline void * __cdecl
+operator new(size_t byteSize, TAllocator * alloc, char * (TAllocator::*AllocFunc)(size_t), size_t plusSize)
+{
+    AssertCanHandleOutOfMemory();
+    Assert(byteSize != 0);
+    //Assert(plusSize != 0);
+    // byteSize is usually a compile-time constant, so put it on the RHS of the add for
+    // slightly better (smaller and faster) code.
+    void * buffer = (alloc->*AllocFunc)(AllocSizeMath::Add(plusSize, byteSize));
+    Assume(buffer != null);
+    return buffer;
+}
+
+//----------------------------------------
+// nothrow operator new overrides
+//----------------------------------------
+template <typename TAllocator>
+__inline void * __cdecl
+operator new(size_t byteSize, TAllocator * alloc, bool nothrow, char * (TAllocator::*AllocFunc)(size_t))
+{
+    Assert(nothrow);
+    Assert(byteSize != 0);
+    void * buffer = (alloc->*AllocFunc)(byteSize);
+    return buffer;
+}
+
+
+template <typename TAllocator>
+__inline void * __cdecl
+operator new[](size_t byteSize, TAllocator * alloc, bool nothrow, char * (TAllocator::*AllocFunc)(size_t))
+{
+    Assert(nothrow);
+    Assert(byteSize != 0 || !TAllocator::FakeZeroLengthArray);
+    void * buffer = (alloc->*AllocFunc)(byteSize);
+    return buffer;
+}
+
+
+template <typename TAllocator>
+__inline void * __cdecl
+operator new(size_t byteSize, TAllocator * alloc, bool nothrow, char * (TAllocator::*AllocFunc)(size_t), size_t plusSize)
+{
+    Assert(nothrow);
+    Assert(byteSize != 0);
+    //Assert(plusSize != 0);
+    // byteSize is usually a compile-time constant, so put it on the RHS of the add for
+    // slightly better (smaller and faster) code.
+    void * buffer = (alloc->*AllocFunc)(AllocSizeMath::Add(plusSize, byteSize));
+    return buffer;
+}
+
+
+template <typename TAllocator>
+__inline void * __cdecl
+operator new(size_t byteSize, TAllocator * alloc, bool nothrow, char * (TAllocator::*AllocFunc)(size_t), size_t plusSize, bool prefix)
+{
+    Assert(nothrow);
+    Assert(prefix);
+    Assert(byteSize != 0);
+    Assert(plusSize != 0);
+
+    // NOTE: This may cause the object not be double aligned
+    Assert(plusSize == Math::Align<size_t>(plusSize, sizeof(size_t)));
+
+    // byteSize is usually a compile-time constant, so put it on the RHS of the add for
+    // slightly better (smaller and faster) code.
+    char * buffer = (alloc->*AllocFunc)(AllocSizeMath::Add(plusSize, byteSize));
+
+    // This seems to generate the most compact code
+    return buffer + (buffer > 0 ? plusSize : (size_t)buffer);
 }

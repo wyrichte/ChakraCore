@@ -10,6 +10,37 @@ namespace Js
     EXCEPTION_RECORD        ep##er;                 \
     CONTEXT                 ep##c;                  \
     EXCEPTION_POINTERS      ep = {&ep##er, &ep##c};
+    
+#define TYPEOF_ERROR_HANDLER_CATCH(scriptContext, var) \
+    } \
+    catch (Js::JavascriptExceptionObject *exceptionObject) \
+    { \
+        Js::Var errorObject = exceptionObject->GetThrownObject(null); \
+        if (errorObject != NULL && Js::JavascriptError::Is(errorObject)) \
+        { \
+            HRESULT hr = Js::JavascriptError::GetRuntimeError(Js::RecyclableObject::FromVar(errorObject), nullptr); \
+            if (JavascriptError::GetErrorNumberFromResourceID(JSERR_Property_CannotGet_NullOrUndefined) == hr \
+                || JavascriptError::GetErrorNumberFromResourceID(JSERR_UseBeforeDeclaration) == hr) \
+            { \
+                if (scriptContext->IsInDebugMode()) \
+                { \
+                    JavascriptExceptionOperators::ThrowExceptionObject(exceptionObject, scriptContext, true); \
+                } \
+                else \
+                { \
+                    throw exceptionObject; \
+                } \
+            } \
+        } \
+        var = scriptContext->GetLibrary()->GetUndefined();
+
+#define TYPEOF_ERROR_HANDLER_THROW(scriptContext, var) \
+    } \
+    if (scriptContext->IsUndeclBlockVar(var)) \
+    { \
+        Assert(scriptContext->GetConfig()->IsLetAndConstEnabled()); \
+        JavascriptError::ThrowReferenceError(scriptContext, JSERR_UseBeforeDeclaration); \
+    }
 
 #define BEGIN_TYPEOF_ERROR_HANDLER(scriptContext)  \
     try { \
@@ -37,34 +68,16 @@ namespace Js
 
 
 #define END_TYPEOF_ERROR_HANDLER(scriptContext, var) \
-    } \
-    catch (Js::JavascriptExceptionObject *exceptionObject) \
-    { \
-        Js::Var errorObject = exceptionObject->GetThrownObject(null); \
-        if (errorObject != NULL && Js::JavascriptError::Is(errorObject)) \
-        { \
-            HRESULT hr = Js::JavascriptError::GetRuntimeError(Js::RecyclableObject::FromVar(errorObject), nullptr); \
-            if (JavascriptError::GetErrorNumberFromResourceID(JSERR_Property_CannotGet_NullOrUndefined) == hr \
-                || JavascriptError::GetErrorNumberFromResourceID(JSERR_UseBeforeDeclaration) == hr) \
-            { \
-                if (scriptContext->IsInDebugMode()) \
-                { \
-                    JavascriptExceptionOperators::ThrowExceptionObject(exceptionObject, scriptContext, true); \
-                } \
-                else \
-                { \
-                    throw exceptionObject; \
-                } \
-            } \
-        } \
-        var = scriptContext->GetLibrary()->GetUndefined(); \
-    } \
-    if (scriptContext->IsUndeclBlockVar(var)) \
-    { \
-        Assert(scriptContext->GetConfig()->IsLetAndConstEnabled()); \
-        JavascriptError::ThrowReferenceError(scriptContext, JSERR_UseBeforeDeclaration); \
-    }
+    TYPEOF_ERROR_HANDLER_CATCH(scriptContext, var) \
+    TYPEOF_ERROR_HANDLER_THROW(scriptContext, var)
 
+#define BEGIN_PROFILED_TYPEOF_ERROR_HANDLER(scriptContext)  \
+    BEGIN_TYPEOF_ERROR_HANDLER(scriptContext)
+
+#define END_PROFILED_TYPEOF_ERROR_HANDLER(scriptContext, var, functionBody, inlineCacheIndex) \
+    TYPEOF_ERROR_HANDLER_CATCH(scriptContext, var) \
+        functionBody->GetDynamicProfileInfo()->RecordFieldAccess(functionBody, inlineCacheIndex, var, FldInfo_NoInfo); \
+    TYPEOF_ERROR_HANDLER_THROW(scriptContext, var)
 
     template <typename T>
     class BranchDictionaryWrapper
@@ -426,6 +439,7 @@ namespace Js
         static Var OP_NewBlockScope(ScriptContext *scriptContext);
         static void OP_InitClass(Var constructor, Var extends, ScriptContext * scriptContext);
         static void OP_LoadUndefinedToElement(Var instance, PropertyId propertyId);
+        static void OP_LoadUndefinedToElementDynamic(Var instance, PropertyId propertyId, ScriptContext* scriptContext);
         static void OP_LoadUndefinedToElementScoped(FrameDisplay *pScope, PropertyId propertyId, Var defaultInstance, ScriptContext* scriptContext);
         static Var OP_IsInst(Var instance, Var aClass, ScriptContext* scriptContext, IsInstInlineCache *inlineCache);
         static Var IsIn(Var argProperty, Var instance, ScriptContext* scriptContext);

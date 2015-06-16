@@ -50,7 +50,7 @@ SCCLiveness::Build()
         {            
             AssertMsg(this->loopNest > 0, "Loop nest is messed up");
             AssertMsg(instr->IsBranchInstr(), "Loop tail should be a branchInstr");
-            AssertMsg(instr->AsBranchInstr()->m_isLoopTail, "Loop tail not marked correctly");
+            AssertMsg(instr->AsBranchInstr()->IsLoopTail(this->func), "Loop tail not marked correctly");
             
             FOREACH_SLIST_ENTRY(Lifetime *, lifetime, this->curLoop->regAlloc.extendedLifetime)
             {
@@ -70,8 +70,11 @@ SCCLiveness::Build()
             NEXT_SLIST_ENTRY;         
 
             this->curLoop->regAlloc.helperLength = this->totalOpHelperFullVisitedLength + CurrentOpHelperVisitedLength(instr);
-            this->curLoop = this->curLoop->parent;   
-            this->loopNest--;
+            while (this->curLoop && instrNum >= this->curLoop->regAlloc.loopEnd)
+            {
+                this->curLoop = this->curLoop->parent;
+                this->loopNest--;
+            }
         }
       
         if (instr->HasBailOutInfo())
@@ -202,7 +205,7 @@ SCCLiveness::Build()
                 NEXT_SLISTCOUNTED_ENTRY;
 
                 AssertMsg(instrNum < lastBranchNum, "Didn't find back edge...");
-                AssertMsg(lastBranchInstr->m_isLoopTail, "Loop tail not marked properly");
+                AssertMsg(lastBranchInstr->IsLoopTail(this->func), "Loop tail not marked properly");
 
                 Loop * loop = labelInstr->GetLoop();
                 loop->parent = this->curLoop;
@@ -439,7 +442,7 @@ void
 SCCLiveness::ProcessStackSymUse(StackSym * stackSym, IR::Instr * instr, int usageSize)
 {
     Lifetime * lifetime = stackSym->scratch.linearScan.lifetime;
-
+    
     if (lifetime == NULL)
     {
 #if DBG
@@ -454,6 +457,7 @@ SCCLiveness::ProcessStackSymUse(StackSym * stackSym, IR::Instr * instr, int usag
     }
     else
     {
+        Assert(this->extendedLifetimesLoopList->Empty());
         if (lifetime->region != this->curRegion && !this->func->DoOptimizeTryCatch())
         {
             lifetime->dontAllocate = true;
@@ -461,17 +465,33 @@ SCCLiveness::ProcessStackSymUse(StackSym * stackSym, IR::Instr * instr, int usag
 
         // Find the loop that we need to extend the lifetime to
         Loop * loop = this->curLoop;
-        Loop * outerMostLoopToExtend = NULL;
+        uint32 extendedLifetimeStart = lifetime->start;
+        uint32 extendedLifetimeEnd = lifetime->end;
         bool isLiveOnBackEdge = false;
+        bool loopAddedToList = false;
 
         while (loop)
         {          
             if (loop->regAlloc.liveOnBackEdgeSyms->Test(stackSym->m_id))
             {
                 isLiveOnBackEdge = true;
-                outerMostLoopToExtend = loop;
+                if (loop->regAlloc.loopStart < extendedLifetimeStart)
+                {
+                    extendedLifetimeStart = loop->regAlloc.loopStart;
+                    this->extendedLifetimesLoopList->Prepend(this->tempAlloc, loop);
+                    loopAddedToList = true;
+                }
+                if (loop->regAlloc.loopEnd > extendedLifetimeEnd)
+                {
+                    extendedLifetimeEnd = loop->regAlloc.loopEnd;
+                    if (!loopAddedToList)
+                    {
+                        this->extendedLifetimesLoopList->Prepend(this->tempAlloc, loop);
+                    }
+                }
             }
             loop = loop->parent;
+            loopAddedToList = false;
         }
 
         if (!isLiveOnBackEdge)
@@ -490,26 +510,31 @@ SCCLiveness::ProcessStackSymUse(StackSym * stackSym, IR::Instr * instr, int usag
         {
             // extend lifetime to the outter most loop boundary that have the symbol live on back edge.
             bool isLifetimeExtended = false;
-            if (lifetime->start > outerMostLoopToExtend->regAlloc.loopStart)
+            if (lifetime->start > extendedLifetimeStart)
             {
                 isLifetimeExtended = true;
-                lifetime->start = outerMostLoopToExtend->regAlloc.loopStart;
+                lifetime->start = extendedLifetimeStart;
             }
             
-            if (lifetime->end < outerMostLoopToExtend->regAlloc.loopEnd)
+            if (lifetime->end < extendedLifetimeEnd)
             {
                 isLifetimeExtended = true;
-                lifetime->end = outerMostLoopToExtend->regAlloc.loopEnd;
+                lifetime->end = extendedLifetimeEnd;
                 // The total op helper length by the end of this lifetime will be updated once we reach the loop tail
             }
 
             if (isLifetimeExtended)
             {
-                // Keep trace of the lifetime extended for this loop so we can update the call bits
-                outerMostLoopToExtend->regAlloc.extendedLifetime->Prepend(lifetime);               
+                // Keep track of the lifetime extended for this loop so we can update the call bits
+                FOREACH_SLISTBASE_ENTRY(Loop *, loop, this->extendedLifetimesLoopList)
+                {
+                    loop->regAlloc.extendedLifetime->Prepend(lifetime);
+                }
+                NEXT_SLISTBASE_ENTRY
             }
             AssertMsg(lifetime->end > instr->GetNumber(), "Lifetime end not set correctly");
-        }        
+        } 
+        this->extendedLifetimesLoopList->Clear(this->tempAlloc);
     }
     lifetime->AddToUseCount(LinearScan::GetUseSpillCost(this->loopNest, (this->lastOpHelperLabel != NULL)), this->curLoop, this->func);
     if (lifetime->start < this->lastCall)

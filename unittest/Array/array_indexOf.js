@@ -5,8 +5,8 @@ for(i=-3; i < 15;i++)
    WScript.Echo(x.indexOf(i));
    for(j=-3; j< 15;j++)
    {
-	WScript.Echo(x.indexOf(x[i],j)); 
-	WScript.Echo(x.indexOf(i,j)); 
+        WScript.Echo(x.indexOf(x[i],j)); 
+        WScript.Echo(x.indexOf(i,j)); 
    }
 }
 
@@ -72,3 +72,30 @@ WScript.Echo(a);
 var floatarr = new Array(5.5, 5.6);
 floatarr[6] =  5.6;
 WScript.Echo(floatarr.indexOf(5.7));
+
+// Cases where we do/don't have to resume after failing to find the value in the head segment.
+// Run with -forcearraybtree to really stress these.
+var gap = [0, 1];
+WScript.Echo(gap.indexOf(4));
+Array.prototype[2] = 'swine';
+WScript.Echo(gap.indexOf('swine'));
+gap[5] = 4;
+WScript.Echo(gap.indexOf('swine'));
+WScript.Echo(gap.indexOf(4));
+
+gap = [0, 1.1];
+WScript.Echo(gap.indexOf(4));
+Array.prototype[2] = 'hogs';
+WScript.Echo(gap.indexOf('hogs'));
+gap[5] = 4;
+WScript.Echo(gap.indexOf(4));
+WScript.Echo(gap.indexOf('hogs'));
+
+gap = [0, 'gooey'];
+WScript.Echo(gap.indexOf(4));
+Array.prototype[2] = 4;
+WScript.Echo(gap.indexOf(4));
+gap[5] = 4;
+WScript.Echo(gap.indexOf(4));
+delete Array.prototype[2]
+WScript.Echo(gap.indexOf(4));

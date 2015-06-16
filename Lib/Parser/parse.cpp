@@ -4956,6 +4956,8 @@ bool Parser::ParseFncDeclHelper(ERROR_RECOVERY_FORMAL_ ParseNodePtr pnodeFnc, Pa
             pnodeInnerBlock->sxBlock.pnodeStmt = pnodeFnc;
         }
 
+        // Avoing below code under Language Service mode - in order to quick avoid huge perf regression.
+
         // DEFER: Begin deferral here (after names are parsed and name nodes created).
         // Create no more AST nodes until we're done.
 
@@ -4964,10 +4966,38 @@ bool Parser::ParseFncDeclHelper(ERROR_RECOVERY_FORMAL_ ParseNodePtr pnodeFnc, Pa
         //  1. We are not reparsing a deferred func which is being invoked.
         //  2. Dynamic profile suggests this func can be deferred (and deferred parse is on).
         //  3. This func is top level or defer nested func is on.
+        //  4. The function is non-nested and not in eval, or the deferral decision was based on cached profile info,
+        //     or the function is sufficiently long. (I.e., don't defer little nested functions unless we're
+        //     confident they'll never be executed, because undeferring nested functions is more expensive.)
 
         // We will also temporarily defer all asm.js functions, except for the asm.js
         // module itself, which we will never defer
         bool strictModeTurnedOn = false;
+
+#ifndef LANGUAGE_SERVICE
+        if (!isUseAsmDirective &&
+            !m_InAsmMode &&
+            isTopLevelDeferredFunc && 
+            !(this->m_grfscr & fscrEvalCode) &&
+            pnodeFnc->sxFnc.IsNested() &&
+#ifndef DISABLE_DYNAMIC_PROFILE_DEFER_PARSE
+            m_sourceContextInfo->sourceDynamicProfileManager == nullptr &&
+#endif
+            !PHASE_OFF_RAW(Js::ScanAheadPhase, m_sourceContextInfo->sourceContextId, pnodeFnc->sxFnc.functionId) &&
+            (
+                !PHASE_FORCE_RAW(Js::DeferParsePhase, m_sourceContextInfo->sourceContextId, pnodeFnc->sxFnc.functionId) ||
+                PHASE_FORCE_RAW(Js::ScanAheadPhase, m_sourceContextInfo->sourceContextId, pnodeFnc->sxFnc.functionId)
+            ))
+        {
+            // Try to scan ahead to the end of the function. If we get there before we've scanned a minimum
+            // number of tokens, don't bother deferring, because it's too small.
+            if (this->ScanAheadToFunctionEnd(CONFIG_FLAG(MinDeferredFuncTokenCount)))
+            {
+                isTopLevelDeferredFunc = false;
+            }
+        }
+#endif
+
         if (!isUseAsmDirective && ((m_InAsmMode && m_deferAsmJs) || isTopLevelDeferredFunc))
         {
             AssertMsg(!fLambda, "Deferring function parsing of a function does not handle lambda syntax");
@@ -5291,6 +5321,53 @@ bool Parser::DoParallelParse(ParseNodePtr pnodeFnc) const
     return bgp != nullptr;
 
 #endif
+}
+
+bool Parser::ScanAheadToFunctionEnd(uint count)
+{
+    bool found = false;
+    uint curlyDepth = 0;
+
+    RestorePoint funcStart;
+    m_pscan->Capture(&funcStart);
+
+    for (uint i = 0; i < count; i++)
+    {
+        switch (m_token.tk)
+        {
+            case tkStrTmplBegin:
+            case tkStrTmplMid:
+            case tkStrTmplEnd:
+            case tkDiv:
+            case tkAsgDiv:
+            case tkScanError:
+            case tkEOF:
+                goto LEnd;
+
+            case tkLCurly:
+                UInt32Math::Inc(curlyDepth, Parser::OutOfMemory);
+                break;
+
+            case tkRCurly:
+                if (curlyDepth == 1)
+                {
+                    found = true;
+                    goto LEnd;
+                }
+                if (curlyDepth == 0)
+                {
+                    goto LEnd;
+                }
+                curlyDepth--;
+                break;
+        }
+
+        m_pscan->ScanAhead();
+    }
+
+ LEnd:
+    m_pscan->SeekTo(funcStart);
+    return found;
 }
 
 bool Parser::FastScanFormalsAndBody()
@@ -5913,11 +5990,16 @@ void Parser::ParseFncFormals(ERROR_RECOVERY_FORMAL_ ParseNodePtr pnodeFnc, ushor
 #endif
 
             CheckPidIsValid(pid);
+            
+            m_pscan->Scan();
 
-#if ERROR_RECOVERY
-            if (m_token.tk == tkID)
-#endif
-                m_pscan->Scan();
+            if (m_token.tk != tkDArrow)
+            {
+                Error(ERRsyntax, m_pscan->IchMinTok(), m_pscan->IchLimTok());
+
+                // In this case, we just skip any token until we reach the DArrow so that this is still a valid single formal
+                SKIP(ERROR_RECOVERY_ACTUAL(ersDArrow));
+            }
 
             return;
         }

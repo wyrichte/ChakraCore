@@ -558,8 +558,6 @@ EncoderMD::EmitCondBranch(IR::BranchInstr * branchInstr)
     }
 
     AppendRelocEntry(RelocTypeBranch, (void*) m_pc);
-
-    MarkLoopLabelToAlign(branchInstr);
                     
     // Save the target LabelInstr's address in the encoder buffer itself, using the 4-byte
     // pcrel field of the branch instruction. This only works for long branches, obviously.
@@ -598,8 +596,10 @@ EncoderMD::Encode(IR::Instr *instr, BYTE *pc, BYTE* beginCodeAddress)
                 if (!PHASE_OFF(Js::LoopAlignPhase, m_func))
                 {
                     // we record position of last loop-top label (leaf loops) for loop alignment
-                    if (labelInstr->m_isLoopTop)
-                        m_lastLoopLabelPosition = relocEntryPosition;
+                    if (labelInstr->m_isLoopTop && labelInstr->GetLoop()->isLeaf)
+                    {
+                        m_relocList->Item(relocEntryPosition).m_type = RelocType::RelocTypeAlignedLabel;
+                    }
                 }   
             }
         }
@@ -947,7 +947,6 @@ modrm:
                 AssertMsg(instr->IsBranchInstr(), "Invalid LABREL2 form");
 
                 AppendRelocEntry(RelocTypeBranch, (void*)m_pc);
-                MarkLoopLabelToAlign(instr->AsBranchInstr());
 
                 // Save the target LabelInstr's address in the encoder buffer itself, using the 4-byte
                 // pcrel field of the branch instruction. This only works for long branches, obviously.
@@ -1267,47 +1266,11 @@ EncoderMD::AppendRelocEntry(RelocType type, void *ptr)
 {
     if (m_relocList == nullptr)
         m_relocList = Anew(m_encoder->m_tempAlloc, RelocList, m_encoder->m_tempAlloc);
-    
+
     EncodeRelocAndLabels reloc;
     reloc.init(type, ptr);
-    
+
     return m_relocList->Add(reloc);
-    
-}
-
-void
-EncoderMD::MarkLoopLabelToAlign(IR::BranchInstr *instr)
-{
-    if (PHASE_OFF(Js::LoopAlignPhase, m_func))
-        return;
-    
-    // mark target label as possibly needing loop alignment for leaf loops
-    if (instr->m_isLoopTail && m_lastLoopLabelPosition >= 0)
-    {
-        EncodeRelocAndLabels &relocEntry = m_relocList->Item(m_lastLoopLabelPosition);
-
-        AssertMsg(relocEntry.m_type == RelocType::RelocTypeLabel, "Expecting reloc entry to be a label");
-        
-        // This assertions ensures we are marking the correct leaf loop. However, I found out that m_isLoopTop is not always set correctly for labels, 
-        // which may cause this assertion to fire. 
-        // Here is one example from stringfasta.js:
-        //  $L57:
-        //      s13(ebx).i32 = MOV         s13<-28>.i32
-        //      s18(edi).i32 = MOV         s18<-32>.i32
-        //  $L1: >> >> >> >> >> >> >  LOOP TOP >> >> >> >> >> >> > Implicit call : no
-        //      .. loop body ..
-        //      COMISD         s31(s15)(xmm1).f64!, s30(s11)(xmm0).f64
-        //      JBE            $L57
-        //
-        // While this may cause us to align at the wrong "loop header", it doesn't break the code.
-        // ToDo: Look into why m_loopTop is set incorrectly.
-        
-        //AssertMsg(((IR::LabelInstr*)relocEntry.m_origPtr) == instr->GetTarget(), "Unexpected label instr");
-
-        m_relocList->Item(m_lastLoopLabelPosition).m_type = RelocType::RelocTypeAlignedLabel;
-        m_lastLoopLabelPosition = -1;
-    }
-
 }
 
 int

@@ -247,4 +247,10 @@ Disabled -testtrace cases to eliminate maintenance headache
    </default>
 </test> 
 
+<test>
+	<default>
+	  <files>singleCharStringCase.js</files>
+	</default>
+</test>
+
 </regress-exe>

@@ -2504,14 +2504,6 @@ ThreadContext::ClearInlineCaches()
 void
 ThreadContext::ClearIsInstInlineCaches()
 {
-#if DBG
-    // Bug 1075435 - each dump has one empty entry in isInstInlineCacheByFunction, might be caused by OOM somewhere
-    AUTO_INTEGRITY_CHECK([&]()
-    {
-        Assert(this->isInstInlineCacheByFunction.Count() == 0);
-    });
-#endif
-
     FOREACH_DLISTBASE_ENTRY(Js::ScriptContext *, scriptContext, &isInstInlineCacheScriptContexts)
     {
         scriptContext->ClearIsInstInlineCaches();
@@ -3796,26 +3788,26 @@ HCRYPTPROV ThreadContext::EnsureCryptoContext()
 
 Js::DelayLoadWinCoreMemory * ThreadContext::GetWinCoreMemoryLibrary()
 {
-    delayLoadWinCoreMemoryLibrary.Ensure();
+    delayLoadWinCoreMemoryLibrary.EnsureFromSystemDirOnly();
     return &delayLoadWinCoreMemoryLibrary;
 }
 
 Js::DelayLoadWinCoreProcessThreads * ThreadContext::GetWinCoreProcessThreads()
 {
-    delayLoadWinCoreProcessThreads.Ensure();
+    delayLoadWinCoreProcessThreads.EnsureFromSystemDirOnly();
     return &delayLoadWinCoreProcessThreads;
 }
 
 Js::DelayLoadWinRtString * ThreadContext::GetWinRTStringLibrary()
 {
-    delayLoadWinRtString.Ensure();
+    delayLoadWinRtString.EnsureFromSystemDirOnly();
 
     return &delayLoadWinRtString;
 }
 
 Js::DelayLoadWinRtError * ThreadContext::GetWinRTErrorLibrary()
 {
-    delayLoadWinRtError.Ensure();
+    delayLoadWinRtError.EnsureFromSystemDirOnly();
     
     return &delayLoadWinRtError;
 }
@@ -3823,14 +3815,14 @@ Js::DelayLoadWinRtError * ThreadContext::GetWinRTErrorLibrary()
 #ifdef ENABLE_PROJECTION
 Js::DelayLoadWinRtTypeResolution* ThreadContext::GetWinRTTypeResolutionLibrary()
 {
-    delayLoadWinRtTypeResolution.Ensure();
+    delayLoadWinRtTypeResolution.EnsureFromSystemDirOnly();
 
     return &delayLoadWinRtTypeResolution;
 }
 
 Js::DelayLoadWinRtRoParameterizedIID* ThreadContext::GetWinRTRoParameterizedIIDLibrary()
 {
-    delayLoadWinRtRoParameterizedIID.Ensure();
+    delayLoadWinRtRoParameterizedIID.EnsureFromSystemDirOnly();
 
     return &delayLoadWinRtRoParameterizedIID;
 }
@@ -3858,7 +3850,7 @@ Js::WindowsFoundationAdapter* ThreadContext::GetWindowsFoundationAdapter()
 
 Js::DelayLoadWinRtFoundation* ThreadContext::GetWinRtFoundationLibrary()
 {
-    delayLoadWinRtFoundationLibrary.Ensure();
+    delayLoadWinRtFoundationLibrary.EnsureFromSystemDirOnly();
 
     return &delayLoadWinRtFoundationLibrary;
 }

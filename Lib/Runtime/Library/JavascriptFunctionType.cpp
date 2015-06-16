@@ -123,6 +123,26 @@ namespace Js
         return false;
     }
 
+    BOOL JavascriptFunction::IsConfigurable(PropertyId propertyId)
+    {
+        if (DynamicObject::GetPropertyIndex(propertyId) == Constants::NoSlot)
+        {
+            switch (propertyId)
+            {
+            case PropertyIds::caller:
+            case PropertyIds::arguments:
+                return false;
+            case PropertyIds::length:
+                if (this->IsScriptFunction() || this->IsBoundFunction())
+                {
+                    return true;
+                }
+                break;
+            }
+        }
+        return DynamicObject::IsConfigurable(propertyId);
+    }
+
     BOOL JavascriptFunction::IsEnumerable(PropertyId propertyId)
     {
         if (DynamicObject::GetPropertyIndex(propertyId) == Constants::NoSlot)
@@ -168,6 +188,7 @@ namespace Js
         uint length = GetSpecialPropertyCount();
         if (index < length)
         {
+            Assert(DynamicObject::GetPropertyIndex(specialPropertyIds[index]) == Constants::NoSlot);
             *propertyName = requestContext->GetPropertyString(specialPropertyIds[index]);
             return true;
         }
@@ -176,9 +197,12 @@ namespace Js
         {            
             if (this->IsScriptFunction() || this->IsBoundFunction())
             {
-                //Only for user defined functions length is a special property.
-                *propertyName = requestContext->GetPropertyString(PropertyIds::length);
-                return true;
+                if (DynamicObject::GetPropertyIndex(PropertyIds::length) == Constants::NoSlot)
+                {
+                    //Only for user defined functions length is a special property.
+                    *propertyName = requestContext->GetPropertyString(PropertyIds::length);
+                    return true;
+                }
             }
         }
         return false;
@@ -758,7 +782,8 @@ namespace Js
         if (!JavascriptOperators::IsObject(instance))
         {               
             // Only update the cache for primitive cache if it is empty already for the JIT fast path
-            if (inlineCache && inlineCache->function == null)
+            if (inlineCache && inlineCache->function == null 
+                && scriptContext == function->GetScriptContext())// only register when function has same scriptContext
             {
                 inlineCache->Cache(RecyclableObject::Is(instance)?
                     RecyclableObject::FromVar(instance)->GetType() : null, 
@@ -835,8 +860,10 @@ namespace Js
             JavascriptBoolean * boolResult = result ? scriptContext->GetLibrary()->GetTrue() : 
                 scriptContext->GetLibrary()->GetFalse(); 
             Type * instanceType = RecyclableObject::FromVar(instance)->GetType();
-           
-            if (!instanceType->HasSpecialPrototype())
+
+            if (!instanceType->HasSpecialPrototype()
+                && scriptContext == function->GetScriptContext()) // only register when function has same scriptContext, otherwise when scriptContext close 
+                                                                  // and the isinst inline cache chain will be broken by clearing the arenaAllocator
             {
                 inlineCache->Cache(instanceType, function, boolResult, scriptContext);
             }

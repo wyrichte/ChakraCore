@@ -446,37 +446,6 @@
         "rightContext - [Type]": "String",
         "rightContext": ""
       },
-      "vbarray0 - [Type]": "Object, (Function)",
-      "vbarray0": {
-        "__proto__ - [Type]": "Object, (Function)",
-        "__proto__": {
-          "[Methods]": "{...}",
-          "__proto__ - [Type]": "Object",
-          "__proto__": "{...}",
-          "arguments - [Type]": "Null",
-          "arguments": "null",
-          "caller - [Type]": "Null",
-          "caller": "null",
-          "length - [Type]": "Number",
-          "length": "0",
-          "name - [Type]": "String",
-          "name": ""
-        },
-        "arguments - [Type]": "Null",
-        "arguments": "null",
-        "caller - [Type]": "Null",
-        "caller": "null",
-        "length - [Type]": "Number",
-        "length": "1",
-        "name - [Type]": "String",
-        "name": "VBArray",
-        "prototype - [Type]": "Object, SafeArray",
-        "prototype": {
-          "[Methods]": "{...}",
-          "__proto__ - [Type]": "Object",
-          "__proto__": "{...}"
-        }
-      },
       "buffer - [Type]": "Object, (ArrayBuffer)",
       "buffer": {
         "[Methods]": {

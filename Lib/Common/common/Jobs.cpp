@@ -13,10 +13,16 @@ namespace JsUtil
     // -------------------------------------------------------------------------------------------------------------------------
 
     Job::Job(const bool isCritical) : manager(0), isCritical(isCritical)
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+        , failureReason(FailureReason::NotFailed)
+#endif
     {
     }
 
     Job::Job(JobManager *const manager, const bool isCritical) : manager(manager), isCritical(isCritical)
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+        , failureReason(FailureReason::NotFailed)
+#endif
     {
         Assert(manager);
     }
@@ -942,15 +948,24 @@ namespace JsUtil
         catch(Js::OutOfMemoryException)
         {
             // Treat OOM to be a non-terminal failure
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+            job->failureReason = Job::FailureReason::OOM;
+#endif
         }
         catch(Js::StackOverflowException)
         {
             // Treat stack overflow to be a non-terminal failure
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+            job->failureReason = Job::FailureReason::StackOverflow;
+#endif
         }
         catch(Js::OperationAbortedException)
         {
             // This can happen for any reason a job needs to be aborted while executing, like for instance, if the script
             // context is closed while the job is being processed in the background
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+            job->failureReason = Job::FailureReason::Aborted;
+#endif
         }
 
         // Since the background job processor processes jobs on a background thread, out-of-memory and stack overflow need to be

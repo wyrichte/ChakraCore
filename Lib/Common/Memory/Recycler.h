@@ -627,6 +627,21 @@ private:
     bool synchronizeOnStartup; // Do we synchronize on startup
 };
 
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+class AutoProtectPages
+{
+public:
+    AutoProtectPages(Recycler* recycler, bool protectEnabled);
+    ~AutoProtectPages();
+    void Unprotect();
+
+private:
+    Recycler* recycler;
+    bool isReadOnly;
+};
+#endif
+
+
 class Recycler
 {
     friend class RecyclerScanMemoryCallback;
@@ -634,6 +649,10 @@ class Recycler
     friend class MarkContext;
     friend class HeapBlock;
     friend class RecyclerParallelThread;
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+    friend class AutoProtectPages;
+#endif
+
     template <typename T> friend class RecyclerWeakReference;
     template <typename T> friend class WeakReferenceHashTable;
     template <typename TBlockType>
@@ -1019,8 +1038,8 @@ private:
 #endif
 
 #ifdef RECYCLER_DUMP_OBJECT_GRAPH
-    RecyclerObjectGraphDumper * objectGraphDumper;
     friend class RecyclerObjectGraphDumper;
+    RecyclerObjectGraphDumper * objectGraphDumper;
 public:
     bool dumpObjectOnceOnCollect;
 #endif    
@@ -1883,6 +1902,7 @@ public:
 
     friend class RecyclerHeapObjectInfo;
 
+    bool FindImplicitRootObject(void* candidate, RecyclerHeapObjectInfo& heapObject);
     bool FindHeapObject(void* candidate, FindHeapObjectFlags flags, RecyclerHeapObjectInfo& heapObject);
     bool FindHeapObjectWithClearedAllocators(void* candidate, RecyclerHeapObjectInfo& heapObject);
     bool IsCollectionDisabled() const { return isCollectionDisabled; }
@@ -1947,6 +1967,7 @@ public:
 private:
     bool inDllCanUnloadNow;
     bool inDetachProcess;
+    bool isPrimaryMarkContextInitialized;
 #endif
 #if defined(LEAK_REPORT) || defined(CHECK_MEMORY_LEAK)
     template <class Fn>
@@ -2034,18 +2055,7 @@ public:
 #endif
         return (ObjectInfoBits)*m_attributes;
     }
-    size_t GetSize() const
-    {
-        Assert(m_heapBlock);
-        size_t size = m_heapBlock->GetObjectSize(m_address);
-#ifdef RECYCLER_MEMORY_VERIFY
-        if (m_recycler->VerifyEnabled())
-        {
-            size -= *(size_t *)(((char *)m_address) + size - sizeof(size_t));
-        }
-#endif
-        return size;
-    }
+    size_t GetSize() const;
 
 #if LARGEHEAPBLOCK_ENCODING
     void SetLargeHeapBlockHeader(LargeObjectHeader * largeHeapBlockHeader)
@@ -2383,31 +2393,6 @@ struct ForceLeafAllocator<RecyclerNonLeafAllocator>
     typedef RecyclerLeafAllocator AllocatorType;
 };
 
-//we don't need these for the Recycler
-
-#if 0
-inline void __cdecl
-operator delete(void * obj, Recycler * alloc, char * (Recycler::*AllocFunc)(size_t))
-{
-}
-
-inline void __cdecl
-operator delete(void * obj, Recycler * alloc, char * (Recycler::*AllocFunc)(size_t), size_t plusSize)
-{
-}
-
-inline void __cdecl
-operator delete(void * obj, Recycler * recycler, ObjectInfoBits enumClassBits)
-{
-}
-
-template <typename T>
-inline void __cdecl
-operator delete(void * obj, RecyclerFastAllocator<T> * alloc, char * (RecyclerFastAllocator<T>::*AllocFunc)(size_t))
-{
-}
-#endif
-
 #ifdef PROFILE_EXEC
 #define RECYCLER_PROFILE_EXEC_BEGIN(recycler, phase) if (recycler->profiler != null) { recycler->profiler->Begin(phase); }
 #define RECYCLER_PROFILE_EXEC_END(recycler, phase) if (recycler->profiler != null) { recycler->profiler->End(phase); }
@@ -2432,6 +2417,31 @@ operator delete(void * obj, RecyclerFastAllocator<T> * alloc, char * (RecyclerFa
 #define RECYCLER_PROFILE_EXEC_THREAD_END(background, recycler, phase) 
 #endif
 }
+
+//we don't need these for the Recycler
+
+#if 0
+inline void __cdecl
+operator delete(void * obj, Recycler * alloc, char * (Recycler::*AllocFunc)(size_t))
+{
+}
+
+inline void __cdecl
+operator delete(void * obj, Recycler * alloc, char * (Recycler::*AllocFunc)(size_t), size_t plusSize)
+{
+}
+
+inline void __cdecl
+operator delete(void * obj, Recycler * recycler, ObjectInfoBits enumClassBits)
+{
+}
+
+template <typename T>
+inline void __cdecl
+operator delete(void * obj, RecyclerFastAllocator<T> * alloc, char * (RecyclerFastAllocator<T>::*AllocFunc)(size_t))
+{
+}
+#endif
 
 inline void * __cdecl
 operator new(size_t byteSize, Recycler * alloc, HeapInfo * heapInfo)

@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Memory
+{
 #define PreReservedHeapTrace(...) { \
     OUTPUT_TRACE(Js::PreReservedHeapAllocPhase, __VA_ARGS__); \
 }
@@ -59,3 +61,4 @@ class SegmentBase;
 typedef PageAllocatorBase<> PageAllocator;
 typedef PageSegmentBase<> PageSegment;
 typedef SegmentBase<> Segment;
+}

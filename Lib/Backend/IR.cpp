@@ -1803,6 +1803,35 @@ BranchInstr::Invert()
     }
 }
 
+bool
+BranchInstr::IsLoopTail(Func * func)
+{
+    Assert(func->isPostLower);
+    IR::LabelInstr * target = this->GetTarget();
+    if (!target->m_isLoopTop)
+    {
+        return false;
+    }
+
+    IR::BranchInstr * lastBranchInstr = nullptr;
+    uint32 lastBranchNum = 0;
+    FOREACH_SLISTCOUNTED_ENTRY(IR::BranchInstr *, ref, &target->labelRefs)
+    {
+        if (ref->GetNumber() > lastBranchNum)
+        {
+            lastBranchInstr = ref;
+            lastBranchNum = lastBranchInstr->GetNumber();
+        }
+    }
+    NEXT_SLISTCOUNTED_ENTRY;
+
+    if (this == lastBranchInstr)
+    {
+        return true;
+    }
+    return false;
+}
+
 ///----------------------------------------------------------------------------
 ///
 /// PragmaInstr::New
@@ -2993,7 +3022,6 @@ Instr::ConvertToBailOutInstr(BailOutInfo * bailOutInfo, IR::BailOutKind kind, bo
             Assert(!branchInstr->IsMultiBranch());
             IR::BranchBailOutInstr * branchBailOutInstr = IR::BranchBailOutInstr::New(this->m_opcode, kind, bailOutInfo, bailOutInfo->bailOutFunc);
             branchBailOutInstr->SetTarget(branchInstr->GetTarget());
-            branchBailOutInstr->m_isLoopTail = branchInstr->m_isLoopTail;
             branchBailOutInstr->SetByteCodeReg(branchInstr->GetByteCodeReg());
             bailOutInstr = branchBailOutInstr;
             break;
@@ -4176,11 +4204,7 @@ Instr::Dump(IRDumpFlags flags)
             src2->Dump(flags, this->m_func);
         }
     }
-        
-    if (this->IsBranchInstr() && this->AsBranchInstr()->m_isLoopTail)
-    {
-        Output::Print(L" <<<<<<<<<<<<<  Loop tail  <<<<<<<<<<<<<");
-    }
+     
     if (this->IsByteCodeUsesInstr())
     {
         if (this->AsByteCodeUsesInstr()->byteCodeUpwardExposedUsed)

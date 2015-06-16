@@ -84,6 +84,8 @@ namespace Js
         }
         else if (Js::JavascriptArray::Is(obj))
         {
+            // Make sure any NativeIntArrays are converted
+            Js::JavascriptLibrary::CheckAndConvertCopyOnAccessNativeIntArray<Var>(obj);
             pOMDisplay = Anew(pRefArena->Arena(), RecyclableArrayDisplay, this);
         }
         else

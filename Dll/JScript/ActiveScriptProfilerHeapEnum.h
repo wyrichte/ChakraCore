@@ -28,12 +28,12 @@ public:
         HeapObjectType_NumberObject                =0x10,
         HeapObjectType_ObjectObject                =0x11,
         HeapObjectType_RegexObject                 =0x12,
-        HeapObjectType_SafeArrayObject             =0x13,
+        HeapObjectType_EnumeratorIterator          =0x13,
         HeapObjectType_StringObject                =0x14,
         HeapObjectType_TypedArrayObject            =0x15,
         HeapObjectType_GlobalObject                =0x16,
         HeapObjectType_FormObject                  =0x17,
-        HeapObjectType_Scope                       =0x18,           
+        HeapObjectType_Scope                       =0x18,
         HeapObjectType_HostObject                  =0x19,
         HeapObjectType_DOM                         =0x1a,
         HeapObjectType_WinRT                       =0x1b,
@@ -50,12 +50,11 @@ public:
         HeapObjectType_StringIterator              =0x26,
         HeapObjectType_Generator                   =0x27,
         HeapObjectType_Promise                     =0x28,
-        HeapObjectType_EnumeratorIterator          =0x29,
 #ifdef SIMD_JS_ENABLED
-        HeapObjectType_SIMD                        =0x2a,
-        HeapObjectType_JsrtExternalObject          =0x2b,
-#else
+        HeapObjectType_SIMD                        =0x29,
         HeapObjectType_JsrtExternalObject          =0x2a,
+#else
+        HeapObjectType_JsrtExternalObject          =0x29,
 #endif
         HeapObjectType_Last                        =HeapObjectType_JsrtExternalObject,
         HeapObjectType_Invalid                     =0xff
@@ -98,7 +97,7 @@ private:
     ScriptEngine& m_scriptEngine;
     Recycler& m_recycler;
     Recycler::AutoSetupRecyclerForNonCollectingMark* m_autoSetupRecyclerForNonCollectingMark;
-    BOOL isClosed; 
+    BOOL isClosed;
     BOOL isInitialized;
     bool m_preEnumHeap2Behavior;
     PROFILER_HEAP_ENUM_FLAGS m_enumFlags;
@@ -115,7 +114,7 @@ private:
     struct ProfilerHeapObjectJS
     {
         UINT size;
-        union 
+        union
         {
             PROFILER_HEAP_OBJECT_ID objectId;
             PROFILER_EXTERNAL_OBJECT_ADDRESS externalAddress;
@@ -125,7 +124,7 @@ private:
         USHORT unused;
         USHORT optionalInfoCount;
         ProfilerHeapObjectOptionalInfo *optionalInfo;
-        ProfilerHeapObjectJS& operator=(const HostProfilerHeapObject& rhs) 
+        ProfilerHeapObjectJS& operator=(const HostProfilerHeapObject& rhs)
         {
             this->size = rhs.size; this->objectId = rhs.objectId; this->typeNameId = rhs.typeNameId; this->flags = rhs.flags; this->optionalInfoCount = rhs.optionalInfoCount; return *this;
         }
@@ -134,22 +133,22 @@ private:
     // ProfilerHeapObject is our internal representation of the data that will be passed out as a PROFILER_HEAP_OBJECT*
     // via IActiveScriptProfilerHeapEnum::Next. It consists of three parts:
     //
-    // 1. Header information in jsInfo member. 
-    //    --This should be indentical to the PROFILER_HEAP_OBJECT format. We pass out a pointer to the jsInfo member as 
-    //      a handle to the PROFILER_HEAP_OBJECT*, and need to convert it to a ProfilerHeapObject when we are 
+    // 1. Header information in jsInfo member.
+    //    --This should be indentical to the PROFILER_HEAP_OBJECT format. We pass out a pointer to the jsInfo member as
+    //      a handle to the PROFILER_HEAP_OBJECT*, and need to convert it to a ProfilerHeapObject when we are
     //      called with one eg in GetOptionalInfo or FreeObjectAndOptionalInfo
     //
     // 2. Optional info in the jsInfo member.
     //    -- This is memory embedded in the allocation of jsInfo. We pass out pointers to within that structure
     //       via IActiveScriptProfilerHeapEnum::GetOptionalInfo
-    //    
+    //
     // 3. Optional info in the hostInfo member
     //    -- A pointer to a memory block that, like jsInfo member, has memory embedded within for the host optional info.
     //       The total optional info count in the jsInfo structure includes the count in this member.
     //
     // These data structrues achieve a number of design goals:
-    // -- Only two memory allocations need to done for each PROFILER_HEAP_OBJECT: 
-    //    1. jsInfo 
+    // -- Only two memory allocations need to done for each PROFILER_HEAP_OBJECT:
+    //    1. jsInfo
     //    2. optionally host object info if present.
     //
     // -- Limit number of function calls needed to gather complete object information to two:
@@ -166,7 +165,7 @@ private:
         USHORT OptionalInfoCountJSOnly() { return jsInfo.optionalInfoCount - (hostInfo ? hostInfo->optionalInfoCount : 0); }
         static size_t AllocHeaderSize() { return offsetof(ProfilerHeapObject, jsInfo) + offsetof(ProfilerHeapObjectJS, optionalInfo); }
         PROFILER_HEAP_OBJECT* AsPublicFacing() { return (PROFILER_HEAP_OBJECT*)&jsInfo; }
-        static ProfilerHeapObject* AsInternal(PROFILER_HEAP_OBJECT* obj) 
+        static ProfilerHeapObject* AsInternal(PROFILER_HEAP_OBJECT* obj)
         { return (ProfilerHeapObject*)((char*)obj - (offsetof(ProfilerHeapObject, jsInfo))); }
     };
     static_assert(offsetof(ProfilerHeapObjectJS, size) == offsetof(PROFILER_HEAP_OBJECT, size), "ProfilerHeapObjectJS vs PROFILERHEAPOBJECT mismatch");
@@ -177,12 +176,12 @@ private:
     static_assert(offsetof(ProfilerHeapObjectJS, optionalInfo) == sizeof(PROFILER_HEAP_OBJECT), "ProfilerHeapObjectJS vs PROFILERHEAPOBJECT mismatch");
 
 
-    struct HeapScanQueueElement 
+    struct HeapScanQueueElement
     {
         RecyclerHeapObjectInfo m_heapObject;
         ProfilerHeapObject* m_profHeapObject;
         HeapScanQueueElement() {}
-        HeapScanQueueElement(ProfilerHeapObject* profHeapObject) : 
+        HeapScanQueueElement(ProfilerHeapObject* profHeapObject) :
         m_profHeapObject(profHeapObject) { }
         HeapScanQueueElement(RecyclerHeapObjectInfo& heapObject, ProfilerHeapObject* profHeapObject) :
         m_heapObject(heapObject), m_profHeapObject(profHeapObject) { }
@@ -209,7 +208,7 @@ private:
     static void ValidateTypeMap();
 #endif
 
-    template <typename Fn> 
+    template <typename Fn>
     static void IterateArrayHelper(Var var, uint32 index, Fn* callback)
     {
         (*callback)(var, index);
@@ -263,7 +262,7 @@ private:
                     descriptorIndex = Js::JavascriptArray::InvalidIndex;
                 }
             }
-            
+
             // Try to report properties in key order without creating an index.
             index = min(dataIndex, descriptorIndex);
             if (index == Js::JavascriptArray::InvalidIndex) // End of array
@@ -314,7 +313,7 @@ private:
         while (true)
         {
             index = arr->GetNextIndex(index);
-            
+
             // Try to report properties in key order without creating an index.
             if (index == Js::JavascriptArray::InvalidIndex) // End of array
             {
@@ -365,7 +364,7 @@ private:
     UINT GetWeakSetCollectionCount(Js::JavascriptWeakSet* weakSet);
 
     // Can't report the string value if it isn't available, eg. unfinalized concat string
-    bool IsReportableJavascriptString(Js::RecyclableObject *obj) { return IsJavascriptString(obj) && Js::JavascriptString::FromVar(obj)->UnsafeGetBuffer() != NULL; } 
+    bool IsReportableJavascriptString(Js::RecyclableObject *obj) { return IsJavascriptString(obj) && Js::JavascriptString::FromVar(obj)->UnsafeGetBuffer() != NULL; }
     void FillInternalProperty(Js::RecyclableObject* property, ProfilerHeapObjectOptionalInfo* optionalInfo);
     void FillNameProperties(Js::RecyclableObject* obj, ProfilerHeapObjectOptionalInfo* optionalInfo);
     void FillIndexProperties(Js::RecyclableObject* obj, ProfilerHeapObjectOptionalInfo* optionalInfo);
@@ -386,9 +385,9 @@ private:
     void FillObjectRelationship(PROFILER_HEAP_OBJECT_RELATIONSHIP& relationship, PROFILER_HEAP_OBJECT_NAME_ID relationshipId, Js::RecyclableObject* value);
     static bool GetModuleBounds(INT_PTR& dllLoadAddress, INT_PTR& dllHighAddress);
     void AddObjectToSummary(ProfilerHeapObject* obj, PROFILER_HEAP_SUMMARY* pHeapSummary);
-    template <typename Fn> 
+    template <typename Fn>
     bool EnumerateHeapHelper(ProfilerHeapObject* obj, Fn* callback);
-    template <typename Fn> 
+    template <typename Fn>
     void EnumerateHeap(Fn callback, PROFILER_HEAP_SUMMARY* pHeapSummary=NULL);
     void EnqueueExternalObjects(HostProfilerHeapObject* hostInfo);
     void Visit(void* obj, ULONG flags=0, UINT numberOfElements = 0);
@@ -427,7 +426,7 @@ public:
         __in_ecount(celt) PROFILER_HEAP_OBJECT* optionalInfo[]);
 
     STDMETHOD(GetNameIdMap)(
-        __out_ecount(*pcelt) LPCWSTR* pPropertyIdMap[], 
+        __out_ecount(*pcelt) LPCWSTR* pPropertyIdMap[],
         __out UINT *pcelt);
 
 #ifdef ENABLE_TEST_HOOKS
@@ -440,8 +439,8 @@ public:
 #ifdef HEAP_ENUMERATION_VALIDATION
     static void EnsureRecyclableObjectsAreVisitedCallback(const RecyclerHeapObjectInfo& heapObject, void *data);
     class VtableMap
-    {        
-        VtableHashMap *m_vtableMapHash;           
+    {
+        VtableHashMap *m_vtableMapHash;
         PageAllocator pageAllocator;
         ArenaAllocator arenaAllocator;
         public:

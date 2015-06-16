@@ -108,7 +108,7 @@ Lowerer::Lower()
         Assert(!m_func->HasAnyStackNestedFunc());
     }
 
-    this->LowerRange(m_func->m_headInstr, m_func->m_tailInstr, defaultDoFastPath, loopFastPath, 0);
+    this->LowerRange(m_func->m_headInstr, m_func->m_tailInstr, defaultDoFastPath, loopFastPath);
     this->m_func->ClearCloneMap();
 
     if (m_func->HasAnyStackNestedFunc())
@@ -130,14 +130,11 @@ Lowerer::Lower()
 
 
 void
-Lowerer::LowerRange(IR::Instr *instrStart, IR::Instr *instrEnd, bool defaultDoFastPath, bool defaultDoLoopFastPath, int loopNest)
+Lowerer::LowerRange(IR::Instr *instrStart, IR::Instr *instrEnd, bool defaultDoFastPath, bool defaultDoLoopFastPath)
 {
     bool noMathFastPath;
     bool noFieldFastPath;
     bool fNoLower = false;
-#if DBG
-    int origLoopNest = loopNest;
-#endif
     noFieldFastPath = !defaultDoFastPath;
     noMathFastPath = !defaultDoFastPath;
 
@@ -190,20 +187,20 @@ Lowerer::LowerRange(IR::Instr *instrStart, IR::Instr *instrEnd, bool defaultDoFa
         IR::RegOpnd *srcReg1;
         IR::RegOpnd *srcReg2;
 
-        if (this->outterMostLoopLabel == instr)
+        if (instr->IsBranchInstr() && !instr->AsBranchInstr()->IsMultiBranch() && instr->AsBranchInstr()->GetTarget()->m_isLoopTop)
         {
-            this->outterMostLoopLabel = null;
-        }
-        else if (instr->IsBranchInstr() && instr->AsBranchInstr()->m_isLoopTail)
-        {
-            loopNest++;
-            if (!PHASE_OFF(Js::HoistMarkTempInitPhase, this->m_func) 
-                && this->outterMostLoopLabel == null)
+            Loop * loop = instr->AsBranchInstr()->GetTarget()->GetLoop();
+            if (this->outerMostLoopLabel == null && !loop->isProcessed)
             {
-                this->outterMostLoopLabel = instr->AsBranchInstr()->GetTarget();
-                Assert(this->outterMostLoopLabel->m_isLoopTop);
-                // landing pad must fall thru to the loop
-                Assert(this->outterMostLoopLabel->m_prev->HasFallThrough());
+                while (loop && loop->GetLoopTopInstr()) // some loops are optimized away so that they are not loops anymore. 
+                                                                    // They do, however, stay in the loop graph but don't have loop top labels assigned to them
+                {
+                    this->outerMostLoopLabel = loop->GetLoopTopInstr();
+                    Assert(this->outerMostLoopLabel->m_isLoopTop);
+                    // landing pad must fall thru to the loop
+                    Assert(this->outerMostLoopLabel->m_prev->HasFallThrough());
+                    loop = loop->parent;
+                }
                 this->initializedTempSym->ClearAll();
             }
 
@@ -218,14 +215,6 @@ Lowerer::LowerRange(IR::Instr *instrStart, IR::Instr *instrEnd, bool defaultDoFa
             noFieldFastPath = true;
         }
 #endif
-
-        // Save next instruction and label of the LoopTop for finding looptail
-        IR::Instr* nextInstr = instr->m_next;
-        IR::LabelInstr * labelLoopTop = NULL;
-        if (instr->IsBranchInstr() && instr->AsBranchInstr()->m_isLoopTail)
-        {
-            labelLoopTop = instr->AsBranchInstr()->GetTarget()->AsLabelInstr();
-        }
 
         switch(instr->m_opcode)
         {
@@ -1753,12 +1742,12 @@ Lowerer::LowerRange(IR::Instr *instrStart, IR::Instr *instrEnd, bool defaultDoFa
         case Js::OpCode::Label:
             if (instr->AsLabelInstr()->m_isLoopTop)
             {
-                loopNest--;
-                Assert(loopNest >= 0);
-                if (loopNest == 0)
+                if (this->outerMostLoopLabel == instr)
                 {
                     noFieldFastPath = !defaultDoFastPath;
                     noMathFastPath = !defaultDoFastPath;
+                    this->outerMostLoopLabel = nullptr;
+                    instr->AsLabelInstr()->GetLoop()->isProcessed = true;
                 }
                 this->m_func->MarkConstantAddressSyms(instr->AsLabelInstr()->GetLoop()->regAlloc.liveOnBackEdgeSyms);
                 instr->AsLabelInstr()->GetLoop()->regAlloc.liveOnBackEdgeSyms->Or(this->addToLiveOnBackEdgeSyms);
@@ -2343,7 +2332,7 @@ Lowerer::LowerRange(IR::Instr *instrStart, IR::Instr *instrEnd, bool defaultDoFa
             break;
 
         case Js::OpCode::LdElemUndef:
-            this->LowerElementUndefined(instr, IR::HelperOp_LdElemUndef);
+            this->LowerLdElemUndef(instr);
             break;
 
         case Js::OpCode::LdElemUndefScoped:
@@ -2743,22 +2732,6 @@ Lowerer::LowerRange(IR::Instr *instrStart, IR::Instr *instrEnd, bool defaultDoFa
             }
             break;
         }
-        //Mark the last branch instruction that targets loopTop as the loopTail
-        if (labelLoopTop)
-        {    
-            bool isLoopTailFound = false;
-            FOREACH_INSTR_BACKWARD_IN_RANGE(ref, nextInstr->m_prev, instrPrev)
-            {
-                if (ref->IsBranchInstr() && ref->AsBranchInstr()->GetTarget()->AsLabelInstr() == labelLoopTop)
-                {
-                    ref->AsBranchInstr()->m_isLoopTail = true;
-                    isLoopTailFound = true;
-                    break;
-                }
-            }
-            NEXT_INSTR_BACKWARD_IN_RANGE
-            AssertMsg(isLoopTailFound, "Loop Tail not marked!");
-        }
 
 #if DBG       
         LegalizeVerifyRange(instrPrev ? instrPrev->m_next : instrStart,
@@ -2766,7 +2739,7 @@ Lowerer::LowerRange(IR::Instr *instrStart, IR::Instr *instrEnd, bool defaultDoFa
 #endif
     } NEXT_INSTR_BACKWARD_EDITING_IN_RANGE;
 
-    Assert(loopNest == origLoopNest);
+    Assert(this->outerMostLoopLabel == nullptr);
 }
 
 
@@ -3402,7 +3375,6 @@ Lowerer::GenerateFastBrConst(IR::BranchInstr *branchInstr, IR::Opnd * constOpnd,
     IR::BranchInstr *newBranch;
     newBranch = InsertCompareBranch(opnd, constOpnd, isEqual ? Js::OpCode::BrEq_A : Js::OpCode::BrNeq_A, branchInstr->GetTarget(), branchInstr);
 
-    newBranch->m_isLoopTail = branchInstr->m_isLoopTail;
     return newBranch;
 }
 
@@ -3433,7 +3405,6 @@ Lowerer::TryGenerateFastBrEq(IR::Instr * instr)
         newBranch = this->GenerateFastBrConst(instr->AsBranchInstr(), 
             this->LoadLibraryValueOpnd(instr, LibraryValue::ValueNull),
             true);
-        newBranch->m_isLoopTail = false;
         
         this->GenerateFastBrConst(instr->AsBranchInstr(), 
             this->LoadLibraryValueOpnd(instr, LibraryValue::ValueUndefined),
@@ -3482,7 +3453,6 @@ Lowerer::TryGenerateFastBrNeq(IR::Instr * instr)
             this->LoadLibraryValueOpnd(instr, LibraryValue::ValueNull),
             true);
         newBranch->AsBranchInstr()->SetTarget(labelEq);
-        newBranch->m_isLoopTail = false;
 
         this->GenerateFastBrConst(instr->AsBranchInstr(), 
             this->LoadLibraryValueOpnd(instr, LibraryValue::ValueUndefined),
@@ -3526,11 +3496,11 @@ Lowerer::GenerateDynamicObjectAlloc(IR::Instr * newObjInstr, uint inlineSlotCoun
     IR::SymOpnd * tempObjectSymOpnd;
     bool isZeroed = GenerateRecyclerOrMarkTempAlloc(newObjInstr, newObjDst, IR::HelperAllocMemForScObject, headerAllocSize, &tempObjectSymOpnd);
     
-    if (tempObjectSymOpnd && this->outterMostLoopLabel)
+    if (tempObjectSymOpnd && !PHASE_OFF(Js::HoistMarkTempInitPhase, this->m_func) && this->outerMostLoopLabel)
     {
         // Hoist the vtable init to the outter most loop top as it never changes
         InsertMove(tempObjectSymOpnd,
-            LoadVTableValueOpnd(this->outterMostLoopLabel, VTableValue::VtableDynamicObject), this->outterMostLoopLabel, false);        
+            LoadVTableValueOpnd(this->outerMostLoopLabel, VTableValue::VtableDynamicObject), this->outerMostLoopLabel, false);
     }
     else
     {
@@ -3946,12 +3916,12 @@ Lowerer::GenerateArrayAlloc(IR::Instr *instr, uint32 * psize, Js::ArrayCallSiteI
     bool isZeroed = GenerateRecyclerOrMarkTempAlloc(instr, dstOpnd,
         GetArrayAllocMemHelper<ArrayType>(), arrayAllocSize, &tempObjectSymOpnd);
     isHeadSegmentZeroed = isHeadSegmentZeroed & isZeroed;
-    if (tempObjectSymOpnd && this->outterMostLoopLabel)
+    if (tempObjectSymOpnd && !PHASE_OFF(Js::HoistMarkTempInitPhase, this->m_func) && this->outerMostLoopLabel)
     {       
         // Hoist the vtable init to the outter most loop top as it never changes
         InsertMove(tempObjectSymOpnd,
-            this->LoadVTableValueOpnd(this->outterMostLoopLabel, ArrayType::VtableHelper()),
-            this->outterMostLoopLabel, false);
+            this->LoadVTableValueOpnd(this->outerMostLoopLabel, ArrayType::VtableHelper()),
+            this->outerMostLoopLabel, false);
     }
     else
     {
@@ -5358,7 +5328,7 @@ Lowerer::DoInterruptProbes()
 
                 IR::LabelInstr *newLabel = IR::LabelInstr::New(Js::OpCode::Label, this->m_func);
                 labelInstr->InsertAfter(newLabel);
-                this->InsertOneLoopProbe(newLabel, newLabel, false);
+                this->InsertOneLoopProbe(newLabel, newLabel);
             }
         }
     }
@@ -5374,7 +5344,6 @@ Lowerer::DoLoopProbeAndNumber(IR::BranchInstr *branchInstr)
     if (labelInstr == null || labelInstr->GetNumber() == 0)
     {
         // Forward branch (possibly an indirect jump after try-catch-finally); nothing to do.
-        Assert(!branchInstr->m_isLoopTail);
         return branchInstr->GetNumber() + 1;
     }
 
@@ -5386,7 +5355,6 @@ Lowerer::DoLoopProbeAndNumber(IR::BranchInstr *branchInstr)
     uint number = branchInstr->GetNumber();
     IR::Instr *instrPrev = branchInstr->m_prev;
     IR::Instr *instrNext = branchInstr->m_next;
-    bool isLoopTail = branchInstr->m_isLoopTail;
     if (branchInstr->IsUnconditional())
     {
         // B $loop ==>
@@ -5397,7 +5365,7 @@ Lowerer::DoLoopProbeAndNumber(IR::BranchInstr *branchInstr)
         // call abort
         // b $exit
 
-        this->InsertOneLoopProbe(branchInstr, labelInstr, isLoopTail);
+        this->InsertOneLoopProbe(branchInstr, labelInstr);
         branchInstr->Remove();
     }
     else
@@ -5415,10 +5383,9 @@ Lowerer::DoLoopProbeAndNumber(IR::BranchInstr *branchInstr)
         IR::LabelInstr *loopExitLabel = IR::LabelInstr::New(Js::OpCode::Label, this->m_func);
         branchInstr->SetTarget(loopExitLabel);
         LowererMD::InvertBranch(branchInstr);
-        branchInstr->m_isLoopTail = false;
         branchInstr->InsertAfter(loopExitLabel);
 
-        this->InsertOneLoopProbe(loopExitLabel, labelInstr, isLoopTail);
+        this->InsertOneLoopProbe(loopExitLabel, labelInstr);
     }
 
     FOREACH_INSTR_IN_RANGE(instr, instrPrev->m_next, instrNext->m_prev)
@@ -5431,7 +5398,7 @@ Lowerer::DoLoopProbeAndNumber(IR::BranchInstr *branchInstr)
 }
 
 void
-Lowerer::InsertOneLoopProbe(IR::Instr *insertInstr, IR::LabelInstr *loopLabel, bool isLoopTail)
+Lowerer::InsertOneLoopProbe(IR::Instr *insertInstr, IR::LabelInstr *loopLabel)
 {
     // Insert one interrupt probe at the given instruction. Probe the stack and call the abort helper
     // directly if the probe fails.
@@ -5451,9 +5418,7 @@ Lowerer::InsertOneLoopProbe(IR::Instr *insertInstr, IR::LabelInstr *loopLabel, b
     IR::RegOpnd *regStackPointer = IR::RegOpnd::New(
         NULL, this->m_lowererMD.GetRegStackPointer(), TyMachReg, this->m_func);
 
-    IR::BranchInstr *branchInstr =
-        InsertCompareBranch(regStackPointer, memRefOpnd, Js::OpCode::BrGt_A, loopLabel, insertInstr);
-    branchInstr->m_isLoopTail = isLoopTail;
+    InsertCompareBranch(regStackPointer, memRefOpnd, Js::OpCode::BrGt_A, loopLabel, insertInstr);
 
     IR::LabelInstr *helperLabel = IR::LabelInstr::New(Js::OpCode::Label, this->m_func, true);
     insertInstr->InsertBefore(helperLabel);
@@ -9151,6 +9116,30 @@ Lowerer::LowerElementUndefined(IR::Instr * instr, IR::JnHelperMethod helper)
     return instr;
 }
 
+IR::Instr *
+Lowerer::LowerElementUndefinedMem(IR::Instr * instr, IR::JnHelperMethod helper)
+{
+    // Pass script context
+    IR::Instr * instrPrev = LoadScriptContext(instr);
+
+    this->LowerElementUndefined(instr, helper);
+
+    return instrPrev;
+}
+
+IR::Instr *
+Lowerer::LowerLdElemUndef(IR::Instr * instr)
+{
+    if (this->m_func->GetJnFunction()->IsEval())
+    {
+        return LowerElementUndefinedMem(instr, IR::HelperOp_LdElemUndefDynamic);
+    }
+    else
+    {
+        return LowerElementUndefined(instr, IR::HelperOp_LdElemUndef);
+    }
+}
+
 ///----------------------------------------------------------------------------
 ///
 /// Lowerer::LowerElementUndefinedScoped -
@@ -9268,6 +9257,11 @@ Lowerer::LowerStSlot(IR::Instr *instr)
 IR::Instr *
 Lowerer::LowerStSlotChkUndecl(IR::Instr *instrStSlot)
 {
+    Assert(instrStSlot->GetSrc2() != nullptr);
+
+    // Src2 is required only to avoid dead store false positives during GlobOpt.
+    instrStSlot->FreeSrc2();
+
     IR::Opnd *dstOpnd = this->CreateOpndForSlotAccess(instrStSlot->GetDst());
     IR::Instr *instr = this->LowerStSlot(instrStSlot);
 
@@ -10227,12 +10221,12 @@ Lowerer::LowerNewRegEx(IR::Instr * instr)
     IR::RegOpnd * dstOpnd = instr->UnlinkDst()->AsRegOpnd();
     IR::SymOpnd * tempObjectSymOpnd;
     bool isZeroed = GenerateRecyclerOrMarkTempAlloc(instr, dstOpnd, IR::HelperAllocMemForJavascriptRegExp, sizeof(Js::JavascriptRegExp), &tempObjectSymOpnd);    
-    if (tempObjectSymOpnd && this->outterMostLoopLabel)
+    if (tempObjectSymOpnd && !PHASE_OFF(Js::HoistMarkTempInitPhase, this->m_func) && this->outerMostLoopLabel)
     {
         // Hoist the vtable and pattern init to the outter most loop top as it never changes
         InsertMove(tempObjectSymOpnd,
-            LoadVTableValueOpnd(this->outterMostLoopLabel, VTableValue::VtableJavascriptRegExp),
-            this->outterMostLoopLabel, false);
+            LoadVTableValueOpnd(this->outerMostLoopLabel, VTableValue::VtableJavascriptRegExp),
+            this->outerMostLoopLabel, false);
     }
     else
     {
@@ -10242,11 +10236,11 @@ Lowerer::LowerNewRegEx(IR::Instr * instr)
         this->LoadLibraryValueOpnd(instr, LibraryValue::ValueRegexType), instr, isZeroed);
     GenerateMemInitNull(dstOpnd, Js::JavascriptRegExp::GetOffsetOfAuxSlots(), instr, isZeroed);
     GenerateMemInitNull(dstOpnd, Js::JavascriptRegExp::GetOffsetOfObjectArray(), instr, isZeroed);
-    if (tempObjectSymOpnd && this->outterMostLoopLabel)
+    if (tempObjectSymOpnd && !PHASE_OFF(Js::HoistMarkTempInitPhase, this->m_func) && this->outerMostLoopLabel)
     {
         InsertMove(IR::SymOpnd::New(tempObjectSymOpnd->m_sym,
             tempObjectSymOpnd->m_offset + Js::JavascriptRegExp::GetOffsetOfPattern(), TyMachPtr, this->m_func),
-            src1, this->outterMostLoopLabel, false);
+            src1, this->outerMostLoopLabel, false);
     }
     else
     {
@@ -12441,7 +12435,6 @@ Lowerer::GenerateFastCondBranch(IR::BranchInstr * instrBranch, bool *pIsHelper)
 
     if (isTaggedInts)
     {
-        instr->m_isLoopTail = instrBranch->m_isLoopTail;
         instrBranch->Remove();
 
         // Skip lowering call to helper
@@ -17631,8 +17624,9 @@ Lowerer::LowerInlineSpreadArgOutLoopUsingRegisters(IR::Instr *callInstr, IR::Reg
 
     IR::LabelInstr *startLoopLabel = IR::LabelInstr::New(Js::OpCode::Label, func);
     startLoopLabel->m_isLoopTop = true;
-    Loop *loop = JitAnew(func->m_alloc, Loop, func->m_alloc, func);
+    Loop *loop = JitAnew(func->m_alloc, Loop, func->m_alloc, this->m_func);
     startLoopLabel->SetLoop(loop);
+    loop->SetLoopTopInstr(startLoopLabel);
     loop->regAlloc.liveOnBackEdgeSyms = AllocatorNew(JitArenaAllocator, func->m_alloc, BVSparse<JitArenaAllocator>, func->m_alloc);
     loop->regAlloc.liveOnBackEdgeSyms->Set(indexOpnd->m_sym->m_id);
     loop->regAlloc.liveOnBackEdgeSyms->Set(arrayElementsStartOpnd->m_sym->m_id);
@@ -17653,9 +17647,8 @@ Lowerer::LowerInlineSpreadArgOutLoopUsingRegisters(IR::Instr *callInstr, IR::Reg
     callInstr->InsertBefore(argout);
     this->m_lowererMD.LoadDynamicArgumentUsingLength(argout);
 
-    IR::BranchInstr *endLoopInstr = InsertCompareBranch(indexOpnd, IR::IntConstOpnd::New(1, TyUint8, func), Js::OpCode::BrNeq_A, true, startLoopLabel, callInstr);
-    endLoopInstr->m_isLoopTail = true;
-
+    InsertCompareBranch(indexOpnd, IR::IntConstOpnd::New(1, TyUint8, func), Js::OpCode::BrNeq_A, true, startLoopLabel, callInstr);
+    
     // Emit final argument into register 4 on AMD64 and ARM
     callInstr->InsertBefore(oneArgLabel);
     argout = IR::Instr::New(Js::OpCode::ArgOut_A_Dynamic, func);
@@ -17781,9 +17774,6 @@ Lowerer::LowerCallIDynamic(IR::Instr * callInstr, ushort callFlags)
 
     IR::Opnd* argsLength = m_lowererMD.GenerateArgOutForStackArgs(callInstr, argInstr);
 
-    
-
-
     IR::RegOpnd* startCallDstOpnd = argInstr->UnlinkSrc2()->AsRegOpnd();
     argLinkSym  = startCallDstOpnd->m_sym->AsStackSym();
     startCallDstOpnd->Free(this->m_func);
@@ -17848,8 +17838,9 @@ Lowerer::GenerateArgOutForStackArgs(IR::Instr* callInstr, IR::Instr* stackArgsIn
     IR::LabelInstr* startLoop = IR::LabelInstr::New(Js::OpCode::Label, func);
     IR::LabelInstr* endLoop = IR::LabelInstr::New(Js::OpCode::Label, func);
     startLoop->m_isLoopTop = true;
-    Loop *loop = JitAnew(func->m_alloc, Loop, func->m_alloc, func);
+    Loop *loop = JitAnew(func->m_alloc, Loop, func->m_alloc, this->m_func);
     startLoop->SetLoop(loop);
+    loop->SetLoopTopInstr(startLoop);
     loop->regAlloc.liveOnBackEdgeSyms = AllocatorNew(JitArenaAllocator, func->m_alloc, BVSparse<JitArenaAllocator>, func->m_alloc);
 
     callInstr->InsertBefore(startLoop);
@@ -17875,7 +17866,6 @@ Lowerer::GenerateArgOutForStackArgs(IR::Instr* callInstr, IR::Instr* stackArgsIn
     this->m_lowererMD.LoadDynamicArgumentUsingLength(argout);
 
     IR::BranchInstr *tailBranch = IR::BranchInstr::New(Js::OpCode::Br, startLoop, func);
-    tailBranch->m_isLoopTail = true;
     callInstr->InsertBefore(tailBranch);
     callInstr->InsertBefore(endLoop);
     this->m_lowererMD.LowerUncondBranch(tailBranch);
@@ -19841,15 +19831,12 @@ Lowerer::GenerateFastBrTypeOf(IR::Instr *branch, IR::RegOpnd *object, IR::IntCon
         InsertSub(false, objTypeIdOpnd, objTypeIdOpnd, IR::IntConstOpnd::New(Js::TypeIds_FirstNumberType, TyInt32, branch->m_func),branch);
 
         InsertCompare(objTypeIdOpnd, IR::IntConstOpnd::New(Js::TypeIds_LastNumberType - Js::TypeIds_FirstNumberType, TyInt32, branch->m_func), branch);
-        IR::BranchInstr *branchInstr = InsertBranch(isNeqOp? Js::OpCode::BrGt_A : Js::OpCode::BrLe_A, true, target, branch);
-
-        branchInstr->m_isLoopTail = branch->AsBranchInstr()->m_isLoopTail;
+        InsertBranch(isNeqOp ? Js::OpCode::BrGt_A : Js::OpCode::BrLe_A, true, target, branch);
     }
     else
     {
         InsertCompare(objTypeIdOpnd, typeIdOpnd, branch);
-        IR::BranchInstr * branchInstr = InsertBranch(isNeqOp ? Js::OpCode::BrNeq_A : Js::OpCode::BrEq_A, target, branch);
-        branchInstr->m_isLoopTail = branch->AsBranchInstr()->m_isLoopTail;
+        InsertBranch(isNeqOp ? Js::OpCode::BrNeq_A : Js::OpCode::BrEq_A, target, branch);
     }
 
     // This could be 'null' which, for historical reasons, has a TypeId < TypeIds_Object but
@@ -21183,8 +21170,9 @@ Lowerer::LowerNewScopeSlots(IR::Instr * instr, bool doStackSlots)
         IR::LabelInstr * loopTop = IR::LabelInstr::New(Js::OpCode::Label, func);
         instr->InsertBefore(loopTop);
         loopTop->m_isLoopTop = true;
-        Loop *loop = JitAnew(func->m_alloc, Loop, func->m_alloc, func);
+        Loop *loop = JitAnew(func->m_alloc, Loop, func->m_alloc, this->m_func);
         loopTop->SetLoop(loop);
+        loop->SetLoopTopInstr(loopTop);
         loop->regAlloc.liveOnBackEdgeSyms = JitAnew(func->m_alloc, BVSparse<JitArenaAllocator>, func->m_alloc);
 
         for (unsigned int i = 0; i < loopUnrollCount; i++)
@@ -21194,7 +21182,6 @@ Lowerer::LowerNewScopeSlots(IR::Instr * instr, bool doStackSlots)
         InsertLea(currOpnd, IR::IndirOpnd::New(currOpnd, -((int)sizeof(Js::Var) * loopUnrollCount), TyMachPtr, func), instr);
 
         InsertCompareBranch(dst, currOpnd, Js::OpCode::BrLt_A, true, loopTop, instr);
-        instr->m_prev->AsBranchInstr()->m_isLoopTail = true;
 
         loop->regAlloc.liveOnBackEdgeSyms->Set(currOpnd->m_sym->m_id);
         loop->regAlloc.liveOnBackEdgeSyms->Set(dst->m_sym->m_id);
@@ -21377,13 +21364,13 @@ Lowerer::GenerateMarkTempAlloc(IR::RegOpnd *const dstOpnd, const size_t allocSiz
     InsertLea(dstOpnd, tempObjectOpnd, insertBeforeInstr);
 
     // Initialize the boxed instance slot
-    if (this->outterMostLoopLabel == null)
+    if (this->outerMostLoopLabel == null)
     {
         GenerateMemInit(dstOpnd, -(int)sizeof(void *), IR::AddrOpnd::NewNull(func), insertBeforeInstr, false);
     }
-    else
+    else if (!PHASE_OFF(Js::HoistMarkTempInitPhase, this->m_func))
     {   
-        InsertMove(IR::SymOpnd::New(tempObjectSym, TyMachPtr, func), IR::AddrOpnd::NewNull(func), this->outterMostLoopLabel, false);
+        InsertMove(IR::SymOpnd::New(tempObjectSym, TyMachPtr, func), IR::AddrOpnd::NewNull(func), this->outerMostLoopLabel, false);
     }
     return tempObjectOpnd;
 }
@@ -21462,6 +21449,8 @@ void Lowerer::GenerateSingleCharStrJumpTableLookup(IR::Instr * instr)
 {
     IR::MultiBranchInstr * multiBrInstr = instr->AsBranchInstr()->AsMultiBrInstr();
     Func * func = instr->m_func;
+    IR::LabelInstr * helperLabel = IR::LabelInstr::New(Js::OpCode::Label, func, true);
+    IR::LabelInstr * continueLabel = IR::LabelInstr::New(Js::OpCode::Label, func);
 
     // MOV strLengthOpnd, str->length
     IR::RegOpnd * strLengthOpnd = IR::RegOpnd::New(TyUint32, func);
@@ -21472,9 +21461,25 @@ void Lowerer::GenerateSingleCharStrJumpTableLookup(IR::Instr * instr)
     IR::LabelInstr * defaultLabelInstr = (IR::LabelInstr *)multiBrInstr->GetBranchJumpTable()->defaultTarget;
     InsertCompareBranch(strLengthOpnd, IR::IntConstOpnd::New(1, TyUint32, func), Js::OpCode::BrNeq_A, defaultLabelInstr, instr);
 
-    // MOV strBuffer, str->psz    
+    // MOV strBuffer, str->psz
     IR::RegOpnd * strBufferOpnd = IR::RegOpnd::New(TyMachPtr, func);
     InsertMove(strBufferOpnd, IR::IndirOpnd::New(instr->GetSrc1()->AsRegOpnd(), Js::JavascriptString::GetOffsetOfpszValue(), TyMachPtr, func), instr);
+
+    // TST strBuffer, strBuffer
+    // JNE $continue
+    InsertTestBranch(strBufferOpnd, strBufferOpnd, Js::OpCode::BrNeq_A, continueLabel, instr);
+
+    // $helper:
+    // PUSH str
+    // CALL JavascriptString::GetSzHelper
+    // MOV strBuffer, eax
+    // $continue:
+    instr->InsertBefore(helperLabel);
+    m_lowererMD.LoadHelperArgument(instr, instr->GetSrc1());
+    IR::Instr * instrCall = IR::Instr::New(Js::OpCode::Call, strBufferOpnd, IR::HelperCallOpnd::New(IR::HelperString_GetSz, func), func);
+    instr->InsertBefore(instrCall);
+    m_lowererMD.LowerCall(instrCall, 0);
+    instr->InsertBefore(continueLabel);
 
     // MOV charOpnd, [strBuffer]
     IR::RegOpnd * charOpnd = IR::RegOpnd::New(TyUint32, func);

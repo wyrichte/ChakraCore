@@ -1466,18 +1466,6 @@ namespace Js
             // If the cache's function is not null, the cache must have been registered already.  No need to register again.  
             // In fact, ThreadContext::RegisterIsInstInlineCache, would assert if we tried to re-register the same cache (to enforce the invariant above).
             // Review (jedmiad): What happens if we run out of memory inside RegisterIsInstInlieCache?
-
-#if DBG
-            // Bug 1075435 - each dump has one empty entry in isInstInlineCacheByFunction, might be caused by OOM somewhere
-            AUTO_INTEGRITY_CHECK([&]()
-            {
-                if (scriptContext->GetThreadContext()->IsIsInstInlineCacheRegistered(this, function))
-                {
-                    Assert(this->function == function && this->type == instanceType && this->result == result);
-                }
-            });
-#endif
-
             scriptContext->RegisterIsInstInlineCache(this, function);   
             this->Set(instanceType, function, result);
         }

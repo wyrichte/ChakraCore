@@ -276,8 +276,7 @@ Pass
  |  |    |  |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |  |    [Properties] count: 2
  |  |    |  |  |    | 0 length: value: 0.000000
- |  |    |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
- |  |    |  |  |    |    [Internal property] value: buffer
+ |  |    |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (1)
  |  |    |  |  |    |    [Prototype] type: StringObject (seen)
  |  |    |  |  | 25 buffer: rsFlags: setter type: FunctionObject flags: (new) optional info records (1)
  |  |    |  |  |    [Prototype] type: FunctionObject (seen)
@@ -285,32 +284,28 @@ Pass
  |  |    |  |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |  |    [Properties] count: 2
  |  |    |  |  |    | 0 length: value: 0.000000
- |  |    |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
- |  |    |  |  |    |    [Internal property] value: byteLength
+ |  |    |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (1)
  |  |    |  |  |    |    [Prototype] type: StringObject (seen)
  |  |    |  |  | 27 byteLength: rsFlags: setter type: FunctionObject (seen)
  |  |    |  |  | 28 byteOffset: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
  |  |    |  |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |  |    [Properties] count: 2
  |  |    |  |  |    | 0 length: value: 0.000000
- |  |    |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
- |  |    |  |  |    |    [Internal property] value: byteOffset
+ |  |    |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (1)
  |  |    |  |  |    |    [Prototype] type: StringObject (seen)
  |  |    |  |  | 29 byteOffset: rsFlags: setter type: FunctionObject (seen)
  |  |    |  |  | 30 length: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
  |  |    |  |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |  |    [Properties] count: 2
  |  |    |  |  |    | 0 length: value: 0.000000
- |  |    |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
- |  |    |  |  |    |    [Internal property] value: length
+ |  |    |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (1)
  |  |    |  |  |    |    [Prototype] type: StringObject (seen)
  |  |    |  |  | 31 length: rsFlags: setter type: FunctionObject (seen)
  |  |    |  |  | 32 Symbol.toStringTag: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
  |  |    |  |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |  |    [Properties] count: 2
  |  |    |  |  |    | 0 length: value: 0.000000
- |  |    |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
- |  |    |  |  |    |    [Internal property] value: [Symbol.toStringTag]
+ |  |    |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (1)
  |  |    |  |  |    |    [Prototype] type: StringObject (seen)
  |  |    |  |  | 33 Symbol.toStringTag: rsFlags: setter type: FunctionObject (seen)
  |  |    |  |  | 34 toLocaleString: type: FunctionObject flags: (new) optional info records (2)

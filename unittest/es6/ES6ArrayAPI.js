@@ -18,6 +18,12 @@ var tests = [
         }
     },
     {
+        name: "[0].indexOf(-0.0) should return 0",
+        body: function() {
+            assert.areEqual(0, [0].indexOf(-0.0), "[0].indexOf(-0.0) should return 0");
+        }
+    },
+    {
         name: "Array.from basic behavior",
         body: function() {
             assert.areEqual([], Array.from([]), "Array.from simplest usage is copying empty array");
@@ -450,6 +456,91 @@ var tests = [
         body: function () {
             var val = Math.cos.bind(Math);
             assert.isTrue(Array.isArray(Array.of.call(val)));
+        }
+    },
+    {
+        name: "Array.of() should not invoke setter",
+        body: function () {
+            function Bag() {}
+            Bag.of = Array.of;
+            Object.defineProperty(Bag.prototype, "0", {set: function(v) { /* no-op */ }});
+            assert.areEqual(1, Bag.of(1)[0]);
+        }
+    },
+    {
+        name: "Array.from() should not invoke setter in iterable case",
+        body: function () {
+            function Bag() {}
+            Bag.from = Array.from;
+            Object.defineProperty(Bag.prototype, "0", {set: function(v) { throw "Fail"; }});
+            var a = [1,2,3];
+            assert.areEqual(1, Bag.from(a)[0]);
+        }
+    },
+    {
+        name: "Array.from() should not invoke setter in array like case",
+        body: function () {
+            function Bag() {}
+            Bag.from = Array.from;
+            Object.defineProperty(Bag.prototype, "0", {set: function(v) { throw "Fail"; }});
+            var a = {};
+            a[0] = 1;
+            a[1] = 2;
+            a[2] = 3;
+            a.length = 3;
+            assert.areEqual(1, Bag.from(a)[0]);
+        }
+    },
+    {
+        name: "Array.filter() should not invoke setter even with substituted constructor",
+        body: function () {
+            var a = [1,2,3];
+            a.constructor = function()
+            {
+                function Bag() {};
+                Object.defineProperty(Bag.prototype, "0", { set: function(v){ throw "Fail"; } });
+                return new Bag();
+            };
+            assert.areEqual(1, a.filter(function(v){return v % 2 == 1;})[0]);
+        }
+    },
+    {
+        name: "Array.map() should not invoke setter even with substituted constructor",
+        body: function () {
+            var a = [1,2,3];
+            a.constructor = function()
+            {
+                function Bag() {};
+                Object.defineProperty(Bag.prototype, "0", { set: function(v){ throw "Fail"; } });
+                return new Bag();
+            };
+            assert.areEqual(1, a.map(function(v){return v % 2;})[0]);
+        }
+    },
+    {
+        name: "Array.slice() should not invoke setter even with substituted constructor",
+        body: function () {
+            var a = [1,2,3];
+            a.constructor = function()
+            {
+                function Bag() {};
+                Object.defineProperty(Bag.prototype, "0", { set: function(v){ throw "Fail"; } });
+                return new Bag();
+            };
+            assert.areEqual(2, a.slice(1, 3)[0]);
+        }
+    },
+    {
+        name: "Array.splice() should not invoke setter even with substituted constructor",
+        body: function () {
+            var a = [1,2,3];
+            a.constructor = function()
+            {
+                function Bag() {};
+                Object.defineProperty(Bag.prototype, "0", { set: function(v){ throw "Fail"; } });
+                return new Bag();
+            };
+            assert.areEqual(1, a.splice(0, 1, 'x')[0]);
         }
     }
 ];

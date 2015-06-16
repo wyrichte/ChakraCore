@@ -711,6 +711,7 @@ PropertySymOpnd::New(PropertySym *propertySym, IRType type, Func *func)
     newOpnd->writeGuards = null;
     newOpnd->objTypeSpecFlags = 0;
     newOpnd->isPropertySymOpnd = true;
+    newOpnd->checkedTypeSetIndex = (uint16)-1;
 
     newOpnd->m_kind = OpndKindSym;
 
@@ -799,6 +800,7 @@ PropertySymOpnd::CopyInternalSub(Func *func)
     newOpnd->objTypeSpecFldInfo = this->objTypeSpecFldInfo;
     newOpnd->usesAuxSlot = usesAuxSlot;
     newOpnd->slotIndex = slotIndex;
+    newOpnd->checkedTypeSetIndex = checkedTypeSetIndex;
 
     newOpnd->objTypeSpecFlags = this->objTypeSpecFlags;
     newOpnd->finalType = this->finalType;
@@ -855,7 +857,10 @@ void
 PropertySymOpnd::UpdateSlotForFinalType()
 {
     Js::Type *finalType = this->GetFinalType();
-    Js::Type *cachedType = this->IsMono() ? this->GetType() : this->GetFirstEquivalentType();
+
+    Assert(this->IsMono() || this->checkedTypeSetIndex != (uint16)-1);
+    Js::Type *cachedType = 
+        this->IsMono() ? this->GetType() : this->GetEquivalentTypeSet()->GetType(checkedTypeSetIndex);
 
     Assert(finalType && Js::DynamicType::Is(finalType->GetTypeId()));
     Assert(cachedType && Js::DynamicType::Is(cachedType->GetTypeId()));

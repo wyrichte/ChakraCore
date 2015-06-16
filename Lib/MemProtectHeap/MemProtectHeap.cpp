@@ -1607,7 +1607,7 @@ MemProtectHeapMemSizeImpl(TContext* context, void* memory, size_t* outSize)
 {
     RecyclerHeapObjectInfo heapObject;
 
-    if (!context->GetRecycler()->FindHeapObject(memory, FindHeapObjectFlags_VerifyFreeBitForAttribute, heapObject))
+    if (!context->GetRecycler()->FindImplicitRootObject(memory, heapObject))
     {
         return E_INVALIDARG;
     }
@@ -1628,7 +1628,7 @@ MemProtectHeapRootReallocImpl(TContext* context, size_t newSize, void** memory)
     RecyclerHeapObjectInfo heapObject;
     void* oldMemory = *memory;
 
-    if (!context->GetRecycler()->FindHeapObject(oldMemory, FindHeapObjectFlags_VerifyFreeBitForAttribute, heapObject))
+    if (!context->GetRecycler()->FindImplicitRootObject(oldMemory, heapObject))
     {
         return E_INVALIDARG;
     }
@@ -1684,7 +1684,7 @@ MemProtectHeapBeginUnrootAndZeroImplInternal(TContext* context, void* memory)
     RecyclerHeapObjectInfo heapObject;
     Recycler* recycler = context->GetRecycler();
 
-    if (!recycler->FindHeapObject(memory, FindHeapObjectFlags_VerifyFreeBitForAttribute, heapObject))
+    if (!recycler->FindImplicitRootObject(memory, heapObject))
     {
         return E_INVALIDARG;
     }
@@ -1742,7 +1742,7 @@ __inline HRESULT
 MemProtectHeapRootFreeImpl(TContext* context, void* memory)
 {
     RecyclerHeapObjectInfo heapObject;
-    if (!context->GetRecycler()->FindHeapObject(memory, FindHeapObjectFlags_VerifyFreeBitForAttribute, heapObject))
+    if (!context->GetRecycler()->FindImplicitRootObject(memory, heapObject))
     {
         return E_INVALIDARG;
     }
@@ -1781,7 +1781,6 @@ if (alwaysLocked) \
 } \
         else \
 { \
-    MemProtectThreadContext::NoSuspendRegion noSuspendRegion(threadContext); \
     statement; \
 } \
 } \
@@ -1927,7 +1926,7 @@ HRESULT __stdcall MemProtectHeapRemoveRootSection(__in void* heapHandle, __in Me
 bool MemProtectHeapIsValidObject(__in void* heapHandle, __in void* memory)
 {
     RecyclerHeapObjectInfo heapObject;
-    MemProtectEntrypoint(heapHandle, return context->GetRecycler()->FindHeapObject(memory, FindHeapObjectFlags_NoFlags, heapObject));
+    MemProtectAlwaysLockedEntrypoint(heapHandle, return context->GetRecycler()->FindHeapObject(memory, FindHeapObjectFlags_NoFlags, heapObject));
 }
 
 #if DBG && defined(INTERNAL_MEM_PROTECT_HEAP_ALLOC)

@@ -70,7 +70,6 @@ private:
     uint                intRegUsedCount;
     uint                floatRegUsedCount;
     int                 loopNest;
-    uint32              loopTail;    
     Loop *              curLoop;
     Region *            currentRegion;
     BVSparse<JitArenaAllocator> *liveOnBackEdgeSyms;

@@ -233,8 +233,7 @@ namespace JsDiag
     {
         // Note that loading library increments its ref count, so that it's already loaded, we'll get same module.
         // Unloading decrements ref count and actually unloads the library only when ref count becomes 0.
-        // TODO: how about search paths? Can this load wrong version of DLL from more important path?
-        this->Handle = ::LoadLibraryExW(fileName, NULL, 0);
+        this->Handle = ::LoadLibraryExW(fileName, nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
         if (!this->Handle)
         {
             DiagException::Throw(HRESULT_FROM_WIN32(::GetLastError()), DiagErrorCode::LOAD_LIBRARY);

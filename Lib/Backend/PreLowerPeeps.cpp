@@ -236,11 +236,6 @@ IR::Instr *Lowerer::PeepBrBool(IR::Instr *instrBr)
         }
     }
 
-    if (instrBr->AsBranchInstr()->m_isLoopTail)
-    {
-        instrBr2->m_isLoopTail = true;
-    }
-
     instrBinOp->Remove();
     instrBr->Remove();
 

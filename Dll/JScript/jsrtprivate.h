@@ -21,7 +21,7 @@ extern "C" {
 /// <summary>
 ///     The context cannot be taken out of a debug state because it is not in a debug state.
 /// </summary>
-const enum JsErrorCode JsErrorNotDebuggingContext = (JsErrorCode)(JsErrorIdleNotEnabled + 7);
+const JsErrorCode JsErrorNotDebuggingContext = (JsErrorCode)(JsErrorIdleNotEnabled + 7);
 
 /// <summary>
 ///     Create runtime with IE12 version.
@@ -45,7 +45,7 @@ JsSerializeNativeScript(
 /// <summary>
 ///     The attributes of a property.
 /// </summary>
-typedef enum JsPropertyAttributes
+typedef enum _JsPropertyAttributes
 {
     /// <summary>
     ///     The property has no special attributes.
@@ -75,7 +75,7 @@ typedef enum JsPropertyAttributes
     ///     An invalid property attribute.
     /// </summary>
     JsPropertyAttributeInvalid = 0xFFFFFFFF,
-};
+} JsPropertyAttributes;
 
 /// <summary>
 ///     A callback to move a property enumerator to the next property.
@@ -280,13 +280,13 @@ typedef void (CALLBACK *JsTypedFinalizeCallback)(_In_ JsValueRef object);
 /// <summary>
 ///     Version of the type description.
 /// </summary>
-typedef enum JsExternalTypeDescriptionVersion
+typedef enum _JsExternalTypeDescriptionVersion
 {
     /// <summary>
     ///     A type description compatible with IE12.
     /// </summary>
     JsTypeDescriptionVersion12 = 12,
-};
+} JsExternalTypeDescriptionVersion;
 
 /// <summary>
 ///     A description of an external JavaScript type.

@@ -269,7 +269,7 @@ namespace Js {
         ByteCodeGenerator* GetByteCodeGenerator() const;
         ScriptContext  *GetScriptContext() const;
 
-        bool FailName( ParseNode *usepn, const wchar *fmt, PropertyName name );;
+        bool FailName( ParseNode *usepn, const wchar *fmt, PropertyName name );
         bool Fail( ParseNode* usepn, const wchar *error );
 
         bool AreAllFuncTableDefined();

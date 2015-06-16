@@ -1,3 +1,4 @@
+Successfully compiled asm.js code
 write8    HEAP8  [0]   = all[0](undefined); = 0
 writeF32f HEAPF32[0]   = all[0](undefined); = NaN
 write16   HEAP16 [0]   = all[0](undefined); = 0

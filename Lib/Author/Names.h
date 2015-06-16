@@ -85,5 +85,6 @@ namespace Authoring
         const wchar_t containerList[] = L"_$containerList";
         const wchar_t inContainerList[] = L"_$inContainerList";
         const wchar_t callFunctionWithSettings[] = L"_$callFunctionWithSettings";
+        const wchar_t forceCatchException[] = L"_$forceCatchException";
     }
 }

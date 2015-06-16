@@ -5,7 +5,6 @@
     <ClInclude Include="jsStatic.h" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="scaformat.idl" />
     <Midl Include="scriptdirect.idl" />
     <Midl Include="..\..\published\sdk\inc\activdbg.idl">
       <Filter>Inetcore</Filter>
@@ -40,6 +39,7 @@
     <Midl Include="..\..\published\internal\inc\scriptdirecthost.idl">
       <Filter>Inetcore</Filter>
     </Midl>
+    <Midl Include="..\..\published\internal\inc\scaformat.idl" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Inetcore">

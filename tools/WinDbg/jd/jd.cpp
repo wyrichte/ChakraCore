@@ -181,7 +181,7 @@ bool EXT_CLASS_BASE::PageAllocatorHasExtendedCounters()
 {
     if (!m_pageAllocatorHasExtendedCounters.HasValue())
     {
-        ExtRemoteTyped fakePageAllocator(this->FillModuleAndMemoryNS("(%s!%sPageAllocator *)0"));
+        ExtRemoteTyped fakePageAllocator(this->FillModuleV("(%s!%s *)0", this->GetModuleName(), this->GetPageAllocatorType()));
         m_pageAllocatorHasExtendedCounters = fakePageAllocator.HasField("reservedBytes");
     }
     return m_pageAllocatorHasExtendedCounters;

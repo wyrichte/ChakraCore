@@ -565,9 +565,9 @@ EncoderMD::Encode(IR::Instr *instr, BYTE *pc, BYTE* beginCodeAddress)
                 if (!PHASE_OFF(Js::LoopAlignPhase, m_func))
                 {
                     // we record position of last loop-top label (leaf loops) for loop alignment
-                    if (labelInstr->m_isLoopTop)
+                    if (labelInstr->m_isLoopTop && labelInstr->GetLoop()->isLeaf)
                     {
-                        m_lastLoopLabelPosition = relocEntryPosition;
+                        m_relocList->Item(relocEntryPosition).m_type = RelocType::RelocTypeAlignedLabel;
                     }
                 }
             }
@@ -933,7 +933,6 @@ EncoderMD::Encode(IR::Instr *instr, BYTE *pc, BYTE* beginCodeAddress)
                 AssertMsg(sizeof(size_t) == sizeof(void*), "Sizes of void* assumed to be 64-bits");
                 AssertMsg(instr->IsBranchInstr(), "Invalid LABREL2 form");
                 AppendRelocEntry(RelocTypeBranch, (void*)m_pc, instr->AsBranchInstr()->GetTarget());
-                MarkLoopLabelToAlign(instr->AsBranchInstr());
                 this->EmitConst(0 , 4);                
             }
             else if (opr1->IsIntConstOpnd())
@@ -1300,42 +1299,6 @@ EncoderMD::AppendRelocEntry(RelocType type, void *ptr, IR::LabelInstr *label)
     EncodeRelocAndLabels reloc;
     reloc.init(type, ptr, label);
     return m_relocList->Add(reloc);
-}
-
-void
-EncoderMD::MarkLoopLabelToAlign(IR::BranchInstr *instr)
-{
-    if (PHASE_OFF(Js::LoopAlignPhase, m_func))
-        return;
-    
-    // mark target label as possibly needing loop alignment for leaf loops
-    if (instr->m_isLoopTail && m_lastLoopLabelPosition >= 0)
-    {
-        EncodeRelocAndLabels &relocEntry = m_relocList->Item(m_lastLoopLabelPosition);
-
-        AssertMsg(relocEntry.m_type == RelocType::RelocTypeLabel, "Expecting reloc entry to be a label");
-        
-        // This assertions ensures we are marking the correct leaf loop. However, I found out that m_isLoopTop is not always set correctly for labels, 
-        // which may cause this assertion to fire. Here is one example from stringfasta.js:
-        //  $L57:
-        //      s13(ebx).i32 = MOV         s13<-28>.i32
-        //      s18(edi).i32 = MOV         s18<-32>.i32
-        //  $L1: >> >> >> >> >> >> >  LOOP TOP >> >> >> >> >> >> > Implicit call : no  <<---- Incorrectly set as loop top.
-        //
-        //      .. loop body ..
-        //
-        //      COMISD         s31(s15)(xmm1).f64!, s30(s11)(xmm0).f64
-        //      JBE            $L57
-        //
-        // While this may cause us to align at the wrong "loop header", it doesn't break the code.
-        // ToDo: Look into why m_isLoopTop is set incorrectly.
-        
-        //AssertMsg(((IR::LabelInstr*)relocEntry.m_origPtr) == instr->GetTarget(), "Unexpected label instr");
-
-        m_relocList->Item(m_lastLoopLabelPosition).m_type = RelocType::RelocTypeAlignedLabel;
-        m_lastLoopLabelPosition = -1;
-    }
-
 }
 
 int

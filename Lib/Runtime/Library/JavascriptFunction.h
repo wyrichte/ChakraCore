@@ -153,8 +153,7 @@ namespace Js
         ConstructorCache* GetConstructorCache() { Assert(this->constructorCache != null); return this->constructorCache; }
         ConstructorCache* EnsureValidConstructorCache();
 
-        // Called when the debugger attach has done.
-        void SetConstructorCacheToDefault();
+        void ResetConstructorCacheToDefault();
 
 #if DBG_DUMP
         void Dump();
@@ -172,6 +171,7 @@ namespace Js
         virtual BOOL GetAccessors(PropertyId propertyId, Var *getter, Var *setter, ScriptContext * requestContext) override;
         virtual DescriptorFlags GetSetter(PropertyId propertyId, Var *setterValue, PropertyValueInfo* info, ScriptContext* requestContext) override;
         virtual DescriptorFlags GetSetter(JavascriptString* propertyNameString, Var *setterValue, PropertyValueInfo* info, ScriptContext* requestContext) override;
+        virtual BOOL IsConfigurable(PropertyId propertyId) override;
         virtual BOOL IsEnumerable(PropertyId propertyId) override;
         virtual BOOL IsWritable(PropertyId propertyId) override;
         virtual BOOL GetSpecialPropertyName(uint32 index, Var *propertyName, ScriptContext * requestContext) override;

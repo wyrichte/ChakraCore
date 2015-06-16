@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) Microsoft. All rights reserved. 
+// Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
 #include "StdAfx.h"
@@ -16,7 +16,7 @@ namespace Js
     // ES5 9.10 indicates that this method should throw a TypeError if the supplied value is Undefined or Null.
     // Our implementation returns FALSE in this scenario, expecting the caller to throw the TypeError.
     // This allows the caller to provide more context in the error message without having to unnecessarily
-    // construct the message string before knowing whether or not the object is coercible. 
+    // construct the message string before knowing whether or not the object is coercible.
     BOOL JavascriptConversion::CheckObjectCoercible(Var aValue, ScriptContext* scriptContext)
     {
         TypeId typeId = JavascriptOperators::GetTypeId(aValue);
@@ -139,7 +139,7 @@ namespace Js
                 dblRight    = JavascriptNumber::GetValue(aRight);
                 goto CommonNumber;
             case TypeIds_Int64Number:
-                {                
+                {
                 unsigned __int64 leftValue = JavascriptUInt64Number::FromVar(aLeft)->GetValue();
                 __int64 rightValue = JavascriptInt64Number::FromVar(aRight)->GetValue();
                 // TODO: yongqu to review whether we need to check for neg value
@@ -228,16 +228,16 @@ CommonNumber:
     // The spec indicates that this method should throw a TypeError if the supplied value is Undefined or Null.
     // Our implementation returns FALSE in this scenario, expecting the caller to throw the TypeError.
     // This allows the caller to provide more context in the error message without having to unnecessarily
-    // construct the message string before knowing whether or not the value can be converted to an object. 
+    // construct the message string before knowing whether or not the value can be converted to an object.
     //
     //  Undefined   Return FALSE.
     //  Null        Return FALSE.
-    //  Boolean     Create a new Boolean object whose [[PrimitiveValue]] 
-    //              internal property is set to the value of the boolean. 
+    //  Boolean     Create a new Boolean object whose [[PrimitiveValue]]
+    //              internal property is set to the value of the boolean.
     //              See 15.6 for a description of Boolean objects.
     //              Return TRUE.
-    //  Number      Create a new Number object whose [[PrimitiveValue]] 
-    //              internal property is set to the value of the number. 
+    //  Number      Create a new Number object whose [[PrimitiveValue]]
+    //              internal property is set to the value of the number.
     //              See 15.7 for a description of Number objects.
     //              Return TRUE.
     //  String      Create a new String object whose [[PrimitiveValue]]
@@ -258,10 +258,10 @@ CommonNumber:
 
             case TypeIds_Number:
             case TypeIds_Integer:
-                *object = scriptContext->GetLibrary()->CreateNumberObject(aValue);                
+                *object = scriptContext->GetLibrary()->CreateNumberObject(aValue);
                 return TRUE;
 
-            default:                            
+            default:
             {
                 *object = RecyclableObject::FromVar(aValue)->ToObject(scriptContext);
                 return TRUE;
@@ -278,10 +278,10 @@ CommonNumber:
     //    Boolean:  The result equals the input argument (no conversion).
     //    Number:   The result equals the input argument (no conversion).
     //    String:   The result equals the input argument (no conversion).
-    //    Object:   Return a default value for the Object. 
-    //              The default value of an object is retrieved by calling the [[DefaultValue]] 
-    //              internal method of the object, passing the optional hint PreferredType. 
-    //              The behaviour of the [[DefaultValue]] internal method is defined by this specification 
+    //    Object:   Return a default value for the Object.
+    //              The default value of an object is retrieved by calling the [[DefaultValue]]
+    //              internal method of the object, passing the optional hint PreferredType.
+    //              The behaviour of the [[DefaultValue]] internal method is defined by this specification
     //              for all native ECMAScript objects (8.12.9).
     //----------------------------------------------------------------------------
     Var JavascriptConversion::ToPrimitive(Var aValue, JavascriptHint hint, ScriptContext * requestContext)
@@ -357,7 +357,7 @@ CommonNumber:
                 }
             }
 
-        // convert to JavascriptNumber 
+        // convert to JavascriptNumber
         case TypeIds_Int64Number:
             return JavascriptInt64Number::FromVar(aValue)->ToJavascriptNumber();
         case TypeIds_UInt64Number:
@@ -400,7 +400,7 @@ CommonNumber:
         ScriptContext *const scriptContext = recyclableObject->GetScriptContext();
 
         /*7.3.7 GetMethod (O, P)
-        The abstract operation GetMethod is used to get the value of a specific property of an object when the value of the property is expected to be a function. 
+        The abstract operation GetMethod is used to get the value of a specific property of an object when the value of the property is expected to be a function.
         The operation is called with arguments O and P where O is the object, P is the property key. This abstract operation performs the following steps:
 
         Assert: Type(O) is Object.
@@ -411,7 +411,7 @@ CommonNumber:
         If IsCallable(func) is false, then throw a TypeError exception.
         Return func.*/
         Var varMethod;
-        
+
         if (!(requestContext->GetConfig()->IsES6ToPrimitiveEnabled()
             && JavascriptOperators::GetPropertyReference(recyclableObject, PropertyIds::_symbolToPrimitive, &varMethod, requestContext)
             && !JavascriptOperators::IsUndefinedObject(varMethod)))
@@ -451,7 +451,7 @@ CommonNumber:
                 // Stack object should have a pre-op bail on implicit call.  We shouldn't see them here.
                 Assert(!ThreadContext::IsOnStack(recyclableObject));
 
-                // Let result be the result of calling the[[Call]] internal method of exoticToPrim, with input as thisArgument and(hint) as argumentsList.               
+                // Let result be the result of calling the[[Call]] internal method of exoticToPrim, with input as thisArgument and(hint) as argumentsList.
                 return  exoticToPrim->GetEntryPoint()(exoticToPrim, CallInfo(CallFlags_Value, 2), recyclableObject, hintString);
             });
 
@@ -487,7 +487,7 @@ CommonNumber:
             ScriptContext *const scriptContext = recyclableObject->GetScriptContext();
 
             long hCode;
-           
+
             switch (hint)
             {
             case JavascriptHint::HintNumber:
@@ -518,8 +518,8 @@ CommonNumber:
 
 
     //----------------------------------------------------------------------------
-    // ToString - abstract operation 
-    // ES5 9.8 
+    // ToString - abstract operation
+    // ES5 9.8
     //Input Type Result
     //    Undefined
     //    "undefined"
@@ -596,9 +596,6 @@ CommonNumber:
             case TypeIds_Symbol:
                 return JavascriptSymbol::FromVar(aValue)->ToString(scriptContext);
 
-            case TypeIds_SafeArray:
-                JavascriptError::ThrowError(scriptContext, JSERR_NeedString);
-
             case TypeIds_GlobalObject:
                 aValue = static_cast<Js::GlobalObject*>(aValue)->ToThis();
                 // fall through
@@ -646,9 +643,6 @@ CommonNumber:
         case TypeIds_String:
             return JavascriptString::FromVar(aValue);
 
-        case TypeIds_SafeArray:
-            JavascriptError::ThrowError(scriptContext, JSERR_NeedString);
-
         case TypeIds_VariantDate:
             // Legacy behavior was to create an empty object and call toLocaleString on it, which would result in this value
             return scriptContext->GetLibrary()->GetObjectDisplayString();
@@ -660,7 +654,7 @@ CommonNumber:
             {
                 RecyclableObject* object = RecyclableObject::FromVar(aValue);
                 Var value = JavascriptOperators::GetProperty(object, PropertyIds::toLocaleString, scriptContext, NULL);
-                
+
                 if (JavascriptConversion::IsCallable(value))
                 {
                     RecyclableObject* toLocaleStringFunction = RecyclableObject::FromVar(value);
@@ -707,7 +701,6 @@ CommonNumber:
         {
         case TypeIds_Undefined:
         case TypeIds_Null:
-        case TypeIds_SafeArray:
         case TypeIds_VariantDate:
             return false;
 
@@ -758,19 +751,19 @@ CommonNumber:
         default:
             {
                 AssertMsg(JavascriptOperators::IsObject(aValue), "bad type object in conversion ToBoolean");
-                
-                // Falsy objects evaluate to false when converted to Boolean. 
+
+                // Falsy objects evaluate to false when converted to Boolean.
                 return !type->IsFalsy();
             }
         }
     }
 
-    void JavascriptConversion::ToFloat_Helper(Var aValue, float *pResult, ScriptContext* scriptContext)  
+    void JavascriptConversion::ToFloat_Helper(Var aValue, float *pResult, ScriptContext* scriptContext)
     {
         *pResult = (float)ToNumber_Full(aValue, scriptContext);
     }
 
-    void JavascriptConversion::ToNumber_Helper(Var aValue, double *pResult, ScriptContext* scriptContext)  
+    void JavascriptConversion::ToNumber_Helper(Var aValue, double *pResult, ScriptContext* scriptContext)
     {
         Assert(Js::JavascriptStackWalker::ValidateTopJitFrame(scriptContext));
         *pResult = ToNumber_Full(aValue, scriptContext);
@@ -778,7 +771,7 @@ CommonNumber:
 
     // Used for the JIT's float type specialization
     // Convert aValue to double, but only allow primitives.  Return false otherwise.
-    BOOL JavascriptConversion::ToNumber_FromPrimitive(Var aValue, double *pResult, BOOL allowUndefined, ScriptContext* scriptContext)  
+    BOOL JavascriptConversion::ToNumber_FromPrimitive(Var aValue, double *pResult, BOOL allowUndefined, ScriptContext* scriptContext)
     {
         Assert(Js::JavascriptStackWalker::ValidateTopJitFrame(scriptContext));
         Assert(!TaggedNumber::Is(aValue));
@@ -810,7 +803,7 @@ CommonNumber:
 	//  Symbol:    TypeError
     //----------------------------------------------------------------------------
 
-    double JavascriptConversion::ToNumber_Full(Var aValue,ScriptContext* scriptContext)  
+    double JavascriptConversion::ToNumber_Full(Var aValue,ScriptContext* scriptContext)
     {
         AssertMsg(!TaggedInt::Is(aValue), "Should be detected");
         ScriptContext * objectScriptContext = RecyclableObject::Is(aValue) ? RecyclableObject::FromVar(aValue)->GetScriptContext() : nullptr;
@@ -849,9 +842,6 @@ CommonNumber:
 
             case TypeIds_VariantDate:
                 return Js::DateImplementation::GetTvUtc(Js::DateImplementation::JsLocalTimeFromVarDate(JavascriptVariantDate::FromVar(aValue)->GetValue()), scriptContext);
-
-            case TypeIds_SafeArray:
-                JavascriptError::ThrowError(scriptContext, JSERR_NeedNumber);
 
             default:
                 {
@@ -906,9 +896,6 @@ CommonNumber:
             case TypeIds_String:
                 return ToInteger(JavascriptString::FromVar(aValue)->ToDouble());
 
-            case TypeIds_SafeArray:
-                JavascriptError::ThrowError(scriptContext, JSERR_NeedNumber);
-
             case TypeIds_VariantDate:
                 return ToInteger(ToNumber_Full(aValue, scriptContext));
 
@@ -932,18 +919,18 @@ CommonNumber:
     {
         if(JavascriptNumber::IsNan(val))
             return 0;
-        if(JavascriptNumber::IsPosInf(val) || JavascriptNumber::IsNegInf(val) || 
+        if(JavascriptNumber::IsPosInf(val) || JavascriptNumber::IsNegInf(val) ||
             JavascriptNumber::IsZero(val))
         {
             return val;
         }
 
         // TODO potential back compat issue here.
-        // by spec the return value is  sign(number) * floor(abs(number)). 
+        // by spec the return value is  sign(number) * floor(abs(number)).
         // v5.8 engine hast it's own formula. If any issue shows up, switch to V5.8
         //
         return ( ((val < 0) ? -1 : 1 ) * floor(fabs(val)));
-        // the v5.8 engine formula: 
+        // the v5.8 engine formula:
         //if (NumberUtilities::LuHiDbl(val) & 0x80000000)
         //{
         //    NumberUtilities::LuHiDbl(val) &= 0x7FFFFFFF;
@@ -958,7 +945,7 @@ CommonNumber:
         //}
         //return val;
     }
-    
+
 
     //----------------------------------------------------------------------------
     // ToInt32() converts the given Var to an Int32 value, as described in
@@ -997,12 +984,12 @@ CommonNumber:
             return JavascriptBoolean::FromVar(aValue)->GetValue() ? 1 : +0;
 
         case TypeIds_Int64Number:
-            // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to 
+            // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to
             // treat it as double anyhow.
             return JavascriptMath::ToInt32Core((double)JavascriptInt64Number::FromVar(aValue)->GetValue(), scriptContext);
 
         case TypeIds_UInt64Number:
-            // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to 
+            // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to
             // treat it as double anyhow.
             return JavascriptMath::ToInt32Core((double)JavascriptUInt64Number::FromVar(aValue)->GetValue(), scriptContext);
 
@@ -1016,10 +1003,6 @@ CommonNumber:
             // If the string isn't a valid number, ToDouble returns NaN, and ToInt32 of that is 0
             return 0;
         }
-
-        case TypeIds_SafeArray:
-            JavascriptError::ThrowError(scriptContext, JSERR_NeedNumber);
-
 
         case TypeIds_VariantDate:
             return ToInt32(ToNumber_Full(aValue, scriptContext), scriptContext);
@@ -1037,7 +1020,7 @@ CommonNumber:
         case TypeIds_Undefined:
         case TypeIds_Null:
             return  0;
-            
+
         case TypeIds_Integer:
             return TaggedInt::ToInt32(aValue);
 
@@ -1048,12 +1031,12 @@ CommonNumber:
             return ToInt32(JavascriptNumber::GetValue(aValue), scriptContext);
 
         case TypeIds_Int64Number:
-            // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to 
+            // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to
             // treat it as double anyhow.
             return JavascriptMath::ToInt32Core((double)JavascriptInt64Number::FromVar(aValue)->GetValue(), scriptContext);
 
         case TypeIds_UInt64Number:
-            // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to 
+            // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to
             // treat it as double anyhow.
             return JavascriptMath::ToInt32Core((double)JavascriptUInt64Number::FromVar(aValue)->GetValue(), scriptContext);
 
@@ -1067,9 +1050,6 @@ CommonNumber:
             // If the string isn't a valid number, ToDouble returns NaN, and ToInt32 of that is 0
             return 0;
         }
-
-        case TypeIds_SafeArray:
-            JavascriptError::ThrowError(scriptContext, JSERR_NeedNumber);
 
         case TypeIds_VariantDate:
             return ToInt32(ToNumber_Full(aValue, scriptContext), scriptContext);
@@ -1117,20 +1097,17 @@ CommonNumber:
                 return ToInt32Finite(JavascriptNumber::GetValue(aValue), scriptContext, result);
 
             case TypeIds_Int64Number:
-                // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to 
+                // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to
                 // treat it as double anyhow.
                 return ToInt32Finite((double)JavascriptInt64Number::FromVar(aValue)->GetValue(), scriptContext, result);
 
             case TypeIds_UInt64Number:
-                // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to 
+                // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to
                 // treat it as double anyhow.
                 return ToInt32Finite((double)JavascriptUInt64Number::FromVar(aValue)->GetValue(), scriptContext, result);
 
             case TypeIds_String:
                 return ToInt32Finite(JavascriptString::FromVar(aValue)->ToDouble(), scriptContext, result);
-
-            case TypeIds_SafeArray:
-                JavascriptError::ThrowError(scriptContext, JSERR_NeedNumber);
 
             case TypeIds_VariantDate:
                 return ToInt32Finite(ToNumber_Full(aValue, scriptContext), scriptContext, result);
@@ -1152,12 +1129,12 @@ CommonNumber:
     }
 
     int32 JavascriptConversion::ToInt32(double T1, ScriptContext* scriptContext)
-    {        
+    {
         return JavascriptMath::ToInt32Core(T1, scriptContext);
     }
 
     __int64 JavascriptConversion::ToInt64(Var aValue, ScriptContext* scriptContext)
-    {        
+    {
         switch (JavascriptOperators::GetTypeId(aValue))
         {
         case TypeIds_Integer:
@@ -1182,7 +1159,7 @@ CommonNumber:
     }
 
     unsigned __int64 JavascriptConversion::ToUInt64(Var aValue, ScriptContext* scriptContext)
-    {        
+    {
         switch (JavascriptOperators::GetTypeId(aValue))
         {
         case TypeIds_Integer:
@@ -1238,7 +1215,7 @@ CommonNumber:
             case TypeIds_Undefined:
             case TypeIds_Null:
                 return  0;
-    
+
             case TypeIds_Integer:
                 return TaggedInt::ToUInt32(aValue);
 
@@ -1249,12 +1226,12 @@ CommonNumber:
                 return JavascriptMath::ToUInt32(JavascriptNumber::GetValue(aValue), scriptContext);
 
             case TypeIds_Int64Number:
-                // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to 
+                // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to
                 // treat it as double anyhow.
                 return JavascriptMath::ToUInt32((double)JavascriptInt64Number::FromVar(aValue)->GetValue(), scriptContext);
 
             case TypeIds_UInt64Number:
-                // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to 
+                // we won't lose precision if the int64 is within 32bit boundary; otherwise we need to
                 // treat it as double anyhow.
                 return JavascriptMath::ToUInt32((double)JavascriptUInt64Number::FromVar(aValue)->GetValue(), scriptContext);
 
@@ -1268,9 +1245,6 @@ CommonNumber:
                 // If the string isn't a valid number, ToDouble returns NaN, and ToUInt32 of that is 0
                 return 0;
             }
-
-            case TypeIds_SafeArray:
-                JavascriptError::ThrowError(scriptContext, JSERR_NeedNumber);
 
             case TypeIds_VariantDate:
                 return JavascriptMath::ToUInt32(ToNumber_Full(aValue, scriptContext), scriptContext);
@@ -1295,7 +1269,7 @@ CommonNumber:
         // Same as doing ToInt32 and reinterpret the bits as uint32
         return (uint32)JavascriptMath::ToInt32Core(T1, scriptContext);
     }
-    
+
     //----------------------------------------------------------------------------
     // ToUInt16() converts the given Var to a UInt16 value, as described in
     // (ES3.0: S9.6).
@@ -1327,12 +1301,12 @@ CommonNumber:
                 return ToUInt16(JavascriptNumber::GetValue(aValue), scriptContext);
 
             case TypeIds_Int64Number:
-                // we won't lose precision if the int64 is within 16bit boundary; otherwise we need to 
+                // we won't lose precision if the int64 is within 16bit boundary; otherwise we need to
                 // treat it as double anyhow.
                 return ToUInt16((double)JavascriptInt64Number::FromVar(aValue)->GetValue(), scriptContext);
 
             case TypeIds_UInt64Number:
-                // we won't lose precision if the int64 is within 16bit boundary; otherwise we need to 
+                // we won't lose precision if the int64 is within 16bit boundary; otherwise we need to
                 // treat it as double anyhow.
                 return ToUInt16((double)JavascriptUInt64Number::FromVar(aValue)->GetValue(), scriptContext);
 
@@ -1346,9 +1320,6 @@ CommonNumber:
                 // If the string isn't a valid number, ToDouble is NaN, and ToUInt16 of that is 0
                 return 0;
             }
-
-            case TypeIds_SafeArray:
-                JavascriptError::ThrowError(scriptContext, JSERR_NeedNumber);
 
             case TypeIds_VariantDate:
                 return ToUInt16(ToNumber_Full(aValue, scriptContext), scriptContext);
@@ -1367,7 +1338,7 @@ CommonNumber:
             }
         }
     }
-        
+
     __inline uint16 JavascriptConversion::ToUInt16(double T1, ScriptContext* scriptContext)
     {
         //
@@ -1377,11 +1348,11 @@ CommonNumber:
 
         uint32 result = JavascriptMath::ToUInt32(T1, scriptContext);
 #if defined(_M_IX86) && _MSC_FULL_VER < 160030329
-        // Well VC doesn't actually do the right thing...  It takes (uint16)(uint32)double and removes the 
-        // middle uint32 cast to (uint16)double, which isn't the same thing.  Somehow, it only seems to be a 
+        // Well VC doesn't actually do the right thing...  It takes (uint16)(uint32)double and removes the
+        // middle uint32 cast to (uint16)double, which isn't the same thing.  Somehow, it only seems to be a
         // problem for x86. Forcing a store to uint32 prevents the incorrect optimization.
         //
-        // A bug has been filled in the Dev11 database: TF bug id #901495 
+        // A bug has been filled in the Dev11 database: TF bug id #901495
         // Fixed in compiler 16.00.30329.00
         volatile uint32 volResult = result;
 #endif
@@ -1389,7 +1360,7 @@ CommonNumber:
     }
 
     JavascriptString * JavascriptConversion::ToPrimitiveString(Var aValue, ScriptContext * scriptContext)
-    {        
+    {
         return ToString(ToPrimitive(aValue, JavascriptHint::None, scriptContext), scriptContext);
     }
 

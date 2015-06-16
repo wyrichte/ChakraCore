@@ -5,6 +5,8 @@
 ********************************************************/
 #pragma once
 
+namespace Memory
+{
 struct FreeObject 
 {
 public:
@@ -28,3 +30,4 @@ private:
     INT_PTR taggedNext;    
     static INT_PTR const TaggedBit = 0x1;
 };
+}

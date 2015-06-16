@@ -46,6 +46,13 @@ set _snap=
 set _rebase=
 set _ExtraVariants=
 set _logsRoot=%cd%\logs
+set _ccChangeList=
+set _GumshoePath=%ProgramFiles%\Gumshoe
+set _GumshoeExe=%ProgramFiles%\Gumshoe\gumshoe.exe
+set _MagellanPath=%SystemDrive%\ChakraMagellan
+set _DpkFile=ChakraCC_
+set _GumshoeSetupPath=\\ocentral\products\Gumshoe\latest\setup\x64\gumshoe.msi
+set _MagellanSetupPath=\\codecovfs01\Magellan_pre_Release\Latest\amd64fre
 
 :NextArgument
 if "%1" == "-?" (
@@ -136,6 +143,14 @@ if "%1" == "-?" (
 ) else if /i "%1" == "-toolsRoot" (
     set _toolsRoot=%2
     shift
+    goto ArgLoop
+) else if /i "%1" == "-codeCoverage" (
+	set _ccChangeList=%2
+	shift
+    goto ArgLoop
+) else if /i "%1" == "-cc" (
+	set _ccChangeList=%2
+	shift
     goto ArgLoop
 
 :: Defined here are shorthand versions for specifying
@@ -248,11 +263,105 @@ if "%_Variants%"=="" set _Variants=%_BaseVariants%
 :: If the user specified extra variants to run, include them.
 if NOT "%_ExtraVariants%" == "" set _Variants=%_Variants%,%_ExtraVariants%
 
+if "%_ccChangeList%" == "" (
+    goto :Run
+)
+
+echo #################Code Coverage setup#################
+:: Set up CodeCoverage machinery
+set "_DpkFile=ChakraCC_%_ccChangeList%"
+if "%_ccChangeList%" == "0" (
+	echo Code coverage will be done for entire source
+) else (
+	echo Code Coverage will be done for the changelist %_ccChangeList%
+)
+
+:: Check Gumshoe installation
+set _gumshoeInstalled=1
+where /q gumshoe || set _gumshoeInstalled=0
+if "%_gumshoeInstalled%"=="1" (
+    echo Gumshoe is already installed
+) else (
+    if NOT "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+        set _GumshoeSetupPath=\\ocentral\products\Gumshoe\latest\setup\x86\gumshoe.msi
+    )
+    echo Installing Gumshoe from %_GumshoeSetupPath%
+    msiexec.exe /q /i "%_GumshoeSetupPath%" /log GumshoeSetup.log
+)
+if EXIST "%_MagellanPath%\Magellan\BBCover.exe" (
+    echo Magellan latest bits are already installed
+) else (
+    mkdir %_MagellanPath%"
+    if NOT "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+        set _MagellanSetupPath=\\codecovfs01\Magellan_pre_Release\Latest\x86fre
+    )
+    echo Copying latest Magellan bits from %_MagellanSetupPath% 
+    xcopy /S /C /Q /Y %_MagellanSetupPath% %SystemDrive%\ChakraMagellan
+)
+
+if not exist "%_GumshoeExe%" (
+    echo WARNING: Gumshoe installation failed
+) else (
+    :: Stop current sessions if any
+    call "%_GumshoeExe%" stop
+
+    :: Copying the PDBs
+    xcopy %_NTTREE%\Symbols.pri\jscript\dll\chakratest.pdb %_NTTREE%\jscript /C /Y /Q
+    if exist "%_NTTREE%\Symbols.pri\jscript\dll\chakralstest.pdb" (
+        xcopy %_NTTREE%\Symbols.pri\jscript\dll\chakralstest.pdb %_NTTREE%\jscript /C /Y /Q
+    )
+
+    :: Instrumenting the binaries
+    %_MagellanPath%\Magellan\BBCover.exe /block /CovSym /I %_NTTREE%\jscript\chakratest.dll
+    move /Y %_NTTREE%\jscript\chakratest.dll %_NTTREE%\jscript\chakratest.dll.old
+    move /Y %_NTTREE%\jscript\chakratest.dll.block.instr %_NTTREE%\jscript\chakratest.dll
+    if exist "%_NTTREE%\jscript\chakralstest.dll" (
+        %_MagellanPath%\Magellan\BBCover.exe /block /CovSym /I %_NTTREE%\jscript\chakralstest.dll
+        move /Y %_NTTREE%\jscript\chakralstest.dll %_NTTREE%\jscript\chakralstest.dll.old
+        move /Y %_NTTREE%\jscript\chakralstest.dll.block.instr %_NTTREE%\jscript\chakralstest.dll
+    )
+
+	:: Starting the Code Coverage session
+    call "%_GumshoeExe%" start
+    call "%_GumshoeExe%" add covsym:%_NTTREE%\jscript\chakratest.dll.covsym
+    if exist "%_NTTREE%\jscript\chakralstest.dll.covsym" (
+        call "%_GumshoeExe%" add covsym:%_NTTREE%\jscript\chakralstest.dll.covsym
+    )
+	if not "%_ccChangeList%"=="0" (
+		:: Create DPK for the change which will be added to the Gumshoe session
+		call sdp pack %_DpkFile% -c %_ccChangeList%
+		call "%_GumshoeExe%" add dpk:%_DpkFile%.dpk
+	)
+    call "%_GumshoeExe%" status
+)
+echo #################Code Coverage setup done#################
+
+:Run
 for %%i in (%_Variants%) do (
     set _TESTCONFIG=%%i
     call :RunOneConfig
 )
 
+if "%_ccChangeList%"=="" (
+    goto :Logging
+)
+if exist "%_GumshoeExe%" (
+    echo #################Code Coverage cleanup#################
+    :: Stop the session
+    call "%_GumshoeExe%" stop
+    echo Look at the results at C:\ProgramData\Gumshoe\*.gumproj
+
+    :: Reverting back CodeCoverage binary changes
+    move /Y %_NTTREE%\jscript\chakratest.dll %_NTTREE%\jscript\chakratest.dll.block.instr
+    move /Y %_NTTREE%\jscript\chakratest.dll.old %_NTTREE%\jscript\chakratest.dll
+    if exist "%_NTTREE%\jscript\chakralstest.dll" (
+        move /Y %_NTTREE%\jscript\chakralstest.dll %_NTTREE%\jscript\chakralstest.dll.block.instr
+        move /Y %_NTTREE%\jscript\chakralstest.dll.old %_NTTREE%\jscript\chakralstest.dll
+    )
+    echo #################Code Coverage cleanup done#################
+)
+
+:Logging
 echo.
 echo.
 

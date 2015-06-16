@@ -15,14 +15,14 @@
       <compile-flags>-ES6Generators -ES6Classes -args summary -endargs</compile-flags>
     </default>
   </test>
-  
+
   <test>
     <default>
       <files>IAscripttoStringBug1374615.js</files>
       <compile-flags>-args summary -endargs</compile-flags>
     </default>
   </test>
-  
+
   <test>
     <default>
       <files>DomProperties.js</files>
@@ -447,29 +447,6 @@
     </default>
   </test>
   -->
-  <test>
-    <default>
-      <files>VBArray.js</files>
-      <baseline>VBArray.baseline</baseline>
-      <compile-flags>-Intl-</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>VBArray.js</files>
-      <baseline>VBArray.WinRT.baseline</baseline>
-      <compile-flags>-hostType:3 -Intl-</compile-flags>
-    </default>
-  </test>
-
-  <test>
-    <default>
-      <compile-flags>-hostType:2</compile-flags>
-      <files>VBArray.js</files>
-      <baseline>VBArray_wwa.baseline</baseline>
-    </default>
-  </test>
-
   <test>
     <default>
       <files>imageData.js</files>

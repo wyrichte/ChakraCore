@@ -193,3 +193,12 @@ print(o.test(0));
 changeToBuf = buf1;
 print(o.test(0));
 
+var buf3 = new ArrayBuffer(0x10000);
+var m = function(glob,ffis,b){"use asm";
+                    var I32=glob.Int32Array; var i32=new I32(b);
+                    var len=glob.byteLength;
+                    function ch(b2) { if(len(b2) & 0xffffff || len(b2) <= 0xffffff || len(b2) > 0x80000000) return false; i32=new I32(b2); b=b2; return true }
+                    function test(i) { i=i|0; var a=0xFFFFFF; var b = 0; b = i32[a >> 2]|0; return b|0 }
+                    return {test:test, changeHeap:ch}};
+var o = m(this, {}, buf3);
+print(o.test(0));

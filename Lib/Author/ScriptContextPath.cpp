@@ -259,6 +259,19 @@ namespace Authoring
         return scriptContext->GetLibrary()->GetUndefined();
     }
 
+    static Js::Var ForceCatchException(Js::RecyclableObject* jsFuncVar, Js::CallInfo callInfo, ...)
+    {
+        auto scriptContext = jsFuncVar->GetScriptContext();
+        ARGUMENTS(args, callInfo);
+        Assert(args.Info.Count >= 2 && Js::JavascriptError::Is(args[1]));
+
+        Js::JavascriptExceptionOperators::ThrowForceCatchException(Js::JavascriptError::FromVar(args[1]), scriptContext);
+
+        return scriptContext->GetLibrary()->GetUndefined();
+    }
+
+    Js::FunctionInfo forceCatchExceptionInfo(ForceCatchException);
+
     static Js::Var CreateProxyWithoutTarget(Js::RecyclableObject* jsFuncVar, Js::CallInfo callInfo, ...)
     {
         auto scriptContext = jsFuncVar->GetScriptContext();
@@ -485,6 +498,7 @@ namespace Authoring
 
         JavascriptLibraryAccessor::AddFunctionToLibraryObjectWithPropertyName(scriptContext->GetLibrary(), globalObject, Names::createProxyWithoutTarget, &createProxyWithoutTargetInfo, 0);
         JavascriptLibraryAccessor::AddFunctionToLibraryObjectWithPropertyName(scriptContext->GetLibrary(), globalObject, Names::updateProxyTarget, &updateProxyTargetInfo, 0);
+        JavascriptLibraryAccessor::AddFunctionToLibraryObjectWithPropertyName(scriptContext->GetLibrary(), globalObject, Names::forceCatchException, &forceCatchExceptionInfo, 1);
     }
 
     Js::ScriptContext *ScriptContextPath::CreateEmptyScriptContext(Js::HostType hostType)

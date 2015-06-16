@@ -5,6 +5,14 @@
 #pragma once
 #include "PageAllocatorDefines.h"
 
+#ifdef PROFILE_MEM
+struct PageMemoryData;
+#endif
+
+class CodeGenNumberThreadAllocator;
+
+namespace Memory
+{
 typedef void* FunctionTableHandle;
 
 #if DBG_DUMP && !defined(JD_PRIVATE)
@@ -83,11 +91,6 @@ public:
     virtual ~SecondaryAllocator() {};
 };
 
-
-#ifdef PROFILE_MEM
-struct PageMemoryData;
-#endif
-
 /*
  * A segment is a collection of pages. A page corresponds to the concept of an
  * OS memory page. Segments allocate memory using the OS VirtualAlloc call.
@@ -116,11 +119,17 @@ public:
     bool CanAllocSecondary() { Assert(secondaryAllocator); return secondaryAllocator->CanAllocate(); }
 
     PageAllocatorBase<TVirtualAlloc>* GetAllocator() const { return allocator; }
-    
     bool IsInPreReservedHeapPageAllocator() const;
 
     bool Initialize(DWORD allocFlags, bool excludeGuardPages);
 
+#if DBG
+    virtual bool IsPageSegment() const
+    {
+        return false;
+    }
+#endif
+    
     bool IsInSegment(void* address) const
     {
         void* start = static_cast<void*>(GetAddress());
@@ -275,6 +284,15 @@ public:
         unallocPages.Or(&decommitPages);
         return unallocPages;
     }
+
+    void ChangeSegmentProtection(DWORD protectFlags, DWORD expectedOldProtectFlags);
+
+#if DBG
+    bool IsPageSegment() const override
+    {
+        return true;
+    }
+#endif
 
 //---------- Private members ---------------/
 private:
@@ -744,3 +762,5 @@ private:
 #endif
 
 };
+
+}

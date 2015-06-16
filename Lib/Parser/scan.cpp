@@ -1799,7 +1799,6 @@ void Scanner<EncodingPolicy>::NotifyScannedNewLine()
 
 
 template<typename EncodingPolicy>
-__declspec(safebuffers)
 tokens Scanner<EncodingPolicy>::ScanForcingPid()
 {
     if (m_DeferredParseFlags != ScanFlagNone)
@@ -1821,21 +1820,24 @@ tokens Scanner<EncodingPolicy>::ScanForcingPid()
 }
 
 template<typename EncodingPolicy>
-__declspec(safebuffers)
 tokens Scanner<EncodingPolicy>::Scan()
 {
     return ScanCore(true);
 }
 
 template<typename EncodingPolicy>
-__declspec(safebuffers)
 tokens Scanner<EncodingPolicy>::ScanNoKeywords()
 {
     return ScanCore(false);
 }
 
 template<typename EncodingPolicy>
-__declspec(safebuffers)
+tokens Scanner<EncodingPolicy>::ScanAhead()
+{
+    return ScanNoKeywords();
+}
+
+template<typename EncodingPolicy>
 tokens Scanner<EncodingPolicy>::ScanCore(bool identifyKwds)
 {
     codepoint_t ch;
@@ -2216,6 +2218,7 @@ LIdentifier:
                         {
                             //Treat the -----------------------------> EOF as if it were EOF
                             token = tkEOF;
+                            ++p;
                         }
                         else if (nextChar == '}')
                         {

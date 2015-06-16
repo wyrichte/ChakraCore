@@ -49,5 +49,11 @@ function test2() {
     WScript.Echo('PASS');
 }
 
+function test3() {
+    var v1 = new DataView(new ArrayBuffer(), 0, 0);
+    var v2 = new DataView(new ArrayBuffer(1), 1, 0);
+}
+
 test1();
 test2();
+test3();

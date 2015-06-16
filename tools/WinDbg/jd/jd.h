@@ -120,6 +120,11 @@ public:
     PCSTR FillModuleAndMemoryNS(PCSTR fmt);
     PCSTR FillMemoryNS(PCSTR fmt);
 
+    bool CheckTypeName(PCSTR typeName, ULONG* typeId = nullptr);
+    PCSTR GetPageAllocatorType();
+    PCSTR GetSegmentType();
+    PCSTR GetPageSegmentType();
+
     ExtRemoteTyped GetThreadContextFromObject(ExtRemoteTyped& obj);        
     ExtRemoteTyped Cast(LPCSTR typeName, ULONG64 original);
     ExtRemoteTyped CastWithVtable(ExtRemoteTyped original, std::string* typeName = nullptr);

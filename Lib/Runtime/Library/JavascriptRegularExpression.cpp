@@ -420,7 +420,6 @@ namespace Js
         return pNewInstance;
     }
 
-    __declspec(safebuffers)
     Var JavascriptRegExp::EntryExec(RecyclableObject* function, CallInfo callInfo, ...)
     {
         PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);

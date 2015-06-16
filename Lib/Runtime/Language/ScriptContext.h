@@ -933,6 +933,9 @@ private:
         typedef void(*RaiseMessageToDebuggerFunctionType)(ScriptContext *, DWORD, LPCWSTR, LPCWSTR);
         RaiseMessageToDebuggerFunctionType raiseMessageToDebuggerFunctionType;
 
+        typedef void(*TransitionToDebugModeIfFirstSourceFn)(ScriptContext *, Utf8SourceInfo *);
+        TransitionToDebugModeIfFirstSourceFn transitionToDebugModeIfFirstSourceFn;
+
         inline HRESULT RegisterObject();
         inline HRESULT RegisterArray();
         inline HRESULT RegisterBoolean();
@@ -1392,6 +1395,19 @@ private:
             if (raiseMessageToDebuggerFunctionType != nullptr)
             {
                 raiseMessageToDebuggerFunctionType(this, messageType, message, url);
+            }
+        }
+
+        void SetTransitionToDebugModeIfFirstSourceFn(TransitionToDebugModeIfFirstSourceFn function)
+        {
+            transitionToDebugModeIfFirstSourceFn = function;
+        }
+
+        void TransitionToDebugModeIfFirstSource(Utf8SourceInfo *sourceInfo)
+        {
+            if (transitionToDebugModeIfFirstSourceFn != nullptr)
+            {
+                transitionToDebugModeIfFirstSourceFn(this, sourceInfo);
             }
         }
 

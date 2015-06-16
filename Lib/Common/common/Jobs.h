@@ -45,6 +45,17 @@ namespace JsUtil
     public:
         Job(JobManager *const manager, const bool isCritical = false);
 
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+        enum class FailureReason
+        {
+            NotFailed,
+            OOM,
+            StackOverflow,
+            Aborted
+        };
+        FailureReason failureReason;
+#endif
+
     public:
         JobManager *Manager() const;
         bool IsCritical() const;

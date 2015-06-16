@@ -1927,7 +1927,6 @@ Js::Var HeapDumper::DumpHeap()
 
     BEGIN_LEAVE_SCRIPT(scriptContext);
     hr = scriptEngine.EnumHeap2(dumpArgs.enumFlags, &pEnum);
-    Assert(hr == S_OK); // In order to catch [OS@982328] CJScript9Holder::BeginEnumeration always return E_FAIL, please remove after fixed
     if (hr != S_OK)
     {
         OutputDump(scriptContext, L"[error : DumpHeap failed on EnumHeap]\n");

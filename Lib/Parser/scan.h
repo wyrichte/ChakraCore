@@ -739,6 +739,7 @@ private:
     ~Scanner(void);
 
     tokens ScanCore(bool identifyKwds);
+    tokens ScanAhead();
 
     tokens ScanError(EncodedCharPtr pchCur, tokens errorToken)
     {

@@ -23,12 +23,6 @@ new Array(12.4) - RangeError exception:  expected in es3 and es5::: RangeError: 
 new Array(12.4); x.length = 12.5; - RangeError exception: es5-expected, ES3-not expected  ::: RangeError: Array length must be assigned a finite positive number
 (123.45).toFixed(25); - RangeError exception : expected es3, es5::: RangeError: The number of fractional digits is out of range
 (123.45).toExponential(-25); - RangeError exception : expected es3, es5 ::: RangeError: The number of fractional digits is out of range
-vbn.getItem(); - RangeError exception : expected es3, es5 ::: ReferenceError: 'CreateVBArray' is undefined
-vbn.getItem(1,2,3,4); - RangeError exception : expected es3, es5 ::: ReferenceError: 'CreateVBArray' is undefined
-vbnArray.lbound(); - TypeError exception : expected es3, es5 ::: TypeError: VBArray.prototype.lbound: 'this' is not a VBArray object
-vbn.lbound(5); - RangeError exception : expected es3, es5 ::: ReferenceError: 'CreateVBArray' is undefined
-vbnArray.ubound(); - Type Error exception : expected es3, es5 ::: TypeError: VBArray.prototype.ubound: 'this' is not a VBArray object
-vbn.ubound(5); - RangeError exception : expected es3, es5 ::: ReferenceError: 'CreateVBArray' is undefined
 eval("blah."); -expected es3-EvalError exception : expected es5-SyntaxException ::: SyntaxError: Expected identifier
 f = new Function("a", "b", "return a+b."); -expected es3 and es5-SyntaxError exception ::: SyntaxError: Expected identifier
 var num = 0.0009;var x = num.toFixed(3);  - no exception: not expected es3, es5  ::: value = 0.001

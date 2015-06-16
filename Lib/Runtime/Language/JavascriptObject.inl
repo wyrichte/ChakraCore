@@ -8,19 +8,6 @@ namespace Js
 {
     inline BOOL JavascriptObject::DefineOwnPropertyHelper(RecyclableObject* obj, PropertyId propId, const PropertyDescriptor& descriptor, ScriptContext* scriptContext)
     {
-        GlobalObject* globalObject = obj->GetLibrary()->GetGlobalObject();
-        if (globalObject != obj && globalObject && (globalObject->ToThis() == obj))
-        {
-            return DefineOwnPropertyHelperImpl(globalObject, propId, descriptor, scriptContext);
-        }
-        else
-        {
-            return DefineOwnPropertyHelperImpl(obj, propId, descriptor, scriptContext);
-        }
-    }
-
-    inline BOOL JavascriptObject::DefineOwnPropertyHelperImpl(RecyclableObject* obj, PropertyId propId, const PropertyDescriptor& descriptor, ScriptContext* scriptContext)
-    {
         BOOL returnValue;
         obj->ThrowIfCannotDefineProperty(propId, descriptor);
 

@@ -310,13 +310,20 @@ GlobOpt::KillLiveFields(StackSym * stackSym, BVSparse<JitArenaAllocator> * bv)
 void
 GlobOpt::KillLiveFields(PropertySym * propertySym, BVSparse<JitArenaAllocator> * bv)
 {
-    if (propertySym->m_propertyEquivSet)
+    KillLiveFields(propertySym->m_propertyEquivSet, bv);
+}
+
+void GlobOpt::KillLiveFields(BVSparse<JitArenaAllocator> *const propertyEquivSet, BVSparse<JitArenaAllocator> *const bv) const
+{
+    Assert(bv);
+
+    if (propertyEquivSet)
     {
-        bv->Minus(propertySym->m_propertyEquivSet);
+        bv->Minus(propertyEquivSet);
 
         if (this->IsLoopPrePass())
         {
-            this->rootLoopPrePass->fieldKilled->Or(propertySym->m_propertyEquivSet);
+            this->rootLoopPrePass->fieldKilled->Or(propertyEquivSet);
         }
     }
 }
@@ -439,14 +446,7 @@ GlobOpt::ProcessFieldKills(IR::Instr *instr, BVSparse<JitArenaAllocator> *bv, bo
     case Js::OpCode::StElemI_A:
     case Js::OpCode::StElemI_A_Strict:
         Assert(dstOpnd != null);
-        if(nullptr != this->lengthEquivBv)
-        {
-            bv->Minus(this->lengthEquivBv);
-            if (this->IsLoopPrePass())
-            {
-                this->rootLoopPrePass->fieldKilled->Or(this->lengthEquivBv);
-            }
-        }
+        KillLiveFields(this->lengthEquivBv, bv);
         KillLiveElems(dstOpnd->AsIndirOpnd(), bv, inGlobOpt, instr->m_func);
         break;
         
@@ -507,15 +507,16 @@ GlobOpt::ProcessFieldKills(IR::Instr *instr, BVSparse<JitArenaAllocator> *bv, bo
 
     case Js::OpCode::InlineArrayPush:
     case Js::OpCode::InlineArrayPop:
-        if (nullptr != this->lengthEquivBv)
-        {
-            bv->Minus(this->lengthEquivBv);
-            if (this->IsLoopPrePass())
-            {
-                this->rootLoopPrePass->fieldKilled->Or(this->lengthEquivBv);
-            }
-        }
-       
+        KillLiveFields(this->lengthEquivBv, bv);
+        break;
+
+    case Js::OpCode::InlineeStart:
+    case Js::OpCode::InlineeEnd:
+        Assert(!instr->UsesAllFields());
+
+        // Kill all live 'arguments' fields, as 'inlineeFunction.arguments' cannot be copy-propped across different instances of
+        // the same inlined function
+        KillLiveFields(argumentsEquivBv, bv);
         break;
 
     case Js::OpCode::CallDirect:
@@ -525,11 +526,7 @@ GlobOpt::ProcessFieldKills(IR::Instr *instr, BVSparse<JitArenaAllocator> *bv, bo
         if(nullptr != this->lengthEquivBv && (fnHelper == IR::JnHelperMethod::HelperArray_Shift || fnHelper == IR::JnHelperMethod::HelperArray_Splice 
             || fnHelper == IR::JnHelperMethod::HelperArray_Unshift))
         {
-            bv->Minus(this->lengthEquivBv);
-            if (this->IsLoopPrePass())
-            {
-                this->rootLoopPrePass->fieldKilled->Or(this->lengthEquivBv);
-            }
+            KillLiveFields(this->lengthEquivBv, bv);
         }
 
         if ((fnHelper == IR::JnHelperMethod::HelperRegExp_Exec)
@@ -2445,6 +2442,7 @@ GlobOpt::ProcessPropOpInTypeCheckSeq(IR::Instr* instr, IR::PropertySymOpnd *opnd
         Assert(!opnd->NeedsMonoCheck());
 
         Js::EquivalentTypeSet * opndTypeSet = opnd->GetEquivalentTypeSet();
+        uint16 checkedTypeSetIndex = (uint16)-1;
 
         if (valueInfo == null || (valueInfo->GetJsType() == nullptr && valueInfo->GetJsTypeSet() == nullptr))
         {
@@ -2464,7 +2462,7 @@ GlobOpt::ProcessPropOpInTypeCheckSeq(IR::Instr* instr, IR::PropertySymOpnd *opnd
             emitsTypeCheck = isSpecialized;
         }
         else if (valueInfo->GetJsType() ? 
-                 opndTypeSet->Contains(valueInfo->GetJsType()) : 
+                 opndTypeSet->Contains(valueInfo->GetJsType(), &checkedTypeSetIndex) : 
                  IsSubsetOf(valueInfo->GetJsTypeSet(), opndTypeSet))
         {
             // All the types in the value info are contained in the set required by this access,
@@ -2478,6 +2476,10 @@ GlobOpt::ProcessPropOpInTypeCheckSeq(IR::Instr* instr, IR::PropertySymOpnd *opnd
             if (consumeType)
             {
                 opnd->SetTypeChecked(true);
+            }
+            if (checkedTypeSetIndex != (uint16)-1)
+            {
+                opnd->SetCheckedTypeSetIndex(checkedTypeSetIndex);
             }
         }
         else if (opnd->IsMono() || (valueInfo->GetJsTypeSet() && IsSubsetOf(opndTypeSet, valueInfo->GetJsTypeSet())))
