@@ -665,6 +665,8 @@ namespace JsDiag
         BOOL TestThreadContextFlag(ThreadContextFlags contextFlag);
         ProbeManager* GetDiagnostics() const { return this->ReadField<ProbeManager*>(offsetof(TargetType, Diagnostics)); }
         ScriptContext* GetScriptContextList() const { return this->ReadField<ScriptContext*>(offsetof(TargetType, scriptContextList)); }
+        bool IsAllJITCodeInPreReservedRegion() const{ return this->ReadField<bool>(offsetof(TargetType, isAllJITCodeInPreReservedRegion)); }
+        PreReservedVirtualAllocWrapper * GetPreReservedVirtualAllocator() { return (this->GetFieldAddr<PreReservedVirtualAllocWrapper>(offsetof(TargetType, preReservedVirtualAllocator))); }
         DWORD GetCurrentThreadId() const { return this->ReadField<DWORD>(offsetof(TargetType, currentThreadId)); }
         const PropertyRecord* GetPropertyName(Js::PropertyId propertyId);
         DebuggingFlags* GetDebuggingFlags();
@@ -765,12 +767,12 @@ namespace JsDiag
         bool IsStrictMode() const;
     };
 
-	struct RemoteBoundFunction : public RemoteRecyclableObjectBase<BoundFunction>
-	{
-		RemoteBoundFunction(IVirtualReader* reader, const TargetType* addr) : RemoteRecyclableObjectBase<TargetType>(reader, addr) {}
-		uint16 GetLength(InspectionContext* inspectionContext, PROPERTY_INFO* propInfo);
-		static const uint16 TARGETS_RUNTIME_FUNCTION = 0xffff;
-	};
+    struct RemoteBoundFunction : public RemoteRecyclableObjectBase<BoundFunction>
+    {
+        RemoteBoundFunction(IVirtualReader* reader, const TargetType* addr) : RemoteRecyclableObjectBase<TargetType>(reader, addr) {}
+        uint16 GetLength(InspectionContext* inspectionContext, PROPERTY_INFO* propInfo);
+        static const uint16 TARGETS_RUNTIME_FUNCTION = 0xffff;
+    };
 
     struct RemoteRuntimeFunction : public RemoteData<RuntimeFunction>
     {
@@ -856,6 +858,28 @@ namespace JsDiag
 
     private:
         uint GetBitRangeBase(void* addr);
+    };
+
+    struct RemotePreReservedVirtualAllocWrapper : public RemoteData<PreReservedVirtualAllocWrapper>
+    {
+        RemotePreReservedVirtualAllocWrapper(IVirtualReader * reader, const TargetType * addr) : RemoteData<TargetType>(reader, addr) {}
+
+        bool IsInRange(void * address);
+        bool IsPreReservedRegionPresent();
+        LPVOID GetPreReservedStartAddress();
+        LPVOID GetPreReservedEndAddress();
+    };
+
+    struct RemotePreReservedHeapPageAllocator : public RemoteData<HeapPageAllocator<PreReservedVirtualAllocWrapper>>
+    {
+        RemotePreReservedHeapPageAllocator(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+
+        PreReservedVirtualAllocWrapper * GetVirtualAllocator() { return this->ReadField<PreReservedVirtualAllocWrapper*>(offsetof(TargetType, virtualAllocator)); }
+        bool IsInRange(void * address)
+        {
+            RemotePreReservedVirtualAllocWrapper preReservedVirtualAllocWrapper(m_reader, GetVirtualAllocator());
+            return preReservedVirtualAllocWrapper.IsInRange(address);
+        }
     };
 
     struct RemoteHeapPageAllocator : public RemoteData<HeapPageAllocator<>>

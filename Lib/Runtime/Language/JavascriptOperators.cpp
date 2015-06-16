@@ -1189,10 +1189,11 @@ CommonNumber:
     {
         // an object is spreadable under two condition, either it is a JsArray
         // or you define an isconcatSpreadable flag on it.
-        if (!RecyclableObject::Is(instanceVar))
+        if (!JavascriptOperators::IsObject(instanceVar))
         {
             return false;
         }
+
         RecyclableObject* instance = RecyclableObject::FromVar(instanceVar);
         ScriptContext* scriptContext = instance->GetScriptContext();
         Var spreadable = JavascriptOperators::GetProperty(instance, PropertyIds::_symbolIsConcatSpreadable, scriptContext);
@@ -2068,6 +2069,11 @@ CommonNumber:
                     return FALSE;
                 }
             }
+            else if (!JavascriptOperators::IsObject(receiver))
+            {
+                JavascriptError::ThrowCantAssignIfStrictMode(propertyOperationFlags, requestContext);
+                return FALSE;
+            }
 
             PropertyValueInfo info;
             // in 9.1.9, step 5, we should return false if receiver is not object, and that will happen in default RecyclableObject operation anyhow.
@@ -2140,6 +2146,7 @@ CommonNumber:
             }
         }
 
+        JavascriptError::ThrowCantAssignIfStrictMode(propertyOperationFlags, requestContext);
         return FALSE;
     }
 
@@ -2189,6 +2196,7 @@ CommonNumber:
 
         // Add implicit call flags, to bail out if field copy prop may propagate the wrong value.
         requestContext->GetThreadContext()->AddImplicitCallFlags(ImplicitCall_NoOpSet);
+        JavascriptError::ThrowCantAssignIfStrictMode(propertyOperationFlags, requestContext);
         return FALSE;
     }
 
@@ -2269,6 +2277,11 @@ CommonNumber:
                     JavascriptError::ThrowCantAssignIfStrictMode(propertyOperationFlags, requestContext);
                     return FALSE;
                 }
+            } 
+            else if (!JavascriptOperators::IsObject(receiver))
+            {
+                JavascriptError::ThrowCantAssignIfStrictMode(propertyOperationFlags, requestContext);
+                return FALSE;
             }
 
             // Break on mutation if needed
@@ -2414,6 +2427,7 @@ CommonNumber:
             return JavascriptOperators::SetProperty(RecyclableObject::FromVar(instance), RecyclableObject::FromVar(instance), propertyId, newValue, info, scriptContext, flags);
         }
 
+        JavascriptError::ThrowCantAssignIfStrictMode(flags, scriptContext);
         return false;
     }
 
@@ -2594,7 +2608,6 @@ CommonNumber:
         for (uint16 i = 0; i < length; i++)
         {
             object = (DynamicObject*)pDisplay->GetItem(i);
-
             Type* type = object->GetType();
             if (CacheOperators::TrySetProperty<true, true, true, true, true, !TInlineCache::IsPolymorphic, TInlineCache::IsPolymorphic, false>(
                     object, false, propertyId, newValue, scriptContext, propertyOperationFlags, nullptr, &info))
@@ -2644,6 +2657,10 @@ CommonNumber:
                     }
                     return;
                 }
+            }
+            else if (!JavascriptOperators::IsObject(object))
+            {
+                JavascriptError::ThrowCantAssignIfStrictMode(propertyOperationFlags, scriptContext);
             }
 
             // Need to do a "get" of the current value (if any) to make sure that we're not writing to
@@ -2878,9 +2895,19 @@ CommonNumber:
             else
             {
                 Assert((flags & Data) == Data && (flags & Writable) == None);
+                if ((propertyOperationFlags & PropertyOperationFlags::PropertyOperation_ThrowIfNotExtensible) == PropertyOperationFlags::PropertyOperation_ThrowIfNotExtensible)
+                {
+                    JavascriptError::ThrowTypeError(scriptContext, JSERR_NonExtensibleObject);
+                }
+
                 JavascriptError::ThrowCantAssignIfStrictMode(propertyOperationFlags, scriptContext);
                 return FALSE;
             }
+        }
+        else if (!JavascriptOperators::IsObject(receiver))
+        {
+            JavascriptError::ThrowCantAssignIfStrictMode(propertyOperationFlags, scriptContext);
+            return FALSE;
         }
 
         return (RecyclableObject::FromVar(receiver))->SetItem(index, value, propertyOperationFlags);
@@ -3770,6 +3797,7 @@ CommonNumber:
         JavascriptLibrary::CheckAndConvertCopyOnAccessNativeIntArray<Var>(instance);
 
         TypeId instanceType = JavascriptOperators::GetTypeId(instance);
+
         bool isTypedArray = (instanceType >= TypeIds_Int8Array && instanceType <= TypeIds_Float64Array);
 
         if (isTypedArray)
@@ -4047,7 +4075,7 @@ CommonNumber:
             }
 
             JavascriptError::ThrowTypeError(scriptContext, JSERR_Property_CannotSet_NullOrUndefined, GetPropertyDisplayNameForError(index, scriptContext));
-        }
+        } 
 
         return JavascriptOperators::SetElementIHelper(instance, object, index, value, scriptContext, flags);
     }

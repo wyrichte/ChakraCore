@@ -117,6 +117,9 @@
 #include "jsfac.h"
 #endif
 
+#include "ThreadServiceWrapperBase.h"
+#include "JsrtContext.h"
+
 #ifdef ENABLE_PROJECTION
 #include "ArrayProjectionEnumerator.h"
 #include "ArrayProjection.h"
@@ -156,8 +159,3 @@
 #endif
 
 #include "resource.h"
-
-#ifndef USE_EDGEMODE_JSRT
-#define USE_EDGEMODE_JSRT
-#endif // USE_EDGEMODE_JSRT
-#include "jsrt.h"

@@ -99,7 +99,7 @@ JsRTEngine::JsRTEngine(Engine::Kind engineKind)
             Fail("Failed to create context");
 
         
-		JsAddRef(tmpContext, NULL);
+        JsAddRef(tmpContext, NULL);
         m_Context = tmpContext;
     }
     else
@@ -121,7 +121,7 @@ JsRTEngine::JsRTEngine(Engine::Kind engineKind)
 JsRTEngine::~JsRTEngine()
 {
     // Correctly releases the reference whether same or different contexts are used.
-	if(JsRelease(m_Context, NULL) != JsNoError)
+    if(JsRelease(m_Context, NULL) != JsNoError)
         Fail("Failed to release Context");
    
     if(g_sharedRuntime == NULL)
@@ -164,7 +164,7 @@ void JsRTEngine::CallFunction(wchar_t *funcName)
         Fail("Failed to retrieve global object");
 
     JsPropertyId propertyId;
-	if(JsGetPropertyId(funcName, &propertyId) != JsNoError)
+    if(JsGetPropertyId(funcName, &propertyId) != JsNoError)
         Fail("Failed to retrieve propertyId");
 
     JsValueRef property;

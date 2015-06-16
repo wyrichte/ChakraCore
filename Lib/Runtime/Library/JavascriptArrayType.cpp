@@ -620,9 +620,10 @@ namespace Js
         {
             BEGIN_JS_RUNTIME_CALL(requestContext);
             {
-                DECLARE_STACK_PINNED(JavascriptString, valueStr);
+                ENTER_PINNED_SCOPE(JavascriptString, valueStr);
                 valueStr = JavascriptArray::JoinHelper(this, GetLibrary()->GetCommaDisplayString(), requestContext);
                 stringBuilder->Append(valueStr->GetString(), valueStr->GetLength());
+                LEAVE_PINNED_SCOPE();
             }
             END_JS_RUNTIME_CALL(requestContext);
         }
@@ -632,6 +633,7 @@ namespace Js
         }
 
         stringBuilder->Append(L']');
+
         return TRUE;
     }
 

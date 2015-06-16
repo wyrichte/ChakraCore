@@ -2273,7 +2273,7 @@ STDMETHODIMP ScriptEngine::OnDebuggerAttached(__in ULONG pairCount, /* [size_is]
     Js::StepController* stepController = &this->scriptContext->GetThreadContext()->Diagnostics->stepController;
     if (stepController->IsActive())
     {
-        AssertMsg(false, "StepController should not be active when we attach.");
+        AssertMsg(stepController->GetActivatedContext() == nullptr, "StepController should not be active when we attach.");
         stepController->Deactivate(); // Defense in depth
     }
 
@@ -6684,7 +6684,7 @@ HRESULT ScriptEngine::CompileUTF16(
     // Reallocate the buffer to a smaller amount since it is probably 3 times larger than we needed.
     // Don't need to handle OOM here since this is currently always called from a try-catch block
 
-    DECLARE_STACK_PINNED(Js::Utf8SourceInfo, sourceInfo);
+    ENTER_PINNED_SCOPE(Js::Utf8SourceInfo, sourceInfo);
     sourceInfo = Js::Utf8SourceInfo::New(scriptContext, pchUtf8Code, stringLength, cbLength, srcInfo);
     if ((grfscr & fscrIsLibraryCode) != 0)
     {
@@ -6696,6 +6696,8 @@ HRESULT ScriptEngine::CompileUTF16(
     // Compile the UTF8 source
     SETRETVAL(ppSourceInfo, sourceInfo);
     hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, false, pse, ppbody, ppFuncBody, fUsedExisting);
+
+    LEAVE_PINNED_SCOPE();
 
     return hr;
 }
@@ -6714,6 +6716,7 @@ HRESULT ScriptEngine::CompileUTF8(
 {
     // TODO : calculate cbLength? how
     LPCUTF8 pszSrc = (LPCUTF8) pSrc;
+    HRESULT hr = ERROR_SUCCESS;
 
     Assert(this->scriptContext == GetScriptSiteHolder()->GetScriptSiteContext());
 
@@ -6731,7 +6734,7 @@ HRESULT ScriptEngine::CompileUTF8(
 #endif
 
     // Currently always called from a try-catch
-    DECLARE_STACK_PINNED(Js::Utf8SourceInfo, sourceInfo);
+    ENTER_PINNED_SCOPE(Js::Utf8SourceInfo, sourceInfo);
 
     sourceInfo = Js::Utf8SourceInfo::NewWithNoCopy(scriptContext, (LPUTF8) pSrc, stringLength, stringLength, srcInfo);
     if ((grfscr & fscrIsLibraryCode) != 0)
@@ -6740,7 +6743,11 @@ HRESULT ScriptEngine::CompileUTF8(
     }
     SETRETVAL(ppSourceInfo, sourceInfo);
 
-    return CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncBody, fUsedExisting);
+    hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncBody, fUsedExisting);
+
+    LEAVE_PINNED_SCOPE();
+
+    return hr;
 }
 
 HRESULT ScriptEngine::CompileUTF8Core(
@@ -8318,6 +8325,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::SetActivityId(__in const GUID* pActivity
         return E_INVALIDARG;
     }
 }
+
 /*static*/
 void ScriptEngine::TransitionToDebugModeIfFirstSource(Js::ScriptContext *scriptContext, Js::Utf8SourceInfo *sourceInfo)
 {

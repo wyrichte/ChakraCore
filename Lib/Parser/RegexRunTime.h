@@ -1420,8 +1420,8 @@ namespace UnifiedRegex
         inline GroupInfo() : offset(0), length(CharCountFlag) {}
 
         inline GroupInfo(CharCount offset, CharCountOrFlag length) : offset(offset), length(length) {}
-		//This constructor will only be called by a cross-site marshalling and thus we shouldn't clear offset and length
-		GroupInfo(VirtualTableInfoCtorEnum) { }
+        //This constructor will only be called by a cross-site marshalling and thus we shouldn't clear offset and length
+        GroupInfo(VirtualTableInfoCtorEnum) { }
         inline bool IsUndefined() const { return length == CharCountFlag; }
         inline CharCount EndOffset() const { Assert(length != CharCountFlag); return offset + (CharCount)length; }
 

@@ -36,7 +36,8 @@ UTEST_GROUP(CustomHeapTests)
 
         for(int i = 100; i < 2000000; i += 100)
         {
-            Allocation* allocation = heap.Alloc(i, GET_PDATA_COUNT(3), GET_XDATA_SIZE(60));
+            bool isAllJITCodeInPreReservedRegion;
+            Allocation* allocation = heap.Alloc(i, GET_PDATA_COUNT(3), GET_XDATA_SIZE(60), false, false, &isAllJITCodeInPreReservedRegion);
 #if DBG
             allocation->isAllocationUsed = true;
 #endif
@@ -53,7 +54,8 @@ UTEST_GROUP(CustomHeapTests)
         Allocation** allocations = new Allocation*[count];
         for(uint i = 8; i < count; i += 1)
         {
-            allocations[i] = heap.Alloc(i, GET_PDATA_COUNT(5), GET_XDATA_SIZE(45));
+            bool isAllJITCodeInPreReservedRegion;
+            allocations[i] = heap.Alloc(i, GET_PDATA_COUNT(5), GET_XDATA_SIZE(45), false, false, &isAllJITCodeInPreReservedRegion);
 #if DBG
             allocations[i]->isAllocationUsed = true;
 #endif
@@ -76,7 +78,8 @@ UTEST_GROUP(CustomHeapTests)
         {
             for(uint i = 8; i < count; i += 1)
             {
-                allocations[i] = heap.Alloc(i, GET_PDATA_COUNT(1), GET_XDATA_SIZE(20));
+                bool isAllJITCodeInPreReservedRegion;
+                allocations[i] = heap.Alloc(i, GET_PDATA_COUNT(1), GET_XDATA_SIZE(20), false, false, &isAllJITCodeInPreReservedRegion);
 #if DBG
                 allocations[i]->isAllocationUsed = true;
 #endif
@@ -101,7 +104,8 @@ UTEST_GROUP(CustomHeapTests)
         {
             for(uint i = 1; i < count; i += 1)
             {
-                allocations[i] = heap.Alloc(i, GET_PDATA_COUNT(8), GET_XDATA_SIZE(20));
+                bool isAllJITCodeInPreReservedRegion;
+                allocations[i] = heap.Alloc(i, GET_PDATA_COUNT(8), GET_XDATA_SIZE(20), false, false, &isAllJITCodeInPreReservedRegion);
 #if DBG
                 allocations[i]->isAllocationUsed = true;
 #endif
@@ -121,12 +125,13 @@ UTEST_GROUP(CustomHeapTests)
         {
             for(uint i = 1; i < count / 2; i += 2)
             {
-                allocations[i] = heap.Alloc(i * 100, GET_PDATA_COUNT(2), GET_XDATA_SIZE(60));
+                bool isAllJITCodeInPreReservedRegion;
+                allocations[i] = heap.Alloc(i * 100, GET_PDATA_COUNT(2), GET_XDATA_SIZE(60), false, false, &isAllJITCodeInPreReservedRegion);
 #if DBG
                 allocations[i]->isAllocationUsed = true;
 #endif
                 VerifyAllocation(allocations[i], i * 100, GET_PDATA_COUNT(2), GET_XDATA_SIZE(60));
-                allocations[i + 1] = heap.Alloc(i * 50, GET_PDATA_COUNT(3), GET_XDATA_SIZE(25));
+                allocations[i + 1] = heap.Alloc(i * 50, GET_PDATA_COUNT(3), GET_XDATA_SIZE(25), false, false, &isAllJITCodeInPreReservedRegion);
 #if DBG
                 allocations[i + 1]->isAllocationUsed = true;
 #endif
@@ -160,7 +165,8 @@ UTEST_GROUP(CustomHeapTests)
         std::list<Allocation*> allocations;
         for(uint i = 0; i < count; i++)
         {
-            Allocation* allocation = heap.Alloc(sizes[i], GET_PDATA_COUNT(pdataCounts[i]), GET_XDATA_SIZE(xdataSizes[i]));
+            bool isAllJITCodeInPreReservedRegion;
+            Allocation* allocation = heap.Alloc(sizes[i], GET_PDATA_COUNT(pdataCounts[i]), GET_XDATA_SIZE(xdataSizes[i]), false, false, &isAllJITCodeInPreReservedRegion);
             allocations.push_back(allocation);
 #if DBG
             allocation->isAllocationUsed = true;

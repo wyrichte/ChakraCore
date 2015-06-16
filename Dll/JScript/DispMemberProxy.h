@@ -3,7 +3,6 @@
 *   Copyright (C) Microsoft. All rights reserved.       *
 *                                                       *
 ********************************************************/
-#include "stdafx.h"
 
 // DispMemberProxy represents a temporary lvalue formed by pairing an IDispatch
 // with a DISPID that identifies an IDispatch member. The pair is primarily used to call member functions

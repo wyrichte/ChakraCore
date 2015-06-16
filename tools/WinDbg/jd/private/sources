@@ -14,11 +14,19 @@ SOURCES = \
         ..\jdrecycler.cpp \
         ..\jdbackend.cpp \
         ..\jdbytecode.cpp \
+        ..\RecyclerCachedData.cpp \
         ..\RecyclerList.cpp \
         ..\RecyclerRoots.cpp \
         ..\RemoteTypeHandler.cpp \
         ..\RemotePageAllocator.cpp \
         ..\RemoteThreadContext.cpp \
         ..\RemoteRecycler.cpp \
+        ..\RemoteInterpreterStackFrame.cpp \
+        ..\RemoteFunctionInfo.cpp \
+        ..\RemoteFunctionBody.cpp \
+        ..\RemoteRecyclableObject.cpp \
+        ..\RemoteJavascriptFunction.cpp \
+        ..\RemoteScriptFunction.cpp \
+        ..\jdfunctionbody.cpp \
         ..\util.cpp \
         ..\collections.cpp \        

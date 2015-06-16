@@ -11,7 +11,7 @@ USE_UMBRELLA_LIBS=1
 # Make sure that common.memory.lib is passed to linker prior to msvcrt so that our new/delete 
 # do not cause 'already defined in msvcrt.lib error'.
 CRTLIBS= \
-    $(OBJECT_JSCRIPT_DIR)\lib\common\memory\$(JS_LIBTYPE)\$(O)\jscript.common.memory.lib
+    $(OBJECT_JSCRIPT_DIR)\lib\common\memory\$(JS_LIBTYPE)\$(O)\chakra.common.memory.lib
 
 TARGETLIBS=     \
     $(ONECORE_SDK_LIB_VPATH)\onecore.lib \

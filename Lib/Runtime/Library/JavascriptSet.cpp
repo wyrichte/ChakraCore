@@ -259,6 +259,15 @@ namespace Js
         return scriptContext->GetLibrary()->CreateSetIterator(set, JavascriptSetIteratorKind::Value);
     }
 
+    Var JavascriptSet::EntryGetterSymbolSpecies(RecyclableObject* function, CallInfo callInfo, ...)
+    {
+        ARGUMENTS(args, callInfo);
+
+        Assert(args.Info.Count > 0);
+
+        return args[0];
+    }
+
     void JavascriptSet::Add(Var value)
     {
         if (!set->ContainsKey(value))

@@ -4,275 +4,41 @@
 
 #include "StdAfx.h"
 #include "share.h"
-#pragma hdrstop
 
-//
-// ThreadServiceWrapperBase
+/// 
+/// Idle Task that is used to do finish a GC on idle
+/// This is scheduled by the timer-based Idle GC callback when the idle callback
+/// is called and a collection is in progress. The idle task can finish the GC
+/// by safely skipping the stack scan during FinishMark
 ///
-
-#ifdef RECYCLER_TRACE
-#define IDLE_COLLECT_VERBOSE_TRACE(msg, ...) \
-    if (Js::Configuration::Global.flags.Verbose) \
-    { \
-        IDLE_COLLECT_TRACE(msg, __VA_ARGS__); \
-    }
-
-#define IDLE_COLLECT_TRACE(msg, ...) \
-    if (Js::Configuration::Global.flags.Trace.IsEnabled(Js::IdleCollectPhase)) \
-    {\
-        Output::Print(L"%04X> " ## msg, ::GetCurrentThreadId(), __VA_ARGS__); \
-        Output::Flush(); \
-    } 
-#else
-#define IDLE_COLLECT_TRACE(...)
-#define IDLE_COLLECT_VERBOSE_TRACE(...)
-#endif
-
-ThreadServiceWrapperBase::ThreadServiceWrapperBase() :
-    threadContext(nullptr),
-    needIdleCollect(false),
-    inIdleCollect(false),
-    hasScheduledIdleCollect(false),
-    shouldScheduleIdleCollectOnExitIdle(false),
-    forceIdleCollectOnce(false)
+class RecyclerFinishConcurrentIdleTask sealed : public IIdleTask
 {
-}
+public:
+    RecyclerFinishConcurrentIdleTask(ThreadContext* threadContext, JavascriptThreadService* service);
 
-bool ThreadServiceWrapperBase::Initialize(ThreadContext *newThreadContext)
-{
-    if (newThreadContext == nullptr)
-    {
-        return false;
-    }
-    threadContext = newThreadContext;
-    threadContext->SetThreadServiceWrapper(this);
-    return true;
-}
+    // *** IUnknown ***
+    STDMETHOD(QueryInterface)(REFIID riid, void** ppvObj);
+    STDMETHOD_(ULONG, AddRef)(void);
+    STDMETHOD_(ULONG, Release)(void);
 
-void ThreadServiceWrapperBase::Shutdown()
-{
-    if (hasScheduledIdleCollect)
-    {
+    // *** IActiveScriptGarbageCollector ***
+    STDMETHOD_(void, RunIdleTask)() override;
+
+    void OnThreadServiceDestroyed(JavascriptThreadService* threadService);
+
 #if DBG
-        // Fake the inIdleCollect to get pass asserts in FinishIdleCollect
-        inIdleCollect = true;
-#endif
-        FinishIdleCollect(FinishReason::FinishReasonNormal);
-    }
-}
-
-bool ThreadServiceWrapperBase::ScheduleIdleCollect(uint ticks, bool scheduleAsTask)
-{
-    Assert(!threadContext->IsInScript());
-
-    // We should schedule have called this in one of two cases:
-    //  1) Either needIdleCollect is true- in which case, we should schedule one
-    //  2) Or ScheduleNextCollectionOnExit was called when needIdleCollect was true, but we didn't schedule 
-    //      one because we were at the time in one. Later, as we unwound, we might have set needIdleCollect to false
-    //      but because we had noted that we needed to schedule a collect, we would end up coming into this function
-    //      so allow for that
-    Assert(needIdleCollect || shouldScheduleIdleCollectOnExitIdle|| threadContext->GetRecycler()->CollectionInProgress());
-
-    if (!CanScheduleIdleCollect())
-    {
-        return false;
-    }
-
-    if (hasScheduledIdleCollect)
-    {
-        return true;
-    }
-
-    if (OnScheduleIdleCollect(ticks, scheduleAsTask))
-    {
-        JSETW(EventWriteJSCRIPT_GC_IDLE_START(this));
-        IDLE_COLLECT_VERBOSE_TRACE(L"ScheduledIdleCollect- Set hasScheduledIdleCollect\n");
-
-        hasScheduledIdleCollect = true;
-        return true;
-    }
-    else
-    {
-        IDLE_COLLECT_TRACE(L"Idle timer setup failed\n");
-        FinishIdleCollect(FinishReason::FinishReasonIdleTimerSetupFailed);
-        return false;
-    }
-}
-
-bool ThreadServiceWrapperBase::IdleCollect()
-{
-    Assert(hasScheduledIdleCollect);
-    IDLE_COLLECT_VERBOSE_TRACE(L"IdleCollect- reset hasScheduledIdleCollect\n");
-    hasScheduledIdleCollect = false;
-
-    // Don't do anything and kill the timer if we are called recursively or if we are in script
-    if (inIdleCollect || threadContext->IsInScript())
-    {
-        FinishIdleCollect(FinishReason::FinishReasonNormal);
-        return hasScheduledIdleCollect;
-    }
-
-    // If during idle collect we determine that we need to schedule another
-    // idle collect, this gets flipped to true
-    shouldScheduleIdleCollectOnExitIdle = false;
-
-    AutoBooleanToggle autoInIdleCollect(&inIdleCollect);
-    Recycler* recycler = threadContext->GetRecycler();
-    // Finish concurrent on timer heart beat if needed
-    // We wouldn't try to finish if we need to schedule 
-    // an idle task to finish the collection
-    if (this->ShouldFinishConcurrentCollectOnIdleCallback() && recycler->FinishConcurrent<FinishConcurrentOnIdle>())
-    {
-        IDLE_COLLECT_TRACE(L"Idle callback: finish concurrent\n");
-        JSETW(EventWriteJSCRIPT_GC_IDLE_CALLBACK_FINISH(this));
-    }
-
-    while (true)
-    {
-        // If a GC is still happening, just wait for the next heart beat
-        if (recycler->CollectionInProgress())
-        {
-            ScheduleIdleCollect(IdleTicks, true /* schedule as task */);
-            break;
-        }
-
-        // If there no more need of idle collect, then cancel the timer
-        if (!needIdleCollect)
-        {
-            FinishIdleCollect(FinishReason::FinishReasonNormal);
-            break;
-        }
-
-        int timeDiff = tickCountNextIdleCollection - GetTickCount();
-
-        // See if we pass the time for the next scheduled Idle GC
-        if (timeDiff > 0)
-        {
-            // IDLEGC-TODO:  since we might have activated another GC outside of script,
-            // We should recheck the GC heuristic to make sure we will still activate a GC
-            // when we do activate the idle GC and kill the timer if not.
-
-            // Not time yet, wait for the next heart beat
-            // IDLEGC-CONSIDER: may be we want to schedule it to call on when we want the idle GC (timeDiff)
-            // instead of a heart beat using full timeout amount?
-            ScheduleIdleCollect(IdleTicks, false /* not schedule as task */);
-
-            IDLE_COLLECT_TRACE(L"Idle callback: nop until next collection: %d\n",  timeDiff);
-            break;
-        }
-
-        // activate an idle collection
-        IDLE_COLLECT_TRACE(L"Idle callback: collection: %d\n", timeDiff);
-        JSETW(EventWriteJSCRIPT_GC_IDLE_CALLBACK_NEWCOLLECT(this));
-
-        needIdleCollect = false;
-        recycler->CollectNow<CollectOnScriptIdle>();
-    }
-
-    if (shouldScheduleIdleCollectOnExitIdle)
-    {
-        ScheduleIdleCollect(IdleTicks, false /* not schedule as task */);
-    }
-
-    return hasScheduledIdleCollect;
-}
-
-void ThreadServiceWrapperBase::FinishIdleCollect(ThreadServiceWrapperBase::FinishReason reason)
-{
-    Assert(reason == FinishReason::FinishReasonIdleTimerSetupFailed || 
-        reason == FinishReason::FinishReasonTaskComplete ||
-        inIdleCollect || threadContext->IsInScript() || !threadContext->GetRecycler()->CollectionInProgress());
-
-    IDLE_COLLECT_VERBOSE_TRACE(L"FinishIdleCollect- Reset hasScheduledIdleCollect\n");
-    hasScheduledIdleCollect = false;
-    needIdleCollect = false;
-
-    OnFinishIdleCollect();
-
-    IDLE_COLLECT_TRACE(L"Idle timer finished\n");
-    JSETW(EventWriteJSCRIPT_GC_IDLE_FINISHED(this));
-}
-
-bool ThreadServiceWrapperBase::ScheduleNextCollectOnExit()
-{
-    Assert(!threadContext->IsInScript());
-    Assert(!needIdleCollect || hasScheduledIdleCollect);
-
-    Recycler* recycler = threadContext->GetRecycler();
-    recycler->FinishConcurrent<FinishConcurrentOnExitScript>();
-
-#ifdef RECYCLER_TRACE
-    bool oldNeedIdleCollect = needIdleCollect;
-
-    if (forceIdleCollectOnce)
-    {
-        IDLE_COLLECT_VERBOSE_TRACE(L"Need to force one idle collection\n");
-    }
+    void OnTaskScheduled() { this->isIdleTaskComplete = false; }
 #endif
 
-    needIdleCollect = forceIdleCollectOnce || recycler->ShouldIdleCollectOnExit();
+private:
+    ulong refCount;
+    ThreadContext* threadContext;
+    JavascriptThreadService* threadService;
+#if DBG
+    bool isIdleTaskComplete;
+#endif
+};
 
-    if (needIdleCollect)
-    {
-        // Set up when we will do the idle decommit
-        tickCountNextIdleCollection = GetTickCount() + IdleTicks;
-
-        IDLE_COLLECT_VERBOSE_TRACE(L"Idle on exit collect %s: %d\n", (oldNeedIdleCollect? L"rescheduled" : L"scheduled"), 
-            tickCountNextIdleCollection - GetTickCount());
-
-        JSETW(EventWriteJSCRIPT_GC_IDLE_SCHEDULED(this));
-    }
-    else
-    {
-        IDLE_COLLECT_VERBOSE_TRACE(L"Idle on exit collect %s\n", oldNeedIdleCollect? L"cancelled" : L"not scheduled");
-        if (!recycler->CollectionInProgress())
-        {            
-            // We collected and finished, no need to ensure the idle collect call back.
-            return true;
-        }
-
-        IDLE_COLLECT_VERBOSE_TRACE(L"Idle on exit collect %s\n", hasScheduledIdleCollect || oldNeedIdleCollect? L"reschedule finish" : L"schedule finish");
-    }
-
-    // Don't schedule the call back if we are already in idle call back, as we don't do anything on recursive call anyways
-    // IdleCollect will schedule one if necessary
-    if (inIdleCollect)
-    {
-        shouldScheduleIdleCollectOnExitIdle = true;
-        return true;
-    }
-    else
-    {
-        return ScheduleIdleCollect(IdleTicks, false /* not schedule as task */);
-    }
-}
-
-void ThreadServiceWrapperBase::ClearForceOneIdleCollection()
-{
-    IDLE_COLLECT_VERBOSE_TRACE(L"Clearing force idle collect flag\n");
-
-    this->forceIdleCollectOnce = false;
-}
-
-void ThreadServiceWrapperBase::SetForceOneIdleCollection()
-{
-    IDLE_COLLECT_VERBOSE_TRACE(L"Setting force idle collect flag\n");
-
-    this->forceIdleCollectOnce = true;
-}
-
-void ThreadServiceWrapperBase::ScheduleFinishConcurrent()
-{
-    Assert(!threadContext->IsInScript());
-    Assert(threadContext->GetRecycler()->CollectionInProgress());
-
-    if (!this->inIdleCollect)
-    {
-        IDLE_COLLECT_VERBOSE_TRACE(L"Idle collect %s\n", needIdleCollect? L"reschedule finish" : L"scheduled finish"); 
-        this->needIdleCollect = false;
-        ScheduleIdleCollect(IdleFinishTicks, true /* schedule as task */);
-    }
-}
 
 //
 // JavascriptThreadService
@@ -1012,53 +778,3 @@ JavascriptThreadService::IdleCollectCallback(void* context)
     Assert(hasScheduledIdleCollect || !threadService->hasTimerScheduled);
 }
 
-//
-// JsrtThreadService
-//
-
-JsrtThreadService::JsrtThreadService() :
-    ThreadServiceWrapperBase(),
-    nextIdleTick(DWORD_MAX)
-{
-}
- 
-JsrtThreadService::~JsrtThreadService()
-{
-    Shutdown();
-}
-
-bool JsrtThreadService::Initialize(ThreadContext *threadContext)
-{
-    return ThreadServiceWrapperBase::Initialize(threadContext);
-}
-
-unsigned int JsrtThreadService::Idle()
-{
-    unsigned int currentTicks = GetTickCount();
-
-    if (currentTicks >= nextIdleTick)
-    {
-        IdleCollect();
-    }
-
-    return nextIdleTick;
-}
-
-bool JsrtThreadService::OnScheduleIdleCollect(uint ticks, bool /* canScheduleAsTask */)
-{
-    nextIdleTick = GetTickCount() + ticks;
-    return true;
-}
-
-bool JsrtThreadService::ShouldFinishConcurrentCollectOnIdleCallback()
-{
-    // For the JsrtThreadService, there is no idle task host
-    // so we should always try to finish concurrent on entering 
-    // the idle callback
-    return true;
-}
-
-void JsrtThreadService::OnFinishIdleCollect()
-{
-    nextIdleTick = DWORD_MAX;
-}

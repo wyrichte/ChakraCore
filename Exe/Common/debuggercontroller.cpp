@@ -822,7 +822,7 @@ int SourceMap::GetLine(int offset)
 
 int SourceMap::GetNumLines()
 {
-	return static_cast<int>(m_lineOffsets.size());
+    return static_cast<int>(m_lineOffsets.size());
 }
 
 /*static*/

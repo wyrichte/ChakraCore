@@ -542,6 +542,72 @@ var tests = [
             };
             assert.areEqual(1, a.splice(0, 1, 'x')[0]);
         }
+    },
+    {
+        name: "Array.fill() should throw when applied on frozen array",
+        body: function () {
+            var x = [0];
+            Object.freeze(x);
+            assert.throws(function() { Array.prototype.fill.call(x) }, TypeError, "We should get a TypeError when fill is applied to a frozen array");
+        }
+    },
+    {
+        name: "Array.copyWithin() should throw when applied on frozen array",
+        body: function () {
+            var x = [1,2,3,4,5];
+            Object.freeze(x);
+            assert.throws(function() { Array.prototype.fill.copyWithin(x, 1, 2) }, TypeError, "We should get a TypeError when fill is applied to a frozen array");
+        }
+    },
+    {
+        name: "Array.concat() should always box the first item",
+        body: function () {
+            assert.isTrue(typeof Array.prototype.concat.call(101)[0] === "object");
+        }
+    },
+    {
+        name: "Boolean primitive should never be considered concat spreadable",
+        body: function () {
+            try
+            {
+                Boolean.prototype[Symbol.isConcatSpreadable] = true;
+                Boolean.prototype[0] = 1;
+                Boolean.prototype[1] = 2;
+                Boolean.prototype[2] = 3;
+                Boolean.prototype.length = 3;
+                assert.isTrue([].concat(true).length === 1); /** True is added to the array as an literal, not spreaded */
+            }
+            finally
+            {
+                delete Boolean.prototype[Symbol.isConcatSpreadable];
+                delete Boolean.prototype[0];
+                delete Boolean.prototype[1];
+                delete Boolean.prototype[2];
+                delete Boolean.prototype.length;
+            }
+        }
+    },
+    {
+        name: "String primitive should never be considered concat spreadable",
+        body: function () {
+            try
+            {
+                String.prototype[Symbol.isConcatSpreadable] = true;
+                String.prototype[0] = 1;
+                String.prototype[1] = 2;
+                String.prototype[2] = 3;
+                String.prototype.length = 3;
+                assert.isTrue([].concat("Hello").length === 1); /** True is added to the array as an literal, not spreaded */
+            }
+            finally
+            {
+                delete String.prototype[Symbol.isConcatSpreadable];
+                delete String.prototype[0];
+                delete String.prototype[1];
+                delete String.prototype[2];
+                delete String.prototype.length;
+            }
+        }
     }
 ];
 

@@ -68,8 +68,8 @@ public:
             IR::Instr *         LowerStartCall(IR::Instr * instr);
             IR::Instr *         LowerAsmJsCallI(IR::Instr * callInstr);
             IR::Instr *         LowerAsmJsCallE(IR::Instr * callInstr);
-			IR::Instr *         LowerAsmJsLdElemHelper(IR::Instr * instr, uint32 mask);
-			IR::Instr *         LowerAsmJsStElemHelper(IR::Instr * instr, uint32 mask);
+            IR::Instr *         LowerAsmJsLdElemHelper(IR::Instr * instr);
+            IR::Instr *         LowerAsmJsStElemHelper(IR::Instr * instr);
             IR::Instr *         LoadHelperArgument(IR::Instr * instr, IR::Opnd * opndArg);
             IR::Instr *         LoadDynamicArgument(IR::Instr * instr, uint argNumber);
             IR::Instr *         LoadDynamicArgumentUsingLength(IR::Instr *instr);

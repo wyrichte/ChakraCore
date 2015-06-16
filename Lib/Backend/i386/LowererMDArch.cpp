@@ -874,7 +874,7 @@ LowererMDArch::LowerAsmJsCallI(IR::Instr * callInstr)
     return retInstr;
 }
 IR::Instr* 
-LowererMDArch::LowerAsmJsLdElemHelper(IR::Instr * instr, uint32 mask)
+LowererMDArch::LowerAsmJsLdElemHelper(IR::Instr * instr)
 {
     IR::Opnd * src1 = instr->UnlinkSrc1();
     IRType type = src1->GetType();
@@ -885,14 +885,7 @@ LowererMDArch::LowerAsmJsLdElemHelper(IR::Instr * instr, uint32 mask)
     IR::Opnd * cmpOpnd;
     if (indexOpnd)
     {
-        if (mask)
-        {
-            src1->AsIndirOpnd()->UnlinkIndexOpnd();
-            IR::RegOpnd * maskedOpnd = IR::RegOpnd::New(TyUint32, m_func);
-            Lowerer::InsertAnd(maskedOpnd, indexOpnd, IR::IntConstOpnd::New(mask, TyUint32, m_func), helperLabel);
-            src1->AsIndirOpnd()->SetIndexOpnd(maskedOpnd);
-        }
-        cmpOpnd = src1->AsIndirOpnd()->GetIndexOpnd();
+        cmpOpnd = indexOpnd;
     }
     else
     {
@@ -922,8 +915,9 @@ LowererMDArch::LowerAsmJsLdElemHelper(IR::Instr * instr, uint32 mask)
     Lowerer::InsertBranch(Js::OpCode::Br, doneLabel, loadLabel);
     return doneLabel;
 }
+
 IR::Instr*
-LowererMDArch::LowerAsmJsStElemHelper(IR::Instr * instr, uint32 mask)
+LowererMDArch::LowerAsmJsStElemHelper(IR::Instr * instr)
 {
     IR::Opnd * dst = instr->UnlinkDst();
     IR::LabelInstr * helperLabel = Lowerer::InsertLabel(true, instr);
@@ -933,14 +927,7 @@ LowererMDArch::LowerAsmJsStElemHelper(IR::Instr * instr, uint32 mask)
     IR::RegOpnd * indexOpnd = dst->AsIndirOpnd()->GetIndexOpnd();
     if (indexOpnd)
     {
-        if (mask)
-        {
-            dst->AsIndirOpnd()->UnlinkIndexOpnd();
-            IR::RegOpnd * maskedOpnd = IR::RegOpnd::New(TyUint32, m_func);
-            Lowerer::InsertAnd(maskedOpnd, indexOpnd, IR::IntConstOpnd::New(mask, TyUint32, m_func), helperLabel);
-            dst->AsIndirOpnd()->SetIndexOpnd(maskedOpnd);
-        }
-        cmpOpnd = dst->AsIndirOpnd()->GetIndexOpnd();
+        cmpOpnd = indexOpnd;
     }
     else
     {
@@ -962,6 +949,7 @@ LowererMDArch::LowerAsmJsStElemHelper(IR::Instr * instr, uint32 mask)
     }
     return doneLabel;
 }
+
 IR::Instr *
 LowererMDArch::LowerCallPut(IR::Instr *callInstr)
 {

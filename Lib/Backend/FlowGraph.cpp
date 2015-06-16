@@ -31,11 +31,23 @@ FlowGraph::Build(void)
     this->RunPeeps();
     END_CODEGEN_PHASE(func, Js::FGPeepsPhase);
 
+    // We don't optimize fully with SimpleJit. But, when JIT loop body is enabled, we do support 
+    // bailing out from a simple jitted function to do a full jit of a loop body in the function 
+    // (BailOnSimpleJitToFullJitLoopBody). For that purpose, we need the flow from try to catch.
+    if (this->func->HasTry() && 
+        (this->func->DoOptimizeTryCatch() || 
+        this->func->IsSimpleJit() && this->func->GetJnFunction()->DoJITLoopBody() 
+        )
+       )
+    {
+        this->catchLabelStack = JitAnew(this->alloc, SList<IR::LabelInstr*>, this->alloc);
+    }
+
     IR::Instr * currLastInstr = NULL;
     BasicBlock * block = NULL;
     BasicBlock * nextBlock = NULL;
     bool hasCall = false;
-    FOREACH_INSTR_IN_FUNC_BACKWARD(instr, func)
+    FOREACH_INSTR_IN_FUNC_BACKWARD_EDITING(instr, instrPrev, func)
     {
         if (currLastInstr == NULL || instr->EndsBasicBlock())
         {
@@ -54,13 +66,42 @@ FlowGraph::Build(void)
 
         if (instr->StartsBasicBlock())
         {
-            // Wrap up the current block and get ready to process a new one.
+            // Insert a BrOnException after the loop top if we are in a try-catch. This is required to 
+            // model flow from the loop to the catch block for loops that don't have a break condition.
+            if (instr->IsLabelInstr() && instr->AsLabelInstr()->m_isLoopTop &&
+                this->catchLabelStack && !this->catchLabelStack->Empty() &&
+                instr->m_next->m_opcode != Js::OpCode::BrOnException)
+            {
+                IR::BranchInstr * brOnException = IR::BranchInstr::New(Js::OpCode::BrOnException, this->catchLabelStack->Top(), instr->m_func);
+                instr->InsertAfter(brOnException);
+                instrPrev = brOnException; // process BrOnException before adding a new block for loop top label.
+                continue;
+            }
 
+            // Wrap up the current block and get ready to process a new one.
             nextBlock = block;
             block = this->AddBlock(instr, currLastInstr, nextBlock);
             block->hasCall = hasCall;
             hasCall = false;
             currLastInstr = NULL;
+        }
+
+        switch (instr->m_opcode)
+        {
+        case Js::OpCode::Catch:
+            Assert(instr->m_prev->IsLabelInstr());
+            if (this->catchLabelStack)
+            {
+                this->catchLabelStack->Push(instr->m_prev->AsLabelInstr());
+            }
+            break;
+
+        case Js::OpCode::TryCatch:
+            if (this->catchLabelStack)
+            {
+                this->catchLabelStack->Pop();
+            }
+            break;
         }
 
         if (OpCodeAttr::UseAllFields(instr->m_opcode))
@@ -106,8 +147,9 @@ FlowGraph::Build(void)
             }
         }
     }
-    NEXT_INSTR_IN_FUNC_BACKWARD;
+    NEXT_INSTR_IN_FUNC_BACKWARD_EDITING;
     this->func->isFlowGraphValid = true;
+    Assert(!this->catchLabelStack || this->catchLabelStack->Empty());
 
     // We've been walking backward so that edge lists would be in the right order. Now walk the blocks
     // forward to number the blocks in lexical order.

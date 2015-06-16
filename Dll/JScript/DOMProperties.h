@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#pragma once
 
 namespace Js
 {

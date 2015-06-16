@@ -11,7 +11,7 @@ function checkAttributes(name, o, p, a) {
 
     var msgPrefix = "Property " + p.toString() + " on " + name + " is ";
 
-    assert.isTrue(!!desc, msgPrefix + " with a descriptor");
+    assert.isTrue(!!desc, msgPrefix + "not found; there is no descriptor");
 
     assert.areEqual(a.writable, desc.writable, msgPrefix + (a.writable ? "" : "not") + " writable");
     assert.areEqual(a.enumerable, desc.enumerable, msgPrefix + (a.enumerable ? "" : "not") + " enumerable");
@@ -26,39 +26,90 @@ var tests = [
         }
     },
     {
-        name: "Generator function object instances have length, arguments, caller, and prototype properties",
+        name: "Generator function object instances have length, name, and prototype properties",
         body: function () {
             function* gf() { }
 
             assert.isTrue(gf.hasOwnProperty("length"), "Generator function objects have a 'length' property");
-            assert.isTrue(gf.hasOwnProperty("arguments"), "Generator function objects have an 'arguments' property");
-            assert.isTrue(gf.hasOwnProperty("caller"), "Generator function objects have a 'caller' property");
+            assert.isTrue(gf.hasOwnProperty("name"), "Generator function objects have a 'name' property");
             assert.isTrue(gf.hasOwnProperty("prototype"), "Generator function objects have a 'prototype' property");
 
             checkAttributes("gf", gf, "length", { writable: false, enumerable: false, configurable: true });
-            checkAttributes("gf", gf, "arguments", { enumerable: false, configurable: false });
-            checkAttributes("gf", gf, "caller", { enumerable: false, configurable: false });
-            checkAttributes("gf", gf, "prototype", { writable: false, enumerable: false, configurable: true });
+            checkAttributes("gf", gf, "name", { writable: false, enumerable: false, configurable: true });
+            checkAttributes("gf", gf, "prototype", { writable: true, enumerable: false, configurable: false });
+
+            function gf2(a, b, c) { }
+            assert.areEqual(0, gf.length, "Generator function object's 'length' property matches the number of parameters (0)");
+            assert.areEqual(3, gf2.length, "Generator function object's 'length' property matches the number of parameters (3)");
+            assert.areEqual("gf", gf.name, "Generator function object's 'name' property matches the function's name");
 
             assert.isFalse(gf.prototype.hasOwnProperty("constructor"), "Generator function prototype objects do not get a 'constructor' property");
         }
     },
     {
-        name: "arguments and caller properties are poisoned; they throw and are there to prevent confusion with legacy behavior",
+        name: "arguments and caller properties are absent regardless of strictness",
         body: function () {
             function* gf() { }
 
-            assert.throws(function () { gf.arguments; }, TypeError, "Get operation on 'arguments' property throws", "Object doesn't support this action");
-            assert.throws(function () { gf.arguments = 0; }, TypeError, "Set operation on 'arguments' property throws", "Object doesn't support this action");
-            assert.throws(function () { gf.caller; }, TypeError, "Get operation on 'caller' property throws", "Object doesn't support this action");
-            assert.throws(function () { gf.caller = 0; }, TypeError, "Set operation on 'caller' property throws", "Object doesn't support this action");
+            assert.isFalse(gf.hasOwnProperty("arguments"), "Generator function objects do not have an 'arguments' property");
+            assert.isFalse(gf.hasOwnProperty("caller"), "Generator function objects do not have a 'caller' property");
+
+            // Test JavascriptGeneratorFunction APIs that special case PropertyIds::caller and ::arguments
+            Object.setPrototypeOf(gf, Object.prototype); // Remove Function.prototype so we don't find its 'caller' and 'arguments' in these operations
+            assert.isFalse("arguments" in gf, "Has operation on 'arguments' property returns false initially");
+            assert.areEqual(undefined, gf.arguments, "Get operation on 'arguments' property returns undefined initially");
+            assert.areEqual(undefined, Object.getOwnPropertyDescriptor(gf, "arguments"), "No property descriptor for 'arguments' initially");
+            assert.isTrue(delete gf.arguments, "Delete operation on 'arguments' property returns true");
+
+            assert.areEqual(0, gf.arguments = 0, "Set operation on 'arguments' creates new property with assigned value");
+            assert.isTrue("arguments" in gf, "Has operation on 'arguments' property returns true now");
+            assert.areEqual(0, gf.arguments, "Get operation on 'arguments' property returns property value now");
+            checkAttributes("gf", gf, "arguments", { writable: true, enumerable: true, configurable: true });
+            assert.isTrue(delete gf.arguments, "Delete operation on 'arguments' property still returns true");
+            assert.isFalse(gf.hasOwnProperty("arguments"), "'arguments' property is gone");
+
+            assert.isFalse("caller" in gf, "Has operation on 'caller' property returns false initially");
+            assert.areEqual(undefined, gf.caller, "Get operation on 'caller' property returns undefined initially");
+            assert.areEqual(undefined, Object.getOwnPropertyDescriptor(gf, "caller"), "No property descriptor for 'caller' initially");
+            assert.isTrue(delete gf.caller, "Delete operation on 'caller' property returns true");
+
+            assert.areEqual(0, gf.caller = 0, "Set operation on 'caller' creates new property with assigned value");
+            assert.isTrue("caller" in gf, "Has operation on 'caller' property returns true now");
+            assert.areEqual(0, gf.caller, "Get operation on 'caller' property returns property value now");
+            checkAttributes("gf", gf, "caller", { writable: true, enumerable: true, configurable: true });
+            assert.isTrue(delete gf.caller, "Delete operation on 'caller' property still returns true");
+            assert.isFalse(gf.hasOwnProperty("caller"), "'caller' property is gone");
 
             function* gfstrict() { "use strict"; }
 
-            assert.throws(function () { gfstrict.arguments; }, TypeError, "Get operation on 'arguments' property throws", "Object doesn't support this action");
-            assert.throws(function () { gfstrict.arguments = 0; }, TypeError, "Set operation on 'arguments' property throws", "Object doesn't support this action");
-            assert.throws(function () { gfstrict.caller; }, TypeError, "Get operation on 'caller' property throws", "Object doesn't support this action");
-            assert.throws(function () { gfstrict.caller = 0; }, TypeError, "Set operation on 'caller' property throws", "Object doesn't support this action");
+            assert.isFalse(gfstrict.hasOwnProperty("arguments"), "Strict mode generator function objects do not have an 'arguments' property");
+            assert.isFalse(gfstrict.hasOwnProperty("caller"), "Strict mode generator function objects do not have a 'caller' property");
+
+            Object.setPrototypeOf(gfstrict, Object.prototype); // Remove Function.prototype so we don't find its 'caller' and 'arguments' in these operations
+            assert.isFalse("arguments" in gfstrict, "Has operation on 'arguments' property returns false initially for a strict mode generator function");
+            assert.areEqual(undefined, gfstrict.arguments, "Get operation on 'arguments' property returns undefined initially for a strict mode generator function");
+            assert.areEqual(undefined, Object.getOwnPropertyDescriptor(gfstrict, "arguments"), "No property descriptor for 'arguments' initially for a strict mode generator function");
+            assert.isTrue(delete gfstrict.arguments, "Delete operation on 'arguments' property returns true initially for a strict mode generator function");
+
+            assert.areEqual(0, gfstrict.arguments = 0, "Set operation on 'arguments' creates new property with assigned value for a strict mode generator function");
+            assert.isTrue("arguments" in gfstrict, "Has operation on 'arguments' property returns true now for a strict mode generator function");
+            assert.areEqual(0, gfstrict.arguments, "Get operation on 'arguments' property returns property value now for a strict mode generator function");
+            checkAttributes("gfstrict", gfstrict, "arguments", { writable: true, enumerable: true, configurable: true });
+            assert.isTrue(delete gfstrict.arguments, "Delete operation on 'arguments' property still returns true for a strict mode generator function");
+            assert.isFalse(gfstrict.hasOwnProperty("arguments"), "'arguments' property is gone for a strict mode generator function");
+
+            assert.isFalse("caller" in gfstrict, "Has operation on 'caller' property returns false initially for a strict mode generator function");
+            assert.areEqual(undefined, gfstrict.caller, "Get operation on 'caller' property returns undefined initially for a strict mode generator function");
+            assert.areEqual(undefined, Object.getOwnPropertyDescriptor(gfstrict, "caller"), "No property descriptor for 'caller' initially for a strict mode generator function");
+            assert.isTrue(delete gfstrict.caller, "Delete operation on 'caller' property returns true initially for a strict mode generator function");
+
+            assert.areEqual(0, gfstrict.caller = 0, "Set operation on 'caller' creates new property with assigned value for a strict mode generator function");
+            assert.isTrue("caller" in gfstrict, "Has operation on 'caller' property returns true now for a strict mode generator function");
+            assert.areEqual(0, gfstrict.caller, "Get operation on 'caller' property returns property value now for a strict mode generator function");
+            checkAttributes("gfstrict", gfstrict, "caller", { writable: true, enumerable: true, configurable: true });
+            assert.isTrue(delete gfstrict.caller, "Delete operation on 'caller' property still returns true for a strict mode generator function");
+            assert.isFalse(gfstrict.hasOwnProperty("caller"), "'caller' property is gone for a strict mode generator function");
+
         }
     },
     {
@@ -129,8 +180,9 @@ var tests = [
 
             checkAttributes("Generator prototype", generatorPrototype, "constructor", { writable: false, enumerable: false, configurable: true });
             checkAttributes("Generator prototype", generatorPrototype, "next", { writable: true, enumerable: false, configurable: true });
-            checkAttributes("Generator prototype", generatorPrototype, "throw", { writable: true, enumerable: false, configurable: true });
             checkAttributes("Generator prototype", generatorPrototype, "return", { writable: true, enumerable: false, configurable: true });
+            checkAttributes("Generator prototype", generatorPrototype, "throw", { writable: true, enumerable: false, configurable: true });
+            // TODO: Symbol.iterator property has moved up to a new prototype object %IteratorPrototype%
             checkAttributes("Generator prototype", generatorPrototype, Symbol.iterator, { writable: true, enumerable: false, configurable: true });
             checkAttributes("Generator prototype", generatorPrototype, Symbol.toStringTag, { writable: false, enumerable: false, configurable: true });
 
@@ -155,10 +207,6 @@ var tests = [
         body: function () {
             function* gf() {
                 assert.isTrue(arguments.callee === gf, "arguments.callee should be the same function object pointed to by gf");
-
-                var a = arguments;
-                assert.throws(function () { a.callee.arguments; }, TypeError, "Sanity check: arguments should throw", "Object doesn't support this action");
-                assert.throws(function () { a.callee.caller; }, TypeError, "Sanity check: caller should throw", "Object doesn't support this action");
             }
 
             gf().next();

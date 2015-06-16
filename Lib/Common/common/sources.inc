@@ -18,9 +18,6 @@ SOURCES= \
     ..\Tick.cpp \
     ..\VTInfo.cpp \
 
-AMD64_SOURCES=\
-    ..\amd64\commona.asm
-
 ARM_SOURCES= \
     ..\arm\arm_GET_CURRENT_FRAME.asm \
 

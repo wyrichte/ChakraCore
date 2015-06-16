@@ -405,7 +405,8 @@ namespace Js
         }
 
         BOOL fParsed = FALSE;
-        DECLARE_STACK_PINNED(Js::PropertyRecordList, propertyRecordList);
+        FunctionBody* returnFunctionBody = nullptr;
+        ENTER_PINNED_SCOPE(Js::PropertyRecordList, propertyRecordList);
         Recycler* recycler = this->m_scriptContext->GetRecycler();
         propertyRecordList = RecyclerNew(recycler, Js::PropertyRecordList, recycler);
 
@@ -658,8 +659,12 @@ namespace Js
             this->UpdateFunctionBodyImpl(funcBody);
             this->m_hasBeenParsed = true;
         }
+        
+        returnFunctionBody = GetFunctionBody();
 
-        return GetFunctionBody();
+        LEAVE_PINNED_SCOPE();
+
+        return returnFunctionBody;
     }
 
     FunctionBody* ParseableFunctionInfo::ParseAsmJs(Parser * ps, __out CompileScriptException * se, __out ParseNodePtr * parseTree)
@@ -667,7 +672,8 @@ namespace Js
         Assert(IsDeferredParseFunction());
         Assert(m_isAsmjsMode);
 
-        DECLARE_STACK_PINNED(Js::PropertyRecordList, propertyRecordList);
+        FunctionBody* returnFunctionBody = nullptr;
+        ENTER_PINNED_SCOPE(Js::PropertyRecordList, propertyRecordList);
         Recycler* recycler = this->m_scriptContext->GetRecycler();
         propertyRecordList = RecyclerNew(recycler, Js::PropertyRecordList, recycler);
 
@@ -747,7 +753,11 @@ namespace Js
         UpdateFunctionBodyImpl(funcBody);
         m_hasBeenParsed = true;
 
-        return GetFunctionBody();
+        returnFunctionBody = GetFunctionBody();
+
+        LEAVE_PINNED_SCOPE();
+
+        return returnFunctionBody;
     }
 
     void ParseableFunctionInfo::Finalize(bool isShutdown)

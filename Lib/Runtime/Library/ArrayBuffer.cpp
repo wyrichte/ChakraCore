@@ -389,6 +389,15 @@ namespace Js
         return newBuffer;
     }
 
+    Var ArrayBuffer::EntryGetterSymbolSpecies(RecyclableObject* function, CallInfo callInfo, ...)
+    {
+        ARGUMENTS(args, callInfo);
+
+        Assert(args.Info.Count > 0);
+
+        return args[0];
+    }
+
     ArrayBuffer* ArrayBuffer::FromVar(Var aValue)
     {
         AssertMsg(Is(aValue), "var must be an ArrayBuffer");

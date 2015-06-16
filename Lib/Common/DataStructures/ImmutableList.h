@@ -919,7 +919,7 @@ namespace regex
         int currentIndex;
         size_t stringSize;
 
-		// tracking allocated strings based on non-Append(String) calls
+        // tracking allocated strings based on non-Append(String) calls
         struct AllocatedStringChunk
         {
             LPCWSTR dataPtr;
@@ -929,7 +929,7 @@ namespace regex
             {
             }
         };
-		AllocatedStringChunk* allocatedStringChunksHead;
+        AllocatedStringChunk* allocatedStringChunksHead;
 
     public:
         ImmutableStringBuilder() : head(nullptr), tail(nullptr), currentIndex(chunkSize), stringSize(1), allocatedStringChunksHead(nullptr)
@@ -938,18 +938,18 @@ namespace regex
 
         ~ImmutableStringBuilder()
         {
-			// unallocate strings
-			AllocatedStringChunk* allocatedStringChunk = this->allocatedStringChunksHead;
-			AllocatedStringChunk* nextAllocatedStringChunk;
-			while (allocatedStringChunk != nullptr)
-			{
-				nextAllocatedStringChunk = allocatedStringChunk->next;
+            // unallocate strings
+            AllocatedStringChunk* allocatedStringChunk = this->allocatedStringChunksHead;
+            AllocatedStringChunk* nextAllocatedStringChunk;
+            while (allocatedStringChunk != nullptr)
+            {
+                nextAllocatedStringChunk = allocatedStringChunk->next;
 
-				delete[] allocatedStringChunk->dataPtr;
-				delete allocatedStringChunk;
+                delete[] allocatedStringChunk->dataPtr;
+                delete allocatedStringChunk;
 
-				allocatedStringChunk = nextAllocatedStringChunk;
-			}
+                allocatedStringChunk = nextAllocatedStringChunk;
+            }
 
             while (head != nullptr)
             {
@@ -959,22 +959,22 @@ namespace regex
             }
         }
 
-		void AppendInt32(int32 value);
+        void AppendInt32(int32 value);
 
-		void AppendUInt64(uint64 value);
+        void AppendUInt64(uint64 value);
 
         void AppendWithCopy(_In_z_ LPCWSTR str);
 
-		void AppendBool(bool value)
-		{
-			this->Append(value ? L"true" : L"false");
-		}
+        void AppendBool(bool value)
+        {
+            this->Append(value ? L"true" : L"false");
+        }
 
         void Append(LPCWSTR str)
         {
-			// silently ignore nullptr usage pattern, to avoid cluttering codebase
-			if (str == nullptr)
-				return;
+            // silently ignore nullptr usage pattern, to avoid cluttering codebase
+            if (str == nullptr)
+                return;
 
             size_t newStrSize = stringSize + wcslen(str);
             if (newStrSize < stringSize)
@@ -1030,20 +1030,20 @@ namespace regex
            return str;
         }
 
-		// Free a string returned by Get()
-		template<class TAllocator>
-		void FreeString(LPCWSTR str)
-		{
-			ImmutableList<chunkSize>::FreeString(allocator, str, stringSize);
-		}
+        // Free a string returned by Get()
+        template<class TAllocator>
+        void FreeString(LPCWSTR str)
+        {
+            ImmutableList<chunkSize>::FreeString(allocator, str, stringSize);
+        }
 
-		template<class TAllocator>
-		static void FreeString(TAllocator *allocator, LPCWSTR str, size_t strLength)
-		{
-			AssertMsg(allocator != nullptr, "allocator != nullptr");
-			AssertMsg(str != nullptr, "str != nullptr");
-			AllocatorDeleteArray(TAllocator, allocator, strLength, str);
-		}
+        template<class TAllocator>
+        static void FreeString(TAllocator *allocator, LPCWSTR str, size_t strLength)
+        {
+            AssertMsg(allocator != nullptr, "allocator != nullptr");
+            AssertMsg(str != nullptr, "str != nullptr");
+            AllocatorDeleteArray(TAllocator, allocator, strLength, str);
+        }
     };
 
     typedef ImmutableStringBuilder<8> DefaultImmutableStringBuilder;

@@ -1367,7 +1367,7 @@ HRESULT JsGlassArgs::ParseCmdLine(int &argc, __inout_ecount(argc) const wchar_t*
     IfFailGo(hr);
 
 #ifdef DIRECT_AUTHOR_TEST    
-	if (authorDllName && *authorDllName)
+    if (authorDllName && *authorDllName)
     {
          hr = SetPathOrDefault(&_authorDllPath,
                   L"_NTTREE",
@@ -1380,7 +1380,7 @@ Error:
         fwprintf(stdout, L"Failed to load/locate file : %s under _NTTREE or .local\n", dllName, _jscriptDllPath);
         fflush(stdout);
     }
-	return hr;
+    return hr;
 }
 
 JsGlass* JsGlass::that = NULL;

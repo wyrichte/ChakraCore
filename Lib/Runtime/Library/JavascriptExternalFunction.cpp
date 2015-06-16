@@ -78,10 +78,10 @@ namespace Js
             Js::JavascriptError::MapAndThrowError(scriptContext, hr);
         }
 
-		if (scriptContext->GetConfig()->IsES6FunctionNameEnabled())
-		{
-			object->SetPropertyWithAttributes(PropertyIds::name, object->GetDisplayName(true), PropertyConfigurable, nullptr);
-		}
+        if (scriptContext->GetConfig()->IsES6FunctionNameEnabled())
+        {
+            object->SetPropertyWithAttributes(PropertyIds::name, object->GetDisplayName(true), PropertyConfigurable, nullptr);
+        }
 
     }
 

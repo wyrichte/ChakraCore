@@ -104,8 +104,6 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 #define null 0
 #define PropertyDeleted         0x08
 
-namespace GC{}
-using namespace GC;
 #include "DataStructures\BitVector.h"
 #include "time.h"
 #include "IEUtest.h"
@@ -114,6 +112,7 @@ using namespace GC;
 #include "Nullable.h"
 #include "RemoteTypeHandler.h"
 #include "ScriptDebugSite.h"
+#include "RecyclerCachedData.h"
 #include "jd.h"
 #include "TypeHandlerPropertyNameReader.h"
 
@@ -122,7 +121,6 @@ using namespace GC;
 #include "dbgeng.h"
 #include "werdump.h"
 #include "MockDataTarget.h"
-#include "RemoteFunctionBody.h"
 #include "DiagException.h"
 #include "AutoPtr.h"
 #include "DiagAutoPtr.h"

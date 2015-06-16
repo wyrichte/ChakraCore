@@ -130,7 +130,7 @@ namespace Js
     {
         // value might be null from disable implicit call
         // no marshalling in the case of language service mode.
-        if (BinaryFeatureControl::LanguageService() || Js::TaggedNumber::Is(value) || value == nullptr)
+        if (BinaryFeatureControl::LanguageService() || value == nullptr || Js::TaggedNumber::Is(value))
         {
             return value;
         }

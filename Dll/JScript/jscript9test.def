@@ -5,7 +5,9 @@ EXPORTS
     DllRegisterServer              PRIVATE
     DllUnregisterServer            PRIVATE
     DllCanUnloadNow                PRIVATE
-    JsVarToScriptDirect            PRIVATE    
+    JsVarToScriptDirect            PRIVATE
+    JsProjectWinRTNamespace         @400
+    JsSetProjectionEnqueueCallback  @401
     JsVarToExtension
     JsVarAddRef
     JsVarRelease
@@ -118,8 +120,6 @@ EXPORTS
     JsSetPromiseContinuationCallback
     JsInspectableToObject
     JsObjectToInspectable
-    JsProjectWinRTNamespace
-    JsSetProjectionEnqueueCallback
     JsStopDebugging
     JsGetArrayLength
     JsCreateWeakContainer

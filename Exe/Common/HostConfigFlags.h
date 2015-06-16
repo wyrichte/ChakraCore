@@ -24,7 +24,7 @@ public:
     static int FindArg(int argc, _In_reads_(argc) PWSTR argv[], PCWSTR targetArg, int targetArgLen);
     static void RemoveArg(int& argc, _Inout_updates_(argc) PWSTR argv[], int index);
     static PCWSTR ExtractSwitch(int& argc, _Inout_updates_(argc) PWSTR argv[], PCWSTR switchNameWithColon, int switchNameWithColonLen);
-	static void AddSwitch(int& argc, __deref_ecount(argc) LPWSTR** argv, _In_ PWSTR newArg);
+    static void AddSwitch(int& argc, __deref_ecount(argc) LPWSTR** argv, _In_ PWSTR newArg);
     static int PeekVersionSwitch(int argc, _In_reads_(argc) PWSTR argv[]);
 
     template <class Func> static int FindArg(int argc, _In_reads_(argc) PWSTR argv[], Func func);

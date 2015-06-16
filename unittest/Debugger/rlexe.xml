@@ -3853,6 +3853,13 @@
     </test>
     <test>
         <default>
+            <files>bug_OS_2744135_debugEvalSite.js</files>
+            <compile-flags>-debuglaunch</compile-flags>
+            <tags>BugFix,fail_mutators,exclude_serialized</tags>
+        </default>
+    </test>
+    <test>
+        <default>
             <files>bug_os_2946365.js</files>
             <compile-flags>-targeted</compile-flags>
             <tags>BugFix,fail_mutators,exclude_dynapogo</tags>

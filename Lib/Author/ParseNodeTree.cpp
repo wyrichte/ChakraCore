@@ -256,7 +256,7 @@ namespace Authoring
                     auto parent = cursor.Parent();
 
                     // If this appears as the right side of a dot expression or the left side of a literal member, it is a member reference.
-                    if ((parent->nop == knopDot && parent->sxBin.pnode2 == current) || (parent->nop == knopMember && parent->sxBin.pnode1 == current))
+                    if ((parent->nop == knopDot && parent->sxBin.pnode2 == current) || ((parent->nop == knopMember || parent->nop == knopMemberShort) && parent->sxBin.pnode1 == current))
                     {
                         flags = asrfMemberReference;
                     }
@@ -372,6 +372,7 @@ namespace Authoring
                         case knopGetMember:
                         case knopSetMember:
                         case knopMember:
+                        case knopMemberShort:
                             referenceCandidate = node->sxBin.pnode1;
                             candidateFlags = candidateFlags | asrfLValue;
                             break;

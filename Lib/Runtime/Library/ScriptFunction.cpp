@@ -567,10 +567,12 @@ namespace Js
         JavascriptLibrary *javascriptLibrary = scriptContext->GetLibrary();
         bool isClassMethod = this->GetHomeObj() != nullptr;
         JavascriptString* prefixString = nullptr;
-        DECLARE_STACK_PINNED(JavascriptString, computedName);
         uint prefixStringLength = 0;
         const wchar_t* name = L"";
         size_t nameLength = 0;
+        Var returnStr = nullptr;
+        ENTER_PINNED_SCOPE(JavascriptString, computedName);
+
         if (!isClassMethod)
         {
             prefixString = javascriptLibrary->GetFunctionPrefixString();
@@ -636,7 +638,11 @@ namespace Js
         funcBodyStrStart = funcBodyStrStart + nameLength;
         js_wmemcpy_s(funcBodyStrStart, functionBodyLength, paramStr, functionBodyLength);
         
-        return LiteralString::NewCopyBuffer(funcBodyStr, totalLength, scriptContext);
+        returnStr = LiteralString::NewCopyBuffer(funcBodyStr, totalLength, scriptContext);
+
+        LEAVE_PINNED_SCOPE();
+
+        return returnStr;
     }
 
     Var ScriptFunction::EnsureSourceString()
@@ -867,8 +873,10 @@ namespace Js
         Assert(this->GetFunctionProxy() != nullptr); // The caller should guarantee a proxy exists
         ParseableFunctionInfo * func = this->GetFunctionProxy()->EnsureDeserialized();
         const wchar_t* name = nullptr;
-        DECLARE_STACK_PINNED(JavascriptString, computedName);
         size_t length = 0;
+        JavascriptString* returnStr = nullptr;
+        ENTER_PINNED_SCOPE(JavascriptString, computedName);
+
         if (computedNameVar != nullptr)
         {
             const wchar_t* symbolName = nullptr;
@@ -918,7 +926,11 @@ namespace Js
                 }
             }
         }
-        return DisplayNameHelper(name, length);
+        returnStr = DisplayNameHelper(name, length);
+
+        LEAVE_PINNED_SCOPE();
+
+        return returnStr;
     }
 
     JavascriptString* ScriptFunction::GetComputedName() const

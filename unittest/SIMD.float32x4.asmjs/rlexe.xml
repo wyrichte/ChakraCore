@@ -360,4 +360,88 @@
          <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -AsmJsStopOnError -on:asmjs -testtrace:asmjsInterpreter -off:fulljit -off:backend</compile-flags>
     </default>
 </test>
+
+<test>
+    <default>
+         <files>testSIMDLink-1.js</files>
+         <baseline>testSIMDLink-1.baseline</baseline>
+         <tags>exclude_dynapogo,exclude_ship</tags>
+         <compile-flags>-bgjit- -on:asmjs -testtrace:asmjs -simdjs -AsmJsStopOnError -maic:0</compile-flags>
+    </default>
+</test>
+
+<test>
+    <default>
+         <files>testSIMDLink-1.js</files>
+         <baseline>testSIMDLink-1.baseline</baseline>
+         <tags>exclude_dynapogo,exclude_ship</tags>
+         <compile-flags>-bgjit- -on:asmjs -testtrace:asmjs -simdjs -AsmJsStopOnError -lic:1</compile-flags>
+    </default>
+</test>
+
+<test>
+    <default>
+         <files>testSIMDLink-1.js</files>
+         <baseline>testSIMDLink-1.baseline</baseline>
+         <tags>exclude_dynapogo,exclude_ship</tags>
+         <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -AsmJsStopOnError -on:asmjs -testtrace:asmjsInterpreter -off:fulljit -off:backend</compile-flags>
+    </default>
+</test>
+
+
+
+<test>
+    <default>
+         <files>testSIMDLink-2.js</files>
+         <baseline>testSIMDLink-2.baseline</baseline>
+         <tags>exclude_dynapogo,exclude_ship</tags>
+         <compile-flags>-bgjit- -on:asmjs -testtrace:asmjs -simdjs -AsmJsStopOnError -maic:0</compile-flags>
+    </default>
+</test>
+
+<test>
+    <default>
+         <files>testSIMDLink-2.js</files>
+         <baseline>testSIMDLink-2.baseline</baseline>
+         <tags>exclude_dynapogo,exclude_ship</tags>
+         <compile-flags>-bgjit- -on:asmjs -testtrace:asmjs -simdjs -AsmJsStopOnError -lic:1</compile-flags>
+    </default>
+</test>
+
+<test>
+    <default>
+         <files>testSIMDLink-2.js</files>
+         <baseline>testSIMDLink-2.baseline</baseline>
+         <tags>exclude_dynapogo,exclude_ship</tags>
+         <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -AsmJsStopOnError -on:asmjs -testtrace:asmjsInterpreter -off:fulljit -off:backend</compile-flags>
+    </default>
+</test>
+
+
+<test>
+    <default>
+         <files>testSIMDLink-3.js</files>
+         <baseline>testSIMDLink-3.baseline</baseline>
+         <tags>exclude_dynapogo,exclude_ship</tags>
+         <compile-flags>-bgjit- -on:asmjs -testtrace:asmjs -simdjs -AsmJsStopOnError -maic:0</compile-flags>
+    </default>
+</test>
+
+<test>
+    <default>
+         <files>testSIMDLink-3.js</files>
+         <baseline>testSIMDLink-3.baseline</baseline>
+         <tags>exclude_dynapogo,exclude_ship</tags>
+         <compile-flags>-bgjit- -on:asmjs -testtrace:asmjs -simdjs -AsmJsStopOnError -lic:1</compile-flags>
+    </default>
+</test>
+
+<test>
+    <default>
+         <files>testSIMDLink-3.js</files>
+         <baseline>testSIMDLink-3.baseline</baseline>
+         <tags>exclude_dynapogo,exclude_ship</tags>
+         <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -AsmJsStopOnError -on:asmjs -testtrace:asmjsInterpreter -off:fulljit -off:backend</compile-flags>
+    </default>
+</test>
 </regress-exe>

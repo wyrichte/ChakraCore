@@ -267,6 +267,8 @@ namespace Js
 
             static FunctionInfo ResolveOrRejectFunction;
             static FunctionInfo AllResolveElementFunction;
+
+            static FunctionInfo GetterSymbolSpecies;
         };
 
         JavascriptPromise(DynamicType * type);
@@ -291,6 +293,7 @@ namespace Js
         static Var EntryIdentityFunction(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryThrowerFunction(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryAllResolveElementFunction(RecyclableObject* function, CallInfo callInfo, ...);
+        static Var EntryGetterSymbolSpecies(RecyclableObject* function, CallInfo callInfo, ...);
 
         static bool Is(Var aValue);
         static JavascriptPromise* FromVar(Js::Var aValue);

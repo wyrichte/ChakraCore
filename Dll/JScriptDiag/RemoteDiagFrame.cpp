@@ -135,7 +135,7 @@ namespace JsDiag
 
     Js::Var* RemoteStackFrame::RemoteDiagNativeFrame::GetInParams()
     {
-		Js::Var* addr = (Js::Var*)this->m_actualFrame->GetArgvAddr() + JavascriptFunctionArgIndex_This;
+        Js::Var* addr = (Js::Var*)this->m_actualFrame->GetArgvAddr() + JavascriptFunctionArgIndex_This;
         return (Js::Var*)addr;
     }
 

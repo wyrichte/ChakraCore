@@ -22,22 +22,22 @@ typedef unsigned long ULONG;
 typedef wchar_t UOLECHAR;
 ULONG CaseSensitiveComputeHash(LPCOLESTR posz)
 {
-	ULONG luHash = 0;
-	UOLECHAR ch;
-	while (0 != (ch = *(UOLECHAR *)posz++))
-		{
-		luHash = 17 * luHash + ch;
-		}
-	return luHash;
+    ULONG luHash = 0;
+    UOLECHAR ch;
+    while (0 != (ch = *(UOLECHAR *)posz++))
+        {
+        luHash = 17 * luHash + ch;
+        }
+    return luHash;
 }
 
 ULONG CaseSensitiveComputeHashCch(LPCOLESTR prgch, long cch)
 {
-	ULONG luHash = 0;
+    ULONG luHash = 0;
 
-	while (cch-- > 0)
-		luHash = 17 * luHash + *(UOLECHAR *)prgch++;
-	return luHash;
+    while (cch-- > 0)
+        luHash = 17 * luHash + *(UOLECHAR *)prgch++;
+    return luHash;
 }
 
 ULONG CaseSensitiveComputeHashCch(LPCUTF8 prgch, long cch)
@@ -64,42 +64,42 @@ ULONG CaseSensitiveComputeHashCch(char const * prgch, long cch)
 
 ULONG CaseInsensitiveComputeHash(LPCOLESTR posz)
 {
-	ULONG luHash = 0;
-	UOLECHAR ch;
-	while (0 != (ch = *(UOLECHAR *)posz++))
-		{
-		if (ch <= 'Z' && ch >= 'A')
-			ch += 'a' - 'A';
-		luHash = 17 * luHash + ch;
-		}
-	return luHash;
+    ULONG luHash = 0;
+    UOLECHAR ch;
+    while (0 != (ch = *(UOLECHAR *)posz++))
+        {
+        if (ch <= 'Z' && ch >= 'A')
+            ch += 'a' - 'A';
+        luHash = 17 * luHash + ch;
+        }
+    return luHash;
 }
 
 ULONG CaseInsensitiveComputeHashCch(LPCOLESTR prgch, long cch)
 {
-	ULONG luHash = 0;
-	UOLECHAR ch;
-	while (cch-- > 0)
-		{
-		ch = *(UOLECHAR *)prgch++;
-		if (ch <= 'Z' && ch >= 'A')
-			ch += 'a' - 'A';
-		luHash = 17 * luHash + ch;
-		}
-	return luHash;
+    ULONG luHash = 0;
+    UOLECHAR ch;
+    while (cch-- > 0)
+        {
+        ch = *(UOLECHAR *)prgch++;
+        if (ch <= 'Z' && ch >= 'A')
+            ch += 'a' - 'A';
+        luHash = 17 * luHash + ch;
+        }
+    return luHash;
 }
 
 ULONG CaseInsensitiveComputeHashCch(LPCUTF8 prgch, long cch)
 {
     utf8::DecodeOptions options = utf8::doAllowThreeByteSurrogates;
-	ULONG luHash = 0;
-	UOLECHAR ch;
-	while (cch-- > 0)
-		{
-		ch = utf8::Decode(prgch, prgch + 4, options); // WARNING: Assume cch correct, suppress end-of-buffer checking
-		if (ch <= 'Z' && ch >= 'A')
-			ch += 'a' - 'A';
-		luHash = 17 * luHash + ch;
-		}
-	return luHash;
+    ULONG luHash = 0;
+    UOLECHAR ch;
+    while (cch-- > 0)
+        {
+        ch = utf8::Decode(prgch, prgch + 4, options); // WARNING: Assume cch correct, suppress end-of-buffer checking
+        if (ch <= 'Z' && ch >= 'A')
+            ch += 'a' - 'A';
+        luHash = 17 * luHash + ch;
+        }
+    return luHash;
 }

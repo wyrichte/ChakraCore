@@ -237,6 +237,7 @@
       "f": {
         "[Methods]": "{...}",
         "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "[Symbol.species]": "Function evaluation is disabled while debugging native code",
         "arguments": "null",
         "caller": "null",
         "length": "1",
@@ -298,6 +299,7 @@
       "f": {
         "[Methods]": "{...}",
         "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "[Symbol.species]": "Function evaluation is disabled while debugging native code",
         "arguments": "null",
         "caller": "null",
         "length": "1",
@@ -387,6 +389,7 @@
     "evaluate": {
       "f": {
         "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "[Symbol.species]": "Function evaluation is disabled while debugging native code",
         "arguments": "null",
         "caller": "null",
         "length": "0",
@@ -404,6 +407,7 @@
     "evaluate": {
       "f": {
         "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "[Symbol.species]": "Function evaluation is disabled while debugging native code",
         "arguments": "null",
         "caller": "null",
         "length": "0",

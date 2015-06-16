@@ -152,7 +152,7 @@
    <default>
       <files>math.js</files>
       <baseline>math.x64.baseline</baseline> <!-- Win7 x64 -->
-      <tags>exclude_arm,exclude_x86,exclude_win8,exclude_winBlue</tags>
+      <tags>exclude_arm,exclude_x86,exclude_win8,exclude_winBlue,exclude_win10</tags>
    </default>
 </test>
 <test>
@@ -183,7 +183,7 @@
       <files>math.js</files>
       <baseline>math.x64.baseline</baseline> <!--  Win7 x64 -->
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_arm,exclude_x86,exclude_win8,exclude_winBlue</tags>
+      <tags>exclude_arm,exclude_x86,exclude_win8,exclude_winBlue,exclude_win10</tags>
    </default>
 </test>
 <test>

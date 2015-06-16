@@ -296,7 +296,7 @@ AllocFromHeap(size_t requestBytes)
 {
     size_t allocBytes = AllocSizeMath::Add(requestBytes, sizeof(ArenaMemoryBlock));
     
-    ARENA_FAULTINJECT_MEMORY;
+    ARENA_FAULTINJECT_MEMORY(this->name, requestBytes);
 
     char * buffer = HeapNewNoThrowArray(char, allocBytes);
     
@@ -336,7 +336,7 @@ ArenaAllocatorBase<TFreeListPolicy, ObjectAlignmentBitShiftArg, RequireObjectAli
 AddBigBlock(size_t requestBytes)
 {
     
-    FAULTINJECT_MEMORY_NOTHROW;
+    FAULTINJECT_MEMORY_NOTHROW(this->name, requestBytes);
 
     size_t allocBytes = AllocSizeMath::Add(requestBytes, sizeof(BigBlock));  
 
@@ -469,7 +469,7 @@ AllocInternal(size_t requestedBytes)
 
     // If out of memory function is set, that means that the caller is a throwing allocation
     // routine, so we can throw from here. Otherwise, we shouldn't throw.
-    ARENA_FAULTINJECT_MEMORY;
+    ARENA_FAULTINJECT_MEMORY(this->name, requestedBytes);
 
     ASSERT_THREAD();    
             

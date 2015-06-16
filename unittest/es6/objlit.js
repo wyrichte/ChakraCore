@@ -261,8 +261,27 @@ var tests = [
             assert.throws(function() { eval("{ __proto__ : Function.prototype, __proto__ : Array.prototype }"); }, SyntaxError, "More than one regular productions can't define __proto__");
             var __proto__ = {};
             assert.throws(function() { eval("var o = { __proto__ : Function.prototype, __proto__, __proto__ : Array.prototype };"); }, SyntaxError, "More than one regular productions can't define __proto__ even if there are other productions present");
-            assert.doesNotThrow(function() { eval("var o = { __proto__, __proto__ : Object.prototype, __proto__() {}, __proto__ };"); }, "Except the regular production other productions can occur more than one time");
-            assert.doesNotThrow(function() { eval("var o = { ['__proto__'] : Array.prototype, __proto__ : Object.prototype, ['__proto__'] : {} };"); }, "More than one computed property names yielding the property name as __proto__ are allowed");
+            assert.isTrue({ __proto__, __proto__ : [], __proto__() {}, __proto__ } instanceof Array, "Regular production model should win over all other");
+            assert.isTrue({ ['__proto__'] : Object.prototype, __proto__ : [], ['__proto__'] : {} } instanceof Array, "Computed property definition of __proto__ shouldn't override the regular production");
+            
+            assert.isTrue({ __proto__ : [] } instanceof Array, "Regular production for __proto__ should set the internal prototype");
+            assert.areEqual(Object.getPrototypeOf({ __proto__ : null }), null, "Null should be set as the prototype when specified using normal production");
+            assert.areEqual(Object.getPrototypeOf({ __proto__ : undefined }),  Object.prototype, "Undefined should not be set as the internal prototype for object literal");
+            assert.areEqual(Object.getPrototypeOf({ __proto__ : "a" }), Object.prototype, "Non-object type string shouldn't be set as the internal prototype for object literal");
+            assert.areEqual(Object.getPrototypeOf({ __proto__ : 10 }), Object.prototype, "Non-object type number shouldn't be set as the internal prototype for object literal");
+            assert.areEqual(Object.getPrototypeOf({ __proto__ : true }), Object.prototype, "Non-object type boolean shouldn't be set as the internal prototype for object literal");
+            var str = "__proto__";
+            assert.isFalse({ [str] : [] } instanceof Array, "Computed property shouldn't set the internal prototype");
+            __proto__ = [];
+            assert.isFalse({ __proto__ } instanceof Array, "Identifier reference shouldn't set the internal prototype");
+            assert.isFalse({__proto__() {}} instanceof Function, "Method definition shouldn't set the internal prototype");
+
+            function f() {}
+            var obj = { "__proto__" : [], ["__proto__"] : f.prototype };
+            Array.prototype.x = 1;
+            f.prototype.x = 10;
+            assert.areEqual(obj.x, 1, "Regular production should assign the internal prototype");
+            assert.areEqual(obj.__proto__.x, 10, "Computed property definition of __proto__ is added as a data member");
         }
     }
 ];

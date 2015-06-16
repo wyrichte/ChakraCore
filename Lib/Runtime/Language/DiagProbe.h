@@ -129,6 +129,11 @@ namespace Js
         bool IsStepComplete(InterpreterHaltState* haltState, HaltCallback *haltCallback, OpCode originalOpcode);
         bool ContinueFromInlineBreakpoint();
 
+        ScriptContext* GetActivatedContext() const
+        {
+            return this->pActivatedContext;
+        }
+
         const StepType* GetAddressOfStepType() const
         {
             return &stepType;

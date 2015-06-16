@@ -10,7 +10,7 @@ bool MarkContext::AddMarkedObject(void * objectAddress, size_t objectSize)
     Assert(objectSize > 0);
     Assert(objectSize % sizeof(void *) == 0);
 
-    FAULTINJECT_MEMORY_MARK_NOTHROW;
+    FAULTINJECT_MEMORY_MARK_NOTHROW(L"AddMarkedObject", objectSize);
     
 #if DBG_DUMP
     if (recycler->forceTraceMark || recycler->GetRecyclerFlagsTable().Trace.IsEnabled(Js::MarkPhase))
@@ -34,7 +34,7 @@ bool MarkContext::AddTrackedObject(FinalizableObject * obj)
     Assert(recycler->DoQueueTrackedObject());
     Assert(!recycler->inPartialCollectMode);
 
-    FAULTINJECT_MEMORY_MARK_NOTHROW;
+    FAULTINJECT_MEMORY_MARK_NOTHROW(L"AddTrackedObject", 0);
 
     // CONSIDER: Stats?
     

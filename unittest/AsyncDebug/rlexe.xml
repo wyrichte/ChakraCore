@@ -12,7 +12,7 @@
 
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win8,exclude_winBlue</tags>
+      <tags>exclude_apollo,exclude_win8,exclude_winBlue,exclude_win10</tags>
       <files>JavascriptCausalityWrappers.js</files>
       <baseline>JavascriptCausalityWrappers.win7.baseline</baseline>
 	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
@@ -60,7 +60,7 @@
   
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win8,exclude_winBlue</tags>
+      <tags>exclude_apollo,exclude_win8,exclude_winBlue,exclude_win10</tags>
       <files>StackForETW.js</files>
       <baseline>StackForETW.win7.baseline</baseline>
 	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
@@ -114,7 +114,7 @@
 
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win8,exclude_winBlue</tags>
+      <tags>exclude_apollo,exclude_win8,exclude_winBlue,exclude_win10</tags>
       <files>StackForETWDynamicCode.js</files>
       <baseline>StackForETWDynamicCode.win7.baseline</baseline>
 	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
@@ -150,7 +150,7 @@
   
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win8,exclude_winBlue</tags>
+      <tags>exclude_apollo,exclude_win8,exclude_winBlue,exclude_win10</tags>
       <files>TestBasicActiveScriptDirectAsyncCausality.js</files>
       <baseline>TestBasicActiveScriptDirectAsyncCausality.win7.baseline</baseline>
 	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch -nativetest:NativeUnitTests.dll AsyncDebugTest</compile-flags>
@@ -177,7 +177,7 @@
   
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win8,exclude_winBlue</tags>
+      <tags>exclude_apollo,exclude_win8,exclude_winBlue,exclude_win10</tags>
       <files>TestAsyncDebugWithScriptClosed.js</files>
       <baseline>TestAsyncDebugWithScriptClosed.win7.baseline</baseline>
 	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch -nativetest:NativeUnitTests.dll AsyncDebugTest</compile-flags>

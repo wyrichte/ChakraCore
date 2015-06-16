@@ -3070,8 +3070,46 @@ GlobOpt::UpdateObjPtrValueType(IR::Opnd * opnd, IR::Instr * instr)
         return;
     }
 
-    Js::Type * type = propertySymOpnd->IsPoly() ? propertySymOpnd->GetFirstEquivalentType() : propertySymOpnd->GetType();
+    // Verify that the types we're checking for here have been locked so that the type ID's can't be changed
+    // without changing the type.
+    if (!propertySymOpnd->HasObjectTypeSym())
+    {
+        return;
+    }
 
+    StackSym * typeSym = propertySymOpnd->GetObjectTypeSym();
+    Assert(typeSym);
+    Value * typeValue = this->FindObjectTypeValue(typeSym, currentBlock);
+    if (!typeValue)
+    {
+        return;
+    }
+    JsTypeValueInfo * typeValueInfo = typeValue->GetValueInfo()->AsJsType();
+    const Js::Type * type = typeValueInfo->GetJsType();
+    if (type)
+    {
+        if (Js::DynamicType::Is(type->GetTypeId()) &&
+            !static_cast<const Js::DynamicType*>(type)->GetTypeHandler()->GetIsLocked())
+        {
+            return;
+        }
+    }
+    else
+    {
+        Js::EquivalentTypeSet * typeSet = typeValueInfo->GetJsTypeSet();
+        Assert(typeSet);
+        for (uint16 i = 0; i < typeSet->GetCount(); i++)
+        {
+            type = typeSet->GetType(i);
+            if (Js::DynamicType::Is(type->GetTypeId()) &&
+                !static_cast<const Js::DynamicType*>(type)->GetTypeHandler()->GetIsLocked())
+            {
+                return;
+            }
+        }
+    }
+
+    Assert(type);
     Js::TypeId typeId = type->GetTypeId();
     // passing false for useVirtual as we would never have a virtual typed array hitting this codepath
     ValueType newValueType = ValueType::FromTypeId(typeId, false);

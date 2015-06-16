@@ -160,3 +160,23 @@ WScript.Echo(Date.parse("2011-11-08T19:48:43.00000a"));
 
 WScript.Echo(Date.parse("2011-11-08T19:48:43.00000000000001"));
 WScript.Echo(Date.parse("2011-11-08T19:48:43.00000000000001a"));
+
+// Verifying non-standard delimiters
+
+// Some delimiters are allowed to be compatible with other browsers
+WScript.Echo(Date.parse("2011-11-08/19:48:43"));
+WScript.Echo(Date.parse("2011-11-08:19:48:43"));
+WScript.Echo(Date.parse("2011-11-08 19:48:43"));
+WScript.Echo(Date.parse("2011-11-08/: 19:48:43"));
+
+WScript.Echo(Date.parse("2011/11/08/19:48:43"));
+WScript.Echo(Date.parse("2011/11/08:19:48:43"));
+WScript.Echo(Date.parse("2011/11/08 19:48:43"));
+WScript.Echo(Date.parse("2011/11/08/: 19:48:43"));
+
+// Mixed delimiters in the date are allowed
+WScript.Echo(Date.parse("2011-11/08 19:48:43"));
+WScript.Echo(Date.parse("2011/11-08 19:48:43"));
+
+// Multiple 'T's aren't allowed
+WScript.Echo(Date.parse("2011-11-08TT19:48:43"));

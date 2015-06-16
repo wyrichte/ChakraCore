@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <!-- For Utf8Codex.h -->
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(EnlistmentRoot)\inetcore\inc</AdditionalIncludeDirectories>
+
+      <!-- ======== From tools\makefile.def ========-->
+      <AdditionalOptions>%(AdditionalOptions) /d2Qvec-mathlib-</AdditionalOptions>          
+      <AdditionalOptions Condition="'$(Platform)'=='Win32' OR '$(Platform)'=='x64'">%(AdditionalOptions) /d2Qvec-sse2only</AdditionalOptions>
+      
+      <!--
+      This flags are in the original razzle build, but don't look like it is necessary for our build
+        
+        /D__NOTHROW_SELECTANY=__declspec(selectany)             // For UCRT? in vcruntime.h
+        /D_APISET_MINCORE_VERSION=0x0100                        // No difference for us
+        /D_APISET_MINWIN_VERSION=0x0101                         // No difference for us
+        /D_APISET_WINDOWS_VERSION=0x601                         // No difference for us
+        /D_CRT_STDIO_IMP_ALT=                                   // For UCRT
+        /D_CRT_STDIO_IMP=                                       // For UCRT
+        /D_DLL=1                                                // Covered by /MD
+        /D_MT=1                                                 // Covered by /MD
+        /D_USE_DEV11_CRT                                        // No difference for us
+        /D_WIN64                                                // amd64/arm64, compiler implicit default already
+        /DBUILD_UMS_ENABLED=0                                   // For minkernel
+        /DBUILD_WOW64_ENABLED=0                                 // For WOW64 support, which we don't have special code for wow64
+        /DMSC_NOOPT                                             // We don't use this macro (nor any header we included)
+        /DWINBLUE_KBSPRING14                                    // We don't care about APIs in 8.1 update
+        /d1trimfile:d:\win\ie\                        
+        /d1trimfile:e:\rzout\js\binaries.armchk\
+        /d1trimfile:e:\rzout\js\obj.armchk\
+        /d1trimfile:f:\ie.public\
+        /If:\ie.public\internal\minwin\priv_sdk\inc             // it is added for the project that needs telemetry\MicrosoftTelemetry.h from there
+        /If:\ie.public\sdk\inc\moderncore                       // We don't need it
+        /If:\ie.public\shared\inc\moderncore                    // Directory doesn't exist
+        /If:\ie.public\shared\inc\clientcore                    // Directory doesn't exist
+
+
+      These flags were not in the original razzle build, but most of them are defaults anyways
+        /D__BUILDDATE__     - unused
+        /D__BUILDMACHINE__  - unused
+        /analyze-           - (default)
+        /D_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1      
+        /DWIN64             - harmless, introduced in Microsoft.Build.Cpp.props (it probably should have been /D_WIN64
+        /If:\ie.public\internal\ddk\inc
+        /If:\ie.public\sdk\inc\lkg
+        /MD                 - combine with /Zl, covers /D_DLL and /_MT
+        /nologo
+        /TP                 - compile all files as .cpp
+        /FC                 - Use full file name in messages
+        /Zl                 - Omit default lib (/nodefaultlib) is alwasy used in the link command anyways
+        /Gm-                - No minimal rebuild (default)
+        /Gd                  - __cdecl calling convention (default)
+        /fp:precise         - (default)
+    -->
+    </ClCompile>
+    <Link>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+    </Link>
+    <MASM>
+      <!-- For ksamd64.inc -->
+      <IncludePaths>%(AdditionalIncludeDirectories);$(SdkIncPath);$(KitSharedIncPath)</IncludePaths>
+    </MASM>
+  </ItemDefinitionGroup>
+</Project>
+

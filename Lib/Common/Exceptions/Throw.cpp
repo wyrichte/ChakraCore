@@ -36,11 +36,11 @@ namespace Js {
     void Throw::OutOfMemory()
     {
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
-		if (CONFIG_FLAG(PrintSystemException))
-		{
-			Output::Print(L"SystemException: OutOfMemory\n");
-			Output::Flush();
-		}
+        if (CONFIG_FLAG(PrintSystemException))
+        {
+            Output::Print(L"SystemException: OutOfMemory\n");
+            Output::Flush();
+        }
 #endif
         if (JsUtil::ExternalApi::RaiseOutOfMemoryIfScriptActive())
         {
@@ -58,11 +58,11 @@ namespace Js {
     void Throw::StackOverflow(ScriptContext *scriptContext, PVOID returnAddress)
     {
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
-		if (CONFIG_FLAG(PrintSystemException))
-		{
-			Output::Print(L"SystemException: StackOverflow\n");
-			Output::Flush();
-		}
+        if (CONFIG_FLAG(PrintSystemException))
+        {
+            Output::Print(L"SystemException: StackOverflow\n");
+            Output::Flush();
+        }
 #endif
         if (JsUtil::ExternalApi::RaiseStackOverflowIfScriptActive(scriptContext, returnAddress))
         {

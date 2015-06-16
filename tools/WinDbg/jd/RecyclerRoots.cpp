@@ -125,7 +125,7 @@ void RecyclerObjectGraph::PushMark(ULONG64 object, ULONG64 prev)
     }
 }
 
-void RecyclerObjectGraph::Construct(RootPointers& roots)
+void RecyclerObjectGraph::Construct(Addresses& roots)
 {
     roots.Map([&] (ULONG64 root)
     {
@@ -258,8 +258,8 @@ ULONG64 RecyclerObjectGraph::GetLargeObjectSize(ExtRemoteTyped heapBlockObject, 
     ULONG64 heapBlock = heapBlockObject.GetPointerTo().GetPtr();
     ULONG64 blockAddress = heapBlockObject.Field("address").GetPtr();
 
-    ULONG64 sizeOfHeapBlock = _ext->EvalExprU64(_ext->FillMemoryNS("@@c++(sizeof(%sLargeHeapBlock))"));
-    ULONG64 sizeOfObjectHeader = _ext->EvalExprU64(_ext->FillMemoryNS("@@c++(sizeof(%sLargeObjectHeader))"));
+    ULONG64 sizeOfHeapBlock = _ext->EvalExprU64(_ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeHeapBlock))"));
+    ULONG64 sizeOfObjectHeader = _ext->EvalExprU64(_ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
 
     ULONG64 headerAddress = objectAddress - sizeOfObjectHeader;
 
@@ -509,7 +509,7 @@ void ScanArenaBigBlocks(ExtRemoteTyped blocks, RootPointers& rootPointerManager)
 #endif
 
         ExtRemoteTyped block = blocks.Dereference();
-        ULONG64 blockBytes = blocks.GetPtr() + ext->EvalExprU64(ext->FillMemoryNS("@@c++(sizeof(%sBigBlock))"));
+        ULONG64 blockBytes = blocks.GetPtr() + ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sBigBlock))"));
         ExtRemoteTyped nBytesField = blocks.Field("nbytes");
         size_t byteCount = (size_t)EXT_CLASS_BASE::GetSizeT(nBytesField);
         if (byteCount != 0)
@@ -527,7 +527,7 @@ void ScanArenaMemoryBlocks(ExtRemoteTyped blocks, RootPointers& rootPointerManag
 
     while (blocks.GetPtr() != 0)
     {
-        ULONG64 blockBytes = blocks.GetPtr() + ext->EvalExprU64(ext->FillMemoryNS("@@c++(sizeof(%sArenaMemoryBlock))"));
+        ULONG64 blockBytes = blocks.GetPtr() + ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sArenaMemoryBlock))"));
         ExtRemoteTyped nBytesField = blocks.Field("nbytes");
         size_t byteCount = (size_t)nBytesField.GetLong();
         ScanObject(blockBytes, byteCount, rootPointerManager);
@@ -597,8 +597,8 @@ public:
     {
         unsigned int allocCount = heapBlock.Field("allocCount").GetUlong();
         ExtRemoteTyped headerList =
-            ExtRemoteTyped(ext->FillMemoryNS("(%sLargeObjectHeader **)@$extin"), heapBlock.GetPtr() + heapBlock.Dereference().GetTypeSize());
-        ULONG64 sizeOfObjectHeader = ext->EvalExprU64(ext->FillMemoryNS("@@c++(sizeof(%sLargeObjectHeader))"));
+            ExtRemoteTyped(ext->FillModuleAndMemoryNS("(%s!%sLargeObjectHeader **)@$extin"), heapBlock.GetPtr() + heapBlock.Dereference().GetTypeSize());
+        ULONG64 sizeOfObjectHeader = ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
         for (unsigned int i = 0; i < allocCount; i++)
         {
             ExtRemoteTyped header = headerList.ArrayElement(i);
@@ -857,7 +857,7 @@ RecyclerFindReference::ProcessHeapBlock(ExtRemoteTyped block, bool isAllocator, 
     USHORT objectSize = block.Field("objectSize").GetUshort();
     USHORT objectCount = block.Field("objectCount").GetUshort();
 
-    RootPointers* rootPointers = this->rootPointerManager;
+    Addresses * rootPointers = this->rootPointerManager;
     SearchRange(startAddress, objectSize*objectCount, this->ext, this->referencedObject, [&](ULONG64 addr)
     {
         bool isRoot = rootPointers->Contains(addr);
@@ -880,12 +880,12 @@ RecyclerFindReference::ProcessHeapBlock(ExtRemoteTyped block, bool isAllocator, 
 bool
 RecyclerFindReference::ProcessLargeHeapBlock(ExtRemoteTyped block)
 {
-    RootPointers* rootPointers = this->rootPointerManager;
+    Addresses * rootPointers = this->rootPointerManager;
     unsigned int allocCount = (uint)EXT_CLASS_BASE::GetSizeT(block.Field("allocCount"));
     ExtRemoteTyped headerList =
-        ExtRemoteTyped(ext->FillMemoryNS("(%sLargeObjectHeader **)@$extin"), block.GetPtr() + block.Dereference().GetTypeSize());
+        ExtRemoteTyped(ext->FillModuleAndMemoryNS("(%s!%sLargeObjectHeader **)@$extin"), block.GetPtr() + block.Dereference().GetTypeSize());
 
-    ULONG64 sizeOfObjectHeader = ext->EvalExprU64(ext->FillMemoryNS("@@c++(sizeof(%sLargeObjectHeader))"));
+    ULONG64 sizeOfObjectHeader = ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
 
     for (unsigned int i = 0; i < allocCount; i++)
     {
@@ -933,8 +933,8 @@ JD_PRIVATE_COMMAND(findref,
         recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
     }
 
-    RootPointers rootPointers = ComputeRoots(this, recycler, threadContext, false);
-    RecyclerFindReference findRef(this, address, &rootPointers, recycler);
+    Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
+    RecyclerFindReference findRef(this, address, rootPointers, recycler);
     Out("Referring objects:\n");
 
     findRef.Run();
@@ -968,14 +968,15 @@ JD_PRIVATE_COMMAND(findref,
 
 JD_PRIVATE_COMMAND(oi,
     "Display object's recycler state",
+    "{v;b,o;verbose;dump verbose information}"
     "{;e,r;address;Address of object to dump}{;e,o,d=0;recycler;Recycler address}")
 {
+    const bool verbose = HasArg("v");
     ULONG64 objectAddress = GetUnnamedArgU64(0);
     ULONG64 recyclerArg = GetUnnamedArgU64(1);
     ExtRemoteTyped threadContext;
     ExtRemoteTyped recycler;
-    ULONG cookie = 0;
-
+    
     if (recyclerArg != 0)
     {
         recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
@@ -991,8 +992,7 @@ JD_PRIVATE_COMMAND(oi,
     HeapBlockHelper heapBlockHelper(this, recycler);
     ULONG64 heapBlockAddress = heapBlockHelper.FindHeapBlock(objectAddress, recycler);
     if (heapBlockAddress != null)
-    {
-        RootPointers rootPointers = ComputeRoots(this, recycler, threadContext, false);
+    {        
         ExtRemoteTyped heapBlock(FillModuleAndMemoryNS("(%s!%sHeapBlock*)@$extin"), heapBlockAddress);
         ULONG64 heapBlockType = heapBlockHelper.GetHeapBlockType(heapBlock);
 
@@ -1004,26 +1004,26 @@ JD_PRIVATE_COMMAND(oi,
             return;
         }
 
-        if (rootPointers.Contains(objectAddress))
-        {
-            Out("Is Root: true\n");
+        if (heapBlockType == this->enum_LargeBlockType())
+        {            
+            heapBlockHelper.DumpLargeHeapBlockObject(heapBlock, objectAddress, verbose);
         }
         else
         {
-            Out("Is Root: false\n");
+            heapBlockHelper.DumpSmallHeapBlockObject(heapBlock, objectAddress, verbose);
         }
 
-        if (heapBlockType == this->enum_LargeBlockType())
+        if (verbose)
         {
-            if (recycler.HasField("Cookie"))
+            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
+            if (rootPointers->Contains(objectAddress))
             {
-                cookie = recycler.Field("Cookie").GetUlong();
+                Out("Is Root: true\n");
             }
-            heapBlockHelper.DumpLargeHeapBlockObject(heapBlock, objectAddress, cookie);
-        }
-        else
-        {
-            heapBlockHelper.DumpSmallHeapBlockObject(heapBlock, objectAddress);
+            else
+            {
+                Out("Is Root: false\n");
+            }
         }
     }
     else
@@ -1117,14 +1117,9 @@ JD_PRIVATE_COMMAND(showroots,
     Out("Heap block map type is %s\n", typeName);
 }
 
-RootPointers ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped threadContext, bool dump)
+RootPointers * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped* threadContext, bool dump)
 {
-    return ComputeRoots(ext, recycler, &threadContext, dump);
-}
-
-RootPointers ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped* threadContext, bool dump)
-{
-    RootPointers rootPointerManager(ext, recycler);
+    std::auto_ptr<RootPointers> rootPointerManager(new RootPointers(ext, recycler));
 
     /*
      * FindRoots algorithm
@@ -1139,7 +1134,7 @@ RootPointers ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemot
 
     if (recycler.HasField("enableScanImplicitRoots") && recycler.Field("enableScanImplicitRoots").GetStdBool())
     {
-        ScanImplicitRoot implicitRootScan(ext, recycler, rootPointerManager, dump);
+        ScanImplicitRoot implicitRootScan(ext, recycler, *rootPointerManager, dump);
         implicitRootScan.Run();
     }
 
@@ -1150,19 +1145,13 @@ RootPointers ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemot
         if (externalWeakReferenceList != 0)
         {
             // TODO: Implement external weak ref support
+            // TODO: Fix RecyclerCachedData::GetRootPointers once this is implemented when thread context is not passed in
         }
-    }
-
-    ExtRemoteTyped externalRootMarker = recycler.Field("externalRootMarker");
-
-    if (externalRootMarker.GetPtr() != 0)
-    {
-        ext->Out("External root marker installed (Address: 0x%p), some roots might be missed\n", externalRootMarker.GetPtr());
     }
 
     MapPinnedObjects(ext, recycler, [&rootPointerManager](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
     {
-        rootPointerManager.TryAdd(entry.address);
+        rootPointerManager->TryAdd(entry.address);
     }, dump);
 
     ULONG64 recyclerAddress = recycler.m_Data; // TODO: recycler needs to be a pointer to make this work
@@ -1179,7 +1168,7 @@ RootPointers ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemot
         ExtRemoteTyped isPendingDelete = guestArena.Dereference().Field("pendingDelete");
         if (!isPendingDelete.GetBoolean())
         {
-            ScanArena(data, rootPointerManager, dump);
+            ScanArena(data, *rootPointerManager, dump);
         }
     }
 
@@ -1193,13 +1182,13 @@ RootPointers ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemot
     {
         ULONG64 dataPtr = externalGuestArenaIterator.GetDataPtr();
 
-        ScanArenaData(GetPointerAtAddress(dataPtr), rootPointerManager);
+        ScanArenaData(GetPointerAtAddress(dataPtr), *rootPointerManager);
     }
 
-    ScanRegisters(ext, rootPointerManager, dump);
-    ScanStack(ext, recycler, rootPointerManager, dump);
+    ScanRegisters(ext, *rootPointerManager, dump);
+    ScanStack(ext, recycler, *rootPointerManager, dump);
 
-    return rootPointerManager;
+    return rootPointerManager.release();
 }
 
 #if ENABLE_MARK_OBJ
@@ -1222,7 +1211,7 @@ JD_PRIVATE_COMMAND(markobj,
         recycler = threadContext.Field("recycler");
     }
 
-    RootPointers rootPointerManager = ComputeRoots(this, recycler, threadContext, false);
+    Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
     Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager.Count());
 
     bool found = false;
@@ -1271,12 +1260,12 @@ JD_PRIVATE_COMMAND(savegraph,
         recycler = remotetTreadContext.GetRecycler().GetExtRemoteTyped();
     }
 
-    RootPointers rootPointerManager = ComputeRoots(this, recycler, threadContext, false);
-    Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager.Count());
+    Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
+    Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager->Count());
 
     RecyclerObjectGraph objectGraph(this, recycler);
 
-    objectGraph.Construct(rootPointerManager);
+    objectGraph.Construct(*rootPointerManager);
 
     Out("Saving object graph to %s\n", filename);
     if (_stricmp(filetype, "js") == 0)
@@ -1337,13 +1326,13 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     ExtRemoteTyped recycler = GetRecycler(arg);
     ExtRemoteTyped threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
 
-    RootPointers rootPointerManager = ComputeRoots(this, recycler, threadContext, false);
+    Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
     if (verbose)
-        Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager.Count());
+        Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager->Count());
 
     RecyclerObjectGraph objectGraph(this, recycler);
 
-    objectGraph.Construct(rootPointerManager);
+    objectGraph.Construct(*rootPointerManager);
     Out("\rObject graph construction complete                                  \n");
 
     struct ObjectAllocStats

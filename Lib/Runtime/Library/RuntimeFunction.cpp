@@ -18,7 +18,7 @@ namespace Js
         : JavascriptFunction(type, functionInfo, cache), functionNameId(null)
     {}
 
-	Var
+    Var
     RuntimeFunction::EnsureSourceString()
     {
         JavascriptLibrary* library = this->GetLibrary();

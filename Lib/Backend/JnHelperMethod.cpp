@@ -287,6 +287,22 @@ DECLSPEC_GUARDIGNORE __declspec(noinline) void * const GetNonTableMethodAddress(
 
     case HelperOp_TryFinally:
         return Js::JavascriptExceptionOperators::OP_TryFinally;
+
+    //
+    // Methods that we don't want to get marked as CFG targets as they dump all registers to a controlled address
+    //
+    case HelperSaveAllRegistersAndBailOut:
+        return LinearScanMD::SaveAllRegistersAndBailOut;
+    case HelperSaveAllRegistersAndBranchBailOut:
+        return LinearScanMD::SaveAllRegistersAndBranchBailOut;
+
+    #ifdef _M_IX86
+    case HelperSaveAllRegistersNoSse2AndBailOut:
+        return LinearScanMD::SaveAllRegistersNoSse2AndBailOut;
+    case HelperSaveAllRegistersNoSse2AndBranchBailOut:
+        return LinearScanMD::SaveAllRegistersNoSse2AndBranchBailOut;
+    #endif
+
     }
 
     Assume(UNREACHED);

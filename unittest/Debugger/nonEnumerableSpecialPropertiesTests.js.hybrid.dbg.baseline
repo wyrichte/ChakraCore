@@ -242,6 +242,13 @@
           ],
           "flagsAsValue": 8
         },
+        "[Symbol.species]": "Function evaluation is disabled while debugging native code",
+        "[Symbol.species] - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
         "index": "-1",
         "index - [Attributes]": {
           "flags": [

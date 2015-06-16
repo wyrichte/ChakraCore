@@ -43,6 +43,7 @@ set _binaryRoot=%_nttree%\jscript
 set _toolsRoot=%sdxroot%\inetcore\jscript\tools
 set _drt=
 set _snap=
+set _nightly=
 set _rebase=
 set _ExtraVariants=
 set _logsRoot=%cd%\logs
@@ -98,6 +99,9 @@ if "%1" == "-?" (
 ) else if /i "%1" == "-winBlue" (
     set TARGET_OS=winBlue
     goto ArgLoop
+) else if /i "%1" == "-win10" (
+    set TARGET_OS=win10
+    goto ArgLoop
 ) else if /i "%1" == "-nottags" (
     set _NOTTAGS=%_NOTTAGS% -nottags %2
     shift
@@ -122,6 +126,10 @@ if "%1" == "-?" (
     set _drt=1
     set _NOTTAGS=%_NOTTAGS% -nottags exclude_drt
     goto ArgLoop
+) else if /i "%1" == "-nightly" (
+    set _nightly=1
+    set _NOTTAGS=%_NOTTAGS% -nottags exclude_nightly
+    goto ArgLoop
 ) else if /i "%1" == "-rebase" (
     set _rebase=-rebase
     goto ArgLoop
@@ -145,12 +153,12 @@ if "%1" == "-?" (
     shift
     goto ArgLoop
 ) else if /i "%1" == "-codeCoverage" (
-	set _ccChangeList=%2
-	shift
+    set _ccChangeList=%2
+    shift
     goto ArgLoop
 ) else if /i "%1" == "-cc" (
-	set _ccChangeList=%2
-	shift
+    set _ccChangeList=%2
+    shift
     goto ArgLoop
 
 :: Defined here are shorthand versions for specifying
@@ -218,24 +226,31 @@ if "%APOLLO%" == "1" (
     set TARGET_OS=wp8
 )
 
-:: If running as part of a DRT, we do not need to setup the test harnesses.
+:: If running as part of DRT/nightly, we do not need to setup the test harnesses.
 if "%_drt%" == "" (
-    @rem Disable html tests on dev box / snap build machine. Only run in DRT.
-    set _ExcludeHtmlTests=-nottags html
+    if "%_nightly%" == "" (
+        @rem Disable html tests on dev box / snap build machine. Only run in DRT/nightly.
+        set _ExcludeHtmlTests=-nottags html
 
-    call runjs setupJsGlass
+        call runjs setupJsGlass
 
-    call runjs setupTesthost
+        call runjs setupTesthost
 
-    call runjs setupJdTest
+        call runjs setupJdTest
 
-    call runjs setupJsHostTest
+        call runjs setupJsHostTest
 
-    set _ExcludeIntlTests=-nottags exclude_winglob
-    call runjs setupWindowsGlobalization
-    if errorlevel 0 (
-        set _ExcludeIntlTests=
+        set _ExcludeIntlTests=-nottags exclude_winglob
+        call runjs setupWindowsGlobalization
+        if errorlevel 0 (
+            set _ExcludeIntlTests=
+        )
     )
+)
+
+:: If we are not running as part of nightly, disable the nightly-only tests
+if "%_nightly%" == "" (
+    set _NOTTAGS=%_NOTTAGS% -nottags nightly
 )
 
 set _BuildFlavorLogs=%_logsRoot%\%_buildArch%%_buildType%

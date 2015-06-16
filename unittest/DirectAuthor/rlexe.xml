@@ -22,7 +22,7 @@
   <default>
     <files>multiDeviceApps.tests.js</files>
     <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,exclude_nightly</tags>
   </default>
 </test>
 
@@ -203,7 +203,7 @@
     <files>Intl.js</files>
     <command>jshost.exe</command>
     <compile-flags>-ls</compile-flags>
-	<tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+	<tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
   </default>
 </test>
 
@@ -560,7 +560,7 @@
     <files>functionHelp.json</files>
     <command>jsglass.exe</command>
     <baseline>universal.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
     <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
   </default>
 </test>
@@ -674,7 +674,7 @@
     <files>dombasic.json</files>
     <command>jsglass.exe</command>
     <baseline>universal.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
     <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
   </default>
 </test>
@@ -691,7 +691,7 @@
   <default>
     <files>basic_test1_jshost.js</files>
     <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
     <compile-flags>-ls</compile-flags>
   </default>
 </test>
@@ -710,7 +710,7 @@
     <files>proxy_jshost.js</files>
     <command>jshost.exe</command>
     <baseline>proxy_jshost.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
     <compile-flags>-ls -es6proxy</compile-flags>
   </default>
 </test>
@@ -718,7 +718,7 @@
   <default>
     <files>proxy_jshost1.js</files>
     <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
     <compile-flags>-ls -es6proxy</compile-flags>
   </default>
 </test>
@@ -727,7 +727,7 @@
     <files>es6_jshost.js</files>
     <command>jshost.exe</command>
     <baseline>es6_jshost.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
     <compile-flags>-ls -es6promise -es6symbol -es6tostringtag -es6isConcatSpreadable -es6toprimitive</compile-flags>
   </default>
 </test>
@@ -918,7 +918,7 @@
     <files>getstructure_bug_608934.js</files>
     <command>jshost.exe</command>
     <baseline>getstructure_bug_608934.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
     <compile-flags>-ls </compile-flags>
   </default>
 </test>
@@ -971,7 +971,7 @@
     <files>ES6MathExtensions_test.js</files>
     <command>jshost.exe</command>
     <baseline>ES6MathExtensions_test.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
     <compile-flags>-ls</compile-flags>
   </default>
 </test>
@@ -1092,7 +1092,7 @@
     <files>literalstring_bug.js</files>
     <command>jshost.exe</command>
     <compile-flags>-ls -hurry</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
   </default>
 </test>
 <test>
@@ -1166,7 +1166,7 @@
   <default>
     <files>basic-ng-test.js</files>
     <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
   </default>
 </test>
 <test>
@@ -1189,7 +1189,7 @@
   <default>
     <files>map_test.js</files>
     <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
   </default>
 </test>
 <test>
@@ -1212,7 +1212,7 @@
     <command>jshost.exe</command>
     <baseline>class_comments.baseline</baseline>
     <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
   </default>
 </test>
 <test>
@@ -1247,7 +1247,7 @@
     <command>jshost.exe</command>
     <baseline>ES6FunctionAPI_test.baseline</baseline>
     <compile-flags>-ls -es6classes</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
   </default>
 </test>
 <test>
@@ -1264,7 +1264,7 @@
         <files>SIMDFloat32x4_ls_test.js</files>
         <command>jshost.exe</command>
         <baseline>SIMDFloat32x4_ls_test.baseline</baseline>
-        <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+        <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
         <compile-flags>-Simdjs -ls</compile-flags>
     </default>
 </test>
@@ -1273,7 +1273,7 @@
         <files>SIMDFloat64x2_ls_test.js</files>
         <command>jshost.exe</command>
         <baseline>SIMDFloat64x2_ls_test.baseline</baseline>
-        <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+        <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
         <compile-flags>-Simdjs -ls</compile-flags>
     </default>
 </test>
@@ -1282,7 +1282,7 @@
         <files>SIMDInt32x4_ls_test.js</files>
         <command>jshost.exe</command>
         <baseline>SIMDInt32x4_ls_test.baseline</baseline>
-        <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+        <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
         <compile-flags>-Simdjs -ls</compile-flags>
     </default>
 </test>

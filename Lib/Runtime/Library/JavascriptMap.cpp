@@ -398,4 +398,13 @@ namespace Js
 
         return result;
     }
+
+    Var JavascriptMap::EntryGetterSymbolSpecies(RecyclableObject* function, CallInfo callInfo, ...)
+    {
+        ARGUMENTS(args, callInfo);
+
+        Assert(args.Info.Count > 0);
+
+        return args[0];
+    }
 }

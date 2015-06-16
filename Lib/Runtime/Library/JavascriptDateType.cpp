@@ -18,9 +18,10 @@ namespace Js
 
     BOOL JavascriptDate::GetDiagValueString(StringBuilder<ArenaAllocator>* stringBuilder, ScriptContext* requestContext)
     {        
-        DECLARE_STACK_PINNED(JavascriptString, valueStr);
+        ENTER_PINNED_SCOPE(JavascriptString, valueStr);
         valueStr = this->m_date.GetString(DateImplementation::DateStringFormat::Default);
         stringBuilder->Append(valueStr->GetString(), valueStr->GetLength());
+        LEAVE_PINNED_SCOPE();
         return TRUE;
     }
 

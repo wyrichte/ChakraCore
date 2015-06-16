@@ -179,8 +179,8 @@ public:
               IR::Instr *         LowerStartCall(IR::Instr * instr) { __debugbreak(); return 0; }
               IR::Instr *         LowerAsmJsCallI(IR::Instr * callInstr) { Assert(UNREACHED); return NULL; }
               IR::Instr *         LowerAsmJsCallE(IR::Instr * callInstr) { Assert(UNREACHED); return NULL; }
-              IR::Instr *         LowerAsmJsLdElemHelper(IR::Instr * callInstr, uint32 mask) { Assert(UNREACHED); return NULL; }
-              IR::Instr *         LowerAsmJsStElemHelper(IR::Instr * callInstr, uint32 mask) { Assert(UNREACHED); return NULL; }
+              IR::Instr *         LowerAsmJsLdElemHelper(IR::Instr * callInstr) { Assert(UNREACHED); return NULL; }
+              IR::Instr *         LowerAsmJsStElemHelper(IR::Instr * callInstr) { Assert(UNREACHED); return NULL; }
               IR::Instr *         LowerCallIDynamic(IR::Instr *callInstr, IR::Instr*saveThisArgOutInstr, IR::Opnd *argsLength, ushort callFlags, IR::Instr * insertBeforeInstrForCFG = nullptr) { __debugbreak(); return 0; }
               IR::Instr *         LoadHelperArgument(IR::Instr * instr, IR::Opnd * opndArg) { __debugbreak(); return 0; }
               IR::Instr *         LoadDynamicArgument(IR::Instr * instr, uint argNumber = 1) { __debugbreak(); return 0; }

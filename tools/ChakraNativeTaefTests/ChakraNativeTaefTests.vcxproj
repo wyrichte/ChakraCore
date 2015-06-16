@@ -1,44 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
-      <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-  </ItemGroup>
+  <PropertyGroup>
+    <ChakraBuildConfigDir>..\..\Build</ChakraBuildConfigDir>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E152458D-BEEF-449F-B021-8FFF5F2E29E3}</ProjectGuid>
     <RootNamespace>ChakraNativeTaefTests</RootNamespace>
     <ProjectName>ChakraNativeTaefTests</ProjectName>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <Import Project="..\..\VcProjBuild.props" />
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />  
+  <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)'=='Debug'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -51,15 +28,13 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(PUBLIC_ROOT)\shared\inc;$(PUBLIC_ROOT)\shared\inc\minwin;$(PUBLIC_ROOT)\sdk\inc;$(PUBLIC_ROOT)\sdk\inc\crt;$(PUBLIC_ROOT)\sdk\inc\minwin;$(PUBLIC_ROOT)\sdk\inc\mincore;$(PUBLIC_ROOT)\internal\sdktools\inc\wextest\cue;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(PUBLIC_ROOT)\shared\inc;$(PUBLIC_ROOT)\shared\inc\minwin;$(PUBLIC_ROOT)\sdk\inc;$(PUBLIC_ROOT)\sdk\inc\crt;$(PUBLIC_ROOT)\sdk\inc\minwin;$(PUBLIC_ROOT)\sdk\inc\mincore;$(PUBLIC_ROOT)\internal\sdktools\inc\wextest\cue;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">INLINE_TEST_METHOD_MARKUP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">INLINE_TEST_METHOD_MARKUP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+    <Link>      
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">wex.common.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(PUBLIC_ROOT)\internal\sdktools\lib\i386\wextest\cue;lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(PUBLIC_ROOT)\internal\sdktools\lib\amd64\wextest\cue;lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -73,9 +48,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(PUBLIC_ROOT)\shared\inc;$(PUBLIC_ROOT)\shared\inc\minwin;$(PUBLIC_ROOT)\sdk\inc;$(PUBLIC_ROOT)\sdk\inc\crt;$(PUBLIC_ROOT)\sdk\inc\minwin;$(PUBLIC_ROOT)\sdk\inc\mincore;$(PUBLIC_ROOT)\internal\sdktools\inc\wextest\cue;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(PUBLIC_ROOT)\shared\inc;$(PUBLIC_ROOT)\shared\inc\minwin;$(PUBLIC_ROOT)\sdk\inc;$(PUBLIC_ROOT)\sdk\inc\crt;$(PUBLIC_ROOT)\sdk\inc\minwin;$(PUBLIC_ROOT)\sdk\inc\mincore;$(PUBLIC_ROOT)\internal\sdktools\inc\wextest\cue;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -83,10 +56,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">INLINE_TEST_METHOD_MARKUP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Console</SubSystem>     
       <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(PUBLIC_ROOT)\internal\sdktools\lib\i386\wextest\cue;lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(PUBLIC_ROOT)\internal\sdktools\lib\amd64\wextest\cue;lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -122,6 +92,4 @@
     </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
 </Project>

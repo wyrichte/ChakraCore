@@ -7,7 +7,10 @@
 // the framework's assumed globals.
 EXT_DECLARE_GLOBALS();
 
-EXT_CLASS_BASE::EXT_CLASS_BASE()
+EXT_CLASS_BASE::EXT_CLASS_BASE() 
+#ifdef JD_PRIVATE
+   : recyclerCachedData(this)
+#endif
 {
 #ifdef JD_PRIVATE
     m_moduleName[0] = '\0';
@@ -83,6 +86,11 @@ void EXT_CLASS_BASE::IfFailThrow(HRESULT hr, PCSTR msg)
 // ---- Begin jd private commands implementation --------------------------------------------------
 #ifdef JD_PRIVATE
 // ------------------------------------------------------------------------------------------------
+void
+EXT_CLASS_BASE::OnSessionInaccessible(ULONG64)
+{
+    this->recyclerCachedData.Clear();
+}
 
 // Get cached JS module name
 PCSTR EXT_CLASS_BASE::GetModuleName()
@@ -168,12 +176,6 @@ PCSTR EXT_CLASS_BASE::FillModuleV(PCSTR fmt, ...)
 PCSTR EXT_CLASS_BASE::FillModuleAndMemoryNS(PCSTR fmt)
 {
     sprintf_s(m_fillModuleBuffer, fmt, GetModuleName(), GetMemoryNS());
-    return m_fillModuleBuffer;
-}
-
-PCSTR EXT_CLASS_BASE::FillMemoryNS(PCSTR fmt)
-{
-    sprintf_s(m_fillModuleBuffer, fmt, GetMemoryNS());
     return m_fillModuleBuffer;
 }
 
@@ -581,9 +583,19 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
         Out("FloatVar %f\n", dblValue);
         return;
     }
+    std::string className = GetTypeNameFromVTableOfObject(var);
+    if (className.empty())
+    {
+        this->ThrowLastError("Pointer doesn't have a valid vtable");
+    }
 
-    ExtRemoteTyped obj("(Js::RecyclableObject*)@$extin", var);
+    ExtRemoteTyped obj(className.c_str(), var, true);
     ExtRemoteTyped typeId = obj.Field("type.typeId");
+    if (depth == 0)
+    {
+        Dml("%s * <link cmd=\"dt %s 0x%p\">0x%p</link> (%s)\n", JDUtil::StripModuleName(className.c_str()),
+            className.c_str(), var, var, JDUtil::GetEnumString(typeId));
+    }       
 
     switch (typeId.GetUlong())
     {
@@ -600,141 +612,89 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
         return; // done
 
     case TypeIds_Boolean:
-    {
-        ExtRemoteTyped obj("(Js::JavascriptBoolean*)@$extin", var);
+    {        
         Out(obj.Field("value").GetW32Bool() ? "true\n" : "false\n");
     }
         return; // done
 
     case TypeIds_Number:
-    {
-        ExtRemoteTyped obj("(Js::JavascriptNumber*)@$extin", var);
+    {        
         obj.Field("m_value").OutFullValue();
     }
         return; // done
 
     case TypeIds_String:
-    {
-        //TODO: support ConcatString...
-        ExtRemoteTyped obj("(Js::JavascriptString*)@$extin", var);
-        if (depth == 0)
-        {
-            obj.OutFullValue();
-        }
-        else
-        {
-            Out("\"%mu\"\n", obj.Field("m_pszValue").GetPtr());
-        }
+    {        
+        Out("\"%mu\"\n", obj.Field("m_pszValue").GetPtr());        
     }
         return; // done
 
     case TypeIds_StringObject:
-    {
-        ExtRemoteTyped obj("(Js::JavascriptStringObject*)@$extin", var);
+    {        
         if (depth == 0)
-        {
-            obj.OutFullValue();
-            obj.Field("value").OutFullValue();
+        {            
+            ExtRemoteTyped value = obj.Field("value");
+            PrintSimpleVarValue(value);
         }
         else
         {
-            PrintSimpleValue(obj);
-        }
-    }
-        break;
-
-    case TypeIds_Object:
-    {
-        ExtRemoteTyped obj("(Js::DynamicObject*)@$extin", var);
-        if (depth == 0)
-        {
-            obj.OutFullValue();
-        }
-        else
-        {
-            PrintSimpleValue(obj);
+            PrintSimpleVarValue(obj);
         }
     }
         break;
 
     case TypeIds_Function:
-    {
-        ExtRemoteTyped obj("(Js::JavascriptFunction*)@$extin", var);
+    {        
         if (depth == 0)
-        {
-            obj.OutFullValue();
-            ExtRemoteTyped functionInfo = obj.Field("functionInfo");
-            ULONG64 pBody = 0;
-            if (functionInfo.HasField("functionBodyImpl"))
+        {           
+            RemoteFunctionInfo functionInfo(obj.Field("functionInfo"));
+            if (functionInfo.HasBody())
             {
-                pBody = functionInfo.Field("functionBodyImpl").GetPtr();
-            }
-            else if (functionInfo.Field("hasBody").GetUchar()) // older version
-            {
-                pBody = functionInfo.GetPtr();
-            }
-            if (pBody)
-            {
-                 RemoteFunctionBody functionBody(pBody);
-                 WCHAR buffer[1024];
-                 Out(L"%s [#%d] ", functionBody.Field("m_displayName").Field("ptr").Dereference().GetString(buffer, 1024), functionBody.Field("m_functionNumber").GetUlong());
-                 Dml(L", <link cmd=\"dt Js::FunctionBody 0x%p\">Dump functionBody</link> ", pBody);
-                 Out("\n");
+                RemoteFunctionBody functionBody = functionInfo.GetFunctionBody();
+                Out(L"  [FunctionBody] ");
+                functionBody.PrintNameAndNumberWithLink(this);
+                Out(L" ");
+                functionBody.PrintByteCodeLink(this);
+                Out("\n");
             }
             else
             {
-                 functionInfo.OutFullValue();
+                std::string symbol = GetSymbolForOffset(this, functionInfo.GetOriginalEntryPoint());
+                if (!symbol.empty())
+                {
+                    Out("  [NativeEntry] %s", symbol.c_str());
+                }
+                else
+                {
+                    obj.Field("functionInfo").OutFullValue();
+                }
             }
         }
         else
         {
-            PrintSimpleValue(obj);
+            PrintSimpleVarValue(obj);
         }
     }
         break;
 
     case TypeIds_Array:
-    {
-        ExtRemoteTyped obj("(Js::JavascriptArray*)@$extin", var);
+    {        
         if (depth == 0)
         {
-            obj.OutFullValue();
             obj.Field("head").OutFullValue();
         }
         else
         {
-            PrintSimpleValue(obj);
+            PrintSimpleVarValue(obj);
         }
     }
         break;
-
-    case TypeIds_ES5Array:
-    {
-        ExtRemoteTyped obj("(Js::ES5Array*)@$extin", var);
-        if (depth == 0)
-        {
-            obj.OutFullValue();
-        }
-        else
-        {
-            PrintSimpleValue(obj);
-        }
-    }
-        break;
-
-        // Anything else dump as RecyclableObject
+        
     default:
-    {
-        ExtRemoteTyped obj("(Js::RecyclableObject*)@$extin", var);
-        if (depth == 0)
+    {        
+        if (depth != 0)
         {
-            typeId.OutSimpleValue();
-            Out("\n");
-            obj.OutFullValue();
-        }
-        else
-        {
-            PrintSimpleValue(obj);
+            PrintSimpleVarValue(obj);
         }
     }
         break;
@@ -744,18 +704,26 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
     {
         ExtRemoteTyped prototype = obj.Field("type.prototype");
         Out("\n[prototype] ");
-        PrintSimpleValue(prototype);
+        PrintSimpleVarValue(prototype);
         Out("[properties] ");
         PrintProperties(var, depth + 1);
     }
 }
 
-void EXT_CLASS_BASE::PrintSimpleValue(ExtRemoteTyped& obj)
+void EXT_CLASS_BASE::PrintSimpleVarValue(ExtRemoteTyped& obj)
 {
-    obj.OutTypeName();
-    Out(" ");
-    obj.OutSimpleValue();
-    Out("\n");
+    std::string typeName = this->GetTypeNameFromVTableOfObject(obj.GetPtr());
+    PCSTR typeNameString;
+    if (!typeName.empty())
+    {
+        typeNameString = JDUtil::StripModuleName(typeName.c_str());
+    }
+    else
+    {
+        typeNameString = obj.GetTypeName();
+    }    
+    Dml("<link cmd=\"!jd.var 0x%p\">%s * 0x%p</link> (%s)\n", obj.GetPtr(), typeNameString, obj.GetPtr(),
+        JDUtil::GetEnumString(obj.Field("type.typeId")));
 }
 
 class ObjectPropertyDumper : public ObjectPropertyListener
@@ -794,7 +762,21 @@ void EXT_CLASS_BASE::PrintProperties(ULONG64 var, int depth)
 
     if (depth == 1)
     {
-        Out("%s * ", pRemoteTypeHandler ? pRemoteTypeHandler->GetName() : "Unknown type handler");
+        std::string typeName;
+        PCSTR typeHandlerName = "Unknown handler type";
+        if (pRemoteTypeHandler)
+        {
+            typeHandlerName = pRemoteTypeHandler->GetName();
+        }
+        else
+        {
+            typeName = this->GetTypeNameFromVTableOfObject(typeHandler.GetPtr());
+            if (!typeName.empty())
+            {
+                typeHandlerName = JDUtil::StripModuleName(typeName.c_str());
+            }
+        }
+        Out("%s * ", pRemoteTypeHandler ? pRemoteTypeHandler->GetName() : typeHandlerName);
         typeHandler.OutSimpleValue();
         Out("\n");
     }
@@ -853,6 +835,34 @@ std::string EXT_CLASS_BASE::GetRemoteVTableName(PCSTR type)
 {
     return std::string(m_moduleName) + "!" + type + "::`vftable'";
 }
+
+std::string EXT_CLASS_BASE::GetTypeNameFromVTable(PCSTR vtablename)
+{
+    const char * vftableSuffix = "::`vftable'";
+    const size_t vftableSuffixLen = _countof("::`vftable'") - 1;
+    size_t len = strlen(vtablename);
+    if (len > vftableSuffixLen && strcmp(vtablename + len - vftableSuffixLen, vftableSuffix) == 0)
+    {
+        return std::string(vtablename).substr(0, len - vftableSuffixLen);
+    }
+    return std::string();
+}
+
+std::string EXT_CLASS_BASE::GetTypeNameFromVTable(ULONG64 vtableAddress)
+{
+    std::string vtablename = GetSymbolForOffset(this, vtableAddress);
+    if (vtablename.empty())
+    {
+        return std::string();
+    }
+    return GetTypeNameFromVTable(vtablename.c_str());    
+}
+
+std::string EXT_CLASS_BASE::GetTypeNameFromVTableOfObject(ULONG64 objectAddress)
+{
+    return GetTypeNameFromVTable(ExtRemoteData(objectAddress, this->m_PtrSize).GetPtr());
+}
+
 ULONG64 EXT_CLASS_BASE::GetRemoteVTable(PCSTR type)
 {
     auto symbol = GetRemoteVTableName(type);
@@ -1287,151 +1297,95 @@ ULONG64 EXT_CLASS_BASE::TaggedCount(ExtRemoteTyped object, PCSTR field)
     return count;
 }
 
-// Initializes remote string helper.
-//  parent        - a remote reference to parent object of the string field
-//  pszFieldname  - a name of the string field in the parent object
-//
-ExtRemoteString::ExtRemoteString(__in const ExtRemoteTyped &parent, PCSTR pszFieldName) :
-m_parent(parent),
-m_strFieldName(pszFieldName)
+void EXT_CLASS_BASE::PrintFrameNumberWithLink(uint frameNumber)
 {
-}
-
-PCWSTR ExtRemoteString::GetString()
-{
-    m_szBuffer[0] = 0;
-
-    if (m_parent.HasField(m_strFieldName))
-    {
-        ExtRemoteTyped pszData = m_parent.Field(m_strFieldName);
-        if (!IsNull())
-        {
-            unsigned long uBuffSize = _countof(m_szBuffer);
-
-            (*pszData).GetString(static_cast<PWSTR>(m_szBuffer),
-                uBuffSize,
-                uBuffSize - 1,
-                false);
-        }
-    }
-
-    return m_szBuffer;
-}
-
-bool ExtRemoteString::IsNull()
-{
-    return m_parent.Field(m_strFieldName).GetPtr() == 0;
-}
-
-HRESULT EXT_CLASS_BASE::CheckAndPrintJSFunction(ExtRemoteData firstArg, ULONG64 ebp, ULONG64 eip, int frameNumber)
-{
-    ULONG64 potentialFunction = NULL;
-    potentialFunction = firstArg.GetPtr();
-
-    // Verify that the last 8 bits are 0 <-- this means it could be a recycler object
-    if (potentialFunction != NULL && (potentialFunction & 0xF) == 0)
-    {
-        try
-        {
-            ExtRemoteData potentialFunctionVtable(potentialFunction, sizeof(void*));
-
-            CHAR nameBuffer[255];
-            ULONG nameSize;
-
-            HRESULT hr = m_Symbols->GetNearNameByOffset(
-                potentialFunctionVtable.GetPtr(),
-                0,
-                nameBuffer,
-                sizeof(nameBuffer),
-                &nameSize,
-                NULL);
-
-            if (SUCCEEDED(hr) && strstr(nameBuffer, "JavascriptFunction") != NULL)
-            {
-                ExtRemoteTyped functionObject("(Js::JavascriptFunction*)@$extin", potentialFunction);
-
-                ExtRemoteTyped functionBody("(Js::FunctionBody*)@$extin", functionObject.Field("functionInfo").GetPtr());
-                ExtRemoteString displayName(functionBody, "m_displayName");
-
-                Out("%02x", frameNumber);
-                Out(" %08x", ebp);
-                Out(" %08x", eip);
-                Out(L" JScript { %s }\n", displayName.GetString());
-
-                return S_OK;
-            }
-        }
-        catch (ExtRemoteException)
-        {
-            return E_FAIL;
-        }
-    }
-
-    return E_FAIL;
+    Dml("<link cmd=\".frame %x\">%02x</link>", frameNumber, frameNumber);
 }
 
 JD_PRIVATE_COMMAND(jstack,
     "Print JS Stack. This is untested, and works only if all modules in the stack have FPO turned off",
+    "{v;b,o;verbose;Dump ChildEBP and RetAddr information}"
     "{all;b,o;all;Dump full mixed mode stack- useful if stack has JITted functions}")
 {
-    bool dumpFull = false;
-    if (HasArg("all"))
-    {
-        dumpFull = true;
-    }
+    const bool verbose = HasArg("v");
+    const bool dumpFull = HasArg("all");
 
     ULONG64 ebp = 0;
     ULONG64 eip = 0;
     HRESULT hr = this->m_Registers->GetFrameOffset(&ebp); // do something with hr?
     hr = this->m_Registers->GetInstructionOffset(&eip);
 
-    const int psize = sizeof(void*);
+    const int psize = this->m_PtrSize;
+    RemoteThreadContext threadContext = RemoteThreadContext::GetCurrentThreadContext();
+    if (threadContext.GetCallRootLevel() == 0)
+    {
+        this->ThrowLastError("Script not running");
+    }
+    RemoteInterpreterStackFrame interpreterStackFrame = threadContext.GetLeafInterpreterStackFrame();
 
     int frameNumber = 0;
 
-    Out(" # ChildEBP RetAddr\n");
+    Out(" #");
+    if (verbose)
+    {
+        Out(" ChildEBP RetAddr");
+    }
+    Out("\n");
     while (ebp != 0)
     {
         ExtRemoteData childEbp(ebp, psize);
         ExtRemoteData returnAddress(ebp + 4, psize);
-        ExtRemoteData firstArg(ebp + 8, psize);
 
-        CHAR nameBuffer[1024];
-        ULONG nameSize;
-        ULONG64 offset;
-
-        hr = m_Symbols->GetNearNameByOffset(
-            eip,
-            0,
-            nameBuffer,
-            sizeof(nameBuffer),
-            &nameSize,
-            &offset);
-
-        if (SUCCEEDED(hr))
+        if (!interpreterStackFrame.IsNull() && interpreterStackFrame.GetReturnAddress() == eip)
         {
-            if (strstr(nameBuffer, "InterpreterStackFrame::InterpreterThunk") != NULL)
-            {
-                CheckAndPrintJSFunction(firstArg, ebp, eip, frameNumber);
-            }
-            else if (dumpFull)
-            {
-                Out("%02x", frameNumber);
+            PrintFrameNumberWithLink(frameNumber);
+            if (verbose)
+            {                
                 Out(" %08x", ebp);
                 Out(" %08x", eip);
-                Out(" %s\n", nameBuffer);
+            }
+            Out(" js!");
+            interpreterStackFrame.GetScriptFunction().PrintNameAndNumberWithLink(this);
+            Out("\n");
+
+            interpreterStackFrame = interpreterStackFrame.GetPreviousFrame();
+        }
+        else
+        {
+            ExtRemoteData firstArg(ebp + 8, psize);
+            // TODO: JIT'ed code
+            if (dumpFull)
+            {
+                PrintFrameNumberWithLink(frameNumber);
+                if (verbose)
+                {                    
+                    Out(" %08x", ebp);
+                    Out(" %08x", eip);
+                }
+
+                CHAR nameBuffer[1024];
+                ULONG nameSize;
+                ULONG64 offset;
+
+                hr = m_Symbols->GetNearNameByOffset(
+                    eip,
+                    0,
+                    nameBuffer,
+                    sizeof(nameBuffer),
+                    &nameSize,
+                    &offset);
+                
+                Out(" %s\n", SUCCEEDED(hr)? nameBuffer: "<unknown>");
             }
         }
-        else if (FAILED(CheckAndPrintJSFunction(firstArg, ebp, eip, frameNumber)) && dumpFull)
-        {
-            Out("Nothing here\n");
-        }
-
         eip = returnAddress.GetPtr();
         ebp = childEbp.GetPtr();
         frameNumber++;
     }
-
+    if (!interpreterStackFrame.IsNull())
+    {
+        Out("WARNING: Interpreter stack frame unmatched");
+    }
 }
 
 void EXT_CLASS_BASE::PrintReferencedPids(ExtRemoteTyped scriptContext, ExtRemoteTyped threadContext)

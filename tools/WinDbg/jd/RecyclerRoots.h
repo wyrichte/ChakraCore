@@ -51,6 +51,16 @@ public :
             fn(*it);
         }
     }
+
+    bool Contains(ULONG64 address)
+    {
+        return _addresses.find(address) != _addresses.end();
+    }
+
+    int Count()
+    {
+        return _addresses.size();
+    }
 };
 
 class RootPointers : public Addresses
@@ -92,16 +102,6 @@ public:
         _addresses.insert(address);        
     }
 
-    bool Contains(ULONG64 address)
-    {
-        return _addresses.find(address) != _addresses.end();
-    }
-
-    int Count()
-    {
-        return _addresses.size();
-    }
-
 private:
     ExtRemoteTyped _recycler;
     HeapBlockHelper _heapBlockHelper;
@@ -120,7 +120,7 @@ public:
 
     RecyclerObjectGraph(EXT_CLASS_BASE* extension, ExtRemoteTyped recycler, bool verbose = false);
     ~RecyclerObjectGraph();
-    void Construct(RootPointers& roots);
+    void Construct(Addresses& roots);
 
     void DumpForPython(const char* filename);
     void DumpForJs(const char* filename);

@@ -1,31 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="chk|Win32">
-      <Configuration>chk</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="chk|x64">
-      <Configuration>chk</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="fretest|Win32">
-      <Configuration>fretest</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="fretest|x64">
-      <Configuration>fretest</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="fre|Win32">
-      <Configuration>fre</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="fre|x64">
-      <Configuration>fre</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-  </ItemGroup>
+  <PropertyGroup>
+    <ChakraBuildConfigDir>..\..\Build</ChakraBuildConfigDir>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F6C3338D-7302-4077-9ABD-8DBB7C26DDAA}</ProjectGuid>
     <RootNamespace>JsRTShell</RootNamespace>
@@ -35,68 +13,25 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
-    <WholeProgramOptimization Condition="'$(Configuration)'=='fre' OR '$(Configuration)'=='fretest'">true</WholeProgramOptimization>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='fre|x64'">
+  <PropertyGroup Label="Configuration">
     <PlatformToolset>v110</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='chk|x64'">
-    <PlatformToolset>v110</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">
-    <PlatformToolset>v110</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">
-    <PlatformToolset>v110</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='fretest|x64'">
-    <PlatformToolset>v110</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='fretest|Win32'">
-    <PlatformToolset>v110</PlatformToolset>
-  </PropertyGroup>
+  </PropertyGroup>  
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <Import Project="..\..\VcProjBuild.props" />
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules />
-    <CodeAnalysisRuleAssemblies />
   </PropertyGroup>
   <ItemDefinitionGroup>
-    <Midl>
-      <TargetEnvironment Condition="'$(Platform)'=='x64'">X64</TargetEnvironment>
-    </Midl>
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\Dll\JScript;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <Optimization Condition="'$(Configuration)'=='chk'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)'=='fre' Or '$(Configuration)'=='fretest'">MaxSpeed</Optimization>
-      <StringPooling>true</StringPooling>
-      <MinimalRebuild Condition="'$(Configuration)'=='chk'">true</MinimalRebuild>
-      <SmallerTypeCheck>false</SmallerTypeCheck>
-      <StructMemberAlignment>Default</StructMemberAlignment>
-      <BufferSecurityCheck>true</BufferSecurityCheck>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\..\Dll\JScript;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>            
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <CallingConvention>StdCall</CallingConvention>
-      <OmitDefaultLibName Condition="'$(Platform)'=='Win32'">false</OmitDefaultLibName>
-      <IntrinsicFunctions Condition="'$(Configuration)'=='fre' Or '$(Configuration)'=='fretest'">true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;_CONSOLE;_STATIC_CPPLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)'=='chk'">_DEBUG;DBG;DBG_DUMP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)'=='fre' Or '$(Configuration)'=='fretest'">NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>            
+      <PreprocessorDefinitions>_STATIC_CPPLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>          
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <TargetMachine Condition="'$(Platform)'=='Win32'">MachineX86</TargetMachine>
-      <TargetMachine Condition="'$(Platform)'=='x64'">MachineX64</TargetMachine>
       <ModuleDefinitionFile>jsrtshell.def</ModuleDefinitionFile>
-      <OptimizeReferences Condition="'$(Configuration)'=='fre' Or '$(Configuration)'=='fretest'">true</OptimizeReferences>
-      <EnableCOMDATFolding Condition="'$(Configuration)'=='fre' Or '$(Configuration)'=='fretest'">true</EnableCOMDATFolding>
       <Profile Condition="'$(Configuration)'=='fre' Or '$(Configuration)'=='fretest'">true</Profile>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>

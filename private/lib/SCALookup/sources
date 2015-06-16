@@ -1,0 +1,20 @@
+!include $(PROJECT_ROOT)\inetcore.pathdefinitions.sources.inc
+!include $(INETCORE_DIR)\common.inc
+
+TARGETNAME=SCALookup_iel3
+
+USE_STATIC_ATL=1
+ATL_VER=70
+
+SOURCES= \
+    PropertyReader.cpp \
+    SCALookup.cpp \
+    SCAStringWalk.cpp \
+    SCAWalk.cpp \
+    StreamReader.cpp \
+
+PRECOMPILED_INCLUDE=stdafx.h
+PRECOMPILED_SOURCEFILE=stdafx.cpp
+PRECOMPILED_CXX=1
+
+!include $(INETCORE_LIB_DIR)\lib.sources.post.inc

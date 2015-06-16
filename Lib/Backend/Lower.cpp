@@ -7318,19 +7318,6 @@ Lowerer::CreateEquivalentTypeGuardAndLinkToGuardedProperties(Js::Type* type, IR:
     }
     NEXT_BITSET_IN_SPARSEBV;
 
-#if DBG
-    if (cache->HasFixedValue())
-    {
-        for (int i = 0; i < cachedTypeCount; i++)
-        {
-            Assert(cache->types[i] == nullptr ||
-                   !Js::DynamicType::Is(cache->types[i]->GetTypeId()) ||
-                   !(static_cast<Js::DynamicType*>(cache->types[i]))->GetTypeHandler()->IsLockable() ||
-                   (static_cast<Js::DynamicType*>(cache->types[i]))->GetIsLocked());
-        }
-    }
-#endif
-
     cache->record.propertyCount = propIdCount;
     cache->record.properties = NativeCodeDataNewArray(this->m_func->GetNativeCodeDataAllocator(), Js::EquivalentPropertyEntry, propIdCount);
 
@@ -8479,7 +8466,6 @@ Lowerer::LowerLdArrViewElem(IR::Instr * instr)
     IR::Instr * done;
     if (indexOpnd || (!m_func->GetJnFunction()->GetAsmJsFunctionInfo()->IsHeapBufferConst() && (uint32)src1->AsIndirOpnd()->GetOffset() >= 0x1000000))
     {
-        // AND indexOpnd, mask
         // CMP indexOpnd, src2(arrSize)
         // JA $helper
         // JMP $load
@@ -8490,32 +8476,9 @@ Lowerer::LowerLdArrViewElem(IR::Instr * instr)
         // MOV dst, src1([arrayBuffer + indexOpnd])
         // $done:
 
-        uint32 mask = 0;
-        switch (type)
-        {
-        case TyInt8:
-        case TyUint8:
-            // don't need to mask
-            break;
-        case TyInt16:
-        case TyUint16:
-            mask = (uint32)~1;
-            break;
-        case TyInt32:
-        case TyUint32:
-        case TyFloat32:
-            mask = (uint32)~3;
-            break;
-        case TyFloat64:
-            mask = (uint32)~7;
-            break;
-        default:
-            Assume(UNREACHED);
-        }
-
         Assert(!dst->IsFloat32() || src1->IsFloat32());
         Assert(!dst->IsFloat64() || src1->IsFloat64());
-        done = m_lowererMD.LowerAsmJsLdElemHelper(instr,mask);
+        done = m_lowererMD.LowerAsmJsLdElemHelper(instr);
     }
     else
     {
@@ -8568,7 +8531,6 @@ Lowerer::LowerStArrViewElem(IR::Instr * instr)
     IR::Opnd * src2 = instr->GetSrc2();
 
     // type of dst is the type of array
-    IRType type = dst->GetType();
     IR::RegOpnd * indexOpnd = dst->AsIndirOpnd()->GetIndexOpnd();
 
     Assert(!dst->IsFloat32() || src1->IsFloat32());
@@ -8578,7 +8540,6 @@ Lowerer::LowerStArrViewElem(IR::Instr * instr)
     bool doStore = true;
     if (indexOpnd || (!m_func->GetJnFunction()->GetAsmJsFunctionInfo()->IsHeapBufferConst() && (uint32)dst->AsIndirOpnd()->GetOffset() >= 0x1000000))
     {
-        // AND indexOpnd, mask
         // CMP indexOpnd, src2(arrSize)
         // JA $helper
         // JMP $store
@@ -8587,30 +8548,8 @@ Lowerer::LowerStArrViewElem(IR::Instr * instr)
         // $store:
         // MOV dst([arrayBuffer + indexOpnd]), src1
         // $done:
-
-        uint32 mask = 0;
-        switch (type)
-        {
-        case TyInt8:
-        case TyUint8:
-            // mask is ~0
-            break;
-        case TyInt16:
-        case TyUint16:
-            mask = (uint32)~1;
-            break;
-        case TyInt32:
-        case TyUint32:
-        case TyFloat32:
-            mask = (uint32)~3;
-            break;
-        case TyFloat64:
-            mask = (uint32)~7;
-            break;
-        default:
-            Assume(UNREACHED);
-        }
-        done = m_lowererMD.LowerAsmJsStElemHelper(instr,mask);
+        
+        done = m_lowererMD.LowerAsmJsStElemHelper(instr);
     }
     else
     {

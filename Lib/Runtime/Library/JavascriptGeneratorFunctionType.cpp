@@ -7,11 +7,15 @@ namespace Js
 {
     BOOL JavascriptGeneratorFunction::HasProperty(PropertyId propertyId)
     {
-        if (propertyId == PropertyIds::length ||
-            propertyId == PropertyIds::caller || 
-            propertyId == PropertyIds::arguments)
+        if (propertyId == PropertyIds::length)
         {
             return true;
+        }
+
+        if (propertyId == PropertyIds::caller || propertyId == PropertyIds::arguments)
+        {
+            // JavascriptFunction has special case for caller and arguments; call DynamicObject:: virtual directly to skip that.
+            return DynamicObject::HasProperty(propertyId);
         }
 
         return JavascriptFunction::HasProperty(propertyId);
@@ -25,18 +29,33 @@ namespace Js
             return result;
         }
 
+        if (propertyId == PropertyIds::caller || propertyId == PropertyIds::arguments)
+        {
+            // JavascriptFunction has special case for caller and arguments; call DynamicObject:: virtual directly to skip that.
+            return DynamicObject::GetProperty(originalInstance, propertyId, value, info, requestContext);
+        }
+
         return JavascriptFunction::GetProperty(originalInstance, propertyId, value, info, requestContext);
     }
 
     BOOL JavascriptGeneratorFunction::GetProperty(Var originalInstance, JavascriptString* propertyNameString, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
     {
-        BOOL result;
         PropertyRecord const* propertyRecord;
         this->GetScriptContext()->FindPropertyRecord(propertyNameString, &propertyRecord);
 
-        if (propertyRecord != null && GetPropertyBuiltIns(originalInstance, propertyRecord->GetPropertyId(), value, info, requestContext, &result))
+        if (propertyRecord != nullptr)
         {
-            return result;
+            BOOL result;
+            if (GetPropertyBuiltIns(originalInstance, propertyRecord->GetPropertyId(), value, info, requestContext, &result))
+            {
+                return result;
+            }
+
+            if (propertyRecord->GetPropertyId() == PropertyIds::caller || propertyRecord->GetPropertyId() == PropertyIds::arguments)
+            {
+                // JavascriptFunction has special case for caller and arguments; call DynamicObject:: virtual directly to skip that.
+                return DynamicObject::GetProperty(originalInstance, propertyNameString, value, info, requestContext);
+            }
         }
 
         return JavascriptFunction::GetProperty(originalInstance, propertyNameString, value, info, requestContext);
@@ -46,7 +65,8 @@ namespace Js
     {
         if (propertyId == PropertyIds::length)
         {   
-            // Get the "length" property of the private ScriptFunction
+            // Cannot just call the base GetProperty for `length` because we need
+            // to get the length from our private ScriptFunction instead of ourself.
             int len = 0;
             Var varLength;
             if (scriptFunction->GetProperty(scriptFunction, PropertyIds::length, &varLength, NULL, requestContext))
@@ -56,14 +76,6 @@ namespace Js
 
             *value = JavascriptNumber::ToVar(len, requestContext);
             *result = true;
-            return true;
-        }
-
-        if (propertyId == PropertyIds::caller || propertyId == PropertyIds::arguments)
-        {
-            // TODO: Better error message? E.g. "'arguments' and 'caller' not accessible on generator functions"?
-            // TODO: Different error message in strict mode?
-            JavascriptError::ThrowTypeError(this->GetScriptContext(), VBSERR_ActionNotSupported);
             return true;
         }
 
@@ -83,18 +95,33 @@ namespace Js
             return result;
         }
 
+        if (propertyId == PropertyIds::caller || propertyId == PropertyIds::arguments)
+        {
+            // JavascriptFunction has special case for caller and arguments; call DynamicObject:: virtual directly to skip that.
+            return DynamicObject::SetProperty(propertyId, value, flags, info);
+        }
+
         return JavascriptFunction::SetProperty(propertyId, value, flags, info);
     }
 
     BOOL JavascriptGeneratorFunction::SetProperty(JavascriptString* propertyNameString, Var value, PropertyOperationFlags flags, PropertyValueInfo* info)
     {
-        BOOL result;
         PropertyRecord const* propertyRecord;
         this->GetScriptContext()->FindPropertyRecord(propertyNameString, &propertyRecord);
 
-        if (propertyRecord != null && SetPropertyBuiltIns(propertyRecord->GetPropertyId(), value, flags, info, &result))
+        if (propertyRecord != nullptr)
         {
-            return result;
+            BOOL result;
+            if (SetPropertyBuiltIns(propertyRecord->GetPropertyId(), value, flags, info, &result))
+            {
+                return result;
+            }
+
+            if (propertyRecord->GetPropertyId() == PropertyIds::caller || propertyRecord->GetPropertyId() == PropertyIds::arguments)
+            {
+                // JavascriptFunction has special case for caller and arguments; call DynamicObject:: virtual directly to skip that.
+                return DynamicObject::SetProperty(propertyNameString, value, flags, info);
+            }
         }
 
         return JavascriptFunction::SetProperty(propertyNameString, value, flags, info);
@@ -110,14 +137,6 @@ namespace Js
             return true;
         }
         
-        if (propertyId == PropertyIds::caller || propertyId == PropertyIds::arguments)
-        {
-            JavascriptError::ThrowTypeError(this->GetScriptContext(), VBSERR_ActionNotSupported);
-            
-            *result = false;
-            return true;
-        }
-
         return false;
     }
 
@@ -125,24 +144,22 @@ namespace Js
     {
         if (propertyId == PropertyIds::caller || propertyId == PropertyIds::arguments)
         {
-            *setter = *getter = requestContext->GetLibrary()->GetThrowTypeErrorAccessorFunction();
-            return true;
+            // JavascriptFunction has special case for caller and arguments; call DynamicObject:: virtual directly to skip that.
+            return DynamicObject::GetAccessors(propertyId, getter, setter, requestContext);
         }
 
-        // JavascriptFunction has special case for caller and arguments
-        // TODO: Remove this, once that is removed
-        return DynamicObject::GetAccessors(propertyId, getter, setter, requestContext);
+        return JavascriptFunction::GetAccessors(propertyId, getter, setter, requestContext);
     }
 
     DescriptorFlags JavascriptGeneratorFunction::GetSetter(PropertyId propertyId, Var *setterValue, PropertyValueInfo* info, ScriptContext* requestContext)
     {
         if (propertyId == PropertyIds::caller || propertyId == PropertyIds::arguments)
         {
-            *setterValue = requestContext->GetLibrary()->GetThrowTypeErrorAccessorFunction();
-            return DescriptorFlags::Accessor;
+            // JavascriptFunction has special case for caller and arguments; call DynamicObject:: virtual directly to skip that.
+            return DynamicObject::GetSetter(propertyId, setterValue, info, requestContext);
         }
 
-        return DynamicObject::GetSetter(propertyId, setterValue, info, requestContext);
+        return JavascriptFunction::GetSetter(propertyId, setterValue, info, requestContext);
     }
 
     DescriptorFlags JavascriptGeneratorFunction::GetSetter(JavascriptString* propertyNameString, Var *setterValue, PropertyValueInfo* info, ScriptContext* requestContext)
@@ -150,18 +167,13 @@ namespace Js
         PropertyRecord const* propertyRecord;
         this->GetScriptContext()->FindPropertyRecord(propertyNameString, &propertyRecord);
 
-        if (propertyRecord != null)
+        if (propertyRecord != nullptr && (propertyRecord->GetPropertyId() == PropertyIds::caller || propertyRecord->GetPropertyId() == PropertyIds::arguments))
         {
-            PropertyId propertyId = propertyRecord->GetPropertyId();
-
-            if (propertyId == PropertyIds::caller || propertyId == PropertyIds::arguments)
-            {
-                *setterValue = requestContext->GetLibrary()->GetThrowTypeErrorAccessorFunction();
-                return DescriptorFlags::Accessor;
-            }
+            // JavascriptFunction has special case for caller and arguments; call DynamicObject:: virtual directly to skip that.
+            return DynamicObject::GetSetter(propertyNameString, setterValue, info, requestContext);
         }
 
-        return DynamicObject::GetSetter(propertyNameString, setterValue, info, requestContext);
+        return JavascriptFunction::GetSetter(propertyNameString, setterValue, info, requestContext);
     }
 
     BOOL JavascriptGeneratorFunction::InitProperty(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info)
@@ -176,11 +188,10 @@ namespace Js
             return false;
         }
 
-        // JavascriptFunction has special case for caller and arguments
-        // TODO: Remove this, once that is removed
         if (propertyId == PropertyIds::caller || propertyId == PropertyIds::arguments)
         {
-            return false;
+            // JavascriptFunction has special case for caller and arguments; call DynamicObject:: virtual directly to skip that.
+            return DynamicObject::DeleteProperty(propertyId, flags);
         }
 
         return JavascriptFunction::DeleteProperty(propertyId, flags);
@@ -193,11 +204,10 @@ namespace Js
             return false;
         }
 
-        // JavascriptFunction has special case for caller and arguments
-        // TODO: Remove this, once that is removed
         if (propertyId == PropertyIds::caller || propertyId == PropertyIds::arguments)
         {
-            return false;
+            // JavascriptFunction has special case for caller and arguments; call DynamicObject:: virtual directly to skip that.
+            return DynamicObject::IsWritable(propertyId);
         }
 
         return JavascriptFunction::IsWritable(propertyId);
@@ -210,11 +220,10 @@ namespace Js
             return false;
         }
 
-        // JavascriptFunction has special case for caller and arguments
-        // TODO: Remove this, once that is removed
         if (propertyId == PropertyIds::caller || propertyId == PropertyIds::arguments)
         {
-            return false;
+            // JavascriptFunction has special case for caller and arguments; call DynamicObject:: virtual directly to skip that.
+            return DynamicObject::IsEnumerable(propertyId);
         }
 
         return JavascriptFunction::IsEnumerable(propertyId);

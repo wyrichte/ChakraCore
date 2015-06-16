@@ -846,9 +846,9 @@ namespace Js
         }
         Assert(numberFormatter);
 
-		AutoCOMPtr<NumberFormatting::ISignedZeroOption> signedZeroOption(nullptr);
-		IfFailThrowHr(numberFormatter->QueryInterface(__uuidof(NumberFormatting::ISignedZeroOption), reinterpret_cast<void**>(&signedZeroOption)));
-		IfFailThrowHr(signedZeroOption->put_IsZeroSigned(true));
+        AutoCOMPtr<NumberFormatting::ISignedZeroOption> signedZeroOption(nullptr);
+        IfFailThrowHr(numberFormatter->QueryInterface(__uuidof(NumberFormatting::ISignedZeroOption), reinterpret_cast<void**>(&signedZeroOption)));
+        IfFailThrowHr(signedZeroOption->put_IsZeroSigned(true));
 
         //Configure non-digit related options
         AutoCOMPtr<NumberFormatting::INumberFormatterOptions> numberFormatterOptions(nullptr);
@@ -1115,7 +1115,39 @@ namespace Js
             JavascriptError::MapAndThrowError(scriptContext, HRESULT_FROM_WIN32(GetLastError()));
         }
 
-        int compareResult = CompareStringEx(givenLocale != nullptr ? givenLocale : defaultLocale, compareFlags, str1->GetSz(), str1->GetLength(), str2->GetSz(), str2->GetLength(), NULL, NULL, 0);
+        int compareResult = 0;
+        BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, L"localeCompare")
+        {
+            wchar_t * aLeft = nullptr;
+            wchar_t * aRight = nullptr;
+            charcount_t size1 = 0;
+            charcount_t size2 = 0;
+            _NORM_FORM canonicalEquivalentForm = NormalizationC;
+            if (!IsNormalizedString(canonicalEquivalentForm, str1->GetSz(), -1))
+            {
+                aLeft = str1->GetNormalizedString(canonicalEquivalentForm, tempAllocator, size1);
+            }
+
+            if (!IsNormalizedString(canonicalEquivalentForm, str2->GetSz(), -1))
+            {
+                aRight = str2->GetNormalizedString(canonicalEquivalentForm, tempAllocator, size2);
+            }
+
+            if (aLeft == nullptr)
+            {
+                aLeft = const_cast<wchar_t*>(str1->GetSz());
+                size1 = str1->GetLength();
+            }
+            if (aRight == nullptr)
+            {
+                aRight = const_cast<wchar_t*>(str2->GetSz());
+                size2 = str2->GetLength();
+            }
+
+            compareResult = CompareStringEx(givenLocale != nullptr ? givenLocale : defaultLocale, compareFlags, aLeft, size1, aRight, size2, NULL, NULL, 0);
+        }
+        END_TEMP_ALLOCATOR(tempAllocator, scriptContext);
+
 
         if (compareResult != 0)//CompareStringEx returns 1, 2, 3 on success;  2 is the strings are equal, 1 is the fist string is lexically less than second, 3 is reverse. 
         {
@@ -1160,7 +1192,7 @@ namespace Js
         IfFailThrowHr(wga->CreateIncrementNumberRounder(scriptContext, &numberRounder));
         IfFailThrowHr(numberRounder->QueryInterface(__uuidof(NumberFormatting::IIncrementNumberRounder), reinterpret_cast<void**>(&incrementNumberRounder)));
         Assert(incrementNumberRounder);
-		IfFailThrowHr(incrementNumberRounder->put_RoundingAlgorithm(Windows::Globalization::NumberFormatting::RoundingAlgorithm::RoundingAlgorithm_RoundHalfAwayFromZero));
+        IfFailThrowHr(incrementNumberRounder->put_RoundingAlgorithm(Windows::Globalization::NumberFormatting::RoundingAlgorithm::RoundingAlgorithm_RoundHalfAwayFromZero));
 
         IfFailThrowHr(incrementNumberRounder->put_Increment(pow(10.0, -maxFractionDigits)));
         IfFailThrowHr(rounderOptions->put_NumberRounder(numberRounder));
@@ -1182,7 +1214,7 @@ namespace Js
         IfFailThrowHr(wga->CreateSignificantDigitsRounder(scriptContext, &numberRounder));
         IfFailThrowHr(numberRounder->QueryInterface(__uuidof(NumberFormatting::ISignificantDigitsNumberRounder), reinterpret_cast<void**>(&incrementNumberRounder)));
         Assert(incrementNumberRounder);
-		IfFailThrowHr(incrementNumberRounder->put_RoundingAlgorithm(Windows::Globalization::NumberFormatting::RoundingAlgorithm::RoundingAlgorithm_RoundHalfAwayFromZero));
+        IfFailThrowHr(incrementNumberRounder->put_RoundingAlgorithm(Windows::Globalization::NumberFormatting::RoundingAlgorithm::RoundingAlgorithm_RoundHalfAwayFromZero));
 		
         IfFailThrowHr(incrementNumberRounder->put_SignificantDigits(maxSignificantDigits));
         IfFailThrowHr(rounderOptions->put_NumberRounder(numberRounder));

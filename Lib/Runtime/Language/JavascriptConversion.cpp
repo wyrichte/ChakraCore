@@ -215,6 +215,17 @@ CommonNumber:
                 }
             }
             return false;
+        case TypeIds_Function:
+            switch (rightType)
+            {
+            case TypeIds_Function:
+                if (JavascriptFunction::IsThrowTypeErrorFunction(JavascriptFunction::FromVar(aLeft), scriptContext) &&
+                    JavascriptFunction::IsThrowTypeErrorFunction(JavascriptFunction::FromVar(aRight), scriptContext))
+                {
+                    return true;
+                }
+            }
+            break;
         }
         return aLeft == aRight;
     }
@@ -800,7 +811,7 @@ CommonNumber:
     //  number:    v (original number)
     //  String:    conversion by spec algorithm
     //  object:    ToNumber(PrimitiveValue(v, hint_number))
-	//  Symbol:    TypeError
+    //  Symbol:    TypeError
     //----------------------------------------------------------------------------
 
     double JavascriptConversion::ToNumber_Full(Var aValue,ScriptContext* scriptContext)

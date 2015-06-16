@@ -91,12 +91,12 @@ namespace Js
         template<> void SwapRoutine(double* input, double* dest) {*((uint64*)dest) = RtlUlonglongByteSwap(*((uint64*)input)); }
 
         template<typename TypeName>
-		Var GetValue(uint32 byteOffset, wchar_t* funcName, BOOL isLittleEndian = FALSE)
+        Var GetValue(uint32 byteOffset, wchar_t* funcName, BOOL isLittleEndian = FALSE)
         {
             ScriptContext* scriptContext = GetScriptContext();
             if (this->GetArrayBuffer()->IsDetached())
             {
-				JavascriptError::ThrowTypeError(scriptContext, JSERR_DetachedTypedArray, funcName);
+                JavascriptError::ThrowTypeError(scriptContext, JSERR_DetachedTypedArray, funcName);
             }
             if ((byteOffset + sizeof(TypeName) <= GetLength()) && (byteOffset <= GetLength()))
             {
@@ -118,14 +118,14 @@ namespace Js
             }
         }
 
-		template<typename TypeName>
-		inline Var GetValueWithCheck(uint32 byteOffset, wchar_t* funcName, BOOL isLittleEndian = FALSE)
+        template<typename TypeName>
+        inline Var GetValueWithCheck(uint32 byteOffset, wchar_t* funcName, BOOL isLittleEndian = FALSE)
         {
-			return GetValueWithCheck<TypeName, TypeName*>(byteOffset, isLittleEndian, funcName);
+            return GetValueWithCheck<TypeName, TypeName*>(byteOffset, isLittleEndian, funcName);
         }
 
         template<typename TypeName, typename PointerAccessTypeName>
-		Var GetValueWithCheck(uint32 byteOffset, BOOL isLittleEndian, wchar_t* funcName)
+        Var GetValueWithCheck(uint32 byteOffset, BOOL isLittleEndian, wchar_t* funcName)
         {
             ScriptContext* scriptContext = GetScriptContext();
             if (this->GetArrayBuffer()->IsDetached())

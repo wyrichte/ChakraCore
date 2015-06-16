@@ -186,7 +186,7 @@ public:
             }            
             if (doStackNestedFunc && m_jnFunction->GetNestedCount() != 0)
             {
-                Assert(!this->IsJitInDebugMode());
+                Assert(!(this->IsJitInDebugMode() && !m_jnFunction->GetUtf8SourceInfo()->GetIsLibraryCode()));
                 stackNestedFunc = true;
                 this->GetTopFunc()->hasAnyStackNestedFunc = true;
             }

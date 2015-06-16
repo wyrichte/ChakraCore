@@ -1,163 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="jsls-chk|Win32">
-      <Configuration>jsls-chk</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="jsls-fre|Win32">
-      <Configuration>jsls-fre</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-  </ItemGroup>
+  <PropertyGroup>
+    <ChakraBuildConfigDir>..\..\Build</ChakraBuildConfigDir>
+  </PropertyGroup>
+ <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0335EF4B-D4E2-426D-80C8-6F312CB4F957}</ProjectGuid>
     <RootNamespace>ut_jsdiag</RootNamespace>
   </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+  <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <Import Project="..\..\VcProjbuild.props" />
+    <UseStaticAtl>true</UseStaticAtl>
+    <AtlVersion>70</AtlVersion>
+  </PropertyGroup> 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
+  <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
+  </ImportGroup>  
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\atlmfc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;$(PUBLIC_ROOT)\internal\sdktools\inc;$(SolutionDir)\Exe\jdtest;$(SolutionDir)\Dll\JScriptDiag</IncludePath>
-    <LibraryPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\shell\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\sdktools\lib\$(PlatformPathNameAlt);$(SolutionDir)tools\External\lib\$(PlatformPathNameAlt)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\atlmfc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;$(PUBLIC_ROOT)\internal\sdktools\inc;$(SolutionDir)\Exe\jdtest;$(SolutionDir)\Dll\JScriptDiag</IncludePath>
-    <LibraryPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\shell\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\sdktools\lib\$(PlatformPathNameAlt);$(SolutionDir)tools\External\lib\$(PlatformPathNameAlt)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">
-    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\atlmfc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;$(PUBLIC_ROOT)\internal\sdktools\inc;$(SolutionDir)\Exe\jdtest;$(SolutionDir)\Dll\JScriptDiag</IncludePath>
-    <LibraryPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\shell\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\sdktools\lib\$(PlatformPathNameAlt);$(SolutionDir)tools\External\lib\$(PlatformPathNameAlt)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">
-    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\atlmfc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;$(PUBLIC_ROOT)\internal\sdktools\inc;$(SolutionDir)\Exe\jdtest;$(SolutionDir)\Dll\JScriptDiag</IncludePath>
-    <LibraryPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\shell\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\sdktools\lib\$(PlatformPathNameAlt);$(SolutionDir)tools\External\lib\$(PlatformPathNameAlt)</LibraryPath>
-  </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
-      <TreatWarningAsErrors>true</TreatWarningAsErrors>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;CULDEBUG_USE_NTASSERT;WINVER=0x0601;NOMINMAX;COM_STDMETHOD_CAN_THROW;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+  <PropertyGroup>
+    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\atlmfc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;$(PUBLIC_ROOT)\internal\sdktools\inc;$(SolutionDir)..\Exe\jdtest;$(SolutionDir)..\Dll\JScriptDiag</IncludePath>
+    <LibraryPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\shell\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\sdktools\lib\$(PlatformPathNameAlt);$(SolutionDir)..\tools\External\lib\$(PlatformPathNameAlt)</LibraryPath>
+  </PropertyGroup>  
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">
+    <ClCompile>      
+      <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Create</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dbgeng.lib;engextcpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
-      <TreatWarningAsErrors>true</TreatWarningAsErrors>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;CULDEBUG_USE_NTASSERT;WINVER=0x0601;NOMINMAX;COM_STDMETHOD_CAN_THROW;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">
+    <ClCompile>    
+      <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Create</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dbgeng.lib;engextcpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">
-    <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
-      <TreatWarningAsErrors>true</TreatWarningAsErrors>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;CULDEBUG_USE_NTASSERT;WINVER=0x0601;NOMINMAX;COM_STDMETHOD_CAN_THROW;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeader>Create</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-    </ClCompile>
-    <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dbgeng.lib;engextcpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">
-    <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
-      <TreatWarningAsErrors>true</TreatWarningAsErrors>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;CULDEBUG_USE_NTASSERT;WINVER=0x0601;NOMINMAX;COM_STDMETHOD_CAN_THROW;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeader>Create</PrecompiledHeader>
-      <RuntimeLibrary>
-      </RuntimeLibrary>
-    </ClCompile>
-    <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dbgeng.lib;engextcpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
+  </ItemDefinitionGroup>  
   <ItemGroup>
     <ClInclude Include="ut_jsdiag.h" />
     <ClInclude Include="SinkDebugSite.h" />
@@ -172,6 +57,4 @@
     <None Include="ut_jsdiag.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
 </Project>

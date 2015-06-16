@@ -146,7 +146,7 @@ class Heap
 public:
     Heap(AllocationPolicyManager * policyManager, ArenaAllocator * alloc, bool allocXdata);
 
-    Allocation* Alloc(size_t bytes, ushort pdataCount = 0, ushort xdataSize = 0, bool canAllocInPreReservedHeapPageSegment = false);
+    Allocation* Alloc(size_t bytes, ushort pdataCount, ushort xdataSize, bool canAllocInPreReservedHeapPageSegment, bool isAnyJittedCode, __out bool* isAllJITCodeInPreReservedRegion);
     bool Free(__in Allocation* allocation);
     bool Decommit(__in Allocation* allocation);
     void FreeAll();
@@ -396,7 +396,7 @@ private:
     /**
      * Large object methods
      */
-    Allocation* AllocLargeObject(size_t bytes, ushort pdataCount, ushort xdataSize, bool canAllocInPreReservedHeapPageSegment = false);
+    Allocation* AllocLargeObject(size_t bytes, ushort pdataCount, ushort xdataSize, bool canAllocInPreReservedHeapPageSegment, bool isAnyJittedCode, __out bool* isAllJITCodeInPreReservedRegion);
     
     template<bool freeAll> 
     bool FreeLargeObject(Allocation* header);
@@ -511,7 +511,7 @@ private:
      */
     Page*       AddPageToBucket(Page* page, BucketId bucket, bool wasFull = false);
     Allocation* AllocInPage(Page* page, size_t bytes, ushort pdataCount, ushort xdataSize);
-    Page*       AllocNewPage(BucketId bucket, bool canAllocInPreReservedHeapPageSegment = false);
+    Page*       AllocNewPage(BucketId bucket, bool canAllocInPreReservedHeapPageSegment, bool isAnyJittedCode, __out bool* isAllJITCodeInPreReservedRegion);
     Page*       FindPageToSplit(BucketId targetBucket, bool findPreReservedHeapPages = false);
     
     template<class Fn>

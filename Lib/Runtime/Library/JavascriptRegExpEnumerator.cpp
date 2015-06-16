@@ -13,7 +13,7 @@ namespace Js
         index = (uint)-1;
     }
 	
-	Var JavascriptRegExpEnumerator::GetCurrentIndex()
+    Var JavascriptRegExpEnumerator::GetCurrentIndex()
     {
         ScriptContext *scriptContext = regExpObject->GetScriptContext();
 

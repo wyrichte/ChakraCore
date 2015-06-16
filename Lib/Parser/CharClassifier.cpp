@@ -138,7 +138,7 @@ static const CharTypeFlags charFlags[128] =
     UnknownChar                  /* 0x7F   */
 };
 
-	/*****************************************************************************
+    /*****************************************************************************
 *
 *  The _C_xxx enum and charTypes[] table are used to map a character to
 *  simple classification values and flags.
@@ -544,8 +544,8 @@ BOOL Js::CharClassifier::BigCharIsIdContinueES6(codepoint_t codePoint, const Cha
     }
 
     boolean toReturn = false;
-	AssertMsg(instance->winGlobCharApi != nullptr, "ES6 Mode 'BigCharIsIdContinueES6' must mean winGlobCharApi is initialized.");
-	if (FAILED(instance->winGlobCharApi->IsIdContinue(codePoint, &toReturn)))
+    AssertMsg(instance->winGlobCharApi != nullptr, "ES6 Mode 'BigCharIsIdContinueES6' must mean winGlobCharApi is initialized.");
+    if (FAILED(instance->winGlobCharApi->IsIdContinue(codePoint, &toReturn)))
     {
         AssertMsg(false, "Should not fail here!");
         return toReturn;

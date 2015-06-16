@@ -21,7 +21,7 @@ namespace Js
 
     BOOL RecyclableObject::GetDiagValueString(StringBuilder<ArenaAllocator>* stringBuilder, ScriptContext* requestContext)
     {
-        DECLARE_STACK_PINNED(JavascriptString, valueStr);
+        ENTER_PINNED_SCOPE(JavascriptString, valueStr);
         ScriptContext *scriptContext = GetScriptContext();
 
         switch(GetTypeId())
@@ -51,6 +51,9 @@ namespace Js
         }
 
         stringBuilder->Append(valueStr->GetString(), valueStr->GetLength());
+
+        LEAVE_PINNED_SCOPE();
+
         return TRUE;
     }
   

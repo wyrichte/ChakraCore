@@ -244,14 +244,14 @@ LowererMD::LowerAsmJsCallE(IR::Instr * callInstr)
 }
 
 IR::Instr *
-LowererMD::LowerAsmJsLdElemHelper(IR::Instr * callInstr, uint32 mask)
+LowererMD::LowerAsmJsLdElemHelper(IR::Instr * callInstr)
 {
-    return this->lowererMDArch.LowerAsmJsLdElemHelper(callInstr, mask);
+    return this->lowererMDArch.LowerAsmJsLdElemHelper(callInstr);
 }
 IR::Instr *
-LowererMD::LowerAsmJsStElemHelper(IR::Instr * callInstr, uint32 mask)
+LowererMD::LowerAsmJsStElemHelper(IR::Instr * callInstr)
 {
-    return this->lowererMDArch.LowerAsmJsStElemHelper(callInstr, mask);
+    return this->lowererMDArch.LowerAsmJsStElemHelper(callInstr);
 }
 IR::Instr *
 LowererMD::LowerCallPut(IR::Instr * callInstr)

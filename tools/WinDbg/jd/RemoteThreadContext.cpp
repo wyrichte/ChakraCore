@@ -10,16 +10,10 @@
 
 #include "RemoteThreadContext.h"
 
-bool RemoteThreadContext::Info::IsUsingTLSEntryList()
+bool RemoteThreadContext::Info::IsUsingGlobalListFirst()
 {
-    if (!m_usingTLSEntryList.HasValue())
-    {
-        EXT_CLASS_BASE * ext = GetExtension();
-        ULONG64 offset;
-        m_usingTLSEntryList = IsUsingThreadContextTLSEntry() ||
-            (SUCCEEDED(ext->m_Symbols->GetOffsetByName(ext->FillModule("%s!ThreadContext::s_tlsEntryList"), &offset)) ? true : false);
-    }
-    return m_usingTLSEntryList;
+    GetExtension()->DetectFeatureBySymbol(m_usingGlobalListFirst, GetExtension()->FillModule("%s!ThreadContext::globalListFirst"));
+    return m_usingGlobalListFirst;
 }
 
 bool RemoteThreadContext::Info::IsUsingThreadContextTLSEntry()
@@ -67,10 +61,11 @@ RemoteThreadContext::Info * RemoteThreadContext::GetInfo()
 {
     return &GetExtension()->remoteThreadContextInfo;
 }
+
 bool
-RemoteThreadContext::IsUsingTLSEntryList()
+RemoteThreadContext::IsUsingGlobalListFirst()
 {
-    return GetInfo()->IsUsingTLSEntryList();
+    return GetInfo()->IsUsingGlobalListFirst();
 }
 
 bool
@@ -101,7 +96,7 @@ RemoteThreadContext::IsUsingTemplatedLinkedList()
 ExtRemoteTyped RemoteThreadContext::GetTlsEntryList()
 {
     // Newer builds use ThreadContextTLSEntry::s_tlsEntryList, older use ThreadContext::s_tlsEntryList
-    Assert(IsUsingTLSEntryList());
+    Assert(!IsUsingGlobalListFirst());
    
     return ExtRemoteTyped(GetExtension()->FillModule(IsUsingThreadContextTLSEntry() ?
         "%s!ThreadContextTLSEntry::s_tlsEntryList" : "%s!ThreadContext::s_tlsEntryList"));
@@ -109,18 +104,18 @@ ExtRemoteTyped RemoteThreadContext::GetTlsEntryList()
 
 ExtRemoteTyped RemoteThreadContext::GetFirstThreadContextContainer()
 {   
-    return IsUsingTLSEntryList() ? GetTlsEntryList() : ExtRemoteTyped(GetExtension()->FillModule("%s!ThreadContext::globalListFirst"));
+    return IsUsingGlobalListFirst() ? ExtRemoteTyped(GetExtension()->FillModule("%s!ThreadContext::globalListFirst")) : GetTlsEntryList();        
 }
 
 ExtRemoteTyped RemoteThreadContext::GetNextThreadContextContainer(ExtRemoteTyped container)
 {
-    return (IsUsingTLSEntryList() || IsUsingTemplatedLinkedList()) ? container.Field("next") :
+    return (!IsUsingGlobalListFirst() || IsUsingTemplatedLinkedList()) ? container.Field("next") :
         ExtRemoteTyped(GetExtension()->FillModule2("(%s!ThreadContext *)(%s!JsUtil::DoublyLinkedListElement<ThreadContext> *)@$extin"), container.Field("next").GetPtr());
 }
 
 RemoteThreadContext RemoteThreadContext::GetThreadContextFromContainer(ExtRemoteTyped container)
 {
-    return RemoteThreadContext(IsUsingTLSEntryList() ? container.Field("threadContext") : container);
+    return RemoteThreadContext(!IsUsingGlobalListFirst() ? container.Field("threadContext") : container);
 }
 
 

@@ -137,9 +137,9 @@ private:
 //----------------------------------------------------------------------------
 template <typename SyncObject>
 EmitBufferAllocation *
-EmitBufferManager<SyncObject>::NewAllocation(size_t bytes, ushort pdataCount, ushort xdataSize, bool canAllocInPreReservedHeapPageSegment)
+EmitBufferManager<SyncObject>::NewAllocation(size_t bytes, ushort pdataCount, ushort xdataSize, bool canAllocInPreReservedHeapPageSegment, bool isAnyJittedCode)
 {
-    FAULTINJECT_MEMORY_THROW;
+    FAULTINJECT_MEMORY_THROW(L"JIT", bytes);
 
     Assert(this->criticalSection.IsLocked());
     
@@ -152,13 +152,20 @@ EmitBufferManager<SyncObject>::NewAllocation(size_t bytes, ushort pdataCount, us
         this->EnsurePreReservedPageAllocation(preReservedVirtualAllocator);
     }
 
-    CustomHeap::Allocation* heapAllocation = this->allocationHeap.Alloc(bytes, pdataCount, xdataSize, canAllocInPreReservedHeapPageSegment);
+    bool isAllJITCodeInPreReservedRegion = true;
+    CustomHeap::Allocation* heapAllocation = this->allocationHeap.Alloc(bytes, pdataCount, xdataSize, canAllocInPreReservedHeapPageSegment, isAnyJittedCode, &isAllJITCodeInPreReservedRegion);
+
+    if (!isAllJITCodeInPreReservedRegion)
+    {
+        this->scriptContext->GetThreadContext()->ResetIsAllJITCodeInPreReservedRegion();
+    }
+
     if (heapAllocation  == NULL)
     {
         // This is used in interpreter scenario, thus we need to try to recover memory, if possible.
         // Can't simply throw as in JIT scenario, for which throw is what we want in order to give more mem to intepreter.
         JsUtil::ExternalApi::RecoverUnusedMemory();
-        heapAllocation = this->allocationHeap.Alloc(bytes, pdataCount, xdataSize);
+        heapAllocation = this->allocationHeap.Alloc(bytes, pdataCount, xdataSize, canAllocInPreReservedHeapPageSegment, isAnyJittedCode, &isAllJITCodeInPreReservedRegion);
     }
 
     if (heapAllocation  == NULL)
@@ -284,13 +291,14 @@ EmitBufferAllocation* EmitBufferManager<SyncObject>::GetBuffer(EmitBufferAllocat
 //      to modify this buffer one page at a time.
 //----------------------------------------------------------------------------
 template <typename SyncObject>
-EmitBufferAllocation* EmitBufferManager<SyncObject>::AllocateBuffer(__in size_t bytes, __deref_bcount(bytes) BYTE** ppBuffer, bool readWrite /*= false*/, ushort pdataCount /*=0*/, ushort xdataSize  /*=0*/, bool canAllocInPreReservedHeapPageSegment /*=false*/)
+EmitBufferAllocation* EmitBufferManager<SyncObject>::AllocateBuffer(__in size_t bytes, __deref_bcount(bytes) BYTE** ppBuffer, bool readWrite /*= false*/, ushort pdataCount /*=0*/, ushort xdataSize  /*=0*/, bool canAllocInPreReservedHeapPageSegment /*=false*/,
+    bool isAnyJittedCode /* = false*/)
 {
     AutoRealOrFakeCriticalSection<SyncObject> autoCs(&this->criticalSection);
 
     Assert(ppBuffer != NULL);
 
-    EmitBufferAllocation * allocation = this->NewAllocation(bytes, pdataCount, xdataSize, canAllocInPreReservedHeapPageSegment);
+    EmitBufferAllocation * allocation = this->NewAllocation(bytes, pdataCount, xdataSize, canAllocInPreReservedHeapPageSegment, isAnyJittedCode);
 
     GetBuffer(allocation, bytes, ppBuffer, readWrite);
 

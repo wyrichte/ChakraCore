@@ -165,7 +165,8 @@ ThreadContext::ThreadContext(AllocationPolicyManager * allocationPolicyManager, 
     loopDepth(0),
     isRandomDataInitialized(false),
     maxGlobalFunctionExecTime(0.0),
-    isDebuggerAttaching(false)
+    isDebuggerAttaching(false),
+    isAllJITCodeInPreReservedRegion(true)
 {
 #if DBG
     // diagnostic page allocator may be used in multiple thread, but it's usage is synchronized.

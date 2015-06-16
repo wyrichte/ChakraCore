@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ChakraBuildConfigDir>..\..\..\Build</ChakraBuildConfigDir>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
+  <PropertyGroup Label="Globals">
+    <TargetName>Chakra.Runtime.Types</TargetName>
+    <ProjectGuid>{706083F7-6AA4-4558-A153-6352EF9110F6}</ProjectGuid>
+    <RootNamespace>JS</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>    
+  </PropertyGroup>    
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>  
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>    
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..;$(MSBuildThisFileDirectory)..\..\Common;$(MSBuildThisFileDirectory)..\..\Parser;$(MSBuildThisFileDirectory)..\..\Backend;$(ChakraManifestsIncludeDirectory);$(ManifestsInboxIncludeDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings);4702</DisableSpecificWarnings>
+      <PrecompiledHeader>Use</PrecompiledHeader>        
+    </ClCompile>
+  </ItemDefinitionGroup>  
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)\ActivationObjectType.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\ArrayObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\CrossSite.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\DeferredTypeHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\DictionaryTypeHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\DOMFastPath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\DynamicObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\DynamicObjectEnumerator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\DynamicObjectSnapshotEnumerator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\DynamicObjectSnapshotEnumeratorWPCache.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\DynamicType.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\ExternalType.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\FunctionBody.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\FunctionInfo.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\JavascriptEnumerator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\JavascriptExceptionObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\MissingPropertyTypeHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\NullTypeHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\PathTypeHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\PerfHint.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\PropertyDescriptor.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\RecyclableObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\SimpleDictionaryTypeHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\SimpleDictionaryUnorderedTypeHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\SimpleTypeHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\SpreadArgument.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\StaticType.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\StdAfx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>    
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)\TempArenaAllocatorObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\Type.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\TypeHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\TypePath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\TypePropertyCache.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)\WithScopeObject.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ActivationObjectType.h" />
+    <ClInclude Include="ArrayObject.h" />
+    <ClInclude Include="CopyOnWrite.h" />
+    <ClInclude Include="CrossSite.h" />
+    <ClInclude Include="CrossSiteEnumerator.h" />
+    <ClInclude Include="CrossSiteObject.h" />
+    <ClInclude Include="DeferredTypeHandler.h" />
+    <ClInclude Include="DictionaryPropertyDescriptor.h" />
+    <ClInclude Include="DictionaryTypeHandler.h" />
+    <ClInclude Include="domfastpath.h" />
+    <ClInclude Include="DOMFastpathinfolist.h" />
+    <ClInclude Include="DynamicObject.h" />
+    <ClInclude Include="DynamicObjectEnumerator.h" />
+    <ClInclude Include="DynamicObjectSnapshotEnumerator.h" />
+    <ClInclude Include="DynamicObjectSnapshotEnumeratorWPCache.h" />
+    <ClInclude Include="DynamicType.h" />
+    <ClInclude Include="ExternalObject.h" />
+    <ClInclude Include="FunctionBody.h" />
+    <ClInclude Include="FunctionInfo.h" />
+    <ClInclude Include="IWalkPropertyCallback.h" />
+    <ClInclude Include="JavascriptEnumerator.h" />
+    <ClInclude Include="JavascriptExceptionContext.h" />
+    <ClInclude Include="JavascriptExceptionObject.h" />
+    <ClInclude Include="MissingPropertyTypeHandler.h" />
+    <ClInclude Include="NullTypeHandler.h" />
+    <ClInclude Include="PathTypeHandler.h" />
+    <ClInclude Include="PerfHint.h" />
+    <ClInclude Include="PerfHintDescriptions.h" />
+    <ClInclude Include="PropertyDescriptor.h" />
+    <ClInclude Include="RecyclableObject.h" />
+    <ClInclude Include="SimpleDictionaryPropertyDescriptor.h" />
+    <ClInclude Include="SimpleDictionaryTypeHandler.h" />
+    <ClInclude Include="SimpleDictionaryUnorderedTypeHandler.h" />
+    <ClInclude Include="SimplePropertyDescriptor.h" />
+    <ClInclude Include="SimpleTypeHandler.h" />
+    <ClInclude Include="SpreadArgument.h" />
+    <ClInclude Include="StaticType.h" />
+    <ClInclude Include="TempArenaAllocatorObject.h" />
+    <ClInclude Include="Type.h" />
+    <ClInclude Include="TypeHandler.h" />
+    <ClInclude Include="TypeId.h" />
+    <ClInclude Include="TypePath.h" />
+    <ClInclude Include="TypePropertyCache.h" />
+    <ClInclude Include="WithScopeObject.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DynamicObject.inl" />
+    <None Include="DynamicType.inl" />
+    <None Include="FunctionBody.inl" />
+    <None Include="RecyclableObject.inl" />
+    <None Include="TypeHandler.inl" />
+    <None Include="TypePropertyCache.inl" />
+  </ItemGroup>  
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Telemetry\README - Instructions on adding new aspects.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

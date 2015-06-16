@@ -4,8 +4,6 @@
 
 #pragma once
 
-extern void (*InitializeAdditionalProperties)(ThreadContext *threadContext);
-
 namespace Js
 {
     class ScriptContext;
@@ -42,6 +40,8 @@ struct IProjectionContext
 public:
     virtual HRESULT Close() = 0;
 };
+
+class ThreadContext;
 
 class InterruptPoller abstract
 {
@@ -581,6 +581,7 @@ private:
     bool isThreadBound;
     bool hasThrownPendingException;
     bool callDispose;
+    bool isAllJITCodeInPreReservedRegion;
 
     IAuthorFileContext *m_fileAuthoringContext;
     AllocationPolicyManager * allocationPolicyManager;
@@ -791,6 +792,9 @@ public:
     AllocationPolicyManager * GetAllocationPolicyManager() { return allocationPolicyManager; }
     PreReservedVirtualAllocWrapper * GetPreReservedVirtualAllocator() { return &preReservedVirtualAllocator; }
     
+    void ResetIsAllJITCodeInPreReservedRegion() { isAllJITCodeInPreReservedRegion = false; }
+    bool IsAllJITCodeInPreReservedRegion() { return isAllJITCodeInPreReservedRegion; }
+
     CriticalSection* GetEtwRundownCriticalSection() { return &csEtwRundown; }
 
     UCrtC99MathApis* GetUCrtC99MathApis() { return &ucrtC99MathApis; }
@@ -1601,7 +1605,7 @@ public:
 
     void IncrementLoopDepth()
     {
-        if(loopDepth != UINT8_MAX)
+        if(loopDepth != UCHAR_MAX)
         {
             ++loopDepth;
         }
@@ -1638,6 +1642,8 @@ public:
         isDebuggerAttaching = attaching;
     }
 };
+
+extern void(*InitializeAdditionalProperties)(ThreadContext *threadContext);
 
 inline AutoTagNativeLibraryEntry::AutoTagNativeLibraryEntry(ThreadContext* threadContext, void* addr, PCWSTR name) :
     threadContext(threadContext)

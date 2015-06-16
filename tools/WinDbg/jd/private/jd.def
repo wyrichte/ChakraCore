@@ -15,7 +15,7 @@ EXPORTS
 
     prop
     var
-    var2
+    fb    
     url
     ldsym
     jsstream
@@ -25,9 +25,10 @@ EXPORTS
     drpids
     oi
     count
-    stack
-    frame
-    eval
+    diagvar
+    diagstack
+    diagframe
+    diageval
     utmode
     findref
     showroots

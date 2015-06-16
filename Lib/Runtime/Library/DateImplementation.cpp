@@ -637,6 +637,12 @@ Error:
         return (unsigned int)ch >= 128;
     }
 
+    inline bool
+    DateImplementation::FDateDelimiter(wchar_t ch)
+    {
+        return (ch == '/' || ch == '-');
+    }
+
     ///------------------------------------------------------------------------------
     //  Parse a string as a date and return the number of milliseconds since
     //  January 1, 1970 GMT.
@@ -1030,6 +1036,7 @@ Error:
             ssAddOffset,
             ssSubOffset,
             ssDate,
+            ssMonth,
             ssYear
         };
 
@@ -1311,7 +1318,40 @@ Error:
                     if (lwNil != lwDate)
                         goto LError;
                     lwDate = lwT;
-                    ss = (ch == '/' || ch == '-') ? (pch++, ssYear) : ssNil;
+
+                    if ((lwNil == lwYear) && FDateDelimiter(ch))
+                    {
+                        // We have already parsed the year if the date is specified as YYYY/MM/DD,
+                        // but not when it is specified as MM/DD/YYYY.
+                        ss = ssYear;
+                        pch++;
+                    }
+                    else
+                    {
+                        ss = ssNil;
+                    }
+                    break;
+                }
+                case ssMonth:
+                {
+                    AssertMsg(isNextFieldDateNegativeVersion5 == false, "isNextFieldDateNegativeVersion5 == false");
+
+                    if (lwNil != lwMonth)
+                    {
+                        goto LError;
+                    }
+
+                    lwMonth = lwT - 1;
+
+                    if (FDateDelimiter(ch))
+                    {
+                        // Mark the next token as the date so that it won't be confused with another token.
+                        // For example, if the next character is '-' as in "2015-1-1", then it'd be used as
+                        // the time offset without this.
+                        ss = ssDate;
+                        pch++;
+                    }
+
                     break;
                 }
                 case ssYear:
@@ -1340,6 +1380,16 @@ Error:
                         // handle the case date is negative for "Tue Feb 02 -2012 01:02:03 GMT-0800"
                         lwYear = isDateNegativeVersion5 ? -lwT : lwT;
                         isNextFieldDateNegativeVersion5 = false;
+
+                        if (FDateDelimiter(ch))
+                        {
+                            // Mark the next token as the month so that it won't be confused with another token.
+                            // For example, if the next character is '-' as in "2015-1-1", then it'd be used as
+                            // the time offset without this.
+                            ss = ssMonth;
+                            pch++;
+                        }
+
                         break;
                     }
 

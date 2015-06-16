@@ -1143,14 +1143,14 @@ case_2:
         }
         AssertMsg(args.Info.Count > 0, "Negative argument count");
 
+        JavascriptString * pThis;
+        JavascriptString * pThat;
+
+        GetThisAndSearchStringArguments(args, scriptContext, L"String.prototype.localeCompare", &pThis, &pThat, true);
+
 #ifdef ENABLE_INTL_OBJECT
         if (CONFIG_FLAG(IntlBuiltIns) && scriptContext->GetConfig()->IsIntlEnabled())
         {
-            if (!JavascriptConversion::CheckObjectCoercible(args[0], scriptContext))
-            {
-                JavascriptError::ThrowTypeError(scriptContext, JSERR_This_NullOrUndefined, L"String.prototype.localeCompare");
-            }
-
             scriptContext->GetLibrary()->EnsureIntlObjectReady();
 
             EngineInterfaceObject* nativeEngineInterfaceObj = scriptContext->GetLibrary()->GetEngineInterfaceObject();
@@ -1160,7 +1160,7 @@ case_2:
                 {
                     auto undefined = scriptContext->GetLibrary()->GetUndefined();
                     CallInfo toPass(callInfo.Flags, 7);
-                    nativeEngineInterfaceObj->EntryIntl_CompareString(function, toPass, undefined, args.Values[0], args.Values[1], undefined, undefined, undefined, undefined);
+                    return nativeEngineInterfaceObj->EntryIntl_CompareString(function, toPass, undefined, pThis, pThat, undefined, undefined, undefined, undefined);
                 } 
                 else
                 {
@@ -1173,11 +1173,6 @@ case_2:
             }
         }
 #endif
-
-        JavascriptString * pThis;
-        JavascriptString * pThat;
-
-        GetThisAndSearchStringArguments(args, scriptContext, L"String.prototype.localeCompare", &pThis, &pThat, true);
 
         const wchar_t* pThisStr = pThis->GetString();
         int thisStrCount = pThis->GetLength();
@@ -1277,69 +1272,27 @@ case_2:
             }
         }
 
-        if (pThis->GetLength() == 0)
+        if (IsNormalizedString(form, pThis->GetSz(), pThis->GetLength()))
         {
+            return JavascriptString::NewWithSz(pThis->GetSz(), scriptContext);
+        }
+
+
+        BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, L"normalize");
+
+        charcount_t sizeEstimate = 0;
+        wchar_t* buffer = pThis->GetNormalizedString(form, tempAllocator, sizeEstimate);
+        if (buffer == nullptr)
+        {
+            Assert(sizeEstimate == 0);
             return scriptContext->GetLibrary()->GetEmptyString();
         }
-        
-        // IMPORTANT: Implementation Notes
-        // Normalize string estimates the required size of the buffer based on averages and other data.
-        // It is very hard to get a precise size from an input string without expanding/contracting it on the buffer.
-        // It is estimated that the maximum size the string after an NFC is 6x the input length, and 18x for NFD. This approach isn't very feasible as well.
-        // The approach taken is based on the simple example in the MSDN article. 
-        //  - Loop until the return value is either an error (apart from insufficient buffer size), or success.
-        //  - Each time recreate a temporary buffer based on the last guess.
-        //  - When creating the JS string, use the positive return value and copy the buffer across.
-        // Design choice for "guesses" comes from data Windows collected; and in most cases the loop will not iterate more than 2 times.
-
-               
-        //Get the first size estimate
-        int sizeEstimate = NormalizeString(form, pThis->GetSz(), pThis->GetLength() + 1, nullptr, 0);
-        wchar_t *tmpBuffer = nullptr;
-        DWORD lastError  = ERROR_INSUFFICIENT_BUFFER;
-        //Loop while the size estimate is bigger than 0
-        while (lastError == ERROR_INSUFFICIENT_BUFFER)
+        else
         {
-            BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, L"fromCodePoint");
-
-            tmpBuffer = AnewArray(tempAllocator, wchar_t, sizeEstimate);
-            sizeEstimate = NormalizeString(form, pThis->GetSz(), pThis->GetLength() + 1, tmpBuffer, sizeEstimate);
-
-            // Success, sizeEstimate is the exact size including the null terminator
-            if (sizeEstimate > 0)
-            {
-                return JavascriptString::NewCopyBuffer(tmpBuffer, sizeEstimate - 1, scriptContext);
-            }
-
-            //Anything less than 0, we have an error, flip sizeEstimate now. As both times we need to use it, we need positive anyways.
-            lastError = GetLastError();
-            sizeEstimate *= -1;
-
-            END_TEMP_ALLOCATOR(tempAllocator, scriptContext);   
+            return JavascriptString::NewCopyBuffer(buffer, sizeEstimate, scriptContext);
         }
 
-        switch ((long)lastError)
-        {
-        case ERROR_INVALID_PARAMETER:
-            //some invalid parameter, coding error
-            AssertMsg(false, "ERROR_INVALID_PARAMETER check pointers passed to NormalizeString");
-            JavascriptError::ThrowRangeError(scriptContext, JSERR_FailedToNormalize);
-            break;
-        case ERROR_NO_UNICODE_TRANSLATION:
-            //the value returned is the negative index of an invalid unicode character
-            JavascriptError::ThrowRangeErrorVar(scriptContext, JSERR_InvalidUnicodeCharacter, sizeEstimate);
-            break;
-        case ERROR_SUCCESS:
-            //The actual size of the output string is zero. 
-            //Theoretically only empty input string should produce this, which is handled above, thus the code path should not be hit.
-            AssertMsg(false, "This code path should not be hit, empty string case is handled above. Perhaps a false error (sizeEstimate <= 0; but lastError == 0; ERROR_SUCCESS and NO_ERRROR == 0)");
-            return scriptContext->GetLibrary()->GetEmptyString();
-            break;
-        default:
-            AssertMsg(false, "Unknown error. MSDN documentation didn't specify any additional errors.");
-            JavascriptError::ThrowRangeError(scriptContext, JSERR_FailedToNormalize);
-            break;
-        }
+        END_TEMP_ALLOCATOR(tempAllocator, scriptContext);
     }
 
     ///----------------------------------------------------------------------------
@@ -3292,6 +3245,79 @@ case_2:
             return TaggedInt::ToInt32(varIndex);
         }
         return LwFromDblNearest(JavascriptConversion::ToInteger(varIndex, scriptContext));
+    }
+
+    wchar_t* JavascriptString::GetNormalizedString(_NORM_FORM form, ArenaAllocator* tempAllocator, charcount_t& sizeOfNormalizedStringWithoutNullTerminator)
+    {
+        ScriptContext* scriptContext = this->GetScriptContext();
+        if (this->GetLength() == 0)
+        {
+            sizeOfNormalizedStringWithoutNullTerminator = 0;
+            return nullptr;
+        }
+
+        // IMPORTANT: Implementation Notes
+        // Normalize string estimates the required size of the buffer based on averages and other data.
+        // It is very hard to get a precise size from an input string without expanding/contracting it on the buffer.
+        // It is estimated that the maximum size the string after an NFC is 6x the input length, and 18x for NFD. This approach isn't very feasible as well.
+        // The approach taken is based on the simple example in the MSDN article. 
+        //  - Loop until the return value is either an error (apart from insufficient buffer size), or success.
+        //  - Each time recreate a temporary buffer based on the last guess.
+        //  - When creating the JS string, use the positive return value and copy the buffer across.
+        // Design choice for "guesses" comes from data Windows collected; and in most cases the loop will not iterate more than 2 times.
+
+        Assert(!IsNormalizedString(form, this->GetSz(), this->GetLength()));
+
+        //Get the first size estimate
+        int sizeEstimate = NormalizeString(form, this->GetSz(), this->GetLength() + 1, nullptr, 0);
+        wchar_t *tmpBuffer = nullptr;
+        DWORD lastError = ERROR_INSUFFICIENT_BUFFER;
+        //Loop while the size estimate is bigger than 0
+        while (lastError == ERROR_INSUFFICIENT_BUFFER)
+        {
+            //BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, L"normalize");
+
+            tmpBuffer = AnewArray(tempAllocator, wchar_t, sizeEstimate);
+            sizeEstimate = NormalizeString(form, this->GetSz(), this->GetLength() + 1, tmpBuffer, sizeEstimate);
+
+            // Success, sizeEstimate is the exact size including the null terminator
+            if (sizeEstimate > 0)
+            {
+                sizeOfNormalizedStringWithoutNullTerminator = sizeEstimate - 1;
+                return tmpBuffer;// JavascriptString::NewCopyBuffer(tmpBuffer, sizeEstimate - 1, scriptContext);
+            }
+
+            //Anything less than 0, we have an error, flip sizeEstimate now. As both times we need to use it, we need positive anyways.
+            lastError = GetLastError();
+            sizeEstimate *= -1;
+
+            //END_TEMP_ALLOCATOR(tempAllocator, scriptContext);
+        }
+
+        switch ((long)lastError)
+        {
+        case ERROR_INVALID_PARAMETER:
+            //some invalid parameter, coding error
+            AssertMsg(false, "ERROR_INVALID_PARAMETER check pointers passed to NormalizeString");
+            JavascriptError::ThrowRangeError(scriptContext, JSERR_FailedToNormalize);
+            break;
+        case ERROR_NO_UNICODE_TRANSLATION:
+            //the value returned is the negative index of an invalid unicode character
+            JavascriptError::ThrowRangeErrorVar(scriptContext, JSERR_InvalidUnicodeCharacter, sizeEstimate);
+            break;
+        case ERROR_SUCCESS:
+            //The actual size of the output string is zero. 
+            //Theoretically only empty input string should produce this, which is handled above, thus the code path should not be hit.
+            AssertMsg(false, "This code path should not be hit, empty string case is handled above. Perhaps a false error (sizeEstimate <= 0; but lastError == 0; ERROR_SUCCESS and NO_ERRROR == 0)");
+            sizeOfNormalizedStringWithoutNullTerminator = 0;
+            return nullptr; // scriptContext->GetLibrary()->GetEmptyString();
+
+            break;
+        default:
+            AssertMsg(false, "Unknown error. MSDN documentation didn't specify any additional errors.");
+            JavascriptError::ThrowRangeError(scriptContext, JSERR_FailedToNormalize);
+            break;
+        }
     }
 
     void JavascriptString::InstantiateForceInlinedMembers()

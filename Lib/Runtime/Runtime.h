@@ -134,7 +134,7 @@ namespace Js
     class StackScriptFunction;
     class GeneratorVirtualScriptFunction;
     class JavascriptRegExpConstructor;
-	class JavascriptRegExpEnumerator;
+    class JavascriptRegExpEnumerator;
     class BoundFunction;
     class JavascriptMap;
     class JavascriptSet;

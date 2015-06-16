@@ -45,11 +45,11 @@ namespace Projection
         BOOL wasSet = false;
         BEGIN_LEAVE_SCRIPT(scriptContext)
         {
-			PropertyAttributes propertyAttributes = fEnumerable ? PropertyAttributes_Enumerable : PropertyAttributes_None;
-			if (projectionContext->AreProjectionPrototypesConfigurable())
-			{
-				propertyAttributes = PropertyAttributes_Default;
-			}
+            PropertyAttributes propertyAttributes = fEnumerable ? PropertyAttributes_Enumerable : PropertyAttributes_None;
+            if (projectionContext->AreProjectionPrototypesConfigurable())
+            {
+                propertyAttributes = PropertyAttributes_Default;
+            }
 
             hr = Projection::GetDefaultTypeOperations()->SetPropertyWithAttributes(scriptContext->GetActiveScriptDirect(), parentObject, propertyId, m_instance, propertyAttributes, SideEffects_None, &wasSet);
         }
@@ -119,34 +119,34 @@ namespace Projection
                 hr = __super::DeleteProperty(scriptDirect, instance, propertyId, result);
             }
 
-			if (SUCCEEDED(hr))
-			{
-				// also delete the subNamespace from the list of children namespaces
-				// note - this is done for consistency of internal state. if design mode is NOT enabled, the
-				// next EnsureHasProperty() will re-project the namespace. This behavior (always allow delete)
-				// is necessary to allow extensibility scenario.
-				Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
+            if (SUCCEEDED(hr))
+            {
+                // also delete the subNamespace from the list of children namespaces
+                // note - this is done for consistency of internal state. if design mode is NOT enabled, the
+                // next EnsureHasProperty() will re-project the namespace. This behavior (always allow delete)
+                // is necessary to allow extensibility scenario.
+                Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
 
-				BEGIN_JS_RUNTIME_CALL_EX_PROJECTION_TYPE_OP(scriptContext)
-				{
-					Js::PropertyRecord const * nameStr = scriptContext->GetPropertyName(propertyId);
-					IfNullReturnError(nameStr, E_FAIL);
-					LPCWSTR propertyName = nameStr->GetBuffer();
+                BEGIN_JS_RUNTIME_CALL_EX_PROJECTION_TYPE_OP(scriptContext)
+                {
+                    Js::PropertyRecord const * nameStr = scriptContext->GetPropertyName(propertyId);
+                    IfNullReturnError(nameStr, E_FAIL);
+                    LPCWSTR propertyName = nameStr->GetBuffer();
 
-					AutoHeapString heapString;
-					heapString.CreateNew(wcslen(m_pszFullName) + wcslen(propertyName) + 2); // +2, 1 for the '.', 1 for '\0'
-					swprintf_s(heapString.Get(), heapString.GetLength(), L"%s%c%s", m_pszFullName, L'.', propertyName);
+                    AutoHeapString heapString;
+                    heapString.CreateNew(wcslen(m_pszFullName) + wcslen(propertyName) + 2); // +2, 1 for the '.', 1 for '\0'
+                    swprintf_s(heapString.Get(), heapString.GetLength(), L"%s%c%s", m_pszFullName, L'.', propertyName);
 
-					projectionContext->DeleteSubNamespace(heapString.Get());
+                    projectionContext->DeleteSubNamespace(heapString.Get());
 
                     if (projectionContext->AreProjectionPrototypesConfigurable())
                     {
-						// record the property name as projected
-						RecordAlreadyFullyProjectedProperty(propertyName);
+                        // record the property name as projected
+                        RecordAlreadyFullyProjectedProperty(propertyName);
                     }
-				}
+                }
                 END_JS_RUNTIME_CALL(scriptContext);
-			}
+            }
         }
         return hr;
     }
@@ -495,7 +495,7 @@ namespace Projection
 
         if (SUCCEEDED(hr))
         {
-			if (!propertyPresent)
+            if (!propertyPresent)
             {
                 Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
                 Js::PropertyRecord const * nameStr = scriptContext->GetPropertyName(propertyId);
@@ -517,46 +517,46 @@ namespace Projection
                         // This is not a namespace or type, do not project
                         hr = S_OK;
                     }
-					else
-					{
-						// Project it only if it hasn't already been deleted
-						bool doProject = true;
+                    else
+                    {
+                        // Project it only if it hasn't already been deleted
+                        bool doProject = true;
 
                         // This is a namespace/property/..., generate it only the 1st time 'til deleted (for design mode only)!
-						if (projectionContext->AreProjectionPrototypesConfigurable())
-						{
-							// only project the first time
-							doProject = !IsAlreadyFullyProjectedProperty(propertyName);
-						}
+                        if (projectionContext->AreProjectionPrototypesConfigurable())
+                        {
+                            // only project the first time
+                            doProject = !IsAlreadyFullyProjectedProperty(propertyName);
+                        }
 
-						TRACE_METADATA(L"EnsureHasProperty(%s (%s#%d)) - doProject = %d\n", heapString.Get(), propertyName, propertyId, doProject);
+                        TRACE_METADATA(L"EnsureHasProperty(%s (%s#%d)) - doProject = %d\n", heapString.Get(), propertyName, propertyId, doProject);
 
-						if (doProject)
-						{
+                        if (doProject)
+                        {
                             if (projectionContext->AreProjectionPrototypesConfigurable())
                             {
-								// record the property name as projected
-								RecordAlreadyFullyProjectedProperty(propertyName);
+                                // record the property name as projected
+                                RecordAlreadyFullyProjectedProperty(propertyName);
                             }
 
-							if (RO_E_METADATA_NAME_IS_NAMESPACE == hr)
-							{
-								projectionContext->CreateSubNamespace(instance, heapString.Get(), propertyName, m_isExtensible);
-							}
-							else if (SUCCEEDED(hr) && (NULL != expr))
-							{
-								ProjectionWriter *writer = projectionContext->GetProjectionWriter();
-								constructorInstance = writer->WriteExpr(expr);
-							}
-							else
-							{
-								// An unexpected error has occured in obtaining the metadata information for this type. Throw an error.
-								AutoHeapString errorString;
-								errorString.CreateNew(heapString.GetLength() + /*" (0x)"*/ 5 + /*HRESULT length*/ 8);
-								swprintf_s(errorString.Get(), errorString.GetLength(), L"%s (0x%X)", heapString.Get(), hr);
-								Js::JavascriptError::ThrowError(scriptContext, JSERR_UnexpectedMetadataFailure, errorString.Get());
-							}
-						}
+                            if (RO_E_METADATA_NAME_IS_NAMESPACE == hr)
+                            {
+                                projectionContext->CreateSubNamespace(instance, heapString.Get(), propertyName, m_isExtensible);
+                            }
+                            else if (SUCCEEDED(hr) && (NULL != expr))
+                            {
+                                ProjectionWriter *writer = projectionContext->GetProjectionWriter();
+                                constructorInstance = writer->WriteExpr(expr);
+                            }
+                            else
+                            {
+                                // An unexpected error has occured in obtaining the metadata information for this type. Throw an error.
+                                AutoHeapString errorString;
+                                errorString.CreateNew(heapString.GetLength() + /*" (0x)"*/ 5 + /*HRESULT length*/ 8);
+                                swprintf_s(errorString.Get(), errorString.GetLength(), L"%s (0x%X)", heapString.Get(), hr);
+                                Js::JavascriptError::ThrowError(scriptContext, JSERR_UnexpectedMetadataFailure, errorString.Get());
+                            }
+                        }
 
                         hr = S_OK;
                     }
@@ -738,43 +738,43 @@ namespace Projection
         return hr;
     }
 
-	void NamespaceProjection::RecordAlreadyFullyProjectedProperties(ImmutableList<LPCWSTR>* names)
-	{
-		if (projectionContext->AreProjectionPrototypesConfigurable())
-		{
-			if (names != nullptr)
-			{
-				names->Iterate([&](LPCWSTR name) {
-					RecordAlreadyFullyProjectedProperty(name);
-				});
-			}
-		}
-	}
+    void NamespaceProjection::RecordAlreadyFullyProjectedProperties(ImmutableList<LPCWSTR>* names)
+    {
+        if (projectionContext->AreProjectionPrototypesConfigurable())
+        {
+            if (names != nullptr)
+            {
+                names->Iterate([&](LPCWSTR name) {
+                    RecordAlreadyFullyProjectedProperty(name);
+                });
+            }
+        }
+    }
 
-	void NamespaceProjection::RecordAlreadyFullyProjectedProperty(LPCWSTR name)
-	{
-		if (projectionContext->AreProjectionPrototypesConfigurable())
-		{
-			if (IsAlreadyFullyProjectedProperty(name) == FALSE)
-			{
-				this->m_alreadyFullyProjectedPropertiesIfConfigurable = this->m_alreadyFullyProjectedPropertiesIfConfigurable->Prepend(name, ProjectionAllocator());
-			}
-		}
-	}
+    void NamespaceProjection::RecordAlreadyFullyProjectedProperty(LPCWSTR name)
+    {
+        if (projectionContext->AreProjectionPrototypesConfigurable())
+        {
+            if (IsAlreadyFullyProjectedProperty(name) == FALSE)
+            {
+                this->m_alreadyFullyProjectedPropertiesIfConfigurable = this->m_alreadyFullyProjectedPropertiesIfConfigurable->Prepend(name, ProjectionAllocator());
+            }
+        }
+    }
 
-	BOOL NamespaceProjection::IsAlreadyFullyProjectedProperty(LPCWSTR name)
-	{
-		BOOL retValue = FALSE;
+    BOOL NamespaceProjection::IsAlreadyFullyProjectedProperty(LPCWSTR name)
+    {
+        BOOL retValue = FALSE;
 
-		if (projectionContext->AreProjectionPrototypesConfigurable())
-		{
-			retValue = m_alreadyFullyProjectedPropertiesIfConfigurable->ContainsWhere([&](LPCWSTR projectedPropertyName) {
-				return (wcscmp(name, projectedPropertyName) == 0);
-			});
-		}
+        if (projectionContext->AreProjectionPrototypesConfigurable())
+        {
+            retValue = m_alreadyFullyProjectedPropertiesIfConfigurable->ContainsWhere([&](LPCWSTR projectedPropertyName) {
+                return (wcscmp(name, projectedPropertyName) == 0);
+            });
+        }
 
-		return retValue;
-	}
+        return retValue;
+    }
 
     BOOL NamespaceProjection::Is(Var instance)
     {

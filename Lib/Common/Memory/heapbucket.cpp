@@ -571,7 +571,7 @@ template<bool pageheap>
 TBlockType *
 HeapBucketT<TBlockType>::CreateHeapBlock(Recycler * recycler)
 {
-    FAULTINJECT_MEMORY_NOTHROW;
+    FAULTINJECT_MEMORY_NOTHROW(L"HeapBlock", sizeof(TBlockType));
 
     // Add a new heap block
     TBlockType * heapBlock = GetUnusedHeapBlock();

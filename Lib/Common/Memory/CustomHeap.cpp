@@ -163,8 +163,8 @@ bool Heap::Decommit(__in Allocation* object)
 bool Heap::IsInRange(void* address)
 {
     AutoCriticalSection autocs(&this->cs);
-    bool isInRange = this->preReservedHeapPageAllocator.IsAddressFromAllocator(address) || this->pageAllocator.IsAddressFromAllocator(address);
-    return isInRange;
+    
+    return (this->preReservedHeapPageAllocator.GetVirtualAllocator()->IsInRange(address) || this->pageAllocator.IsAddressFromAllocator(address));
 }
 
 /*
@@ -174,7 +174,7 @@ bool Heap::IsInRange(void* address)
  *   - Check pages in bigger buckers- if that has enough space, split that page and allocate from that chunk
  *   - Allocate new page
  */
-Allocation* Heap::Alloc(size_t bytes, ushort pdataCount, ushort xdataSize, bool canAllocInPreReservedHeapPageSegment)
+Allocation* Heap::Alloc(size_t bytes, ushort pdataCount, ushort xdataSize, bool canAllocInPreReservedHeapPageSegment, bool isAnyJittedCode, __out bool* isAllJITCodeInPreReservedRegion)
 {
     Assert(bytes > 0);
     Assert((allocXdata || pdataCount == 0) && (!allocXdata || pdataCount > 0));
@@ -187,7 +187,7 @@ Allocation* Heap::Alloc(size_t bytes, ushort pdataCount, ushort xdataSize, bool 
 
     if (bucket == BucketId::LargeObjectList)
     {
-        return AllocLargeObject(bytes, pdataCount, xdataSize, canAllocInPreReservedHeapPageSegment);
+        return AllocLargeObject(bytes, pdataCount, xdataSize, canAllocInPreReservedHeapPageSegment, isAnyJittedCode, isAllJITCodeInPreReservedRegion);
     }
     
     VerboseHeapTrace(L"Bucket is %d\n", bucket);
@@ -205,7 +205,7 @@ Allocation* Heap::Alloc(size_t bytes, ushort pdataCount, ushort xdataSize, bool 
 
     if(page == null)
     {
-        page = AllocNewPage(bucket, canAllocInPreReservedHeapPageSegment);
+        page = AllocNewPage(bucket, canAllocInPreReservedHeapPageSegment, isAnyJittedCode, isAllJITCodeInPreReservedRegion);
     }
     
     // Out of memory
@@ -307,7 +307,7 @@ BOOL Heap::ProtectAllocationInternal(__in Allocation* allocation, __in_opt char*
 #pragma endregion
 
 #pragma region "Large object methods"
-Allocation* Heap::AllocLargeObject(size_t bytes, ushort pdataCount, ushort xdataSize, bool canAllocInPreReservedHeapPageSegment)
+Allocation* Heap::AllocLargeObject(size_t bytes, ushort pdataCount, ushort xdataSize, bool canAllocInPreReservedHeapPageSegment, bool isAnyJittedCode, __out bool* isAllJITCodeInPreReservedRegion)
 {
     size_t pages = GetNumPagesForSize(bytes);
 
@@ -332,6 +332,10 @@ Allocation* Heap::AllocLargeObject(size_t bytes, ushort pdataCount, ushort xdata
 
         if (address == nullptr)
         {
+            if (isAnyJittedCode)
+            {
+                *isAllJITCodeInPreReservedRegion = false;
+            }
             address = this->pageAllocator.Alloc(&pages, (Segment**)&segment);
         }
 
@@ -552,7 +556,7 @@ Heap::EnsurePreReservedPageAllocation(PreReservedVirtualAllocWrapper * preReserv
         return preReservedRegionStartAddress;
 }
 
-Page* Heap::AllocNewPage(BucketId bucket, bool canAllocInPreReservedHeapPageSegment)
+Page* Heap::AllocNewPage(BucketId bucket, bool canAllocInPreReservedHeapPageSegment, bool isAnyJittedCode, __out bool* isAllJITCodeInPreReservedRegion)
 {
     void* pageSegment = null;
 
@@ -572,6 +576,10 @@ Page* Heap::AllocNewPage(BucketId bucket, bool canAllocInPreReservedHeapPageSegm
 
         if (address == null)    // if no space in Pre-reserved Page Segment, then allocate in regular ones.
         {
+            if (isAnyJittedCode)
+            {
+                *isAllJITCodeInPreReservedRegion = false;
+            }
             address = this->pageAllocator.AllocPages(1, (PageSegmentBase<VirtualAllocWrapper>**)&pageSegment);
         }
         else

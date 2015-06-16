@@ -15,6 +15,7 @@
             "length": "0",
             "name": ""
           },
+          "[Symbol.species]": "Function evaluation is disabled while debugging native code",
           "arguments": "null",
           "caller": "null",
           "length": "3",

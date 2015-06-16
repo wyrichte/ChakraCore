@@ -12,20 +12,20 @@
 
 namespace Js
 {
-	DWORD JavascriptError::GetAdjustedResourceStringHr(DWORD hr, bool isFormatString)
-	{
-		AssertMsg(FACILITY_CONTROL == HRESULT_FACILITY(hr) || FACILITY_JSCRIPT == HRESULT_FACILITY(hr), "JScript9 hr are either FACILITY_CONTROL (for private HRs) or FACILITY_JSCRIPT (for public HRs)");
+    DWORD JavascriptError::GetAdjustedResourceStringHr(DWORD hr, bool isFormatString)
+    {
+        AssertMsg(FACILITY_CONTROL == HRESULT_FACILITY(hr) || FACILITY_JSCRIPT == HRESULT_FACILITY(hr), "JScript9 hr are either FACILITY_CONTROL (for private HRs) or FACILITY_JSCRIPT (for public HRs)");
         // based on jserr.gen, string formats are SCODE_CODE(hr)+scodeIncr, with scodeIncr = RTERROR_STRINGFORMAT_OFFSET for FACILITY_CONTROL, = RTERROR_PUBLIC_RESOURCEOFFSET for FACILITY_JSCRIPT
-		WORD scodeIncr = isFormatString ? RTERROR_STRINGFORMAT_OFFSET : 0; // default for FACILITY_CONTROL == HRESULT_FACILITY(hr)
+        WORD scodeIncr = isFormatString ? RTERROR_STRINGFORMAT_OFFSET : 0; // default for FACILITY_CONTROL == HRESULT_FACILITY(hr)
         if (FACILITY_JSCRIPT == HRESULT_FACILITY(hr))
         {
             scodeIncr += RTERROR_PUBLIC_RESOURCEOFFSET;
         }
 
-		hr += scodeIncr;
+        hr += scodeIncr;
 
-		return hr;
-	}
+        return hr;
+    }
 
     bool JavascriptError::Is(Var aValue)
     {
@@ -494,7 +494,7 @@ namespace Js
             {
                 HRESULT hrAdjusted = GetAdjustedResourceStringHr(hr, /* isFormatString */ true);
 
-				BSTR message = BstrGetResourceString(hrAdjusted, lcid);
+                BSTR message = BstrGetResourceString(hrAdjusted, lcid);
                 if (message != null)
                 {
                     int len = _vscwprintf(message, argList);
@@ -603,7 +603,7 @@ namespace Js
         {
             if (varName != null)
             {
-				HRESULT hrAdjusted = GetAdjustedResourceStringHr(hr, /* isFormatString */ true);
+                HRESULT hrAdjusted = GetAdjustedResourceStringHr(hr, /* isFormatString */ true);
 
                 BSTR message = BstrGetResourceString(hrAdjusted, lcid);
                 if (message != null)
@@ -933,12 +933,6 @@ namespace Js
         {
             LPCWSTR msg = nullptr;
             HRESULT hr = JavascriptError::GetRuntimeError(this, &msg);
-            AssertMsg(E_FAIL != hr, "How come we don't have a valid error number hr?");
-            AssertMsg(NULL != msg, "Didn't handle NULL message");
-            if (E_FAIL == hr || NULL == msg)
-            {
-                return nullptr;
-            }
             jsNewError->SetErrorMessageProperties(jsNewError, hr, msg, targetJavascriptLibrary->GetScriptContext());
         }
         return jsNewError;

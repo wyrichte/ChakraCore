@@ -2,8 +2,6 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
-
 namespace JsDiag
 {
     template <typename T>

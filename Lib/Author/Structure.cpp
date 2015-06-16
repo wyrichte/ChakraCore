@@ -652,7 +652,7 @@ namespace Authoring
                             functionStartOffset = containingAssignment->ichMin;
                         }
                     }
-                    else if (containingAssignment->nop == knopMember)
+                    else if (containingAssignment->nop == knopMember || containingAssignment->nop == knopMemberShort)
                     {
                         return containingAssignment->ichMin;
                     }
@@ -1083,6 +1083,7 @@ namespace Authoring
                     break;
 
                 case knopMember:
+                case knopMemberShort:
                 case knopAsg:
                 case knopGetMember:
                 case knopSetMember:
@@ -1367,13 +1368,14 @@ namespace Authoring
                         while (cursor.Current()
                             && cursor.Current()->nop != knopAsg
                             && cursor.Current()->nop != knopMember
+                            && cursor.Current()->nop != knopMemberShort
                             && cursor.Current()->nop != knopProg
                             && cursor.Current()->nop != knopFncDecl)
                         {
                             cursor.Up();
                         }
 
-                        if (cursor.Current() && (cursor.Current()->nop == knopAsg || cursor.Current()->nop == knopMember))
+                        if (cursor.Current() && (cursor.Current()->nop == knopAsg || cursor.Current()->nop == knopMember || cursor.Current()->nop == knopMemberShort))
                         {
                             auto node = cursor.Current();
                             min = ActualMin(node);
@@ -1550,7 +1552,7 @@ namespace Authoring
                                 if (node && node->nop == knopFncDecl)
                                 {
                                     auto parent = cursor.Parent();
-                                    if (parent->nop == knopMember && parent->ichMin != min)
+                                    if ((parent->nop == knopMember || parent->nop == knopMemberShort) && parent->ichMin != min)
                                     {
                                         newNode->AddCoveringRegion(this, parent->ichMin, parent->ichLim);
                                     }
@@ -1786,7 +1788,7 @@ namespace Authoring
                                 if (node && node->nop == knopFncDecl)
                                 {
                                     auto parent = cursor.Parent();
-                                    if (parent->nop == knopMember && parent->ichMin != min)
+                                    if ((parent->nop == knopMember || parent->nop == knopMemberShort) && parent->ichMin != min)
                                     {
                                         newNode->AddCoveringRegion(this, parent->ichMin, parent->ichLim);
                                     }

@@ -238,7 +238,7 @@ namespace Js
         DynamicProfileInfo * dynamicProfileInfo = functionBody->GetDynamicProfileInfo();
 
         Assert(playout->Reg > FunctionBody::FirstRegSlot && playout->Reg < functionBody->GetConstantCount());
-		Var value = GetReg(playout->Reg);
+        Var value = GetReg(playout->Reg);
         if (value != nullptr && TaggedInt::Is(value))
         {
             dynamicProfileInfo->RecordConstParameterAtCallSite(playout->profileId, playout->Arg);

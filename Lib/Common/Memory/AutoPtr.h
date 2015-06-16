@@ -66,12 +66,12 @@ public:
         Clear();
     }
 
-	void Set(T* ptr, int elementCount)
-	{
-		Clear();
-		this->ptr = ptr;
-		this->m_elementCount = elementCount;
-	}
+    void Set(T* ptr, int elementCount)
+    {
+        Clear();
+        this->ptr = ptr;
+        this->m_elementCount = elementCount;
+    }
 
 private:
     void Clear()

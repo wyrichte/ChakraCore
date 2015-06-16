@@ -311,6 +311,7 @@
   {
     "evaluate": {
       "f": {
+        "[Methods]": "{...}",
         "f.__proto__": "\nfunction() {\n    [native code]\n}\n",
         "f.arguments": "null",
         "f.caller": "null",

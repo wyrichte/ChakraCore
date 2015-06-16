@@ -395,7 +395,7 @@ namespace UnifiedRegex
                 if (inputChar != pat[j])
                 {
                     int goodSuffix = localGoodSuffix[j];
-					Assert(patLen <= MaxCharCount);
+                    Assert(patLen <= MaxCharCount);
                     if (goodSuffix == (int)patLen)
                     {
                         offset += patLen;

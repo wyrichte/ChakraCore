@@ -122,6 +122,27 @@ var tests = [
         }
     },
     {
+        name: "Object.is(x, y), where Type(x) is function, returns true when Type(y) is function and x and y are the same function or same throw functions in strict mode, false otherwise",
+        body: function () {
+            "use strict";
+            function f() { }
+            function g() { }
+            var obj1 = { f }, obj2 = { f };
+            var bf = f.bind();
+            var bft = f.bind({});
+
+            assert.isTrue(Object.is(obj1.f, obj2.f), "Object.is should return true when comparing the same function object");
+            assert.isTrue(Object.is(Object.getOwnPropertyDescriptor(f, "arguments").set, Object.getOwnPropertyDescriptor(f, "caller").set), "Object.is should return true when comparing different throw type error methods on the same function");
+            assert.isTrue(Object.is(Object.getOwnPropertyDescriptor(f, "arguments").set, Object.getOwnPropertyDescriptor(f, "caller").get), "Object.is should return true when comparing different throw type error methods on the same function's different accessors");
+            assert.isTrue(Object.is(Object.getOwnPropertyDescriptor(f, "arguments").set, Object.getOwnPropertyDescriptor(g, "arguments").set), "Object.is should return true when comparing same throw type error methods on different functions");
+            assert.isTrue(Object.is(Object.getOwnPropertyDescriptor(f, "arguments").set, Object.getOwnPropertyDescriptor(g, "caller").set), "Object.is should return true when comparing different throw type error methods on the different functions");
+            assert.isTrue(Object.is(Object.getOwnPropertyDescriptor(f, "arguments").set, Object.getOwnPropertyDescriptor(g, "caller").get), "Object.is should return true when comparing different throw type error methods on the different functions' different accessors");
+            assert.isTrue(Object.is(Object.getOwnPropertyDescriptor(bf, "arguments").set, Object.getOwnPropertyDescriptor(bf, "caller").set), "Object.is should return true when comparing different throw type error methods on the same bound function");
+            assert.isTrue(Object.is(Object.getOwnPropertyDescriptor(bf, "arguments").set, Object.getOwnPropertyDescriptor(bf, "caller").get), "Object.is should return true when comparing different throw type error methods on the same bound function's different accessors");
+            assert.isTrue(Object.is(Object.getOwnPropertyDescriptor(bft, "arguments").set, Object.getOwnPropertyDescriptor(bf, "caller").get), "Object.is should return true when comparing different throw type error methods on a different bound function's different accessors");
+        }
+    },
+    {
         name: "Object.is called with less or more than 2 arguments",
         body: function () {
             assert.isTrue(Object.is(), "Object.is() is the same as Object.is(undefined, undefined) which should return true");

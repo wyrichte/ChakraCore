@@ -311,6 +311,7 @@ public:
                 break;
 
             case knopMember:
+            case knopMemberShort:
                 SerializeNode(pnode->sxBin.pnode1, ParseNodeEdge::pneTarget, context);
                 SerializeNode(pnode->sxBin.pnode2, ParseNodeEdge::pneMember, context);
                 break;

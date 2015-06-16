@@ -375,7 +375,7 @@ STDMETHODIMP MockTypeOperations::CrossDomainCheck(
 }
 
 STDMETHODIMP MockTypeOperations::GetHeapObjectInfo(
-	IActiveScriptDirect* scriptDirect,
+    IActiveScriptDirect* scriptDirect,
     Var instance, 
     ProfilerHeapObjectInfoFlags flags,
     HostProfilerHeapObject** result,

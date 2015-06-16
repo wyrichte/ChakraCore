@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseUnicrt>false</UseUnicrt>
+    <UrtVer>4.5</UrtVer>
+    <Use_Asmmeta>false</Use_Asmmeta>
+  </PropertyGroup>
+  <Import Project="$(NTMAKEENV)\Microsoft.Build.Settings" />
+  <!-- Override Configuration from Microsoft.Build.Settings -->
+  <PropertyGroup>
+    <Configuration Condition="'$(_BuildType)' == 'fre' and '$(FreTest)' != 'true'">fre</Configuration>
+    <Configuration Condition="'$(_BuildType)' == 'fre' and '$(FreTest)' == 'true'">fretest</Configuration>
+    <Configuration Condition="'$(_BuildType)' == 'chk' and '$(FreTest)' != 'true'">chk</Configuration>
+    <Configuration Condition="'$(_BuildType)' == 'chk' and '$(FreTest)' == 'true'">Invalid</Configuration>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RazzleJscriptObjectRoot>$(ObjectRoot)\inetcore\jscript</RazzleJscriptObjectRoot>
+    <RazzleJscriptObjectDirectory>release\$(ObjectDirectory)</RazzleJscriptObjectDirectory>
+    <RazzleJscriptObjectDirectory Condition="'$(FreTest)' == 'true'">test\$(ObjectDirectory)</RazzleJscriptObjectDirectory>
+    <ManifestsInboxIncludeDirectory>$(ObjectRoot)\inetcore\manifests\inbox\$(ObjectDirectory)</ManifestsInboxIncludeDirectory>
+    <ChakraManifestsIncludeDirectory>$(RazzleJscriptObjectRoot)\manifests\$(ObjectDirectory)</ChakraManifestsIncludeDirectory>
+  </PropertyGroup>
+</Project>

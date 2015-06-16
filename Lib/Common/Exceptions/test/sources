@@ -1,2 +1,0 @@
-!include $(JSCRIPT_ROOT)\jslibtest.inc
-!include ..\sources.inc

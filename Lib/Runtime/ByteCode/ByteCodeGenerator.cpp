@@ -2074,7 +2074,7 @@ FuncInfo * ByteCodeGenerator::StartBindGlobalStatements(ParseNode *pnode)
     else
     {
         {
-            DECLARE_STACK_PINNED(Js::PropertyRecordList, propertyRecordList);
+            ENTER_PINNED_SCOPE(Js::PropertyRecordList, propertyRecordList);
             propertyRecordList = EnsurePropertyRecordList();
 
             byteCodeFunction = Js::FunctionBody::NewFromRecycler(scriptContext, Js::Constants::GlobalFunction, Js::Constants::GlobalFunctionLength, pnode->sxFnc.nestedCount, m_utf8SourceInfo,
@@ -2087,6 +2087,7 @@ FuncInfo * ByteCodeGenerator::StartBindGlobalStatements(ParseNode *pnode)
 
 
             scriptContext->RegisterDynamicFunctionReference(byteCodeFunction);
+            LEAVE_PINNED_SCOPE();
         }
 
         // Mark this global function to required for register script event
@@ -2116,6 +2117,7 @@ FuncInfo * ByteCodeGenerator::StartBindGlobalStatements(ParseNode *pnode)
         this->maxAstSize = currentAstSize;
     }
     PushFuncInfo(L"StartBindGlobalStatements", funcInfo);
+
     return funcInfo;
 }
 
@@ -2588,7 +2590,7 @@ FuncInfo * ByteCodeGenerator::StartBindFunction(const wchar_t *name, int nameLen
 
         if (createFunctionBody)
         {
-            DECLARE_STACK_PINNED(Js::PropertyRecordList, propertyRecordList);
+            ENTER_PINNED_SCOPE(Js::PropertyRecordList, propertyRecordList);
             propertyRecordList = EnsurePropertyRecordList();
             parsedFunctionBody = Js::FunctionBody::NewFromRecycler(scriptContext, name, nameLength, pnode->sxFnc.nestedCount, m_utf8SourceInfo,
                 m_utf8SourceInfo->GetSrcInfo()->sourceContextInfo->sourceContextId, functionId, propertyRecordList
@@ -2597,10 +2599,11 @@ FuncInfo * ByteCodeGenerator::StartBindFunction(const wchar_t *name, int nameLen
                 , false /* is function from deferred deserialized proxy */
 #endif
             );
+            LEAVE_PINNED_SCOPE();
         }
         else
         {
-            DECLARE_STACK_PINNED(Js::PropertyRecordList, propertyRecordList);
+            ENTER_PINNED_SCOPE(Js::PropertyRecordList, propertyRecordList);
             propertyRecordList = null;
 
             if (funcExprWithName)
@@ -2609,6 +2612,7 @@ FuncInfo * ByteCodeGenerator::StartBindFunction(const wchar_t *name, int nameLen
             }
 
             parseableFunctionInfo = Js::ParseableFunctionInfo::New(scriptContext, pnode->sxFnc.nestedCount, functionId, m_utf8SourceInfo, name, nameLength, propertyRecordList, attributes);
+            LEAVE_PINNED_SCOPE();
         }
 
         // In either case register the function reference
@@ -9243,6 +9247,7 @@ void Bind(ParseNode *pnode,ByteCodeGenerator *byteCodeGenerator)
         }
         break;
     case knopMember:
+    case knopMemberShort:
         if (pnode->sxBin.pnode1->nop == knopComputedName)
         {
             // Computed property name - cannot bind yet
@@ -9780,6 +9785,7 @@ void AssignRegisters(ParseNode *pnode,ByteCodeGenerator *byteCodeGenerator)
         CheckMaybeEscapedUse(pnode->sxBin.pnode1, byteCodeGenerator);
         break;
     case knopMember:
+    case knopMemberShort:
     case knopGetMember:
     case knopSetMember:
         CheckMaybeEscapedUse(pnode->sxBin.pnode2, byteCodeGenerator);
@@ -11805,7 +11811,7 @@ void EmitCall(
 
     Js::ProfileId callSiteId = byteCodeGenerator->GetNextCallSiteId(Js::OpCode::CallI);
     
-	byteCodeGenerator->Writer()->StartCall(Js::OpCode::StartCall, argCount);
+    byteCodeGenerator->Writer()->StartCall(Js::OpCode::StartCall, argCount);
     Js::AuxArray<uint32> *spreadIndices;
     uint32 actualArgCount = EmitArgList(pnodeArgs, rhsLocation, thisLocation, fIsEval, fEvaluateComponents, byteCodeGenerator, funcInfo, callSiteId, spreadArgCount, &spreadIndices);
     Assert(argCount == actualArgCount);
@@ -11837,7 +11843,7 @@ void EmitInvoke(
 
     Js::ProfileId callSiteId = byteCodeGenerator->GetNextCallSiteId(Js::OpCode::CallI);
     
-	byteCodeGenerator->Writer()->StartCall(Js::OpCode::StartCall, 1);
+    byteCodeGenerator->Writer()->StartCall(Js::OpCode::StartCall, 1);
     EmitArgListStart(callObjLocation, byteCodeGenerator, funcInfo, callSiteId);
 
     byteCodeGenerator->Writer()->CallI(Js::OpCode::CallI, location, location, 1, callSiteId);
@@ -11928,9 +11934,10 @@ void EmitMemberNode(ParseNode *memberNode, Js::RegSlot objectLocation, ByteCodeG
         nameFunc->SetIsStaticNameFunction(true); // TODO this code needs to be duplicated for computed properties
     }
 
-    if (memberNode->nop == knopMember)
+    if (memberNode->nop == knopMember || memberNode->nop == knopMemberShort)
     {
-        if (!useStore && propertyId == Js::PropertyIds::__proto__)
+        // The internal prototype should be set only if the production is of the form PropertyDefinition : PropertyName : AssignmentExpression
+        if (propertyId == Js::PropertyIds::__proto__ && memberNode->nop != knopMemberShort && (exprNode->nop != knopFncDecl || !exprNode->sxFnc.IsMethod()))
         {
             byteCodeGenerator->Writer()->Property(Js::OpCode::InitProto, exprNode->location, objectLocation,
                 funcInfo->FindOrAddReferencedPropertyId(propertyId));

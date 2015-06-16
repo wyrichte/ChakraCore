@@ -750,24 +750,23 @@ namespace JsDiag
         if (function.IsScriptFunction())
         {
             pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::length, function.GetLength());
+        } 
+        else if (function.IsBoundFunction(m_context))
+        {
+            PROPERTY_INFO propInfo;
+            RemoteBoundFunction boundFunction = RemoteBoundFunction(reader, static_cast<const BoundFunction*>(var));
+            uint16 value = boundFunction.GetLength(m_context, &propInfo);
+            if (value == RemoteBoundFunction::TARGETS_RUNTIME_FUNCTION)
+            {
+                // it's a runtimefunction
+                propInfo.name = s_lengthPropertyName;
+                pThis()->InsertItem(propInfo);
+            }
+            else
+            {
+                pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::length, value);
+            }
         }
-		else if (function.IsBoundFunction(m_context))
-		{
-			PROPERTY_INFO propInfo;
-			RemoteBoundFunction boundFunction = RemoteBoundFunction(reader, static_cast<const BoundFunction*>(var));
-			uint16 value = boundFunction.GetLength(m_context, &propInfo);
-			if (value == RemoteBoundFunction::TARGETS_RUNTIME_FUNCTION)
-			{
-				// it's a runtimefunction
-				propInfo.name = s_lengthPropertyName;
-				pThis()->InsertItem(propInfo);
-			}
-			else
-			{
-				pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::length, value);
-			}
-
-		}
 
         __super::InsertSpecialProperties(var);
     }

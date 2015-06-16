@@ -82,7 +82,7 @@ enum FileVersionScheme
     ReleaseVersioningScheme = 20
 };
 
-const FileVersionScheme currentFileVersionScheme = EngineeringVersioningScheme;
+const FileVersionScheme currentFileVersionScheme = ReleaseVersioningScheme;
 
 #if DBG // __DATE__ and __TIME__ are only available in CHK
 const DWORD buildDateHash = JsUtil::CharacterBuffer<char>::StaticGetHashCode(__DATE__, _countof(__DATE__));
@@ -2265,7 +2265,7 @@ public:
 
         ScriptContext* scriptContext = function->GetScriptContext();
 
-        DECLARE_STACK_PINNED(Js::JavascriptArray, callsite);
+        ENTER_PINNED_SCOPE(Js::JavascriptArray, callsite);
         callsite = scriptContext->GetLibrary()->CreateArray(arrayLength);
 
         LPCWSTR string;
@@ -2304,6 +2304,8 @@ public:
             library->AddStringTemplateCallsiteObject(callsite);
             var = callsite;
         }
+
+        LEAVE_PINNED_SCOPE();
 
         return current;
     }
@@ -3249,8 +3251,9 @@ HRESULT ByteCodeSerializer::DeserializeFromBufferInternal(ScriptContext * script
         return hr;
     }
 
-    DECLARE_STACK_PINNED(Js::Utf8SourceInfo, sourceInfo);
-    StackPinned<SRCINFO> pinnedSrcInfo(const_cast<SRCINFO**>(&srcInfo));
+    ENTER_PINNED_SCOPE(Js::Utf8SourceInfo, sourceInfo);
+    ENTER_PINNED_SCOPE(SRCINFO const, pinnedSrcInfo);
+    pinnedSrcInfo = srcInfo;
 
     if(sourceIndex == Js::Constants::InvalidSourceIndex)
     {
@@ -3259,7 +3262,7 @@ HRESULT ByteCodeSerializer::DeserializeFromBufferInternal(ScriptContext * script
             sourceHolder = utf8Source == nullptr ? ISourceHolder::GetEmptySourceHolder() : RecyclerNew(scriptContext->GetRecycler(), SimpleSourceHolder, utf8Source, reader->sourceSize);
         }
 
-        sourceInfo = Js::Utf8SourceInfo::NewWithHolder(scriptContext, sourceHolder, reader->sourceCharLength, srcInfo);
+        sourceInfo = Js::Utf8SourceInfo::NewWithHolder(scriptContext, sourceHolder, reader->sourceCharLength, pinnedSrcInfo);
 
         reader->utf8SourceInfo = sourceInfo;
         reader->sourceIndex = scriptContext->SaveSourceNoCopy(sourceInfo, reader->sourceCharLength, false);
@@ -3283,6 +3286,10 @@ HRESULT ByteCodeSerializer::DeserializeFromBufferInternal(ScriptContext * script
 
     //ETW Event stop
     JSETW(EventWriteJSCRIPT_BYTECODEDESERIALIZE_STOP(scriptContext,0));
+
+    LEAVE_PINNED_SCOPE();
+    LEAVE_PINNED_SCOPE();
+
     return hr;
 }
 

@@ -15,14 +15,15 @@ public:
     {
     public:
         bool IsUsingThreadContextTLSEntry();
-        bool IsUsingThreadContextTLSSlot();
-        bool IsUsingTLSEntryList();
+        bool IsUsingThreadContextTLSSlot();        
+        bool IsUsingGlobalListFirst();
         bool IsUsingThreadContextBase();
         bool IsUsingTemplatedLinkedList();
     private:
         Nullable<bool> m_usingThreadContextTLSEntry;    // If the build uses ThreadContextTLSEntry::s_tlsEntryList
         Nullable<bool> m_usingThreadContextTLSSlot;     // If the build uses ThreadContextTLSEntry::s_tlsSlot
         Nullable<bool> m_usingTLSEntryList;             // If the build uses chained ThreadContextTLSEntry to walk the thread contexts
+        Nullable<bool> m_usingGlobalListFirst;
         Nullable<bool> m_usingThreadContextBase;        // If the build uses ThreadContextBase class. Casting to ThreadContext* involves a bit more work because of multiple inheritence.
         Nullable<bool> m_usingTemplatedLinkedList;
     };
@@ -127,12 +128,20 @@ public:
             return false;
         });
     }
+    uint GetCallRootLevel() 
+    {
+        return threadContext.Field("callRootLevel").GetLong();
+    }    
+    RemoteInterpreterStackFrame GetLeafInterpreterStackFrame()
+    {
+        return threadContext.Field("leafInterpreterFrame");        
+    }
 private:
     ExtRemoteTyped threadContext;
 
+    static bool IsUsingGlobalListFirst();
     static bool IsUsingThreadContextTLSEntry();
-    static bool IsUsingThreadContextTLSSlot();
-    static bool IsUsingTLSEntryList();
+    static bool IsUsingThreadContextTLSSlot();    
     static bool IsUsingThreadContextBase();
     static bool IsUsingTemplatedLinkedList();
     static bool GetTlsSlot(ExtRemoteTyped& teb, ULONG tlsSlotIndex, ULONG64* pValue);

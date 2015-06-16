@@ -182,7 +182,7 @@ namespace Authoring
         // Perform any deletes that came from threads other than the language service thread.
         PerformScheduledReleases();
 
-		if (exhaustive || !m_inCleanup)
+        if (exhaustive || !m_inCleanup)
         {
             // Only start a cleanup if we are not already in one or if we are no going to be exhaustive.
 

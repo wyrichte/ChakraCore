@@ -411,6 +411,12 @@ HRESULT __stdcall FlushOutput()
     Output::Flush();
     return S_OK;
 }
+#ifdef FAULT_INJECTION
+unsigned int __stdcall GetCurrentFaultInjectionCount()
+{
+    return Js::FaultInjection::Global.countOfInjectionPoints;
+}
+#endif
 
 HRESULT OnJScript9Loaded()
 {
@@ -449,6 +455,9 @@ HRESULT OnJScript9Loaded()
         StopScriptProfiling,
         DisplayMemStats,
         FlushOutput,
+#ifdef FAULT_INJECTION
+        GetCurrentFaultInjectionCount,
+#endif
 
 #define FLAG(type, name, description, defaultValue, ...) FLAG_##type##(name)
 #define FLAGINCLUDE(name) \

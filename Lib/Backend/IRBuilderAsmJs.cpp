@@ -1364,32 +1364,64 @@ IRBuilderAsmJs::BuildAsmTypedArr(Js::OpCodeAsmJs newOpcode, uint32 offset, uint3
         Assume(UNREACHED);
     }
     IR::Opnd * sizeOpnd = nullptr;
+    IR::Instr * instr = nullptr;
+    IR::Instr * maskInstr = nullptr;
+    IR::RegOpnd * regOpnd = nullptr;
+    IR::IndirOpnd * indirOpnd = nullptr;
+
     if (newOpcode == Js::OpCodeAsmJs::LdArr || newOpcode == Js::OpCodeAsmJs::StArr)
     {
+        uint32 mask = 0;
+        switch (type)
+        {
+        case TyInt8:
+        case TyUint8:
+            // don't need to mask
+            break;
+        case TyInt16:
+        case TyUint16:
+            mask = (uint32)~1;
+            break;
+        case TyInt32:
+        case TyUint32:
+        case TyFloat32:
+            mask = (uint32)~3;
+            break;
+        case TyFloat64:
+            mask = (uint32)~7;
+            break;
+        default:
+            Assume(UNREACHED);
+        }
+        indexRegSlot = GetRegSlotFromIntReg(slotIndex);
+        IR::RegOpnd * maskedOpnd = nullptr;
+        if (mask)
+        {
+            maskedOpnd = IR::RegOpnd::New(TyUint32, m_func);
+            maskInstr = IR::Instr::New(Js::OpCode::And_I4, maskedOpnd, BuildSrcOpnd(indexRegSlot, TyInt32), IR::IntConstOpnd::New(mask, TyUint32, m_func), m_func);
+        }
+        else
+        {
+            maskedOpnd = BuildSrcOpnd(indexRegSlot, TyInt32);
+        }
+        indirOpnd = IR::IndirOpnd::New(BuildSrcOpnd(2, TyVar), maskedOpnd, type, m_func);
+        indirOpnd->GetBaseOpnd()->SetValueType(arrayType);
+
         if (m_asmFuncInfo->IsHeapBufferConst())
         {
-            sizeOpnd = IR::IntConstOpnd::New((*m_ArrayBufferRef)->GetByteLength()-TySize[type], TyUint32, m_func);
+            sizeOpnd = IR::IntConstOpnd::New((*m_ArrayBufferRef)->GetByteLength() - TySize[type], TyUint32, m_func);
         }
         else
         {
             sizeOpnd = BuildSrcOpnd(3, TyUint32);
         }
     }
-    IR::Instr * instr = nullptr;
-    IR::RegOpnd * regOpnd = nullptr;
-    IR::IndirOpnd * indirOpnd;
-    IR::MemRefOpnd * memOpnd;
     switch (newOpcode)
     {
     case Js::OpCodeAsmJs::LdArr:
-        indexRegSlot = GetRegSlotFromIntReg(slotIndex);
-        indirOpnd = IR::IndirOpnd::New(BuildSrcOpnd(2, TyVar), BuildSrcOpnd(indexRegSlot, TyInt32), type, m_func);
-        indirOpnd->GetBaseOpnd()->SetValueType(arrayType);
-
         if (IRType_IsFloat(type))
         {
             regOpnd = BuildDstOpnd(valueRegSlot, type);
-            // TODO: verify whether anything even cares about this info
             regOpnd->SetValueType(ValueType::Float);
         }
         else
@@ -1398,7 +1430,6 @@ IRBuilderAsmJs::BuildAsmTypedArr(Js::OpCodeAsmJs newOpcode, uint32 offset, uint3
             regOpnd->SetValueType(ValueType::GetInt(false));
         }
         instr = IR::Instr::New(op, regOpnd, indirOpnd, sizeOpnd, m_func);
-        AddInstr(instr, offset);
         break;
 
     case Js::OpCodeAsmJs::LdArrConst:
@@ -1415,7 +1446,7 @@ IRBuilderAsmJs::BuildAsmTypedArr(Js::OpCodeAsmJs newOpcode, uint32 offset, uint3
         if (m_asmFuncInfo->IsHeapBufferConst())
         {
             Assert(slotIndex < (*m_ArrayBufferRef)->GetByteLength());
-            memOpnd = IR::MemRefOpnd::New((Js::Var*)((uintptr)(*m_ArrayBufferRef)->GetBuffer() + slotIndex), type, m_func);
+            IR::MemRefOpnd * memOpnd = IR::MemRefOpnd::New((Js::Var*)((uintptr)(*m_ArrayBufferRef)->GetBuffer() + slotIndex), type, m_func);
             instr = IR::Instr::New(Js::OpCode::Ld_A, regOpnd, memOpnd, m_func);
         }
         else
@@ -1425,13 +1456,9 @@ IRBuilderAsmJs::BuildAsmTypedArr(Js::OpCodeAsmJs newOpcode, uint32 offset, uint3
             indirOpnd->GetBaseOpnd()->SetValueType(arrayType);
             instr = IR::Instr::New(op, regOpnd, indirOpnd, sizeOpnd, m_func);
         }
-        AddInstr(instr, offset);
         break;
 
     case Js::OpCodeAsmJs::StArr:
-        indexRegSlot = GetRegSlotFromIntReg(slotIndex);
-        indirOpnd = IR::IndirOpnd::New(BuildSrcOpnd(2, TyVar), BuildSrcOpnd(indexRegSlot, TyInt32), type, m_func);
-        indirOpnd->GetBaseOpnd()->SetValueType(arrayType);
 
         if (IRType_IsFloat(type))
         {
@@ -1444,7 +1471,6 @@ IRBuilderAsmJs::BuildAsmTypedArr(Js::OpCodeAsmJs newOpcode, uint32 offset, uint3
             regOpnd->SetValueType(ValueType::GetInt(false));
         }
         instr = IR::Instr::New(op, indirOpnd, regOpnd, sizeOpnd, m_func);
-        AddInstr(instr, offset);
         break;
 
     case Js::OpCodeAsmJs::StArrConst:
@@ -1461,7 +1487,7 @@ IRBuilderAsmJs::BuildAsmTypedArr(Js::OpCodeAsmJs newOpcode, uint32 offset, uint3
         if (m_asmFuncInfo->IsHeapBufferConst())
         {
             Assert(slotIndex < (*m_ArrayBufferRef)->GetByteLength());
-            memOpnd = IR::MemRefOpnd::New((Js::Var*)((uintptr)(*m_ArrayBufferRef)->GetBuffer() + slotIndex), type, m_func);
+            IR::MemRefOpnd * memOpnd = IR::MemRefOpnd::New((Js::Var*)((uintptr)(*m_ArrayBufferRef)->GetBuffer() + slotIndex), type, m_func);
             instr = IR::Instr::New(Js::OpCode::Ld_A, memOpnd, regOpnd, m_func);
         }
         else
@@ -1471,12 +1497,17 @@ IRBuilderAsmJs::BuildAsmTypedArr(Js::OpCodeAsmJs newOpcode, uint32 offset, uint3
             indirOpnd->GetBaseOpnd()->SetValueType(arrayType);
             instr = IR::Instr::New(op, indirOpnd, regOpnd, sizeOpnd, m_func);
         }
-        AddInstr(instr, offset);
         break;
 
     default:
         Assume(UNREACHED);
     }
+    // constant loads won't have mask instr
+    if (maskInstr)
+    {
+        AddInstr(maskInstr, offset);
+    }
+    AddInstr(instr, offset);
 }
 
 template <typename SizePolicy>

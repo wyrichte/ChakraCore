@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "StdAfx.h"
+#include <StdAfx.h>
 #include "JsrtExternalObject.h"
 #include "JsrtCustomEnumerator.h"
 

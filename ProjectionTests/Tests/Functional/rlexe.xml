@@ -690,6 +690,8 @@
     </default>
   </test>
 
+  <!-- Broken with recent fixes to strict mode bugs (setting properties on primitives in strict mode is now illegal)
+       Tracked by OS Bug 3025021
   <test>
     <default>
       <files>CollectionsVectorView.js</files>
@@ -706,6 +708,7 @@
       <tags>exclude_win7,exclude_fre</tags>
     </default>
   </test>
+  -->
 
   <test>
     <default>
@@ -1783,6 +1786,8 @@ Re-enable with new baseline
     </default>
   </test>
 
+  <!-- Broken with recent fixes to strict mode bugs (setting properties on primitives in strict mode is now illegal)
+       Tracked by OS Bug 3025021
   <test>
     <default>
       <files>AllowForWebPromises.js</files>
@@ -1791,6 +1796,7 @@ Re-enable with new baseline
       <tags>exclude_win7,exclude_win8</tags>
     </default>
   </test>
+  -->
 
   <test>
     <default>
@@ -1819,6 +1825,8 @@ Re-enable with new baseline
     </default>
   </test>
 
+  <!-- Broken with recent fixes to strict mode bugs (setting properties on primitives in strict mode is now illegal)
+       Tracked by OS Bug 3025021
   <test>
     <default>
       <files>AllowForWebPromises.js</files>
@@ -1827,4 +1835,5 @@ Re-enable with new baseline
       <tags>exclude_win7,exclude_win8</tags>
     </default>
   </test>
+  -->
 </regress-exe>

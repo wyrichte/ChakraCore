@@ -296,12 +296,12 @@ namespace Js
                     {
                         if (detachedStates[i] != nullptr) // Allow multiple claims
                         {
-							detachedStates[i]->CleanUp();
-							detachedStates[i] = nullptr;
+                            detachedStates[i]->CleanUp();
+                            detachedStates[i] = nullptr;
                         }
                     }
 
-					HeapDeleteArray(transferableCount, detachedStates);
+                    HeapDeleteArray(transferableCount, detachedStates);
                 }
                                 
                 transferableCount = 0;

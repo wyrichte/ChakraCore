@@ -28,7 +28,7 @@ namespace Js
         ScriptContext* scriptContext = function->GetScriptContext();
         JavascriptLibrary* library = scriptContext->GetLibrary();
 
-		CHAKRATEL_LANGSTATS_INC_BUILTINCOUNT(PromiseCount);
+        CHAKRATEL_LANGSTATS_INC_BUILTINCOUNT(PromiseCount);
 
         // SkipDefaultNewObject function flag should have revent the default object
         // being created, except when call true a host dispatch
@@ -1310,5 +1310,14 @@ namespace Js
     void JavascriptPromiseAllResolveElementFunction::SetAlreadyCalled(const bool is)
     {
         this->alreadyCalled = is;
+    }
+
+    Var JavascriptPromise::EntryGetterSymbolSpecies(RecyclableObject* function, CallInfo callInfo, ...)
+    {
+        ARGUMENTS(args, callInfo);
+
+        Assert(args.Info.Count > 0);
+
+        return args[0];
     }
 } // namespace Js

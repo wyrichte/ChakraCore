@@ -250,6 +250,7 @@ namespace Authoring
                     continue;
 
                 case knopMember:
+                case knopMemberShort:
                 case knopSetMember:
                 case knopGetMember:
                     // If this is a member of a class decl, the class decl should be used to obtain a candidate this parameter.

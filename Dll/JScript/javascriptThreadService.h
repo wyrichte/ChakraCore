@@ -6,93 +6,13 @@
 
 #pragma once
 
+#include "ThreadServiceWrapperBase.h"
+
 interface ITracker: public IDispatchEx
 {
     STDMETHOD(EnumerateTrackedObjects) (void *pgc)    = 0;
     STDMETHOD(SetTrackingAlias)   (VARIANT * pvar)   = 0;
     STDMETHOD(GetTrackingAlias)   (VARIANT ** ppvar) = 0;
-};
-
-class JavascriptThreadService;
-
-/// 
-/// Idle Task that is used to do finish a GC on idle
-/// This is scheduled by the timer-based Idle GC callback when the idle callback
-/// is called and a collection is in progress. The idle task can finish the GC
-/// by safely skipping the stack scan during FinishMark
-///
-class RecyclerFinishConcurrentIdleTask sealed : public IIdleTask
-{
-public:
-    RecyclerFinishConcurrentIdleTask(ThreadContext* threadContext, JavascriptThreadService* service);
-
-    // *** IUnknown ***
-    STDMETHOD(QueryInterface)(REFIID riid, void** ppvObj);
-    STDMETHOD_(ULONG, AddRef)(void);
-    STDMETHOD_(ULONG, Release)(void);
-
-    // *** IActiveScriptGarbageCollector ***
-    STDMETHOD_(void, RunIdleTask)() override;
-
-    void OnThreadServiceDestroyed(JavascriptThreadService* threadService);
-
-#if DBG
-    void OnTaskScheduled() { this->isIdleTaskComplete = false; }
-#endif
-
-private:
-    ulong refCount;
-    ThreadContext* threadContext;
-    JavascriptThreadService* threadService;
-#if DBG
-    bool isIdleTaskComplete;
-#endif
-};
-
-class ThreadServiceWrapperBase : public ThreadServiceWrapper
-{
-public:
-    bool ScheduleNextCollectOnExit() override sealed;
-    void ScheduleFinishConcurrent() override sealed;
-    void SetForceOneIdleCollection() override;
-
-protected:
-    enum FinishReason
-    {
-        FinishReasonNormal,
-        FinishReasonIdleTimerSetupFailed,
-        FinishReasonTaskComplete
-    };
-
-    ThreadServiceWrapperBase();
-
-    bool Initialize(ThreadContext *newThreadContext);
-    void Shutdown();
-
-    bool IdleCollect();
-    void FinishIdleCollect(FinishReason reason);
-    void ClearForceOneIdleCollection();
-
-    virtual bool CanScheduleIdleCollect() = 0;
-    virtual bool OnScheduleIdleCollect(uint delta, bool scheduleAsTask) = 0;
-    virtual void OnFinishIdleCollect() = 0;
-    virtual bool ShouldFinishConcurrentCollectOnIdleCallback() = 0;
-
-    ThreadContext *GetThreadContext() { return threadContext; }
-
-private:
-    static const unsigned int IdleTicks = 1000; // 1 second
-    static const unsigned int IdleFinishTicks = 100; // 100 ms;
-
-    bool ScheduleIdleCollect(uint ticks, bool scheduleAsTask);
-
-    ThreadContext* threadContext;
-    bool inIdleCollect;
-    bool needIdleCollect;
-    bool forceIdleCollectOnce;
-    unsigned int tickCountNextIdleCollection;
-    bool hasScheduledIdleCollect;
-    bool shouldScheduleIdleCollectOnExitIdle;
 };
 
 class JavascriptThreadService sealed : public IActiveScriptGarbageCollector,
@@ -176,7 +96,7 @@ private:
 
     ITimerCallbackProvider* timerProvider;
     IIdleTaskHost* idleTaskHost;
-    RecyclerFinishConcurrentIdleTask* finishConcurrentTask;
+    class RecyclerFinishConcurrentIdleTask* finishConcurrentTask;
 
 #ifdef RECYCLER_TRACE
     bool hasTimerScheduled;
@@ -204,25 +124,4 @@ private:
 
     static void __cdecl  RootTrackerMarker(void * context);
     void RootTrackerMarker();
-};
-
-class JsrtThreadService : public ThreadServiceWrapperBase
-{
-public:
-    JsrtThreadService();
-    ~JsrtThreadService();
-
-    bool Initialize(ThreadContext *threadContext);
-    unsigned int Idle();
-
-    // Does nothing, we don't force idle collection for JSRT
-    void SetForceOneIdleCollection() override {}
-
-private:
-    bool CanScheduleIdleCollect() override { return true; }
-    bool OnScheduleIdleCollect(uint ticks, bool scheduleAsTask) override;
-    void OnFinishIdleCollect() override;
-    bool ShouldFinishConcurrentCollectOnIdleCallback() override;
-
-    unsigned int nextIdleTick;
 };

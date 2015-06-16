@@ -780,8 +780,7 @@ PageAllocatorBase<T>::TryAllocFreePages(uint pageCount, PageSegmentBase<T> ** pa
         return null;
     }
 
-
-    FAULTINJECT_MEMORY_NOTHROW;
+    FAULTINJECT_MEMORY_NOTHROW(this->debugName, pageCount*4096);
     DListBase<PageSegmentBase<T>>::EditingIterator i(&segments);
 
     while (i.Next())

@@ -1036,6 +1036,15 @@ namespace Js
         return JavascriptNumber::ToVar(typedArray->GetLength(), scriptContext);
     }
 
+    Var TypedArrayBase::EntryGetterSymbolSpecies(RecyclableObject* function, CallInfo callInfo, ...)
+    {
+        ARGUMENTS(args, callInfo);
+
+        Assert(args.Info.Count > 0);
+
+        return args[0];
+    }
+
     Var TypedArrayBase::EntryGetterSymbolToStringTag(RecyclableObject* function, CallInfo callInfo, ...)
     {
         PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
@@ -2377,9 +2386,10 @@ namespace Js
 
     BOOL TypedArrayBase::GetDiagValueString(StringBuilder<ArenaAllocator>* stringBuilder, ScriptContext* requestContext)
     {
-        DECLARE_STACK_PINNED(JavascriptString, toStringResult);
+        ENTER_PINNED_SCOPE(JavascriptString, toStringResult);
         toStringResult = JavascriptObject::ToStringInternal(this, requestContext);
         stringBuilder->Append(toStringResult->GetString(), toStringResult->GetLength());
+        LEAVE_PINNED_SCOPE();
         return TRUE;
     }
 

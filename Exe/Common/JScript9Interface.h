@@ -174,10 +174,21 @@ public:
     {
         return CHECKED_CALL(GetFaultInjectionFlag, flag);
     }
+    
+    static unsigned int GetCurrentFaultInjectionCount()
+    {
+        return m_testHooks.pfGetCurrentFaultInjectionCount == nullptr ?
+            0 : m_testHooks.pfGetCurrentFaultInjectionCount();
+    }
+
 #else
     static HRESULT GetFaultInjectionFlag(int * /*flag*/)
     {
         return E_UNEXPECTED;
+    }
+    static unsigned int GetCurrentFaultInjectionCount()
+    {
+        return 0;
     }
 #endif
     

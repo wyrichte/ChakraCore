@@ -220,7 +220,7 @@ HRESULT JScript9Interface::ParseConfigFlags()
         return GetFileNameFlag(m_argInfo.filename);
     }
 
-	*(m_argInfo.filename) = SysAllocString(m_argInfo.argv[m_argInfo.argc-1]);
+    *(m_argInfo.filename) = SysAllocString(m_argInfo.argv[m_argInfo.argc-1]);
 
     return *(m_argInfo.filename) ? S_OK : E_OUTOFMEMORY;
 }

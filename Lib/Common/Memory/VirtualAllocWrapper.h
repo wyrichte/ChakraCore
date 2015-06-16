@@ -15,6 +15,7 @@ public:
     LPVOID  Alloc(LPVOID lpAddress, size_t dwSize, DWORD allocationType, DWORD protectFlags, bool isCustomHeapAllocation = false);
     BOOL    Free(LPVOID lpAddress, size_t dwSize, DWORD dwFreeType);
     bool        IsPreReservedRegionPresent();
+    bool        IsInRange(void * address);
     LPVOID      GetPreReservedStartAddress();
     LPVOID      GetPreReservedEndAddress();
 };
@@ -41,6 +42,7 @@ public:
     LPVOID      Alloc(LPVOID lpAddress, size_t dwSize, DWORD allocationType, DWORD protectFlags, bool isCustomHeapAllocation = false);
     BOOL        Free(LPVOID lpAddress, size_t dwSize, DWORD dwFreeType);
     bool        IsPreReservedRegionPresent();
+    bool        IsInRange(void * address);
     LPVOID      GetPreReservedStartAddress();
     LPVOID      GetPreReservedEndAddress();
 private:

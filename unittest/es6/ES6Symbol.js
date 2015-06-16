@@ -153,6 +153,14 @@ var tests = [
             assert.isFalse(descriptor.writable, 'Symbol.unscopables.descriptor.writable == false');
             assert.isFalse(descriptor.enumerable, 'Symbol.unscopables.descriptor.enumerable == false');
             assert.isFalse(descriptor.configurable, 'Symbol.unscopables.descriptor.configurable == false');
+
+            assert.isTrue(Symbol.species !== undefined, "Symbol.species !== undefined");
+            assert.areEqual('symbol', typeof Symbol.species, "typeof Symbol.species === 'symbol'");
+            descriptor = Object.getOwnPropertyDescriptor(Symbol, 'species');
+
+            assert.isFalse(descriptor.writable, 'Symbol.species.descriptor.writable == false');
+            assert.isFalse(descriptor.enumerable, 'Symbol.species.descriptor.enumerable == false');
+            assert.isFalse(descriptor.configurable, 'Symbol.species.descriptor.configurable == false');
         }
     },
     {
@@ -840,6 +848,51 @@ var tests = [
 
             // We can't use parseInt directly here as that does ToString(obj) - we want something which calls ToNumber directly
             assert.throws(function() { Array.prototype.lastIndexOf.call(obj, 1); }, TypeError, "Array.prototype.lastIndexOf performs ToLength(obj) which should throw TypeError if obj is a symbol primitive.", "Number expected");
+        }
+    },
+    {
+        name: 'Assigning to a property of a symbol primitive in strict mode should throw a TypeError',
+        body: function() {
+            var x = Symbol();
+            assert.throws(function() { "use strict"; x.a = 1; }, TypeError, "Assigning to a property of a symbol primitive should throw a TypeError.", "Assignment to read-only properties is not allowed in strict mode");
+        }
+    },
+    {
+        name: 'Assigning to a property of a symbol primitive in strict mode should throw a TypeError',
+        body: function() {
+            var x = Symbol();
+            assert.throws(function() { "use strict"; x['a'+'b'] = 1; }, TypeError, "Assigning to a property of a symbol primitive should throw a TypeError.", "Assignment to read-only properties is not allowed in strict mode");
+        }
+    },
+    {
+        name: 'Assigning to an index of a symbol primitive in strict mode should throw a TypeError',
+        body: function() {
+            var x = Symbol();
+            assert.throws(function() { "use strict"; x[12] = 1; }, TypeError, "Assigning to an index of a symbol primitive should throw a TypeError.", "Assignment to read-only properties is not allowed in strict mode");
+        }
+    },
+    {
+        name: 'Assigning to a property of a symbol primitive should be ignored',
+        body: function() {
+            var x = Symbol();
+            x.a = 1;
+            assert.areEqual(x.a, undefined);
+        }
+    },
+    {
+        name: 'Assigning to a property of a symbol primitive should be ignored',
+        body: function() {
+            var x = Symbol();
+            x['a'+'b'] = 1;
+            assert.areEqual(x['ab'], undefined);
+        }
+    },
+    {
+        name: 'Assigning to an index of a symbol primitive should be ignored',
+        body: function() {
+            var x = Symbol();
+            x[10086] = 1;
+            assert.areEqual(x[10086], undefined);
         }
     }
 ];

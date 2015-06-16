@@ -4,6 +4,9 @@
 
 #pragma once
 
+#include "jsrt.h"
+#include "JsrtThreadService.h"
+
 class JsrtRuntime
 {
     friend class JsrtContext;

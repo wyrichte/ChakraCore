@@ -19,7 +19,8 @@ set _setupJSRTUnitTests=
 set _setupUnitTests=
 set _setupJSLSUnitTests=
 set _snap=
-set _drt=-drt
+set _drt=
+set _nightly=
 set _scriptFullname=%~f0
 
 :NextArgument
@@ -92,6 +93,9 @@ set _scriptFullname=%~f0
         goto :ArgLoop
     ) else if /i "%1" == "-drt" (
         set _drt=-drt
+        goto :ArgLoop
+    ) else if /i "%1" == "-nightly" (
+        set _nightly=-nightly
         goto :ArgLoop
     ) else if /i "%1" == "-setupProjectionTests" (
         set _setupProjectionTests=1
@@ -168,6 +172,8 @@ set _scriptFullname=%~f0
 :OutputInfo
     echo Setting up JS DRT Bucket:
     echo   _snap=%_snap%
+    echo   _drt=%_drt%
+    echo   _nightly=%_nightly%
     echo   _binRoot=%_binRoot%
     echo   _additionalBinRoot=%_additionalBinRoot%
     echo   _targetRoot=%_targetRoot%
@@ -263,7 +269,7 @@ set _scriptFullname=%~f0
     call :MakeDirIfNotExist %_jscriptRoot%
 
     echo Copying common binaries
-    robocopy %_binRoot% %_jscriptRoot% *.dll *.exe *.mui *.tlb /njh /njs /ndl /purge /xx
+    robocopy %_binRoot% %_jscriptRoot% *.dll *.exe *.mui *.tlb *.pdb /njh /njs /ndl /purge /xx /np
 
     call :CheckRoboCopyErrorLevel
     echo.
@@ -272,9 +278,9 @@ set _scriptFullname=%~f0
     
     if not "%_additionalBinRoot%" == "" (
         echo Copying additional binaries
-        robocopy %_additionalBinRoot% %_jscriptRoot% *.dll *.exe *.mui *.tlb /njh /njs /ndl /purge /xx
+        robocopy %_additionalBinRoot% %_jscriptRoot% *.dll *.exe *.mui *.tlb *.pdb /njh /njs /ndl /purge /xx /np
 
-        call :CheckRoboCopyErrorLevel        
+        call :CheckRoboCopyErrorLevel
         echo.
 
         if errorlevel 1 goto :Error
@@ -290,13 +296,13 @@ set _scriptFullname=%~f0
     call :CleanDir %_targetDir%
     
     echo Copying JSLS binaries
-    robocopy %_sourceDir% %_targetDir% *.dll *.exe *.mui *.tlb *.js /njh /njs /ndl /purge /xx
+    robocopy %_sourceDir% %_targetDir% *.dll *.exe *.mui *.tlb *.js /njh /njs /ndl /purge /xx /np
 
     call :CheckRoboCopyErrorLevel
     echo.
     
     echo Copying reference scripts
-    robocopy %_referencesDir% %_targetDir% *.js /njh /njs /ndl /purge /xx
+    robocopy %_referencesDir% %_targetDir% *.js /njh /njs /ndl /purge /xx /np
     call :CheckRoboCopyErrorLevel
     echo.
 
@@ -324,7 +330,7 @@ set _scriptFullname=%~f0
     call :CleanDir %_targetDir%
     
     echo Copying JSRT binaries
-    robocopy %_sourceDir% %_targetDir% *.dll *.exe *.mui *.tlb *.js /njh /njs /ndl /purge /xx
+    robocopy %_sourceDir% %_targetDir% *.dll *.exe *.mui *.tlb *.js /njh /njs /ndl /purge /xx /np
 
     call :CheckRoboCopyErrorLevel
     echo.
@@ -446,7 +452,7 @@ set _scriptFullname=%~f0
     echo.
 
     echo Setting up test hosts
-    call %_targetDir%\Tools\runjs.bat setupJsGlass %_binRoot% %_jscriptRoot%
+    call %_targetDir%\Tools\runjs.bat setupJsGlass %_binRoot% %_jscriptRoot% %_buildArch%
     if errorlevel 1 goto :Error
     
     call %_targetDir%\Tools\runjs.bat setupTesthost %_binRoot% %_jscriptRoot%

@@ -1,4 +1,4 @@
-TARGETNAME=JScript.Runtime.ByteCode
+TARGETNAME=Chakra.Runtime.ByteCode
 TARGETTYPE=LIBRARY
 
 INCLUDES= $(COREINCLUDES);..

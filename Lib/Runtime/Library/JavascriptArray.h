@@ -229,6 +229,7 @@ namespace Js
             static FunctionInfo Fill;
             static FunctionInfo From;
             static FunctionInfo Of;
+            static FunctionInfo GetterSymbolSpecies;
         };
 
         static Var NewInstance(RecyclableObject* function, CallInfo callInfo, ...);
@@ -265,6 +266,7 @@ namespace Js
         static Var EntryFill(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryFrom(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryOf(RecyclableObject* function, CallInfo callInfo, ...);
+        static Var EntryGetterSymbolSpecies(RecyclableObject* function, CallInfo callInfo, ...);
 
         static Var Push(ScriptContext * scriptContext, Var object, Var value);
         static Var EntryPushNonJavascriptArray(ScriptContext * scriptContext, Var * args, uint argCount);
@@ -709,6 +711,10 @@ namespace Js
         static void CopyNativeFloatArrayElementsToVar(JavascriptArray* dstArray, const BigIndex& dstIndex, JavascriptNativeFloatArray *srcArray, uint32 start = 0, uint32 end = MaxArrayLength);
         
         static bool BoxConcatItem(Var aItem, uint idxArg, ScriptContext *scriptContext);
+
+        template<typename T>
+        static void SetConcatItem(Var aItem, uint idxArg, JavascriptArray* pDestArray, RecyclableObject* pDestObj, T idxDest, ScriptContext *scriptContext);
+
         template<typename T>
         static void ConcatArgs(RecyclableObject* pDestObj, TypeId* remoteTypeIds, Js::Arguments& args, ScriptContext* scriptContext, uint start = 0, uint startIdxDest = 0u);
         static void ConcatIntArgs(JavascriptNativeIntArray* pDestArray, TypeId* remoteTypeIds, Js::Arguments& args, ScriptContext* scriptContext);

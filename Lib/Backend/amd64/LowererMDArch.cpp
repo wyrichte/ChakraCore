@@ -977,20 +977,12 @@ LowererMDArch::LowerAsmJsCallI(IR::Instr * callInstr)
     return ret;
 }
 IR::Instr*
-LowererMDArch::LowerAsmJsLdElemHelper(IR::Instr * instr, uint32 mask)
+LowererMDArch::LowerAsmJsLdElemHelper(IR::Instr * instr)
 {
     IR::Instr* done;
     IR::Opnd * src1 = instr->UnlinkSrc1();
-    IR::RegOpnd * indexOpnd = src1->AsIndirOpnd()->GetIndexOpnd();
-    if (indexOpnd)
+    if (src1->AsIndirOpnd()->GetIndexOpnd())
     {
-        if (mask)
-        {
-            src1->AsIndirOpnd()->UnlinkIndexOpnd();
-            IR::RegOpnd * maskedOpnd = IR::RegOpnd::New(TyUint32, m_func);
-            Lowerer::InsertAnd(maskedOpnd, indexOpnd, IR::IntConstOpnd::New(mask, TyUint32, m_func), instr);
-            src1->AsIndirOpnd()->SetIndexOpnd(maskedOpnd);
-        }
         instr->FreeSrc2();
         done = instr;
     }
@@ -1020,20 +1012,12 @@ LowererMDArch::LowerAsmJsLdElemHelper(IR::Instr * instr, uint32 mask)
 }
 
 IR::Instr*
-LowererMDArch::LowerAsmJsStElemHelper(IR::Instr * instr, uint32 mask)
+LowererMDArch::LowerAsmJsStElemHelper(IR::Instr * instr)
 {
     IR::Instr* done;
     IR::Opnd * dst = instr->UnlinkDst();
-    IR::RegOpnd * indexOpnd = dst->AsIndirOpnd()->GetIndexOpnd();
-    if (indexOpnd)
+    if (dst->AsIndirOpnd()->GetIndexOpnd())
     {
-        if (mask)
-        {
-            dst->AsIndirOpnd()->UnlinkIndexOpnd();
-            IR::RegOpnd * maskedOpnd = IR::RegOpnd::New(TyUint32, m_func);
-            Lowerer::InsertAnd(maskedOpnd, indexOpnd, IR::IntConstOpnd::New(mask, TyUint32, m_func), instr);
-            dst->AsIndirOpnd()->SetIndexOpnd(maskedOpnd);
-        }
         instr->FreeSrc2();
         done = instr;
     }

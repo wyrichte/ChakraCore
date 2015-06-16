@@ -133,6 +133,7 @@ namespace Js
         virtual RecyclableObject * CloneToScriptContext(ScriptContext* requestContext) override;
 
         virtual BOOL BufferEquals(__in_ecount(otherLength) LPCWSTR otherBuffer, __in charcount_t otherLength);
+        virtual wchar_t* GetNormalizedString(NORM_FORM, ArenaAllocator*, charcount_t&);
 
         static bool Is(Var aValue);
         static JavascriptString* FromVar(Var aValue);

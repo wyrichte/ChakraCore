@@ -327,6 +327,15 @@
     <ClCompile Include="JsrtDelegateWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="JsrtShared.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JsrtThreadService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadServiceWrapperBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="JscriptInfo.idl">
@@ -664,13 +673,25 @@
     <ClInclude Include="JsrtDelegateWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="JsrtThreadService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="jsrtprivate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JsrtInternal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadServiceWrapperBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="amd64\projectioncall.asm">
-      <Filter>Source Files\amd64</Filter>
+    <MASM Include="$(MSBuildThisFileDirectory)amd64\projectioncall.asm">
+      <Filter>Source Files</Filter>
     </MASM>
-    <MASM Include="amd64\UnknownImplHelper.asm">
-      <Filter>Source Files\amd64</Filter>
+    <MASM Include="$(MSBuildThisFileDirectory)amd64\UnknownImplHelper.asm">
+      <Filter>Source Files</Filter>
     </MASM>
   </ItemGroup>
   <ItemGroup>
@@ -680,5 +701,10 @@
     <None Include="helpers.js">
       <Filter>Source Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="jscript9.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

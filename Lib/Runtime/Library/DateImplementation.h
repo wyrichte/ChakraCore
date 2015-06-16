@@ -147,6 +147,7 @@ namespace Js {
 
         static double DateFncUTC(ScriptContext* scriptContext, Arguments args);
         static bool FBig(wchar_t ch);
+        static bool FDateDelimiter(wchar_t ch);
 
         bool IsNaN()
         {

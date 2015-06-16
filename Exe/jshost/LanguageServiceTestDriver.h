@@ -130,10 +130,10 @@ public:
 class FunctionHelpOperation : public CompletionOperation
 {
 public:
-	FunctionHelpOperation(Logger logger) : CompletionOperation(logger), m_isStrictCompare(false) { }
+    FunctionHelpOperation(Logger logger) : CompletionOperation(logger), m_isStrictCompare(false) { }
     virtual HRESULT Execute(LanguageServiceTestDriver *driver, CComPtr<IAuthorFileAuthoring> authoring);
 
-	bool m_isStrictCompare;
+    bool m_isStrictCompare;
 };
 
 class GetStructureOperation : public OperationBase

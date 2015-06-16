@@ -21,37 +21,6 @@ struct RecyclerMemoryData;
 namespace Memory
 {
 
-// class to make sure a variable is stack pinned.
-// Only need to be used if the pointer is long live within the function and doesn't escape
-// NOTE: Currently, there is no way to tell the compiler a local variable need to be on the stack
-// and last for a certain life time. But if we take the address of the local and assign it to a global
-// the assignment won't be dead stored and the local will not be stack packed away.
-
-#define DECLARE_STACK_PINNED(T, var) \
-    T * __stackPinned_ ## var; \
-    StackPinned<T> var(& __stackPinned_ ## var);
-
-class StackPinnedBase
-{
-protected:
-    static volatile void * global;
-};
-
-template <typename T>
-class StackPinned : public StackPinnedBase
-{
-public:
-    StackPinned(T ** stackPinnedPtr) : stackPinnedPtr(stackPinnedPtr)
-        { global = stackPinnedPtr; }
-    StackPinned& operator=(T * t) { Set(t); return *this; }
-    operator T*() const { return ptr; }
-    T* operator ->() const { return ptr; }
-private:
-    void Set(T * t) { ptr = t; *stackPinnedPtr = t; }
-    T * ptr;
-    T ** stackPinnedPtr;
-};
-
 class AutoBooleanToggle
 {
 public:

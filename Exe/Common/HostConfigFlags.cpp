@@ -103,11 +103,11 @@ void HostConfigFlags::RemoveArg(int& argc, _Inout_updates_(argc) LPWSTR argv[], 
 
 void HostConfigFlags::AddSwitch(int& argc, __deref_ecount(argc) LPWSTR** argv, _In_ PWSTR newArg)
 {
-	PWSTR* tempArray = new PWSTR[argc + 1];
-	memcpy(tempArray, *argv, sizeof(PWSTR) * argc);
-	tempArray[argc] = newArg;
-	*argv = tempArray;
-	argc++;
+    PWSTR* tempArray = new PWSTR[argc + 1];
+    memcpy(tempArray, *argv, sizeof(PWSTR) * argc);
+    tempArray[argc] = newArg;
+    *argv = tempArray;
+    argc++;
 }
 
 PCWSTR HostConfigFlags::ExtractSwitch(int& argc, _Inout_updates_(argc) PWSTR argv[], PCWSTR switchNameWithColon, int switchNameWithColonLen)

@@ -59,6 +59,7 @@ namespace Js
             static FunctionInfo GetterByteOffset;
             static FunctionInfo GetterLength;
             static FunctionInfo GetterSymbolToStringTag;
+            static FunctionInfo GetterSymbolSpecies;
         };
 
         TypedArrayBase(ArrayBuffer* arrayBuffer, uint byteOffset, uint mappedLength, uint elementSize, DynamicType* type);
@@ -95,6 +96,7 @@ namespace Js
         static Var EntryGetterByteOffset(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryGetterLength(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryGetterSymbolToStringTag(RecyclableObject* function, CallInfo callInfo, ...);
+        static Var EntryGetterSymbolSpecies(RecyclableObject* function, CallInfo callInfo, ...);
 
         virtual BOOL HasProperty(Js::PropertyId propertyId) override;
         virtual BOOL GetProperty(Js::Var originalInstance, Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext) override;

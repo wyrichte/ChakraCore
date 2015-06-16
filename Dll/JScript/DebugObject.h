@@ -115,7 +115,7 @@ public:
     static Js::Var EntryGetHostInfo(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     static Js::Var EntryGetMemoryInfo(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     static Js::Var EntryGetTypeHandlerName(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
-	static Js::Var EntryGetArrayType(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
+    static Js::Var EntryGetArrayType(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     static Js::Var DumpHeapInternal(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     static Js::Var EntryCreateDebugDisposableObject(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     static Js::Var EntryIsInJit(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);

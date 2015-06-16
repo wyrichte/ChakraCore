@@ -2930,25 +2930,47 @@ namespace Js
 
         return EmitExpressionInfo( AsmJsType::Void );
     }
-    
-    void AsmJSByteCodeGenerator::EmitEmptyByteCode( FuncInfo* funcInfo, ByteCodeGenerator* byteCodeGen  )
+
+    void AsmJSByteCodeGenerator::EmitEmptyByteCode(FuncInfo * funcInfo, ByteCodeGenerator * byteCodeGen)
     {
         funcInfo->byteCodeFunction->SetGrfscr(byteCodeGen->GetFlags());
         funcInfo->byteCodeFunction->SetSourceInfo(byteCodeGen->GetCurrentSourceIndex(),
-                                           funcInfo->root,
-                                           !!( byteCodeGen->GetFlags() & fscrEvalCode ),
-                                           ( ( byteCodeGen->GetFlags() & fscrDynamicCode ) && !( byteCodeGen->GetFlags() & fscrEvalCode ) ) );
+            funcInfo->root,
+            !!(byteCodeGen->GetFlags() & fscrEvalCode),
+            ((byteCodeGen->GetFlags() & fscrDynamicCode) && !(byteCodeGen->GetFlags() & fscrEvalCode)));
 
-        FunctionBody* functionBody = funcInfo->byteCodeFunction->GetFunctionBody();
+        FunctionBody * functionBody = funcInfo->byteCodeFunction->GetFunctionBody();
+
+        class AutoCleanup
+        {
+        private:
+            FunctionBody * mFunctionBody;
+            ByteCodeGenerator * mByteCodeGen;
+        public:
+            AutoCleanup(FunctionBody * functionBody, ByteCodeGenerator * byteCodeGen) : mFunctionBody(functionBody), mByteCodeGen(byteCodeGen)
+            {
+            }
+
+            void Done()
+            {
+                mFunctionBody = nullptr;
+            }
+            ~AutoCleanup()
+            {
+                if (mFunctionBody)
+                {
+                    mFunctionBody->ResetByteCodeGenState();
+                    mByteCodeGen->Writer()->Reset();
+                }
+            }
+        } autoCleanup(functionBody, byteCodeGen);
+
         byteCodeGen->Writer()->Begin(byteCodeGen, functionBody, byteCodeGen->GetAllocator(), false, false);
         byteCodeGen->Writer()->End();
-#if DBG_DUMP
-        if( PHASE_TESTTRACE1(ByteCodePhase) || PHASE_DUMP( ByteCodePhase, functionBody ) )
-        {
-            //ByteCodeDumper::Dump( functionBody );
-        }
-#endif
+
+        autoCleanup.Done();
     }
+
     void AsmJSByteCodeGenerator::StartStatement(ParseNode* pnode)
     {
         mWriter.StartStatement(pnode, 0);

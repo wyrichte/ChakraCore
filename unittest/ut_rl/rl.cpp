@@ -250,6 +250,7 @@ const char* const TargetOSNames[] = {
     "win7",
     "win8",
     "winBlue",
+    "win10",
     "wp8",
     NULL
 };

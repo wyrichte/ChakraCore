@@ -734,7 +734,7 @@ IR::Instr* LowererMD::Simd128LowerMulI4(IR::Instr *instr)
     return pInstr;
 }
 
-// Builds args list <dst, src1, src2, src3 ..> and removes all instructions.
+// Builds args list <dst, src1, src2, src3 ..>
 SList<IR::Opnd*> * LowererMD::Simd128GetExtendedArgs(IR::Instr *instr)
 {
     SList<IR::Opnd*> * args = JitAnew(m_lowerer->m_alloc, SList<IR::Opnd*>, m_lowerer->m_alloc);
@@ -763,7 +763,7 @@ SList<IR::Opnd*> * LowererMD::Simd128GetExtendedArgs(IR::Instr *instr)
 
         if (pInstr->GetSrc2())
         {
-            src2 = pInstr->UnlinkSrc2();
+            src2 = pInstr->GetSrc2();
             Assert(src2->GetStackSym()->IsSingleDef());
             pInstr = src2->GetStackSym()->GetInstrDef();
         }

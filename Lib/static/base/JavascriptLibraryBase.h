@@ -250,6 +250,7 @@ namespace Js
         JavascriptSymbol* symbolHasInstance;
         JavascriptSymbol* symbolIsConcatSpreadable;
         JavascriptSymbol* symbolIterator;
+        JavascriptSymbol* symbolSpecies;
         JavascriptSymbol* symbolToPrimitive;
         JavascriptSymbol* symbolToStringTag;
         JavascriptSymbol* symbolUnscopables;

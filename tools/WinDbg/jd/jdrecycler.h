@@ -79,9 +79,9 @@ public:
     }
 
     void DumpObjectInfoBits(unsigned char objectInfoBits);
-    void DumpSmallHeapBlockObject(ExtRemoteTyped& heapBlock, ULONG64 address);
-    void DumpLargeHeapBlockObject(ExtRemoteTyped& heapBlock, ULONG64 address, ULONG cookie);
-    void DumpHeapObject(const HeapObject& heapObject);
+    void DumpSmallHeapBlockObject(ExtRemoteTyped& heapBlock, ULONG64 address, bool verbose);
+    void DumpLargeHeapBlockObject(ExtRemoteTyped& heapBlock, ULONG64 address, bool verbose);
+    void DumpHeapObject(const HeapObject& heapObject, bool verbose);
     void DumpHeapBlockLink(ULONG64 heapBlockType, ULONG64 heapBlock);
     ULONG64 FindHeapBlock(ULONG64 address, ExtRemoteTyped recycler, bool allowOutput = true);
     ExtRemoteTyped FindHeapBlockTyped(ULONG64 address, ExtRemoteTyped recycler, bool allowOutput = true, ULONG64* mapAddr = nullptr);
@@ -308,7 +308,7 @@ class RecyclerFindReference : public RecyclerForEachHeapBlock
         bool isLarge;
     };
 public:
-    RecyclerFindReference(EXT_CLASS_BASE * ext, ULONG64 referencedObject, RootPointers* rootPointerManager, ExtRemoteTyped recycler) :
+    RecyclerFindReference(EXT_CLASS_BASE * ext, ULONG64 referencedObject, Addresses* rootPointerManager, ExtRemoteTyped recycler) :
         RecyclerForEachHeapBlock(recycler),
         ext(ext),
         referencedObject(referencedObject),
@@ -327,7 +327,7 @@ private:
     EXT_CLASS_BASE * ext;
     ULONG64        referencedObject;
     bool skippedAddresses;
-    RootPointers* rootPointerManager;
+    Addresses* rootPointerManager;
 };
 
 class AutoFree

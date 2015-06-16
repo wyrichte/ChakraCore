@@ -79,7 +79,7 @@ namespace Authoring
         {
             if (node != nullptr)
             {
-                if (node->nop == knopMember && this->m_propertyPath != nullptr && node->sxBin.pnode1->nop == knopStr)
+                if ((node->nop == knopMember || node->nop == knopMemberShort) && this->m_propertyPath != nullptr && node->sxBin.pnode1->nop == knopStr)
                 {
                     m_propertyPath->Push(node->sxBin.pnode1->sxPid.pid->Psz());
                 }
@@ -95,7 +95,7 @@ namespace Authoring
                         while (memberListNode->nop == knopList)
                         {
                             memberNode = memberListNode->sxBin.pnode1;
-                            if (memberNode->nop != knopMember)
+                            if (memberNode->nop != knopMember && memberNode->nop != knopMemberShort)
                             {
                                 // The node could be a getter or setter, and in that case we will not consider it in call args anymore
                                 return false;
@@ -110,7 +110,7 @@ namespace Authoring
                         }
 
                         memberNode = memberListNode;
-                        if (memberNode->nop != knopMember)
+                        if (memberNode->nop != knopMember && memberNode->nop != knopMemberShort)
                         {
                             // The node could be a getter or setter, and in that case we will not consider it in call args anymore
                             return false;
@@ -3563,7 +3563,7 @@ namespace Authoring
         case knopStr:
             {
                 ParseNodePtr parent = cursor->Parent();
-                return parent != nullptr && parent->nop == knopMember && *completionRangeMode == LanguageServiceExtension::CompletionRangeMode::ObjectLiteralNames;
+                return parent != nullptr && (parent->nop == knopMember || parent->nop == knopMemberShort) && *completionRangeMode == LanguageServiceExtension::CompletionRangeMode::ObjectLiteralNames;
             }
         case knopInt:
         case knopFlt:

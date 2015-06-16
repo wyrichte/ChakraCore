@@ -746,6 +746,7 @@ public:
                 break;
 
             case knopMember:
+            case knopMemberShort:
             if (!ProcessChildNode(pnode->sxBin.pnode1, AuthorParseNodeEdge::apneTarget, context) &&
                 !ProcessChildNode(pnode->sxBin.pnode2, AuthorParseNodeEdge::apneMember, context))
             {

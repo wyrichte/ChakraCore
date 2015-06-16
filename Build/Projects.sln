@@ -1,0 +1,107 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E0786480-1474-43B0-ACDC-6F05779D9D83}"
+	ProjectSection(SolutionItems) = preProject
+		armasm.props = armasm.props
+		armasm.targets = armasm.targets
+		armasm.xml = armasm.xml
+		Chakra.Build.Default.props = Chakra.Build.Default.props
+		Chakra.Build.ProjectConfiguration.props = Chakra.Build.ProjectConfiguration.props
+		Chakra.Build.props = Chakra.Build.props
+		Chakra.Build.Razzle.Default.props = Chakra.Build.Razzle.Default.props
+		Chakra.Build.Razzle.props = Chakra.Build.Razzle.props
+		Chakra.Build.Solution.Default.props = Chakra.Build.Solution.Default.props
+		Chakra.Build.Solution.props = Chakra.Build.Solution.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{DDDCE490-9BC4-43E5-A700-346998D8E01D}"
+	ProjectSection(SolutionItems) = preProject
+		..\tools\WinDbg\jd\jd.vcxproj = ..\tools\WinDbg\jd\jd.vcxproj
+		..\manifests\Manifests.vcxproj = ..\manifests\Manifests.vcxproj
+		..\publish\Publish.vcxproj = ..\publish\Publish.vcxproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dep", "dep", "{D231BA17-AE33-4736-BAA4-1A52476BB24A}"
+	ProjectSection(SolutionItems) = preProject
+		..\dep\codex.vcxproj = ..\dep\codex.vcxproj
+		..\dep\common-iel1.vcxproj = ..\dep\common-iel1.vcxproj
+		..\dep\dtbhost.vcxproj = ..\dep\dtbhost.vcxproj
+		..\dep\IESettingsApi.vcxproj = ..\dep\IESettingsApi.vcxproj
+		..\dep\manifests-inbox.vcxproj = ..\dep\manifests-inbox.vcxproj
+		..\dep\scalookup.vcxproj = ..\dep\scalookup.vcxproj
+		..\dep\ScriptProjectionHostApi.vcxproj = ..\dep\ScriptProjectionHostApi.vcxproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584}"
+	ProjectSection(SolutionItems) = preProject
+		..\Lib\Backend\Chakra.Backend.vcxproj = ..\Lib\Backend\Chakra.Backend.vcxproj
+		..\Lib\Common\common\Chakra.Common.Common.vcxproj = ..\Lib\Common\common\Chakra.Common.Common.vcxproj
+		..\Lib\Common\core\Chakra.Common.Core.vcxproj = ..\Lib\Common\core\Chakra.Common.Core.vcxproj
+		..\Lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj = ..\Lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj
+		..\Lib\Common\Exceptions\Chakra.Common.Exceptions.vcxproj = ..\Lib\Common\Exceptions\Chakra.Common.Exceptions.vcxproj
+		..\Lib\Common\Memory\Chakra.Common.Memory.vcxproj = ..\Lib\Common\Memory\Chakra.Common.Memory.vcxproj
+		..\Lib\Common\util\Chakra.Common.Util.vcxproj = ..\Lib\Common\util\Chakra.Common.Util.vcxproj
+		..\Lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj = ..\Lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj
+		..\Lib\MemProtectHeap\Chakra.MemProtectHeap.vcxproj = ..\Lib\MemProtectHeap\Chakra.MemProtectHeap.vcxproj
+		..\Lib\Parser\Chakra.Parser.vcxproj = ..\Lib\Parser\Chakra.Parser.vcxproj
+		..\Lib\Runtime\ByteCode\Chakra.Runtime.ByteCode.vcxproj = ..\Lib\Runtime\ByteCode\Chakra.Runtime.ByteCode.vcxproj
+		..\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj = ..\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj
+		..\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj = ..\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj
+		..\Lib\Runtime\Math\Chakra.Runtime.Math.vcxproj = ..\Lib\Runtime\Math\Chakra.Runtime.Math.vcxproj
+		..\Lib\Runtime\Telemetry\Chakra.Runtime.Telemetry.vcxproj = ..\Lib\Runtime\Telemetry\Chakra.Runtime.Telemetry.vcxproj
+		..\Lib\Runtime\Types\Chakra.Runtime.Types.vcxproj = ..\Lib\Runtime\Types\Chakra.Runtime.Types.vcxproj
+		..\Lib\WinRT\Chakra.WinRT.vcxproj = ..\Lib\WinRT\Chakra.WinRT.vcxproj
+		..\Lib\static\static.vcxproj = ..\Lib\static\static.vcxproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dll", "dll", "{3FBCBF4C-1083-4A70-8929-E89CAA82E781}"
+	ProjectSection(SolutionItems) = preProject
+		..\Dll\JScript\JScript.vcxproj = ..\Dll\JScript\JScript.vcxproj
+		..\Dll\JScriptDiag\JScriptDiag.vcxproj = ..\Dll\JScriptDiag\JScriptDiag.vcxproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unittest", "unittest", "{7F5A55F5-A32C-42F3-ADB4-F72DA6392120}"
+	ProjectSection(SolutionItems) = preProject
+		..\unittest\jsrt\jsrt.vcxproj = ..\unittest\jsrt\jsrt.vcxproj
+		..\unittest\NativeUnitTests\NativeUnitTests.vcxproj = ..\unittest\NativeUnitTests\NativeUnitTests.vcxproj
+		..\unittest\jd\ut_jsdiag.vcxproj = ..\unittest\jd\ut_jsdiag.vcxproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "exe", "exe", "{2D98823A-DF47-4011-96E2-1C91B4A017D1}"
+	ProjectSection(SolutionItems) = preProject
+		..\Exe\Common\ExeCommon.vcxproj = ..\Exe\Common\ExeCommon.vcxproj
+		..\Exe\GCHost\GCHost.vcxproj = ..\Exe\GCHost\GCHost.vcxproj
+		..\Exe\JC\JC.vcxproj = ..\Exe\JC\JC.vcxproj
+		..\Exe\jdtest\jdtest.vcxproj = ..\Exe\jdtest\jdtest.vcxproj
+		..\Exe\JsGen\JsGen.vcxproj = ..\Exe\JsGen\JsGen.vcxproj
+		..\Exe\jsGlass\jsGlass.vcxproj = ..\Exe\jsGlass\jsGlass.vcxproj
+		..\Exe\jshost\jshost.vcxproj = ..\Exe\jshost\jshost.vcxproj
+		..\Exe\RecyclerTest\RecyclerTest.vcxproj = ..\Exe\RecyclerTest\RecyclerTest.vcxproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions", "Solutions", "{9E844FF8-5EBB-4145-A688-9BF1C2402AB8}"
+	ProjectSection(SolutionItems) = preProject
+		Chakra.Full.sln = Chakra.Full.sln
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{80566F9B-EC0F-4146-A0E1-F89C506653E4}"
+	ProjectSection(SolutionItems) = preProject
+		..\tools\WinDbg\jd\jd.vcxproj = ..\tools\WinDbg\jd\jd.vcxproj
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D231BA17-AE33-4736-BAA4-1A52476BB24A} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
+		{02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
+		{3FBCBF4C-1083-4A70-8929-E89CAA82E781} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
+		{7F5A55F5-A32C-42F3-ADB4-F72DA6392120} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
+		{2D98823A-DF47-4011-96E2-1C91B4A017D1} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
+		{80566F9B-EC0F-4146-A0E1-F89C506653E4} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
+	EndGlobalSection
+EndGlobal

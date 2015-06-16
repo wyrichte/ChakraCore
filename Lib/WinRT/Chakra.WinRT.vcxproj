@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ChakraBuildConfigDir>..\..\Build</ChakraBuildConfigDir>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
+  <PropertyGroup Label="Globals">
+    <TargetName>Chakra.WinRT</TargetName>
+    <ProjectGuid>{37871403-9CD8-434C-8904-DBDD95B69D81}</ProjectGuid>
+    <RootNamespace>WinRT</RootNamespace>    
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseStaticAtl>true</UseStaticAtl>
+    <AtlVersion>70</AtlVersion>
+  </PropertyGroup>  
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup> 
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <!-- For unicode.h -->
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\Parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\Common;$(ChakraManifestsIncludeDirectory);$(ComIncPath)\midlrt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>      
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>__PLACEMENT_NEW_INLINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>  
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AutoHSTRING.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUIDParser.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Metadata.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MetadataLocator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ModelHelper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ProjectionModel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SortProjection.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)stdafx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Visitor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AutoHeapString.h" />
+    <ClInclude Include="AutoHSTRING.h" />
+    <ClInclude Include="AutoStackItem.h" />
+    <ClInclude Include="GUIDParser.h" />
+    <ClInclude Include="Metadata.h" />
+    <ClInclude Include="MetadataLocator.h" />
+    <ClInclude Include="ModelHelper.h" />
+    <ClInclude Include="ProjectionModel.h" />
+    <ClInclude Include="SortProjection.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Visitor.h" />
+    <ClInclude Include="WinRTLib.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dep\manifests-inbox.vcxproj">
+      <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0815}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Manifests\Manifests.vcxproj">
+      <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

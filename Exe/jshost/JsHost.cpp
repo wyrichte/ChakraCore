@@ -324,6 +324,17 @@ HRESULT DoOneJsrtIteration(BSTR filename)
         fullPath[i] = towlower(fullPath[i]);
     }
 
+#ifdef FAULT_INJECTION
+    // FaultInjection check point: engine initialized
+    int faultInjection;
+    if (JScript9Interface::GetFaultInjectionFlag(&faultInjection) == S_OK
+        && faultInjection == 0)
+    {
+        fwprintf(stderr, L"FaultInjection - Checkpoint EngineLoaded Allocation Count:%d\n", JScript9Interface::GetCurrentFaultInjectionCount());
+        fflush(stderr);
+    }
+#endif
+
     IfJsrtErrorFail(JScript9Interface::JsrtRunScript(fileContents, 0, fullPath, NULL));
 
     // Repeatedly flush the message queue until it's empty.  It is necessary to loop on this
@@ -1005,6 +1016,17 @@ HRESULT DoOneIASIteration(BSTR filename)
     hr = CreateNewEngine(mainEngineThread, &mainScriptSite, true, HostConfigFlags::flags.DiagnosticsEngine /*actAsDiagnosticsHost*/, true /* primary engine */, 0);
     if (SUCCEEDED(hr))
     {
+#ifdef FAULT_INJECTION
+        // FaultInjection check point: engine initialized
+        int faultInjection;
+        if (JScript9Interface::GetFaultInjectionFlag(&faultInjection) == S_OK
+            && faultInjection == 0)
+        {
+            fwprintf(stderr, L"FaultInjection - Checkpoint EngineLoaded Allocation Count:%d\n", JScript9Interface::GetCurrentFaultInjectionCount());
+            fflush(stderr);
+        }
+#endif
+
         CheckAutomaticSourceRundown(); // Enqueue automatic source rundown request early, before any requests made from script.
 
         WScriptFastDom::SetMainScriptSite(mainScriptSite);

@@ -60,6 +60,11 @@ namespace Js
         return scriptContext.Detach();
     }
 
+    void ScriptContext::Delete(ScriptContext* scriptContext)
+    {
+        HeapDelete(scriptContext);
+    }
+
     ScriptContext::ScriptContext(ThreadContext* threadContext) :
         ScriptContextBase(),
         interpreterArena(nullptr),
@@ -3145,7 +3150,7 @@ namespace Js
                 ScriptFunction * scriptFunction = ScriptFunction::FromVar(pFunction);
                 scriptFunction->ChangeEntryPoint(proxy->GetDefaultEntryPointInfo(), Js::ScriptContext::GetProfileModeThunk(entryPoint));
 
-                OUTPUT_TRACE(Js::ScriptProfilerPhase, L"\Updated entrypoint : 0x%08X (isNative : %s)\n", (DWORD_PTR)pFunction->GetEntryPoint(), IsTrueOrFalse(scriptContext->IsNativeAddress(entryPoint)));
+                OUTPUT_TRACE(Js::ScriptProfilerPhase, L"\tUpdated entrypoint : 0x%08X (isNative : %s)\n", (DWORD_PTR)pFunction->GetEntryPoint(), IsTrueOrFalse(scriptContext->IsNativeAddress(entryPoint)));
             }
         }
         else
@@ -3751,11 +3756,19 @@ namespace Js
                         const wchar_t *pwszToString = ((JavascriptString *)sourceString)->GetSz();
                         const wchar_t *pwszNameStart = wcsstr(pwszToString, L" ");
                         const wchar_t *pwszNameEnd = wcsstr(pwszToString, L"(");
-                        int len = (int)(pwszNameEnd - pwszNameStart);
-
-                        /* TODO-OOM: Switch to *HeapNew and check OOM */
-                        pwszExtractedFunctionName = new wchar_t[len];
-                        wcsncpy_s(pwszExtractedFunctionName, len, pwszNameStart + 1, _TRUNCATE);
+                        if (pwszNameStart == nullptr || pwszNameEnd == nullptr || ((int)(pwszNameEnd - pwszNameStart) <= 0))
+                        {
+                            int len = ((JavascriptString *)sourceString)->GetLength() + 1;
+                            pwszExtractedFunctionName = new wchar_t[len];
+                            wcsncpy_s(pwszExtractedFunctionName, len, pwszToString, _TRUNCATE);
+                        }
+                        else
+                        {
+                            int len = (int)(pwszNameEnd - pwszNameStart);
+                            AssertMsg(len > 0, "Allocating array with zero or negative length?");
+                            pwszExtractedFunctionName = new wchar_t[len];
+                            wcsncpy_s(pwszExtractedFunctionName, len, pwszNameStart + 1, _TRUNCATE);
+                        }
                         pwszFunctionName = pwszExtractedFunctionName;
                     }
 
@@ -5192,7 +5205,22 @@ void ScriptContext::RegisterPrototypeChainEnsuredToHaveOnlyWritableDataPropertie
 #ifdef ENABLE_NATIVE_CODEGEN
     BOOL ScriptContext::IsNativeAddress(void * codeAddr)
     {
+        PreReservedVirtualAllocWrapper *preReservedVirtualAllocWrapper = this->threadContext->GetPreReservedVirtualAllocator();
+        if (preReservedVirtualAllocWrapper->IsPreReservedRegionPresent())
+        {
+            if (preReservedVirtualAllocWrapper->IsInRange(codeAddr))
+            {
+                Assert(!this->IsDynamicInterpreterThunk(codeAddr));
+                return true;
+            }
+            else if (this->threadContext->IsAllJITCodeInPreReservedRegion())
+            {
+                return false;
+            }
+        }
+
         // Try locally first and then all script context on the thread
+        //Slow path
         return IsNativeFunctionAddr(this, codeAddr) || this->threadContext->IsNativeAddress(codeAddr);
     }
 #endif

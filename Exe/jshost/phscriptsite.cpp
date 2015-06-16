@@ -2887,7 +2887,7 @@ STDMETHODIMP ActiveScriptDirectHost::CreateTypeFactoryInstance(LPCWSTR typeName,
             const CLSID CLSID_AnimalFactory = {0xA88BF705,0x491F,0x4FB1,0xB4,0xC4,0x00,0xA3,0x32,0x13,0x5B,0x05};
             const IID IID_IAnimalFactory = {0xF1DB40AE,0xDF57,0x4A1A,0x96,0x0A,0x9C,0x05,0xB7,0x0A,0x4E,0xB0};
 
-			hInstance = LoadLibraryEx(pszFilePath, NULL, 0);
+            hInstance = LoadLibraryEx(pszFilePath, NULL, 0);
             if (hInstance != NULL)
             {
                 pProc = (FN_DllGetClassObject) GetProcAddress(hInstance, "DllGetClassObject");
@@ -2920,7 +2920,7 @@ STDMETHODIMP ActiveScriptDirectHost::CreateTypeFactoryInstance(LPCWSTR typeName,
             const CLSID CLSID_AnimalFactory = {0xA88BF705,0x491F,0x4FB1,0xB4,0xC4,0x00,0xA3,0x32,0x13,0x5B,0x05};
             const IID IID_IAnimalFactory = {0xF1DB40AE,0xDF57,0x4A1A,0x96,0x0A,0x9C,0x05,0xB7,0x0A,0x4E,0xB0};
 
-			hInstance = LoadLibraryEx(pszFilePath, NULL, 0);
+            hInstance = LoadLibraryEx(pszFilePath, NULL, 0);
             if (hInstance != NULL)
             {
                 pProc = (FN_DllGetClassObject) GetProcAddress(hInstance, "DllGetClassObject");

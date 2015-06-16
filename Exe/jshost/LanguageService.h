@@ -19,42 +19,42 @@
 
 class CAuthoringHost : public IUnknown
 {
-	long refCount;
-	unsigned int _threadId;
+    long refCount;
+    unsigned int _threadId;
     HANDLE hThread;
-	Message<CAuthoringHost> _message;
-	void *_callbackData;
-	void(*_callback)(void *);
-	UINT_PTR _timer;
+    Message<CAuthoringHost> _message;
+    void *_callbackData;
+    void(*_callback)(void *);
+    UINT_PTR _timer;
 
-	static VOID CALLBACK TimerCallback(HWND hwnd, UINT uMsg, UINT_PTR idEvent, DWORD dwTime);
-	void Timer();
-	HRESULT SetCallbackTimer(DWORD dwTime);
+    static VOID CALLBACK TimerCallback(HWND hwnd, UINT uMsg, UINT_PTR idEvent, DWORD dwTime);
+    void Timer();
+    HRESULT SetCallbackTimer(DWORD dwTime);
     static DWORD __stdcall TimerLoop(LPVOID arg);
     static const DWORD HURRY_DELAY = 1;
     
 public:
-	void CallAfter(DWORD dwTime, void(*callback)(void *), void *data);
-	void KillCallback();
-	struct HostLoopArgs
-	{
-		LPCWSTR jscriptPath;
-	};
-	static unsigned int HostLoop(void* args);
+    void CallAfter(DWORD dwTime, void(*callback)(void *), void *data);
+    void KillCallback();
+    struct HostLoopArgs
+    {
+        LPCWSTR jscriptPath;
+    };
+    static unsigned int HostLoop(void* args);
 
 public:
-	CAuthoringHost();
-	virtual ~CAuthoringHost();
+    CAuthoringHost();
+    virtual ~CAuthoringHost();
     CComPtr<IAuthorServices> _authoringServices;
 
-	// IUnknown
-	HRESULT STDMETHODCALLTYPE QueryInterface(
-		/* [in] */ REFIID riid,
-		/* [iid_is][out] */ __RPC__deref_out void __RPC_FAR *__RPC_FAR *ppvObject);
-	ULONG STDMETHODCALLTYPE AddRef();
-	ULONG STDMETHODCALLTYPE Release();
+    // IUnknown
+    HRESULT STDMETHODCALLTYPE QueryInterface(
+        /* [in] */ REFIID riid,
+        /* [iid_is][out] */ __RPC__deref_out void __RPC_FAR *__RPC_FAR *ppvObject);
+    ULONG STDMETHODCALLTYPE AddRef();
+    ULONG STDMETHODCALLTYPE Release();
 
-	HRESULT Initialize(LPCWSTR targetdll);
+    HRESULT Initialize(LPCWSTR targetdll);
 
 };
 

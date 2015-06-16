@@ -132,8 +132,13 @@ namespace Js
 
     void StepController::EndRecordingCall(Js::Var returnValue, Js::JavascriptFunction * function)
     {
-        if (IsActive() && returnValue != nullptr)
+        if (IsActive() && this->pActivatedContext != nullptr && returnValue != nullptr)
         {
+            if (this->pActivatedContext->GetThreadContext()->Diagnostics->isAtDispatchHalt)
+            {
+                // OS bug 3050302 - Keeping this FatalError for finding other issues where we can record when we are at break
+                Js::Throw::FatalInternalError();
+            }
             bool isStepOut = stepType == STEP_OUT || stepType == STEP_DOCUMENT;
 
             // Record when :
@@ -186,9 +191,10 @@ namespace Js
 
     void StepController::Deactivate(InterpreterHaltState* haltState /*=nullptr*/)
     {
+        // If we are deactivating the step controller during ProbeContainer close or attach/detach we should clear return value list
         // If we break other than step -> clear the list.
         // If we step in and we land on different function (we are in recording phase the current function) -> clear the list
-        if (haltState && haltState->stopType != Js::STOP_STEPCOMPLETE || this->stepType == STEP_IN && this->returnedValueRecordingDepth > 0)
+        if ((haltState == nullptr) || (haltState->stopType != Js::STOP_STEPCOMPLETE || this->stepType == STEP_IN && this->returnedValueRecordingDepth > 0))
         {
             ResetReturnedValueList();
         }

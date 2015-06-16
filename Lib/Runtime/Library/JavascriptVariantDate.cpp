@@ -20,7 +20,7 @@ namespace Js
     {
         BOOL ret;
         
-        DECLARE_STACK_PINNED(JavascriptString, resultString);
+        ENTER_PINNED_SCOPE(JavascriptString, resultString);
         resultString = DateImplementation::ConvertVariantDateToString(this->value, GetScriptContext());
         if (resultString != NULL)
         {
@@ -31,6 +31,8 @@ namespace Js
         {
             ret = FALSE;
         }
+
+        LEAVE_PINNED_SCOPE();
         
         return ret;
     }

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ChakraBuildConfigDir>..\..\..\Build</ChakraBuildConfigDir>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CC4153FF-AC3E-4734-B562-EE23812DF31B}</ProjectGuid>
+    <RootNamespace>JS</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <TargetName>Chakra.MemProtectHeap.Static</TargetName>
+    <!-- For Razzle build -->
+    <TargetName Condition="'$(BuildingWithBuildExe)'=='true'">Jscript.MemProtectHeap.Static</TargetName>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..;$(MSBuildThisFileDirectory)..\..\Common;$(ChakraManifestsIncludeDirectory);$(ManifestsInboxIncludeDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <!-- For Razzle build -->
+    <Lib Condition="'$(BuildingWithBuildExe)'=='true'">
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\lib\common\core\$(RazzleJscriptObjectDirectory)\Chakra.Common.Core.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\lib\common\datastructures\$(RazzleJscriptObjectDirectory)\Chakra.Common.DataStructures.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\lib\common\exceptions\$(RazzleJscriptObjectDirectory)\Chakra.Common.Exceptions.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\lib\common\memory\$(RazzleJscriptObjectDirectory)\Chakra.Common.Memory.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\lib\MemProtectHeap\$(RazzleJscriptObjectDirectory)\Chakra.MemProtectHeap.lib</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StubExternalAPI.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)InitializeAPI.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\StdAfx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Lib\MemProtectHeap\MemProtectHeap.vcxproj">
+      <Project>{bb4153ff-ac3e-4734-b562-ee23812df31b}</Project>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

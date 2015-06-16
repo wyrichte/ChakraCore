@@ -83,3 +83,30 @@ test2();
 test2();
 
 WScript.Echo("Passed");
+
+var obj00 = {i: 0,
+			next: function(){
+				if(this.i != 75)
+				    return this.i++;
+				throw this.i;
+			}
+			};
+			
+var obj11 = {prop0: {x:1}};
+function test3(obj)
+{
+    var a;
+	var b = obj11.prop0;
+    try {
+        while (true) {
+            a = obj.next();
+        }
+    } catch (e) {
+        b.x;
+    }
+    
+}
+test3(obj00);
+obj00.i = 0;
+test3(obj00);
+WScript.Echo("Passed");

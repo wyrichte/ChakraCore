@@ -6,7 +6,6 @@
 //TBD to restore the TLS support
 
 #include "StdAfx.h"
-#pragma hdrstop
 #include "guids.h"
 #include "proxystub.h"
 #include "dep.h"
@@ -30,7 +29,6 @@ static CriticalSection s_csDllCanUnloadNow;
 //#include <initguid.h>
 
 #include "muiload.h"
-#include "JsrtContext.h"
 
 //IE MSHTML responsiveness events
 #ifdef F_JSETW
@@ -215,7 +213,7 @@ void DetachProcess()
 
     if (g_TraceLoggingClient != nullptr)
     {
-		NoCheckHeapDelete(g_TraceLoggingClient);
+        NoCheckHeapDelete(g_TraceLoggingClient);
     }
 
     ThreadBoundThreadContextManager::DestroyAllContextsAndEntries();

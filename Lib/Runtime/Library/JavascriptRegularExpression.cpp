@@ -238,7 +238,7 @@ namespace Js
             //   - Line terminators need to be escaped since they're not allowed in a static regex
             if (str.GetLength() == 0)
             {
-				builder->AppendChars(L"(?:)");
+                builder->AppendChars(L"(?:)");
             }
             else
             {
@@ -519,6 +519,15 @@ namespace Js
         }
 
         return obj->ToString();
+    }
+
+    Var JavascriptRegExp::EntryGetterSymbolSpecies(RecyclableObject* function, CallInfo callInfo, ...)
+    {
+        ARGUMENTS(args, callInfo);
+
+        Assert(args.Info.Count > 0);
+
+        return args[0];
     }
 
     JavascriptRegExp * JavascriptRegExp::BoxStackInstance(JavascriptRegExp * instance)

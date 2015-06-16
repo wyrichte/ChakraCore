@@ -19,6 +19,9 @@
               "map.__proto__.clear.name": "clear"
             },
             "map.__proto__.constructor": {
+              "[Methods]": {
+                "[Symbol.species]": "function Map() { [native code] }"
+              },
               "map.__proto__.constructor.__proto__": {
                 "[Methods]": "{...}",
                 "map.__proto__.constructor.__proto__.__proto__": "{...}",

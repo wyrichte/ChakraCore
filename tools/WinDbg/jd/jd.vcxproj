@@ -1,185 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="jd-Debug|Win32">
-      <Configuration>jd-Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="jd-Debug|x64">
-      <Configuration>jd-Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="jd-Release|Win32">
-      <Configuration>jd-Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="jd-Release|x64">
-      <Configuration>jd-Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="jsd-Debug|Win32">
-      <Configuration>jsd-Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="jsd-Debug|x64">
-      <Configuration>jsd-Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="jsd-Release|Win32">
-      <Configuration>jsd-Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="jsd-Release|x64">
-      <Configuration>jsd-Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="jsls-chk|Win32">
-      <Configuration>jsls-chk</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="jsls-chk|x64">
-      <Configuration>jsls-chk</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="jsls-fre|Win32">
-      <Configuration>jsls-fre</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="jsls-fre|x64">
-      <Configuration>jsls-fre</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-  </ItemGroup>
+  <PropertyGroup>
+    <ChakraBuildConfigDir>..\..\..\Build</ChakraBuildConfigDir>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E7BF12A9-AA93-4D11-832E-18B223E4D07A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>jd</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsd-Debug|Win32'" Label="Configuration">
+  <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
+    <UseStaticAtl>true</UseStaticAtl>
+    <AtlVersion>70</AtlVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsd-Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jd-Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jd-Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsd-Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsd-Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jd-Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='jd-Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <UseOfAtl>Static</UseOfAtl>
-  </PropertyGroup>
-  <Import Project="..\..\..\VcProjBuild.props" />
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='jsd-Debug|Win32'">
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
+  <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsd-Debug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jd-Debug|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jd-Debug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='jsd-Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsd-Release|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jd-Release|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='jd-Release|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
+  </ImportGroup> 
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)\Exe\jshost;$(SolutionDir)\Exe\jdtest;$(SolutionDir)\Lib\Common\Memory;$(SolutionDir)\Dll\JScriptDiag;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\Exe\jshost;$(SolutionDir)..\Exe\jdtest;$(SolutionDir)..\Lib\Common\Memory;$(SolutionDir)..\Dll\JScriptDiag;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -189,279 +34,115 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsd-Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>JD_PRIVATE;WIN32;_DEBUG;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <CallingConvention>StdCall</CallingConvention>
-      <OmitDefaultLibName>false</OmitDefaultLibName>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>      
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>      
       <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\i386;$(PUBLIC_ROOT)\internal\sdk\lib\i386</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsd-Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>JD_PRIVATE;WIN32;_DEBUG;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <CallingConvention>StdCall</CallingConvention>
-      <OmitDefaultLibName>false</OmitDefaultLibName>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>        
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>      
       <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\amd64;$(PUBLIC_ROOT)\internal\sdk\lib\amd64</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\amd64;$(PUBLIC_ROOT)\internal\sdk\lib\amd64</AdditionalLibraryDirectories>      
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jd-Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>JD_PRIVATE;WIN32;_DEBUG;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;JD_PRIVATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <CallingConvention>StdCall</CallingConvention>
-      <OmitDefaultLibName>false</OmitDefaultLibName>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>      
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>      
       <ModuleDefinitionFile>private\jd.def</ModuleDefinitionFile>
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\i386;$(PUBLIC_ROOT)\internal\sdk\lib\i386</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\i386;$(PUBLIC_ROOT)\internal\sdk\lib\i386</AdditionalLibraryDirectories>      
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jd-Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>JD_PRIVATE;WIN32;_DEBUG;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;JD_PRIVATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <CallingConvention>StdCall</CallingConvention>
-      <OmitDefaultLibName>false</OmitDefaultLibName>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>      
       <ModuleDefinitionFile>private\jd.def</ModuleDefinitionFile>
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\amd64;$(PUBLIC_ROOT)\internal\sdk\lib\amd64</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\amd64;$(PUBLIC_ROOT)\internal\sdk\lib\amd64</AdditionalLibraryDirectories>      
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsd-Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>JD_PRIVATE;WIN32;NDEBUG;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <CallingConvention>StdCall</CallingConvention>
-      <OmitDefaultLibName>false</OmitDefaultLibName>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\i386;$(PUBLIC_ROOT)\internal\sdk\lib\i386</AdditionalLibraryDirectories>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">
-    <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>JD_PRIVATE;WIN32;NDEBUG;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <CallingConvention>StdCall</CallingConvention>
-      <OmitDefaultLibName>false</OmitDefaultLibName>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\i386;$(PUBLIC_ROOT)\internal\sdk\lib\i386</AdditionalLibraryDirectories>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">
-    <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>JD_PRIVATE;WIN32;NDEBUG;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <CallingConvention>StdCall</CallingConvention>
-      <OmitDefaultLibName>false</OmitDefaultLibName>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <SubSystem>Windows</SubSystem>      
+      <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>      
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\i386;$(PUBLIC_ROOT)\internal\sdk\lib\i386</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsd-Release|x64'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>JD_PRIVATE;WIN32;NDEBUG;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <CallingConvention>StdCall</CallingConvention>
-      <OmitDefaultLibName>false</OmitDefaultLibName>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>      
       <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <SubSystem>Windows</SubSystem>      
+      <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>     
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\amd64;$(PUBLIC_ROOT)\internal\sdk\lib\amd64</AdditionalLibraryDirectories>
     </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">
-    <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>JD_PRIVATE;WIN32;NDEBUG;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <CallingConvention>StdCall</CallingConvention>
-      <OmitDefaultLibName>false</OmitDefaultLibName>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\amd64;$(PUBLIC_ROOT)\internal\sdk\lib\amd64</AdditionalLibraryDirectories>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">
-    <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>JD_PRIVATE;WIN32;NDEBUG;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <CallingConvention>StdCall</CallingConvention>
-      <OmitDefaultLibName>false</OmitDefaultLibName>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\amd64;$(PUBLIC_ROOT)\internal\sdk\lib\amd64</AdditionalLibraryDirectories>
-    </Link>
-  </ItemDefinitionGroup>
+  </ItemDefinitionGroup> 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jd-Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>JD_PRIVATE;WIN32;NDEBUG;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;JD_PRIVATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <CallingConvention>StdCall</CallingConvention>
-      <OmitDefaultLibName>false</OmitDefaultLibName>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>private\jd.def</ModuleDefinitionFile>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\i386;$(PUBLIC_ROOT)\internal\sdk\lib\i386</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jd-Release|x64'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>JD_PRIVATE;WIN32;NDEBUG;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;JD_PRIVATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <CallingConvention>StdCall</CallingConvention>
-      <OmitDefaultLibName>false</OmitDefaultLibName>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>private\jd.def</ModuleDefinitionFile>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\amd64;$(PUBLIC_ROOT)\internal\sdk\lib\amd64</AdditionalLibraryDirectories>
     </Link>
@@ -484,28 +165,25 @@
     <ClCompile Include="diag.cpp" />
     <ClCompile Include="jdbackend.cpp" />
     <ClCompile Include="jdbytecode.cpp" />
+    <ClCompile Include="jdfunctionbody.cpp" />
+    <ClCompile Include="RecyclerCachedData.cpp" />
     <ClCompile Include="RecyclerList.cpp" />
     <ClCompile Include="RecyclerRoots.cpp" />
+    <ClCompile Include="RemoteFunctionBody.cpp" />
+    <ClCompile Include="RemoteFunctionInfo.cpp" />
+    <ClCompile Include="RemoteInterpreterStackFrame.cpp" />
+    <ClCompile Include="RemoteJavascriptFunction.cpp" />
     <ClCompile Include="RemotePageAllocator.cpp" />
+    <ClCompile Include="RemoteRecyclableObject.cpp" />
     <ClCompile Include="RemoteRecycler.cpp" />
+    <ClCompile Include="RemoteScriptFunction.cpp" />
     <ClCompile Include="RemoteThreadContext.cpp" />
     <ClCompile Include="RemoteTypeHandler.cpp" />
     <ClCompile Include="ScriptDebugSite.cpp" />
     <ClCompile Include="jd.cpp" />
     <ClCompile Include="jdrecycler.cpp" />
     <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jd-Release|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jd-Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jd-Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsd-Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsd-Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-fre|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-chk|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jd-Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsd-Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsd-Release|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-fre|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='jsls-chk|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="util.cpp" />
   </ItemGroup>
@@ -521,11 +199,17 @@
     <ClInclude Include="jdrecycler.h" />
     <ClInclude Include="JDUtil.h" />
     <ClInclude Include="Nullable.h" />
+    <ClInclude Include="RecyclerCachedData.h" />
     <ClInclude Include="RecyclerRoots.h" />
     <ClInclude Include="RemoteFunctionBody.h" />
+    <ClInclude Include="RemoteFunctionInfo.h" />
+    <ClInclude Include="RemoteInterpreterStackFrame.h" />
+    <ClInclude Include="RemoteJavascriptFunction.h" />
     <ClInclude Include="RemotePageAllocator.h" />
+    <ClInclude Include="RemoteRecyclableObject.h" />
     <ClInclude Include="RemoteRecycler.h" />
     <ClInclude Include="RemoteRecyclerList.h" />
+    <ClInclude Include="RemoteScriptFunction.h" />
     <ClInclude Include="RemoteThreadContext.h" />
     <ClInclude Include="RemoteTypeHandler.h" />
     <ClInclude Include="ScriptDebugSite.h" />
@@ -539,6 +223,14 @@
     <None Include="release\jsd.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+>>>> ORIGINAL C:\Users\frm3bld\AppData\Local\Temp\1\SSDV3\pak13196.0\03_jd.vcxproj_v10 ++++++++++++++++++++++++++++++++++++++++++++++++
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>
+==== THEIRS C:\Users\frm3bld\AppData\Local\Temp\1\SSDV3\pak13196.0\03_jd.vcxproj_v10_changed ++++++++++++++++++++++++++++++++++++++++++++++++
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
+==== YOURS S:\SDV3\inetcore\jscript\tools\WinDbg\jd\jd.vcxproj ++++++++++++++++++++++++++++++++++++++++++++++++
+</Project>
+<<<< END ++++++++++++++++++++++++++++++++++++++++++++++++

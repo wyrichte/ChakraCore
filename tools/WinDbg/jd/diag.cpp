@@ -36,7 +36,7 @@ void EXT_CLASS_BASE::EnsureJsDebug(PCWSTR jscript9diagPath /*= nullptr*/)
     ThrowLastError("Failed to load chakradiag");
 }
 
-JD_PRIVATE_COMMAND(var2,
+JD_PRIVATE_COMMAND(diagvar,
     "Print var",
     "{;e;var;The Js::Var to print}{p;x;path;Path to chakradiag dll}")
 {
@@ -58,7 +58,7 @@ JD_PRIVATE_COMMAND(var2,
     Print(debugProperty, /*radix*/10, /*maxDepth*/2);
 }
 
-JD_PRIVATE_COMMAND(stack,
+JD_PRIVATE_COMMAND(diagstack,
             "Print JavaScript stack",
             "{n;b;;Print frame number}{p;x;path;Path to chakradiag dll}")
 {
@@ -245,7 +245,7 @@ void EXT_CLASS_BASE::EnsureStackFrame(int frame/*= -1*/)
     ThrowLastError("Fail to get requested stack frame. Is debugger at the script thread?");
 }
 
-JD_PRIVATE_COMMAND(frame,
+JD_PRIVATE_COMMAND(diagframe,
     "Inspect a JavaScript stack frame",
     "{;e,o,d=-1;frameNo;Javascript stack frame number}{r;s,o;radix;radix for formatting numbers}{d;e,o,d=3;depth;recursion depth}")
 {
@@ -278,7 +278,7 @@ JD_PRIVATE_COMMAND(frame,
     }
 }
 
-JD_PRIVATE_COMMAND(eval,
+JD_PRIVATE_COMMAND(diageval,
     "Evaluate an expression on current JS stack frame",
     "{{custom}}")
 {

@@ -88,6 +88,7 @@ namespace Js
             static FunctionInfo Exec;
             static FunctionInfo Test;
             static FunctionInfo ToString;
+            static FunctionInfo GetterSymbolSpecies;
             // v5.8 only
             static FunctionInfo Compile;
         };
@@ -96,6 +97,7 @@ namespace Js
         static Var EntryExec(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryTest(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryToString(RecyclableObject* function, CallInfo callInfo, ...);
+        static Var EntryGetterSymbolSpecies(RecyclableObject* function, CallInfo callInfo, ...);
         // v5.8 only
         static Var EntryCompile(RecyclableObject* function, CallInfo callInfo, ...);
 

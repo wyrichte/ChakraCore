@@ -21,7 +21,7 @@ namespace Js
 #define MAX_ASMJS_ARRAYBUFFER_LENGTH 0x100000000 //4GB
     private:
         bool GetPropertyBuiltIns(PropertyId propertyId, Var* value, BOOL* result);
-		void ClearParentsLength(ArrayBufferParent* parent);
+        void ClearParentsLength(ArrayBufferParent* parent);
     public:
         template <typename FreeFN>
         class ArrayBufferDetachedState : public ArrayBufferDetachedStateBase
@@ -67,15 +67,17 @@ namespace Js
             static FunctionInfo Slice;
             static FunctionInfo IsView;
             static FunctionInfo GetterByteLength;
+            static FunctionInfo GetterSymbolSpecies;
         };
         
         static Var NewInstance(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntrySlice(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryIsView(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryGetterByteLength(RecyclableObject* function, CallInfo callInfo, ...);
+        static Var EntryGetterSymbolSpecies(RecyclableObject* function, CallInfo callInfo, ...);
 
         static bool Is(Var aValue);
-		static ArrayBuffer* NewFromDetachedState(DetachedStateBase* state, JavascriptLibrary *library);
+        static ArrayBuffer* NewFromDetachedState(DetachedStateBase* state, JavascriptLibrary *library);
         static ArrayBuffer* FromVar(Var aValue);
 
         static bool IsValidAsmJsBufferLength(uint length, bool forceCheck = false)
@@ -128,7 +130,7 @@ namespace Js
                    );
 
 #else
-			return false;
+            return false;
 #endif
         }
 
@@ -260,7 +262,7 @@ namespace Js
         static JavascriptArrayBuffer* Create(byte* buffer, uint32 length, DynamicType * type);
         virtual void Dispose(bool isShutdown) override;
         virtual void Finalize(bool isShutdown) override;
-		static void*__cdecl  AllocWrapper(size_t length)
+        static void*__cdecl  AllocWrapper(size_t length)
         {
 #if _WIN64
             LPVOID address = VirtualAlloc(null, MAX_ASMJS_ARRAYBUFFER_LENGTH, MEM_RESERVE, PAGE_NOACCESS);
@@ -276,8 +278,8 @@ namespace Js
             }
             return arrayAddress;
 #else
-			Assert(false);
-			return nullptr;
+            Assert(false);
+            return nullptr;
 #endif
         };
 

@@ -76,12 +76,12 @@ class TraceLoggingClient
 {
     CEtwSession *session;
     bool shouldLogTelemetry;	
-	bool isHighResAvail;
+    bool isHighResAvail;
 public:
     TraceLoggingClient();
     ~TraceLoggingClient();
     bool GetShouldLogTelemetry() { return shouldLogTelemetry;  }
-	void SetIsHighResPerfCounterAvailable();
+    void SetIsHighResPerfCounterAvailable();
     void FireSiteNavigation(const wchar_t *url, GUID activityId, DWORD host, bool isJSRT);
     void ResetTelemetryStats(ThreadContext* threadContext);
 

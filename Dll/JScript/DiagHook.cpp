@@ -79,10 +79,10 @@ namespace JsDiag
         {
             HRESULT hrAdjusted = Js::JavascriptError::GetAdjustedResourceStringHr(hr, /* isFormatString */ true);
 
-			BSTR message = BstrGetResourceString(hrAdjusted, lcid);
+            BSTR message = BstrGetResourceString(hrAdjusted, lcid);
             if (!message)
             {
-				hrAdjusted = Js::JavascriptError::GetAdjustedResourceStringHr(hr, /* isFormatString */ false);
+                hrAdjusted = Js::JavascriptError::GetAdjustedResourceStringHr(hr, /* isFormatString */ false);
 
                 message = BstrGetResourceString(hrAdjusted, lcid);
             }

@@ -1484,10 +1484,10 @@ namespace UnifiedRegex
                     result.SetRange(allocator, UTC(this->GetCompactCharU(this->GetCompactLength() - 1) + 1), UTC(MaxUChar));
                 }
             }
-			else if (this->GetCompactLength() == 0)
-			{
-				result.SetRange(allocator, UTC(0), UTC(MaxUChar));
-			}
+            else if (this->GetCompactLength() == 0)
+            {
+                result.SetRange(allocator, UTC(0), UTC(MaxUChar));
+            }
         }
         else
         {
@@ -1561,7 +1561,7 @@ namespace UnifiedRegex
         __analysis_assume(count <= max); // on fre PREFAST fails to detect this (filed Win8: 682136)
         for (uint i = 0; i < count; i++)
         {
-			// Bug in oacr. it can't figure out count is less equal to max
+            // Bug in oacr. it can't figure out count is less equal to max
 #pragma warning(suppress: 22102)
             entries[i] = this->GetCompactChar(i);
         }

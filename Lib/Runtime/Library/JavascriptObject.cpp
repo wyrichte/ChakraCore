@@ -1698,8 +1698,8 @@ namespace Js
         JavascriptEnumerator *pEnumerator = JavascriptEnumerator::FromVar(tempVar);
 
         // TODO: use Recycler::Free when we implemented that.
-        DECLARE_STACK_PINNED(DescriptorMap, descriptors);
-        descriptors = RecyclerNewArray(scriptContext->GetRecycler(), DescriptorMap, descSize);
+        ENTER_PINNED_SCOPE(DescriptorMap, descriptors);
+        descriptors = RecyclerNewArray(scriptContext->GetRecycler(), DescriptorMap, descSize);        
 
         PropertyId propId;
         PropertyRecord const * propertyRecord;
@@ -1765,6 +1765,9 @@ namespace Js
         {
             DefineOwnPropertyHelper(object, descriptors[i].propRecord->GetPropertyId(), descriptors[i].descriptor, scriptContext);
         }
+
+        LEAVE_PINNED_SCOPE();
+
         return object;
     }
 
@@ -1797,7 +1800,7 @@ namespace Js
         uint32 length = keys->GetLength();
 
         // TODO: use Recycler::Free when we implemented that.
-        DECLARE_STACK_PINNED(DescriptorMap, descriptors);
+        ENTER_PINNED_SCOPE(DescriptorMap, descriptors);
         descriptors = RecyclerNewArray(scriptContext->GetRecycler(), DescriptorMap, length);
 
         //6.  Repeat for each element nextKey of keys in List order,
@@ -1855,6 +1858,8 @@ namespace Js
         {
             DefineOwnPropertyHelper(object, descriptors[i].propRecord->GetPropertyId(), descriptors[i].descriptor, scriptContext);
         }
+
+        LEAVE_PINNED_SCOPE();
 
         //8.  Return O.
         return object;

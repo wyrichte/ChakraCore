@@ -355,14 +355,14 @@ public:
     static void Release(void * policy);
 };
 
-#define ARENA_FAULTINJECT_MEMORY { \
+#define ARENA_FAULTINJECT_MEMORY(name, size) { \
     if (outOfMemoryFunc) \
     { \
-        FAULTINJECT_MEMORY_THROW; \
+        FAULTINJECT_MEMORY_THROW(name, size); \
     } \
     else \
     { \
-        FAULTINJECT_MEMORY_NOTHROW; \
+        FAULTINJECT_MEMORY_NOTHROW(name, size); \
     } \
 }
 

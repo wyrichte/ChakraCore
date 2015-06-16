@@ -3,3 +3,4 @@ DIRS =	Core \
 	DataStructures \
 	Exceptions \
 	Memory \
+	util \

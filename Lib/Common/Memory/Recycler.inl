@@ -294,11 +294,11 @@ Recycler::RealAlloc(HeapInfo* heap, size_t size)
 
     if (nothrow)
     {
-        FAULTINJECT_MEMORY_NOTHROW;
+        FAULTINJECT_MEMORY_NOTHROW(L"Recycler", size); // Consider use sizeCat to filter, might make repro easier
     }
     else
     {
-        FAULTINJECT_MEMORY_THROW;
+        FAULTINJECT_MEMORY_THROW(L"Recycler", size);
     }
 
     if (HeapInfo::IsSmallObject(size))

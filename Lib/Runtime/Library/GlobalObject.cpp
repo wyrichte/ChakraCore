@@ -816,7 +816,7 @@ namespace Js
             // Source Info objects are kept alive by the function bodies that are referencing it
             // The function body is created in GenerateByteCode but the source info isn't passed in, only the index
             // So we need to pin it here (TODO: Change GenerateByteCode to take in the sourceInfo itself)
-            DECLARE_STACK_PINNED(Utf8SourceInfo, sourceInfo);
+            ENTER_PINNED_SCOPE(Utf8SourceInfo, sourceInfo);
             sourceInfo = Utf8SourceInfo::New(scriptContext, utf8Source, cchSource, cbSource, pSrcInfo);
             if ((grfscr & fscrIsLibraryCode) != 0)
             {
@@ -861,6 +861,8 @@ namespace Js
                 hrCodeGen = GenerateByteCode(parseTree, grfscr, scriptContext, &funcBody, sourceIndex, forceNoNative, &parser, &se);
                 sourceInfo->SetByteCodeGenerationFlags(grfscr);
             }
+
+            LEAVE_PINNED_SCOPE();
         }
         END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
         END_LEAVE_SCRIPT_INTERNAL(scriptContext);
@@ -984,7 +986,7 @@ namespace Js
             // Source Info objects are kept alive by the function bodies that are referencing it
             // The function body is created in GenerateByteCode but the source info isn't passed in, only the index
             // So we need to pin it here (TODO: Change GenerateByteCode to take in the sourceInfo itself)
-            DECLARE_STACK_PINNED(Utf8SourceInfo, sourceInfo);
+            ENTER_PINNED_SCOPE(Utf8SourceInfo, sourceInfo);
             sourceInfo = Utf8SourceInfo::New(scriptContext, utf8Source, cchSource, cbSource, pSrcInfo);
             if ((grfscr & fscrIsLibraryCode) != 0)
             {
@@ -1017,6 +1019,8 @@ namespace Js
                 hrCodeGen = GenerateByteCode(parseTree, grfscr, scriptContext, &funcBody, sourceIndex, forceNoNative, &parser, &se);
                 sourceInfo->SetByteCodeGenerationFlags(grfscr);
             }
+
+            LEAVE_PINNED_SCOPE();
         }
         END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
         END_LEAVE_SCRIPT_INTERNAL(scriptContext);

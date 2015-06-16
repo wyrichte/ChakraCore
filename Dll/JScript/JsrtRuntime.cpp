@@ -2,9 +2,8 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include <stdafx.h>
 #include "JsrtRuntime.h"
-#include "JsrtContext.h"
 
 JsrtRuntime::JsrtRuntime(ThreadContext * threadContext, bool useIdle, bool dispatchExceptions)
 {       

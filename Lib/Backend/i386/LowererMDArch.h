@@ -46,8 +46,8 @@ public:
 
             IR::Instr *         LowerAsmJsCallI(IR::Instr * callInstr);
             IR::Instr *         LowerAsmJsCallE(IR::Instr * callInstr);
-			IR::Instr *         LowerAsmJsLdElemHelper(IR::Instr * instr, uint32 mask);
-			IR::Instr *         LowerAsmJsStElemHelper(IR::Instr * instr, uint32 mask);
+            IR::Instr *         LowerAsmJsLdElemHelper(IR::Instr * instr);
+            IR::Instr *         LowerAsmJsStElemHelper(IR::Instr * instr);
             IR::Instr *         LoadInputParamPtr(IR::Instr *instrInsert, IR::RegOpnd *optionalDstOpnd = nullptr);            
             IR::Instr *         LowerCall(IR::Instr * callInstr, uint32 argCount, RegNum regNum = RegNOREG);
             IR::Instr *         LowerCallI(IR::Instr * callInstr, ushort callFlags, bool isHelper = false, IR::Instr * insertBeforeInstrForCFG = null);

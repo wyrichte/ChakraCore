@@ -29,4 +29,11 @@
    </default>
 </test>
 
+<test>
+   <default>
+      <files>property_and_index_of_boolean.js</files>
+      <compile-flags>-args summary -endargs</compile-flags>
+   </default>
+</test>
+
 </regress-exe>

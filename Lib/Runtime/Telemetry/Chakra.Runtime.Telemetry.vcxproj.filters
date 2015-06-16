@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(MsBuildThisFileDirectory)IScriptContextTelemetryProvider.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)OpcodeTelemetry.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ScriptContextTelemetry.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEngineTelemetry.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)..\StdAfx.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ESBuiltIns\ESBuiltInsDatabase.cpp">
+      <Filter>ESBuiltIns</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MsBuildThisFileDirectory)ESBuiltIns\ESBuiltInsOpcodeTelemetry.cpp">
+      <Filter>ESBuiltIns</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MsBuildThisFileDirectory)ESBuiltIns\ESBuiltInsTelemetryProvider.cpp">
+      <Filter>ESBuiltIns</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IOpcodeTelemetry.h" />
+    <ClInclude Include="IScriptContextTelemetryProvider.h" />
+    <ClInclude Include="OpcodeTelemetry.h" />
+    <ClInclude Include="ScriptContextTelemetry.h" />
+    <ClInclude Include="ScriptEngineTelemetry.h" />
+    <ClInclude Include="TelemetryList.includes.h" />
+    <ClInclude Include="ESBuiltIns\ESBuiltInsDatabase.h">
+      <Filter>ESBuiltIns</Filter>
+    </ClInclude>
+    <ClInclude Include="ESBuiltIns\ESBuiltInsOpcodeTelemetry.h">
+      <Filter>ESBuiltIns</Filter>
+    </ClInclude>
+    <ClInclude Include="ESBuiltIns\ESBuiltInsTelemetryProvider.h">
+      <Filter>ESBuiltIns</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dirs" />
+    <None Include="ESBuiltIns\sources.inc" />
+    <None Include="ESBuiltIns\TraceLogList.Generator.js" />
+    <None Include="ESBuiltIns\TraceLogList.inc" />
+    <None Include="sources.inc" />
+    <None Include="TelemetryList.inc" />
+    <None Include="ESBuiltIns\ESBuiltInsDatabase.inc">
+      <Filter>ESBuiltIns</Filter>
+    </None>
+    <None Include="ESBuiltIns\ESBuiltInsTypeNames.inc">
+      <Filter>ESBuiltIns</Filter>
+    </None>
+    <None Include="ESBuiltIns\ESBuiltInsTypeNames.trie.Generator.js">
+      <Filter>ESBuiltIns</Filter>
+    </None>
+    <None Include="ESBuiltIns\ESBuiltInsTypeNames.trie.inc">
+      <Filter>ESBuiltIns</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Telemetry\README - Instructions on adding new aspects.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ESBuiltIns">
+      <UniqueIdentifier>{e7beefcc-dabe-4366-bebe-f754474ce67d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

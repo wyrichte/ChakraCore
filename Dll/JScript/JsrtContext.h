@@ -1,10 +1,14 @@
 //----------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
+#pragma once
+
 #include "JsrtRuntime.h"
 
 class JsrtDummyScriptSite;
 class JsrtActiveScriptDirectHost;
+
+
 
 class JsrtContext sealed : public FinalizableObject
 {

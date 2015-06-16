@@ -176,9 +176,9 @@ namespace UnifiedRegex
             matchStart = inputLength;
             return true; // STOP EXECUTING
         default:
-			Assume(false);
+            Assume(false);
         }
-		return true;
+        return true;
     }
 
     __inline bool Matcher::PopAssertion(CharCount &inputOffset, const uint8 *&instPointer, ContStack &contStack, AssertionStack &assertionStack, bool succeeded)
@@ -4228,8 +4228,8 @@ namespace UnifiedRegex
 #include "RegexContcodes.h"
 #undef M
             default:
-				Assert(false); // should never reached 
-				return false;  // however, can't use complier optimization if we wnat to return false here    
+                Assert(false); // should never reached 
+                return false;  // however, can't use complier optimization if we wnat to return false here    
             }
         }
         return true;

@@ -373,11 +373,13 @@ HELPERCALL(SimpleRecordLoopImplicitCallFlags, Js::SimpleJitHelpers::RecordLoopIm
 
 HELPERCALL(ScriptAbort, Js::JavascriptOperators::ScriptAbort, AttrCanThrow)
 
-HELPERCALL(SaveAllRegistersAndBailOut, LinearScanMD::SaveAllRegistersAndBailOut, 0)
-HELPERCALL(SaveAllRegistersAndBranchBailOut, LinearScanMD::SaveAllRegistersAndBranchBailOut, 0)
+// We don't want these functions to be valid iCall targets because they can be used to disclose stack addresses
+//   which CFG cannot defend against. Instead, return these addresses in GetNonTableMethodAddress
+HELPERCALL(SaveAllRegistersAndBailOut, nullptr, 0)
+HELPERCALL(SaveAllRegistersAndBranchBailOut, nullptr, 0)
 #ifdef _M_IX86
-HELPERCALL(SaveAllRegistersNoSse2AndBailOut, LinearScanMD::SaveAllRegistersNoSse2AndBailOut, 0)
-HELPERCALL(SaveAllRegistersNoSse2AndBranchBailOut, LinearScanMD::SaveAllRegistersNoSse2AndBranchBailOut, 0)
+HELPERCALL(SaveAllRegistersNoSse2AndBailOut, nullptr, 0)
+HELPERCALL(SaveAllRegistersNoSse2AndBranchBailOut, nullptr, 0)
 #endif
 
 //Helpers for inlining built-ins
@@ -466,7 +468,7 @@ HELPERCALL(GetNonzeroInt32Value_NoTaggedIntCheck, Js::JavascriptNumber::GetNonze
 HELPERCALL(IsNegZero, Js::JavascriptNumber::IsNegZero, 0)
 
 HELPERCALL(DirectMath_Pow, (double(*)(double, double))Js::JavascriptNumber::DirectPow, 0)
-HELPERCALL(DirectMath_Random, (double(*)(Js::ScriptContext*))Js::SSE2::JavascriptMath::Random, 0)
+HELPERCALL_MATH(DirectMath_Random,  (double(*)(Js::ScriptContext*))Js::JavascriptMath::Random, (double(*)(Js::ScriptContext*))Js::SSE2::JavascriptMath::Random, 0)
 
 
 //

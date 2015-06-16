@@ -20,7 +20,7 @@ namespace Authoring
         JsUtil::Stack<int> memberCountStack;
 
         size_t level;
-		size_t blockScopeLevel;
+        size_t blockScopeLevel;
         Pids* pids;
 
         ParseNodePtr previousNode;  // Used by RewriteVarDecl

@@ -55,6 +55,13 @@ VirtualAllocWrapper::GetPreReservedEndAddress()
     return nullptr;
 }
 
+bool
+VirtualAllocWrapper::IsInRange(void * address)
+{
+    Assert(this == nullptr);
+    return false;
+}
+
 /*
 * class PreReservedVirtualAllocWrapper
 */
@@ -89,6 +96,26 @@ PreReservedVirtualAllocWrapper::IsPreReservedRegionPresent()
 {
     Assert(this);
     return preReservedStartAddress != nullptr;
+}
+
+bool
+PreReservedVirtualAllocWrapper::IsInRange(void * address)
+{
+    if (this == nullptr)
+    {
+        return false;
+    }
+#if DBG
+    //Check if the region is in MEM_COMMIT state.
+    MEMORY_BASIC_INFORMATION memBasicInfo;
+    size_t bytes = VirtualQuery(address, &memBasicInfo, sizeof(memBasicInfo));
+    if (bytes == 0 || memBasicInfo.State != MEM_COMMIT)
+    {
+        AssertMsg(false, "Memory not commited? Checking for uncommitted address region?");
+    }
+#endif
+
+    return IsPreReservedRegionPresent() && address >= GetPreReservedStartAddress() && address < GetPreReservedEndAddress();
 }
 
 LPVOID 

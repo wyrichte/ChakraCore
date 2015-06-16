@@ -112,11 +112,11 @@ struct HeapAllocator
 
         if (noThrow)
         {
-            FAULTINJECT_MEMORY_NOTHROW;
+            FAULTINJECT_MEMORY_NOTHROW(L"Heap", byteSize);
         }
         else
         {
-            FAULTINJECT_MEMORY_THROW;
+            FAULTINJECT_MEMORY_THROW(L"Heap", byteSize);
         }
 
         char * buffer;

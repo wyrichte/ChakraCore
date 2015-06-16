@@ -118,6 +118,7 @@ namespace Authoring
                 context->AddPid(RightNameOf(pnode->sxCall.pnodeTarget), ackMethod, acfFileIdentifiersFilter, nullptr);
                 break;
             case knopMember:
+            case knopMemberShort:
                 AddStrs(pnode->sxBin.pnode1, ackField, context);
                 break;
             }

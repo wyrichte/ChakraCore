@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MinWinPrivSdkIncPath>$(PUBLIC_ROOT)\internal\minwin\priv_sdk\inc</MinWinPrivSdkIncPath>
+    <ComIncPath>$(PUBLIC_ROOT)\internal\com\inc</ComIncPath>    
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>_WIN32_WINNT=0x0601;WINVER=0x0601;_WIN32_IE=0x0800;WIN32;BUILD_WINDOWS;NO_SHLWAPI_ISOS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ForcedIncludeFiles>$(PUBLIC_ROOT)\shared\inc\warning.h;$(PUBLIC_ROOT)\internal\base\inc\warning_x.h</ForcedIncludeFiles>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>      
+    </ClCompile>
+    <Lib>
+      <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
+      <AdditionalOptions>/IGNORE:4078,4221,4198 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <Link>      
+      <!-- Always use LTCG since some library contain /GL objects -->
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(PUBLIC_ROOT)\sdk\lib\mincore\$(PlatformPathNameAlt)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);ucrtshims_msvcrt.lib;onecore.lib;mincore_fw.lib</AdditionalDependencies>
+      <AdditionalOptions>%(AdditionalOptions) msvcrt.lib</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <!-- CFG -->
+  <ItemDefinitionGroup>
+    <Link>      
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(PUBLIC_ROOT)\internal\sdk\lib\$(PlatformPathNameAlt)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <!-- Atl -->
+  <ItemDefinitionGroup Condition="'$(UseStaticAtl)'=='true'">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_ATL_STATIC_REGISTRY</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(AtlVersion)' == '21'">%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\sdk\inc\atl21;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(AtlVersion)' == '30'">%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\sdk\inc\atl30;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(AtlVersion)' == '70'">%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\sdk\inc\atlmfc</AdditionalIncludeDirectories>           
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(PUBLIC_ROOT)\internal\sdk\lib\$(PlatformPathNameAlt)</AdditionalLibraryDirectories>
+      <AdditionalDependencies Condition="'$(AtlVersion)' == '70'">%(AdditionalDependencies);atls_nouser32.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);atlthunk.lib</AdditionalDependencies>
+      
+    </Link>
+  </ItemDefinitionGroup>
+</Project>

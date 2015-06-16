@@ -3012,25 +3012,25 @@ namespace UnifiedRegex
             ConcatNode* surrogateRangePairNode = Anew(ctAllocator, ConcatNode, lowerRangeNode, Anew(ctAllocator, ConcatNode, upperRangeNode, nullptr));
 
             // The MatchSet node will be split into [0-D7FFDC00-FFFF] (minus special characters like newline, whitespace, etc.) as a prefix, and a suffix of [D800-DBFF]
-			// i.e. The MatchSet node can be with [0-D7FFDC00-FFFF] (minus special characters like newline, whitespace, etc.) OR [D800-DBFF]
+            // i.e. The MatchSet node can be with [0-D7FFDC00-FFFF] (minus special characters like newline, whitespace, etc.) OR [D800-DBFF]
             MatchSetNode* partialPrefixSetNode = Anew(ctAllocator, MatchSetNode, false, false);
-			switch (cc)
-			{
-			case '.':
-				standardChars->SetNonNewline(ctAllocator, partialPrefixSetNode->set);
-				break;
-			case 'S':
-				standardChars->SetNonWhitespace(ctAllocator, partialPrefixSetNode->set);
-				break;
-			case 'D':
-				standardChars->SetNonDigits(ctAllocator, partialPrefixSetNode->set);
-				break;
-			case 'W':
-				standardChars->SetNonWordChars(ctAllocator, partialPrefixSetNode->set);
-				break;
-			default:
-				AssertMsg(false, "");
-			}
+            switch (cc)
+            {
+            case '.':
+                standardChars->SetNonNewline(ctAllocator, partialPrefixSetNode->set);
+                break;
+            case 'S':
+                standardChars->SetNonWhitespace(ctAllocator, partialPrefixSetNode->set);
+                break;
+            case 'D':
+                standardChars->SetNonDigits(ctAllocator, partialPrefixSetNode->set);
+                break;
+            case 'W':
+                standardChars->SetNonWordChars(ctAllocator, partialPrefixSetNode->set);
+                break;
+            default:
+                AssertMsg(false, "");
+            }
             
             partialPrefixSetNode->set.SubtractRange(ctAllocator, (Char)0xD800u, (Char)0xDBFFu);
 
@@ -3043,23 +3043,23 @@ namespace UnifiedRegex
         else
         {
             MatchSetNode* setNode = Anew(ctAllocator, MatchSetNode, false, false);
-			switch (cc)
-			{
-			case '.':
-				standardChars->SetNonNewline(ctAllocator, setNode->set);
-				break;
-			case 'S':
-				standardChars->SetNonWhitespace(ctAllocator, setNode->set);
-				break;
-			case 'D':
-				standardChars->SetNonDigits(ctAllocator, setNode->set);
-				break;
-			case 'W':
-				standardChars->SetNonWordChars(ctAllocator, setNode->set);
-				break;
-			default:
-				AssertMsg(false, "");
-			}
+            switch (cc)
+            {
+            case '.':
+                standardChars->SetNonNewline(ctAllocator, setNode->set);
+                break;
+            case 'S':
+                standardChars->SetNonWhitespace(ctAllocator, setNode->set);
+                break;
+            case 'D':
+                standardChars->SetNonDigits(ctAllocator, setNode->set);
+                break;
+            case 'W':
+                standardChars->SetNonWordChars(ctAllocator, setNode->set);
+                break;
+            default:
+                AssertMsg(false, "");
+            }
             nodeToReturn = setNode;
         }
         

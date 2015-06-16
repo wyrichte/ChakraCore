@@ -3,7 +3,7 @@
 
   <test>
     <default>
-      <tags>Intl,exclude_dynapogo,exclude_drt</tags>
+      <tags>Intl,exclude_dynapogo,exclude_drt,exclude_nightly</tags>
       <compile-flags>-relbasepath lib\runtime\library\injavascript -bytecodefn Intl</compile-flags>
       <command>ValidateGeneratedByteCode.cmd</command>
       <files>Dummy.js</files>
@@ -183,6 +183,12 @@
       <files>intlProfileAttach.js</files>
       <compile-flags>-targeted -LogLineColumnProfileInfo- -LogProfilerVerbose- -dbgbaseline:emptyJson.dbg.baseline</compile-flags>
       <tags>fail_mutators,exclude_winglob,exclude_serialized</tags>
+    </default>
+  </test>
+    <test>
+    <default>
+      <files>OS_2977448.js</files>
+      <tags>fail_mutators,exclude_winglob,BugFix</tags>
     </default>
   </test>
 </regress-exe>

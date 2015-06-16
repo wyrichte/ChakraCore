@@ -36,10 +36,10 @@ TARGETLIBS=     \
     $(SDK_LIB_PATH)\uuid.lib \
     $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib \
     $(OBJECT_INETCORE_DIR)\lib\codex\iel1\$(O)\codex_iel1.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\common\core\$(JS_LIBTYPE)\$(O)\jscript.common.core.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\common\common\$(JS_LIBTYPE)\$(O)\jscript.common.common.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\common\datastructures\$(JS_LIBTYPE)\$(O)\jscript.common.datastructures.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\runtime\language\$(JS_LIBTYPE)\$(O)\jscript.runtime.language.lib \
+    $(OBJECT_JSCRIPT_DIR)\lib\common\core\$(JS_LIBTYPE)\$(O)\chakra.common.core.lib \
+    $(OBJECT_JSCRIPT_DIR)\lib\common\common\$(JS_LIBTYPE)\$(O)\chakra.common.common.lib \
+    $(OBJECT_JSCRIPT_DIR)\lib\common\datastructures\$(JS_LIBTYPE)\$(O)\chakra.common.datastructures.lib \
+    $(OBJECT_JSCRIPT_DIR)\lib\runtime\language\$(JS_LIBTYPE)\$(O)\Chakra.runtime.language.lib \
 
 DELAYLOAD = \
     api-ms-win-shcore-stream-l1.dll; \

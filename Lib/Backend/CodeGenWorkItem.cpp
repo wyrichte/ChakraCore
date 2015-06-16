@@ -201,7 +201,7 @@ void InMemoryCodeGenWorkItem::RecordNativeCodeSize(Func *func, size_t bytes, ush
 #else
     bool canAllocInPreReservedHeapPageSegment = func->CanAllocInPreReservedHeapPageSegment();
 #endif
-    EmitBufferAllocation *allocation = func->GetEmitBufferManager()->AllocateBuffer(bytes, &buffer, false, pdataCount, xdataSize, canAllocInPreReservedHeapPageSegment);
+    EmitBufferAllocation *allocation = func->GetEmitBufferManager()->AllocateBuffer(bytes, &buffer, false, pdataCount, xdataSize, canAllocInPreReservedHeapPageSegment, true);
 
     Assert(allocation != nullptr);
     if (buffer == nullptr)

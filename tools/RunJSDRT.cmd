@@ -17,7 +17,8 @@ set _runJSRTUnitTests=
 set _runUnitTests=
 set _runJSLSUnitTests=
 set _snap=
-set _drt=-drt
+set _drt=
+set _nightly=
 set _variants=
 set _os=
 set _scriptFullname=%~f0
@@ -75,6 +76,9 @@ set _htmltags=-nottags html
     ) else if /i "%1" == "-drt" (
         set _drt=-drt
         goto :ArgLoop
+    ) else if /i "%1" == "-nightly" (
+        set _nightly=-nightly
+        goto :ArgLoop
     ) else if /i "%1" == "-runProjectionTests" (
         set _runProjectionTests=1
         goto :ArgLoop
@@ -98,6 +102,9 @@ set _htmltags=-nottags html
     ) else if /i "%1" == "-win8" (
         set _os=-win8
         goto :ArgLoop
+    ) else if /i "%1" == "-win10" (
+        set _os=-win10
+        goto :ArgLoop
     ) else if /i "%1" == "-winBlue" (
         set _os=-winBlue
         goto :ArgLoop
@@ -115,6 +122,12 @@ set _htmltags=-nottags html
         goto :Main
     )
     
+    ver | find "10.0"
+    if %errorlevel% == 0 (
+        set _os=-win10
+        echo Detected Windows 10
+        goto :Main
+    )
     ver | find "6.3"
     if %errorlevel% == 0 (
         set _os=-winBlue
@@ -184,6 +197,8 @@ set _htmltags=-nottags html
 :OutputInfo
     echo Executing JS DRT Bucket:
     echo   _snap=%_snap%
+    echo   _drt=%_drt%
+    echo   _nightly=%_nightly%
     echo   _buildArch=%_buildArch%
     echo   _buildType=%_buildType%
     echo   _bucketIndex=%_bucketIndex%
@@ -220,7 +235,7 @@ set _htmltags=-nottags html
         set _tags=-dirtags include_drt%_bucketIndex%
     )
     
-    set _testCmd=%_unittestRoot%\RunAllRLTests.cmd %_snap% %_drt% -platform %_buildArch% -buildType %_buildType% -toolsRoot %_toolsRoot% -binaryRoot %_jscriptRoot% %_variants% %_tags% %_os% %_htmltags%
+    set _testCmd=%_unittestRoot%\RunAllRLTests.cmd %_snap% %_drt% %_nightly% -platform %_buildArch% -buildType %_buildType% -toolsRoot %_toolsRoot% -binaryRoot %_jscriptRoot% %_variants% %_tags% %_os% %_htmltags%
 
     pushd %_unittestRoot%
     echo %_testCmd%

@@ -49,7 +49,9 @@ struct TestHooks
     typedef HRESULT (__stdcall * StartScriptProfilingPtr)(IActiveScriptDirect * scriptDirect, IActiveScriptProfilerCallback *profilerObject, DWORD eventMask, DWORD context);
     typedef HRESULT (__stdcall * StopScriptProfilingPtr)(IActiveScriptDirect * scriptDirect);
     typedef void (__stdcall * DisplayMemStatsPtr)();
-
+#ifdef FAULT_INJECTION
+    typedef unsigned int(__stdcall *GetCurrentFaultInjectionCountPtr)();
+#endif
     DllGetClassObjectPtr pfDllGetClassObject;
     JsVarToScriptDirectPtr pfJsVarToScriptDirect;
     JsVarAddRefPtr pfJsVarAddRef;
@@ -76,7 +78,9 @@ struct TestHooks
     StopScriptProfilingPtr pfStopScriptProfiling;
     DisplayMemStatsPtr pfDisplayMemStats;
     FlushOutputPtr pfFlushOutput;
-
+#ifdef FAULT_INJECTION
+    GetCurrentFaultInjectionCountPtr pfGetCurrentFaultInjectionCount;
+#endif
 #define FLAG(type, name, description, defaultValue, ...) FLAG_##type##(name)
 #define FLAG_String(name) \
     bool (__stdcall *pfIsEnabled##name##Flag)(); \

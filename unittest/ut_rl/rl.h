@@ -89,6 +89,7 @@ typedef enum {
     TO_WIN7,
     TO_WIN8,
     TO_WINBLUE,
+    TO_WIN10,
     TO_WP8,
     TO_ALL
 } TARGET_OS;

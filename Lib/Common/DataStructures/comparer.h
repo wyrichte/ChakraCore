@@ -48,17 +48,10 @@ struct DefaultComparer<T *>
 
     __inline static hash_t GetHashCode(T * i)
     {
-#if WIN64
-// For 64 bits we want all 64 bits of the pointer to be represented in the hash code.
-        uint32 hi = ((UINT_PTR) p >> 32);
-        uint32 lo = (uint32) (p & 0xFFFFFFFF);
-        uint hash = hi ^ lo;
-#else
-// Shifting helps us eliminate any sameness due to our alignment strategy.
-// TODO: This works for Arena memory only. Recycler memory is 16 byte aligned.
-// Find a good universal hash for pointers.
+        // Shifting helps us eliminate any sameness due to our alignment strategy.
+        // TODO: This works for Arena memory only. Recycler memory is 16 byte aligned.
+        // Find a good universal hash for pointers.
         uint hash = (uint)(((size_t)i) >> ArenaAllocator::ObjectAlignmentBitShift);
-#endif
         return hash;
     }
 };
@@ -113,17 +106,10 @@ struct RecyclerPointerComparer
 
     __inline static hash_t GetHashCode(T i)
     {
-#if WIN64
-// For 64 bits we want all 64 bits of the pointer to be represented in the hash code.
-        uint32 hi = ((UINT_PTR) p >> 32);
-        uint32 lo = (uint32) (p & 0xFFFFFFFF);
-        uint hash = hi ^ lo;
-#else
-// Shifting helps us eliminate any sameness due to our alignment strategy.
-// TODO: This works for Recycler memory only. Arena memory is 8 byte aligned.
-// Find a good universal hash for pointers.
+        // Shifting helps us eliminate any sameness due to our alignment strategy.
+        // TODO: This works for Recycler memory only. Arena memory is 8 byte aligned.
+        // Find a good universal hash for pointers.
         uint hash = (uint)(((size_t)i) >> HeapConstants::ObjectAllocationShift);
-#endif
         return hash;
     }
 };

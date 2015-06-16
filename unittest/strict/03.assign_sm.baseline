@@ -8,7 +8,7 @@ Exception: Readonly property
 Exception: Test2_1: Readonly property on global
 Exception: Test2_2: Readonly property on global
 Exception: Test2_3: Readonly property on prototype
-Return: Test2_3_int: Readonly property on Number prototype
+Exception: Test2_3_int: Readonly property on Number prototype
 Exception: Test2_4: Readonly property with index property name
 Exception: Test2_4_arr: Readonly property on array with index property name
 Exception: Test2_4_eval: Readonly property with index property name

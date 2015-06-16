@@ -22,8 +22,6 @@ Recycler::TrackerData Recycler::TrackerData::EmptyData(&typeid(UnallocatedPortio
 Recycler::TrackerData Recycler::TrackerData::ExplicitFreeListObjectData(&typeid(ExplicitFreeListedObject), false);
 #endif
 
-volatile void * StackPinnedBase::global;
-
 enum ETWEventGCActivationKind : unsigned
 {
     ETWEvent_GarbageCollect          = 0,      // force in-thread GC
@@ -7804,7 +7802,7 @@ bool Recycler::ProcessObjectBeforeCollectCallbacks(bool atShutdown/*= false*/)
             if (oldCallbackMap->Count() > this->objectBeforeCollectCallbackMap->Count())
             {
                 // Swap so that oldCallbackMap is the smaller one
-                ObjectBeforeCollectCallbackMap* tmp = oldCallbackMap;
+                ObjectBeforeCollectCallbackMap* tmp = oldCallbackMap.Detach();
                 *&oldCallbackMap = this->objectBeforeCollectCallbackMap;
                 this->objectBeforeCollectCallbackMap = tmp;
             }

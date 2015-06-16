@@ -1,7 +1,7 @@
 TARGETNAME=JScript.Runtime.Telemetry.ESBuiltIns
 TARGETTYPE=LIBRARY
 
-INCLUDES= $(COREINCLUDES);$(COM_INC_PATH);$(SDK_LIB_PATH)\clr45;..\..\..\tools\external\inc
+INCLUDES= $(COREINCLUDES)
 
 SOURCES= \
     ..\ESBuiltInsDatabase.cpp \

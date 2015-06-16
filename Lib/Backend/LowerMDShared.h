@@ -239,8 +239,8 @@ public:
             //
             IR::Instr *         LowerAsmJsCallI(IR::Instr * callInstr);
             IR::Instr *         LowerAsmJsCallE(IR::Instr * callInstr);
-            IR::Instr *         LowerAsmJsLdElemHelper(IR::Instr * callInstr, uint32 mask);
-            IR::Instr *         LowerAsmJsStElemHelper(IR::Instr * callInstr, uint32 mask);
+            IR::Instr *         LowerAsmJsLdElemHelper(IR::Instr * callInstr);
+            IR::Instr *         LowerAsmJsStElemHelper(IR::Instr * callInstr);
             IR::Instr *         LowerCall(IR::Instr * callInstr, Js::ArgSlot argCount);
             IR::Instr *         LowerCallI(IR::Instr * callInstr, ushort callFlags, bool isHelper = false, IR::Instr * insertBeforeInstrForCFG = null);
             IR::Instr *         LowerCallPut(IR::Instr * callInstr);

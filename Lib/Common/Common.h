@@ -521,6 +521,7 @@ using namespace Memory;
 #include "Memory\Recycler.h"
 #include "Memory\RecyclerFastAllocator.h"
 #include "Memory\RecyclerPointers.h"
+#include "util\pinned.h"
 #if DBG
 #include "Memory\StressTest.h"
 #endif

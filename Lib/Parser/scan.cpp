@@ -1953,7 +1953,7 @@ LLoopDefault:
             case _C_NWL: goto LNewLine;
             // All other types (except errors) are handled by the outer switch.
             }
-            Assert(chType == _C_LET ? this->charClassifier->IsIdContinue(ch) : chType == _C_ERR || chType == _C_UNK || chType == _C_BKQ || chType == _C_SHP || chType == _C_AT || chType == _C_DIG);
+            Assert(chType == _C_LET || chType == _C_ERR || chType == _C_UNK || chType == _C_BKQ || chType == _C_SHP || chType == _C_AT || chType == _C_DIG);
             if (m_fSyntaxColor)
             {
                 // No need to decrement the current position pointer as scanner will continue with scan next character onwards

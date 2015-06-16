@@ -752,7 +752,8 @@ JDByteCode::DumpForFunctionBody(ExtRemoteTyped funcBody)
     this->hasFunctionBody = true;
     this->functionBody = funcBody;
     this->propertyNameReader = new EXT_CLASS_BASE::PropertyNameReader(ext, RemoteFunctionBody(funcBody).GetThreadContext());
-        
+    RemoteFunctionBody(funcBody).PrintNameAndNumberWithLink(ext);
+    ext->Out("\n");
     if (dumpProbeBackingBlock)
     {
         ExtRemoteTyped probeBackingBlock = this->functionBody.GetProbeBackingStore();
@@ -826,7 +827,7 @@ JD_PRIVATE_COMMAND(bc,
     PCSTR arg = GetUnnamedArgStr(0);
     ExtRemoteTyped input = ExtRemoteTyped(arg);
     JDByteCode jdbytecode(this, dumpProbeBackingBlock, verbose);
-    char * inputType = input.GetTypeName();
+    PCSTR inputType = input.GetTypeName();
     if (strcmp(inputType, "int") == 0 || strcmp(inputType, "int64") == 0)
     {
         // Just an address
@@ -834,14 +835,7 @@ JD_PRIVATE_COMMAND(bc,
     }
     else
     {
-        if (strncmp(inputType, "struct ", 7) == 0)
-        {
-            inputType += 7;
-        }
-        else if (strncmp(inputType, "class ", 6) == 0)
-        {
-            inputType += 6;
-        }
+        inputType = JDUtil::StripStructClass(inputType);        
         if (strcmp(inputType, "Js::FunctionBody") == 0 || strcmp(inputType, "Js::FunctionBody *") == 0)
         {
             jdbytecode.DumpForFunctionBody(input);

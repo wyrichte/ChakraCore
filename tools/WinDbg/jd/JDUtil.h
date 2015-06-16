@@ -29,12 +29,36 @@ public:
             return value.Field("ptr");
         }
         if (strncmp(value.GetTypeName(), "class NoWriteBarrierPtr<", _countof("class NoWriteBarrierPtr<") - 1) == 0
-          || strncmp(value.GetTypeName(), "class Memory::NoWriteBarrierPtr<", _countof("class Memory::NoWriteBarrierPtr<") - 1) == 0)
+          || strncmp(value.GetTypeName(), "class Memory::NoWriteBarrierPtr<", _countof("class Memory::NoWriteBarrierPtr<") - 1) == 0
+          || strncmp(value.GetTypeName(), "class NoWriteBarrierField<", _countof("class NoWriteBarrierField<") - 1) == 0
+          || strncmp(value.GetTypeName(), "class Memory::NoWriteBarrierField<", _countof("class Memory::NoWriteBarrierField<") - 1) == 0)
         {
             return value.Field("value");
         }
         return value;
     }   
+    
+    static PCSTR StripStructClass(PCSTR name)
+    {
+        if (strncmp(name, "struct ", 7) == 0)
+        {
+            return name + 7;
+        }
+        else if (strncmp(name, "class ", 6) == 0)
+        {
+            return name + 6;
+        }
+        return name;
+    }
+    static PCSTR StripModuleName(PCSTR name)
+    {
+        PCSTR n = strchr(name, '!');
+        if (n == nullptr)
+        {
+            return name;
+        }
+        return n + 1;
+    }
 };
 
 #define ENUM_EQUAL(e, n) (strncmp(e, #n, _countof(#n) - 1) == 0)

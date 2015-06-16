@@ -137,6 +137,7 @@ public:
         blockCount(0),
         tailBlock(null),
         loopList(null),
+        catchLabelStack(nullptr),
         hasBackwardPassInfo(false),
         hasLoop(false),
         implicitCallFlags(Js::ImplicitCall_HasNoInfo)
@@ -171,12 +172,13 @@ public:
 #endif
 
     JitArenaAllocator *       alloc;
-    BasicBlock *           blockList;
-    BasicBlock *           tailBlock;
-    Loop *                 loopList;
-    bool                   hasBackwardPassInfo;
-    bool                   hasLoop;
-    Js::ImplicitCallFlags  implicitCallFlags;
+    BasicBlock *              blockList;
+    BasicBlock *              tailBlock;
+    Loop *                    loopList;
+    SList<IR::LabelInstr*> *  catchLabelStack;
+    bool                      hasBackwardPassInfo;
+    bool                      hasLoop;
+    Js::ImplicitCallFlags     implicitCallFlags;
 private:
     void        FindLoops(void);
     bool        CanonicalizeLoops(void);

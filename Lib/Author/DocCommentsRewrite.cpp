@@ -15,7 +15,7 @@ namespace Authoring
         ASTHelpers::List::ForEach(pnodeObject->sxUni.pnode1, [&](ParseNode *pnodeMember)
         {
             // skip getters and setters
-            if (pnodeMember->nop == knopMember)
+            if (pnodeMember->nop == knopMember || pnodeMember->nop == knopMemberShort)
             {
                 if (includeComputedProperties && pnodeMember->sxBin.pnode1->nop == knopComputedName)
                 {
@@ -808,7 +808,7 @@ namespace Authoring
         bool anyValueProperty = false;
         ASTHelpers::List::Traverse(object->sxUni.pnode1, [&](ParseNode *node) -> bool
         {
-            if (node->nop == knopMember && IsNameNode(node->sxBin.pnode1))
+            if ((node->nop == knopMember || node->nop == knopMemberShort) && IsNameNode(node->sxBin.pnode1))
             {
                 auto name = node->sxBin.pnode1->sxPid.pid;
                 if(name == pids->enumerable() || name == pids->configurable() || name == pids->writable()) anyFlagProperty = true;
@@ -1181,7 +1181,7 @@ namespace Authoring
         for (int i = 0; i < allClassChildren.Count(); i++)
         {
             ParseNode * currentNode = allClassChildren.Item(i);
-            if (currentNode->nop == knopMember
+            if ((currentNode->nop == knopMember || currentNode->nop == knopMemberShort)
                 && currentNode->sxBin.pnode2
                 && currentNode->sxBin.pnode2->nop == knopFncDecl)
             {

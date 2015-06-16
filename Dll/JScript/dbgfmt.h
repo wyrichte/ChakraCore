@@ -8,28 +8,28 @@
 
 
 /***************************************************************************
-	Formatter
+    Formatter
 ***************************************************************************/
 class ComDebugFormatter sealed : public IDebugFormatter
-	{
-	DECLARE_IUNKNOWN()
+    {
+    DECLARE_IUNKNOWN()
 
 protected:
-	long m_cref;
+    long m_cref;
 	
 protected:	
-	ComDebugFormatter(void);
-	~ComDebugFormatter(void);
+    ComDebugFormatter(void);
+    ~ComDebugFormatter(void);
 	
 public:
     // === ComDebugFormatter ===
-	static HRESULT Create(ComDebugFormatter **ppdf);
+    static HRESULT Create(ComDebugFormatter **ppdf);
 	
     // === IDebugFormatter ===
-	STDMETHOD(GetStringForVariant)(VARIANT *pvarIn, ULONG ulRadix, BSTR *pbstr);
-	STDMETHOD(GetVariantForString)(LPCOLESTR bstrValue, VARIANT *pvar);
-	STDMETHOD(GetStringForVarType)(VARTYPE vt, TYPEDESC *ptd, BSTR *pbstr);
-	};
+    STDMETHOD(GetStringForVariant)(VARIANT *pvarIn, ULONG ulRadix, BSTR *pbstr);
+    STDMETHOD(GetVariantForString)(LPCOLESTR bstrValue, VARIANT *pvar);
+    STDMETHOD(GetStringForVarType)(VARTYPE vt, TYPEDESC *ptd, BSTR *pbstr);
+    };
 
 
 #endif // DBGFMT_H

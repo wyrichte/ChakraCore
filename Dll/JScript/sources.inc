@@ -99,9 +99,11 @@ EDIT_AND_CONTINUE_SOURCES = \
 # NON_LANGUAGE_SERVICE_SOURCES is appended in release/test sources
 NON_LANGUAGE_SERVICE_SOURCES = \
         ..\jsrt.cpp \
+        ..\JsrtShared.cpp \
         ..\JsrtContext.cpp \
         ..\JsrtDelegateWrapper.cpp \
         ..\JsrtRuntime.cpp \
+        ..\JsrtThreadService.cpp \
 
 SOURCES= \
         ..\activeScriptError.cpp \
@@ -167,6 +169,7 @@ SOURCES= \
         ..\StreamReader.cpp \
         ..\StreamWriter.cpp \
         ..\TestHooks.cpp \
+        ..\ThreadServiceWrapperBase.cpp \
         ..\typeinfobuilder.cpp \
         ..\DynamicSourceHolder.cpp \
         $(PROJECTION_SOURCES) \

@@ -282,9 +282,11 @@ namespace Js
 
     inline JavascriptSymbol* JavascriptLibrary::CreateSymbol(const wchar_t* description, int descriptionLength)
     {
-        DECLARE_STACK_PINNED(const Js::PropertyRecord, propertyRecord);
+        ENTER_PINNED_SCOPE(const Js::PropertyRecord, propertyRecord);
 
         propertyRecord = this->scriptContext->GetThreadContext()->UncheckedAddPropertyId(description, descriptionLength, /*bind*/false, /*isSymbol*/true);
+
+        LEAVE_PINNED_SCOPE();
 
         return this->CreateSymbol(propertyRecord);
     }
@@ -894,8 +896,8 @@ namespace Js
         return AddFunctionToLibraryObject(object, scriptContext->GetOrAddPropertyIdTracked(propertyName), functionInfo, length);
     }
 
-	inline bool JavascriptLibrary::IsCopyOnAccessArrayCallSite(JavascriptLibrary *lib, ArrayCallSiteInfo *arrayInfo, uint32 length)
-	{
+    inline bool JavascriptLibrary::IsCopyOnAccessArrayCallSite(JavascriptLibrary *lib, ArrayCallSiteInfo *arrayInfo, uint32 length)
+    {
         return
             lib->cacheForCopyOnAccessArraySegments
             && lib->cacheForCopyOnAccessArraySegments->IsNotOverHardLimit()
@@ -911,8 +913,8 @@ namespace Js
             );
     }
 
-	inline bool JavascriptLibrary::IsCachedCopyOnAccessArrayCallSite(const JavascriptLibrary *lib, ArrayCallSiteInfo *arrayInfo)
-	{
+    inline bool JavascriptLibrary::IsCachedCopyOnAccessArrayCallSite(const JavascriptLibrary *lib, ArrayCallSiteInfo *arrayInfo)
+    {
         return lib->cacheForCopyOnAccessArraySegments
             && lib->cacheForCopyOnAccessArraySegments->IsValidIndex(arrayInfo->copyOnAccessArrayCacheIndex);
     }

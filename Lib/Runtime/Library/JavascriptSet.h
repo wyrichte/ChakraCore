@@ -51,6 +51,7 @@ namespace Js
             static FunctionInfo SizeGetter;
             static FunctionInfo Entries;
             static FunctionInfo Values;
+            static FunctionInfo GetterSymbolSpecies;
         };
         static Var NewInstance(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryAdd(RecyclableObject* function, CallInfo callInfo, ...);
@@ -61,5 +62,6 @@ namespace Js
         static Var EntrySizeGetter(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryEntries(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryValues(RecyclableObject* function, CallInfo callInfo, ...);
+        static Var EntryGetterSymbolSpecies(RecyclableObject* function, CallInfo callInfo, ...);
     };
 }

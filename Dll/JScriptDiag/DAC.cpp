@@ -382,43 +382,43 @@ namespace JsDiag
         return true;
     }
 
-	uint16 RemoteBoundFunction::GetLength(InspectionContext* context, PROPERTY_INFO* propInfo) {
-		Assert(context);
-		auto reader = context->GetReader();
+    uint16 RemoteBoundFunction::GetLength(InspectionContext* context, PROPERTY_INFO* propInfo) {
+        Assert(context);
+        auto reader = context->GetReader();
 
-		RecyclableObject* targetFunction = this->ToTargetPtr()->targetFunction;
-		Assert(targetFunction);
+        RecyclableObject* targetFunction = this->ToTargetPtr()->targetFunction;
+        Assert(targetFunction);
 		
-		RemoteJavascriptFunction remoteTargetFunction = RemoteJavascriptFunction(reader, static_cast<const JavascriptFunction*>(targetFunction));
+        RemoteJavascriptFunction remoteTargetFunction = RemoteJavascriptFunction(reader, static_cast<const JavascriptFunction*>(targetFunction));
 
-		if (remoteTargetFunction.IsBoundFunction(context))
-		{
-			RemoteBoundFunction remoteBoundFunction = RemoteBoundFunction(reader, static_cast<const BoundFunction*>(targetFunction));
-			return remoteBoundFunction.GetLength(context, propInfo);
-		} 
-		else if (remoteTargetFunction.IsScriptFunction())
-		{
-			return remoteTargetFunction.GetLength();
-		}
-		else
-		{
-			// It's a runtime function
-			if (!context->GetProperty((Js::Var)targetFunction, Js::PropertyIds::length, propInfo)) 
-			{
-				DiagException::Throw(E_UNEXPECTED, DiagErrorCode::RUNTIME_GETPROPERTY);
-			}
+        if (remoteTargetFunction.IsBoundFunction(context))
+        {
+            RemoteBoundFunction remoteBoundFunction = RemoteBoundFunction(reader, static_cast<const BoundFunction*>(targetFunction));
+            return remoteBoundFunction.GetLength(context, propInfo);
+        } 
+        else if (remoteTargetFunction.IsScriptFunction())
+        {
+            return remoteTargetFunction.GetLength();
+        }
+        else
+        {
+            // It's a runtime function
+            if (!context->GetProperty((Js::Var)targetFunction, Js::PropertyIds::length, propInfo)) 
+            {
+                DiagException::Throw(E_UNEXPECTED, DiagErrorCode::RUNTIME_GETPROPERTY);
+            }
 													
-			return TARGETS_RUNTIME_FUNCTION;
-		}
-	}
+            return TARGETS_RUNTIME_FUNCTION;
+        }
+    }
 	
     uint16 RemoteJavascriptFunction::GetLength()
     {
-		FunctionBody* functionBodyAddr = GetFunction();
-		Assert(functionBodyAddr != nullptr); // This is a script function, so the body will be there.
+        FunctionBody* functionBodyAddr = GetFunction();
+        Assert(functionBodyAddr != nullptr); // This is a script function, so the body will be there.
 		
-		RemoteFunctionBody functionBody(m_reader, functionBodyAddr);
-		return functionBody->GetInParamsCount() - 1;
+        RemoteFunctionBody functionBody(m_reader, functionBodyAddr);
+        return functionBody->GetInParamsCount() - 1;
     }
 
     bool RemoteJavascriptFunction::IsStrictMode() const
@@ -817,18 +817,69 @@ namespace JsDiag
         return this->GetFieldAddr<EmitBufferManager<CriticalSection>>(offsetof(CodeGenAllocators, emitBufferManager));
     }
 
+    bool RemotePreReservedVirtualAllocWrapper::IsPreReservedRegionPresent()
+    {
+        return this->GetPreReservedStartAddress() != nullptr;
+    }
+
+    LPVOID RemotePreReservedVirtualAllocWrapper::GetPreReservedStartAddress()
+    {
+        return this->ReadField<LPVOID>(offsetof(TargetType, preReservedStartAddress)); 
+    }
+
+    LPVOID  RemotePreReservedVirtualAllocWrapper::GetPreReservedEndAddress()
+    {
+        return (char*) GetPreReservedStartAddress() + (PreReservedVirtualAllocWrapper::PreReservedAllocationSegmentCount * AutoSystemInfo::Data.GetAllocationGranularityPageCount() * AutoSystemInfo::PageSize);
+    }
+
+    bool RemotePreReservedVirtualAllocWrapper::IsInRange(void * address)
+    {
+        if (this->GetRemoteAddr() == nullptr || this->GetPreReservedStartAddress() == nullptr)
+        {
+            return false;
+        }
+#if DBG
+        //Check if the region is in MEM_COMMIT state.
+        MEMORY_BASIC_INFORMATION memBasicInfo;
+        size_t bytes = VirtualQuery(address, &memBasicInfo, sizeof(memBasicInfo));
+        if (bytes == 0 || memBasicInfo.State != MEM_COMMIT)
+        {
+            AssertMsg(false, "Memory not commited? Checking for uncommitted address region?");
+        }
+#endif
+        return IsPreReservedRegionPresent() && address >= GetPreReservedStartAddress() && address < GetPreReservedEndAddress();
+    }
+
     bool RemoteCodeGenAllocators::IsInRange(void* address)
     {
         RemoteEmitBufferManager emitBufferManager(m_reader, this->GetEmitBufferManager());
         RemoteHeap heap(m_reader, emitBufferManager.GetAllocationHeap());
         RemoteHeapPageAllocator heapPageAllocator(m_reader, heap.GetHeapPageAllocator());
-        RemoteHeapPageAllocator preReservedHeapPageAllocator(m_reader, (HeapPageAllocator<>*)heap.GetPreReservedHeapPageAllocator());
-        return heapPageAllocator.IsAddressFromAllocator(address) || preReservedHeapPageAllocator.IsAddressFromAllocator(address);
+        RemotePreReservedHeapPageAllocator preReservedHeapPageAllocator(m_reader, (HeapPageAllocator<PreReservedVirtualAllocWrapper>*)heap.GetPreReservedHeapPageAllocator());
+        return preReservedHeapPageAllocator.IsInRange(address) || heapPageAllocator.IsAddressFromAllocator(address);
     }
 
     // Check current script context and all contexts from its thread context.
     bool RemoteScriptContext::IsNativeAddress(void* address)
     {
+        RemoteThreadContext threadContext(m_reader, this->ToTargetPtr()->threadContext);
+
+        PreReservedVirtualAllocWrapper * preReservedVirtualAllocator = threadContext.GetPreReservedVirtualAllocator();
+
+        RemotePreReservedVirtualAllocWrapper preReservedVirtualAllocWrapper(m_reader, preReservedVirtualAllocator);
+
+        if (preReservedVirtualAllocWrapper.IsPreReservedRegionPresent())
+        {
+            if (preReservedVirtualAllocWrapper.IsInRange(address))
+            {
+                return true;
+            }
+            else if (threadContext.IsAllJITCodeInPreReservedRegion())
+            {
+                return false;
+            }
+        }
+
         // ScriptContext::IsNativeAddress():
         //     return IsNativeFunctionAddr(this, codeAddr) || this->threadContext->IsNativeAddress(codeAddr);
         // 1) return scriptContext->GetNativeCodeGenerator()->IsNativeFunctionAddr(address);

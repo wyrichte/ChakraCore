@@ -4141,7 +4141,7 @@ RecoverFromERRnoMemberIdent:
                     PidRefStack *ref = this->FindOrAddPidRef(pidHint, blockInfo->pnodeBlock->sxBlock.blockId);
                     pnodeIdent->sxPid.SetSymRef(ref);
 
-                    pnodeArg = CreateBinNode(knopMember, pnodeName, pnodeIdent);
+                    pnodeArg = CreateBinNode(knopMemberShort, pnodeName, pnodeIdent);
                 }
             }
             else
@@ -11771,7 +11771,7 @@ ParseNode* Parser::CopyPnode(ParseNode *pnode) {
   case knopAsgRs2:
       //PTNODE(knopMember     , ":"            ,None    ,Bin  ,fnopBin)
   case knopMember:
-
+  case knopMemberShort:
       //PTNODE(knopIndex      , "[]"        ,None    ,Bin  ,fnopBin)
       //PTNODE(knopList       , "<list>"    ,None    ,Bin  ,fnopNone)
 
@@ -12764,6 +12764,7 @@ void PrintPnodeWIndent(ParseNode *pnode,int indentAmt) {
       break;
       //PTNODE(knopMember     , ":"            ,None    ,Bin  ,fnopBin)
   case knopMember:
+  case knopMemberShort:
       Indent(indentAmt);
       Output::Print(L":\n");
       PrintPnodeWIndent(pnode->sxBin.pnode1,indentAmt+INDENT_SIZE);

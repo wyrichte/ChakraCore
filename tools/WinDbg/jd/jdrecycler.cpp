@@ -1065,7 +1065,7 @@ JD_PRIVATE_COMMAND(gcstats,
 
 void EXT_CLASS_BASE::DumpBlock(ExtRemoteTyped block, LPCSTR desc, LPCSTR sizeField, int index)
 {
-    ULONG64 sizeOfBigBlock = this->EvalExprU64(this->FillMemoryNS("@@c++(sizeof(%sBigBlock))"));
+    ULONG64 sizeOfBigBlock = this->EvalExprU64(this->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sBigBlock))"));
     // ULONG sizeOfBigBlockPtr = (ULONG) this->EvalExprU64("@@c++(sizeof(BigBlock*))");
     ULONG64 ptrBlock = block.GetPtr();
     ULONG64 length = block.Field(sizeField).GetUlong64();
@@ -1100,7 +1100,7 @@ void HeapBlockHelper::DumpObjectInfoBits(unsigned char info )
     if (info & ObjectInfoBits::ClientTrackedBit) ext->Out(" ClientTrackedBit ");
     if (info & ObjectInfoBits::TraceBit) ext->Out(" TraceBit ");
 
-    ext->Out(")\n");
+    ext->Out(L")");
 }
 
 uint HeapBlockHelper::GetObjectAlignmentMask()
@@ -1148,13 +1148,19 @@ ushort HeapBlockHelper::GetAddressSmallHeapBlockBitIndex(ULONG64 objectAddress)
     return offset;
 }
 
-void HeapBlockHelper::DumpLargeHeapBlockObject(ExtRemoteTyped& heapBlockObject, ULONG64 objectAddress, ULONG cookie)
+void HeapBlockHelper::DumpLargeHeapBlockObject(ExtRemoteTyped& heapBlockObject, ULONG64 objectAddress, bool verbose)
 {
+    ULONG cookie = 0;
+    if (recycler.HasField("Cookie"))
+    {
+        cookie = recycler.Field("Cookie").GetUlong();
+    }
+
     ULONG64 heapBlock = heapBlockObject.GetPtr();
     ULONG64 blockAddress = heapBlockObject.Field("address").GetPtr();
 
-    ULONG64 sizeOfHeapBlock = ext->EvalExprU64(ext->FillMemoryNS("@@c++(sizeof(%sLargeHeapBlock))"));
-    ULONG64 sizeOfObjectHeader = ext->EvalExprU64(ext->FillMemoryNS("@@c++(sizeof(%sLargeObjectHeader))"));
+    ULONG64 sizeOfHeapBlock = ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeHeapBlock))"));
+    ULONG64 sizeOfObjectHeader = ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
 
     ULONG64 headerAddress = objectAddress - sizeOfObjectHeader;
 
@@ -1212,7 +1218,7 @@ void HeapBlockHelper::DumpLargeHeapBlockObject(ExtRemoteTyped& heapBlockObject, 
     ExtRemoteData heapObjectData(heapObject.address, this->ext->m_PtrSize);
     heapObject.vtable = heapObjectData.GetPtr();
 
-    DumpHeapObject(heapObject);
+    DumpHeapObject(heapObject, verbose);
 }
 
 void HeapBlockHelper::DumpHeapBlockLink(ULONG64 heapBlockType, ULONG64 heapBlock)
@@ -1260,17 +1266,34 @@ void HeapBlockHelper::DumpHeapBlockLink(ULONG64 heapBlockType, ULONG64 heapBlock
     }
 }
 
-void HeapBlockHelper::DumpHeapObject(const HeapObject& heapObject)
+void HeapBlockHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose)
 {
-    // DumpHeapBlockLink(heapObject.heapBlockType, heapObject.heapBlock);
+    // DumpHeapBlockLink(heapObject.heapBlockType, heapObject.heapBlock);        
+    
+    ext->Out(L"Object: ");
+    std::string className = ext->GetTypeNameFromVTable(heapObject.vtable);       
+        
+    if (!className.empty())
+    {           
+        ext->Dml("<link cmd=\"dt %s 0x%p\">0x%p</link>", className.c_str(), heapObject.address, heapObject.address);
+    }
+    else
+    {
+        ext->Out(L"0x%p ", heapObject.address);
+    }
+    
+    ext->Out(L" (Symbol @ 0x%p: ", heapObject.vtable); 
+    ext->m_Symbols3->OutputSymbolByOffset(DEBUG_OUTCTL_AMBIENT, DEBUG_OUTSYM_ALLOW_DISPLACEMENT, heapObject.vtable); 
+    ext->Out(")");    
+
+    ext->Out("\n");
+    ext->Out(L"Object size: 0x%x\n", heapObject.objectSize);
+
+    DumpObjectInfoBits(heapObject.objectInfoBits);
+    ext->Out(" @0x%p\n", heapObject.objectInfoAddress);
 
     ext->Out("Object index: %d\n", heapObject.index);
-    ext->Out("Location of objectinfo: 0x%p\n", heapObject.objectInfoAddress);
-    DumpObjectInfoBits(heapObject.objectInfoBits);
-    ext->Out("ObjectSize: 0x%x\n", heapObject.objectSize);
-    ext->Out(L"Address is 0x%p\n", heapObject.address);
-    ext->Out(L"Possible symbol for 0x%p: ", heapObject.vtable); ext->m_Symbols3->OutputSymbolByOffset(DEBUG_OUTCTL_AMBIENT, DEBUG_OUTSYM_ALLOW_DISPLACEMENT, heapObject.vtable); ext->Out("\n");
-
+    
     if (heapObject.heapBlockType == ext->enum_SmallLeafBlockType()
         || heapObject.heapBlockType == ext->enum_SmallNormalBlockType()
 #ifdef RECYCLER_WRITE_BARRIER
@@ -1281,16 +1304,29 @@ void HeapBlockHelper::DumpHeapObject(const HeapObject& heapObject)
         ext->Out(L"Address bit index: %d\n", heapObject.addressBitIndex);
     }
 
-    ext->Out("IsFree: %d (", heapObject.isFreeSet);
-    ext->Dml("<link cmd=\"ba w1 0x%p\">Set Breakpoint</link>", heapObject.freeBitWord);
-    ext->Out(")\n");
+    if (verbose)
+    {
+        ext->Out("FreeBit: %d", heapObject.isFreeSet);
+        if (!ext->IsMinidumpDebugging())
+        {
+            ext->Out(" (");
+            ext->Dml("<link cmd=\"ba w1 0x%p\">Set Breakpoint</link>", heapObject.freeBitWord);
+            ext->Out(")");
+        }
+        ext->Out("\n");
 
-    ext->Out("IsMarked: %d (", heapObject.isMarkSet);
-    ext->Dml("<link cmd=\"ba w1 0x%p\">Set Breakpoint</link>", heapObject.markBitWord);
-    ext->Out(")\n");
+        ext->Out("MarkBit: %d", heapObject.isMarkSet);
+        if (!ext->IsMinidumpDebugging())
+        {
+            ext->Out(" (");
+            ext->Dml("<link cmd=\"ba w1 0x%p\">Set Breakpoint</link>", heapObject.markBitWord);
+            ext->Out(")");
+        }
+        ext->Out("\n");
+    }
 }
 
-void HeapBlockHelper::DumpSmallHeapBlockObject(ExtRemoteTyped& heapBlockObject, ULONG64 objectAddress)
+void HeapBlockHelper::DumpSmallHeapBlockObject(ExtRemoteTyped& heapBlockObject, ULONG64 objectAddress, bool verbose)
 {
     ULONG64 heapBlock = heapBlockObject.GetPtr();
 
@@ -1325,7 +1361,7 @@ void HeapBlockHelper::DumpSmallHeapBlockObject(ExtRemoteTyped& heapBlockObject, 
 
         ExtRemoteData objectInfo(heapObject.objectInfoAddress, 1);
         heapObject.objectInfoBits = objectInfo.GetChar();
-        DumpHeapObject(heapObject);
+        DumpHeapObject(heapObject, verbose);
     }
     else
     {
@@ -1926,7 +1962,7 @@ JD_PRIVATE_COMMAND(swb,
             return;
         }
 
-        ExtRemoteTyped cardTable = ExtRemoteTyped(FillModuleAndMemoryNS("%s!RecyclerWriteBarrierManager::cardTable"));
+        ExtRemoteTyped cardTable = ExtRemoteTyped(FillModuleAndMemoryNS("%s!%sRecyclerWriteBarrierManager::cardTable"));
         ULONG64 bytesPerCardOffset = 0;
 
         if (FAILED(this->m_Symbols->GetOffsetByName(FillModuleAndMemoryNS("%s!%sRecyclerWriteBarrierManager::s_BytesPerCard"), &bytesPerCardOffset)))
@@ -2026,8 +2062,8 @@ struct ArenaAllocatorData
 
 void AccumulateArenaAllocatorData(ExtRemoteTyped arenaAllocator, ArenaAllocatorData& data)
 {
-    ULONG64 sizeofBigBlockHeader = GetExtension()->EvalExprU64(GetExtension()->FillMemoryNS("@@c++(sizeof(%sBigBlock))"));
-    ULONG64 sizeofArenaMemoryBlockHeader = GetExtension()->EvalExprU64(GetExtension()->FillMemoryNS("@@c++(sizeof(%sArenaMemoryBlock))"));
+    ULONG64 sizeofBigBlockHeader = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sBigBlock))"));
+    ULONG64 sizeofArenaMemoryBlockHeader = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sArenaMemoryBlock))"));
     auto arenaMemoryBlockFn = [&](ExtRemoteTyped mallocBlock)
     {
         data.overheadSize += sizeofArenaMemoryBlockHeader;
@@ -2602,24 +2638,9 @@ MPH_COMMAND(mpheap,
             {
                 return;
             }
-
-            static std::map<ULONG64, Addresses> rootPointersMap;
-            Addresses rootPointers;
-            if (rootPointersMap.find(recycler.GetPtr()) != rootPointersMap.end())
-            {
-                rootPointers = rootPointersMap[recycler.GetPtr()];
-            }
-            else
-            {
-                // cache roots when doing dump debugging
-                rootPointers = ComputeRoots(this, recycler, nullptr, false);
-                if (this->IsMinidumpDebugging())
-                {
-                    rootPointersMap[recycler.GetPtr()] = rootPointers;
-                }
-            }
-
-            rootPointers.Map([this, &recycler, &verbose, &address](ULONG64 rootAddress)
+            
+            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, nullptr);
+            rootPointers->Map([this, &recycler, &verbose, &address](ULONG64 rootAddress)
             {
                 this->ThrowInterrupt();
                 auto info = GetObjectInfo(rootAddress, recycler, this);

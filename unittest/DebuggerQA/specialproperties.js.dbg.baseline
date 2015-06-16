@@ -386,6 +386,7 @@
   {
     "evaluate": {
       "f": {
+        "[Methods]": "{...}",
         "__proto__": "\nfunction() {\n    [native code]\n}\n",
         "arguments": "null",
         "caller": "null",
@@ -403,6 +404,7 @@
   {
     "evaluate": {
       "f": {
+        "[Methods]": "{...}",
         "__proto__": "\nfunction() {\n    [native code]\n}\n",
         "arguments": "null",
         "caller": "null",

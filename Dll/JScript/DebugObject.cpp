@@ -198,7 +198,7 @@ Js::Var DebugObject::EntryGetterFaultInjectionCookie(Js::RecyclableObject* funct
     PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
     ARGUMENTS(args, callInfo);    
 
-	int cookie = 0;
+    int cookie = 0;
 
 #ifdef FAULT_INJECTION // no action for free test build because faultinjection is not enabled in fretest build
 
@@ -215,11 +215,11 @@ Js::Var DebugObject::EntryGetterFaultInjectionCookie(Js::RecyclableObject* funct
         Js::Throw::OutOfMemory();
     });
 
-	cookie = Js::FaultInjection::Global.FaultInjectionCookie;
+    cookie = Js::FaultInjection::Global.FaultInjectionCookie;
 
 #endif 
 
-	return Js::TaggedInt::ToVarUnchecked(cookie);
+    return Js::TaggedInt::ToVarUnchecked(cookie);
 }
 
 Js::Var DebugObject::EntrySetterFaultInjectionCookie(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
@@ -232,9 +232,9 @@ Js::Var DebugObject::EntrySetterFaultInjectionCookie(Js::RecyclableObject* funct
     if (args.Info.Count >= 2)
     {
 #ifdef FAULT_INJECTION // no action for free test build because faultinjection is not enabled in fretest build
-		Js::FaultInjection::Global.FaultInjectionCookie = Js::JavascriptConversion::ToInt32(args[1], scriptContext);
+        Js::FaultInjection::Global.FaultInjectionCookie = Js::JavascriptConversion::ToInt32(args[1], scriptContext);
 #endif 
-		return args[1];
+        return args[1];
     }
 
     return scriptContext->GetLibrary()->GetUndefined();    
@@ -695,7 +695,7 @@ Js::Var DebugObject::EntryGetTypeHandlerName(Js::RecyclableObject* function, Js:
 
 Js::Var DebugObject::EntryGetArrayType(Js::RecyclableObject* function, Js::CallInfo callInfo, ...) 
 {
-	PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
+    PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
     Assert(!(callInfo.Flags & CallFlags_New));
 
     ARGUMENTS(args, callInfo);
@@ -894,7 +894,7 @@ Js::Var DebugObject::EntryEmitStackTraceEvent(Js::RecyclableObject* function, Js
 //   addFTLProperty(obj, propertyName, index, initValue);
 Js::Var DebugObject::EntryAddFTLProperty(Js::RecyclableObject* function, Js::CallInfo callInfo, ...) 
 {
-	PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
+    PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
     Assert(!(callInfo.Flags & CallFlags_New));
 
     ARGUMENTS(args, callInfo);
@@ -1317,13 +1317,13 @@ Js::Var DebugObject::DetachAndFreeObject(Js::RecyclableObject* function, Js::Cal
     BYTE* outBuffer = nullptr;
     UINT outBufferLength = 0;
     TypedArrayBufferAllocationType outAllocationType;
-	HRESULT hr;
+    HRESULT hr;
 
-	BEGIN_LEAVE_SCRIPT(scriptContext) 
-	{
-		hr = scriptEngine->DetachTypedArrayBuffer(args.Values[1], &outBuffer, &outBufferLength, &outAllocationType, nullptr, nullptr);
-	}
-	END_LEAVE_SCRIPT(scriptContext);
+    BEGIN_LEAVE_SCRIPT(scriptContext) 
+    {
+        hr = scriptEngine->DetachTypedArrayBuffer(args.Values[1], &outBuffer, &outBufferLength, &outAllocationType, nullptr, nullptr);
+    }
+    END_LEAVE_SCRIPT(scriptContext);
 
     if (FAILED(hr))
     {

@@ -19,6 +19,14 @@
     <ClCompile Include="..\..\..\Dll\JScriptDiag\ScriptDump.cpp" />
     <ClCompile Include="..\..\..\Dll\JScriptDiag\Serializer.cpp" />
     <ClCompile Include="..\..\..\Dll\JScriptDiag\thrownew.cpp" />
+    <ClCompile Include="RecyclerCachedData.cpp" />
+    <ClCompile Include="RemoteInterpreterStackFrame.cpp" />
+    <ClCompile Include="RemoteFunctionBody.cpp" />
+    <ClCompile Include="RemoteScriptFunction.cpp" />
+    <ClCompile Include="jdfunctionbody.cpp" />
+    <ClCompile Include="RemoteFunctionInfo.cpp" />
+    <ClCompile Include="RemoteRecyclableObject.cpp" />
+    <ClCompile Include="RemoteJavascriptFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Exe\jshost\ComObject.h" />
@@ -44,6 +52,12 @@
     <ClInclude Include="..\..\..\Dll\JScriptDiag\Serializer.h" />
     <ClInclude Include="..\..\..\Dll\JScriptDiag\Serializer.inl" />
     <ClInclude Include="..\..\..\Dll\JScriptDiag\thrownew.h" />
+    <ClInclude Include="RecyclerCachedData.h" />
+    <ClInclude Include="RemoteInterpreterStackFrame.h" />
+    <ClInclude Include="RemoteScriptFunction.h" />
+    <ClInclude Include="RemoteFunctionInfo.h" />
+    <ClInclude Include="RemoteRecyclableObject.h" />
+    <ClInclude Include="RemoteJavascriptFunction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="private\jd.def" />

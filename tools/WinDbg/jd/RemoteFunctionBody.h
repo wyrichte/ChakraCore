@@ -55,6 +55,34 @@ public:
     {
         return GetScriptContext().Field("threadContext");
     }
+    PWCHAR GetDisplayName(ExtBuffer<WCHAR> * buffer)
+    {
+        return JDUtil::GetWrappedField(*this, "m_displayName").Dereference().GetString(buffer);
+    }
+
+    ULONG GetSourceContextId()
+    {
+        return GetSourceContextInfo().Field("sourceContextId").GetUlong();
+    }
+
+    ULONG GetLocalFunctionId()
+    {
+        return JDUtil::GetWrappedField(*this, "functionId").GetUlong();
+    }
+
+    ULONG GetFunctionNumber()
+    {
+        return JDUtil::GetWrappedField(*this, "m_functionNumber").GetUlong();
+    }
+    void PrintNameAndNumber(EXT_CLASS_BASE * ext);
+    void PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext);
+    void PrintNameAndNumberWithRawLink(EXT_CLASS_BASE * ext);
+    void PrintByteCodeLink(EXT_CLASS_BASE *ext);
+    void PrintSourceUrl(EXT_CLASS_BASE *ext);
+    void PrintSource(EXT_CLASS_BASE *ext);
+private:
+    ExtRemoteTyped GetUtf8SourceInfo();
+    ExtRemoteTyped GetSourceContextInfo();
 };
 
 

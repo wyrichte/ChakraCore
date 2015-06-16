@@ -2843,14 +2843,7 @@ namespace Js
                 spreadable = JavascriptOperators::IsConcatSpreadable(aItem);
                 if (!spreadable)
                 {
-                    if (pDestArray)
-                    {
-                        pDestArray->DirectSetItemAt(idxDest, aItem);
-                    }
-                    else
-                    {
-                        SetArrayLikeObjects(pDestObj, idxDest, aItem);
-                    }
+                    JavascriptArray::SetConcatItem<T>(aItem, idxArg, pDestArray, pDestObj, idxDest, scriptContext);
                     ++idxDest;
                     continue;
                 }
@@ -2905,34 +2898,7 @@ namespace Js
                 }
                 else // concat 1 item
                 {
-                    if (BoxConcatItem(aItem, idxArg, scriptContext))
-                    {
-                        // bug# 725784: ES5: not calling ToObject in Step 1 of 15.4.4.4
-                        RecyclableObject* pObj = null;
-                        if (FALSE == JavascriptConversion::ToObject(aItem, scriptContext, &pObj))
-                        {
-                            JavascriptError::ThrowTypeError(scriptContext, JSERR_This_NullOrUndefined, L"Array.prototype.concat");
-                        }
-                        if (pDestArray)
-                        {
-                            pDestArray->DirectSetItemAt(idxDest, pObj);
-                        }
-                        else
-                        {
-                            SetArrayLikeObjects(pDestObj, idxDest, pObj);
-                        }
-                    }
-                    else
-                    {
-                        if (pDestArray)
-                        {
-                            pDestArray->DirectSetItemAt(idxDest, aItem);
-                        }
-                        else
-                        {
-                            SetArrayLikeObjects(pDestObj, idxDest, aItem);
-                        }
-                    }
+                    JavascriptArray::SetConcatItem<T>(aItem, idxArg, pDestArray, pDestObj, idxDest, scriptContext);
                     ++idxDest;
                 }
             }
@@ -3255,6 +3221,39 @@ namespace Js
         {
             // Use faster uint32 version if no overflow
             ConcatArgs<uint32>(pDestObj, remoteTypeIds, args, scriptContext);
+        }
+    }
+
+    template<typename T>
+    /* static */ void JavascriptArray::SetConcatItem(Var aItem, uint idxArg, JavascriptArray* pDestArray, RecyclableObject* pDestObj, T idxDest, ScriptContext *scriptContext)
+    {
+        if (BoxConcatItem(aItem, idxArg, scriptContext))
+        {
+            // bug# 725784: ES5: not calling ToObject in Step 1 of 15.4.4.4
+            RecyclableObject* pObj = null;
+            if (FALSE == JavascriptConversion::ToObject(aItem, scriptContext, &pObj))
+            {
+                JavascriptError::ThrowTypeError(scriptContext, JSERR_This_NullOrUndefined, L"Array.prototype.concat");
+            }
+            if (pDestArray)
+            {
+                pDestArray->DirectSetItemAt(idxDest, pObj);
+            }
+            else
+            {
+                SetArrayLikeObjects(pDestObj, idxDest, pObj);
+            }
+        }
+        else
+        {
+            if (pDestArray)
+            {
+                pDestArray->DirectSetItemAt(idxDest, aItem);
+            }
+            else
+            {
+                SetArrayLikeObjects(pDestObj, idxDest, aItem);
+            }
         }
     }
 
@@ -9176,6 +9175,15 @@ Case0:
         }
 
         return JavascriptArray::OfHelper(false, args, scriptContext);
+    }
+
+    Var JavascriptArray::EntryGetterSymbolSpecies(RecyclableObject* function, CallInfo callInfo, ...)
+    {
+        ARGUMENTS(args, callInfo);
+
+        Assert(args.Info.Count > 0);
+
+        return args[0];
     }
 
     // Array.of and %TypedArray%.of as described in ES6.0 (draft 22) Section 22.1.2.2 and 22.2.2.2

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="chk|Win32">
+      <Configuration>chk</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fretest|Win32">
+      <Configuration>fretest</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fre|Win32">
+      <Configuration>fre</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="chk|x64">
+      <Configuration>chk</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fretest|x64">
+      <Configuration>fretest</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fre|x64">
+      <Configuration>fre</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="chk|ARM">
+      <Configuration>chk</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fretest|ARM">
+      <Configuration>fretest</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fre|ARM">
+      <Configuration>fre</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <!-- Only razzle has ARM64 build configs -->
+  <ItemGroup Label="ProjectConfigurations" Condition="'$(BuildingWithBuildExe)'=='true'">
+    <ProjectConfiguration Include="fre|Arm64">
+      <Configuration>fre</Configuration>
+      <Platform>Arm64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="fretest|Arm64">
+      <Configuration>fretest</Configuration>
+      <Platform>Arm64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="chk|Arm64">
+      <Configuration>chk</Configuration>
+      <Platform>Arm64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+</Project>
+

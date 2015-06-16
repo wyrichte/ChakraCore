@@ -83,6 +83,7 @@
           "Array.__proto__.length": "0",
           "Array.__proto__.name": ""
         },
+        "Array[Symbol.species]": "Function evaluation is disabled while debugging native code",
         "Array.arguments": "null",
         "Array.caller": "null",
         "Array.length": "1",

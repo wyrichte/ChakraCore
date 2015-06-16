@@ -8,6 +8,12 @@
 #define ENABLE_UI_SERVER 0
 class RootPointers;
 #include <guiddef.h>
+#include "RemoteRecyclableObject.h"
+#include "RemoteFunctionInfo.h"
+#include "RemoteFunctionBody.h"
+#include "RemoteJavascriptFunction.h"
+#include "RemoteScriptFunction.h"
+#include "RemoteInterpreterStackFrame.h"
 #include "RemoteThreadContext.h"
 #endif
 
@@ -26,7 +32,6 @@ struct PageAllocatorStats
     ULONG64 count;
     ULONG64 totalByteCount;
 };
-
 
 template<typename T>
 class AutoBuffer
@@ -82,10 +87,10 @@ public:
     friend class RemoteListIterator;
 
     friend void ScanArena(ULONG64 arena, RootPointers& rootPointerManager);
-    friend RootPointers ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped* threadContext, bool dump);
-    friend RootPointers ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped threadContext, bool dump);
+    friend RootPointers * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped* threadContext, bool dump);    
     friend bool IsUsingDebugPinRecord(EXT_CLASS_BASE* ext);
     
+    virtual void OnSessionInaccessible(ULONG64) override;
     virtual void __thiscall Uninitialize() override;
 
     static ULONG64 Count(ExtRemoteTyped head, PCSTR field);
@@ -95,6 +100,7 @@ public:
     bool GetUsingInlineSlots(ExtRemoteTyped& typeHandler);
     void Out(_In_ PCSTR fmt, ...);
     void Out(_In_ PCWSTR fmt, ...);
+    void PrintFrameNumberWithLink(uint frameNumber);
 
     class PropertyNameReader
     {
@@ -118,7 +124,6 @@ public:
     PCSTR FillModuleV(PCSTR fmt, ...);
 
     PCSTR FillModuleAndMemoryNS(PCSTR fmt);
-    PCSTR FillMemoryNS(PCSTR fmt);
 
     bool CheckTypeName(PCSTR typeName, ULONG* typeId = nullptr);
     PCSTR GetPageAllocatorType();
@@ -151,6 +156,7 @@ public:
     ENUM(SmallBlockTypeCount);
     ENUM(BlockTypeCount);
 
+    RecyclerCachedData recyclerCachedData;
     RemoteThreadContext::Info remoteThreadContextInfo;
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
     bool PageAllocatorHasExtendedCounters();
@@ -179,9 +185,7 @@ protected:
 
     void PrintScriptContextSourceInfos(ExtRemoteTyped scriptContext, bool printOnlyCount, bool printSourceContextInfo);
     void PrintThreadContextSourceInfos(ExtRemoteTyped threadContext, bool printOnlyCount, bool printSourceContextInfo, bool isCurrentThreadContext = false);
-    void PrintAllSourceInfos(bool printOnlyCount, bool printSourceContextInfo);
-
-    HRESULT CheckAndPrintJSFunction(ExtRemoteData firstArg, ULONG64 ebp, ULONG64 eip, int frameNumber);
+    void PrintAllSourceInfos(bool printOnlyCount, bool printSourceContextInfo);    
     void PrintReferencedPids(ExtRemoteTyped scriptContext, ExtRemoteTyped threadContext);    
 
     bool IsInt31Var(ULONG64 var, int* value);
@@ -190,8 +194,11 @@ protected:
 
     void PrintVar(ULONG64 var, int depth = 0);
     void PrintProperties(ULONG64 var, int depth = 0);
-    void PrintSimpleValue(ExtRemoteTyped& obj);
+    void PrintSimpleVarValue(ExtRemoteTyped& obj);
     std::string GetRemoteVTableName(PCSTR type);
+    std::string GetTypeNameFromVTable(PCSTR vtablename);
+    std::string GetTypeNameFromVTable(ULONG64 vtableAddress);
+    std::string GetTypeNameFromVTableOfObject(ULONG64 objectAddress);    
     ULONG64 GetRemoteVTable(PCSTR type);
     RemoteTypeHandler* GetTypeHandler(ExtRemoteTyped& obj, ExtRemoteTyped& typeHandler);
 
@@ -292,7 +299,8 @@ public:
     JD_PRIVATE_COMMAND_METHOD(stst);
     JD_PRIVATE_COMMAND_METHOD(prop);
     JD_PRIVATE_COMMAND_METHOD(var);
-    JD_PRIVATE_COMMAND_METHOD(var2);
+    JD_PRIVATE_COMMAND_METHOD(fb);
+    JD_PRIVATE_COMMAND_METHOD(diagvar);
 
     JD_PRIVATE_COMMAND_METHOD(url);
     JD_PRIVATE_COMMAND_METHOD(sourceInfos);
@@ -337,9 +345,9 @@ public:
     JD_PRIVATE_COMMAND_METHOD(bc);
 
     // jscript9diag commands
-    JD_PRIVATE_COMMAND_METHOD(stack);
-    JD_PRIVATE_COMMAND_METHOD(frame);
-    JD_PRIVATE_COMMAND_METHOD(eval);
+    JD_PRIVATE_COMMAND_METHOD(diagstack);
+    JD_PRIVATE_COMMAND_METHOD(diagframe);
+    JD_PRIVATE_COMMAND_METHOD(diageval);
     JD_PRIVATE_COMMAND_METHOD(utmode);
     JD_PRIVATE_COMMAND_METHOD(jsstream);
     
@@ -380,20 +388,6 @@ private:
 };
 
 #ifdef JD_PRIVATE
-class ExtRemoteString
-{
-public:
-    ExtRemoteString(__in const ExtRemoteTyped &parent, PCSTR pszFieldName);
-
-    bool IsNull();
-    PCWSTR GetString();
-    ExtRemoteTyped& F() { return m_parent; }
-
-private:
-    ExtRemoteTyped m_parent;
-    WCHAR m_szBuffer[1024];
-    PCSTR m_strFieldName;
-};
 
 std::string GetSymbolForOffset(EXT_CLASS_BASE* ext, ULONG64 offset);
 ULONG64 GetPointerAtAddress(ULONG64 offset);
