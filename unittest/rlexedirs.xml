@@ -217,12 +217,14 @@
     <tags>include_drt5</tags>
   </default>
 </dir>
+<!--
 <dir>
   <default>
     <files>DirectAuthor</files>
     <tags>exclude_apollo,include_drt5</tags>
   </default>
 </dir>
+-->
 <dir>
   <default>
     <files>JSON</files>
@@ -430,12 +432,14 @@
   </default>
 </dir>
 
+<!--
 <dir>
   <default>
     <files>LanguageServicesQA</files>
     <tags>exclude_apollo,exclude_serialized,exclude_amd64,exclude_arm,exclude_arm64</tags>
   </default>
 </dir>
+-->
 <dir>
   <default>
     <files>AsmJs</files>

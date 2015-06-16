@@ -977,6 +977,7 @@
     <compile-flags> -noNative -ES6Rest -ES6Classes -ES6Super -ES6StringTemplate -ES6Destructuring -ES6DefaultArgs -args summary -endargs</compile-flags>
   </default>
 </test>
+<!--
 <test>
   <default>
     <baseline>ES6StringTemplate_ls.baseline</baseline>
@@ -993,6 +994,7 @@
     <tags>exclude_amd64,exclude_arm</tags>
   </default>
 </test>
+-->
 <test>
    <default>
      <files>bug_279376.js</files>
@@ -1108,6 +1110,7 @@
       <tags>BugFix</tags>
     </default>
   </test>
+<!--
   <test>
     <default>
       <files>bug1988576.js</files>
@@ -1115,6 +1118,7 @@
       <tags>BugFix;exclude_nativeserialized,exclude_amd64,exclude_arm</tags>
     </default>
   </test>
+-->
 <test>
   <default>
     <files>arraywithproxy.js</files>
@@ -1127,6 +1131,7 @@
     <baseline>proxytest8.baseline</baseline>
   </default>
 </test>
+<!--
 <test>
   <default>
     <files>OS_1245914_Super.js</files>
@@ -1134,6 +1139,7 @@
       <tags>BugFix;exclude_nativeserialized,exclude_amd64,exclude_arm</tags>
   </default>
 </test>
+-->
 <test>
   <default>
     <files>proxytest9.js</files>
@@ -1141,6 +1147,7 @@
 	<tags>BugFix</tags>
   </default>
 </test>
+<!--
 <test>
   <default>
     <files>bug_OS_2202717.js</files>
@@ -1148,6 +1155,7 @@
       <tags>BugFix;exclude_nativeserialized,exclude_amd64,exclude_arm</tags>
   </default>
 </test>
+-->
 <test>
   <default>
     <files>ES6Function_bugs.js</files>
