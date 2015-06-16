@@ -82,7 +82,7 @@ enum FileVersionScheme
     ReleaseVersioningScheme = 20
 };
 
-const FileVersionScheme currentFileVersionScheme = ReleaseVersioningScheme;
+const FileVersionScheme currentFileVersionScheme = EngineeringVersioningScheme;
 
 #if DBG // __DATE__ and __TIME__ are only available in CHK
 const DWORD buildDateHash = JsUtil::CharacterBuffer<char>::StaticGetHashCode(__DATE__, _countof(__DATE__));
