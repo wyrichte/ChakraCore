@@ -1122,6 +1122,7 @@ function setupJsGlass(sourceDir, targetDir, architecture)
         copyOneFile(sourceDir, target, "pdm.dll", "FORCE");
         copyOneFile(sourceDir, target, "pdmproxy100.dll", "FORCE");
 
+/*
         if (architecture.toLowerCase() === 'x86') {
             if (lsSourceDir != undefined) {
                 sourceDir = lsSourceDir;
@@ -1129,6 +1130,7 @@ function setupJsGlass(sourceDir, targetDir, architecture)
 
             refreshTestExeBinaries("jsglass.exe", targetDir, "chakralstest.dll", "chakrals.dll");
         }
+*/
 
         return 0;
     }
