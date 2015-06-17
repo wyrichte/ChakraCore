@@ -1,0 +1,4 @@
+KnownDataRange
+    iJIT_RegisterCallbackEx iJIT_RegisterCallbackEx+0x46
+    FinalizeThread FinalizeThread+0x72
+    FinalizeProcess FinalizeProcess+0x56
