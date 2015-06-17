@@ -242,13 +242,12 @@ exit /b %_Error%
     echo Executing SNAP jscript DRT bucket including:
     echo   Run JSProjectionTests
     echo   Run jscript dev unit tests bytecodeserialized variant
-    echo   Run jscript9ls dev unit tests
     echo.
 
     :: SNAP run requires to have the JS tools folder already on the local machine - SNAP does this before calling us
     :: When SNAP makes the change to call our RunJSDRT.cmd directly, we no longer need to do this step.
 	
-    set runcmd=%systemdrive%\JSRoot\JScriptTests\tools\chakra.cmd test -trace:*.* -traceTestOutput -doSnapSetup- -optin -unit:"-html -variants:interpreted;dynapogo" -jsls -projection -buildType:%_buildType% -platform:%_buildArch% -snapBinRoot:%_binRoot% -snapTargetRoot:%_snapDefaultTargetLocation% -sdxRoot:%_snapDefaultTargetLocation% -binRoot:%_snapDefaultTargetLocation% -snap -drt -baseLogDirectory:"%_snapDefaultTargetLocation%\logs"
+    set runcmd=%systemdrive%\JSRoot\JScriptTests\tools\chakra.cmd test -trace:*.* -traceTestOutput -doSnapSetup- -optin -unit:"-html -variants:interpreted;dynapogo" -projection -buildType:%_buildType% -platform:%_buildArch% -snapBinRoot:%_binRoot% -snapTargetRoot:%_snapDefaultTargetLocation% -sdxRoot:%_snapDefaultTargetLocation% -binRoot:%_snapDefaultTargetLocation% -snap -drt -baseLogDirectory:"%_snapDefaultTargetLocation%\logs"
 
     echo %runcmd%
     call %runcmd% 2>&1
