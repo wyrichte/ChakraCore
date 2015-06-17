@@ -146,7 +146,7 @@ set _scriptFullname=%~f0
 :SnapSetup
     :: SNAP setup requires to have the JS tools folder already on the local machine - SNAP does this before calling us
     :: When SNAP makes the change to call our SetupJSDRT.cmd directly, we no longer need to do this step.
-    set setupcmd=%systemdrive%\JSRoot\JScriptTests\tools\chakra.cmd test-setupsnap -trace:*.* -traceTestOutput -testOutputRelativePath:"%_buildType%_drtSetup" -baseLogDirectory:"%_snapDefaultTargetLocation%\drtJSlogs" -optin -unit -projection -jsls -buildType:%_buildType% -snapBinRoot:%_binRoot% -snapTargetRoot:%_snapDefaultTargetLocation% -sdxRoot:%_snapDefaultTargetLocation% -binRoot:%_snapDefaultTargetLocation%
+    set setupcmd=%systemdrive%\JSRoot\JScriptTests\tools\chakra.cmd test-setupsnap -trace:*.* -traceTestOutput -testOutputRelativePath:"%_buildType%_drtSetup" -baseLogDirectory:"%_snapDefaultTargetLocation%\drtJSlogs" -optin -unit -projection -buildType:%_buildType% -snapBinRoot:%_binRoot% -snapTargetRoot:%_snapDefaultTargetLocation% -sdxRoot:%_snapDefaultTargetLocation% -binRoot:%_snapDefaultTargetLocation%
     
     echo %setupcmd%
     call %setupcmd% 2>&1
