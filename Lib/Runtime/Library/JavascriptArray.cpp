@@ -5497,9 +5497,6 @@ Case0:
         }
         else
         {
-            // Source object is not an array or TypedArray, we will return an array though.
-            Assert(newArr);
-
             Var element;
 
             for (uint32 i = 0; i < newLen; i++)
@@ -5510,7 +5507,14 @@ Case0:
                 }
                 BOOL getResult = JavascriptOperators::GetItem(obj, i + start, &element, scriptContext);
                 Assert(getResult);
-                newArr->DirectSetItemAt(i, element);
+                if (newArr != nullptr)
+                {
+                    newArr->DirectSetItemAt(i, element);
+                }
+                else
+                {
+                    JavascriptOperators::OP_SetElementI_UInt32(newObj, i, element, scriptContext, PropertyOperation_ThrowIfNotExtensible);
+                }
             }
         }
 
