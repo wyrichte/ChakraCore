@@ -2,50 +2,11 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
-const unsigned int NoIndex=0xffffffff;
-
 #if defined(_M_ARM32_OR_ARM64) || defined(_M_X64)
 const long AstBytecodeRatioEstimate = 4;
 #else
 const long AstBytecodeRatioEstimate = 5;
 #endif
-
-class NativeCodeGenerator;
-
-struct SymCheck {
-    static const int kMaxInvertedSyms=8;
-    Symbol* syms[kMaxInvertedSyms];
-    Symbol* permittedSym;
-    int symCount;
-    bool result;
-    bool cond;
-
-    bool AddSymbol(Symbol* sym) {
-        if (symCount<kMaxInvertedSyms) {
-            syms[symCount++]=sym;
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    bool MatchSymbol(Symbol* sym) {
-        if (sym!=permittedSym) {
-            for (int i=0;i<symCount;i++) {
-                if (sym==syms[i]) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    void Init() {
-        symCount=0;
-        result=true;
-    }
-};
 
 class ByteCodeGenerator
 {
@@ -64,10 +25,6 @@ private:
     Js::ScopeInfo* parentScopeInfo;
     Js::ByteCodeWriter  m_writer;
 
-#if DBG
-    bool executingGenerate;
-#endif
-
     // pointer to the root function wrapper that will be invoked by the caller
     Js::ParseableFunctionInfo * pRootFunc;
 
@@ -76,12 +33,8 @@ private:
     uint sourceIndex;
     uint dynamicScopeCount;
     uint loopDepth;
-    uint visitIndirectDepth;
     uint16 m_callSiteId;
-    NativeCodeGenerator * nativeCodeGen;
-    bool NoNative;
     bool deadLoopPossible;
-    bool callsConstructor;
     bool isBinding;
     bool trackEnvDepth;
     bool funcEscapes;
@@ -137,10 +90,6 @@ public:
 
     void SetCurrentTopStatement(ParseNode *pnode) { currentTopStatement = pnode; }
     ParseNode *GetCurrentTopStatement() const { return currentTopStatement; }
-
-    void SetCallsConstructor(bool b) {
-        callsConstructor=b;
-    }
 
     void SetDeadLoopPossible(bool b) {
         deadLoopPossible=b;
@@ -254,11 +203,6 @@ public:
     void AssignPropertyId(IdentPtr pid);
 
     void ProcessCapturedSyms(ParseNode *pnodeFnc);
-
-    // TODO[ianhall]: InVisitIndirect is never used, can we remove all this?
-    void EnterVisitIndirect() { if (++this->visitIndirectDepth == 0) Js::Throw::OutOfMemory(); }
-    void LeaveVisitIndirect() { --this->visitIndirectDepth; Assert(this->visitIndirectDepth != 0xffffffff); }
-    bool InVisitIndirect() const { return this->visitIndirectDepth != 0; }
 
     void RecordAllIntConstants(FuncInfo * funcInfo);
     void RecordAllStrConstants(FuncInfo * funcInfo);

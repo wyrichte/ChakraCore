@@ -13,8 +13,8 @@
   <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>    
-  </PropertyGroup>  
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
   <ImportGroup Label="PropertySheets">
@@ -22,11 +22,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>    
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\Common;$(MSBuildThisFileDirectory)..\Backend;$(ChakraManifestsIncludeDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>   
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\Common;$(MSBuildThisFileDirectory)..\Backend;$(ChakraManifestsIncludeDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -56,7 +56,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)scrutil.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StandardChars.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StdAfx.cpp">
-      <PrecompiledHeader>Create</PrecompiledHeader>     
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TextbookBoyerMoore.cpp" />
     <None Include="hashfunc.cpp" />
@@ -87,8 +87,6 @@
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ParserCommon.h" />
     <ClInclude Include="ParseTreeComparer.h" />
-    <ClInclude Include="pcode.h" />
-    <ClInclude Include="pcodes.h" />
     <ClInclude Include="perrors.h" />
     <ClInclude Include="pnodechange.h" />
     <ClInclude Include="pnodediff.h" />
@@ -126,8 +124,9 @@
       <ObjectFileName>$(IntDir)jserr.rc2</ObjectFileName>
       <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory);$(MSBuildThisFileDirectory)..\Common</AdditionalIncludeDirectories>
       <LibCompiled>false</LibCompiled>
-      <ForcedIncludeFiles></ForcedIncludeFiles>
-    </ClCompile>    
+      <ForcedIncludeFiles>
+      </ForcedIncludeFiles>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="CharTrie.inl" />
@@ -140,6 +139,6 @@
     <ProjectReference Include="..\..\publish\Publish.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
     </ProjectReference>
-  </ItemGroup>    
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />  
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

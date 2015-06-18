@@ -102,22 +102,12 @@ struct IsSame<T1, T1>
 #define AssertPvCb(pv, cb)       AssertMsg(0 != (pv) || 0 == (cb), "bad ptr")
 #define AssertPvCbN(pv, cb)      //NO-OP
 #define AssertPvCbR(pv, cb)      AssertMsg(0 != (pv) || 0 == (cb), "bad ptr")
-#define AssertPvCbRN(pv, cb)     //NO-OP
 #define AssertPsz(psz)           AssertMsg(0 != (psz), "bad psz")
 #define AssertPszN(psz)          //NO-OP
-#define AssertPfn(pfn)           AssertMsg(0 != (pfn), "bad function address")
-#define AssertPfnN(pfn)          //NO-OP
 
 #define AssertMem(pvar)          AssertPvCb(pvar, sizeof(*(pvar)))
 #define AssertMemN(pvar)         AssertPvCbN(pvar, sizeof(*(pvar)))
 #define AssertMemR(pvar)         AssertPvCbR(pvar, sizeof(*(pvar)))
-#define AssertMemRN(pvar)        AssertPvCbRN(pvar, sizeof(*(pvar)))
 #define AssertArrMem(prgv, cv)   AssertPvCb(prgv, (cv) * sizeof(*(prgv)))
-#define AssertArrMemN(prgv, cv)  AssertPvCbN(prgv, (cv) * sizeof(*(prgv)))
 #define AssertArrMemR(prgv, cv)  AssertPvCbR(prgv, (cv) * sizeof(*(prgv)))
-#define AssertArrMemRN(prgv, cv) AssertPvCbRN(prgv, (cv) * sizeof(*(prgv)))
-#define AssertThis()             AssertPo(this)
-
-#define ASSERT_DEC               public: BOOL AssertValid(void);
-#define AssertPo(po)             Assert(0 != (po) && (po)->AssertValid())
-#define AssertPoN(po)            Assert(0 == (po) || (po)->AssertValid())
+#define AssertThis()             Assert(0 != (this) && (this)->AssertValid())

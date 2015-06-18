@@ -8410,6 +8410,7 @@ void Emit(ParseNode *pnode, ByteCodeGenerator *byteCodeGenerator, FuncInfo *func
         }
         if (pnode->sxCall.isApplyCall && funcInfo->GetApplyEnclosesArgs())
         {
+            // TODO[ianhall]: Can we remove the ApplyCall bytecode gen time optimization?
             EmitApplyCall(pnode, Js::Constants::NoRegister, byteCodeGenerator, funcInfo, fReturnValue, true);
         }
         else

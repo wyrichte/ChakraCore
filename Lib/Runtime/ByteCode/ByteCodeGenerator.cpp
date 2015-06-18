@@ -12,180 +12,6 @@ bool IsCallOfConstants(ParseNode *pnode)
     return pnode->sxCall.callOfConstants && pnode->sxCall.argCount > ByteCodeGenerator::MinArgumentsForCallOptimization;
 }
 
-template<class TContext>
-ParseNode* UpdateListNode(ParseNode *pnode,ByteCodeGenerator* byteCodeGenerator,TContext* context,ParseNode* (*mutator)(ParseNode*,ByteCodeGenerator* byteCodeGenerator,TContext*)) {
-    ParseNode* originalPnode=pnode;
-    if ((pnode!=NULL)&&(pnode->nop==knopList)) {
-        ParseNode* prev=NULL;
-        while(pnode->nop==knopList) {
-            pnode->sxBin.pnode1=UpdateNode<TContext>(pnode->sxBin.pnode1,byteCodeGenerator,context,mutator);
-            prev=pnode;
-            pnode = pnode->sxBin.pnode2;
-        }
-        Assert(prev!=NULL);
-        prev->sxBin.pnode2=UpdateNode<TContext>(pnode,byteCodeGenerator,context,mutator);
-    }
-    return originalPnode;
-}
-
-// This is incomplete; for now, use only for trees that do not contain with or try statements
-template<class TContext>
-ParseNode* UpdateNode(ParseNode *pnode,ByteCodeGenerator* byteCodeGenerator,TContext* context,ParseNode* (*mutator)(ParseNode*,ByteCodeGenerator*,TContext*)) {
-    if (pnode==NULL)
-        return NULL;
-
-    ThreadContext::ProbeCurrentStackNoDispose(Js::Constants::MinStackByteCodeVisitor, byteCodeGenerator->GetScriptContext());
-
-    // change current node before its children
-
-    pnode=mutator(pnode,byteCodeGenerator,context);
-
-    switch (pnode->nop) {
-    default:
-        {
-            uint flags=ParseNode::Grfnop(pnode->nop);
-            if (flags&fnopUni) {
-                pnode->sxUni.pnode1=UpdateNode(pnode->sxUni.pnode1,byteCodeGenerator,context,mutator);
-            }
-            else if (flags&fnopBin) {
-                pnode->sxBin.pnode1=UpdateNode(pnode->sxBin.pnode1,byteCodeGenerator,context,mutator);
-                pnode->sxBin.pnode2=UpdateNode(pnode->sxBin.pnode2,byteCodeGenerator,context,mutator);
-            }
-        }
-        break;
-
-    case knopCall:
-        pnode->sxCall.pnodeTarget=UpdateNode(pnode->sxCall.pnodeTarget,byteCodeGenerator,context,mutator);
-        pnode->sxCall.pnodeArgs=UpdateNode(pnode->sxCall.pnodeArgs,byteCodeGenerator,context,mutator);
-        break;
-
-    case knopNew:
-        {
-            pnode->sxCall.pnodeTarget=UpdateNode(pnode->sxCall.pnodeTarget,byteCodeGenerator,context,mutator);
-            if (!IsCallOfConstants(pnode))
-            {
-                pnode->sxCall.pnodeArgs=UpdateNode(pnode->sxCall.pnodeArgs,byteCodeGenerator,context,mutator);
-            }
-            break;
-        }
-
-    case knopQmark:
-        pnode->sxTri.pnode1=UpdateNode(pnode->sxTri.pnode1,byteCodeGenerator,context,mutator);
-        pnode->sxTri.pnode2=UpdateNode(pnode->sxTri.pnode2,byteCodeGenerator,context,mutator);
-        pnode->sxTri.pnode3=UpdateNode(pnode->sxTri.pnode3,byteCodeGenerator,context,mutator);
-        break;
-    case knopList:
-        return UpdateListNode(pnode,byteCodeGenerator,context,mutator);
-        //PTNODE(knopVarDecl    , "varDcl"    ,None    ,Var  ,fnopNone)
-    case knopVarDecl:
-    case knopConstDecl:
-    case knopLetDecl:
-        if (pnode->sxVar.pnodeInit!=NULL)
-            pnode->sxVar.pnodeInit=UpdateNode(pnode->sxVar.pnodeInit,byteCodeGenerator,context,mutator);
-        break;
-        //PTNODE(knopFncDecl    , "fncDcl"    ,None    ,Fnc  ,fnopLeaf)
-    case knopFncDecl:
-        {
-            // Inner function declarations are visited before anything else in the scope.
-            // (See UpdateNodeFunctionsInScope.)
-            ParseNode *pnodeNames = pnode->sxFnc.pnodeNames;
-            if (pnodeNames)
-            {
-                while (pnodeNames->nop == knopList)
-                {
-                    if (pnodeNames->sxBin.pnode1->nop == knopScope ||
-                        pnodeNames->sxBin.pnode1->nop == knopDot)
-                    {
-                        pnodeNames->sxBin.pnode1=UpdateNode(pnodeNames->sxBin.pnode1,byteCodeGenerator,context,mutator);
-                    }
-                    pnodeNames = pnodeNames->sxBin.pnode2;
-                }
-                if (pnodeNames->nop == knopScope ||
-                    pnodeNames->nop == knopDot)
-                {
-                    pnode->sxFnc.pnodeNames=UpdateNode(pnode->sxFnc.pnodeNames,byteCodeGenerator,context,mutator);
-                }
-            }
-            break;
-        }
-    case knopFor:
-        pnode->sxFor.pnodeInit=UpdateNode(pnode->sxFor.pnodeInit,byteCodeGenerator,context,mutator);
-        pnode->sxFor.pnodeCond=UpdateNode(pnode->sxFor.pnodeCond,byteCodeGenerator,context,mutator);
-        pnode->sxFor.pnodeIncr=UpdateNode(pnode->sxFor.pnodeIncr,byteCodeGenerator,context,mutator);
-        pnode->sxFor.pnodeBody=UpdateNode(pnode->sxFor.pnodeBody,byteCodeGenerator,context,mutator);
-        break;
-        //PTNODE(knopIf         , "if"        ,None    ,If   ,fnopNone)
-    case knopIf:
-        pnode->sxIf.pnodeCond=UpdateNode(pnode->sxIf.pnodeCond,byteCodeGenerator,context,mutator);
-        pnode->sxIf.pnodeTrue=UpdateNode(pnode->sxIf.pnodeTrue,byteCodeGenerator,context,mutator);
-        if (pnode->sxIf.pnodeFalse != NULL)
-        {
-            pnode->sxIf.pnodeFalse=UpdateNode(pnode->sxIf.pnodeFalse,byteCodeGenerator,context,mutator);
-        }
-        break;
-        //PTNODE(knopWhile      , "while"        ,None    ,While,fnopBreak|fnopContinue)
-        //PTNODE(knopDoWhile    , "do-while"    ,None    ,While,fnopBreak|fnopContinue)
-    case knopDoWhile:
-    case knopWhile:
-        pnode->sxWhile.pnodeCond=UpdateNode(pnode->sxWhile.pnodeCond,byteCodeGenerator,context,mutator);
-        pnode->sxWhile.pnodeBody=UpdateNode(pnode->sxWhile.pnodeBody,byteCodeGenerator,context,mutator);
-        break;
-        //PTNODE(knopForIn      , "for in"    ,None    ,ForIn,fnopBreak|fnopContinue|fnopCleanup)
-    case knopForIn:
-    case knopForOf:
-        pnode->sxForInOrForOf.pnodeLval=UpdateNode(pnode->sxForInOrForOf.pnodeLval,byteCodeGenerator,context,mutator);
-        pnode->sxForInOrForOf.pnodeObj=UpdateNode(pnode->sxForInOrForOf.pnodeObj,byteCodeGenerator,context,mutator);
-        pnode->sxForInOrForOf.pnodeBody=UpdateNode(pnode->sxForInOrForOf.pnodeBody,byteCodeGenerator,context,mutator);
-        break;
-        //PTNODE(knopReturn     , "return"    ,None    ,Uni  ,fnopNone)
-    case knopReturn:
-        if (pnode->sxReturn.pnodeExpr!=NULL)
-            pnode->sxReturn.pnodeExpr=UpdateNode(pnode->sxReturn.pnodeExpr,byteCodeGenerator,context,mutator);
-        break;
-        //PTNODE(knopBlock      , "{}"        ,None    ,Block,fnopNone)
-    case knopBlock:
-        pnode->sxBlock.pnodeStmt=UpdateNode(pnode->sxBlock.pnodeStmt,byteCodeGenerator,context,mutator);
-        break;
-        //PTNODE(knopBreak      , "break"        ,None    ,Jump ,fnopNone)
-    case knopBreak:
-        // TODO: some representation of target
-        break;
-        //PTNODE(knopContinue   , "continue"    ,None    ,Jump ,fnopNone)
-    case knopContinue:
-        // TODO: some representation of target
-        break;
-        //PTNODE(knopLabel      , "label"        ,None    ,Label,fnopNone)
-    case knopLabel:
-        // TODO: print labeled statement
-        break;
-    case knopTypeof:
-        pnode->sxUni.pnode1=UpdateNode(pnode->sxUni.pnode1,byteCodeGenerator,context,mutator);
-        break;
-        //PTNODE(knopThrow      , "throw"     ,None    ,Uni  ,fnopNone)
-    case knopThrow:
-        pnode->sxUni.pnode1=UpdateNode(pnode->sxUni.pnode1,byteCodeGenerator,context,mutator);
-        break;
-    case knopArray:
-        {
-            bool arrayLitOpt = pnode->sxArrLit.arrayOfNumbers && pnode->sxArrLit.count > 1;
-
-            if (!arrayLitOpt)
-            {
-                pnode->sxUni.pnode1=UpdateNode(pnode->sxUni.pnode1,byteCodeGenerator,context,mutator);
-            }
-            break;
-        }
-    case knopWith:
-    case knopFinally:
-    case knopTry:
-    case knopTryCatch:
-    case knopTryFinally:
-        context->notImplemented=true;
-        break;
-    }
-    return pnode;
-}
-
 template <class PrefixFn, class PostfixFn>
 void Visit(ParseNode *pnode,ByteCodeGenerator* byteCodeGenerator, PrefixFn prefix, PostfixFn postfix, ParseNode * pnodeParent = NULL);
 
@@ -193,7 +19,6 @@ template<class TContext>
 void VisitIndirect(ParseNode *pnode,ByteCodeGenerator* byteCodeGenerator,TContext* context,void (*prefix)(ParseNode*,ByteCodeGenerator* byteCodeGenerator,TContext*),
     void (*postfix)(ParseNode*,ByteCodeGenerator* byteCodeGenerator,TContext*), ParseNode *pnodeParent = NULL)
 {
-    byteCodeGenerator->EnterVisitIndirect();
     Visit(pnode, byteCodeGenerator,
         [context, prefix](ParseNode * pnode, ByteCodeGenerator * byteCodeGenerator)
         {
@@ -206,7 +31,6 @@ void VisitIndirect(ParseNode *pnode,ByteCodeGenerator* byteCodeGenerator,TContex
                 postfix(pnode, byteCodeGenerator, context);
             }
         }, pnodeParent);
-    byteCodeGenerator->LeaveVisitIndirect();
 }
 
 template <class PrefixFn, class PostfixFn>
@@ -825,9 +649,6 @@ ByteCodeGenerator::ByteCodeGenerator(Js::ScriptContext* scriptContext, Js::Scope
     globalScope(nullptr),
     currentScope(nullptr),
     parentScopeInfo(parentScopeInfo),
-#if DBG
-    executingGenerate(false),
-#endif
     dynamicScopeCount(0),
     isBinding(false),
     propertyRecords(nullptr),
@@ -1885,11 +1706,6 @@ void ByteCodeGenerator::Generate( __in ParseNode *pnode, ulong grfscr, __in Byte
     __inout Js::ParseableFunctionInfo ** ppRootFunc, __in uint sourceIndex,
     __in bool forceNoNative, __in Parser* parser, Js::ScriptFunction **functionRef)
 {
-#if DBG
-    AssertMsg(!byteCodeGenerator->executingGenerate, "ByteCodeGenerator::Generate is not reentrant safe");
-    AutoBooleanToggle restoreExecutingGenerate(&byteCodeGenerator->executingGenerate);
-#endif
-
     Js::ScriptContext * scriptContext = byteCodeGenerator->scriptContext;
 
 #ifdef PROFILE_EXEC
@@ -1915,19 +1731,8 @@ void ByteCodeGenerator::Generate( __in ParseNode *pnode, ulong grfscr, __in Byte
     byteCodeGenerator->parser=parser;
     byteCodeGenerator->SetCurrentSourceIndex(sourceIndex);
     byteCodeGenerator->Begin(&localAlloc, grfscr, *ppRootFunc);
-    byteCodeGenerator->callsConstructor=false;
     byteCodeGenerator->functionRef = functionRef;
     Visit(pnode, byteCodeGenerator, Bind, AssignRegisters);
-#if 0
-    // TODO: Does anyone use this info? If so, restore it.
-    if (byteCodeGenerator->Trace()) {
-        byteCodeGenerator->PrintFuncInfo();
-    }
-#endif
-
-#if defined(ENABLE_DEBUG_CONFIG_OPTIONS)
-    Output::Flush();
-#endif
 
     byteCodeGenerator->forceNoNative = forceNoNative;
     byteCodeGenerator->EmitProgram(pnode);
@@ -2068,7 +1873,6 @@ void ByteCodeGenerator::Begin(
     this->loopDepth = 0;
     this->envDepth = 0;
     this->trackEnvDepth = false;
-    this->visitIndirectDepth = 0;
 
     this->funcInfoStack = Anew(alloc, SList<FuncInfo*>, alloc);
 
@@ -2084,9 +1888,6 @@ void ByteCodeGenerator::Begin(
         this->propertyRecords = null;
     }
 }
-
-// TODO[ianhall]: Is this referenced (or even defined) anywhere? Delete?
-extern unsigned __int64 count;
 
 HRESULT GenerateByteCode(__in ParseNode *pnode, __in ulong grfscr, __in Js::ScriptContext* scriptContext, __inout Js::ParseableFunctionInfo ** ppRootFunc,
                          __in uint sourceIndex, __in bool forceNoNative, __in Parser* parser, __in CompileScriptException *pse, Js::ScopeInfo* parentScopeInfo,
@@ -3348,12 +3149,48 @@ bool IsLibraryFunction(ParseNode* expr,Js::ScriptContext* scriptContext) {
             Symbol* lsym=lhs->sxPid.sym;
             if ((lsym == NULL || lsym->GetIsGlobal()) && lhs->sxPid.PropertyIdFromNameNode() == Js::PropertyIds::Math)
             {
+                // TODO[ianhall]: IsMathLibraryId only checks for abs and tan; can we remove IsLibraryFunction altogether? (And SideEffects_MathFunc which is never consumed?)
                 return Js::IsMathLibraryId(rhs->sxPid.PropertyIdFromNameNode());
             }
         }
     }
     return false;
 }
+
+struct SymCheck {
+    static const int kMaxInvertedSyms=8;
+    Symbol* syms[kMaxInvertedSyms];
+    Symbol* permittedSym;
+    int symCount;
+    bool result;
+    bool cond;
+
+    bool AddSymbol(Symbol* sym) {
+        if (symCount<kMaxInvertedSyms) {
+            syms[symCount++]=sym;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    bool MatchSymbol(Symbol* sym) {
+        if (sym!=permittedSym) {
+            for (int i=0;i<symCount;i++) {
+                if (sym==syms[i]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    void Init() {
+        symCount=0;
+        result=true;
+    }
+};
 
 void CheckInvertableExpr(ParseNode* pnode,ByteCodeGenerator* byteCodeGenerator,SymCheck* symCheck) {
     if (symCheck->result) {
@@ -4755,6 +4592,7 @@ void AssignRegisters(ParseNode *pnode,ByteCodeGenerator *byteCodeGenerator)
 }
 
 // TODO[ianhall]: IsDeadLoop should be in ByteCodeEmitter.cpp but that becomes complicated because it depends on VisitIndirect
+// TODO[ianhall]: Alternatively it looks like this is dead code.  DeadLoopDetection phase is off by default.  Appears to be unused but still works if I turn it on.
 void CheckDeadLoop(ParseNode *pnode, ByteCodeGenerator *byteCodeGenerator, void* ignored);
 bool ByteCodeGenerator::IsDeadLoop(ParseNode* pnode,FuncInfo *funcInfo) {
 #pragma prefast(suppress:6235, "Non-Zero Constant in Condition")
@@ -4773,7 +4611,7 @@ bool ByteCodeGenerator::IsDeadLoop(ParseNode* pnode,FuncInfo *funcInfo) {
     }
 
     ParseNode *stmt = pnode->sxBin.pnode1;
-    if (!callsConstructor && stmt->nop == knopFor && pnode->sxBin.pnode2->nop == knopEndCode) {
+    if (stmt->nop == knopFor && pnode->sxBin.pnode2->nop == knopEndCode) {
         deadLoopPossible=true;
         outerLoop=stmt;
         VisitIndirect<void>(stmt,this,NULL,&CheckDeadLoop,NULL);

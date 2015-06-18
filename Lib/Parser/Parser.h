@@ -65,7 +65,6 @@ extern LCID GetUserLocale();
 #include "ptree.h"
 #include "tokens.h"
 #include "hash.h"
-#include "pcode.h"
 #include "CharClassifier.h"
 #include "scan.h"
 #include "screrror.h"

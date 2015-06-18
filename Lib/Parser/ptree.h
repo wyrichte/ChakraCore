@@ -4,9 +4,6 @@
 
 #pragma once
 
-struct LabDef;
-typedef LabDef *LabDefPtr;
-
 struct Ident;
 typedef Ident *IdentPtr;
 
@@ -74,30 +71,6 @@ enum PNodeFlags : ushort
     fpnCapturesSyms                          = 0x2000, // The node is a statement (or contains a sub-statement) 
                                                        // that captures symbols.
 };
-
-/***************************************************************************
-Types of data in a ParseNode. Generally when a ParseNode is allocated,
-the amount of memory allocated is not sizeof(ParseNode). Instead,
-offsetof(ParseNode, PnUni) + sizeof(PnXxx) bytes are allocated, where
-Xxx is one of Uni, Bin, Tri, etc.
-***************************************************************************/
-enum
-{
-    kpnkNone,
-    kpnkUni,
-    kpnkBin,
-    kpnkTri,
-    kpnkInt,
-    kpnkFlt,
-    kpnkStr,
-    kpnkPid,
-    kpnkVar,
-    kpnkFnc,
-    kpnkIf,
-    kpnkFor,
-    kpnkForIn
-};
-
 
 /***************************************************************************
 Data structs for ParseNodes. ParseNode includes a union of these.
@@ -748,13 +721,3 @@ const int kcbPnWith         = kcbPnNone + sizeof(PnWith);
 
 #define AssertNodeMem(pnode) AssertPvCb(pnode, kcbPnNone)
 #define AssertNodeMemN(pnode) AssertPvCbN(pnode, kcbPnNone)
-
-// TODO: M. Whalen, 07-03-2002
-// The following asserts should be expanded to check the full
-// memory of the ParseNode structure, not just the initial part.
-// This is incomplete due to time constraints and stability
-// issues - we don't want to check in a bad assert this late in
-// the process.
-#define AssertFullNodeMem(pnode) AssertNodeMem(pnode)
-#define AssertFullNodeMemN(pnode) AssertNodeMemN(pnode)
-

@@ -9,6 +9,13 @@
 
 class ScriptEngine;
 
+// Beginning of statement descriptor
+struct StatementSpan
+{
+    long ich;
+    long cch;
+};
+
 /***************************************************************************
     CScriptBody wraps an ExecBody. This adds script specific state to an
     executable block. This is not intended to be shared between scripts.
@@ -61,7 +68,6 @@ public:
 
     BOOL CScriptBody::HasLineBreak(long _start, long _end);
 
-    void GetMatchingStatement(long ibos, StatementSpan* pStatement);
     BOOL GetStatementSpan(long ibos, StatementSpan* pBos);
     BOOL GetStatementLocation(long ibos, Js::StatementLocation* plocation);
     Js::FunctionBody* ContainsFunction(Js::FunctionBody* pFunction);

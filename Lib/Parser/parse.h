@@ -101,40 +101,12 @@ enum ErrorRecoverySet
 #define _PARSENODE_EXTENSIONS_ACTUAL(value)
 #endif
 
-/***************************************************************************
-Labels:
-
-Since labels may be referenced both before and after definition,
-we need to keep track of forward references. Each label will have a
-'LabDef' descriptor, and if there are any pending forward references
-to it, each such reference will be described by a 'LabRef' entry
-hanging from the 'LabDef' entry for the label (such forward references
-are patched with the appropriate offset value when the label is
-actually defined).
-***************************************************************************/
-struct LabRef
-{
-    LabRef *             plrefNext; // next fixup record for this label
-    UNALIGNED TYP_OFFS * pibRef;    // address to be fixed up
-};
-typedef LabRef * LabRefPtr;
-
-struct LabDef
-{
-    LabDef *    plabNext; // next in free list
-    TYP_OFFS    ib;       // address of the label (koffsNil if undefined)
-    LabRefPtr   plref;    // list of forward references
-};
-typedef LabDef * LabDefPtr;
-
 // Representation of a label used when no AST is being built.
 struct LabelId
 {
     IdentPtr pid;
     struct LabelId* next;
 };
-
-const TYP_OFFS koffsNil = ~(TYP_OFFS)0;
 
 typedef ArenaAllocator ParseNodeAllocator;
 
@@ -194,33 +166,33 @@ struct DeferredFunctionStub
 #endif
 };
 
-    struct StmtNest
+struct StmtNest
+{
+    union
     {
-        union
+        struct
         {
-            struct
-            {
-                ParseNodePtr pnodeStmt; // This statement node.
-                ParseNodePtr pnodeLab;  // Labels for this statement.
-            };
-            struct
-            {
-                bool isDeferred:1;
-                OpCode op;              // This statement operation.
-                LabelId* pLabelId;      // Labels for this statement.
-            };
+            ParseNodePtr pnodeStmt; // This statement node.
+            ParseNodePtr pnodeLab;  // Labels for this statement.
         };
-        StmtNest *pstmtOuter;   // Enclosing statement.
+        struct
+        {
+            bool isDeferred:1;
+            OpCode op;              // This statement operation.
+            LabelId* pLabelId;      // Labels for this statement.
+        };
     };
+    StmtNest *pstmtOuter;           // Enclosing statement.
+};
 
-    struct BlockInfoStack
-    {
-        StmtNest pstmt;
-        ParseNode *pnodeBlock;
-        ParseNodePtr *m_ppnodeLex;              // lexical variable list tail
-        BlockInfoStack *pBlockInfoOuter;        // containing block's BlockInfoStack
-        BlockInfoStack *pBlockInfoFunction;     // nearest function's BlockInfoStack (if pnodeBlock is a function, this points to itself)
-    };
+struct BlockInfoStack
+{
+    StmtNest pstmt;
+    ParseNode *pnodeBlock;
+    ParseNodePtr *m_ppnodeLex;              // lexical variable list tail
+    BlockInfoStack *pBlockInfoOuter;        // containing block's BlockInfoStack
+    BlockInfoStack *pBlockInfoFunction;     // nearest function's BlockInfoStack (if pnodeBlock is a function, this points to itself)
+};
 
 struct ParseContext
 {
@@ -625,16 +597,6 @@ private:
 
     // block scoped content helpers
     void SetCurrentStatement(StmtNest *stmt);
-    void CheckRedeclaration(
-        ParseNode *pnode
-#if ERROR_RECOVERY
-        , bool *errorsPresent
-#endif
-);
-
-    void CheckVarsRedeclaration();
-    bool BlockContainsPID(BlockInfoStack *blockInfo, Ident *pid);
-    bool TryGetNodeFromBlockByPID(BlockInfoStack *blockInfo, Ident *pid, ParseNodePtr* ppnode);
     ParseNode* GetCurrentBlock();
     ParseNode* GetFunctionBlock();
     BlockInfoStack* GetCurrentBlockInfo();
@@ -745,8 +707,6 @@ private:
     template<bool buildAST> ParseNodePtr ParseArrayLiteral(ERROR_RECOVERY_FORMAL);
 
     template<bool buildAST> ParseNodePtr ParseStatement(ERROR_RECOVERY_FORMAL_ bool isSourceElement = false);
-    ParseNodePtr ParseWhileStmt(ERROR_RECOVERY_FORMAL);
-    ParseNodePtr ParseForStmt(ERROR_RECOVERY_FORMAL);
     template<bool buildAST> ParseNodePtr ParseVariableDeclaration(
         ERROR_RECOVERY_FORMAL_ tokens declarationType, charcount_t ichMin,
 #if PARSENODE_EXTENSIONS
@@ -756,7 +716,6 @@ private:
         BOOL* pfForInOk = nullptr,
         BOOL singleDefOnly = FALSE,
         BOOL allowInit = TRUE);
-    ParseNodePtr ParseList(ERROR_RECOVERY_FORMAL_ BOOL emptyListOK, BOOL varExprs);
 
     template<bool buildAST>
     void ParseStmtList(
@@ -770,7 +729,6 @@ private:
     bool ScanAheadToFunctionEnd(uint count);
 
     bool DoParallelParse(ParseNodePtr pnodeFnc) const;
-    bool ParseDeferredFunction(BackgroundParser *backgroundParser);
 
     // TODO: We should really call this StartScope and separate out the notion of scopes and blocks;
     // blocks refer to actual curly braced syntax, whereas scopes contain symbols.  All blocks have
@@ -918,8 +876,6 @@ private:
     template<bool buildAST> ParseNodePtr ParseCase(ERROR_RECOVERY_FORMAL_ ParseNodePtr *ppnodeBody);
     template<bool buildAST> ParseNodePtr ParseRegExp();
 
-    template <bool buildAST>
-    ParseNodePtr ParseDestructuredIdentRef(ERROR_RECOVERY_FORMAL);
     template <bool buildAST>
     ParseNodePtr ParseDestructuredArrayLiteral(ERROR_RECOVERY_FORMAL_ tokens declarationType, bool isDecl, bool topLevel = true);
 
