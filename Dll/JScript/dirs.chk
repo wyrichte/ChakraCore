@@ -1,0 +1,4 @@
+DIRS=\
+    release_chk{!EXCLUDE_IE_MAIN} \
+    test{!EXCLUDE_IE_MAIN} \
+    core{!min_rt,!EXCLUDE_IE_MAIN,!x86,!arm,!arm64,noncrit}  \

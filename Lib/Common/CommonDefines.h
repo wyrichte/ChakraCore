@@ -19,6 +19,13 @@
 #define DEBUG 1
 #endif
 
+// if test hook is enabled, enable debug config options are enabled too
+#ifdef ENABLE_TEST_HOOKS
+#ifndef ENABLE_DEBUG_CONFIG_OPTIONS
+#define ENABLE_DEBUG_CONFIG_OPTIONS 1
+#endif
+#endif
+
 // ENABLE_DEBUG_CONFIG_OPTIONS is enabled in debug build when DBG or DBG_DUMP is defined
 // It is enabled in fretest build (jscript9test.dll and jc.exe) in the build script
 #if DBG || DBG_DUMP
@@ -163,7 +170,15 @@
 #ifdef _CONTROL_FLOW_GUARD
 #define CONTROL_FLOW_GUARD_LOGGER
 #endif
+
+#define ENABLE_NATIVE_CODE_SERIALIZATION
+
+#ifndef ENABLE_TEST_HOOKS
+#define ENABLE_TEST_HOOKS
+#endif
+
 #endif // ENABLE_DEBUG_CONFIG_OPTIONS
+
 
 //----------------------------------------------------------------------------------------------------
 // Debug only features

@@ -1,4 +1,0 @@
-!include ..\sources_common.inc
-
-PASS2_BINPLACE= -:DEST projection\winrt:mobilecore $(OBJ_PATH)\$(O)\jshost.exe
-MUI_VERIFY_NO_LOC_RESOURCE=1 

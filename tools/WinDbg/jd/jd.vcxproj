@@ -36,13 +36,13 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>      
+      <AdditionalIncludeDirectories>$(PublicInternalPath)\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>      
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>      
       <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\i386;$(PUBLIC_ROOT)\internal\sdk\lib\i386</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(PublicInternalPath)\sdktools\lib\i386;$(PublicInternalPath)\sdk\lib\i386</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsd-Debug|x64'">
@@ -50,13 +50,13 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>        
+      <AdditionalIncludeDirectories>$(PublicInternalPath)\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>        
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>      
       <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\amd64;$(PUBLIC_ROOT)\internal\sdk\lib\amd64</AdditionalLibraryDirectories>      
+      <AdditionalLibraryDirectories>$(PublicInternalPath)\sdktools\lib\amd64;$(PublicInternalPath)\sdk\lib\amd64</AdditionalLibraryDirectories>      
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jd-Debug|Win32'">
@@ -64,13 +64,13 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>      
+      <AdditionalIncludeDirectories>$(PublicInternalPath)\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>      
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>      
       <ModuleDefinitionFile>private\jd.def</ModuleDefinitionFile>
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\i386;$(PUBLIC_ROOT)\internal\sdk\lib\i386</AdditionalLibraryDirectories>      
+      <AdditionalLibraryDirectories>$(PublicInternalPath)\sdktools\lib\i386;$(PublicInternalPath)\sdk\lib\i386</AdditionalLibraryDirectories>      
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jd-Debug|x64'">
@@ -78,13 +78,13 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PublicInternalPath)\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>      
       <ModuleDefinitionFile>private\jd.def</ModuleDefinitionFile>
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\amd64;$(PUBLIC_ROOT)\internal\sdk\lib\amd64</AdditionalLibraryDirectories>      
+      <AdditionalLibraryDirectories>$(PublicInternalPath)\sdktools\lib\amd64;$(PublicInternalPath)\sdk\lib\amd64</AdditionalLibraryDirectories>      
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsd-Release|Win32'">
@@ -93,13 +93,13 @@
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PublicInternalPath)\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>      
       <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>      
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\i386;$(PUBLIC_ROOT)\internal\sdk\lib\i386</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(PublicInternalPath)\sdktools\lib\i386;$(PublicInternalPath)\sdk\lib\i386</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jsd-Release|x64'">
@@ -108,13 +108,13 @@
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>      
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PublicInternalPath)\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>      
       <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>     
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\amd64;$(PUBLIC_ROOT)\internal\sdk\lib\amd64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(PublicInternalPath)\sdktools\lib\amd64;$(PublicInternalPath)\sdk\lib\amd64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup> 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jd-Release|Win32'">
@@ -123,13 +123,13 @@
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PublicInternalPath)\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>private\jd.def</ModuleDefinitionFile>
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\i386;$(PUBLIC_ROOT)\internal\sdk\lib\i386</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(PublicInternalPath)\sdktools\lib\i386;$(PublicInternalPath)\sdk\lib\i386</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='jd-Release|x64'">
@@ -138,13 +138,13 @@
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>JD_PRIVATE;_WINDOWS;_USRDLL;JD_EXPORTS;_STL70_;_STATIC_CPPLIB;_USE_DECLSPECS_FOR_SAL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(PUBLIC_ROOT)\internal\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PublicInternalPath)\sdktools\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;..\..\..\lib\common;..\..\..\lib\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>private\jd.def</ModuleDefinitionFile>
       <AdditionalDependencies>engextcpp.lib;ntstc_msvcrt.lib;msvcrt.lib;atlsd.lib;atlthunk.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PUBLIC_ROOT)\internal\sdktools\lib\amd64;$(PUBLIC_ROOT)\internal\sdk\lib\amd64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(PublicInternalPath)\sdktools\lib\amd64;$(PublicInternalPath)\sdk\lib\amd64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -223,14 +223,4 @@
     <None Include="release\jsd.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
->>>> ORIGINAL C:\Users\frm3bld\AppData\Local\Temp\1\SSDV3\pak13196.0\03_jd.vcxproj_v10 ++++++++++++++++++++++++++++++++++++++++++++++++
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
 </Project>
-==== THEIRS C:\Users\frm3bld\AppData\Local\Temp\1\SSDV3\pak13196.0\03_jd.vcxproj_v10_changed ++++++++++++++++++++++++++++++++++++++++++++++++
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
-</Project>
-==== YOURS S:\SDV3\inetcore\jscript\tools\WinDbg\jd\jd.vcxproj ++++++++++++++++++++++++++++++++++++++++++++++++
-</Project>
-<<<< END ++++++++++++++++++++++++++++++++++++++++++++++++

@@ -1,8 +1,6 @@
-DIRS =  JC \
-        RecyclerTest{!EXCLUDE_IE_MAIN,!min_rt,nonprod} \
+DIRS =  RecyclerTest{!EXCLUDE_IE_MAIN,!min_rt,nonprod} \
         Common \
         jsGlass{!min_rt,noncrit} \
-        jshost{!min_rt} \
+        jshost{!min_rt,noncrit} \
         gchost{!min_rt,noncrit} \
-        JsGen{!EXCLUDE_IE_MAIN,!min_rt,!ARM,!ARM64,noncrit} \
         jdtest{!MOBILECORE,!min_rt,noncrit,!EXCLUDE_IE_MAIN} \

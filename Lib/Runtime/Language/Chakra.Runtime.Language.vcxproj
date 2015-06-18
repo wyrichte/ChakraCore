@@ -73,7 +73,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)AsmJSTypes.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)AsmJSUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ByteCodeSerializer.cpp">      
-      <AdditionalIncludeDirectories Condition="'$(FreeBuild)'=='true'">$(PUBLIC_ROOT)\internal\base\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(FreeBuild)'=='true'">$(PublicInternalPath)\base\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)CacheOperators.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CallInfo.cpp" />
@@ -221,11 +221,7 @@
   </ItemGroup>
   <!-- In Razzle build, we are still rely on the publish directory -->
   <ItemGroup Condition="'$(BuildingWithBuildExe)'!='true'" >
-    <Midl Include="$(MSBuildThisFileDirectory)..\publish\MutatorsHost.idl">
-      <OutputDirectory>$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <DefaultCharType>Unsigned</DefaultCharType>
-    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)..\publish\MutatorsHost.idl" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\publish\Publish.vcxproj">

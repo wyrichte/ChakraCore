@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23004.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E0786480-1474-43B0-ACDC-6F05779D9D83}"
 	ProjectSection(SolutionItems) = preProject
@@ -26,7 +26,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{DD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dep", "dep", "{D231BA17-AE33-4736-BAA4-1A52476BB24A}"
 	ProjectSection(SolutionItems) = preProject
-		..\dep\codex.vcxproj = ..\dep\codex.vcxproj
 		..\dep\common-iel1.vcxproj = ..\dep\common-iel1.vcxproj
 		..\dep\dtbhost.vcxproj = ..\dep\dtbhost.vcxproj
 		..\dep\IESettingsApi.vcxproj = ..\dep\IESettingsApi.vcxproj
@@ -38,6 +37,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584}"
 	ProjectSection(SolutionItems) = preProject
 		..\Lib\Backend\Chakra.Backend.vcxproj = ..\Lib\Backend\Chakra.Backend.vcxproj
+		..\core\lib\common\codex\Chakra.Common.Codex.vcxproj = ..\core\lib\common\codex\Chakra.Common.Codex.vcxproj
 		..\Lib\Common\common\Chakra.Common.Common.vcxproj = ..\Lib\Common\common\Chakra.Common.Common.vcxproj
 		..\Lib\Common\core\Chakra.Common.Core.vcxproj = ..\Lib\Common\core\Chakra.Common.Core.vcxproj
 		..\Lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj = ..\Lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj
@@ -59,8 +59,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{02C8DAB2-62B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dll", "dll", "{3FBCBF4C-1083-4A70-8929-E89CAA82E781}"
 	ProjectSection(SolutionItems) = preProject
-		..\Dll\JScript\JScript.vcxproj = ..\Dll\JScript\JScript.vcxproj
-		..\Dll\JScriptDiag\JScriptDiag.vcxproj = ..\Dll\JScriptDiag\JScriptDiag.vcxproj
+		..\Dll\JScript\Chakra.vcxproj = ..\Dll\JScript\Chakra.vcxproj
+		..\Dll\JScriptDiag\ChakraDiag.vcxproj = ..\Dll\JScriptDiag\ChakraDiag.vcxproj
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unittest", "unittest", "{7F5A55F5-A32C-42F3-ADB4-F72DA6392120}"
@@ -76,7 +76,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "exe", "exe", "{2D98823A-DF4
 		..\Exe\GCHost\GCHost.vcxproj = ..\Exe\GCHost\GCHost.vcxproj
 		..\Exe\JC\JC.vcxproj = ..\Exe\JC\JC.vcxproj
 		..\Exe\jdtest\jdtest.vcxproj = ..\Exe\jdtest\jdtest.vcxproj
-		..\Exe\JsGen\JsGen.vcxproj = ..\Exe\JsGen\JsGen.vcxproj
 		..\Exe\jsGlass\jsGlass.vcxproj = ..\Exe\jsGlass\jsGlass.vcxproj
 		..\Exe\jshost\jshost.vcxproj = ..\Exe\jshost\jshost.vcxproj
 		..\Exe\RecyclerTest\RecyclerTest.vcxproj = ..\Exe\RecyclerTest\RecyclerTest.vcxproj

@@ -2,15 +2,11 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
-#define ENABLE_TEST_HOOKS 1
-#endif
-
 HRESULT OnJScript9Loaded();
 struct _PROFILER_HEAP_OBJECT;
 typedef HRESULT (__stdcall *GetHeapObjectInfoPtr)(Var instance, HostProfilerHeapObject** heapObjOut, HeapObjectInfoReturnResult& returnResult);
 
-#if ENABLE_TEST_HOOKS
+#ifdef ENABLE_TEST_HOOKS
 
 interface ICustomConfigFlags;
 

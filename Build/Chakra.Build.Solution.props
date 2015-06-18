@@ -1,46 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <MinWinPrivSdkIncPath>$(PUBLIC_ROOT)\internal\minwin\priv_sdk\inc</MinWinPrivSdkIncPath>
-    <ComIncPath>$(PUBLIC_ROOT)\internal\com\inc</ComIncPath>    
+    <Win32_WinNTVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win7)'">0x0601</Win32_WinNTVersion>
+    <Win32_WinNTVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win8)'">0x0602</Win32_WinNTVersion>
+    <Win32_WinNTVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win10)'">0x0A00</Win32_WinNTVersion>
   </PropertyGroup>
+
   <ItemDefinitionGroup>
+
+    <Midl>
+      <!-- ========= Microsoft.Build.Cpp.Default.props ========= -->
+      <!-- These are already defined in Microsoft.Build.Cpp.Default.props, have it here too so that the non-Razzle build will be the same -->
+      <StructMemberAlignment Condition="'%(Midl.StructMemberAlignment)' == ''">8</StructMemberAlignment>
+      <DefaultCharType>Unsigned</DefaultCharType>
+
+      <IdlType>Ole</IdlType>
+      <!-- Default Idl type -->
+
+      <!-- Force all MIDL compiles to be treated as English unless otherwise specified -->
+      <LocaleID>1033</LocaleID>
+
+      <!-- Disable the settings comment to make the headers more diff-able.  Only available in midl 8 -->
+      <AdditionalOptions>%(AdditionalOptions) /no_settings_comment</AdditionalOptions>
+
+      <!--Disable midl timestamps wherever possible-->
+      <AdditionalOptions>%(AdditionalOptions) /no_stamp</AdditionalOptions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+
+      <!-- Other defaults -->
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+
+      <!-- ======== makefiledef ======== -->
+      <AdditionalOptions>%(AdditionalOptions) -sal</AdditionalOptions>
+      
+      <!-- ======== sources.inc ======== -->
+      <!-- generates SAL annotations for our interface -->
+      <AdditionalOptions>%(AdditionalOptions) -sal_local</AdditionalOptions>
+
+
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\inetcore\inc</AdditionalIncludeDirectories>
+    </Midl>
     <ClCompile>
-      <PreprocessorDefinitions>_WIN32_WINNT=0x0601;WINVER=0x0601;_WIN32_IE=0x0800;WIN32;BUILD_WINDOWS;NO_SHLWAPI_ISOS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ForcedIncludeFiles>$(PUBLIC_ROOT)\shared\inc\warning.h;$(PUBLIC_ROOT)\internal\base\inc\warning_x.h</ForcedIncludeFiles>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>      
+      <PreprocessorDefinitions>_WIN32_WINNT=$(Win32_WinNTVersion);WINVER=$(Win32_WinNTVersion);_WIN32_IE=0x0800;WIN32;BUILD_WINDOWS;NO_SHLWAPI_ISOS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(NotLeanAndMean)' == ''">%(PreprocessorDefinitions);WIN32_LEAN_AND_MEAN=1</PreprocessorDefinitions>
+      <ForcedIncludeFiles>$(PUBLIC_ROOT)\shared\inc\warning.h;$(PublicInternalPath)\base\inc\warning_x.h</ForcedIncludeFiles>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+
+      <!-- ====== Microsoft.Build.Cpp.props ====== -->
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(CrtIncPath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(InternalSdkIncPath)</AdditionalIncludeDirectories>
     </ClCompile>
     <Lib>
       <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
       <AdditionalOptions>/IGNORE:4078,4221,4198 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
-    <Link>      
-      <!-- Always use LTCG since some library contain /GL objects -->
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(PUBLIC_ROOT)\sdk\lib\mincore\$(PlatformPathNameAlt)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies);ucrtshims_msvcrt.lib;onecore.lib;mincore_fw.lib</AdditionalDependencies>
-      <AdditionalOptions>%(AdditionalOptions) msvcrt.lib</AdditionalOptions>
-    </Link>
   </ItemDefinitionGroup>
-  <!-- CFG -->
-  <ItemDefinitionGroup>
-    <Link>      
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(PUBLIC_ROOT)\internal\sdk\lib\$(PlatformPathNameAlt)</AdditionalLibraryDirectories>
+  <!-- Stl -->
+  <ItemDefinitionGroup Condition="'$(StlVersion)'=='70'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(CrtIncPath)\stl70</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(SdkLibPath)\ntstc_msvcrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <!-- Atl -->
   <ItemDefinitionGroup Condition="'$(UseStaticAtl)'=='true'">
     <ClCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_ATL_STATIC_REGISTRY</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories Condition="'$(AtlVersion)' == '21'">%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\sdk\inc\atl21;</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(AtlVersion)' == '30'">%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\sdk\inc\atl30;</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(AtlVersion)' == '70'">%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\sdk\inc\atlmfc</AdditionalIncludeDirectories>           
+      <AdditionalIncludeDirectories Condition="'$(AtlVersion)' == '21'">%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\sdk\inc\atl21</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(AtlVersion)' == '30'">%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\sdk\inc\atl30</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(AtlVersion)' &gt;= '70'">%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\sdk\inc\atlmfc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(PUBLIC_ROOT)\internal\sdk\lib\$(PlatformPathNameAlt)</AdditionalLibraryDirectories>
-      <AdditionalDependencies Condition="'$(AtlVersion)' == '70'">%(AdditionalDependencies);atls_nouser32.lib</AdditionalDependencies>
-      <AdditionalDependencies>%(AdditionalDependencies);atlthunk.lib</AdditionalDependencies>
-      
+      <AdditionalDependencies Condition="'$(AtlVersion)' &gt;= '70' AND '$(BuildForCoreSystem)'!='true'">%(AdditionalDependencies);$(InternalSdkLibPath)\atls.lib</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(AtlVersion)' &gt;= '70' AND '$(BuildForCoreSystem)'=='true'">%(AdditionalDependencies);$(InternalSdkLibPath)\atls_nouser32.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(SdkLibPath)\atlthunk.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 </Project>

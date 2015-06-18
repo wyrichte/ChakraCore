@@ -3,33 +3,66 @@
   <PropertyGroup>
     <!-- CFG is turned off for ARM for now -->
     <CFG Condition="'$(CFG)'=='' AND '$(Platform)'!='ARM'">true</CFG>
+
+    <!-- ========= From tools\makefile.def ========= -->
+    <!-- DLOAD handler -->
+    <DelayImpLib Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win7)'">$(MinWinPrivSdkLibPath)\dloadwin7helper.lib</DelayImpLib>
+    <DelayImpLib Condition="'$(NtTargetVersion)'!='$(NtTargetVersion_Win7)'">$(SdkLibPath)\dloadhelper.lib;$(MinWinPrivSdkLibPath)\$(MinWinTargetVersionStr)\api-ms-win-core-delayload-l1.lib</DelayImpLib>
+    
+    <ApiSetTargetVersion_1_0>0x0100</ApiSetTargetVersion_1_0>
+    <ApiSetTargetVersion_1_1>0x0101</ApiSetTargetVersion_1_1>
+    <ApiSetTargetVersion_1_4>0x0104</ApiSetTargetVersion_1_4>
+
+    <MinCoreTargetVersion_1_0>0x0100</MinCoreTargetVersion_1_0>
+    <MinCoreTargetVersion_1_3>0x0103</MinCoreTargetVersion_1_3>
+
+    <MinWinTargetVersion_1_0>0x0100</MinWinTargetVersion_1_0>
+    <MinWinTargetVersion_1_1>0x0101</MinWinTargetVersion_1_1>
+    <MinWinTargetVersion_1_4>0x0104</MinWinTargetVersion_1_4>
+
+    <OneCoreTargetVersion_1_0>0x0100</OneCoreTargetVersion_1_0>
+    <OneCoreTargetVersion_1_3>0x0103</OneCoreTargetVersion_1_3>
+
+
+    <!-- ========= From tools\makefile.api ========= -->
+    <ApiSetTargetVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win7)'">$(ApiSetTargetVersion_1_0)</ApiSetTargetVersion>
+    <ApiSetTargetVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win8)'">$(ApiSetTargetVersion_1_1)</ApiSetTargetVersion>
+    <ApiSetTargetVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win10)'">$(ApiSetTargetVersion_1_4)</ApiSetTargetVersion>
+
+    <MinWinTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_0)'">$(MinWinTargetVersion_1_0)</MinWinTargetVersion>
+    <MinWinTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_1)'">$(MinWinTargetVersion_1_1)</MinWinTargetVersion>
+    <MinWinTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_4)'">$(MinWinTargetVersion_1_4)</MinWinTargetVersion>
+
+    <MinWinTargetVersionStr Condition="'$(MinWinTargetVersion)'=='$(MinWinTargetVersion_1_0)'">1.0</MinWinTargetVersionStr>
+    <MinWinTargetVersionStr Condition="'$(MinWinTargetVersion)'=='$(MinWinTargetVersion_1_1)'">1.1</MinWinTargetVersionStr>
+    <MinWinTargetVersionStr Condition="'$(MinWinTargetVersion)'=='$(MinWinTargetVersion_1_4)'">1.4</MinWinTargetVersionStr>
+    
+    <MinCoreTargetVersion Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_1)'">$(MinCoreTargetVersion_1_0)</MinCoreTargetVersion>
+    <MinCoreTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_4)'">$(MinCoreTargetVersion_1_3)</MinCoreTargetVersion>
+
+    <MinCoreTargetVersionStr Condition="'$(MinCoreTargetVersion)'=='$(MinCoreTargetVersion_1_0)'">1.0</MinCoreTargetVersionStr>
+    <MinCoreTargetVersionStr Condition="'$(MinCoreTargetVersion)'=='$(MinCoreTargetVersion_1_3)'">1.3</MinCoreTargetVersionStr>
+    
+    <OneCoreTargetVersion Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_1)'">$(OneCoreTargetVersion_1_0)</OneCoreTargetVersion>
+    <OneCoreTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_4)'">$(OneCoreTargetVersion_1_3)</OneCoreTargetVersion>
+
+    <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_0)'">1.0</OneCoreTargetVersionStr>
+    <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_3)'">1.3</OneCoreTargetVersionStr>    
+    
+    <WindowsVersionStr Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_1)'">6.2</WindowsVersionStr>
+    <WindowsVersionStr Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_4)'">10.0</WindowsVersionStr>
+
+
+    <!-- ========= From tools\makefile.def ========= -->    
+    <DelayImpLib Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win7)'">$(MinWinPrivSdkLibPath)\dloadwin7helper.lib</DelayImpLib>
+    <DelayImpLib Condition="'$(NtTargetVersion)'!='$(NtTargetVersion_Win7)'">$(SdkLibPath)\dloadhelper.lib;$(MinWinPrivSdkLibPath)\$(MinWinTargetVersionStr)\api-ms-win-core-delayload-l1.lib</DelayImpLib>
   </PropertyGroup>
   <ItemDefinitionGroup>
-    <!-- ========= Microsoft.Build.Cpp.Default.props ========= -->
-    <!-- These are already defined in Microsoft.Build.Cpp.Default.props, have it here too so that the non-Razzle build will be the same -->
-    <Midl>      
-      <StructMemberAlignment Condition="'%(Midl.StructMemberAlignment)' == ''">8</StructMemberAlignment>
-      <DefaultCharType>Unsigned</DefaultCharType>
-
-      <IdlType>Ole</IdlType>
-      <!-- Default Idl type -->
-
-      <!-- Force all MIDL compiles to be treated as English unless otherwise specified -->
-      <LocaleID>1033</LocaleID>
-
-      <!-- Disable the settings comment to make the headers more diff-able.  Only available in midl 8 -->
-      <AdditionalOptions>%(AdditionalOptions) /no_settings_comment</AdditionalOptions>
-
-      <!--Disable midl timestamps wherever possible-->
-      <AdditionalOptions>%(AdditionalOptions) /no_stamp</AdditionalOptions>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-    </Midl>
-
     <ClCompile>
       <!-- ========= For IESettings.h/Banned.h ========= -->
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\internal\inetcore\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\inetcore\inc</AdditionalIncludeDirectories>
       <!-- ========= For CULHeapAllocHelpers.h (referenced in IESettings.h) ========= -->
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\internal\shell\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\shell\inc</AdditionalIncludeDirectories>
 
       <!-- ========= From inetcore\project.mk =========-->
       <PreprocessorDefinitions>%(PreprocessorDefinitions);CULDEBUG_USE_NTASSERT</PreprocessorDefinitions>
@@ -38,20 +71,21 @@
       <AdditionalOptions>%(AdditionalOptions) /Yl$(TargetName) /Gw /d2AllowCompatibleILVersions /d2Zi+</AdditionalOptions>
       <!-- Disable __DATE__ and __TIME__ macro on fre to prevent screwing up servicing -->
       <AdditionalOptions Condition="'$(FreeBuild)'=='true'">%(AdditionalOptions) /d1nodatetime</AdditionalOptions>
-      
+
       <!-- this is the default in the headers anyways, here just to be explicit -->
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_USE_DECLSPECS_FOR_SAL=1</PreprocessorDefinitions>
-      
+
       <!-- ========= From tools\<platform>mk.inc -->
       <!-- Force no_registry search for type libraries (we have #import mscorlib.tlb) -->
       <AdditionalOptions>%(AdditionalOptions) /d1import_no_registry</AdditionalOptions>
-      <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      
+      <ProgramDataBaseFileName Condition="'$(ConfigurationType)'=='StaticLibrary'">$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName Condition="'$(ConfigurationType)'!='StaticLibrary'">$(IntDir)</ProgramDataBaseFileName>
+
       <!-- ========= From tools\armmk.inc ========= -->
       <AdditionalOptions Condition="'$(Platform)'=='ARM'">%(AdditionalOptions) /arch:VFPv3-D16 /Gs4096</AdditionalOptions>
-      
+
       <!-- ========= From inetcore\jscript\project.mk ========= -->
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);NTBUILD;NOMINMAX;NO_SHLWAPI_ISOS;USE_EDGEMODE_JSRT</PreprocessorDefinitions>            
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NTBUILD;NOMINMAX;NO_SHLWAPI_ISOS;USE_EDGEMODE_JSRT</PreprocessorDefinitions>
       <AdditionalOptions>%(AdditionalOptions) /Zm150</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'=='Win32'">%(AdditionalOptions) /d2noftol3</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'=='x64'">%(AdditionalOptions) /homeparams</AdditionalOptions>
@@ -63,7 +97,7 @@
       <!-- /GR- -->
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <!-- /Zi -->
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>      
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <!-- /EHsc- -->
       <ExceptionHandling>SyncCThrow</ExceptionHandling>
       <!-- Some of our STDMETHOD can throw
@@ -71,7 +105,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions);COM_STDMETHOD_CAN_THROW</PreprocessorDefinitions>
       <!-- TODO: clean up 4267 -->
       <DisableSpecificWarnings>4100;4127;4267;4481</DisableSpecificWarnings>
-      
+
       <!-- ========= Microsoft.Build.Cpp.props ========= -->
       <!-- These are already defined in Microsoft.Build.Cpp.props, have it here too so that the non-Razzle build will be the same -->
       <!-- /Gz -->
@@ -82,32 +116,32 @@
       <!-- /Zc:wchar_t- -->
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <!-- /Zp8 -->
-      <StructMemberAlignment>8Bytes</StructMemberAlignment>      
+      <StructMemberAlignment>8Bytes</StructMemberAlignment>
 
       <!-- ========= Microsoft.Cl.Common.props defaults ========= -->
       <!-- /GS -->
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <!-- No /RTC -->
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>       
-      <SmallerTypeCheck>false</SmallerTypeCheck>      
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
 
-      <!-- ========= Other defaults ========= -->      
+      <!-- ========= Other defaults ========= -->
       <!-- /Gy -->
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <!-- /GF -->
-      <StringPooling>true</StringPooling>      
+      <StringPooling>true</StringPooling>
       <!-- /Zl -->
       <OmitDefaultLibName>true</OmitDefaultLibName>
       <!-- /MD -->
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
 
-      <!-- Enable Minimal rebuild inside VS, we can expand it if it is worth while -->
+      <!-- Enable Minimal rebuild inside VS, we can expand it if it is worth while (minmial rebuild has PCH problem with non chk build -->
       <MinimalRebuild>false</MinimalRebuild>
-      <MinimalRebuild Condition="'$(BuildingInsideVisualStudio)'=='true'">true</MinimalRebuild>
-      
+      <MinimalRebuild Condition="'$(BuildingInsideVisualStudio)'=='true' AND '$(Configuration)' == 'chk'">true</MinimalRebuild>
+
       <!-- We don't use any metadata -->
-      <AdditionalUsingDirectories />      
-    </ClCompile>    
+      <AdditionalUsingDirectories />
+    </ClCompile>
     <MASM>
       <!-- /Cx -->
       <PreserveIdentifierCase>3</PreserveIdentifierCase>
@@ -115,18 +149,45 @@
       <IncludePaths>%(ClCompile.AdditionalIncludeDirectories)</IncludePaths>
     </MASM>
     <Link>
-      <!-- These are already defined in Microsoft.Build.Cpp.Default.props, have it here too so that the non-Razzle build will be the same -->      
+      <!-- These are already defined in Microsoft.Build.Cpp.Default.props, have it here too so that the non-Razzle build will be the same -->
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding Condition="'$(FreeBuild)'=='true'">true</EnableCOMDATFolding>
       <OptimizeReferences Condition="'$(FreeBuild)'=='true'">true</OptimizeReferences>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+
+      <!-- ======== From makefile.def ======== -->
+      <!-- REVIEW: NOOPTIDATA is undocumented, prevent .idata to be merged into .text-->
+      <AdditionalOptions>%(AdditionalOptions) /NOVCFEATURE /NOOPTIDATA /SECTION:.idata,R</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /merge:.rdata=.text</AdditionalOptions>
+      <!--# merge .orpc sections with .text. .orpc is used by older versions of the VS
+          # debugger to automatically step over marshalling code. -->
+      <AdditionalOptions>%(AdditionalOptions) /merge:.orpc=.text</AdditionalOptions>
+      <Version>$(LinkerAppVersion)</Version>
+      <AdditionalOptions>%(AdditionalOptions) /osversion:$(LinkerOSVersion)</AdditionalOptions>
+      <MinimumRequiredVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win7)'" >6.1</MinimumRequiredVersion>
+      <MinimumRequiredVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win8)'" >6.2</MinimumRequiredVersion>
+      <MinimumRequiredVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win10)'" >10.00</MinimumRequiredVersion>
+      <!-- Always set the checksum -->
+      <AdditionalOptions>%(AdditionalOptions) /release</AdditionalOptions>
+
+      <!-- Clear all the library and we build our own lib list -->
+      <AdditionalDependencies />
+      <!-- CRT -->
+      <AdditionalDependencies>
+        $(AdditionalDependencies);
+        $(SdkLibPath)\msvcrt.lib;
+        $(InternalSdkLibPath)\ucrtshims_msvcrt.lib
+      </AdditionalDependencies>
+      
+      <!-- Always use LTCG since some library contain /GL objects -->
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <ImpLib>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </ImpLib>    
+      <GenerateDebugInformation>true</GenerateDebugInformation>      
+    </ImpLib>
   </ItemDefinitionGroup>
   <!-- chk build flags -->
   <ItemDefinitionGroup Condition="'$(FreeBuild)'!='true'">
@@ -140,9 +201,9 @@
   <ItemDefinitionGroup Condition="'$(FreeBuild)'=='true'">
     <ClCompile>
       <!-- ========= From inetcore\jscript\project.mk ========= -->
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>      
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)'=='fretest'">%(PreprocessorDefinitions);ENABLE_DEBUG_CONFIG_OPTIONS=1</PreprocessorDefinitions>
-      <Optimization>MaxSpeed</Optimization>    
+      <Optimization>MaxSpeed</Optimization>
       <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -161,7 +222,6 @@
       <AdditionalOptions>%(AdditionalOptions) /guard:export /guard:mixed /d2:-guardcfgfuncptr</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
-
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="Chakra.Build.Razzle.props" />
   <Import Condition="'$(BuildingWithBuildExe)'!='true'" Project="Chakra.Build.Solution.props" />
 </Project>

@@ -12,7 +12,7 @@
     <RootNamespace>ScriptProjectionHostApi</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>    
   </PropertyGroup>
   <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />   

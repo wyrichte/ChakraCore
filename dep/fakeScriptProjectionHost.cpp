@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <activscp.h>
 #include "ScriptProjectionHost.hxx"
 
 HRESULT CreateScriptProjectionHost(

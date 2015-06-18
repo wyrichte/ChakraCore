@@ -24,7 +24,7 @@ INCLUDES=	$(COREINCLUDES);				\
 		$(JSCRIPT_ROOT)\dll\jscript;			\
 		$(JSCRIPT_ROOT)\dll\jscriptdiag;		\
 		$(OBJ_PATH)\..\..\..\dll\jscript\$(O);		\
-		$(OBJ_PATH)\..\..\..\dll\jscript\release\$(O);	\
+		$(OBJ_PATH)\..\..\..\dll\jscript\test\$(O);	\
 		$(OBJ_PATH)\$(O);				\
 		$(OBJ_PATH)\..\..\..\lib\author\test\$(O);	\
 		$(SDK_INC_PATH)\atlmfc				

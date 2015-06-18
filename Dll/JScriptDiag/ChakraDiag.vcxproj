@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ChakraBuildConfigDir>..\..\Build</ChakraBuildConfigDir>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
+  <PropertyGroup Label="Globals">
+    <ProjectName>ChakraDiag</ProjectName>
+    <ProjectGuid>{D81EF7CF-1D44-46B5-843E-4C0F1626A1E2}</ProjectGuid>
+    <RootNamespace>Js</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <TargetName>ChakraDiag</TargetName>
+    <TargetName Condition="'$(FreTest)'=='true'">ChakraDiagTest</TargetName>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseStaticAtl>true</UseStaticAtl>
+    <AtlVersion>70</AtlVersion>
+    <BuildForCoreSystem>true</BuildForCoreSystem>
+    <!-- ChakraDiag doesn't have any localizable resources -->
+    <Mui Condition="'$(BuildingWithBuildExe)'=='true'">false</Mui>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>
+        %(AdditionalIncludeDirectories);
+        $(ChakraManifestsIncludeDirectory);
+        $(ChakraRootDirectory)Lib\Common;
+        $(ChakraRootDirectory)Lib\Common\DataStructures;
+        $(ChakraRootDirectory)Lib\Common\Memory;
+        $(ChakraRootDirectory)Lib\Parser;
+        $(ChakraRootDirectory)Lib\Runtime;
+        $(ChakraRootDirectory)Lib\Runtime\ByteCode;
+        $(ChakraRootDirectory)Lib\Runtime\Language;
+        $(ChakraRootDirectory)Lib\Runtime\Library;
+        $(ChakraRootDirectory)Lib\Runtime\Types;
+        $(ChakraRootDirectory)Lib\Backend;
+        $(ChakraRootDirectory)Dll\Jscript;
+        $(SdkToolsIncPath)
+      </AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>__PLACEMENT_NEW_INLINE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <!-- 
+        4189: local variable is initialized but not referenced
+        4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow) 
+        -->
+      <DisableSpecificWarnings>%(DisableSpecificWarnings);4189;4290</DisableSpecificWarnings>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <ModuleDefinitionFile>$(IntDir)ChakraDiag.def</ModuleDefinitionFile>
+
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(InternalSdkLibPath)\nothrownew.lib;
+        $(SdkLibPath)\mincore.lib;
+        $(MinCoreSdkLibPath)\mincore_fw.lib;
+        $(MinCoreSdkLibPath)\mincore_obsolete.lib;
+        $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
+        $(SdkLibPath)\uuid.lib;
+
+        <!-- _DoNotUseDirectly_CULprintf in codex -->
+        <!-- TODO: Clean this up -->
+        $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\CommonUtilityLibrary.lib;
+
+        <!-- Setting store -->
+        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\iertutilp.lib;
+        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\IESettingsApi.lib;
+        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\IESettingsId.lib
+      </AdditionalDependencies>
+
+      <DelayLoadDLLs>%(DelayLoadDLLs);api-ms-win-shcore-stream-l1-1-0.dll</DelayLoadDLLs>
+    </Link>
+    <Link Condition="'$(BuildingWithBuildExe)'=='true'">
+      <!-- For Razzle build, Solution relies on ProjectReferences -->
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(ChakraCommonCodexLib);
+        $(ChakraCommonCommonLib);
+        $(ChakraCommonCoreLib);
+        $(ChakraCommonDataStructureLib);
+        $(ChakraRuntimeLanguageLib)
+      </AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <!-- Razzle binplace -->
+  <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true'">
+    <BinplaceLinked Include="$(ObjectPath)\$(ObjectDirectory)$(TargetFileName)">
+      <DestinationFolder Condition="'$(TargetName)'=='ChakraDiagTest'">jscript</DestinationFolder>
+    </BinplaceLinked>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)chakradiag.def">
+      <PreprocessToFile>true</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>true</PreprocessSuppressLineNumbers>
+      <PreprocessorDefinitions Condition="'$(TargetName)'=='ChakraDiagTest'">%(PreprecessorDefinitions);CHAKRADIAGTEST=1</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)chakradiag.def</ObjectFileName>
+      <LinkCompiled>false</LinkCompiled>
+      <ImpLibCompiled>false</ImpLibCompiled>
+      <!-- Clear the forced includes -->
+      <ForcedIncludeFiles></ForcedIncludeFiles>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)expression.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)guids.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Inspection.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jsdebug.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JsDebugBreakPoint.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jsdebugProcess.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jsdebugStackWalker.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteAllocator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteStackFrameLocals.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteString.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteTypeHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScriptDump.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScriptDumpReader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)stdafx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)dllfunc.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DAC.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DebugClient.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DiagProvider.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)InternalStackFrame.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteStackFrameEnumerator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteStackWalker.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteInlineFrameWalker.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteStackFrame.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteDiagFrame.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScriptState.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Serializer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)thrownew.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)VirtualReader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DiagErrorCode.h" />
+    <ClInclude Include="expression.h" />
+    <ClInclude Include="jscript9diagprivate.h" />
+    <ClInclude Include="MockDataTarget.h" />
+    <ClInclude Include="thrownew.h" />
+    <ClInclude Include="werdump.h" />
+    <ClInclude Include="DiagAutoPtr.h" />
+    <ClInclude Include="DiagConstants.h" />
+    <ClInclude Include="DiagException.h" />
+    <ClInclude Include="Inspection.h" />
+    <ClInclude Include="InternalStackFrame.h" />
+    <ClInclude Include="JsDebugBreakPoint.h" />
+    <ClInclude Include="JsDebugProperty.h" />
+    <ClInclude Include="jsdiag.h" />
+    <ClInclude Include="RemoteEnumerator.h" />
+    <ClInclude Include="RemoteAllocator.h" />
+    <ClInclude Include="RemoteStackFrameLocals.h" />
+    <ClInclude Include="RemoteString.h" />
+    <ClInclude Include="RemoteTypeHandler.h" />
+    <ClInclude Include="RuntimeCore.h" />
+    <ClInclude Include="guids.h" />
+    <Midl Include="..\..\..\published\sdk\inc\jscript9diag.idl" Condition="'$(BuildingWithBuildExe)'!='true'" />
+    <ClInclude Include="jsdebug.h" />
+    <ClInclude Include="jsdebugProcess.h" />
+    <ClInclude Include="jsdebugStackWalker.h" />
+    <ClInclude Include="ScriptDump.h" />
+    <ClInclude Include="ScriptDumpReader.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="dllfunc.h" />
+    <ClInclude Include="DAC.h" />
+    <ClInclude Include="RemoteBuffer.h" />
+    <ClInclude Include="RemoteBuffer.inl" />
+    <ClInclude Include="DebugClient.h" />
+    <ClInclude Include="DiagProvider.h" />
+    <ClInclude Include="RemoteDiagFrame.h" />
+    <ClInclude Include="RemoteStackFrame.h" />
+    <ClInclude Include="RemoteStackFrameEnumerator.h" />
+    <ClInclude Include="RemoteStackWalker.h" />
+    <ClInclude Include="RemoteInlineFrameWalker.h" />
+    <ClInclude Include="ScriptState.h" />
+    <ClInclude Include="Serializer.h" />
+    <ClInclude Include="Serializer.inl" />
+    <ClInclude Include="DiagAssertion.h" />
+    <ClInclude Include="VirtualReader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(MSBuildThisFileDirectory)jscript9diag.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="JsDebug.rgs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\core\lib\common\codex\Chakra.Common.Codex.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac38}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Common\common\Chakra.Common.Common.vcxproj">
+      <Project>{bb4153ff-ac3e-4734-b562-cc23812df31b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Common\core\Chakra.Common.Core.vcxproj">
+      <Project>{cc4153ff-ac3e-4734-b562-cc23812df31b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj">
+      <Project>{5643d42a-c38d-4d82-9662-58470b3ac9f7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj">
+      <Project>{706083f7-6aa4-4558-a153-6352ef9110f8}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

@@ -37,7 +37,7 @@ LINKLIBS = \
     $(SDK_LIB_PATH)\oleaut32.lib \
     $(SDK_LIB_PATH)\Uuid.lib \
     $(SDK_LIB_PATH)\shlwapi.lib \
-    $(OBJ_PATH)\..\..\exe\common\$(O)\jscript.exe.common.lib \
+    $(OBJ_PATH)\..\..\exe\common\$(O)\chakra.host.common.lib \
     $(OBJ_PATH)\..\..\dll\jscriptdiag\release\$(O)\guids.obj \
 
 PRECOMPILED_INCLUDE=stdafx.h

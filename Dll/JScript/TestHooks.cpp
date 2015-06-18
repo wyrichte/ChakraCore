@@ -4,10 +4,6 @@
 
 #include "StdAfx.h"
 
-#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
-#define ENABLE_TEST_HOOKS 1
-#endif
-
 #ifndef ENABLE_TEST_HOOKS
 HRESULT OnJScript9Loaded()
 {

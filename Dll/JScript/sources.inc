@@ -241,7 +241,6 @@ TARGETLIBS= \
     $(SDK_LIB_PATH)\muiload.lib \
     $(SDK_LIB_PATH)\ole32.lib \
     $(SDK_LIB_PATH)\Uuid.lib \
-    $(MINWIN_PRIV_SDK_LIB_PATH)\pcwum.lib \
 !if (!$(FREEBUILD))
     $(MINCORE_PRIV_SDK_LIB_VPATH)\ext-ms-win-ntuser-dialogbox-l1.lib \
     $(SDK_LIB_PATH)\dbghelp.lib \
@@ -262,7 +261,6 @@ DELAYLOAD = \
     api-ms-win-core-com-l1-1-0.dll; \
     api-ms-win-ro-typeresolution-l1; \
     ext-ms-win-rometadata-dispenser-l1-1-0.dll; \
-    pcwum.dll; \
 !IF (!$(FREEBUILD))
     ext-ms-win-ntuser-dialogbox-l1-1-0.dll; \
 !ENDIF

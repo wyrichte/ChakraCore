@@ -379,8 +379,7 @@ class ThreadContext sealed :
 {
 public:
     static void GlobalInitialize();
-    static const DWORD NoThread = 0xFFFFFFFF;
-    static DWORD const RandomDataLength = 64;
+    static const DWORD NoThread = 0xFFFFFFFF;    
 
     struct CollectCallBack
     {
@@ -425,9 +424,7 @@ public:
     IActiveScriptProfilerHeapEnum* GetHeapEnum();
     void SetHeapEnum(IActiveScriptProfilerHeapEnum* newHeapEnum);
     void ClearHeapEnum();
-    BYTE* GetRandomData();
-    DWORD GetRandomDataSize() const { return sizeof(randomData); }
-    
+
     Js::LanguageStats* GetLanguageStats()
     {
         return langTel.GetLanguageStats();
@@ -597,10 +594,10 @@ private:
     PageAllocator diagnosticPageAllocator;
     Recycler* recycler;
 
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
     HCRYPTPROV hProv;
-    BYTE randomData[RandomDataLength];
-    bool isRandomDataInitialized;
-
+#endif
+    
     // Fake RecyclerWeakReference for built-in properties
     class StaticPropertyRecordReference : public RecyclerWeakReference<const Js::PropertyRecord>
     {
@@ -994,7 +991,9 @@ public:
 
     Recycler* EnsureRecycler();
 
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
     HCRYPTPROV EnsureCryptoContext();
+#endif
 
     ThreadContext::CollectCallBack * AddRecyclerCollectCallBack(RecyclerCollectCallBackFunction callback, void * context);
     void RemoveRecyclerCollectCallBack(ThreadContext::CollectCallBack * collectCallBack);

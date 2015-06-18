@@ -1,4 +1,0 @@
-!include ..\sources_test.inc
-USE_NOTHROW_NEW=1 
-
-PASS2_BINPLACE= -:DEST projection\winrt $(OBJ_PATH)\$(O)\chakradiagtest.dll

@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(MsBuildThisFileDirectory)chakra.def" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)abidelegates.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ABIEvents.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)activescripterror.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ActiveScriptProfilerHeapEnum.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsCollection.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsIterable.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsIterator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsVector.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayProjection.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayProjectionEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)breakpointProbe.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)caller.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)CJavascriptOperations.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)classfac.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)codectx.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)customenumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)CustomExternalType.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)dbgfmt.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)dbgprop.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DebugObject.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DefaultScriptOperations.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DiagnosticsScriptObject.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DispatchHelper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DispMemberProxy.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DispMemberProxyType.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)dllfunc.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DOMProperties.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DynamicSourceHolder.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)EditTest.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)EnumVariantEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ErrorTypeHelper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)EventSink.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalObject.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)FinalizableTypedArrayContents.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)guids.c" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatch.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatchEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatchType.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)HostObject.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)HostObjectType.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)HostVariant.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)IBufferProjection.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)InspectableObjectTypeOperations.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptDispatch.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptExternalOperators.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptPixelArrayDispatch.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)javascriptThreadService.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)jsfac.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)jsrt.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtContext.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtCustomEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtDelegateWrapper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtExternalObject.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtRuntime.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtShared.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtThreadService.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)NamedEventHandler.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)NamedItemList.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)NamespaceProjectionEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)NativeVisualizerExtension.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ObjectAsIPropertyValue.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ObjectAsIReference.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProfileDataObject.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionAsyncDebug.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionFastPath.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionMarshaler.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionMemoryInformation.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionMethodInvoker.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionObjectInstance.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionWriter.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)PropertySet.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)PropertySetEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)proxystub.c" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)QueryContinuePoller.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)MemspectMemoryTracking.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)namespaceProjection.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionContext.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)projectionTypeOperations.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)refcountedHostVariant.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)SCADeserialization.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)SCAPropBag.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)SCASerialization.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)scpnode.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)scptext.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ScriptDAC.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DiagHook.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ScriptDebugDocument.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEdit.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEngine.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEngineBase.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)scriptsite.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)scrpting.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)SemanticChange.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)siteserv.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)StreamHelper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)StreamReader.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)StreamWriter.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)TestHooks.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ThreadServiceWrapperBase.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)typeinfobuilder.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)UnknownImpl.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)VariableArgMethodHelper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)VectorArray.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)VectorArrayEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalWeakReferenceImpl.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalWeakReferenceSourceImpl.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)arm\CallingConvention.cpp">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MsBuildThisFileDirectory)arm64\CallingConvention.cpp">
+      <Filter>arm64</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="abidelegates.h" />
+    <ClInclude Include="ABIEvents.h" />
+    <ClInclude Include="activescripterror.h" />
+    <ClInclude Include="ActiveScriptProfilerHeapEnum.h" />
+    <ClInclude Include="ad1ex.h" />
+    <ClInclude Include="ArrayAsCollection.h" />
+    <ClInclude Include="ArrayAsIterable.h" />
+    <ClInclude Include="ArrayAsIterator.h" />
+    <ClInclude Include="ArrayAsVector.h" />
+    <ClInclude Include="ArrayProjection.h" />
+    <ClInclude Include="ArrayProjectionEnumerator.h" />
+    <ClInclude Include="breakpointProbe.h" />
+    <ClInclude Include="builtinoperations.h" />
+    <ClInclude Include="caller.h" />
+    <ClInclude Include="chakrart.h" />
+    <ClInclude Include="CJavascriptOperations.h" />
+    <ClInclude Include="classfac.h" />
+    <ClInclude Include="codectx.h" />
+    <ClInclude Include="customenumerator.h" />
+    <ClInclude Include="CustomExternalType.h" />
+    <ClInclude Include="dbgfmt.h" />
+    <ClInclude Include="dbgpropImpl.h" />
+    <ClInclude Include="DebugObject.h" />
+    <ClInclude Include="DefaultScriptOperations.h" />
+    <ClInclude Include="DiagnosticsScriptObject.h" />
+    <ClInclude Include="DispatchHelper.h" />
+    <ClInclude Include="dispidhelper.h" />
+    <ClInclude Include="DispMemberProxy.h" />
+    <ClInclude Include="dllfunc.h" />
+    <ClInclude Include="DOMProperties.h" />
+    <ClInclude Include="DynamicSourceHolder.h" />
+    <ClInclude Include="EditTest.h" />
+    <ClInclude Include="EnumVariantEnumerator.h" />
+    <ClInclude Include="ErrorTypeHelper.h" />
+    <ClInclude Include="EventSink.h" />
+    <ClInclude Include="FinalizableTypedArrayContents.h" />
+    <ClInclude Include="GenerateByteCodeConfig.h" />
+    <ClInclude Include="guids.h" />
+    <ClInclude Include="HostDispatch.h" />
+    <ClInclude Include="HostDispatchEnumerator.h" />
+    <ClInclude Include="HostObject.h" />
+    <ClInclude Include="HostVariant.h" />
+    <ClInclude Include="IBufferProjection.h" />
+    <ClInclude Include="IHTMLDOMConstructor.h" />
+    <ClInclude Include="InspectableObjectTypeOperations.h" />
+    <ClInclude Include="JavascriptDispatch.h" />
+    <ClInclude Include="JavascriptExternalOperators.h" />
+    <ClInclude Include="javascriptpixelarraydispatch.h" />
+    <ClInclude Include="javascriptThreadService.h" />
+    <ClInclude Include="JnDOMDirectFields.h" />
+    <ClInclude Include="jscriptdllcommon.h" />
+    <ClInclude Include="jsfac.h" />
+    <ClInclude Include="jsrt.h" />
+    <ClInclude Include="JsrtComException.h" />
+    <ClInclude Include="JsrtContext.h" />
+    <ClInclude Include="JsrtCustomEnumerator.h" />
+    <ClInclude Include="JsrtDelegateWrapper.h" />
+    <ClInclude Include="JsrtExternalObject.h" />
+    <ClInclude Include="JsrtInternal.h" />
+    <ClInclude Include="jsrtprivate.h" />
+    <ClInclude Include="JsrtRuntime.h" />
+    <ClInclude Include="JsrtThreadService.h" />
+    <ClInclude Include="NamedEventHandler.h" />
+    <ClInclude Include="NamedItemList.h" />
+    <ClInclude Include="NamespaceProjectionEnumerator.h" />
+    <ClInclude Include="NativeVisualizerExtension.h" />
+    <ClInclude Include="ObjectAsIPropertyValue.h" />
+    <ClInclude Include="ObjectAsIReference.h" />
+    <ClInclude Include="ProjectionAsyncDebug.h" />
+    <ClInclude Include="ProjectionFastPath.h" />
+    <ClInclude Include="ProjectionMarshaler.h" />
+    <ClInclude Include="ProjectionMemoryInformation.h" />
+    <ClInclude Include="ProjectionMethodInvoker.h" />
+    <ClInclude Include="ProjectionObjectInstance.h" />
+    <ClInclude Include="ProjectionWriter.h" />
+    <ClInclude Include="PropertySet.h" />
+    <ClInclude Include="PropertySetEnumerator.h" />
+    <ClInclude Include="proxystub.h" />
+    <ClInclude Include="QueryContinuePoller.h" />
+    <ClInclude Include="namespaceProjection.h" />
+    <ClInclude Include="ProfileDataObject.h" />
+    <ClInclude Include="ProjectionContext.h" />
+    <ClInclude Include="projectionTypeOperations.h" />
+    <ClInclude Include="refcountedHostVariant.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SCAEngine.h" />
+    <ClInclude Include="SCAPropBag.h" />
+    <ClInclude Include="SCASerialization.h" />
+    <ClInclude Include="SCADeserialization.h" />
+    <ClInclude Include="ScriptDAC.h" />
+    <ClInclude Include="DiagHook.h" />
+    <ClInclude Include="ScriptDebugDocument.h" />
+    <ClInclude Include="ScriptEdit.h" />
+    <ClInclude Include="SemanticChange.h" />
+    <ClInclude Include="StreamHelper.h" />
+    <ClInclude Include="StreamReader.h" />
+    <ClInclude Include="StreamWriter.h" />
+    <ClInclude Include="scpnode.h" />
+    <ClInclude Include="scptext.h" />
+    <ClInclude Include="ScriptEngine.h" />
+    <ClInclude Include="scriptsite.h" />
+    <ClInclude Include="scrpting.h" />
+    <ClInclude Include="siteserv.h" />
+    <ClInclude Include="SpecialProjection.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="TestHooks.h" />
+    <ClInclude Include="ThreadServiceWrapperBase.h" />
+    <ClInclude Include="typeinfobuilder.h" />
+    <ClInclude Include="UnknownImpl.h" />
+    <ClInclude Include="VariableArgMethodHelper.h" />
+    <ClInclude Include="VectorArray.h" />
+    <ClInclude Include="VectorArrayEnumerator.h" />
+    <ClInclude Include="ExternalWeakReferenceImpl.h" />
+    <ClInclude Include="ExternalWeakReferenceSourceImpl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(MsBuildThisFileDirectory)jscript9.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="$(MsBuildThisFileDirectory)jscriptinfo.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="$(MsBuildThisFileDirectory)amd64\UnknownImplHelper.asm">
+      <Filter>amd64</Filter>
+    </MASM>
+    <MASM Include="$(MsBuildThisFileDirectory)amd64\projectioncall.asm">
+      <Filter>amd64</Filter>
+    </MASM>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="helpers.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="arm">
+      <UniqueIdentifier>{ec0112d5-56f4-430b-abc9-8bdcde6d133f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="amd64">
+      <UniqueIdentifier>{605bca22-f87e-4f0d-be16-a333e0b14eac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="arm64">
+      <UniqueIdentifier>{0b99d483-00ad-43aa-bd84-7db847bd5e4f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ARMASM Include="$(MsBuildThisFileDirectory)arm\projectioncall.asm">
+      <Filter>arm</Filter>
+    </ARMASM>
+    <ARMASM Include="$(MsBuildThisFileDirectory)arm\UnknownImplHelper.asm">
+      <Filter>arm</Filter>
+    </ARMASM>
+    <ARMASM Include="$(MsBuildThisFileDirectory)arm64\projectioncall.asm">
+      <Filter>arm64</Filter>
+    </ARMASM>
+    <ARMASM Include="$(MsBuildThisFileDirectory)arm64\UnknownImplHelper.asm">
+      <Filter>arm64</Filter>
+    </ARMASM>
+  </ItemGroup>
+</Project>

@@ -58,6 +58,8 @@
 
 
 #define WIN32_LEAN_AND_MEAN 1
+
+#define ENABLE_TEST_HOOKS 1
 #include "CommonDefines.h"
 #include "DiagAssertion.h"
 
@@ -142,8 +144,6 @@
 #include "LanguageServiceTestDriver.h"
 #endif
         
-
-#define ENABLE_TEST_HOOKS 1
 #include "TestHooks.h"
 #include "TestUtilitiesReferences.h"
 #include "TestUtilities.h"

@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!-- This one is missing from Microsoft.Build.Paths.props -->
+    <OneCoreSdkLibPath>$(SdkLibDest)\OneCore\$(PlatformPathNameAlt)</OneCoreSdkLibPath>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <!-- For Utf8Codex.h -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(EnlistmentRoot)\inetcore\inc</AdditionalIncludeDirectories>
 
       <!-- ======== From tools\makefile.def ========-->
-      <AdditionalOptions>%(AdditionalOptions) /d2Qvec-mathlib-</AdditionalOptions>          
+      <AdditionalOptions>%(AdditionalOptions) /d2Qvec-mathlib-</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'=='Win32' OR '$(Platform)'=='x64'">%(AdditionalOptions) /d2Qvec-sse2only</AdditionalOptions>
-      
+
       <!--
       This flags are in the original razzle build, but don't look like it is necessary for our build
         
@@ -54,8 +58,15 @@
         /fp:precise         - (default)
     -->
     </ClCompile>
-    <Link>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+    <!-- Add back any STL libs that is cleared in Chakra.Build.props  -->
+    <Link Condition="'$(UseStl)'=='true'">
+      <AdditionalDependencies Condition="'$(StlVersion)'=='70'">$(SdkLibPath)\ntstc_msvcrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Link Condition="'$(UseStaticAtl)'=='true'">
+      <!-- Add back any ATL libs that is cleared in Chakra.Build.props (which doesn't use atls_nouser32.lib when BUILD_FOR_CORESYSTEM=1 -->
+      <AdditionalDependencies Condition="'$(AtlVersion)' &gt;= '70' AND '$(BuildForCoreSystem)'!='true'">%(AdditionalDependencies);$(InternalSdkLibPath)\atls.lib</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(AtlVersion)' &gt;= '70' AND '$(BuildForCoreSystem)'=='true'">%(AdditionalDependencies);$(InternalSdkLibPath)\atls_nouser32.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(SdkLibPath)\atlthunk.lib</AdditionalDependencies>
     </Link>
     <MASM>
       <!-- For ksamd64.inc -->

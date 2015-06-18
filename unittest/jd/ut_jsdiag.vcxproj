@@ -14,6 +14,8 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseStaticAtl>true</UseStaticAtl>
     <AtlVersion>70</AtlVersion>
+    <UseStl>true</UseStl>
+    <StlVersion>70</StlVersion>
   </PropertyGroup> 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
@@ -22,22 +24,12 @@
   </ImportGroup>  
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\atlmfc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;$(PUBLIC_ROOT)\internal\sdktools\inc;$(SolutionDir)..\Exe\jdtest;$(SolutionDir)..\Dll\JScriptDiag</IncludePath>
-    <LibraryPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\shell\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\sdktools\lib\$(PlatformPathNameAlt);$(SolutionDir)..\tools\External\lib\$(PlatformPathNameAlt)</LibraryPath>
+    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\atlmfc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;$(PublicInternalPath)\sdktools\inc;$(SolutionDir)..\Exe\jdtest;$(SolutionDir)..\Dll\JScriptDiag</IncludePath>
+    <LibraryPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt);$(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt);$(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt);$(SolutionDir)..\tools\External\lib\$(PlatformPathNameAlt)</LibraryPath>
   </PropertyGroup>  
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='chk|Win32'">
-    <ClCompile>      
-      <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeader>Create</PrecompiledHeader>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dbgeng.lib;engextcpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='fre|Win32'">
-    <ClCompile>    
-      <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+  <ItemDefinitionGroup>
+    <ClCompile>          
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dbgeng.lib;engextcpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -51,7 +43,9 @@
   <ItemGroup>
     <ClCompile Include="ut_jsdiag.cpp" />
     <ClCompile Include="SinkDebugSite.cpp" />
-    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ut_jsdiag.def" />

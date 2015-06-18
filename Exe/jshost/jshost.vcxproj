@@ -9,56 +9,111 @@
     <RootNamespace>JnConsole</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseStaticAtl>true</UseStaticAtl>
     <AtlVersion>70</AtlVersion>
-  </PropertyGroup>  
+    <BuildForCoreSystem>true</BuildForCoreSystem>
+    <UseStl>true</UseStl>
+    <StlVersion>70</StlVersion>
+    <!-- Setting TestCode=true will prevent MUI from being generated in razzle -->
+    <TestCode Condition="'$(BuildingWithBuildExe)'=='true'">true</TestCode>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>  
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>    
-    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\crt\stl70</IncludePath>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>.;..\Common;..\..\Dll\JScript;..\..\Dll\JScriptDiag;..\..\Publish;..\..\Lib\Common;..\..\Lib\MemProtectHeap;..\..\Lib\Parser;..\..\Lib\Runtime;..\..\Lib\Backend;$(IntDir);$(IntDir)..\Publish;$(IntDir)..\Common;$(IntDir)..\Jscript;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+        %(AdditionalIncludeDirectories);
+        ..\..\lib\Common;
+        ..\..\Dll\JScript;
+        ..\..\Dll\JScriptDiag;
+        $(IntDir);
+        ..\Common;
+        $(JscriptInfoIntDir);
+        ..\..\Lib\MemProtectHeap
+      </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>psapi.lib;muiload.lib;rpcrt4.lib;CommonUtilityLibrary.lib;ntstc_msvcrt.lib;urlmon.lib;wininet.lib;ieguidp.lib;api-ms-win-shcore-stream-l1-1-0.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <ModuleDefinitionFile>jshost.def</ModuleDefinitionFile>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <LargeAddressAware Condition="'$(Platform)'=='Win32' or '$(Platform)'=='Arm'">true</LargeAddressAware>
+      <StackReserveSize Condition="'$(Platform)'=='x64' AND '$(Platform)'!='Arm64'">0x200000</StackReserveSize>
+      <StackReserveSize Condition="'$(Platform)'=='Win32' OR '$(Platform)'=='ARM'">0x100000</StackReserveSize>
+      <StackCommitSize>0x2000</StackCommitSize>
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(OneCoreSdkLibPath)\$(OneCoreTargetVersionStr)\onecore.lib;
+        $(MinCoreSdkLibPath)\mincore_fw.lib;
+        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
+        $(SdkLibPath)\uuid.lib;
+        $(SdkLibPath)\ole32.lib;
+        $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
+        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-message-l1-1-1.lib;
+        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-window-l1-1-0.lib;
+        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-windowclass-l1-1-0.lib;
+        $(MinCorePrivSdkLibPath)\api-ms-win-ntuser-rectangle-l1-1-0.lib;
+        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-synch-l1-1-0.lib;
+        $(MinCorePrivSdkLibPath)\ext-ms-win-shell-shell32-l1-2-1.lib;
+        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-draw-l1-1-2.lib;
+        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-misc-l1-1-0.lib;
+        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-gui-l1-1-0.lib;
+
+        <!-- For InternetCrackURl and CreateURLMoniker for HtmlApp.cpp -->
+        $(SdkLibPath)\urlmon.lib;
+        $(SdkLibPath)\wininet.lib;
+        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\iertutilp.lib
+      </AdditionalDependencies>
+
+      <DelayLoadDLLs>
+        %(DelayLoadDlls);
+        ext-ms-win-ntuser-synch-l1-1-0.dll;
+        ext-ms-win-ntuser-message-l1-1-1.dll;
+        ext-ms-win-ntuser-misc-l1-1-0.dll;
+        ext-ms-win-ntuser-window-l1-1-0.dll;
+        ext-ms-win-ntuser-gui-l1-1-0.dll;
+        ext-ms-win-ntuser-windowclass-l1-1-0.dll;
+        ole32.dll
+      </DelayLoadDLLs>
+      <DelayLoadDLLs Condition="'$(Platform)'!='Arm64'">
+        %(DelayLoadDlls);
+        ext-ms-win-shell-shell32-l1-2-0.dll;
+        ext-ms-win-ntuser-draw-l1-1-1.dll
+      </DelayLoadDLLs>
+      <DelayLoadDLLs Condition="'$(Platform)'=='Arm64'">
+        %(DelayLoadDlls);
+        ext-ms-win-shell-shell32-l1-2-1.dll;
+        ext-ms-win-ntuser-draw-l1-1-2.dll
+      </DelayLoadDLLs>
+    </Link>
+    <Link Condition="'$(BuildingWithBuildExe)'=='true'">
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(ObjectRoot)\inetcore\lib\indexeddb\scalookup\lib\$(ObjectDirectory)\SCALookup_iel3.lib;
+        $(ObjectRoot)\inetcore\lib\common\iel1_sp\$(ObjectDirectory)\ieshare_common_iel1.lib;
+        $(RazzleJscriptObjectRoot)\exe\common\$(ObjectDirectory)\Chakra.Host.Common.lib;
+
+        <!-- TODO: Cleanup: ieshare_+common_iel1.lib has this dependency, but we don't really need it -->
+        $(SdkLibPath)\advapi32.lib
+      </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(FreeBuild)'=='true'">
-    <Link>
-      <Profile>true</Profile>
-    </Link>
-  </ItemDefinitionGroup>  
-  <ItemDefinitionGroup Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes'">
-    <Link>
-      <AdditionalLibraryDirectories>$(OBJECT_ROOT)\inetcore\lib\indexeddb\scalookup\lib\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SCALookup_iel3.lib;psapi.lib;muiload.lib;rpcrt4.lib;CommonUtilityLibrary.lib;ntstc_msvcrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Platform)'=='Win32'">
-    <ClCompile>     
-      <!-- Disable language service test -->
-      <!-- <PreprocessorDefinitions>LANGUAGE_SERVICE_TEST;%(PreprocessorDefinitions)</PreprocessorDefinitions> -->
-    </ClCompile>
-    <Link>
-      <LargeAddressAware>true</LargeAddressAware>
-    </Link>
-  </ItemDefinitionGroup>
+  <!-- Razzle binplace -->
+  <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true'">
+    <BinplaceLinked Include="$(ObjectPath)\$(ObjectDirectory)$(TargetFileName)">
+      <DestinationFolder>jscript</DestinationFolder>
+    </BinplaceLinked>
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DebuggerCore.cpp" />
     <ClCompile Include="DelayLoadLibrary.cpp" />
@@ -78,7 +133,7 @@
     <ClCompile Include="MockTypeOperations.cpp" />
     <ClCompile Include="phscriptsite.cpp" />
     <ClCompile Include="proxystub.c">
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>  
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SCA.cpp" />
     <ClCompile Include="ScriptDebugNodeSource.cpp" />
@@ -127,31 +182,25 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="JsHostScriptSite.idl">
-      <OutputDirectory>$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(FileName).h</HeaderFileName>   
-      <DllDataFileName>%(FileName)_dlldata.c</DllDataFileName>      
+      <DllDataFileName>%(Filename)_dlldata.c</DllDataFileName>
+      <!-- Only needed by razzle -->
+      <UseIdlBasedDllData Condition="'$(BuildingWithBuildExe)'=='true'">true</UseIdlBasedDllData>
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\dep\IESettingsApi.vcxproj">
-      <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865f08f4}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\dep\common-iel1.vcxproj">
       <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0814}</Project>
     </ProjectReference>
-    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\dep\scalookup.vcxproj">
+    <ProjectReference Include="..\..\dep\scalookup.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac36}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Dll\JScript\JScript.vcxproj">
+    <ProjectReference Include="..\..\Dll\JScript\Chakra.vcxproj">
       <Project>{ea882c8d-81fc-42fe-abd5-2666db933fda}</Project>
       <Private>false</Private>
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
-    <ProjectReference Include="..\..\publish\Publish.vcxproj">
-      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Common\ExeCommon.vcxproj">
       <Project>{f2e998aa-fb27-4f65-a6f7-4142be64294f}</Project>

@@ -6,6 +6,23 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)'=='14.0'">v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup>
+    <!-- ========= Microsoft.Build.Paths ========= -->
+    <SdkIncPath>$(PUBLIC_ROOT)\sdk\inc</SdkIncPath>
+    <SdkLibPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt)</SdkLibPath>
+    <CrtIncPath>$(SdkIncPath)\crt</CrtIncPath>
+    <MinCoreSdkLibPath>$(PUBLIC_ROOT)\sdk\lib\mincore\$(PlatformPathNameAlt)</MinCoreSdkLibPath>
+    <OneCoreSdkLibPath>$(PUBLIC_ROOT)\sdk\lib\onecore\$(PlatformPathNameAlt)</OneCoreSdkLibPath>
+
+    <PublicInternalPath>$(PUBLIC_ROOT)\internal</PublicInternalPath>
+    <InternalSdkIncPath>$(PublicInternalPath)\sdk\inc</InternalSdkIncPath>
+    <InternalSdkLibPath>$(PublicInternalPath)\sdk\lib\$(PlatformPathNameAlt)</InternalSdkLibPath>
+    <ComIncPath>$(PublicInternalPath)\com\inc</ComIncPath>
+    <MinWinPrivSdkIncPath>$(PublicInternalPath)\minwin\priv_sdk\inc</MinWinPrivSdkIncPath>
+    <MinWinPrivSdkLibPath>$(PublicInternalPath)\minwin\priv_sdk\lib\$(PlatformPathNameAlt)</MinWinPrivSdkLibPath>
+    <MinCorePrivSdkLibPath>$(PublicInternalPath)\mincore\priv_sdk\lib\$(PlatformPathNameAlt)</MinCorePrivSdkLibPath>
+    <SdkToolsIncPath>$(PublicInternalPath)\sdktools\inc</SdkToolsIncPath>
+  </PropertyGroup>
+  <PropertyGroup>
     <RazzleConfigurationPath Condition="'$(Configuration)'=='fretest'">fre</RazzleConfigurationPath>
     <RazzleConfigurationPath Condition="'$(Configuration)'!='fretest'">$(Configuration)</RazzleConfigurationPath>
     <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\..\..\sdpublic</PUBLIC_ROOT>
@@ -13,8 +30,14 @@
     <OBJECT_ROOT Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes' AND '$(_OBJECT_ROOT_PREFIX)'!=''">$(_OBJECT_ROOT_PREFIX).$(PlatformPathName)$(RazzleConfigurationPath)</OBJECT_ROOT>
     <OutBaseDir Condition="'$(OutBaseDir)'==''">$(SolutionDir)VcBuild</OutBaseDir>
     <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\..\..\tools</RazzleToolPath>
-    <IncludePath>$(PUBLIC_ROOT)\shared\inc;$(PUBLIC_ROOT)\shared\inc\minwin;$(PUBLIC_ROOT)\sdk\inc;$(PUBLIC_ROOT)\sdk\inc\clientcore;$(PUBLIC_ROOT)\internal\sdk\inc;$(PUBLIC_ROOT)\sdk\inc\minwin;$(PUBLIC_ROOT)\sdk\inc\mincore;$(PUBLIC_ROOT)\sdk\inc\abi;$(PUBLIC_ROOT)\sdk\inc\crt;$(SolutionDir)..\..\inc;$(PUBLIC_ROOT)\internal\InetCore\inc;$(PUBLIC_ROOT)\internal\Shell\inc;$(OutBaseDir)\Obj\win-$(PlatformPathName)$(Configuration)\manifests\</IncludePath>    
-    <LibraryPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\shell\lib\$(PlatformPathNameAlt);$(SolutionDir)..\tools\External\lib\$(PlatformPathNameAlt)</LibraryPath>
+    <IncludePath>$(PUBLIC_ROOT)\shared\inc</IncludePath>
+    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\shared\inc\minwin</IncludePath>
+    <IncludePath>$(IncludePath);$(SdkIncPath)</IncludePath>    
+    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\minwin</IncludePath>
+    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\mincore</IncludePath>
+    <IncludePath>$(IncludePath);$(SolutionDir)..\..\inc</IncludePath>
+    
+    
     <ExecutablePath>$(RazzleToolPath)\Dev12\x32\$(PlatformPathName);$(RazzleToolPath)\x86;$(RazzleToolPath)\perl\bin;d:\win\ie\tool</ExecutablePath>
     <OutDir>$(OutBaseDir)\Binaries\win-$(PlatformPathName)$(Configuration)\</OutDir>
     <IntDir>$(OutBaseDir)\Obj\win-$(PlatformPathName)$(Configuration)\$(MSBuildProjectName)\</IntDir>
@@ -24,7 +47,21 @@
     <LinkIncremental>false</LinkIncremental>
     <!-- Minimal Rebuild /Gm write to this file that we don't really depend on -->
     <NoDependencies>%(NoDependencies);$(IntDir)vc100.idb;$(IntDir)vc100.pdb;$(IntDir)vc110.idb;$(IntDir)vc110.pdb;$(IntDir)vc120.pdb;$(IntDir)vc120.idb</NoDependencies>
-    <ManifestsInboxIncludeDirectory>$(IntDir)\..\manfiests-inbox</ManifestsInboxIncludeDirectory>
-    <ChakraManifestsIncludeDirectory>$(IntDir)\..\manifests</ChakraManifestsIncludeDirectory>
-  </PropertyGroup>  
+    <ManifestsInboxIncludeDirectory>$(IntDir)..\manifests-inbox</ManifestsInboxIncludeDirectory>
+    <ChakraManifestsIncludeDirectory>$(IntDir)..\manifests</ChakraManifestsIncludeDirectory>
+    <ChakraParserIntDir>$(IntDir)..\Chakra.Parser</ChakraParserIntDir>
+    <JscriptInfoIntDir>$(IntDir)..\Chakra</JscriptInfoIntDir>
+
+    <ChakraCommonMemoryLib>$(OutDir)Chakra.Common.Memory.lib</ChakraCommonMemoryLib>
+
+    <!-- ======== From Microsoft.Build.settings ======== -->
+    <NtTargetVersion_Win7 >0x601</NtTargetVersion_Win7>
+    <NtTargetVersion_Win8 >0x602</NtTargetVersion_Win8>
+    <NtTargetVersion_Win10>0xA00</NtTargetVersion_Win10>
+
+    <!-- ========= From makefile.def ========= -->
+    <LinkerAppVersion Condition="'$(LinkerAppVersion)' == ''">10.0</LinkerAppVersion>
+    <LinkerOSVersion Condition="'$(LinkerOSVersion)' == ''">10.0</LinkerOSVersion>  
+  </PropertyGroup>
+
 </Project>

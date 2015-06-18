@@ -33,6 +33,8 @@
       <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..;$(MSBuildThisFileDirectory)..\..\Common;$(MSBuildThisFileDirectory)..\..\Parser;$(MSBuildThisFileDirectory)..\..\Backend;$(ChakraManifestsIncludeDirectory);$(ManifestsInboxIncludeDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <!-- For telemtry\MicrosoftTelemetry.h -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MinWinPrivSdkIncPath)</AdditionalIncludeDirectories>
+      <!-- For mscorlib.tlb used in JavascriptErrorDebug.cpp -->
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SdkLibPath)\clr45</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4702</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
@@ -84,7 +86,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptArrayIterator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptBuiltInFunctions.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptEnumeratorIterator.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptErrorDebug.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptErrorDebug.cpp" />      
     <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptExternalFunction.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptGenerator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptGeneratorFunction.cpp" />

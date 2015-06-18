@@ -22,6 +22,7 @@
 // The following will assign to hr
 #define IfFailGo(expr) IfFailedGoLabel(hr = (expr), Error)
 
+#define ENABLE_TEST_HOOKS 1
 #include "CommonDefines.h"
 
 #include <stdio.h>
@@ -52,7 +53,6 @@
 #include "jsrt.h"
 #include "DebuggerController.h"
 
-#define ENABLE_TEST_HOOKS 1
 #include "TestHooks.h"
 
 #include "JScript9Interface.h"

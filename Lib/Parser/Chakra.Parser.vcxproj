@@ -124,9 +124,9 @@
       <ObjectFileName>$(IntDir)jserr.rc2</ObjectFileName>
       <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory);$(MSBuildThisFileDirectory)..\Common</AdditionalIncludeDirectories>
       <LibCompiled>false</LibCompiled>
-      <ForcedIncludeFiles>
-      </ForcedIncludeFiles>
-    </ClCompile>
+      <ForcedIncludeFiles></ForcedIncludeFiles>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>    
   </ItemGroup>
   <ItemGroup>
     <None Include="CharTrie.inl" />

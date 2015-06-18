@@ -1,4 +1,8 @@
+#ifdef CHAKRATEST
+LIBRARY chakratest
+#else
 LIBRARY chakra
+#endif
 
 EXPORTS
     DllGetClassObject              PRIVATE
@@ -120,12 +124,22 @@ EXPORTS
     JsSetPromiseContinuationCallback
     JsInspectableToObject
     JsObjectToInspectable
-#if DBG
+#if DBG || CHAKRATEST
     JsStopDebugging
     JsGetArrayLength
     JsCreateWeakContainer
     JsIsReferenceValid
     JsGetReference
+
+    JsCreateSymbol
+    JsGetOwnPropertySymbols
+    JsGetPropertyIdFromSymbol
+    JsSerializeNativeScript
+    JsPrivateCollectGarbageSkipStack
+
+    NatVis_ValueType
+    NatVis_BVSparseNode
+    NatVis_BVSparse_JitArenaAllocator
 #endif
 
     MemProtectHeapCreate

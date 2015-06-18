@@ -29,9 +29,6 @@
     BeforeTargets="_ARMASM">
     <ItemGroup>
       <BuildARMASM Include="@(ARMASM)" Condition="'%(ARMASM.ExcludedFromBuild)'!='true'" />
-      <ClCompile>
-        <ObjectFileNAme>$(IntDir)</ObjectFileNAme>
-      </ClCompile>
     </ItemGroup>    
     <CL Condition="'@(BuildARMASM)' != ''"
        BuildingInIDE                      ="$(BuildingInsideVisualStudio)"
@@ -70,7 +67,7 @@
        IntrinsicFunctions                 ="%(ClCompile.IntrinsicFunctions)"
        MinimalRebuild                     ="%(ClCompile.MinimalRebuild)"
        MultiProcessorCompilation          ="%(ClCompile.MultiProcessorCompilation)"
-       ObjectFileName                     ="%(ClCompile.ObjectFileName)"
+       ObjectFileName                     ="$(IntDir)"
        OmitDefaultLibName                 ="%(ClCompile.OmitDefaultLibName)"
        OmitFramePointers                  ="%(ClCompile.OmitFramePointers)"
        OpenMPSupport                      ="%(ClCompile.OpenMPSupport)"

@@ -1,1 +1,1 @@
-!include ..\..\..\jsliblsdirs.$(_BuildType)
+!include ..\..\..\jslibdirs.$(_BuildType)

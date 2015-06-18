@@ -13,7 +13,6 @@
 #include "webplatform.h"
 #include "edgejsStatic.h"
 #include "GenerateByteCodeConfig.h"
-#include "dep.h"
 
 #define USE_ARENA false    // make this true to disable the memory recycler.
 
@@ -449,7 +448,7 @@ STDMETHODIMP ScriptEngine::QueryInterface(
     QI_IMPL(IID_IObjectSafety, IObjectSafety);
     QI_IMPL(__uuidof(IActiveScriptByteCode), IActiveScriptByteCode);
     QI_IMPL(__uuidof(IActiveScriptNativeCode), IActiveScriptNativeCode);
-    QI_IMPL(IID_IActiveScriptLifecycleEventSink, IActiveScriptLifecycleEventSink);
+    QI_IMPL(__uuidof(IActiveScriptLifecycleEventSink), IActiveScriptLifecycleEventSink);
     QI_IMPL(__uuidof(IDiagnosticsContextHelper), IDiagnosticsContextHelper);
     QI_IMPL(__uuidof(IActiveScriptDebugAttach), IActiveScriptDebugAttach);
     QI_IMPL(__uuidof(IScriptInvocationContextSubscriber), IScriptInvocationContextSubscriber);
@@ -458,13 +457,13 @@ STDMETHODIMP ScriptEngine::QueryInterface(
 #if !_WIN64 || USE_32_OR_64_BIT
     QI_IMPL(IID_IActiveScriptParse32, IActiveScriptParse32);
     QI_IMPL(IID_IActiveScriptParseProcedure2_32, IActiveScriptParseProcedure);
-    QI_IMPL(IID_IActiveScriptParseUTF832, IActiveScriptParseUTF832);
+    QI_IMPL(__uuidof(IActiveScriptParseUTF832), IActiveScriptParseUTF832);
 #endif // !_WIN64 || USE_32_OR_64_BIT
 
 #if _WIN64 || USE_32_OR_64_BIT
     QI_IMPL(IID_IActiveScriptParse64, IActiveScriptParse);
     QI_IMPL(IID_IActiveScriptParseProcedure2_64, IActiveScriptParseProcedure);
-    QI_IMPL(IID_IActiveScriptParseUTF864, IActiveScriptParseUTF864);
+    QI_IMPL(__uuidof(IActiveScriptParseUTF864), IActiveScriptParseUTF864);
 #endif // _WIN64 || USE_32_OR_64_BIT
 
     // Profiler Interface
@@ -6584,10 +6583,11 @@ HRESULT ScriptEngine::CompileByteCodeBuffer(
     auto unpack = (BYTE**)bytesAndSourceAndModule;
     auto byteCode = unpack[0];
 
-    auto sourceMapper = (IActiveScriptByteCodeSource *)unpack[1];
-    auto nativeModule = (Js::NativeModule *)unpack[2];
-
+    auto sourceMapper = (IActiveScriptByteCodeSource *)unpack[1];   
     Js::ISourceHolder* sourceHolder = (Js::DynamicSourceHolder *)RecyclerNewFinalized(scriptContext->GetRecycler(), Js::DynamicSourceHolder, sourceMapper);
+    Js::NativeModule * nativeModule = nullptr;
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
+    nativeModule = (Js::NativeModule *)unpack[2];
     if (nativeModule && EventEnabledJSCRIPT_NATIVE_MODULE_LOAD())
     {
         HCRYPTPROV hProv = NULL;
@@ -6610,10 +6610,9 @@ HRESULT ScriptEngine::CompileByteCodeBuffer(
         {
             CryptDestroyHash(hHash);
         }
-
         EventWriteJSCRIPT_NATIVE_MODULE_LOAD(nativeModule->base, pHash, srcInfo->sourceContextInfo->url, nativeModule->codeSize);
     }
-
+#endif
     hr = Js::ByteCodeSerializer::DeserializeFromBuffer(scriptContext, grfscr, sourceHolder, scriptContext->AddHostSrcInfo(srcInfo), (byte*) byteCode, nativeModule, &rootFunction);
 
     if (FAILED(hr))

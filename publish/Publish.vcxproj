@@ -19,12 +19,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <ItemDefinitionGroup>
-    <Midl>      
-      <OutputDirectory>$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-    </Midl>
-  </ItemDefinitionGroup>
   <ItemGroup>
     <Midl Include="..\..\published\internal\inc\activdbg_private.idl" />
     <Midl Include="..\..\published\internal\inc\activscp2.idl" />
@@ -38,10 +32,10 @@
     <Midl Include="..\..\published\sdk\inc\dbgprop.idl" />
     <Midl Include="..\..\published\sdk\inc\dispex.idl" />
     <Midl Include="..\..\published\internal\inc\scaformat.idl">
-      <AdditionalIncludeDirectories>..\..\published\internal\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\published\internal\inc</AdditionalIncludeDirectories>
     </Midl>
     <Midl Include="edgescriptdirect.idl">
-      <AdditionalIncludeDirectories>..\..\published\internal\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\published\internal\inc</AdditionalIncludeDirectories>
     </Midl>
   </ItemGroup>
   <ItemGroup>

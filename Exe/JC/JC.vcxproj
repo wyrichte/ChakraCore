@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
+  <PropertyGroup>    
     <ChakraBuildConfigDir>..\..\Build</ChakraBuildConfigDir>
   </PropertyGroup>
   <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
@@ -22,7 +22,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <LibraryPath>$(LibraryPath);$(PUBLIC_ROOT)\internal\sdk\lib\$(PlatformPathNameAlt)</LibraryPath>
+    <LibraryPath>$(LibraryPath);$(PublicInternalPath)\sdk\lib\$(PlatformPathNameAlt)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -30,36 +30,21 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries);msvcprt.lib</IgnoreSpecificDefaultLibraries>
+      <SubSystem>Console</SubSystem>
+      <LargeAddressAware Condition="'$(Platform)'=='Win32' or '$(Platform)'=='Arm'">true</LargeAddressAware>
+      
       <!-- Even though Chakra.Common.Memory is a project reference, it is placed at the end of the command line, and the new operator conflict with the one in msvcrt.lib -->
-      <AdditionalDependencies>$(OutDir)Chakra.Common.Memory.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalDependencies>%(AdditionalDependencies);muiload.lib;version.lib;psapi.lib;CommonUtilityLibrary.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <SubSystem>Console</SubSystem>      
+      <AdditionalDependencies>$(ChakraCommonMemoryLib);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);muiload.lib;version.lib;psapi.lib</AdditionalDependencies>
+
+      <AdditionalDependencies Condition="'$(Configuration)'!='fre' AND '$(Platform)'!='ARM' AND '$(Platform)'!='Arm64'">%(AdditionalDependencies);$(ChakraRootDirectory)tools\External\lib\$(PlatformPathNameAlt)\jitprofiling.lib</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(FreeBuild)'!='true'">%(AdditionalDependencies);dbghelp.lib</AdditionalDependencies>
+
+      <!-- IsMessageBoxWPresent -->
+      <AdditionalDependencies Condition="'$(FreeBuild)'!='true'">%(AdditionalDependencies);$(MinCorePrivSdkLibPath)\$(MinCoreTargetVersion)\ext-ms-win-ntuser-dialogbox-l1.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(MinCorePrivSdkLibPath)\$(MinCoreTargetVersion)\mincore_private.lib</AdditionalDependencies>
     </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)'!='fre'">
-    <Link>
-      <AdditionalDependencies>%(AdditionalDependencies);dbghelp.lib;jitprofiling.lib</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(FreeBuild)'=='true'">
-    <Link>
-      <AdditionalDependencies>%(AdditionalDependencies);nothrownew.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <Profile>true</Profile>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Platform)'=='Win32'">
-    <Link>
-      <LargeAddressAware>true</LargeAddressAware>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes'">
-    <Link>
-      <AdditionalLibraryDirectories>$(OBJECT_ROOT)\inetcore\lib\codex\iel1\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);$(OBJECT_ROOT)\inetcore\lib\common\iel1\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ieshare_codex_iel1.lib;ieshare_common_iel1.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
+  </ItemDefinitionGroup>  
   <ItemGroup>
     <ClCompile Include="JnMain.cpp" />
     <ClCompile Include="StdAfx.cpp">
@@ -77,9 +62,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\dep\codex.vcxproj">
-      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac38}</Project>
-    </ProjectReference>
     <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\dep\common-iel1.vcxproj">
       <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0814}</Project>
     </ProjectReference>
@@ -88,6 +70,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Lib\Backend\Chakra.Backend.vcxproj">
       <Project>{18cf279f-188d-4655-b03d-74f65388e7d1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\core\lib\Common\codex\Chakra.Common.Codex.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac38}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\Lib\Common\common\Chakra.Common.Common.vcxproj">
       <Project>{bb4153ff-ac3e-4734-b562-cc23812df31b}</Project>

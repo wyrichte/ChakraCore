@@ -1,4 +1,0 @@
-DIRS = \
-    release \
-    ls_release{!amd64,!arm,!arm64} \
-    jsgen{!arm} \

@@ -14,6 +14,8 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseStaticAtl>true</UseStaticAtl>
     <AtlVersion>70</AtlVersion>
+    <UseStl>true</UseStl>
+    <StlVersion>70</StlVersion>
   </PropertyGroup>  
   <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -26,23 +28,18 @@
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>    
   </PropertyGroup>
   <PropertyGroup>
-    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\atlmfc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;$(PUBLIC_ROOT)\internal\sdktools\inc;..\jshost\;..\..\dll\jscriptDiag\</IncludePath>
+    <IncludePath>$(IncludePath);$(PublicInternalPath)\sdktools\inc;..\jshost\;..\..\dll\jscriptDiag\</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>.;..\Common;..\..\Lib\Common;..\..\Lib\Parser;..\..\Lib\Runtime;..\..\Lib\Backend;$(IntDir)..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\Common;..\..\Lib\Common;..\..\Lib\Parser;..\..\Lib\Runtime;..\..\Lib\Backend;$(IntDir)..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>     
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <UndefinePreprocessorDefinitions>%(UndefinePreprocessorDefinitions);_DEBUG</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>muiload.lib;version.lib;psapi.lib;CommonUtilityLibrary.lib;ntstc_msvcrt.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);$(SdkLibPath)\dbgeng.lib</AdditionalDependencies>      
+      <AdditionalDependencies>%(AdditionalDependencies);$(SdkLibPath)\shlwapi.lib</AdditionalDependencies>      
       <SubSystem>Console</SubSystem>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(FreeBuild)'=='true'">
-    <Link>
-      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

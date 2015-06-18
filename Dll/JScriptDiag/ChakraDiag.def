@@ -1,4 +1,8 @@
-LIBRARY CHAKRADIAG
+#ifdef CHAKRADIAGTEST
+LIBRARY ChakraDiagTest
+#else
+LIBRARY ChakraDiag
+#endif
 
 EXPORTS
     DllGetClassObject   PRIVATE

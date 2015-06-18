@@ -9,5 +9,6 @@ PUBLIC_PASS1_CONSUMES= \
 
 BUILD_PASS2_CONSUMES= \
     inetcore\jscript\dll\jscript\release|PASS2 \
+    inetcore\jscript\dll\jscript\release_chk|PASS2 \
     inetcore\jscript\dll\jscript\test|PASS2 \
 

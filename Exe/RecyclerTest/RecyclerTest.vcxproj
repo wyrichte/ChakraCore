@@ -45,9 +45,6 @@
     <ClCompile>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>    
     </ClCompile>
-    <Link>
-      <Profile>true</Profile>
-    </Link>
   </ItemDefinitionGroup>  
   <ItemGroup>
     <ClCompile Include="harness.cpp" />

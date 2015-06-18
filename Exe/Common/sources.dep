@@ -1,5 +1,3 @@
 PUBLIC_PASS0_CONSUMES= \
-    com\published\idlole\publish|PASS0 \
-    minkernel\published\base|PASS0 \
     redist\mspartners\netfx45\core\binary_release|PASS0 \
 

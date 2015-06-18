@@ -8,7 +8,7 @@
 #include "StdAfx.h"
 #include "guids.h"
 #include "proxystub.h"
-#include "dep.h"
+
 extern CClassFactory* CreateJScript9DACClassFactory(void);
 extern CClassFactory* CreateDiagHookClassFactory(void);
 extern CClassFactory* CreateJScript9ThreadServiceClassFactory();

@@ -5,5 +5,4 @@ DIRS =  Common \
         WinRT \
         GuidParser \
         MemProtectHeap \
-        Author{!amd64,!arm,!arm64} \
         static{!min_rt} \

@@ -105,8 +105,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)arm\UnwindInfoManager.cpp">
       <Filter>arm</Filter>
     </ClCompile>
-    <ClCompile Include="arm64\EncoderMD.cpp" />
-    <ClCompile Include="Inline.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)arm64\EncoderMD.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Inline.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AgenPeeps.h" />
@@ -306,17 +306,8 @@
     <MASM Include="$(MSBuildThisFileDirectory)amd64\LinearScanMdA.asm">
       <Filter>amd64</Filter>
     </MASM>
-    <MASM Include="$(MSBuildThisFileDirectory)arm\LinearScanMdA.asm">
-      <Filter>arm</Filter>
-    </MASM>
     <MASM Include="$(MSBuildThisFileDirectory)amd64\Thunks.asm">
       <Filter>amd64</Filter>
-    </MASM>
-    <MASM Include="$(MSBuildThisFileDirectory)arm64\Thunks.asm">
-      <Filter>arm64</Filter>
-    </MASM>
-    <MASM Include="$(MSBuildThisFileDirectory)arm\Thunks.asm">
-      <Filter>arm</Filter>
     </MASM>
   </ItemGroup>
   <ItemGroup>
@@ -337,5 +328,16 @@
     <Filter Include="i386">
       <UniqueIdentifier>{125f23d6-b617-4591-a9f1-930443613748}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ARMASM Include="$(MSBuildThisFileDirectory)arm\LinearScanMdA.asm">
+      <Filter>arm</Filter>
+    </ARMASM>
+    <ARMASM Include="$(MSBuildThisFileDirectory)arm64\Thunks.asm">
+      <Filter>arm64</Filter>
+    </ARMASM>
+    <ARMASM Include="$(MSBuildThisFileDirectory)arm\Thunks.asm">
+      <Filter>arm</Filter>
+    </ARMASM>
   </ItemGroup>
 </Project>

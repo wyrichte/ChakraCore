@@ -159,11 +159,12 @@ ThreadContext::ThreadContext(AllocationPolicyManager * allocationPolicyManager, 
     telemetryBlock(&localTelemetryBlock),
     jsrtRuntime(nullptr),
     rootPendingClose(nullptr),
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
     hProv(NULL),
+#endif
     wellKnownHostTypeHTMLAllCollectionTypeId(Js::TypeIds_Undefined),
     isProfilingUserCode(true),
-    loopDepth(0),
-    isRandomDataInitialized(false),
+    loopDepth(0),    
     maxGlobalFunctionExecTime(0.0),
     isDebuggerAttaching(false),
     isAllJITCodeInPreReservedRegion(true)
@@ -229,25 +230,6 @@ ThreadContext::ThreadContext(AllocationPolicyManager * allocationPolicyManager, 
     this->projectionMemoryInformation = nullptr;
 #endif
 #endif
-}
-
-BYTE* ThreadContext::GetRandomData() 
-{
-    if (!isRandomDataInitialized)
-    {
-        if (!CryptAcquireContext(&hProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT) ||
-            !CryptGenRandom(hProv, sizeof(randomData), randomData) ||
-            !CryptReleaseContext(hProv, 0))
-        {
-            Js::Throw::OutOfMemory();
-        }
-        else
-        {
-            isRandomDataInitialized = true;
-        }
-    }
-
-    return static_cast<BYTE*>(randomData); 
 }
 
 void ThreadContext::SetStackProber(StackProber * stackProber)
@@ -483,11 +465,13 @@ ThreadContext::~ThreadContext()
 #endif
 #endif
 
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
     if (hProv != NULL)
     {
         CryptReleaseContext(hProv, 0);
         hProv = NULL;
     }
+#endif
     ReleasePreReservedSegment();
 }
 
@@ -3774,6 +3758,7 @@ void ThreadContext::ClearThreadContextFlag(ThreadContextFlags contextFlag)
     this->threadContextFlags = (ThreadContextFlags)(this->threadContextFlags & ~contextFlag);
 }
 
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
 HCRYPTPROV ThreadContext::EnsureCryptoContext()
 {
     if (NULL == hProv)
@@ -3786,6 +3771,7 @@ HCRYPTPROV ThreadContext::EnsureCryptoContext()
     }
     return hProv;
 }
+#endif
 
 Js::DelayLoadWinCoreMemory * ThreadContext::GetWinCoreMemoryLibrary()
 {

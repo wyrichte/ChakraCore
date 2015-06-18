@@ -62,7 +62,7 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Dll\JScript\JScript.vcxproj">
+    <ProjectReference Include="..\..\Dll\JScript\Chakra.vcxproj">
       <Project>{B6DEFD08-7E78-4B63-A898-42BCF83CE049}</Project>
     </ProjectReference>
   </ItemGroup>

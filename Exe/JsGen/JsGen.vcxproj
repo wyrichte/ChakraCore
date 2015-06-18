@@ -22,8 +22,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\internal\com\inc\midlrt;$(PUBLIC_ROOT)\internal\sdk\inc\clr45</IncludePath>
-    <LibraryPath>$(LibraryPath);$(PUBLIC_ROOT)\internal\sdk\lib\$(PlatformPathNameAlt)\clr45</LibraryPath>
+    <IncludePath>$(IncludePath);$(ComIncPath)\midlrt;$(PublicInternalPath)\sdk\inc\clr45</IncludePath>
+    <LibraryPath>$(LibraryPath);$(PublicInternalPath)\sdk\lib\$(PlatformPathNameAlt)\clr45</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes'">
     <Link>
@@ -44,13 +44,8 @@
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(FreeBuild)'=='true'">
-    <Link>
-      <Profile>true</Profile>
-    </Link>
-  </ItemDefinitionGroup>  
   <ItemGroup>
-    <ProjectReference Include="..\..\dep\codex.vcxproj">
+    <ProjectReference Include="..\..\core\lib\Common\codex\Chakra.Common.Codex.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac38}</Project>
     </ProjectReference>
     <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\dep\common-iel1.vcxproj">

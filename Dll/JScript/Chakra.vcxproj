@@ -1,0 +1,562 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ChakraBuildConfigDir>..\..\Build</ChakraBuildConfigDir>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EA882C8D-81FC-42FE-ABD5-2666DB933FDA}</ProjectGuid>
+    <RootNamespace>Chakra</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <TargetName>Chakra</TargetName>
+    <TargetName Condition="'$(FreTest)'=='true'">ChakraTest</TargetName>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseStaticAtl>true</UseStaticAtl>
+    <AtlVersion>30</AtlVersion>
+    <!-- Overrides the default Win7 (Win8 for Arm) targeting for fre build to Win10
+        Needs to be after Chakra.Build.Default.props but before Chakra.Build.props -->
+    <NtTargetVersion Condition="'$(Configuration)'=='fre'">$(NtTargetVersion_Win10)</NtTargetVersion>
+    <MuiDrv Condition="'$(BuildingWithBuildExe)'=='true'">true</MuiDrv>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
+    <Import Project="$(ChakraBuildConfigDir)\armasm.props" />
+  </ImportGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <!-- .;..;..\..\Publish;..\..\..\Lib\Inc-->
+      <AdditionalIncludeDirectories>
+        $(MSBuildThisFileDirectory);
+        $(ChakraRootDirectory)Lib\Common;
+        $(ChakraRootDirectory)Lib\Parser;
+        $(ChakraRootDirectory)Lib\Runtime;
+        $(ChakraRootDirectory)Lib\Backend;
+        $(IntDir);
+        $(ChakraManifestsIncludeDirectory);
+
+        <!-- For winmddefsp.h  -->
+        $(PublicInternalPath)\com\inc\midlrt;
+
+        <!-- For winrtobjectprobe.h in ProjectionObjectInstance.cpp -->
+        $(ComIncPath)
+
+        %(AdditionalIncludeDirectories);
+      </AdditionalIncludeDirectories>
+
+      <PreprocessorDefinitions>__PLACEMENT_NEW_INLINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <!--
+        4510: default constructor could not be generated
+        4610: can never be instantiated - user defined constructor required
+        -->
+      <DisableSpecificWarnings>%(DisableSpecificWarnings);4510;4610</DisableSpecificWarnings>
+    </ClCompile>
+
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <ModuleDefinitionFile>$(IntDir)chakra.def</ModuleDefinitionFile>
+
+      <!-- PathCchApis.lib: (to avoid loading api-ms-win-core-path-l1-1-0.dll)
+              PathCchCombine  (used in iedevtools_host_iel1.lib)
+              PathCchAppend   (used in iedevtools_host_iel1.lib) -->
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(MinCorePrivSdkLibPath)\pathcchapis.lib;
+        $(SdkLibPath)\uuid.lib;
+        $(SdkLibPath)\muiload.lib;
+        $(OneCoreSdkLibPath)\$(OneCoreTargetVersionStr)\onecore.lib;
+        $(MinCoreSdkLibPath)\mincore_fw.lib;
+        <!-- For FindAtom/AddAtom/DeleteAttom, and in non-fre build perf counters and Crypt* and IsMessageBoxWPresent dependency -->
+        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
+
+        <!-- Setting store -->
+        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\iertutilp.lib;
+        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\IESettingsApi.lib;
+        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\IESettingsId.lib;
+
+        <!-- For _DoNotUseDirectly_CULprintf in codex -->
+        <!-- TODO: Clean this up -->
+        $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\CommonUtilityLibrary.lib
+      </AdditionalDependencies>
+
+      <!-- IsMessageBoxWPresent -->
+      <AdditionalDependencies Condition="'$(FreeBuild)'!='true'">
+        %(AdditionalDependencies);
+        dbghelp.lib;
+
+        <!-- For IsMessageBoxWPresent -->
+        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-ntuser-dialogbox-l1.lib
+      </AdditionalDependencies>
+
+      <AdditionalDependencies Condition="'$(Configuration)'!='fre' AND '$(Platform)'!='ARM' AND '$(Platform)'!='Arm64'">
+        %(AdditionalDependencies);
+        $(ChakraRootDirectory)tools\External\lib\$(PlatformPathNameAlt)\jitprofiling.lib
+      </AdditionalDependencies>
+
+
+      <DelayLoadDLLs>%(DelayLoadDLLs);oleaut32.dll</DelayLoadDLLs>
+      <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-0.dll</DelayLoadDLLs>
+      <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'!='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-1.dll</DelayLoadDLLs>      
+      <DelayLoadDLLs Condition="'$(Configuration)'!='fre'">%(DelayLoadDLLs);cryptsp.dll</DelayLoadDLLs>
+      <DelayLoadDLLs Condition="'$(FreeBuild)'!='true'">%(DelayLoadDLLs);ext-ms-win-ntuser-dialogbox-l1-1-0.dll</DelayLoadDLLs>
+
+      <!-- Pogo switches -->
+      <AdditionalOptions>%(AdditionalOptions) -d2:-pspeed1</AdditionalOptions>
+      <!-- ======== From makefile.def ======== -->
+      <!-- REVIEW: Turn off de-virtualization since it causes somewhat random virtual size differences (bigger and smaller) -->
+      <AdditionalOptions>%(AdditionalOptions) -d2:-TypeProp- -d2:-SpecDevirt-</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <Link Condition="'$(BuildingWithBuildExe)'!='true'">
+      <!-- Even though Chakra.Common.Memory is a project reference, it is placed at the end of the command line, and the new operator conflict with the one in msvcrt.lib -->
+      <AdditionalDependencies>$(ChakraCommonMemoryLib);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Link Condition="'$(BuildingWithBuildExe)'=='true'">
+      <!-- For Razzle build, Solution relies on ProjectReferences -->
+      <AdditionalDependencies>
+        $(ChakraLibs);
+        %(AdditionalDependencies);
+        <!-- iedevtools_host_iel1.lib:
+              LoadLatestPDM
+              ShouldUseLocalPDM -->
+        $(OBJECT_ROOT)\inetcore\lib\devtb\dtbhost\$(ObjectDirectory)iedevtools_host_iel1.lib;
+
+        <!-- ieshare_common_iel1.lib:
+              IsOs_OneCoreUAP  (from devtoolbar) -->
+        $(OBJECT_ROOT)\inetcore\lib\common\iel1_sp\$(ObjectDirectory)ieshare_common_iel1.lib;
+        
+        <!-- All for ScriptProjectionHostApi -->
+        $(OBJECT_ROOT)\inetcore\lib\ScriptProjectionHost\iel3_edge\$(ObjectDirectory)ScriptProjectionHost_Edge_iel3.lib;
+        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
+        $(BaseLibPath)\AppModel\Common\AppModel.Common.lib;
+        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-l1.lib;
+        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-ro-typeresolution-l1.lib
+      </AdditionalDependencies>
+
+      <DelayLoadDLLs>
+        %(DelayLoadDLLs);
+        ext-ms-win-rometadata-dispenser-l1-1-0.dll;
+        api-ms-win-core-winrt-l1-1-0.dll;
+        api-ms-win-ro-typeresolution-l1-1-0.dll
+      </DelayLoadDLLs>
+    </Link>
+    <ImpLib>
+      <AdditionalDependencies>$(ChakraLibs);%(AdditionalDependencies)</AdditionalDependencies>
+    </ImpLib>
+  </ItemDefinitionGroup>
+  <!-- Razzle binplace -->
+  <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true' AND '$(TargetName)'=='Chakra'">
+    <PublishGenerated Include="$(MsBuildThisFileDirectory)jsrt.h">
+      <DestinationFile>$(SdkIncPath)\jsrt.h</DestinationFile>
+    </PublishGenerated>
+    <PublishGenerated Include="$(MsBuildThisFileDirectory)chakrart.h">
+      <DestinationFile>$(SdkIncPath)\chakrart.h</DestinationFile>
+    </PublishGenerated>
+    <PublishCompiled Include="$(ObjectPath)\$(ObjectDirectory)$(TargetName).lib">
+      <DestinationFile>$(SdkLibPath)\chakrart.lib</DestinationFile>
+    </PublishCompiled>
+  </ItemGroup>
+  <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true'">
+    <BinplaceLinked Include="$(ObjectPath)\$(ObjectDirectory)$(TargetFileName)">
+      <DestinationFolder Condition="'$(TargetName)'=='ChakraTest'">jscript</DestinationFolder>
+    </BinplaceLinked>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MsBuildThisFileDirectory)chakra.def">
+      <ObjectFileName>$(IntDir)chakra.def</ObjectFileName>
+      <PreprocessToFile>true</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>true</PreprocessSuppressLineNumbers>
+      <PreprocessorDefinitions Condition="'$(TargetName)'=='ChakraTest'">%(PreprecessorDefinitions);CHAKRATEST=1</PreprocessorDefinitions>
+      <LinkCompiled>false</LinkCompiled>
+      <ImpLibCompiled>false</ImpLibCompiled>
+      <!-- Clear the forced includes -->
+      <ForcedIncludeFiles></ForcedIncludeFiles>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MsBuildThisFileDirectory)abidelegates.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ABIEvents.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)activescripterror.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ActiveScriptProfilerHeapEnum.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsCollection.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsIterable.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsIterator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsVector.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayProjection.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayProjectionEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)breakpointProbe.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)caller.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)CJavascriptOperations.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)classfac.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)codectx.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)customenumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)CustomExternalType.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)dbgfmt.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)dbgprop.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DebugObject.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DefaultScriptOperations.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DiagnosticsScriptObject.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DispatchHelper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DispMemberProxy.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DispMemberProxyType.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)dllfunc.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DOMProperties.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DynamicSourceHolder.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)EditTest.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)EnumVariantEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ErrorTypeHelper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)EventSink.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalObject.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)FinalizableTypedArrayContents.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)guids.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatch.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatchEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatchType.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)HostObject.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)HostObjectType.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)HostVariant.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)IBufferProjection.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)InspectableObjectTypeOperations.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptDispatch.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptExternalOperators.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptPixelArrayDispatch.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)javascriptThreadService.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)jsfac.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)jsrt.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtContext.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtCustomEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtDelegateWrapper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtExternalObject.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtRuntime.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtShared.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtThreadService.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)NamedEventHandler.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)NamedItemList.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)NamespaceProjectionEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)NativeVisualizerExtension.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)'=='fre'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(MsBuildThisFileDirectory)ObjectAsIPropertyValue.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ObjectAsIReference.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProfileDataObject.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionAsyncDebug.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionFastPath.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionMarshaler.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionMemoryInformation.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionMethodInvoker.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionObjectInstance.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionWriter.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)PropertySet.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)PropertySetEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)proxystub.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MsBuildThisFileDirectory)QueryContinuePoller.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)MemspectMemoryTracking.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)namespaceProjection.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionContext.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)projectionTypeOperations.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)refcountedHostVariant.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)SCADeserialization.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)SCAPropBag.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)SCASerialization.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)scpnode.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)scptext.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ScriptDAC.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DiagHook.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ScriptDebugDocument.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEdit.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEngine.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEngineBase.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)scriptsite.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)scrpting.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)SemanticChange.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)siteserv.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MsBuildThisFileDirectory)StreamHelper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)StreamReader.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)StreamWriter.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)TestHooks.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ThreadServiceWrapperBase.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)typeinfobuilder.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)UnknownImpl.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)VariableArgMethodHelper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)VectorArray.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)VectorArrayEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalWeakReferenceImpl.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalWeakReferenceSourceImpl.cpp" />
+
+    <ClCompile Include="$(MsBuildThisFileDirectory)arm\CallingConvention.cpp">
+      <!-- Since there are more then one CallingConvention.cpp, we need to set them output into different directory, even when they are ExcludedFromBuild -->
+      <ObjectFileName Condition="'$(Platform)'!='ARM'">$(IntDir)\arm</ObjectFileName>
+      <ExcludedFromBuild Condition="'$(Platform)'!='ARM'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(MsBuildThisFileDirectory)arm64\CallingConvention.cpp">
+      <!-- Since there are more then one CallingConvention.cpp, we need to set them output into different directory, even when they are ExcludedFromBuild -->
+      <ObjectFileName Condition="'$(Platform)'!='Arm64'">$(IntDir)\arm64</ObjectFileName>
+      <ExcludedFromBuild Condition="'$(Platform)'!='Arm64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="$(MsBuildThisFileDirectory)amd64\projectioncall.asm">
+      <ExcludedFromBuild Condition="'$(Platform)'!='x64'">true</ExcludedFromBuild>
+    </MASM>
+    <MASM Include="$(MsBuildThisFileDirectory)amd64\UnknownImplHelper.asm">
+      <ExcludedFromBuild Condition="'$(Platform)'!='x64'">true</ExcludedFromBuild>
+    </MASM>
+    <ARMASM Include="$(MsBuildThisFileDirectory)arm\projectioncall.asm">
+      <ExcludedFromBuild Condition="'$(Platform)'!='ARM'">true</ExcludedFromBuild>
+    </ARMASM>
+    <ARMASM Include="$(MsBuildThisFileDirectory)arm\UnknownImplHelper.asm">
+      <ExcludedFromBuild Condition="'$(Platform)'!='ARM'">true</ExcludedFromBuild>
+    </ARMASM>
+    <ARMASM Include="$(MsBuildThisFileDirectory)arm64\projectioncall.asm">
+      <ExcludedFromBuild Condition="'$(Platform)'!='Arm64'">true</ExcludedFromBuild>
+    </ARMASM>
+    <ARMASM Include="$(MsBuildThisFileDirectory)arm64\UnknownImplHelper.asm">
+      <ExcludedFromBuild Condition="'$(Platform)'!='Arm64'">true</ExcludedFromBuild>
+    </ARMASM>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="$(MsBuildThisFileDirectory)jscriptinfo.idl">
+      <AdditionalIncludeDirectories>$(ChakraRootDirectory)publish;$(PublicInternalPath)\InetCore\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DllDataFileName>%(Filename)_dlldata.c</DllDataFileName>
+      <!-- Only needed by razzle -->
+      <UseIdlBasedDllData Condition="'$(BuildingWithBuildExe)'=='true'">true</UseIdlBasedDllData>
+      <!-- Targeting NT60 so we don't need to link with ole32 for ObjectStublessClient* -->
+      <MidlTarget Condition="'$(BuildingWithBuildExe)'=='true'">$(MidlTargetVista)</MidlTarget>
+      <AdditionalOptions Condition="'$(BuildingWithBuildExe)'!='true'">%(AdditionalOptions) /target NT60</AdditionalOptions>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="abidelegates.h" />
+    <ClInclude Include="ABIEvents.h" />
+    <ClInclude Include="activescripterror.h" />
+    <ClInclude Include="ActiveScriptProfilerHeapEnum.h" />
+    <ClInclude Include="ad1ex.h" />
+    <ClInclude Include="ArrayAsCollection.h" />
+    <ClInclude Include="ArrayAsIterable.h" />
+    <ClInclude Include="ArrayAsIterator.h" />
+    <ClInclude Include="ArrayAsVector.h" />
+    <ClInclude Include="ArrayProjection.h" />
+    <ClInclude Include="ArrayProjectionEnumerator.h" />
+    <ClInclude Include="breakpointProbe.h" />
+    <ClInclude Include="builtinoperations.h" />
+    <ClInclude Include="caller.h" />
+    <ClInclude Include="chakrart.h" />
+    <ClInclude Include="CJavascriptOperations.h" />
+    <ClInclude Include="classfac.h" />
+    <ClInclude Include="codectx.h" />
+    <ClInclude Include="customenumerator.h" />
+    <ClInclude Include="CustomExternalType.h" />
+    <ClInclude Include="dbgfmt.h" />
+    <ClInclude Include="dbgpropImpl.h" />
+    <ClInclude Include="DebugObject.h" />
+    <ClInclude Include="DefaultScriptOperations.h" />
+    <ClInclude Include="DiagnosticsScriptObject.h" />
+    <ClInclude Include="DispatchHelper.h" />
+    <ClInclude Include="dispidhelper.h" />
+    <ClInclude Include="DispMemberProxy.h" />
+    <ClInclude Include="dllfunc.h" />
+    <ClInclude Include="DOMProperties.h" />
+    <ClInclude Include="DynamicSourceHolder.h" />
+    <ClInclude Include="EditTest.h" />
+    <ClInclude Include="EnumVariantEnumerator.h" />
+    <ClInclude Include="ErrorTypeHelper.h" />
+    <ClInclude Include="EventSink.h" />
+    <ClInclude Include="FinalizableTypedArrayContents.h" />
+    <ClInclude Include="GenerateByteCodeConfig.h" />
+    <ClInclude Include="guids.h" />
+    <ClInclude Include="HostDispatch.h" />
+    <ClInclude Include="HostDispatchEnumerator.h" />
+    <ClInclude Include="HostObject.h" />
+    <ClInclude Include="HostVariant.h" />
+    <ClInclude Include="IBufferProjection.h" />
+    <ClInclude Include="IHTMLDOMConstructor.h" />
+    <ClInclude Include="InspectableObjectTypeOperations.h" />
+    <ClInclude Include="JavascriptDispatch.h" />
+    <ClInclude Include="JavascriptExternalOperators.h" />
+    <ClInclude Include="javascriptpixelarraydispatch.h" />
+    <ClInclude Include="javascriptThreadService.h" />
+    <ClInclude Include="JnDOMDirectFields.h" />
+    <ClInclude Include="jscriptdllcommon.h" />
+    <ClInclude Include="jsfac.h" />
+    <ClInclude Include="jsrt.h" />
+    <ClInclude Include="JsrtComException.h" />
+    <ClInclude Include="JsrtContext.h" />
+    <ClInclude Include="JsrtCustomEnumerator.h" />
+    <ClInclude Include="JsrtDelegateWrapper.h" />
+    <ClInclude Include="JsrtExternalObject.h" />
+    <ClInclude Include="JsrtInternal.h" />
+    <ClInclude Include="jsrtprivate.h" />
+    <ClInclude Include="JsrtRuntime.h" />
+    <ClInclude Include="JsrtThreadService.h" />
+    <ClInclude Include="NamedEventHandler.h" />
+    <ClInclude Include="NamedItemList.h" />
+    <ClInclude Include="NamespaceProjectionEnumerator.h" />
+    <ClInclude Include="NativeVisualizerExtension.h" />
+    <ClInclude Include="ObjectAsIPropertyValue.h" />
+    <ClInclude Include="ObjectAsIReference.h" />
+    <ClInclude Include="ProjectionAsyncDebug.h" />
+    <ClInclude Include="ProjectionFastPath.h" />
+    <ClInclude Include="ProjectionMarshaler.h" />
+    <ClInclude Include="ProjectionMemoryInformation.h" />
+    <ClInclude Include="ProjectionMethodInvoker.h" />
+    <ClInclude Include="ProjectionObjectInstance.h" />
+    <ClInclude Include="ProjectionWriter.h" />
+    <ClInclude Include="PropertySet.h" />
+    <ClInclude Include="PropertySetEnumerator.h" />
+    <ClInclude Include="proxystub.h" />
+    <ClInclude Include="QueryContinuePoller.h" />
+    <ClInclude Include="namespaceProjection.h" />
+    <ClInclude Include="ProfileDataObject.h" />
+    <ClInclude Include="ProjectionContext.h" />
+    <ClInclude Include="projectionTypeOperations.h" />
+    <ClInclude Include="refcountedHostVariant.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SCAEngine.h" />
+    <ClInclude Include="SCAPropBag.h" />
+    <ClInclude Include="SCASerialization.h" />
+    <ClInclude Include="SCADeserialization.h" />
+    <ClInclude Include="ScriptDAC.h" />
+    <ClInclude Include="DiagHook.h" />
+    <ClInclude Include="ScriptDebugDocument.h" />
+    <ClInclude Include="ScriptEdit.h" />
+    <ClInclude Include="SemanticChange.h" />
+    <ClInclude Include="StreamHelper.h" />
+    <ClInclude Include="StreamReader.h" />
+    <ClInclude Include="StreamWriter.h" />
+    <ClInclude Include="scpnode.h" />
+    <ClInclude Include="scptext.h" />
+    <ClInclude Include="ScriptEngine.h" />
+    <ClInclude Include="scriptsite.h" />
+    <ClInclude Include="scrpting.h" />
+    <ClInclude Include="siteserv.h" />
+    <ClInclude Include="SpecialProjection.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="TestHooks.h" />
+    <ClInclude Include="ThreadServiceWrapperBase.h" />
+    <ClInclude Include="typeinfobuilder.h" />
+    <ClInclude Include="UnknownImpl.h" />
+    <ClInclude Include="VariableArgMethodHelper.h" />
+    <ClInclude Include="VectorArray.h" />
+    <ClInclude Include="VectorArrayEnumerator.h" />
+    <ClInclude Include="ExternalWeakReferenceImpl.h" />
+    <ClInclude Include="ExternalWeakReferenceSourceImpl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(MsBuildThisFileDirectory)jscript9.rc">
+      <AdditionalIncludeDirectories>$(ChakraParserIntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ManifestsInboxIncludeDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\jscript\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+
+    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\dep\common-iel1.vcxproj">
+      <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0814}</Project>
+    </ProjectReference>
+    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\dep\dtbhost.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac37}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\dep\manifests-inbox.vcxproj">
+      <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0815}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\ScriptProjectionHostApi.vcxproj">
+      <Project>{62154ab9-058d-4aa5-98e2-bc6d9af71af4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Backend\Chakra.Backend.vcxproj">
+      <Project>{18cf279f-188d-4655-b03d-74f65388e7d1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\core\lib\Common\codex\Chakra.Common.Codex.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac38}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Common\common\Chakra.Common.Common.vcxproj">
+      <Project>{bb4153ff-ac3e-4734-b562-cc23812df31b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Common\core\Chakra.Common.Core.vcxproj">
+      <Project>{cc4153ff-ac3e-4734-b562-cc23812df31b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj">
+      <Project>{5643d42a-c38d-4d82-9662-58470b3ac9f7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Common\Exceptions\Chakra.Common.Exceptions.vcxproj">
+      <Project>{fd8eec40-4141-448a-bf4b-1589fbe4f60d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Common\Memory\Chakra.Common.Memory.vcxproj">
+      <Project>{bb4153ff-ac3e-4734-b562-ff23812df31b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Common\util\Chakra.Common.Util.vcxproj">
+      <Project>{6979ec58-7a28-465c-a694-f3323a1f5401}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\MemProtectHeap\Chakra.MemProtectHeap.vcxproj">
+      <Project>{bb4153ff-ac3e-4734-b562-ee23812df31b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Parser\Chakra.Parser.vcxproj">
+      <Project>{f6fad160-5a4b-476a-93ac-33e0b3a18c0c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Runtime\ByteCode\Chakra.Runtime.ByteCode.vcxproj">
+      <Project>{706083f7-6aa4-4558-a153-6352ef9110f5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj">
+      <Project>{706083f7-6aa4-4558-a153-6352ef9110f8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj">
+      <Project>{706083f7-6aa4-4558-a153-6352ef9110f7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Runtime\Math\Chakra.Runtime.Math.vcxproj">
+      <Project>{abc904ad-9415-46f8-aa23-e33193f81f7c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Runtime\Telemetry\Chakra.Runtime.Telemetry.vcxproj">
+      <Project>{6ea087d4-1983-43d3-8c7e-0a79bc4327f6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Runtime\Types\Chakra.Runtime.Types.vcxproj">
+      <Project>{706083f7-6aa4-4558-a153-6352ef9110f6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\WinRT\Chakra.WinRT.vcxproj">
+      <Project>{37871403-9cd8-434c-8904-dbdd95b69d81}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="helpers.js" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+    <Import Project="$(ChakraBuildConfigDir)\armasm.targets" />
+  </ImportGroup>
+</Project>
