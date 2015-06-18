@@ -8,20 +8,7 @@ $batchSize                      = 75
 $global:runFolder               = $null
 $global:knownFailuresListFolder = "\\bptserver1\users\tools\Test262"
 $global:outputFile              = ".\Test262Results.log"
-$defaultConfigFileContent       = "var t262 = require('test262-harness');
 
-t262.useConfig({
-    runner: 'console',
-    consolePrintCommand: 'WScript.Echo',
-    consoleCommand: '{0} {1}', // jshost path and config keys
-    batch: {2},   // set to 0 for non-batch mode
-    batchConfig: {
-        createEnv: 'WScript.LoadScript('', 'samethread')',
-        runBatched: 'env.WScript.LoadScript(test)'
-    },
-    test262Dir: 'test262' // or wherever you have it cloned
-});
-"
 $failedTCs = @()
 $global:actualErrors = @()
 $global:actualErrorMessages = @()
@@ -113,7 +100,10 @@ Function Create-ConfigFile ($rootDir)
 {
     $defaultConfigPath = "{0}\t262.js" -f $rootDir
 
-    $configValue = $defaultConfigFileContent -f $global:exePath, $global:exeArgs, $batchSize
+    $configValue = "var t262 = require('test262-harness'); t262.useConfig({ runner: 'console', consolePrintCommand: 'WScript.Echo', consoleCommand: '"
+    $configValue += "$global:exePath $global:exeArgs" 
+    $configValue += "', batch: $batchSize"
+    $configValue += ", batchConfig: {  createEnv: 'WScript.LoadScript("""", ""samethread"")', runBatched: 'env.WScript.LoadScript(test)' },  test262Dir: 'test262' });"
     Set-Content -Encoding Ascii -Path $defaultConfigPath -Value $configValue
 
     return $defaultConfigPath
@@ -140,22 +130,25 @@ Function Setup-ConfigFile
         }
         elseif ($setupChoice -eq 2)
         {
-            $p1 = Read-Host "Enter the path to your Test262 repo"
+            $p1 = Read-Host "Enter the path to your Test262 repo (pls no backslash at the end)"
             if (-not (Test-Path($p1)))
             {
                 Write-Host "Not able to access the path $p1" -ForegroundColor Red
                 continue
             }
             $p2 = Read-Host "Enter the path to your Test262 config file"
-            if (-not (Test-Path($p2)))
+            if ((-not $p2) -or (-not (Test-Path($p2))))
             {
-                $c1 = Read-Host "Do you want to create a default one (y/n)?" -ForegroundColor Yellow
+                $c1 = Read-Host "Do you want to create a default one (y/n)?"
                 if ($c1 -eq "y")
                 {
                     $p2 = Create-ConfigFile $p1
                     Write-Host "Created a default config file at $p2"
                 }
-                continue
+                else
+                {
+                    continue
+                }
             }
 
             $global:t262Root = $p1
