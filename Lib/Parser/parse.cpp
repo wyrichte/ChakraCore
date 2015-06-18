@@ -4790,7 +4790,9 @@ bool Parser::ParseFncDeclHelper(ERROR_RECOVERY_FORMAL_ ParseNodePtr pnodeFnc, Pa
             (this->m_pstmtCur->pnodeStmt->nop != knopBlock ||
             (this->m_pstmtCur->pnodeStmt->sxBlock.blockType != PnodeBlockType::Function &&
             this->m_pstmtCur->pnodeStmt->sxBlock.blockType != PnodeBlockType::Global)))
-            || this->m_exprDepth > 1));
+            || this->m_exprDepth > 1)
+            && !m_InAsmMode
+            );
 
         if (!fLambda &&
             !isDeferredFnc &&
@@ -4912,36 +4914,6 @@ bool Parser::ParseFncDeclHelper(ERROR_RECOVERY_FORMAL_ ParseNodePtr pnodeFnc, Pa
         }
 #endif
 
-        // Check for 'Use Asm' directive
-        // Asm.js module must not be deferParsed
-        bool isUseAsmDirective = false;
-        // this can have a perf impact if there is large comment in the beginning of a function
-        // Disabling in JSLS for this reason
-#ifndef LANGUAGE_SERVICE
-        if (!m_InAsmMode && !m_isAsmJsDisabled)
-        {
-            // we don't want to add to the comment table when scanning for 'use asm'
-            CommentCallback commentCallback = m_pscan->m_commentCallback;
-            m_pscan->m_commentCallback = nullptr;
-
-            RestorePoint start;
-            m_pscan->Capture(&start);
-            m_pscan->Scan(); // scan ')'
-            m_pscan->Scan(); // scan '{'
-            if( CheckForDirective( nullptr, &isUseAsmDirective, nullptr) )
-            {
-                m_InAsmMode = isUseAsmDirective;
-            }
-            m_pscan->SeekTo(start);
-
-            m_pscan->m_commentCallback = commentCallback;
-        }
-#endif
-        if (isUseAsmDirective)
-        {
-            CHAKRATEL_LANGSTATS_INC_LANGFEATURECOUNT(AsmJSFunctionCount, m_scriptContext);
-        }
-
         // Create function body scope
         ParseNodePtr pnodeInnerBlock = nullptr;
         if (buildAST || BindDeferredPidRefs())
@@ -4975,9 +4947,7 @@ bool Parser::ParseFncDeclHelper(ERROR_RECOVERY_FORMAL_ ParseNodePtr pnodeFnc, Pa
         bool strictModeTurnedOn = false;
 
 #ifndef LANGUAGE_SERVICE
-        if (!isUseAsmDirective &&
-            !m_InAsmMode &&
-            isTopLevelDeferredFunc && 
+        if (isTopLevelDeferredFunc &&
             !(this->m_grfscr & fscrEvalCode) &&
             pnodeFnc->sxFnc.IsNested() &&
 #ifndef DISABLE_DYNAMIC_PROFILE_DEFER_PARSE
@@ -4998,7 +4968,7 @@ bool Parser::ParseFncDeclHelper(ERROR_RECOVERY_FORMAL_ ParseNodePtr pnodeFnc, Pa
         }
 #endif
 
-        if (!isUseAsmDirective && ((m_InAsmMode && m_deferAsmJs) || isTopLevelDeferredFunc))
+        if (isTopLevelDeferredFunc || (m_InAsmMode && m_deferAsmJs))
         {
             AssertMsg(!fLambda, "Deferring function parsing of a function does not handle lambda syntax");
             fDeferred = true;
@@ -5191,12 +5161,12 @@ bool Parser::ParseFncDeclHelper(ERROR_RECOVERY_FORMAL_ ParseNodePtr pnodeFnc, Pa
             pnodeFnc->ichLim = m_pscan->IchLimTok();
             pnodeFnc->sxFnc.cbLim = m_pscan->IecpLimTok();
         }
+    }
 
-        // after parsing asm.js module, we want to reset asm.js state before continuing
-        if(isUseAsmDirective)
-        {
-            m_InAsmMode = false;
-        }
+    // after parsing asm.js module, we want to reset asm.js state before continuing
+    if (pnodeFnc->sxFnc.GetAsmjsMode())
+    {
+        m_InAsmMode = false;
     }
 
     // Restore the statement stack.
@@ -10447,6 +10417,9 @@ void Parser::ParseStmtList(ERROR_RECOVERY_FORMAL_ ParseNodePtr *ppnodeList, Pars
                         // ie. smEnvironment == SM_OnFunctionCode
                         Assert(m_currentNodeFunc != NULL);
                         m_currentNodeFunc->sxFnc.SetAsmjsMode();
+                        m_InAsmMode = true;
+
+                        CHAKRATEL_LANGSTATS_INC_LANGFEATURECOUNT(AsmJSFunctionCount, m_scriptContext);
                     }
                 }
                 else if (isOctalInString)
@@ -11413,7 +11386,7 @@ HRESULT Parser::ParseSourceWithOffset(__out ParseNodePtr* parseTree, LPCUTF8 pSr
         m_currDeferredStub = m_functionBody->GetDeferredStubs();
         m_InAsmMode = isAsmJsDisabled ? false : m_functionBody->GetIsAsmjsMode();
     }
-    m_deferAsmJs = false;
+    m_deferAsmJs = !m_InAsmMode;
     m_parseType = isReparse ? ParseType_Reparse : ParseType_Deferred;
     return ParseSourceInternal( parseTree, pSrc, offset, cbLength, cchOffset, !isCesu8, grfscr, pse, nextFunctionId, lineNumber, sourceContextInfo);
 }

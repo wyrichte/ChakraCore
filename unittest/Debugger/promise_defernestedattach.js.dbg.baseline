@@ -750,6 +750,8 @@
       },
       "sum": "3",
       "[Scope]1": {
+        "complete": "undefined",
+        "promise": "undefined",
         "num1": "1",
         "num2": "2"
       },
@@ -2179,6 +2181,7 @@
       },
       "v": "3",
       "[Scope]1": {
+        "that": "{...}",
         "num1": "1",
         "num2": "2"
       },
@@ -3121,6 +3124,8 @@
       },
       "sum": "6",
       "[Scope]1": {
+        "complete": "undefined",
+        "promise": "undefined",
         "num1": "3",
         "num2": "3"
       },
@@ -4256,6 +4261,7 @@
       },
       "v": "3",
       "[Scope]1": {
+        "that": "{...}",
         "num1": "3",
         "num2": "3"
       },

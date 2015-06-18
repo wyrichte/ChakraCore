@@ -684,14 +684,14 @@
     <default>
         <files>asmHeapAccess.js</files>
         <baseline>asmHeapAccess.baseline</baseline>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:0</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -off:deferparse -maic:0</compile-flags>
     </default>
 </test>
 <test>
     <default>
         <files>asmHeapAccess.js</files>
         <baseline>asmHeapAccess.baseline</baseline>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -nonative</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -off:deferparse -nonative</compile-flags>
     </default>
 </test>
 <test>
@@ -699,7 +699,7 @@
         <files>asmHeapAccess.js</files>
         <baseline>asmHeapAccess.baseline</baseline>
         <tags>exclude_amd64</tags>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -off:deferparse -on:asmjsjittemplate -off:fulljit</compile-flags>
     </default>
 </test>
 <test>
@@ -896,14 +896,14 @@
     <default>
         <files>functionPtr.js</files>
         <baseline>functionPtr.baseline</baseline>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:0</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -off:deferparse -simdjs -maic:0</compile-flags>
     </default>
 </test>
 <test>
     <default>
         <files>functionPtr.js</files>
         <baseline>functionPtr.baseline</baseline>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -nonative</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -off:deferparse -simdjs -nonative</compile-flags>
     </default>
 </test>
 <test>
@@ -911,28 +911,28 @@
         <files>functionPtr.js</files>
         <baseline>functionPtr.baseline</baseline>
         <tags>exclude_amd64</tags>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -off:deferparse -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
     </default>
 </test>
 <test>
     <default>
         <files>functionPtr.js</files>
         <baseline>functionPtr.baseline</baseline>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -off:deferparse -simdjs</compile-flags>
     </default>
 </test>
 <test>
     <default>
         <files>testCall.js</files>
         <baseline>testCall.baseline</baseline>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:0</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -off:deferparse -maic:0</compile-flags>
     </default>
 </test>
 <test>
     <default>
         <files>testCall.js</files>
         <baseline>testCall.baseline</baseline>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -nonative</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -off:deferparse -nonative</compile-flags>
     </default>
 </test>
 <test>
@@ -940,28 +940,28 @@
         <files>testCall.js</files>
         <baseline>testCall.baseline</baseline>
         <tags>exclude_amd64</tags>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -off:deferparse -on:asmjsjittemplate -off:fulljit</compile-flags>
     </default>
 </test>
 <test>
     <default>
         <files>testCall.js</files>
         <baseline>testCall.baseline</baseline>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -off:deferparse -simdjs</compile-flags>
     </default>
 </test>
 <test>
     <default>
         <files>testFFI.js</files>
         <baseline>testFFI.baseline</baseline>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:0</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -off:deferparse -maic:0</compile-flags>
     </default>
 </test>
 <test>
     <default>
         <files>testFFI.js</files>
         <baseline>testFFI.baseline</baseline>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -nonative</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -off:deferparse -nonative</compile-flags>
     </default>
 </test>
 <test>
@@ -969,14 +969,14 @@
         <files>testFFI.js</files>
         <baseline>testFFI.baseline</baseline>
         <tags>exclude_amd64</tags>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -off:deferparse -on:asmjsjittemplate -off:fulljit</compile-flags>
     </default>
 </test>
 <test>
     <default>
         <files>testFFI.js</files>
         <baseline>testFFI.baseline</baseline>
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs</compile-flags>
+        <compile-flags>-on:asmjs -testtrace:asmjs -off:deferparse -simdjs</compile-flags>
     </default>
 </test>
 <test>
@@ -1147,7 +1147,7 @@
       <files>changeHeap.js</files>
       <baseline>changeHeap.baseline</baseline>
       <tags></tags>
-      <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:0</compile-flags>
+      <compile-flags>-on:asmjs -testtrace:asmjs -off:deferparse -simdjs -maic:0</compile-flags>
     </default>
 </test>
 <test>
@@ -1163,7 +1163,7 @@
       <files>changeHeap.js</files>
       <baseline>changeHeap.baseline</baseline>
       <tags></tags>
-      <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -off:fulljit</compile-flags>
+      <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -off:deferparse -off:fulljit</compile-flags>
     </default>
 </test>
 <test>
@@ -1171,7 +1171,7 @@
       <files>changeHeap.js</files>
       <baseline>changeHeap.baseline</baseline>
       <tags>exclude_amd64</tags>
-      <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -on:asmjsjittemplate</compile-flags>
+      <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -off:deferparse -on:asmjsjittemplate</compile-flags>
     </default>
 </test>
 <test>

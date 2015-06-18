@@ -359,9 +359,9 @@ MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
 
 MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
 ProjectionObjects  Created : 18  19  20  21  
-ProjectionObjects  Deleted : 18  19  20  21  
+ProjectionObjects  Deleted : 20  21  
 Unknowns  Created : 8  
-Unknowns  Deleted : 8  
+Unknowns  Deleted : 
 FinalizableArrayBuffer Created : 
 FinalizableArrayBuffer Deleted : 
 MemoryTrace: GlobalObject::EntryCollectGarbage Exit
@@ -400,9 +400,9 @@ MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
 
 MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
 ProjectionObjects  Created : 24  25  26  
-ProjectionObjects  Deleted : 22  24  25  26  
+ProjectionObjects  Deleted : 24  25  26  
 Unknowns  Created : 
-Unknowns  Deleted : 9  
+Unknowns  Deleted : 
 FinalizableArrayBuffer Created : 
 FinalizableArrayBuffer Deleted : 
 MemoryTrace: GlobalObject::EntryCollectGarbage Exit
@@ -461,9 +461,9 @@ MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
 
 MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
 ProjectionObjects  Created : 
-ProjectionObjects  Deleted : 28  29  
+ProjectionObjects  Deleted : 
 Unknowns  Created : 
-Unknowns  Deleted : 10  
+Unknowns  Deleted : 
 FinalizableArrayBuffer Created : 
 FinalizableArrayBuffer Deleted : 
 MemoryTrace: GlobalObject::EntryCollectGarbage Exit
@@ -493,7 +493,7 @@ MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
 
 MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
 ProjectionObjects  Created : 33  34  35  36  37  
-ProjectionObjects  Deleted : 34  35  36  37  
+ProjectionObjects  Deleted : 36  37  
 Unknowns  Created : 11  
 Unknowns  Deleted : 
 FinalizableArrayBuffer Created : 
@@ -511,9 +511,9 @@ MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
 
 MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
 ProjectionObjects  Created : 38  39  
-ProjectionObjects  Deleted : 33  38  39  
+ProjectionObjects  Deleted : 38  39  
 Unknowns  Created : 
-Unknowns  Deleted : 11  
+Unknowns  Deleted : 
 FinalizableArrayBuffer Created : 
 FinalizableArrayBuffer Deleted : 
 MemoryTrace: GlobalObject::EntryCollectGarbage Exit
@@ -557,9 +557,9 @@ MemoryTrace: GlobalObject::EntryCollectGarbage Invoke
 
 MemoryTrace: Stats after GlobalObject::EntryCollectGarbage call
 ProjectionObjects  Created : 42  43  
-ProjectionObjects  Deleted : 41  42  43  
+ProjectionObjects  Deleted : 42  43  
 Unknowns  Created : 
-Unknowns  Deleted : 12  
+Unknowns  Deleted : 
 FinalizableArrayBuffer Created : 
 FinalizableArrayBuffer Deleted : 
 MemoryTrace: GlobalObject::EntryCollectGarbage Exit
@@ -574,16 +574,16 @@ MemoryTrace: Stats after ProjectionContextClose
 ProjectionObjects  Created : 
 ProjectionObjects  Deleted : 
 Unknowns  Created : 
-Unknowns  Deleted : 0  1  4  5  7  
+Unknowns  Deleted : 0  1  4  5  7  8  9  11  
 FinalizableArrayBuffer Created : 
 FinalizableArrayBuffer Deleted : 
 MemoryTrace: ScriptContext Close
 
 MemoryTrace: Stats after scriptSite close
 ProjectionObjects  Created : 
-ProjectionObjects  Deleted : 0  1  8  11  
+ProjectionObjects  Deleted : 0  1  8  11  18  19  22  28  29  33  34  35  41  
 Unknowns  Created : 
-Unknowns  Deleted : 
+Unknowns  Deleted : 10  12  
 FinalizableArrayBuffer Created : 
 FinalizableArrayBuffer Deleted : 
 
