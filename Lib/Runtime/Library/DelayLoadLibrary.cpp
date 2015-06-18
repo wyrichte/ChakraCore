@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 
-#ifndef ENABLE_DEBUG_CONFIG_OPTIONS
+#if !defined(DELAYLOAD_SET_CFG_TARGET)
 extern "C"
 WINBASEAPI
 BOOL
@@ -366,7 +366,7 @@ namespace Js
 
 // Note. __declspec(guard(nocf)) causes the CFG check to be removed
 // inside this function, and is needed only for test binaries (chk and FRETEST)
-#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+#if defined(DELAYLOAD_SET_CFG_TARGET)
     DECLSPEC_GUARDNOCF
 #endif
     BOOL DelayLoadWinCoreMemory::SetProcessCallTargets(_In_ HANDLE hProcess,
@@ -375,8 +375,8 @@ namespace Js
         _In_ ULONG NumberOfOffets,
         _In_reads_(NumberOfOffets) PCFG_CALL_TARGET_INFO OffsetInformation)
     {
-#ifdef ENABLE_DEBUG_CONFIG_OPTIONS 
 
+#if defined(DELAYLOAD_SET_CFG_TARGET)
         if (m_hModule)
         {
             if (m_pfnSetProcessValidCallTargets == nullptr)
@@ -412,7 +412,7 @@ namespace Js
         __in SIZE_T nLength
         )
     {
-#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+#if defined(DELAYLOAD_SET_CFG_TARGET)
         if (m_hModule)
         {
             if (m_pfnGetProcessMitigationPolicy == nullptr)
