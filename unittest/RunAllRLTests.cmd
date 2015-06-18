@@ -54,6 +54,9 @@ set _MagellanPath=%SystemDrive%\ChakraMagellan
 set _DpkFile=ChakraCC_
 set _GumshoeSetupPath=\\ocentral\products\Gumshoe\latest\setup\x64\gumshoe.msi
 set _MagellanSetupPath=\\codecovfs01\Magellan_pre_Release\Latest\amd64fre
+set _runT262=
+set _runDefault=1
+set _t262OnlyMode=0
 
 :NextArgument
 if "%1" == "-?" (
@@ -160,6 +163,9 @@ if "%1" == "-?" (
     set _ccChangeList=%2
     shift
     goto ArgLoop
+) else if /i "%1" == "-t262" (
+    set _runT262=1
+    goto ArgLoop
 
 :: Defined here are shorthand versions for specifying
 :: extra variants when running.
@@ -185,11 +191,19 @@ if "%1" == "-?" (
 )
 
 :ArgLoop
+if not "%1" == "-t262" (
+    set _runDefault=0
+)
 shift
 goto :NextArgument
 
-
 :StartScript
+if "%_runDefault%" == "1" (
+    if "%_runT262%" == "1" (
+        set _t262OnlyMode=1
+    )
+)
+
 set path=%path%;%_binaryRoot%;%_toolsRoot%
 
 del /s /q profile.dpl.* > nul
@@ -286,9 +300,9 @@ echo #################Code Coverage setup#################
 :: Set up CodeCoverage machinery
 set "_DpkFile=ChakraCC_%_ccChangeList%"
 if "%_ccChangeList%" == "0" (
-	echo Code coverage will be done for entire source
+    echo Code coverage will be done for entire source
 ) else (
-	echo Code Coverage will be done for the changelist %_ccChangeList%
+    echo Code Coverage will be done for the changelist %_ccChangeList%
 )
 
 :: Check Gumshoe installation
@@ -336,29 +350,31 @@ if not exist "%_GumshoeExe%" (
         move /Y %_NTTREE%\jscript\chakralstest.dll.block.instr %_NTTREE%\jscript\chakralstest.dll
     )
 
-	:: Starting the Code Coverage session
+    :: Starting the Code Coverage session
     call "%_GumshoeExe%" start
     call "%_GumshoeExe%" add covsym:%_NTTREE%\jscript\chakratest.dll.covsym
     if exist "%_NTTREE%\jscript\chakralstest.dll.covsym" (
         call "%_GumshoeExe%" add covsym:%_NTTREE%\jscript\chakralstest.dll.covsym
     )
-	if not "%_ccChangeList%"=="0" (
-		:: Create DPK for the change which will be added to the Gumshoe session
-		call sdp pack %_DpkFile% -c %_ccChangeList%
-		call "%_GumshoeExe%" add dpk:%_DpkFile%.dpk
-	)
+    if not "%_ccChangeList%"=="0" (
+        :: Create DPK for the change which will be added to the Gumshoe session
+        call sdp pack %_DpkFile% -c %_ccChangeList%
+        call "%_GumshoeExe%" add dpk:%_DpkFile%.dpk
+    )
     call "%_GumshoeExe%" status
 )
 echo #################Code Coverage setup done#################
 
 :Run
-for %%i in (%_Variants%) do (
-    set _TESTCONFIG=%%i
-    call :RunOneConfig
+if not "%_t262OnlyMode%" == "1" (
+    for %%i in (%_Variants%) do (
+        set _TESTCONFIG=%%i
+        call :RunOneConfig
+    )
 )
 
 if "%_ccChangeList%"=="" (
-    goto :Logging
+    goto :RunT262
 )
 if exist "%_GumshoeExe%" (
     echo #################Code Coverage cleanup#################
@@ -376,14 +392,21 @@ if exist "%_GumshoeExe%" (
     echo #################Code Coverage cleanup done#################
 )
 
-:Logging
+:RunT262
+if "%_runT262%"=="1" (
+    echo #################Starting Test262 tests#################
+    powershell %SDXROOT%\inetcore\jscript\tools\Test262\RunTest262Test.ps1 -b %_NTTREE%\jscript\jshost.exe -c "-es6all" -s 75 -f %SDXROOT%\inetcore\jscript\tools\Test262 -o %_BuildFlavorLogs%\Test262Results.log
+    echo #################Done with Test262 tests#################
+)
 echo.
 echo.
 
-for %%i in (%_Variants%) do (
-    echo ######## Logs for %%i variant ########
-    type %_BuildFlavorLogs%\%%i\rl.log
-    echo.
+if not "%_t262OnlyMode%" == "1" (
+    for %%i in (%_Variants%) do (
+        echo ######## Logs for %%i variant ########
+        type %_BuildFlavorLogs%\%%i\rl.log
+        echo.
+    )
 )
 
 exit /b %_Error%
