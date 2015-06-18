@@ -67,6 +67,7 @@ private:
     void            ProcessDst(IR::Opnd *dst, IR::Instr *instr);
     void            ProcessRegUse(IR::RegOpnd *regUse, IR::Instr *instr);
     void            ProcessRegDef(IR::RegOpnd *regDef, IR::Instr *instr);
+    void            ExtendLifetime(Lifetime *lifetime, IR::Instr *instr);
     void            ProcessStackSymUse(StackSym * stackSym, IR::Instr * instr, int usageSize = MachPtr);
     void            ProcessBailOutUses(IR::Instr * bailOutInstr);
     Lifetime *      InsertLifetime(StackSym *stackSym, RegNum reg, IR::Instr *const currentInstr);
