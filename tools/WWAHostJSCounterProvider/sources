@@ -4,16 +4,13 @@ TEST_CODE=1
 
 USE_STL=1
 
-SOURCES=resources.rc
+SOURCES=WWAHostJSCounterProvider.cpp
 
 _NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN8)
 
-USER_INCLUDES=$(OBJ_PATH)\..\..\Manifests\$(O);$(JSCRIPT_ROOT)\lib\common\common
+USER_INCLUDES=$(OBJ_PATH)\..\..\Manifests\$(O);$(JSCRIPT_ROOT)\lib\common\core
 
 C_DEFINES = $(C_DEFINES) -DUNICODE -D_UNICODE
 UMENTRY = wmain
 UMTYPE = console
-
-SOURCES=\
-    WWAHostJSCounterProvider.cpp
 

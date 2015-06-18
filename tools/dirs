@@ -2,6 +2,6 @@ DIRS=\
     ChakraNativeTaefTests{noncrit} \
     windbg{!MOBILECORE,!EXCLUDE_IE_MAIN} \
     InternalCounterResources{!MOBILECORE,!EXCLUDE_IE_MAIN} \
-    WWAHostJSCounterProvider{!MOBILECORE,nonprod,!EXCLUDE_IE_MAIN} \
+    WWAHostJSCounterProvider{!MOBILECORE,noncrit,!EXCLUDE_IE_MAIN} \
     JsEtwConsole{!MOBILECORE,!ARM,!ARM64,noncrit,!EXCLUDE_IE_MAIN} \
     snap{!MOBILECORE,noncrit,!EXCLUDE_IE_MAIN} \
