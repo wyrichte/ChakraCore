@@ -6162,6 +6162,7 @@ Case0:
             // If return object is a JavascriptArray, we can use all the array splice helpers
             if (newArr)
             {
+
                 //Array has a single segment (need not start at 0) and splice start lies in the range
                 //of that segment we optimize splice - Fast path.
                 if (pArr->IsSingleSegmentArray() && pArr->head->HasIndex(start))
@@ -6222,7 +6223,21 @@ Case0:
                 }
 
                 pArr->InvalidateLastUsedSegment();
-                pArr->length = newLen; //set up new length
+
+                // it is possible for valueOf accessors for the start or deleteLen
+                // arguments to modify the size of the array. Since the resulting size of the array
+                // is based on the cached value of length, this might lead to us having to trim
+                // excess array segments at the end of the splice operation, which SetLength() will do.
+                // However, this is also slower than performing the simple length assignment, so we only
+                // do it if we can detect the array length changing.
+                if(pArr->length != len)
+                {
+                    pArr->SetLength(newLen);
+                }
+                else
+                {
+                    pArr->length = newLen;
+                }
 
                 newArr->InvalidateLastUsedSegment();
 
