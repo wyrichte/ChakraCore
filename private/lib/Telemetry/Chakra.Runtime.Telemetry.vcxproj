@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ChakraBuildConfigDir>..\..\..\Build</ChakraBuildConfigDir>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
+  <PropertyGroup Label="Globals">
+    <TargetName>Chakra.Runtime.Telemetry</TargetName>
+    <ProjectGuid>{6EA087D4-1983-43D3-8C7E-0A79BC4327F6}</ProjectGuid>
+    <RootNamespace>JS</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..;$(MSBuildThisFileDirectory)..\..\Common;$(MSBuildThisFileDirectory)..\..\Parser;$(MSBuildThisFileDirectory)..\..\Backend;$(ChakraManifestsIncludeDirectory);$(ManifestsInboxIncludeDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <!-- For telemtry\MicrosoftTelemetry.h -->
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MinWinPrivSdkIncPath)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings);4702</DisableSpecificWarnings>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsDatabase.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsOpcodeTelemetry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsTelemetryProvider.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)IScriptContextTelemetryProvider.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)OpcodeTelemetry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScriptContextTelemetry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScriptEngineTelemetry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\StdAfx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ESBuiltIns\ESBuiltInsDatabase.h" />
+    <ClInclude Include="ESBuiltIns\ESBuiltInsOpcodeTelemetry.h" />
+    <ClInclude Include="ESBuiltIns\ESBuiltInsTelemetryProvider.h" />
+    <ClInclude Include="IOpcodeTelemetry.h" />
+    <ClInclude Include="IScriptContextTelemetryProvider.h" />
+    <ClInclude Include="OpcodeTelemetry.h" />
+    <ClInclude Include="ScriptContextTelemetry.h" />
+    <ClInclude Include="ScriptEngineTelemetry.h" />
+    <ClInclude Include="TelemetryList.includes.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dirs" />
+    <None Include="ESBuiltIns\ESBuiltInsDatabase.inc" />
+    <None Include="ESBuiltIns\ESBuiltInsTypeNames.inc" />
+    <None Include="ESBuiltIns\ESBuiltInsTypeNames.trie.Generator.js" />
+    <None Include="ESBuiltIns\ESBuiltInsTypeNames.trie.inc" />
+    <None Include="ESBuiltIns\sources.inc" />
+    <None Include="ESBuiltIns\TraceLogList.Generator.js" />
+    <None Include="ESBuiltIns\TraceLogList.inc" />
+    <None Include="sources.inc" />
+    <None Include="TelemetryList.inc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Telemetry\README - Instructions on adding new aspects.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
