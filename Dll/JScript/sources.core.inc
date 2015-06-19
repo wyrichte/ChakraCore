@@ -98,7 +98,6 @@ TARGETLIBS= \
     $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
     $(SDK_LIB_PATH)\muiload.lib \
     $(SDK_LIB_PATH)\Uuid.lib \
-    $(MINWIN_PRIV_SDK_LIB_PATH)\pcwum.lib \
 !if (!$(FREEBUILD))
     $(MINCORE_PRIV_SDK_LIB_VPATH)\ext-ms-win-ntuser-dialogbox-l1.lib \
     $(SDK_LIB_PATH)\dbghelp.lib \

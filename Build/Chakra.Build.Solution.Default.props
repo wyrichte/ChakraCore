@@ -33,8 +33,8 @@
     <IncludePath>$(PUBLIC_ROOT)\shared\inc</IncludePath>
     <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\shared\inc\minwin</IncludePath>
     <IncludePath>$(IncludePath);$(SdkIncPath)</IncludePath>    
-    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\minwin</IncludePath>
-    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\mincore</IncludePath>
+    <IncludePath>$(IncludePath);$(SdkIncPath)\minwin</IncludePath>
+    <IncludePath>$(IncludePath);$(SdkIncPath)\mincore</IncludePath>
     <IncludePath>$(IncludePath);$(SolutionDir)..\..\inc</IncludePath>
     
     

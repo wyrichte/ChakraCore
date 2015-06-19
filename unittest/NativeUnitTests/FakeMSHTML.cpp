@@ -127,11 +127,11 @@ HRESULT FakeMSHTML::GetSourceMapUrl(__out BSTR *pbstrSourceMapUrl)
 }
 STDMETHODIMP FakeMSHTML::QueryInterface(REFIID riid, void ** ppvObj)
 {
-    if(riid == IID_IActiveScriptDataCache)
+    if(riid == __uuidof(IActiveScriptDataCache))
     {
         *ppvObj = static_cast<IActiveScriptDataCache*>(this);
     }
-    else if(riid == IID_IActiveScriptContext)
+    else if(riid == __uuidof(IActiveScriptContext))
     {
         *ppvObj = static_cast<IActiveScriptContext*>(this);
     }

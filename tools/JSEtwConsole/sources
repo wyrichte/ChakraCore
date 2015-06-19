@@ -1,6 +1,6 @@
 TEST_CODE          = 1
 MANAGED_CODE       = 1
-URT_VER            = 4.0
+URT_VER            = 4.5
 TARGETNAME         = JsEtwConsole
 TARGETTYPE         = PROGRAM
 UMTYPE             = console

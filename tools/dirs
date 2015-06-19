@@ -1,5 +1,4 @@
 DIRS=\
-    ChakraNativeTaefTests{noncrit} \
     windbg{!MOBILECORE,!EXCLUDE_IE_MAIN} \
     InternalCounterResources{!MOBILECORE,!EXCLUDE_IE_MAIN} \
     WWAHostJSCounterProvider{!MOBILECORE,noncrit,!EXCLUDE_IE_MAIN} \
