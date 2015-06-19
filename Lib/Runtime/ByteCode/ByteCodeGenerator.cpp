@@ -4591,35 +4591,6 @@ void AssignRegisters(ParseNode *pnode,ByteCodeGenerator *byteCodeGenerator)
 
 }
 
-// TODO[ianhall]: IsDeadLoop should be in ByteCodeEmitter.cpp but that becomes complicated because it depends on VisitIndirect
-// TODO[ianhall]: Alternatively it looks like this is dead code.  DeadLoopDetection phase is off by default.  Appears to be unused but still works if I turn it on.
-void CheckDeadLoop(ParseNode *pnode, ByteCodeGenerator *byteCodeGenerator, void* ignored);
-bool ByteCodeGenerator::IsDeadLoop(ParseNode* pnode,FuncInfo *funcInfo) {
-#pragma prefast(suppress:6235, "Non-Zero Constant in Condition")
-    if (!PHASE_ON(Js::DeadLoopDetectionPhase, funcInfo->byteCodeFunction))
-    {
-        return false;
-    }
-    if (IsInDebugMode()
-        || funcInfo->GetHasLocalInClosure()
-        || funcInfo->GetChildCallsEval()
-        || funcInfo->GetHasClosureReference()
-        || funcInfo->GetCallsEval()
-        || (scriptContext->optimizationOverrides.GetSideEffects() != Js::SideEffects_None))
-    {
-        return false;
-    }
-
-    ParseNode *stmt = pnode->sxBin.pnode1;
-    if (stmt->nop == knopFor && pnode->sxBin.pnode2->nop == knopEndCode) {
-        deadLoopPossible=true;
-        outerLoop=stmt;
-        VisitIndirect<void>(stmt,this,NULL,&CheckDeadLoop,NULL);
-        return deadLoopPossible;
-    }
-    return false;
-}
-
 // TODO[ianhall]: ApplyEnclosesArgs should be in ByteCodeEmitter.cpp but that becomes complicated because it depends on VisitIndirect
 void PostCheckApplyEnclosesArgs(ParseNode* pnode, ByteCodeGenerator* byteCodeGenerator, ApplyCheck* applyCheck);
 void CheckApplyEnclosesArgs(ParseNode* pnode, ByteCodeGenerator* byteCodeGenerator, ApplyCheck* applyCheck);

@@ -34,13 +34,11 @@ private:
     uint dynamicScopeCount;
     uint loopDepth;
     uint16 m_callSiteId;
-    bool deadLoopPossible;
     bool isBinding;
     bool trackEnvDepth;
     bool funcEscapes;
     bool inPrologue;
     bool inDestructuredArray;
-    ParseNode* outerLoop;
     Parser* parser; // currently active parser (used for AST transformation)
 
     Js::Utf8SourceInfo *m_utf8SourceInfo;
@@ -90,16 +88,6 @@ public:
 
     void SetCurrentTopStatement(ParseNode *pnode) { currentTopStatement = pnode; }
     ParseNode *GetCurrentTopStatement() const { return currentTopStatement; }
-
-    void SetDeadLoopPossible(bool b) {
-        deadLoopPossible=b;
-    }
-
-    ParseNode* GetOuterLoop() { return outerLoop; }
-
-    bool GetDeadLoopPossible() {
-        return deadLoopPossible;
-    }
 
     Js::ModuleID GetModuleID() const
     {
@@ -216,8 +204,6 @@ public:
     void MapReferencedPropertyIds(FuncInfo *funcInfo);
     FuncInfo *StartBindFunction(const wchar_t *name, int nameLength, bool* pfuncExprWithName, ParseNode *pnode);
     void EndBindFunction(bool funcExprWithName);
-    void StartBindProg(ParseNode *pnode);
-    void EndBindProg();
     void StartBindCatch(ParseNode *pnode);
 
     // Block scopes related functions
@@ -227,7 +213,6 @@ public:
     Js::DebuggerScope* RecordStartScopeObject(ParseNode *pnodeBlock, Js::DiagExtraScopesType scopeType, Js::RegSlot scopeLocation = Js::Constants::NoRegister, int* index = nullptr);
     void RecordEndScopeObject(ParseNode *pnodeBlock);
 
-    bool IsDeadLoop(ParseNode* pnode,FuncInfo* funcInfo);
     void EndBindCatch();
     void StartEmitFunction(ParseNode *pnodeFnc);
     void EndEmitFunction(ParseNode *pnodeFnc);

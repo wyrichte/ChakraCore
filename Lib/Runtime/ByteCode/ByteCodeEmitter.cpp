@@ -2240,98 +2240,6 @@ void ByteCodeGenerator::DefineLabels(FuncInfo *funcInfo) {
     }
 }
 
-void CheckDeadLoop(ParseNode *pnode,ByteCodeGenerator *byteCodeGenerator,void* ignored)
-{
-    ParseNode* nameNode;
-
-    if ((pnode==NULL) || (!byteCodeGenerator->GetDeadLoopPossible())) {
-        return;
-    }
-    switch (pnode->nop) {
-    default:
-        byteCodeGenerator->SetDeadLoopPossible(false);
-        break;
-    case knopFor:
-        if (pnode!=byteCodeGenerator->GetOuterLoop()) {
-            byteCodeGenerator->SetDeadLoopPossible(false);
-        }
-        break;
-    case knopInt:
-    case knopFlt:
-    case knopLt:
-    case knopGt:
-    case knopLe:
-    case knopGe:
-    case knopEq:
-    case knopNe:
-    case knopEqv:
-    case knopNEqv:
-    case knopList:
-    case knopIf:
-    case knopAdd:
-    case knopMul:
-    case knopDiv:
-    case knopMod:
-    case knopNeg:
-    case knopNot:
-    case knopPos:
-    case knopLogNot:
-    case knopEllipsis:
-    case knopLsh:
-    case knopRsh:
-    case knopRs2:
-    case knopSub:
-    case knopOr:
-    case knopXor:
-    case knopAnd:
-    case knopIndex:
-    case knopTrue:
-    case knopFalse:
-    case knopNull:
-    case knopBlock:
-        break;
-
-    case knopName: {
-        if ((pnode->sxPid.sym==NULL)||(pnode->sxPid.sym->GetDecl()==NULL)) {
-            byteCodeGenerator->SetDeadLoopPossible(false);
-        }
-        break;
-                   }
-    case knopIncPost:
-    case knopIncPre:
-    case knopDecPost:
-    case knopDecPre:
-        nameNode = pnode->sxUni.pnode1;
-        goto checkIsNotGlobal;
-
-    case knopAsgAnd:
-    case knopAsgXor:
-    case knopAsgOr:
-    case knopAsgLsh:
-    case knopAsgRsh:
-    case knopAsgRs2:
-    case knopAsgSub:
-    case knopAsgAdd:
-    case knopAsgMul:
-    case knopAsgDiv:
-    case knopAsgMod:
-    case knopAsg: {
-
-        nameNode = pnode->sxBin.pnode1;
-
-checkIsNotGlobal:
-        if ((nameNode->nop!=knopName)||(nameNode->sxPid.sym==NULL)||(nameNode->sxPid.sym->GetIsGlobal())) {
-            byteCodeGenerator->SetDeadLoopPossible(false);
-        }
-        break;
-                  }
-    case knopVarDecl:
-    case knopConstDecl:
-    case knopLetDecl:
-        break;
-    }
-}
-
 void ByteCodeGenerator::EmitGlobalBody(FuncInfo *funcInfo)
 {
     // Emit global code (global scope or eval), fixing up the return register with the implicit
@@ -2360,18 +2268,7 @@ void ByteCodeGenerator::EmitGlobalBody(FuncInfo *funcInfo)
         {
             // Haven't hit the post-dominating return value yet,
             // so don't bother with the return register.
-            if (!IsDeadLoop(pnode, funcInfo))
-            {
-                EmitTopLevelStatement(stmt, funcInfo, false);
-            }
-            else
-            {
-                Js::ByteCodeLabel afterStatement = this->m_writer.DefineLabel();
-                // Emit branch around.
-                this->m_writer.BrS(Js::OpCode::BrNotHasSideEffects, afterStatement, Js::SideEffects_Any);
-                EmitTopLevelStatement(stmt, funcInfo, false);
-                this->m_writer.MarkLabel(afterStatement);
-            }
+            EmitTopLevelStatement(stmt, funcInfo, false);
         }
         pnode = pnode->sxBin.pnode2;
     }
@@ -2409,18 +2306,7 @@ void ByteCodeGenerator::EmitFunctionBody(FuncInfo *funcInfo)
             }
             NEXT_SLIST_ENTRY;
         }
-        if (!IsDeadLoop(pnode, funcInfo))
-        {
-            EmitTopLevelStatement(stmt, funcInfo, false);
-        }
-        else
-        {
-            Js::ByteCodeLabel afterStatement = this->m_writer.DefineLabel();
-            // Emit branch around.
-            this->m_writer.BrS(Js::OpCode::BrNotHasSideEffects, afterStatement, Js::SideEffects_Any);
-            EmitTopLevelStatement(stmt, funcInfo, false);
-            this->m_writer.MarkLabel(afterStatement);
-        }
+        EmitTopLevelStatement(stmt, funcInfo, false);
         pnode = pnode->sxBin.pnode2;
     }
     Assert(!pnode->CapturesSyms());
