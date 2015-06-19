@@ -1,4 +1,9 @@
 DIRS = \
     GuidParser \
-    SCALookup    
+    SCALookup  \
+    MemProtectHeap \
+    StaticLib  \
+    WinRT      \
+    HostCommon \
+
     

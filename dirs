@@ -1,7 +1,6 @@
 DIRS = \
     publish0{!min_rt} \ 
     publish{!min_rt} \ 
-    manifests{!MOBILECORE} \
     core \
     private \
     tools{!min_rt} \
