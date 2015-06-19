@@ -104,7 +104,7 @@ Function Create-ConfigFile ($rootDir)
     $configValue += "$global:exePath $global:exeArgs" 
     $configValue += "', batch: $batchSize"
     $configValue += ", batchConfig: {  createEnv: 'WScript.LoadScript("""", ""samethread"")', runBatched: 'env.WScript.LoadScript(test)' },  test262Dir: 'test262' });"
-    Set-Content -Encoding Ascii -Path $defaultConfigPath -Value $configValue
+    Set-Content -Encoding Ascii -Path $defaultConfigPath -Value $configValue -Force
 
     return $defaultConfigPath
 }
@@ -193,7 +193,7 @@ Function Setup-ConfigFile
         $configFileContent = @()
         $configFileContent += "root={0}" -f $global:t262Root
         $configFileContent += "config={0}" -f $global:t262ConfigFilePath
-        Set-Content -Encoding Ascii -Path $test262SetupConfigFilePath -Value $configFileContent
+        Set-Content -Encoding Ascii -Path $test262SetupConfigFilePath -Value $configFileContent -Force
     }
 }
 
@@ -259,7 +259,7 @@ Function Runt-TestCases
     # $results = (Test262-harness -c $global:t262ConfigFilePath -e "$global:exePath $global:exeArgs" language -R tap)
     
     Write-Host "Writing entire results to $global:outputFile"
-    Set-Content -Encoding Ascii -Path $global:outputFile -Value $results
+    Set-Content -Encoding Ascii -Path $global:outputFile -Value $results -Force
 
     $failedTCs = Parse-Failures $results
     popd

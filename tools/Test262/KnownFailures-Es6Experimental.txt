@@ -1,43 +1,47 @@
-test262/test/built-ins/Date/15.9.1.15-1.js::::Test262Error::::Test case returned non-true value!
 test262/test/intl402/9.2.6_4_b.js::::Test262Error::::Unicode locale extension sequence is not correctly returned for locale zh with matcher lookup. (Testing with Collator.)
 test262/test/built-ins/Array/S15.4.3_A2.2.js::::Test262Error::::|#2: delete Array.length; Array.hasOwnProperty('length') === false. Actual: true
+test262/test/built-ins/Date/15.9.1.15-1.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Function/StrictFunction_restricted-properties.js::::Test262Error::::Functions defined using syntactic constructors in strict mode code do not have own property "caller" Expected SameValue(true, false) to be true
 test262/test/built-ins/GeneratorPrototype/Symbol.toStringTag.js::::Test262Error::::Expected SameValue(undefined, Generator) to be true
+test262/test/built-ins/MapIteratorPrototype/Symbol.toStringTag.js::::Test262Error::::Expected SameValue(Map Iterator, undefined) to be true
 test262/test/built-ins/Number/15.7.4-1.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Set/length.js::::Test262Error::::|Expected obj[length] to have configurable:true.
-test262/test/built-ins/Set/set-iterator-close-after-add-failure.js::::Error::::~
 test262/test/intl402/10.2.2_L15.js::::Test262Error::::The length property of a built-in function must be configurable.
 test262/test/intl402/10.3.2_1_a_L15.js::::Test262Error::::The length property of a built-in function must be configurable.
 test262/test/intl402/11.1.1_20_c.js::::Test262Error::::Didn't get correct minimumFractionDigits for currency CLF; expected 4, got 0.
 test262/test/intl402/11.2.2_L15.js::::Test262Error::::The length property of a built-in function must be configurable.
 test262/test/intl402/11.3.2_1_a_L15.js::::Test262Error::::The length property of a built-in function must be configurable.
 test262/test/intl402/11.3.2_TRP.js::::Test262Error::::|Formatted value for 0.001234, th-u-nu-arab and options {"useGrouping":false,"minimumSignificantDigits":3,"maximumSignificantDigits":5} is ; expected .
-test262/test/built-ins/Boolean/prototype/S15.6.3.1_A1.js::::Test262Error::::|#2.1: "(Boolean.prototype != false)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Boolean/prototype/S15.6.4_A1.js::::Test262Error::::|#2.1: "(Boolean.prototype != false)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Function/length/S15.3.5.1_A2_T2.js::::Test262Error::::|#2: the function.length property does not have the attributes DontDelete.
-test262/test/built-ins/Function/length/S15.3.5.1_A2_T3.js::::Test262Error::::|#2: the function.length property does not have the attributes DontDelete.
+test262/test/built-ins/Proxy/create-handler-is-revoked-proxy.js::::Test262Error::::Expected a TypeError to be thrown but no exception was thrown at all
+test262/test/built-ins/Proxy/create-target-is-revoked-proxy.js::::Test262Error::::Expected a TypeError to be thrown but no exception was thrown at all
+test262/test/built-ins/Proxy/length.js::::Test262Error::::|Expected obj[length] to have configurable:true.
+test262/test/built-ins/Proxy/proxy-no-prototype.js::::Test262Error::::Expected SameValue(true, false) to be true
+test262/test/built-ins/Set/length.js::::Test262Error::::|Expected obj[length] to have configurable:true.
+test262/test/built-ins/Error/prototype/S15.11.4_A2.js::::Test262Error::::|#1: Error.prototype.toString=Object.prototype.toString; __tostr = Error.prototype.toString(); __tostr === "[object Object]". Actual: [object Error]
 test262/test/built-ins/GeneratorFunction/prototype/toStringTag.js::::Test262Error::::Expected SameValue(undefined, GeneratorFunction) to be true
 test262/test/built-ins/GeneratorPrototype/next/context-constructor-invocation.js::::Test262Error::::Expected a ReferenceError to be thrown but no exception was thrown at all
-test262/test/built-ins/Math/round/S15.8.2.15_A7.js::::Test262Error::::|#4: '1 / Math.round(0.49999999999999994) !== 1 / 0'
 test262/test/built-ins/Number/prototype/S15.7.3.1_A2_T1.js::::Test262Error::::|#3: The [[Class]] property of the Number prototype object is set to "Object"
 test262/test/built-ins/Number/prototype/S15.7.3.1_A2_T2.js::::Test262Error::::|#3: The [[Class]] property of the Number prototype object is set to "Object"
-test262/test/built-ins/Number/prototype/S15.7.3.1_A3.js::::Test262Error::::|#1.1: "(Number.prototype != 0)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/S15.7.4_A1.js::::Test262Error::::|#2.1: "(Number.prototype != 0)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Object/defineProperties/15.2.3.7-5-b-248.js::::TypeError::::Invalid descriptor for property 'stack'
-test262/test/language/object-literal/concise-generator.js::::ReferenceError::::'super' can only be accessed from a subclass method
-test262/test/language/object-literal/getter.js::::ReferenceError::::'super' can only be accessed from a subclass method
-test262/test/language/object-literal/method.js::::ReferenceError::::'super' can only be accessed from a subclass method
-test262/test/language/object-literal/setter.js::::ReferenceError::::'super' can only be accessed from a subclass method
-test262/test/built-ins/Error/prototype/S15.11.4_A2.js::::Test262Error::::|#1: Error.prototype.toString=Object.prototype.toString; __tostr = Error.prototype.toString(); __tostr === "[object Object]". Actual: [object Error]
-test262/test/built-ins/Function/length/S15.3.5.1_A2_T1.js::::Test262Error::::|#2: the function.length property does not have the attributes DontDelete.
-test262/test/built-ins/Object/getPrototypeOf/15.2.3.2-2-12.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Object/getPrototypeOf/15.2.3.2-2-13.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Object/getPrototypeOf/15.2.3.2-2-14.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Object/getPrototypeOf/15.2.3.2-2-15.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Object/getPrototypeOf/15.2.3.2-2-16.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Object/getPrototypeOf/15.2.3.2-2-17.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Number/prototype/S15.7.3.1_A3.js::::Test262Error::::|#1.1: "(Number.prototype != 0)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "(Number.prototype != 0);" lead to throwing exception. Actual: false
+test262/test/built-ins/Number/prototype/S15.7.4_A1.js::::Test262Error::::|#2.1: "(Number.prototype != 0)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #2: "(Number.prototype != 0);" lead to throwing exception. Actual: false
+test262/test/built-ins/Object/defineProperties/15.2.3.7-2-15.js::::TypeError::::Invalid descriptor for property 'stack'
+test262/test/built-ins/Object/defineProperties/15.2.3.7-5-a-16.js::::TypeError::::Invalid descriptor for property 'stack'
+test262/test/built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-4-191.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-4-194.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-4-201.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/String/prototype/S15.5.4_A1.js::::Test262Error::::|#1: delete String.prototype.toString; String.prototype.toString() === "[object "+"Object"+"]". Actual: String.prototype.toString() ===[object String]
+test262/test/built-ins/String/prototype/S15.5.4_A2.js::::Test262Error::::|#1.1: "(String.prototype !="")" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "(String.prototype !="");" lead to throwing exception. Actual: false
+test262/test/built-ins/String/prototype/S15.5.4_A3.js::::Test262Error::::|#2: delete String.prototype.toString; String.prototype.toString() == "[object "+"Object"+"]". Actual: String.prototype.toString() ==[object String]
+test262/test/built-ins/RegExp/prototype/15.10.6.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/intrinsics/FunctionPrototype/FunctionPrototype_restricted-property-arguments.js::::Test262Error::::%FunctionPrototype%.arguments is an accessor property Expected SameValue(undefined, function) to be true
 test262/test/built-ins/intrinsics/FunctionPrototype/FunctionPrototype_restricted-property-caller.js::::Test262Error::::%FunctionPrototype%.caller is an accessor property Expected SameValue(undefined, function) to be true
+test262/test/language/arguments-object/mapped/mapped-arguments-nonconfigurable-delete-1.js::::Test262Error::::Expected SameValue(true, false) to be true
+test262/test/language/arguments-object/mapped/mapped-arguments-nonconfigurable-delete-2.js::::Test262Error::::Expected SameValue(true, false) to be true
+test262/test/language/arguments-object/mapped/mapped-arguments-nonconfigurable-delete-3.js::::Test262Error::::Expected SameValue(true, false) to be true
+test262/test/language/arguments-object/mapped/mapped-arguments-nonconfigurable-delete-4.js::::Test262Error::::Expected SameValue(true, false) to be true
+test262/test/language/arguments-object/mapped/mapped-arguments-nonconfigurable-strict-delete-1.js::::Test262Error::::Expected a TypeError to be thrown but no exception was thrown at all
+test262/test/language/arguments-object/mapped/mapped-arguments-nonconfigurable-strict-delete-2.js::::Test262Error::::Expected a TypeError to be thrown but no exception was thrown at all
+test262/test/language/arguments-object/mapped/mapped-arguments-nonconfigurable-strict-delete-3.js::::Test262Error::::Expected a TypeError to be thrown but no exception was thrown at all
+test262/test/language/arguments-object/mapped/mapped-arguments-nonconfigurable-strict-delete-4.js::::Test262Error::::Expected a TypeError to be thrown but no exception was thrown at all
 test262/test/language/class/definition/ClassDeclaration_restricted-properties.js::::Test262Error::::Functions created using ClassDeclaration syntactic form do not have own property "caller" Expected SameValue(true, false) to be true
 test262/test/language/class/definition/ClassExpression_restricted-properties.js::::Test262Error::::Functions created using ClassExpression syntactic form do not have own property "caller" Expected SameValue(true, false) to be true
 test262/test/language/class/definition/ClassMethod_restricted-properties.js::::Test262Error::::Functions created using MethodDefinition syntactic form do not have own property "caller" Expected SameValue(true, false) to be true
@@ -50,9 +54,6 @@ test262/test/language/expressions/arrow-function/lexical-new.target-closure-retu
 test262/test/language/expressions/arrow-function/lexical-new.target.js::::SyntaxError::::Syntax error
 test262/test/language/expressions/arrow-function/lexical-super-call-from-within-constructor.js::::Test262Error::::Expected a ReferenceError to be thrown but no exception was thrown at all
 test262/test/language/expressions/arrow-function/lexical-super-property-from-within-constructor.js::::TypeError::::Object doesn't support property or method 'increment'
-test262/test/language/expressions/compound-assignment/S11.13.2_A5.10_T1.js::::Test262Error::::|#1: scope.x === 1. Actual: undefined
-test262/test/language/expressions/compound-assignment/S11.13.2_A5.10_T2.js::::Test262Error::::|#1: scope.x === 1. Actual: undefined
-test262/test/language/expressions/compound-assignment/S11.13.2_A5.10_T3.js::::Test262Error::::|#1: innerScope.x === 1. Actual: undefined
 test262/test/language/expressions/assignment/S11.13.1_A5_T1.js::::Test262Error::::|#1: scope.x === 2. Actual: undefined
 test262/test/language/expressions/assignment/S11.13.1_A5_T2.js::::Test262Error::::|#1: scope.x === 2. Actual: undefined
 test262/test/language/expressions/assignment/S11.13.1_A5_T3.js::::Test262Error::::|#1: innerScope.x === 2. Actual: undefined
@@ -61,7 +62,12 @@ test262/test/language/expressions/assignment/S11.13.1_A5_T5.js::::ReferenceError
 test262/test/language/expressions/assignment/S11.13.1_A6_T1.js::::Test262Error::::|#1: innerX === undefined. Actual: 1
 test262/test/language/expressions/assignment/S11.13.1_A6_T2.js::::Test262Error::::|#1: innerX === 2. Actual: 1
 test262/test/language/expressions/assignment/S11.13.1_A6_T3.js::::Test262Error::::|#1: scope.x === 2. Actual: 1
-test262/test/language/expressions/generators/yield-star-after-newline.js::::::::
+test262/test/language/expressions/assignment/S11.13.1_A7_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/assignment/S11.13.1_A7_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/assignment/S11.13.1_A7_T3.js::::Test262Error::::Expected a DummyError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A5.10_T1.js::::Test262Error::::|#1: scope.x === 1. Actual: undefined
+test262/test/language/expressions/compound-assignment/S11.13.2_A5.10_T2.js::::Test262Error::::|#1: scope.x === 1. Actual: undefined
+test262/test/language/expressions/compound-assignment/S11.13.2_A5.10_T3.js::::Test262Error::::|#1: innerScope.x === 1. Actual: undefined
 test262/test/language/expressions/compound-assignment/S11.13.2_A5.10_T4.js::::ReferenceError::::Variable undefined in strict mode
 test262/test/language/expressions/compound-assignment/S11.13.2_A5.10_T5.js::::ReferenceError::::Variable undefined in strict mode
 test262/test/language/expressions/compound-assignment/S11.13.2_A5.11_T1.js::::Test262Error::::|#1: scope.x === 6. Actual: undefined
@@ -125,36 +131,148 @@ test262/test/language/expressions/compound-assignment/S11.13.2_A6.6_T1.js::::Tes
 test262/test/language/expressions/compound-assignment/S11.13.2_A6.7_T1.js::::Test262Error::::|#1: innerX === 2. Actual: 4
 test262/test/language/expressions/compound-assignment/S11.13.2_A6.8_T1.js::::Test262Error::::|#1: innerX === 2. Actual: 4
 test262/test/language/expressions/compound-assignment/S11.13.2_A6.9_T1.js::::Test262Error::::|#1: innerX === 2. Actual: 1
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.10_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.10_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.10_T4.js::::Test262Error::::Expected true but got false
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.11_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.11_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.11_T4.js::::Test262Error::::Expected true but got false
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.1_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.1_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.1_T4.js::::Test262Error::::Expected true but got false
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.2_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.2_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.2_T4.js::::Test262Error::::Expected true but got false
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.3_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.3_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.3_T4.js::::Test262Error::::Expected true but got false
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.4_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.4_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.4_T4.js::::Test262Error::::Expected true but got false
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.5_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.5_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.5_T4.js::::Test262Error::::Expected true but got false
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.6_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.6_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.6_T4.js::::Test262Error::::Expected true but got false
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.7_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.7_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.7_T4.js::::Test262Error::::Expected true but got false
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.8_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.8_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.8_T4.js::::Test262Error::::Expected true but got false
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.9_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.9_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/compound-assignment/S11.13.2_A7.9_T4.js::::Test262Error::::Expected true but got false
+test262/test/language/expressions/delete/11.4.1-5-a-28-s.js::::TypeError::::Calling delete on 'length' is not allowed in strict mode
 test262/test/language/expressions/generators/has-instance.js::::Test262Error::::Instance created via function invocation
 test262/test/language/expressions/generators/length-property-descriptor.js::::Test262Error::::|Expected obj[length] to be configurable, but was not.
 test262/test/language/expressions/generators/yield-as-function-expression-binding-identifier.js::::SyntaxError::::The use of a keyword for an identifier is invalid
+test262/test/language/expressions/generators/yield-star-after-newline.js::::::::
+test262/test/language/expressions/object/prop-def-id-eval-error.js::::TypeError::::Object doesn't support property or method 'ToString'
 test262/test/language/expressions/postfix-decrement/S11.3.2_A5_T1.js::::Test262Error::::|#1: scope.x === 1. Actual: undefined
 test262/test/language/expressions/postfix-decrement/S11.3.2_A5_T2.js::::Test262Error::::|#1: scope.x === 1. Actual: undefined
 test262/test/language/expressions/postfix-decrement/S11.3.2_A5_T3.js::::Test262Error::::|#1: innerScope.x === 1. Actual: undefined
 test262/test/language/expressions/postfix-decrement/S11.3.2_A5_T4.js::::ReferenceError::::Variable undefined in strict mode
 test262/test/language/expressions/postfix-decrement/S11.3.2_A5_T5.js::::ReferenceError::::Variable undefined in strict mode
+test262/test/language/expressions/postfix-decrement/S11.3.2_A6_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/postfix-decrement/S11.3.2_A6_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/postfix-decrement/S11.3.2_A6_T3.js::::Test262Error::::Expected true but got false
 test262/test/language/expressions/postfix-increment/S11.3.1_A5_T1.js::::Test262Error::::|#1: scope.x === 3. Actual: undefined
 test262/test/language/expressions/postfix-increment/S11.3.1_A5_T2.js::::Test262Error::::|#1: scope.x === 3. Actual: undefined
 test262/test/language/expressions/postfix-increment/S11.3.1_A5_T3.js::::Test262Error::::|#1: innerScope.x === 3. Actual: undefined
 test262/test/language/expressions/postfix-increment/S11.3.1_A5_T4.js::::ReferenceError::::Variable undefined in strict mode
 test262/test/language/expressions/postfix-increment/S11.3.1_A5_T5.js::::ReferenceError::::Variable undefined in strict mode
+test262/test/language/expressions/postfix-increment/S11.3.1_A6_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/postfix-increment/S11.3.1_A6_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/postfix-increment/S11.3.1_A6_T3.js::::Test262Error::::Expected true but got false
 test262/test/language/expressions/prefix-decrement/S11.4.5_A5_T1.js::::Test262Error::::|#1: scope.x === 1. Actual: undefined
 test262/test/language/expressions/prefix-decrement/S11.4.5_A5_T2.js::::Test262Error::::|#1: scope.x === 1. Actual: undefined
 test262/test/language/expressions/prefix-decrement/S11.4.5_A5_T3.js::::Test262Error::::|#1: innerScope.x === 1. Actual: undefined
 test262/test/language/expressions/prefix-decrement/S11.4.5_A5_T4.js::::ReferenceError::::Variable undefined in strict mode
 test262/test/language/expressions/prefix-decrement/S11.4.5_A5_T5.js::::ReferenceError::::Variable undefined in strict mode
-test262/test/language/expressions/object/prop-def-id-eval-error.js::::TypeError::::Object doesn't support property or method 'ToString'
+test262/test/language/expressions/prefix-decrement/S11.4.5_A6_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/prefix-decrement/S11.4.5_A6_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/prefix-decrement/S11.4.5_A6_T3.js::::Test262Error::::Expected true but got false
 test262/test/language/expressions/prefix-increment/S11.4.4_A5_T1.js::::Test262Error::::|#1: scope.x === 3. Actual: undefined
 test262/test/language/expressions/prefix-increment/S11.4.4_A5_T2.js::::Test262Error::::|#1: scope.x === 3. Actual: undefined
 test262/test/language/expressions/prefix-increment/S11.4.4_A5_T3.js::::Test262Error::::|#1: innerScope.x === 3. Actual: undefined
 test262/test/language/expressions/prefix-increment/S11.4.4_A5_T4.js::::ReferenceError::::Variable undefined in strict mode
 test262/test/language/expressions/prefix-increment/S11.4.4_A5_T5.js::::ReferenceError::::Variable undefined in strict mode
+test262/test/language/expressions/prefix-increment/S11.4.4_A6_T1.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/prefix-increment/S11.4.4_A6_T2.js::::Test262Error::::Expected a TypeError but got a Test262Error
+test262/test/language/expressions/prefix-increment/S11.4.4_A6_T3.js::::Test262Error::::Expected true but got false
 test262/test/language/expressions/property-accessors/S11.2.1_A4_T5.js::::Test262Error::::|#27: typeof String.prototype.length === "undefined". Actual: number
 test262/test/language/expressions/yield/star-iterable.js::::Test262Error::::First result `done` flag Expected SameValue(false, undefined) to be true
+test262/test/intl402/12.2.2_L15.js::::Test262Error::::The length property of a built-in function must be configurable.
+test262/test/intl402/12.3.2_1_a_L15.js::::Test262Error::::The length property of a built-in function must be configurable.
+test262/test/intl402/12.3.2_FDT_7_a_iv.js::::TypeError::::Invalid procedure call or argument
+test262/test/intl402/6.2.2_c.js::::Test262Error::::Invalid language tag de-gregory-gregory was not rejected. (Testing with Collator.)
+test262/test/intl402/6.2.3.js::::Test262Error::::For de got de-DE; expected one of de. (Testing with Collator.)
+test262/test/intl402/9.1_b.js::::Test262Error::::Locale zh-Hans-HK is supported, but fallback zh-Hans isn't. (Testing with Collator.)
+test262/test/intl402/9.2.2.js::::Test262Error::::Locale zh-CN is returned by resolvedOptions but not by supportedLocalesOf. (Testing with Collator.)
+test262/test/built-ins/Set/set-iterator-close-after-add-failure.js::::Test262Error::::The iterator is closed when `Set.prototype.add` throws an error. Expected SameValue(0, 1) to be true
+test262/test/built-ins/SetIteratorPrototype/Symbol.toStringTag.js::::Test262Error::::|`'Set Iterator'` is `SetIteratorProto[Symbol.toStringTag]` Expected SameValue(Set Iterator, undefined) to be true
+test262/test/built-ins/StringIteratorPrototype/Symbol.toStringTag.js::::Test262Error::::Expected SameValue(undefined, String Iterator) to be true
+test262/test/language/generators/Generator_restricted-properties.js::::Test262Error::::Expected a TypeError to be thrown but no exception was thrown at all
+test262/test/built-ins/Function/length/S15.3.5.1_A2_T1.js::::Test262Error::::|#2: the function.length property does not have the attributes DontDelete.
+test262/test/built-ins/Function/length/S15.3.5.1_A2_T2.js::::Test262Error::::|#2: the function.length property does not have the attributes DontDelete.
+test262/test/built-ins/Function/length/S15.3.5.1_A2_T3.js::::Test262Error::::|#2: the function.length property does not have the attributes DontDelete.
+test262/test/built-ins/Math/round/S15.8.2.15_A7.js::::Test262Error::::|#4: '1 / Math.round(0.49999999999999994) !== 1 / 0'
+test262/test/language/statements/const/redeclaration-error-from-within-strict-mode-function-const.js::::::::
+test262/test/language/statements/for-in/const-bound-names-fordecl-tdz-for-in.js::::SyntaxError::::Const must be initialized
+test262/test/language/statements/for-in/const-fresh-binding-per-iteration-for-in.js::::SyntaxError::::Const must be initialized
+test262/test/language/statements/for-in/let-bound-names-fordecl-tdz-for-in.js::::::::
+test262/test/language/statements/for-of/body-dstr-assign-error.js::::Test262Error::::Expected a Test262Error but got a ReferenceError
+test262/test/language/statements/for-of/body-dstr-assign.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/statements/for-of/body-put-error.js::::Test262Error::::Iterator is closed Expected SameValue(0, 1) to be true
+test262/test/language/statements/for-of/const-bound-names-fordecl-tdz-for-of.js::::SyntaxError::::Const must be initialized
+test262/test/language/statements/for-of/const-fresh-binding-per-iteration-for-of.js::::SyntaxError::::Const must be initialized
+test262/test/language/statements/for-of/generator-close-via-break.js::::Test262Error::::Generator is closed after `break` statement Expected SameValue(0, 1) to be true
+test262/test/language/statements/for-of/generator-close-via-return.js::::Test262Error::::Generator is closed after `return` statement Expected SameValue(0, 1) to be true
+test262/test/language/statements/for-of/generator-close-via-throw.js::::Test262Error::::Generator is closed after `throw` statement Expected SameValue(0, 1) to be true
+test262/test/language/statements/for-of/head-expr-to-obj.js::::Test262Error::::Expected a TypeError to be thrown but no exception was thrown at all
+test262/test/language/statements/for-of/iterator-close-get-method-error.js::::Test262Error::::Expected a Test262Error to be thrown but no exception was thrown at all
+test262/test/language/statements/for-of/iterator-close-non-object.js::::Test262Error::::Expected a TypeError to be thrown but no exception was thrown at all
+test262/test/language/statements/for-of/iterator-close-via-break.js::::Test262Error::::Iterator is closed after `break` statement Expected SameValue(0, 1) to be true
+test262/test/language/statements/for-of/iterator-close-via-return.js::::Test262Error::::Iterator is closed after `return` statement Expected SameValue(0, 1) to be true
+test262/test/language/statements/for-of/iterator-close-via-throw.js::::Test262Error::::Iterator is closed after `throw` statement Expected SameValue(0, 1) to be true
+test262/test/language/statements/for-of/let-fresh-binding-per-iteration-for-of.js::::Test262Error::::|`f[0]()` returns `1` Expected SameValue(3, 1) to be true
+test262/test/language/statements/generators/has-instance.js::::Test262Error::::Instance created via function invocation
+test262/test/language/statements/generators/length-property-descriptor.js::::Test262Error::::|Expected obj[length] to be configurable, but was not.
+test262/test/language/statements/generators/yield-as-function-expression-binding-identifier.js::::SyntaxError::::The use of a keyword for an identifier is invalid
+test262/test/language/statements/generators/yield-star-after-newline.js::::::::
+test262/test/language/object-literal/concise-generator.js::::ReferenceError::::'super' can only be accessed from a subclass method
+test262/test/language/object-literal/getter.js::::ReferenceError::::'super' can only be accessed from a subclass method
+test262/test/language/object-literal/method.js::::ReferenceError::::'super' can only be accessed from a subclass method
+test262/test/language/object-literal/setter.js::::ReferenceError::::'super' can only be accessed from a subclass method
+test262/test/language/statements/function/13.2-15-1.js::::Test262Error::::|Expected obj[length] to be configurable, but was not.
+test262/test/language/statements/function/13.2-30-s.js::::Test262Error::::Functions created using Function.prototype.bind() do not have own property "caller" Expected SameValue(true, false) to be true
+test262/test/built-ins/ArrayIteratorPrototype/Symbol.toStringTag/property-descriptor.js::::Test262Error::::Expected SameValue(Array Iterator, undefined) to be true
+test262/test/built-ins/ArrayIteratorPrototype/Symbol.toStringTag/value-direct.js::::Test262Error::::Expected SameValue(Array Iterator, undefined) to be true
+test262/test/built-ins/ArrayIteratorPrototype/Symbol.toStringTag/value-from-to-string.js::::Test262Error::::|Expected SameValue([object Array Iterator], [object Object]) to be true
+test262/test/built-ins/Boolean/prototype/S15.6.3.1_A1.js::::Test262Error::::|#2.1: "(Boolean.prototype != false)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #2: "(Boolean.prototype != false);" lead to throwing exception. Actual: false
+test262/test/built-ins/Boolean/prototype/S15.6.4_A1.js::::Test262Error::::|#2.1: "(Boolean.prototype != false)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #2: "(Boolean.prototype != false);" lead to throwing exception. Actual: false
+test262/test/language/statements/labeled/labelled-function-declaration-strict.js::::::::
 test262/test/language/statements/let/redeclaration-error-from-within-strict-mode-function.js::::::::
-test262/test/built-ins/Array/prototype/Symbol.iterator/Symbol.toStringTag-property-descriptor.js::::Test262Error::::Expected SameValue(Array Iterator, undefined) to be true
-test262/test/built-ins/Array/prototype/Symbol.iterator/Symbol.toStringTag-value-direct.js::::Test262Error::::Expected SameValue(Array Iterator, undefined) to be true
-test262/test/built-ins/Array/prototype/Symbol.iterator/Symbol.toStringTag-value-from-to-string.js::::Test262Error::::|Expected SameValue([object Array Iterator], [object Object]) to be true
+test262/test/built-ins/Object/getPrototypeOf/15.2.3.2-2-12.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Object/getPrototypeOf/15.2.3.2-2-13.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Object/getPrototypeOf/15.2.3.2-2-14.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Object/getPrototypeOf/15.2.3.2-2-15.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Object/getPrototypeOf/15.2.3.2-2-16.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Object/getPrototypeOf/15.2.3.2-2-17.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Object/defineProperties/15.2.3.7-5-b-248.js::::TypeError::::Invalid descriptor for property 'stack'
+test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-12.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-14.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-25.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-28.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-29.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-7.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-8.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-9-9.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/forEach/15.4.4.18-3-12.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/forEach/15.4.4.18-3-25.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/forEach/15.4.4.18-3-7.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/concat/Array.prototype.concat_array-like-length-to-string-throws.js::::Test262Error::::Expected a MyError to be thrown but no exception was thrown at all
 test262/test/built-ins/Array/prototype/concat/Array.prototype.concat_array-like-length-value-of-throws.js::::Test262Error::::Expected a MyError to be thrown but no exception was thrown at all
 test262/test/built-ins/Array/prototype/concat/Array.prototype.concat_array-like-negative-length.js::::Test262Error::::Expected true but got false
@@ -177,40 +295,41 @@ test262/test/built-ins/Array/prototype/concat/Array.prototype.concat_spreadable-
 test262/test/built-ins/Array/prototype/concat/Array.prototype.concat_spreadable-sparse-object.js::::Test262Error::::Expected true but got false
 test262/test/built-ins/Array/prototype/concat/Array.prototype.concat_spreadable-string-wrapper.js::::Test262Error::::Expected true but got false
 test262/test/built-ins/Array/prototype/concat/Array.prototype.concat_strict-arguments.js::::Test262Error::::Expected true but got false
-test262/test/built-ins/Array/prototype/filter/15.4.4.20-3-12.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/filter/15.4.4.20-3-25.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/filter/15.4.4.20-3-7.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/forEach/15.4.4.18-3-25.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/forEach/15.4.4.18-3-7.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-12.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-14.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-25.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-28.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-29.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-7.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-3-8.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/every/15.4.4.16-3-12.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/every/15.4.4.16-3-14.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/every/15.4.4.16-3-25.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/every/15.4.4.16-3-29.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/every/15.4.4.16-3-7.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/every/15.4.4.16-3-8.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/map/15.4.4.19-3-12.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/map/15.4.4.19-3-14.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/map/15.4.4.19-3-25.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/map/15.4.4.19-3-28.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/map/15.4.4.19-3-29.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/map/15.4.4.19-3-7.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/map/15.4.4.19-3-8.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/pop/S15.4.4.6_A2_T2.js::::Test262Error::::|#4: var obj = {}; obj.length = Number.POSITIVE_INFINITY; obj.pop = Array.prototype.pop; obj.pop(); obj.length === 9007199254740990. Actual: 0
 test262/test/built-ins/Array/prototype/pop/S15.4.4.6_A3_T1.js::::Test262Error::::|#1: var obj = {}; obj.pop = Array.prototype.pop; obj[0] = "x"; obj[4294967295] = "y"; obj.length = 4294967296; obj.pop() === "y". Actual: undefined
 test262/test/built-ins/Array/prototype/pop/S15.4.4.6_A3_T2.js::::Test262Error::::|#1: var obj = {}; obj.pop = Array.prototype.pop; obj[0] = "x"; obj[4294967296] = "y"; obj.length = 4294967297; obj.pop() === "y". Actual: x
 test262/test/built-ins/Array/prototype/pop/S15.4.4.6_A3_T3.js::::Test262Error::::|#1: var obj = {}; obj.pop = Array.prototype.pop; obj[4294967294] = "x"; obj.length = -1; obj.pop() === undefined. Actual: x
 test262/test/built-ins/Array/prototype/push/S15.4.4.7_A2_T2.js::::Test262Error::::Expected a TypeError to be thrown but no exception was thrown at all
 test262/test/built-ins/Array/prototype/push/S15.4.4.7_A4_T1.js::::Test262Error::::|#1: var obj = {}; obj.push = Array.prototype.push; obj.length = 4294967296; obj.push("x", "y", "z") === 4294967299. Actual: 3
 test262/test/built-ins/Array/prototype/push/S15.4.4.7_A4_T3.js::::Test262Error::::|#1: var obj = {}; obj.push = Array.prototype.push; obj.length = -1; obj.push("x", "y", "z") === 3. Actual: 4294967298
-test262/test/built-ins/Array/prototype/reduce/15.4.4.21-3-12.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/reduce/15.4.4.21-3-25.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/reduce/15.4.4.21-3-7.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/filter/15.4.4.20-3-12.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/filter/15.4.4.20-3-25.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/filter/15.4.4.20-3-7.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/reduceRight/15.4.4.22-3-12.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/reduceRight/15.4.4.22-3-25.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/reduceRight/15.4.4.22-3-7.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/reduce/15.4.4.21-3-12.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/reduce/15.4.4.21-3-25.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Array/prototype/reduce/15.4.4.21-3-7.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/reverse/S15.4.4.8_A3_T3.js::::Test262Error::::|#3: var obj = {}; obj.reverse = Array.prototype.reverse; obj[0] = "x"; obj[1] = "y"; obj[2] = "z"; obj.length = -4294967294; obj.reverse(); obj[0] === "x". Actual: y
 test262/test/built-ins/Array/prototype/shift/S15.4.4.9_A3_T3.js::::Test262Error::::|#1: var obj = {}; obj.shift = Array.prototype.shift; obj[0] = "x"; obj[1] = "y"; obj.length = -4294967294; obj.shift() === undefined. Actual: x
-test262/test/built-ins/Array/prototype/slice/S15.4.4.10_A3_T1.js::::Test262Error::::|#1.1: var obj = {}; obj.slice = Array.prototype.slice; obj[0] = "x"; obj[4294967295] = "y"; obj.length = 4294967296; var arr = obj.slice(0,4294967296); lead to throwing exception. Exception is instance of RangeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Array/prototype/slice/S15.4.4.10_A3_T2.js::::Test262Error::::|#1.1: var obj = {}; obj.slice = Array.prototype.slice; obj[0] = "x"; obj[4294967296] = "y"; obj.length = 4294967297; var arr = obj.slice(0,4294967297); lead to throwing exception. Exception is instance of RangeError. Actual: exception is ReferenceError: 'testFailed' is undefined
+test262/test/built-ins/Array/prototype/slice/S15.4.4.10_A3_T1.js::::Test262Error::::|#1.1: var obj = {}; obj.slice = Array.prototype.slice; obj[0] = "x"; obj[4294967295] = "y"; obj.length = 4294967296; var arr = obj.slice(0,4294967296); lead to throwing exception. Exception is instance of RangeError. Actual: exception is Test262Error: #1: var obj = {}; obj.slice = Array.prototype.slice; obj[0] = "x"; obj[4294967295] = "y"; obj.length = 4294967296; var arr = obj.slice(0,4294967296); lead to throwing exception. Actual:
+test262/test/built-ins/Array/prototype/slice/S15.4.4.10_A3_T2.js::::Test262Error::::|#1.1: var obj = {}; obj.slice = Array.prototype.slice; obj[0] = "x"; obj[4294967296] = "y"; obj.length = 4294967297; var arr = obj.slice(0,4294967297); lead to throwing exception. Exception is instance of RangeError. Actual: exception is Test262Error: #1: var obj = {}; obj.slice = Array.prototype.slice; obj[0] = "x"; obj[4294967296] = "y"; obj.length = 4294967297; var arr = obj.slice(0,4294967297); lead to throwing exception. Actual: x
 test262/test/built-ins/Array/prototype/slice/S15.4.4.10_A3_T3.js::::Test262Error::::|#1: var obj = {}; obj.slice = Array.prototype.slice; obj[4294967294] = "x"; obj.length = 4294967295; var arr = obj.slice(4294967294,4294967295); arr.length === 0. Actual: 1
+test262/test/built-ins/Array/prototype/sort/S15.4.4.11_A4_T3.js::::Test262Error::::|#3: var obj = {}; obj.sort = Array.prototype.sort; obj[0] = "z"; obj[1] = "y"; obj[2] = "x"; obj.length = -4294967294; obj.sort(); obj[0] === "z". Actual: y
 test262/test/built-ins/Array/prototype/some/15.4.4.17-3-12.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/some/15.4.4.17-3-14.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/some/15.4.4.17-3-25.js::::Test262Error::::Test case returned non-true value!
@@ -218,62 +337,62 @@ test262/test/built-ins/Array/prototype/some/15.4.4.17-3-28.js::::Test262Error:::
 test262/test/built-ins/Array/prototype/some/15.4.4.17-3-29.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/some/15.4.4.17-3-7.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Array/prototype/some/15.4.4.17-3-8.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/sort/S15.4.4.11_A4_T3.js::::Test262Error::::|#3: var obj = {}; obj.sort = Array.prototype.sort; obj[0] = "z"; obj[1] = "y"; obj[2] = "x"; obj.length = -4294967294; obj.sort(); obj[0] === "z". Actual: y
 test262/test/built-ins/Array/prototype/splice/S15.4.4.12_A3_T1.js::::Test262Error::::|#1: var obj = {}; obj.splice = Array.prototype.splice; obj[0] = "x"; obj[4294967295] = "y"; obj.length = 4294967296; var arr = obj.splice(4294967295,1); arr.length === 1. Actual: 0
 test262/test/built-ins/Array/prototype/splice/S15.4.4.12_A3_T3.js::::Test262Error::::|#1: var obj = {}; obj.splice = Array.prototype.splice; obj[4294967294] = "x"; obj.length = -1; var arr = obj.splice(4294967294,1); arr.length === 0. Actual: 1
 test262/test/built-ins/Array/prototype/unshift/S15.4.4.13_A3_T2.js::::Test262Error::::|#1: var obj = {}; obj.unshift = Array.prototype.unshift; obj[0] = ""; obj.length = -4294967295; obj.unshift("x", "y", "z") === 3. Actual: 4
-test262/test/built-ins/Boolean/prototype/toString/S15.6.4.2_A1_T1.js::::Test262Error::::|#1.1: "(Boolean.prototype.toString() !== "false")" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Boolean/prototype/toString/S15.6.4.2_A1_T2.js::::Test262Error::::|#1.1: "(Boolean.prototype.toString(true) !== "false")" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Boolean/prototype/valueOf/S15.6.4.3_A1_T1.js::::Test262Error::::|#1.1: "(Boolean.prototype.valueOf() !== false)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Boolean/prototype/valueOf/S15.6.4.3_A1_T2.js::::Test262Error::::|#1.1: "(Boolean.prototype.valueOf(true) !== false)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
+test262/test/built-ins/Boolean/prototype/toString/S15.6.4.2_A1_T1.js::::Test262Error::::|#1.1: "(Boolean.prototype.toString() !== "false")" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "(Boolean.prototype.toString() !== "false");" lead to throwing exception. Actual: false
+test262/test/built-ins/Boolean/prototype/toString/S15.6.4.2_A1_T2.js::::Test262Error::::|#1.1: "(Boolean.prototype.toString(true) !== "false")" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "(Boolean.prototype.toString(true) !== "false");" lead to throwing exception. Actual: false
+test262/test/built-ins/Boolean/prototype/valueOf/S15.6.4.3_A1_T1.js::::Test262Error::::|#1.1: "(Boolean.prototype.valueOf() !== false)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "(Boolean.prototype.valueOf() !== false);" lead to throwing exception. Actual: false
+test262/test/built-ins/Boolean/prototype/valueOf/S15.6.4.3_A1_T2.js::::Test262Error::::|#1.1: "(Boolean.prototype.valueOf(true) !== false)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "(Boolean.prototype.valueOf(true) !== false);" lead to throwing exception. Actual: false
 test262/test/built-ins/Date/prototype/constructor/S15.9.5.1_A3_T2.js::::Test262Error::::|#1: The Date.prototype.constructor.length property does not have the attributes DontDelete
 test262/test/built-ins/Date/prototype/setFullYear/15.9.5.40_1.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Function/prototype/bind/15.3.4.5-15-2.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Function/prototype/bind/BoundFunction_restricted-properties.js::::Test262Error::::Functions created using Function.prototype.bind() do not have own property "caller" Expected SameValue(true, false) to be true
-test262/test/built-ins/Number/prototype/toFixed/S15.7.4.5_A1.1_T01.js::::Test262Error::::|#1.1: "Number.prototype.toFixed()" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A1_T01.js::::Test262Error::::|#1.1: "Number.prototype.toString()" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A1_T02.js::::Test262Error::::|#1.1: "Number.prototype.toString(10)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A1_T03.js::::Test262Error::::|#1.1: "Number.prototype.toString(undefined)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T01.js::::Test262Error::::|#1.1: "Number.prototype.toString(2)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T02.js::::Test262Error::::|#1.1: "Number.prototype.toString(3)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T03.js::::Test262Error::::|#1.1: "Number.prototype.toString(4)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T04.js::::Test262Error::::|#1.1: "Number.prototype.toString(5)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T05.js::::Test262Error::::|#1.1: "Number.prototype.toString(6)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T06.js::::Test262Error::::|#1.1: "Number.prototype.toString(7)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T07.js::::Test262Error::::|#1.1: "Number.prototype.toString(8)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T08.js::::Test262Error::::|#1.1: "Number.prototype.toString(9)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T09.js::::Test262Error::::|#1.1: "Number.prototype.toString(11)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T10.js::::Test262Error::::|#1.1: "Number.prototype.toString(12)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T11.js::::Test262Error::::|#1.1: "Number.prototype.toString(13)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T12.js::::Test262Error::::|#1.1: "Number.prototype.toString(14)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T13.js::::Test262Error::::|#1.1: "Number.prototype.toString(15)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T14.js::::Test262Error::::|#1.1: "Number.prototype.toString(16)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T15.js::::Test262Error::::|#1.1: "Number.prototype.toString(17)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T16.js::::Test262Error::::|#1.1: "Number.prototype.toString(18)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T17.js::::Test262Error::::|#1.1: "Number.prototype.toString(19)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T18.js::::Test262Error::::|#1.1: "Number.prototype.toString(20)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T19.js::::Test262Error::::|#1.1: "Number.prototype.toString(21)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T20.js::::Test262Error::::|#1.1: "Number.prototype.toString(22)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T21.js::::Test262Error::::|#1.1: "Number.prototype.toString(23)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T22.js::::Test262Error::::|#1.1: "Number.prototype.toString(24)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T23.js::::Test262Error::::|#1.1: "Number.prototype.toString(25)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T24.js::::Test262Error::::|#1.1: "Number.prototype.toString(26)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T25.js::::Test262Error::::|#1.1: "Number.prototype.toString(27)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T26.js::::Test262Error::::|#1.1: "Number.prototype.toString(28)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T27.js::::Test262Error::::|#1.1: "Number.prototype.toString(29)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T28.js::::Test262Error::::|#1.1: "Number.prototype.toString(30)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T29.js::::Test262Error::::|#1.1: "Number.prototype.toString(31)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T30.js::::Test262Error::::|#1.1: "Number.prototype.toString(32)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T31.js::::Test262Error::::|#1.1: "Number.prototype.toString(33)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T32.js::::Test262Error::::|#1.1: "Number.prototype.toString(34)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T33.js::::Test262Error::::|#1.1: "Number.prototype.toString(35)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T34.js::::Test262Error::::|#1.1: "Number.prototype.toString(36)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/valueOf/S15.7.4.4_A1_T01.js::::Test262Error::::|#1.1: "Number.prototype.valueOf()" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/Number/prototype/valueOf/S15.7.4.4_A1_T02.js::::Test262Error::::|#1.1: "Number.prototype.valueOf("argument")" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/RegExp/prototype/exec/S15.10.6.2_A5_T3.js::::Test262Error::::|#1: __re = /(?:ab|cd)\d?/g; __re.lastIndex=-1; __executed = __re.test("aacd22 "); __executed === true
-test262/test/built-ins/RegExp/prototype/global/15.10.7.2-1.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/RegExp/prototype/global/15.10.7.2-2.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/Number/prototype/toFixed/S15.7.4.5_A1.1_T01.js::::Test262Error::::|#1.1: "Number.prototype.toFixed()" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toFixed();" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A1_T01.js::::Test262Error::::|#1.1: "Number.prototype.toString()" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString();" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A1_T02.js::::Test262Error::::|#1.1: "Number.prototype.toString(10)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(10);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A1_T03.js::::Test262Error::::|#1.1: "Number.prototype.toString(undefined)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(undefined);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T01.js::::Test262Error::::|#1.1: "Number.prototype.toString(2)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(2);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T02.js::::Test262Error::::|#1.1: "Number.prototype.toString(3)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(3);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T03.js::::Test262Error::::|#1.1: "Number.prototype.toString(4)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(4);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T04.js::::Test262Error::::|#1.1: "Number.prototype.toString(5)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(5);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T05.js::::Test262Error::::|#1.1: "Number.prototype.toString(6)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(6);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T06.js::::Test262Error::::|#1.1: "Number.prototype.toString(7)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(7);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T07.js::::Test262Error::::|#1.1: "Number.prototype.toString(8)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(8);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T08.js::::Test262Error::::|#1.1: "Number.prototype.toString(9)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(9);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T09.js::::Test262Error::::|#1.1: "Number.prototype.toString(11)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(11);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T10.js::::Test262Error::::|#1.1: "Number.prototype.toString(12)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(12);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T11.js::::Test262Error::::|#1.1: "Number.prototype.toString(13)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(13);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T12.js::::Test262Error::::|#1.1: "Number.prototype.toString(14)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(14);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T13.js::::Test262Error::::|#1.1: "Number.prototype.toString(15)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(15);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T14.js::::Test262Error::::|#1.1: "Number.prototype.toString(16)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(16);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T15.js::::Test262Error::::|#1.1: "Number.prototype.toString(17)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(17);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T16.js::::Test262Error::::|#1.1: "Number.prototype.toString(18)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(18);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T17.js::::Test262Error::::|#1.1: "Number.prototype.toString(19)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(19);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T18.js::::Test262Error::::|#1.1: "Number.prototype.toString(20)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(20);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T19.js::::Test262Error::::|#1.1: "Number.prototype.toString(21)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(21);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T20.js::::Test262Error::::|#1.1: "Number.prototype.toString(22)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(22);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T21.js::::Test262Error::::|#1.1: "Number.prototype.toString(23)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(23);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T22.js::::Test262Error::::|#1.1: "Number.prototype.toString(24)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(24);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T23.js::::Test262Error::::|#1.1: "Number.prototype.toString(25)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(25);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T24.js::::Test262Error::::|#1.1: "Number.prototype.toString(26)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(26);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T25.js::::Test262Error::::|#1.1: "Number.prototype.toString(27)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(27);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T26.js::::Test262Error::::|#1.1: "Number.prototype.toString(28)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(28);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T27.js::::Test262Error::::|#1.1: "Number.prototype.toString(29)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(29);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T28.js::::Test262Error::::|#1.1: "Number.prototype.toString(30)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(30);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T29.js::::Test262Error::::|#1.1: "Number.prototype.toString(31)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(31);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T30.js::::Test262Error::::|#1.1: "Number.prototype.toString(32)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(32);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T31.js::::Test262Error::::|#1.1: "Number.prototype.toString(33)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(33);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T32.js::::Test262Error::::|#1.1: "Number.prototype.toString(34)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(34);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T33.js::::Test262Error::::|#1.1: "Number.prototype.toString(35)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(35);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/toString/S15.7.4.2_A2_T34.js::::Test262Error::::|#1.1: "Number.prototype.toString(36)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.toString(36);" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/valueOf/S15.7.4.4_A1_T01.js::::Test262Error::::|#1.1: "Number.prototype.valueOf()" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.valueOf();" lead to throwing exception. Actual: 0
+test262/test/built-ins/Number/prototype/valueOf/S15.7.4.4_A1_T02.js::::Test262Error::::|#1.1: "Number.prototype.valueOf("argument")" lead to throwing exception. Exception is instance of TypeError. Actual: exception is Test262Error: #1: "Number.prototype.valueOf("argument");" lead to throwing exception. Actual: 0
+test262/test/built-ins/Set/prototype/size/length.js::::Test262Error::::|Expected obj[length] to have configurable:true.
+test262/test/built-ins/Set/prototype/Symbol.toStringTag/property-descriptor.js::::Test262Error::::|The value of `SetProto[Symbol.toStringTag]` is `'Set'` Expected SameValue(undefined, Set) to be true
+test262/test/built-ins/String/prototype/split/S15.5.4.14_A2_T37.js::::Test262Error::::|#2: __split.length === __expected.length. Actual: 1
 test262/test/built-ins/RegExp/prototype/global/S15.10.7.2_A9.js::::Test262Error::::|#1: __re = RegExp.prototype; (delete __re.global) === true
+test262/test/built-ins/RegExp/prototype/exec/S15.10.6.2_A5_T3.js::::Test262Error::::|#1: __re = /(?:ab|cd)\d?/g; __re.lastIndex=-1; __executed = __re.test("aacd22 "); __executed === true
 test262/test/built-ins/RegExp/prototype/ignoreCase/15.10.7.3-1.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/RegExp/prototype/ignoreCase/15.10.7.3-2.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/RegExp/prototype/ignoreCase/S15.10.7.3_A9.js::::Test262Error::::|#1: __re = RegExp.prototype; (delete __re.ignoreCase) === true
@@ -281,24 +400,12 @@ test262/test/built-ins/RegExp/prototype/lastIndex/15.10.7.5-1.js::::Test262Error
 test262/test/built-ins/RegExp/prototype/lastIndex/15.10.7.5-2.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/RegExp/prototype/multiline/15.10.7.4-1.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/RegExp/prototype/multiline/15.10.7.4-2.js::::Test262Error::::Test case returned non-true value!
-test262/test/intl402/12.2.2_L15.js::::Test262Error::::The length property of a built-in function must be configurable.
-test262/test/intl402/12.3.2_1_a_L15.js::::Test262Error::::The length property of a built-in function must be configurable.
-test262/test/intl402/12.3.2_FDT_7_a_iv.js::::TypeError::::Invalid procedure call or argument
-test262/test/intl402/6.2.2_c.js::::Test262Error::::Invalid language tag de-gregory-gregory was not rejected. (Testing with Collator.)
-test262/test/intl402/6.2.3.js::::Test262Error::::For de got de-DE; expected one of de. (Testing with Collator.)
-test262/test/intl402/9.1_b.js::::Test262Error::::Locale zh-Hans-HK is supported, but fallback zh-Hans isn't. (Testing with Collator.)
-test262/test/intl402/9.2.2.js::::Test262Error::::Locale zh-CN is returned by resolvedOptions but not by supportedLocalesOf. (Testing with Collator.)
+test262/test/built-ins/RegExp/prototype/global/15.10.7.2-1.js::::Test262Error::::Test case returned non-true value!
+test262/test/built-ins/RegExp/prototype/global/15.10.7.2-2.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/RegExp/prototype/multiline/S15.10.7.4_A9.js::::Test262Error::::|#1: __re = RegExp.prototype; (delete __re.multiline) === true
 test262/test/built-ins/RegExp/prototype/source/15.10.7.1-1.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/RegExp/prototype/source/15.10.7.1-2.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/RegExp/prototype/source/S15.10.7.1_A9.js::::Test262Error::::|#1: __re = RegExp.prototype; (delete __re.source) === true
-test262/test/built-ins/Set/prototype/Symbol.iterator/toStringTag-property-descriptor.js::::Test262Error::::|`'Set Iterator'` is `SetIteratorProto[Symbol.toStringTag]` Expected SameValue(Set Iterator, undefined) to be true
-test262/test/built-ins/Set/prototype/Symbol.toStringTag/property-descriptor.js::::Test262Error::::|The value of `SetProto[Symbol.toStringTag]` is `'Set'` Expected SameValue(undefined, Set) to be true
-test262/test/built-ins/Set/prototype/size/length.js::::Test262Error::::|Expected obj[length] to have configurable:true.
-test262/test/built-ins/String/prototype/Symbol.iterator/Symbol.toStringTag.js::::Test262Error::::Expected SameValue(undefined, String Iterator) to be true
-test262/test/built-ins/String/prototype/split/S15.5.4.14_A2_T37.js::::Test262Error::::|#2: __split.length === __expected.length. Actual: 1
-test262/test/built-ins/Object/defineProperties/15.2.3.7-2-15.js::::TypeError::::Invalid descriptor for property 'stack'
-test262/test/built-ins/Object/defineProperties/15.2.3.7-5-a-16.js::::TypeError::::Invalid descriptor for property 'stack'
 test262/test/language/block-scope/syntax/for-in/mixed-values-in-iteration.js::::Test262Error::::Expected SameValue(a, e) to be true
 test262/test/language/block-scope/syntax/function-declarations/in-statement-position-do-statement-while-expression.js::::::::
 test262/test/language/block-scope/syntax/function-declarations/in-statement-position-for-statement.js::::::::
@@ -306,6 +413,68 @@ test262/test/language/block-scope/syntax/function-declarations/in-statement-posi
 test262/test/language/block-scope/syntax/function-declarations/in-statement-position-if-expression-statement.js::::::::
 test262/test/language/block-scope/syntax/function-declarations/in-statement-position-while-expression-statement.js::::::::
 test262/test/language/block-scope/syntax/redeclaration-in-block/attempt-to-redeclare-function-declaration-with-function-declaration.js::::::::
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-array-undefined-hole.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-array-undefined-own.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-array-undefined.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-array-yield-expr.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-array-yield-ident-valid.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-array.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-obj-invalid.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-obj-null.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-obj-undefined-hole.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-obj-undefined-own.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-obj-undefined.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-obj-yield-expr.js::::SyntaxError::::|Expected ':'
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-obj-yield-ident-valid.js::::SyntaxError::::|Expected ':'
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-obj.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-put-const.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/array-elem-put-prop-ref-no-get.js::::Test262Error::::The property should not be accessed.
+test262/test/language/expressions/assignment/destructuring/array-elem-put-prop-ref-user-err.js::::Test262Error::::Expected a Test262Error but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/array-elem-put-prop-ref.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-put-unresolvable-no-strict.js::::ReferenceError::::'unresolvable' is undefined
+test262/test/language/expressions/assignment/destructuring/array-elem-target-identifier.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-target-simple-no-strict.js::::ReferenceError::::'arguments' is undefined
+test262/test/language/expressions/assignment/destructuring/array-elem-target-simple-strict.js::::ReferenceError::::'arguments' is undefined
+test262/test/language/expressions/assignment/destructuring/array-elem-target-yield-expr.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-target-yield-valid.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-empty.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/array-iteration.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-rest-after-element.js::::TypeError::::Object expected
+test262/test/language/expressions/assignment/destructuring/array-rest-after-elision.js::::TypeError::::Object expected
+test262/test/language/expressions/assignment/destructuring/array-rest-before-element.js::::TypeError::::Object expected
+test262/test/language/expressions/assignment/destructuring/array-rest-before-elision.js::::TypeError::::Object expected
+test262/test/language/expressions/assignment/destructuring/array-rest-before-rest.js::::TypeError::::Object expected
+test262/test/language/expressions/assignment/destructuring/array-rest-elision-invalid.js::::ReferenceError::::'x' is undefined
+test262/test/language/expressions/assignment/destructuring/array-rest-elision.js::::TypeError::::Object expected
+test262/test/language/expressions/assignment/destructuring/array-rest-init.js::::TypeError::::Function expected
+test262/test/language/expressions/assignment/destructuring/array-rest-iteration.js::::TypeError::::Object expected
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-array-invalid.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-array-null.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-array-undefined-hole.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-array-undefined-own.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-array-undefined.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-array-yield-expr.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-array-yield-ident-valid.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-array.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-obj-invalid.js::::TypeError::::Function expected
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-obj-null.js::::TypeError::::Function expected
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-obj-undefined-hole.js::::TypeError::::Function expected
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-obj-undefined-own.js::::TypeError::::Function expected
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-obj-undefined.js::::TypeError::::Function expected
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-obj-yield-expr.js::::SyntaxError::::|Expected ':'
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-obj-yield-ident-valid.js::::SyntaxError::::|Expected ':'
+test262/test/language/expressions/assignment/destructuring/array-rest-nested-obj.js::::TypeError::::Function expected
+test262/test/language/expressions/assignment/destructuring/array-rest-put-prop-ref-no-get.js::::Test262Error::::The property should not be accessed.
+test262/test/language/expressions/assignment/destructuring/array-rest-put-prop-ref-user-err.js::::Test262Error::::Expected a Test262Error but got a TypeError
+test262/test/language/expressions/assignment/destructuring/array-rest-put-prop-ref.js::::TypeError::::Object expected
+test262/test/language/expressions/assignment/destructuring/array-rest-put-unresolvable-no-strict.js::::ReferenceError::::'unresolvable' is undefined
+test262/test/language/expressions/assignment/destructuring/array-rest-yield-expr.js::::TypeError::::Object expected
+test262/test/language/expressions/assignment/destructuring/array-rest-yield-ident-valid.js::::TypeError::::Object expected
+test262/test/language/expressions/assignment/destructuring/array-sparse.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/obj-id-identifier-resolution.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-id-identifier-yield-ident-valid.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-id-init-assignment.js::::SyntaxError::::|Expected ':'
+test262/test/language/expressions/assignment/destructuring/obj-id-init-evaluation.js::::SyntaxError::::|Expected ':'
 test262/test/language/block-scope/syntax/redeclaration-in-block/attempt-to-redeclare-function-declaration-with-var.js::::::::
 test262/test/language/block-scope/syntax/redeclaration-in-block/attempt-to-redeclare-var-binding-with-let.js::::::::
 test262/test/language/block-scope/syntax/redeclaration-in-block/attempt-to-redeclare-var-with-function-declaration.js::::::::
@@ -329,8 +498,22 @@ test262/test/language/expressions/arrow-function/syntax/arrowparameters-cover-fo
 test262/test/language/expressions/arrow-function/syntax/arrowparameters-cover-formalparameters-eval.js::::SyntaxError::::Invalid usage of 'eval' in strict mode
 test262/test/language/expressions/arrow-function/syntax/arrowparameters-cover-formalparameters-yield.js::::SyntaxError::::The use of a keyword for an identifier is invalid
 test262/test/language/expressions/arrow-function/syntax/arrowparameters-cover-initialize-2.js::::SyntaxError::::|Expected ':'
-test262/test/language/expressions/object/method-definition/generator-argSuperCall.js::::::::
-test262/test/language/expressions/object/method-definition/generator-bodySuperCall.js::::::::
+test262/test/language/expressions/assignment/destructuring/array-elem-elision.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-init-assignment.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-init-evaluation.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-init-in.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-init-order.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-init-simple-no-strict.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-init-simple-strict.js::::ReferenceError::::'arguments' is undefined
+test262/test/language/expressions/assignment/destructuring/array-elem-init-yield-expr.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-init-yield-ident-valid.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-array-invalid.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/array-elem-nested-array-null.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/object/method-definition/name-invoke-ctor.js::::Test262Error::::Expected a TypeError to be thrown but no exception was thrown at all
+test262/test/language/expressions/object/method-definition/name-length.js::::Test262Error::::|Expected obj[length] to be configurable, but was not.
+test262/test/language/expressions/object/method-definition/name-prototype-prop.js::::Test262Error::::Expected SameValue(true, false) to be true
+test262/test/language/expressions/object/method-definition/name-super-prop-body.js::::ReferenceError::::'super' can only be accessed from a subclass method
+test262/test/language/expressions/object/method-definition/name-super-prop-param.js::::ReferenceError::::'super' can only be accessed from a subclass method
 test262/test/language/expressions/object/method-definition/yield-as-function-expression-binding-identifier.js::::SyntaxError::::The use of a keyword for an identifier is invalid
 test262/test/language/expressions/object/method-definition/yield-star-after-newline.js::::::::
 test262/test/language/expressions/template/template-values/escape-sequence.js::::SyntaxError::::Unterminated string constant
@@ -366,6 +549,54 @@ test262/test/language/statements/const/syntax/const-invalid-assignment-next-expr
 test262/test/language/statements/const/syntax/const-invalid-assignment-statement-body-for-in.js::::SyntaxError::::Const must be initialized
 test262/test/language/statements/const/syntax/const-invalid-assignment-statement-body-for-of.js::::SyntaxError::::Const must be initialized
 test262/test/language/statements/const/syntax/with-initializer-label-statement.js::::::::
+test262/test/language/expressions/assignment/destructuring/obj-id-init-in.js::::SyntaxError::::|Expected ':'
+test262/test/language/expressions/assignment/destructuring/obj-id-init-let.js::::SyntaxError::::|Expected ':'
+test262/test/language/expressions/assignment/destructuring/obj-id-init-order.js::::SyntaxError::::|Expected ':'
+test262/test/language/expressions/assignment/destructuring/obj-id-init-simple-no-strict.js::::SyntaxError::::|Expected ':'
+test262/test/language/expressions/assignment/destructuring/obj-id-init-yield-expr.js::::SyntaxError::::|Expected ':'
+test262/test/language/expressions/assignment/destructuring/obj-id-init-yield-ident-valid.js::::SyntaxError::::|Expected ':'
+test262/test/language/expressions/assignment/destructuring/obj-id-put-const.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/obj-id-put-unresolvable-no-strict.js::::ReferenceError::::'unresolvable' is undefined
+test262/test/language/expressions/assignment/destructuring/obj-id-simple-no-strict.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-id-simple-strict.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-elem-init-assignment.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-elem-init-evaluation.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-elem-init-in.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-elem-init-yield-expr.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-elem-init-yield-ident-valid.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-elem-target-yield-expr.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-elem-target-yield-ident-valid.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-identifier-resolution.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-name-evaluation.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-array-invalid.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-array-null.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-array-undefined-own.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-array-undefined.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-array-yield-expr.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-array-yield-ident-valid.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-array.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-obj-invalid.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-obj-null.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-obj-undefined-own.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-obj-undefined.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-obj-yield-expr.js::::SyntaxError::::|Expected ':'
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-obj-yield-ident-valid.js::::SyntaxError::::|Expected ':'
+test262/test/language/expressions/assignment/destructuring/obj-prop-nested-obj.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-put-const.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/obj-prop-put-order.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-put-prop-ref-no-get.js::::Test262Error::::The property should not be accessed.
+test262/test/language/expressions/assignment/destructuring/obj-prop-put-prop-ref-user-err.js::::Test262Error::::Expected a Test262Error but got a ReferenceError
+test262/test/language/expressions/assignment/destructuring/obj-prop-put-prop-ref.js::::ReferenceError::::Invalid left-hand side in assignment
+test262/test/language/expressions/assignment/destructuring/obj-prop-put-unresolvable-no-strict.js::::ReferenceError::::'unresolvable' is undefined
+test262/test/language/expressions/assignment/destructuring/object-empty.js::::Test262Error::::Expected a TypeError but got a ReferenceError
+test262/test/language/expressions/object/method-definition/generator-invoke-ctor.js::::Test262Error::::Expected SameValue(false, true) to be true
+test262/test/language/expressions/object/method-definition/generator-length.js::::Test262Error::::|Expected obj[length] to be configurable, but was not.
+test262/test/language/expressions/object/method-definition/generator-param-init-yield.js::::::::
+test262/test/language/expressions/object/method-definition/generator-super-call-body.js::::::::
+test262/test/language/expressions/object/method-definition/generator-super-call-param.js::::::::
+test262/test/language/expressions/object/method-definition/generator-super-prop-body.js::::ReferenceError::::'super' can only be accessed from a subclass method
+test262/test/language/expressions/object/method-definition/generator-super-prop-param.js::::ReferenceError::::'super' can only be accessed from a subclass method
+test262/test/language/statements/class/syntax/early-errors/class-body-static-method-set-contains-direct-super.js::::::::
 test262/test/language/statements/let/syntax/attempt-to-redeclare-let-binding-with-var.js::::::::
 test262/test/language/statements/let/syntax/identifier-let-disallowed-as-boundname.js::::::::
 test262/test/language/statements/let/syntax/let-closure-inside-condition.js::::Test262Error::::Expected SameValue(0, 5) to be true
@@ -383,44 +614,10 @@ test262/test/language/statements/class/syntax/early-errors/class-body-special-me
 test262/test/language/statements/class/syntax/early-errors/class-body-special-method-set-contains-direct-super.js::::::::
 test262/test/language/statements/class/syntax/early-errors/class-body-static-method-contains-direct-super.js::::::::
 test262/test/language/statements/class/syntax/early-errors/class-body-static-method-get-contains-direct-super.js::::::::
-test262/test/language/statements/class/syntax/early-errors/class-body-static-method-set-contains-direct-super.js::::::::
-test262/test/built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-4-191.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-4-194.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-4-201.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-4-212.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-4-213.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-4-214.js::::Test262Error::::Test case returned non-true value!
 test262/test/built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-4-215.js::::Test262Error::::Test case returned non-true value!
-test262/test/language/expressions/delete/11.4.1-5-a-28-s.js::::TypeError::::Calling delete on 'length' is not allowed in strict mode
-test262/test/language/statements/const/redeclaration-error-from-within-strict-mode-function-const.js::::::::
-test262/test/language/statements/for-in/const-bound-names-fordecl-tdz-for-in.js::::SyntaxError::::Const must be initialized
-test262/test/language/statements/for-in/const-fresh-binding-per-iteration-for-in.js::::SyntaxError::::Const must be initialized
-test262/test/language/statements/for-in/let-bound-names-fordecl-tdz-for-in.js::::::::
-test262/test/language/statements/for-of/const-bound-names-fordecl-tdz-for-of.js::::SyntaxError::::Const must be initialized
-test262/test/language/statements/for-of/const-fresh-binding-per-iteration-for-of.js::::SyntaxError::::Const must be initialized
-test262/test/language/statements/for-of/head-expr-to-obj.js::::Test262Error::::Expected a TypeError to be thrown but no exception was thrown at all
-test262/test/language/statements/for-of/let-fresh-binding-per-iteration-for-of.js::::Test262Error::::|`f[0]()` returns `1` Expected SameValue(3, 1) to be true
-test262/test/language/statements/function/13.2-15-1.js::::Test262Error::::|Expected obj[length] to be configurable, but was not.
-test262/test/language/statements/function/13.2-30-s.js::::Test262Error::::Functions created using Function.prototype.bind() do not have own property "caller" Expected SameValue(true, false) to be true
-test262/test/language/statements/generators/has-instance.js::::Test262Error::::Instance created via function invocation
-test262/test/language/statements/generators/length-property-descriptor.js::::Test262Error::::|Expected obj[length] to be configurable, but was not.
-test262/test/language/statements/generators/yield-as-function-expression-binding-identifier.js::::SyntaxError::::The use of a keyword for an identifier is invalid
-test262/test/language/statements/generators/yield-star-after-newline.js::::::::
-test262/test/language/statements/labeled/labelled-function-declaration-strict.js::::::::
-test262/test/built-ins/Array/prototype/every/15.4.4.16-3-12.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/every/15.4.4.16-3-14.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/every/15.4.4.16-3-25.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/every/15.4.4.16-3-29.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/every/15.4.4.16-3-7.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/every/15.4.4.16-3-8.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/forEach/15.4.4.18-3-12.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/indexOf/15.4.4.14-9-9.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/map/15.4.4.19-3-12.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/map/15.4.4.19-3-14.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/Array/prototype/pop/S15.4.4.6_A2_T2.js::::Test262Error::::|#4: var obj = {}; obj.length = Number.POSITIVE_INFINITY; obj.pop = Array.prototype.pop; obj.pop(); obj.length === 9007199254740990. Actual: 0
-test262/test/language/generators/Generator_restricted-properties.js::::Test262Error::::Expected a TypeError to be thrown but no exception was thrown at all
-test262/test/built-ins/Map/prototype/Symbol.iterator-Symbol.toStringTag-property-descriptor.js::::Test262Error::::Expected SameValue(Map Iterator, undefined) to be true
-test262/test/built-ins/RegExp/prototype/15.10.6.js::::Test262Error::::Test case returned non-true value!
-test262/test/built-ins/String/prototype/S15.5.4_A1.js::::Test262Error::::|#1: delete String.prototype.toString; String.prototype.toString() === "[object "+"Object"+"]". Actual: String.prototype.toString() ===[object String]
-test262/test/built-ins/String/prototype/S15.5.4_A2.js::::Test262Error::::|#1.1: "(String.prototype !="")" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined
-test262/test/built-ins/String/prototype/S15.5.4_A3.js::::Test262Error::::|#2: delete String.prototype.toString; String.prototype.toString() == "[object "+"Object"+"]". Actual: String.prototype.toString() ==[object String]
+test262/test/built-ins/Proxy/construct/call-parameters.js::::TypeError::::|Function.prototype.toString: 'this' is not a Function object
+test262/test/built-ins/Proxy/construct/trap-is-undefined-no-property.js::::TypeError::::Unable to get property 'attr' of undefined or null reference
+test262/test/built-ins/Proxy/construct/trap-is-undefined.js::::TypeError::::Unable to get property 'attr' of undefined or null reference

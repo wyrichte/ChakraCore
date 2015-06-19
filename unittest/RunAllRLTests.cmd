@@ -395,6 +395,9 @@ if exist "%_GumshoeExe%" (
 :RunT262
 if "%_runT262%"=="1" (
     echo #################Starting Test262 tests#################
+    if not exist %_BuildFlavorLogs% (
+        mkdir %_BuildFlavorLogs%
+    )
     powershell %SDXROOT%\inetcore\jscript\tools\Test262\RunTest262Test.ps1 -b %_NTTREE%\jscript\jshost.exe -c "-es6all" -s 75 -f %SDXROOT%\inetcore\jscript\tools\Test262 -o %_BuildFlavorLogs%\Test262Results.log
     echo #################Done with Test262 tests#################
 )
