@@ -116,11 +116,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScriptProjectionHostApi", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Runtime.ByteCode", "..\Core\Lib\Runtime\ByteCode\Chakra.Runtime.ByteCode.vcxproj", "{706083F7-6AA4-4558-A153-6352EF9110F5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Runtime.Language", "..\Core\Runtime\Language\Chakra.Runtime.Language.vcxproj", "{706083F7-6AA4-4558-A153-6352EF9110F8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Runtime.Language", "..\Core\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj", "{706083F7-6AA4-4558-A153-6352EF9110F8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Runtime.Library", "..\Core\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj", "{706083F7-6AA4-4558-A153-6352EF9110F7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Runtime.Telemetry", "..\Core\Lib\Runtime\Telemetry\Chakra.Runtime.Telemetry.vcxproj", "{6EA087D4-1983-43D3-8C7E-0A79BC4327F6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Telemetry", "..\Private\Lib\Telemetry\Chakra.Telemetry.vcxproj", "{6EA087D4-1983-43D3-8C7E-0A79BC4327F6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Runtime.Types", "..\Core\Lib\Runtime\Types\Chakra.Runtime.Types.vcxproj", "{706083F7-6AA4-4558-A153-6352EF9110F6}"
 EndProject
