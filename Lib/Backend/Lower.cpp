@@ -2492,10 +2492,6 @@ Lowerer::LowerRange(IR::Instr *instrStart, IR::Instr *instrEnd, bool defaultDoFa
             instrPrev = this->LowerBailForDebugger(instr);
             break;
 
-        case Js::OpCode::BailOnHasSideEffect:
-            instrPrev = this->LowerBailOnSideEffects(instr);
-            break;
-
         case Js::OpCode::BailOnNotObject:
             instrPrev = this->LowerBailOnNotObject(instr);
             break;
@@ -11713,25 +11709,6 @@ void Lowerer::LowerBoundCheck(IR::Instr *const instr)
         rightOpnd = IR::IntConstOpnd::New(offset, TyInt32, func, true);
     }
     InsertCompareBranch(leftOpnd, rightOpnd, compareOpCode, doUnsignedCompare, skipBailOutLabel, insertBeforeInstr);
-}
-
-IR::Instr *
-Lowerer::LowerBailOnSideEffects(IR::Instr * instr)
-{
-    IR::Instr * prevInstr = instr->m_prev;
-
-    // Label to skip Bailout and continue
-    IR::LabelInstr * continueLabelInstr = IR::LabelInstr::New(Js::OpCode::Label, m_func);
-    instr->InsertAfter(continueLabelInstr);
-
-    // Bail out test
-    IR::BranchInstr * compareInstr = IR::BranchInstr::New(Js::OpCode::BrNotHasSideEffects, continueLabelInstr, m_func);
-    compareInstr->SetSrc1(instr->UnlinkSrc1());
-    instr->InsertBefore(compareInstr);
-    prevInstr = compareInstr;
-
-    this->GenerateBailOut(instr);
-    return prevInstr;
 }
 
 IR::Instr *

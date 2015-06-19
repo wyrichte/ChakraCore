@@ -384,7 +384,6 @@ private:
     void            LowerBailOnCreatedMissingValue(IR::Instr *const instr, const bool isInHelperBlock);
     void            LowerBoundCheck(IR::Instr *const instr);
 
-    IR::Instr *     LowerBailOnSideEffects(IR::Instr * instr);
     IR::Instr *     LowerBailTarget(IR::Instr * instr);
     IR::Instr *     SplitBailOnImplicitCall(IR::Instr *& instr);
     IR::Instr *     SplitBailOnImplicitCall(IR::Instr * instr, IR::Instr * helperCall, IR::Instr * insertBeforeInstr);

@@ -556,7 +556,6 @@ MACRO_BACKEND_ONLY(     BailOnNegative,              Empty,          OpBailOutRe
 MACRO_BACKEND_ONLY(     BailOnNotStackArgs,          Empty,          OpBailOutRec|OpTempNumberSources|OpTempObjectSources|OpCanCSE)    // Bail out if not stack args or actuals exceed InlineeCallInfo::MaxInlineeArgoutCount (15)
 MACRO_BACKEND_ONLY(     BailOnNotSpreadable,         Empty,          OpBailOutRec|OpTempNumberSources|OpTempObjectSources|OpCanCSE)
 MACRO_BACKEND_ONLY(     BailOnNotPolymorphicInlinee, Empty,          OpBailOutRec|OpTempNumberSources)
-MACRO_BACKEND_ONLY(     BailOnHasSideEffect,         Empty,          OpBailOutRec|OpTempNumberSources|OpTempObjectSources|OpCanCSE)
 MACRO_BACKEND_ONLY(     BailTarget,                  Empty,          OpBailOutRec|OpTempNumberSources|OpTempObjectSources)
 MACRO_BACKEND_ONLY(     BailOnNoProfile,             Empty,          OpBailOutRec|OpDeadFallThrough)
 MACRO_BACKEND_ONLY(     BailOnNotObject,             Empty,          OpBailOutRec|OpTempNumberSources|OpTempObjectSources|OpCanCSE|OpTempObjectSources)

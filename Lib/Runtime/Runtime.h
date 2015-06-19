@@ -261,7 +261,7 @@ namespace Js
     typedef uint16 DirectCode;
 
     inline bool IsMathLibraryId(PropertyId propertyId) {
-        return (propertyId>=PropertyIds::abs)&&(propertyId<=PropertyIds::tan);
+        return (propertyId>=PropertyIds::abs)&&(propertyId<=PropertyIds::fround);
     }
 
     struct PropertyIdArray
