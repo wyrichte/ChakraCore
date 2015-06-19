@@ -4,7 +4,7 @@
 *                                                       *
 ********************************************************/
 #include "stdafx.h"
-#include "ieisos.h"
+#include "HostSysInfo.h"
 
 // The javascript portion of glass is 'imported' by escaping the quote and backslashes
 // and wrapping each line as a string then #including it here
@@ -1427,7 +1427,7 @@ HRESULT JsGlass::Initialize(JsGlassArgs& args)
     const CLSID CLSID_JScript9Ls = { 0xf13098a9, 0xcec8, 0x471e, 0x8e, 0x43, 0xd0, 0xbd, 0x93, 0x12, 0x62, 0x3};
 #endif
 
-    IfFailGo( CoInitializeEx(NULL, IsOs_OneCoreUAP() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED) );
+    IfFailGo( CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED) );
     _coInitialized = true;
 
     hr = PrivateCoCreate(args._jscriptDllPath, CLSID_Chakra, NULL, CLSCTX_INPROC_SERVER, _uuidof(IActiveScript), (LPVOID*)&_activeScript);

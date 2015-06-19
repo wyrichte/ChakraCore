@@ -9,7 +9,7 @@ NT_SIGNCODE=1
 TEST_CODE=1
 !ENDIF
 
-INCLUDES=$(COREINCLUDES);$(DS_INC_PATH);$(SDK_INC_PATH)\crt\stl60;$(JSCRIPT_ROOT)\dll\jscript;$(OBJ_PATH)\..\..\dll\jscript\release\$(O);$(OBJ_PATH)\$(O); \
+INCLUDES=$(COREINCLUDES);$(DS_INC_PATH);$(SDK_INC_PATH)\crt\stl60;$(JSCRIPT_ROOT)\dll\jscript;$(OBJ_PATH)\..\..\dll\jscript\release\$(O);$(OBJ_PATH)\$(O);$(JSCRIPT_ROOT)\Exe\Common; \
 !IF "$(_BUILDARCH)" == "x86"
     $(OBJ_PATH)\..\..\lib\author\release\$(O)
 !endif

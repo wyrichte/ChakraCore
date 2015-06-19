@@ -6,7 +6,7 @@
 #include "stdafx.h"
 #include "WscriptFastDom.h"
 #include "Jscript9Interface.h"
-#include "ieisos.h"
+#include "hostsysinfo.h"
 
 #include <initguid.h>
 #include <guids.h>
@@ -530,7 +530,7 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var thisArg,
         }
         else if (runInfo.context == RunInfo::ContextType::crossThread)
         {
-            if (IsOs_OneCoreUAP())
+            if (HostSystemInfo::SupportsOnlyMultiThreadedCOM())
             {
                 Assert(FALSE); // crossthread scenario is not supported for WP8.
                 runInfo.hr = E_INVALIDARG;

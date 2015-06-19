@@ -27,7 +27,8 @@ INCLUDES=	$(COREINCLUDES);				\
 		$(OBJ_PATH)\..\..\..\dll\jscript\test\$(O);	\
 		$(OBJ_PATH)\$(O);				\
 		$(OBJ_PATH)\..\..\..\lib\author\test\$(O);	\
-		$(SDK_INC_PATH)\atlmfc				
+		$(SDK_INC_PATH)\atlmfc;				\
+                $(JSCRIPT_ROOT)\private\lib\SCALookup;          
 
 C_DEFINES =$(C_DEFINES) -DWINNT -DUNICODE -D_UNICODE -DWIN32_DCOM
 

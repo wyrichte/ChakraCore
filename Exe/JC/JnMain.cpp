@@ -7,7 +7,7 @@
 #include <fcntl.h>
 #include <share.h>
 #include "TestLargeAddress.h"
-#include "ieisos.h"
+#include "hostsysinfo.h"
 
 //#define REGEX_STATS
 #ifdef REGEX_STATS
@@ -130,7 +130,7 @@ wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 #endif
 
 
-    if (CoInitializeEx(NULL, IsOs_OneCoreUAP() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED) != S_OK)
+    if (CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED) != S_OK)
     {
         wprintf(L"FATAL ERROR: failed call to CoInitializeEx()\n");
         exit(1);

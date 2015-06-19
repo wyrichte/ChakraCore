@@ -4,7 +4,7 @@
 *                                                       *
 ********************************************************/
 #include "stdafx.h"
-#include "ieisos.h"
+#include "HostSysInfo.h"
 
 template<class T>
 inline void ReleasePtr(T*& ptr) 
@@ -224,7 +224,7 @@ unsigned int CAuthoringHost::HostLoop(void* args)
     CAuthoringHost* host;
     HostLoopArgs* loopArgs = (HostLoopArgs*)args;
 
-    CoInitializeEx(NULL, IsOs_OneCoreUAP() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);
+    CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);
 
     host = new CAuthoringHost(loopArgs->jsGlass);
     loopArgs->jsGlass->_authoringHost = host;

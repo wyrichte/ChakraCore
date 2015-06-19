@@ -11,7 +11,7 @@
 #include "delegatewrapper.h"
 #include "guids.h"
 #include "..\..\Lib\Common\Memory\AutoPtr.h"
-#include "ieisos.h"
+#include "hostsysinfo.h"
 
 LPVOID UTF8BoundaryTestBuffer = nullptr;
 SimpleSourceMapper *UTF8SourceMapper = nullptr;
@@ -168,7 +168,7 @@ HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
     CComPtr<IActiveScriptProperty> activeScriptProperty;
     HRESULT hr = NOERROR;
 
-    hr = CoInitializeEx(NULL, IsOs_OneCoreUAP() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED); 
+    hr = CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED); 
     if (FAILED(hr))
     {
         return hr;
@@ -1986,7 +1986,7 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
     {
         _wsplitpath_s(filenameFlag, NULL, 0, NULL, 0, filename, _MAX_FNAME, ext, _MAX_EXT);
         // Check if file name begins with specified ActiveScriptError test prefix
-        if (!IsOs_OneCoreUAP()
+        if (!HostSystemInfo::SupportsOnlyMultiThreadedCOM()
             && wcsncmp(filename, L"ActiveScriptError_", wcslen(L"ActiveScriptError_")) == 0)
         {    
             IActiveScriptWinRTErrorDebug* debugEx = NULL;

@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "ScriptDirectUnitTests.h"
-#include "ieisos.h"
+#include "hostsysinfo.h"
 
 int ClampInteger(int val, int minVal, int maxVal)
 {
@@ -405,7 +405,7 @@ void RunTypedArrayTests(MyScriptDirectTests* mytest, Verifier<MyScriptDirectTest
 {
     try
     {
-        if (IsOs_OneCoreUAP())
+        if (HostSystemInfo::SupportsOnlyMultiThreadedCOM())
         {
             // Due to reduced memory available on Windows Phone, this test OOMs when array size = 0x1000000 (16.7M).
             // When this test is built for Windows Phone, we need to omit the largest array size.
@@ -435,7 +435,7 @@ void RunTypedArrayES6Tests(MyScriptDirectTests* mytest, Verifier<MyScriptDirectT
 {
     try
     {
-        if (IsOs_OneCoreUAP())
+        if (HostSystemInfo::SupportsOnlyMultiThreadedCOM())
         {
             // Due to reduced memory available on Windows Phone, this test OOMs when array size = 0x1000000 (16.7M).
             // When this test is built for Windows Phone, we need to omit the largest array size.

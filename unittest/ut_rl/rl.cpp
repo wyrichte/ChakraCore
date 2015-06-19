@@ -199,7 +199,7 @@
 
 #include "rl.h"
 #include "strsafe.h"
-#include "ieisos.h"
+#include "HostSysInfo.h"
 
 // Win64 headers (process.h) has this:
 #ifndef _INTPTR_T_DEFINED
@@ -802,7 +802,7 @@ mytmpnam(
    sprintf(threadPrefix, "%s%X", prefix, ThreadId);
 
    // NOTE: GetTempFileName actually creates a file when it succeeds.
-   if (IsOs_OneCoreUAP())
+   if (HostSystemInfo::SupportsOnlyMultiThreadedCOM())
    {
        const size_t newsize = 100;
        size_t convertedChars = 0;

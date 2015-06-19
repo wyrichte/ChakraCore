@@ -4,7 +4,7 @@
 *                                                       *
 ********************************************************/
 #include "stdafx.h"
-#include "ieisos.h"
+#include "hostsysinfo.h"
 
 #ifdef LANGUAGE_SERVICE_TEST
 
@@ -208,7 +208,7 @@ HRESULT CAuthoringHost::SetCallbackTimer(DWORD dwTime)
 
 DWORD __stdcall CAuthoringHost::TimerLoop(LPVOID arg)
 {
-    CoInitializeEx(NULL, IsOs_OneCoreUAP() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED); 
+    CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED); 
 
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0))
@@ -255,7 +255,7 @@ unsigned int CAuthoringHost::HostLoop(void* args)
     CAuthoringHost* host;
     HostLoopArgs* loopArgs = (HostLoopArgs*)args;
 
-    CoInitializeEx(NULL, IsOs_OneCoreUAP() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED); 
+    CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED); 
 
     host = new CAuthoringHost();
 

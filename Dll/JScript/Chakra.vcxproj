@@ -134,10 +134,6 @@
               LoadLatestPDM
               ShouldUseLocalPDM -->
         $(OBJECT_ROOT)\inetcore\lib\devtb\dtbhost\$(ObjectDirectory)iedevtools_host_iel1.lib;
-
-        <!-- ieshare_common_iel1.lib:
-              IsOs_OneCoreUAP  (from devtoolbar) -->
-        $(OBJECT_ROOT)\inetcore\lib\common\iel1_sp\$(ObjectDirectory)ieshare_common_iel1.lib;
         
         <!-- All for ScriptProjectionHostApi -->
         $(OBJECT_ROOT)\inetcore\lib\ScriptProjectionHost\iel3_edge\$(ObjectDirectory)ScriptProjectionHost_Edge_iel3.lib;

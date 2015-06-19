@@ -33,11 +33,10 @@ LINKLIBS= \
     ..\..\tools\external\lib\$(TARGET_DIRECTORY)\jitprofiling.lib \
 !ENDIF
     $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
-    $(OBJECT_INETCORE_DIR)\lib\codex\iel1\$(O)\codex_iel1.lib \
+    $(OBJECT_INETCORE_DIR)\jscript\core\lib\common\codex\$(O)\Chakra.Common.Codex.lib \
     $(INETCORE_LIB_PATH)\iertutilp.lib \
     $(INETCORE_LIB_PATH)\IESettingsId.lib \
     $(INETCORE_LIB_PATH)\IESettingsApi.lib \
-    $(OBJECT_INETCORE_DIR)\lib\common\iel1_sp\$(O)\ieshare_common_iel1.lib \
     $(JS_LIBS_COMMON) \
     $(JS_LIBS_RUNTIME) \
 

@@ -1,6 +1,6 @@
-!include $(PROJECT_ROOT)\inetcore.pathdefinitions.sources.inc
 !include $(INETCORE_DIR)\common.inc
 
+TARGETTYPE=LIBRARY
 TARGETNAME=SCALookup_iel3
 
 USE_STATIC_ATL=1
@@ -17,4 +17,3 @@ PRECOMPILED_INCLUDE=stdafx.h
 PRECOMPILED_SOURCEFILE=stdafx.cpp
 PRECOMPILED_CXX=1
 
-!include $(INETCORE_LIB_DIR)\lib.sources.post.inc

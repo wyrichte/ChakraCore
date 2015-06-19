@@ -201,7 +201,7 @@ ARM64_SOURCES = \
 #   ieshare_common_iel1.lib:
 #       IsOs_Mobilecore
 #
-#   codex_iel1.lib:
+#   Chakra.Common.Codex.lib:
 #       utf8 support
 #
 #   IESettings*, iertutilp.lib
@@ -221,8 +221,7 @@ LINKLIBS= \
     $(JS_LIBS_WINRT) \
     $(JS_LINK_LIBS) \
     $(MINCORE_PRIV_SDK_LIB_PATH)\pathcchapis.lib    \
-    $(OBJECT_INETCORE_DIR)\lib\codex\iel1\$(O)\codex_iel1.lib \
-    $(OBJECT_INETCORE_DIR)\lib\common\iel1_sp\$(O)\ieshare_common_iel1.lib \
+    $(OBJECT_INETCORE_DIR)\jscript\core\lib\common\codex\$(O)\Chakra.Common.Codex.lib \
     $(OBJECT_INETCORE_DIR)\lib\devtb\dtbhost\$(O)\iedevtools_host_iel1.lib \
     $(OBJECT_INETCORE_DIR)\lib\ScriptProjectionHost\iel3_edge\$(O)\ScriptProjectionHost_Edge_iel3.lib \
     $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib \

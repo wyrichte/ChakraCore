@@ -285,7 +285,6 @@ struct TestList
     Test * last;
 };
 
-
 // Time options. Can do multiple types of timings, so do it bitwise
 #define TIME_NOTHING   0x0
 #define TIME_DIR       0x1

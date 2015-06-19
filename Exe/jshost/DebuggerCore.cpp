@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 #include "ad1ex.h"
-#include "ieisos.h"
+#include "hostsysinfo.h"
 
 const GUID IID_ISetNextStatement = { 0x51973C03, 0xCB0C, 0x11D0, { 0xB5, 0xC9, 0x00, 0xA0, 0x24, 0x4A, 0x0E, 0x7A } };
 
@@ -117,7 +117,7 @@ DWORD WINAPI Debugger::CauseBreakLoop(LPVOID args)
 /*static*/
 DWORD WINAPI Debugger::MainLoop(LPVOID args)
 {
-    CoInitializeEx(NULL, IsOs_OneCoreUAP() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);
+    CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);
 
     Debugger *debugger = new Debugger();
 

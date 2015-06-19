@@ -11,7 +11,7 @@
 #include "jscriptinfo.h"
 #include "MemProtectHeap.h"
 #include "TestLargeAddress.h"
-#include "ieisos.h"
+#include "hostsysinfo.h"
 
 HINSTANCE jscriptLibrary = NULL;
 IGlobalInterfaceTable * git = NULL;
@@ -464,7 +464,7 @@ DWORD WINAPI EngineThreadProcImpl(LPVOID param)
 
     HRESULT hr = S_OK;
   
-    hr = CoInitializeEx(NULL, IsOs_OneCoreUAP() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);    
+    hr = CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);    
     if (FAILED(hr))
     {
         return hr;
@@ -1155,7 +1155,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     int ret = 1;
     HRESULT hr = S_OK;
  
-    hr = CoInitializeEx(NULL, IsOs_OneCoreUAP() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);   
+    hr = CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);   
     if (FAILED(hr))
     {
         wprintf(L"FATAL ERROR: CoInitializeEx() failed. hr=0x%x\n", hr);

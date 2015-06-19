@@ -39,7 +39,7 @@ UMTYPE = console
 
 TARGETLIBS=     \
     $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
-    $(OBJECT_INETCORE_DIR)\lib\codex\iel1\$(O)\codex_iel1.lib \
+    $(OBJECT_INETCORE_DIR)\jscript\core\lib\common\codex\$(O)\Chakra.Common.Codex.lib \
     $(JS_LINK_LIBS) \
     $(SDK_LIB_PATH)\muiload.lib \
     $(SDK_LIB_PATH)\oleaut32.lib \

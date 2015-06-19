@@ -10,7 +10,11 @@
 #include "windows.h"
 #include "ntassert.h"
 #include "intsafe.h"
+#pragma push_macro("_DEBUG")
+#undef _DEBUG
 #include "atlbase.h"
+#pragma pop_macro("_DEBUG")
+
 #include "atlsafe.h"
 
 #include "scaformat.h"

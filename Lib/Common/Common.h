@@ -421,7 +421,7 @@ private:
 #include "..\static\base\NumberUtilitiesBase.h"
 #include "Common\NumberUtilities.h"
 #include "core\FaultInjection.h"
-#include "Utf8Codex.h"
+#include <codex\Utf8Codex.h>
 
 #include "Exceptions\Throw.h"
 

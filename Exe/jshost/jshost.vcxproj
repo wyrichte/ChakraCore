@@ -40,7 +40,8 @@
         $(IntDir);
         ..\Common;
         $(JscriptInfoIntDir);
-        ..\..\Lib\MemProtectHeap
+        ..\..\Lib\MemProtectHeap;
+       $(ChakraRootDirectory)\private\lib\SCALookup;
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
@@ -99,11 +100,8 @@
     <Link Condition="'$(BuildingWithBuildExe)'=='true'">
       <AdditionalDependencies>
         %(AdditionalDependencies);
-        $(ObjectRoot)\inetcore\lib\indexeddb\scalookup\lib\$(ObjectDirectory)\SCALookup_iel3.lib;
-        $(ObjectRoot)\inetcore\lib\common\iel1_sp\$(ObjectDirectory)\ieshare_common_iel1.lib;
+        $(RazzleJscriptObjectRoot)\private\lib\scalookup\$(ObjectDirectory)\SCALookup_iel3.lib;
         $(RazzleJscriptObjectRoot)\exe\common\$(ObjectDirectory)\Chakra.Host.Common.lib;
-
-        <!-- TODO: Cleanup: ieshare_+common_iel1.lib has this dependency, but we don't really need it -->
         $(SdkLibPath)\advapi32.lib
       </AdditionalDependencies>
     </Link>

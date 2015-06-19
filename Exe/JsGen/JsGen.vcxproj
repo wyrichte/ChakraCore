@@ -27,8 +27,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes'">
     <Link>
-      <AdditionalLibraryDirectories>$(OBJECT_ROOT)\inetcore\lib\codex\iel1\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);$(OBJECT_ROOT)\inetcore\lib\devtb\dtbhost\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);$(OBJECT_ROOT)\inetcore\lib\common\iel1\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ieshare_codex_iel1.lib;ieshare_iedevtools_host_iel1.lib;ieshare_common_iel1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OBJECT_ROOT)\inetcore\jscript\core\common\codex\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);$(OBJECT_ROOT)\inetcore\lib\devtb\dtbhost\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Chakra.Common.Codex.lib;ieshare_iedevtools_host_iel1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>

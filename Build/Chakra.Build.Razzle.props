@@ -7,7 +7,11 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <!-- For Utf8Codex.h -->
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(EnlistmentRoot)\inetcore\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+          %(AdditionalIncludeDirectories);
+          $(EnlistmentRoot)\inetcore\inc;
+          $(EnlistmentRoot)\inetcore\jscript\core\lib\common
+      </AdditionalIncludeDirectories>
 
       <!-- ======== From tools\makefile.def ========-->
       <AdditionalOptions>%(AdditionalOptions) /d2Qvec-mathlib-</AdditionalOptions>

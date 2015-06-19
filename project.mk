@@ -54,6 +54,7 @@ LINK_TIME_CODE_GENERATION=1
 
 
 COREINCLUDES=\
+    $(JSCRIPT_ROOT)\core\lib\common; \
     $(JSCRIPT_ROOT)\lib\common; \
     $(JSCRIPT_ROOT)\lib\parser; \
     $(JSCRIPT_ROOT)\lib\runtime; \

@@ -5,7 +5,7 @@
 ********************************************************/
 #include "stdafx.h"
 #include "SCALookup.h"
-#include "ieisos.h"
+#include "hostsysinfo.h"
 
 HTYPE SCA::htypeImageData = NULL;
 CComPtr<ITypeOperations> SCA::s_pImageDataTypeOperations;
@@ -157,7 +157,7 @@ Var SCA::Serialize(Var function, CallInfo callInfo, ...)
         if (isSerializeToFile)
         {
             AssertMsg(callInfo.Count < 5, "Transfer isn't supported with serialization to file.");
-            if (IsOs_OneCoreUAP())
+            if (HostSystemInfo::SupportsOnlyMultiThreadedCOM())
             {
                 IfFailGo(SHCreateStreamOnFile(filename,
                     STGM_CREATE | STGM_WRITE | STGM_SHARE_EXCLUSIVE, &pStream));
@@ -344,7 +344,7 @@ HRESULT SCA::GetInStream(ScriptDirect& pScriptDirect, Var data, IStream** ppStre
         {
             CComBSTR filename;
             IfFailGo(pScriptDirect->VarToString(data, &filename));
-            if (IsOs_OneCoreUAP())
+            if (HostSystemInfo::SupportsOnlyMultiThreadedCOM())
             {
                 IfFailGo(SHCreateStreamOnFile(filename,
                     STGM_READ | STGM_SHARE_EXCLUSIVE, &pStream));

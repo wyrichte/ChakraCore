@@ -18,11 +18,10 @@ TARGETLIBS=     \
     $(MINCORE_SDK_LIB_PATH)\mincore_fw.lib    \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \
     $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
-    $(OBJECT_INETCORE_DIR)\lib\codex\iel1\$(O)\codex_iel1.lib \
+    $(OBJECT_INETCORE_DIR)\jscript\core\lib\common\codex\$(O)\Chakra.Common.Codex.lib \
     $(INETCORE_LIB_PATH)\iertutilp.lib \
     $(INETCORE_LIB_PATH)\IESettingsId.lib \
     $(INETCORE_LIB_PATH)\IESettingsApi.lib \
-    $(OBJECT_INETCORE_DIR)\lib\common\iel1_sp\$(O)\ieshare_common_iel1.lib \
     $(JS_LINK_LIBS) \
     $(OBJECT_JSCRIPT_DIR)\exe\common\$(O)\jscript.exe.common.lib \
     $(SDK_LIB_PATH)\muiload.lib \

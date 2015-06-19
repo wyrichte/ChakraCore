@@ -3,6 +3,7 @@ DIRS = \
     publish{!min_rt} \ 
     manifests{!MOBILECORE} \
     core \
+    private \
     Lib \
     Exe \
     Dll{!min_rt} \

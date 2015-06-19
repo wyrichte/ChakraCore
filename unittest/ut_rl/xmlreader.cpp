@@ -4,7 +4,7 @@
 *                                                       *
 ********************************************************/
 #include "rl.h"
-#include "ieisos.h"
+#include "HostSysInfo.h"
 
 #if defined (_M_AMD64) || defined(_M_ARM64)
 // This takes care of 2 problems:
@@ -301,8 +301,8 @@ Init()
 {
    HRESULT hr;
 
-   CoInitializeEx(NULL, IsOs_OneCoreUAP() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);
-   hr = CoCreateInstance(IsOs_OneCoreUAP() ? 
+   CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);
+   hr = CoCreateInstance(HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? 
 #if defined (_M_AMD64) || defined(_M_ARM64)
        MSXML2::CLSID_DOMDocument
 #else

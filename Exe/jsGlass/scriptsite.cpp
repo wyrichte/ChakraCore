@@ -4,7 +4,7 @@
 *                                                       *
 ********************************************************/
 #include "stdafx.h"
-#include "ieisos.h"
+#include "HostSysInfo.h"
 
 ActiveScriptController::ActiveScriptController()
     : refCount(1)
@@ -835,7 +835,7 @@ unsigned int DebugTargetHost::HostLoop(void* args)
     DebugTargetHost* host;
     HostLoopArgs* loopArgs = (HostLoopArgs*)args;
 
-    CoInitializeEx(NULL, IsOs_OneCoreUAP() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);
+    CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);
 
     host = new DebugTargetHost(loopArgs->jsGlass, loopArgs->pdmPath);
     loopArgs->jsGlass->_targetHost = host;

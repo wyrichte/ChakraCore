@@ -42,6 +42,7 @@
   <ItemGroup>
     <ClCompile Include="debuggercontroller.cpp" />
     <ClCompile Include="HostConfigFlags.cpp" />
+    <ClCompile Include="HostSysInfo.cpp" />
     <ClCompile Include="JScript9Interface.cpp" />
     <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -52,6 +53,7 @@
   <ItemGroup>
     <ClInclude Include="debuggercontroller.h" />
     <ClInclude Include="HostConfigFlags.h" />
+    <ClInclude Include="HostSysInfo.h" />
     <ClInclude Include="HostConfigFlagsList.h" />
     <ClInclude Include="JScript9Interface.h" />
     <ClInclude Include="StdAfx.h" />

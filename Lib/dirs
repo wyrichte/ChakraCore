@@ -3,6 +3,5 @@ DIRS =  Common \
         Runtime \
         Backend \
         WinRT \
-        GuidParser \
         MemProtectHeap \
         static{!min_rt} \

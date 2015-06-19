@@ -8444,3 +8444,49 @@ STDMETHODIMP RemoteDebugInfoEvent::GetEventInfo(DEBUG_EVENT_INFO_TYPE* pMessageT
     return S_OK;
 }
 
+#ifndef NO_PRIVATE_ISOS
+//
+// Private copy of IsOS_OneCoreUAP to satisfy dtbhost.lib
+// This implementation is based on the implementation at inetcore\lib\common\ieisos_sp.cpp
+//
+bool
+IsOs_OneCoreUAP()
+{
+    static bool s_fInitialized = false;
+    static bool s_fIsOsOneCoreUAP = false;
+
+    if (!s_fInitialized)
+    {
+        HMODULE hModNtDll = GetModuleHandle(L"ntdll.dll");
+        if (hModNtDll == nullptr)
+        {
+            RaiseException(0, EXCEPTION_NONCONTINUABLE, 0, 0);
+        }
+
+        typedef void(*PFNRTLGETDEVICEFAMILYINFOENUM)(ULONGLONG*, ULONG*, ULONG*);
+        PFNRTLGETDEVICEFAMILYINFOENUM pfnRtlGetDeviceFamilyInfoEnum =
+            reinterpret_cast<PFNRTLGETDEVICEFAMILYINFOENUM>(GetProcAddress(hModNtDll, "RtlGetDeviceFamilyInfoEnum"));
+
+        if (pfnRtlGetDeviceFamilyInfoEnum)
+        {
+            // True by default on Threshold except in the desktop/team/server cases
+            s_fIsOsOneCoreUAP = true;
+
+            ULONG ulPlatform;
+            pfnRtlGetDeviceFamilyInfoEnum(nullptr /* uap info */, &ulPlatform, nullptr /* deviceClass */);
+            if (ulPlatform == 3 || /* DEVICEFAMILYINFOENUM_DESKTOP */
+                ulPlatform == 6 || /* DEVICEFAMILYINFOENUM_TEAM    */
+                ulPlatform == 9)   /* DEVICEFAMILYINFOENUM_SERVER  */
+            {
+                // The only exceptions are desktop, team, and server which still have the legacy Win32 
+                // binaries to support the desktop configuration.
+                s_fIsOsOneCoreUAP = false;
+            }
+        }
+
+        s_fInitialized = true;
+    }
+
+    return s_fIsOsOneCoreUAP;
+}
+#endif
