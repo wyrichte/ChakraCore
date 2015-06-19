@@ -1,53 +1,45 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-
-<test>
-   <default>
+  <test>
+    <default>
       <files>just_pass.js</files>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>pass_first_line.js</files>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <baseline>baseline1.bsl</baseline>
       <files>baseline1.js</files>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <baseline>big_baseline.bsl</baseline>
       <files>big_baseline.js</files>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <command>jnconsole.exe</command>
       <files>cmd1.js</files>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <baseline>cmd2test.bsl</baseline>
       <command>cmd /c</command>
       <files>cmd2test.cmd</files>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <baseline>cmd3.bsl</baseline>
       <command>jnconsole.exe -bvt</command>
       <files>cmd3.js</files>
-   </default>
-</test>
-
+    </default>
+  </test>
 </regress-exe>

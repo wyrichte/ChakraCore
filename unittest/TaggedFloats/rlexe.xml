@@ -1,13 +1,10 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-
-<test>
-   <default>
+  <test>
+    <default>
       <files>test.js</files>
       <baseline>test.baseline</baseline>
       <tags>exclude_x86,exclude_arm</tags>
-   </default>
-</test>
-
-
+    </default>
+  </test>
 </regress-exe>

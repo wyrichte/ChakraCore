@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
   <test>
     <default>
@@ -148,25 +148,25 @@
       <compile-flags>-es6all -LogProfilerCallTree -Off:Inline</compile-flags>
     </default>
   </test>
-<test>
+  <test>
     <default>
-        <files>SIMDFloat32x4_profiler.js</files>
-        <baseline>SIMDFloat32x4_profiler.baseline</baseline>
-        <compile-flags>-Simdjs</compile-flags>
+      <files>SIMDFloat32x4_profiler.js</files>
+      <baseline>SIMDFloat32x4_profiler.baseline</baseline>
+      <compile-flags>-Simdjs</compile-flags>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>SIMDFloat64x2_profiler.js</files>
-        <baseline>SIMDFloat64x2_profiler.baseline</baseline>
-        <compile-flags>-Simdjs</compile-flags>
+      <files>SIMDFloat64x2_profiler.js</files>
+      <baseline>SIMDFloat64x2_profiler.baseline</baseline>
+      <compile-flags>-Simdjs</compile-flags>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>SIMDInt32x4_profiler.js</files>
-        <baseline>SIMDInt32x4_profiler.baseline</baseline>
-        <compile-flags>-Simdjs</compile-flags>
+      <files>SIMDInt32x4_profiler.js</files>
+      <baseline>SIMDInt32x4_profiler.baseline</baseline>
+      <compile-flags>-Simdjs</compile-flags>
     </default>
-</test>
+  </test>
 </regress-exe>

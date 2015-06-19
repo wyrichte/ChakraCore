@@ -1,61 +1,53 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-
-<test>
-   <default>
+  <test>
+    <default>
       <files>loop.js</files>
       <compile-flags>-forcejitloopbody</compile-flags>
       <baseline>loop.baseline</baseline>
       <tags>exclude_ship</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>loop.js</files>
       <compile-flags>-forcejitloopbody -on:interruptprobe</compile-flags>
       <baseline>loop.baseline</baseline>
       <tags>exclude_ship</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>loopinversion.js</files>
       <compile-flags>-force:deferparse</compile-flags>
       <baseline>loopinversion.baseline</baseline>
       <tags>exclude_ship</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>loopinversion.js</files>
       <compile-flags>-on:interruptprobe</compile-flags>
       <baseline>loopinversion.baseline</baseline>
       <tags>exclude_ship</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>loopinversion.js</files>
       <baseline>loopinversion.baseline</baseline>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug650387.js</files>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <compile-flags>-maxInterpretCount:4 -bgjit-</compile-flags>
       <files>bug650387.js</files>
       <tags>exclude_ship</tags>
-   </default>
-</test>
-
+    </default>
+  </test>
 </regress-exe>

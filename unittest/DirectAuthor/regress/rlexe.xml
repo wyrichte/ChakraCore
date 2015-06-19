@@ -1,420 +1,371 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-
-<test>
-   <default>
+  <test>
+    <default>
       <files>bug65890.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug65913.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug66801.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug66812.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug68222.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug68488.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug68654.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug68722.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug68773.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug69676.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug70374.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>called.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>correction.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>r1.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>r2.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>r3.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>r4.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>r5.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>snarf.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>unterm_comment.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug70493.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug71094.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug71499.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug73808.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>r6.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug68682.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug75586.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug72330.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug73031.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug75615.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug71518.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug72357.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug77342.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug77005.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-  <default>
-    <files>bug83098.json</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug83098.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-  <default>
-    <files>bug83844.json</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug83844.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-  <default>
-    <files>bug83996.json</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug83996.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-  <default>
-    <files>bug80706.json</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug80706.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-  <default>
-    <files>bug84534.json</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug84534.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-  <default>
-    <files>bug84580.json</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug84580.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-  <default>
-    <files>bug77009.json</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug77009.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-  <default>
-    <files>bug77401.json</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug77401.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-
-<test>
-  <default>
-    <files>bug85399.json</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug85399.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-  <default>
-    <files>bug85620.json</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug85620.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-
-<test>
-  <default>
-    <files>bug86354.json</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug86354.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-
-<test>
-  <default>
-    <files>bug77006.json</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug77006.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_arm</tags>
-   </default>
-</test>
-  
+    </default>
+  </test>
 </regress-exe>

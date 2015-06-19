@@ -1,6 +1,5 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-
   <test>
     <default>
       <files>rejitintspec.js</files>
@@ -9,7 +8,6 @@
       <baseline>rejitintspec.baseline</baseline>
     </default>
   </test>
-  
   <test>
     <default>
       <files>rejitfloatspec.js</files>
@@ -18,7 +16,6 @@
       <baseline>rejitfloatspec.baseline</baseline>
     </default>
   </test>
-  
   <test>
     <default>
       <files>rejitimplicitcalls.js</files>
@@ -27,7 +24,6 @@
       <baseline>rejitimplicitcalls.baseline</baseline>
     </default>
   </test>
-  
   <!-- Disabling this unit test because the traces now vary between x86 and x64 also due to equivalent object type spec.
   <test>
     <default>
@@ -37,7 +33,6 @@
       <baseline>rejitinlining.baseline</baseline>
     </default>
   </test>-->
-  
   <test>
     <default>
       <files>rejitArrayCheckHoist.js</files>
@@ -46,5 +41,4 @@
       <tags>exclude_fre,exclude_dynapogo</tags>
     </default>
   </test>
-
 </regress-exe>

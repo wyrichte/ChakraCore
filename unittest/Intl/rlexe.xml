@@ -1,6 +1,5 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-
   <test>
     <default>
       <tags>Intl,exclude_dynapogo,exclude_drt,exclude_nightly</tags>
@@ -97,9 +96,9 @@
   </test>
   <test>
     <default>
-        <files>intlAttach.js</files>
-        <compile-flags>-maxinterpretCount:1 -off:simpleJit -targeted -dbgbaseline:intlAttach.js.dbg.baseline -Intl</compile-flags>
-        <tags>Intl,exclude_apollo,exclude_winglob</tags>
+      <files>intlAttach.js</files>
+      <compile-flags>-maxinterpretCount:1 -off:simpleJit -targeted -dbgbaseline:intlAttach.js.dbg.baseline -Intl</compile-flags>
+      <tags>Intl,exclude_apollo,exclude_winglob</tags>
     </default>
   </test>
   <test>
@@ -185,7 +184,7 @@
       <tags>fail_mutators,exclude_winglob,exclude_serialized</tags>
     </default>
   </test>
-    <test>
+  <test>
     <default>
       <files>OS_2977448.js</files>
       <tags>fail_mutators,exclude_winglob,BugFix</tags>

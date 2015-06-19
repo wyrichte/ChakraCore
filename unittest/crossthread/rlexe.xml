@@ -1,6 +1,5 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-
   <test>
     <default>
       <files>ObjectToString.js</files>
@@ -9,7 +8,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>ObjectFreeze.js</files>
@@ -17,7 +15,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>ObjectSeal.js</files>
@@ -25,7 +22,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>ObjectPreventExtensions.js</files>
@@ -33,7 +29,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>ObjectDefineProperty.js</files>
@@ -41,7 +36,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>ObjectDefineProperties.js</files>
@@ -49,7 +43,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>ObjectEnumerators.js</files>
@@ -57,7 +50,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>String.js</files>
@@ -65,7 +57,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>Number.js</files>
@@ -74,7 +65,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>Boolean.js</files>
@@ -82,7 +72,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-  
   <test>
     <default>
       <files>withScopeCrossScript.js</files>
@@ -103,7 +92,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>Array.js</files>
@@ -111,14 +99,12 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>marshalsetter.js</files>
       <baseline>marshalsetter.baseline</baseline>
     </default>
   </test>
-
   <test>
     <default>
       <files>marshalsetter.js</files>
@@ -127,7 +113,6 @@
       <tags>exclude_ship</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>testthis.js</files>
@@ -135,7 +120,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>forIn.js</files>
@@ -143,7 +127,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>forIncontext.js</files>
@@ -151,7 +134,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>forIn.js</files>
@@ -159,14 +141,12 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>valueobject.js</files>
       <baseline>valueobject.baseline</baseline>
     </default>
   </test>
-
   <test>
     <default>
       <compile-flags>-crashOnException -SwallowExceptions -maxInterpretCount:1 -off:simpleJit -debug  -FaultInjection:1 -FaultInjectionType:1 -FaultInjectionCount:15382</compile-flags>
@@ -174,7 +154,6 @@
       <tags>exclude_fre,exclude_apollo,exclude_serialized,fail</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>RegExp.js</files>
@@ -182,7 +161,6 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <compile-flags>-Force:Deferparse</compile-flags>
@@ -191,33 +169,30 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
-
   <test>
     <default>
       <files>arraysortmain.js</files>
       <baseline>arraysortmain.baseline</baseline>
     </default>
   </test>
-
   <test>
     <default>
       <files>crossSiteBoundFunction.js</files>
       <baseline>crossSiteBoundFunction.baseline</baseline>
     </default>
   </test>
-
   <test>
     <default>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:388447parent.js.dbg.baseline</compile-flags>
       <files>388447parent.js</files>
       <files>388447parent.baseline</files>
-      <baseline/>
+      <baseline />
     </default>
   </test>
   <test>
     <default>
       <files>bug705618.js</files>
-      <baseline/>
+      <baseline />
       <tags>exclude_apollo</tags>
     </default>
   </test>
@@ -275,7 +250,7 @@
   <test>
     <default>
       <files>proxybug1.js</files>
-      <baseline/>
+      <baseline />
       <tags>exclude_fre,exclude_apollo</tags>
     </default>
   </test>
@@ -286,7 +261,5 @@
       <tags>exclude_fre,exclude_apollo</tags>
     </default>
   </test>
-
   <!-- WHEN ADDING A NEW TEST: for cross-thread test, make sure you add exclude_apollo tag fot it -->
-
 </regress-exe>

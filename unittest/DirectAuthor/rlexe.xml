@@ -1,1330 +1,1250 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-
-<test>
-  <default>
-    <files>bug_os2938261.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>BugFix,exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>react.js</files>
-    <compile-flags>-ls -autogs</compile-flags>
-    <baseline>react.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>multiDeviceApps.tests.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,exclude_nightly</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>WeakMapCopyOnWrite1.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>WeakMapCopyOnWrite2.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>WeakMapCopyOnWrite3.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>intellisense_in_string_template.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>intellisense_in_tagged_string_template.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>execution_object_literal_intellisense_1.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>execution_object_literal_intellisense_2.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>execution_object_literal_intellisense_3.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>execution_object_literal_intellisense_4.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>class_member_should_not_trigger_intellisense.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>undefined_object_literal_intellisense.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>builtin_object_literal_intellisense.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_object_literal_intellisense_binary_tree_1.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_object_literal_intellisense_binary_tree_2.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_object_literal_intellisense_binary_tree_3.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_object_literal_intellisense_from_prototype.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_os930762.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <baseline>bug_os930762.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>bug_os1911429.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>bug_os2323207.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>bug_os1237020.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_return_defined_type.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>Intl.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-	<tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>bug_os899747.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-   <default>
+  <test>
+    <default>
+      <files>bug_os2938261.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>BugFix,exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>react.js</files>
+      <compile-flags>-ls -autogs</compile-flags>
+      <baseline>react.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>multiDeviceApps.tests.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,exclude_nightly</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>WeakMapCopyOnWrite1.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>WeakMapCopyOnWrite2.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>WeakMapCopyOnWrite3.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>intellisense_in_string_template.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>intellisense_in_tagged_string_template.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>execution_object_literal_intellisense_1.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>execution_object_literal_intellisense_2.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>execution_object_literal_intellisense_3.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>execution_object_literal_intellisense_4.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>class_member_should_not_trigger_intellisense.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>undefined_object_literal_intellisense.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>builtin_object_literal_intellisense.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_object_literal_intellisense_binary_tree_1.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_object_literal_intellisense_binary_tree_2.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_object_literal_intellisense_binary_tree_3.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_object_literal_intellisense_from_prototype.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os930762.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <baseline>bug_os930762.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os1911429.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os2323207.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os1237020.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_return_defined_type.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Intl.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os899747.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>classifier.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>classifier2.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>regions.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>regions2.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-
-<test>
-  <default>
-    <files>bug_os810367.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_computed_property_with_function_value.js</files>
-    <baseline>jsdoc_computed_property_with_function_value.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_clear_type_bug.js</files>
-    <baseline>jsdoc_clear_type_bug.baseline</baseline>
-    <compile-flags>-ls -trace:JsDocParsing</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_multiple_property_buffers.js</files>
-    <baseline>jsdoc_multiple_property_buffers.baseline</baseline>
-    <compile-flags>-ls -trace:JsDocParsing</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_type_tag.js</files>
-    <baseline>jsdoc_type_tag.baseline</baseline>
-    <compile-flags>-ls -trace:JsDocParsing</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_description_only_vardoc.js</files>
-    <baseline>jsdoc_description_only_vardoc.baseline</baseline>
-    <compile-flags>-ls -trace:JsDocParsing</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_computed_property_are_ignored.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_within_object_literal_should_be_ignored.js</files>
-    <!-- Despite tracing required, baseline intentional empty to make sure JSDoc at inappropriate location is indeed ignored -->
-    <compile-flags>-ls -trace:JsDocParsing</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>typedef_only.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>typedef_not_in_structure.js</files>
-    <baseline>typedef_not_in_structure.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_typedef_parsing_1.js</files>
-    <baseline>jsdoc_typedef_parsing_1.baseline</baseline>
-    <compile-flags>-ls -trace:JsDocParsing</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_typedef_parsing_2.js</files>
-    <baseline>jsdoc_typedef_parsing_2.baseline</baseline>
-    <compile-flags>-ls -trace:JsDocParsing</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_typedef_parsing_3.js</files>
-    <baseline>jsdoc_typedef_parsing_3.baseline</baseline>
-    <compile-flags>-ls -trace:JsDocParsing</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_typedef_parsing_4.js</files>
-    <baseline>jsdoc_typedef_parsing_4.baseline</baseline>
-    <compile-flags>-ls -trace:JsDocParsing</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_typedef_parsing_5.js</files>
-    <baseline>jsdoc_typedef_parsing_5.baseline</baseline>
-    <compile-flags>-ls -trace:JsDocParsing</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os810367.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_computed_property_with_function_value.js</files>
+      <baseline>jsdoc_computed_property_with_function_value.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_clear_type_bug.js</files>
+      <baseline>jsdoc_clear_type_bug.baseline</baseline>
+      <compile-flags>-ls -trace:JsDocParsing</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_multiple_property_buffers.js</files>
+      <baseline>jsdoc_multiple_property_buffers.baseline</baseline>
+      <compile-flags>-ls -trace:JsDocParsing</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_type_tag.js</files>
+      <baseline>jsdoc_type_tag.baseline</baseline>
+      <compile-flags>-ls -trace:JsDocParsing</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_description_only_vardoc.js</files>
+      <baseline>jsdoc_description_only_vardoc.baseline</baseline>
+      <compile-flags>-ls -trace:JsDocParsing</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_computed_property_are_ignored.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_within_object_literal_should_be_ignored.js</files>
+      <!-- Despite tracing required, baseline intentional empty to make sure JSDoc at inappropriate location is indeed ignored -->
+      <compile-flags>-ls -trace:JsDocParsing</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>typedef_only.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>typedef_not_in_structure.js</files>
+      <baseline>typedef_not_in_structure.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_typedef_parsing_1.js</files>
+      <baseline>jsdoc_typedef_parsing_1.baseline</baseline>
+      <compile-flags>-ls -trace:JsDocParsing</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_typedef_parsing_2.js</files>
+      <baseline>jsdoc_typedef_parsing_2.baseline</baseline>
+      <compile-flags>-ls -trace:JsDocParsing</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_typedef_parsing_3.js</files>
+      <baseline>jsdoc_typedef_parsing_3.baseline</baseline>
+      <compile-flags>-ls -trace:JsDocParsing</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_typedef_parsing_4.js</files>
+      <baseline>jsdoc_typedef_parsing_4.baseline</baseline>
+      <compile-flags>-ls -trace:JsDocParsing</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_typedef_parsing_5.js</files>
+      <baseline>jsdoc_typedef_parsing_5.baseline</baseline>
+      <compile-flags>-ls -trace:JsDocParsing</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>errors.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>completions.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>completionsSample1.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>UnsupportedCompletions.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>infinite_loop.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>iffalse.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>uncalledfunction.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>ast.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-
-<test>
-  <default>
-    <files>bug_os1195564.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>constructor_recursion.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os1195564.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>constructor_recursion.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>quickInfo.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-
-<test>
-  <default>
-    <files>bug_os810950.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-	<tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jqueryCompletions.json</files>
-    <command>jsglass.exe</command>
-    <baseline>universal.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
-    <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>eofcompletions.json</files>
-    <command>jsglass.exe</command>
-    <baseline>universal.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
-    <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>bug_os915801.js</files>
-    <command>jshost.exe</command>
-    <baseline>bug_os915801.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-	<tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>reservedCompletions.json</files>
-    <command>jsglass.exe</command>
-    <baseline>universal.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
-    <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>s_1.json</files>
-    <command>jsglass.exe</command>
-    <baseline>universal.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
-    <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>functionHelp.json</files>
-    <command>jsglass.exe</command>
-    <baseline>universal.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-    <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_param_type_missing_close_brace.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>bug_os889260.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_optional_param_name_with_value_missing_close_bracket.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_optional_param_name_missing_close_bracket.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>jsdoc_array_missing_close_bracket.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>currentParamIndex.json</files>
-    <command>jsglass.exe</command>
-    <baseline>universal.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
-    <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>funcDocComments.json</files>
-    <command>jsglass.exe</command>
-    <baseline>universal.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
-    <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>statementscope.json</files>
-    <command>jsglass.exe</command>
-    <baseline>universal.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
-    <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>bug_os888242.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>implicit.json</files>
-    <command>jsglass.exe</command>
-    <baseline>universal.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
-    <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>MultipleHostTypeCompletion.json</files>
-    <command>jsglass.exe</command>
-    <baseline>universal.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>dombasic.json</files>
-    <command>jsglass.exe</command>
-    <baseline>universal.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-    <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>basicinfra.js</files>
-    <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>basic_test1_jshost.js</files>
-    <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>bug_os811910.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>proxy_jshost.js</files>
-    <command>jshost.exe</command>
-    <baseline>proxy_jshost.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-    <compile-flags>-ls -es6proxy</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>proxy_jshost1.js</files>
-    <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-    <compile-flags>-ls -es6proxy</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>es6_jshost.js</files>
-    <command>jshost.exe</command>
-    <baseline>es6_jshost.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-    <compile-flags>-ls -es6promise -es6symbol -es6tostringtag -es6isConcatSpreadable -es6toprimitive</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>basic_paramHelp.js</files>
-    <command>jshost.exe</command>
-    <baseline>basic_paramHelp.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<!-- region related testing -->
-<test>
-  <default>
-    <files>basic_getregion.js</files>
-    <command>jshost.exe</command>
-    <baseline>basic_getregion.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>class_regions.js</files>
-    <command>jshost.exe</command>
-    <baseline>class_regions.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls -es6classes</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>function_regions.js</files>
-    <command>jshost.exe</command>
-    <baseline>function_regions.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>function_error_regions.js</files>
-    <command>jshost.exe</command>
-    <baseline>function_error_regions.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<!-- task related testing -->
-<test>
-  <default>
-    <files>basic_task.js</files>
-    <command>jshost.exe</command>
-    <baseline>basic_task.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>task_case_insensitive.js</files>
-    <command>jshost.exe</command>
-    <baseline>task_case_insensitive.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<!-- jsdoc related testing -->
-<test>
-  <default>
-    <files>jsdoc_unknown_tag.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>jsdoc_array_mapping.js</files>
-    <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>jsdoc_type_mapping.js</files>
-    <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>basic_jsdoc.js</files>
-    <command>jshost.exe</command>
-    <baseline>basic_jsdoc.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls -trace:JsDocParsing</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>triple_star.js</files>
-    <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>jsdoc_optional_param.js</files>
-    <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>jsdoc_optional_param_with_default_value_1.js</files>
-    <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>jsdoc_optional_param_with_default_value_2.js</files>
-    <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os810950.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jqueryCompletions.json</files>
+      <command>jsglass.exe</command>
+      <baseline>universal.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
+      <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>eofcompletions.json</files>
+      <command>jsglass.exe</command>
+      <baseline>universal.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
+      <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os915801.js</files>
+      <command>jshost.exe</command>
+      <baseline>bug_os915801.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>reservedCompletions.json</files>
+      <command>jsglass.exe</command>
+      <baseline>universal.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
+      <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>s_1.json</files>
+      <command>jsglass.exe</command>
+      <baseline>universal.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
+      <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>functionHelp.json</files>
+      <command>jsglass.exe</command>
+      <baseline>universal.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+      <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_param_type_missing_close_brace.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os889260.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_optional_param_name_with_value_missing_close_bracket.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_optional_param_name_missing_close_bracket.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_array_missing_close_bracket.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>currentParamIndex.json</files>
+      <command>jsglass.exe</command>
+      <baseline>universal.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
+      <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>funcDocComments.json</files>
+      <command>jsglass.exe</command>
+      <baseline>universal.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
+      <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>statementscope.json</files>
+      <command>jsglass.exe</command>
+      <baseline>universal.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
+      <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os888242.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>implicit.json</files>
+      <command>jsglass.exe</command>
+      <baseline>universal.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm</tags>
+      <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>MultipleHostTypeCompletion.json</files>
+      <command>jsglass.exe</command>
+      <baseline>universal.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>dombasic.json</files>
+      <command>jsglass.exe</command>
+      <baseline>universal.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+      <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>basicinfra.js</files>
+      <command>jshost.exe</command>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>basic_test1_jshost.js</files>
+      <command>jshost.exe</command>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os811910.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>proxy_jshost.js</files>
+      <command>jshost.exe</command>
+      <baseline>proxy_jshost.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+      <compile-flags>-ls -es6proxy</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>proxy_jshost1.js</files>
+      <command>jshost.exe</command>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+      <compile-flags>-ls -es6proxy</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>es6_jshost.js</files>
+      <command>jshost.exe</command>
+      <baseline>es6_jshost.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+      <compile-flags>-ls -es6promise -es6symbol -es6tostringtag -es6isConcatSpreadable -es6toprimitive</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>basic_paramHelp.js</files>
+      <command>jshost.exe</command>
+      <baseline>basic_paramHelp.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <!-- region related testing -->
+  <test>
+    <default>
+      <files>basic_getregion.js</files>
+      <command>jshost.exe</command>
+      <baseline>basic_getregion.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>class_regions.js</files>
+      <command>jshost.exe</command>
+      <baseline>class_regions.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls -es6classes</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>function_regions.js</files>
+      <command>jshost.exe</command>
+      <baseline>function_regions.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>function_error_regions.js</files>
+      <command>jshost.exe</command>
+      <baseline>function_error_regions.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <!-- task related testing -->
+  <test>
+    <default>
+      <files>basic_task.js</files>
+      <command>jshost.exe</command>
+      <baseline>basic_task.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>task_case_insensitive.js</files>
+      <command>jshost.exe</command>
+      <baseline>task_case_insensitive.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <!-- jsdoc related testing -->
+  <test>
+    <default>
+      <files>jsdoc_unknown_tag.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_array_mapping.js</files>
+      <command>jshost.exe</command>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_type_mapping.js</files>
+      <command>jshost.exe</command>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>basic_jsdoc.js</files>
+      <command>jshost.exe</command>
+      <baseline>basic_jsdoc.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls -trace:JsDocParsing</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>triple_star.js</files>
+      <command>jshost.exe</command>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_optional_param.js</files>
+      <command>jshost.exe</command>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_optional_param_with_default_value_1.js</files>
+      <command>jshost.exe</command>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_optional_param_with_default_value_2.js</files>
+      <command>jshost.exe</command>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>jsdoc_omit_type.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
       <compile-flags>-AuthorBinary:chakrals.dll</compile-flags>
-   </default>
-</test>
-<test>
-  <default>
-    <files>jsdoc_param_tag_variant.js</files>
-    <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>jsdoc_param_tag_variant.js</files>
-    <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>jsdoc_param_without_star.js</files>
-    <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<!-- structure related testing -->
-<test>
-  <default>
-    <files>basic_structuretest.js</files>
-    <command>jshost.exe</command>
-    <baseline>basic_structuretest.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>jshost_infinite_loop.js</files>
-    <command>jshost.exe</command>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls -hurry</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>getstructure_bug_608934.js</files>
-    <command>jshost.exe</command>
-    <baseline>getstructure_bug_608934.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-    <compile-flags>-ls </compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>test_GS1.js</files>
-    <command>jshost.exe</command>
-    <baseline>test_GS1.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls </compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>class_test_GS.js</files>
-    <command>jshost.exe</command>
-    <baseline>class_test_GS.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-    <compile-flags>-ls -es6classes</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>rest.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ES6Rest -ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>rest_getref.js</files>
-    <command>jshost.exe</command>
-    <baseline>rest_getref.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>generator.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ES6Generators -ls</compile-flags>
-    <baseline>generator.js.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>ES6MathExtensions_test.js</files>
-    <command>jshost.exe</command>
-    <baseline>ES6MathExtensions_test.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-    <compile-flags>-ls</compile-flags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_os717257.js</files>
-    <command>jshost.exe</command>
-    <baseline>bug_os717257.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_os778659.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_os717257_tricky.js</files>
-    <command>jshost.exe</command>
-    <baseline>bug_os717257_tricky.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_os810271_1.js</files>
-    <command>jshost.exe</command>
-    <baseline>bug_os810271_1.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-	<tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_778565.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_778596.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>bug_os947635.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <baseline>bug_os947635.baseline</baseline>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_jsdoc_1040186.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>bug_778636.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls -es6classes</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_778630.js</files>
-    <command>jshost.exe</command>
-    <baseline>bug_778630.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>OS_816067.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>OS_810884.js</files>
-    <command>jshost.exe</command>
-    <baseline>OS_810884.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_778728.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>literalstring_bug.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls -hurry</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_882366.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_892114.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>getreferences.js</files>
-    <command>jshost.exe</command>
-    <baseline>getreferences.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_os778668.js</files>
-    <command>jshost.exe</command>
-    <baseline>bug_os778668.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>class_bug_929741.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-  <default>
-    <files>unicode_idDeferParseFunctions.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_854944.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_os889418.js</files>
-    <baseline>bug_os889418.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>basic-ng-test.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_argumentsLimits.js</files>
-    <baseline>bug_argumentsLimits.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_os810771.js</files>
-    <baseline>bug_os810771.baseline</baseline>
-    <compile-flags>-ls -es6classes</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>map_test.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_default.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_1667498_property_tag.js</files>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>class_comments.js</files>
-    <command>jshost.exe</command>
-    <baseline>class_comments.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>class_decl_deadrange.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>class_getref.js</files>
-    <command>jshost.exe</command>
-    <baseline>class_getref.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>getsubtree_test.js</files>
-    <command>jshost.exe</command>
-    <baseline>getsubtree_test.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,BugFix</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>ES6FunctionAPI_test.js</files>
-    <command>jshost.exe</command>
-    <baseline>ES6FunctionAPI_test.baseline</baseline>
-    <compile-flags>-ls -es6classes</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_1562599.js</files>
-    <command>jshost.exe</command>
-    <baseline>bug_1562599.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-<test>
-    <default>
-        <files>SIMDFloat32x4_ls_test.js</files>
-        <command>jshost.exe</command>
-        <baseline>SIMDFloat32x4_ls_test.baseline</baseline>
-        <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-        <compile-flags>-Simdjs -ls</compile-flags>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>SIMDFloat64x2_ls_test.js</files>
-        <command>jshost.exe</command>
-        <baseline>SIMDFloat64x2_ls_test.baseline</baseline>
-        <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-        <compile-flags>-Simdjs -ls</compile-flags>
+      <files>jsdoc_param_tag_variant.js</files>
+      <command>jshost.exe</command>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>SIMDInt32x4_ls_test.js</files>
-        <command>jshost.exe</command>
-        <baseline>SIMDInt32x4_ls_test.baseline</baseline>
-        <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
-        <compile-flags>-Simdjs -ls</compile-flags>
+      <files>jsdoc_param_tag_variant.js</files>
+      <command>jshost.exe</command>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
     </default>
-</test>
-<test>
-  <default>
-    <files>bug_1562599.js</files>
-    <command>jshost.exe</command>
-    <baseline>bug_1562599.baseline</baseline>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-  </default>
-</test>
-
-<test>
-   <default>
+  </test>
+  <test>
+    <default>
+      <files>jsdoc_param_without_star.js</files>
+      <command>jshost.exe</command>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <!-- structure related testing -->
+  <test>
+    <default>
+      <files>basic_structuretest.js</files>
+      <command>jshost.exe</command>
+      <baseline>basic_structuretest.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>jshost_infinite_loop.js</files>
+      <command>jshost.exe</command>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls -hurry</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>getstructure_bug_608934.js</files>
+      <command>jshost.exe</command>
+      <baseline>getstructure_bug_608934.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+      <compile-flags>-ls </compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>test_GS1.js</files>
+      <command>jshost.exe</command>
+      <baseline>test_GS1.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls </compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>class_test_GS.js</files>
+      <command>jshost.exe</command>
+      <baseline>class_test_GS.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+      <compile-flags>-ls -es6classes</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>rest.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ES6Rest -ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>rest_getref.js</files>
+      <command>jshost.exe</command>
+      <baseline>rest_getref.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>generator.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ES6Generators -ls</compile-flags>
+      <baseline>generator.js.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ES6MathExtensions_test.js</files>
+      <command>jshost.exe</command>
+      <baseline>ES6MathExtensions_test.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+      <compile-flags>-ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os717257.js</files>
+      <command>jshost.exe</command>
+      <baseline>bug_os717257.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os778659.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os717257_tricky.js</files>
+      <command>jshost.exe</command>
+      <baseline>bug_os717257_tricky.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os810271_1.js</files>
+      <command>jshost.exe</command>
+      <baseline>bug_os810271_1.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_778565.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_778596.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os947635.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <baseline>bug_os947635.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_jsdoc_1040186.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_778636.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls -es6classes</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_778630.js</files>
+      <command>jshost.exe</command>
+      <baseline>bug_778630.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>OS_816067.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>OS_810884.js</files>
+      <command>jshost.exe</command>
+      <baseline>OS_810884.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_778728.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>literalstring_bug.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls -hurry</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_882366.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_892114.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>getreferences.js</files>
+      <command>jshost.exe</command>
+      <baseline>getreferences.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os778668.js</files>
+      <command>jshost.exe</command>
+      <baseline>bug_os778668.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>class_bug_929741.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>unicode_idDeferParseFunctions.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_854944.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os889418.js</files>
+      <baseline>bug_os889418.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>basic-ng-test.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_argumentsLimits.js</files>
+      <baseline>bug_argumentsLimits.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os810771.js</files>
+      <baseline>bug_os810771.baseline</baseline>
+      <compile-flags>-ls -es6classes</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>map_test.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_default.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_1667498_property_tag.js</files>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>class_comments.js</files>
+      <command>jshost.exe</command>
+      <baseline>class_comments.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>class_decl_deadrange.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>class_getref.js</files>
+      <command>jshost.exe</command>
+      <baseline>class_getref.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>getsubtree_test.js</files>
+      <command>jshost.exe</command>
+      <baseline>getsubtree_test.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,BugFix</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ES6FunctionAPI_test.js</files>
+      <command>jshost.exe</command>
+      <baseline>ES6FunctionAPI_test.baseline</baseline>
+      <compile-flags>-ls -es6classes</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_1562599.js</files>
+      <command>jshost.exe</command>
+      <baseline>bug_1562599.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>SIMDFloat32x4_ls_test.js</files>
+      <command>jshost.exe</command>
+      <baseline>SIMDFloat32x4_ls_test.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+      <compile-flags>-Simdjs -ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>SIMDFloat64x2_ls_test.js</files>
+      <command>jshost.exe</command>
+      <baseline>SIMDFloat64x2_ls_test.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+      <compile-flags>-Simdjs -ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>SIMDInt32x4_ls_test.js</files>
+      <command>jshost.exe</command>
+      <baseline>SIMDInt32x4_ls_test.baseline</baseline>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nightly</tags>
+      <compile-flags>-Simdjs -ls</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_1562599.js</files>
+      <command>jshost.exe</command>
+      <baseline>bug_1562599.baseline</baseline>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>ES6Promise_CopyOnWrite.js</files>
       <compile-flags> -ES6 -ES6Promise -ls</compile-flags>
       <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt</tags>
-   </default>
-</test>
-<test>
-  <default>
-    <files>bug_2369216.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls -hurry </compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,BugFix</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_os2559521.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,BugFix</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <files>bug_osg2784928.js</files>
-    <command>jshost.exe</command>
-    <compile-flags>-ls</compile-flags>
-    <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,BugFix</tags>
-  </default>
-</test>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_2369216.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls -hurry </compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,BugFix</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_os2559521.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,BugFix</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_osg2784928.js</files>
+      <command>jshost.exe</command>
+      <compile-flags>-ls</compile-flags>
+      <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,BugFix</tags>
+    </default>
+  </test>
 </regress-exe>

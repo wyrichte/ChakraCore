@@ -1,120 +1,110 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-
-
-<test>
+  <test>
     <default>
-        <files>jx1.js</files>
-        <baseline>jx1.baseline</baseline>
+      <files>jx1.js</files>
+      <baseline>jx1.baseline</baseline>
     </default>
-</test>
-
-<test>
+  </test>
+  <test>
     <default>
-        <files>jx2.js</files>
-        <baseline>jx2.baseline</baseline>
-        <tags>fail_mutators</tags>
+      <files>jx2.js</files>
+      <baseline>jx2.baseline</baseline>
+      <tags>fail_mutators</tags>
     </default>
-</test>
-
-<test>
+  </test>
+  <test>
     <default>
-        <files>stringify-replacer.js</files>
-        <baseline>stringify-replacer.baseline</baseline>
-        <compile-flags>-recyclerstress</compile-flags>
-        <tags>exclude_fre</tags>
+      <files>stringify-replacer.js</files>
+      <baseline>stringify-replacer.baseline</baseline>
+      <compile-flags>-recyclerstress</compile-flags>
+      <tags>exclude_fre</tags>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>stringify-replacerfunc.js</files>
-        <baseline>stringify-replacerfunc.baseline</baseline>
-        <compile-flags>-recyclerstress</compile-flags>
-        <tags>exclude_fre</tags>
+      <files>stringify-replacerfunc.js</files>
+      <baseline>stringify-replacerfunc.baseline</baseline>
+      <compile-flags>-recyclerstress</compile-flags>
+      <tags>exclude_fre</tags>
     </default>
-</test>
-
-<test>
+  </test>
+  <test>
     <default>
-        <files>proxyreplacer.js</files>
-        <baseline>stringify-replacer.baseline</baseline>
-        <tags>exclude_fre</tags>
+      <files>proxyreplacer.js</files>
+      <baseline>stringify-replacer.baseline</baseline>
+      <tags>exclude_fre</tags>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>proxyreplacerfunc.js</files>
-        <baseline>stringify-replacerfunc.baseline</baseline>
-        <tags>exclude_fre</tags>
+      <files>proxyreplacerfunc.js</files>
+      <baseline>stringify-replacerfunc.baseline</baseline>
+      <tags>exclude_fre</tags>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>space.js</files>
-        <baseline>space.baseline</baseline>
+      <files>space.js</files>
+      <baseline>space.baseline</baseline>
     </default>
-</test>
-
-<test>
+  </test>
+  <test>
     <default>
-        <files>simple.js</files>
-        <baseline>simple.baseline</baseline>
+      <files>simple.js</files>
+      <baseline>simple.baseline</baseline>
     </default>
-</test>
-
-<test>
+  </test>
+  <test>
     <default>
-        <files>simple.withLog.js</files>
-        <baseline>simple.withLog.baseline</baseline>
-        <compile-flags>-recyclerstress -trace:JSON</compile-flags>
-        <tags>exclude_fre</tags>
+      <files>simple.withLog.js</files>
+      <baseline>simple.withLog.baseline</baseline>
+      <compile-flags>-recyclerstress -trace:JSON</compile-flags>
+      <tags>exclude_fre</tags>
     </default>
-</test>
-
-<test>
+  </test>
+  <test>
     <default>
-        <files>simple.kraken.js</files>
-        <baseline>simple.kraken.baseline</baseline>
+      <files>simple.kraken.js</files>
+      <baseline>simple.kraken.baseline</baseline>
     </default>
-</test>
-
-<test>
+  </test>
+  <test>
     <default>
-        <files>simple.stringify.js</files>
-        <baseline>simple.stringify.baseline</baseline>
+      <files>simple.stringify.js</files>
+      <baseline>simple.stringify.baseline</baseline>
     </default>
-</test>
-
-<test>
+  </test>
+  <test>
     <default>
-        <files>parseWithGC.js</files>
-        <compile-flags>-ForceGCAfterJSONParse</compile-flags>
-        <tags>exclude_fre</tags>
+      <files>parseWithGC.js</files>
+      <compile-flags>-ForceGCAfterJSONParse</compile-flags>
+      <tags>exclude_fre</tags>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>jsonCache.js</files>
-        <compile-flags>-ForceGCAfterJSONParse</compile-flags>
-        <baseline>jsonCache.baseline</baseline>
-        <tags>exclude_fre</tags>
+      <files>jsonCache.js</files>
+      <compile-flags>-ForceGCAfterJSONParse</compile-flags>
+      <baseline>jsonCache.baseline</baseline>
+      <tags>exclude_fre</tags>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>jsonCache.js</files>
-        <baseline>jsonCache.baseline</baseline>
+      <files>jsonCache.js</files>
+      <baseline>jsonCache.baseline</baseline>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>json_parse_Blue_548957.js</files>
+      <files>json_parse_Blue_548957.js</files>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>jsonParseWalkTest.js</files>
-        <baseline>jsonParseWalkTest.baseline</baseline>
+      <files>jsonParseWalkTest.js</files>
+      <baseline>jsonParseWalkTest.baseline</baseline>
     </default>
-</test>
+  </test>
 </regress-exe>

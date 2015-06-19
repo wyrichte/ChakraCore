@@ -1,15 +1,15 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-<test>
+  <test>
     <default>
-        <files>UTFTests.js</files>
-        <baseline>UTFTests.baseline</baseline>
+      <files>UTFTests.js</files>
+      <baseline>UTFTests.baseline</baseline>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>SetTimeout.js</files>
-        <baseline>SetTimeout.baseline</baseline>
+      <files>SetTimeout.js</files>
+      <baseline>SetTimeout.baseline</baseline>
     </default>
-</test>
+  </test>
 </regress-exe>

@@ -1,47 +1,47 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-<test>
-   <default>
+  <test>
+    <default>
       <files>ftl.js</files>
       <baseline>ftl.baseline</baseline>
-   </default>
-</test>
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>ftl.js</files>
-	<compile-flags>-off:InlineHostCandidate</compile-flags>
+      <compile-flags>-off:InlineHostCandidate</compile-flags>
       <baseline>ftl.baseline</baseline>
-   </default>
-</test>
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>ftl2.js</files>
-      <baseline/>
-   </default>
-</test>
-<test>
-   <default>
+      <baseline />
+    </default>
+  </test>
+  <test>
+    <default>
       <files>ftl2.js</files>
-	<compile-flags>-off:InlineHostCandidate</compile-flags>
-      <baseline/>
-   </default>
-</test>
-<test>
-   <default>
+      <compile-flags>-off:InlineHostCandidate</compile-flags>
+      <baseline />
+    </default>
+  </test>
+  <test>
+    <default>
       <files>ftl1.js</files>
       <baseline>ftl1.baseline</baseline>
-   </default>
-</test>
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>shadow.js</files>
       <baseline>shadow.baseline</baseline>
-   </default>
-</test>
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>marshalproto.js</files>
       <baseline>marshalproto.baseline</baseline>
-   </default>
-</test>
+    </default>
+  </test>
 </regress-exe>

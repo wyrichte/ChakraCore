@@ -1,15 +1,15 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-<test>
+  <test>
     <default>
-        <files>json-stringify-tinderbox.js</files>
-        <baseline>json-stringify-tinderbox.baseline</baseline>
+      <files>json-stringify-tinderbox.js</files>
+      <baseline>json-stringify-tinderbox.baseline</baseline>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>json-parse-financial.js</files>
-        <baseline>json-parse-financial.baseline</baseline>
+      <files>json-parse-financial.js</files>
+      <baseline>json-parse-financial.baseline</baseline>
     </default>
-</test>
+  </test>
 </regress-exe>

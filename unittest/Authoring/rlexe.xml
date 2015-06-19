@@ -1,85 +1,75 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-
-<test>
-   <default>
+  <test>
+    <default>
       <files>builtin.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>fail_mutators,exclude_apollo</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>comments.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>fail_mutators,exclude_apollo</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>conditionals.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>fail_mutators,exclude_apollo</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>identifiers.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>fail_mutators,exclude_apollo</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>keywords.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>fail_mutators,exclude_apollo</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>numerals.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>fail_mutators,exclude_apollo</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>operators.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>fail_mutators,exclude_apollo</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>regex.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>fail_mutators,exclude_apollo</tags>
-   </default>
-</test>
-
-<test>
-   <default>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>strings.json</files>
       <command>jsglass.exe</command>
       <baseline>universal.baseline</baseline>
       <tags>fail_mutators,exclude_apollo</tags>
-   </default>
-</test>
-
+    </default>
+  </test>
 </regress-exe>

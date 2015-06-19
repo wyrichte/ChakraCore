@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
   <test>
     <default>
@@ -20,15 +20,15 @@
   </test>
   <test>
     <default>
-        <files>d.js</files>
-        <baseline>d.baseline</baseline>
+      <files>d.js</files>
+      <baseline>d.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-        <files>d.js</files>
-        <baseline>d.baseline</baseline>
-        <compile-flags>-forceundodefer</compile-flags>
+      <files>d.js</files>
+      <baseline>d.baseline</baseline>
+      <compile-flags>-forceundodefer</compile-flags>
     </default>
   </test>
   <test>
@@ -141,13 +141,13 @@
       <baseline>AssignmentToConst.baseline</baseline>
     </default>
   </test>
-    <test>
+  <test>
     <default>
       <files>DeclOutofBlock.js</files>
       <baseline>DeclOutofBlock.baseline</baseline>
     </default>
   </test>
-    <test>
+  <test>
     <default>
       <files>DeclOutofBlock.js</files>
       <baseline>DeclOutofBlock.baseline</baseline>
@@ -195,26 +195,26 @@
       <files>tdz1.js</files>
       <baseline>tdz1.baseline</baseline>
     </default>
-  </test>  
+  </test>
   <test>
     <default>
       <files>eval1.js</files>
       <baseline>eval1.baseline</baseline>
     </default>
-  </test>  
+  </test>
   <test>
     <default>
       <files>eval1.js</files>
       <baseline>eval1.baseline</baseline>
       <compile-flags>-force:deferparse</compile-flags>
     </default>
-  </test>  
+  </test>
   <test>
     <default>
       <files>scopegen1.js</files>
       <baseline>scopegen1.baseline</baseline>
     </default>
-  </test>  
+  </test>
   <test>
     <default>
       <files>constreassign1.js</files>
@@ -371,4 +371,3 @@
     </default>
   </test>
 </regress-exe>
-

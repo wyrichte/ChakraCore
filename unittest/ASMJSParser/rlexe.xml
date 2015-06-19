@@ -1,12 +1,11 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-<test>
+  <test>
     <default>
-        <tags>exclude_dynapogo,exclude_ship</tags>	
-        <compile-flags>-on:asmjs -testtrace:asmjs -simdjs</compile-flags>
-        <files>UnaryPos.js</files>
-        <baseline>UnaryPos.baseline</baseline>
+      <tags>exclude_dynapogo,exclude_ship</tags>
+      <compile-flags>-on:asmjs -testtrace:asmjs -simdjs</compile-flags>
+      <files>UnaryPos.js</files>
+      <baseline>UnaryPos.baseline</baseline>
     </default>
-</test>
+  </test>
 </regress-exe>
-

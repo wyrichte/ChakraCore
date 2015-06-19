@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
   <test>
     <default>
@@ -13,89 +13,89 @@
       <tags>exclude_fre</tags>
     </default>
   </test>
-    <test>
-        <default>
-            <files>etwtest.js</files>
-            <baseline/>
-            <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-            <tags>exclude_ship</tags>
-        </default>
-    </test>
-    <test>
-        <default>
-            <files>evalAlias.js</files>
-            <baseline/>
-        </default>
-    </test>
-    <test>
-        <default>
-            <files>dumpGlobOptAssertTest.js</files>
-            <baseline/>
-            <compile-flags>-mic:1 -dump:globopt -off:simplejit</compile-flags>
-            <tags>exclude_ship,exclude_dynapogo</tags>
-        </default>
-    </test>
-    <test>
-        <default>
-            <files>oom.js</files>
-            <baseline>oom.baseline</baseline>
-            <compile-flags>-forcefragmentaddressspace:8000000</compile-flags>
-            <tags>exclude_amd64,fail</tags>
-        </default>
-    </test>
-    <test>
-        <default>
-            <files>DebugGetTypeHandlerName.js</files>
-            <baseline>DebugGetTypeHandlerName.baseline</baseline>
-            <tags>exclude_fre,exclude_dynapogo</tags>
-        </default>
-    </test>
-    <test>
-        <default>
-            <files>DebugGetArrayType.js</files>
-            <baseline>DebugGetArrayType.baseline</baseline>
-            <tags>exclude_fre,exclude_dynapogo</tags>
-        </default>
-    </test>
-    <test>
-        <default>
-            <files>irviewer.js</files>
-            <baseline>irviewer.baseline</baseline>
-            <compile-flags>-irviewer</compile-flags>
-            <tags>exclude_amd64,exclude_fre,exclude_arm,exclude_nonative</tags>
-        </default>
-    </test>
-    <test>
-        <default>
-            <files>propertyStringCacheBug.html</files>
-            <!--This html test uses WebWorker and running into DOM leak (CWorkerGlobalScope keeps pinned). Pinged Trident.-->
-            <compile-flags>-CheckMemoryLeak-</compile-flags>
-            <tags>exclude_fre</tags>
-        </default>
-    </test>
-    <test>
-        <default>
-            <files>wscriptfunc.js</files>
-            <baseline>wscriptfunc.baseline</baseline>
-            <tags>exclude_arm</tags>
-        </default>
-    </test>
-    <test>
-        <default>
-            <files>evalCSP.js</files>
-            <baseline>evalCSP.baseline</baseline>
-            <compile-flags>-EvalRestriction -maxInterpretCount:1</compile-flags>
-        </default>
-    </test>
-    <test>
-        <default>
-            <files>neuterApi.js</files>
-            <baseline>neuterApi.baseline</baseline>
-        </default>
-    </test>	
-    <test>
-        <default>
-            <files>typeinfotest.js</files>
-        </default>
-    </test>	
+  <test>
+    <default>
+      <files>etwtest.js</files>
+      <baseline />
+      <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
+      <tags>exclude_ship</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>evalAlias.js</files>
+      <baseline />
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>dumpGlobOptAssertTest.js</files>
+      <baseline />
+      <compile-flags>-mic:1 -dump:globopt -off:simplejit</compile-flags>
+      <tags>exclude_ship,exclude_dynapogo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>oom.js</files>
+      <baseline>oom.baseline</baseline>
+      <compile-flags>-forcefragmentaddressspace:8000000</compile-flags>
+      <tags>exclude_amd64,fail</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>DebugGetTypeHandlerName.js</files>
+      <baseline>DebugGetTypeHandlerName.baseline</baseline>
+      <tags>exclude_fre,exclude_dynapogo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>DebugGetArrayType.js</files>
+      <baseline>DebugGetArrayType.baseline</baseline>
+      <tags>exclude_fre,exclude_dynapogo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>irviewer.js</files>
+      <baseline>irviewer.baseline</baseline>
+      <compile-flags>-irviewer</compile-flags>
+      <tags>exclude_amd64,exclude_fre,exclude_arm,exclude_nonative</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>propertyStringCacheBug.html</files>
+      <!--This html test uses WebWorker and running into DOM leak (CWorkerGlobalScope keeps pinned). Pinged Trident.-->
+      <compile-flags>-CheckMemoryLeak-</compile-flags>
+      <tags>exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>wscriptfunc.js</files>
+      <baseline>wscriptfunc.baseline</baseline>
+      <tags>exclude_arm</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>evalCSP.js</files>
+      <baseline>evalCSP.baseline</baseline>
+      <compile-flags>-EvalRestriction -maxInterpretCount:1</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>neuterApi.js</files>
+      <baseline>neuterApi.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>typeinfotest.js</files>
+    </default>
+  </test>
 </regress-exe>

@@ -1,15 +1,13 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-
-<test>
+  <test>
     <default>
-        <files>invalidutf8.js</files>
-        <baseline>invalidutf8.baseline</baseline>
-        <tags>exclude_serialized</tags>
+      <files>invalidutf8.js</files>
+      <baseline>invalidutf8.baseline</baseline>
+      <tags>exclude_serialized</tags>
     </default>
-</test>
-
-<!--
+  </test>
+  <!--
 <test>
     <default>
         <files>unicode_digit_should_not_crash_jsls.js</files>
@@ -19,70 +17,65 @@
     </default>
 </test>
 -->
-<test>
+  <test>
     <default>
-        <files>unicode_digit_as_identifier_should_work.js</files>
-        <baseline />
-        <tags>exclude_serialized,bugfix</tags>
+      <files>unicode_digit_as_identifier_should_work.js</files>
+      <baseline />
+      <tags>exclude_serialized,bugfix</tags>
     </default>
-</test>
-
-<test>
+  </test>
+  <test>
     <default>
-        <files>unicode-3d-cube.js</files>
-        <baseline />
+      <files>unicode-3d-cube.js</files>
+      <baseline />
     </default>
-</test>
-
-<test>
+  </test>
+  <test>
     <default>
-        <files>unicode-controlflow-recursive.js</files>
-        <baseline />
+      <files>unicode-controlflow-recursive.js</files>
+      <baseline />
     </default>
-</test>
-
-<test>
+  </test>
+  <test>
     <default>
-        <files>unicode-crypto-md5-2.js</files>
-        <tags>fail_mutators,fail</tags>
+      <files>unicode-crypto-md5-2.js</files>
+      <tags>fail_mutators,fail</tags>
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>unicode-crypto-md5.js</files>
-        <baseline />
+      <files>unicode-crypto-md5.js</files>
+      <baseline />
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>utf8-3d-cube.js</files>
-        <baseline />
+      <files>utf8-3d-cube.js</files>
+      <baseline />
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>utf8-controlflow-recursive.js</files>
-        <baseline />
+      <files>utf8-controlflow-recursive.js</files>
+      <baseline />
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>utf8-crypto-md5-2.js</files>
-        <baseline />
+      <files>utf8-crypto-md5-2.js</files>
+      <baseline />
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>utf8-crypto-md5.js</files>
-        <baseline />
+      <files>utf8-crypto-md5.js</files>
+      <baseline />
     </default>
-</test>
-<test>
+  </test>
+  <test>
     <default>
-        <files>surrogatepair.js</files>
-        <baseline />
+      <files>surrogatepair.js</files>
+      <baseline />
     </default>
-</test>
-
+  </test>
 </regress-exe>
-
