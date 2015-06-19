@@ -1,7 +1,0 @@
-DIRS =  Common \
-        Parser \
-        Runtime \
-        Backend \
-        WinRT \
-        MemProtectHeap \
-        static{!min_rt} \

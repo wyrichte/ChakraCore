@@ -1,3 +1,0 @@
-BUILD_PASS1_CONSUMES= \
-    inetcore\jscript\lib\parser\ls_release|PASS1 \
-

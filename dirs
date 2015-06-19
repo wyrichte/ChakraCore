@@ -4,9 +4,6 @@ DIRS = \
     manifests{!MOBILECORE} \
     core \
     private \
-    Lib \
-    Exe \
-    Dll{!min_rt} \
     tools{!min_rt} \
     ProjectionTests{!EXCLUDE_IE_MAIN,!min_rt}\
     unittest{!min_rt} \

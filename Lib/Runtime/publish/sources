@@ -1,8 +1,0 @@
-TARGETTYPE=NOTARGET
-
-SOURCES= \
-    ..\MutatorsHost.idl
-
-PASS0_PUBLISH= \
-    {$(OBJ_PATH)\$(O)\MutatorsHost.tlb=$(PROJECT_LIB_PATH)\edgeMutatorsHost.tlb} \
-    {$(OBJ_PATH)\$(O)\MutatorsHost.h=$(PROJECT_INC_PATH)\edgeMutatorsHost.h}   \

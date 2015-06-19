@@ -1,7 +1,0 @@
-PUBLIC_PASS0_CONSUMES= \
-    base\published2|PASS0 \
-    com\published\idlole\publish|PASS0 \
-    enduser\sql\xml\msxml3\publish|PASS0 \
-    inetcore\published\sdk\inc|PASS0 \
-    minkernel\published\base|PASS0 \
-
