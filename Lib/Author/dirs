@@ -1,3 +1,0 @@
-DIRS = \
-    release{!NO_JS_RELEASE,!amd64,!arm} \
-    test{!NO_JS_TEST,!amd64,!arm} \
