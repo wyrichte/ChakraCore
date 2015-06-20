@@ -2,7 +2,7 @@
 // Copyright (C) 1995 - 2010 by Microsoft Corporation.  All rights reserved.
 //---------------------------------------------------------------------------
 #include "stdafx.h"
-#include "..\..\Dll\jscript\jscriptdllcommon.h"
+#include "..\..\..\private\bin\chakra\jscriptdllcommon.h"
 #include <Shlwapi.h>
 #include <ATLBase.h>
 #include "GUIDParser.h"

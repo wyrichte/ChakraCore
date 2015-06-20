@@ -40,7 +40,7 @@
     <ClInclude Include="MemProtectHeap.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Manifests\Manifests.vcxproj">
+    <ProjectReference Include="..\..\..\..\core\Manifests\Manifests.vcxproj">
       <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
     </ProjectReference>
   </ItemGroup>

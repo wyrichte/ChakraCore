@@ -24,9 +24,15 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup>
     <ClCompile>
-      <!-- For unicode.h -->
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\Parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\Common;$(ChakraManifestsIncludeDirectory);$(ComIncPath)\midlrt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>      
+
+      <AdditionalIncludeDirectories>
+        <!-- For unicode.h -->
+        $(ChakraRootDirectory)core\lib\Parser;
+        $(ChakraRootDirectory)core\lib\Common;
+        $(ChakraManifestsIncludeDirectory);
+        $(ComIncPath)\midlrt;
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>      
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PreprocessorDefinitions>__PLACEMENT_NEW_INLINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -59,10 +65,10 @@
     <ClInclude Include="WinRTLib.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\dep\manifests-inbox.vcxproj">
+    <ProjectReference Include="..\..\..\dep\manifests-inbox.vcxproj">
       <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0815}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Manifests\Manifests.vcxproj">
+    <ProjectReference Include="..\..\..\core\lib\Manifests\Manifests.vcxproj">
       <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
     </ProjectReference>
   </ItemGroup>
