@@ -32,8 +32,8 @@
     <ClCompile>
       <AdditionalIncludeDirectories>
         %(AdditionalIncludeDirectories);
-        ..\..\lib\common;
-        ..\..\dll\jscript;
+        $(ChakraRootDirectory)\core\lib\common;
+        ..\..\bin\chakra;
         $(IntDir)
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
