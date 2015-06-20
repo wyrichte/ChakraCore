@@ -19,8 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E0786480
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{DDDCE490-9BC4-43E5-A700-346998D8E01D}"
 	ProjectSection(SolutionItems) = preProject
-		..\tools\WinDbg\jd\jd.vcxproj = ..\tools\WinDbg\jd\jd.vcxproj
-		..\core\manifests\Manifests.vcxproj = ..\core\manifests\Manifests.vcxproj
 		..\publish\Publish.vcxproj = ..\publish\Publish.vcxproj
 	EndProjectSection
 EndProject
@@ -36,32 +34,18 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584}"
 	ProjectSection(SolutionItems) = preProject
 		..\core\Lib\Backend\Chakra.Backend.vcxproj = ..\core\Lib\Backend\Chakra.Backend.vcxproj
-		..\core\Lib\common\codex\Chakra.Common.Codex.vcxproj = ..\core\Lib\common\codex\Chakra.Common.Codex.vcxproj
-		..\core\Lib\Common\common\Chakra.Common.Common.vcxproj = ..\core\Lib\Common\common\Chakra.Common.Common.vcxproj
-		..\core\Lib\Common\core\Chakra.Common.Core.vcxproj = ..\core\Lib\Common\core\Chakra.Common.Core.vcxproj
-		..\core\Lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj = ..\core\Lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj
-		..\core\Lib\Common\Exceptions\Chakra.Common.Exceptions.vcxproj = ..\core\Lib\Common\Exceptions\Chakra.Common.Exceptions.vcxproj
-		..\core\Lib\Common\Memory\Chakra.Common.Memory.vcxproj = ..\core\Lib\Common\Memory\Chakra.Common.Memory.vcxproj
-		..\core\Lib\Common\util\Chakra.Common.Util.vcxproj = ..\core\Lib\Common\util\Chakra.Common.Util.vcxproj
+		..\core\Lib\Parser\Chakra.Parser.vcxproj = ..\core\Lib\Parser\Chakra.Parser.vcxproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{3FBCBF4C-1083-4A70-8929-E89CAA82E781}"
+	ProjectSection(SolutionItems) = preProject
 		..\private\Lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj = ..\private\Lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj
 		..\private\Lib\MemProtectHeap\Chakra.MemProtectHeap.vcxproj = ..\private\Lib\MemProtectHeap\Chakra.MemProtectHeap.vcxproj
-		..\core\Lib\Parser\Chakra.Parser.vcxproj = ..\core\Lib\Parser\Chakra.Parser.vcxproj
-		..\core\Lib\Runtime\ByteCode\Chakra.Runtime.ByteCode.vcxproj = ..\core\Lib\Runtime\ByteCode\Chakra.Runtime.ByteCode.vcxproj
-		..\core\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj = ..\core\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj
-		..\core\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj = ..\core\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj
-		..\core\Lib\Runtime\Math\Chakra.Runtime.Math.vcxproj = ..\core\Lib\Runtime\Math\Chakra.Runtime.Math.vcxproj
-		..\core\Lib\Runtime\Types\Chakra.Runtime.Types.vcxproj = ..\core\Lib\Runtime\Types\Chakra.Runtime.Types.vcxproj
+		..\private\Lib\SCALookup\Chakra.SCAlookup.vcxproj = ..\private\Lib\SCALookup\Chakra.SCAlookup.vcxproj
 		..\private\Lib\Telemetry\Chakra.Telemetry.vcxproj = ..\private\Lib\Telemetry\Chakra.Telemetry.vcxproj
 		..\private\Lib\WinRT\Chakra.WinRT.vcxproj = ..\private\Lib\WinRT\Chakra.WinRT.vcxproj
 		..\private\lib\HostCommon\HostCommon.vcxproj = ..\private\lib\HostCommon\HostCommon.vcxproj
 		..\private\Lib\staticlib\static.vcxproj = ..\private\Lib\staticlib\static.vcxproj
-		..\private\Lib\SCALookup\Chakra.SCAlookup.vcxproj = ..\private\Lib\SCALookup\Chakra.SCAlookup.vcxproj
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dll", "dll", "{3FBCBF4C-1083-4A70-8929-E89CAA82E781}"
-	ProjectSection(SolutionItems) = preProject
-		..\private\Bin\Chakra\Chakra.vcxproj = ..\private\Bin\Chakra\Chakra.vcxproj
-		..\private\bin\ChakraDiag\ChakraDiag.vcxproj = ..\private\bin\ChakraDiag\ChakraDiag.vcxproj
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unittest", "unittest", "{7F5A55F5-A32C-42F3-ADB4-F72DA6392120}"
@@ -71,8 +55,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unittest", "unittest", "{7F
 		..\unittest\jd\ut_jsdiag.vcxproj = ..\unittest\jd\ut_jsdiag.vcxproj
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "exe", "exe", "{2D98823A-DF47-4011-96E2-1C91B4A017D1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{2D98823A-DF47-4011-96E2-1C91B4A017D1}"
 	ProjectSection(SolutionItems) = preProject
+		..\private\Bin\Chakra\Chakra.vcxproj = ..\private\Bin\Chakra\Chakra.vcxproj
+		..\private\bin\ChakraDiag\ChakraDiag.vcxproj = ..\private\bin\ChakraDiag\ChakraDiag.vcxproj
 		..\private\Bin\GCHost\GCHost.vcxproj = ..\private\Bin\GCHost\GCHost.vcxproj
 		..\private\lib\HostCommon\HostCommon.vcxproj = ..\private\lib\HostCommon\HostCommon.vcxproj
 		..\private\Bin\JC\JC.vcxproj = ..\private\Bin\JC\JC.vcxproj
@@ -92,16 +78,47 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{80566F9B
 		..\tools\WinDbg\jd\jd.vcxproj = ..\tools\WinDbg\jd\jd.vcxproj
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{9423EC61-226A-4854-98DB-863286021CDE}"
+	ProjectSection(SolutionItems) = preProject
+		..\core\manifests\Manifests.vcxproj = ..\core\manifests\Manifests.vcxproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "private", "private", "{9714D243-2BB2-4933-AF5E-35971D03E2FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{03D5837B-5546-4635-AA38-4D33AA5FB3BD}"
+	ProjectSection(SolutionItems) = preProject
+		..\core\Lib\common\codex\Chakra.Common.Codex.vcxproj = ..\core\Lib\common\codex\Chakra.Common.Codex.vcxproj
+		..\core\Lib\Common\common\Chakra.Common.Common.vcxproj = ..\core\Lib\Common\common\Chakra.Common.Common.vcxproj
+		..\core\Lib\Common\core\Chakra.Common.Core.vcxproj = ..\core\Lib\Common\core\Chakra.Common.Core.vcxproj
+		..\core\Lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj = ..\core\Lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj
+		..\core\Lib\Common\Exceptions\Chakra.Common.Exceptions.vcxproj = ..\core\Lib\Common\Exceptions\Chakra.Common.Exceptions.vcxproj
+		..\core\Lib\Common\Memory\Chakra.Common.Memory.vcxproj = ..\core\Lib\Common\Memory\Chakra.Common.Memory.vcxproj
+		..\core\Lib\Common\util\Chakra.Common.Util.vcxproj = ..\core\Lib\Common\util\Chakra.Common.Util.vcxproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runtime", "Runtime", "{48F771CB-6E65-4F4D-986B-23A538D01324}"
+	ProjectSection(SolutionItems) = preProject
+		..\core\Lib\Runtime\ByteCode\Chakra.Runtime.ByteCode.vcxproj = ..\core\Lib\Runtime\ByteCode\Chakra.Runtime.ByteCode.vcxproj
+		..\core\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj = ..\core\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj
+		..\core\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj = ..\core\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj
+		..\core\Lib\Runtime\Math\Chakra.Runtime.Math.vcxproj = ..\core\Lib\Runtime\Math\Chakra.Runtime.Math.vcxproj
+		..\core\Lib\Runtime\Types\Chakra.Runtime.Types.vcxproj = ..\core\Lib\Runtime\Types\Chakra.Runtime.Types.vcxproj
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D231BA17-AE33-4736-BAA4-1A52476BB24A} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
-		{02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
-		{3FBCBF4C-1083-4A70-8929-E89CAA82E781} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
+		{02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584} = {9423EC61-226A-4854-98DB-863286021CDE}
+		{3FBCBF4C-1083-4A70-8929-E89CAA82E781} = {9714D243-2BB2-4933-AF5E-35971D03E2FC}
 		{7F5A55F5-A32C-42F3-ADB4-F72DA6392120} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
-		{2D98823A-DF47-4011-96E2-1C91B4A017D1} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
+		{2D98823A-DF47-4011-96E2-1C91B4A017D1} = {9714D243-2BB2-4933-AF5E-35971D03E2FC}
 		{80566F9B-EC0F-4146-A0E1-F89C506653E4} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
+		{9423EC61-226A-4854-98DB-863286021CDE} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
+		{9714D243-2BB2-4933-AF5E-35971D03E2FC} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
+		{03D5837B-5546-4635-AA38-4D33AA5FB3BD} = {02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584}
+		{48F771CB-6E65-4F4D-986B-23A538D01324} = {02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584}
 	EndGlobalSection
 EndGlobal

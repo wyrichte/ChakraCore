@@ -99,7 +99,7 @@ TARGETLIBS= \
     $(SDK_LIB_PATH)\dbghelp.lib \
 !endif
 !IF (!$(FREEBUILD) || defined(FRETEST) || defined(NTTESTENV)) && "$(TARGET_DIRECTORY)" != "arm" && "$(TARGET_DIRECTORY)" != "arm64"
-    ..\..\..\tools\external\lib\$(TARGET_DIRECTORY)\jitprofiling.lib \
+    ..\..\..\..\tools\external\lib\$(TARGET_DIRECTORY)\jitprofiling.lib \
 !ENDIF
 
 SOURCES= \
