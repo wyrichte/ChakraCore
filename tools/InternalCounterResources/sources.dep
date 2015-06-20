@@ -1,0 +1,2 @@
+BUILD_PASS0_CONSUMES= \
+    inetcore\jscript\core\manifests|PASS0
