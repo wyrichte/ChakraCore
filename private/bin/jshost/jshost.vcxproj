@@ -189,7 +189,7 @@
     <ProjectReference Include="..\..\..\dep\common-iel1.vcxproj">
       <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0814}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\dep\scalookup.vcxproj">
+    <ProjectReference Include="..\..\Lib\SCALookup\Chakra.SCAlookup.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac36}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\Bin\Chakra\Chakra.vcxproj">
