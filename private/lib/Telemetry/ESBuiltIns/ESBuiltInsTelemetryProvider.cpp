@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Telemetry.h"
 #include "ESBuiltInsTelemetryProvider.h"
 
 #ifdef TELEMETRY_ESB

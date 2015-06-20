@@ -26,11 +26,20 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..;$(MSBuildThisFileDirectory)..\..\Common;$(MSBuildThisFileDirectory)..\..\Parser;$(MSBuildThisFileDirectory)..\..\Backend;$(ChakraManifestsIncludeDirectory);$(ManifestsInboxIncludeDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <!-- For telemtry\MicrosoftTelemetry.h -->
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MinWinPrivSdkIncPath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+        $(ChakraRootDirectory)core\lib\Runtime;
+        $(ChakraRootDirectory)core\lib\Common;
+        $(ChakraRootDirectory)core\lib\Parser;
+        $(ChakraRootDirectory)core\lib\Backend;
+        $(ChakraManifestsIncludeDirectory);
+        $(ManifestsInboxIncludeDirectory);
+        %(AdditionalIncludeDirectories);
+        <!-- For telemtry\MicrosoftTelemetry.h -->
+        $(MinWinPrivSdkIncPath)
+      </AdditionalIncludeDirectories>
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4702</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Telemetry.h</PrecompiledHeaderFile>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -41,7 +50,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)OpcodeTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptContextTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptEngineTelemetry.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\StdAfx.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)TelemetryPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
@@ -55,6 +64,7 @@
     <ClInclude Include="ScriptContextTelemetry.h" />
     <ClInclude Include="ScriptEngineTelemetry.h" />
     <ClInclude Include="TelemetryList.includes.h" />
+    <ClInclude Include="Telemetry.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dirs" />

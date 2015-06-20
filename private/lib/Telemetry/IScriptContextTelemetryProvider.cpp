@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Telemetry.h"
 #include "IScriptContextTelemetryProvider.h"
 
 #ifdef TELEMETRY

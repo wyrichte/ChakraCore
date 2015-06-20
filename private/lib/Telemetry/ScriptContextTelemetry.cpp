@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Telemetry.h"
 #include "ScriptContextTelemetry.h"
 
 #include "ESBuiltIns\ESBuiltInsTelemetryProvider.h"
