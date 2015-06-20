@@ -40,10 +40,10 @@
       <!-- .;..;..\..\Publish;..\..\..\Lib\Inc-->
       <AdditionalIncludeDirectories>
         $(MSBuildThisFileDirectory);
-        $(ChakraRootDirectory)Lib\Common;
-        $(ChakraRootDirectory)Lib\Parser;
-        $(ChakraRootDirectory)Lib\Runtime;
-        $(ChakraRootDirectory)Lib\Backend;
+        $(ChakraRootDirectory)core\Lib\Common;
+        $(ChakraRootDirectory)core\Lib\Parser;
+        $(ChakraRootDirectory)core\Lib\Runtime;
+        $(ChakraRootDirectory)core\Lib\Backend;
         $(IntDir);
         $(ChakraManifestsIncludeDirectory);
 
@@ -537,7 +537,7 @@
     <ProjectReference Include="..\..\..\core\Lib\Runtime\Math\Chakra.Runtime.Math.vcxproj">
       <Project>{abc904ad-9415-46f8-aa23-e33193f81f7c}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\core\Lib\Runtime\Telemetry\Chakra.Runtime.Telemetry.vcxproj">
+    <ProjectReference Include="..\..\..\private\Lib\Telemetry\Chakra.Telemetry.vcxproj">
       <Project>{6ea087d4-1983-43d3-8c7e-0a79bc4327f6}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\core\Lib\Runtime\Types\Chakra.Runtime.Types.vcxproj">

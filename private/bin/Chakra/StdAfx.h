@@ -39,7 +39,7 @@
 #include "hostdispatchenumerator.h"
 #include "dispmemberproxy.h"
 #include "javascriptdispatch.h"
-#include "..\..\lib\static\base\MockExternalObject.h"
+#include "..\..\lib\staticlib\base\MockExternalObject.h"
 #include "CustomExternalType.h"
 #include "JavascriptExternalOperators.h"
 #include "DefaultScriptOperations.h"
@@ -110,7 +110,7 @@
 #include "ComObjectBase.h"
 #include "ScriptDAC.h"
 #include "DiagHook.h"
-#include "..\..\lib\static\base\scriptenginebase.h"
+#include "..\..\lib\staticlib\base\scriptenginebase.h"
 #include "ScriptEngine.h"
 #include "JavascriptThreadService.h"
 #if !defined(USED_IN_STATIC_LIB)

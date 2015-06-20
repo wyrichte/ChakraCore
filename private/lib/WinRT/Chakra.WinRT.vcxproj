@@ -68,7 +68,7 @@
     <ProjectReference Include="..\..\..\dep\manifests-inbox.vcxproj">
       <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0815}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\core\lib\Manifests\Manifests.vcxproj">
+    <ProjectReference Include="..\..\..\core\Manifests\Manifests.vcxproj">
       <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
     </ProjectReference>
   </ItemGroup>

@@ -36,17 +36,17 @@
       <AdditionalIncludeDirectories>
         %(AdditionalIncludeDirectories);
         $(ChakraManifestsIncludeDirectory);
-        $(ChakraRootDirectory)Lib\Common;
-        $(ChakraRootDirectory)Lib\Common\DataStructures;
-        $(ChakraRootDirectory)Lib\Common\Memory;
-        $(ChakraRootDirectory)Lib\Parser;
-        $(ChakraRootDirectory)Lib\Runtime;
-        $(ChakraRootDirectory)Lib\Runtime\ByteCode;
-        $(ChakraRootDirectory)Lib\Runtime\Language;
-        $(ChakraRootDirectory)Lib\Runtime\Library;
-        $(ChakraRootDirectory)Lib\Runtime\Types;
-        $(ChakraRootDirectory)Lib\Backend;
-        $(ChakraRootDirectory)Dll\Jscript;
+        $(ChakraRootDirectory)core\Lib\Common;
+        $(ChakraRootDirectory)core\Lib\Common\DataStructures;
+        $(ChakraRootDirectory)core\Lib\Common\Memory;
+        $(ChakraRootDirectory)core\Lib\Parser;
+        $(ChakraRootDirectory)core\Lib\Runtime;
+        $(ChakraRootDirectory)core\Lib\Runtime\ByteCode;
+        $(ChakraRootDirectory)core\Lib\Runtime\Language;
+        $(ChakraRootDirectory)core\Lib\Runtime\Library;
+        $(ChakraRootDirectory)core\Lib\Runtime\Types;
+        $(ChakraRootDirectory)core\Lib\Backend;
+        $(ChakraRootDirectory)private\Bin\Chakra;
         $(SdkToolsIncPath)
       </AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__PLACEMENT_NEW_INLINE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -198,19 +198,19 @@
     <None Include="JsDebug.rgs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\core\lib\common\codex\Chakra.Common.Codex.vcxproj">
+    <ProjectReference Include="..\..\..\core\lib\common\codex\Chakra.Common.Codex.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac38}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Lib\Common\common\Chakra.Common.Common.vcxproj">
+    <ProjectReference Include="..\..\..\core\Lib\Common\common\Chakra.Common.Common.vcxproj">
       <Project>{bb4153ff-ac3e-4734-b562-cc23812df31b}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Lib\Common\core\Chakra.Common.Core.vcxproj">
+    <ProjectReference Include="..\..\..\core\Lib\Common\core\Chakra.Common.Core.vcxproj">
       <Project>{cc4153ff-ac3e-4734-b562-cc23812df31b}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj">
+    <ProjectReference Include="..\..\..\core\Lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj">
       <Project>{5643d42a-c38d-4d82-9662-58470b3ac9f7}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj">
+    <ProjectReference Include="..\..\..\core\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj">
       <Project>{706083f7-6aa4-4558-a153-6352ef9110f8}</Project>
     </ProjectReference>
   </ItemGroup>
