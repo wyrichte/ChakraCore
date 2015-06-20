@@ -2,6 +2,10 @@ PUBLIC_PASS0_CONSUMES= \
     redist\mspartners\netfx45\core\binary_release|PASS0 \
 
 BUILD_PASS1_CONSUMES= \
+    inetcore\jscript\core\lib\common\core\release|PASS1 \
+    inetcore\jscript\core\lib\common\datastructures\release|PASS1 \
+    inetcore\jscript\core\lib\common\exceptions\release|PASS1 \
+    inetcore\jscript\core\lib\common\memory\release|PASS1 \
     inetcore\jscript\lib\common\core\release|PASS1 \
     inetcore\jscript\lib\common\core\test|PASS1 \
     inetcore\jscript\lib\common\datastructures\release|PASS1 \
@@ -12,4 +16,5 @@ BUILD_PASS1_CONSUMES= \
     inetcore\jscript\lib\common\memory\test|PASS1 \
     inetcore\jscript\lib\memprotectheap\release|PASS1 \
     inetcore\jscript\lib\memprotectheap\test|PASS1 \
+    inetcore\jscript\private\lib\memprotectheap\release|PASS1 \
 

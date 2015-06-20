@@ -55,25 +55,24 @@ LINK_TIME_CODE_GENERATION=1
 
 COREINCLUDES=\
     $(JSCRIPT_ROOT)\core\lib\common; \
-    $(JSCRIPT_ROOT)\lib\common; \
-    $(JSCRIPT_ROOT)\lib\parser; \
-    $(JSCRIPT_ROOT)\lib\runtime; \
-    $(JSCRIPT_ROOT)\lib\backend; \
-    $(JSCRIPT_ROOT)\lib\memprotectheap; \
+    $(JSCRIPT_ROOT)\core\lib\parser; \
+    $(JSCRIPT_ROOT)\core\lib\runtime; \
+    $(JSCRIPT_ROOT)\core\lib\backend; \
+    $(JSCRIPT_ROOT)\private\lib\memprotectheap; \
     $(JSCRIPT_ROOT)\publish; \
     $(SHELL_INC_PATH); \
     $(BROWSER_INETCORE_INC_PATH); \
     $(SDK_INC_PATH);\
     $(MINWIN_PRIV_SDK_INC_PATH); \
     $(OBJECT_INETCORE_LIB_NAV_FCK_O_DIR); \
-    $(OBJECT_JSCRIPT_DIR)\manifests\$(O); \
+    $(OBJECT_JSCRIPT_DIR)\core\manifests\$(O); \
 
 
 SITEINCLUDES=\
-    $(JSCRIPT_ROOT)\lib\common; \
-    $(JSCRIPT_ROOT)\lib\parser; \
-    $(JSCRIPT_ROOT)\lib\runtime; \
-    $(JSCRIPT_ROOT)\lib\backend; \
+    $(JSCRIPT_ROOT)\core\lib\common; \
+    $(JSCRIPT_ROOT)\core\lib\parser; \
+    $(JSCRIPT_ROOT)\core\lib\runtime; \
+    $(JSCRIPT_ROOT)\core\lib\backend; \
     $(SHELL_INC_PATH); \
     $(OBJECT_INETCORE_LIB_NAV_FCK_O_DIR); \
 

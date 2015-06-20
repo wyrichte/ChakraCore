@@ -3,6 +3,6 @@
   <PropertyGroup>
     <FreTest>true</FreTest>
   </PropertyGroup>
-  <Import Project="..\Chakra.Runtime.Telemetry.vcxproj" />
+  <Import Project="..\Chakra.Telemetry.vcxproj" />
 </Project>
 

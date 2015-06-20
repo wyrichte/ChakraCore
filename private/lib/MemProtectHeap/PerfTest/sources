@@ -17,7 +17,7 @@ INCLUDES= $(COREINCLUDES);
 # Make sure that common.memory.lib is passed to linker prior to msvcrt so that our new/delete
 # do not cause 'already defined in msvcrt.lib error'.
 CRTLIBS= \
-    $(OBJECT_JSCRIPT_DIR)\lib\MemProtectHeap\static\$(JS_LIBTYPE)\$(O)\JScript.MemProtectHeap.static.lib
+    $(OBJECT_JSCRIPT_DIR)\private\lib\MemProtectHeap\static\$(JS_LIBTYPE)\$(O)\JScript.MemProtectHeap.static.lib
 
 
 # Libs needed
