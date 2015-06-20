@@ -24,7 +24,7 @@
     <RazzleJscriptObjectDirectory Condition="'$(FreTest)' == 'true'">test\$(ObjectDirectory)</RazzleJscriptObjectDirectory>
 
     <ManifestsInboxIncludeDirectory>$(ObjectRoot)\inetcore\manifests\inbox\$(ObjectDirectory)</ManifestsInboxIncludeDirectory>
-    <ChakraManifestsIncludeDirectory>$(RazzleJscriptObjectRoot)\manifests\$(ObjectDirectory)</ChakraManifestsIncludeDirectory>
+    <ChakraManifestsIncludeDirectory>$(RazzleJscriptObjectRoot)\core\manifests\$(ObjectDirectory)</ChakraManifestsIncludeDirectory>
     <ChakraParserIntDir>$(RazzleJscriptObjectRoot)\lib\parser\$(RazzleJscriptObjectDirectory)</ChakraParserIntDir>
     <JscriptInfoIntDir>$(RazzleJscriptObjectRoot)\dll\jscript\test\$(ObjectDirectory)</JscriptInfoIntDir>
     
