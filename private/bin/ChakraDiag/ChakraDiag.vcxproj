@@ -167,7 +167,7 @@
     <ClInclude Include="RemoteTypeHandler.h" />
     <ClInclude Include="RuntimeCore.h" />
     <ClInclude Include="guids.h" />
-    <Midl Include="..\..\..\published\sdk\inc\jscript9diag.idl" Condition="'$(BuildingWithBuildExe)'!='true'" />
+    <Midl Include="..\..\..\..\published\sdk\inc\jscript9diag.idl" Condition="'$(BuildingWithBuildExe)'!='true'" />
     <ClInclude Include="jsdebug.h" />
     <ClInclude Include="jsdebugProcess.h" />
     <ClInclude Include="jsdebugStackWalker.h" />

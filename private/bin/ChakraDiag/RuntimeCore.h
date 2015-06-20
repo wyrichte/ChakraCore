@@ -327,7 +327,7 @@ namespace Projection
 #include "JavascriptExternalFunction.h" // Not really using this one, needed for JavascriptLibrary and is using JavascriptFunction which is using DynamicObject.
 #include "JavascriptTypedObjectSlotAccessorFunction.h"
 #include "CharStringCache.h"
-#include "..\..\lib\static\base\JavascriptLibrarybase.h"
+#include "..\..\..\private\lib\staticlib\base\JavascriptLibrarybase.h"
 #include "JavascriptLibrary.h"
 
 #ifdef SIMD_JS_ENABLED
@@ -343,8 +343,8 @@ namespace Projection
 #include "ThreadContextTLSEntry.h"
 #include "evalmaprecord.h"
 #include "ScriptContextOptimizationOverrideInfo.h"
-#include "..\..\Lib\static\base\ScriptContextBase.h"
-#include "Telemetry\ScriptContextTelemetry.h"
+#include "..\..\..\private\Lib\staticlib\base\ScriptContextBase.h"
+#include "..\..\..\private\Lib\Telemetry\ScriptContextTelemetry.h"
 #include "ScriptContext.h"
 #include "InterpreterStackFrame.h"
 #include "CodeGenAllocators.h"
@@ -373,7 +373,7 @@ namespace Projection
 #include "JavascriptBooleanObject.h"
 #include "JavascriptNumberObject.h"
 
-#include "..\..\lib\static\base\MockExternalObject.h"             // Needed by CustomExternalType.h
+#include "..\..\..\private\lib\staticlib\base\MockExternalObject.h"             // Needed by CustomExternalType.h
 #include "ExternalObject.h"
 #include "CustomExternalType.h"         // Needed by mshtmldac
 #include "JavascriptString.h"           // Needed by JavascriptString DAC

@@ -29,15 +29,21 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..;$(MSBuildThisFileDirectory)..\..\Common;$(ChakraManifestsIncludeDirectory);$(ManifestsInboxIncludeDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+        $(MSBuildThisFileDirectory)..;
+        $(ChakraRootDirectory)core\lib\Common;
+        $(ChakraManifestsIncludeDirectory);
+        $(ManifestsInboxIncludeDirectory);
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <!-- For Razzle build, Solution relies on ProjectReferences -->
     <Lib Condition="'$(BuildingWithBuildExe)'=='true'">
-      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\lib\common\core\$(RazzleJscriptObjectDirectory)Chakra.Common.Core.lib</AdditionalDependencies>
-      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\lib\common\datastructures\$(RazzleJscriptObjectDirectory)Chakra.Common.DataStructures.lib</AdditionalDependencies>
-      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\lib\common\exceptions\$(RazzleJscriptObjectDirectory)Chakra.Common.Exceptions.lib</AdditionalDependencies>
-      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\lib\common\memory\$(RazzleJscriptObjectDirectory)Chakra.Common.Memory.lib</AdditionalDependencies>
-      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\lib\MemProtectHeap\$(RazzleJscriptObjectDirectory)Chakra.MemProtectHeap.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\core\lib\common\core\$(RazzleJscriptObjectDirectory)Chakra.Common.Core.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\core\lib\common\datastructures\$(RazzleJscriptObjectDirectory)Chakra.Common.DataStructures.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\core\lib\common\exceptions\$(RazzleJscriptObjectDirectory)Chakra.Common.Exceptions.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\core\lib\common\memory\$(RazzleJscriptObjectDirectory)Chakra.Common.Memory.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\private\lib\MemProtectHeap\$(RazzleJscriptObjectDirectory)Chakra.MemProtectHeap.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -48,19 +54,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\core\Chakra.Common.Core.vcxproj">
+    <ProjectReference Include="..\..\..\..\core\lib\Common\core\Chakra.Common.Core.vcxproj">
       <Project>{cc4153ff-ac3e-4734-b562-cc23812df31b}</Project>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
-    <ProjectReference Include="..\..\Common\DataStructures\Chakra.Common.DataStructures.vcxproj">
+    <ProjectReference Include="..\..\..\..\core\lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj">
       <Project>{5643d42a-c38d-4d82-9662-58470b3ac9f7}</Project>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
-    <ProjectReference Include="..\..\Common\Exceptions\Chakra.Common.Exceptions.vcxproj">
+    <ProjectReference Include="..\..\..\..\core\lib\Common\Exceptions\Chakra.Common.Exceptions.vcxproj">
       <Project>{fd8eec40-4141-448a-bf4b-1589fbe4f60d}</Project>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
-    <ProjectReference Include="..\..\Common\Memory\Chakra.Common.Memory.vcxproj">
+    <ProjectReference Include="..\..\..\..\core\lib\Common\Memory\Chakra.Common.Memory.vcxproj">
       <Project>{bb4153ff-ac3e-4734-b562-ff23812df31b}</Project>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
