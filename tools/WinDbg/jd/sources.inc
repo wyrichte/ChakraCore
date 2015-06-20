@@ -35,8 +35,17 @@ ATL_LIBS = $(ATL_LIB_PATH)\atls.lib $(ATL_LIBS)
 C_DEFINES = $(C_DEFINES) /DJD_PRIVATE
 !endif
 
-INCLUDES = $(INCLUDES);$(JSCRIPT_ROOT)\lib\common;$(JSCRIPT_ROOT)\lib\common\common;$(JSCRIPT_ROOT)\lib\common\memory;$(JSCRIPT_ROOT)\publish;$(JSCRIPT_ROOT)\lib\backend;\
-        $(OBJECT_ROOT)\inetcore\jscript\publish\$(O);..\..\..\..\exe\jshost;..\..\..\..\exe\jdtest;..\..\..\..\dll\JScriptDiag
+INCLUDES = \
+    $(INCLUDES); \
+    $(JSCRIPT_ROOT)\core\lib\common; \
+    $(JSCRIPT_ROOT)\core\lib\common\common; \
+    $(JSCRIPT_ROOT)\core\lib\common\memory; \
+    $(JSCRIPT_ROOT)\publish; \
+    $(JSCRIPT_ROOT)\core\lib\backend;\
+    $(OBJECT_ROOT)\inetcore\jscript\publish\$(O); \
+    $(JSCRIPT_ROOT)\private\bin\jshost; \
+    $(JSCRIPT_ROOT)\private\bin\jdtest; \
+    $(JSCRIPT_ROOT)\private\bin\ChakraDiag \
 
 LINKLIBS = $(DBGLIB_LIB_PATH)\engextcpp.lib
 
@@ -49,9 +58,9 @@ TARGETLIBS = \
         $(SDK_LIB_PATH)\user32.lib \
         $(DBGSDK_LIB_PATH)\dbghelp.lib \
         $(DBGSDK_LIB_PATH)\dbgeng.lib \
-        $(OBJ_PATH)\..\..\..\..\dll\jscriptdiag\release\$(O)\guids.obj \
+        $(OBJECT_JSCRIPT_DIR)\private\bin\ChakraDiag\release\$(O)\guids.obj \
 !if "$(JD_PRIVATE)" != ""
-        $(OBJECT_JSCRIPT_DIR)\Dll\jscriptdiag\lib\$(O)\ChakraDiagLib.lib \
+        $(OBJECT_JSCRIPT_DIR)\private\bin\ChakraDiag\lib\$(O)\ChakraDiagLib.lib \
 !endif
 
 USE_MSVCRT = 1

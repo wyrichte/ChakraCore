@@ -16,15 +16,15 @@ TEST_CODE=1
 NT_SIGNCODE=1
 !ENDIF
 
-INCLUDES=$(PUBLISH_SDK_INC_PATH);$(COREINCLUDES);..\..\lib\runtime\library;$(JSCRIPT_ROOT)\Dll\JScriptDiag;$(JSCRIPT_ROOT)\lib\common\memory;$(JSCRIPT_ROOT)\Dll\JScriptDiag;$(JSCRIPT_ROOT)\Exe\Common;
+INCLUDES=$(PUBLISH_SDK_INC_PATH);$(COREINCLUDES);..\..\core\lib\runtime\library;$(JSCRIPT_ROOT)\private\bin\ChakraDiag;$(JSCRIPT_ROOT)\core\lib\common\memory;$(JSCRIPT_ROOT)\private\lib\HostCommon;
 
 LINKLIBS = $(LINKLIBS) \
-    $(OBJ_PATH)\..\..\lib\static\lib\$(O)\edgejsstatic.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\StaticLib\lib\$(O)\edgejsstatic.lib \
     $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
     $(INETCORE_LIB_PATH)\iertutilp.lib \
     $(INETCORE_LIB_PATH)\IESettingsId.lib \
     $(INETCORE_LIB_PATH)\IESettingsApi.lib \
-    $(OBJECT_JSCRIPT_DIR)\exe\common\$(O)\Chakra.Host.Common.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\HostCommon\$(O)\Chakra.Host.Common.lib \
 
 #4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
 MSC_WARNING_LEVEL=$(MSC_WARNING_LEVEL) /wd4290

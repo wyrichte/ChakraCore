@@ -12,7 +12,7 @@ SOURCES = \
     ApiTest.cs
 
 REFERENCES = \
-    $(OBJECT_JSCRIPT_DIR)\dll\Microsoft.JavaScript\$(O)\Microsoft.JavaScript.metadata_dll;              \
+    $(OBJECT_JSCRIPT_DIR)\private\bin\Microsoft.JavaScript\$(O)\Microsoft.JavaScript.metadata_dll;      \
     $(CLR_REF_PATH)\System.metadata_dll;                                                                \
     $(CLR_REF_PATH)\System.Core.metadata_dll;                                                           \
     $(CLR_REF_PATH)\Microsoft.CSharp.metadata_dll;                                                      \

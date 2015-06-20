@@ -22,16 +22,16 @@ INCLUDES= \
    $(PROJECT_OBJ_ROOT)\manifests\inbox\$(O); \
    $(COM_INC_PATH)\midlrt; \
    ..\; \
-   ..\..\jscript; \
-   ..\..\..\lib\common; \
-   ..\..\..\lib\common\memory; \
-   ..\..\..\lib\common\DataStructures; \
-   ..\..\..\lib\runtime; \
-   ..\..\..\lib\runtime\library; \
-   ..\..\..\lib\runtime\language; \
-   ..\..\..\lib\runtime\types; \
-   ..\..\..\lib\runtime\bytecode; \
-   ..\..\..\lib\backend; \
+   $(PROJECT_ROOT)\jscript\private\bin\Chakra; \
+   $(PROJECT_ROOT)\jscript\core\lib\common; \
+   $(PROJECT_ROOT)\jscript\core\lib\common\memory; \
+   $(PROJECT_ROOT)\jscript\core\lib\common\DataStructures; \
+   $(PROJECT_ROOT)\jscript\core\lib\runtime; \
+   $(PROJECT_ROOT)\jscript\core\lib\runtime\library; \
+   $(PROJECT_ROOT)\jscript\core\lib\runtime\language; \
+   $(PROJECT_ROOT)\jscript\core\lib\runtime\types; \
+   $(PROJECT_ROOT)\jscript\core\lib\runtime\bytecode; \
+   $(PROJECT_ROOT)\jscript\core\lib\backend; \
 
 USER_INCLUDES=$(OBJ_PATH)\..\..\..\dll\retail\$(O)
 

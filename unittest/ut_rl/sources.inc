@@ -13,7 +13,7 @@ TARGETLIBS=     \
     $(SDK_LIB_PATH)\advapi32.lib \
     $(SDK_LIB_PATH)\kernel32.lib \
     $(SDK_LIB_PATH)\ntdll.lib \
-    $(OBJECT_JSCRIPT_DIR)\exe\common\$(O)\Chakra.Host.Common.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\HostCommon\$(O)\Chakra.Host.Common.lib \
 !if !$(FREEBUILD)
     $(SDK_LIB_PATH)\dbghelp.lib \
     $(SDK_LIB_PATH)\user32.lib \

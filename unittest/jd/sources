@@ -7,7 +7,7 @@ NT_SIGNCODE=1
 !endif
 
 C_DEFINES = $(C_DEFINES) -DWINNT -DUNICODE -D_UNICODE -DWIN32_DCOM
-INCLUDES = ..\..\exe\jdtest;..\..\dll\JScriptDiag;$(OBJECT_ROOT)\inetcore\jscript\publish\$(O);$(INCLUDES)
+INCLUDES = ..\..\private\bin\jdtest;..\..\private\bin\ChakraDiag;$(OBJECT_ROOT)\inetcore\jscript\publish\$(O);$(INCLUDES)
 
 !if "$(DBGSDK_INC_PATH)" != ""
 INCLUDES = $(DBGSDK_INC_PATH);$(INCLUDES);
@@ -46,7 +46,7 @@ LINKLIBS = \
     $(DBGSDK_LIB_PATH)\dbghelp.lib \
     $(DBGSDK_LIB_PATH)\dbgeng.lib \
     $(DBGLIB_LIB_PATH)\engextcpp.lib \
-    $(OBJ_PATH)\..\..\dll\jscriptdiag\release\$(O)\guids.obj \
+    $(OBJ_PATH)\..\..\private\bin\chakraDiag\release\$(O)\guids.obj \
 
 TARGETLIBS = \
     $(ATL_LIBS) \

@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------
 
 #include "StdAfx.h"
-#include "..\..\..\lib\common\core\BinaryFeatureControl.cpp"
+#include "..\..\..\core\lib\common\core\BinaryFeatureControl.cpp"
 #ifdef LANGUAGE_SERVICE
 EXTERN_C  
 BOOLEAN IsMessageBoxWPresent()  

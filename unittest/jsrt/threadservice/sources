@@ -31,5 +31,5 @@ TARGETLIBS                      =   $(TARGETLIBS)                               
                                     $(SDKTOOLS_LIB_PATH)\WexTest\CuE\Wex.Common.lib                           \
                                     $(SDKTOOLS_LIB_PATH)\WexTest\CuE\Wex.Logger.lib                           \
                                     $(SDKTOOLS_LIB_PATH)\WexTest\CuE\Te.Common.lib                            \
-                                    $(OBJECT_JSCRIPT_DIR)\dll\jscript\test\$(O)\chakratest.lib              \
+                                    $(OBJECT_JSCRIPT_DIR)\private\bin\Chakra\test\$(O)\chakratest.lib         \
                                     $(OBJECT_JSCRIPT_DIR)\unittest\jsrt\common\$(O)\UnitTest.JsRT.Common.lib  \

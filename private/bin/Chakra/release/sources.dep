@@ -13,4 +13,5 @@ PUBLIC_PASS0_CONSUMES= \
 BUILD_PASS1_CONSUMES= \
     inetcore\jscript\lib\memprotectheap\release|PASS1 \
     inetcore\jscript\lib\memprotectheap\test|PASS1 \
+    inetcore\jscript\private\lib\memprotectheap\release|PASS1 \
 

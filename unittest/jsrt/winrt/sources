@@ -17,7 +17,7 @@ USE_NATIVE_EH                   =   1
 C_DEFINES                       =   $(C_DEFINES) -DUNICODE -D_UNICODE -DINLINE_TEST_METHOD_MARKUP
 
 INCLUDES                        =   $(INCLUDES);                                           \
-                                    $(JSCRIPT_ROOT)\dll\jscript;                          \
+                                    $(JSCRIPT_ROOT)\private\bin\Chakra;                    \
                                     $(SDKTOOLS_INC_PATH)\WexTest\Cue;                      \
                                     ..\inc;
 
@@ -37,6 +37,6 @@ TARGETLIBS                      =   $(TARGETLIBS)                               
                                     $(SDKTOOLS_LIB_PATH)\WexTest\CuE\Wex.Common.lib                           \
                                     $(SDKTOOLS_LIB_PATH)\WexTest\CuE\Wex.Logger.lib                           \
                                     $(SDKTOOLS_LIB_PATH)\WexTest\CuE\Te.Common.lib                            \
-                                    $(OBJECT_JSCRIPT_DIR)\dll\jscript\test\$(O)\chakratest.lib              \
+                                    $(OBJECT_JSCRIPT_DIR)\private\bin\chakra\test\$(O)\chakratest.lib              \
                                     $(OBJECT_JSCRIPT_DIR)\unittest\jsrt\common\$(O)\UnitTest.JsRT.Common.lib  \
 

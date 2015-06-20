@@ -59,7 +59,7 @@ extern LPCTSTR g_dbgBaselineFilename;
 #define USE_EDGEMODE_JSRT
 #endif // USE_EDGEMODE_JSRT
 #include "jsrt.h"
-#include "..\Common\debuggercontroller.h"
+#include "HostCommon\debuggercontroller.h"
 #include "SimpleDebugger.h"
 #include "werdump.h"
 #include "MockDataTarget.h"

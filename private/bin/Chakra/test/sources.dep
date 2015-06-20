@@ -10,7 +10,33 @@ PUBLIC_PASS0_CONSUMES= \
     redist\mspartners\netfx45\core\binary_release|PASS0 \
 
 BUILD_PASS1_CONSUMES= \
+    inetcore\jscript\core\lib\backend\release|PASS1 \
+    inetcore\jscript\core\lib\backend\test|PASS1 \
     inetcore\jscript\core\lib\common\codex|PASS1 \
+    inetcore\jscript\core\lib\common\common\release|PASS1 \
+    inetcore\jscript\core\lib\common\common\test|PASS1 \
+    inetcore\jscript\core\lib\common\core\release|PASS1 \
+    inetcore\jscript\core\lib\common\core\test|PASS1 \
+    inetcore\jscript\core\lib\common\datastructures\release|PASS1 \
+    inetcore\jscript\core\lib\common\datastructures\test|PASS1 \
+    inetcore\jscript\core\lib\common\exceptions\release|PASS1 \
+    inetcore\jscript\core\lib\common\exceptions\test|PASS1 \
+    inetcore\jscript\core\lib\common\memory\release|PASS1 \
+    inetcore\jscript\core\lib\common\memory\test|PASS1 \
+    inetcore\jscript\core\lib\common\util\release|PASS1 \
+    inetcore\jscript\core\lib\common\util\test|PASS1 \
+    inetcore\jscript\core\lib\parser\release|PASS1 \
+    inetcore\jscript\core\lib\parser\test|PASS1 \
+    inetcore\jscript\core\lib\runtime\bytecode\release|PASS1 \
+    inetcore\jscript\core\lib\runtime\bytecode\test|PASS1 \
+    inetcore\jscript\core\lib\runtime\language\release|PASS1 \
+    inetcore\jscript\core\lib\runtime\language\test|PASS1 \
+    inetcore\jscript\core\lib\runtime\library\release|PASS1 \
+    inetcore\jscript\core\lib\runtime\library\test|PASS1 \
+    inetcore\jscript\core\lib\runtime\math\release|PASS1 \
+    inetcore\jscript\core\lib\runtime\math\test|PASS1 \
+    inetcore\jscript\core\lib\runtime\types\release|PASS1 \
+    inetcore\jscript\core\lib\runtime\types\test|PASS1 \
     inetcore\jscript\lib\backend\release|PASS1 \
     inetcore\jscript\lib\backend\test|PASS1 \
     inetcore\jscript\lib\common\common\release|PASS1 \
@@ -43,6 +69,12 @@ BUILD_PASS1_CONSUMES= \
     inetcore\jscript\lib\runtime\types\test|PASS1 \
     inetcore\jscript\lib\winrt\release|PASS1 \
     inetcore\jscript\lib\winrt\test|PASS1 \
+    inetcore\jscript\private\lib\memprotectheap\release|PASS1 \
+    inetcore\jscript\private\lib\memprotectheap\test|PASS1 \
+    inetcore\jscript\private\lib\telemetry\release|PASS1 \
+    inetcore\jscript\private\lib\telemetry\test|PASS1 \
+    inetcore\jscript\private\lib\winrt\release|PASS1 \
+    inetcore\jscript\private\lib\winrt\test|PASS1 \
 
 PUBLIC_PASS1_CONSUMES= \
     com\ole32\dll\daytona|PASS1 \

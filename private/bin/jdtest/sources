@@ -7,7 +7,15 @@ NT_SIGNCODE=1
 !endif
 
 C_DEFINES =$(C_DEFINES) -DWINNT -DUNICODE -D_UNICODE -DWIN32_DCOM
-INCLUDES = $(COREINCLUDES);$(ATL_INCLUDES);$(SDKTOOLS_INC_PATH);..\..\..\lib\common;..\jshost;..\..\dll\jscriptdiag
+
+INCLUDES = \
+    $(COREINCLUDES); \
+    $(ATL_INCLUDES); \
+    $(SDKTOOLS_INC_PATH); \
+    $(PROJECT_ROOT)\jscript\core\lib\common; \
+    $(PROJECT_ROOT)\jscript\private\bin\jshost; \
+    $(PROJECT_ROOT)\jscript\private\bin\chakradiag; \
+    $(PROJECT_ROOT)\jscript\private\lib;
 
 # Link to atlsd.lib without requiring DEBUG_CRTS
 ATL_INCLUDES = $(ATL_INC_ROOT)\atlmfc
@@ -37,8 +45,8 @@ LINKLIBS = \
     $(SDK_LIB_PATH)\oleaut32.lib \
     $(SDK_LIB_PATH)\Uuid.lib \
     $(SDK_LIB_PATH)\shlwapi.lib \
-    $(OBJ_PATH)\..\..\exe\common\$(O)\chakra.host.common.lib \
-    $(OBJ_PATH)\..\..\dll\jscriptdiag\release\$(O)\guids.obj \
+    $(PROJECT_OBJ_ROOT)\jscript\private\lib\HostCommon\$(O)\chakra.host.common.lib \
+    $(PROJECT_OBJ_ROOT)\jscript\private\bin\ChakraDiag\release\$(O)\guids.obj \
 
 PRECOMPILED_INCLUDE=stdafx.h
 PRECOMPILED_SOURCEFILE=stdafx.cpp

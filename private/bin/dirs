@@ -1,5 +1,4 @@
 DIRS =  RecyclerTest{!EXCLUDE_IE_MAIN,!min_rt,nonprod} \
-        Common \
         jsGlass{!min_rt,noncrit} \
         jshost{!min_rt,noncrit} \
         gchost{!min_rt,noncrit} \

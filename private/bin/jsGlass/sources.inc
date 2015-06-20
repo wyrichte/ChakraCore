@@ -15,4 +15,4 @@ TARGETLIBS=     \
     $(INETCORE_LIB_PATH)\iertutilp.lib \
     $(INETCORE_LIB_PATH)\IESettingsId.lib \
     $(INETCORE_LIB_PATH)\IESettingsApi.lib \
-    $(OBJECT_JSCRIPT_DIR)\exe\common\$(O)\Chakra.Host.Common.lib
+    $(OBJECT_JSCRIPT_DIR)\private\lib\HostCommon\$(O)\Chakra.Host.Common.lib

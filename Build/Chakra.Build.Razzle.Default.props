@@ -25,41 +25,41 @@
 
     <ManifestsInboxIncludeDirectory>$(ObjectRoot)\inetcore\manifests\inbox\$(ObjectDirectory)</ManifestsInboxIncludeDirectory>
     <ChakraManifestsIncludeDirectory>$(RazzleJscriptObjectRoot)\core\manifests\$(ObjectDirectory)</ChakraManifestsIncludeDirectory>
-    <ChakraParserIntDir>$(RazzleJscriptObjectRoot)\lib\parser\$(RazzleJscriptObjectDirectory)</ChakraParserIntDir>
-    <JscriptInfoIntDir>$(RazzleJscriptObjectRoot)\dll\jscript\test\$(ObjectDirectory)</JscriptInfoIntDir>
+    <ChakraParserIntDir>$(RazzleJscriptObjectRoot)\core\lib\parser\$(RazzleJscriptObjectDirectory)</ChakraParserIntDir>
+    <JscriptInfoIntDir>$(RazzleJscriptObjectRoot)\private\bin\chakra\test\$(ObjectDirectory)</JscriptInfoIntDir>
     
     <!-- Libraries -->
     <ChakraCommonCodexLib>$(RazzleJscriptObjectRoot)\core\lib\common\codex\$(ObjectDirectory)Chakra.Common.Codex.lib</ChakraCommonCodexLib>
-    <ChakraCommonCoreLib>$(RazzleJscriptObjectRoot)\lib\common\core\$(RazzleJscriptObjectDirectory)Chakra.Common.Core.lib</ChakraCommonCoreLib>
-    <ChakraCommonDataStructureLib>$(RazzleJscriptObjectRoot)\lib\common\datastructures\$(RazzleJscriptObjectDirectory)Chakra.Common.DataStructures.lib</ChakraCommonDataStructureLib>
-    <ChakraCommonCommonLib>$(RazzleJscriptObjectRoot)\lib\common\common\$(RazzleJscriptObjectDirectory)Chakra.Common.Common.lib</ChakraCommonCommonLib>
-    <ChakraCommonMemoryLib>$(RazzleJscriptObjectRoot)\lib\common\memory\$(RazzleJscriptObjectDirectory)Chakra.Common.Memory.lib</ChakraCommonMemoryLib>
-    <ChakraRuntimeLanguageLib>$(RazzleJscriptObjectRoot)\lib\runtime\language\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Language.lib</ChakraRuntimeLanguageLib>
+    <ChakraCommonCoreLib>$(RazzleJscriptObjectRoot)\core\lib\common\core\$(RazzleJscriptObjectDirectory)Chakra.Common.Core.lib</ChakraCommonCoreLib>
+    <ChakraCommonDataStructureLib>$(RazzleJscriptObjectRoot)\core\lib\common\datastructures\$(RazzleJscriptObjectDirectory)Chakra.Common.DataStructures.lib</ChakraCommonDataStructureLib>
+    <ChakraCommonCommonLib>$(RazzleJscriptObjectRoot)\core\lib\common\common\$(RazzleJscriptObjectDirectory)Chakra.Common.Common.lib</ChakraCommonCommonLib>
+    <ChakraCommonMemoryLib>$(RazzleJscriptObjectRoot)\core\lib\common\memory\$(RazzleJscriptObjectDirectory)Chakra.Common.Memory.lib</ChakraCommonMemoryLib>
+    <ChakraRuntimeLanguageLib>$(RazzleJscriptObjectRoot)\core\lib\runtime\language\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Language.lib</ChakraRuntimeLanguageLib>
     
     <ChakraCommonMinLibs>$(ChakraCommonMemoryLib)</ChakraCommonMinLibs>
     <ChakraCommonMinLibs>$(ChakraCommonMinLibs);$(ChakraCommonCoreLib)</ChakraCommonMinLibs>
     <ChakraCommonMinLibs>$(ChakraCommonMinLibs);$(ChakraCommonDataStructureLib)</ChakraCommonMinLibs>
-    <ChakraCommonMinLibs>$(ChakraCommonMinLibs);$(RazzleJscriptObjectRoot)\lib\common\exceptions\$(RazzleJscriptObjectDirectory)Chakra.Common.Exceptions.lib</ChakraCommonMinLibs>
+    <ChakraCommonMinLibs>$(ChakraCommonMinLibs);$(RazzleJscriptObjectRoot)\core\lib\common\exceptions\$(RazzleJscriptObjectDirectory)Chakra.Common.Exceptions.lib</ChakraCommonMinLibs>
 
     <ChakraCommonLibs>$(ChakraCommonMinLibs)</ChakraCommonLibs>
     <ChakraCommonLibs>$(ChakraCommonLibs);$(ChakraCommonCommonLib)</ChakraCommonLibs>
-    <ChakraCommonLibs>$(ChakraCommonLibs);$(RazzleJscriptObjectRoot)\lib\common\util\$(RazzleJscriptObjectDirectory)Chakra.Common.Util.lib</ChakraCommonLibs>
+    <ChakraCommonLibs>$(ChakraCommonLibs);$(RazzleJscriptObjectRoot)\core\lib\common\util\$(RazzleJscriptObjectDirectory)Chakra.Common.Util.lib</ChakraCommonLibs>
     <ChakraCommonLibs>$(ChakraCommonLibs);$(ChakraCommonCodexLib)</ChakraCommonLibs>
 
-    <ChakraRuntimeLibs>$(RazzleJscriptObjectRoot)\lib\runtime\bytecode\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Bytecode.lib</ChakraRuntimeLibs>
+    <ChakraRuntimeLibs>$(RazzleJscriptObjectRoot)\core\lib\runtime\bytecode\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Bytecode.lib</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(ChakraRuntimeLanguageLib)</ChakraRuntimeLibs>
     
-    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\lib\runtime\library\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Library.lib</ChakraRuntimeLibs>
-    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\lib\runtime\math\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Math.lib</ChakraRuntimeLibs>
-    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\lib\runtime\types\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Types.lib</ChakraRuntimeLibs>
-    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\lib\runtime\telemetry\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Telemetry.lib</ChakraRuntimeLibs>
+    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\core\lib\runtime\library\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Library.lib</ChakraRuntimeLibs>
+    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\core\lib\runtime\math\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Math.lib</ChakraRuntimeLibs>
+    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\core\lib\runtime\types\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Types.lib</ChakraRuntimeLibs>
+    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\private\lib\telemetry\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Telemetry.lib</ChakraRuntimeLibs>
 
     <ChakraParserLibs>$(ChakraParserIntDir)Chakra.Parser.lib</ChakraParserLibs>
 
-    <ChakraBackendLibs>$(RazzleJscriptObjectRoot)\lib\backend\$(RazzleJscriptObjectDirectory)Chakra.Backend.lib</ChakraBackendLibs>
+    <ChakraBackendLibs>$(RazzleJscriptObjectRoot)\core\lib\backend\$(RazzleJscriptObjectDirectory)Chakra.Backend.lib</ChakraBackendLibs>
 
-    <ChakraWinRTLibs>$(RazzleJscriptObjectRoot)\lib\winrt\$(RazzleJscriptObjectDirectory)Chakra.WinRT.lib</ChakraWinRTLibs>
-    <ChakraMemProtectHeapLibs>$(RazzleJscriptObjectRoot)\lib\memprotectheap\$(RazzleJscriptObjectDirectory)Chakra.MemProtectHeap.lib</ChakraMemProtectHeapLibs>
+    <ChakraWinRTLibs>$(RazzleJscriptObjectRoot)\private\lib\winrt\$(RazzleJscriptObjectDirectory)Chakra.WinRT.lib</ChakraWinRTLibs>
+    <ChakraMemProtectHeapLibs>$(RazzleJscriptObjectRoot)\private\lib\memprotectheap\$(RazzleJscriptObjectDirectory)Chakra.MemProtectHeap.lib</ChakraMemProtectHeapLibs>
     
     <ChakraLibs>$(ChakraCommonLibs);$(ChakraRuntimeLibs);$(ChakraParserLibs);$(ChakraBackendLibs);$(ChakraWinRTLibs);$(ChakraMemProtectHeapLibs)</ChakraLibs>
 

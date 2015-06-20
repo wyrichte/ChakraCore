@@ -1,5 +1,6 @@
 BUILD_PASS1_CONSUMES= \
     inetcore\jscript\dll\microsoft.javascript|PASS1 \
+    inetcore\jscript\private\bin\microsoft.javascript|PASS1 \
 
 PUBLIC_PASS1_CONSUMES= \
     redist\mspartners\vs2010\vsts\binary_release\msil|PASS1 \
@@ -8,7 +9,7 @@ PUBLIC_PASS1_CONSUMES= \
     sdktools\wextest\sparta\runtime\wex.logger\interop\netfx4.5|PASS1 \
 
 BUILD_PASS2_CONSUMES= \
-    inetcore\jscript\dll\jscript\release|PASS2 \
-    inetcore\jscript\dll\jscript\release_chk|PASS2 \
-    inetcore\jscript\dll\jscript\test|PASS2 \
+    inetcore\jscript\private\bin\chakra\release|PASS2 \
+    inetcore\jscript\private\bin\chakra\release_chk|PASS2 \
+    inetcore\jscript\private\bin\chakra\test|PASS2 \
 

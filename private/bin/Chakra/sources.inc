@@ -225,7 +225,6 @@ LINKLIBS= \
     $(OBJECT_INETCORE_DIR)\lib\devtb\dtbhost\$(O)\iedevtools_host_iel1.lib \
     $(OBJECT_INETCORE_DIR)\lib\ScriptProjectionHost\iel3_edge\$(O)\ScriptProjectionHost_Edge_iel3.lib \
     $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib \
-    ..\..\..\Lib\Author\CodeMarkers\CodeMarkers.lib \
 
 TARGETLIBS= \
     $(BASE_LIB_PATH)\AppModel\Common\AppModel.Common.lib \

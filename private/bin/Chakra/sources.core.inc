@@ -62,9 +62,6 @@ INCLUDES= \
 #       LoadLatestPDM
 #       ShouldUseLocalPDM
 #
-#   ieshare_common_iel1.lib:
-#       IsOs_Mobilecore
-#
 #   codex_iel1.lib:
 #       utf8 support
 #
@@ -86,7 +83,6 @@ LINKLIBS= \
     $(INETCORE_LIB_PATH)\iertutilp.lib \
     $(INETCORE_LIB_PATH)\IESettingsId.lib \
     $(INETCORE_LIB_PATH)\IESettingsApi.lib \
-    $(OBJECT_INETCORE_DIR)\lib\common\iel1_sp\$(O)\ieshare_common_iel1.lib \
     $(MINCORE_PRIV_SDK_LIB_PATH)\pathcchapis.lib    \
     $(JS_LINK_LIBS) \
     $(JS_LIBS_WINRT) \

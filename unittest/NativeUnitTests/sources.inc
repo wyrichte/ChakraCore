@@ -8,7 +8,7 @@ TARGETLIBS=     \
     $(SDK_LIB_PATH)\shell32.lib \
     $(SDK_LIB_PATH)\version.lib \
     $(SDK_LIB_PATH)\shlwapi.lib \
-    $(OBJECT_JSCRIPT_DIR)\Dll\jscriptdiag\lib\$(O)\ChakraDiagLib.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\bin\ChakraDiag\lib\$(O)\ChakraDiagLib.lib \
 !if !$(FREEBUILD)
     $(SDK_LIB_PATH)\user32.lib \
 !endif

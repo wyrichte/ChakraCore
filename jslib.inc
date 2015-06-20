@@ -24,37 +24,37 @@ JS_LIBS_WINRT_TYPE = $(JS_LIBTYPE)
 !endif
 
 JS_LIBS_MEMPROTECTHEAP = \
-    $(OBJECT_JSCRIPT_DIR)\lib\memprotectheap\$(JS_LIBTYPE)\$(O)\chakra.memprotectheap.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\memprotectheap\$(JS_LIBTYPE)\$(O)\chakra.memprotectheap.lib \
 
 JS_LIBS_COMMON = \
-    $(OBJECT_JSCRIPT_DIR)\lib\common\common\$(JS_LIBTYPE)\$(O)\chakra.common.common.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\common\core\$(JS_LIBTYPE)\$(O)\chakra.common.core.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\common\memory\$(JS_LIBTYPE)\$(O)\chakra.common.memory.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\common\util\$(JS_LIBTYPE)\$(O)\chakra.common.util.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\common\exceptions\$(JS_LIBTYPE)\$(O)\chakra.common.exceptions.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\common\datastructures\$(JS_LIBTYPE)\$(O)\chakra.common.datastructures.lib \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\common\common\$(JS_LIBTYPE)\$(O)\chakra.common.common.lib \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\common\core\$(JS_LIBTYPE)\$(O)\chakra.common.core.lib \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\common\memory\$(JS_LIBTYPE)\$(O)\chakra.common.memory.lib \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\common\util\$(JS_LIBTYPE)\$(O)\chakra.common.util.lib \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\common\exceptions\$(JS_LIBTYPE)\$(O)\chakra.common.exceptions.lib \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\common\datastructures\$(JS_LIBTYPE)\$(O)\chakra.common.datastructures.lib \
     $(JS_LIBS_MEMPROTECTHEAP)
     
 
 JS_LIBS_PARSER_INC = \
-    $(OBJECT_JSCRIPT_DIR)\lib\parser\$(JS_LIBTYPE_LS)\$(O)
+    $(OBJECT_JSCRIPT_DIR)\core\lib\parser\$(JS_LIBTYPE_LS)\$(O)
 
 JS_LIBS_PARSER = \
-    $(OBJECT_JSCRIPT_DIR)\lib\parser\$(JS_LIBTYPE_LS)\$(O)\chakra.parser.lib 
+    $(OBJECT_JSCRIPT_DIR)\core\lib\parser\$(JS_LIBTYPE_LS)\$(O)\chakra.parser.lib 
 
 JS_LIBS_RUNTIME = \
-    $(OBJECT_JSCRIPT_DIR)\lib\runtime\language\$(JS_LIBTYPE)\$(O)\chakra.runtime.language.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\runtime\types\$(JS_LIBTYPE)\$(O)\chakra.runtime.types.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\runtime\library\$(JS_LIBTYPE)\$(O)\chakra.runtime.library.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\runtime\bytecode\$(JS_LIBTYPE_LS)\$(O)\chakra.runtime.bytecode.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\runtime\Math\$(JS_LIBTYPE)\$(O)\chakra.runtime.Math.lib \
-    $(OBJECT_JSCRIPT_DIR)\lib\runtime\Telemetry\$(JS_LIBTYPE)\$(O)\chakra.runtime.Telemetry.lib \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\language\$(JS_LIBTYPE)\$(O)\chakra.runtime.language.lib \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\types\$(JS_LIBTYPE)\$(O)\chakra.runtime.types.lib \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\library\$(JS_LIBTYPE)\$(O)\chakra.runtime.library.lib \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\bytecode\$(JS_LIBTYPE_LS)\$(O)\chakra.runtime.bytecode.lib \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\Math\$(JS_LIBTYPE)\$(O)\chakra.runtime.Math.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\Telemetry\$(JS_LIBTYPE)\$(O)\chakra.runtime.Telemetry.lib \
 
 JS_LIBS_WINRT = \
-    $(OBJECT_JSCRIPT_DIR)\lib\winrt\$(JS_LIBS_WINRT_TYPE)\$(O)\chakra.winrt.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\winrt\$(JS_LIBS_WINRT_TYPE)\$(O)\chakra.winrt.lib \
 
 JS_LIBS_BACKEND = \
-    $(OBJECT_JSCRIPT_DIR)\lib\backend\$(JS_LIBTYPE)\$(O)\chakra.backend.lib \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\backend\$(JS_LIBTYPE)\$(O)\chakra.backend.lib \
 
 JS_LINK_LIBS = \
     $(JS_LIBS_COMMON) \
