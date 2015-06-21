@@ -3,7 +3,7 @@
   <test>
     <default>
       <tags>Intl,exclude_dynapogo,exclude_drt,exclude_nightly</tags>
-      <compile-flags>-relbasepath lib\runtime\library\injavascript -bytecodefn Intl</compile-flags>
+      <compile-flags>-relbasepath core\lib\runtime\library\injavascript -bytecodefn Intl</compile-flags>
       <command>ValidateGeneratedByteCode.cmd</command>
       <files>Dummy.js</files>
       <baseline>ValidateGeneratedByteCode.bsl</baseline>

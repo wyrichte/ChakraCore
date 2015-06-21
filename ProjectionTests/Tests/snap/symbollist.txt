@@ -2,7 +2,6 @@
 %build.nttree%\Symbols.pri\jscript\dll\jscript9test.pdb;%DropShare%\Symbols.pri\jscript\dll
 %build.nttree%\Symbols.pri\jscript\dll\jscript9diagtest.pdb;%DropShare%\Symbols.pri\jscript\dll
 %build.nttree%\Symbols.pri\jscript\exe\jshost.pdb;%DropShare%\Symbols.pri\jscript\exe
-%build.nttree%\Symbols.pri\jscript\exe\jsgen.pdb;%DropShare%\Symbols.pri\jscript\exe
 %build.nttree%\Symbols.pri\jscript\exe\jdtest.pdb;%DropShare%\Symbols.pri\jscript\exe
 %build.nttree%\Symbols.pri\jscript\exe\JsEtwConsole.pdb;%DropShare%\Symbols.pri\jscript\exe
 %build.nttree%\Symbols.pri\Projection\dll\Animals.pdb;%DropShare%\Symbols.pri\Projection\dll

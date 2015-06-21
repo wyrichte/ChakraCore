@@ -228,7 +228,6 @@ LINKLIBS= \
 
 TARGETLIBS= \
     $(BASE_LIB_PATH)\AppModel\Common\AppModel.Common.lib \
-    $(INETCORE_LIB_PATH)\ieuuidp.lib \
     $(MINCORE_PRIV_SDK_LIB_PATH)\1.3\ext-ms-win-com-ole32-l1.lib \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\ext-ms-win-rometadata-dispenser-l1.lib \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \

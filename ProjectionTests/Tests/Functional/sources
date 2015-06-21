@@ -5,11 +5,8 @@ TARGET_DESTINATION=Projection\DevTests
 NTTARGETFILE2=DoBinplaceTestFiles
 
 PASS1_BINPLACE=\
-    .\CompleteJsGen.cmd \
-    -:DEST Projection\DevTests\Configs jsgen.exe.config \
     .\run.cmd \
     .\runonly.cmd \
-    -:DEST Projection\SNAP\Functional dotest.cmd \
     .\registerABIs.cmd \
     .\LanguageService.rsp \
     .\rlexe.xml \

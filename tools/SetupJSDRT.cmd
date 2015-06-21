@@ -373,9 +373,6 @@ set _scriptFullname=%~f0
     call :CheckXCopyErrorLevel
     echo.
 
-    echo Copying jsgen
-    xcopy /y %_binRoot%\jsgen.exe %_targetDir%\JsHost
-    xcopy /y %_targetDir%\Tests\Functional\jsgen.exe.config %_targetDir%\JsHost
     xcopy /y %_targetDir%\JsHost\*.* %_targetDir%\Tests\Configurable
     xcopy /y %_targetDir%\JsHost\*.* %_targetDir%\Tests\Functional
     xcopy /y %_targetDir%\JsHost\*.* %_targetDir%\Tests\HeapDump

@@ -589,18 +589,7 @@
             throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
         }
 
-        logger.logLine("Copying jsgen", "Setup");
-
         exitCode = shell.xCopy("{0}\\*.winmd".format(config.snapBinRoot), jshostDir, "/y");
-        if (!exitCode.isSuccess) {
-            throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
-        }
-
-        exitCode = shell.xCopy("{0}\\Tests\\Functional\\jsgen.exe.config".format(snapTargetDir), jshostDir, "/y");
-        if (!exitCode.isSuccess) {
-            throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
-        }
-        exitCode = shell.xCopy("{0}\\jsgen.exe".format(config.snapJSRoot), jshostDir, "/y");
         if (!exitCode.isSuccess) {
             throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
         }
