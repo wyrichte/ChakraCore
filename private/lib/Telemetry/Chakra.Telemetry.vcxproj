@@ -5,7 +5,7 @@
   </PropertyGroup>
   <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
   <PropertyGroup Label="Globals">
-    <TargetName>Chakra.Runtime.Telemetry</TargetName>
+    <TargetName>Chakra.Telemetry</TargetName>
     <ProjectGuid>{6EA087D4-1983-43D3-8C7E-0A79BC4327F6}</ProjectGuid>
     <RootNamespace>JS</RootNamespace>
     <Keyword>Win32Proj</Keyword>

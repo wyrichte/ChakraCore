@@ -455,7 +455,7 @@ function runConsoleUnitTests(bldType, bldArch, timeOut, args, inRazzle, inDRT)
     var isSnapRunBool = /-snap/i.test(isSnapRun);
     if (isSnapRunBool) {
         //Projection and JSLS tests are skipped on SNAP builders by the previous implementation below
-        var chakraToolCommand = "chakra test -trace:*.* -unit:\"-variants:interpreted;dynapogo\" -projection- -jsls- -traceTestOutput -drt:" + inDRT + " -snap:" + isSnapRunBool + " -buildType:" + bldType + " -platform:" + bldArch;
+        var chakraToolCommand = "chakra test -trace:*.* -unit:\"-variants:interpreted;dynapogo\" -projection- -traceTestOutput -drt:" + inDRT + " -snap:" + isSnapRunBool + " -buildType:" + bldType + " -platform:" + bldArch;
 
         WScript.Echo(chakraToolCommand);
         var returned = runCmdToLog(chakraToolCommand, runSetTimeout(60 * 60 /* minutes */, runSetNoThrow()));

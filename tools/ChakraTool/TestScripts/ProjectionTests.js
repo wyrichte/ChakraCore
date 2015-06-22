@@ -117,6 +117,16 @@
             "{0}".format(config.projectionsBinRoot),
             "/y", XCopyUNCTarget.Directory);
 
+        shell.xCopy(
+            "{0}\\jshost.exe".format(config.jsBinRoot),
+            "{0}".format(config.projectionsBinRoot),
+            "/y", XCopyUNCTarget.Directory);
+
+        shell.xCopy(
+            "{0}\\chakratest.dll".format(config.jsBinRoot),
+            "{0}".format(config.projectionsBinRoot),
+            "/y", XCopyUNCTarget.Directory);
+
         logger.logLine("Finished Enlistment setup.", "Setup");
     }
 
@@ -321,7 +331,6 @@
         if (!exitCode.isSuccess) {
             throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
         }
-
         
         exitCode = shell.xCopy("{0}\\*.winmd".format(config.snapMDRoot), jshostDir, "/y");
         if (!exitCode.isSuccess) {

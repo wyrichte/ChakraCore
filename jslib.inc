@@ -17,12 +17,6 @@ JS_LIBTYPE_LS = ls_release
 JS_LIBTYPE_LS = $(JS_LIBTYPE)
 !endif
 
-!ifdef JSGEN
-JS_LIBS_WINRT_TYPE = jsgen
-!else
-JS_LIBS_WINRT_TYPE = $(JS_LIBTYPE)
-!endif
-
 JS_LIBS_MEMPROTECTHEAP = \
     $(OBJECT_JSCRIPT_DIR)\private\lib\memprotectheap\$(JS_LIBTYPE)\$(O)\chakra.memprotectheap.lib \
 
@@ -48,10 +42,10 @@ JS_LIBS_RUNTIME = \
     $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\library\$(JS_LIBTYPE)\$(O)\chakra.runtime.library.lib \
     $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\bytecode\$(JS_LIBTYPE_LS)\$(O)\chakra.runtime.bytecode.lib \
     $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\Math\$(JS_LIBTYPE)\$(O)\chakra.runtime.Math.lib \
-    $(OBJECT_JSCRIPT_DIR)\private\lib\Telemetry\$(JS_LIBTYPE)\$(O)\chakra.runtime.Telemetry.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\Telemetry\$(JS_LIBTYPE)\$(O)\chakra.Telemetry.lib \
 
 JS_LIBS_WINRT = \
-    $(OBJECT_JSCRIPT_DIR)\private\lib\winrt\$(JS_LIBS_WINRT_TYPE)\$(O)\chakra.winrt.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\winrt\$(JS_LIBTYPE)\$(O)\chakra.winrt.lib \
 
 JS_LIBS_BACKEND = \
     $(OBJECT_JSCRIPT_DIR)\core\lib\backend\$(JS_LIBTYPE)\$(O)\chakra.backend.lib \
