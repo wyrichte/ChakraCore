@@ -398,7 +398,7 @@ if "%_runT262%"=="1" (
     if not exist %_BuildFlavorLogs% (
         mkdir %_BuildFlavorLogs%
     )
-    powershell %SDXROOT%\inetcore\jscript\tools\Test262\RunTest262Test.ps1 -b %_NTTREE%\jscript\jshost.exe -c "-es6all" -s 75 -f %SDXROOT%\inetcore\jscript\tools\Test262 -o %_BuildFlavorLogs%\Test262Results.log
+    powershell %SDXROOT%\inetcore\jscript\tools\Test262\RunTest262Test.ps1 -b %_NTTREE%\jscript\jshost.exe -c "-es6all" -s 75 -f %_BuildType% -l %SDXROOT%\inetcore\jscript\tools\Test262 -o %_BuildFlavorLogs%\Test262Results.log
     echo #################Done with Test262 tests#################
 )
 echo.

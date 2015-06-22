@@ -3,7 +3,8 @@ $global:t262Root                = "{0}\Test262" -f $Env:SystemDrive
 $global:t262ConfigFilePath      = "{0}\t262.js" -f $global:t262Root
 $t262PublicRepo                 = "https://github.com/tc39/test262"
 $global:exePath                 = ".\Jshost.exe"
-$global:exeArgs                 = "-es6all"
+$global:exeArgs                 = ""
+$global:flavor                  = "fre"
 $batchSize                      = 75
 $global:runFolder               = $null
 $global:knownFailuresListFolder = "\\bptserver1\users\tools\Test262"
@@ -34,12 +35,13 @@ Function Check-Environment
 
 Function Print-Usage
 {
-    Write-Host "powershell RunTest262Test.ps1 {-bin|-b} <full path to your exe> [{-config|-c} <config keys or args to use with the exe>] [{-batchsize|-b} <number of scripts to group together>] [-knownfailures <path to the file containing test cases that are expected to fail>] [-output <Path to the output file>]" -ForegroundColor Yellow
+    Write-Host "powershell RunTest262Test.ps1 {-bin|-b} <full path to your exe> [{-config|-c} <config keys or args to use with the exe>] [{-batchsize|-b} <number of scripts to group together>] [{-knownfailures|-l} <path to the file containing test cases that are expected to fail>] [{-output|-o} <Path to the output file>] [{-flavor|-f} <flavor>]" -ForegroundColor Yellow
     Write-Host "bin           : Specify the complete path to your exe. e.g.: C:\test262\bin\jshost.exe" -ForegroundColor Yellow
     Write-Host "config        : Specify the args to be used with your exe. e.g.: -es6all. This is the default value." -ForegroundColor Yellow
     Write-Host "batchsize     : Specify the size of the tests to group together. e.g.: 75. 75 is the default value." -ForegroundColor Yellow
     Write-Host "knownFailures : Path to the dir which has files with test cases expected to fail. Default is $knownFailuresListFolder. Maker sure the files should be named KnownFailures.txt or KnownFailures-Es6All.txt etc." -ForegroundColor Yellow
     Write-Host "output        : File to dump the actual test output. Default path is .\Test262Results.log" -ForegroundColor Yellow
+	Write-Host "flavor        : Flavor for the run, either fre or chk. Default is fre." -ForegroundColor Yellow
 }
 
 Function Parse-Args ($cmdArgs)
@@ -75,7 +77,7 @@ Function Parse-Args ($cmdArgs)
             $i++
             $global:runFolder = $cmdArgs[$i]
         }
-        elseif (($cmdArgs[$i] -eq "-knownfailures") -or ($cmdArgs[$i] -eq "-f"))
+        elseif (($cmdArgs[$i] -eq "-knownfailures") -or ($cmdArgs[$i] -eq "-l"))
         {
             $i++
             $global:knownFailuresListFolder = $cmdArgs[$i]
@@ -85,6 +87,11 @@ Function Parse-Args ($cmdArgs)
             $i++
             $global:outputFile = $cmdArgs[$i]
         }
+		elseif (($cmdArgs[$i] -eq "-flavor") -or ($cmdArgs[$i] -eq "-f"))
+		{
+			$i++
+			$global:flavor = $cmdArgs[$i]
+		}
         else
         {
             Write-Host "Unexpected argument " ($cmdArgs[$i]) -ForegroundColor Red
@@ -321,14 +328,14 @@ Function Parse-Failures($results)
     }
 
     Write-Host "Summary : " 
-    Write-Host $summary
+    Write-Host $summary -ForegroundColor Yellow
 
     return $failedTCs
 }
 
 Function Get-KnownFailureListFile
 {
-    return "{0}\KnownFailures{1}.txt" -f $global:knownFailuresListFolder, $global:exeArgs
+    return "{0}\KnownFailures-{1}{2}.txt" -f $global:knownFailuresListFolder, $global:flavor, $global:exeArgs
 }
 
 Function Summarize-Results ($global:failedTCsArray)
@@ -339,7 +346,7 @@ Function Summarize-Results ($global:failedTCsArray)
     $knownFailuresList = Get-KnownFailureListFile
     if (-not (Test-Path($knownFailuresList)))
     {
-        Write-Host "Known failure list is not found at $knownFailuresList" -Foreground Red
+        Write-Host "Known failure list is not found at $knownFailuresList" -ForegroundColor Red
         return
     }
     else
@@ -349,9 +356,6 @@ Function Summarize-Results ($global:failedTCsArray)
 
     $passed = $true
     $knownFailures = Get-Content $knownFailuresList
-
-    Write-Host "Expected count of test cases that fails : " $knownFailures.Length
-    Write-Host "Actual number of test cases that failed : " $failedTCs.Count
 
     for ($i = 0; $i -lt $knownFailures.Length; $i++)
     {

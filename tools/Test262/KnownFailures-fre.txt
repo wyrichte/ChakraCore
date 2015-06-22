@@ -162,7 +162,7 @@ test262/test/intl402/13.1.1_3_1.js::::Test262Error::::localeCompare treats true 
 test262/test/intl402/13.1.1_3_2.js::::Test262Error::::String.prototype.localeCompare does not treat missing 'that' argument as undefined.
 test262/test/intl402/6.2.2_c.js::::Test262Error::::Invalid language tag de-gregory-gregory was not rejected. (Testing with Collator.)
 test262/test/intl402/6.2.3.js::::Test262Error::::For de got de-DE; expected one of de. (Testing with Collator.)
-test262/test/intl402/9.1_b.js::::Test262Error::::Locale zh-Hans-HK is supported, but fallback zh-Hans isn't. (Testing with Collator.)
+test262/test/intl402/9.1_b.js::::Test262Error::::Locale zh-CN is supported, but fallback zh isn't. (Testing with Collator.)
 test262/test/intl402/9.2.2.js::::Test262Error::::Locale zh-CN is returned by resolvedOptions but not by supportedLocalesOf. (Testing with Collator.)
 test262/test/language/generators/Generator_restricted-properties.js::::SyntaxError::::Expected identifier
 test262/test/built-ins/Boolean/prototype/S15.6.3.1_A1.js::::Test262Error::::|#2.1: "(Boolean.prototype != false)" lead to throwing exception. Exception is instance of TypeError. Actual: exception is ReferenceError: 'testFailed' is undefined

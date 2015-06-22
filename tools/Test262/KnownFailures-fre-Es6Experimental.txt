@@ -209,7 +209,7 @@ test262/test/intl402/12.3.2_1_a_L15.js::::Test262Error::::The length property of
 test262/test/intl402/12.3.2_FDT_7_a_iv.js::::TypeError::::Invalid procedure call or argument
 test262/test/intl402/6.2.2_c.js::::Test262Error::::Invalid language tag de-gregory-gregory was not rejected. (Testing with Collator.)
 test262/test/intl402/6.2.3.js::::Test262Error::::For de got de-DE; expected one of de. (Testing with Collator.)
-test262/test/intl402/9.1_b.js::::Test262Error::::Locale zh-Hans-HK is supported, but fallback zh-Hans isn't. (Testing with Collator.)
+test262/test/intl402/9.1_b.js::::Test262Error::::Locale zh-CN is supported, but fallback zh isn't. (Testing with Collator.)
 test262/test/intl402/9.2.2.js::::Test262Error::::Locale zh-CN is returned by resolvedOptions but not by supportedLocalesOf. (Testing with Collator.)
 test262/test/built-ins/Set/set-iterator-close-after-add-failure.js::::Test262Error::::The iterator is closed when `Set.prototype.add` throws an error. Expected SameValue(0, 1) to be true
 test262/test/built-ins/SetIteratorPrototype/Symbol.toStringTag.js::::Test262Error::::|`'Set Iterator'` is `SetIteratorProto[Symbol.toStringTag]` Expected SameValue(Set Iterator, undefined) to be true
