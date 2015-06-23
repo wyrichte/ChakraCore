@@ -138,7 +138,7 @@
     <default>
       <files>samethread.js</files>
       <baseline>samethread_es6.baseline</baseline>
-      <tags>typedarray,Slow</tags>
+      <tags>typedarray</tags>
     </default>
   </test>
   <!--
@@ -216,13 +216,13 @@ Below test fails with difference in space. Investigate the cause and re-enable t
   <test>
     <default>
       <files>allocation.js</files>
-      <tags>typedarray,exclude_arm,Slow,Slow</tags>
+      <tags>typedarray,exclude_arm</tags>
     </default>
   </test>
   <test>
     <default>
       <files>allocation2.js</files>
-      <tags>typedarray,exclude_arm,Slow</tags>
+      <tags>typedarray,exclude_arm</tags>
     </default>
   </test>
   <test>
@@ -291,5 +291,13 @@ Below test fails with difference in space. Investigate the cause and re-enable t
       <compile-flags>-maxinterpretcount:1 -off:simplejit</compile-flags>
       <tags>typedarray</tags>
     </default>
-  </test>
+</test>
+<test>
+    <default>
+        <files>transfer.js</files>
+        <baseline>transfer.baseline</baseline>
+        <tags>typedarray</tags>
+        <compile-flags>-ArrayBufferTransfer</compile-flags>
+    </default>
+</test>
 </regress-exe>

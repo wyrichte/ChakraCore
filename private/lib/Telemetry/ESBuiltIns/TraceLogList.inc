@@ -49,7 +49,8 @@
             TraceLoggingInt32( Get( ESBuiltInPropertyId::ArrayBuffer_Constructor___constructor ), "ArrayBuffer_Constructor___constructor" ),
             TraceLoggingInt32( Get( ESBuiltInPropertyId::ArrayBuffer_Prototype_byteLength ), "ArrayBuffer_Prototype_byteLength" ),
             TraceLoggingInt32( Get( ESBuiltInPropertyId::ArrayBuffer_Constructor_isView ), "ArrayBuffer_Constructor_isView" ),
-            TraceLoggingInt32( Get( ESBuiltInPropertyId::ArrayBuffer_Prototype_slice ), "ArrayBuffer_Prototype_slice" )
+            TraceLoggingInt32( Get( ESBuiltInPropertyId::ArrayBuffer_Prototype_slice ), "ArrayBuffer_Prototype_slice" ),
+            TraceLoggingInt32( Get( ESBuiltInPropertyId::ArrayBuffer_Constructor_transfer ), "ArrayBuffer_Constructor_transfer" )
         );
 
         TraceLogChakra("ESBuiltIns_Boolean_0" /* #3 */,
