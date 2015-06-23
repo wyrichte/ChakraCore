@@ -956,7 +956,13 @@
   <test>
     <default>
       <files>destructuring.js</files>
-      <compile-flags> -noNative -ES6Rest -ES6Classes -ES6Super -ES6StringTemplate -ES6Destructuring -ES6DefaultArgs -args summary -endargs</compile-flags>
+      <compile-flags>-ES6Rest -ES6Classes -ES6Super -ES6StringTemplate -ES6Destructuring -ES6DefaultArgs -args summary -endargs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>destructuring_obj.js</files>
+      <compile-flags>-ES6Rest -ES6Classes -ES6Super -ES6StringTemplate -ES6Destructuring -ES6DefaultArgs -args summary -endargs</compile-flags>
     </default>
   </test>
   <!--
