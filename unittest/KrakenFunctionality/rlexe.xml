@@ -4,6 +4,7 @@
     <default>
       <files>json-stringify-tinderbox.js</files>
       <baseline>json-stringify-tinderbox.baseline</baseline>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>

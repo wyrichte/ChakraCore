@@ -23,7 +23,7 @@
     <default>
       <files>biops.js</files>
       <baseline>biops.baseline</baseline>
-      <tags>fail_mutators</tags>
+      <tags>fail_mutators,Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -141,6 +141,7 @@
     <default>
       <files>property.js</files>
       <baseline>property.baseline</baseline>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>

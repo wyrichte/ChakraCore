@@ -39,7 +39,7 @@
       <files>InlineConstructors.js</files>
       <baseline>InlineConstructors.baseline</baseline>
       <compile-flags>-force:inline</compile-flags>
-      <tags>exclude_ship,exclude_arm</tags>
+      <tags>exclude_ship,exclude_arm,Slow,Slow</tags>
     </default>
   </test>
   <test>

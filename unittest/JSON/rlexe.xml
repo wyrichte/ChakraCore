@@ -18,7 +18,7 @@
       <files>stringify-replacer.js</files>
       <baseline>stringify-replacer.baseline</baseline>
       <compile-flags>-recyclerstress</compile-flags>
-      <tags>exclude_fre</tags>
+      <tags>exclude_fre,Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -26,7 +26,7 @@
       <files>stringify-replacerfunc.js</files>
       <baseline>stringify-replacerfunc.baseline</baseline>
       <compile-flags>-recyclerstress</compile-flags>
-      <tags>exclude_fre</tags>
+      <tags>exclude_fre,Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -60,7 +60,7 @@
       <files>simple.withLog.js</files>
       <baseline>simple.withLog.baseline</baseline>
       <compile-flags>-recyclerstress -trace:JSON</compile-flags>
-      <tags>exclude_fre</tags>
+      <tags>exclude_fre,Slow</tags>
     </default>
   </test>
   <test>

@@ -394,6 +394,7 @@
     <default>
       <files>ES6TypedArrayExtensions.js</files>
       <compile-flags> -ES6 -ES6TypedArrayExtensions -es6tostringtag -ES6ObjectLiterals -ES6Iterators -KhronosInterop -ES6ArrayUseConstructor -args summary -endargs</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -558,6 +559,7 @@
     <default>
       <files>unicode_convertUTF8.js</files>
       <compile-flags> -ES6Unicode</compile-flags>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -570,7 +572,7 @@
     <default>
       <files>bug620694.js</files>
       <compile-flags>-es6all -recyclerstress</compile-flags>
-      <tags>exclude_fre</tags>
+      <tags>exclude_fre,Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -709,7 +711,7 @@
       <files>unicode_regex_surrogate.js</files>
       <baseline>unicode_regex_surrogate.baseline</baseline>
       <compile-flags> -ES6Unicode -ES6RegexChanges</compile-flags>
-      <tags>exclude_ship</tags>
+      <tags>exclude_ship,Slow,Slow</tags>
     </default>
   </test>
   <test>

@@ -34,31 +34,31 @@
 <dir>
   <default>
     <files>SunSpider</files>
-    <tags>exclude_snap</tags>
+    <tags>exclude_snap,Slow</tags>
   </default>
 </dir>
 <dir>
   <default>
     <files>SunSpider1.0.2</files>
-    <tags>exclude_snap</tags>
+    <tags>exclude_snap,Slow</tags>
   </default>
 </dir>
 <dir>
   <default>
     <files>SunSpiderFunctionality</files>
-    <tags>exclude_snap</tags>
+    <tags>exclude_snap,Slow</tags>
   </default>
 </dir>
 <dir>
   <default>
     <files>V8</files>
-    <tags>exclude_snap</tags>
+    <tags>exclude_snap,Slow</tags>
   </default>
 </dir>
 <dir>
   <default>
     <files>V8_Functionality</files>
-    <tags>exclude_snap</tags>
+    <tags>exclude_snap,Slow</tags>
   </default>
 </dir>
 <dir>
@@ -76,7 +76,7 @@
 <dir>
   <default>
     <files>Generated</files>
-    <tags>include_drt1</tags>
+    <tags>include_drt1,Slow</tags>
   </default>
 </dir>
 <dir>
@@ -428,7 +428,7 @@
 <dir>
   <default>
     <files>PerfHint</files>
-    <tags>exclude_serialized,exclude_snap</tags>
+    <tags>exclude_serialized,exclude_snap,Slow</tags>
   </default>
 </dir>
 

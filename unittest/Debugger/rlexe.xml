@@ -4,6 +4,7 @@
     <default>
       <files>richards.js</files>
       <compile-flags>-debuglaunch -Intl- -DeferLoadingAvailableSource</compile-flags>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -153,7 +154,7 @@
       <files>simpletest.js</files>
       <compile-flags>-debuglaunch -auto -dbgbaseline:simpletest.debugger.baseline -Intl-  -DeferLoadingAvailableSource</compile-flags>
       <baseline>simpletest.baseline</baseline>
-      <tags>fail_mutators</tags>
+      <tags>fail_mutators,Slow</tags>
     </default>
   </test>
   <test>
@@ -161,7 +162,7 @@
       <files>simpletest.js</files>
       <compile-flags>-jsrt -debuglaunch -auto -dbgbaseline:simpletest.debugger.jsrt.baseline -Intl- -DeferLoadingAvailableSource</compile-flags>
       <baseline>simpletest.baseline</baseline>
-      <tags>fail_mutators</tags>
+      <tags>fail_mutators,Slow</tags>
     </default>
   </test>
   <test>
@@ -353,7 +354,7 @@
       <files>catchInspection.js</files>
       <command>jdtest.exe -dbgbaseline:catchInspection.js.dbg.baseline -targeted jshost</command>
       <compile-flags>-debuglaunch:hybrid -es6functionnamefull -Intl- -DeferLoadingAvailableSource</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_jsrt,exclude_dynapogo,Slow</tags>
     </default>
   </test>
   <test>
@@ -393,7 +394,7 @@
       <baseline>intlib.hybrid.baseline</baseline>
       <command>jdtest.exe -targeted -dbgbaseline:intlib.js.hybrid.dbg.baseline jshost</command>
       <compile-flags>-debuglaunch:hybrid -Intl -LibraryStackFrame</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_jsrt,exclude_dynapogo,Slow</tags>
     </default>
   </test>
   <test>
@@ -1082,7 +1083,7 @@
     <default>
       <files>mapSetWeakmap.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:mapSetWeakmap.js.dbg.baseline -Intl- -es6classes</compile-flags>
-      <tags>fail_mutators</tags>
+      <tags>fail_mutators,Slow</tags>
     </default>
   </test>
   <test>
@@ -1090,7 +1091,7 @@
       <files>mapSetWeakmap.js</files>
       <command>jdtest.exe -dbgbaseline:mapSetWeakmap.js.dbg.hybrid.baseline -targeted jshost</command>
       <compile-flags>-debuglaunch:hybrid -Intl- -es6classes</compile-flags>
-      <tags>fail_mutators</tags>
+      <tags>fail_mutators,Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -1856,14 +1857,14 @@
     <default>
       <files>detachAttachBasicTest.js</files>
       <compile-flags>-Intl-</compile-flags>
-      <tags>fail_mutators</tags>
+      <tags>fail_mutators,Slow,Slow</tags>
     </default>
   </test>
   <test>
     <default>
       <files>detachAttachBasicTest.js</files>
       <compile-flags>-automaticsourcerundown -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
+      <tags>fail_mutators,Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -3043,7 +3044,7 @@
       <files>582505.js</files>
       <command>jdtest.exe -targeted jshost</command>
       <compile-flags> -debuglaunch:hybrid -off:inline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>fail_mutators,exclude_dynapogo,Slow</tags>
     </default>
   </test>
   <test>
@@ -3630,6 +3631,7 @@
       <files>ObjLit_breakpoints.js</files>
       <baseline>Baselines\ObjLit_breakpoints.js.baseline</baseline>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:DbgBaselines\ObjLit_breakpoints.js.dbg.baseline</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -3666,7 +3668,7 @@
       <command>jdtest.exe -targeted -dbgbaseline:HybridDbgBaselines\ObjLit_breakpoints.js.dbg.baseline jshost</command>
       <baseline>Baselines\ObjLit_breakpoints.js.hybrid.baseline</baseline>
       <compile-flags>-debugLaunch:hybrid</compile-flags>
-      <tags>exclude_dynapogo,exclude_serialized</tags>
+      <tags>exclude_dynapogo,exclude_serialized,Slow</tags>
     </default>
   </test>
   <test>

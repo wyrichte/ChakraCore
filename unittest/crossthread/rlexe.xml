@@ -103,6 +103,7 @@
     <default>
       <files>marshalsetter.js</files>
       <baseline>marshalsetter.baseline</baseline>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -110,7 +111,7 @@
       <files>marshalsetter.js</files>
       <baseline>marshalsetter.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_ship</tags>
+      <tags>exclude_ship,Slow</tags>
     </default>
   </test>
   <test>
@@ -201,7 +202,7 @@
       <compile-flags> -FaultInjection:1 -FaultInjectionCount:0 -FaultInjectionType:64 -FaultInjectionScriptContextToTerminateCount:2 </compile-flags>
       <files>FaultInjectionForScriptTermination.js</files>
       <baseline>FaultInjectionForScriptTermination.baseline</baseline>
-      <tags>exclude_fre,exclude_apollo</tags>
+      <tags>exclude_fre,exclude_apollo,Slow,Slow</tags>
     </default>
   </test>
   <test>

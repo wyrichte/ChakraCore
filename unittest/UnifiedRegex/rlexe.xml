@@ -16,6 +16,7 @@
     <default>
       <files>bugFixRegression.js</files>
       <baseline>bugFixRegression.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -23,7 +24,7 @@
       <files>bugFixRegression.js</files>
       <baseline>bugFixRegression.baseline</baseline>
       <compile-flags>-forceSerialized</compile-flags>
-      <tags>exclude_ship,exclude_serialized</tags>
+      <tags>exclude_ship,exclude_serialized,Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -72,12 +73,14 @@
     <default>
       <files>gmail.js</files>
       <baseline>gmail.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>
     <default>
       <files>lastIndex.js</files>
       <baseline>lastIndex.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -120,6 +123,7 @@
     <default>
       <files>quantifiableAssertions.js</files>
       <baseline>quantifiableAssertions.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -144,6 +148,7 @@
     <default>
       <files>v8bench.js</files>
       <baseline>v8bench.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>

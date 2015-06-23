@@ -138,7 +138,7 @@
     <default>
       <files>samethread.js</files>
       <baseline>samethread_es6.baseline</baseline>
-      <tags>typedarray</tags>
+      <tags>typedarray,Slow</tags>
     </default>
   </test>
   <!--
@@ -216,13 +216,13 @@ Below test fails with difference in space. Investigate the cause and re-enable t
   <test>
     <default>
       <files>allocation.js</files>
-      <tags>typedarray,exclude_arm</tags>
+      <tags>typedarray,exclude_arm,Slow,Slow</tags>
     </default>
   </test>
   <test>
     <default>
       <files>allocation2.js</files>
-      <tags>typedarray,exclude_arm</tags>
+      <tags>typedarray,exclude_arm,Slow</tags>
     </default>
   </test>
   <test>

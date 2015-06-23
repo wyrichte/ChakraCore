@@ -59,6 +59,7 @@
     <default>
       <files>regex_gmail.js</files>
       <baseline>regex_gmail.baseline</baseline>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>

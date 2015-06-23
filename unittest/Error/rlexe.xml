@@ -129,6 +129,7 @@
     <default>
       <files>encodeoverflow.js</files>
       <baseline>encodeoverflow.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -141,6 +142,7 @@
     <default>
       <files>stackoverflow.js</files>
       <baseline>stackoverflow.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>

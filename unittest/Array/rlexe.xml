@@ -10,6 +10,7 @@
     <default>
       <files>array_init.js</files>
       <baseline>array_init.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -23,7 +24,7 @@
     <default>
       <compile-flags>-args summary -endargs -ForceArrayBTree -recyclerStress</compile-flags>
       <files>SpliceBtreeMemoryCorruption.js</files>
-      <tags>exclude_fre</tags>
+      <tags>exclude_fre,Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -411,7 +412,7 @@
       <compile-flags>-recyclerStress</compile-flags>
       <files>array_literal.js</files>
       <baseline>array_literal.baseline</baseline>
-      <tags>exclude_fre</tags>
+      <tags>exclude_fre,Slow,Slow</tags>
     </default>
   </test>
   <test>

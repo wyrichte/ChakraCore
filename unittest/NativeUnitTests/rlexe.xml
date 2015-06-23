@@ -58,7 +58,7 @@
   </test>
   <test>
     <default>
-      <tags>exclude_jsrt</tags>
+      <tags>exclude_jsrt,Slow,Slow</tags>
       <compile-flags>-es6- -KhronosInterop- -nativetest:NativeUnitTests.dll TypedArray</compile-flags>
       <files>dummy.js</files>
       <baseline>TypedArray.baseline</baseline>
@@ -72,7 +72,7 @@
   </test>
   <test>
     <default>
-      <tags>exclude_jsrt</tags>
+      <tags>exclude_jsrt,Slow,Slow</tags>
       <compile-flags>-ES6TypedArrayExtensions -KhronosInterop -nativetest:NativeUnitTests.dll TypedArrayES6</compile-flags>
       <files>dummy.js</files>
       <baseline>TypedArray.ES6.baseline</baseline>

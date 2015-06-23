@@ -121,7 +121,7 @@
     <default>
       <files>locals2.js</files>
       <compile-flags>-targeted -debuglaunch -InspectMaxStringLength:256 -VerifyShortAndFullNameValues-</compile-flags>
-      <tags>exclude_jsrt</tags>
+      <tags>exclude_jsrt,Slow,Slow</tags>
     </default>
   </test>
   <!--
@@ -191,7 +191,7 @@
       <files>this.js</files>
       <command>jdtest.exe -targeted -dbgbaseline:this.js.dbg.hybrid.baseline jshost</command>
       <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>exclude_jsrt</tags>
+      <tags>exclude_jsrt,Slow</tags>
     </default>
   </test>
   <test>
@@ -298,7 +298,7 @@
       <files>hybrid1.js</files>
       <command>jdtest.exe -dbgbaseline:hybrid1.js.dbg.baseline -auto jshost</command>
       <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_jsrt,exclude_dynapogo,Slow</tags>
     </default>
   </test>
   <test>
@@ -306,7 +306,7 @@
       <files>hybrid2.js</files>
       <command>jdtest.exe -dbgbaseline:hybrid2.js.dbg.baseline -targeted jshost</command>
       <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_jsrt,exclude_dynapogo,Slow</tags>
     </default>
   </test>
   <test>

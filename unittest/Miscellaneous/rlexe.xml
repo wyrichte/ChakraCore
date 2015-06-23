@@ -32,7 +32,7 @@
       <files>dumpGlobOptAssertTest.js</files>
       <baseline />
       <compile-flags>-mic:1 -dump:globopt -off:simplejit</compile-flags>
-      <tags>exclude_ship,exclude_dynapogo</tags>
+      <tags>exclude_ship,exclude_dynapogo,Slow</tags>
     </default>
   </test>
   <test>
@@ -91,6 +91,7 @@
     <default>
       <files>neuterApi.js</files>
       <baseline>neuterApi.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>

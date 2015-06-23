@@ -17,6 +17,7 @@
     <default>
       <files>ftl2.js</files>
       <baseline />
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -24,6 +25,7 @@
       <files>ftl2.js</files>
       <compile-flags>-off:InlineHostCandidate</compile-flags>
       <baseline />
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>

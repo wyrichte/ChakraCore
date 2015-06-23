@@ -427,7 +427,7 @@
       <compile-flags>-nonative</compile-flags>
       <baseline>631838.baseline</baseline>
       <!-- On ARM it would take TOO long (700s on Tegra 2 vs 20s on Intel Core i7) to run, as we need to use even bigger object -->
-      <tags>exclude_dynapogo,exclude_arm</tags>
+      <tags>exclude_dynapogo,exclude_arm,Slow</tags>
     </default>
   </test>
   <test>

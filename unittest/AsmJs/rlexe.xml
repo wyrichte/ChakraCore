@@ -12,6 +12,7 @@
       <files>ammogrowable.js</files>
       <baseline>ammogrowable.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:0</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -76,6 +77,7 @@
       <files>basicMath.js</files>
       <baseline>basicMath.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:0</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -146,6 +148,7 @@
       <files>Matrix.js</files>
       <baseline>Matrix.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:0</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -167,6 +170,7 @@
       <files>pi.js</files>
       <baseline>pi.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:0</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -188,6 +192,7 @@
       <files>WriteArrayView.js</files>
       <baseline>WriteArrayView.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:0</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -195,6 +200,7 @@
       <files>WriteFixOffset.js</files>
       <baseline>WriteFixOffset.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:0</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -400,6 +406,7 @@
       <files>basicComparisonDouble.js</files>
       <baseline>basicComparisonDouble.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -nonative</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -407,6 +414,7 @@
       <files>basicComparisonInt.js</files>
       <baseline>basicComparisonInt.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -nonative</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -414,6 +422,7 @@
       <files>basicComparisonUInt.js</files>
       <baseline>basicComparisonUInt.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -nonative</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -428,6 +437,7 @@
       <files>basicMath.js</files>
       <baseline>basicMath.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -nonative</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -435,6 +445,7 @@
       <files>basicMathIntSpecific.js</files>
       <baseline>basicMathIntSpecific.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -nonative</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -513,6 +524,7 @@
       <files>ReadArrayView.js</files>
       <baseline>ReadArrayView.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -nonative</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -527,6 +539,7 @@
       <files>WriteArrayView.js</files>
       <baseline>WriteArrayView.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -nonative</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -534,6 +547,7 @@
       <files>WriteFixOffset.js</files>
       <baseline>WriteFixOffset.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -nonative</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -548,6 +562,7 @@
       <files>Matrix.js</files>
       <baseline>MatrixLinkFail.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -forceasmjslinkfail</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -1025,6 +1040,7 @@
       <files>pi.js</files>
       <baseline>pi.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>

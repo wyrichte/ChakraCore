@@ -20,7 +20,7 @@
     <default>
       <files>mandelbrot.js</files>
       <baseline>mandelbrot.baseline</baseline>
-      <tags>exclude_dynapogo,exclude_nativeinmemoryserialized,exclude_ship</tags>
+      <tags>exclude_dynapogo,exclude_nativeinmemoryserialized,exclude_ship,Slow</tags>
       <compile-flags>-on:asmjs -simdjs -AsmJsStopOnError -on:AsmJsInterpreter -off:fulljit -off:backend</compile-flags>
     </default>
   </test>

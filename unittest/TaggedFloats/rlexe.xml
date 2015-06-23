@@ -4,7 +4,7 @@
     <default>
       <files>test.js</files>
       <baseline>test.baseline</baseline>
-      <tags>exclude_x86,exclude_arm</tags>
+      <tags>exclude_x86,exclude_arm,Slow</tags>
     </default>
   </test>
 </regress-exe>

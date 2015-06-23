@@ -67,6 +67,7 @@
     <default>
       <files>sca_lookup.js</files>
       <baseline>sca_lookup.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -86,6 +87,7 @@
     <default>
       <files>sca_array.js</files>
       <baseline>sca_array.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>
@@ -99,6 +101,7 @@
       <files>sca_array.js</files>
       <compile-flags>-ForceES5Array</compile-flags>
       <baseline>sca_array.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>

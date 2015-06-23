@@ -220,7 +220,7 @@
     <default>
       <files>3d-cube.js</files>
       <compile-flags>-bailoutateverybytecode -force:inline -dynamicprofileinput:profile.dpl.3d-cube.js</compile-flags>
-      <tags>exclude_interpreted,exclude_fre</tags>
+      <tags>exclude_interpreted,exclude_fre,Slow</tags>
       <baseline>3d-cube.baseline</baseline>
     </default>
   </test>
@@ -228,7 +228,7 @@
     <default>
       <files>3d-cube.js</files>
       <compile-flags>-bailoutateverybytecode -on:inline -dynamicprofileinput:profile.dpl.3d-cube.js</compile-flags>
-      <tags>exclude_interpreted,exclude_fre</tags>
+      <tags>exclude_interpreted,exclude_fre,Slow</tags>
       <baseline>3d-cube.baseline</baseline>
     </default>
   </test>
@@ -260,7 +260,7 @@
     <default>
       <files>3d-raytrace.js</files>
       <compile-flags>-bailoutateverybytecode -force:inline -dynamicprofileinput:profile.dpl.3d-raytrace.js</compile-flags>
-      <tags>exclude_interpreted,exclude_fre</tags>
+      <tags>exclude_interpreted,exclude_fre,Slow</tags>
       <baseline>3d-raytrace.baseline</baseline>
     </default>
   </test>

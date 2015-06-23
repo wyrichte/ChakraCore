@@ -23,6 +23,7 @@
     <default>
       <files>DomProperties.js</files>
       <compile-flags>-Intl-</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>

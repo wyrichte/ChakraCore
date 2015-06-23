@@ -53,6 +53,7 @@
     <default>
       <files>propertyIsEnumarable.js</files>
       <baseline>propertyIsEnumarable_2.baseline</baseline>
+      <tags>Slow</tags>
     </default>
   </test>
   <!-- Disabled until we can resolve failures on Windows Server 2012 R2
@@ -146,6 +147,7 @@
     <default>
       <files>moreProperties.js</files>
       <baseline>moreProperties.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -153,13 +155,14 @@
       <files>moreProperties.js</files>
       <baseline>moreProperties.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_ship</tags>
+      <tags>exclude_ship,Slow,Slow</tags>
     </default>
   </test>
   <test>
     <default>
       <files>moreProperties-enumeration.js</files>
       <baseline>moreProperties-enumeration.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -167,7 +170,7 @@
       <files>moreProperties-enumeration.js</files>
       <baseline>moreProperties-enumeration.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_ship</tags>
+      <tags>exclude_ship,Slow,Slow</tags>
     </default>
   </test>
   <test>
@@ -180,6 +183,7 @@
     <default>
       <files>bigES5Array.js</files>
       <baseline>bigES5Array.baseline</baseline>
+      <tags>Slow,Slow</tags>
     </default>
   </test>
   <test>

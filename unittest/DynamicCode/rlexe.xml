@@ -2,7 +2,7 @@
 <regress-exe>
   <test>
     <default>
-      <tags>exclude_fre</tags>
+      <tags>exclude_fre,Slow,Slow</tags>
       <files>eval-nativecodedata.js</files>
       <compile-flags>-force:fieldhoist</compile-flags>
       <baseline />
@@ -10,7 +10,7 @@
   </test>
   <test>
     <default>
-      <tags>exclude_fre</tags>
+      <tags>exclude_fre,Slow</tags>
       <files>eval-nativenumber.js</files>
     </default>
   </test>
