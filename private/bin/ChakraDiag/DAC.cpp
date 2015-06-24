@@ -834,20 +834,25 @@ namespace JsDiag
 
     bool RemotePreReservedVirtualAllocWrapper::IsInRange(void * address)
     {
-        if (this->GetRemoteAddr() == nullptr || this->GetPreReservedStartAddress() == nullptr)
+        if (this->GetRemoteAddr() == nullptr || !IsPreReservedRegionPresent())
         {
             return false;
         }
-#if DBG
-        //Check if the region is in MEM_COMMIT state.
-        MEMORY_BASIC_INFORMATION memBasicInfo;
-        size_t bytes = VirtualQuery(address, &memBasicInfo, sizeof(memBasicInfo));
-        if (bytes == 0 || memBasicInfo.State != MEM_COMMIT)
+
+        if (address >= GetPreReservedStartAddress() && address < GetPreReservedEndAddress())
         {
-            AssertMsg(false, "Memory not commited? Checking for uncommitted address region?");
-        }
+#if DBG
+            //Check if the region is in MEM_COMMIT state.
+            MEMORY_BASIC_INFORMATION memBasicInfo;
+            size_t bytes = VirtualQuery(address, &memBasicInfo, sizeof(memBasicInfo));
+            if (bytes == 0 || memBasicInfo.State != MEM_COMMIT)
+            {
+                AssertMsg(false, "Memory not commited? Checking for uncommitted address region?");
+            }
 #endif
-        return IsPreReservedRegionPresent() && address >= GetPreReservedStartAddress() && address < GetPreReservedEndAddress();
+            return true;
+        }
+        return false;
     }
 
     bool RemoteCodeGenAllocators::IsInRange(void* address)
