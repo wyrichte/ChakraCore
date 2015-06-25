@@ -41,6 +41,7 @@ set _DIRNOTTAGS=
 set _DIRTAGS=
 set _binaryRoot=%_nttree%\jscript
 set _toolsRoot=%sdxroot%\inetcore\jscript\tools
+set _full=
 set _drt=
 set _snap=
 set _nightly=
@@ -125,7 +126,10 @@ if "%1" == "-?" (
     set _snap=1
     set _NOTTAGS=%_NOTTAGS% -nottags exclude_snap
     goto ArgLoop
-) else if /i "%1" == "-drt" (
+)else if /i "%1" == "-full" (
+    set _full=1
+    goto ArgLoop
+)else if /i "%1" == "-drt" (
     set _drt=1
     set _NOTTAGS=%_NOTTAGS% -nottags exclude_drt
     goto ArgLoop
@@ -198,6 +202,11 @@ shift
 goto :NextArgument
 
 :StartScript
+
+if NOT "%_full%" == "1" (
+    set _NOTTAGS=%_NOTTAGS% -nottags Slow
+)
+
 if "%_runDefault%" == "1" (
     if "%_runT262%" == "1" (
         set _t262OnlyMode=1
