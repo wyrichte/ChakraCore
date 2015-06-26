@@ -12,7 +12,6 @@
         type: Array,
         defaultValue: ["projection",
         "unit",
-        "jsls",
         "jsrt"],
         description: "The default tests to run, if optin model isn't specified and the tests aren't opted out of."
     },
