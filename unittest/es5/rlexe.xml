@@ -78,30 +78,6 @@
   </test>
   <test>
     <default>
-      <files>funcSyntaxEvtES5.js</files>
-      <baseline>funcSyntaxEvtES5.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>funcSyntaxMultipleES5.js</files>
-      <baseline>funcSyntaxMultipleES5.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>funcSyntaxDotES5.js</files>
-      <baseline>funcSyntaxDotES5.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>funcSyntaxES3.js</files>
-      <baseline>funcSyntaxES3.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>exceptions.js</files>
       <baseline>exceptions3.baseline</baseline>
       <tags>fail_mutators</tags>

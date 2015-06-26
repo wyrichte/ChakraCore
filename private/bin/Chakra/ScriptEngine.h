@@ -778,11 +778,6 @@ public:
 
     HRESULT GetScriptTextAttributesUTF8(LPCUTF8 pchCode, ULONG cb, LPCOLESTR pstrDelimiter, ULONG cch, DWORD dwFlags, SOURCE_TEXT_ATTR *prgsta);
 
-    HRESULT RegisterEventHandler(
-        __in IDispatch* pDispatch,
-        __in LPWSTR eventName,
-        __in Js::DynamicObject* dynamicObject);
-
     CJavascriptOperations* jsOps;
 
     // code bodies that should be persisted or run

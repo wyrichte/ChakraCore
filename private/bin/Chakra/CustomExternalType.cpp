@@ -1771,40 +1771,6 @@ namespace Js
         ExternalObject::SetPrototype(newPrototype);
     }
 
-    void CustomExternalObject::BindEvent(Var eventHandler, PropertyId propertyId)
-    {
-        // This is special case for object supporting IDispatch
-        Js::ScriptContext* scriptContext = GetScriptContext();
-        ScriptSite* scriptSite = ScriptSite::FromScriptContext(scriptContext);
-        ScriptEngine* scriptEngine = scriptSite->GetScriptEngine();
-        if (scriptEngine == NULL)
-        {
-            HostDispatch::HandleDispatchError(scriptContext, E_UNEXPECTED, NULL);
-        }
-
-        IDispatch* dispatch;
-        HRESULT hr;
-        BEGIN_LEAVE_SCRIPT(scriptContext)
-        {
-            hr = QueryObjectInterface(IID_IDispatch, (void**)&dispatch);
-            if (SUCCEEDED(hr))
-            {
-                LPWSTR eventName = (LPWSTR)scriptContext->GetPropertyName(propertyId)->GetBuffer();
-                hr = scriptEngine->RegisterEventHandler(dispatch, eventName, Js::DynamicObject::FromVar(eventHandler));
-                dispatch->Release();
-            }
-        }
-        END_LEAVE_SCRIPT(scriptContext);
-        if (hr == E_NOINTERFACE)
-        {
-            return;
-        }
-        if (FAILED(hr))
-        {
-            HostDispatch::HandleDispatchError(scriptContext, hr, NULL);
-        }
-    }
-
     void CustomExternalObject::CacheJavascriptDispatch(JavascriptDispatch* javascriptDispatch)
     {
         // GC will keep the instance alive.

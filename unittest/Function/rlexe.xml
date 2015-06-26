@@ -447,14 +447,6 @@
   </test>
   <test>
     <default>
-      <files>bindevt_arguments.js</files>
-      <compile-flags>-off:deferparse</compile-flags>
-      <tags>exclude_fre</tags>
-      <baseline />
-    </default>
-  </test>
-  <test>
-    <default>
       <files>bug542360.js</files>
     </default>
   </test>

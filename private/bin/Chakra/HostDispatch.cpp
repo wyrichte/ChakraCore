@@ -2189,35 +2189,6 @@ BOOL HostDispatch::EqualsHelper(HostDispatch *left, HostDispatch *right, BOOL *v
     return SUCCEEDED(hr) ? TRUE : FALSE;
 }
 
-void  HostDispatch::BindEvent(Js::Var eventHandler, Js::PropertyId propertyId)
-{    
-    HRESULT hr = EnsureDispatch();
-    if (FAILED(hr))
-    {
-        HandleDispatchError(hr, NULL);
-    }
-    
-    Js::ScriptContext* scriptContext = this->GetScriptContext();
-    ScriptEngine* scriptEngine = scriptSite->GetScriptEngine();
-    if (scriptEngine == NULL)
-    {
-        HandleDispatchError(E_UNEXPECTED, NULL);        
-    }
-    
-    LPWSTR eventName = (LPWSTR)scriptContext->GetPropertyName(propertyId)->GetBuffer();
-    IDispatch* dispatch = GetDispatchNoRef();
-    BEGIN_LEAVE_SCRIPT(scriptContext)
-    {
-        hr = scriptEngine->RegisterEventHandler(dispatch, eventName, Js::DynamicObject::FromVar(eventHandler));
-    }
-    END_LEAVE_SCRIPT(scriptContext)
-    if (FAILED(hr))
-    {
-        HandleDispatchError(hr, NULL);        
-    }
-    
-}
-
 Js::RecyclableObject * HostDispatch::CloneToScriptContext(Js::ScriptContext* requestContext)
 {
     HRESULT hr = EnsureDispatch();     

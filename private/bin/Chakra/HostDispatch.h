@@ -74,7 +74,6 @@ public:
     virtual Var InvokePut(Js::Arguments args) override;
     virtual BOOL GetRemoteTypeId(Js::TypeId* typeId) override;
     virtual Js::DynamicObject* GetRemoteObject() override;
-    virtual void BindEvent(Js::Var eventHandler, Js::PropertyId propertyId) override;
     virtual RecyclableObject * CloneToScriptContext(Js::ScriptContext* requestContext) override;
     virtual BOOL ToString(Js::Var* value, Js::ScriptContext* scriptContext) override;
 

@@ -147,7 +147,6 @@ namespace Js
 
         virtual BOOL Equals(Var other, BOOL* value, ScriptContext * requestContext) override;
         virtual BOOL StrictEquals(Var other, BOOL* value, ScriptContext * requestContext) override;
-        virtual void BindEvent(Var eventHandler, PropertyId propertyId) override;
 
         virtual DynamicType* DuplicateType() override;
         virtual BOOL HasInstance(Var instance, ScriptContext* scriptContext, IsInstInlineCache* inlineCache = NULL) override;
