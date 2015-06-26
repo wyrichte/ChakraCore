@@ -73,6 +73,7 @@
     <default>
       <files>split1.js</files>
       <baseline>split1_v3.baseline</baseline>
+      <compile-flags>-ES6ToLength</compile-flags>
     </default>
   </test>
   <test>
