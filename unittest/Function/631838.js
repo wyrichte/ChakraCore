@@ -18,3 +18,4 @@ catch(e)
 {
 WScript.Echo(e);
 }
+WScript.Echo('Pass');
