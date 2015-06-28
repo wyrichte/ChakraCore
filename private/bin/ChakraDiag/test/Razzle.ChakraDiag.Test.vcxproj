@@ -5,6 +5,7 @@
     <AllowChkTest>true</AllowChkTest>
     <TestCode>true</TestCode>
   </PropertyGroup>
+  <Import Project="$(MSBuiltThisFileDirectory)..\..\..\..\Build\Chakra.Build.Paths.props" />
   <Import Project="..\ChakraDiag.vcxproj" />
 </Project>
 

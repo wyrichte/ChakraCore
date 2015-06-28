@@ -1,15 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23004.0
+VisualStudioVersion = 14.0.23020.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E0786480-1474-43B0-ACDC-6F05779D9D83}"
 	ProjectSection(SolutionItems) = preProject
-		armasm.props = armasm.props
-		armasm.targets = armasm.targets
-		armasm.xml = armasm.xml
 		Chakra.Build.Default.props = Chakra.Build.Default.props
-		Chakra.Build.ProjectConfiguration.props = Chakra.Build.ProjectConfiguration.props
+		Chakra.Build.Paths.props = Chakra.Build.Paths.props
 		Chakra.Build.props = Chakra.Build.props
 		Chakra.Build.Razzle.Default.props = Chakra.Build.Razzle.Default.props
 		Chakra.Build.Razzle.props = Chakra.Build.Razzle.props
@@ -70,6 +67,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{2D98823A-DF4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions", "Solutions", "{9E844FF8-5EBB-4145-A688-9BF1C2402AB8}"
 	ProjectSection(SolutionItems) = preProject
+		..\core\Build\Chakra.Core.sln = ..\core\Build\Chakra.Core.sln
 		Chakra.Full.sln = Chakra.Full.sln
 	EndProjectSection
 EndProject
@@ -105,6 +103,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runtime", "Runtime", "{48F7
 		..\core\Lib\Runtime\Types\Chakra.Runtime.Types.vcxproj = ..\core\Lib\Runtime\Types\Chakra.Runtime.Types.vcxproj
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreBuild", "CoreBuild", "{7FF46A55-D677-4816-86C2-59034ECFA1EC}"
+	ProjectSection(SolutionItems) = preProject
+		..\core\Build\armasm.props = ..\core\Build\armasm.props
+		..\core\Build\armasm.targets = ..\core\Build\armasm.targets
+		..\core\Build\armasm.xml = ..\core\Build\armasm.xml
+		..\core\Build\Chakra.Build.Default.props = ..\core\Build\Chakra.Build.Default.props
+		..\core\Build\Chakra.Build.Paths.props = ..\core\Build\Chakra.Build.Paths.props
+		..\core\Build\Chakra.Build.ProjectConfiguration.props = ..\core\Build\Chakra.Build.ProjectConfiguration.props
+		..\core\Build\Chakra.Build.props = ..\core\Build\Chakra.Build.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,5 +129,6 @@ Global
 		{9714D243-2BB2-4933-AF5E-35971D03E2FC} = {DDDCE490-9BC4-43E5-A700-346998D8E01D}
 		{03D5837B-5546-4635-AA38-4D33AA5FB3BD} = {02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584}
 		{48F771CB-6E65-4F4D-986B-23A538D01324} = {02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584}
+		{7FF46A55-D677-4816-86C2-59034ECFA1EC} = {E0786480-1474-43B0-ACDC-6F05779D9D83}
 	EndGlobalSection
 EndGlobal

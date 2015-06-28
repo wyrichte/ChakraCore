@@ -1,9 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ChakraBuildConfigDir>..\..\..\Build</ChakraBuildConfigDir>
-  </PropertyGroup>
-  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
+  <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
   <PropertyGroup Label="Globals">
     <ProjectName>ChakraDiag</ProjectName>
     <ProjectGuid>{D81EF7CF-1D44-46B5-843E-4C0F1626A1E2}</ProjectGuid>
@@ -12,7 +10,7 @@
     <TargetName>ChakraDiag</TargetName>
     <TargetName Condition="'$(FreTest)'=='true'">ChakraDiagTest</TargetName>
   </PropertyGroup>
-  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -23,7 +21,7 @@
     <Mui Condition="'$(BuildingWithBuildExe)'=='true'">false</Mui>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -57,6 +55,10 @@
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4189;4290</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
+    <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
+    <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
+      <ModuleDefinitionFile>$(IntDir)ChakraDiag.def</ModuleDefinitionFile>
+    </ImpLib>
     <Link>
       <SubSystem>Console</SubSystem>
       <ModuleDefinitionFile>$(IntDir)ChakraDiag.def</ModuleDefinitionFile>

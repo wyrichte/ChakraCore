@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ChakraRootDirectory>$(MsBuildThisFileDirectory)..\</ChakraRootDirectory>
-  </PropertyGroup>
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="Chakra.Build.Razzle.Default.props" />
   <PropertyGroup>
     <!-- In razzle, Platform is inferred from environment variable _BuildArch, so import Chakra.Build.Razzle.Default.props first -->

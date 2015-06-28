@@ -3,6 +3,7 @@
   <PropertyGroup>
     <FreTest>true</FreTest>
   </PropertyGroup>
+  <Import Project="$(MSBuiltThisFileDirectory)..\..\..\..\Build\Chakra.Build.Paths.props" />
   <Import Project="..\Chakra.WinRT.vcxproj" />
 </Project>
 

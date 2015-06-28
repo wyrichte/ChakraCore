@@ -1,9 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ChakraBuildConfigDir>..\..\..\Build</ChakraBuildConfigDir>
-  </PropertyGroup>
-  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
+  <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EA882C8D-81FC-42FE-ABD5-2666DB933FDA}</ProjectGuid>
     <RootNamespace>Chakra</RootNamespace>
@@ -11,7 +9,7 @@
     <TargetName>Chakra</TargetName>
     <TargetName Condition="'$(FreTest)'=='true'">ChakraTest</TargetName>
   </PropertyGroup>
-  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.Default.props" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -25,9 +23,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
-    <Import Project="$(ChakraBuildConfigDir)\armasm.props" />
+    <Import Project="$(BuildConfig_ARMASM_Path)armasm.props" />
   </ImportGroup>
-  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.props" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Props" />
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -65,6 +63,10 @@
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4510;4610</DisableSpecificWarnings>
     </ClCompile>
 
+    <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
+    <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
+      <ModuleDefinitionFile>$(IntDir)chakra.def</ModuleDefinitionFile>
+    </ImpLib>
     <Link>
       <SubSystem>Console</SubSystem>
       <ModuleDefinitionFile>$(IntDir)chakra.def</ModuleDefinitionFile>
@@ -553,6 +555,6 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
-    <Import Project="$(ChakraBuildConfigDir)\armasm.targets" />
+    <Import Project="$(BuildConfig_ARMASM_Path)armasm.targets" />
   </ImportGroup>
 </Project>

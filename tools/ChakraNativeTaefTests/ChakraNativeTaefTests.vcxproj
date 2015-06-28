@@ -1,9 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ChakraBuildConfigDir>..\..\Build</ChakraBuildConfigDir>
-  </PropertyGroup>
-  <Import Project="$(ChakraBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
+  <Import Project="$(ChakraCoreBuildConfigDir)\Chakra.Build.ProjectConfiguration.props" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E152458D-BEEF-449F-B021-8FFF5F2E29E3}</ProjectGuid>
     <RootNamespace>ChakraNativeTaefTests</RootNamespace>
