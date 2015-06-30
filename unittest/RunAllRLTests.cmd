@@ -350,7 +350,7 @@ if not exist "%_GumshoeExe%" (
     )
 
     :: Instrumenting the binaries
-    %_MagellanPath%\Magellan\BBCover.exe /block /CovSym /I %_NTTREE%\jscript\chakratest.dll
+    %_MagellanPath%\Magellan\BBCover.exe /block /CovSym /I %_NTTREE%\jscript\chakratest.dll /Cmd %~dp0..\tools\CodeCoverage\chakratest.dll.bbtf
     move /Y %_NTTREE%\jscript\chakratest.dll %_NTTREE%\jscript\chakratest.dll.old
     move /Y %_NTTREE%\jscript\chakratest.dll.block.instr %_NTTREE%\jscript\chakratest.dll
     if exist "%_NTTREE%\jscript\chakralstest.dll" (
