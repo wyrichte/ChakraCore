@@ -261,6 +261,7 @@ Function Runt-TestCases
         }
     }
 
+    $global:exePath = $global:exePath.Replace("\", "\\")
     Write-Host "Test262-harness -c $global:t262ConfigFilePath -e '$global:exePath $global:exeArgs' $global:runFolder -R tap"
     $results = (Test262-harness -c $global:t262ConfigFilePath -e "$global:exePath $global:exeArgs" $global:runFolder -R tap)
     # $results = (Test262-harness -c $global:t262ConfigFilePath -e "$global:exePath $global:exeArgs" language -R tap)
@@ -364,7 +365,8 @@ Function Summarize-Results ($global:failedTCsArray)
         $failureResultParts = ($knownFailures[$i]) -split "::::"
 
         $tc = $failureResultParts[0].Trim()
-        if (($global:runFolder) -and ($tc.IndexOf($global:runFolder) -lt 0))
+
+        if (($global:runFolder) -and ($tc.ToLower().IndexOf($global:runFolder.ToLower()) -lt 0))
         {
             # Do nothing
         }
