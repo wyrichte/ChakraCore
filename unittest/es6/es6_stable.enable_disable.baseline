@@ -25,6 +25,8 @@ FLAG ES6 = 1 - setting child flag ES6Math = 1
 FLAG ES6Math = 1
 FLAG ES6 = 1 - setting child flag ES6Object = 1
 FLAG ES6Object = 1
+FLAG ES6 = 1 - setting child flag ES6NewTarget = 0
+FLAG ES6NewTarget = 0
 FLAG ES6 = 1 - setting child flag ES6Number = 1
 FLAG ES6Number = 1
 FLAG ES6 = 1 - setting child flag ES6NumericLiterals = 1
@@ -100,6 +102,8 @@ FLAG ES6 = 0 - setting child flag ES6Math = 0
 FLAG ES6Math = 0
 FLAG ES6 = 0 - setting child flag ES6Object = 0
 FLAG ES6Object = 0
+FLAG ES6 = 0 - setting child flag ES6NewTarget = 0
+FLAG ES6NewTarget = 0
 FLAG ES6 = 0 - setting child flag ES6Number = 0
 FLAG ES6Number = 0
 FLAG ES6 = 0 - setting child flag ES6NumericLiterals = 0

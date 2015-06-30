@@ -1891,6 +1891,10 @@ LPCWSTR HeapDumper::GetNameFromId(PROFILER_HEAP_OBJECT_NAME_ID nameId)
     {
         return L"super";
     }
+    if (nameId == Js::PropertyIds::_lexicalNewTargetSymbol)
+    {
+        return L"new.target";
+    }
     return pPropertyIdMap[nameId];
 }
 
