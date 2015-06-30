@@ -839,20 +839,7 @@ namespace JsDiag
             return false;
         }
 
-        if (address >= GetPreReservedStartAddress() && address < GetPreReservedEndAddress())
-        {
-#if DBG
-            //Check if the region is in MEM_COMMIT state.
-            MEMORY_BASIC_INFORMATION memBasicInfo;
-            size_t bytes = VirtualQuery(address, &memBasicInfo, sizeof(memBasicInfo));
-            if (bytes == 0 || memBasicInfo.State != MEM_COMMIT)
-            {
-                AssertMsg(false, "Memory not commited? Checking for uncommitted address region?");
-            }
-#endif
-            return true;
-        }
-        return false;
+        return (address >= GetPreReservedStartAddress() && address < GetPreReservedEndAddress());
     }
 
     bool RemoteCodeGenAllocators::IsInRange(void* address)
