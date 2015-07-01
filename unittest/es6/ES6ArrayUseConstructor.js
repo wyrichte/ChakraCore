@@ -13,9 +13,9 @@ var tests = [
             
             var out = Array.prototype.concat.call(arr, [1,2,3]);
             
-            assert.isFalse(Array.isArray(out), "Return from Array.prototype.concat should not be an Array object");
-            assert.isTrue(out instanceof Number, "Return from Array.prototype.concat should have been constructed from Number");
-            assert.isTrue(0 === out.valueOf(), "Construction passes 0 to Number. out.valueOf should strict equal 0");
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.concat should be an Array object");
+            assert.isFalse(out instanceof Number, "Return from Array.prototype.concat should not have been constructed from Number");
+            assert.areEqual(['a','b','c',1,2,3], out, "Array.prototype.concat output should show correct Array behavior");
             assert.areEqual(6, out.length, "Array.prototype.concat sets the length property of returned object");
         }
     },
@@ -27,10 +27,10 @@ var tests = [
             
             var out = Array.prototype.filter.call(arr, function() { return true; });
             
-            assert.isFalse(Array.isArray(out), "Return from Array.prototype.filter should not be an Array object");
-            assert.isTrue(out instanceof Number, "Return from Array.prototype.filter should have been constructed from Number");
-            assert.isTrue(0 === out.valueOf(), "Construction passes 0 to Number. out.valueOf should strict equal 0");
-            assert.areEqual(undefined, out.length, "Array.prototype.filter does not set the length property of returned object");
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.filter should be an Array object");
+            assert.isFalse(out instanceof Number, "Return from Array.prototype.filter should not have been constructed from Number");
+            assert.areEqual(['a','b','c'], out, "Array.prototype.filter output should show correct Array behavior");
+            assert.areEqual(3, out.length, "Array.prototype.filter does not set the length property of returned object");
         }
     },
     {
@@ -41,10 +41,10 @@ var tests = [
             
             var out = Array.prototype.map.call(arr, function(val) { return val; });
             
-            assert.isFalse(Array.isArray(out), "Return from Array.prototype.map should not be an Array object");
-            assert.isTrue(out instanceof Number, "Return from Array.prototype.map should have been constructed from Number");
-            assert.isTrue(3 === out.valueOf(), "Construction passes length to Number. out.valueOf should strict equal length (3)");
-            assert.areEqual(undefined, out.length, "Array.prototype.map does not set the length property of returned object");
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.map should be an Array object");
+            assert.isFalse(out instanceof Number, "Return from Array.prototype.map should not have been constructed from Number");
+            assert.areEqual(['a','b','c'], out, "Array.prototype.map output should show correct Array behavior");
+            assert.areEqual(3, out.length, "Array.prototype.map does not set the length property of returned object");
         }
     },
     {
@@ -55,9 +55,9 @@ var tests = [
             
             var out = Array.prototype.slice.call(arr);
             
-            assert.isFalse(Array.isArray(out), "Return from Array.prototype.slice should not be an Array object");
-            assert.isTrue(out instanceof Number, "Return from Array.prototype.slice should have been constructed from Number");
-            assert.isTrue(3 === out.valueOf(), "Construction passes length to Number. out.valueOf should strict equal length (3)");
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.slice should be an Array object");
+            assert.isFalse(out instanceof Number, "Return from Array.prototype.slice should not have been constructed from Number");
+            assert.areEqual(['a','b','c'], out, "Array.prototype.slice output should show correct Array behavior");
             assert.areEqual(3, out.length, "Array.prototype.slice sets the length property of returned object");
         }
     },
@@ -69,9 +69,9 @@ var tests = [
             
             var out = Array.prototype.splice.call(arr, 0, 3);
             
-            assert.isFalse(Array.isArray(out), "Return from Array.prototype.splice should not be an Array object");
-            assert.isTrue(out instanceof Number, "Return from Array.prototype.splice should have been constructed from Number");
-            assert.isTrue(3 === out.valueOf(), "Construction passes length to Number. out.valueOf should strict equal length (3)");
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object");
+            assert.isFalse(out instanceof Number, "Return from Array.prototype.splice should not have been constructed from Number");
+            assert.areEqual(['a','b','c'], out, "Array.prototype.splice output should show correct Array behavior");
             assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object");
         }
     },
@@ -127,6 +127,51 @@ var tests = [
             assert.isTrue(out instanceof Array, "Return from Array.prototype.splice should have been constructed from Array");
             assert.areEqual([1,2,3], out, "Array.prototype.splice output is correct");
             assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object");
+        }
+    },
+    {
+        name: "ArraySpeciesCreate test through Array.prototype.splice",
+        body: function () {
+            var arr = ['a','b','c','d','e','f'];
+            arr['constructor'] = null;
+            assert.throws(function() { Array.prototype.splice.call(arr, 0, 3); }, TypeError, "TypeError when [@@species] is not constructor", "Function '[@@species]' is not a constructor");
+            
+            var arr = ['a','b','c','d','e','f'];
+            arr['constructor'] = undefined;
+            var out = Array.prototype.splice.call(arr, 0, 3);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor == undefined");
+            assert.areEqual(['a','b','c'], out, "Array.prototype.splice output should show correct Array behavior when constructor == undefined");
+            assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor == undefined");
+            
+            var arr = ['a','b','c','d','e','f'];
+            arr['constructor'] = function() {};
+            var out = Array.prototype.splice.call(arr, 0, 3);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor has no [@@species] property");
+            assert.areEqual(['a','b','c'], out, "Array.prototype.splice output should show correct Array behavior when constructor has no [@@species] property");
+            assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor has no [@@species] property");
+
+            var arr = ['a','b','c','d','e','f'];
+            arr['constructor'] = function() {};
+            arr['constructor'][Symbol.species] = Object;
+            var out = Array.prototype.splice.call(arr, 0, 3);
+            assert.isFalse(Array.isArray(out), "Return from Array.prototype.splice should be an object when constructor has [@@species] == Object");
+            assert.areEqual({'0':'a','1':'b','2':'c',"length":3}, out, "Array.prototype.splice output should show correct Array behavior when constructor has [@@species] == Object");
+
+            var arr = ['a','b','c','d','e','f'];
+            arr['constructor'] = function() {};
+            arr['constructor'][Symbol.species] = null;
+            var out = Array.prototype.splice.call(arr, 0, 3);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor has [@@species] == null");
+            assert.areEqual(['a','b','c'], out, "Array.prototype.splice output should show correct Array behavior when constructor has [@@species] == null");
+            assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor has [@@species] == null");
+            
+            var external = WScript.LoadScriptFile("ES6ArrayUseConstructor_helper.js","samethread");
+            var arr = ['a','b','c','d','e','f'];
+            arr['constructor'] = external.CrossContextArrayConstructor;
+            var out = Array.prototype.splice.call(arr, 0, 3);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor is %Array% of a different script context");
+            assert.areEqual(['a','b','c'], out, "Array.prototype.splice output should show correct Array behavior when constructor is %Array% of a different script context");
+            assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor is %Array% of a different script context");
         }
     },
 ];

@@ -1050,7 +1050,7 @@ var tests = [
             // If we set the constructor property of some TypedArray to a non-constructor, it should throw.
             var u = getTypedArray();
             u.constructor = undefined;
-            assert.throws(function() { u.map(mappingFn, thisArg); }, TypeError, "Calling %TypedArrayPrototype%.map with a constructor property on this which is not IsConstructor throws");
+            assert.doesNotThrow(function() { u.map(mappingFn, thisArg); }, "With [@@species], calling %TypedArrayPrototype%.map with a constructor property on this which is not IsConstructor does not throw");
             
             assert.throws(function() { mapFn.call(); }, TypeError, "Calling %TypedArrayPrototype%.map with no this throws TypeError", "'this' is not a typed array object");
             assert.throws(function() { mapFn.call(undefined); }, TypeError, "Calling %TypedArrayPrototype%.map with undefined this throws TypeError", "'this' is not a typed array object");
@@ -1330,26 +1330,24 @@ var tests = [
             
             u.constructor = String;
             var r = u.slice();
-            assert.isFalse(ArrayBuffer.isView(r), "%TypedArrayPrototype%.slice doesn't returns a TypedArray object when source constructor property is not a TypedArray constructor");
-            assert.areEqual('1', r[0], "%TypedArrayPrototype%.slice returns a String object when source constructor property is String - 0th property is first character");
-            assert.areEqual('0', r[1], "%TypedArrayPrototype%.slice returns a String object when source constructor property is String - 1st property is second character");
-            assert.areEqual(2, r[2], "%TypedArrayPrototype%.slice returns a String object when source constructor property is String - After the character values, we will add integer-indexed properties for the rest");
-            assert.areEqual(3, r[3], "%TypedArrayPrototype%.slice returns a String object when source constructor property is String - After the character values, we will add integer-indexed properties for the rest");
-            assert.areEqual(8, r[8], "%TypedArrayPrototype%.slice returns a String object when source constructor property is String - After the character values, we will add integer-indexed properties for the rest");
-            assert.areEqual(9, r[9], "%TypedArrayPrototype%.slice returns a String object when source constructor property is String - After the character values, we will add integer-indexed properties for the rest");
-            assert.areEqual(2, r.length, "%TypedArrayPrototype%.slice returns a String object when source constructor property is String - length property is set to the length of the string part");
+            assert.isTrue(ArrayBuffer.isView(r), "With [@@species], %TypedArrayPrototype%.slice returns a TypedArray object even when source constructor property is not a TypedArray constructor");
+            assert.areEqual(0, r[0], "With [@@species], %TypedArrayPrototype%.slice returns a TypedArray object even when source constructor property is String");
+            assert.areEqual(1, r[1], "With [@@species], %TypedArrayPrototype%.slice returns a TypedArray object even when source constructor property is String");
+            assert.areEqual(2, r[2], "With [@@species], %TypedArrayPrototype%.slice returns a TypedArray object even when source constructor property is String");
+            assert.areEqual(3, r[3], "With [@@species], %TypedArrayPrototype%.slice returns a TypedArray object even when source constructor property is String");
+            assert.areEqual(8, r[8], "With [@@species], %TypedArrayPrototype%.slice returns a TypedArray object even when source constructor property is String");
+            assert.areEqual(9, r[9], "With [@@species], %TypedArrayPrototype%.slice returns a TypedArray object even when source constructor property is String");
+            assert.areEqual(10, r.length, "With [@@species], %TypedArrayPrototype%.slice returns a TypedArray object even when source constructor property is String");
             
             u.constructor = Array;
-            var r = u.slice();
-            assert.areEqual([0,1,2,3,4,5,6,7,8,9], r, "%TypedArrayPrototype%.slice basic functionality when the constructor property is set to Array");
-            assert.isFalse(ArrayBuffer.isView(r), "%TypedArrayPrototype%.slice doesn't returns a TypedArray object when source constructor property is not a TypedArray constructor");
+            assert.throws(function () { u.slice() }, TypeError, "Calling %TypedArrayPrototype%.slice with a constructor property with [@@species] pointing to a non-typed-array constructor throws");
             
-            assert.throws(function() { slice.call(); }, TypeError, "Calling %TypedArrayPrototype%.slice with no this throws TypeError", "'this' is not a typed array object");
+            assert.throws(function() { slice.call(); }, TypeError, "Calling %TypedArrayPrototype%.slice without this throws TypeError", "'this' is not a typed array object");
             assert.throws(function() { slice.call(undefined); }, TypeError, "Calling %TypedArrayPrototype%.slice with undefined this throws TypeError", "'this' is not a typed array object");
             assert.throws(function() { slice.call('string'); }, TypeError, "Calling %TypedArrayPrototype%.slice with non-object this throws TypeError", "'this' is not a typed array object");
             
             u.constructor = Math.sin;
-            assert.throws(function() { slice.call(u); }, TypeError, "Calling %TypedArrayPrototype%.slice with constructor property which isn't a constructor throws TypeError", "Function '[TypedArray].prototype.slice' is not a constructor");
+            assert.doesNotThrow(function() { slice.call(u); }, "Calling %TypedArrayPrototype%.slice with constructor property pointing to a non-constructor function can still function through [@@species]");
         }
     },
     {
@@ -1648,6 +1646,7 @@ var tests = [
                 return true;
             }
             
+            var counter = 0;
             var res = filter.call(getTypedArray(10), selectOddNumbers, thisArg);
             assert.areEqual([1,3,5,7,9], res, "%TypedArrayPrototype%.filter returns a new TypedArray with the right values");
             assert.isTrue(ArrayBuffer.isView(res), "%TypedArrayPrototype%.filter returns a new TypedArray");
@@ -1662,6 +1661,7 @@ var tests = [
             
             var u = getTypedArray(10);
             u.constructor = Array;
+            counter = 0;
             var res = filter.call(u, selectOddNumbers, thisArg);
             assert.areEqual([1,3,5,7,9], res, "%TypedArrayPrototype%.filter returns a new array with the right values");
             assert.isFalse(ArrayBuffer.isView(res), "%TypedArrayPrototype%.filter returns a normal array if the TypedArray constructor property is changed");
@@ -1669,7 +1669,8 @@ var tests = [
             assert.areEqual(10, counter, "%TypedArrayPrototype%.filter calls the callback function the correct number of times");
             
             u.constructor = Math.sin;
-            assert.throws(function() { filter.call(u, selectOddNumbers, thisArg); }, TypeError, "Calling %TypedArrayPrototype%.filter with a TypedArray which has a constructor property which !IsConstructor throws", "Function '[TypedArray].prototype.filter' is not a constructor");
+            counter = 0;
+            assert.doesNotThrow(function() { filter.call(u, selectOddNumbers, thisArg); }, "Calling %TypedArrayPrototype%.filter with constructor property pointing to a non-constructor function can still function through [@@species]");
             
             assert.throws(function() { filter.call(); }, TypeError, "Calling %TypedArrayPrototype%.filter with no this throws TypeError", "'this' is not a typed array object");
             assert.throws(function() { filter.call(undefined); }, TypeError, "Calling %TypedArrayPrototype%.filter with undefined this throws TypeError", "'this' is not a typed array object");
@@ -2485,25 +2486,25 @@ var tests = [
         }
     },
     {
-        name: "%TypedArray%.prototype.subarray throws if the constructor property of the this argument is not a constructor",
+        name: "%TypedArray%.prototype.subarray tests on constructor access through [@@species] - special cases",
         body: function() {
             var arr = new Uint8Array(10);
             
             arr.constructor = undefined;
-            assert.throws(function () { arr.subarray(); }, TypeError, "Calling %TypedArray%.prototype.subarray throws TypeError when constructor property is undefined", "[TypedArray].prototype.subarray: argument is not a Function object");
+            assert.doesNotThrow(function () { arr.subarray(); }, "With [@@species] defined, calling %TypedArray%.prototype.subarray does not throw TypeError even when constructor property is undefined");
             
             arr.constructor = null;
-            assert.throws(function () { arr.subarray(); }, TypeError, "Calling %TypedArray%.prototype.subarray throws TypeError when constructor property is null", "[TypedArray].prototype.subarray: argument is not a Function object");
+            assert.throws(function () { arr.subarray(); }, TypeError, "Calling %TypedArray%.prototype.subarray throws TypeError when constructor property is null or not an object", "'[constructor]' is null or not an object");
             
             arr.constructor = 'some string';
-            assert.throws(function () { arr.subarray(); }, TypeError, "Calling %TypedArray%.prototype.subarray throws TypeError when constructor property is not a function", "[TypedArray].prototype.subarray: argument is not a Function object");
+            assert.throws(function () { arr.subarray(); }, TypeError, "Calling %TypedArray%.prototype.subarray throws TypeError when constructor property is null or not an object", "'[constructor]' is null or not an object");
             
             arr.constructor = Math.sin;
-            assert.throws(function () { arr.subarray(); }, TypeError, "Calling %TypedArray%.prototype.subarray throws TypeError when constructor property is not a constructor", "[TypedArray].prototype.subarray: argument is not a Function object");
+            assert.doesNotThrow(function () { arr.subarray(); }, "Calling %TypedArray%.prototype.subarray uses default typed array constructor when constructor property is not a constructor");
         }
     },
     {
-        name: "ArrayBuffer.prototype.slice uses the constructor property of the this parameter to construct the return object",
+        name: "ArrayBuffer.prototype.slice tests on constructor access through [@@species]",
         body: function() {
             var arr = new ArrayBuffer(10);
             arr.constructor = Array;
@@ -2512,39 +2513,59 @@ var tests = [
             
             arr.constructor = function(newLen) { return arr; }
             
-            assert.throws(function () { arr.slice(); }, TypeError, "Calling ArrayBuffer.prototype.slice throws TypeError when constructor function returns the same ArrayBuffer object as the this argument to slice", "ArrayBuffer object expected");
+            assert.areNotEqual(arr, arr.slice(), "Calling ArrayBuffer.prototype.slice will use default constructor if [constructor] has no [@@species] property");
             
             arr.constructor = function(newLen) { return new ArrayBuffer(5); }
             
-            assert.throws(function () { arr.slice(); }, TypeError, "Calling ArrayBuffer.prototype.slice throws TypeError when constructor function returns ArrayBuffer object with a byteLength < newLength", "ArrayBuffer.prototype.slice: argument out of range");
+            assert.doesNotThrow(function () { arr.slice(); }, "Calling ArrayBuffer.prototype.slice will use default constructor if [constructor] has no [@@species] property");
             
             arr.constructor = function(newLen) { return new ArrayBuffer(newLen); }
             var o = arr.slice();
             
-            assert.areEqual(10, o.byteLength, "Calling ArrayBuffer.prototype.slice when constructor function returns ArrayBuffer object with a byteLength == newLength works fine");
+            assert.areEqual(10, o.byteLength, "Calling ArrayBuffer.prototype.slice will use default constructor if [constructor] has no [@@species] property");
             
             arr.constructor = function(newLen) { return new ArrayBuffer(20); }
             var o = arr.slice();
             
-            assert.areEqual(20, o.byteLength, "Calling ArrayBuffer.prototype.slice when constructor function returns ArrayBuffer object with a byteLength > newLength works fine");
+            assert.areEqual(10, o.byteLength, "Calling ArrayBuffer.prototype.slice will use default constructor if [constructor] has no [@@species] property");
         }
     },
     {
-        name: "ArrayBuffer.prototype.slice throws if the constructor property of the this argument is not a constructor",
+        name: "ArrayBuffer.prototype.slice tests on constructor access through [@@species] - special cases",
         body: function() {
             var arr = new ArrayBuffer(10);
             
             arr.constructor = undefined;
-            assert.throws(function () { arr.slice(); }, TypeError, "Calling ArrayBuffer.prototype.slice throws TypeError when constructor property is undefined", "ArrayBuffer.prototype.slice: argument is not a Function object");
+            assert.doesNotThrow(function () { arr.slice(); }, "Calling ArrayBuffer.prototype.slice will use default constructor if [constructor] has no [@@species] property");
+            assert.areEqual(10, arr.slice().byteLength, "Calling ArrayBuffer.prototype.slice will use default constructor if [constructor] has no [@@species] property");
             
             arr.constructor = null;
-            assert.throws(function () { arr.slice(); }, TypeError, "Calling ArrayBuffer.prototype.slice throws TypeError when constructor property is null", "ArrayBuffer.prototype.slice: argument is not a Function object");
+            assert.throws(function () { arr.slice(); }, TypeError, "Calling ArrayBuffer.prototype.slice throws TypeError when constructor property is null or not an object", "'[constructor]' is null or not an object");
             
             arr.constructor = 'some string';
-            assert.throws(function () { arr.slice(); }, TypeError, "Calling ArrayBuffer.prototype.slice throws TypeError when constructor property is not a function", "ArrayBuffer.prototype.slice: argument is not a Function object");
+            assert.throws(function () { arr.slice(); }, TypeError, "Calling ArrayBuffer.prototype.slice throws TypeError when constructor property is null or not an object", "'[constructor]' is null or not an object");
             
             arr.constructor = Math.sin;
-            assert.throws(function () { arr.slice(); }, TypeError, "Calling ArrayBuffer.prototype.slice throws TypeError when constructor property is not a constructor", "ArrayBuffer.prototype.slice: argument is not a Function object");
+            assert.doesNotThrow(function () { arr.slice(); }, "Calling ArrayBuffer.prototype.slice will use default constructor if [constructor] has no [@@species] property");
+            assert.areEqual(10, arr.slice().byteLength, "Calling ArrayBuffer.prototype.slice will use default constructor if [constructor] has no [@@species] property");
+        }
+    },
+    {
+        name: "Test of speciesConstructor codepaths accessing [@@species] through ArrayBuffer.prototype.slice",
+        body: function() {
+            var arr = new ArrayBuffer(10);
+
+            arr.constructor = function() {};
+            arr.constructor[Symbol.species] = undefined;
+            assert.doesNotThrow(function () { arr.slice(); }, "Calling ArrayBuffer.prototype.slice will use default constructor if [constructor] has [@@species] == undefined");
+            assert.areEqual(10, arr.slice().byteLength, "Calling ArrayBuffer.prototype.slice will use default constructor if [constructor] has [@@species] == undefined");
+
+            arr.constructor[Symbol.species] = null;
+            assert.doesNotThrow(function () { arr.slice(); }, "Calling ArrayBuffer.prototype.slice will use default constructor if [constructor] has [@@species] == undefined");
+            assert.areEqual(10, arr.slice().byteLength, "Calling ArrayBuffer.prototype.slice will use default constructor if [constructor] has [@@species] == undefined");
+
+            arr.constructor[Symbol.species] = {};
+            assert.throws(function () { arr.slice(); }, TypeError, "Calling ArrayBuffer.prototype.slice will use default constructor if [constructor] has [@@species] == undefined", "Function '[@@species]' is not a constructor");
         }
     },
 ];

@@ -173,6 +173,34 @@ var tests = [
             assert.throws(function() { Promise.all.call(Math.sin); }, TypeError, "Promise.all throws when this parameter is a non-constructor", "Function expected");
         }
     },
+    {
+        name: "Promise.prototype.then to access constructor through [@@species]",
+        body: function () {
+            var p = new Promise(function(resolve, reject) { });
+            p.constructor = undefined;
+            assert.doesNotThrow(function() { p.then(function(result) {}, function(err) {}); }, "");
+        }
+    },
+    {
+        name: "Promise methods to access 'this' through [@@species]",
+        body: function () {
+            function VerifyPromiseMethodUsingSpecies(func, name)
+            {
+                Object.defineProperty(Promise, Symbol.species, {writable: true});
+                var tmp=Promise[Symbol.species];
+                Promise[Symbol.species] = {};
+
+                assert.throws(func, TypeError, name+" is expected to access 'this' through customized [@@species]", "Function expected");
+                Promise[Symbol.species] = tmp;
+                assert.doesNotThrow(func, name+" is expected to access 'this' through built-in [@@species]");
+                Object.defineProperty(Promise, Symbol.species, {writable: false});
+            }
+            VerifyPromiseMethodUsingSpecies(function() { Promise.all.call(Promise, []); }, "Promise.all");
+            VerifyPromiseMethodUsingSpecies(function() { Promise.race.call(Promise, []); }, "Promise.race");
+            VerifyPromiseMethodUsingSpecies(function() { Promise.reject.call(Promise, 'Reject'); }, "Promise.reject");
+            VerifyPromiseMethodUsingSpecies(function() { Promise.resolve.call(Promise, 'Reject'); }, "Promise.resolve");
+        }
+    },
 ];
 
 testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });
