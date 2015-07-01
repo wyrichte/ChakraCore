@@ -553,13 +553,14 @@ namespace Projection
 
                 if (projectionContext->GetProjectionWriter()->CanResolveParamaters(methodSignature, false))
                 {
+#ifdef ENABLE_JS_ETW
                     if (EventEnabledJSCRIPT_PROJECTION_ADDEVENTLISTENER_START())
                     {
                         LPCWSTR runtimeClassName = StringOfId(scriptContext, rtmethod->runtimeClassNameId);
                         LPCWSTR methodName = StringOfId(scriptContext, rtmethod->nameId);
-                        JSETW(EventWriteJSCRIPT_PROJECTION_ADDEVENTLISTENER_START(runtimeClassName, methodName));
+                        EventWriteJSCRIPT_PROJECTION_ADDEVENTLISTENER_START(runtimeClassName, methodName);
                     }
-
+#endif
                     Recycler *recycler = scriptContext->GetRecycler();
                     EventProjectionHandler *eventProjectionHandler = GetEventProjectionHandlerFromThisInfo(scriptContext, thisInfo, args[0]);
                     if (eventProjectionHandler == nullptr)
@@ -586,12 +587,14 @@ namespace Projection
                         AddEventProjectionHandler(thisInfo, args[0], weakDelegate, eventProjectionHandler);
                     }
 
+#ifdef ENABLE_JS_ETW
                     if (EventEnabledJSCRIPT_PROJECTION_ADDEVENTLISTENER_STOP())
                     {
                         LPCWSTR runtimeClassName = StringOfId(scriptContext, rtmethod->runtimeClassNameId);
                         LPCWSTR methodName = StringOfId(scriptContext, rtmethod->nameId);
-                        JSETW(EventWriteJSCRIPT_PROJECTION_ADDEVENTLISTENER_STOP(runtimeClassName, methodName));
+                        EventWriteJSCRIPT_PROJECTION_ADDEVENTLISTENER_STOP(runtimeClassName, methodName);
                     }
+#endif
                 }
             }
         }
@@ -638,12 +641,14 @@ namespace Projection
                 RtABIMETHODSIGNATURE rtmethod = AbiMethodSignature::From(methodSignature);
                 if (projectionContext->GetProjectionWriter()->CanResolveParamaters(methodSignature, false))
                 {
+#ifdef ENABLE_JS_ETW
                     if (EventEnabledJSCRIPT_PROJECTION_REMOVEEVENTLISTENER_START())
                     {
                         LPCWSTR runtimeClassName = StringOfId(scriptContext, rtmethod->runtimeClassNameId);
                         LPCWSTR methodName = StringOfId(scriptContext, rtmethod->nameId);
-                        JSETW(EventWriteJSCRIPT_PROJECTION_REMOVEEVENTLISTENER_START(runtimeClassName, methodName));
+                        EventWriteJSCRIPT_PROJECTION_REMOVEEVENTLISTENER_START(runtimeClassName, methodName);
                     }
+#endif
 
                     EventProjectionHandler *eventProjectionHandler = GetEventProjectionHandlerFromThisInfo(scriptContext, thisInfo, args[0]);
                     if (eventProjectionHandler == nullptr)
@@ -664,12 +669,14 @@ namespace Projection
                         RemoveEventHandlerFromScript(rtmethod, inspectable, registration, scriptContext, true, isDefaultInterface);
                     }
 
+#ifdef ENABLE_JS_ETW
                     if (EventEnabledJSCRIPT_PROJECTION_REMOVEEVENTLISTENER_STOP())
                     {
                         LPCWSTR runtimeClassName = StringOfId(scriptContext, rtmethod->runtimeClassNameId);
                         LPCWSTR methodName = StringOfId(scriptContext, rtmethod->nameId);
-                        JSETW(EventWriteJSCRIPT_PROJECTION_REMOVEEVENTLISTENER_STOP(runtimeClassName, methodName));
+                        EventWriteJSCRIPT_PROJECTION_REMOVEEVENTLISTENER_STOP(runtimeClassName, methodName);
                     }
+#endif
                 }
             }
         }
@@ -704,12 +711,14 @@ namespace Projection
         RtMETHODSIGNATURE methodSignature = signature->abiEvent->addOn;
         RtABIMETHODSIGNATURE addMethod = AbiMethodSignature::From(methodSignature);
 
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_SETEVENTHANDLER_START())
         {
             LPCWSTR runtimeClassName = StringOfId(scriptContext, addMethod->runtimeClassNameId);
             LPCWSTR eventName = StringOfId(scriptContext, signature->abiEvent->nameId);
-            JSETW(EventWriteJSCRIPT_PROJECTION_SETEVENTHANDLER_START(runtimeClassName, eventName));
+            EventWriteJSCRIPT_PROJECTION_SETEVENTHANDLER_START(runtimeClassName, eventName);
         }
+#endif
 
         // Get the existing event
         Recycler *recycler = scriptContext->GetRecycler();
@@ -758,12 +767,14 @@ namespace Projection
             AddEventProjectionHandler(thisInfo, args[0], weakDelegate, eventProjectionHandler);
         }
 
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_SETEVENTHANDLER_STOP())
         {
             LPCWSTR runtimeClassName = StringOfId(scriptContext, addMethod->runtimeClassNameId);
             LPCWSTR eventName = StringOfId(scriptContext, signature->abiEvent->nameId);
-            JSETW(EventWriteJSCRIPT_PROJECTION_SETEVENTHANDLER_STOP(runtimeClassName, eventName));
+            EventWriteJSCRIPT_PROJECTION_SETEVENTHANDLER_STOP(runtimeClassName, eventName);
         }
+#endif
         return scriptContext->GetLibrary()->GetUndefined();
     }
 

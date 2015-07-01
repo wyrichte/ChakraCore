@@ -382,7 +382,7 @@ namespace Projection
             return S_OK;
         }
 
-        JSETW(EventWriteJSCRIPT_PROJECTION_GETEXPRFROMCONCRETETYPENAME_START(passedInTypeName));
+        JS_ETW(EventWriteJSCRIPT_PROJECTION_GETEXPRFROMCONCRETETYPENAME_START(passedInTypeName));
 
         DWORD typeNamePartsCount;
         HSTRING *typeNameParts;
@@ -429,7 +429,7 @@ namespace Projection
 
         CoTaskMemFree(typeNameParts);
 
-        JSETW(EventWriteJSCRIPT_PROJECTION_GETEXPRFROMCONCRETETYPENAME_STOP(passedInTypeName));
+        JS_ETW(EventWriteJSCRIPT_PROJECTION_GETEXPRFROMCONCRETETYPENAME_STOP(passedInTypeName));
 
         return hr;
     }
@@ -448,7 +448,7 @@ namespace Projection
         PCWSTR fullTypeName = threadContext->GetWinRTStringLibrary()->WindowsGetStringRawBuffer(typeNameParts[0], &length);
         *readParts = 1;
 
-        JSETW(EventWriteJSCRIPT_PROJECTION_GETTYPEFROMTYPENAMEPARTS_START(fullTypeName));
+        JS_ETW(EventWriteJSCRIPT_PROJECTION_GETTYPEFROMTYPENAMEPARTS_START(fullTypeName));
 
         // Check for basic and known types
         *type = builder->GetBasicAndKnownTypeByName(fullTypeName);
@@ -476,7 +476,7 @@ namespace Projection
         }
 
         *type = builder->TypeOfToken(typeDef->td, typeDef->assembly, genericParameters, false);
-        JSETW(EventWriteJSCRIPT_PROJECTION_GETTYPEFROMTYPENAMEPARTS_STOP(fullTypeName));
+        JS_ETW(EventWriteJSCRIPT_PROJECTION_GETTYPEFROMTYPENAMEPARTS_STOP(fullTypeName));
 
         return S_OK;
     }
@@ -491,18 +491,22 @@ namespace Projection
         HRESULT hr = ResolveTypeName(fullNameId, fullName, &typeDef);
         IfFailedReturn(hr);
 
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_RESOLVETYPE_START())
         {
             LPCWSTR fullNameString = fullName? fullName : StringOfId(fullNameId);
-            JSETW(EventWriteJSCRIPT_PROJECTION_RESOLVETYPE_START(fullNameString));
+            EventWriteJSCRIPT_PROJECTION_RESOLVETYPE_START(fullNameString);
         }
+#endif
         *expr = builder->ExprOfToken(typeId, typeDef->td, typeDef->assembly, genericParameters);
 
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_RESOLVETYPE_STOP())
         {
             LPCWSTR fullNameString = fullName? fullName : StringOfId(fullNameId);
-            JSETW(EventWriteJSCRIPT_PROJECTION_RESOLVETYPE_STOP(fullNameString));
+            EventWriteJSCRIPT_PROJECTION_RESOLVETYPE_STOP(fullNameString);
         }
+#endif
         return S_OK;
     }
 
@@ -517,7 +521,7 @@ namespace Projection
 
         // Make a copy of final namespace
         m_namespaces->Add(namespaceProjection->GetFullName(), namespaceProjection);
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_NAMESPACE_OBJECT(namespaceProjection->GetJSInstance(), fullName));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_NAMESPACE_OBJECT(namespaceProjection->GetJSInstance(), fullName));
 
         return namespaceProjection;
     }
@@ -744,9 +748,9 @@ namespace Projection
         if (!found)
         {
             BOOL isVersioned;
-            JSETW(EventWriteJSCRIPT_PROJECTION_GETTYPEMETADATAINFORMATION_START(typeDefName));
+            JS_ETW(EventWriteJSCRIPT_PROJECTION_GETTYPEMETADATAINFORMATION_START(typeDefName));
             hr = GetTypeMetaDataInformation(typeDefName, &info, &typeDefToken, &isVersioned);
-            JSETW(EventWriteJSCRIPT_PROJECTION_GETTYPEMETADATAINFORMATION_STOP(typeDefName));
+            JS_ETW(EventWriteJSCRIPT_PROJECTION_GETTYPEMETADATAINFORMATION_STOP(typeDefName));
 
             // If GetTypeMetaDataInformation told us it's neither a type nor a namespace,
             // cache that info by adding a cache entry with value == null.

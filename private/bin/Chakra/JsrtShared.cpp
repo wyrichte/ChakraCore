@@ -1130,7 +1130,7 @@ STDAPI_(JsErrorCode) JsCreateArrayBuffer(unsigned int byteLength, JsValueRef *re
         Js::JavascriptLibrary* library = scriptContext->GetLibrary();
         *result = library->CreateArrayBuffer(byteLength);
 
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*result));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*result));
         return JsNoError;
     });
 }
@@ -1205,7 +1205,7 @@ STDAPI_(JsErrorCode) JsCreateTypedArray(JsTypedArrayType arrayType, JsValueRef b
 
         *result = Js::JavascriptFunction::CallFunction<true>(constructorFunc, constructorFunc->GetEntryPoint(), args);
 
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*result));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*result));
         return JsNoError;
     });
 }
@@ -1225,7 +1225,7 @@ STDAPI_(JsErrorCode) JsCreateDataView(JsValueRef arrayBuffer, unsigned int byteO
         Js::JavascriptLibrary* library = scriptContext->GetLibrary();
         *result = library->CreateDataView(Js::ArrayBuffer::FromVar(arrayBuffer), byteOffset, byteLength);
 
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*result));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*result));
         return JsNoError;
     });
 }

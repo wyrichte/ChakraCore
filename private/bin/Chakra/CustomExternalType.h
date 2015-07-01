@@ -31,18 +31,18 @@ namespace Js
 
 // log an etw event before calling out to ITypeOperations
 #define BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, thisTypeId, propertyId, Operation) \
-    if (EventEnabledJSCRIPT_HOSTING_CEO_START())    \
+    if (IS_JS_ETW(EventEnabledJSCRIPT_HOSTING_CEO_START()))    \
     { \
-      JSETW(EventWriteJSCRIPT_HOSTING_CEO_START(scriptContext, thisTypeId, (void*)propertyId, Operation)); \
+      JS_ETW(EventWriteJSCRIPT_HOSTING_CEO_START(scriptContext, thisTypeId, (void*)propertyId, Operation)); \
     } \
    BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext) \
 
 // log an etw event before returning back from an ITypeOperation call. 
 #define END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, thisTypeId, propertyId, Operation) \
     END_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext); \
-    if (EventEnabledJSCRIPT_HOSTING_CEO_STOP())    \
+    if (IS_JS_ETW(EventEnabledJSCRIPT_HOSTING_CEO_STOP()))    \
     { \
-      JSETW(EventWriteJSCRIPT_HOSTING_CEO_STOP(scriptContext, thisTypeId, (void*)propertyId, Operation)); \
+      JS_ETW(EventWriteJSCRIPT_HOSTING_CEO_STOP(scriptContext, thisTypeId, (void*)propertyId, Operation)); \
     } \
 
     typedef enum CustomExternalOperation {

@@ -311,12 +311,14 @@ dbl_align:
                 }
             }
 
+#ifdef ENABLE_JS_ETW
             if (EventEnabledJSCRIPT_PROJECTION_RAWMETHODCALL_START())
             {
                 LPCWSTR runtimeClassName = StringOfId(scriptContext, signature->runtimeClassNameId);
                 LPCWSTR methodName = StringOfId(scriptContext, signature->nameId);
-                JSETW(EventWriteJSCRIPT_PROJECTION_RAWMETHODCALL_START(runtimeClassName, methodName));
+                EventWriteJSCRIPT_PROJECTION_RAWMETHODCALL_START(runtimeClassName, methodName);
             }
+#endif
 
             __asm
             {
@@ -354,7 +356,7 @@ dbl_align:
             {
                 LPCWSTR runtimeClassName = StringOfId(scriptContext, signature->runtimeClassNameId);
                 LPCWSTR methodName = StringOfId(scriptContext, signature->nameId);
-                JSETW(EventWriteJSCRIPT_PROJECTION_RAWMETHODCALL_START(runtimeClassName, methodName));
+                JS_ETW(EventWriteJSCRIPT_PROJECTION_RAWMETHODCALL_START(runtimeClassName, methodName));
             }
             hr = amd64_ProjectionCall(methodAddress, _this, stack, argsSize/sizeof(LPVOID));
 #elif defined(_M_ARM)
@@ -364,12 +366,14 @@ dbl_align:
             Assert(methodAddress);  // To avoid varning C4189 local variable is initialized but not refereced error for now
             hr = E_FAIL;
 #endif
+#ifdef ENABLE_JS_ETW
             if (EventEnabledJSCRIPT_PROJECTION_RAWMETHODCALL_STOP())
             {
                 LPCWSTR runtimeClassName = StringOfId(scriptContext, signature->runtimeClassNameId);
                 LPCWSTR methodName = StringOfId(scriptContext, signature->nameId);
-                JSETW(EventWriteJSCRIPT_PROJECTION_RAWMETHODCALL_STOP(runtimeClassName, methodName));
+                EventWriteJSCRIPT_PROJECTION_RAWMETHODCALL_STOP(runtimeClassName, methodName);
             }
+#endif
         }
         END_LEAVE_SCRIPT(scriptContext);
 

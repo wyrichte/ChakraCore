@@ -708,7 +708,7 @@ namespace Projection
             }
         }
         Js::JavascriptWinRTConstructorFunction::FromVar(typeInformation->GetConstructorFunction())->SetTypeInformation(typeInformation);
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_RUNTIMECLASS_OBJECT(typeInformation->GetConstructorFunction(), typeName));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_RUNTIMECLASS_OBJECT(typeInformation->GetConstructorFunction(), typeName));
 
         // Constructor of prototype
         Js::JavascriptOperators::InitProperty(prototypeObject, Js::PropertyIds::constructor, typeInformation->GetConstructorFunction());
@@ -854,10 +854,12 @@ namespace Projection
             // IReference<T> or IReferenceArray<T> : call get_Value()
             if (propertyValueSpecialization->getValue)
             {
+#ifdef ENABLE_JS_ETW
                 if (EventEnabledJSCRIPT_PROJECTION_REFERENCEORARRAYGETVALUE_START())
                 {
-                    JSETW(EventWriteJSCRIPT_PROJECTION_REFERENCEORARRAYGETVALUE_START(StringOfId(propertyValueSpecialization->getValue->runtimeClassNameId)));
+                    EventWriteJSCRIPT_PROJECTION_REFERENCEORARRAYGETVALUE_START(StringOfId(propertyValueSpecialization->getValue->runtimeClassNameId));
                 }
+#endif
                 Js::CallInfo callInfo(Js::CallFlags_Value, 1);
                 Var undefinedVar = {projectionContext->GetScriptContext()->GetLibrary()->GetUndefined()};
                 Js::Arguments args(callInfo, &undefinedVar);
@@ -872,11 +874,12 @@ namespace Projection
                 hr = invoker.InvokeUnknown(unknownReference, propertyValueSpecialization->getValue->vtableIndex+6, args);
                 Var result = invoker.ReadOutOrThrow(hr, false, args);
 
+#ifdef ENABLE_JS_ETW
                 if (EventEnabledJSCRIPT_PROJECTION_REFERENCEORARRAYGETVALUE_STOP())
                 {
-                    JSETW(EventWriteJSCRIPT_PROJECTION_REFERENCEORARRAYGETVALUE_STOP(StringOfId(propertyValueSpecialization->getValue->runtimeClassNameId)));
+                    EventWriteJSCRIPT_PROJECTION_REFERENCEORARRAYGETVALUE_STOP(StringOfId(propertyValueSpecialization->getValue->runtimeClassNameId));
                 }
-
+#endif
                 return result;
             }
             else
@@ -917,7 +920,7 @@ namespace Projection
         HRESULT hr = ProjectionObjectInstance::Create(htype, typeInformation->HasEventHandlers(), unknown, thisInfo->defaultInterface ? thisInfo->defaultInterface->instantiated : GUID_NULL, projectionContext, &instanceObject, allowIdentity, typeInformation->GCPressure());
         IfFailedMapAndThrowHr(scriptContext, hr);
         Js::DynamicObject *resultObject = instanceObject;
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_JSPROXY_OBJECT(instanceObject, StringOfId(typeNameId)));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_JSPROXY_OBJECT(instanceObject, StringOfId(typeNameId)));
 
         // Apply specialization if any.
         if (specialProjection)
@@ -1124,7 +1127,7 @@ namespace Projection
         IfNullMapAndThrowHr(scriptContext, scriptEngine, E_ACCESSDENIED);
 
         Var object = RecyclerNew(recycler, Js::ExternalObject, (Js::ExternalType *)htype);
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_ENUM_OBJECT(object, StringOfId(typeNameId)));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_ENUM_OBJECT(object, StringOfId(typeNameId)));
 
         ApplyPropertiesObjectToJsObject(object, _enum->properties, thisInfo);
 
@@ -1444,10 +1447,10 @@ namespace Projection
 
                 if (SUCCEEDED(hr) && inspectable != nullptr)
                 {
-                    const wchar_t* typeName = scriptContext->GetPropertyName(eventProjectionHandler->GetTypeId())->GetBuffer();
-                    JSETW(EventWriteJSCRIPT_PROJECTION_REMOVEALLEVENTSANDEVENTHANDLERS_START(typeName));
+                    JS_ETW(const wchar_t* typeName = scriptContext->GetPropertyName(eventProjectionHandler->GetTypeId())->GetBuffer());
+                    JS_ETW(EventWriteJSCRIPT_PROJECTION_REMOVEALLEVENTSANDEVENTHANDLERS_START(typeName));
                     eventProjectionHandler->RemoveAllEventsAndEventHandlers(inspectable, scriptContext);
-                    JSETW(EventWriteJSCRIPT_PROJECTION_REMOVEALLEVENTSANDEVENTHANDLERS_STOP(typeName));
+                    JS_ETW(EventWriteJSCRIPT_PROJECTION_REMOVEALLEVENTSANDEVENTHANDLERS_STOP(typeName));
                 }
 
                 Assert(!scriptContext->GetThreadContext()->IsScriptActive());
@@ -1458,9 +1461,9 @@ namespace Projection
             // Cleanup events on factory and statics
             runtimeClassThisToCleanupOnClose->Map([scriptContext](int index, RuntimeClassThis * runtimeClassThis)
             {
-                JSETW(EventWriteJSCRIPT_PROJECTION_REMOVEALLEVENTSANDEVENTHANDLERS_START(scriptContext->GetPropertyName(runtimeClassThis->typeId)->GetBuffer()));
+                JS_ETW(EventWriteJSCRIPT_PROJECTION_REMOVEALLEVENTSANDEVENTHANDLERS_START(scriptContext->GetPropertyName(runtimeClassThis->typeId)->GetBuffer()));
                 runtimeClassThis->GetEventProjectionHandler()->RemoveAllEventsAndEventHandlers(runtimeClassThis->factory, scriptContext);
-                JSETW(EventWriteJSCRIPT_PROJECTION_REMOVEALLEVENTSANDEVENTHANDLERS_STOP(scriptContext->GetPropertyName(runtimeClassThis->typeId)->GetBuffer()));
+                JS_ETW(EventWriteJSCRIPT_PROJECTION_REMOVEALLEVENTSANDEVENTHANDLERS_STOP(scriptContext->GetPropertyName(runtimeClassThis->typeId)->GetBuffer()));
             });
             runtimeClassThisToCleanupOnClose->Clear();
 

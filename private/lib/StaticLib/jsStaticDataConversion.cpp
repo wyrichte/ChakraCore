@@ -120,7 +120,7 @@ namespace JsStaticAPI
         binaryVerificationData->typeIdLimit = TypeIds_Limit;
         binaryVerificationData->numberUtilitiesBaseSize = sizeof(Js::NumberUtilitiesBase);
         binaryVerificationData->numberUtilitiesBaseOffset = (DWORD)((Js::NumberUtilities*)0x0)->GetNumberUtilitiesBase();
-        JSETW(EventWriteJSCRIPT_HOSTING_BINARY_CONSISTENCY_INFO(
+        JS_ETW(EventWriteJSCRIPT_HOSTING_BINARY_CONSISTENCY_INFO(
             binaryVerificationData->scriptEngineBaseSize,
             binaryVerificationData->scriptContextBaseSize,
             binaryVerificationData->javascriptLibraryBaseSize,

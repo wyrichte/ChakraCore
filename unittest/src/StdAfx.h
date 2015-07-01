@@ -1,5 +1,4 @@
 
-#define __PLACEMENT_NEW_INLINE
 #include "TargetVer.h"
 
 #include <windows.h>

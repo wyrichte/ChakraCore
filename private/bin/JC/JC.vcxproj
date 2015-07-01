@@ -36,10 +36,10 @@
       <AdditionalDependencies>%(AdditionalDependencies);muiload.lib;version.lib;psapi.lib</AdditionalDependencies>
 
       <AdditionalDependencies Condition="'$(Configuration)'!='fre' AND '$(Platform)'!='ARM' AND '$(Platform)'!='Arm64'">%(AdditionalDependencies);$(ChakraRootDirectory)tools\External\lib\$(PlatformPathNameAlt)\jitprofiling.lib</AdditionalDependencies>
-      <AdditionalDependencies Condition="'$(FreeBuild)'!='true'">%(AdditionalDependencies);dbghelp.lib</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(OptimiziedBuild)'!='true'">%(AdditionalDependencies);dbghelp.lib</AdditionalDependencies>
 
       <!-- IsMessageBoxWPresent -->
-      <AdditionalDependencies Condition="'$(FreeBuild)'!='true'">%(AdditionalDependencies);$(MinCorePrivSdkLibPath)\$(MinCoreTargetVersion)\ext-ms-win-ntuser-dialogbox-l1.lib</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(OptimiziedBuild)'!='true'">%(AdditionalDependencies);$(MinCorePrivSdkLibPath)\$(MinCoreTargetVersion)\ext-ms-win-ntuser-dialogbox-l1.lib</AdditionalDependencies>
       <AdditionalDependencies>%(AdditionalDependencies);$(MinCorePrivSdkLibPath)\$(MinCoreTargetVersion)\mincore_private.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>  

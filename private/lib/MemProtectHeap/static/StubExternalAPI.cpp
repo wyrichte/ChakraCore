@@ -38,10 +38,12 @@ void ConfigParserAPI::DisplayInitialOutput(__in LPWSTR moduleName)
     Output::Print(L"INIT: DLL Path   : %s\n", moduleName);
 }
 
+#ifdef ENABLE_JS_ETW
 void EtwCallbackApi::OnSessionChange(ULONG /* controlCode */, PVOID /* callbackContext */)
 {
     // Does nothing
 }
+#endif
 
 // Include this file got get the default behavior for JsUtil::ExternalApi functions.
 void JsUtil::ExternalApi::RecoverUnusedMemory()

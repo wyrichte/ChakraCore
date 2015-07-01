@@ -39,7 +39,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(FreeBuild)'=='true'">
+  <ItemDefinitionGroup Condition="'$(OptimiziedBuild)'=='true'">
     <ClCompile>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>    
     </ClCompile>

@@ -47,7 +47,6 @@
         $(ChakraRootDirectory)private\Bin\Chakra;
         $(SdkToolsIncPath)
       </AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>__PLACEMENT_NEW_INLINE;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <!-- 
         4189: local variable is initialized but not referenced
         4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow) 

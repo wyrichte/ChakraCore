@@ -35,7 +35,7 @@ namespace Projection
     // Info:        Destruct
     ArrayAsIterable::~ArrayAsIterable()
     {
-        JSETW(EventWriteJSCRIPT_RECYCLER_FREE_WINRT_COLLECTIONS_OBJECT(this));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_FREE_WINRT_COLLECTIONS_OBJECT(this));
 
         DLLRelease();
     }
@@ -55,7 +55,7 @@ namespace Projection
         this->m_pVectorOrView = pVectorOrView;
         this->m_iidVectorOrView = iidVectorOrView;
         this->iterable = iterable;
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_COLLECTIONS_OBJECT(this, this->GetFullTypeName(), m_pUnderlyingArray));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_COLLECTIONS_OBJECT(this, this->GetFullTypeName(), m_pUnderlyingArray));
 
         AddRef();
         return hr;

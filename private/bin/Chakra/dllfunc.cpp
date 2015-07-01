@@ -31,7 +31,7 @@ static CriticalSection s_csDllCanUnloadNow;
 #include "muiload.h"
 
 //IE MSHTML responsiveness events
-#ifdef F_JSETW
+#ifdef ENABLE_JS_ETW
 #include <IERESP_mshtml.h>
 #endif
 extern HANDLE g_hInstance;
@@ -72,7 +72,7 @@ static BOOL AttachProcess(HANDLE hmod)
         ConfigParser::ParseOnModuleLoad(parser, hmod);
     }
 
-    EtwTrace::Register();
+    JS_ETW(EtwTrace::Register());
     ValueType::Initialize();
     if (!BinaryFeatureControl::LanguageService())
     {
@@ -181,7 +181,7 @@ EXTERN_C BOOL WINAPI DllMain(HINSTANCE hmod, DWORD dwReason, PVOID pvReserved)
         DynamicProfileStorage::Uninitialize();
 #endif
         // Do this before DetachProcess() so that we won't have ETW rundown callbacks while destroying threadContexts.
-        EtwTrace::UnRegister();
+        JS_ETW(EtwTrace::UnRegister());
 
         // don't do anything if we are in forceful shutdown
         // try to clean up handles in graceful shutdown

@@ -317,12 +317,14 @@ namespace Projection
             {
                 DelegateThis * delegateThis = reinterpret_cast<DelegateThis*>(thisInfo);
 
+#ifdef ENABLE_JS_ETW
                 if (EventEnabledJSCRIPT_PROJECTION_INVOKENATIVEDELEGATE_START())
                 {
                     LPCWSTR runtimeClassName = StringOfId(scriptContext, rtmethod->runtimeClassNameId);
                     LPCWSTR methodName = StringOfId(scriptContext, rtmethod->nameId);
-                    JSETW(EventWriteJSCRIPT_PROJECTION_INVOKENATIVEDELEGATE_START(runtimeClassName, methodName));
+                    EventWriteJSCRIPT_PROJECTION_INVOKENATIVEDELEGATE_START(runtimeClassName, methodName);
                 }
+#endif
 
                 // Query interface for the iid
                 IUnknown *unknown = nullptr;
@@ -356,7 +358,7 @@ namespace Projection
 
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
-                JSETW(EventWriteJSCRIPT_PROJECTION_CONSTRUCTRUNTIMECLASS_START(projectionContext->StringOfId(runtimeClassThis->typeId)));
+                JS_ETW(EventWriteJSCRIPT_PROJECTION_CONSTRUCTRUNTIMECLASS_START(projectionContext->StringOfId(runtimeClassThis->typeId)));
                 hr = invoker.InvokeUnknown(factory, rtmethod->vtableIndex+6, args);
             }
             break;
@@ -364,12 +366,14 @@ namespace Projection
         case thisUnknown: 
             {
                 IUnknown *unknown;
+#ifdef ENABLE_JS_ETW
                 if (EventEnabledJSCRIPT_PROJECTION_METHODCALL_START())
                 {
                     LPCWSTR runtimeClassName = StringOfId(scriptContext, rtmethod->runtimeClassNameId);
                     LPCWSTR methodName = StringOfId(scriptContext, rtmethod->nameId);
-                    JSETW(EventWriteJSCRIPT_PROJECTION_METHODCALL_START(runtimeClassName, methodName));
+                    EventWriteJSCRIPT_PROJECTION_METHODCALL_START(runtimeClassName, methodName);
                 }
+#endif
 
                 bool isDefaultInterface = false;
                 GetUnknownOfVarExtension(scriptContext, _this, rtmethod->iid->instantiated, (void**)&unknown, &isDefaultInterface, false, rtmethod->nameId, thisInfo->GetTypeId());
@@ -399,23 +403,27 @@ namespace Projection
         {
         case thisUnknownEventHandling:
         case thisUnknown: 
+#ifdef ENABLE_JS_ETW
             if (EventEnabledJSCRIPT_PROJECTION_METHODCALL_STOP())
             {
                 LPCWSTR runtimeClassName = StringOfId(scriptContext, rtmethod->runtimeClassNameId);
                 LPCWSTR methodName = StringOfId(scriptContext, rtmethod->nameId);
-                JSETW(EventWriteJSCRIPT_PROJECTION_METHODCALL_STOP(runtimeClassName, methodName));
+                EventWriteJSCRIPT_PROJECTION_METHODCALL_STOP(runtimeClassName, methodName);
             }
+#endif
             break;
         case thisRuntimeClass:
-            JSETW(EventWriteJSCRIPT_PROJECTION_CONSTRUCTRUNTIMECLASS_STOP(projectionContext->StringOfId(runtimeClassThis->typeId)));
+            JS_ETW(EventWriteJSCRIPT_PROJECTION_CONSTRUCTRUNTIMECLASS_STOP(projectionContext->StringOfId(runtimeClassThis->typeId)));
             break;
         case thisDelegate:
+#ifdef ENABLE_JS_ETW
             if (EventEnabledJSCRIPT_PROJECTION_INVOKENATIVEDELEGATE_STOP())
             {
                 LPCWSTR runtimeClassName = StringOfId(scriptContext, rtmethod->runtimeClassNameId);
                 LPCWSTR methodName = StringOfId(scriptContext, rtmethod->nameId);
-                JSETW(EventWriteJSCRIPT_PROJECTION_INVOKENATIVEDELEGATE_STOP(runtimeClassName, methodName));
+                EventWriteJSCRIPT_PROJECTION_INVOKENATIVEDELEGATE_STOP(runtimeClassName, methodName);
             }
+#endif
             break;
         default:
             Js::Throw::FatalProjectionError();
@@ -844,10 +852,12 @@ namespace Projection
             return WriteInUnknown(nullptr, mem, memSize);
         }
 
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_WRITEIREFERENCE_START())
         {
-            JSETW(EventWriteJSCRIPT_PROJECTION_WRITEIREFERENCE_START(StringOfId(type->fullTypeNameId)));
+            EventWriteJSCRIPT_PROJECTION_WRITEIREFERENCE_START(StringOfId(type->fullTypeNameId));
         }
+#endif
 
         byte *typeStorage = AnewArrayZ(alloc, byte, type->storageSize);
 
@@ -866,10 +876,12 @@ namespace Projection
         hr = QueryInterfaceAfterLeaveScript(scriptContext, propertyValue, constructor->iid->instantiated, (LPVOID *)&inspectable);
         IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_WRITEIREFERENCE_STOP())
         {
-            JSETW(EventWriteJSCRIPT_PROJECTION_WRITEIREFERENCE_STOP(StringOfId(type->fullTypeNameId)));
+            EventWriteJSCRIPT_PROJECTION_WRITEIREFERENCE_STOP(StringOfId(type->fullTypeNameId));
         }
+#endif
 
         return WriteInUnknown(inspectable, mem, memSize);
     }
@@ -887,7 +899,7 @@ namespace Projection
 
     byte * ProjectionMarshaler::WriteInspectableObject(Var varInput, __in_bcount(memSize) byte *mem, __in size_t memSize, bool boxInterface)
     {
-        JSETW(EventWriteJSCRIPT_PROJECTION_WRITEINSPECTABLE_START(boxInterface));
+        JS_ETW(EventWriteJSCRIPT_PROJECTION_WRITEINSPECTABLE_START(boxInterface));
 
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
         Js::JavascriptErrorDebug::ClearErrorInfo(scriptContext);
@@ -1077,7 +1089,7 @@ namespace Projection
 
         IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
-        JSETW(EventWriteJSCRIPT_PROJECTION_WRITEINSPECTABLE_STOP(boxInterface));
+        JS_ETW(EventWriteJSCRIPT_PROJECTION_WRITEINSPECTABLE_STOP(boxInterface));
         return WriteInUnknown(propertyValue, mem, memSize);
     }
 
@@ -1090,10 +1102,12 @@ namespace Projection
         Assert(CanMarshalType(type));
 
         HRESULT hr;
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_GETNONARRAYTYPEASPROPERTYVALUE_START())
         {
-            JSETW(EventWriteJSCRIPT_PROJECTION_GETNONARRAYTYPEASPROPERTYVALUE_START(StringOfId(type->fullTypeNameId)));
+            EventWriteJSCRIPT_PROJECTION_GETNONARRAYTYPEASPROPERTYVALUE_START(StringOfId(type->fullTypeNameId));
         }
+#endif
         Windows::Foundation::IPropertyValueStatics *propertyValueFactory = projectionContext->GetProjectionWriter()->GetPropertyValueFactory();
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
 
@@ -1168,10 +1182,12 @@ namespace Projection
             Js::Throw::FatalProjectionError();
         }
 
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_GETNONARRAYTYPEASPROPERTYVALUE_STOP())
         {
-            JSETW(EventWriteJSCRIPT_PROJECTION_GETNONARRAYTYPEASPROPERTYVALUE_STOP(StringOfId(type->fullTypeNameId)));
+            EventWriteJSCRIPT_PROJECTION_GETNONARRAYTYPEASPROPERTYVALUE_STOP(StringOfId(type->fullTypeNameId));
         }
+#endif
         return hr;
     }
 
@@ -1181,76 +1197,91 @@ namespace Projection
         __in CorElementType type, 
         __out IInspectable **propertyValue)
     {
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_GETNONARRAYBASICTYPEASPROPERTYVALUE_START())
         {
-            JSETW(EventWriteJSCRIPT_PROJECTION_GETNONARRAYBASICTYPEASPROPERTYVALUE_START(StringOfId(projectionContext->GetProjectionBuilder()->GetBasicType(type)->fullTypeNameId)));
+            EventWriteJSCRIPT_PROJECTION_GETNONARRAYBASICTYPEASPROPERTYVALUE_START(StringOfId(projectionContext->GetProjectionBuilder()->GetBasicType(type)->fullTypeNameId));
         }
+#endif
         Windows::Foundation::IPropertyValueStatics *propertyValueFactory = projectionContext->GetProjectionWriter()->GetPropertyValueFactory();
         HRESULT hr;
         switch(type)
         {
             // Char
         case ELEMENT_TYPE_CHAR:
+            AnalysisAssert(arraySize >= sizeof(WCHAR));
             hr = propertyValueFactory->CreateChar16(*((WCHAR *)typeBuffer), propertyValue);
             break;
 
             // Boolean
         case ELEMENT_TYPE_BOOLEAN:
+            AnalysisAssert(arraySize >= sizeof(boolean));
             hr = propertyValueFactory->CreateBoolean(*((boolean *)typeBuffer), propertyValue);
             break;
 
             // UInt8
         case ELEMENT_TYPE_U1:
+            AnalysisAssert(arraySize >= sizeof(byte));
             hr = propertyValueFactory->CreateUInt8(*((byte *)typeBuffer), propertyValue);
             break;
 
             // Int16
         case ELEMENT_TYPE_I2:
+            AnalysisAssert(arraySize >= sizeof(__int16));
             hr = propertyValueFactory->CreateInt16(*((__int16 *)typeBuffer), propertyValue);
             break;
 
             // UInt16
         case ELEMENT_TYPE_U2:
+            AnalysisAssert(arraySize >= sizeof(unsigned __int16));
             hr = propertyValueFactory->CreateUInt16(*((unsigned __int16 *)typeBuffer), propertyValue);
             break;
 
             // Int32
         case ELEMENT_TYPE_I4:
+            AnalysisAssert(arraySize >= sizeof(__int32));
             hr = propertyValueFactory->CreateInt32(*((__int32 *)typeBuffer), propertyValue);
             break;
 
             // UInt32
         case ELEMENT_TYPE_U4:
+            AnalysisAssert(arraySize >= sizeof(unsigned __int32));
             hr = propertyValueFactory->CreateUInt32(*((unsigned __int32 *)typeBuffer), propertyValue);
             break;
 
             // Int64
         case ELEMENT_TYPE_I8:
+            AnalysisAssert(arraySize >= sizeof(__int64));
             hr = propertyValueFactory->CreateInt64(*((__int64 *)typeBuffer), propertyValue);
             break;
 
             // Int64
         case ELEMENT_TYPE_U8:
+            AnalysisAssert(arraySize >= sizeof(unsigned __int64));
             hr = propertyValueFactory->CreateUInt64(*((unsigned __int64 *)typeBuffer), propertyValue);
             break;
 
             // Float
         case ELEMENT_TYPE_R4:
+            AnalysisAssert(arraySize >= sizeof(float));
             hr = propertyValueFactory->CreateSingle(*((float *)typeBuffer), propertyValue);
             break;
 
             // Double
         case ELEMENT_TYPE_R8:
+            AnalysisAssert(arraySize >= sizeof(double));
             hr = propertyValueFactory->CreateDouble(*((double *)typeBuffer), propertyValue);
             break;
 
             // String
         case ELEMENT_TYPE_STRING:
+            AnalysisAssert(arraySize >= sizeof(HSTRING));
             hr = propertyValueFactory->CreateString(*((HSTRING *)typeBuffer), propertyValue);
             break;
 
             // Inspectable
         case ELEMENT_TYPE_OBJECT:
+            AnalysisAssert(arraySize >= sizeof(IInspectable *));
             hr = propertyValueFactory->CreateInspectable(*((IInspectable **)typeBuffer), propertyValue);
             break;
 
@@ -1258,10 +1289,12 @@ namespace Projection
             Js::Throw::FatalProjectionError();
         }
 
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_GETNONARRAYBASICTYPEASPROPERTYVALUE_STOP())
         {
-            JSETW(EventWriteJSCRIPT_PROJECTION_GETNONARRAYBASICTYPEASPROPERTYVALUE_STOP(StringOfId(projectionContext->GetProjectionBuilder()->GetBasicType(type)->fullTypeNameId)));
+            EventWriteJSCRIPT_PROJECTION_GETNONARRAYBASICTYPEASPROPERTYVALUE_STOP(StringOfId(projectionContext->GetProjectionBuilder()->GetBasicType(type)->fullTypeNameId));
         }
+#endif
         return hr;
     }
 
@@ -1326,10 +1359,12 @@ namespace Projection
         Assert(CanMarshalType(type));
 
         HRESULT hr;
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_GETTYPEDARRAYASPROPERTYVALUE_START())
         {
-            JSETW(EventWriteJSCRIPT_PROJECTION_GETTYPEDARRAYASPROPERTYVALUE_START(StringOfId(type->fullTypeNameId)));
+            EventWriteJSCRIPT_PROJECTION_GETTYPEDARRAYASPROPERTYVALUE_START(StringOfId(type->fullTypeNameId));
         }
+#endif
         UINT32 length = arraySize / type->storageSize;
         Windows::Foundation::IPropertyValueStatics *propertyValueFactory = projectionContext->GetProjectionWriter()->GetPropertyValueFactory();
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
@@ -1411,10 +1446,12 @@ namespace Projection
         default:
             Js::Throw::FatalProjectionError();
         }
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_GETTYPEDARRAYASPROPERTYVALUE_STOP())
         {
-            JSETW(EventWriteJSCRIPT_PROJECTION_GETTYPEDARRAYASPROPERTYVALUE_STOP(StringOfId(type->fullTypeNameId)));
+            EventWriteJSCRIPT_PROJECTION_GETTYPEDARRAYASPROPERTYVALUE_STOP(StringOfId(type->fullTypeNameId));
         }
+#endif
         return hr;
     }
 
@@ -1424,10 +1461,12 @@ namespace Projection
         __in CorElementType type, 
         __out IInspectable **propertyValue)
     {
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_GETBASICTYPEDARRAYASPROPERTYVALUE_START())
         {
-            JSETW(EventWriteJSCRIPT_PROJECTION_GETBASICTYPEDARRAYASPROPERTYVALUE_START(StringOfId(projectionContext->GetProjectionBuilder()->GetBasicType(type)->fullTypeNameId)));
+            EventWriteJSCRIPT_PROJECTION_GETBASICTYPEDARRAYASPROPERTYVALUE_START(StringOfId(projectionContext->GetProjectionBuilder()->GetBasicType(type)->fullTypeNameId));
         }
+#endif
         Windows::Foundation::IPropertyValueStatics *propertyValueFactory = projectionContext->GetProjectionWriter()->GetPropertyValueFactory();
         UINT32 length = arraySize / Metadata::Assembly::GetBasicTypeSize(type);
         HRESULT hr;
@@ -1501,10 +1540,12 @@ namespace Projection
         default:
             hr = E_INVALIDARG;
         }
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_PROJECTION_GETBASICTYPEDARRAYASPROPERTYVALUE_STOP())
         {
-            JSETW(EventWriteJSCRIPT_PROJECTION_GETBASICTYPEDARRAYASPROPERTYVALUE_STOP(StringOfId(projectionContext->GetProjectionBuilder()->GetBasicType(type)->fullTypeNameId)));
+            EventWriteJSCRIPT_PROJECTION_GETBASICTYPEDARRAYASPROPERTYVALUE_STOP(StringOfId(projectionContext->GetProjectionBuilder()->GetBasicType(type)->fullTypeNameId));
         }
+#endif
         return hr;
     }
 
@@ -2805,7 +2846,7 @@ namespace Projection
 
         UINT32 length;
         PCWSTR runtimeClassString = projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsGetStringRawBuffer(runtimeClassHString.Get(), &length);
-        JSETW(EventWriteJSCRIPT_PROJECTION_PROPERTYVALUEVARFROMGRCN_START(runtimeClassString));
+        JS_ETW(EventWriteJSCRIPT_PROJECTION_PROPERTYVALUEVARFROMGRCN_START(runtimeClassString));
 
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
         WCHAR *sIReference = wcsstr(runtimeClassString, L"Windows.Foundation.IReference`1");
@@ -3415,7 +3456,7 @@ namespace Projection
                 // Since we cant read this var directly and ReadVarFromRuntimeClassName would take care reading the var as well as recording the unknown for undo, 
                 // we need to revert our earlier recorded undo action
                 Var resultToReturn = ReadVarFromRuntimeClassName(runtimeClassHString, unknown, propertyValue, allowIdentity, allowExtensions, false, methodNameId);
-                JSETW(EventWriteJSCRIPT_PROJECTION_PROPERTYVALUEVARFROMGRCN_STOP(runtimeClassString));
+                JS_ETW(EventWriteJSCRIPT_PROJECTION_PROPERTYVALUEVARFROMGRCN_STOP(runtimeClassString));
                 return resultToReturn;
             }
         }
@@ -3442,7 +3483,7 @@ namespace Projection
             }
         }
 
-        JSETW(EventWriteJSCRIPT_PROJECTION_PROPERTYVALUEVARFROMGRCN_STOP(runtimeClassString));
+        JS_ETW(EventWriteJSCRIPT_PROJECTION_PROPERTYVALUEVARFROMGRCN_STOP(runtimeClassString));
 
         return result;
     }
@@ -3452,9 +3493,11 @@ namespace Projection
         Assert(unknown != nullptr);
         Assert(inspectable != nullptr);
 
+#ifdef ENABLE_JS_ETW
         UINT32 length;
         PCWSTR runtimeClassString = projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsGetStringRawBuffer(runtimeClassHString.Get(), &length);
-        JSETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_START(runtimeClassString));
+        EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_START(runtimeClassString);
+#endif
 
         // Emptry GRCN string
         if (runtimeClassHString.Get() == nullptr)
@@ -3462,13 +3505,13 @@ namespace Projection
             if (allowEmptyRuntimeClassName)
             {
                 Var result = ReadEmptyRuntimeClassNameUnknown(inspectable, allowIdentity, allowExtensions, constructorArguments);
-                JSETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_STOP(runtimeClassString));
+                JS_ETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_STOP(runtimeClassString));
 
                 return result;
             }
             else
             {
-                JSETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_STOP(runtimeClassString));
+                JS_ETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_STOP(runtimeClassString));
                 return projectionContext->GetScriptContext()->GetLibrary()->GetUndefined();
             }
         }
@@ -3493,7 +3536,7 @@ namespace Projection
                     // app developer provides the webview with an object without the object - instead of terminating
                     // the process, we should instead log an error (handled at a higher layer, in the webview control)
                     // and just treat the object's value as undefined.
-                    JSETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_STOP(runtimeClassString));
+                    JS_ETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_STOP(runtimeClassString));
                     return projectionContext->GetScriptContext()->GetLibrary()->GetUndefined();
                 }
                 Js::Throw::FatalProjectionError();
@@ -3507,14 +3550,14 @@ namespace Projection
                 case functionInterfaceConstructor:
                     {
                         Var result = ReadInterfaceConstructorOutParameterFromUnknown(RuntimeInterfaceConstructor::From(function), unknown, allowIdentity, allowExtensions, constructorArguments);
-                        JSETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_STOP(runtimeClassString));
+                        JS_ETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_STOP(runtimeClassString));
                         return result;
                     }
 
                 case functionRuntimeClassConstructor: 
                     {
                         Var result = ReadRuntimeClassConstructorOutParameterFromUnknown(RuntimeClassConstructor::From(function), unknown, allowIdentity, allowExtensions, constructorArguments);
-                        JSETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_STOP(runtimeClassString));
+                        JS_ETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_STOP(runtimeClassString));
                         return result;
                     }
                 }
@@ -3522,7 +3565,7 @@ namespace Projection
             Js::Throw::FatalProjectionError();
         }
 
-        JSETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_STOP(runtimeClassString));
+        JS_ETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_STOP(runtimeClassString));
         return projectionContext->GetScriptContext()->GetLibrary()->GetUndefined();
     }
 
@@ -3886,7 +3929,7 @@ namespace Projection
         IfNullMapAndThrowHr(scriptContext, scriptEngine, E_ACCESSDENIED);
 
         Var object = RecyclerNew(scriptContext->GetRecycler(), Js::ExternalObject, (Js::ExternalType *)htype);
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_STRUCT_OBJECT(object, StringOfId(constructor->typeId)));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_STRUCT_OBJECT(object, StringOfId(constructor->typeId)));
 
         byte * storage = mem;
 #if _M_X64
@@ -4050,26 +4093,37 @@ namespace Projection
         switch(typeCor)
         {
         case ELEMENT_TYPE_CHAR: 
+            AnalysisAssert(memSize >= sizeof(wchar_t));
             return Js::JavascriptString::NewCopyBuffer((wchar_t*)mem, 1, scriptContext);
         case ELEMENT_TYPE_BOOLEAN:
+            AnalysisAssert(memSize >= sizeof(bool));
             return Js::JavascriptBoolean::ToVar(*((bool*)mem), scriptContext);
         case ELEMENT_TYPE_U1:
+            AnalysisAssert(memSize >= sizeof(unsigned __int8));
             return Js::JavascriptNumber::ToVar(*(unsigned __int8*)mem, scriptContext);
         case ELEMENT_TYPE_I2:
+            AnalysisAssert(memSize >= sizeof(__int16));
             return Js::JavascriptNumber::ToVar(*(__int16*)mem, scriptContext);
         case ELEMENT_TYPE_U2:
+            AnalysisAssert(memSize >= sizeof(unsigned __int16));
             return Js::JavascriptNumber::ToVar(*(unsigned __int16*)mem, scriptContext);
         case ELEMENT_TYPE_I4:
+            AnalysisAssert(memSize >= sizeof(__int32));
             return Js::JavascriptNumber::ToVar(*(__int32*)mem, scriptContext);
         case ELEMENT_TYPE_U4:
+            AnalysisAssert(memSize >= sizeof(unsigned __int32));
             return Js::JavascriptNumber::ToVar(*(unsigned __int32*)mem, scriptContext);
         case ELEMENT_TYPE_I8:
+            AnalysisAssert(memSize >= sizeof(__int64));
             return Js::JavascriptInt64Number::ToVar(*(__int64*)mem, scriptContext);
         case ELEMENT_TYPE_U8:
+            AnalysisAssert(memSize >= sizeof(unsigned __int64));
             return Js::JavascriptUInt64Number::ToVar(*(unsigned __int64*)mem, scriptContext);
         case ELEMENT_TYPE_R4:
+            AnalysisAssert(memSize >= sizeof(float));
             return Js::JavascriptNumber::ToVarWithCheck(*(float*)mem, scriptContext);
         case ELEMENT_TYPE_R8:
+            AnalysisAssert(memSize >= sizeof(double));
             return Js::JavascriptNumber::ToVarWithCheck(*(double*)mem, scriptContext);
         case ELEMENT_TYPE_OBJECT:
             {

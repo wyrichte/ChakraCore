@@ -32,7 +32,7 @@ namespace Projection
     // Info:        Destruct
     ArrayAsIterator::~ArrayAsIterator()
     {
-        JSETW(EventWriteJSCRIPT_RECYCLER_FREE_WINRT_COLLECTIONS_OBJECT(this));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_FREE_WINRT_COLLECTIONS_OBJECT(this));
     }
 
     HRESULT ArrayAsIterator::Initialize(
@@ -47,7 +47,7 @@ namespace Projection
         this->iterator = iterator;
         this->elementType = ProjectionModel::ConcreteType::From(iterator->genericParameters->First());
         this->m_pUnderlyingArray = pUnderlyingArray;
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_COLLECTIONS_OBJECT(this, this->GetFullTypeName(), m_pUnderlyingArray));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_COLLECTIONS_OBJECT(this, this->GetFullTypeName(), m_pUnderlyingArray));
 
         AddRef();
 

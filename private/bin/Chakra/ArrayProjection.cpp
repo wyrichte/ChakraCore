@@ -381,7 +381,7 @@ namespace Projection
         HTYPE hTypeRef = pArrayProjection->GetTypeRef();
         hr = ArrayObjectInstance::Create(hTypeRef, pArrayProjection->getItemAtId, elementType, pArrayBlockPointer, length, projectionContext, &pArrayObjectInstance);
         IfFailedReturn(hr);
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_TYPEDARRAY_OBJECT(pArrayObjectInstance, StringOfId(scriptContext, pArrayObjectInstance->GetTypeNameId())));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_TYPEDARRAY_OBJECT(pArrayObjectInstance, StringOfId(scriptContext, pArrayObjectInstance->GetTypeNameId())));
        
         // Create the length value and set it
         Var varLength = Js::JavascriptNumber::ToVar(length, scriptContext);

@@ -31,8 +31,7 @@
         $(ComIncPath)\midlrt;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>      
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PreprocessorDefinitions>__PLACEMENT_NEW_INLINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>      
     </ClCompile>
   </ItemDefinitionGroup>  
   <ItemGroup>

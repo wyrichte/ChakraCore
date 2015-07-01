@@ -10,11 +10,11 @@ public:
 void
 __stdcall MemProtectHeapProcessAttach()
 {
-    EtwTraceCore::Register();
+    JS_ETW(EtwTraceCore::Register());
 }
 
 void
 __stdcall MemProtectHeapProcessDetach()
 {
-    EtwTraceCore::UnRegister();
+    JS_ETW(EtwTraceCore::UnRegister());
 }

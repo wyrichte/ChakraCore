@@ -42,7 +42,7 @@ namespace Projection
         {
             delete m_pPropertyValue;
         }
-        JSETW(EventWriteJSCRIPT_RECYCLER_FREE_WINRT_PROPERTYVALUE_OBJECT(this));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_FREE_WINRT_PROPERTYVALUE_OBJECT(this));
     }
 
     HRESULT ObjectAsIReference::Initialize(
@@ -90,7 +90,7 @@ namespace Projection
 
         finalizableTypedArrayContents->Initialize();
 
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_PROPERTYVALUE_OBJECT(this, this->GetFullTypeName(), isArray));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_PROPERTYVALUE_OBJECT(this, this->GetFullTypeName(), isArray));
 
         AddRef();
         return hr;

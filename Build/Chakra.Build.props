@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(ChakraCoreBuildDirectory)Common.Build.props" />
   <PropertyGroup>
     <!-- CFG is turned off for ARM for now -->
     <CFG Condition="'$(CFG)'=='' AND '$(Platform)'!='ARM'">true</CFG>
@@ -68,9 +69,9 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions);CULDEBUG_USE_NTASSERT</PreprocessorDefinitions>
 
       <!-- ========= From tools\makefile.def ========= -->
-      <AdditionalOptions>%(AdditionalOptions) /Yl$(TargetName) /Gw /d2AllowCompatibleILVersions /d2Zi+</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /d2AllowCompatibleILVersions /d2Zi+</AdditionalOptions>
       <!-- Disable __DATE__ and __TIME__ macro on fre to prevent screwing up servicing -->
-      <AdditionalOptions Condition="'$(FreeBuild)'=='true'">%(AdditionalOptions) /d1nodatetime</AdditionalOptions>
+      <AdditionalOptions Condition="'$(OptimiziedBuild)'=='true'">%(AdditionalOptions) /d1nodatetime</AdditionalOptions>
 
       <!-- this is the default in the headers anyways, here just to be explicit -->
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_USE_DECLSPECS_FOR_SAL=1</PreprocessorDefinitions>
@@ -78,84 +79,39 @@
       <!-- ========= From tools\<platform>mk.inc -->
       <!-- Force no_registry search for type libraries (we have #import mscorlib.tlb) -->
       <AdditionalOptions>%(AdditionalOptions) /d1import_no_registry</AdditionalOptions>
-      <ProgramDataBaseFileName Condition="'$(ConfigurationType)'=='StaticLibrary'">$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <ProgramDataBaseFileName Condition="'$(ConfigurationType)'!='StaticLibrary'">$(IntDir)</ProgramDataBaseFileName>
 
       <!-- ========= From tools\armmk.inc ========= -->
       <AdditionalOptions Condition="'$(Platform)'=='ARM'">%(AdditionalOptions) /arch:VFPv3-D16 /Gs4096</AdditionalOptions>
 
       <!-- ========= From inetcore\jscript\project.mk ========= -->
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);NTBUILD;NOMINMAX;NO_SHLWAPI_ISOS;USE_EDGEMODE_JSRT</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NTBUILD;NO_SHLWAPI_ISOS</PreprocessorDefinitions>
       <AdditionalOptions>%(AdditionalOptions) /Zm150</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'=='Win32'">%(AdditionalOptions) /d2noftol3</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'=='x64'">%(AdditionalOptions) /homeparams</AdditionalOptions>
       <EnableEnhancedInstructionSet Condition="'$(Platform)'=='Win32'">NoExtensions</EnableEnhancedInstructionSet>
-      <!-- /W4 -->
-      <WarningLevel>Level4</WarningLevel>
-      <!-- /WX -->
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <!-- /GR- -->
-      <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <!-- /Zi -->
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <!-- /EHsc- -->
-      <ExceptionHandling>SyncCThrow</ExceptionHandling>
-      <!-- Some of our STDMETHOD can throw
-           TODO: Code review STDMETHOD and separate out API that can throw and those that can't -->
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);COM_STDMETHOD_CAN_THROW</PreprocessorDefinitions>
-      <!-- TODO: clean up 4267 -->
-      <DisableSpecificWarnings>4100;4127;4267;4481</DisableSpecificWarnings>
-
-      <!-- ========= Microsoft.Build.Cpp.props ========= -->
-      <!-- These are already defined in Microsoft.Build.Cpp.props, have it here too so that the non-Razzle build will be the same -->
-      <!-- /Gz -->
-      <CallingConvention Condition="'$(Platform)'=='Win32'">StdCall</CallingConvention>
 
       <!-- ========= Microsoft.Build.Cpp.Default.props ========= -->
       <!-- These are already defined in Microsoft.Build.Cpp.Default.props, have it here too so that the non-Razzle build will be the same -->
       <!-- /Zc:wchar_t- -->
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
-      <!-- /Zp8 -->
-      <StructMemberAlignment>8Bytes</StructMemberAlignment>
 
       <!-- ========= Microsoft.Cl.Common.props defaults ========= -->
-      <!-- /GS -->
-      <BufferSecurityCheck>true</BufferSecurityCheck>
       <!-- No /RTC -->
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <SmallerTypeCheck>false</SmallerTypeCheck>
 
-      <!-- ========= Other defaults ========= -->
-      <!-- /Gy -->
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <!-- /GF -->
-      <StringPooling>true</StringPooling>
-      <!-- /Zl -->
-      <OmitDefaultLibName>true</OmitDefaultLibName>
+      <!-- ========= Other defaults ========= -->          
       <!-- /MD -->
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
 
-      <!-- Enable Minimal rebuild inside VS, we can expand it if it is worth while (minmial rebuild has PCH problem with non chk build -->
+      <!-- Enable Minimal rebuild inside VS, we can expand it if it is worth while (minmial rebuild has PCH problem with optimized build -->
       <MinimalRebuild>false</MinimalRebuild>
       <MinimalRebuild Condition="'$(BuildingInsideVisualStudio)'=='true' AND '$(Configuration)' == 'chk'">true</MinimalRebuild>
 
-      <!-- We don't use any metadata -->
-      <AdditionalUsingDirectories />
-    </ClCompile>
-    <MASM>
-      <!-- /Cx -->
-      <PreserveIdentifierCase>3</PreserveIdentifierCase>
-      <PreprocessorDefinitions>%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
-      <IncludePaths>%(ClCompile.AdditionalIncludeDirectories)</IncludePaths>
-    </MASM>
-    <Link>
-      <!-- These are already defined in Microsoft.Build.Cpp.Default.props, have it here too so that the non-Razzle build will be the same -->
-      <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding Condition="'$(FreeBuild)'=='true'">true</EnableCOMDATFolding>
-      <OptimizeReferences Condition="'$(FreeBuild)'=='true'">true</OptimizeReferences>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
 
+    </ClCompile>
+    
+    <Link>
       <!-- ======== From makefile.def ======== -->
       <!-- REVIEW: NOOPTIDATA is undocumented, prevent .idata to be merged into .text-->
       <AdditionalOptions>%(AdditionalOptions) /NOVCFEATURE /NOOPTIDATA /SECTION:.idata,R</AdditionalOptions>
@@ -189,24 +145,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>      
     </ImpLib>
   </ItemDefinitionGroup>
-  <!-- chk build flags -->
-  <ItemDefinitionGroup Condition="'$(FreeBuild)'!='true'">
-    <ClCompile>
-      <!-- ========= From inetcore\jscript\project.mk ========= -->
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);_DEBUG;DBG;DBG_DUMP</PreprocessorDefinitions>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <!-- fre and fretest build flags -->
-  <ItemDefinitionGroup Condition="'$(FreeBuild)'=='true'">
-    <ClCompile>
-      <!-- ========= From inetcore\jscript\project.mk ========= -->
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)'=='fretest'">%(PreprocessorDefinitions);ENABLE_DEBUG_CONFIG_OPTIONS=1</PreprocessorDefinitions>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-    </ClCompile>
-  </ItemDefinitionGroup>
+
   <!-- CFG - From tools\makefile.def -->
   <ItemDefinitionGroup Condition="'$(CFG)'=='true'">
     <ClCompile>

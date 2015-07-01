@@ -34,11 +34,11 @@ namespace Projection
     {
         if (eventInfo)
         {
-            JSETW(EventWriteJSCRIPT_RECYCLER_FREE_WINRT_EVENTHANDLER_OBJECT(this));
+            JS_ETW(EventWriteJSCRIPT_RECYCLER_FREE_WINRT_EVENTHANDLER_OBJECT(this));
         }
         else
         {
-            JSETW(EventWriteJSCRIPT_RECYCLER_FREE_WINRT_DELEGATE_OBJECT(this));
+            JS_ETW(EventWriteJSCRIPT_RECYCLER_FREE_WINRT_DELEGATE_OBJECT(this));
         }
 
         DLLRelease();
@@ -228,11 +228,11 @@ namespace Projection
 
         if (eventInfo)
         {
-            JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_EVENTHANDLER_OBJECT(this, this->GetFullTypeName(), callback, StringOfId(projectionContext->GetScriptContext(), eventInfo->nameId)));
+            JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_EVENTHANDLER_OBJECT(this, this->GetFullTypeName(), callback, StringOfId(projectionContext->GetScriptContext(), eventInfo->nameId)));
         }
         else
         {
-            JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_DELEGATE_OBJECT(this, this->GetFullTypeName(), callback));
+            JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_DELEGATE_OBJECT(this, this->GetFullTypeName(), callback));
         }
 
         return hr;
@@ -243,10 +243,12 @@ namespace Projection
         Js::ScriptContext * scriptContext = projectionContext->GetScriptContext();
         LPCWSTR eventName = StringOfId(scriptContext, eventInfo->nameId);
 
+#ifdef ENABLE_JS_ETW
         if(EventEnabledJSCRIPT_PROJECTION_INVOKEEVENTEVPARAMPREP_START()) {
             LPCWSTR runtimeClassName = StringOfId(scriptContext, signature->runtimeClassNameId);
-            JSETW(EventWriteJSCRIPT_PROJECTION_INVOKEEVENTEVPARAMPREP_START(runtimeClassName, eventName));
+            EventWriteJSCRIPT_PROJECTION_INVOKEEVENTEVPARAMPREP_START(runtimeClassName, eventName);
         }
+#endif
 
         Assert(eventInfo != nullptr);
         
@@ -302,10 +304,12 @@ namespace Projection
         evObject->SetPropertyWithAttributes(writer->detailId, detailArray, PropertyEnumerable, nullptr);
         evObject->SetPropertyWithAttributes(writer->typeId, Js::JavascriptString::NewCopySz(eventName, scriptContext), PropertyEnumerable, nullptr);
 
+#ifdef ENABLE_JS_ETW
         if(EventEnabledJSCRIPT_PROJECTION_INVOKEEVENTEVPARAMPREP_STOP()) {
             LPCWSTR runtimeClassName = StringOfId(scriptContext, signature->runtimeClassNameId);
-            JSETW(EventWriteJSCRIPT_PROJECTION_INVOKEEVENTEVPARAMPREP_STOP(runtimeClassName, eventName));
+            EventWriteJSCRIPT_PROJECTION_INVOKEEVENTEVPARAMPREP_STOP(runtimeClassName, eventName);
         }
+#endif
 
         succeeded = evObject->PreventExtensions();
         Js::VerifyCatastrophic(succeeded);
@@ -325,20 +329,22 @@ namespace Projection
     )
     {
         Js::ScriptContext * scriptContext = projectionContext->GetScriptContext();
+#ifdef ENABLE_JS_ETW
         if (eventInfo != nullptr)
         {
             if(EventEnabledJSCRIPT_PROJECTION_INVOKEEVENT_START()) {
                 LPCWSTR runtimeClassName = StringOfId(scriptContext, signature->runtimeClassNameId);
-                JSETW(EventWriteJSCRIPT_PROJECTION_INVOKEEVENT_START(runtimeClassName, StringOfId(scriptContext, eventInfo->nameId)));
+                EventWriteJSCRIPT_PROJECTION_INVOKEEVENT_START(runtimeClassName, StringOfId(scriptContext, eventInfo->nameId));
             }
         }
         else
         {
             if(EventEnabledJSCRIPT_PROJECTION_INVOKEJSDELEGATE_START()) {
                 LPCWSTR runtimeClassName = StringOfId(scriptContext, signature->runtimeClassNameId);
-                JSETW(EventWriteJSCRIPT_PROJECTION_INVOKEJSDELEGATE_START(runtimeClassName, StringOfId(scriptContext, signature->nameId)));
+                EventWriteJSCRIPT_PROJECTION_INVOKEJSDELEGATE_START(runtimeClassName, StringOfId(scriptContext, signature->nameId));
             }
         }
+#endif
 
         // Allocate array for JavaScript callback function arguments + this param
         JsVarList jsCallbackParams(signature->inParameterCount + 1);
@@ -636,21 +642,22 @@ namespace Projection
             // so the ProjectionMarshaler will not release them.
             marshal.TransferOwnershipOfDelegateOutTypes();
         }
-
+#ifdef ENABLE_JS_ETW
         if (eventInfo != nullptr)
         {
             if(EventEnabledJSCRIPT_PROJECTION_INVOKEEVENT_STOP()) {
                 LPCWSTR runtimeClassName = StringOfId(scriptContext, signature->runtimeClassNameId);
-                JSETW(EventWriteJSCRIPT_PROJECTION_INVOKEEVENT_STOP(runtimeClassName, StringOfId(scriptContext, eventInfo->nameId)));
+                EventWriteJSCRIPT_PROJECTION_INVOKEEVENT_STOP(runtimeClassName, StringOfId(scriptContext, eventInfo->nameId));
             }
         }
         else
         {
             if(EventEnabledJSCRIPT_PROJECTION_INVOKEJSDELEGATE_STOP()) {
                 LPCWSTR runtimeClassName = StringOfId(scriptContext, signature->runtimeClassNameId);
-                JSETW(EventWriteJSCRIPT_PROJECTION_INVOKEJSDELEGATE_STOP(runtimeClassName, StringOfId(scriptContext, signature->nameId)));
+                EventWriteJSCRIPT_PROJECTION_INVOKEJSDELEGATE_STOP(runtimeClassName, StringOfId(scriptContext, signature->nameId));
             }
         }
+#endif
     }
     CUnknownMethodImpl_ArgT_ReportError_Epilog()
 #pragma warning(pop)

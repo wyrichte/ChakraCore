@@ -74,7 +74,7 @@ namespace Projection
         {
             delete m_pIterable;
         }
-        JSETW(EventWriteJSCRIPT_RECYCLER_FREE_WINRT_COLLECTIONS_OBJECT(this));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_FREE_WINRT_COLLECTIONS_OBJECT(this));
 
         DLLRelease();
     }
@@ -91,7 +91,7 @@ namespace Projection
         this->elementType = ProjectionModel::ConcreteType::From(vector->genericParameters->First());
         this->sizeOnStackOfElement = this->elementType->sizeOnStack;
         this->m_pUnderlyingArray = pUnderlyingArray;
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_COLLECTIONS_OBJECT(this, this->GetFullTypeName(), m_pUnderlyingArray));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_COLLECTIONS_OBJECT(this, this->GetFullTypeName(), m_pUnderlyingArray));
 
         AddRef();
 

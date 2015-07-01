@@ -5,7 +5,7 @@
 #include "StdAfx.h"
 
 
-#ifdef F_JSETW
+#ifdef ENABLE_JS_ETW
 #include <IERESP_mshtml.h>
 #include "microsoft-scripting-jscript9.internalevents.h"
 #endif

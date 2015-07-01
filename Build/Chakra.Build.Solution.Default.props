@@ -22,13 +22,20 @@
     <MinCorePrivSdkLibPath>$(PublicInternalPath)\mincore\priv_sdk\lib\$(PlatformPathNameAlt)</MinCorePrivSdkLibPath>
     <SdkToolsIncPath>$(PublicInternalPath)\sdktools\inc</SdkToolsIncPath>
   </PropertyGroup>
+  <!-- Output directories -->
+  <PropertyGroup>
+    <OutBaseDir Condition="'$(OutBaseDir)'==''">$(SolutionDir)VcBuild</OutBaseDir>
+    <OutDir>$(OutBaseDir)\Binaries\win-$(PlatformPathName)$(Configuration)\</OutDir>
+    <IntDir>$(OutBaseDir)\Obj\win-$(PlatformPathName)$(Configuration)\$(MSBuildProjectName)\</IntDir>
+    <OutputPath>$(OutDir)</OutputPath>
+  </PropertyGroup>
   <PropertyGroup>
     <RazzleConfigurationPath Condition="'$(Configuration)'=='fretest'">fre</RazzleConfigurationPath>
     <RazzleConfigurationPath Condition="'$(Configuration)'!='fretest'">$(Configuration)</RazzleConfigurationPath>
     <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\..\..\sdpublic</PUBLIC_ROOT>
     <OBJECT_ROOT Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes' AND '$(_OBJECT_ROOT_PREFIX)'==''">$(BASEDIR).obj.$(PlatformPathName)$(RazzleConfigurationPath)</OBJECT_ROOT>
     <OBJECT_ROOT Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes' AND '$(_OBJECT_ROOT_PREFIX)'!=''">$(_OBJECT_ROOT_PREFIX).$(PlatformPathName)$(RazzleConfigurationPath)</OBJECT_ROOT>
-    <OutBaseDir Condition="'$(OutBaseDir)'==''">$(SolutionDir)VcBuild</OutBaseDir>
+    
     <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\..\..\tools</RazzleToolPath>
     <IncludePath>$(PUBLIC_ROOT)\shared\inc</IncludePath>
     <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\shared\inc\minwin</IncludePath>
@@ -39,9 +46,7 @@
     
     
     <ExecutablePath>$(RazzleToolPath)\Dev12\x32\$(PlatformPathName);$(RazzleToolPath)\x86;$(RazzleToolPath)\perl\bin;d:\win\ie\tool</ExecutablePath>
-    <OutDir>$(OutBaseDir)\Binaries\win-$(PlatformPathName)$(Configuration)\</OutDir>
-    <IntDir>$(OutBaseDir)\Obj\win-$(PlatformPathName)$(Configuration)\$(MSBuildProjectName)\</IntDir>
-    <OutputPath>$(OutDir)</OutputPath>
+    
     <GenerateManifest>false</GenerateManifest>
     <!-- disable incremental build because some library from public contains /GL objects -->
     <LinkIncremental>false</LinkIncremental>

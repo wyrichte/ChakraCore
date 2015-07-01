@@ -273,7 +273,7 @@ namespace Js
             return false; // Not a supported object type
         }
 
-#ifdef F_JSETW
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_RECYCLER_ALLOCATE_OBJECT() && isObject)
         {
             EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*dst);

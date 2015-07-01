@@ -6,7 +6,7 @@
 #include "share.h"
 #pragma hdrstop
 #include <fcntl.h>
-#ifdef F_JSETW
+#ifdef ENABLE_JS_ETW
 #include <IERESP_mshtml.h>
 #include "microsoft-scripting-jscript9.internalevents.h"
 #endif
@@ -6588,7 +6588,7 @@ HRESULT ScriptEngine::CompileByteCodeBuffer(
     Js::NativeModule * nativeModule = nullptr;
 #ifdef ENABLE_NATIVE_CODE_SERIALIZATION
     nativeModule = (Js::NativeModule *)unpack[2];
-    if (nativeModule && EventEnabledJSCRIPT_NATIVE_MODULE_LOAD())
+    if (nativeModule && IS_JS_ETW(EventEnabledJSCRIPT_NATIVE_MODULE_LOAD()))
     {
         HCRYPTPROV hProv = NULL;
         HCRYPTHASH hHash = NULL;
@@ -6610,7 +6610,7 @@ HRESULT ScriptEngine::CompileByteCodeBuffer(
         {
             CryptDestroyHash(hHash);
         }
-        EventWriteJSCRIPT_NATIVE_MODULE_LOAD(nativeModule->base, pHash, srcInfo->sourceContextInfo->url, nativeModule->codeSize);
+        JS_ETW(EventWriteJSCRIPT_NATIVE_MODULE_LOAD(nativeModule->base, pHash, srcInfo->sourceContextInfo->url, nativeModule->codeSize));
     }
 #endif
     hr = Js::ByteCodeSerializer::DeserializeFromBuffer(scriptContext, grfscr, sourceHolder, scriptContext->AddHostSrcInfo(srcInfo), (byte*) byteCode, nativeModule, &rootFunction);
@@ -8194,7 +8194,7 @@ HRESULT __stdcall JsVarAddRef(Var instance)
         {
             recycler->RootAddRef(instance);
         }
-        JSETW(EventWriteJSCRIPT_RECYCLER_EXTERNAL_ADDREF(instance));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_EXTERNAL_ADDREF(instance));
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
 
@@ -8221,7 +8221,7 @@ HRESULT __stdcall JsVarRelease(Var instance)
     {
         recycler->RootRelease(instance);
     }
-    JSETW(EventWriteJSCRIPT_RECYCLER_EXTERNAL_RELEASE(instance));
+    JS_ETW(EventWriteJSCRIPT_RECYCLER_EXTERNAL_RELEASE(instance));
     return NOERROR;
 }
 

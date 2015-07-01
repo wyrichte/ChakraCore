@@ -7,7 +7,7 @@
 #include "share.h"
 #pragma hdrstop
 #include <fcntl.h>
-#ifdef F_JSETW
+#ifdef ENABLE_JS_ETW
 #include <IERESP_mshtml.h>
 #endif
 #include "webplatform.h"
@@ -75,7 +75,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VerifyBinaryConsistency(__in void* d
         binaryVerificationData->numberUtilitiesBaseOffset != (DWORD)((Js::NumberUtilities*)0x0)->GetNumberUtilitiesBase())
     {
         wasBinaryVerified = FALSE;
-        JSETW(EventWriteJSCRIPT_HOSTING_BINARYINCONSISTENCY(
+        JS_ETW(EventWriteJSCRIPT_HOSTING_BINARYINCONSISTENCY(
             sizeof(ScriptEngineBase), binaryVerificationData->scriptEngineBaseSize,
             sizeof(Js::ScriptContextBase), binaryVerificationData->scriptContextBaseSize,
             sizeof(Js::JavascriptLibraryBase), binaryVerificationData->javascriptLibraryBaseSize,
@@ -436,7 +436,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateObject(
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         *instance = scriptContext->GetLibrary()->CreateObject();
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*instance));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*instance));
 #if ENABLE_DEBUG_CONFIG_OPTIONS
         if (Js::Configuration::Global.flags.IsEnabled(Js::autoProxyFlag))
         {
@@ -749,7 +749,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateTypedObjectFromScript(
 #endif
             }
         }
-#ifdef F_JSETW
+#ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_RECYCLER_ALLOCATE_DOM_OBJECT())
         {
             Assert(!IsWinRTType(Js::CustomExternalObject::FromVar(object)));
@@ -772,7 +772,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateTypedObjectFromScript(
             object = RecyclerNewPlus(recycler, byteCount, Js::ExternalObject, externalType);
 #endif
         }
-        EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(object);
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(object));
         // We can't easily wrap a proxy going to trident as they have memory layout dependency. however we can create
         // a Var from user code which will forward the call to CEO correctly.
     }
@@ -845,7 +845,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateArrayObject(
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         *instance = scriptContext->GetLibrary()->CreateArray(length);
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_ARRAY(*instance));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_ARRAY(*instance));
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;
@@ -1507,7 +1507,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateErrorObject(
 
         Js::JavascriptError::SetErrorMessageProperties(pError, hCode, allocatedString, scriptContext);
         *errorObject = pError;
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(pError));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(pError));
 #if ENABLE_DEBUG_CONFIG_OPTIONS
         if (Js::Configuration::Global.flags.IsEnabled(Js::autoProxyFlag))
         {
@@ -1978,7 +1978,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreatePixelArray(
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
     {
         *instance = library->CreatePixelArray(length);
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_PIXELARRAY(*instance));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_PIXELARRAY(*instance));
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr);
     return hr;
@@ -2043,7 +2043,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateArrayBuffer(
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
     {
         *instance = library->CreateArrayBuffer(length);
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*instance));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*instance));
 #if ENABLE_DEBUG_CONFIG_OPTIONS
         if (Js::Configuration::Global.flags.IsEnabled(Js::autoProxyFlag))
         {
@@ -2076,7 +2076,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateArrayBufferFromBuffer(
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
     {
         *instance = library->CreateProjectionArraybuffer(buffer, length);
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*instance));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*instance));
 #if ENABLE_DEBUG_CONFIG_OPTIONS
         if (Js::Configuration::Global.flags.IsEnabled(Js::autoProxyFlag))
         {
@@ -2166,7 +2166,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateTypedArray(
     if (SUCCEEDED(hr))
     {
         hr = ScriptSite::CallRootFunction(constructorFunc, args, nullptr, instance);
-        JSETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*instance));
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*instance));
 #if ENABLE_DEBUG_CONFIG_OPTIONS
         if (Js::Configuration::Global.flags.IsEnabled(Js::autoProxyFlag))
         {
@@ -2944,7 +2944,8 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ClearRecordedException()
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::EmitStackTraceEvent(__in UINT64 operationID, __in USHORT maxFrameCount)
 {
     HRESULT hr = NOERROR;
-    if (EventEnabledJSCRIPT_STACKTRACE() || PHASE_TRACE1(Js::StackFramesEventPhase))
+#ifdef ENABLE_JS_ETW
+    if (IS_JS_ETW(EventEnabledJSCRIPT_STACKTRACE()) || PHASE_TRACE1(Js::StackFramesEventPhase))
     {
         if (!this->scriptContext->IsRunningScript())
         {
@@ -2962,6 +2963,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::EmitStackTraceEvent(__in UINT64 oper
             END_TRANSLATE_OOM_TO_HRESULT(hr)
         }
     }
+#endif
     return hr;
 }
 

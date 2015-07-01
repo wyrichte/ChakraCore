@@ -1595,7 +1595,7 @@ MemProtectHeapRootAllocImpl(TContext* context, size_t size)
         ? AllocatorNewNoThrowArrayBase(Recycler, context->GetRecycler(), AllocImplicitRootLeaf, byte, size)
         : AllocatorNewNoThrowArrayBase(Recycler, context->GetRecycler(), AllocImplicitRoot, byte, size);
 
-    JSETW(EventWriteMEMPROTECT_OBJECT_ALLOCATION(context->GetRecycler(), size, buffer, MEMPROTECT_HEAP_SOURCE));
+    JS_ETW(EventWriteMEMPROTECT_OBJECT_ALLOCATION(context->GetRecycler(), size, buffer, MEMPROTECT_HEAP_SOURCE));
 
 
     return buffer;
@@ -1667,7 +1667,7 @@ MemProtectHeapRootReallocImpl(TContext* context, size_t newSize, void** memory)
     }
     *memory = buffer;
 
-    JSETW(EventWriteMEMPROTECT_OBJECT_UNROOT(context->GetRecycler(), oldMemory, MEMPROTECT_HEAP_SOURCE));
+    JS_ETW(EventWriteMEMPROTECT_OBJECT_UNROOT(context->GetRecycler(), oldMemory, MEMPROTECT_HEAP_SOURCE));
 
     context->NotifyUnroot(heapObject);
     return S_OK;
@@ -1705,7 +1705,7 @@ MemProtectHeapBeginUnrootAndZeroImplInternal(TContext* context, void* memory)
         return E_FAIL;
     }
 
-    JSETW(EventWriteMEMPROTECT_OBJECT_UNROOT(context->GetRecycler(), memory, MEMPROTECT_HEAP_SOURCE));
+    JS_ETW(EventWriteMEMPROTECT_OBJECT_UNROOT(context->GetRecycler(), memory, MEMPROTECT_HEAP_SOURCE));
 
     context->NotifyUnroot(heapObject);
 
