@@ -33,12 +33,6 @@
   </test>
   <test>
     <default>
-      <files>version.js</files>
-      <baseline>version.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>toString.js</files>
       <baseline>toString.baseline</baseline>
     </default>

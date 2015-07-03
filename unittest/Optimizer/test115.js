@@ -1,3 +1,7 @@
+function ScriptEngine() { return "Jscript"; }
+function ScriptEngineMajorVersion() { return 11; }
+function ScriptEngineMinorVersion() { return 0; }
+function ScriptEngineBuildVersion() { return 10000; }
 var iayscy=function(){return this};
 var wfdevs=function(){return this};
 Object.prototype['watch']=function(){return this};

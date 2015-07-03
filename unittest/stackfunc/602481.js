@@ -1,3 +1,4 @@
+function ScriptEngine() { return "Jscript"; }
 var xizota=function(){return this};
 var baqlqp=function(){return this};
 var mbvctq=function(){return this};

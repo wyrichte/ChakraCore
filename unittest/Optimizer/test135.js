@@ -1,3 +1,4 @@
+function ScriptEngineBuildVersion() { return 10000; }
 var bpfjfw = function() { return this };
 var E = function() { return this };
 var oxluhb = function() { return this };
