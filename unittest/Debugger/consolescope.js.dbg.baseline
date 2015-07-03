@@ -1,0 +1,112 @@
+[
+  {
+    "evaluate": {
+      "var varProp = 'varProp';let letProp = 'letProp';const constProp = 'constProp';function func() {return 0;};nonVarProp = 'nonVarProp';class class1{foo(){return 0;}};": "<large string>"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(varProp == 'varProp');WScript.Echo(letProp == 'letProp');WScript.Echo(constProp == 'constProp');WScript.Echo(nonVarProp == 'nonVarProp');": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(func() == 0);": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo((new class1()).foo() == 0);": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "var varProp = 'varProp1';let letProp = 'letProp1';const constProp = 'constProp1';function func() {return 1;};nonVarProp = 'nonVarProp1';class class1{foo(){return 1;}};": "<large string>"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(varProp == 'varProp1');WScript.Echo(letProp == 'letProp1');WScript.Echo(constProp == 'constProp1');WScript.Echo(nonVarProp == 'nonVarProp1');": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(func() == 1);": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo((new class1()).foo() == 1);": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "let letProp1 = 1;const constProp1 = 1;{let letProp2 = 2;const constProp2 = 2;}": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(typeof letProp2 == 'undefined');": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(typeof constProp2 == 'undefined');": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "delete letProp1;delete constProp1;": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(typeof letProp1 == 'undefined');": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(typeof constProp1 == 'undefined');": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "var varProp1 = 1;delete varProp1;let letProp1 = 1;delete letProp1;const constProp1 = 1;delete constProp1;": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(typeof varProp1 == 'undefined');": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(typeof letProp1 == 'undefined');": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(typeof constProp1 == 'undefined');": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "let letProp = 'letProp';let letProp = 'letPropReDecl';": "<large string>"
+    }
+  },
+  {
+    "evaluate": {
+      "const constProp = 'constProp';const constProp = 'constPropReDecl';": "<large string>"
+    }
+  },
+  {
+    "evaluate": {
+      "let userLet = 'userLetReDecl';": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "const userConst = 'userConstReDecl';": "undefined"
+    }
+  }
+]

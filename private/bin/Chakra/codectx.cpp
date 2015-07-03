@@ -1011,7 +1011,7 @@ HRESULT CDebugStackFrame::GetDebugProperty(IDebugProperty **ppDebugProperty)
 Js::ScriptFunction* CDebugEval::TryGetFunctionForEval(Js::ScriptContext* scriptContext, LPCOLESTR pszSrc, BOOL isStrictMode, BOOL isThisAvailable, BOOL isLibraryCode /* = FALSE */)
 {
     // TODO: pass the real length of the source code instead of wcslen
-    ulong grfscr = fscrReturnExpression | fscrEval | fscrEvalCode | fscrGlobalCode;
+    ulong grfscr = fscrReturnExpression | fscrEval | fscrEvalCode | fscrGlobalCode | fscrConsoleScopeEval;
     if (!isThisAvailable)
     {
         grfscr |= fscrDebuggerErrorOnGlobalThis; 
@@ -1193,14 +1193,14 @@ Js::Var CDebugEval::DoEval(Js::ScriptFunction* pfuncScript, Js::DiagStackFrame* 
     ulong countForVerification = activeScopeObject->GetPropertyCount();
 #endif
 
-    pfuncScript->SetEnvironment(Js::JavascriptOperators::OP_LdFrameDisplay((Var)activeScopeObject, const_cast<Js::FrameDisplay *>(&Js::NullFrameDisplay), scriptContext));
-
     // Dummy scope object in the front, so that no new variable will be added to the scope.
     Js::DynamicObject * dummyObject = scriptContext->GetLibrary()->CreateActivationObject();
 
     // Remove its prototype object so that those item will not be visible to the expression evaluation.
     dummyObject->SetPrototype(scriptContext->GetLibrary()->GetNull());
-    pfuncScript->SetEnvironment(Js::JavascriptOperators::OP_LdFrameDisplay( (Var) dummyObject, pfuncScript->GetEnvironment(), scriptContext));
+    Js::ProbeManager* probeManager = scriptContext->diagProbesContainer.GetProbeManager();
+    Js::FrameDisplay* env = probeManager->GetFrameDisplay(scriptContext, dummyObject, activeScopeObject, /* addGlobalThisAtScopeTwo = */ false);
+    pfuncScript->SetEnvironment(env);
 
     Js::Var varThis = GetThisFromFrame(frame, nullptr, localsWalker);
     if (varThis == nullptr)
@@ -1212,6 +1212,8 @@ Js::Var CDebugEval::DoEval(Js::ScriptFunction* pfuncScript, Js::DiagStackFrame* 
 
     Js::Arguments args(1, (Js::Var*) &varThis);
     varResult = pfuncScript->CallFunction(args);
+
+    probeManager->UpdateConsoleScope(dummyObject, scriptContext);
 
     // We need to find out the edits have been done to the dummy scope object during the eval. We need to apply those mutations to the actual vars.
     ulong count = activeScopeObject->GetPropertyCount();
@@ -1583,6 +1585,8 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
                                 pCurrentFuncBody->SetIsNonUserCode(true);
                             }
                         }
+                        OUTPUT_TRACE(Js::ConsoleScopePhase, L"EvaluateImmediate strict = %d, libraryCode = %d, source = '%s'\n",
+                            CDebugEval::IsStrictMode(frame), dwFlags & DEBUG_TEXT_ISNONUSERCODE, pszSrc);
                         resolvedObject.obj = CDebugEval::DoEval(pfuncScript, frame);
                     }
                 }

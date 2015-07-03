@@ -12,7 +12,7 @@ var glo = this;
 // This simulates main engine's function called from diag engine to execute wrapped user code (user code is in eval).
 function execScript() {
     // Inject _foo as ___NonUserCode___
-    _debugEval("function _foo(){ return 1234; }", /*NonUserCode*/true);
+    _debugEval("glo._foo = function() { return 1234; }", /*NonUserCode*/true);
 }
 
 WScript.Attach(function () {
@@ -22,5 +22,5 @@ WScript.Attach(function () {
 
 WScript.Detach(function () {
     // Call _foo in non-debug mode
-    WScript.Echo(_foo() == 1234 ? "pass" : "fail");
+    WScript.Echo(glo._foo() == 1234 ? "pass" : "fail");
 });

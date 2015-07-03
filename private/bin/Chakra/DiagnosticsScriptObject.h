@@ -51,7 +51,7 @@ namespace Js
         PropertyId GetColumnId() const { return columnId; }
 
     private:
-        static FrameDisplay* GetEnvironment(ScriptContext* targetScriptContext);
+        static DynamicObject* GetActiveScopeObject(ScriptContext* targetScriptContext, bool* isStrict);
 
     private:
         PropertyId functionNameId;

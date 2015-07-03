@@ -55,7 +55,7 @@ ScriptEngineWrapper::ScriptEngineWrapper()
     }
     
     // Run the built-in controller script.
-    if (JScript9Interface::JsrtRunScript(controllerScript, JS_SOURCE_CONTEXT_NONE, L"", nullptr) != JsNoError)
+    if (JScript9Interface::JsrtRunScript(controllerScript, (DWORD_PTR)-3 /*A large number which can't be address*/, L"dbgcontroller.js", nullptr) != JsNoError)
     {
         DebuggerController::LogError(L"run controller script");
     }

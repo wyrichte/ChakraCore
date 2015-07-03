@@ -243,22 +243,21 @@ namespace Js
 
         --args.Info.Count;  // Remove isNonUserCodeArg argument
 
-        FrameDisplay* environment = GetEnvironment(targetScriptContext);
-
         bool isStrictMode = false;
-        bool isIndirect = true;
-        if (environment != const_cast<FrameDisplay*>(&NullFrameDisplay))
-        {
-            isStrictMode = environment->GetStrictMode();
-            isIndirect = false;
-        }
+        Js::DynamicObject * emptyTopMostScope = targetScriptContext->GetLibrary()->CreateActivationObject();
+        emptyTopMostScope->SetPrototype(targetScriptContext->GetLibrary()->GetNull());
+        DynamicObject* activeScopeObject = GetActiveScopeObject(targetScriptContext, &isStrictMode);
+        Js::ProbeManager* probeManager = targetScriptContext->diagProbesContainer.GetProbeManager();
+        FrameDisplay* environment = probeManager->GetFrameDisplay(targetScriptContext, emptyTopMostScope, activeScopeObject, /* addGlobalThisAtScopeTwo = */ true);
 
         JavascriptExceptionObject* reThrownEx = nullptr;
         try
         {
-            Var value = GlobalObject::VEval(targetLibrary, environment, kmodGlobal, isStrictMode, isIndirect, args, isLibraryCode, registerDocument);
+            OUTPUT_TRACE(Js::ConsoleScopePhase, L"EntryDebugEval strictMode = %d, isLibraryCode = %d, source = '%s'\n", isStrictMode, isLibraryCode, JavascriptString::FromVar(args[1])->GetSz());
+            Var value = GlobalObject::VEval(targetLibrary, environment, kmodGlobal, isStrictMode, /*isIndirect=*/ false, args, isLibraryCode, registerDocument, fscrConsoleScopeEval);
             value = CrossSite::MarshalVar(debugEvalScriptContext, value);  // MarshalVar if needed.
             Assert(!CrossSite::NeedMarshalVar(value, debugEvalScriptContext));
+            probeManager->UpdateConsoleScope(emptyTopMostScope, targetScriptContext);
             return value;
         }
         catch (JavascriptExceptionObject* thrownObject)
@@ -297,17 +296,19 @@ namespace Js
                 }
             }
         }
+        probeManager->UpdateConsoleScope(emptyTopMostScope, targetScriptContext);
         throw reThrownEx;
     }
 
     // When in break state, uses debugger scopes to populate locals from stack frames.
     // Otherwise returns empty environment.
     // static
-    FrameDisplay* DiagnosticsScriptObject::GetEnvironment(ScriptContext* targetScriptContext)
+    DynamicObject* DiagnosticsScriptObject::GetActiveScopeObject(ScriptContext* targetScriptContext, bool *isStrictMode)
     {
         Assert(targetScriptContext);
 
-        FrameDisplay* environment = const_cast<FrameDisplay*>(&NullFrameDisplay);
+        DynamicObject* activeScopeObject = nullptr;
+        *isStrictMode = false;
 
         // In break state F12 needs to be able to see user variables defined in stack frames below e.g. in console.
         // In non-break state F12 doesn't need that.
@@ -319,7 +320,6 @@ namespace Js
             Assert(targetScriptContext->GetThreadContext()->Diagnostics->GetDiagnosticArena());
             ArenaAllocator* diagArena = targetScriptContext->GetThreadContext()->Diagnostics->GetDiagnosticArena()->Arena();
             DiagStackFrame* frm = nullptr;
-            bool isStrictMode = false;
 
             // Get the top-most frame matching targetScriptContext.
             JavascriptStackWalker walker(targetScriptContext, false);
@@ -347,7 +347,7 @@ namespace Js
 
                 if (frm)
                 {
-                    isStrictMode = !!func->IsStrictMode();
+                    *isStrictMode = !!func->IsStrictMode();
                 }
                 return frm != nullptr;
             });
@@ -356,16 +356,11 @@ namespace Js
             if (frm)
             {
                 LocalsWalker* localsWalker = Anew(diagArena, Js::LocalsWalker, frm, Js::FrameWalkerFlags::FW_EnumWithScopeAlso | Js::FrameWalkerFlags::FW_AllowLexicalThis | Js::FrameWalkerFlags::FW_AllowSuperReference);
-                DynamicObject* activeScopeObject = localsWalker->CreateAndPopulateActivationObject(targetScriptContext, [](Js::ResolvedObject& resolveObject){});
-                if (activeScopeObject)
-                {
-                    environment = Js::JavascriptOperators::OP_LdFrameDisplay((Var)activeScopeObject, const_cast<Js::FrameDisplay *>(&Js::NullFrameDisplay), targetScriptContext);
-                    environment->SetStrictMode(isStrictMode);
-                }
+                activeScopeObject = localsWalker->CreateAndPopulateActivationObject(targetScriptContext, [](Js::ResolvedObject& resolveObject){});
             }
         }
 
-        return environment;
+        return activeScopeObject;
     }
 
 #ifdef EDIT_AND_CONTINUE

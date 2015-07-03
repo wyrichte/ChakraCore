@@ -1,0 +1,67 @@
+[
+  {
+    "evaluate": {
+      "var cc1Var1 = 1;cc1Var2 = cc1Obj;var cc1Var3 = cc1Global;": "{...}"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(cc1Var1);": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(cc1Var2);": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(cc1Var3);": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(cc1Var2.func(cc2Obj));": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "delete cc1Var1;": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(cc1Var1);": "'cc1Var1' is undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "delete cc1Var2;": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(cc1Var2);": "'cc1Var2' is undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "delete cc1Var3;": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(cc1Var3);": "'cc1Var3' is undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "delete cc2Obj;": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "WScript.Echo(cc2Obj);": "undefined"
+    }
+  }
+]

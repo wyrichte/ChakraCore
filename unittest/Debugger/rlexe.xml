@@ -3848,4 +3848,28 @@
       <tags>BugFix,fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>ConsoleScope.js</files>
+      <baseline>ConsoleScope.js.baseline</baseline>
+      <compile-flags>-debuglaunch -targeted -es6classes -dbgbaseline:consolescope.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ConsoleScopePMSpec.js</files>
+      <baseline>ConsoleScopePMSpec.js.baseline</baseline>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:consolescopepmspec.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ConsoleScopeCrossContext.js</files>
+      <baseline>ConsoleScopeCrossContext.js.baseline</baseline>
+      <compile-flags>-targeted -InspectMaxStringLength:100 -dbgbaseline:ConsoleScopeCrossContext.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators</tags>
+    </default>
+  </test>
 </regress-exe>

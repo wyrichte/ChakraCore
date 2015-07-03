@@ -54,7 +54,7 @@ try {
 
 // Overridden Error object
 try {
-    debugEval("var OrigError = Error;var Error = function(msg) {this.message = msg;};Error.prototype = new OrigError();throw new Error('My Error');", false);
+    debugEval("var OrigError = Error;Error = function(msg) {this.message = msg;};Error.prototype = new OrigError();throw new Error('My Error');", false);
 } catch (e) {
     WScript.Echo(e === 'Error: My Error');
     WScript.Echo(e.stack === undefined); // should be undefined

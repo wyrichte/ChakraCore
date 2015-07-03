@@ -1,5 +1,5 @@
-BailOut: function: controllerObj.addSourceFile ( (#-1.19), #17) offset: #00ad Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
-BailOut: function: controllerObj.addSourceFile ( (#-1.19), #17) offset: #00ad Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
+BailOut: function: controllerObj.addSourceFile ( (#1.19), #17) offset: #00ad Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
+BailOut: function: controllerObj.addSourceFile ( (#1.19), #17) offset: #00ad Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
 Main() - IsInJitMode() == true
 Start!
 DO() - IsInJitMode() == true
