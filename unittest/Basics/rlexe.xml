@@ -452,6 +452,12 @@
   </test>
   <test>
     <default>
+      <files>OS_bug_3137431.html</files>
+      <tags>BugFix</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>globalaccessor.html</files>
       <baseline>globalaccessor.baseline</baseline>
     </default>

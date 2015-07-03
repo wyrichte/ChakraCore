@@ -92,11 +92,20 @@ var tests = [
         }
    },
    {
+        name: "shorthand method function test",
+        body: function () 
+        {
+             var o = {['f']() {},g () {}};
+             assert.areEqual("f() {}",o.f.toString());
+             //assert.areEqual("g() {}",o.g.toString());
+        }
+   },
+   {
         name: "arrow function Test",
         body: function () 
         {
              var arrowDecl = () => {};
-             assert.areEqual("() => {}",arrowDecl.toString(),"Make sure arrow functions remain unaffected by ie12 formatting")         
+             assert.areEqual("() => {}",arrowDecl.toString(),"Make sure arrow functions remain unaffected by ie12 formatting");      
         }
    }
 ];
