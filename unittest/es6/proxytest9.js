@@ -249,6 +249,96 @@ function test13() {
     print(Object.keys(x));
 }
 
+function test14() {
+    var x = function() {
+        this.foo = "f1";
+        this.bar = "f2";
+    }
+
+    var x1 = new Proxy(x, {
+        construct: function (target, argumentList) {
+            print('construct x');
+            return Reflect.construct(target, argumentList);
+        }
+    });
+
+    var p = new Proxy(x1, {
+        construct: function (target, argumentList) {
+            print('construct x1');
+            return Reflect.construct(target, argumentList);
+        }
+    });
+    var a = new p();
+    print(a.foo + ":" + a.bar);
+}
+
+
+var handler = 
+{
+    get  : function(target, property) {
+        print('get trap ' + property);
+        var x = Reflect.get(target, property);
+        if(property == 'constructor') 
+        {
+            x = new Proxy(x, handler);
+        }
+        return x;
+    },
+    construct: function(target, args) {
+        print('constructor trap');
+        return Reflect.construct(target, args);
+    },
+    apply : function(target, thisArg, argsList) {
+        print('apply trap'  );
+        return Reflect.apply(target, thisArg, argsList) 
+    }
+};
+    
+function test15() 
+{
+    var a = [1,2,3];
+    var  p = new Proxy(Array, handler);
+    p.of = Array.of;
+    print(p.of(1,2));
+}
+
+function test16() 
+{
+    var a = [1,2,3];
+    var p = new Proxy(Array, handler);
+    p.from = Array.from;
+    print(p.from([1,2]));
+    
+}
+
+function test17() 
+{
+    function foo() { this.x = 1};
+    // proxy of foo
+    var pFoo = new Proxy(foo, handler);
+    
+    // proxy of proxy of foo
+    var proxyOfpFoo = new Proxy(pFoo, handler);
+    
+    // bind
+    var x = proxyOfpFoo.bind(1);
+    
+    // proxy of bound function
+    var y = new Proxy(x, handler);
+    
+    print((new y()).x == 1);
+}
+
+function test18()
+{
+    var Obj = { a: 'foo', m: function () { } };
+    var p = new Proxy(Obj, handler);
+    p.m = Obj.m;
+    // Here p.m should not be copy-proped from Obj.m
+    p.m();
+}
+
+
 
 test0();
 test1();
@@ -264,3 +354,8 @@ test10();
 test11();
 test12();
 test13();
+test14();
+test15();
+test16();
+test17();
+test18();

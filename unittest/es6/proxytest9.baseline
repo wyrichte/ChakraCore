@@ -58,3 +58,23 @@ getOwnPropertyDescriptor trap :A
 123
 my proxy ownKeys
 length
+construct x1
+construct x
+f1:f2
+get trap of
+constructor trap
+1,2
+get trap from
+constructor trap
+1,2
+get trap bind
+get trap bind
+get trap length
+get trap length
+get trap name
+get trap name
+constructor trap
+constructor trap
+constructor trap
+true
+get trap m

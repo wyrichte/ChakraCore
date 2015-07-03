@@ -22,3 +22,5 @@ arguments
 length
 Symbol(blah)
 a,b
+prototype,name,caller,arguments,length
+prototype,name,caller,arguments,length

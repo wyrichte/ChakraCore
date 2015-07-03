@@ -54,6 +54,16 @@ function test3() {
     print(Object.keys(p));
 }
 
+function test4() {
+    function bar() { };
+
+    var foo = new Proxy(bar, {});
+    print(Object.getOwnPropertyNames(foo));
+    print(Reflect.ownKeys(foo));
+}
+
+
 test1();
 test2();
 test3();
+test4();
