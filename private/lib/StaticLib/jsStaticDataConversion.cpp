@@ -3,6 +3,7 @@
 //----------------------------------------------------------------------------
 
 #include "stdafx.h"
+#include "ChakraVersion.h"
 
 namespace JsStaticAPI
 {

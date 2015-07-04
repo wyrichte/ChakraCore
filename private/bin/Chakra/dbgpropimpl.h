@@ -33,7 +33,11 @@ public:
 };
 
 
-class DebugProperty sealed : public IDebugProperty, public IDebugPropertyObjectMutation, public IDebugThreadCall
+class DebugProperty sealed : public IDebugProperty,
+#ifdef ENABLE_MUTATION_BREAKPOINT
+    public IDebugPropertyObjectMutation, 
+#endif
+    public IDebugThreadCall
 {
     ULONG m_refCount;
     WeakArenaReference<Js::IDiagObjectModelDisplay>* pModelWeakRef;
@@ -76,6 +80,7 @@ class DebugProperty sealed : public IDebugProperty, public IDebugPropertyObjectM
         UINT nRadix;
     };
 
+#ifdef ENABLE_MUTATION_BREAKPOINT
     struct SetMutationBreakpointArgs
     {
         SetMutationBreakpointArgs(BOOL setOnObject, MutationType type, IMutationBreakpoint **mutationBreakpoint);
@@ -91,7 +96,7 @@ class DebugProperty sealed : public IDebugProperty, public IDebugPropertyObjectM
         MutationType type;
         BOOL *canSet;
     };
-
+#endif
 
     HRESULT PrependParentNameToChildFullName(
         _In_z_ BSTR parentName,
@@ -191,7 +196,7 @@ public:
                                     Js::ScriptContext *scriptContext,
                                     Js::DiagStackFrame* frame,
                                     LPCOLESTR pszValue); 
-
+#ifdef ENABLE_MUTATION_BREAKPOINT
     // IDebugPropertyObjectMutation
 
     STDMETHODIMP CanSetMutationBreakpoint(
@@ -203,6 +208,7 @@ public:
         /* [in] */ BOOL setOnObject,
         /* [in] */ MutationType type,
         /* [out] */ __RPC__deref_out_opt IMutationBreakpoint **mutationBreakpoint);
+#endif
 };
 
 class DebugPropertySetValueCallback sealed : public IDebugSetValueCallback

@@ -2,4 +2,6 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
-#include "TelemetryPch.h"
+#pragma once
+
+#include "Runtime.h"

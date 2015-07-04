@@ -31,13 +31,15 @@
         $(ChakraRootDirectory)core\lib\Backend;
         $(ChakraManifestsIncludeDirectory);
         $(ManifestsInboxIncludeDirectory);
+        <!-- For ChakraVersion.h -->
+        $(MSBuildThisFileDirectory)..\..\bin\Chakra;
         %(AdditionalIncludeDirectories);
-        <!-- For telemtry\MicrosoftTelemetry.h -->
+        <!-- For telemetry\MicrosoftTelemetry.h -->
         $(MinWinPrivSdkIncPath)
       </AdditionalIncludeDirectories>
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4702</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>Telemetry.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>TelemetryPch.h</PrecompiledHeaderFile>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -48,6 +50,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)OpcodeTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptContextTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptEngineTelemetry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Telemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TelemetryPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -63,6 +66,7 @@
     <ClInclude Include="ScriptEngineTelemetry.h" />
     <ClInclude Include="TelemetryList.includes.h" />
     <ClInclude Include="Telemetry.h" />
+    <ClInclude Include="TelemetryPch.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dirs" />

@@ -103,7 +103,9 @@ static BOOL AttachProcess(HANDLE hmod)
     }
     ThreadContext::GlobalInitialize();
 
+#ifdef ENABLE_BASIC_TELEMETRY
     g_TraceLoggingClient = NoCheckHeapNewStruct(TraceLoggingClient);
+#endif
 
 #ifdef DYNAMIC_PROFILE_STORAGE
     return DynamicProfileStorage::Initialize();
@@ -211,10 +213,12 @@ void DetachProcess()
         return;
     }
 
+#ifdef ENABLE_BASIC_TELEMETRY
     if (g_TraceLoggingClient != nullptr)
     {
         NoCheckHeapDelete(g_TraceLoggingClient);
     }
+#endif
 
     ThreadBoundThreadContextManager::DestroyAllContextsAndEntries();
 

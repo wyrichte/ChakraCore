@@ -74,10 +74,12 @@ HRESULT DebugProperty::QueryInterface(REFIID iid, void ** ppv)
     {
         *ppv = static_cast<IDebugThreadCall*>(this);
     }
+#ifdef ENABLE_MUTATION_BREAKPOINT
     else if (__uuidof(IDebugPropertyObjectMutation) == iid)
     {
         *ppv = static_cast<IDebugPropertyObjectMutation*>(this);
     }
+#endif
     else
     {
         *ppv = NULL;
@@ -759,7 +761,7 @@ DebugProperty::EnumMembersArgs::EnumMembersArgs(DWORD _dwFieldSpec,
      ppepi(_ppepi)
 {
 }
-
+#ifdef ENABLE_MUTATION_BREAKPOINT
 DebugProperty::SetMutationBreakpointArgs::SetMutationBreakpointArgs(BOOL setOnObject, MutationType type, IMutationBreakpoint **mutationBreakpoint)
     : setOnObject(setOnObject)
     , type(type)
@@ -773,6 +775,7 @@ DebugProperty::CanSetMutationBreakpointArgs::CanSetMutationBreakpointArgs(BOOL s
     , canSet(canSet)
 
 {}
+#endif
 
 HRESULT DebugProperty::EnumMembers( 
     /* [in] */ DBGPROP_INFO_FLAGS dwFieldSpec,
@@ -888,6 +891,7 @@ HRESULT DebugProperty::ThreadCallHandler(
                 SetValueAsStringArgs* pArgs = (SetValueAsStringArgs*)dwParam2;
                 return SetValueAsString(pArgs->pszValue, pArgs->nRadix);
             }
+#ifdef ENABLE_MUTATION_BREAKPOINT
             case xthread_CanSetMutationBreakpoint:
             {
                 CanSetMutationBreakpointArgs* pArgs = (CanSetMutationBreakpointArgs*)dwParam2;
@@ -898,6 +902,7 @@ HRESULT DebugProperty::ThreadCallHandler(
                 SetMutationBreakpointArgs* pArgs = (SetMutationBreakpointArgs*)dwParam2;
                 return SetMutationBreakpoint(pArgs->setOnObject, pArgs->type, pArgs->mutationBreakpoint);
             }
+#endif
         }
         return E_INVALIDARG;
     });
@@ -922,6 +927,7 @@ Var DebugProperty::GetVarFromModelDisplayWeakRef()
     return object;
 }
 
+#ifdef ENABLE_MUTATION_BREAKPOINT
 STDMETHODIMP DebugProperty::CanSetMutationBreakpoint(
     /* [in] */ BOOL setOnObject,
     /* [in] */ MutationType type,
@@ -1059,7 +1065,7 @@ STDMETHODIMP DebugProperty::SetMutationBreakpoint(
     }
     return S_OK;
 }
-
+#endif
 DebugPropertySetValueCallback::DebugPropertySetValueCallback(IDebugApplicationThread* _pApplicationThread,
                              ScriptEngine* scriptEngine)
     : pApplicationThread(_pApplicationThread),

@@ -1,4 +1,4 @@
-#include "Telemetry.h"
+#include "TelemetryPch.h"
 
 #include "ESBuiltInsOpcodeTelemetry.h"
 

@@ -60,7 +60,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <!-- ========= For IESettings.h/Banned.h ========= -->
+      <!-- ========= For IESettings.h ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\inetcore\inc</AdditionalIncludeDirectories>
       <!-- ========= For CULHeapAllocHelpers.h (referenced in IESettings.h) ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\shell\inc</AdditionalIncludeDirectories>

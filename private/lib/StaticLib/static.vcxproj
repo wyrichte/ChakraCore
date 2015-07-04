@@ -27,7 +27,9 @@
         $(ChakraRootDirectory)core\lib\Common;
         $(ChakraRootDirectory)core\lib\Runtime;
         $(ChakraRootDirectory)core\lib\Parser;
-        $(ChakraRootDirectory)core\lib\BackEnd;        
+        $(ChakraRootDirectory)core\lib\BackEnd;
+        <!-- For ChakraVersion.h -->
+        $(MSBuildThisFileDirectory)..\..\bin\Chakra;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>

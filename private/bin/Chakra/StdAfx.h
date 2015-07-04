@@ -159,3 +159,4 @@
 #endif
 
 #include "resource.h"
+#include "ChakraVersion.h"

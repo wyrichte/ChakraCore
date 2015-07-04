@@ -348,11 +348,13 @@ void ScriptSite::Close()
     // So the window host dispatch might not be live any more
     this->windowHost = nullptr;
 #endif
+
     BOOL isCloned = scriptEngine->IsCloned();
     BOOL isNonPrimaryEngine = scriptEngine->fNonPrimaryEngine;
     size_t sourceSize = GetScriptSiteContext()->GetSourceSize();
     Recycler* recycler =  this->GetRecycler();
 
+#ifdef ENABLE_BASIC_TELEMETRY
     // Log out any relevant telemetry data.
     bool isJSRT = false;
     ThreadContext* threadContext = this->GetScriptSiteContext()->GetThreadContext();
@@ -365,9 +367,7 @@ void ScriptSite::Close()
     {
         g_TraceLoggingClient->FireSiteNavigation(this->GetScriptSiteContext()->GetUrl(), scriptEngine->GetActivityId(), hostType,isJSRT);
     }
-
-
-
+#endif   
 
 #ifdef ENABLE_PROJECTION
     Projection::ProjectionContext* projectionContext = scriptEngine->GetProjectionContext();

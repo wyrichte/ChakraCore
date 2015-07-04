@@ -19,7 +19,7 @@ INCLUDES= \
    $(PROJECT_OBJ_ROOT)\manifests\inbox\$(O); \
    $(COM_INC_PATH)\midlrt; \
 
-USER_INCLUDES=$(JS_LIBS_PARSER_INC); \
+USER_INCLUDES=..\..\..\bin\Chakra; \
         $(OBJ_PATH)\..\..\lib\author\$(O); \
         $(OBJ_PATH)\..\..\lib\author\lib\$(O); \
 

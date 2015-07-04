@@ -1101,6 +1101,7 @@ Js::Var GetThisFromFrame(Js::DiagStackFrame* frame, Js::IDiagObjectAddress ** pp
     return varThis;
 }
 
+#ifdef ENABLE_MUTATION_BREAKPOINT
 static void SetConditionalMutationBreakpointVariables(Js::DynamicObject * activeScopeObject, Js::ScriptContext * scriptContext)
 {
     // For Conditional Object Mutation Breakpoint user can access the new value, changing property name and mutation type using special variables
@@ -1159,6 +1160,7 @@ static void SetConditionalMutationBreakpointVariables(Js::DynamicObject * active
             PropertyConstDefaults, nullptr, flags);       
     }
 }
+#endif
 
 Js::Var CDebugEval::DoEval(Js::ScriptFunction* pfuncScript, Js::DiagStackFrame* frame)
 {
@@ -1187,7 +1189,9 @@ Js::Var CDebugEval::DoEval(Js::ScriptFunction* pfuncScript, Js::DiagStackFrame* 
         activeScopeObject = scriptContext->GetLibrary()->CreateActivationObject();
     }
 
+#ifdef ENABLE_MUTATION_BREAKPOINT
     SetConditionalMutationBreakpointVariables(activeScopeObject, scriptContext);
+#endif
 
 #if DBG
     ulong countForVerification = activeScopeObject->GetPropertyCount();

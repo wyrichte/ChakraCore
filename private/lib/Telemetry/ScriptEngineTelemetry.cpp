@@ -1,4 +1,4 @@
-#include "Telemetry.h"
+#include "TelemetryPch.h"
 #include "ScriptEngineTelemetry.h"
 
 // Include headers for each long-lasting component:

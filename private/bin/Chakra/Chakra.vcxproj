@@ -457,6 +457,7 @@
     <ClInclude Include="VectorArrayEnumerator.h" />
     <ClInclude Include="ExternalWeakReferenceImpl.h" />
     <ClInclude Include="ExternalWeakReferenceSourceImpl.h" />
+    <ClInclude Include="ChakraVersion.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(MsBuildThisFileDirectory)jscript9.rc">
