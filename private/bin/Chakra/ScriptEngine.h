@@ -88,7 +88,7 @@ private:
 class RemoteDebugInfoEvent : public IRemoteDebugInfoEvent110
 {
 public :
-    RemoteDebugInfoEvent(DWORD messageType, LPCWSTR message, LPCWSTR url, IDebugDocumentContext *context = nullptr);
+    RemoteDebugInfoEvent(DEBUG_EVENT_INFO_TYPE messageType, LPCWSTR message, LPCWSTR url, IDebugDocumentContext *context = nullptr);
 
     // === IUnknown ===
     STDMETHOD(QueryInterface)(REFIID riid, void **ppv);
@@ -665,7 +665,7 @@ public:
 
     // Helper method
     static void HandleResumeAction(Js::InterpreterHaltState* pHaltState, BREAKRESUMEACTION resumeAction);
-    static void RaiseMessageToDebugger(Js::ScriptContext * scriptContext, DWORD messageType, LPCWSTR message, LPCWSTR url);
+    static void RaiseMessageToDebugger(Js::ScriptContext * scriptContext, DEBUG_EVENT_INFO_TYPE messageType, LPCWSTR message, LPCWSTR url);
     static void TransitionToDebugModeIfFirstSource(Js::ScriptContext * scriptContext, Js::Utf8SourceInfo * sourceInfo);
 
     // *** ScriptEngine ***

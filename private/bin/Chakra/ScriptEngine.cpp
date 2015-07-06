@@ -8320,7 +8320,7 @@ void ScriptEngine::TransitionToDebugModeIfFirstSource(Js::ScriptContext *scriptC
 }
 
 /*static*/
-void ScriptEngine::RaiseMessageToDebugger(Js::ScriptContext *scriptContext, DWORD messageType, LPCWSTR message, LPCWSTR url)
+void ScriptEngine::RaiseMessageToDebugger(Js::ScriptContext *scriptContext, DEBUG_EVENT_INFO_TYPE messageType, LPCWSTR message, LPCWSTR url)
 {
     ScriptSite * scriptSite = ScriptSite::FromScriptContext(scriptContext);
     if (scriptSite)
@@ -8331,7 +8331,7 @@ void ScriptEngine::RaiseMessageToDebugger(Js::ScriptContext *scriptContext, DWOR
         {
             IDebugApplication *debugApplication = scriptEngine->GetDebugApplication();
             if (debugApplication != nullptr)
-            {
+            {                
                 CComPtr<RemoteDebugInfoEvent> remoteDebugInfo(HeapNewNoThrow(RemoteDebugInfoEvent, messageType, message, url));
                 debugApplication->FireDebuggerEvent(__uuidof(IRemoteDebugInfoEvent110),
                     static_cast<IUnknown *>(static_cast<IRemoteDebugInfoEvent110 *>(remoteDebugInfo)));
@@ -8340,10 +8340,10 @@ void ScriptEngine::RaiseMessageToDebugger(Js::ScriptContext *scriptContext, DWOR
     }
 }
 
-RemoteDebugInfoEvent::RemoteDebugInfoEvent(DWORD messageType, LPCWSTR message, LPCWSTR url, IDebugDocumentContext *context/*= nullptr*/)
+RemoteDebugInfoEvent::RemoteDebugInfoEvent(DEBUG_EVENT_INFO_TYPE messageType, LPCWSTR message, LPCWSTR url, IDebugDocumentContext *context/*= nullptr*/)
 : m_cRef(0), m_documentContext(context)
 {
-    m_messageType = (DEBUG_EVENT_INFO_TYPE)messageType;
+    m_messageType = messageType;
 
     if (message)
     {
