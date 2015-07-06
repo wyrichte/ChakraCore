@@ -42,9 +42,7 @@ extern void ValidateNameTableTerm(void);
 static BOOL AttachProcess(HANDLE hmod)
 {    
     if (!ThreadContextTLSEntry::InitializeProcess()
-#if !defined(LANGUAGE_SERVICE)
       || !JsrtContext::Initialize()
-#endif
       )
     {
         return FALSE;
@@ -74,33 +72,32 @@ static BOOL AttachProcess(HANDLE hmod)
 
     JS_ETW(EtwTrace::Register());
     ValueType::Initialize();
-    if (!BinaryFeatureControl::LanguageService())
-    {
-        wchar_t *engine = szChakraLock;
+
+    wchar_t *engine = szChakraLock;
 #if DEBUG
 
 
-        if (Js::Configuration::Global.flags.ForceLegacyEngine)
+    if (Js::Configuration::Global.flags.ForceLegacyEngine)
+    {
+        engine = szJScript9Lock;
+        if (::FindAtom(szChakraLock) != 0)
         {
-            engine = szJScript9Lock;
-            if (::FindAtom(szChakraLock) != 0)
-            {
-                AssertMsg(FALSE, "Expecting to Load jscrip9.dll but process already loaded chakra.dll");
-                Binary_Inconsistency_fatal_error();
-            }
+            AssertMsg(FALSE, "Expecting to Load jscrip9.dll but process already loaded chakra.dll");
+            Binary_Inconsistency_fatal_error();
         }
-        else
-#endif
-        {
-            if (::FindAtom(szJScript9Lock) != 0)
-            {
-                AssertMsg(FALSE, "Expecting to Load chakra.dll but process already loaded jscrip9.dll");
-                Binary_Inconsistency_fatal_error();
-            }
-        }
-        lockedDll = ::AddAtom(engine);
-        AssertMsg(lockedDll, "failed to lock the dll");
     }
+    else
+#endif
+    {
+        if (::FindAtom(szJScript9Lock) != 0)
+        {
+            AssertMsg(FALSE, "Expecting to Load chakra.dll but process already loaded jscrip9.dll");
+            Binary_Inconsistency_fatal_error();
+        }
+    }
+    lockedDll = ::AddAtom(engine);
+    AssertMsg(lockedDll, "failed to lock the dll");
+
     ThreadContext::GlobalInitialize();
 
 #ifdef ENABLE_BASIC_TELEMETRY
@@ -173,11 +170,10 @@ EXTERN_C BOOL WINAPI DllMain(HINSTANCE hmod, DWORD dwReason, PVOID pvReserved)
         return TRUE;
 
     case DLL_PROCESS_DETACH:
-        if (!BinaryFeatureControl::LanguageService())
-        {
-            lockedDll = ::DeleteAtom(lockedDll); // If the function succeeds, the return value is zero.
-            AssertMsg(lockedDll == 0, "Failed to release the lock");
-        }
+
+        lockedDll = ::DeleteAtom(lockedDll); // If the function succeeds, the return value is zero.
+        AssertMsg(lockedDll == 0, "Failed to release the lock");
+
 
 #ifdef DYNAMIC_PROFILE_STORAGE    
         DynamicProfileStorage::Uninitialize();
@@ -228,10 +224,8 @@ void DetachProcess()
     // shutdown is bad because we shouldn't free objects built into
     // other dlls.
 
-#if !defined(LANGUAGE_SERVICE)
     JsrtRuntime::Uninitialize();
     JsrtContext::Uninitialize();
-#endif
 
     ThreadContextTLSEntry::CleanupProcess();
     

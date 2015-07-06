@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 
-#if defined(MEMSPECT_TRACKING) || defined(LANGUAGE_SERVICE) && !defined(ETW_MEMORY_TRACKING)
+#if defined(MEMSPECT_TRACKING)
 
 // Dynamically detect whether Memspect's DLL is loaded and, if so, GetProcAddr on the reporting routines.
 class MemspectMemoryTracker 

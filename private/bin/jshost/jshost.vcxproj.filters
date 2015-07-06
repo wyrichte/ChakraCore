@@ -26,8 +26,6 @@
     <ClCompile Include="TypeResolution.cpp" />
     <ClCompile Include="WScriptFastDom.cpp" />
     <ClCompile Include="WScriptJsrt.cpp" />
-    <ClCompile Include="LanguageService.cpp" />
-    <ClCompile Include="LanguageServiceTestDriver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComObject.h" />
@@ -57,8 +55,6 @@
     <ClInclude Include="WScriptFastDom.h" />
     <ClInclude Include="WScriptJsrt.h" />
     <ClInclude Include="ThreadMessage.h" />
-    <ClInclude Include="LanguageService.h" />
-    <ClInclude Include="LanguageServiceTestDriver.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">

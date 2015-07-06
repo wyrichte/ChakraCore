@@ -189,10 +189,6 @@ class ScriptEngine :
     // Other interfaces
     //
     public IObjectSafety,
-#if LANGUAGE_SERVICE
-    public IAuthorServices,
-    public Authoring::AuthoringFactory,
-#endif
     public Js::HaltCallback
 {
     friend class ScriptSite;
@@ -656,28 +652,6 @@ public:
             DWORD* pdwEnabledOptions);
     STDMETHOD(SetInterfaceSafetyOptions)(REFIID iid, DWORD dwOptionsSetMask,
             DWORD dwEnabledOptions);
-
-    //
-    // IAuthorServices
-    //
-
-#ifdef LANGUAGE_SERVICE
-    STDMETHOD(GetColorizer)(IAuthorColorizeText **result) { return AuthoringFactory::GetColorizer(result); }
-    STDMETHOD(RegisterFile)(IAuthorFile *file, IAuthorFileHandle **result) { return AuthoringFactory::RegisterFile(file, result); }
-    STDMETHOD(GetFileAuthoring)(IAuthorFileContext* context, IAuthorFileAuthoring **result) { return AuthoringFactory::GetFileAuthoring(context, result); }
-    STDMETHOD(Cleanup)(VARIANT_BOOL exhaustive) { return AuthoringFactory::Cleanup(exhaustive); }
-    STDMETHOD(SetHost)(IAuthorServiceHost *host) { return AuthoringFactory::SetHost(host); }
-    STDMETHOD(Work)() { return AuthoringFactory::Work(); }
-#endif
-
-    //
-    // AuthoringFactory
-    //
-
-#ifdef LANGUAGE_SERVICE
-    virtual Js::ScriptContext *GetAuthoringScriptContext() override { return this->EnsureScriptContext(); }
-    virtual ArenaAllocator* GetAuthoringScriptAllocator() override { return this->GetScriptAllocator(); }
-#endif
 
     //
     // Js::HaltCallback

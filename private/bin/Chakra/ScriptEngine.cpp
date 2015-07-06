@@ -334,9 +334,6 @@ ScriptEngine::EnsureScriptContext()
         return this->scriptContext;
     }
 
-#ifdef LANGUAGE_SERVICE
-    threadContext = ThreadContext::GetContextForCurrentThread();
-#endif
     ThreadContext* localThreadContext = threadContext;
 
     AutoPtr<Js::ScriptContext> newScriptContext(Js::ScriptContext::New(localThreadContext));
@@ -353,7 +350,7 @@ ScriptEngine::EnsureScriptContext()
     // For now if the debugging Script option in IE is enabled then we use the interpreter
     if (forceDiagMode || this->IsDebuggerEnvironmentAvailable(/*requery*/ true))
     {
-        if (BinaryFeatureControl::LanguageService() || !Js::Configuration::Global.EnableJitInDebugMode())
+        if (!Js::Configuration::Global.EnableJitInDebugMode())
         {
             newScriptContext->ForceNoNative();
         }
@@ -415,15 +412,6 @@ STDMETHODIMP ScriptEngine::QueryInterface(
     {
         return hr;
     }
-#ifdef LANGUAGE_SERVICE
-    if (IsEqualIID(riid, IID_IUnknown))
-    {
-        *ppvObj = static_cast<IUnknown*>(static_cast<IAuthorServices*>(this));
-        AddRef();
-        return NOERROR;
-    }
-    QI_IMPL_I(IAuthorServices);
-#else
     if (IsEqualIID(riid, IID_IUnknown))
     {
         *ppvObj = static_cast<IUnknown*>(static_cast<IActiveScript*>(this));
@@ -494,7 +482,6 @@ STDMETHODIMP ScriptEngine::QueryInterface(
 #endif // _WIN64 || USE_32_OR_64_BIT
 
     QI_IMPL(IID_IActiveScriptStats, IActiveScriptStats);
-#endif // LANGUAGE_SERVICE
     *ppvObj = nullptr;
     return E_NOINTERFACE;
 }
@@ -3154,7 +3141,7 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
 
     if (IsDebuggerEnvironmentAvailable(/*requery*/true))
     {
-        if (scriptContext->IsInDebugMode() && (BinaryFeatureControl::LanguageService() || !Js::Configuration::Global.EnableJitInDebugMode()))
+        if (scriptContext->IsInDebugMode() && (!Js::Configuration::Global.EnableJitInDebugMode()))
         {
             scriptContext->ForceNoNative();
         }
@@ -3554,10 +3541,6 @@ HRESULT ScriptEngine::CloseInternal()
     case SCRIPTSTATE_CLOSED:
         ;
     }
-
-#ifdef LANGUAGE_SERVICE
-    CloseLanguageService();
-#endif
 
     // Free the event sinks.
     FreeEventSinks();
@@ -8138,11 +8121,7 @@ IActiveScriptDirectHost* ScriptEngine::GetActiveScriptDirectHostNoRef()
     return nullptr;
 }
 
-#ifdef LANGUAGE_SERVICE
-const LPWSTR g_featureKeyName = L"Software\\Microsoft\\VisualStudio\\JScript9LS";
-#else
 const LPWSTR g_featureKeyName = L"Software\\Microsoft\\Internet Explorer\\JScript9";
-#endif
 
 LPWSTR JsUtil::ExternalApi::GetFeatureKeyName()
 {

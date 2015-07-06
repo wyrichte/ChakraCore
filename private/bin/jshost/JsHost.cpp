@@ -1840,11 +1840,6 @@ bool HandleHtmlTestFlag(int& argc, _Inout_updates_(argc) LPWSTR argv[])
     return htmlSwitchIndex >= 0 || isHtmlTest;
 }
 
-bool HandleLSTestFlag(int& argc, _Inout_updates_(argc) LPWSTR argv[])
-{
-    return HostConfigFlags::ExtractSwitch(argc, argv, L"-ls") != nullptr;
-}
-
 bool HandleAlternateDllFlag(int& argc, _Inout_updates_(argc) LPWSTR argv[])
 {
     alternateDllName = HostConfigFlags::ExtractSwitch(argc, argv, L"-alternateDll:");
@@ -1866,9 +1861,6 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
     bool useHtml = HandleHtmlTestFlag(argc, argv);
     HandleAlternateDllFlag(argc, argv);
     
-#ifdef LANGUAGE_SERVICE_TEST
-    bool languageServiceTest = HandleLSTestFlag(argc, argv);
-#endif
     PeekRuntimeFlag(argc, argv);
 
     if (argc < 2)
@@ -1898,12 +1890,6 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
     {
         ret = ExecuteJsrtTests(argc, argv);
     }
-#ifdef LANGUAGE_SERVICE_TEST
-    else if (languageServiceTest)
-    {
-        ret = ExecuteLSTests(argc, argv);
-    }
-#endif
     else if (useHtml)
     {
         ret = ExecuteHtmlTests(argc, argv);

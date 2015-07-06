@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\..\Build\Chakra.Build.Paths.props"/>
-  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
+  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\..\Build\Chakra.Build.Paths.props" />
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
   <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8AF67707-1D98-4054-BC9A-6130865484BA}</ProjectGuid>
@@ -47,7 +47,7 @@
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
       <ModuleDefinitionFile>jshost.def</ModuleDefinitionFile>
-    </ImpLib>    
+    </ImpLib>
     <Link>
       <SubSystem>Console</SubSystem>
       <ModuleDefinitionFile>jshost.def</ModuleDefinitionFile>
@@ -78,7 +78,6 @@
         $(SdkLibPath)\wininet.lib;
         $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\iertutilp.lib
       </AdditionalDependencies>
-
       <DelayLoadDLLs>
         %(DelayLoadDlls);
         ext-ms-win-ntuser-synch-l1-1-0.dll;
@@ -127,8 +126,6 @@
     <ClCompile Include="HtmlHost.cpp" />
     <ClCompile Include="HtmlWinSink.cpp" />
     <ClCompile Include="JsHost.cpp" />
-    <ClCompile Include="LanguageService.cpp" />
-    <ClCompile Include="LanguageServiceTestDriver.cpp" />
     <ClCompile Include="MockImageData.cpp" />
     <ClCompile Include="MockSCAContext.cpp" />
     <ClCompile Include="MockTypeOperations.cpp" />
@@ -158,8 +155,6 @@
     <ClInclude Include="HtmlApp.h" />
     <ClInclude Include="HtmlAppWindow.h" />
     <ClInclude Include="HtmlWinSink.h" />
-    <ClInclude Include="LanguageService.h" />
-    <ClInclude Include="LanguageServiceTestDriver.h" />
     <ClInclude Include="MessageQueue.h" />
     <ClInclude Include="MockImageData.h" />
     <ClInclude Include="MockSCAContext.h" />

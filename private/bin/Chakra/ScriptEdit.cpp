@@ -727,7 +727,7 @@ namespace Js
     }
 
     static PCWSTR const s_parseNodeNames[] = {
-#define PTNODE(nop,sn,pc,nk,ok,json,apnk) OLESTR(json),
+#define PTNODE(nop,sn,pc,nk,ok,json) OLESTR(json),
 #include "ptlist.h"
 #undef PTNODE
         L"INVALID_PARSE_NODE_NAME" // dummy entry to work around intellisense warning

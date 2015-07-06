@@ -9,10 +9,6 @@ NT_SIGNCODE=1
 TEST_CODE=1
 !ENDIF
 
-!IF "$(_BUILDARCH)" == "x86"
-C_DEFINES=$(C_DEFINES) -DLANGUAGE_SERVICE_TEST
-!endif
-
 # Turns on fretest for jshost
 !include $(JSCRIPT_ROOT)\jslibtest.inc
 

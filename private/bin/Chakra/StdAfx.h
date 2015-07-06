@@ -103,10 +103,6 @@
 #include "ObjectAsIReference.h"
 #endif
 
-#ifdef LANGUAGE_SERVICE
-#include "Authoring.h"
-#endif
-
 #include "ComObjectBase.h"
 #include "ScriptDAC.h"
 #include "DiagHook.h"

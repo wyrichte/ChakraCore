@@ -137,13 +137,7 @@
 #include "DiagnosticsHelper.h"
 #include <shdeprecated.h>  
 #include <DocObjectService.h>
-
-#ifdef LANGUAGE_SERVICE_TEST
-#include "ScriptDirectAuthor.h"
-#include "LanguageService.h"
-#include "LanguageServiceTestDriver.h"
-#endif
-        
+      
 #include "TestHooks.h"
 #include "TestUtilitiesReferences.h"
 #include "TestUtilities.h"
