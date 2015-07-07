@@ -68,7 +68,7 @@ var tests = [
       assert.doesNotThrow(function () { eval("function foo() { return {}; }; ({x:foo()['x']} = {});"); }, "Object declaration pattern with property reference as index on call is valid syntax");
 
       assert.throws(function () { eval("class foo { method() { let {x:super()} = {}; } }"); },SyntaxError, "Object declaration pattern with a super call is not valid syntax", "The use of a keyword for an identifier is invalid");
-      assert.throws(function () { eval("class foo { method() { {x:super()} = {}; } }"); }, SyntaxError, "Object expression pattern with a super call is not valid syntax", "Syntax error");
+      assert.throws(function () { eval("class foo { method() { {x:super()} = {}; } }"); }, SyntaxError, "Object expression pattern with a super call is not valid syntax", "Invalid use of the 'super' keyword");
       assert.throws(function () { eval("class foo { method() { var {x:super.x} = {}; } }"); }, SyntaxError, "Object declaration pattern with a property reference on super is not valid syntax", "The use of a keyword for an identifier is invalid");
       assert.doesNotThrow(function () { eval("class foo { method() { {x:super.x} = {}; } }"); }, "Object expression pattern with a property reference on super is valid syntax");
       assert.doesNotThrow(function () { eval("class foo { method() { {x:super['x']} = {}; } }"); }, "Object expression pattern with a property reference as an index on super is valid syntax");

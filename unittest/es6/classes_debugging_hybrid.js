@@ -22,7 +22,7 @@ var tests = [
       class b extends a {
         method() {
           /**bp:stack();locals()**/
-          return super();
+          return super.method();
         }
         method2() {
           return (() => {
@@ -38,7 +38,7 @@ var tests = [
         
         static staticMethod() {
           /**bp:stack();locals()**/
-          return super();
+          return super.staticMethod();
         }
       };
       

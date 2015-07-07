@@ -58,7 +58,6 @@ PASSED
 constructor A
 constructor A
 constructor B
-constructor A
 PASSED
 *** Running test #13 (12): Super used outside the class declaration function
 PASSED

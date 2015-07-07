@@ -121,7 +121,7 @@ var tests = [
             Foo.prototype = undefined;
             class A extends Foo { }
           }, TypeError, "Undefined prototype");
-      
+
       assert.doesNotThrow(function () { eval("class Foo extends new Proxy(class Bar {},{}){}"); });
     }
   },
@@ -302,17 +302,6 @@ var tests = [
       assert.throws(function () { eval("super();") },        ReferenceError, "Invalid use of super");
       assert.throws(function () { eval("super[1];") },       ReferenceError, "Invalid use of super");
       assert.throws(function () { eval("super.method();") }, ReferenceError, "Invalid use of super");
-
-      // Test invalid super use in a top level class
-      class B {
-        test() {
-          assert.throws(function () { (function () { super(); })(); }, ReferenceError, "Invalid use of super");
-          assert.throws(function () { super.method() },                ReferenceError, "Invalid use of super");
-          assert.throws(function () { super['method'] },               ReferenceError, "Invalid use of super");
-        }
-      }
-      let classB = new B();
-      classB.test();
     }
   },
   {
@@ -327,16 +316,13 @@ var tests = [
         constructor() {
           super();
           p('constructor B');
-          this.aInstance = new super();
         }
-        method()           { return super(); }
         superMethod()      { return super.method() }
         superMethodIndex() { return super['method'](); }
         getAprop()         { return super.initialized; }
         setAprop(value)    { super.initialized = value; }
         getAIndex()        { return super['initialized']; }
         setAIndex(value)   { super['initialized'] = value; }
-        getAInstance()     { return this.aInstance; }
         lambdaIndex() {
           var mysuper = x => super[x]();
           return mysuper('method');
@@ -349,7 +335,6 @@ var tests = [
       // Sanity checks
       assert.isTrue(classA.method() === 'method A', "classA.method() === 'method A'");
       assert.isTrue(classA.initialized === true, "classA.initialized === true");
-      assert.isTrue(classB.method() === 'method A', "classB.method() === 'method A'");
 
       // Super checks
       assert.isTrue(classB.initialized === true, "classB.initialized === true");
@@ -361,8 +346,6 @@ var tests = [
       classB.setAIndex(456);
       assert.isTrue(classB.getAprop() === 456, "classB.getAprop() === 456");
       assert.isTrue(classB.getAIndex() === 456, "classB.getAIndex() === 456");
-
-      assert.isTrue(classB.getAInstance().method() === 'method A', "classB.getAInstance().method() === 'method A'");
 
       assert.isTrue(classB.lambdaIndex() === 'method A', "classB.lambdaIndex() === 'method A'");
     }
@@ -417,33 +400,33 @@ var tests = [
         method() { return "A3"; }
         static staticMethod() { return "static A3"; }
       }
-
+  
       class B extends A1 {
-        method() { return super(); }
-        static staticMethod() { return super(); }
+        method() { return super.method(); }
+        static staticMethod() { return super.staticMethod(); }
       }
-
+  
       assert.areEqual(B.__proto__, A1);
       assert.areEqual(B.prototype.__proto__, A1.prototype);
-
+  
       let instanceB1 = new B();
       let instanceB2 = new B();
       assert.areEqual("A1",                instanceB1.method());
       assert.areEqual("static A1",         B.staticMethod());
       assert.areEqual(instanceB1.method(), instanceB2.method());
-
+  
       // Change the 'static' part of B
       B.__proto__ = A2;
-
+  
       assert.areEqual(B.__proto__,           A2);
       assert.areEqual(B.prototype.__proto__, A1.prototype);
       assert.areEqual("A1",                  instanceB1.method(), "Instance methods should not be affected by B.__proto__ change");
       assert.areEqual("static A2",           B.staticMethod(),    "Static method should have changed after B.__proto__ change");
       assert.areEqual(instanceB1.method(),   instanceB2.method(), "All instances should not have been affected by B.__proto__ change");
-
+  
       // Change the 'dynamic' part of B
       B.prototype.__proto__ = A3.prototype;
-
+  
       assert.areEqual(B.__proto__,           A2);
       assert.areEqual(B.prototype.__proto__, A3.prototype);
       assert.areEqual("A3",                  instanceB1.method(), "Instance methods should be affected after B.prototype.__proto__ change");
@@ -501,10 +484,10 @@ var tests = [
       assert.areEqual("hello world", instance.method4(), "Mixed lambda and eval use, no nesting");
       assert.areEqual("hello world", instance.method5(), "Mixed lambda and eval use, no nesting 2");
       assert.areEqual("hello world", instance.method6(), "Nested lambdas and eval");
-      assert.areEqual("hello world", instance.method7(), "Nested lambdas and nested evals");
+      // assert.areEqual("hello world", instance.method7(), "Nested lambdas and nested evals");                 /* Odd spec require this to be a syntax error, let's check Canary */
       assert.areEqual("hello world", instance.method8(), "Lambda with an eval in the parent");
       assert.throws(function() { instance.method9(); }, ReferenceError);
-      assert.throws(function() { (x => eval('super()'))(); }, ReferenceError);
+      // assert.throws(function() { (x => eval('super()'))(); }, ReferenceError);                               /* Odd spec require this to be a syntax error, let's check Canary */
       assert.areEqual("hello world", instance.method10(), "Lambda with an eval in the lambda");
     }
   },
@@ -552,7 +535,7 @@ var tests = [
         class a {
             method() {return "foo"}
         }
-        
+
         class b extends a {
             method1() { return eval("super.method()") }
             method2() { var method= () => super.method(); return method(); }
@@ -562,7 +545,7 @@ var tests = [
         }
 
         let instance = new b();
-        
+
         assert.areEqual("foo",instance.method1(),"'super' in eval()");
         assert.areEqual("foo",instance.method2(),"'super' in lambda");
         assert.areEqual("foo",instance.method3(),"'super' in lambda in eval");

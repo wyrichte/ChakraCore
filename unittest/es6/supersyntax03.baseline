@@ -1,3 +1,0 @@
-statements before 'super' reference executed as expected
-ReferenceError: 'super' can only be accessed from a subclass method
-	at Global code (supersyntax03.js:2:1)

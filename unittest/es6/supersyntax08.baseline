@@ -1,5 +1,0 @@
-statements before super reference
-executed as expected
-ReferenceError: 'super' can only be accessed from a subclass method
-	at get x.test() (supersyntax08.js:2:55)
-	at Global code (supersyntax08.js:5:1)

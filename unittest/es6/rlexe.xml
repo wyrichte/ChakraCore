@@ -599,32 +599,8 @@
   </test>
   <test>
     <default>
-      <files>supersyntax01.js</files>
-      <baseline>supersyntax01.baseline</baseline>
-      <compile-flags> -ES6Super -IgnoreScriptErrorCode</compile-flags>
-      <tags>exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>supersyntax02.js</files>
       <baseline>supersyntax02.baseline</baseline>
-      <compile-flags> -ES6Super -IgnoreScriptErrorCode</compile-flags>
-      <tags>exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>supersyntax03.js</files>
-      <baseline>supersyntax03.baseline</baseline>
-      <compile-flags> -ES6Super -IgnoreScriptErrorCode</compile-flags>
-      <tags>exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>supersyntax04.js</files>
-      <baseline>supersyntax04.baseline</baseline>
       <compile-flags> -ES6Super -IgnoreScriptErrorCode</compile-flags>
       <tags>exclude_dynapogo</tags>
     </default>
@@ -642,46 +618,6 @@
       <files>supersyntax06.js</files>
       <baseline>supersyntax06.baseline</baseline>
       <compile-flags> -ES6Classes -ES6Super -IgnoreScriptErrorCode</compile-flags>
-      <tags>exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>supersyntax07.js</files>
-      <baseline>supersyntax07.baseline</baseline>
-      <compile-flags> -ES6 -ES6Classes -ES6Super -IgnoreScriptErrorCode</compile-flags>
-      <tags>exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>supersyntax08.js</files>
-      <baseline>supersyntax08.baseline</baseline>
-      <compile-flags> -ES6Classes -ES6Super -IgnoreScriptErrorCode</compile-flags>
-      <tags>exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>supersyntax09.js</files>
-      <baseline>supersyntax09.baseline</baseline>
-      <compile-flags> -ES6Classes -ES6Super -ES6Lambda -IgnoreScriptErrorCode</compile-flags>
-      <tags>exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>supersyntax10.js</files>
-      <baseline>supersyntax10.baseline</baseline>
-      <compile-flags> -ES6Classes -ES6Super -ES6Lambda -IgnoreScriptErrorCode</compile-flags>
-      <tags>exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>supersyntax11.js</files>
-      <baseline>supersyntax11.baseline</baseline>
-      <compile-flags> -ES6Classes -ES6Super -ES6Lambda -IgnoreScriptErrorCode</compile-flags>
       <tags>exclude_dynapogo</tags>
     </default>
   </test>

@@ -1,5 +1,0 @@
-statements before super reference executed as expected
-ReferenceError: 'super' can only be accessed from a subclass method
-	at Anonymous function() (supersyntax10.js:1:31)
-	at bar() (supersyntax10.js:1:26)
-	at Global code (supersyntax10.js:3:1)

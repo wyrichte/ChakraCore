@@ -27,22 +27,6 @@ var tests = [
     }
   },
   {
-    name: "BLUE 548903: Calling super inside a function is causing an assertion",
-    body: function () {
-      assert.throws( function () {
-        try {
-          function test () {
-              var x = new super();
-          }
-
-          test();
-        } catch (e) {
-          throw e;
-        }
-      }, ReferenceError);
-    }
-  },
-  {
     name: "BLUE 558906: [ES6][Class] get and set should be valid method names",
     body: function () {
       class foo {
@@ -100,13 +84,6 @@ var tests = [
       function test11() { class a { method() {} get "a"() { } } }
       function test12() { class a { method() {} set "a"(x) { } } }
       function test13() { class a { method() {} *"a"(x) { } } }
-    }
-  },
-  {
-    name: "BLUE 631586: Assertion when super is in a lambda outside of a class method",
-    body: function () {
-      assert.throws(function () { Function('y = x => super(); y();')(); },                  ReferenceError, "Function constructor given a super reference in a lambda throws a ReferenceError", "'super' can only be accessed from a subclass method");
-      assert.throws(function () { var a = function () { y = x => super(); y(); }; a(); },   ReferenceError, "Function given a super reference in a lambda throws a ReferenceError",             "'super' can only be accessed from a subclass method");
     }
   },
   {
@@ -196,7 +173,6 @@ var tests = [
                 this.firstName = firstName;
                 this.lastName = lastName;
             }
-            getFullName() { return "Dr. " + super(); }
             getFullNameExplicit() { return "Dr. " + super.getFullName(); }
             getFullNameProperty() { return "Dr. " + super.fullName; }
             getFullNameEval() { return "Dr. " + super.getFullNameEval(); }
@@ -206,7 +182,6 @@ var tests = [
             getFullNameLambdaProperty() { return "Dr. " + (()=>super.fullName) (); }
         }
         let x = new Doctor("John","Smith");
-        assert.areEqual("Dr. John Smith", x.getFullName(), "implicit super call should use subclass as home object");
         assert.areEqual("Dr. John Smith", x.getFullNameExplicit(), "explicit super call should use subclass as home object");
         assert.areEqual("Dr. John Smith", x.getFullNameProperty(), "property accessor in superclass should use subclass as home object");
         assert.areEqual("Dr. John Smith", x.getFullNameEvalCall(), "super called from within eval should have same behavior as outside of eval");
@@ -246,15 +221,6 @@ var tests = [
         assert.areEqual("Caller", b.caller, "Get/set accessor \'caller\'");
         assert.areEqual("function () { }", b.arguments.toString(), "Get/set accessor \'arguments\'");
     }
-  },
-  {
-    name: "OS 2253834: Stashing of the super reference",
-    body: function () {
-        assert.throws(function (x) { arguments; (y => super())();  function foo() {} }, ReferenceError, "Incorrect stashing of the super reference case 1");
-        assert.throws(function () { (y => super())(); }, ReferenceError, "Incorrect stashing of the super reference case 2");
-        assert.throws(function () { arguments; (y => super())(); }, ReferenceError, "Incorrect stashing of the super reference case 3");
-        assert.throws(function () { eval(""); (y => super())(); }, ReferenceError, "Incorrect stashing of the super reference case 4");
-     }
   },
 ];
 
