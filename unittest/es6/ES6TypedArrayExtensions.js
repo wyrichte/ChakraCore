@@ -504,16 +504,6 @@ var tests = [
             assert.areEqual(6, b.length, "%TypedArray%.from.call(Array, 'string').length === 6");
             assert.isFalse(ArrayBuffer.isView(b), "%TypedArray%.from.call(Array, 'string') is not a TypedArray");
             
-            var b = fromFnc.call(String, [0,1,2,3]);
-            assert.areEqual('object', typeof b, "%TypedArray%.from.call(String, [0,1,2,3]) returns a String object");
-            assert.areEqual('4', b.toString(), "%TypedArray%.from.call(String, [0,1,2,3]).toString() == '4'");
-            assert.areEqual(1, b.length, "%TypedArray%.from.call(String, [0,1,2,3]).length === 1");
-            assert.isFalse(ArrayBuffer.isView(b), "%TypedArray%.from.call(String, [0,1,2,3]) is not a TypedArray");
-            assert.areEqual(1, b[1], "Integer-indexed properties are still added to the string");
-            assert.areEqual(2, b[2], "Integer-indexed properties are still added to the string");
-            assert.areEqual(3, b[3], "Integer-indexed properties are still added to the string");
-            assert.areEqual('4', b[0], "Zero-th property of the string is set to the string value, can't overwrite this via put");
-            
             var a = { 0: 0, 1: 1, 2: 2, length: 5 };
             var b = fromFnc.call(Uint8Array, a);
             assert.areEqual(5, b.length, "Uint8Array.from(objectWithLengthProperty) returns a new Uint8Array with length = a.length");
@@ -546,6 +536,7 @@ var tests = [
             assert.throws(function () { Uint8Array.from({}, null); }, TypeError, "Calling %TypedArray%.from with non-object mapFn argument throws TypeError", "[TypedArray].from: argument is not a Function object");
             assert.throws(function () { Uint8Array.from({}, 'string'); }, TypeError, "Calling %TypedArray%.from with non-object mapFn argument throws TypeError", "[TypedArray].from: argument is not a Function object");
             assert.throws(function () { Uint8Array.from({}, {}); }, TypeError, "Calling %TypedArray%.from with non-function mapFn argument throws TypeError", "[TypedArray].from: argument is not a Function object");
+            assert.throws(function () { fromFnc.call(String, [0,1,2,3]); }, TypeError, "Calling %TypedArray%.from with no this throws TypeError", "Cannot create property for a non-extensible object");
         }
     },
     {

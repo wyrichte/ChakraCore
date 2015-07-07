@@ -161,13 +161,13 @@ var CF = (function () {
                         }
                     } else if (state == CREATEDBY) {
                         debugOut("Line:" + JSON.stringify(line));
-                        var r = /^\s*(\w+-\w+)\s+(\S.*)$/.exec(line);
+                        var r = /^\s*((\w+-)?\w+-\w+)\s+(\S.*)$/.exec(line);
                         if (r) {
                             debugOut("Review " + JSON.stringify(r));
                             if (review) {
                                 reviews.push(review);
                             }
-                            review = { id: r[1], title: r[2], signedoff: [] };
+                            review = { id: r[1], title: r[3], signedoff: [] };
                         } else if (review) {
                             var s = /^\s*\(.\)\s*(\w+)\s*:\s*(\w+)\s*$/.exec(line);
                             if (s && s[2] == "SignedOff") {

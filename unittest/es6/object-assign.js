@@ -125,6 +125,16 @@ var tests = [
             	assert.throws((function() { 'use strict'; var o = Object.preventExtensions([,0]);Object.assign(o,'xo');}), TypeError, "Invalid operand to 'Object.assign': Object expected");
         }
     },
+    {
+        name: "OS Bug 3080673: Object.assign(o1, o2) exception if SetProperty fails due to non-writable on o1 when o1's value is a String",
+        body: function () {
+            assert.throws((function() { 
+                    var o1 = "aaa";
+                    var o2 = "babbb";
+                    Object.assign(o1, o2);
+            }), TypeError, "Exception is not thrown when SetProperty fails", "Cannot modify non-writable property '0'");
+        }
+    },
 	
 ];
 
