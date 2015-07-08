@@ -1239,4 +1239,18 @@
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>switchJumpTable.js</files>
+      <baseline>switchJumpTable.baseline</baseline>
+      <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:1</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>switchBinaryTraverse.js</files>
+      <baseline>switchBinaryTraverse.baseline</baseline>
+      <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:1</compile-flags>
+    </default>
+  </test>
 </regress-exe>
