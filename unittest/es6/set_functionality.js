@@ -718,6 +718,14 @@ var tests = [
     },
 
     {
+        name: "Exprgen bug 3097715: When throwing a TypeError a valid scriptContext should be used",
+        body: function () {
+            var func3 = function () { };
+            assert.throws(function () { Array()(func3(...new Set([func3, func3]))) }, TypeError, "Should throw TypeError");
+        }
+    },
+
+    {
         name: "CopyOnWrite sanity check",
         body: function() {
             var set = new Set();
