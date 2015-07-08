@@ -19,6 +19,7 @@
 #define TL_GLOBALSTATS "GlobalStats.V2"
 #define TL_MEMSTATS "MemStats.V2"
 #define TL_PARSERSTATS "Parser"
+#define TL_CHAKRAINIT "ChakraInit"
 
 #ifdef DBG
 #define TL_BINARYFLAVOR "CHK"
@@ -83,6 +84,7 @@ public:
     bool GetShouldLogTelemetry() { return shouldLogTelemetry;  }
     void SetIsHighResPerfCounterAvailable();
     void FireSiteNavigation(const wchar_t *url, GUID activityId, DWORD host, bool isJSRT);
+    void FireChakraInitTelemetry(DWORD host, bool isJSRT);
     void ResetTelemetryStats(ThreadContext* threadContext);
 
 };

@@ -50,7 +50,7 @@ TRACELOGGING_DEFINE_PROVIDER(g_hTraceLoggingProv,
         TraceLoggingString(TL_BINARYARCH, "binaryArch"), \
         __VA_ARGS__ \
         ); \
-    }
+        }
 
 WCHAR *g_ProcessExclusionList[] = {
     L"jshost",
@@ -120,7 +120,18 @@ void TraceLoggingClient::ResetTelemetryStats(ThreadContext* threadContext)
     }
 }
 
-void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId, DWORD host, bool isJSRT )
+
+void TraceLoggingClient::FireChakraInitTelemetry(DWORD host, bool isJSRT)
+{
+    TraceLogChakra(
+        TL_CHAKRAINIT,
+        TraceLoggingUInt32(host, "HostingInterface"),
+        TraceLoggingBool(isJSRT, "isJSRT")
+        );
+
+}
+
+void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId, DWORD host, bool isJSRT)
 {
     ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
 
@@ -144,7 +155,7 @@ void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId,
     if (threadContext != NULL)
     {
         Js::GCPauseStats stats = threadContext->GetRecycler()->GetGCPauseStats();
-        Js::LanguageStats* langStats = threadContext->GetLanguageStats(); 
+        Js::LanguageStats* langStats = threadContext->GetLanguageStats();
         uint scriptContextCount = threadContext->GetUnreleasedScriptContextCount(); // No need to reset it as its managed by Chakra
         size_t maxPAUB = 0;
         maxPAUB = PageAllocator::GetAndResetMaxUsedBytes(); // No need for a separate Reset Function as its just one scalar value
@@ -165,7 +176,7 @@ void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId,
             }
             contextList = contextList->next;
         }
-        
+
 
         if (CONFIG_ISENABLED(Js::GCPauseTelFlag))
         {
@@ -192,7 +203,7 @@ void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId,
             Output::Print(L"within20And50ms: %I64d\n", parserStats.within20And50ms);
             Output::Print(L"within50And100ms: %I64d\n", parserStats.within50And100ms);
             Output::Print(L"within100And300ms: %I64d\n", parserStats.within100And300ms);
-            Output::Print(L"greaterThan300ms: %I64d\n", parserStats.greaterThan300ms);			
+            Output::Print(L"greaterThan300ms: %I64d\n", parserStats.greaterThan300ms);
         }
 
 
@@ -322,7 +333,7 @@ void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId,
         {
             Output::Print(L"Navigated from site: %s\n", url);
         }
-        
+
         // Note: must be thread-safe.
         TraceLogChakra(
             TL_ES5BUILTINS,
@@ -462,7 +473,7 @@ void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId,
 
         TraceLogChakra(
             TL_TABUILTINS,
-            TraceLoggingGuid(activityId, "activityId"),           
+            TraceLoggingGuid(activityId, "activityId"),
             TraceLoggingUInt32(langStats->TAFromCount.callCount, "TAFromCount"),
             TraceLoggingUInt32(langStats->TAFromCount.debugModeCallCount, "TAFromDebugModeCallCount"),
             TraceLoggingUInt32(langStats->TAOfCount.callCount, "TAOfCount"),
@@ -534,7 +545,7 @@ void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId,
             TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
             );
 
-       
+
 
         // Note: must be thread-safe.
         TraceLogChakra(
@@ -628,7 +639,7 @@ void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId,
 
 
 CEventTraceProperties::CEventTraceProperties()
-: m_pEventTraceProperties(reinterpret_cast<EVENT_TRACE_PROPERTIES*>(m_rgData))
+    : m_pEventTraceProperties(reinterpret_cast<EVENT_TRACE_PROPERTIES*>(m_rgData))
 {
     memset(m_rgData, 0, sizeof(m_rgData));
 
@@ -668,8 +679,8 @@ HRESULT CEventTraceProperties::SetLoggerName(_In_ LPCWSTR wszLoggerName)
 }
 
 CEtwSession::CEtwSession(_In_ LPCWSTR wszLoggerName, _In_ LPCWSTR wszLogFileName, _In_ SessionScope sessionScope)
-: m_rgData(),
-m_SessionHandle()
+    : m_rgData(),
+    m_SessionHandle()
 {
     m_rgData.SetLoggerName(wszLoggerName);
     m_rgData.SetLogFileName(wszLogFileName);

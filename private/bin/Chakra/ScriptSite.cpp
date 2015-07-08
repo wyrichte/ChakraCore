@@ -244,6 +244,24 @@ HRESULT ScriptSite::Init(
         Assert(currentDispatchExCaller == null);
         Assert(m_punkCaller == null);
     }
+#ifdef ENABLE_BASIC_TELEMETRY
+    else
+    {
+        // Log out any relevant telemetry data. This is done to make sure we have some telemetry for cases when Site Navigation is not frequent, like Nodejs etc.
+        bool isJSRT = false;
+        DWORD hostType = scriptEngine->GetHostType(); // 0 for JShost, 1 for browser, 2 for WWA/JSRT, 3 for webview in WWA/XAML
+        if (threadContext != NULL)
+        {
+            isJSRT = !(threadContext->GetIsThreadBound());
+        }
+        if (g_TraceLoggingClient!=null && (this->scriptEngine->fNonPrimaryEngine == 0 || isJSRT))
+        {
+            g_TraceLoggingClient->FireChakraInitTelemetry(hostType, isJSRT);
+        }
+    }
+
+#endif
+   
     return hr;
 }
 
