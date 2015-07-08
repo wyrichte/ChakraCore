@@ -111,28 +111,6 @@ static BOOL AttachProcess(HANDLE hmod)
 #endif    
 }
 
-static void CleanupResDLLMap(void)
-{
-    if (NULL != g_pgllmap)
-    {
-        LMAP lmap;
-        while(g_pgllmap->FPop(&lmap))
-        {
-            if (lmap.fUnload && lmap.hlib)
-            {
-                //#ifdef SCRIPT_MUI
-                if (lmap.fMui)
-                    FreeMUILibrary((HMODULE)lmap.hlib);
-                else
-                    //#endif // SCRIPT_MUI
-                    FreeLibrary((HINSTANCE)lmap.hlib);
-            }
-        }
-        g_pgllmap->Release();
-        g_pgllmap = NULL;
-    }
-}
-
 /****************************** Public Functions *****************************/
 
 #if _WIN32 || _WIN64
@@ -227,9 +205,7 @@ void DetachProcess()
     JsrtRuntime::Uninitialize();
     JsrtContext::Uninitialize();
 
-    ThreadContextTLSEntry::CleanupProcess();
-    
-    CleanupResDLLMap();
+    ThreadContextTLSEntry::CleanupProcess();       
 
 #if defined(ENABLE_DEBUG_CONFIG_OPTIONS)
     if (Js::Configuration::Global.flags.Console && Js::Configuration::Global.flags.ConsoleExitPause)

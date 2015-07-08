@@ -69,8 +69,6 @@ namespace JsDiag
             /* [in] */ HRESULT errorCode,
             /* [out] */ __RPC__deref_out_opt BSTR *bsResource)
     {
-        LCID lcid = GetUserLocale();
-
         HRESULT hr = errorCode;
 
         // FACILITY_CONTROL is used for internal (activscp.idl) and legacy errors
@@ -79,12 +77,12 @@ namespace JsDiag
         {
             HRESULT hrAdjusted = Js::JavascriptError::GetAdjustedResourceStringHr(hr, /* isFormatString */ true);
 
-            BSTR message = BstrGetResourceString(hrAdjusted, lcid);
+            BSTR message = BstrGetResourceString(hrAdjusted);
             if (!message)
             {
                 hrAdjusted = Js::JavascriptError::GetAdjustedResourceStringHr(hr, /* isFormatString */ false);
 
-                message = BstrGetResourceString(hrAdjusted, lcid);
+                message = BstrGetResourceString(hrAdjusted);
             }
 
             if (message)

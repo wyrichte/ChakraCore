@@ -22,6 +22,43 @@ const SYSKIND syskind = SYS_WIN16;
 #error Neither _WIN16, _WIN32, nor _WIN64 is defined
 #endif
 
+HRESULT GetStdOleTypeLib(ITypeLib **pptlib)
+{
+    AssertMem(pptlib);
+    ITypeLib * ptlib;
+
+    ptlib = NULL;
+    *pptlib = NULL;
+
+    HRESULT hr;
+    // Try to load the v2 StdOLE type library.
+    hr = LoadRegTypeLib(IID_StdOle, STDOLE2_MAJORVERNUM, STDOLE2_MINORVERNUM,
+        STDOLE2_LCID, &ptlib);
+
+    if (FAILED(hr))
+        return hr;
+
+    if (NULL == ptlib)
+        return HR(E_FAIL);
+
+    *pptlib = ptlib;
+    return NOERROR;
+}
+
+HRESULT GetDispatchTypeInfo(ITypeInfo **ppti)
+{
+    AssertMem(ppti);
+    *ppti = NULL;
+
+    HRESULT hr;
+    ITypeLib *ptlibStdOle;
+    if (FAILED(hr = GetStdOleTypeLib(&ptlibStdOle)))
+        return hr;
+    hr = ptlibStdOle->GetTypeInfoOfGuid(IID_IDispatch, ppti);
+    ptlibStdOle->Release();
+    return hr;
+}
+
 TypeInfoBuilder::TypeInfoBuilder()
 {
     m_cvarFunc = 0;

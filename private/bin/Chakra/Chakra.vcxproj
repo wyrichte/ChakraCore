@@ -18,8 +18,37 @@
     <!-- Overrides the default Win7 (Win8 for Arm) targeting for fre build to Win10
         Needs to be after Chakra.Build.Default.props but before Chakra.Build.props -->
     <NtTargetVersion Condition="'$(Configuration)'=='fre'">$(NtTargetVersion_Win10)</NtTargetVersion>
-    <MuiDrv Condition="'$(BuildingWithBuildExe)'=='true'">true</MuiDrv>
   </PropertyGroup>
+  <!-- Localization related stuff for build.exe
+      TODO: How do we do localization when we do binary injection? -->
+  <PropertyGroup Condition="'$(BuildingWithBuildExe)'=='true'">
+    <MuiDrv>true</MuiDrv>
+    <PreProcessLocalization>true</PreProcessLocalization>
+    <BeforeResourceCompileTargets>
+      $(BeforeResourceCompileTargets);
+      PrepLocProperties;
+      VerifyLocProperties;
+      BeforeLocalization;
+      RCPreprocessor;
+    </BeforeResourceCompileTargets>
+    <AfterResourceCompileTargets>
+      $(AfterResourceCompileTargets)
+      LinkerMUISplit;
+      CoreLocalization;
+      LocalizeBaseFile;
+      MiscLocalization;
+      LocalizePerfCounters;
+      AfterLocalization;
+    </AfterResourceCompileTargets>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(BuildingWithBuildExe)'=='true'">
+    <ResourceCompile>
+      <AdditionalOptions>%(AdditionalOptions) -z "MS Sans Serif,Helv/MS Shell Dlg"</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) -q $(IntermediateOutputPath)Mui_drv.rcc</AdditionalOptions>
+      <!-- <AdditionalOptions>%(AdditionalOptions) -fm $(IntermediateOutputPath)$(TargetName).muires</AdditionalOptions>-->
+      <AdditionalOptions>%(AdditionalOptions) -ta </AdditionalOptions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
@@ -53,7 +82,7 @@
 
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>
-     
+
       <PrecompiledHeader>Use</PrecompiledHeader>
       <!--
         4510: default constructor could not be generated
@@ -110,7 +139,7 @@
 
       <DelayLoadDLLs>%(DelayLoadDLLs);oleaut32.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-0.dll</DelayLoadDLLs>
-      <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'!='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-1.dll</DelayLoadDLLs>      
+      <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'!='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-1.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(Configuration)'!='fre'">%(DelayLoadDLLs);cryptsp.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OptimiziedBuild)'!='true'">%(DelayLoadDLLs);ext-ms-win-ntuser-dialogbox-l1-1-0.dll</DelayLoadDLLs>
 
@@ -135,7 +164,7 @@
               LoadLatestPDM
               ShouldUseLocalPDM -->
         $(OBJECT_ROOT)\inetcore\lib\devtb\dtbhost\$(ObjectDirectory)iedevtools_host_iel1.lib;
-        
+
         <!-- All for ScriptProjectionHostApi -->
         $(OBJECT_ROOT)\inetcore\lib\ScriptProjectionHost\iel3_edge\$(ObjectDirectory)ScriptProjectionHost_Edge_iel3.lib;
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
@@ -461,8 +490,11 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(MsBuildThisFileDirectory)jscript9.rc">
-      <AdditionalIncludeDirectories>$(ChakraParserIntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>$(ManifestsInboxIncludeDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+        $(ChakraParserIntDir);
+        $(ManifestsInboxIncludeDirectory);
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
@@ -474,7 +506,6 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-
     <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\dep\common-iel1.vcxproj">
       <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0814}</Project>
     </ProjectReference>

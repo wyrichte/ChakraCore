@@ -630,13 +630,12 @@ HRESULT ActiveScriptError::FillExcepInfo(Js::JavascriptExceptionObject* exceptio
 
 void ActiveScriptError::FillExcepInfo(HRESULT hr, wchar_t const * messageSz, EXCEPINFO *excepInfo)
 {
-    LCID lcid = GetUserLocale();
     BSTR bstrError = nullptr;
     if (messageSz == nullptr)
     {
         if (FACILITY_CONTROL == HRESULT_FACILITY(hr))
         {
-            bstrError = BstrGetResourceString(HRESULT_CODE(hr), lcid);
+            bstrError = BstrGetResourceString(HRESULT_CODE(hr));
         }
     }
     else
@@ -650,7 +649,7 @@ void ActiveScriptError::FillExcepInfo(HRESULT hr, wchar_t const * messageSz, EXC
     }
 
     excepInfo->scode = (SCODE)hr;
-    excepInfo->bstrSource = BstrGetResourceString(IDS_RUNTIME_ERROR_SOURCE, lcid);
+    excepInfo->bstrSource = BstrGetResourceString(IDS_RUNTIME_ERROR_SOURCE);
     excepInfo->bstrDescription = bstrError;
     excepInfo->pfnDeferredFillIn = nullptr;
 }

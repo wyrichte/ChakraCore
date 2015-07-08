@@ -84,8 +84,7 @@
       <AdditionalOptions Condition="'$(Platform)'=='ARM'">%(AdditionalOptions) /arch:VFPv3-D16 /Gs4096</AdditionalOptions>
 
       <!-- ========= From inetcore\jscript\project.mk ========= -->
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);NTBUILD;NO_SHLWAPI_ISOS</PreprocessorDefinitions>
-      <AdditionalOptions>%(AdditionalOptions) /Zm150</AdditionalOptions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NTBUILD;NO_SHLWAPI_ISOS</PreprocessorDefinitions>     
       <AdditionalOptions Condition="'$(Platform)'=='Win32'">%(AdditionalOptions) /d2noftol3</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'=='x64'">%(AdditionalOptions) /homeparams</AdditionalOptions>
       <EnableEnhancedInstructionSet Condition="'$(Platform)'=='Win32'">NoExtensions</EnableEnhancedInstructionSet>
@@ -154,6 +153,9 @@
       <AdditionalOptions Condition="'$(Platform)'=='Win32'">/d2guardcheckesp2 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platoform)'!='ARM' and '$(Platform)'!='Arm64'">%(AdditionalOptions) /d2psvcallopt150000</AdditionalOptions>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_CONTROL_FLOW_GUARD=1;_CONTROL_FLOW_GUARD_SVCTAB=1</PreprocessorDefinitions>
+    </ResourceCompile>
     <MASM>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_CONTROL_FLOW_GUARD=1;_CONTROL_FLOW_GUARD_SVCTAB=1</PreprocessorDefinitions>
     </MASM>

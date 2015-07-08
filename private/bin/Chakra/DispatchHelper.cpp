@@ -21,6 +21,19 @@ struct ConstBstr
     VAR *Pvar(void) { return (VAR *)this; }
 };
 
+/***************************************************************************
+Creates a static constant bstr.
+***************************************************************************/
+#define StaticBstr(name, str) \
+    struct StaticBstr_##name { \
+        ULONG cb; \
+        OLECHAR sz[sizeof(str)]; \
+    }; \
+    const StaticBstr_##name name = { \
+    sizeof(OLESTR(str)) - sizeof(OLECHAR), \
+    OLESTR(str) \
+};
+
 #define DefConstBstr(name, str) \
     StaticBstr(g_sbstr_##name, str) \
     ConstBstr NEAR cbstr##name = \
@@ -37,6 +50,26 @@ DefConstBstr(False, "false")
 DefConstBstr(Inf, "Infinity")
 DefConstBstr(NegInf, "-Infinity")
 DefConstBstr(NaN, "NaN")
+
+/***************************************************************************
+Misc BSTR functions. The parameters are LPCOLESTR instead of BSTR so
+we can pass const things.
+***************************************************************************/
+inline long CbBstr(LPCOLESTR bstr)
+{
+    if (bstr == NULL)
+        return 0;
+    ULONG len = ((ULONG *)bstr)[-1];
+    return (long)len;
+}
+
+inline long CchRawBstr(LPCOLESTR bstr)
+{
+    if (bstr == NULL)
+        return 0;
+    ULONG len = ((ULONG *)bstr)[-1] / sizeof(OLECHAR);
+    return (long)len;
+}
 
 BOOL FNumber(VARIANT *pvar){return (pvar->vt == VT_I4 || pvar->vt == VT_R8);}
 
