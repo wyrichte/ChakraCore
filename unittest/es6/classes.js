@@ -15,6 +15,12 @@ var tests = [
     }
   },
   {
+    name: "Constructor may not be generator",
+    body: function () {
+      assert.throws(function () { eval("class E { * constructor() {} }") }, SyntaxError, "Class constructor may not be a generator");
+    }
+  },
+  {
     name: "Class declarations require a name",
     body: function () {
       assert.throws(function () { eval("class { }") }, SyntaxError);
