@@ -203,6 +203,8 @@ Function InsertTo-MongoDB ($resultFile)
     }
     $resultDoc['Total'] = $resultObj
 
+    // Build format 10151.0.150704-1800
+    $shortBuildNumber = $global:build.Split(".")[2]
     [MongoDB.Bson.BsonDocument] $doc = @{
         "Tag"           = $global:tag;
         "RunHours"      = $global:runHours;
@@ -210,7 +212,8 @@ Function InsertTo-MongoDB ($resultFile)
         "RunID"         = "";
         "ToolName"      = $global:tool;
         "Branch"        = $global:branch;
-        "Build"         = $global:build;
+        "Build"         = $shortBuildNumber;
+        "FullBuild"     = $global:build;
         "Architecture"  = $global:arch;
         "Flavor"        = $global:flav;
         "CopyShare"     = $global:copyShare;
@@ -225,7 +228,8 @@ Function InsertTo-MongoDB ($resultFile)
         "RunID"         = "";
         "ToolName"      = $global:tool;
         "Branch"        = $global:branch;
-        "Build"         = $global:build;
+        "Build"         = $shortBuildNumber;
+        "FullBuild"     = $global:build;
         "Architecture"  = $global:arch;
         "Flavor"        = $global:flav;
         "CopyShare"     = $global:copyShare;
