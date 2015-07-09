@@ -137,7 +137,7 @@
   <test>
     <default>
       <files>locals3.js</files>
-      <compile-flags>-targeted -debuglaunch -KhronosInterop- -ES6TypedArrayExtensions- -ES6RegexChanges -dbgbaseline:locals3.js.dbg.baseline -InspectMaxStringLength:100</compile-flags>
+      <compile-flags>-targeted -debuglaunch -KhronosInterop- -ES6TypedArrayExtensions- -ES6RegexChanges -ES6Species -dbgbaseline:locals3.js.dbg.baseline -InspectMaxStringLength:100</compile-flags>
       <tags>exclude_jsrt</tags>
     </default>
   </test>
@@ -145,14 +145,14 @@
     <default>
       <files>locals3.js</files>
       <command>jdtest.exe -targeted -dbgbaseline:locals3.js.hybrid.dbg.baseline -InspectMaxStringLength:100 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -KhronosInterop- -ES6RegexChanges -ES6TypedArrayExtensions-</compile-flags>
+      <compile-flags>-debuglaunch:hybrid -KhronosInterop- -ES6RegexChanges -ES6TypedArrayExtensions- -ES6Species</compile-flags>
       <tags>exclude_jsrt</tags>
     </default>
   </test>
   <test>
     <default>
       <files>locals3.js</files>
-      <compile-flags>-targeted -debuglaunch -KhronosInterop -ES6TypedArrayExtensions -ES6RegexChanges -dbgbaseline:locals3_khronos.js.dbg.baseline -InspectMaxStringLength:100</compile-flags>
+      <compile-flags>-targeted -debuglaunch -KhronosInterop -ES6TypedArrayExtensions -ES6RegexChanges -ES6Species -dbgbaseline:locals3_khronos.js.dbg.baseline -InspectMaxStringLength:100</compile-flags>
       <tags>exclude_jsrt</tags>
     </default>
   </test>
@@ -160,7 +160,7 @@
     <default>
       <files>locals3.js</files>
       <command>jdtest.exe -targeted -dbgbaseline:locals3_khronos.js.hybrid.dbg.baseline -InspectMaxStringLength:100 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -KhronosInterop -ES6RegexChanges -ES6TypedArrayExtensions</compile-flags>
+      <compile-flags>-debuglaunch:hybrid -KhronosInterop -ES6RegexChanges -ES6TypedArrayExtensions -ES6Species</compile-flags>
       <tags>exclude_jsrt</tags>
     </default>
   </test>

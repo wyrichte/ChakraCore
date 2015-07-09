@@ -994,7 +994,7 @@
   <test>
     <default>
       <files>specialproperties.js</files>
-      <compile-flags>-debuglaunch -targeted -es6functionnamefull -inspectmaxstringlength:100 -dbgbaseline:specialproperties.js.dbg.baseline</compile-flags>
+      <compile-flags>-debuglaunch -targeted -es6functionnamefull -ES6Species -inspectmaxstringlength:100 -dbgbaseline:specialproperties.js.dbg.baseline</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -1002,14 +1002,14 @@
     <default>
       <files>specialproperties.js</files>
       <command>jdtest.exe -dbgbaseline:specialproperties.js.hybrid.dbg.baseline -inspectmaxstringlength:100 -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -es6functionnamefull</compile-flags>
+      <compile-flags>-debuglaunch:hybrid -es6functionnamefull -ES6Species</compile-flags>
       <tags>fail_mutators,Slow,Slow</tags>
     </default>
   </test>
   <test>
     <default>
       <files>specialproperties_attach.js</files>
-      <compile-flags>-targeted -inspectmaxstringlength:100 -es6super -dbgbaseline:specialproperties_attach.js.dbg.baseline</compile-flags>
+      <compile-flags>-targeted -inspectmaxstringlength:100 -es6super -ES6Species -dbgbaseline:specialproperties_attach.js.dbg.baseline</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -1083,7 +1083,7 @@
   <test>
     <default>
       <files>inspectFullName.js</files>
-      <compile-flags>-debuglaunch -targeted -inspectmaxstringlength:256 -dbgbaseline:inspectFullName.js.dbg.baseline</compile-flags>
+      <compile-flags>-ES6Species -debuglaunch -targeted -inspectmaxstringlength:256 -dbgbaseline:inspectFullName.js.dbg.baseline</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -1091,7 +1091,7 @@
     <default>
       <files>inspectFullName.js</files>
       <command>jdtest.exe -dbgbaseline:inspectFullName.hybridbug.js.dbg.baseline -inspectmaxstringlength:256 -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
+      <compile-flags>-ES6Species -debuglaunch:hybrid</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>

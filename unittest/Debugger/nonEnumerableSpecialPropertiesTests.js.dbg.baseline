@@ -152,16 +152,6 @@
   {
     "evaluate": {
       "regex.constructor": {
-        "[Methods]": "{...}",
-        "[Methods] - [Attributes]": {
-          "flags": [
-            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
-            "DBGPROP_ATTRIB_VALUE_IS_FAKE",
-            "DBGPROP_ATTRIB_VALUE_IS_METHOD",
-            "DBGPROP_ATTRIB_VALUE_READONLY"
-          ],
-          "flagsAsValue": 2352
-        },
         "__proto__": "\nfunction() {\n    [native code]\n}\n",
         "__proto__ - [Attributes]": {
           "flags": [

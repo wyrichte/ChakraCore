@@ -531,7 +531,7 @@
   <test>
     <default>
       <files>fullNameMapTest.js</files>
-      <compile-flags>-dbgbaseline:fullNameMapTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
+      <compile-flags>-ES6Species -dbgbaseline:fullNameMapTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -560,7 +560,7 @@
   <test>
     <default>
       <files>fullNameSetTest.js</files>
-      <compile-flags>-dbgbaseline:fullNameSetTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
+      <compile-flags>-ES6Species -dbgbaseline:fullNameSetTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -2768,7 +2768,7 @@
   <test>
     <default>
       <files>symbols.js</files>
-      <compile-flags>-debuglaunch -dbgbaseline:symbols.js.dbg.baseline -targeted -es6toprimitive -es6isConcatSpreadable -es6tostringtag -ES6Symbol</compile-flags>
+      <compile-flags>-ES6Species -debuglaunch -dbgbaseline:symbols.js.dbg.baseline -targeted -es6toprimitive -es6isConcatSpreadable -es6tostringtag -ES6Symbol</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -2776,7 +2776,7 @@
     <default>
       <files>symbols.js</files>
       <command>jdtest.exe -targeted -dbgbaseline:symbols.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -es6toprimitive -es6isConcatSpreadable -es6tostringtag -ES6Symbol</compile-flags>
+      <compile-flags>-ES6Species -debuglaunch:hybrid -es6toprimitive -es6isConcatSpreadable -es6tostringtag -ES6Symbol</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -3729,14 +3729,14 @@
   <test>
     <default>
       <files>TypedArray.js</files>
-      <compile-flags>-debuglaunch -targeted -es6tostringtag -dbgbaseline:typedarray.js.dbg.baseline -InspectMaxStringLength:200</compile-flags>
+      <compile-flags>-ES6Species -debuglaunch -targeted -es6tostringtag -dbgbaseline:typedarray.js.dbg.baseline -InspectMaxStringLength:200</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>TypedArray.js</files>
       <command>jdtest.exe -dbgbaseline:typedarray.js.dbg.hybrid.baseline -targeted -InspectMaxStringLength:200 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -es6tostringtag</compile-flags>
+      <compile-flags>-ES6Species -debuglaunch:hybrid -es6tostringtag</compile-flags>
     </default>
   </test>
   <test>

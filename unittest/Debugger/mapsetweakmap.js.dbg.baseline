@@ -299,7 +299,6 @@
               "name": "clear"
             },
             "constructor": {
-              "[Methods]": "{...}",
               "__proto__": "<large string>",
               "arguments": "null",
               "caller": "null",
@@ -435,7 +434,6 @@
               "name": "clear"
             },
             "constructor": {
-              "[Methods]": "{...}",
               "__proto__": "<large string>",
               "arguments": "null",
               "caller": "null",
@@ -881,7 +879,6 @@
               "name": "clear"
             },
             "constructor": {
-              "[Methods]": "{...}",
               "__proto__": "<large string>",
               "arguments": "null",
               "caller": "null",
@@ -1007,7 +1004,6 @@
               "name": "clear"
             },
             "constructor": {
-              "[Methods]": "{...}",
               "__proto__": "<large string>",
               "arguments": "null",
               "caller": "null",
@@ -1420,7 +1416,6 @@
               "name": "clear"
             },
             "constructor": {
-              "[Methods]": "{...}",
               "__proto__": "<large string>",
               "arguments": "null",
               "caller": "null",
@@ -1550,7 +1545,6 @@
               "name": "clear"
             },
             "constructor": {
-              "[Methods]": "{...}",
               "__proto__": "<large string>",
               "arguments": "null",
               "caller": "null",

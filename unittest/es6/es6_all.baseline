@@ -1,6 +1,6 @@
 FLAG ES6All = 1
-FLAG ES6 = 1 - setting child flag ES6ArrayUseConstructor = 1
-FLAG ES6ArrayUseConstructor = 1
+FLAG ES6 = 1 - setting child flag ES6Species = 1
+FLAG ES6Species = 1
 FLAG ES6 = 1 - setting child flag ES6Classes = 1
 FLAG ES6Classes = 1
 FLAG ES6 = 1 - setting child flag ES6DateParseFix = 1
