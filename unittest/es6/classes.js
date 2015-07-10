@@ -490,10 +490,10 @@ var tests = [
       assert.areEqual("hello world", instance.method4(), "Mixed lambda and eval use, no nesting");
       assert.areEqual("hello world", instance.method5(), "Mixed lambda and eval use, no nesting 2");
       assert.areEqual("hello world", instance.method6(), "Nested lambdas and eval");
-      // assert.areEqual("hello world", instance.method7(), "Nested lambdas and nested evals");                 /* Odd spec require this to be a syntax error, let's check Canary */
+      assert.areEqual("hello world", instance.method7(), "Nested lambdas and nested evals");
       assert.areEqual("hello world", instance.method8(), "Lambda with an eval in the parent");
       assert.throws(function() { instance.method9(); }, ReferenceError);
-      // assert.throws(function() { (x => eval('super()'))(); }, ReferenceError);                               /* Odd spec require this to be a syntax error, let's check Canary */
+      assert.throws(function() { (x => eval('super()'))(); }, ReferenceError);
       assert.areEqual("hello world", instance.method10(), "Lambda with an eval in the lambda");
     }
   },
