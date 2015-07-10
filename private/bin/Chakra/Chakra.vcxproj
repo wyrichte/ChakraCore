@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
   <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EA882C8D-81FC-42FE-ABD5-2666DB933FDA}</ProjectGuid>
@@ -82,7 +82,6 @@
 
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>
-
       <PrecompiledHeader>Use</PrecompiledHeader>
       <!--
         4510: default constructor could not be generated
@@ -90,7 +89,6 @@
         -->
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4510;4610</DisableSpecificWarnings>
     </ClCompile>
-
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
       <ModuleDefinitionFile>$(IntDir)chakra.def</ModuleDefinitionFile>
@@ -98,7 +96,6 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <ModuleDefinitionFile>$(IntDir)chakra.def</ModuleDefinitionFile>
-
       <!-- PathCchApis.lib: (to avoid loading api-ms-win-core-path-l1-1-0.dll)
               PathCchCombine  (used in iedevtools_host_iel1.lib)
               PathCchAppend   (used in iedevtools_host_iel1.lib) -->
@@ -117,11 +114,9 @@
         $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\IESettingsApi.lib;
         $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\IESettingsId.lib;
 
-        <!-- For _DoNotUseDirectly_CULprintf in codex -->
-        <!-- TODO: Clean this up -->
+        <!-- For _DoNotUseDirectly_CULprintf in codex --><!-- TODO: Clean this up -->
         $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\CommonUtilityLibrary.lib
       </AdditionalDependencies>
-
       <!-- IsMessageBoxWPresent -->
       <AdditionalDependencies Condition="'$(OptimiziedBuild)'!='true'">
         %(AdditionalDependencies);
@@ -130,19 +125,15 @@
         <!-- For IsMessageBoxWPresent -->
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-ntuser-dialogbox-l1.lib
       </AdditionalDependencies>
-
       <AdditionalDependencies Condition="'$(Configuration)'!='fre' AND '$(Platform)'!='ARM' AND '$(Platform)'!='Arm64'">
         %(AdditionalDependencies);
         $(ChakraRootDirectory)tools\External\lib\$(PlatformPathNameAlt)\jitprofiling.lib
       </AdditionalDependencies>
-
-
       <DelayLoadDLLs>%(DelayLoadDLLs);oleaut32.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-0.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'!='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-1.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(Configuration)'!='fre'">%(DelayLoadDLLs);cryptsp.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OptimiziedBuild)'!='true'">%(DelayLoadDLLs);ext-ms-win-ntuser-dialogbox-l1-1-0.dll</DelayLoadDLLs>
-
       <!-- Pogo switches -->
       <AdditionalOptions>%(AdditionalOptions) -d2:-pspeed1</AdditionalOptions>
       <!-- ======== From makefile.def ======== -->
@@ -172,7 +163,6 @@
         $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-l1.lib;
         $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-ro-typeresolution-l1.lib
       </AdditionalDependencies>
-
       <DelayLoadDLLs>
         %(DelayLoadDLLs);
         ext-ms-win-rometadata-dispenser-l1-1-0.dll;
@@ -210,7 +200,8 @@
       <LinkCompiled>false</LinkCompiled>
       <ImpLibCompiled>false</ImpLibCompiled>
       <!-- Clear the forced includes -->
-      <ForcedIncludeFiles></ForcedIncludeFiles>
+      <ForcedIncludeFiles>
+      </ForcedIncludeFiles>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)abidelegates.cpp" />
@@ -267,6 +258,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtContext.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtCustomEnumerator.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtDelegateWrapper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtExternalArrayBuffer.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtExternalObject.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtRuntime.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtShared.cpp" />
@@ -328,7 +320,6 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)VectorArrayEnumerator.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ExternalWeakReferenceImpl.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ExternalWeakReferenceSourceImpl.cpp" />
-
     <ClCompile Include="$(MsBuildThisFileDirectory)arm\CallingConvention.cpp">
       <!-- Since there are more then one CallingConvention.cpp, we need to set them output into different directory, even when they are ExcludedFromBuild -->
       <ObjectFileName Condition="'$(Platform)'!='ARM'">$(IntDir)\arm</ObjectFileName>
@@ -429,6 +420,7 @@
     <ClInclude Include="JsrtContext.h" />
     <ClInclude Include="JsrtCustomEnumerator.h" />
     <ClInclude Include="JsrtDelegateWrapper.h" />
+    <ClInclude Include="JsrtExternalArrayBuffer.h" />
     <ClInclude Include="JsrtExternalObject.h" />
     <ClInclude Include="JsrtInternal.h" />
     <ClInclude Include="jsrtprivate.h" />

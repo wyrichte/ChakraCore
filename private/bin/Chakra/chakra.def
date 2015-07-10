@@ -57,6 +57,7 @@ EXPORTS
     JsDefineProperty
     JsCreateArray
     JsCreateArrayBuffer
+    JsCreateExternalArrayBuffer
     JsCreateTypedArray
     JsCreateDataView
     JsGetArrayBufferStorage

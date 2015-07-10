@@ -1135,6 +1135,29 @@ STDAPI_(JsErrorCode) JsCreateArrayBuffer(unsigned int byteLength, JsValueRef *re
     });
 }
 
+STDAPI_(JsErrorCode) JsCreateExternalArrayBuffer(void *data, unsigned int byteLength, JsFinalizeCallback finalizeCallback, void *callbackState, JsValueRef *result)
+{
+    return ContextAPIWrapper<true>([&](Js::ScriptContext *scriptContext) -> JsErrorCode {
+        PARAM_NOT_NULL(result);
+
+        if (data == nullptr && byteLength > 0)
+        {
+            return JsErrorInvalidArgument;
+        }
+
+        Js::JavascriptLibrary* library = scriptContext->GetLibrary();
+        *result = Js::JsrtExternalArrayBuffer::New(
+            reinterpret_cast<BYTE*>(data),
+            byteLength,
+            finalizeCallback,
+            callbackState,
+            library->GetArrayBufferType());
+
+        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_OBJECT(*result));
+        return JsNoError;
+    });
+}
+
 STDAPI_(JsErrorCode) JsCreateTypedArray(JsTypedArrayType arrayType, JsValueRef baseArray, unsigned int byteOffset, unsigned int elementLength, JsValueRef *result)
 {
     return ContextAPIWrapper<true>([&](Js::ScriptContext *scriptContext) -> JsErrorCode {

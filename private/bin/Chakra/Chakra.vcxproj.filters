@@ -54,6 +54,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtContext.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtCustomEnumerator.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtDelegateWrapper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtExternalArrayBuffer.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtExternalObject.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtRuntime.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtShared.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="JsrtContext.h" />
     <ClInclude Include="JsrtCustomEnumerator.h" />
     <ClInclude Include="JsrtDelegateWrapper.h" />
+    <ClInclude Include="JsrtExternalArrayBuffer.h" />
     <ClInclude Include="JsrtExternalObject.h" />
     <ClInclude Include="JsrtInternal.h" />
     <ClInclude Include="jsrtprivate.h" />
@@ -231,6 +233,7 @@
     <ClInclude Include="VectorArrayEnumerator.h" />
     <ClInclude Include="ExternalWeakReferenceImpl.h" />
     <ClInclude Include="ExternalWeakReferenceSourceImpl.h" />
+    <ClInclude Include="ChakraVersion.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(MsBuildThisFileDirectory)jscript9.rc" />

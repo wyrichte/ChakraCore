@@ -1975,6 +1975,26 @@
         _Out_ JsValueRef *result);
 
     /// <summary>
+    ///     Creates a Javascript ArrayBuffer object to access external memory.
+    /// </summary>
+    /// <remarks>Requires an active script context.</remarks>
+    /// <param name="data">A pointer to the external memory.</param>
+    /// <param name="byteLength">The number of bytes in the external memory.</param>
+    /// <param name="finalizeCallback">A callback for when the object is finalized. May be null.</param>
+    /// <param name="callbackState">User provided state that will be passed back to finalizeCallback.</param>
+    /// <param name="result">The new ArrayBuffer object.</param>
+    /// <returns>
+    ///     The code <c>JsNoError</c> if the operation succeeded, a failure code otherwise.
+    /// </returns>
+    STDAPI_(JsErrorCode)
+        JsCreateExternalArrayBuffer(
+        _In_ void *data,
+        _In_ unsigned int byteLength,
+        _In_opt_ JsFinalizeCallback finalizeCallback,
+        _In_opt_ void *callbackState,
+        _Out_ JsValueRef *result);
+
+    /// <summary>
     ///     Creates a Javascript typed array object.
     /// </summary>
     /// <remarks>

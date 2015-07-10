@@ -102,6 +102,7 @@ NON_LANGUAGE_SERVICE_SOURCES = \
         ..\JsrtShared.cpp \
         ..\JsrtContext.cpp \
         ..\JsrtDelegateWrapper.cpp \
+        ..\JsrtExternalArrayBuffer.cpp \
         ..\JsrtRuntime.cpp \
         ..\JsrtThreadService.cpp \
 

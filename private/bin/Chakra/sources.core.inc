@@ -22,7 +22,7 @@ USE_IDLBASED_DLLDATA=1
 
 #4510: default constructor could not be generated
 #4610: can never be instantiated - user defined constructor required
-MSC_WARNING_LEVEL=$(MSC_WARNING_LEVEL) /wd4510 /wd4610 
+MSC_WARNING_LEVEL=$(MSC_WARNING_LEVEL) /wd4510 /wd4610
 
 # generates SAL annotations for our interface
 MIDL_OPTIMIZATION=$(MIDL_OPTIMIZATION) -sal_local
@@ -109,6 +109,7 @@ SOURCES= \
     ..\ConfigParserExternals.cpp \
     ..\jsrtShared.cpp \
     ..\JsrtCustomEnumerator.cpp \
+    ..\JsrtExternalArrayBuffer.cpp \
     ..\JsrtExternalObject.cpp \
     ..\JsrtRuntime.cpp \
     ..\JsrtThreadService.cpp \

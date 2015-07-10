@@ -115,6 +115,7 @@
 
 #include "ThreadServiceWrapperBase.h"
 #include "JsrtContext.h"
+#include "JsrtExternalArrayBuffer.h"
 
 #ifdef ENABLE_PROJECTION
 #include "ArrayProjectionEnumerator.h"

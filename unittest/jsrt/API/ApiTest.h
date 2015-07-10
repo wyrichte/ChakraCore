@@ -1067,7 +1067,7 @@ namespace JsrtUnitTests
 
                 VERIFY_IS_TRUE(JsGetArrayBufferStorage(arrayBuffer, &originBuffer, &originBufferLength) == JsNoError);
                 VERIFY_ARE_EQUAL(16 * size, (int)originBufferLength);
-               
+
                 // TypedArray
                 JsValueRef typedArray;
 
@@ -1124,6 +1124,37 @@ namespace JsrtUnitTests
                 VERIFY_IS_TRUE(JsCreateDataView(dataView, /*byteOffset*/size, /*byteLength*/12, &dataView) == JsErrorInvalidArgument);      // must from arrayBuffer
                 VERIFY_IS_TRUE(JsCreateDataView(bad, /*byteOffset*/size, /*byteLength*/12, &dataView) == JsErrorInvalidArgument);           // must from arrayBuffer
             }
+        }
+
+        static void CALLBACK CallOnceCallback(_In_opt_ void *data)
+        {
+            bool* pValue = reinterpret_cast<bool*>(data);
+            VERIFY_IS_FALSE(*pValue);
+            *pValue = true;
+        }
+
+        TEST_METHOD(ExternalArrayBuffer)
+        {
+            BYTE originBuffer[] = {0x2, 0x1, 0x4, 0x3, 0x6, 0x5, 0x8, 0x7};
+            const unsigned int originBufferLength = sizeof(originBuffer);
+
+            JsValueRef externalArrayBuffer;
+            JsValueType valueType;
+            BYTE *buffer;
+            unsigned int bufferLength;
+
+            bool called = false;
+            VERIFY_IS_TRUE(JsCreateExternalArrayBuffer(originBuffer, originBufferLength, CallOnceCallback, &called, &externalArrayBuffer) == JsNoError);
+
+            VERIFY_IS_TRUE(JsGetValueType(externalArrayBuffer, &valueType) == JsNoError);
+            VERIFY_ARE_EQUAL(JsValueType::JsArrayBuffer, valueType);
+            VERIFY_IS_TRUE(JsGetArrayBufferStorage(externalArrayBuffer, &buffer, &bufferLength) == JsNoError);
+            VERIFY_ARE_EQUAL(originBuffer, buffer);
+            VERIFY_ARE_EQUAL(originBufferLength, bufferLength);
+
+            VERIFY_IS_FALSE(called);
+            VERIFY_IS_TRUE(JsPrivateCollectGarbageSkipStack(this->runtime) == JsNoError);
+            VERIFY_IS_TRUE(called);
         }
 
         TEST_METHOD(Interception)
