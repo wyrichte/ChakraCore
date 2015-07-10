@@ -15,12 +15,6 @@ var tests = [
     }
   },
   {
-    name: "Constructor may not be generator",
-    body: function () {
-      assert.throws(function () { eval("class E { * constructor() {} }") }, SyntaxError, "Class constructor may not be a generator");
-    }
-  },
-  {
     name: "Class declarations require a name",
     body: function () {
       assert.throws(function () { eval("class { }") }, SyntaxError);
@@ -49,8 +43,9 @@ var tests = [
     }
   },
   {
-    name: "Class special methods may not be named 'constructor'",
+    name: "Class constructor method can only be a normal method - not getter, setter, or generator",
     body: function () {
+      assert.throws(function () { eval("class E { * constructor() {} }") }, SyntaxError, "Class constructor may not be a generator");
       assert.throws(function () { eval("class E0 { get constructor() {} }") }, SyntaxError, "get constructor");
       assert.throws(function () { eval("class E1 { set constructor(x) {} }") }, SyntaxError, "set constructor");
     }
@@ -559,6 +554,45 @@ var tests = [
         assert.areEqual("bar",instance.method5(),"'super' in class method in eval");
      }
   },
+  {
+        name: "Class method can be a generator",
+        body: function() {
+            class ClassWithGeneratorMethod {
+                *iter() {
+                    for (let i of [1,2,3]) {
+                        yield i;
+                    }
+                }
+            };
+            
+            let a = [];
+            for (let i of new ClassWithGeneratorMethod().iter()) {
+                a.push(i);
+            }
+            
+            assert.areEqual([1,2,3], a, "");
+        }
+    },
+    {
+        name: "Class method with computed name can be a generator",
+        body: function() {
+            class ClassWithGeneratorMethod {
+                *[Symbol.iterator]() {
+                    for (let i of [1,2,3]) {
+                        yield i;
+                    }
+                }
+            };
+            
+            let a = [];
+            for (let i of new ClassWithGeneratorMethod()) {
+                a.push(i);
+            }
+            
+            assert.areEqual([1,2,3], a, "");
+        }
+
+    }
 ];
 
 testRunner.runTests(tests);
