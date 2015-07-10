@@ -1820,7 +1820,7 @@ STDAPI_(JsErrorCode) JsConstructObject(JsValueRef function, JsValueRef *args, us
         Js::CallInfo callInfo(Js::CallFlags::CallFlags_New, cargs);
         Js::Arguments jsArgs(callInfo, reinterpret_cast<Js::Var *>(args));
 
-        Js::Var varResult = Js::JavascriptFunction::CallAsConstructor(jsFunction, jsArgs, scriptContext);
+        Js::Var varResult = Js::JavascriptFunction::CallAsConstructor(jsFunction, /* overridingNewTarget = */nullptr, jsArgs, scriptContext);
         *result = varResult;
 
         return JsNoError;

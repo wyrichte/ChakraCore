@@ -977,7 +977,7 @@ namespace Projection
 
                     Js::CallInfo callInfo(Js::CallFlags_New, 5);
                     Var args[5] = {scriptContext->GetLibrary()->GetUndefined(), instanceObject, asyncOpTypeVar, asyncOpSourceVar, asyncOpCausalityIdVar};
-                    auto result = Js::JavascriptWinRTFunction::CallAsConstructor(promiseMaker, Js::Arguments(callInfo, args), projectionContext->GetScriptContext());
+                    auto result = Js::JavascriptWinRTFunction::CallAsConstructor(promiseMaker, /* overridingNewTarget = */nullptr, Js::Arguments(callInfo, args), projectionContext->GetScriptContext());
                     resultObject = Js::DynamicObject::FromVar(result);
                     break;
                 }
