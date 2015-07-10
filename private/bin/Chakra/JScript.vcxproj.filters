@@ -698,9 +698,6 @@
     <None Include="JScript9.def">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="helpers.js">
-      <Filter>Source Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="jscript9.rc">

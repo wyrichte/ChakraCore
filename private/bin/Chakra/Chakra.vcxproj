@@ -572,9 +572,6 @@
       <Project>{37871403-9cd8-434c-8904-dbdd95b69d81}</Project>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="helpers.js" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />

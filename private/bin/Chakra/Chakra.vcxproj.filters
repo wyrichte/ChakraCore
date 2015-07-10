@@ -250,9 +250,6 @@
     </MASM>
   </ItemGroup>
   <ItemGroup>
-    <None Include="helpers.js" />
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="arm">
       <UniqueIdentifier>{ec0112d5-56f4-430b-abc9-8bdcde6d133f}</UniqueIdentifier>
     </Filter>
