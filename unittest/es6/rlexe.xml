@@ -1135,7 +1135,7 @@
 <test>
     <default>
         <files>ES6NewTarget.js</files>
-        <compile-flags>-es6newtarget -es6classes -es6super -off:fulljit -args summary -endargs</compile-flags>
+        <compile-flags>-es6newtarget -es6classes -es6super -args summary -endargs</compile-flags>
     </default>
 </test>
 </regress-exe>

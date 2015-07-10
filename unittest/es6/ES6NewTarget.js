@@ -182,7 +182,7 @@ var tests = [
         }
     },
     {
-        name: "new.target behavior in an arrow in a normal function in a new expression",
+        name: "new.target behaviour in an arrow in a normal function in a new expression",
         body: function() {
             function foo() {
                 let arrow = () => {
@@ -222,6 +222,35 @@ var tests = [
             assert.isTrue(derived === arrow(), "Arrow capturing new.target returns correct value");
         }
     },
+    {
+        name: "new.target inline constructor case",
+        body: function() {
+            function foo()
+            {
+                return new.target;
+            }
+            function bar()
+            {
+                return new foo(); //foo will be inlined here
+            }
+            assert.isTrue(bar() == foo, "Function called as new expression has new.target set to the function in the function body when the constructor is inlined");
+        }
+    },
+    {
+        name: "new.target inline  case",
+        body: function() {
+            function foo()
+            {
+                return new.target;
+            }
+            function bar()
+            {
+                return foo(); //foo will be inlined here
+            }
+            assert.isTrue(bar() == undefined, "Normal inlined function has new.target set to undefined in the function body");
+        }
+    },
+
 ];
 
 testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });
