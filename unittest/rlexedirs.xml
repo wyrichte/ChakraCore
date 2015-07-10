@@ -275,12 +275,6 @@
 </dir>
 <dir>
   <default>
-    <files>Authoring</files>
-    <tags>include_drt5</tags>
-  </default>
-</dir>
-<dir>
-  <default>
     <files>UnifiedRegex</files>
     <tags>include_drt2</tags>
   </default>

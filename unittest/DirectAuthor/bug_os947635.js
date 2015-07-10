@@ -1,1 +1,0 @@
-var baz = Function("(z => super())(/**gs:***/);");

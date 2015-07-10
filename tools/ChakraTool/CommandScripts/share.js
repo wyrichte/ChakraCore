@@ -5,7 +5,7 @@
 (function () {
     var standardBinaries = ["jc.exe", "jshost.exe", "chakra.dll.fre", "chakratest.dll"];
     var diagBinaries = ["jdtest.exe", "jd.dll", "ut_jscript.dll", "ut_jsdiag.dll", "chakradiag.dll.fre", "chakradiagtest.dll"]
-    var otherBinaries = ["jsetwconsole.exe", "jscript9internalcounters.dll", "nativeunittests.dll", "jsglass.exe", "chakrals.dll.fre", "rl.exe", "testHost.exe"];
+    var otherBinaries = ["jsetwconsole.exe", "jscript9internalcounters.dll", "nativeunittests.dll", "rl.exe", "testHost.exe"];
 
     function entryPoint(context) {
         var shell = context.shell;

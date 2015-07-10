@@ -1,1 +1,0 @@
-eval('function too() { { for (var a = 123 in []) { } let a; } } too();'); print(/**pl:-**/

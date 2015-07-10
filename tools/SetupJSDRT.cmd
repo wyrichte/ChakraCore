@@ -449,9 +449,6 @@ set _scriptFullname=%~f0
     echo.
 
     echo Setting up test hosts
-    call %_targetDir%\Tools\runjs.bat setupJsGlass %_binRoot% %_jscriptRoot% %_buildArch%
-    if errorlevel 1 goto :Error
-    
     call %_targetDir%\Tools\runjs.bat setupTesthost %_binRoot% %_jscriptRoot%
     if errorlevel 1 goto :Error
     

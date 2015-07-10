@@ -932,7 +932,6 @@ function setupWindowsGlobalization() {
     try {
         var destinationPaths = [
             "\\jscript\\jshost.exe.local",
-            "\\jscript\\jsglass.exe.local",
             "\\jscript\\JC.exe.local",
             "\\jscript\\jdtest.exe.local",
             "\\jscript\\testHost.exe.local",
@@ -1091,51 +1090,6 @@ function setupJdTest(sourceDir, targetDir)
     catch (e)
     {
         WScript.Echo("Could not setup jdtest binaries: " + e.message);
-        return -1;
-    }
-}
-
-/****************************************************************************/
-/* Copies jscript9 test & pdm binaries to jsglass.exe.local for win7 testing.
-*/
-function setupJsGlass(sourceDir, targetDir, architecture)
-{
-    if (architecture === undefined) {
-        architecture = Env("build.arch");
-    }
-
-    var lsSourceDir;
-    if (sourceDir == undefined) {
-        sourceDir = Env("sdxroot") + "\\inetcore\\devtoolbar\\jstools\\setup\\" + architecture;
-        lsSourceDir = Env("_NTTREE");
-    }
-    if (targetDir == undefined) {
-        targetDir = Env("_NTTREE") + "\\jscript";
-    }
-
-    try {
-        refreshTestExeBinaries("jsglass.exe", targetDir);
-
-        var target = targetDir + "\\jsglass.exe.local";
-
-        copyOneFile(sourceDir, target, "msdbg2.dll", "FORCE");
-        copyOneFile(sourceDir, target, "pdm.dll", "FORCE");
-        copyOneFile(sourceDir, target, "pdmproxy100.dll", "FORCE");
-
-/*
-        if (architecture.toLowerCase() === 'x86') {
-            if (lsSourceDir != undefined) {
-                sourceDir = lsSourceDir;
-            }
-
-            refreshTestExeBinaries("jsglass.exe", targetDir, "chakralstest.dll", "chakrals.dll");
-        }
-*/
-
-        return 0;
-    }
-    catch (e) {
-        WScript.Echo("Could not setup jsglass binaries: " + e.message);
         return -1;
     }
 }

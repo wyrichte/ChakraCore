@@ -1,1 +1,0 @@
-functional => function/**gs:***/(){};

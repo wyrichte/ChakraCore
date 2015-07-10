@@ -6,7 +6,6 @@ TARGET_DESTINATION              =   jscript\taef
 PASS_INDEPENDENT_BINPLACE=\
   ..\Array\Taef_Unit_Array.xml \
   ..\AsyncDebug\Taef_Unit_AsyncDebug.xml \
-  ..\Authoring\Taef_Unit_Authoring.xml \
   ..\bailout\Taef_Unit_bailout.xml \
   ..\Basics\Taef_Unit_Basics.xml \
   ..\Boolean\Taef_Unit_Boolean.xml \
@@ -18,7 +17,6 @@ PASS_INDEPENDENT_BINPLACE=\
   ..\Date\Taef_Unit_Date.xml \
   ..\Debugger\Taef_Unit_Debugger.xml \
   ..\DebuggerQA\Taef_Unit_DebuggerQA.xml \
-  ..\DirectAuthor\Taef_Unit_DirectAuthor.xml \
   ..\DynamicCode\Taef_Unit_DynamicCode.xml \
   ..\eh\Taef_Unit_EH.xml \
   ..\Error\Taef_Unit_Error.xml \

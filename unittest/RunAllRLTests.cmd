@@ -255,8 +255,6 @@ if "%_drt%" == "" (
         @rem Disable html tests on dev box / snap build machine. Only run in DRT/nightly.
         set _ExcludeHtmlTests=-nottags html
 
-        call runjs setupJsGlass
-
         call runjs setupTesthost
 
         call runjs setupJdTest

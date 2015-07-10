@@ -781,7 +781,7 @@ namespace ChakraUnitTestTelemetry
         /// </summary>
         /// <param name="line">The line to read the run information from.</param>
         /// <param name="fullCommandLine">The full command line statement used to run the test (host + parameters + file).</param>
-        /// <param name="hostType">The type of the host that was used for the run (jshost, jdtest, jsglass, etc.).</param>
+        /// <param name="hostType">The type of the host that was used for the run (jshost, jdtest, etc.).</param>
         /// <param name="commandLineParameters">The command line parameters passed to the test.</param>
         /// <param name="unitTestFilePath">The path to the unit test file that was run on the local machine.</param>
         private static void ReadRunInformationFromLine(

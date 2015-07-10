@@ -60,7 +60,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{2D98823A-DF4
 		..\private\lib\HostCommon\HostCommon.vcxproj = ..\private\lib\HostCommon\HostCommon.vcxproj
 		..\private\Bin\JC\JC.vcxproj = ..\private\Bin\JC\JC.vcxproj
 		..\private\Bin\jdtest\jdtest.vcxproj = ..\private\Bin\jdtest\jdtest.vcxproj
-		..\private\Bin\jsGlass\jsGlass.vcxproj = ..\private\Bin\jsGlass\jsGlass.vcxproj
 		..\private\Bin\jshost\jshost.vcxproj = ..\private\Bin\jshost\jshost.vcxproj
 		..\private\bin\RecyclerTest\RecyclerTest.vcxproj = ..\private\bin\RecyclerTest\RecyclerTest.vcxproj
 	EndProjectSection

@@ -186,7 +186,6 @@ REM Fall-through intentional
 :CreateScriptRunAllTests
     REM Notes:
     REM   - _BuildArch is needed for runtest.cmd
-    REM   - _NTTREE is needed for jsglass.exe
     REM   - The reason to use setenv.cmd: if you want to run test manually, run setenv.cmd to prepare the environment.
     set SetenvFile=%Destination%\%SetenvScriptName%
     set ScriptFile=%Destination%\%RunScriptName%

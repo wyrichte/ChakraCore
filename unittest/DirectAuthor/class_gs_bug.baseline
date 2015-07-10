@@ -1,8 +1,0 @@
-GetStructure : getting all nodes
-Total nodes : 2
-{ asnkGlobal, containerName : , itemName : , range : {0 : 16}, HasChildren : no }
-{ asnkClass, containerName : Anonymous class, itemName : , range : {4 : 13}, HasChildren : no }
-GetStructure : Displaying structure graph
-asnkGlobal
-Anonymous class
-Passed

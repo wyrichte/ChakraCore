@@ -1,4 +1,0 @@
-Stack trace :
-	at foo (logstack.js:3:5)
-	at glo (logstack.js:1:1)
-Passed

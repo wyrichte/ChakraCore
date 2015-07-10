@@ -485,7 +485,6 @@ namespace ChakraNativeTaefTests
             command = Globals::jshostPath;
         }
         else if (::_wcsnicmp(command, L"jdtest", 6) == 0
-            || ::_wcsnicmp(command, L"jsglass", 7) == 0
             || ::_wcsnicmp(command, L"testhost", 8) == 0
             || ::_wcsnicmp(command, L"jshost", 6) == 0)
         {

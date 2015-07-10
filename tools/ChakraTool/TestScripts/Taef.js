@@ -210,12 +210,6 @@
     }
 
     function setupEnlistmentUnitTest(config, shell, logger) {
-        var exitCode = shell.execute("call {0}\\runjs setupJsGlass".format(config.jsToolsRoot));
-        if (exitCode !== 0) {
-            throw new Error("Failed to call setupJsGlass");
-        } else {
-            logger.logLine("Successfully called setupJsGlass", "Setup");
-        }
         var exitCode = shell.execute("call {0}\\runjs setupTesthost".format(config.jsToolsRoot));
         if (exitCode !== 0) {
             throw new Error("Failed to call setupTesthost");
@@ -518,24 +512,19 @@
 
         logger.logLine("Setting up test hosts.", "Setup");
         
-        var exitCode = shell.execute("call {0}\\Tools\\runjs.bat setupJsGlass {1} {2}".format(snapTargetDir, config.snapBinRoot, config.snapJSRoot));
+        var exitCode = shell.execute("call {0}\\Tools\\runjs.bat setupTesthost {1} {2}".format(snapTargetDir, config.snapBinRoot, config.snapJSRoot));
         if(exitCode === 1){
-            throw new Error("Failed to call setupJsGlass");
-        }
-    
-        exitCode = shell.execute("call {0}\\Tools\\runjs.bat setupTesthost {1} {2}".format(snapTargetDir, config.snapBinRoot, config.snapJSRoot));
-        if(exitCode === 1){
-            throw new Error("Failed to call setupJsGlass");
+            throw new Error("Failed to call setupTesthost");
         }
 
         exitCode = shell.execute("call {0}\\Tools\\runjs.bat setupJdTest {1} {2}".format(snapTargetDir, config.snapBinRoot, config.snapJSRoot));
         if(exitCode === 1){
-            throw new Error("Failed to call setupJsGlass");
+            throw new Error("Failed to call setupJdTest");
         }
 
         exitCode = shell.execute("call {0}\\Tools\\runjs.bat setupJsHostTest {1} {2}".format(snapTargetDir, config.snapBinRoot, config.snapJSRoot));
         if(exitCode === 1){
-            throw new Error("Failed to call setupJsGlass");
+            throw new Error("Failed to call setupJsHostTest");
         }
 
         logger.logLine("Completed Unit snap setup.", "Setup");     
