@@ -28,10 +28,9 @@ MSC_WARNING_LEVEL=$(MSC_WARNING_LEVEL) /wd4510 /wd4610
 # generates SAL annotations for our interface
 MIDL_OPTIMIZATION=$(MIDL_OPTIMIZATION) -sal_local
 
-!if "$(JS_LANGUAGE_SERVICE)" != "1"
 DLLDEF_OBJECTS=$(DLLDEF_OBJECTS) \
-    $(JS_LIBS_MEMPROTECTHEAP)
-!endif
+    $(JS_LIBS_MEMPROTECTHEAP) \
+    $(JS_LIBS_JSRT) \
 
 MUI_DRV=1
 
@@ -46,7 +45,7 @@ INCLUDES= \
     $(PROJECT_ROOT)\lib\inc; \
     $(PROJECT_OBJ_ROOT)\manifests\inbox\$(O); \
     $(COM_INC_PATH)\midlrt; \
-    $(PROJECT_ROOT)\jscript\lib\runtime\types; \
+    $(PROJECT_ROOT)\jscript\core\lib\jsrt; \
     $(PROJECT_OBJ_ROOT)\jscript\manifests\$(O); \
     ..\; \
 !if "$(_BUILDARCH)" == "arm"
@@ -99,12 +98,8 @@ EDIT_AND_CONTINUE_SOURCES = \
 # NON_LANGUAGE_SERVICE_SOURCES is appended in release/test sources
 NON_LANGUAGE_SERVICE_SOURCES = \
         ..\jsrt.cpp \
-        ..\JsrtShared.cpp \
         ..\JsrtContext.cpp \
         ..\JsrtDelegateWrapper.cpp \
-        ..\JsrtExternalArrayBuffer.cpp \
-        ..\JsrtRuntime.cpp \
-        ..\JsrtThreadService.cpp \
 
 SOURCES= \
         ..\activeScriptError.cpp \
@@ -144,8 +139,6 @@ SOURCES= \
         ..\javascriptThreadService.cpp \
         ..\jscriptinfo.idl \
         ..\jsfac.cpp \
-        ..\JsrtCustomEnumerator.cpp \
-        ..\JsrtExternalObject.cpp \
         ..\MemspectMemoryTracking.cpp \
         ..\NamedEventHandler.cpp \
         ..\NamedItemList.cpp \
@@ -170,7 +163,6 @@ SOURCES= \
         ..\StreamReader.cpp \
         ..\StreamWriter.cpp \
         ..\TestHooks.cpp \
-        ..\ThreadServiceWrapperBase.cpp \
         ..\typeinfobuilder.cpp \
         ..\DynamicSourceHolder.cpp \
         $(PROJECTION_SOURCES) \
@@ -193,17 +185,10 @@ ARM64_SOURCES = \
     ..\arm64\UnknownImplHelper.asm \
     ..\arm64\CallingConvention.cpp \
 
-
 # Dependent Libraries
 #   iedevtools_host_iel1.lib:
 #       LoadLatestPDM
 #       ShouldUseLocalPDM
-#
-#   ieshare_common_iel1.lib:
-#       IsOs_Mobilecore
-#
-#   Chakra.Common.Codex.lib:
-#       utf8 support
 #
 #   IESettings*, iertutilp.lib
 #       SettingStore
@@ -222,7 +207,6 @@ LINKLIBS= \
     $(JS_LIBS_WINRT) \
     $(JS_LINK_LIBS) \
     $(MINCORE_PRIV_SDK_LIB_PATH)\pathcchapis.lib    \
-    $(OBJECT_INETCORE_DIR)\jscript\core\lib\common\codex\$(O)\Chakra.Common.Codex.lib \
     $(OBJECT_INETCORE_DIR)\lib\devtb\dtbhost\$(O)\iedevtools_host_iel1.lib \
     $(OBJECT_INETCORE_DIR)\lib\ScriptProjectionHost\iel3_edge\$(O)\ScriptProjectionHost_Edge_iel3.lib \
     $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib \

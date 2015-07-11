@@ -32,7 +32,8 @@ PRECOMPILED_SOURCEFILE=stdafx.cpp
 PRECOMPILED_CXX=1
 
 DLLDEF_OBJECTS=$(DLLDEF_OBJECTS) \
-    $(JS_LIBS_MEMPROTECTHEAP)
+    $(JS_LIBS_MEMPROTECTHEAP) \
+    $(JS_LIBS_JSRT) \
 
 MUI_DRV=1
 
@@ -47,8 +48,7 @@ INCLUDES= \
     $(PROJECT_ROOT)\lib\inc; \
     $(PROJECT_OBJ_ROOT)\manifests\inbox\$(O); \
     $(COM_INC_PATH)\midlrt; \
-    $(PROJECT_ROOT)\jscript\lib\runtime\types; \
-    $(PROJECT_OBJ_ROOT)\jscript\manifests\$(O); \
+    $(PROJECT_ROOT)\jscript\core\lib\jsrt; \
     ..\; \
 !if "$(_BUILDARCH)" == "arm"
     ..\arm\; \
@@ -107,11 +107,4 @@ SOURCES= \
     ..\JsrtContextCore.cpp \
     ..\JsrtCoreDeltas.cpp \
     ..\ConfigParserExternals.cpp \
-    ..\jsrtShared.cpp \
-    ..\JsrtCustomEnumerator.cpp \
-    ..\JsrtExternalArrayBuffer.cpp \
-    ..\JsrtExternalObject.cpp \
-    ..\JsrtRuntime.cpp \
-    ..\JsrtThreadService.cpp \
-    ..\ThreadServiceWrapperBase.cpp \
     ..\ChakraCoreDLLFunc.cpp

@@ -25,6 +25,8 @@ BUILD_PASS1_CONSUMES= \
     inetcore\jscript\core\lib\common\memory\test|PASS1 \
     inetcore\jscript\core\lib\common\util\release|PASS1 \
     inetcore\jscript\core\lib\common\util\test|PASS1 \
+    inetcore\jscript\core\lib\jsrt\release|PASS1 \
+    inetcore\jscript\core\lib\jsrt\test|PASS1 \
     inetcore\jscript\core\lib\parser\release|PASS1 \
     inetcore\jscript\core\lib\parser\test|PASS1 \
     inetcore\jscript\core\lib\runtime\bytecode\release|PASS1 \

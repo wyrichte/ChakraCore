@@ -357,6 +357,12 @@ void JsrtContext::Mark(Recycler * recycler)
     AssertMsg(false, "Mark called on object that isnt TrackableObject");
 }
 
+Js::ScriptContext * JsrtContext::GetScriptContext() const
+{
+    return this->scriptEngine->GetScriptContext();
+}
+
+
 bool JsrtContext::SetDebugApplication(IDebugApplication *debugApplication)
 {
     return scriptSite->SetDebugApplication(debugApplication);

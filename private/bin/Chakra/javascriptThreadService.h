@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "ThreadServiceWrapperBase.h"
+#include "Library\ThreadServiceWrapperBase.h"
 
 interface ITracker: public IDispatchEx
 {

@@ -7,8 +7,8 @@
 
 class JsrtDummyScriptSite;
 class JsrtActiveScriptDirectHost;
-
-
+class ScriptEngine;
+interface IDelegateWrapper;
 
 class JsrtContext sealed : public FinalizableObject
 {
@@ -18,7 +18,7 @@ private:
 public:
     static JsrtContext *New(JsrtRuntime * runtime);
 
-    Js::ScriptContext * GetScriptContext() const { return this->scriptEngine->GetScriptContext(); }
+    Js::ScriptContext * GetScriptContext() const;
     ScriptEngine * GetScriptEngine() const { return this->scriptEngine; }
     JsrtRuntime * GetRuntime() const { return this->runtime; }
     JsErrorCode ReserveWinRTNamespace(_In_z_ const wchar_t* nameSpace);

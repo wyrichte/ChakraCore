@@ -1109,6 +1109,7 @@ HRESULT WriteByteCodes(HANDLE thread, JsHostActiveScriptSite * scriptSite, DWORD
 }
 
 #include "GenerateByteCodeConfig.h"
+#include "..\..\..\core\lib\Runtime\Language\ByteCodeSerializeFlags.h"
 static CGenerateByteCodeConfig s_generateLibraryByteCodeHeaderConfig(GENERATE_BYTE_CODE_BUFFER_LIBRARY);
 HRESULT PerformUTF8BoundaryTest(JsHostActiveScriptSite *scriptSite, DWORD lengthInBytes, BYTE *contentsRaw, DWORD_PTR dwSourceCookie)
 {
@@ -1183,7 +1184,7 @@ HRESULT GenerateLibraryByteCodeHeader(JsHostActiveScriptSite * scriptSite, DWORD
     if (! WriteFile(fileHandle, outputStr, strlen(outputStr), &written, nullptr)) IfFailGo(E_FAIL);
     size_t convertedChars;
     char libraryNameNarrow[MAX_PATH + 1];
-    if (wcstombs_s(&convertedChars, libraryNameNarrow, wcslen(libraryNameWide) + 1, libraryNameWide, _TRUNCATE) != 0) IfFailGo(E_FAIL);
+    if (wcstombs_s(&convertedChars, libraryNameNarrow, libraryNameWide, _TRUNCATE) != 0) IfFailGo(E_FAIL);
     if (! WriteFile(fileHandle, libraryNameNarrow, strlen(libraryNameNarrow), &written, nullptr)) IfFailGo(E_FAIL);
     outputStr = "[] = \r\n/* 00000000 */ {";
     if (! WriteFile(fileHandle, outputStr, strlen(outputStr), &written, nullptr)) IfFailGo(E_FAIL);
@@ -2006,7 +2007,7 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
                     fflush(stderr);
                     return hr;
                 }
-                wprintf(L"Restricted Error String: %s\n", autoReleaseRestrictedString);
+                wprintf(L"Restricted Error String: %s\n", (wchar_t*)autoReleaseRestrictedString);
 
                 // Get and print restricted error reference
                 hr = debugEx->GetRestrictedErrorReference(&autoReleaseRestrictedReference);
@@ -2033,7 +2034,7 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
                     fflush(stderr);
                     return hr;
                 }
-                wprintf(L"Capability SID: %s\n", autoReleaseCapabilitySid);
+                wprintf(L"Capability SID: %s\n", (wchar_t *)autoReleaseCapabilitySid);
             }
 
             IActiveScriptErrorEx* errorEx = NULL;
@@ -2129,7 +2130,7 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
                 this->lastException->errorType = (JsErrorType)excepInfo.errorType.typeNumber;
                 UINT length = SysStringLen(excepInfo.exceptionInfo.bstrDescription);
                 this->lastException->description = new wchar_t[length + 1];
-                wcscpy(this->lastException->description, excepInfo.exceptionInfo.bstrDescription);
+                wcscpy_s(this->lastException->description, length + 1, excepInfo.exceptionInfo.bstrDescription);
                 errorEx->GetThrownObject(&(this->lastException->thrownObject));
             }
 

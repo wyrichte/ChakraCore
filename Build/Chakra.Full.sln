@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23004.0
+VisualStudioVersion = 14.0.23020.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra", "..\private\bin\Chakra\Chakra.vcxproj", "{EA882C8D-81FC-42FE-ABD5-2666DB933FDA}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -28,7 +28,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Publish", "..\publish\Publi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dep", "Dep", "{59BF5DB0-B99C-468B-9E16-41C03F888DDB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.SCALookup", "..\private\lib\scalookup\Chakra.SCAlookup.vcxproj", "{1876E800-AD77-48C4-A2F7-E5265F24AC36}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.SCAlookup", "..\private\lib\scalookup\Chakra.SCAlookup.vcxproj", "{1876E800-AD77-48C4-A2F7-E5265F24AC36}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dtbhost", "..\dep\dtbhost.vcxproj", "{1876E800-AD77-48C4-A2F7-E5265F24AC37}"
 EndProject
@@ -137,6 +137,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Backend", "..\core\lib\Backend\Chakra.Backend.vcxproj", "{18CF279F-188D-4655-B03D-74F65388E7D1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Parser", "..\core\lib\Parser\Chakra.Parser.vcxproj", "{F6FAD160-5A4B-476A-93AC-33E0B3A18C0C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Jsrt", "..\core\lib\jsrt\Chakra.Jsrt.vcxproj", "{706083F7-6AA4-4558-A153-6352EF9220F5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Runtime.Math", "..\core\lib\Runtime\Math\Chakra.Runtime.Math.vcxproj", "{ABC904AD-9415-46F8-AA23-E33193F81F7C}"
 EndProject
@@ -1215,6 +1217,42 @@ Global
 		{F6FAD160-5A4B-476A-93AC-33E0B3A18C0C}.jshost-fretest|x64.Build.0 = fretest|x64
 		{F6FAD160-5A4B-476A-93AC-33E0B3A18C0C}.jshost-fretest|x86.ActiveCfg = fretest|Win32
 		{F6FAD160-5A4B-476A-93AC-33E0B3A18C0C}.jshost-fretest|x86.Build.0 = fretest|Win32
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-chk|ARM.ActiveCfg = chk|ARM
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-chk|ARM.Build.0 = chk|ARM
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-chk|x64.ActiveCfg = chk|x64
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-chk|x64.Build.0 = chk|x64
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-chk|x86.ActiveCfg = chk|Win32
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-chk|x86.Build.0 = chk|Win32
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-fre|ARM.ActiveCfg = fre|ARM
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-fre|ARM.Build.0 = fre|ARM
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-fre|x64.ActiveCfg = fre|x64
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-fre|x64.Build.0 = fre|x64
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-fre|x86.ActiveCfg = fre|Win32
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-fre|x86.Build.0 = fre|Win32
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-fretest|ARM.ActiveCfg = fretest|ARM
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-fretest|ARM.Build.0 = fretest|ARM
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-fretest|x64.ActiveCfg = fretest|x64
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-fretest|x64.Build.0 = fretest|x64
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-fretest|x86.ActiveCfg = fretest|Win32
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.all-fretest|x86.Build.0 = fretest|Win32
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-chk|ARM.ActiveCfg = chk|ARM
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-chk|ARM.Build.0 = chk|ARM
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-chk|x64.ActiveCfg = chk|x64
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-chk|x64.Build.0 = chk|x64
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-chk|x86.ActiveCfg = chk|Win32
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-chk|x86.Build.0 = chk|Win32
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-fre|ARM.ActiveCfg = fre|ARM
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-fre|ARM.Build.0 = fre|ARM
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-fre|x64.ActiveCfg = fre|x64
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-fre|x64.Build.0 = fre|x64
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-fre|x86.ActiveCfg = fre|Win32
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-fre|x86.Build.0 = fre|Win32
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-fretest|ARM.ActiveCfg = fretest|ARM
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-fretest|ARM.Build.0 = fretest|ARM
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-fretest|x64.ActiveCfg = fretest|x64
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-fretest|x64.Build.0 = fretest|x64
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-fretest|x86.ActiveCfg = fretest|Win32
+		{706083F7-6AA4-4558-A153-6352EF9220F5}.jshost-fretest|x86.Build.0 = fretest|Win32
 		{ABC904AD-9415-46F8-AA23-E33193F81F7C}.all-chk|ARM.ActiveCfg = chk|ARM
 		{ABC904AD-9415-46F8-AA23-E33193F81F7C}.all-chk|ARM.Build.0 = chk|ARM
 		{ABC904AD-9415-46F8-AA23-E33193F81F7C}.all-chk|x64.ActiveCfg = chk|x64
@@ -1433,6 +1471,7 @@ Global
 		{BB4153FF-AC3E-4734-B562-FF23812DF31B} = {546172B2-F084-4363-BE35-06010663D319}
 		{18CF279F-188D-4655-B03D-74F65388E7D1} = {D8216B93-BD6E-4293-8D98-79CEF7CF66BC}
 		{F6FAD160-5A4B-476A-93AC-33E0B3A18C0C} = {D8216B93-BD6E-4293-8D98-79CEF7CF66BC}
+		{706083F7-6AA4-4558-A153-6352EF9220F5} = {D8216B93-BD6E-4293-8D98-79CEF7CF66BC}
 		{ABC904AD-9415-46F8-AA23-E33193F81F7C} = {DDF436E7-0A8E-41AA-82B3-902B5D2D0809}
 		{37871403-9CD8-434C-8904-DBDD95B69D81} = {A494A9E5-F5E8-451B-B27A-FDAF42861AF6}
 		{BB4153FF-AC3E-4734-B562-EE23812DF31B} = {A494A9E5-F5E8-451B-B27A-FDAF42861AF6}

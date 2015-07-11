@@ -4,7 +4,9 @@
 
 #pragma once
 
-class JsrtComException : public Js::ExceptionBase
+#include "JsrtExceptionBase.h"
+
+class JsrtComException : public JsrtExceptionBase
 {
 private:    
     JsrtComException(HRESULT hr) : hr(hr) { }
@@ -45,7 +47,7 @@ public:
     }
 
 
-    JsErrorCode GetJsErrorFromHResult()
+    JsErrorCode GetJsErrorCode()
     {
         return JsErrorFromHResult(hr);
     }

@@ -4,9 +4,6 @@
 
 #pragma once
 
-#define GENERATE_BYTE_CODE_BUFFER_LIBRARY 0x00000001
-#define GENERATE_BYTE_CODE_FOR_NATIVE 0x00000002
-
 // Private interface and instance between jshost and jscript9 to pass generate byte code flags
 
 // {EF523B12-FD28-460B-A32E-0D2A57E1087D}

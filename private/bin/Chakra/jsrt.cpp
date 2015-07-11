@@ -8,7 +8,6 @@
 #include "JsrtExternalObject.h"
 #include "rterrors.h"
 #include "jsrtprivate.h"
-#include "GenerateByteCodeConfig.h"
 #include "JsrtInternal.h"
 #include "JsrtDelegateWrapper.h"
 

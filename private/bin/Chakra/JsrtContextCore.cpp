@@ -151,6 +151,11 @@ void JsrtContext::Mark(Recycler * recycler)
     AssertMsg(false, "Mark called on object that isnt TrackableObject");
 }
 
+Js::ScriptContext* JsrtContext::GetScriptContext() const
+{
+    return this->scriptContext;
+}
+
 Js::ScriptContext* JsrtContext::EnsureScriptContext()
 {
     if (this->scriptContext != nullptr)

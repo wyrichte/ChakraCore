@@ -10,7 +10,7 @@ class JsrtContext sealed : public FinalizableObject
 public:
     static JsrtContext *New(JsrtRuntime * runtime);
 
-    Js::ScriptContext* GetScriptContext() const { return scriptContext; }
+    Js::ScriptContext* GetScriptContext() const;
     JsrtRuntime * GetRuntime() const { return this->runtime; }
 
     static bool Initialize();

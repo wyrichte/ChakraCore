@@ -18,6 +18,7 @@ BUILD_PASS1_CONSUMES= \
     inetcore\jscript\core\lib\common\exceptions\release|PASS1 \
     inetcore\jscript\core\lib\common\memory\release|PASS1 \
     inetcore\jscript\core\lib\common\util\release|PASS1 \
+    inetcore\jscript\core\lib\jsrt\release|PASS1 \
     inetcore\jscript\core\lib\parser\release|PASS1 \
     inetcore\jscript\core\lib\runtime\bytecode\release|PASS1 \
     inetcore\jscript\core\lib\runtime\language\release|PASS1 \

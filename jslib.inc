@@ -21,6 +21,7 @@ JS_LIBS_MEMPROTECTHEAP = \
     $(OBJECT_JSCRIPT_DIR)\private\lib\memprotectheap\$(JS_LIBTYPE)\$(O)\chakra.memprotectheap.lib \
 
 JS_LIBS_COMMON = \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\common\codex\$(O)\Chakra.Common.Codex.lib \
     $(OBJECT_JSCRIPT_DIR)\core\lib\common\common\$(JS_LIBTYPE)\$(O)\chakra.common.common.lib \
     $(OBJECT_JSCRIPT_DIR)\core\lib\common\core\$(JS_LIBTYPE)\$(O)\chakra.common.core.lib \
     $(OBJECT_JSCRIPT_DIR)\core\lib\common\memory\$(JS_LIBTYPE)\$(O)\chakra.common.memory.lib \
@@ -50,11 +51,15 @@ JS_LIBS_WINRT = \
 JS_LIBS_BACKEND = \
     $(OBJECT_JSCRIPT_DIR)\core\lib\backend\$(JS_LIBTYPE)\$(O)\chakra.backend.lib \
 
+JS_LIBS_JSRT = \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\jsrt\$(JS_LIBTYPE)\$(O)\chakra.jsrt.lib \
+
 JS_LINK_LIBS = \
     $(JS_LIBS_COMMON) \
     $(JS_LIBS_MEMPROTECTHEAP) \
     $(JS_LIBS_PARSER) \
     $(JS_LIBS_RUNTIME) \
+    $(JS_LIBS_JSRT) \
 !ifndef EXCLUDE_BACKEND
     $(JS_LIBS_BACKEND) \
 !endif

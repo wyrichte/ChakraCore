@@ -31,6 +31,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584}"
 	ProjectSection(SolutionItems) = preProject
 		..\core\Lib\Backend\Chakra.Backend.vcxproj = ..\core\Lib\Backend\Chakra.Backend.vcxproj
+		..\core\lib\jsrt\Chakra.Jsrt.vcxproj = ..\core\lib\jsrt\Chakra.Jsrt.vcxproj
 		..\core\Lib\Parser\Chakra.Parser.vcxproj = ..\core\Lib\Parser\Chakra.Parser.vcxproj
 	EndProjectSection
 EndProject
@@ -107,13 +108,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreBuild", "CoreBuild", "{
 		..\core\Build\armasm.props = ..\core\Build\armasm.props
 		..\core\Build\armasm.targets = ..\core\Build\armasm.targets
 		..\core\Build\armasm.xml = ..\core\Build\armasm.xml
-		..\core\Build\Common.Build.Default.props = ..\core\Build\Common.Build.Default.props
-		..\core\Build\Common.Build.props = ..\core\Build\Common.Build.props
-		..\core\Build\Common.Build.ProjectConfiguration.props = ..\core\Build\Common.Build.ProjectConfiguration.props
 		..\core\Build\Chakra.Build.Default.props = ..\core\Build\Chakra.Build.Default.props
+		..\core\Build\Chakra.Build.Paths.props = ..\core\Build\Chakra.Build.Paths.props
 		..\core\Build\Chakra.Build.ProjectConfiguration.props = ..\core\Build\Chakra.Build.ProjectConfiguration.props
 		..\core\Build\Chakra.Build.props = ..\core\Build\Chakra.Build.props
-		..\core\Build\Chakra.Build.Paths.props = ..\core\Build\Chakra.Build.Paths.props
+		..\core\Build\Common.Build.Default.props = ..\core\Build\Common.Build.Default.props
+		..\core\Build\Common.Build.ProjectConfiguration.props = ..\core\Build\Common.Build.ProjectConfiguration.props
+		..\core\Build\Common.Build.props = ..\core\Build\Common.Build.props
 	EndProjectSection
 EndProject
 Global

@@ -184,7 +184,7 @@ Error:
     return hr;
 }
 
-HRESULT LoadPDM(WCHAR ** ppPdmPath, IProcessDebugManager ** ppPDM)
+HRESULT LoadPDM(__deref_out_z WCHAR ** ppPdmPath, IProcessDebugManager ** ppPDM)
 {
     // First try from the .local.
 
