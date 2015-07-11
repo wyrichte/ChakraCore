@@ -245,10 +245,6 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
 
     //m_pvLastReportedScriptBody = nullptr;
 
-#if ECMACP
-    m_fECMACP               = FALSE;
-#endif // ECMACP
-
     hostType = SCRIPTHOSTTYPE_DEFAULT;
     fCanOptimizeGlobalLookup = FALSE;
     fNonPrimaryEngine = FALSE;
@@ -3853,9 +3849,6 @@ STDMETHODIMP ScriptEngine::Clone(IActiveScript **ppscript)
     // Create a new script instance:
     oleScriptNew = HeapNewNoThrow(ScriptEngine, m_riidLanguage, m_pszLanguageName);
     IFNULLMEMRET(oleScriptNew);
-#if ECMACP
-    oleScriptNew->SetECMACP(m_fECMACP); // propagate language variant
-#endif // ECMACP
     if (!oleScriptNew->InitializeThreadBound())
     {
         delete oleScriptNew;

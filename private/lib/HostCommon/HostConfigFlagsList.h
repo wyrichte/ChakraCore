@@ -42,10 +42,5 @@ FLAG(bool, EnableExtendedErrorMessages,		"JSHost will by default print short err
 FLAG(bool, EvalRestriction,                 "Puts the script engine into Eval restricted mode, to restrict eval access use WScript.RegisterEvalApprover(func).", false)
 FLAG(bool, EvalIsAllowed,                   "If EvalRestriction flag is specified, this flag is used to determine the default value of 'IsEvalAllowed' API call that will be done on the host.", false)
 FLAG(bool, MemProtectHeapTest,              "Specific test for memory protect heap", false)
-FLAG(int,  Hurry,                           "Causes the Hurry to be called in the language services, optional timeout is provided in milliseconds", 350)
-FLAG(bool, Perf,                            "Causes the Perf mode to be called in the language services", false)
-FLAG(int,  StressStartIndex,                "Mentions the ls stress run to start with the provided index", 1)
-FLAG(int,  StressEndIndex,                  "Mentions the ls stress run to end with the provided index", -1)
-FLAG(bool, AutoGS,                          "Triggering GetStructure at the end", false)
 #undef FLAG
 #endif

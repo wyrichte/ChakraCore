@@ -1282,15 +1282,6 @@ private:
 //
 //
 
-// == ECMAScript 3rd Edition Compact Profile (ECMA 327) ======================
-#if ECMACP
-private:
-    BOOL                            m_fECMACP;
-public:
-    void SetECMACP(BOOL fImplement);
-    BOOL IsECMACP(void) { return m_fECMACP; }
-#endif // ECMACP
-
     // This is used for telemetry purposes so that we can Join the data using below activity ID and get more info like URL etc.
     GUID                            m_activityID;
 
