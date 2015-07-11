@@ -11,6 +11,9 @@ param (
 )
 
 . "$PSScriptRoot\util.ps1"
+if (-not $tfsServer) {
+   exit
+}
 
 function displayBugs($items, $printAssignTo) {
    if ($titleFilter -ne $nil) {

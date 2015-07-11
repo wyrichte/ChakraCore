@@ -14,6 +14,9 @@ param (
 )
 
 . "$PSScriptRoot\util.ps1"
+if (-not $tfsServer) {
+    exit
+}
 
 Write-Host Looking up bug $id
 function getSymbolPathFromLogFile($logFile)
@@ -45,7 +48,7 @@ function getSymbolPathFromLogFile($logFile)
 
 $workItem = getBug($id)
 $reproSteps = $workItem.Fields["Repro Steps"].Value
-$reproStepsText = htmlToText($reproSteps, $debugMode)
+$reproStepsText = htmlToText $reproSteps $debugMode
 $lines = $reproStepsText.split("`n")
 
 $dumps = @()
@@ -53,8 +56,7 @@ $dumps = @()
 $invalidFsChars = "[{0}]" -f ([Regex]::Escape([String] [System.IO.Path]::GetInvalidPathChars()))
 
 foreach ($line in $lines) {
-    # Write-Host Checking $line
-
+    # Write-Host Checking $line	
     if ($line -match ".*Dump([\s]*Location|[\s]*):[\s]*(.*)") {
        $current = @{}
        $current.dump = [Regex]::Replace($matches[2].trim(), $invalidFsChars, '')

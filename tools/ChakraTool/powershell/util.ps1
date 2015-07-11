@@ -7,15 +7,34 @@
 #  htmlToText: Cleans up a particular snippet of HTML and returns the plaintext
 #
 
-$assembly = [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.TeamFoundation.Client")
+function TryLoadTeamFoundationAssembly($assemblyName)
+{
+   $assembly = [System.Reflection.Assembly]::LoadWithPartialName($assemblyName)
 
-if ($assembly -eq $nil) {
-    Write-Host Unable to load Microsoft.TeamFoundation.Client
+   if ($assembly -eq $nil) {
+      try {      
+         $assembly = [System.Reflection.Assembly]::LoadFrom("$env:CommonProgramW6432\Microsoft Shared\Team Foundation Server\14.0\$assemblyName.dll")      
+      } catch {      
+      }
+   }
+
+   if ($assembly -eq $nil) {
+      try   {      
+         $assembly = [System.Reflection.Assembly]::LoadFrom("$env:CommonProgramFiles\Microsoft Shared\Team Foundation Server\14.0\$assemblyName.dll")
+      } catch {      
+      }
+   }
+
+   if ($assembly -eq $nil)   {
+      Write-Host Unable to load $assemblyName
+      return $false
+   }
 }
 
-$assembly = [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.TeamFoundation.WorkItemTracking.Client")
-if ($assembly -eq $nil) {
-    Write-Host Unable to load Microsoft.TeamFoundation.WorkItemTracking.Client
+if ((TryLoadTeamFoundationAssembly("Microsoft.TeamFoundation.Client") -eq $false) -or 
+   (TryLoadTeamFoundationAssembly("Microsoft.TeamFoundation.WorkItemTracking.Client") -eq $false))
+{ 
+   exit; 
 }
 
 $tfsServer = "https://microsoft.visualstudio.com/DefaultCollection"
@@ -34,9 +53,9 @@ function getBugs() {
 function getUserNameFromDisplayName($displayName)
 {
     $id = $idService.ReadIdentity([Microsoft.TeamFoundation.Framework.Common.IdentitySearchFactor]::DisplayName,
-			    $displayName,
-			    [Microsoft.TeamFoundation.Framework.Common.MembershipQuery]::Direct,
-			    [Microsoft.TeamFoundation.Framework.Common.ReadIdentityOptions]::ExtendedProperties)
+             $displayName,
+             [Microsoft.TeamFoundation.Framework.Common.MembershipQuery]::Direct,
+             [Microsoft.TeamFoundation.Framework.Common.ReadIdentityOptions]::ExtendedProperties)
 
     $username = $id.UniqueName -replace "`@.*",""
     return $username;
@@ -57,7 +76,7 @@ function getBug($id) {
 function htmlToText($html, $debugMode) {
    $ie = New-Object -COM InternetExplorer.Application
 
-   $ie.navigate2("about:blank")
+   $capture = $ie.navigate2("about:blank")
    $ie.width = 600
    $ie.height = 400
    $ie.AddressBar = $False
@@ -74,11 +93,11 @@ function htmlToText($html, $debugMode) {
    }
 
    $text = $ie.document.body.innerText
-
+   
    if ($debugMode -eq $True)
    {
      Write-Host Raw HTML is $text
-   }
-
+   }      
+   
    return $text;
 }
