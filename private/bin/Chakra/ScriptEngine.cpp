@@ -5134,71 +5134,35 @@ STDMETHODIMP ScriptEngine::ParseScriptText(
     BOOL fUsedExisting = FALSE;
     HRESULT hr;
 
-#ifdef MUTATORS
-    if(Js::Configuration::Global.flags.IsEnabled(Js::MutatorsFlag))
+    // Add the code to delete into engines deleting list
+
+    Js::Utf8SourceInfo* pScriptSourceInfo = nullptr;
+    hr = ParseScriptTextCore(
+        (void *)pszCode,
+        pcszItemName,
+        punkContext,
+        pcszDelimiter,
+        (DWORD_PTR)dwSourceContext,
+        ulStartingLineNumber,
+        dwFlags,
+        /* allowDeferredParse */ true,
+        cbCode,
+        &ScriptEngine::CompileUTF8,
+        ComputeGrfscrUTF8,
+        fUsedExisting,
+        pvarResult,
+        pexcepinfo,
+        &pScriptSourceInfo
+        );
+
+    if (pScriptSourceInfo == nullptr || fUsedExisting)
     {
-        ulong grfscr = ComputeGrfscrUTF8(pcszDelimiter);
-        if (grfscr & fscrHtmlComments && !(grfscr & fscrDoNotHandleTrailingHtmlComments) && cbCode > 0)
-        {
-            cbCode = GetLengthExcludingHTMLCommentSuffix(pszCode, cbCode, this->scriptContext);
-        }
-
-        LPOLESTR contentsUtf16 = LPOLESTR(calloc(cbCode + 1, sizeof(OLECHAR)));
-        charcount_t lengthWords = (charcount_t)utf8::DecodeUnitsIntoAndNullTerminate(contentsUtf16, pszCode, pszCode + cbCode, utf8::doDefault);
+        //delete [] pcszCode;
         HeapFree(GetProcessHeap(), 0, pcszCode);
-
-        hr = ParseScriptTextCore(
-            (void *)contentsUtf16,
-            pcszItemName,
-            punkContext,
-            nullptr,
-            (DWORD_PTR)dwSourceContext,
-            ulStartingLineNumber,
-            dwFlags,
-            /* allowDeferredParse */ true,
-            lengthWords,
-            &ScriptEngine::CompileUTF16,
-            ComputeGrfscrUTF16,
-            fUsedExisting,
-            pvarResult,
-            pexcepinfo
-            );
-
-        free(contentsUtf16);
     }
     else
-#endif
     {
-        // Add the code to delete into engines deleting list
-
-        Js::Utf8SourceInfo* pScriptSourceInfo = nullptr;
-        hr = ParseScriptTextCore(
-            (void *)pszCode,
-            pcszItemName,
-            punkContext,
-            pcszDelimiter,
-            (DWORD_PTR)dwSourceContext,
-            ulStartingLineNumber,
-            dwFlags,
-            /* allowDeferredParse */ true,
-            cbCode,
-            &ScriptEngine::CompileUTF8,
-            ComputeGrfscrUTF8,
-            fUsedExisting,
-            pvarResult,
-            pexcepinfo,
-            &pScriptSourceInfo
-            );
-
-        if (pScriptSourceInfo == nullptr || fUsedExisting)
-        {
-            //delete [] pcszCode;
-            HeapFree(GetProcessHeap(), 0, pcszCode);
-        }
-        else
-        {
-            pScriptSourceInfo->SetTridentBuffer(pcszCode);
-        }
+        pScriptSourceInfo->SetTridentBuffer(pcszCode);
     }
 
     return hr;
@@ -5227,73 +5191,36 @@ STDMETHODIMP ScriptEngine::ParseScriptText(
     BOOL fUsedExisting = FALSE;
     HRESULT hr;
 
-#ifdef MUTATORS
-    if(Js::Configuration::Global.flags.IsEnabled(Js::MutatorsFlag))
+    // Add the code to delete into engines deleting list
+
+    Js::Utf8SourceInfo* pScriptSourceInfo = nullptr;
+
+    hr = ParseScriptTextCore(
+        (void *)pszCode,
+        pcszItemName,
+        punkContext,
+        pcszDelimiter,
+        (DWORD_PTR)dwSourceContext,
+        ulStartingLineNumber,
+        dwFlags,
+        true,
+        cbCode,
+        &ScriptEngine::CompileUTF8,
+        ComputeGrfscrUTF8,
+        fUsedExisting,
+        pvarResult,
+        pexcepinfo,
+        &pScriptSourceInfo
+        );
+    if (pScriptSourceInfo == nullptr || fUsedExisting)
     {
-        ulong grfscr = ComputeGrfscrUTF8(pcszDelimiter);
-        if (grfscr & fscrHtmlComments && !(grfscr & fscrDoNotHandleTrailingHtmlComments) && cbCode > 0)
-        {
-            cbCode = GetLengthExcludingHTMLCommentSuffix(pszCode, cbCode, this->scriptContext);
-        }
-
-        LPOLESTR contentsUtf16 = LPOLESTR(calloc(cbCode + 1, sizeof(OLECHAR)));
-        charcount_t lengthWords = (charcount_t)utf8::DecodeUnitsIntoAndNullTerminate(contentsUtf16, pszCode, pszCode + cbCode, utf8::doDefault);
+        //delete [] pcszCode;
         HeapFree(GetProcessHeap(), 0, pcszCode);
-
-        hr = ParseScriptTextCore(
-            (void *)contentsUtf16,
-            pcszItemName,
-            punkContext,
-            nullptr,
-            (DWORD_PTR)dwSourceContext,
-            ulStartingLineNumber,
-            dwFlags,
-            true,
-            lengthWords,
-            &ScriptEngine::CompileUTF16,
-            ComputeGrfscrUTF16,
-            fUsedExisting,
-            pvarResult,
-            pexcepinfo
-            );
-
-        free(contentsUtf16);
     }
     else
-#endif
     {
-        // Add the code to delete into engines deleting list
-
-        Js::Utf8SourceInfo* pScriptSourceInfo = nullptr;
-
-        hr = ParseScriptTextCore(
-            (void *)pszCode,
-            pcszItemName,
-            punkContext,
-            pcszDelimiter,
-            (DWORD_PTR)dwSourceContext,
-            ulStartingLineNumber,
-            dwFlags,
-            true,
-            cbCode,
-            &ScriptEngine::CompileUTF8,
-            ComputeGrfscrUTF8,
-            fUsedExisting,
-            pvarResult,
-            pexcepinfo,
-            &pScriptSourceInfo
-            );
-        if (pScriptSourceInfo == nullptr || fUsedExisting)
-        {
-            //delete [] pcszCode;
-            HeapFree(GetProcessHeap(), 0, pcszCode);
-        }
-        else
-        {
-            pScriptSourceInfo->SetTridentBuffer(pcszCode);
-        }
+        pScriptSourceInfo->SetTridentBuffer(pcszCode);
     }
-
     return hr;
 }
 #endif // _WIN64 || USE_32_OR_64_BIT
@@ -5353,24 +5280,6 @@ HRESULT ScriptEngine::ParseScriptTextCore(
     if (Js::Configuration::Global.flags.Off.IsEnabled(Js::RunPhase))
     {
         dwFlags &= (~SCRIPTTEXT_FORCEEXECUTION);
-    }
-#endif
-
-#ifdef MUTATORS
-    if(Js::Configuration::Global.flags.IsEnabled(Js::MutatorsFlag))
-    {
-        Assert(ComputeGrfscr == ComputeGrfscrUTF16);
-        Assert(fnCoreCompile == &ScriptEngine::CompileUTF16);
-        Js::SourceMutator* sourceMutator = this->scriptContext->GetSourceMutator();
-        if(Js::Configuration::Global.flags.Mutators == nullptr)
-        {
-            pcszCodeT = (void *)sourceMutator->ModifySource((LPCOLESTR)pcszCodeT);
-        }
-        else 
-        {
-            pcszCodeT = (void *)sourceMutator->ModifySourceWithMutators((LPCOLESTR)pcszCodeT, Js::Configuration::Global.flags.Mutators);
-        }
-        len = wcslen((wchar_t*)pcszCodeT);
     }
 #endif
 
