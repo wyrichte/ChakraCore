@@ -118,6 +118,10 @@ JsValueRef __stdcall WScriptJsrt::LoadScriptFileCallback(JsValueRef callee, bool
             else
             {
                 errorCode = JScript9Interface::JsrtPointerToString(fileContents, wcslen(fileContents), &returnValue);
+                if (errorCode == JsNoError)
+                {
+                    errorCode = JScript9Interface::JsrtRunScript(fileContents, 0, filename, &returnValue);
+                }
             }
         }
     }
@@ -534,6 +538,10 @@ bool WScriptJsrt::Initialize(OnAttachCallback onAttach)
     JsValueRef global;
     IfJsrtErrorFail(JScript9Interface::JsrtGetGlobalObject(&global), false);
     IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(global, wscriptName, wscript, true), false);
+
+    JsPropertyIdRef printName;
+    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"print", &printName), false);
+    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(global, printName, echo, true), false);
 
     return true;
 }

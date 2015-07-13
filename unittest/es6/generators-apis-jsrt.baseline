@@ -1,0 +1,19 @@
+*** Running test #1 (0): GeneratorFunction is not exposed on the global object
+PASSED
+*** Running test #2 (1): Generator function object instances have length, name, and prototype properties
+PASSED
+*** Running test #3 (2): arguments and caller properties are absent regardless of strictness
+PASSED
+*** Running test #4 (3): Generator functions' length property is the number of formal parameters
+PASSED
+*** Running test #5 (4): Generator function instances have GeneratorFunction.prototype as their prototype and it has the specified properties and prototype
+PASSED
+*** Running test #6 (5): GeneratorFunction constructor is the value of the constructor property of GeneratorFunction.prototype and has the specified properties and prototype
+PASSED
+*** Running test #7 (6): Generator prototype is the value of the prototype property of GeneratorFunction.prototype and has the specified properties and prototype
+PASSED
+*** Running test #8 (7): Generator object prototype by default is the function's .prototype property value whose prototype is the Generator prototype
+PASSED
+*** Running test #9 (8): Generator function's arguments.callee should be equal to the generator function object itself
+PASSED
+Summary of tests: total executed: 9; passed: 9; failed: 0

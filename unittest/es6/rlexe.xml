@@ -837,6 +837,14 @@
   </test>
   <test>
     <default>
+      <files>generators-apis.js</files>
+      <compile-flags>-jsrt:32 -es6all</compile-flags>
+      <baseline>generators-apis-jsrt.baseline</baseline>
+      <tags>exclude_arm</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>generators-functionality.js</files>
       <!-- <compile-flags>-ES6Generators -JitES6Generators -ES6Classes -ES6Super -args summary -endargs</compile-flags> -->
       <compile-flags>-ES6Generators -ES6Classes -ES6Super -args summary -endargs</compile-flags>

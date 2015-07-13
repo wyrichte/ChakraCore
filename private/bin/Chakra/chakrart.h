@@ -308,6 +308,10 @@
         ///     Using <c>eval</c> or <c>function</c> constructor will throw an exception.
         /// </summary>
         JsRuntimeAttributeDisableEval = 0x00000010,
+        /// <summary>
+        ///     Runtime will enable all experimental features.
+        /// </summary>
+        JsRuntimeAttributeEnableExperimentalFeatures = 0x00000020,
     } JsRuntimeAttributes;
 
     /// <summary>

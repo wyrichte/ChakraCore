@@ -13,6 +13,9 @@
 #include "webplatform.h"
 #include "edgejsStatic.h"
 #include "GenerateByteCodeConfig.h"
+#ifdef ENABLE_EXPERIMENTAL_FLAGS
+#include <iesettings.h>
+#endif
 
 #define USE_ARENA false    // make this true to disable the memory recycler.
 
@@ -121,6 +124,18 @@ ulong ComputeGrfscrUTF8ForNativeDeserialization(const void * pDelimiter)
     }
     return result | fscrIsNativeCode;
 }
+
+#ifdef ENABLE_EXPERIMENTAL_FLAGS
+bool GetExperimentalFlag(const SettingStore::VALUEID<BOOL> id)
+{
+    BOOL regValue;
+    if (SUCCEEDED(SettingStore::GetBOOL(id, &regValue)))
+    {
+        return (regValue != FALSE);
+    }
+    return false;
+}
+#endif
 
 #if _WIN32 || _WIN64
 template <class T>
@@ -391,6 +406,18 @@ ScriptEngine::EnsureScriptContext()
 
     library->GetEvalFunctionObject()->SetEntryPoint(m_fIsEvalRestrict ? &Js::GlobalObject::EntryEvalRestrictedMode : &Js::GlobalObject::EntryEval);
     library->GetFunctionConstructor()->SetEntryPoint(m_fIsEvalRestrict ? &Js::JavascriptFunction::NewInstanceRestrictedMode : &Js::JavascriptFunction::NewInstance);
+
+#ifdef ENABLE_EXPERIMENTAL_FLAGS
+    // Enable expermental flags is specified by the host
+    if (GetExperimentalFlag(SettingStore::IEVALUE_ExperimentalFeatures_ExperimentalJS))
+    {
+        Js::Configuration::Global.flags.EnableExperimentalFlag();
+    }
+    if (GetExperimentalFlag(SettingStore::IEVALUE_ExperimentalFeatures_Asmjs))
+    {
+        Js::Configuration::Global.flags.EnableAsmJsFlag();
+    }
+#endif
 
     return this->scriptContext;
 }
