@@ -58,7 +58,7 @@ public:
     void SetQuiet(bool quiet) { m_quiet = quiet; }
     void SetVerbose(bool verbose) { m_verbose = verbose; }
     void SetInspectMaxStringLength(int inspectMaxStringLength) { Assert(inspectMaxStringLength > 0); m_config.maxStringLengthToDump = inspectMaxStringLength; }
-    void DebugLaunch(LPTSTR pCmdLine);
+    void DebugLaunch(_In_ LPTSTR pCmdLine);
     void Attach(ULONG pid);
 
     static void Create(const string& initialCommand, _Out_ SimpleDebugger** dbg);
@@ -279,7 +279,7 @@ private:
 
     ULONG   CreateUniqueBreakpointId() { return bpCount++; }
 
-    HRESULT OnInsertText(UINT64 docId, LPWSTR url, LPWSTR filename, LPWSTR text);
+    HRESULT OnInsertText(UINT64 docId, _In_ LPWSTR url, _In_ LPWSTR filename, _In_ LPWSTR text);
     HRESULT OnBreakpoint(RemoteScriptDebugEvent *evt);
 
     HRESULT PrivateCoCreate(LPCWSTR strModule, REFCLSID rclsid, REFIID iid, LPVOID* ppunk);

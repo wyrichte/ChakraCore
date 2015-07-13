@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
+  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\..\Build\Chakra.Build.Paths.props" />
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
   <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A5F53E69-E02C-4BB6-BB94-C96F12EBCA2E}</ProjectGuid>
     <RootNamespace>JnConsole</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -14,37 +16,65 @@
     <AtlVersion>70</AtlVersion>
     <UseStl>true</UseStl>
     <StlVersion>70</StlVersion>
-  </PropertyGroup>  
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
+    <BuildForCoreSystem>true</BuildForCoreSystem>
+    <TestCode Condition="'$(BuildingWithBuildExe)'=='true'">true</TestCode>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>  
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>    
-  </PropertyGroup>
-  <PropertyGroup>
-    <IncludePath>$(IncludePath);$(PublicInternalPath)\sdktools\inc;..\jshost\;..\..\dll\jscriptDiag\</IncludePath>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>.;..\Common;..\..\Lib\Common;..\..\Lib\Parser;..\..\Lib\Runtime;..\..\Lib\Backend;$(IntDir)..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>     
+      <AdditionalIncludeDirectories>
+        %(AdditionalIncludeDirectories);
+        $(ChakraRootDirectory)core\lib\Common;
+        $(ChakraRootDirectory)private\bin\jshost;
+        $(ChakraRootDirectory)private\bin\ChakraDiag;
+        $(IntDir);
+        $(ChakraRootDirectory)private\lib\HostCommon;
+        $(ChakraRootDirectory)private\Lib;
+        $(SdkToolsIncPath)
+      </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <UndefinePreprocessorDefinitions>%(UndefinePreprocessorDefinitions);_DEBUG</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>%(AdditionalDependencies);$(SdkLibPath)\dbgeng.lib</AdditionalDependencies>      
-      <AdditionalDependencies>%(AdditionalDependencies);$(SdkLibPath)\shlwapi.lib</AdditionalDependencies>      
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(SdkLibPath)\kernel32.lib;
+        $(SdkLibPath)\user32.lib;
+        $(SdkLibPath)\uuid.lib;
+        $(SdkLibPath)\ole32.lib;
+        $(SdkLibPath)\dbghelp.lib;
+        $(SdkLibPath)\dbgeng.lib;
+        $(SdkLibPath)\shlwapi.lib;
+        $(SdkLibPath)\oleaut32.lib;
+        $(SdkLibPath)\advapi32.lib
+        </AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
+    <Link Condition="'$(BuildingWithBuildExe)'=='true'">
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(RazzleJscriptObjectRoot)\private\lib\HostCommon\$(ObjectDirectory)\Chakra.Host.Common.lib;
+      </AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
+  <!-- Razzle binplace -->
+  <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true'">
+    <BinplaceLinked Include="$(ObjectPath)\$(ObjectDirectory)$(TargetFileName)">
+      <DestinationFolder>jscript</DestinationFolder>
+    </BinplaceLinked>
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jdtest.cpp" />
     <ClCompile Include="SimpleDebugger.cpp" />
     <ClCompile Include="StdAfx.cpp">
-      <PrecompiledHeader>Create</PrecompiledHeader>    
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,8 +86,11 @@
     <ClInclude Include="UTestHelper.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\ExeCommon.vcxproj">
+    <ProjectReference Include="..\..\lib\HostCommon\HostCommon.vcxproj">
       <Project>{f2e998aa-fb27-4f65-a6f7-4142be64294f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ChakraDiag\ChakraDiag.vcxproj">
+      <Project>{d81ef7cf-1d44-46b5-843e-4c0f1626a1e2}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

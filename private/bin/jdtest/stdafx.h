@@ -7,8 +7,20 @@
 #include <windows.h>
 
 #include "DiagAssertion.h"
+
+// NOTE: This is a workaround for not linking atlsd.lib
+
+#if defined(_DEBUG)
+#define JS_ATL_DEBUG
+#undef _DEBUG
+#endif
 #include <atlbase.h>
 #include <atlcom.h>
+#ifdef JS_ATL_DEBUG
+#define _DEBUG
+#undef JS_ATL_DEBUG
+#endif
+
 #include <string>
 #include <vector>
 #include <map>
@@ -59,7 +71,7 @@ extern LPCTSTR g_dbgBaselineFilename;
 #define USE_EDGEMODE_JSRT
 #endif // USE_EDGEMODE_JSRT
 #include "jsrt.h"
-#include "HostCommon\debuggercontroller.h"
+#include "debuggercontroller.h"
 #include "SimpleDebugger.h"
 #include "werdump.h"
 #include "MockDataTarget.h"

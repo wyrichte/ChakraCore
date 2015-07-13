@@ -2,6 +2,8 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 #include "stdafx.h"
+
+#include <initguid.h>
 #include "guids.h"
 
 SimpleDebugger::SimpleDebugger()
@@ -78,7 +80,7 @@ void SimpleDebugger::Create(const string& initialCommand, _Out_ SimpleDebugger**
     UT_COM_SUCCEEDED((*dbg)->Initialize(initialCommand));
 }
 
-void SimpleDebugger::DebugLaunch(LPTSTR pCmdLine)
+void SimpleDebugger::DebugLaunch(_In_ LPTSTR pCmdLine)
 {
     UT_COM_SUCCEEDED(DebugCreate(IID_PPV_ARGS(&m_client)));
 
@@ -856,7 +858,7 @@ Error:
 
 
 
-HRESULT SimpleDebugger::OnInsertText(UINT64 docId, LPWSTR url, LPWSTR filename, LPWSTR text)
+HRESULT SimpleDebugger::OnInsertText(UINT64 docId, _In_ LPWSTR url, _In_ LPWSTR filename, _In_ LPWSTR text)
 {
     HRESULT hr = S_OK;
 

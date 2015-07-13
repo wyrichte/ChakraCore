@@ -474,7 +474,7 @@ Error:
 
     STDMETHODIMP ReadVirtual(
         _In_ ULONG64 Address,
-        _Out_writes_bytes_to_(bufferSize, *bytesRead) PBYTE Buffer,
+        _Out_writes_bytes_(Request) PBYTE Buffer,
         _In_ ULONG Request,
         _Out_opt_ PULONG Done)
     {
