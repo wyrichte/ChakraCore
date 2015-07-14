@@ -152,6 +152,7 @@ private:
 
     // Local statistics for unroot calls.
     size_t localUnrootSize;
+    size_t localUnmarkedUnrootSize;
 
     // The bounds of the stack for the current safe/suspend point
     void* stackTop;
@@ -284,7 +285,7 @@ class MemProtectHeap
     static const size_t UnrootLimitBase = 512 * 1024;
 
     // The heap-size related cost when computing an unroot limit
-    static const size_t UnrootLimitHeapFraction = 8;
+    static const size_t UnrootLimitHeapFraction = 6;
 
     friend class MemProtectRecyclerCollectionWrapper;
 
@@ -310,8 +311,9 @@ public:
         pageAllocator(nullptr, PageAllocatorType_Max, ConfigurationLoader::Flags(), 0, PageAllocator::DefaultMaxFreePageCount, false, &backgroundPageQueue), /* TODO: Perf counter? */
         recycler(nullptr, &pageAllocator, &MemProtectHeap::OutOfMemory, ConfigurationLoader::Flags()),
         unrootSize(0),
-        unrootLimit(UnrootLimitBase)
-
+        unmarkedUnrootSize(0),
+        unrootLimit(UnrootLimitBase),
+        partialCollection(false)
     {
         // Check for overrides for thread suspension or cooperative safepoints
         if (flags & MemProtectHeapCreateFlags_ProtectMultipleStacksSuspend)
@@ -437,7 +439,7 @@ public:
     void NotifyUnroot(RecyclerHeapObjectInfo const& heapObjectInfo);
 
     // A collection has started
-    void NotifyCollectionStart();
+    void NotifyCollectionStart(bool partialCollection);
 
     // A collection has finished
     void NotifyCollectionEnd();
@@ -446,7 +448,7 @@ public:
     void LogHeapSize(bool fromGC);
 
     // Collect after transferring some unroot statistics. Returns true if a collection occured.
-    BOOL Collect(MemProtectHeapCollectFlags flags, size_t localUnrootSize);
+    BOOL Collect(MemProtectHeapCollectFlags flags, size_t localUnrootSize, size_t localUnmarkedUnrootSize);
 
     // Main collection entrypoint (including running the heuristics). Returns true if a collection occured.
     BOOL Collect(MemProtectHeapCollectFlags flags);
@@ -555,9 +557,14 @@ private:
 
     // Overall count of unrooted bytes.
     size_t unrootSize;
+    size_t unmarkedUnrootSize;
 
     // Number of unrooted bytes at the start of the last collection.
     size_t oldUnrootSize;
+    size_t oldUnmarkedUnrootSize;
+
+    // Are we currently performing a partial collection
+    bool partialCollection;
 
     // True if this heap is using suspension for safepoints, false if it is running in cooperative mode.
     StackProtectionMode stackProtectionMode;
@@ -641,7 +648,12 @@ MemProtectHeap::NotifyUnroot(RecyclerHeapObjectInfo const& heapObjectInfo)
     }
 #endif
 
-    this->unrootSize += heapObjectInfo.GetSize();
+    size_t size = heapObjectInfo.GetSize();
+    this->unrootSize += size;
+    if (!this->recycler.IsObjectMarked(heapObjectInfo.GetObjectAddress()))
+    {
+        this->unmarkedUnrootSize += size;
+    }
 
     if (this->CanCollect())
     {
@@ -650,10 +662,13 @@ MemProtectHeap::NotifyUnroot(RecyclerHeapObjectInfo const& heapObjectInfo)
 }
 
 void
-MemProtectHeap::NotifyCollectionStart()
+MemProtectHeap::NotifyCollectionStart(bool partialCollection)
 {
     // Save the unroot size at the start of the collection.
     this->oldUnrootSize = this->unrootSize;
+    this->oldUnmarkedUnrootSize = this->unmarkedUnrootSize;
+
+    this->partialCollection = partialCollection;
 
     // Log ETW event
     LogHeapSize(true /* fromGC */);
@@ -662,8 +677,19 @@ MemProtectHeap::NotifyCollectionStart()
 void
 MemProtectHeap::NotifyCollectionEnd()
 {
-    // Assume we collected everything that was unrooted when we started the GC
-    this->unrootSize -= this->oldUnrootSize;
+    if (this->partialCollection)
+    {
+        // Assume we collected everything that was unmarked and unrooted when we started the GC
+        this->unrootSize -= this->oldUnmarkedUnrootSize;
+    }
+    else
+    {
+        // Assume we collected everything that was unrooted when we started the GC
+        this->unrootSize -= this->oldUnrootSize;
+    }
+
+    // Everything that was unrooted before is now marked.
+    this->unmarkedUnrootSize = 0;
 
     // Get the current heap size
     size_t currentUsedBytes = this->recycler.GetUsedBytes();
@@ -682,9 +708,10 @@ MemProtectHeap::LogHeapSize(bool fromGC)
 }
 
 BOOL
-MemProtectHeap::Collect(MemProtectHeapCollectFlags flags, size_t localUnrootSize)
+MemProtectHeap::Collect(MemProtectHeapCollectFlags flags, size_t localUnrootSize, size_t localUnmarkedUnrootSize)
 {
     this->unrootSize += localUnrootSize;
+    this->unmarkedUnrootSize += localUnmarkedUnrootSize;
     return this->Collect(flags);
 }
 
@@ -699,7 +726,14 @@ MemProtectHeap::Collect(MemProtectHeapCollectFlags flags)
         }
         else if (this->unrootSize >= this->unrootLimit)
         {
-            return this->recycler.CollectNow<CollectNowConcurrent>();
+            if (this->unmarkedUnrootSize * 4 >= this->unrootSize * 3)
+            {
+                return this->recycler.CollectNow<CollectNowConcurrentPartial>();
+            }
+            else
+            {
+                return this->recycler.CollectNow<CollectNowConcurrent>();
+            }
         }
         else
         {
@@ -1095,7 +1129,7 @@ MemProtectHeap::StopCollectorThreadsOutsideOfCriticalSection()
 
 void MemProtectRecyclerCollectionWrapper::PreCollectionCallBack(CollectionFlags flags)
 {
-    this->memProtectHeap->NotifyCollectionStart();
+    this->memProtectHeap->NotifyCollectionStart((flags & CollectMode_Partial) == CollectMode_Partial);
 }
 
 void MemProtectRecyclerCollectionWrapper::PreRescanMarkCallback()
@@ -1355,6 +1389,7 @@ MemProtectThreadContext::MemProtectThreadContext(MemProtectHeap* memProtectHeap,
     wakeProc(wakeProc),
     wakeArgument(wakeArgument),
     localUnrootSize(0),
+    localUnmarkedUnrootSize(0),
     tib((NT_TIB*)NtCurrentTeb())
 {
     if (this->memProtectHeap->InSuspendMultipleThreadMode())
@@ -1440,7 +1475,12 @@ MemProtectThreadContext::NotifyUnroot(RecyclerHeapObjectInfo const& heapObjectIn
     }
 #endif
 
-    this->localUnrootSize += heapObjectInfo.GetSize();
+    size_t size = heapObjectInfo.GetSize();
+    this->localUnrootSize += size;
+    if (!this->GetRecycler()->IsObjectMarked(heapObjectInfo.GetObjectAddress()))
+    {
+        this->localUnmarkedUnrootSize += size;
+    }
     if (this->localUnrootSize >= LocalUnrootReportFrequency)
     {
         this->Collect(MemProtectHeap_CollectOnUnrootWithHeuristic);
@@ -1454,8 +1494,9 @@ MemProtectThreadContext::Collect(MemProtectHeapCollectFlags flags)
     SafepointAutoCriticalSection autocs(this);
 
     // This overload will transfer the statistics to the global heap.
-    BOOL result = this->memProtectHeap->Collect(flags, localUnrootSize);
+    BOOL result = this->memProtectHeap->Collect(flags, localUnrootSize, localUnmarkedUnrootSize);
     localUnrootSize = 0;
+    localUnmarkedUnrootSize = 0;
     return result;
 }
 
