@@ -250,6 +250,17 @@ var tests = [
             assert.isTrue(bar() == undefined, "Normal inlined function has new.target set to undefined in the function body");
         }
     },
+    {
+        name: "new.target generator  case",
+        body: function() {
+            function *foo()
+            {
+                yield new.target;
+            }
+            assert.isTrue((foo()).next().value == undefined, "Generator function has new.target set to undefined in the function body");
+        }
+    },
+
 
 ];
 
