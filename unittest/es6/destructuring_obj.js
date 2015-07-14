@@ -88,6 +88,33 @@ var tests = [
     }
    },
    {
+    name: "Destructing syntax - having rest element as pattern",
+    body: function () {
+      assert.doesNotThrow(function () { eval("let [...[a]] = [[]];"); }, "Under declaration, having rest element as array pattern is valid syntax");
+      assert.doesNotThrow(function () { eval("let a; [...[a]] = [[]];"); }, "Under expression, having rest element as array pattern is valid syntax");
+
+      assert.doesNotThrow(function () { eval("let [...{a}] = [{}];"); }, "Under declaration, having rest element as object pattern is valid syntax");
+      assert.doesNotThrow(function () { eval("let a; [...{a}] = [{}];"); }, "Under expression, having rest element as object pattern is valid syntax");
+
+      assert.doesNotThrow(function () { eval("let a; [...[a = 1]] = [[]];"); }, "Under expression, having rest element as array pattern has initializer is valid syntax");
+      assert.doesNotThrow(function () { eval("let a; [...{a:a = 1}] = [{}];"); }, "Under expression, having rest element as object pattern has initializer is valid syntax");
+
+      assert.doesNotThrow(function () { eval("let obj = {x:1}; [...obj.x] = [10];"); }, "Rest element being property reference is valid syntax");
+      assert.doesNotThrow(function () { eval("let obj = {x:1}; [...obj['x']] = [10];"); }, "Rest element being property reference as index is valid syntax");
+
+      assert.doesNotThrow(function () { eval("function foo() { return {x:1}; }; [...foo().x] = [10];"); }, "Rest element being property reference on call expression is valid syntax");
+      assert.doesNotThrow(function () { eval("function foo() { return {x:1}; }; [...foo()['x']] = [10];"); }, "Rest element being property reference as index on call expression is valid syntax");
+
+      assert.doesNotThrow(function () { eval("let [...[...[...a]]] = [[[]]];"); }, "Nesting rest element inside another rest element is valid syntax");
+
+      assert.throws(function () { eval("let [...[a+1] = [{}];"); },   SyntaxError, "Under declaration, having rest element as pattern which has operator is not valid syntax",   "Unexpected operator in destructuring expression");
+      assert.throws(function () { eval("let a; [...1+a] = [{}];"); }, SyntaxError, "Under declaration, rest element has operator is not valid syntax",   "Invalid destructuring assignment target");
+
+      assert.throws(function () { eval("let a; [...[a+1] = [{}];"); }, SyntaxError, "Under expression, having rest element as pattern which has operator is not valid syntax",   "Unexpected operator in destructuring expression");
+      assert.throws(function () { eval("function foo() { return {x:1}; }; [...foo()] = [10];"); }, SyntaxError, "Under expression, having rest element as call expression is not valid syntax", "Invalid destructuring assignment target");
+    }
+   },
+   {
     name: "Object destructuring syntax with repeated identifier",
     body: function () {
       assert.doesNotThrow(function () { eval("var {a:a, a:a} = {};"); },    "var declaration pattern with a repeated identifier is valid syntax");
@@ -289,6 +316,19 @@ var tests = [
             assert.areEqual(301, obj.y, "Object expression pattern (under deep parens) should assign value on second property reference on a call expression correctly");
             
         }
+    },
+    {
+       name: "Destructing functionality - rest element as pattern",
+       body : function () {
+           let [...[a]] = [1, 2, 3];
+           assert.areEqual(a, 1, "Having rest element as array pattern and the identifier is initialized with first value");
+
+           let [...{1:x1}] = [1, 2, 3];
+           assert.areEqual(x1, 2, "Having rest element as object pattern and the identifier is initialized with second value");
+
+           let [...[,...[[x2]]]] = [[1, 2], [3, 4], 5];
+           assert.areEqual(x2, 3, "Rest element nesting another rest element and initialized with correct value");
+      }
     },
     {
         name: "Object destructuring functionality with mixed array and object pattern",

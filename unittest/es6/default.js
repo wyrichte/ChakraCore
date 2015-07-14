@@ -323,6 +323,72 @@ var tests = [
       eval();
       var arguments;
     }
+  },
+  {
+    name: "Unmapped arguments - Non simple parameter list",
+    body: function () {
+        function f1 (x = 10, y = 20, z) {
+            x += 2;
+            y += 2;
+            z += 2;
+            
+            assert.areEqual(arguments[0], undefined,  "arguments[0] is not mapped with first formal and did not change when the first formal changed");
+            assert.areEqual(arguments[1], undefined,  "arguments[1] is not mapped with second formal and did not change when the second formal changed");
+            assert.areEqual(arguments[2], 30,  "arguments[2] is not mapped with third formal and did not change when the third formal changed");
+
+            arguments[0] = 1;
+            arguments[1] = 2;
+            arguments[2] = 3;
+            
+            assert.areEqual(x, 12,  "Changing arguments[0], did not change the first formal");
+            assert.areEqual(y, 22,  "Changing arguments[1], did not change the second formal");
+            assert.areEqual(z, 32,  "Changing arguments[2], did not change the third formal");
+        }
+        f1(undefined, undefined, 30);
+
+        function f2 (x = 10, y = 20, z) {
+            eval('');
+            x += 2;
+            y += 2;
+            z += 2;
+            
+            assert.areEqual(arguments[0], undefined,  "Function has eval - arguments[0] is not mapped with first formal and did not change when the first formal changed");
+            assert.areEqual(arguments[1], undefined,  "Function has eval - arguments[1] is not mapped with second formal and did not change when the second formal changed");
+            assert.areEqual(arguments[2], 30,  "Function has eval - arguments[2] is not mapped with third formal and did not change when the third formal changed");
+
+            arguments[0] = 1;
+            arguments[1] = 2;
+            arguments[2] = 3;
+            
+            assert.areEqual(x, 12,  "Function has eval - Changing arguments[0], did not change the first formal");
+            assert.areEqual(y, 22,  "Function has eval - Changing arguments[1], did not change the second formal");
+            assert.areEqual(z, 32,  "Function has eval - Changing arguments[2], did not change the third formal");
+        }
+        f2(undefined, undefined, 30);
+        
+        function f3 (x = 10, y = 20, z) {
+            (function () {
+                eval('');
+            })();
+            x += 2;
+            y += 2;
+            z += 2;
+            
+            assert.areEqual(arguments[0], undefined,  "Function's inner function has eval - arguments[0] is not mapped with first formal and did not change when the first formal changed");
+            assert.areEqual(arguments[1], undefined,  "Function's inner function has eval - arguments[1] is not mapped with second formal and did not change when the second formal changed");
+            assert.areEqual(arguments[2], 30,  "Function's inner function has eval - arguments[2] is not mapped with third formal and did not change when the third formal changed");
+
+            arguments[0] = 1;
+            arguments[1] = 2;
+            arguments[2] = 3;
+            
+            assert.areEqual(x, 12,  "Function's inner function has eval - Changing arguments[0], did not change the first formal");
+            assert.areEqual(y, 22,  "Function's inner function has eval - Changing arguments[1], did not change the second formal");
+            assert.areEqual(z, 32,  "Function's inner function has eval - Changing arguments[2], did not change the third formal");
+        }
+        f3(undefined, undefined, 30);
+
+    }
   }
 ];
 
