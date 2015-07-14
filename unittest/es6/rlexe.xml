@@ -2,6 +2,12 @@
 <regress-exe>
   <test>
     <default>
+      <files>AsyncAwait.js</files>
+      <compile-flags>-ES6Classes -ES6AsyncAwait -ES6Generators -args summary -endargs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>lambda1.js</files>
       <compile-flags> -es6lambda -off:deferparse -args summary -endargs</compile-flags>
     </default>
