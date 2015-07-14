@@ -91,7 +91,7 @@ int HostConfigFlags::FindArg(int argc, _In_reads_(argc) PWSTR argv[], PCWSTR tar
     });
 }
 
-void HostConfigFlags::RemoveArg(int& argc, _Inout_updates_(argc) LPWSTR argv[], int index)
+void HostConfigFlags::RemoveArg(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[], int index)
 {
     Assert(index >= 0 && index < argc);
     for (int i = index + 1; i < argc; ++i)
@@ -101,16 +101,16 @@ void HostConfigFlags::RemoveArg(int& argc, _Inout_updates_(argc) LPWSTR argv[], 
     --argc;
 }
 
-void HostConfigFlags::AddSwitch(int& argc, __deref_ecount(argc) LPWSTR** argv, _In_ PWSTR newArg)
+void HostConfigFlags::AddSwitch(int& argc, _Inout_updates_to_(argc, argc) LPWSTR*& argv, _In_ PWSTR newArg)
 {
     PWSTR* tempArray = new PWSTR[argc + 1];
-    memcpy(tempArray, *argv, sizeof(PWSTR) * argc);
+    memcpy(tempArray, argv, sizeof(PWSTR) * argc);
     tempArray[argc] = newArg;
-    *argv = tempArray;
+    argv = tempArray;
     argc++;
 }
 
-PCWSTR HostConfigFlags::ExtractSwitch(int& argc, _Inout_updates_(argc) PWSTR argv[], PCWSTR switchNameWithColon, int switchNameWithColonLen)
+PCWSTR HostConfigFlags::ExtractSwitch(int& argc, _Inout_updates_to_(argc, argc) PWSTR argv[], PCWSTR switchNameWithColon, int switchNameWithColonLen)
 {
     PCWSTR switchValue = nullptr;
 
@@ -146,17 +146,17 @@ int HostConfigFlags::PeekVersionSwitch(int argc, _In_reads_(argc) PWSTR argv[])
     return version;
 }
 
-void HostConfigFlags::HandleJdTestFlag(int& argc, __in_ecount(argc) LPWSTR argv[])
+void HostConfigFlags::HandleJdTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
     jdtestCmdLine = ExtractSwitch(argc, argv, L"-jdtest:");
 }
 
-void HostConfigFlags::HandleJsEtwConsoleFlag(int& argc, __in_ecount(argc) LPWSTR argv[])
+void HostConfigFlags::HandleJsEtwConsoleFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
     jsEtwConsoleCmdLine = ExtractSwitch(argc, argv, L"-JsEtwConsole:");
 }
 
-void HostConfigFlags::HandleArgsFlag(int& argc, __in_ecount(argc) LPWSTR argv[])
+void HostConfigFlags::HandleArgsFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
     const LPCWSTR argsFlag = L"-args";
     const LPCWSTR endArgsFlag = L"-endargs";

@@ -21,35 +21,35 @@ ScriptEngineWrapper::ScriptEngineWrapper()
 {
     // TODO: better error handling.
 
-    // Make sure chakratest.dll is loaded.
-    const WCHAR dllName[] = L"chakratest.dll";
-    if(GetModuleHandle(dllName) == NULL)
+    // Make sure chakra dll is loaded.
+    if(GetModuleHandle(L"chakratest.dll") == NULL && GetModuleHandle(L"chakra.dll") == NULL)
     {
         JScript9Interface::ArgInfo args;
-        if(JScript9Interface::LoadDll(dllName, wcslen(dllName), args) == NULL)
+        if(JScript9Interface::LoadDll(false, nullptr, args) == NULL)
         {
-            DebuggerController::LogError(L"unable to load %s", dllName);
+            DebuggerController::LogError(L"unable to load chakra dll");
+            return;
         }
     }
 
 
-    if(JScript9Interface::JsrtCreateRuntime(JsRuntimeAttributeDisableBackgroundWork, NULL, &m_runtime) != JsNoError)
+    if (JScript9Interface::JsrtCreateRuntime(JsRuntimeAttributeDisableBackgroundWork, NULL, &m_runtime) != JsNoError)
     {
         DebuggerController::LogError(L"debugger controller script initialization");
         return;
     }
-    if(JScript9Interface::JsrtCreateContext(m_runtime, &m_context) != JsNoError)
+    if (JScript9Interface::JsrtCreateContext(m_runtime, &m_context) != JsNoError)
     {
         DebuggerController::LogError(L"debugger controller context creation");
         return;
     }
-    if(JScript9Interface::JsrtSetCurrentContext(m_context) != JsNoError)
+    if (JScript9Interface::JsrtSetCurrentContext(m_context) != JsNoError)
     {
         DebuggerController::LogError(L"debugger controller SetCurrentContext");
     }
 
     // Install WScript.Echo
-    if(FAILED(InstallHostCallback(L"Echo", &EchoCallback, nullptr)))
+    if (FAILED(InstallHostCallback(L"Echo", &EchoCallback, nullptr)))
     {
         DebuggerController::LogError(L"installation of WScript.Echo");
     }

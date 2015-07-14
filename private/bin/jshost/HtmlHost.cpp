@@ -90,10 +90,10 @@ int _cdecl ExecuteHtmlTests(int argc, __in_ecount(argc) LPWSTR argv[])
         exit(1);
     }
 
-    // For html tests, mshtml.dll will explicitly load jscript9.dll, so we won't be able to load jscript9test.dll
+    // For html tests, mshtml.dll will explicitly load chakra.dll, so we won't be able to load chakratest.dll
     // and have mshtml pick it up via DllGetClassObject. To achieve same functionality, the test harness must instead
-    // copy jscript9test.dll to jshost.exe.local\jscript9.dll.
-    hr = ExecuteTests(argc, argv, DoOneHtmlIteration, /*useJScript9*/true);
+    // copy chakratest.dll to jshost.exe.local\chakra.dll.
+    hr = ExecuteTests(argc, argv, DoOneHtmlIteration, /*useChakra*/true);
     
     // Force one final GC before we CoUninitialize
     JScript9Interface::FinalGC();

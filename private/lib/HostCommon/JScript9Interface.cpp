@@ -21,89 +21,129 @@ void JScript9Interface::SetArgInfo(ArgInfo& args)
     m_argInfo = args;
 }
 
-HINSTANCE JScript9Interface::LoadDll(__in_z LPCWSTR dllName, size_t /*urlLen*/, ArgInfo& argInfo)
+HINSTANCE JScript9Interface::LoadDll(bool useRetailDllName, LPCWSTR alternateDllName, ArgInfo& argInfo)
 {
     m_argInfo = argInfo;
 
-    // Try to load the test dll. If that fails fall back to the release version.
-    HINSTANCE jscriptLibrary = LoadLibraryEx(dllName, nullptr, 0);
-    if (!jscriptLibrary)
+    // If using an alternate dll name do not try default nor fallback.
+    // If using retail dll name, only try chakra.dll and use normal LoadLibrary search.
+    // Otherwise first try chakratest.dll then chakra.dll and only look for them in the same directory as jshost.exe.
+
+    bool useDefault = alternateDllName == nullptr && !useRetailDllName;
+    LPCWSTR dllName;
+
+    wchar_t filename[_MAX_PATH];
+    wchar_t drive[_MAX_DRIVE];
+    wchar_t dir[_MAX_DIR];
+
+    if (!useDefault)
     {
-        // Clear out the test hooks since DLL didn't load properly and don't want to accidentally use them (eg for FaultInjection dump)
-        memset((void*)&m_testHooks, 0, sizeof(m_testHooks));
-        m_testHooksSetup = false;
-        jscriptLibrary = LoadLibrary(L"chakra.dll");
+        dllName = alternateDllName != nullptr ? alternateDllName : L"chakra.dll";
     }
-    if (!jscriptLibrary)
+    else
     {
-        int ret = GetLastError();
-        fwprintf(stderr, L"FATAL ERROR: Unable to load chakra.dll. GLE=0x%x\n", ret);
-        return NULL;
+        wchar_t modulename[_MAX_PATH];
+        GetModuleFileName(NULL, modulename, _MAX_PATH);
+        _wsplitpath_s(modulename, drive, _MAX_DRIVE, dir, _MAX_DIR, nullptr, 0, nullptr, 0);
+        _wmakepath_s(filename, drive, dir, L"chakratest.dll", nullptr);
+        dllName = filename;
     }
 
-    m_freeChakraLoaded = true;
+    HINSTANCE chakraLibrary = LoadLibraryEx(dllName, nullptr, 0);
+
+    if (!chakraLibrary)
+    {
+        // Clear out the test hooks since DLL didn't load properly but may have loaded the hooks and we don't want to accidentally use them (eg for FaultInjection dump)
+        memset((void*)&m_testHooks, 0, sizeof(m_testHooks));
+        m_testHooksSetup = false;
+
+        if (!useDefault)
+        {
+            int ret = GetLastError();
+            fwprintf(stderr, L"FATAL ERROR: Unable to load %s. GLE=0x%x\n", dllName, ret);
+            fflush(stderr);
+            return nullptr;
+        }
+        else
+        {
+            _wmakepath_s(filename, drive, dir, L"chakra.dll", nullptr);
+            chakraLibrary = LoadLibraryEx(filename, nullptr, 0);
+
+            if (!chakraLibrary)
+            {
+                int ret = GetLastError();
+                fwprintf(stderr, L"FATAL ERROR: chakratest.dll nor chakra.dll found next to jshost.exe. GLE=0x%x\n", ret);
+                fflush(stderr);
+                return nullptr;
+            }
+        }
+    }
+
+    Assert(chakraLibrary);
 
     if (!m_testHooksSetup)
     {
-        m_testHooks.pfDllGetClassObject = (TestHooks::DllGetClassObjectPtr)GetProcAddress(jscriptLibrary, "DllGetClassObject");
-        m_testHooks.pfJsVarToScriptDirect = (TestHooks::JsVarToScriptDirectPtr)GetProcAddress(jscriptLibrary, "JsVarToScriptDirect");
-        m_testHooks.pfJsVarAddRef = (TestHooks::JsVarAddRefPtr)GetProcAddress(jscriptLibrary, "JsVarAddRef");
-        m_testHooks.pfJsVarRelease = (TestHooks::JsVarReleasePtr)GetProcAddress(jscriptLibrary, "JsVarRelease");
-        m_testHooks.pfJsVarToExtension = (TestHooks::JsVarToExtensionPtr)GetProcAddress(jscriptLibrary, "JsVarToExtension");
+        m_freeChakraLoaded = true;
+
+        m_testHooks.pfDllGetClassObject = (TestHooks::DllGetClassObjectPtr)GetProcAddress(chakraLibrary, "DllGetClassObject");
+        m_testHooks.pfJsVarToScriptDirect = (TestHooks::JsVarToScriptDirectPtr)GetProcAddress(chakraLibrary, "JsVarToScriptDirect");
+        m_testHooks.pfJsVarAddRef = (TestHooks::JsVarAddRefPtr)GetProcAddress(chakraLibrary, "JsVarAddRef");
+        m_testHooks.pfJsVarRelease = (TestHooks::JsVarReleasePtr)GetProcAddress(chakraLibrary, "JsVarRelease");
+        m_testHooks.pfJsVarToExtension = (TestHooks::JsVarToExtensionPtr)GetProcAddress(chakraLibrary, "JsVarToExtension");
     }
 
-    m_jsrtTestHooks.pfJsrtCreateRuntime = (JsrtTestHooks::JsrtCreateRuntimePtr)GetProcAddress(jscriptLibrary, "JsCreateRuntime");
-    m_jsrtTestHooks.pfJsrtCreateContext = (JsrtTestHooks::JsrtCreateContextPtr)GetProcAddress(jscriptLibrary, "JsCreateContext");
-    m_jsrtTestHooks.pfJsrtSetCurrentContext = (JsrtTestHooks::JsrtSetCurrentContextPtr)GetProcAddress(jscriptLibrary, "JsSetCurrentContext");
-    m_jsrtTestHooks.pfJsrtGetCurrentContext = (JsrtTestHooks::JsrtGetCurrentContextPtr)GetProcAddress(jscriptLibrary, "JsGetCurrentContext");
-    m_jsrtTestHooks.pfJsrtDisposeRuntime = (JsrtTestHooks::JsrtDisposeRuntimePtr)GetProcAddress(jscriptLibrary, "JsDisposeRuntime");
-    m_jsrtTestHooks.pfJsrtCreateObject = (JsrtTestHooks::JsrtCreateObjectPtr)GetProcAddress(jscriptLibrary, "JsCreateObject");
-    m_jsrtTestHooks.pfJsrtCreateExternalObject = (JsrtTestHooks::JsrtCreateExternalObjectPtr)GetProcAddress(jscriptLibrary, "JsCreateExternalObject");
-    m_jsrtTestHooks.pfJsrtCreateFunction = (JsrtTestHooks::JsrtCreateFunctionPtr)GetProcAddress(jscriptLibrary, "JsCreateFunction");
-    m_jsrtTestHooks.pfJsrtPointerToString = (JsrtTestHooks::JsrtPointerToStringPtr)GetProcAddress(jscriptLibrary, "JsPointerToString");
-    m_jsrtTestHooks.pfJsrtSetProperty = (JsrtTestHooks::JsrtSetPropertyPtr)GetProcAddress(jscriptLibrary, "JsSetProperty");
-    m_jsrtTestHooks.pfJsrtGetGlobalObject = (JsrtTestHooks::JsrtGetGlobalObjectPtr)GetProcAddress(jscriptLibrary, "JsGetGlobalObject");
-    m_jsrtTestHooks.pfJsrtGetUndefinedValue = (JsrtTestHooks::JsrtGetUndefinedValuePtr)GetProcAddress(jscriptLibrary, "JsGetUndefinedValue");
-    m_jsrtTestHooks.pfJsrtGetTrueValue = (JsrtTestHooks::JsrtGetUndefinedValuePtr)GetProcAddress(jscriptLibrary, "JsGetTrueValue");
-    m_jsrtTestHooks.pfJsrtGetFalseValue = (JsrtTestHooks::JsrtGetUndefinedValuePtr)GetProcAddress(jscriptLibrary, "JsGetFalseValue");
-    m_jsrtTestHooks.pfJsrtConvertValueToString = (JsrtTestHooks::JsrtConvertValueToStringPtr)GetProcAddress(jscriptLibrary, "JsConvertValueToString");
-    m_jsrtTestHooks.pfJsrtConvertValueToNumber = (JsrtTestHooks::JsrtConvertValueToNumberPtr)GetProcAddress(jscriptLibrary, "JsConvertValueToNumber");
-    m_jsrtTestHooks.pfJsrtConvertValueToBoolean = (JsrtTestHooks::JsrtConvertValueToBooleanPtr)GetProcAddress(jscriptLibrary, "JsConvertValueToBoolean");
-    m_jsrtTestHooks.pfJsrtStringToPointer = (JsrtTestHooks::JsrtStringToPointerPtr)GetProcAddress(jscriptLibrary, "JsStringToPointer");
-    m_jsrtTestHooks.pfJsrtBooleanToBool = (JsrtTestHooks::JsrtBooleanToBoolPtr)GetProcAddress(jscriptLibrary, "JsBooleanToBool");
-    m_jsrtTestHooks.pfJsrtGetPropertyIdFromName = (JsrtTestHooks::JsrtGetPropertyIdFromNamePtr)GetProcAddress(jscriptLibrary, "JsGetPropertyIdFromName");
-    m_jsrtTestHooks.pfJsrtGetProperty = (JsrtTestHooks::JsrtGetPropertyPtr)GetProcAddress(jscriptLibrary, "JsGetProperty");
-    m_jsrtTestHooks.pfJsrtHasProperty = (JsrtTestHooks::JsrtHasPropertyPtr)GetProcAddress(jscriptLibrary, "JsHasProperty");
-    m_jsrtTestHooks.pfJsrtRunScript = (JsrtTestHooks::JsrtRunScriptPtr)GetProcAddress(jscriptLibrary, "JsRunScript");    
-    m_jsrtTestHooks.pfJsrtCallFunction = (JsrtTestHooks::JsrtCallFunctionPtr)GetProcAddress(jscriptLibrary, "JsCallFunction");
-    m_jsrtTestHooks.pfJsrtNumbertoDouble = (JsrtTestHooks::JsrtNumberToDoublePtr)GetProcAddress(jscriptLibrary, "JsNumberToDouble");
-    m_jsrtTestHooks.pfJsrtDoubleToNumber = (JsrtTestHooks::JsrtDoubleToNumberPtr)GetProcAddress(jscriptLibrary, "JsDoubleToNumber");
-    m_jsrtTestHooks.pfJsrtGetExternalData = (JsrtTestHooks::JsrtGetExternalDataPtr)GetProcAddress(jscriptLibrary, "JsGetExternalData");
-    m_jsrtTestHooks.pfJsrtCreateArray = (JsrtTestHooks::JsrtCreateArrayPtr)GetProcAddress(jscriptLibrary, "JsCreateArray");
-    m_jsrtTestHooks.pfJsrtSetIndexedProperty = (JsrtTestHooks::JsrtSetIndexedPropertyPtr)GetProcAddress(jscriptLibrary, "JsGetIndexedProperty");
-    m_jsrtTestHooks.pfJsrtSetException = (JsrtTestHooks::JsrtSetExceptionPtr)GetProcAddress(jscriptLibrary, "JsSetException");
-    m_jsrtTestHooks.pfJsrtGetAndClearException = (JsrtTestHooks::JsrtGetAndClearExceptiopnPtr)GetProcAddress(jscriptLibrary, "JsGetAndClearException");
-    m_jsrtTestHooks.pfJsrtCreateError = (JsrtTestHooks::JsrtCreateErrorPtr)GetProcAddress(jscriptLibrary, "JsCreateError");
-    m_jsrtTestHooks.pfJsrtGetRuntime = (JsrtTestHooks::JsrtGetRuntimePtr)GetProcAddress(jscriptLibrary, "JsGetRuntime");
-    m_jsrtTestHooks.pfJsrtCollectGarbage = (JsrtTestHooks::JsrtCollectGarbagePtr)GetProcAddress(jscriptLibrary, "JsCollectGarbage");
-    m_jsrtTestHooks.pfJsrtStartDebugging = (JsrtTestHooks::JsrtStartDebuggingPtr)GetProcAddress(jscriptLibrary, "JsStartDebugging");
-    m_jsrtTestHooks.pfJsrtRelease = (JsrtTestHooks::JsrtReleasePtr)GetProcAddress(jscriptLibrary, "JsRelease");
-    m_jsrtTestHooks.pfJsrtAddRef = (JsrtTestHooks::JsrtAddRefPtr)GetProcAddress(jscriptLibrary, "JsAddRef");
-    m_jsrtTestHooks.pfJsrtGetValueType = (JsrtTestHooks::JsrtGetValueType)GetProcAddress(jscriptLibrary, "JsGetValueType");
+    m_jsrtTestHooks.pfJsrtCreateRuntime = (JsrtTestHooks::JsrtCreateRuntimePtr)GetProcAddress(chakraLibrary, "JsCreateRuntime");
+    m_jsrtTestHooks.pfJsrtCreateContext = (JsrtTestHooks::JsrtCreateContextPtr)GetProcAddress(chakraLibrary, "JsCreateContext");
+    m_jsrtTestHooks.pfJsrtSetCurrentContext = (JsrtTestHooks::JsrtSetCurrentContextPtr)GetProcAddress(chakraLibrary, "JsSetCurrentContext");
+    m_jsrtTestHooks.pfJsrtGetCurrentContext = (JsrtTestHooks::JsrtGetCurrentContextPtr)GetProcAddress(chakraLibrary, "JsGetCurrentContext");
+    m_jsrtTestHooks.pfJsrtDisposeRuntime = (JsrtTestHooks::JsrtDisposeRuntimePtr)GetProcAddress(chakraLibrary, "JsDisposeRuntime");
+    m_jsrtTestHooks.pfJsrtCreateObject = (JsrtTestHooks::JsrtCreateObjectPtr)GetProcAddress(chakraLibrary, "JsCreateObject");
+    m_jsrtTestHooks.pfJsrtCreateExternalObject = (JsrtTestHooks::JsrtCreateExternalObjectPtr)GetProcAddress(chakraLibrary, "JsCreateExternalObject");
+    m_jsrtTestHooks.pfJsrtCreateFunction = (JsrtTestHooks::JsrtCreateFunctionPtr)GetProcAddress(chakraLibrary, "JsCreateFunction");
+    m_jsrtTestHooks.pfJsrtPointerToString = (JsrtTestHooks::JsrtPointerToStringPtr)GetProcAddress(chakraLibrary, "JsPointerToString");
+    m_jsrtTestHooks.pfJsrtSetProperty = (JsrtTestHooks::JsrtSetPropertyPtr)GetProcAddress(chakraLibrary, "JsSetProperty");
+    m_jsrtTestHooks.pfJsrtGetGlobalObject = (JsrtTestHooks::JsrtGetGlobalObjectPtr)GetProcAddress(chakraLibrary, "JsGetGlobalObject");
+    m_jsrtTestHooks.pfJsrtGetUndefinedValue = (JsrtTestHooks::JsrtGetUndefinedValuePtr)GetProcAddress(chakraLibrary, "JsGetUndefinedValue");
+    m_jsrtTestHooks.pfJsrtGetTrueValue = (JsrtTestHooks::JsrtGetUndefinedValuePtr)GetProcAddress(chakraLibrary, "JsGetTrueValue");
+    m_jsrtTestHooks.pfJsrtGetFalseValue = (JsrtTestHooks::JsrtGetUndefinedValuePtr)GetProcAddress(chakraLibrary, "JsGetFalseValue");
+    m_jsrtTestHooks.pfJsrtConvertValueToString = (JsrtTestHooks::JsrtConvertValueToStringPtr)GetProcAddress(chakraLibrary, "JsConvertValueToString");
+    m_jsrtTestHooks.pfJsrtConvertValueToNumber = (JsrtTestHooks::JsrtConvertValueToNumberPtr)GetProcAddress(chakraLibrary, "JsConvertValueToNumber");
+    m_jsrtTestHooks.pfJsrtConvertValueToBoolean = (JsrtTestHooks::JsrtConvertValueToBooleanPtr)GetProcAddress(chakraLibrary, "JsConvertValueToBoolean");
+    m_jsrtTestHooks.pfJsrtStringToPointer = (JsrtTestHooks::JsrtStringToPointerPtr)GetProcAddress(chakraLibrary, "JsStringToPointer");
+    m_jsrtTestHooks.pfJsrtBooleanToBool = (JsrtTestHooks::JsrtBooleanToBoolPtr)GetProcAddress(chakraLibrary, "JsBooleanToBool");
+    m_jsrtTestHooks.pfJsrtGetPropertyIdFromName = (JsrtTestHooks::JsrtGetPropertyIdFromNamePtr)GetProcAddress(chakraLibrary, "JsGetPropertyIdFromName");
+    m_jsrtTestHooks.pfJsrtGetProperty = (JsrtTestHooks::JsrtGetPropertyPtr)GetProcAddress(chakraLibrary, "JsGetProperty");
+    m_jsrtTestHooks.pfJsrtHasProperty = (JsrtTestHooks::JsrtHasPropertyPtr)GetProcAddress(chakraLibrary, "JsHasProperty");
+    m_jsrtTestHooks.pfJsrtRunScript = (JsrtTestHooks::JsrtRunScriptPtr)GetProcAddress(chakraLibrary, "JsRunScript");    
+    m_jsrtTestHooks.pfJsrtCallFunction = (JsrtTestHooks::JsrtCallFunctionPtr)GetProcAddress(chakraLibrary, "JsCallFunction");
+    m_jsrtTestHooks.pfJsrtNumbertoDouble = (JsrtTestHooks::JsrtNumberToDoublePtr)GetProcAddress(chakraLibrary, "JsNumberToDouble");
+    m_jsrtTestHooks.pfJsrtDoubleToNumber = (JsrtTestHooks::JsrtDoubleToNumberPtr)GetProcAddress(chakraLibrary, "JsDoubleToNumber");
+    m_jsrtTestHooks.pfJsrtGetExternalData = (JsrtTestHooks::JsrtGetExternalDataPtr)GetProcAddress(chakraLibrary, "JsGetExternalData");
+    m_jsrtTestHooks.pfJsrtCreateArray = (JsrtTestHooks::JsrtCreateArrayPtr)GetProcAddress(chakraLibrary, "JsCreateArray");
+    m_jsrtTestHooks.pfJsrtSetIndexedProperty = (JsrtTestHooks::JsrtSetIndexedPropertyPtr)GetProcAddress(chakraLibrary, "JsGetIndexedProperty");
+    m_jsrtTestHooks.pfJsrtSetException = (JsrtTestHooks::JsrtSetExceptionPtr)GetProcAddress(chakraLibrary, "JsSetException");
+    m_jsrtTestHooks.pfJsrtGetAndClearException = (JsrtTestHooks::JsrtGetAndClearExceptiopnPtr)GetProcAddress(chakraLibrary, "JsGetAndClearException");
+    m_jsrtTestHooks.pfJsrtCreateError = (JsrtTestHooks::JsrtCreateErrorPtr)GetProcAddress(chakraLibrary, "JsCreateError");
+    m_jsrtTestHooks.pfJsrtGetRuntime = (JsrtTestHooks::JsrtGetRuntimePtr)GetProcAddress(chakraLibrary, "JsGetRuntime");
+    m_jsrtTestHooks.pfJsrtCollectGarbage = (JsrtTestHooks::JsrtCollectGarbagePtr)GetProcAddress(chakraLibrary, "JsCollectGarbage");
+    m_jsrtTestHooks.pfJsrtStartDebugging = (JsrtTestHooks::JsrtStartDebuggingPtr)GetProcAddress(chakraLibrary, "JsStartDebugging");
+    m_jsrtTestHooks.pfJsrtRelease = (JsrtTestHooks::JsrtReleasePtr)GetProcAddress(chakraLibrary, "JsRelease");
+    m_jsrtTestHooks.pfJsrtAddRef = (JsrtTestHooks::JsrtAddRefPtr)GetProcAddress(chakraLibrary, "JsAddRef");
+    m_jsrtTestHooks.pfJsrtGetValueType = (JsrtTestHooks::JsrtGetValueType)GetProcAddress(chakraLibrary, "JsGetValueType");
 
 
-    m_memProtectTestHooks.pfMemProtectHeapCreate = (MemProtectTestHooks::MemProtectHeapCreatePtr)GetProcAddress(jscriptLibrary, "MemProtectHeapCreate");
-    m_memProtectTestHooks.pfMemProtectHeapRootAlloc = (MemProtectTestHooks::MemProtectHeapRootAllocPtr)GetProcAddress(jscriptLibrary, "MemProtectHeapRootAlloc");
-    m_memProtectTestHooks.pfMemProtectHeapRootAllocLeaf = (MemProtectTestHooks::MemProtectHeapRootAllocLeafPtr)GetProcAddress(jscriptLibrary, "MemProtectHeapRootAllocLeaf");
-    m_memProtectTestHooks.pfMemProtectHeapUnrootAndZero = (MemProtectTestHooks::MemProtectHeapUnrootAndZeroPtr)GetProcAddress(jscriptLibrary, "MemProtectHeapUnrootAndZero");
-    m_memProtectTestHooks.pfMemProtectHeapMemSize = (MemProtectTestHooks::MemProtectHeapMemSizePtr)GetProcAddress(jscriptLibrary, "MemProtectHeapMemSize");
-    m_memProtectTestHooks.pfMemProtectHeapDestroy = (MemProtectTestHooks::MemProtectHeapDestroyPtr)GetProcAddress(jscriptLibrary, "MemProtectHeapDestroy");
-    m_memProtectTestHooks.pfMemProtectHeapCollect = (MemProtectTestHooks::MemProtectHeapCollectPtr)GetProcAddress(jscriptLibrary, "MemProtectHeapCollect");
-    m_memProtectTestHooks.pfMemProtectHeapProtectCurrentThread = (MemProtectTestHooks::MemProtectHeapProtectCurrentThreadPtr)GetProcAddress(jscriptLibrary, "MemProtectHeapProtectCurrentThread");
-    m_memProtectTestHooks.pfMemProtectHeapUnprotectCurrentThread = (MemProtectTestHooks::MemProtectHeapUnprotectCurrentThreadPtr)GetProcAddress(jscriptLibrary, "MemProtectHeapUnprotectCurrentThread");
-    m_memProtectTestHooks.pfMemProtectHeapSynchronizeWithCollector = (MemProtectTestHooks::MemProtectHeapSynchronizeWithCollectorPtr)GetProcAddress(jscriptLibrary, "MemProtectHeapSynchronizeWithCollector");
+    m_memProtectTestHooks.pfMemProtectHeapCreate = (MemProtectTestHooks::MemProtectHeapCreatePtr)GetProcAddress(chakraLibrary, "MemProtectHeapCreate");
+    m_memProtectTestHooks.pfMemProtectHeapRootAlloc = (MemProtectTestHooks::MemProtectHeapRootAllocPtr)GetProcAddress(chakraLibrary, "MemProtectHeapRootAlloc");
+    m_memProtectTestHooks.pfMemProtectHeapRootAllocLeaf = (MemProtectTestHooks::MemProtectHeapRootAllocLeafPtr)GetProcAddress(chakraLibrary, "MemProtectHeapRootAllocLeaf");
+    m_memProtectTestHooks.pfMemProtectHeapUnrootAndZero = (MemProtectTestHooks::MemProtectHeapUnrootAndZeroPtr)GetProcAddress(chakraLibrary, "MemProtectHeapUnrootAndZero");
+    m_memProtectTestHooks.pfMemProtectHeapMemSize = (MemProtectTestHooks::MemProtectHeapMemSizePtr)GetProcAddress(chakraLibrary, "MemProtectHeapMemSize");
+    m_memProtectTestHooks.pfMemProtectHeapDestroy = (MemProtectTestHooks::MemProtectHeapDestroyPtr)GetProcAddress(chakraLibrary, "MemProtectHeapDestroy");
+    m_memProtectTestHooks.pfMemProtectHeapCollect = (MemProtectTestHooks::MemProtectHeapCollectPtr)GetProcAddress(chakraLibrary, "MemProtectHeapCollect");
+    m_memProtectTestHooks.pfMemProtectHeapProtectCurrentThread = (MemProtectTestHooks::MemProtectHeapProtectCurrentThreadPtr)GetProcAddress(chakraLibrary, "MemProtectHeapProtectCurrentThread");
+    m_memProtectTestHooks.pfMemProtectHeapUnprotectCurrentThread = (MemProtectTestHooks::MemProtectHeapUnprotectCurrentThreadPtr)GetProcAddress(chakraLibrary, "MemProtectHeapUnprotectCurrentThread");
+    m_memProtectTestHooks.pfMemProtectHeapSynchronizeWithCollector = (MemProtectTestHooks::MemProtectHeapSynchronizeWithCollectorPtr)GetProcAddress(chakraLibrary, "MemProtectHeapSynchronizeWithCollector");
     
-    return jscriptLibrary;
+    return chakraLibrary;
 }
 
 HRESULT JScript9Interface::GetThreadService(IActiveScriptGarbageCollector** threadService)

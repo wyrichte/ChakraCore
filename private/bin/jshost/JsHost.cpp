@@ -166,7 +166,7 @@ HRESULT MemProtectTestAlive(void * heap, void ** objects)
 
         if (size != TestObjectSize)
         {
-            fprintf(stderr, "ERROR: MemProtectHeapMemSize get incorrect size for %p: got size %d\n", objects[i], size);            
+            fprintf(stderr, "ERROR: MemProtectHeapMemSize get incorrect size for %p: got size %Iu\n", objects[i], size);            
             return E_FAIL;
         }
     }
@@ -196,7 +196,7 @@ HRESULT MemProtectTestHalfAlive(void * heap, void ** objects, void **saved_ptr)
 
         if (size != TestObjectSize)
         {
-            fprintf(stderr, "ERROR: MemProtectHeapMemSize get incorrect size for %p: got size %d\n", objects[i], size);
+            fprintf(stderr, "ERROR: MemProtectHeapMemSize get incorrect size for %p: got size %Iu\n", objects[i], size);
             return E_FAIL;
         }
     }
@@ -208,7 +208,7 @@ HRESULT MemProtectTestHalfAlive(void * heap, void ** objects, void **saved_ptr)
         HRESULT hr = JScript9Interface::MemProtectHeapMemSize(heap, saved_ptr[i], &size);
         if (SUCCEEDED(hr))
         {
-            fprintf(stderr, "ERROR: MemProtectHeapMemSize succeed for %p: get size %d\n", saved_ptr[i], size);
+            fprintf(stderr, "ERROR: MemProtectHeapMemSize succeed for %p: get size %Iu\n", saved_ptr[i], size);
         }
     }
     return S_OK;
@@ -1212,9 +1212,9 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
 
         memCounters.cb=sizeof(memCounters);
         GetProcessMemoryInfo(GetCurrentProcess(),(PROCESS_MEMORY_COUNTERS*)&memCounters,memCounters.cb);
-        wprintf(L"Peak working set %u\n",memCounters.PeakWorkingSetSize);
-        wprintf(L"Working set      %u\n",memCounters.WorkingSetSize);
-        wprintf(L"Private memory   %u\n",memCounters.PrivateUsage);
+        wprintf(L"Peak working set %Iu\n",memCounters.PeakWorkingSetSize);
+        wprintf(L"Working set      %Iu\n",memCounters.WorkingSetSize);
+        wprintf(L"Private memory   %Iu\n",memCounters.PrivateUsage);
 
         JScript9Interface::DisplayRecyclerStats();
     }
@@ -1483,7 +1483,7 @@ void WriteEtwLog()
         }
 
         size_t returnValue;
-        errno_t result = mbstowcs_s(&returnValue, utf16buf, fileSize * sizeof(WCHAR), utf8buf, fileSize);
+        errno_t result = mbstowcs_s(&returnValue, utf16buf, fileSize, utf8buf, fileSize);
 
         if (result != 0)
         {
@@ -1531,7 +1531,7 @@ LReturn:
     }
 }
 
-int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pfDoOneIteration, bool useJScript9 /*= false*/)
+int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pfDoOneIteration, bool useChakra /*= false*/)
 {
     int ret = 0;
     HRESULT hr = S_OK;
@@ -1544,39 +1544,14 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
         LaunchEtwListenerAndWaitForReady();
     }
 
-    // TODO: this is used by -html test to match trident's loading of jscript9.dll; eventually when we flip on edge html we need to 
-    // use chakra.dll but for now we need to continue using jscript9.dll name
-    PCWSTR dllName = useJScript9 ? L"chakra.dll" : L"chakratest.dll";
-
     // Use an alternate dll name, if requested on the command line.  This is required for running multiple Magellan based code coverage
     // instances in the same user session.  Magellan does not distinguish between two processes writing code coverage data to the same
     // dll's database, so simultaneous yet distinct traces require different dll names to be used.
-    if (alternateDllName != nullptr)
-    {
-        dllName = alternateDllName;
-    }
+    jscriptLibrary = JScript9Interface::LoadDll(useChakra, alternateDllName, argInfo);
 
-    jscriptLibrary = JScript9Interface::LoadDll(dllName, wcslen(dllName), argInfo);
-    if (alternateDllName != nullptr && GetModuleHandle(alternateDllName) == nullptr)
+    if (useChakra && !JScript9Interface::SupportsNotifyOnScriptStateChanged())
     {
-        printf("FATAL ERROR: Unable to load dll %S\n", dllName);
-        return E_FAIL;
-    }
-
-    if (!jscriptLibrary)
-    {
-        // TODO: yongqu: bring this back (and change the check higher to use chakra.dll at time of switch.
-        PCWSTR classicDllName = useJScript9 ? L"jscript9.dll" : L"jscript9test.dll";
-        jscriptLibrary = JScript9Interface::LoadDll(classicDllName, wcslen(classicDllName), argInfo);
-        if (!jscriptLibrary)
-        {
-            printf("FATAL ERROR: Unable to load dll %S\n", dllName);
-            return E_FAIL;
-        }
-    }
-    if (useJScript9 && !JScript9Interface::SupportsNotifyOnScriptStateChanged())
-    {
-        wprintf(L"FATAL ERROR: Loaded jscript9 isn't the test version (chakratest.dll)\n");
+        fwprintf(stderr, L"FATAL ERROR: Loaded chakra dll engine isn't the test version\n");
         return E_FAIL;
     }
 
@@ -1591,9 +1566,9 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
     }
 
     // Check if running in the out of proc debugger was requested
-    if(HostConfigFlags::jdtestCmdLine != NULL)
+    if (HostConfigFlags::jdtestCmdLine != nullptr)
     {
-        if(HostConfigFlags::flags.DebugLaunch)
+        if (HostConfigFlags::flags.DebugLaunch)
         {
             SysFreeString(HostConfigFlags::flags.DebugLaunch);
         }
@@ -1610,7 +1585,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
 
     // BUGBUG: disable memory leak check for now till I figure out how to 
     // clean up edgehtml side's memprotectheap leak.
-    if (useJScript9)
+    if (useChakra)
     {
         JScript9Interface::SetCheckMemoryLeakFlag(false);
     }
@@ -1633,7 +1608,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
             for (int i = 0; i < loopCount; ++i)
             {
                 // Each iteration will reuse the same thread context/recycler
-                hr = pfDoOneIteration(argInfo.filename != NULL ? *argInfo.filename : NULL);
+                hr = pfDoOneIteration(filename);
                 if (FAILED(hr))
                 {
                     break;
@@ -1642,7 +1617,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
         }
         else if (hr == E_NOTIMPL)
         {
-            if (_waccess(argv[1], 0) != -1) {
+            if (argc > 1 && _waccess(argv[1], 0) != -1) {
                 hr = pfDoOneIteration(argv[1]);
             }
             else {
@@ -1704,7 +1679,7 @@ void __stdcall PrintUsage()
     }
 }
 
-int HandleNativeTestFlag(int& argc, __in_ecount(argc) LPWSTR argv[])
+int HandleNativeTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
     LPCWSTR nativeTestFlag = L"-nativetest:";
     size_t nativeTestFlagLen = wcslen(nativeTestFlag);
@@ -1733,7 +1708,7 @@ int HandleNativeTestFlag(int& argc, __in_ecount(argc) LPWSTR argv[])
     if (!pfNativeTestEntryPoint)
     {
         ret = GetLastError();
-        fwprintf(stderr, L"FATAL ERROR: Unable to get address of %s in %s. GLE=0x%x\n", nativeTestEntryPointName, nativeDllName, ret);
+        fwprintf(stderr, L"FATAL ERROR: Unable to get address of %S in %s. GLE=0x%x\n", nativeTestEntryPointName, nativeDllName, ret);
         fflush(stderr);
         return ret;
     }
@@ -1748,7 +1723,7 @@ int HandleNativeTestFlag(int& argc, __in_ecount(argc) LPWSTR argv[])
     return 0;
 }
 
-int HandleDebuggerBaselineFlag(int& argc, __in_ecount(argc) LPWSTR argv[])
+int HandleDebuggerBaselineFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
     LPCWSTR dbgBaselineFlag = L"-dbgbaseline:";
     LPCWSTR dbgBaselineFlagWithoutColon = L"-dbgbaseline";
@@ -1786,7 +1761,7 @@ int HandleDebuggerBaselineFlag(int& argc, __in_ecount(argc) LPWSTR argv[])
     return 0;
 }
 
-bool HandleJsrtTestFlag(int& argc, __in_ecount(argc) LPWSTR argv[])
+bool HandleJsrtTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
     LPCWSTR jsrtTestFlag = L"-jsrt";    
     size_t jsrtTestFlagLen = wcslen(jsrtTestFlag);
@@ -1812,7 +1787,7 @@ bool HandleJsrtTestFlag(int& argc, __in_ecount(argc) LPWSTR argv[])
     return true;
 }
 
-bool HandleHtmlTestFlag(int& argc, _Inout_updates_(argc) LPWSTR argv[])
+bool HandleHtmlTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
     bool isHtmlTest = false; // If the test is like http://..., https://..., *.htm, *.html
 
@@ -1840,13 +1815,13 @@ bool HandleHtmlTestFlag(int& argc, _Inout_updates_(argc) LPWSTR argv[])
     return htmlSwitchIndex >= 0 || isHtmlTest;
 }
 
-bool HandleAlternateDllFlag(int& argc, _Inout_updates_(argc) LPWSTR argv[])
+bool HandleAlternateDllFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
     alternateDllName = HostConfigFlags::ExtractSwitch(argc, argv, L"-alternateDll:");
     return alternateDllName != nullptr;
 }
 
-void PeekRuntimeFlag(int& argc, _Inout_updates_(argc) LPWSTR argv[])
+void PeekRuntimeFlag(int argc, _In_reads_(argc) LPWSTR argv[])
 {
     if (HostConfigFlags::FindArg(argc, argv, L"-EditTest") >= 0)
     {
@@ -1905,7 +1880,7 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
         {
             // otherwise use the new comment format
             HostConfigFlags::flags.EnableExtendedErrorMessages = true;
-            HostConfigFlags::AddSwitch(argc, &argv, L"-WERExceptionSupport");
+            HostConfigFlags::AddSwitch(argc, argv, L"-WERExceptionSupport");
         }
         ret = ExecuteIASTests(argc, argv);
     }

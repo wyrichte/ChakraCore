@@ -140,7 +140,7 @@ private:
     static HRESULT JScript9Interface::ParseConfigFlags();
 
 public:
-    static HINSTANCE LoadDll(__in_ecount(urlLen) LPCWSTR dllName, size_t urlLen, ArgInfo& args);
+    static HINSTANCE LoadDll(bool useRetailDllName, LPCWSTR alternateDllName, ArgInfo& argInfo);
     static void SetArgInfo(ArgInfo& args);
     static HRESULT FinalGC();
     static HRESULT DisplayRecyclerStats();

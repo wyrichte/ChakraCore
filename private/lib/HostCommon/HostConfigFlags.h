@@ -22,18 +22,18 @@ public:
     static void (__stdcall *pfnPrintUsage)();
 
     static int FindArg(int argc, _In_reads_(argc) PWSTR argv[], PCWSTR targetArg, int targetArgLen);
-    static void RemoveArg(int& argc, _Inout_updates_(argc) PWSTR argv[], int index);
-    static PCWSTR ExtractSwitch(int& argc, _Inout_updates_(argc) PWSTR argv[], PCWSTR switchNameWithColon, int switchNameWithColonLen);
-    static void AddSwitch(int& argc, __deref_ecount(argc) LPWSTR** argv, _In_ PWSTR newArg);
+    static void RemoveArg(int& argc, _Inout_updates_to_(argc, argc) PWSTR argv[], int index);
+    static PCWSTR ExtractSwitch(int& argc, _Inout_updates_to_(argc, argc) PWSTR argv[], PCWSTR switchNameWithColon, int switchNameWithColonLen);
+    static void AddSwitch(int& argc, _Inout_updates_to_(argc, argc) LPWSTR*& argv, _In_ PWSTR newArg);
     static int PeekVersionSwitch(int argc, _In_reads_(argc) PWSTR argv[]);
 
     template <class Func> static int FindArg(int argc, _In_reads_(argc) PWSTR argv[], Func func);
     template <int LEN> static int FindArg(int argc, _In_reads_(argc) PWSTR argv[], const wchar_t(&targetArg)[LEN]);
-    template <int LEN> static PCWSTR ExtractSwitch(int& argc, _Inout_updates_(argc) PWSTR argv[], const wchar_t (&switchNameWithColon)[LEN]);
+    template <int LEN> static PCWSTR ExtractSwitch(int& argc, _Inout_updates_to_(argc, argc) PWSTR argv[], const wchar_t (&switchNameWithColon)[LEN]);
 
-    static void HandleArgsFlag(int& argc, __in_ecount(argc) LPWSTR argv[]);
-    static void HandleJdTestFlag(int& argc, __in_ecount(argc) LPWSTR argv[]);
-    static void HandleJsEtwConsoleFlag(int& argc, __in_ecount(argc) LPWSTR argv[]);
+    static void HandleArgsFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]);
+    static void HandleJdTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]);
+    static void HandleJsEtwConsoleFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]);
 
     virtual bool ParseFlag(LPCWSTR flagsString, ICmdLineArgsParser * parser) override;
     virtual void PrintUsage() override;
@@ -78,7 +78,7 @@ int HostConfigFlags::FindArg(int argc, _In_reads_(argc) PWSTR argv[], const wcha
 }    
 
 template <int LEN>
-PCWSTR HostConfigFlags::ExtractSwitch(int& argc, _Inout_updates_(argc) PWSTR argv[], const wchar_t (&switchNameWithColon)[LEN])
+PCWSTR HostConfigFlags::ExtractSwitch(int& argc, _Inout_updates_to_(argc, argc) PWSTR argv[], const wchar_t (&switchNameWithColon)[LEN])
 {
     return ExtractSwitch(argc, argv, switchNameWithColon, LEN - 1); // -1 to exclude null terminator
 }
