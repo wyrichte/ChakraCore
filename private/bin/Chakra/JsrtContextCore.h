@@ -5,39 +5,15 @@
 
 #include "JsrtRuntime.h"
 
-class JsrtContext sealed : public FinalizableObject
+class JsrtContextCore sealed : public JsrtContext
 {
 public:
-    static JsrtContext *New(JsrtRuntime * runtime);
-
-    Js::ScriptContext* GetScriptContext() const;
-    JsrtRuntime * GetRuntime() const { return this->runtime; }
-
-    static bool Initialize();
-    static void Uninitialize();
-    static JsrtContext * GetCurrent();
-    static bool TrySetCurrent(JsrtContext * context);
-    static bool Is(void * ref);
-
-    virtual void Finalize(bool isShutdown) override;
+    static JsrtContextCore *New(JsrtRuntime * runtime);
     virtual void Dispose(bool isShutdown) override;
-    virtual void Mark(Recycler * recycler) override;
 
-protected:
-
-    JsrtContext(JsrtRuntime * runtime);
-    DEFINE_VTABLE_CTOR_NOBASE(JsrtContext);
-
+    void OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo);
 private:
+    DEFINE_VTABLE_CTOR(JsrtContextCore, JsrtContext);
+    JsrtContextCore(JsrtRuntime * runtime);
     Js::ScriptContext* EnsureScriptContext();
-
-    void InitSite(JsrtRuntime *runtime);
-
-    static DWORD s_tlsSlot;
-    Js::ScriptContext* scriptContext;
-    JsrtRuntime * runtime;
-    JsrtContext * previous;
-    JsrtContext * next;
 };
-
-

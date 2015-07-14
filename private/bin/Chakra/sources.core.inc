@@ -98,7 +98,7 @@ TARGETLIBS= \
 
 SOURCES= \
     ..\jscript9.rc \
+    ..\JsrtContext.cpp \
     ..\JsrtContextCore.cpp \
-    ..\JsrtCoreDeltas.cpp \
     ..\ConfigParserExternals.cpp \
     ..\ChakraCoreDLLFunc.cpp

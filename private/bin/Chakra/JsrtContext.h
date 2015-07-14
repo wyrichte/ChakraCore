@@ -5,24 +5,13 @@
 
 #include "JsrtRuntime.h"
 
-class JsrtDummyScriptSite;
-class JsrtActiveScriptDirectHost;
-class ScriptEngine;
-interface IDelegateWrapper;
-
-class JsrtContext sealed : public FinalizableObject
+class JsrtContext : public FinalizableObject
 {
-private:
-    DEFINE_VTABLE_CTOR_NOBASE(JsrtContext);
-
 public:
     static JsrtContext *New(JsrtRuntime * runtime);
 
-    Js::ScriptContext * GetScriptContext() const;
-    ScriptEngine * GetScriptEngine() const { return this->scriptEngine; }
+    Js::ScriptContext * GetScriptContext() const { return this->scriptContext; }
     JsrtRuntime * GetRuntime() const { return this->runtime; }
-    JsErrorCode ReserveWinRTNamespace(_In_z_ const wchar_t* nameSpace);
-    JsErrorCode SetProjectionDelegateWrapper(_In_ IDelegateWrapper *delegateWrapper);
 
     static bool Initialize();
     static void Uninitialize();
@@ -30,24 +19,21 @@ public:
     static bool TrySetCurrent(JsrtContext * context);
     static bool Is(void * ref);
 
-    virtual void Finalize(bool isShutdown) override;
-    virtual void Dispose(bool isShutdown) override;
-    virtual void Mark(Recycler * recycler) override;
+    virtual void Finalize(bool isShutdown) override sealed;    
+    virtual void Mark(Recycler * recycler) override sealed;
 
-    bool SetDebugApplication(IDebugApplication *debugApplication);
-    void ReleaseDebugApplication();
-
-private:
+    void OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo);
+protected:
+    DEFINE_VTABLE_CTOR_NOBASE(JsrtContext);
     JsrtContext(JsrtRuntime * runtime);
-
-    void InitSite(JsrtRuntime *runtime);
-
+    void Link();
+    void Unlink();
+    void SetScriptContext(Js::ScriptContext * scriptContext);
+private:
     static DWORD s_tlsSlot;
-    ScriptEngine * scriptEngine;
-    JsrtDummyScriptSite * scriptSite;
+    Js::ScriptContext * scriptContext;
     JsrtRuntime * runtime;
     JsrtContext * previous;
     JsrtContext * next;
-    IDelegateWrapper* projectionDelegateWrapper;
-    bool hasProjectionHost;
 };
+

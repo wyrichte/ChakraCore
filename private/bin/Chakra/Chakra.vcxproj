@@ -256,6 +256,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)jsfac.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)jsrt.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtContext.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtContextChakra.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtDelegateWrapper.cpp" />    
     <ClCompile Include="$(MsBuildThisFileDirectory)NamedEventHandler.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)NamedItemList.cpp" />
@@ -411,6 +412,7 @@
     <ClInclude Include="jsrt.h" />
     <ClInclude Include="JsrtComException.h" />
     <ClInclude Include="JsrtContext.h" />
+    <ClInclude Include="JsrtContextchakra.h" />
     <ClInclude Include="JsrtDelegateWrapper.h" />   
     <ClInclude Include="jsrtprivate.h" />
     <ClInclude Include="NamedEventHandler.h" />

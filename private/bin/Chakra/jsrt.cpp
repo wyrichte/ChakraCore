@@ -10,38 +10,7 @@
 #include "jsrtprivate.h"
 #include "JsrtInternal.h"
 #include "JsrtDelegateWrapper.h"
-
-void JsrtOnLoadScript(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo)
-{
-    if (scriptFunction != NULL)
-    {
-        JsrtContext * context = JsrtContext::GetCurrent();
-        if (context->GetScriptEngine()->CanRegisterDebugSources() || context->GetScriptContext()->IsProfiling())
-        {
-            ScriptEngine * scriptEngine = context->GetScriptEngine();
-            // It is safer to ensure it is deserialized at this point before createing a cscriptbody.
-            if (CONFIG_FLAG(ForceSerialized) && scriptFunction->GetFunctionProxy() != null) {
-                scriptFunction->GetFunctionProxy()->EnsureDeserialized();
-            }
-            CScriptBody* pbody = HeapNew(CScriptBody, scriptFunction->GetFunctionBody(), scriptEngine, utf8SourceInfo);
-            if (context->GetScriptEngine()->CanRegisterDebugSources())
-            {
-                HRESULT hr = scriptEngine->DbgRegisterScriptBlock(pbody);
-                if (FAILED(hr))
-                {
-                    pbody->Release();
-                    JsrtComException::ThrowIfFailed(hr);
-                }
-            }            
-
-            if (context->GetScriptContext()->IsProfiling())
-            {
-                context->GetScriptContext()->RegisterScript(pbody->GetRootFunction());
-            }
-            pbody->Release();
-        }
-    }
-}
+#include "JsrtContextChakra.h"
 
 STDAPI_(JsErrorCode) JsVariantToValue(VARIANT * variant, JsValueRef * value)
 {
@@ -108,7 +77,7 @@ STDAPI_(JsErrorCode) JsEnumerateHeap(IActiveScriptProfilerHeapEnum **ppEnum)
     *ppEnum = nullptr;
 
     // Heap enumeration requires us to not be in script already, so no wrapper.
-    JsrtContext *context = JsrtContext::GetCurrent();
+    JsrtContextChakra *context = (JsrtContextChakra *)JsrtContext::GetCurrent();
     JsErrorCode error = CheckContext(context, true);
 
     if (error != JsNoError)
@@ -148,7 +117,7 @@ STDAPI_(JsErrorCode) JsStartDebugging()
     return ContextAPINoScriptWrapper(
         [&] (Js::ScriptContext * scriptContext) -> JsErrorCode {   
 
-            JsrtContext * context = JsrtContext::GetCurrent();
+            JsrtContextChakra* context = (JsrtContextChakra *)JsrtContext::GetCurrent();
 
             if (context->GetRuntime()->GetThreadContext()->IsInScript())
             {
@@ -189,7 +158,7 @@ STDAPI_(JsErrorCode) JsStopDebugging()
 {
     return ContextAPINoScriptWrapper(
         [&] (Js::ScriptContext * scriptContext) -> JsErrorCode {   
-            JsrtContext * context = JsrtContext::GetCurrent();
+            JsrtContextChakra * context = (JsrtContextChakra *)JsrtContext::GetCurrent();
 
             if (context->GetRuntime()->GetThreadContext()->IsInScript())
             {
@@ -233,7 +202,7 @@ STDAPI_(JsErrorCode) JsSetProjectionEnqueueCallback(_In_ JsProjectionEnqueueCall
             return JsCannotSetProjectionEnqueueCallback;
         }
 
-        JsrtContext* context = JsrtContext::GetCurrent();
+        JsrtContextChakra* context = (JsrtContextChakra *)JsrtContext::GetCurrent();
         if (context->SetProjectionDelegateWrapper(delegateWrapper.Get()) != JsNoError)
         {
             return JsCannotSetProjectionEnqueueCallback;
@@ -247,7 +216,7 @@ STDAPI_(JsErrorCode) JsProjectWinRTNamespace(_In_z_ const wchar_t *nameSpace)
 {
     return ContextAPIWrapper<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode { 
         JsErrorCode errorCode;
-        JsrtContext* context = JsrtContext::GetCurrent();
+        JsrtContextChakra * context = (JsrtContextChakra *)JsrtContext::GetCurrent();
         errorCode = context->ReserveWinRTNamespace(nameSpace);
         return errorCode;
     });
@@ -266,7 +235,7 @@ STDAPI_(JsErrorCode) JsInspectableToObject(_In_ IInspectable  *inspectable, _Out
         Assert(FAILED(inspectable->QueryInterface(IID_IDispatchEx, (void**)&dbgDispatch)));
         END_LEAVE_SCRIPT(scriptContext)
 #endif
-        JsrtContext* context = JsrtContext::GetCurrent();
+        JsrtContextChakra * context = (JsrtContextChakra *)JsrtContext::GetCurrent();
         HRESULT hr = NOERROR;
         ScriptEngine* scriptEngine = context->GetScriptEngine();
         if (scriptEngine->GetProjectionContext() == nullptr)
@@ -291,7 +260,7 @@ STDAPI_(JsErrorCode) JsObjectToInspectable(_In_ JsValueRef value, _Out_ IInspect
         PARAM_NOT_NULL(inspectable);
         *inspectable = nullptr;
         // Check if projection is enabled, if not return error
-        JsrtContext* context = JsrtContext::GetCurrent();
+        JsrtContextChakra * context = (JsrtContextChakra *)JsrtContext::GetCurrent();
         ScriptEngine* scriptEngine = context->GetScriptEngine();
         if (scriptEngine->GetProjectionContext() == nullptr)
         {

@@ -99,6 +99,7 @@ EDIT_AND_CONTINUE_SOURCES = \
 NON_LANGUAGE_SERVICE_SOURCES = \
         ..\jsrt.cpp \
         ..\JsrtContext.cpp \
+        ..\JsrtContextChakra.cpp \
         ..\JsrtDelegateWrapper.cpp \
 
 SOURCES= \
