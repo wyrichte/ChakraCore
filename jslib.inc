@@ -1,5 +1,7 @@
 # build/link config for release or test or language service binaries
 
+!include $(_PROJECT_MK_PATH)\..\prerelease.inc
+
 !if $(FREEBUILD) && defined(FRETEST)
 JS_LIBTYPE = test
 C_DEFINES = $(C_DEFINES) -DENABLE_DEBUG_CONFIG_OPTIONS=1
