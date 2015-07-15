@@ -471,12 +471,14 @@ STDMETHODIMP ScriptEngine::QueryInterface(
     QI_IMPL(IID_IActiveScriptParse32, IActiveScriptParse32);
     QI_IMPL(IID_IActiveScriptParseProcedure2_32, IActiveScriptParseProcedure);
     QI_IMPL(__uuidof(IActiveScriptParseUTF832), IActiveScriptParseUTF832);
+    QI_IMPL(__uuidof(IActiveScriptParse232), IActiveScriptParse232);
 #endif // !_WIN64 || USE_32_OR_64_BIT
 
 #if _WIN64 || USE_32_OR_64_BIT
     QI_IMPL(IID_IActiveScriptParse64, IActiveScriptParse);
     QI_IMPL(IID_IActiveScriptParseProcedure2_64, IActiveScriptParseProcedure);
     QI_IMPL(__uuidof(IActiveScriptParseUTF864), IActiveScriptParseUTF864);
+    QI_IMPL(__uuidof(IActiveScriptParse264), IActiveScriptParse264);
 #endif // _WIN64 || USE_32_OR_64_BIT
 
     // Profiler Interface
@@ -5100,6 +5102,39 @@ STDMETHODIMP ScriptEngine::ParseScriptText(
 
     return hr;
 }
+
+STDMETHODIMP ScriptEngine::ParseScriptText(
+    /* [in]  */ LPCOLESTR pcszCode,
+    /* [in]  */ DWORD     dwLength,
+    /* [in]  */ LPCOLESTR pcszItemName,
+    /* [in]  */ IUnknown  *punkContext,
+    /* [in]  */ LPCOLESTR pcszDelimiter,
+    /* [in]  */ DWORD     dwSourceContext,
+    /* [in]  */ ULONG     ulStartingLineNumber,
+    /* [in]  */ DWORD     dwFlags,
+    /* [out] */ VARIANT   *pvarResult,
+    /* [out] */ EXCEPINFO *pexcepinfo)
+{
+    BOOL fUsedExisting = FALSE;
+    HRESULT hr = ParseScriptTextCore(
+        (void *)pcszCode,
+        pcszItemName,
+        punkContext,
+        pcszDelimiter,
+        (DWORD_PTR)dwSourceContext,
+        ulStartingLineNumber,
+        dwFlags,
+        /* allowDeferredParse */ true,
+        dwLength,
+        &ScriptEngine::CompileUTF16,
+        ComputeGrfscrUTF16,
+        fUsedExisting,
+        pvarResult,
+        pexcepinfo
+        );
+
+    return hr;
+}
 #endif // !_WIN64 || USE_32_OR_64_BIT
 
 #if _WIN64 || USE_32_OR_64_BIT
@@ -5125,6 +5160,37 @@ STDMETHODIMP ScriptEngine::ParseScriptText(
         dwFlags,
         /* allowDeferredParse */ true,
         ostrlen(pcszCode),
+        &ScriptEngine::CompileUTF16,
+        ComputeGrfscrUTF16,
+        fUsedExisting,
+        pvarResult,
+        pexcepinfo
+        );
+}
+
+STDMETHODIMP ScriptEngine::ParseScriptText(
+    /* [in]  */ LPCOLESTR   pcszCode,
+    /* [in]  */ DWORD       dwLength,
+    /* [in]  */ LPCOLESTR   pcszItemName,
+    /* [in]  */ IUnknown  * punkContext,
+    /* [in]  */ LPCOLESTR   pcszDelimiter,
+    /* [in]  */ DWORDLONG   dwSourceContext,
+    /* [in]  */ ULONG       ulStartingLineNumber,
+    /* [in]  */ DWORD       dwFlags,
+    /* [out] */ VARIANT   * pvarResult,
+    /* [out] */ EXCEPINFO * pexcepinfo)
+{
+    BOOL fUsedExisting = FALSE;
+    return ParseScriptTextCore(
+        (void *)pcszCode,
+        pcszItemName,
+        punkContext,
+        pcszDelimiter,
+        (DWORD_PTR)dwSourceContext,
+        ulStartingLineNumber,
+        dwFlags,
+        /* allowDeferredParse */ true,
+        dwLength,
         &ScriptEngine::CompileUTF16,
         ComputeGrfscrUTF16,
         fUsedExisting,

@@ -122,11 +122,13 @@ class ScriptEngine :
     public IActiveScriptParse32,
     public IActiveScriptParseProcedure2_32,
     public IActiveScriptParseUTF832,
+    public IActiveScriptParse232,
 #endif // !_WIN64 || USE_32_OR_64_BIT
 #if _WIN64 || USE_32_OR_64_BIT
     public IActiveScriptParse64,
     public IActiveScriptParseProcedure2_64,
     public IActiveScriptParseUTF864,
+    public IActiveScriptParse264,
 #endif // _WIN64 || USE_32_OR_64_BIT
     public IActiveScriptStats,
     public IActiveScriptProperty,
@@ -274,6 +276,39 @@ public:
     );
     STDMETHOD(ParseScriptText)(THIS_
         /* [in]  */ LPCOLESTR pstrCode,
+        /* [in]  */ LPCOLESTR pstrItemName,
+        /* [in]  */ IUnknown* punkContext,
+        /* [in]  */ LPCOLESTR pstrDelimiter,
+        /* [in]  */ DWORDLONG dwSourceContext,
+        /* [in]  */ ULONG     ulStartingLineNumber,
+        /* [in]  */ DWORD     dwFlags,
+        /* [out] */ VARIANT*  pvarResult,
+        /* [out] */ EXCEPINFO* pexcepinfo
+    );
+#endif // _WIN64 || USE_32_OR_64_BIT
+
+    //
+    // IActiveScriptParse2
+    //
+
+#if !_WIN64 || USE_32_OR_64_BIT
+    STDMETHOD(ParseScriptText)(THIS_
+        /* [in]  */ LPCOLESTR pstrCode,
+        /* [in]  */ DWORD     dwLength,
+        /* [in]  */ LPCOLESTR pstrItemName,
+        /* [in]  */ IUnknown *punkContext,
+        /* [in]  */ LPCOLESTR pstrDelimiter,
+        /* [in]  */ DWORD     dwSourceContext,
+        /* [in]  */ ULONG     ulStartingLineNumber,
+        /* [in]  */ DWORD     dwFlags,
+        /* [out] */ VARIANT*  pvarResult,
+        /* [out] */ EXCEPINFO* pexcepinfo
+    );
+#endif // !_WIN64 || USE_32_OR_64_BIT
+#if _WIN64 || USE_32_OR_64_BIT
+    STDMETHOD(ParseScriptText)(THIS_
+        /* [in]  */ LPCOLESTR pstrCode,
+        /* [in]  */ DWORD     dwLength,
         /* [in]  */ LPCOLESTR pstrItemName,
         /* [in]  */ IUnknown* punkContext,
         /* [in]  */ LPCOLESTR pstrDelimiter,
