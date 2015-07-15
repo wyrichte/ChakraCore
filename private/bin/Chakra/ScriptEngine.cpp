@@ -14,7 +14,6 @@
 #include "edgejsStatic.h"
 #include "GenerateByteCodeConfig.h"
 #include "dep.h"
-#include <IEMSRCSettings.h>
 #ifdef ENABLE_EXPERIMENTAL_FLAGS
 #include <iesettings.h>
 #endif
@@ -5351,13 +5350,9 @@ HRESULT ScriptEngine::ParseScriptTextCore(
 
     AutoIdleDecommit autoIdleDecommit(scriptContext->GetRecycler());
 
-#ifdef PRERELEASE_REL1507_MSRC21209
     // SCRIPTTEXT_ISXDOMAINSTRING is a private flag, not part of SCRIPTTEXT_ALL_FLAGS
     // defined in activscp.idl, and it should not be available in other IAS methods. 
     dwFlags &= (SCRIPTTEXT_ALL_FLAGS | SCRIPTTEXT_ISXDOMAINSTRING);
-#else
-    dwFlags &= SCRIPTTEXT_ALL_FLAGS;
-#endif
 
     // If they ask for a result or we are started, force immediate execution
     if (nullptr != pvarResult ||
@@ -6190,12 +6185,10 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags,
         {
             sourceInfo->SetIsXDomain();
         }
-#ifdef PRERELEASE_REL1507_MSRC21209
         else if (SCRIPTTEXT_ISXDOMAINSTRING == (dwFlags & SCRIPTTEXT_ISXDOMAINSTRING))
         {
             sourceInfo->SetIsXDomainString();
         }
-#endif
     }
 
     DisableInterrupts();
