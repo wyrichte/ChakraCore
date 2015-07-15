@@ -13,7 +13,6 @@
 #include "webplatform.h"
 #include "edgejsStatic.h"
 #include "GenerateByteCodeConfig.h"
-#include "dep.h"
 #ifdef ENABLE_EXPERIMENTAL_FLAGS
 #include <iesettings.h>
 #endif
