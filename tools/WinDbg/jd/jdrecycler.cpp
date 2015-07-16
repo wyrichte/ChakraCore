@@ -1055,7 +1055,7 @@ JD_PRIVATE_COMMAND(gcstats,
     {
         Out("Recycler Page Allocator stats\n");
 
-        RemotePageAllocator::DisplayDataHeader();
+        RemotePageAllocator::DisplayDataHeader("Allocator");
         recycler.ForEachPageAllocator("Thread", [](PCSTR name, RemotePageAllocator pageAllocator)
         {
             pageAllocator.DisplayData(name, true);
@@ -2108,69 +2108,159 @@ void DisplayArenaAllocatorPtrData(char const * name, ExtRemoteTyped arenaAllocat
 
 JD_PRIVATE_COMMAND(memstats,
     "All memory stats",
+    "{all;b,o;;Display all information}"
+    "{a;b,o;;Display arena allocator information}"
+    "{p;b,o;;Display page allocator information}"    
+    "{t;e,o,d=0;Display information for thread context}"
     "{z;b,o;;Display zero entries}")
 {
+
+
+    ULONG64 threadContextAddress = GetArgU64("t");
     bool showZeroEntries = this->HasArg("z");
-    RemoteThreadContext::ForEach([this, showZeroEntries](RemoteThreadContext threadContext)
+    bool showAll = this->HasArg("all");
+    bool showArenaAllocator = showAll || this->HasArg("a");
+    bool showPageAllocator = showAll || this->HasArg("p") || (threadContextAddress && !showArenaAllocator);
+    bool showThreadSummary = (!showArenaAllocator && !showPageAllocator);
+    ULONG numThreads = 0;
+    ULONG64 totalReservedBytes = 0;
+    ULONG64 totalCommittedBytes = 0;
+    ULONG64 totalUsedBytes = 0;
+    if (showThreadSummary || !threadContextAddress)
     {
+        ExtRemoteTyped totalUsedBytes(this->FillModule("%s!totalUsedBytes"));
+        this->Out("Page Allocator Total Used Bytes: %u\n", EXT_CLASS_BASE::GetSizeT(totalUsedBytes));
+    }
+    if (showThreadSummary)
+    {
+        RemotePageAllocator::DisplayDataHeader("Thread Context");
+    }
+    RemoteThreadContext::ForEach([=, &numThreads, &totalReservedBytes, &totalCommittedBytes, &totalUsedBytes](RemoteThreadContext threadContext)
+    {
+        numThreads++;
+
+        ULONG64 threadContextPtr = threadContext.GetExtRemoteTyped().GetPtr();
+        if (threadContextAddress && threadContextAddress != threadContextPtr)
+        {
+            return false;  // continue iterating
+        }
+
         ulong threadContextSystemThreadId = threadContext.GetThreadId();
         ulong threadContextThreadId = 0;
 
         HRESULT hr = this->m_System4->GetThreadIdBySystemId(threadContextSystemThreadId, &threadContextThreadId);
 
-        if (SUCCEEDED(hr))
+        if (showPageAllocator || showArenaAllocator)
         {
-            this->Dml("Thread context: %p <link cmd=\"~%us\">(Switch To Thread)</link>\n", threadContext.GetExtRemoteTyped().GetPtr(), threadContextThreadId);
-        }
-        else
-        {
-            this->Out("Thread context: %p\n", threadContext.GetExtRemoteTyped().GetPtr());
-        }
-
-        this->Out("Page Allocators:\n");
-        RemotePageAllocator::DisplayDataHeader();
-        threadContext.ForEachPageAllocator([showZeroEntries](PCSTR name, RemotePageAllocator pageAllocator)
-        {
-            pageAllocator.DisplayData(name, showZeroEntries);
-            return false;
-        });
-
-        ExtRemoteTyped threadContextExtRemoteTyped = threadContext.GetExtRemoteTyped();
-        this->Out("Arena Allocators:\n");
-        DisplayArenaAllocatorDataHeader();
-        DisplayArenaAllocatorData("TC", threadContextExtRemoteTyped.Field("threadAlloc"), showZeroEntries);
-        DisplayArenaAllocatorData("TC-InlineCache", threadContextExtRemoteTyped.Field("inlineCacheThreadInfoAllocator"), showZeroEntries);
-        DisplayArenaAllocatorData("TC-IsInstIC", threadContextExtRemoteTyped.Field("isInstInlineCacheThreadInfoAllocator"), showZeroEntries);
-        DisplayArenaAllocatorData("TC-ProtoChain", threadContextExtRemoteTyped.Field("prototypeChainEnsuredToHaveOnlyWritableDataPropertiesAllocator"), showZeroEntries);
-
-        threadContext.ForEachScriptContext([showZeroEntries](ExtRemoteTyped scriptContext)
-        {
-            DisplayArenaAllocatorData("SC", scriptContext.Field("generalAllocator"), showZeroEntries);
-            DisplayArenaAllocatorData("SC-DynamicProfile", scriptContext.Field("dynamicProfileInfoAllocator"), showZeroEntries);
-            DisplayArenaAllocatorData("SC-InlineCache", scriptContext.Field("inlineCacheAllocator"), showZeroEntries);
-            DisplayArenaAllocatorData("SC-IsInstIC", scriptContext.Field("isInstInlineCacheAllocator"), showZeroEntries);
-            DisplayArenaAllocatorPtrData("SC-Interpreter", scriptContext.Field("interpreterArena"), showZeroEntries);
-            DisplayArenaAllocatorPtrData("SC-Guest", scriptContext.Field("guestArena"), showZeroEntries);
-            DisplayArenaAllocatorPtrData("SC-Diag", scriptContext.Field("diagnosticArena"), showZeroEntries);
-
-            if (scriptContext.HasField("sourceCodeAllocator"))
+            if (SUCCEEDED(hr))
             {
-                DisplayArenaAllocatorData("SC-SourceCode", scriptContext.Field("sourceCodeAllocator"), showZeroEntries);
+                this->Dml("Thread context: %p <link cmd=\"~%us\">(Switch To Thread)</link>\n", threadContextPtr, threadContextThreadId);
             }
-            if (scriptContext.HasField("regexAllocator"))
+            else
             {
-                DisplayArenaAllocatorData("SC-Regex", scriptContext.Field("regexAllocator"), showZeroEntries);
+                this->Out("Thread context: %p\n", threadContextPtr);
             }
-            if (scriptContext.HasField("miscAllocator"))
+        }
+        if (showPageAllocator)
+        {
+            this->Out("Page Allocators:\n");
+            RemotePageAllocator::DisplayDataHeader("Allocator");
+        }
+
+        ULONG64 reservedBytes = 0;
+        ULONG64 committedBytes = 0;
+        ULONG64 usedBytes = 0;
+        threadContext.ForEachPageAllocator([=, &reservedBytes, &committedBytes, &usedBytes](PCSTR name, RemotePageAllocator pageAllocator)
+        {
+            reservedBytes += pageAllocator.GetReservedBytes();
+            committedBytes += pageAllocator.GetCommittedBytes();
+            usedBytes += pageAllocator.GetUsedBytes();
+
+            if (showPageAllocator)
             {
-                DisplayArenaAllocatorData("SC-Misc", scriptContext.Field("miscAllocator"), showZeroEntries);
+                pageAllocator.DisplayData(name, showZeroEntries);
             }
             return false;
         });
 
+        totalReservedBytes += reservedBytes;
+        totalCommittedBytes += committedBytes;
+        totalUsedBytes += usedBytes;
+
+        if (showPageAllocator && !showThreadSummary)
+        {
+            RemotePageAllocator::DisplayDataLine();
+        }
+        if (showPageAllocator || showThreadSummary)
+        {
+            g_Ext->Dml("<link cmd=\"!jd.memstats -tc %p\">%016p</link>", threadContextPtr, threadContextPtr);
+            RemotePageAllocator::DisplayData(16, usedBytes, reservedBytes, committedBytes);
+        }
+
+        if (showArenaAllocator)
+        {
+            ExtRemoteTyped threadContextExtRemoteTyped = threadContext.GetExtRemoteTyped();
+            this->Out("Arena Allocators:\n");
+            DisplayArenaAllocatorDataHeader();
+            DisplayArenaAllocatorData("TC", threadContextExtRemoteTyped.Field("threadAlloc"), showZeroEntries);
+            DisplayArenaAllocatorData("TC-InlineCache", threadContextExtRemoteTyped.Field("inlineCacheThreadInfoAllocator"), showZeroEntries);
+            if (threadContextExtRemoteTyped.HasField("isInstInlineCacheThreadInfoAllocator"))
+            {
+                // IE11 don't have this arena allocator
+                DisplayArenaAllocatorData("TC-IsInstIC", threadContextExtRemoteTyped.Field("isInstInlineCacheThreadInfoAllocator"), showZeroEntries);
+            }
+            DisplayArenaAllocatorData("TC-ProtoChain", threadContextExtRemoteTyped.Field("prototypeChainEnsuredToHaveOnlyWritableDataPropertiesAllocator"), showZeroEntries);
+
+            threadContext.ForEachScriptContext([showZeroEntries](ExtRemoteTyped scriptContext)
+            {
+                DisplayArenaAllocatorData("SC", scriptContext.Field("generalAllocator"), showZeroEntries);
+                DisplayArenaAllocatorData("SC-DynamicProfile", scriptContext.Field("dynamicProfileInfoAllocator"), showZeroEntries);
+                DisplayArenaAllocatorData("SC-InlineCache", scriptContext.Field("inlineCacheAllocator"), showZeroEntries);
+                if (scriptContext.HasField("isInstInlineCacheAllocator"))
+                {
+                    // IE11 don't have this arena allocator
+                    DisplayArenaAllocatorData("SC-IsInstIC", scriptContext.Field("isInstInlineCacheAllocator"), showZeroEntries);
+                }
+                DisplayArenaAllocatorPtrData("SC-Interpreter", scriptContext.Field("interpreterArena"), showZeroEntries);
+                DisplayArenaAllocatorPtrData("SC-Guest", scriptContext.Field("guestArena"), showZeroEntries);
+                DisplayArenaAllocatorPtrData("SC-Diag", scriptContext.Field("diagnosticArena"), showZeroEntries);
+
+                if (scriptContext.HasField("sourceCodeAllocator"))
+                {
+                    DisplayArenaAllocatorData("SC-SourceCode", scriptContext.Field("sourceCodeAllocator"), showZeroEntries);
+                }
+                if (scriptContext.HasField("regexAllocator"))
+                {
+                    DisplayArenaAllocatorData("SC-Regex", scriptContext.Field("regexAllocator"), showZeroEntries);
+                }
+                if (scriptContext.HasField("miscAllocator"))
+                {
+                    DisplayArenaAllocatorData("SC-Misc", scriptContext.Field("miscAllocator"), showZeroEntries);
+                }
+
+                ExtRemoteTyped nativeCodeGen = scriptContext.Field("nativeCodeGen");
+
+                auto forEachCodeGenAllocatorArenaAllocator = [showZeroEntries](ExtRemoteTyped codeGenAllocators)
+                {
+                    if (codeGenAllocators.GetPtr() == 0) { return; }
+
+                    DisplayArenaAllocatorData("SC-BGJIT", codeGenAllocators.Field("allocator"), showZeroEntries);
+                };
+                forEachCodeGenAllocatorArenaAllocator(nativeCodeGen.Field("foregroundAllocators"));
+                forEachCodeGenAllocatorArenaAllocator(nativeCodeGen.Field("backgroundAllocators"));
+                return false;
+            });
+        }
 
         return false; // Don't stop iterating
     });
+
+    if (!showArenaAllocator && numThreads > 1)
+    {
+        RemotePageAllocator::DisplayDataLine();
+        this->Out("Total");
+        RemotePageAllocator::DisplayData(_countof("Total") - 1, totalUsedBytes, totalReservedBytes, totalCommittedBytes);
+    }
 }
 
 ExtRemoteTyped EXT_CLASS_BASE::CastWithVtable(ExtRemoteTyped original, std::string* typeName)
@@ -2480,7 +2570,7 @@ MPH_COMMAND(mpheap,
     if (HasArg("s"))
     {
         bool showZeroEntries = true;
-        RemotePageAllocator::DisplayDataHeader();
+        RemotePageAllocator::DisplayDataHeader("Allocator");
         remoteRecycler.ForEachPageAllocator("Thread", [showZeroEntries](PCSTR name, RemotePageAllocator pageAllocator)
         {
             pageAllocator.DisplayData(name, showZeroEntries);

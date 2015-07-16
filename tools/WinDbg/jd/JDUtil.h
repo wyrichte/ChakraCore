@@ -50,6 +50,10 @@ public:
         }
         return name;
     }
+    static bool IsPointerType(PCSTR name)
+    {
+        return (strchr(name, '*') != 0);        
+    }
     static PCSTR StripModuleName(PCSTR name)
     {
         PCSTR n = strchr(name, '!');
@@ -58,6 +62,27 @@ public:
             return name;
         }
         return n + 1;
+    }
+
+    static std::string EncodeDml(PCSTR name)
+    {
+        std::string s(name);
+        ReplaceString(s, "<", "&lt;");
+        ReplaceString(s, ">", "&gt;");
+        return s;
+    }
+
+    static void ReplaceString(std::string& s, PCSTR before, PCSTR after)
+    {                
+        size_t beforeLen = strlen(before);
+        size_t afterLen = strlen(after);
+        size_t pos = s.find(before, 0);
+        while (pos != std::string::npos)
+        {
+            s.replace(pos, beforeLen, after);
+            pos += afterLen;
+            pos = s.find(before, pos);
+        }        
     }
 };
 

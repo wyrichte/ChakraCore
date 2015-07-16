@@ -181,12 +181,15 @@ PCSTR EXT_CLASS_BASE::FillModuleAndMemoryNS(PCSTR fmt)
 
 bool EXT_CLASS_BASE::PageAllocatorHasExtendedCounters()
 {
+    /* Some version doesn't have an accurate commit number on the page allocator
     if (!m_pageAllocatorHasExtendedCounters.HasValue())
     {
         ExtRemoteTyped fakePageAllocator(this->FillModuleV("(%s!%s *)0", this->GetModuleName(), this->GetPageAllocatorType()));
         m_pageAllocatorHasExtendedCounters = fakePageAllocator.HasField("reservedBytes");
     }
     return m_pageAllocatorHasExtendedCounters;
+    */
+    return false;
 }
 
 // Detect a feature (code change) by checking a symbol
@@ -196,82 +199,6 @@ void EXT_CLASS_BASE::DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol
     {
         ULONG symbolTypeId;
         feature = SUCCEEDED(m_Symbols->GetSymbolTypeId(symbol, &symbolTypeId, NULL)) ? true : false;
-    }
-}
-
-JD_PRIVATE_COMMAND(lsprimarytext,
-    "Print text handle for the primary file, language service only",
-    "{;e;fileauthoring;Address of Authoring::FileAuthoring}")
-{
-    ULONG64 arg = GetUnnamedArgU64(0);
-
-    if (arg != 0)
-    {
-        ExtRemoteTyped fileAuthoring = ExtRemoteTyped(FillModule("(%s!Authoring::FileAuthoring*)@$extin"), arg);
-        bool hasPrimaryFile = fileAuthoring.HasField("m_primaryFile");
-        if (hasPrimaryFile)
-        {
-            fileAuthoring.Field("m_primaryFile").Field("ptr").Field("m_text").Field("ptr").OutFullValue();
-        }
-    }
-}
-
-JD_PRIVATE_COMMAND(lscontextpath,
-    "Print script context path, language service mode only",
-    "{b;b,o;buffer;Print only buffer of the text}"
-    "{c;b,o;count;Print total count}"
-    "{;e;fileauthoring;Address of Authoring::FileAuthoring}"
-    "{i;e,o;index;Print text only for this index}")
-{
-    ULONG64 arg = GetUnnamedArgU64(0);
-    const bool dumpOnlyBuffer = HasArg("b");
-    const bool dumpOnlyCount = HasArg("c");
-    LONG64 dumpOnlyThisIndex = -1;
-    if (HasArg("i"))
-    {
-        dumpOnlyThisIndex = (LONG64)GetArgU64("i", false);
-    }
-
-    if (arg != 0)
-    {
-        long contextCount = 0;
-        ExtRemoteTyped fileAuthoring = ExtRemoteTyped(FillModule("(%s!Authoring::FileAuthoring*)@$extin"), arg);
-        bool hasScriptContextPath = fileAuthoring.HasField("m_scriptContextPath");
-        if (hasScriptContextPath)
-        {
-            ExtRemoteTyped scriptContextPathType = fileAuthoring.Field("m_scriptContextPath").Field("ptr");
-            while (scriptContextPathType.GetPtr() != 0)
-            {
-                ExtRemoteTyped handleType = scriptContextPathType.Field("m_handle").Field("ptr");
-                if (handleType.GetPtr() != 0)
-                {
-                    ExtRemoteTyped textFile = handleType.Field("m_text").Field("ptr");
-                    if (!dumpOnlyCount && (dumpOnlyThisIndex == -1 || dumpOnlyThisIndex == contextCount))
-                    {
-                        Out("------------- Context path [%d] -------------\n", contextCount);
-                        if (dumpOnlyBuffer)
-                        {
-                            textFile.Field("_buffer").OutFullValue();
-                        }
-                        else
-                        {
-                            textFile.OutFullValue();
-                        }
-                    }
-                    if (dumpOnlyThisIndex == contextCount)
-                    {
-                        break;
-                    }
-                    contextCount++;
-                }
-                scriptContextPathType = scriptContextPathType.Field("m_parent").Field("ptr");
-            }
-
-            if (dumpOnlyCount)
-            {
-                Out("Total context files : %d\n", contextCount);
-            }
-        }
     }
 }
 

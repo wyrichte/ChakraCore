@@ -54,8 +54,6 @@ EXPORTS
     hbstats
     swb
     memstats
-    lsprimarytext
-    lscontextpath
     findpage
     mpheap
     bv

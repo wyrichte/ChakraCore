@@ -75,11 +75,30 @@ RemotePageAllocator::ComputeReservedAndCommittedBytes()
 }
 
 void
-RemotePageAllocator::DisplayDataHeader()
+RemotePageAllocator::DisplayDataHeader(PCSTR name)
 {
-    ExtOut("-------------------------------------------------------------------------------------\n");
-    ExtOut("Allocator     Used Bytes    Reserved    Committed         Unused    Commit%%      Used%%\n");
-    ExtOut("-------------------------------------------------------------------------------------\n");
+    DisplayDataLine();
+    ExtOut("%-16s   Used Bytes    Reserved   Committed      Unused    Commit%%      Used%%\n", name);
+    DisplayDataLine();
+}
+
+void
+RemotePageAllocator::DisplayDataLine()
+{
+    ExtOut("---------------------------------------------------------------------------------------\n");
+}
+
+void
+RemotePageAllocator::DisplayData(ULONG nameLength, ULONG64 used, ULONG64 reserved, ULONG64 committed)
+{
+    int numSpace = 16 - nameLength;
+    for (int i = 0; i < numSpace; i++)
+    {
+        ExtOut(" ");
+    }
+    ExtOut(": ");
+    ExtOut("% 11I64u % 11I64u % 11I64u % 11I64u    %6.2f%%    %6.2f%%\n", 
+        used, reserved, committed, (committed - used), 100.0 * (committed / (double)reserved), 100.0 * (used / (double)committed));
 }
 
 void
@@ -91,7 +110,10 @@ RemotePageAllocator::DisplayData(PCSTR name, bool showZeroEntries)
 
     if (showZeroEntries || used != 0 || reserved != 0 || committed != 0)
     {
-        ExtOut("%-11s: %11I64u %11I64u  %11I64u    %11I64u    %6.2f%%    %6.2f%%\n", name, used, reserved, committed, (committed - used), 100.0 * (committed / (double)reserved), 100.0 * (used / (double)committed));
+        PCSTR typeName = pageAllocator.GetTypeName();
+        std::string encodedTypeName = JDUtil::EncodeDml(JDUtil::StripStructClass(typeName));
+        g_Ext->Dml("<link cmd=\"dt %s!%s %p\">%s</link>", ((EXT_CLASS_BASE*)g_ExtInstancePtr)->FillModule("%s"), encodedTypeName.c_str(), JDUtil::IsPointerType(typeName)? pageAllocator.GetPtr() : pageAllocator.GetPointerTo().GetPtr(), name);
+        DisplayData(strlen(name), used, reserved, committed);
     }      
 }
 

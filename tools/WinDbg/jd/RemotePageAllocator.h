@@ -15,7 +15,9 @@ public:
     ULONG64 GetReservedBytes();
     ULONG64 GetCommittedBytes();
 
-    static void DisplayDataHeader();
+    static void DisplayDataHeader(PCSTR name);
+    static void DisplayDataLine();
+    static void DisplayData(ULONG nameLength, ULONG64 used, ULONG64 reserved, ULONG64 committed);
     void DisplayData(PCSTR name, bool showZeroEntries);
     template <typename Fn>
     void ForEachSegment(Fn fn)

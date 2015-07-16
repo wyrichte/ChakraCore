@@ -102,29 +102,64 @@ public:
             ExtRemoteTyped jobProcessor = threadContext.Field("jobProcessor");
             if (threadContext.Field("bgJit").GetStdBool() && !threadContext.Field("isOptimizedForManyInstances").GetStdBool())
             {
-                ExtRemoteTyped backgroundJobProcessor(GetExtension()->FillModule("(%s!JsUtil::BackgroundJobProcessor *)@$extin)"), jobProcessor.GetPtr());
-                uint maxThreadCount = backgroundJobProcessor.Field("maxThreadCount").GetUlong();
-                ExtRemoteTyped parallelThreadData = backgroundJobProcessor.Field("parallelThreadData");
-                for (uint i = 0; i < maxThreadCount; i++)
+                ExtRemoteTyped backgroundJobProcessor(GetExtension()->FillModule("(%s!JsUtil::BackgroundJobProcessor *)@$extin)"), jobProcessor.GetPtr());                
+                if (backgroundJobProcessor.HasField("maxThreadCount"))
                 {
-                    fn("BGParse", RemotePageAllocator(parallelThreadData.ArrayElement(i).Field("backgroundPageAllocator")));
+                    uint maxThreadCount = backgroundJobProcessor.Field("maxThreadCount").GetUlong();
+                    ExtRemoteTyped parallelThreadData = backgroundJobProcessor.Field("parallelThreadData");
+                    for (uint i = 0; i < maxThreadCount; i++)
+                    {
+                        fn("BGJob", RemotePageAllocator(parallelThreadData.ArrayElement(i).Field("backgroundPageAllocator")));
+                    }
+                }
+                else
+                {
+                    // IE11 don't have parallel parse
+                    fn("BGJob", RemotePageAllocator(backgroundJobProcessor.Field("backgroundPageAllocator")));
                 }
             }
-        }
+        }        
 
-        auto forEachCodeGenAllocatorPageAllocator = [fn](ExtRemoteTyped codeGenAllocators)
+        auto forEachCodeGenAllocatorPageAllocator = [fn](ExtRemoteTyped codeGenAllocators, bool foreground)
         {
             if (codeGenAllocators.GetPtr() == 0) { return; }
 
-            fn("BGJIT", RemotePageAllocator(codeGenAllocators.Field("pageAllocator")));
-            fn("CustomHeap", RemotePageAllocator(codeGenAllocators.Field("emitBufferManager.allocationHeap.pageAllocator")));
+            // IE11 don't have parallel JIT thread added by CL# 1364258
+            // So it doesn't have separate page allocator
+            if (codeGenAllocators.HasField("pageAllocator"))
+            {
+                fn(foreground? "FG-CodeGen" : "BG-CodeGen", RemotePageAllocator(codeGenAllocators.Field("pageAllocator")));                
+            }
+            ExtRemoteTyped customHeap = codeGenAllocators.Field("emitBufferManager.allocationHeap");
+            if (customHeap.HasField("preReservedHeapPageAllocator"))
+            {
+                fn(foreground ? "FG-CodePR" : "BG-CodePR", RemotePageAllocator(customHeap.Field("preReservedHeapPageAllocator")));
+            }
+            fn(foreground ? "FG-Code" : "BG-Code", RemotePageAllocator(customHeap.Field("pageAllocator")));
         };
-        this->ForEachScriptContext([forEachCodeGenAllocatorPageAllocator](ExtRemoteTyped scriptContext)
-        {
-            ExtRemoteTyped nativeCodeGen = scriptContext.Field("nativeCodeGen");
+        this->ForEachScriptContext([fn, forEachCodeGenAllocatorPageAllocator](ExtRemoteTyped scriptContext)
+        {            
+            ExtRemoteTyped thunkCustomHeap = scriptContext.Field("interpreterThunkEmitter.emitBufferManager.allocationHeap");
+            if (thunkCustomHeap.HasField("preReservedHeapPageAllocator"))
+            {
+                fn("CodeThunkPR", RemotePageAllocator(thunkCustomHeap.Field("preReservedHeapPageAllocator")));
+            }
+            fn("CodeThunk", RemotePageAllocator(thunkCustomHeap.Field("pageAllocator")));
 
-            forEachCodeGenAllocatorPageAllocator(nativeCodeGen.Field("foregroundAllocators"));
-            forEachCodeGenAllocatorPageAllocator(nativeCodeGen.Field("backgroundAllocators"));            
+            if (scriptContext.HasField("asmJsInterpreterThunkEmitter"))
+            {
+                ExtRemoteTyped asmJsThunkCustomHeap = scriptContext.Field("asmJsInterpreterThunkEmitter.emitBufferManager.allocationHeap");
+                if (asmJsThunkCustomHeap.HasField("preReservedHeapPageAllocator"))
+                {
+                    fn("CodeAsmJSThunkPR", RemotePageAllocator(asmJsThunkCustomHeap.Field("preReservedHeapPageAllocator")));
+                }
+                fn("CodeAsmJSThunk", RemotePageAllocator(asmJsThunkCustomHeap.Field("pageAllocator")));
+            }
+
+            ExtRemoteTyped nativeCodeGen = scriptContext.Field("nativeCodeGen");
+            
+            forEachCodeGenAllocatorPageAllocator(nativeCodeGen.Field("foregroundAllocators"), true);
+            forEachCodeGenAllocatorPageAllocator(nativeCodeGen.Field("backgroundAllocators"), false);            
             return false;
         });
     }
