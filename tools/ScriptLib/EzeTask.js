@@ -65,6 +65,94 @@ function preCheckinTestsFull(envStr) {
     return _doPCT("preCheckinTestsFull", envStr);
 }
 
+function createIEDepPackage(envStr) {
+    WScript.Echo("Creating IE Dependent packages");
+    return _doPCT("buildAndCreateIEDepPackage", envStr)
+}
+
+function _getPackageStageFolder()
+{
+    return Env("SDXROOT") + "\\inetcore\\jscript\\packages\\ielibs\\stage";
+}
+
+function copyIEDepLibsToStagingFolder() {
+    var objRoot = Env("OBJECT_ROOT");
+    var bldAlt = Env("_BuildAlt");
+    var folders = [
+        ["lib\\scriptprojectionhost\\iel3_edge", [ "ScriptProjectionHost_Edge_iel3.lib" ] ],
+        ["lib\\devtb\\dtbhost", [ "IEDevTools_Host_IEL1.lib" ] ],
+        ["manifests\\inbox", [] ]
+    ];
+
+    var target = _getPackageStageFolder();
+    for (var i = 0; i < folders.length; i++) {
+        var listing = folders[i];
+        var sourceSubFolder = listing[0] + "\\" + bldAlt;
+        var sourceFolder = objRoot + "\\inetcore\\" + sourceSubFolder;
+        var targetFolder = target + "\\" + listing[0] + "\\" + bldAlt;
+        if (!FSOFolderExists(targetFolder)) {
+            FSOCreatePath(targetFolder);
+        }
+
+        if (listing[1].length == 0) {
+            FSOCopyFolder(sourceFolder, targetFolder, true);
+        }
+
+        for (var j = 0; j < listing[1].length; j++) {
+            var sourceFile = sourceFolder + "\\" + listing[1][j];
+            WScript.Echo("Copying " + sourceFile + " to " + target);
+            FSOCopyFile(sourceFile, targetFolder + "\\" + listing[1][j], true /* overwrite */);
+        }
+    }
+}
+
+function _runRazzleCommand(bldArch, baseBldType, command)
+{
+    var srcBase = Env("SDXROOT");
+    var run = runCmdToLog("call " +
+        srcBase + "\\tools\\razzle.cmd sharepublic " + bldArch + " " + baseBldType + " no_certcheck no_oacr no_sdrefresh Exec " + command);
+}
+
+function consolidateIEPackage()
+{
+    var packageStageFolder = _getPackageStageFolder();
+
+    if (FSOFolderExists(packageStageFolder)) {
+        WScript.Echo("Warning: staging folder already exists");
+    }
+
+    var archs = [ "x86", "amd64", "arm" ];
+    var flavors = [ "chk", "fre" ];
+    // Open razzle, copy libs to staging folder
+    for (var i = 0; i < archs.length; i++) {
+        for (var j = 0; j < flavors.length; j++) { 
+            _runRazzleCommand(archs[i], flavors[j], ScriptDir + "\\runjs copyIEDepLibsToStagingFolder");
+        }
+    }
+
+    WScript.Echo("Consolidating IE dependency package");
+    return true;
+}
+
+function cleanIEDepPackageStage()
+{
+    var packageStageFolder = _getPackageStageFolder();
+    if (FSOFolderExists(packageStageFolder)) {
+        WScript.Echo("Deleting " + packageStageFolder);
+        FSODeleteFolder(packageStageFolder, true);
+    }
+
+    return true;
+}
+
+function buildIEPackage()
+{
+    WScript.Echo("Building IE dependency package");
+    var srcBase = Env("SDXROOT");
+    var run = runCmdToLog("call " + srcBase + "\\inetcore\\jscript\\packages\\ielibs\\pack.cmd");
+    return true;
+}
+
 function syncAndTvsOACRGate(envStr) {
 
     return _doPCT("syncAndTvsOACRGate", envStr);
@@ -143,6 +231,23 @@ while (true)
             _razzleBuildFullTaskGroup("fre", "amd64"),
             _razzleBuildFullTaskGroup("chk", "arm"),
             _razzleBuildFullTaskGroup("fre", "arm"),
+        ]);
+
+    var _taskBuildAllIEPackageDep =
+        taskGroup("buildAllPackageDep", [
+            _razzleBuildIEDepPackageTaskGroup("chk", "x86"),
+            _razzleBuildIEDepPackageTaskGroup("fre", "x86"),
+            _razzleBuildIEDepPackageTaskGroup("chk", "amd64"),
+            _razzleBuildIEDepPackageTaskGroup("fre", "amd64"),
+            _razzleBuildIEDepPackageTaskGroup("chk", "arm"),
+            _razzleBuildIEDepPackageTaskGroup("fre", "arm"),
+        ]);
+
+    var _taskBuildAndCreateIEDepPackage = 
+        taskGroup("buildAndCreateIEDepPackage", [
+            (taskNew("cleanIEPackageStage", "runjs cleanIEDepPackageStage", undefined, undefined, "This task cleans the staging directories for building the IE package")),
+            _taskBuildAllIEPackageDep,
+            _createPackageTask()
         ]);
 
     var _taskBuildAllHere =
@@ -290,6 +395,7 @@ while (true)
         _taskPreCheckinTestsFullF12,
         _taskSyncAndPreCheckinTestsFullF12,
         _taskSyncAndTvsOACRGate,
+        _taskBuildAndCreateIEDepPackage
     ];
 
     break;
@@ -364,6 +470,24 @@ function _razzleBuildF12DependenciesTaskGroup(bldType, bldArch)
     ]);
 }
 
+
+function _razzleBuildIEDepPackageTaskGroup(bldType, bldArch, oacrAll)
+{
+    bldType = getBldType(bldType);
+    bldArch = getBldArch(bldArch);
+
+    return taskGroup("buildFull_" + (oacrAll ? "oacrAll_" : "") + bldArch + bldType, [
+        _razzleBuildTask(bldType, bldArch, {
+            taskNameString: "inetcore-package-dep",
+            directories: [
+                "inetcore\\published\\internal\\inc",
+                "inetcore\\manifests\\inbox",
+                "inetcore\\lib\\devtb\\dtbhost",
+                "inetcore\\lib\\ScriptProjectionHost\\iel3_edge"]
+        }, undefined, 3 * HOUR) // Give this a long timeout as publics can take a while
+    ]);
+}
+
 function _buildAndUnitTestTask(bldType, bldArch, bldRelDir)
 {
     bldType = getBldType(bldType);
@@ -376,6 +500,15 @@ function _buildAndUnitTestTask(bldType, bldArch, bldRelDir)
     var subTasks = new Array();
     subTasks.push( (bldRelDir == preCheckinTestsFullBuildRelDir) ? _razzleBuildFullTaskGroup(bldType, bldArch) : _razzleBuildTask(bldType, bldArch, bldRelDir) );
     return (taskNew("consoleUnitTests_" + bldArch + bldType, "runjs runConsoleUnitTests " + bldType + " " + bldArch  + ' \"' + timeOut + '\"', subTasks));
+}
+
+function _createPackageTask()
+{
+    WScript.Echo("Creating package task");
+    return taskGroup("consolidateAndCreatePackage", [
+        (taskNew("consolidateIEPackage", "runjs consolidateIEPackage", undefined, undefined, "This task consolidates an IE package from the object directories to a staging directory")),
+        (taskNew("buildIEPackage", "runjs buildIEPackage", undefined, undefined, "This task builds the IE package from the staging directory"))
+    ]);
 }
 
 function _buildAndMSTestTestsTask(bldType, bldArch, bldRelDir)

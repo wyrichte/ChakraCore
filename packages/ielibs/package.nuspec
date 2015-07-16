@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>IELibs</id>
+    <version>1.0.0</version>
+    <authors>hiteshk</authors>
+    <owners>hiteshk</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>IE Libs Package</description>
+    <releaseNotes>IE-owned libs that Chakra depends on to build</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>Chakra IE Libs</tags>
+  </metadata>
+  <files>
+    <!-- These files are relative to inetcore\jscript\packages\ielibs\stage -->
+    <file src="..\..\..\..\inc\devtbhost.h" target="devtbhost.h" />
+    <file src="..\..\..\..\inc\ScriptProjectionHost.hxx" target="ScriptProjectionHost.hxx" />
+
+    <!-- These two are entire directories that need to be copied -->
+    <file src="manifests\**" target="manifests" />
+    <file src="lib\**" />
+  </files>
+</package>

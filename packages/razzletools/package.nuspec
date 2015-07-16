@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>RazzleTools</id>
+    <version>1.0.0</version>
+    <authors>hiteshk</authors>
+    <owners>hiteshk</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Razzle Tools Package</description>
+    <releaseNotes>Compilers and tools that Chakra needs to build</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>Chakra Razzle Tools</tags>
+  </metadata>
+  <files>
+    <file src="tools\dev12\**" target="dev12"/>
+
+    <!-- Needed for compiling interface definitions -->
+    <file src="tools\x86\midl*" target="x86" />
+    <file src="tools\amd64\midl*" target="amd64" />
+
+    <!-- Needed for compiling manifest -->
+    <file src="tools\x86\mc.exe" target="x86" />
+    <file src="tools\amd64\mc.exe" target="amd64" />
+
+    <file src="tools\x86\ctrpp.exe" target="x86" />
+    <file src="tools\amd64\ctrpp.exe" target="amd64" />
+    <file src="tools\providers\**" target="providers" />
+    <file src="public\**" target="public" />
+
+    <!-- Needed for something- TODO: What? Runtime and needs TLBRef, and a bunch of projects need lib -->
+    <file src="tools\x86\tlbref.dll" target="x86" />
+    <file src="tools\amd64\tlbref.dll" target="amd64" />
+
+    <file src="tools\x86\lib.exe" target="x86" />
+    <file src="tools\amd64\lib.exe" target="amd64" />
+
+    <file src="tools\x86\rc.exe" target="x86" />
+    <file src="tools\amd64\rc.exe" target="amd64" />
+
+    <file src="tools\x86\rcdll.dll" target="x86" />
+    <file src="tools\amd64\rcdll.dll" target="amd64" />
+  </files>
+</package>
