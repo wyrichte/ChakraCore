@@ -6,14 +6,7 @@
 #include "rl.h"
 #include "HostSysInfo.h"
 
-#if defined (_M_AMD64) || defined(_M_ARM64)
-// This takes care of 2 problems:
-// MSXML2.dll doesn't exist on amd64,
-// and the LKG2 #import thinks that AMD64 has 4 byte pointers
-#import "msxml3.dll" named_guids raw_interfaces_only rename_namespace("MSXML2") ptrsize(64)
-#else
 #import "msxml6.dll" named_guids raw_interfaces_only
-#endif
 
 
 #define CHECKHR(x) {hr = x; if (FAILED(hr)) goto CleanUp;}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\Build\Chakra.Build.Paths.props" />
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
+  <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{80A70F57-0F89-458F-AFD3-CE2159EB9BB1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <BuildForCoreSystem>true</BuildForCoreSystem>
+    <TestCode Condition="'$(BuildingWithBuildExe)'=='true'">true</TestCode>
+    <!-- TestCode does not demote OACR errors to warnings like TEST_CODE=1
+         does in a sources build so for now disable oacr directly -->
+    <BUILD_OACR Condition="'$(BuildingWithBuildExe)'=='true'">0</BUILD_OACR>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <!--
+           TODO: Remove dependency on HostCommon.lib.  RL is using HostSystemInfo.
+       -->
+      <AdditionalIncludeDirectories>
+        %(AdditionalIncludeDirectories);
+        $(ChakraRootDirectory)private\lib\HostCommon;
+        $(SdkToolsIncPath)
+      </AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(SdkLibPath)\oleaut32.lib;
+        $(SdkLibPath)\ole32.lib;
+        $(SdkLibPath)\kernel32.lib;
+        $(InternalSdkLibPath)\nothrownew.lib
+      </AdditionalDependencies>
+    </Link>
+    <Link Condition="'$(BuildingWithBuildExe)'=='true'">
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(RazzleJscriptObjectRoot)\private\lib\HostCommon\$(ObjectDirectory)\Chakra.Host.Common.lib;
+      </AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <!-- Razzle binplace -->
+  <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true'">
+    <BinplaceLinked Include="$(ObjectPath)\$(ObjectDirectory)$(TargetFileName)">
+      <DestinationFolder>jscript</DestinationFolder>
+    </BinplaceLinked>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="rl.cpp" />
+    <ClCompile Include="rlfeint.cpp" />
+    <ClCompile Include="rlmp.cpp" />
+    <ClCompile Include="rlrun.cpp" />
+    <ClCompile Include="rlregr.cpp" />
+    <ClCompile Include="xmlreader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="rl.h" />
+    <ClInclude Include="rlfeint.h" />
+    <ClInclude Include="xmlreader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\private\lib\HostCommon\HostCommon.vcxproj">
+      <Project>{f2e998aa-fb27-4f65-a6f7-4142be64294f}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
