@@ -2480,50 +2480,9 @@ MPH_COMMAND(mpheap,
     "{isref;e64,o;isref;Find reference}"
     )
 {
-    enum IEMode
-    {
-        legacy = 0,
-        edge = 1
-    };
-
+    MphCmdsWrapper::AutoMPHCmd autoMphCmd((MphCmdsWrapper*)this);
     bool verbose = HasArg("v");
-
-    char* tridentModules[] = { "mshtml", "edgehtml" };
-    char* memGCModules[] = { "mshtml", "chakra" };
-    char* tridentModule;
-    char* memGCModule;
     char buffer[1024];
-
-    IEMode mode = legacy;
-    sprintf_s(buffer, "%s!MemProtectHeap", memGCModules[mode]); // should not be inlined
-    ULONG typeIdMemProtectHeap;
-    if (this->m_Symbols2->GetSymbolTypeId(buffer, &typeIdMemProtectHeap, NULL) == S_OK)
-    {
-        if (verbose)
-        {
-            this->Out("Found MemProtectHeap in mshtml(legacy mode).\n");
-        }
-    }
-    else
-    {
-        mode = edge;
-        sprintf_s(buffer, "%s!MemProtectHeap", memGCModules[mode]); // should not be inlined
-        if (this->m_Symbols2->GetSymbolTypeId(buffer, &typeIdMemProtectHeap, NULL) == S_OK)
-        {
-            if (verbose)
-            {
-                this->Out("Found MemProtectHeap in chakra(edge mode).\n");
-            }
-        }
-        else
-        {
-            this->Err("Cannot find MemProtectHeap.\n");
-            return;
-        }
-    }
-
-    tridentModule = tridentModules[mode];
-    memGCModule = memGCModules[mode];
 
     ExtRemoteTyped g_pHeapHandle(FillModuleV("%s!g_pHeapHandle", tridentModule));
     if (verbose)
@@ -2776,6 +2735,56 @@ MPH_COMMAND(mpheap,
 
         return;
     }
+}
+
+void MphCmdsWrapper::InitializeForMPH()
+{
+    EXT_CLASS_BASE* ext = (EXT_CLASS_BASE*)this;
+    ext->inMPHCmd = true;
+
+    enum IEMode
+    {
+        legacy = 0,
+        edge = 1
+    };
+
+    bool verbose = ext->HasArg("v");
+
+    char* tridentModules[] = { "mshtml", "edgehtml" };
+    char* memGCModules[] = { "mshtml", "chakra" };
+    char buffer[1024];
+
+    IEMode mode = legacy;
+    sprintf_s(buffer, "%s!MemProtectHeap", memGCModules[mode]); // should not be inlined
+    ULONG typeIdMemProtectHeap;
+    if (ext->m_Symbols2->GetSymbolTypeId(buffer, &typeIdMemProtectHeap, NULL) == S_OK)
+    {
+        if (verbose)
+        {
+            ext->Out("Found MemProtectHeap in mshtml(legacy mode).\n");
+        }
+    }
+    else
+    {
+        mode = edge;
+        sprintf_s(buffer, "%s!MemProtectHeap", memGCModules[mode]); // should not be inlined
+        if (ext->m_Symbols2->GetSymbolTypeId(buffer, &typeIdMemProtectHeap, NULL) == S_OK)
+        {
+            if (verbose)
+            {
+                ext->Out("Found MemProtectHeap in chakra(edge mode).\n");
+            }
+        }
+        else
+        {
+            ext->Err("Cannot find MemProtectHeap.\n");
+            return;
+        }
+    }
+
+    tridentModule = tridentModules[mode];
+    memGCModule = memGCModules[mode];
+
 }
 
 JD_PRIVATE_COMMAND(findpage,

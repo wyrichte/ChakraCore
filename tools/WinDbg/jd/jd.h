@@ -63,9 +63,32 @@ private:
     }
 };
 
+class MphCmdsWrapper
+{
+public :
+    struct AutoMPHCmd
+    {
+        MphCmdsWrapper* wrapper;
+        AutoMPHCmd(MphCmdsWrapper* w) :wrapper(w)
+        {
+            wrapper->InitializeForMPH();
+        }
+        ~AutoMPHCmd(){ wrapper->inMPHCmd = false; }
+    };
+public:
+    bool inMPHCmd;
+    char* tridentModule;
+    char* memGCModule;
+    void InitializeForMPH();
+
+};
+
 class EXT_CLASS_BASE : public ExtExtension
 #ifdef JD_PRIVATE
     , public DummyTestGroup
+#endif
+#ifdef MPH_CMDS
+    , public MphCmdsWrapper
 #endif
 {
 protected:
@@ -138,8 +161,13 @@ public:
 
 #define ENUM(name)\
     ULONG64 enum_##name(){ \
-        static ULONG64 s##name = this->GetEnumValue(#name); \
-        return(s##name); \
+        if (this->inMPHCmd){ \
+            static ULONG64 s##name = this->GetEnumValue(#name); \
+            return(s##name); \
+        } else {\
+            static ULONG64 s##name = this->GetEnumValue(#name); \
+            return(s##name); \
+        }\
     }
     // dynamic read HeapBlock enums
     ENUM(SmallNormalBlockType);
