@@ -223,7 +223,7 @@
       <files>SIMDExtendArgCSE.js</files>
       <baseline>SIMDExtendArgCSE.baseline</baseline>
       <tags>exclude_dynapogo,exclude_ship</tags>
-      <compile-flags>-bgjit- -on:asmjs -simdjs -AsmJsStopOnError -maic:0</compile-flags>
+      <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -maic:0</compile-flags>
     </default>
   </test>
 </regress-exe>

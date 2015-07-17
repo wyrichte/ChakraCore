@@ -1,6 +1,7 @@
 function asmModule(stdlib, imports) {
     "use asm";
 var i4 = stdlib.SIMD.int32x4;
+    var i4check = i4.check;
     var i4splat = i4.splat;
     var i4fromFloat64x2 = i4.fromFloat64x2;
     var i4fromFloat64x2Bits = i4.fromFloat64x2Bits;
@@ -30,6 +31,7 @@ var i4 = stdlib.SIMD.int32x4;
     //var i4shiftRightArithmeticByScalar = i4.shiftRightArithmeticByScalar;
 
     var f4 = stdlib.SIMD.float32x4;  
+    var f4check = f4.check;
     var f4splat = f4.splat;
     var f4fromFloat64x2 = f4.fromFloat64x2;
     var f4fromFloat64x2Bits = f4.fromFloat64x2Bits;
@@ -67,6 +69,7 @@ var i4 = stdlib.SIMD.int32x4;
     var f4not = f4.not;
 
     var d2 = stdlib.SIMD.float64x2;  
+    var d2check = d2.check;
     var d2splat = d2.splat;
     var d2fromFloat32x4 = d2.fromFloat32x4;
     var d2fromFloat32x4Bits = d2.fromFloat32x4Bits;
@@ -96,11 +99,12 @@ var i4 = stdlib.SIMD.int32x4;
     var d2greaterThanOrEqual = d2.greaterThanOrEqual;
     var d2select = d2.select;
 
+
     var fround = stdlib.Math.fround;
 
-    var globImportF4 = f4(imports.g1);       // global var import
-    var globImportI4 = i4(imports.g2);       // global var import
-    var globImportD2 = d2(imports.g3);       // global var import
+    var globImportF4 = f4check(imports.g1);       // global var import
+    var globImportI4 = i4check(imports.g2);       // global var import
+    var globImportD2 = d2check(imports.g3);       // global var import
 
     var f4g1 = f4(-5033.2,-3401.0,665.34,32234.1);          // global var initialized
     var f4g2 = f4(1194580.33,-11201.5,63236.93,334.8);          // global var initialized
@@ -145,7 +149,7 @@ var i4 = stdlib.SIMD.int32x4;
             loopIndex = (loopIndex + 1) | 0;
         }
 
-        return i4(d);
+        return i4check(d);
     }
     
     function func2(a)
@@ -172,7 +176,7 @@ var i4 = stdlib.SIMD.int32x4;
 
         }
 
-        return i4(d);
+        return i4check(d);
     }
 
     function func3(a)
@@ -202,7 +206,7 @@ var i4 = stdlib.SIMD.int32x4;
         }
         while ( (loopIndex | 0) > 0);
 
-        return i4(globImportI4);
+        return i4check(globImportI4);
     }
     
     

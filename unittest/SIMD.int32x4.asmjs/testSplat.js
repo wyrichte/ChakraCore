@@ -2,6 +2,7 @@ function asmModule(stdlib, imports) {
     "use asm";
     
     var i4 = stdlib.SIMD.int32x4;
+    var i4check = i4.check;
     var i4splat = i4.splat;
     var i4fromFloat64x2 = i4.fromFloat64x2;
     var i4fromFloat64x2Bits = i4.fromFloat64x2Bits;
@@ -31,6 +32,7 @@ function asmModule(stdlib, imports) {
     //var i4shiftRightArithmeticByScalar = i4.shiftRightArithmeticByScalar;
 
     var f4 = stdlib.SIMD.float32x4;  
+    var f4check = f4.check;
     var f4splat = f4.splat;
     var f4fromFloat64x2 = f4.fromFloat64x2;
     var f4fromFloat64x2Bits = f4.fromFloat64x2Bits;
@@ -68,6 +70,7 @@ function asmModule(stdlib, imports) {
     var f4not = f4.not;
 
     var d2 = stdlib.SIMD.float64x2;  
+    var d2check = d2.check;
     var d2splat = d2.splat;
     var d2fromFloat32x4 = d2.fromFloat32x4;
     var d2fromFloat32x4Bits = d2.fromFloat32x4Bits;
@@ -98,9 +101,9 @@ function asmModule(stdlib, imports) {
     var d2select = d2.select;
 
 
-    var globImportF4 = f4(imports.g1);       // global var import
-    var globImportI4 = i4(imports.g2);       // global var import
-    var globImportD2 = d2(imports.g3);       // global var import
+    var globImportF4 = f4check(imports.g1);       // global var import
+    var globImportI4 = i4check(imports.g2);       // global var import
+    var globImportD2 = d2check(imports.g3);       // global var import
     var g1 = f4(0.0,1.0,2.0,3.0);          // global var initialized
     var g2 = i4(0,1,2,3);          // global var initialized
     var g3 = d2(0.0,1.0);          // global var initialized
@@ -122,7 +125,7 @@ function asmModule(stdlib, imports) {
             loopIndex = (loopIndex + 1) | 0;
         }
 
-        return i4(x);
+        return i4check(x);
     }
     
     function splat2()
@@ -136,7 +139,7 @@ function asmModule(stdlib, imports) {
 
         }
 
-        return i4(x);
+        return i4check(x);
     }
 
     function splat3()
@@ -152,7 +155,7 @@ function asmModule(stdlib, imports) {
         }
         while ( (loopIndex | 0) > 0);
 
-        return i4(x);
+        return i4check(x);
     }
     
     function value()

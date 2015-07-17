@@ -9,7 +9,7 @@ function equal(a, b) {
 function testSIMDInt32x4() {
     WScript.Echo("test SIMDInt32x4.....");
     var b = SIMD.int32x4(1, 2, 3, 4);
-    var c = SIMD.int32x4(b);
+    var c = SIMD.int32x4.check(b);
     equal(c, b);
     equal(c.x, b.x);
     equal(c.y, b.y);
@@ -30,8 +30,8 @@ function testSIMDInt32x4() {
     testSIMDInt32x4_BinaryOp();
     testSIMDInt32x4_UnaryOp();
     testSIMDInt32x4_CompareOp();
+    testSIMDInt32x4_Swizzle();
     testSIMDInt32x4_Shuffle();
-    testSIMDInt32x4_ShuffleMix();
     testSIMDInt32x4_Select();
 }
 
@@ -199,13 +199,13 @@ function testSIMDInt32x4_CompareOp()
 
 }
 
-function testSIMDInt32x4_Shuffle()
+function testSIMDInt32x4_Swizzle()
 {
-    WScript.Echo("test SIMDInt32x4 Shuffle......");
+    WScript.Echo("test SIMDInt32x4 Swizzle......");
     var a = SIMD.int32x4(1, 2, 3, 4);
-    var xyxy = SIMD.int32x4.shuffle(a, SIMD.XYXY);
-    var zwzw = SIMD.int32x4.shuffle(a, SIMD.ZWZW);
-    var xxxx = SIMD.int32x4.shuffle(a, SIMD.XXXX);
+    var xyxy = SIMD.int32x4.swizzle(a, 0 ,1, 0, 1);
+    var zwzw = SIMD.int32x4.swizzle(a, 2, 3, 2, 3);
+    var xxxx = SIMD.int32x4.swizzle(a, 0 ,0 ,0 ,0);
     equal(1, xyxy.x);
     equal(2, xyxy.y);
     equal(1, xyxy.z);
@@ -220,14 +220,14 @@ function testSIMDInt32x4_Shuffle()
     equal(1, xxxx.w);
 }
 
-function testSIMDInt32x4_ShuffleMix()
+function testSIMDInt32x4_Shuffle()
 {
-    WScript.Echo("test SIMDInt32x4 ShuffleMix......");
+    WScript.Echo("test SIMDInt32x4 Shuffle......");
     var a = SIMD.int32x4(1, 2, 3, 4);
     var b = SIMD.int32x4(5, 6, 7, 8);
-    var xyxy = SIMD.int32x4.shuffleMix(a, b, SIMD.XYXY);
-    var zwzw = SIMD.int32x4.shuffleMix(a, b, SIMD.ZWZW);
-    var xxxx = SIMD.int32x4.shuffleMix(a, b, SIMD.XXXX);
+    var xyxy = SIMD.int32x4.shuffle(a, b, 0, 1, 4, 5);
+    var zwzw = SIMD.int32x4.shuffle(a, b, 2, 3, 6, 7);
+    var xxxx = SIMD.int32x4.shuffle(a, b, 0, 0, 4, 4);
     equal(1, xyxy.x);
     equal(2, xyxy.y);
     equal(5, xyxy.z);

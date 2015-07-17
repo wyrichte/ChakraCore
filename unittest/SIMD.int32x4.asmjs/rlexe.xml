@@ -263,5 +263,133 @@
       <tags>exclude_dynapogo,exclude_ship</tags>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -AsmJsStopOnError -on:AsmJsInterpreter -off:fulljit -off:backend</compile-flags>
     </default>
-  </test>
+</test>
+<test>
+	<default>
+ 	<files>testLoadStore-2.js</files>
+ 	<baseline>testLoadStore-2.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -maic:0</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+        <files>testLoadStore-2.js</files>
+        <baseline>testLoadStore-2.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -lic:1</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+        <files>testLoadStore.js</files>
+        <baseline>testLoadStore.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -maic:0</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+        <files>testLoadStore.js</files>
+        <baseline>testLoadStore.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -lic:1</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+        <files>testLoadStore.js</files>
+        <baseline>testLoadStore.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -on:AsmJsInterpreter -off:fulljit -off:backend</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+        <files>testResizeLoadStore-2.js</files>
+        <baseline>testResizeLoadStore-2.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -maic:0</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+        <files>testResizeLoadStore-2.js</files>
+        <baseline>testResizeLoadStore-2.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -lic:1</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+        <files>testResizeLoadStore.js</files>
+        <baseline>testResizeLoadStore.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -maic:0</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+        <files>testResizeLoadStore.js</files>
+        <baseline>testResizeLoadStore.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -lic:1</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+        <files>testResizeLoadStore.js</files>
+        <baseline>testResizeLoadStore.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -on:AsmJsInterpreter -off:fulljit -off:backend</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+        <files>testShuffle.js</files>
+        <baseline>testShuffle.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -maic:0</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+        <files>testShuffle.js</files>
+        <baseline>testShuffle.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -lic:1</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+        <files>testShuffle.js</files>
+        <baseline>testShuffle.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -on:AsmJsInterpreter -off:fulljit -off:backend</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+        <files>testSwizzle.js</files>
+        <baseline>testSwizzle.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -maic:0</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+ 	<files>testSwizzle.js</files>
+ 	<baseline>testSwizzle.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -lic:1</compile-flags>
+	</default>
+</test>
+<test>
+	<default>
+ 	<files>testSwizzle.js</files>
+ 	<baseline>testSwizzle.baseline</baseline>
+        <tags>exclude_dynapogo,exclude_ship</tags>
+        <compile-flags>-on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -on:AsmJsInterpreter -off:fulljit -off:backend</compile-flags>
+	</default>
+</test>
 </regress-exe>

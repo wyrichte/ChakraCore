@@ -93,28 +93,28 @@ Correct
 Correct
 Correct
 Correct
+test SIMDFloat32x4 Swizzle......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
 test SIMDFloat32x4 Shuffle......
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-test SIMDFloat32x4 ShuffleMix......
 Correct
 Correct
 Correct
@@ -233,28 +233,28 @@ Correct
 Correct
 Correct
 Correct
+test SIMDFloat32x4 Swizzle......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
 test SIMDFloat32x4 Shuffle......
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-test SIMDFloat32x4 ShuffleMix......
 Correct
 Correct
 Correct
@@ -281,13 +281,13 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
 [FunctionCompiled]: Function: equal, Line: 1, Column: 1, Character Position: 0
 [FunctionCompiled]: Function: testSIMDFloat32x4, Line: 9, Column: 1, Character Position: 143
-[FunctionCompiled]: Function: testSIMDFloat32x4_BinaryOp, Line: 83, Column: 1, Character Position: 2191
-[FunctionCompiled]: Function: testSIMDFloat32x4_Clamp, Line: 247, Column: 1, Character Position: 6775
-[FunctionCompiled]: Function: testSIMDFloat32x4_CompareOp, Line: 151, Column: 1, Character Position: 4106
-[FunctionCompiled]: Function: testSIMDFloat32x4_Select, Line: 260, Column: 1, Character Position: 7174
-[FunctionCompiled]: Function: testSIMDFloat32x4_Shuffle, Line: 194, Column: 1, Character Position: 5170
-[FunctionCompiled]: Function: testSIMDFloat32x4_ShuffleMix, Line: 225, Column: 1, Character Position: 6090
-[FunctionCompiled]: Function: testSIMDFloat32x4_UnaryOp, Line: 126, Column: 1, Character Position: 3446
-[FunctionCompiled]: Function: testSIMDFloat32x4_conversion, Line: 51, Column: 1, Character Position: 1276
+[FunctionCompiled]: Function: testSIMDFloat32x4_BinaryOp, Line: 83, Column: 1, Character Position: 2194
+[FunctionCompiled]: Function: testSIMDFloat32x4_Clamp, Line: 247, Column: 1, Character Position: 6771
+[FunctionCompiled]: Function: testSIMDFloat32x4_CompareOp, Line: 151, Column: 1, Character Position: 4109
+[FunctionCompiled]: Function: testSIMDFloat32x4_Select, Line: 260, Column: 1, Character Position: 7170
+[FunctionCompiled]: Function: testSIMDFloat32x4_Shuffle, Line: 225, Column: 1, Character Position: 6098
+[FunctionCompiled]: Function: testSIMDFloat32x4_Swizzle, Line: 194, Column: 1, Character Position: 5173
+[FunctionCompiled]: Function: testSIMDFloat32x4_UnaryOp, Line: 126, Column: 1, Character Position: 3449
+[FunctionCompiled]: Function: testSIMDFloat32x4_conversion, Line: 51, Column: 1, Character Position: 1279
 Passed: Validation
 Script Profiler ends

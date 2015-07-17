@@ -14,11 +14,11 @@ function testConstructor() {
     equal(2.0, m.y);
 
     var a = SIMD.float64x2(1.0, 2.0);
-    var b = SIMD.float64x2(a);
+    var b = SIMD.float64x2.check(a);
     equal(a, b);
     try
     {
-        var a = SIMD.float64x2(1)
+        var a = SIMD.float64x2.check(1)
     }
     catch(e)
     {

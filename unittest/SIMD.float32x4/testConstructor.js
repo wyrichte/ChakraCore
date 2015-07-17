@@ -15,11 +15,11 @@ function testConstructor()
     WScript.Echo(SIMD.float32x4(1.0, 2.0, 3.0, 4.0) !== undefined);
 
     var a = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
-    var b = SIMD.float32x4(a);
+    var b = SIMD.float32x4.check(a);
     equal(a, b);
     try
     {
-        var a = SIMD.float32x4(1)
+        var a = SIMD.float32x4.check(1)
     }
     catch(e)
     {

@@ -15,7 +15,7 @@ function testConstructor() {
     WScript.Echo("a.z: " + a.z);
     WScript.Echo("a.w: " + a.w);
     var b = SIMD.int32x4(4, 3, 2, 1);
-    var c = SIMD.int32x4(b);
+    var c = SIMD.int32x4.check(b);
     equal(c, b);
     equal(c.x, b.x);
     equal(c.y, b.y);
@@ -23,7 +23,7 @@ function testConstructor() {
     equal(c.w, b.w);
 
     try {
-        var m = SIMD.int32x4(1)
+        var m = SIMD.int32x4.check(1)
     }
     catch (e) {
         WScript.Echo("Type Error");

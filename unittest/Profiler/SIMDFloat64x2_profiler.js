@@ -9,7 +9,7 @@ function equal(a, b) {
 function testSIMDFloat64x2() {
     WScript.Echo("test SIMDFloat64x2......");
     var b = SIMD.float64x2(1.1, 2.2);
-    var c = SIMD.float64x2(b);
+    var c = SIMD.float64x2.check(b);
     equal(c, b);
     equal(c.x, b.x);
     equal(c.y, b.y);
@@ -24,8 +24,8 @@ function testSIMDFloat64x2() {
     testSIMDFloat64x2_BinaryOp();
     testSIMDFloat64x2_UnaryOp();
     testSIMDFloat64x2_CompareOp();
+    testSIMDFloat64x2_Swizzle();
     testSIMDFloat64x2_Shuffle();
-    testSIMDFloat64x2_ShuffleMix();
     testSIMDFloat64x2_Clamp();
     testSIMDFloat64x2_Select();
 }
@@ -189,14 +189,14 @@ function testSIMDFloat64x2_CompareOp()
     equal(0x0, cmp.w);
 }
 
-function testSIMDFloat64x2_Shuffle()
+function testSIMDFloat64x2_Swizzle()
 {
-    WScript.Echo("test SIMDFloat64x2 Shuffle......");
+    WScript.Echo("test SIMDFloat64x2 Swizzle......");
     var a = SIMD.float64x2(1.0, 2.0);
-    var xx = SIMD.float64x2.shuffle(a, SIMD.XX);
-    var xy = SIMD.float64x2.shuffle(a, SIMD.XY);
-    var yx = SIMD.float64x2.shuffle(a, SIMD.YX);
-    var yy = SIMD.float64x2.shuffle(a, SIMD.YY);
+    var xx = SIMD.float64x2.swizzle(a, 0, 0);
+    var xy = SIMD.float64x2.swizzle(a, 0, 1);
+    var yx = SIMD.float64x2.swizzle(a, 1, 0);
+    var yy = SIMD.float64x2.swizzle(a, 1, 1);
     equal(1.0, xx.x);
     equal(1.0, xx.y);
     equal(1.0, xy.x);
@@ -207,15 +207,15 @@ function testSIMDFloat64x2_Shuffle()
     equal(2.0, yy.y);
 }
 
-function testSIMDFloat64x2_ShuffleMix()
+function testSIMDFloat64x2_Shuffle()
 {
-    WScript.Echo("test SIMDFloat64x2 ShuffleMix......");
+    WScript.Echo("test SIMDFloat64x2 Shuffle......");
     var a = SIMD.float64x2(1.0, 2.0);
     var b  = SIMD.float64x2(3.0, 4.0);
-    var xx = SIMD.float64x2.shuffleMix(a, b, SIMD.XX);
-    var xy = SIMD.float64x2.shuffleMix(a, b, SIMD.XY);
-    var yx = SIMD.float64x2.shuffleMix(a, b, SIMD.YX);
-    var yy = SIMD.float64x2.shuffleMix(a, b, SIMD.YY);
+    var xx = SIMD.float64x2.shuffle(a, b, 0, 2);
+    var xy = SIMD.float64x2.shuffle(a, b, 0, 3);
+    var yx = SIMD.float64x2.shuffle(a, b, 1, 2);
+    var yy = SIMD.float64x2.shuffle(a, b, 1, 3);
     equal(1.0, xx.x);
     equal(3.0, xx.y);
     equal(1.0, xy.x);

@@ -35,11 +35,11 @@ function  testVectorGetters()
 {
     WScript.Echo('int32x4 vector getters');
     var a = SIMD.int32x4(4, 3, 2, 1);
-    var xxxx = SIMD.int32x4.shuffle(a, SIMD.XXXX);
-    var yyyy = SIMD.int32x4.shuffle(a, SIMD.YYYY);
-    var zzzz = SIMD.int32x4.shuffle(a, SIMD.ZZZZ);
-    var wwww = SIMD.int32x4.shuffle(a, SIMD.WWWW);
-    var wzyx = SIMD.int32x4.shuffle(a, SIMD.WZYX);
+    var xxxx = SIMD.int32x4.swizzle(a, 0, 0, 0, 0);
+    var yyyy = SIMD.int32x4.swizzle(a, 1, 1, 1, 1);
+    var zzzz = SIMD.int32x4.swizzle(a, 2, 2, 2, 2);
+    var wwww = SIMD.int32x4.swizzle(a, 3, 3, 3, 3);
+    var wzyx = SIMD.int32x4.swizzle(a, 3, 2, 1, 0);
     equal(4, xxxx.x);
     equal(4, xxxx.y);
     equal(4, xxxx.z);

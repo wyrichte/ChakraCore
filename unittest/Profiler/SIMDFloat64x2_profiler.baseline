@@ -85,16 +85,16 @@ Correct
 Correct
 Correct
 Correct
+test SIMDFloat64x2 Swizzle......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
 test SIMDFloat64x2 Shuffle......
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-test SIMDFloat64x2 ShuffleMix......
 Correct
 Correct
 Correct
@@ -203,16 +203,16 @@ Correct
 Correct
 Correct
 Correct
+test SIMDFloat64x2 Swizzle......
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
+Correct
 test SIMDFloat64x2 Shuffle......
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-test SIMDFloat64x2 ShuffleMix......
 Correct
 Correct
 Correct
@@ -237,13 +237,13 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
 [FunctionCompiled]: Function: equal, Line: 1, Column: 1, Character Position: 0
 [FunctionCompiled]: Function: testSIMDFloat64x2, Line: 9, Column: 1, Character Position: 143
-[FunctionCompiled]: Function: testSIMDFloat64x2_BinaryOp, Line: 58, Column: 1, Character Position: 1581
-[FunctionCompiled]: Function: testSIMDFloat64x2_Clamp, Line: 229, Column: 1, Character Position: 6259
-[FunctionCompiled]: Function: testSIMDFloat64x2_CompareOp, Line: 116, Column: 1, Character Position: 3184
-[FunctionCompiled]: Function: testSIMDFloat64x2_Select, Line: 254, Column: 1, Character Position: 7094
-[FunctionCompiled]: Function: testSIMDFloat64x2_Shuffle, Line: 192, Column: 1, Character Position: 5141
-[FunctionCompiled]: Function: testSIMDFloat64x2_ShuffleMix, Line: 210, Column: 1, Character Position: 5665
-[FunctionCompiled]: Function: testSIMDFloat64x2_UnaryOp, Line: 86, Column: 1, Character Position: 2369
-[FunctionCompiled]: Function: testSIMDFloat64x2_conversion, Line: 33, Column: 1, Character Position: 832
+[FunctionCompiled]: Function: testSIMDFloat64x2_BinaryOp, Line: 58, Column: 1, Character Position: 1584
+[FunctionCompiled]: Function: testSIMDFloat64x2_Clamp, Line: 229, Column: 1, Character Position: 6220
+[FunctionCompiled]: Function: testSIMDFloat64x2_CompareOp, Line: 116, Column: 1, Character Position: 3187
+[FunctionCompiled]: Function: testSIMDFloat64x2_Select, Line: 254, Column: 1, Character Position: 7055
+[FunctionCompiled]: Function: testSIMDFloat64x2_Shuffle, Line: 210, Column: 1, Character Position: 5656
+[FunctionCompiled]: Function: testSIMDFloat64x2_Swizzle, Line: 192, Column: 1, Character Position: 5144
+[FunctionCompiled]: Function: testSIMDFloat64x2_UnaryOp, Line: 86, Column: 1, Character Position: 2372
+[FunctionCompiled]: Function: testSIMDFloat64x2_conversion, Line: 33, Column: 1, Character Position: 835
 Passed: Validation
 Script Profiler ends

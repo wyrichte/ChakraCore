@@ -2,6 +2,7 @@ function asmModule(stdlib, imports) {
     "use asm";
     
     var i4 = stdlib.SIMD.int32x4;
+    var i4check = i4.check;
     var i4splat = i4.splat;
     var i4fromFloat64x2 = i4.fromFloat64x2;
     var i4fromFloat64x2Bits = i4.fromFloat64x2Bits;
@@ -31,6 +32,7 @@ function asmModule(stdlib, imports) {
     //var i4shiftRightArithmeticByScalar = i4.shiftRightArithmeticByScalar;
 
     var f4 = stdlib.SIMD.float32x4;  
+    var f4check = f4.check;
     var f4splat = f4.splat;
     var f4fromFloat64x2 = f4.fromFloat64x2;
     var f4fromFloat64x2Bits = f4.fromFloat64x2Bits;
@@ -68,6 +70,7 @@ function asmModule(stdlib, imports) {
     var f4not = f4.not;
 
     var d2 = stdlib.SIMD.float64x2;  
+    var d2check = d2.check;
     var d2splat = d2.splat;
     var d2fromFloat32x4 = d2.fromFloat32x4;
     var d2fromFloat32x4Bits = d2.fromFloat32x4Bits;
@@ -99,9 +102,9 @@ function asmModule(stdlib, imports) {
 
     var fround = stdlib.Math.fround;
 
-    var globImportF4 = f4(imports.g1);       // global var import
-    var globImportI4 = i4(imports.g2);       // global var import
-    var globImportD2 = d2(imports.g3);       // global var import
+    var globImportF4 = f4check(imports.g1);       // global var import
+    var globImportI4 = i4check(imports.g2);       // global var import
+    var globImportD2 = d2check(imports.g3);       // global var import
     var g1 = f4(-5033.2,-3401.0,665.34,32234.1);          // global var initialized
     var g2 = i4(1065353216, -1073741824, -1077936128, 1082130432);          // global var initialized
     var g3 = d2(0.12344,-1.6578);          // global var initialized
@@ -112,67 +115,72 @@ function asmModule(stdlib, imports) {
     
     var loopCOUNT = 3;
 
-    function func1(a, b)
+    function func1(a, i, b, count)
     {
-        a = f4(a);
-        b = f4(b);
+        a = f4check(a);
+        i = i | 0;
+        b = f4check(b);
+        count = count | 0;
+
         var x = f4(0.0,0.0,0.0,0.0);
         var loopIndex = 0;
-        
-        while ( (loopIndex|0) < (loopCOUNT|0)) {
+
+        while ( (loopIndex|0) < (count|0)) {
 
             x = f4add(a, b);
 
-            loopIndex = (loopIndex + 1) | 0;
+            loopIndex = (loopIndex + i) | 0;
         }
 
-        return f4(x);
+        return f4check(x);
     }
     
-    function func2(a, b, c, d)
+    function func2(a, count, b, c, d, i)
     {
-        a = f4(a);
-        b = f4(b);
-        c = f4(c);
-        d = f4(d);
+        a = f4check(a);
+        count = count | 0;
+        b = f4check(b);
+        c = f4check(c);
+        d = f4check(d);
+        i = i | 0;
         var x = f4(0.0,0.0,0.0,0.0);
         var y = f4(0.0,0.0,0.0,0.0);
         var loopIndex = 0;
-        for (loopIndex = 0; (loopIndex | 0) < (loopCOUNT | 0) ; loopIndex = (loopIndex + 1) | 0)
+        for (loopIndex = 0; (loopIndex | 0) < (count | 0) ; loopIndex = (loopIndex + i) | 0)
         {
-
-            x = f4(func1(a, b));
-            y = f4(func1(c, d));
-            
-
+            x = f4check(func1(a, 1, b, 3));
+            y = f4check(func1(c, 1, d, 3));
         }
 
-        return f4(f4add(x,y));
+        return f4check(f4add(x,y));
     }
 
-    function func3(a, b, c, d, e, f, g, h)
+    function func3(a, float1, b, c, float2, d, i, e, f, double3, g, h,  float4)
     {
-        a = f4(a);
-        b = f4(b);
-        c = f4(c);
-        d = f4(d);
-        e = f4(e);
-        f = f4(f);
-        g = f4(g);
-        h = f4(h);        
+        a = f4check(a);
+        float1 = fround(float1);
+        b = f4check(b);
+        c = f4check(c);
+        float2 = fround(float2);
+        d = f4check(d);
+        i = i | 0;
+        e = f4check(e);
+        f = f4check(f);
+        double3 = +double3;
+        g = f4check(g);
+        h = f4check(h);
+        float4 = fround(float4);        
         
         var x = f4(0.0,0.0,0.0,0.0);
         var y = f4(0.0,0.0,0.0,0.0);
         var loopIndex = 0;
-        for (loopIndex = 0; (loopIndex | 0) < (loopCOUNT | 0) ; loopIndex = (loopIndex + 1) | 0)
+        for (loopIndex = 0; (loopIndex | 0) < (loopCOUNT | 0) ; loopIndex = (loopIndex + i) | 0)
         {
-
-            x = f4(func2(a, b, c, d));
-            y = f4(func2(e, f, g, h));
-            
+            x = f4check(func2(a, 3, b, c, d, 1));
+            y = f4check(func2(e, 3, f, g, h, 1));
         }
 
-        return f4(f4add(x,y));
+        return f4check(f4add(x,y));
     }
     
     // TODO: Test conversion of returned value
@@ -207,9 +215,9 @@ var s6 = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
 var s7 = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
 var s8 = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
 
-var ret1 = m.func1(s1, s2);
-var ret2 = m.func2(s1, s2, s3, s4);
-var ret3 = m.func3(s1, s2, s3, s4, s5, s6, s7, s8);
+var ret1 = m.func1(s1, 1, s2, 3);
+var ret2 = m.func2(s1, 3, s2, s3, s4, 1);
+var ret3 = m.func3(s1, 33.2, s2, s3, 35.1, s4, 1, s5, s6, 1.0, s7, s8, 5.3);
 
 /*
 var ret4 = m.func4();

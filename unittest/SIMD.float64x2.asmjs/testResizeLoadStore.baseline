@@ -1,0 +1,7 @@
+Successfully compiled asm.js code
+float64x2(5.1,-0.0)
+float64x2(-0.0,6.1)
+Correct
+true
+float64x2(5.1,6.1)
+float64x2(5.1,6.1)

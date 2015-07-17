@@ -2,13 +2,13 @@ function asmModule(stdlib, imports) {
     "use asm";
     
     var i4 = stdlib.SIMD.int32x4;
+    var i4check = i4.check;
     var i4splat = i4.splat;
     var i4fromFloat64x2 = i4.fromFloat64x2;
     var i4fromFloat64x2Bits = i4.fromFloat64x2Bits;
     var i4fromFloat32x4 = i4.fromFloat32x4;
     var i4fromFloat32x4Bits = i4.fromFloat32x4Bits;
     //var i4abs = i4.abs;
-
     var i4neg = i4.neg;
     var i4add = i4.add;
     var i4sub = i4.sub;
@@ -32,6 +32,7 @@ function asmModule(stdlib, imports) {
     //var i4shiftRightArithmeticByScalar = i4.shiftRightArithmeticByScalar;
 
     var f4 = stdlib.SIMD.float32x4;  
+    var f4check = f4.check;
     var f4splat = f4.splat;
     var f4fromFloat64x2 = f4.fromFloat64x2;
     var f4fromFloat64x2Bits = f4.fromFloat64x2Bits;
@@ -69,6 +70,7 @@ function asmModule(stdlib, imports) {
     var f4not = f4.not;
 
     var d2 = stdlib.SIMD.float64x2;  
+    var d2check = d2.check;
     var d2splat = d2.splat;
     var d2fromFloat32x4 = d2.fromFloat32x4;
     var d2fromFloat32x4Bits = d2.fromFloat32x4Bits;
@@ -98,11 +100,12 @@ function asmModule(stdlib, imports) {
     var d2greaterThanOrEqual = d2.greaterThanOrEqual;
     var d2select = d2.select;
 
+
     var fround = stdlib.Math.fround;
 
-    var globImportF4 = f4(imports.g1);       // global var import
-    var globImportI4 = i4(imports.g2);       // global var import
-    var globImportD2 = d2(imports.g3);       // global var import
+    var globImportF4 = f4check(imports.g1);       // global var import
+    var globImportI4 = i4check(imports.g2);       // global var import
+    var globImportD2 = d2check(imports.g3);       // global var import
     var g1 = f4(-5033.2,-3401.0,665.34,32234.1);          // global var initialized
     var g2 = i4(1065353216, -1073741824, -1077936128, 1082130432);          // global var initialized
     var g3 = d2(0.12344,-1.6578);          // global var initialized
@@ -127,7 +130,7 @@ function asmModule(stdlib, imports) {
             loopIndex = (loopIndex + 1) | 0;
         }
 
-        return i4(x);
+        return i4check(x);
     }
     
     function func2()
@@ -143,7 +146,7 @@ function asmModule(stdlib, imports) {
 
         }
 
-        return i4(x);
+        return i4check(x);
     }
 
     function func3()
@@ -161,7 +164,7 @@ function asmModule(stdlib, imports) {
         }
         while ( (loopIndex | 0) > 0);
 
-        return i4(x);
+        return i4check(x);
     }
     
     

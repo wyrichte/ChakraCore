@@ -2,6 +2,7 @@ function asmModule(stdlib, imports) {
     "use asm";
     
     var i4 = stdlib.SIMD.int32x4;
+    var i4check = i4.check;
     var i4splat = i4.splat;
     var i4fromFloat64x2 = i4.fromFloat64x2;
     var i4fromFloat64x2Bits = i4.fromFloat64x2Bits;
@@ -31,6 +32,7 @@ function asmModule(stdlib, imports) {
     //var i4shiftRightArithmeticByScalar = i4.shiftRightArithmeticByScalar;
 
     var f4 = stdlib.SIMD.float32x4;  
+    var f4check = f4.check;
     var f4splat = f4.splat;
     var f4fromFloat64x2 = f4.fromFloat64x2;
     var f4fromFloat64x2Bits = f4.fromFloat64x2Bits;
@@ -68,6 +70,7 @@ function asmModule(stdlib, imports) {
     var f4not = f4.not;
 
     var d2 = stdlib.SIMD.float64x2;  
+    var d2check = d2.check;
     var d2splat = d2.splat;
     var d2fromFloat32x4 = d2.fromFloat32x4;
     var d2fromFloat32x4Bits = d2.fromFloat32x4Bits;
@@ -97,11 +100,12 @@ function asmModule(stdlib, imports) {
     var d2greaterThanOrEqual = d2.greaterThanOrEqual;
     var d2select = d2.select;
 
+
     var fround = stdlib.Math.fround;
 
-    var globImportF4 = f4(imports.g1);       // global var import
-    var globImportI4 = i4(imports.g2);       // global var import
-    var globImportD2 = d2(imports.g3);       // global var import
+    var globImportF4 = f4check(imports.g1);       // global var import
+    var globImportI4 = i4check(imports.g2);       // global var import
+    var globImportD2 = d2check(imports.g3);       // global var import
     var g1 = f4(-5033.2,-3401.0,665.34,32234.1);          // global var initialized
     var g2 = i4(1065353216, -1073741824, -1077936128, 1082130432);          // global var initialized
     var g3 = d2(0.12344,-1.6578);          // global var initialized
@@ -114,8 +118,8 @@ function asmModule(stdlib, imports) {
 
     function func1(a, b)
     {
-        a = i4(a);
-        b = i4(b);
+        a = i4check(a);
+        b = i4check(b);
         var x = i4(0,0,0,0);
 
         var loopIndex = 0;
@@ -126,40 +130,40 @@ function asmModule(stdlib, imports) {
             loopIndex = (loopIndex + 1) | 0;
         }
 
-        return i4(x);
+        return i4check(x);
     }
     
     function func2(a, b, c, d)
     {
-        a = i4(a);
-        b = i4(b);
-        c = i4(c);
-        d = i4(d);
+        a = i4check(a);
+        b = i4check(b);
+        c = i4check(c);
+        d = i4check(d);
         var x = i4(0,0,0,0);
         var y = i4(0,0,0,0);
         var loopIndex = 0;
         for (loopIndex = 0; (loopIndex | 0) < (loopCOUNT | 0) ; loopIndex = (loopIndex + 1) | 0)
         {
 
-            x = i4(func1(a, b));
-            y = i4(func1(c, d));
+            x = i4check(func1(a, b));
+            y = i4check(func1(c, d));
             
 
         }
 
-        return i4(i4add(x,y));
+        return i4check(i4add(x,y));
     }
 
     function func3(a, b, c, d, e, f, g, h)
     {
-        a = i4(a);
-        b = i4(b);
-        c = i4(c);
-        d = i4(d);
-        e = i4(e);
-        f = i4(f);
-        g = i4(g);
-        h = i4(h);        
+        a = i4check(a);
+        b = i4check(b);
+        c = i4check(c);
+        d = i4check(d);
+        e = i4check(e);
+        f = i4check(f);
+        g = i4check(g);
+        h = i4check(h);        
         
         var x = i4(0,0,0,0);
         var y = i4(0,0,0,0);
@@ -167,12 +171,12 @@ function asmModule(stdlib, imports) {
         for (loopIndex = 0; (loopIndex | 0) < (loopCOUNT | 0) ; loopIndex = (loopIndex + 1) | 0)
         {
 
-            x = i4(func2(a, b, c, d));
-            y = i4(func2(e, f, g, h));
+            x = i4check(func2(a, b, c, d));
+            y = i4check(func2(e, f, g, h));
             
         }
 
-        return i4(i4add(x,y));
+        return i4check(i4add(x,y));
     }
     
     // TODO: Test conversion of returned value
