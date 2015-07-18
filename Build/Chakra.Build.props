@@ -99,18 +99,18 @@
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <SmallerTypeCheck>false</SmallerTypeCheck>
 
-      <!-- ========= Other defaults ========= -->          
-      <!-- /MD -->
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-
+      <!-- /Zl -->
+      <OmitDefaultLibName>true</OmitDefaultLibName>
+      
       <!-- Enable Minimal rebuild inside VS, we can expand it if it is worth while (minmial rebuild has PCH problem with optimized build -->
       <MinimalRebuild>false</MinimalRebuild>
       <MinimalRebuild Condition="'$(BuildingInsideVisualStudio)'=='true' AND '$(Configuration)' == 'chk'">true</MinimalRebuild>
 
-
     </ClCompile>
     
     <Link>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      
       <!-- ======== From makefile.def ======== -->
       <!-- REVIEW: NOOPTIDATA is undocumented, prevent .idata to be merged into .text-->
       <AdditionalOptions>%(AdditionalOptions) /NOVCFEATURE /NOOPTIDATA /SECTION:.idata,R</AdditionalOptions>
@@ -119,12 +119,7 @@
           # debugger to automatically step over marshalling code. -->
       <AdditionalOptions>%(AdditionalOptions) /merge:.orpc=.text</AdditionalOptions>
       <Version>$(LinkerAppVersion)</Version>
-      <AdditionalOptions>%(AdditionalOptions) /osversion:$(LinkerOSVersion)</AdditionalOptions>
-      <MinimumRequiredVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win7)'" >6.1</MinimumRequiredVersion>
-      <MinimumRequiredVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win8)'" >6.2</MinimumRequiredVersion>
-      <MinimumRequiredVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win10)'" >10.00</MinimumRequiredVersion>
-      <!-- Always set the checksum -->
-      <AdditionalOptions>%(AdditionalOptions) /release</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /osversion:$(LinkerOSVersion)</AdditionalOptions>     
 
       <!-- Clear all the library and we build our own lib list -->
       <AdditionalDependencies />

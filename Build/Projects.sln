@@ -23,7 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dep", "dep", "{D231BA17-AE3
 	ProjectSection(SolutionItems) = preProject
 		..\dep\common-iel1.vcxproj = ..\dep\common-iel1.vcxproj
 		..\dep\dtbhost.vcxproj = ..\dep\dtbhost.vcxproj
-		..\dep\IESettingsApi.vcxproj = ..\dep\IESettingsApi.vcxproj
 		..\dep\manifests-inbox.vcxproj = ..\dep\manifests-inbox.vcxproj
 		..\dep\ScriptProjectionHostApi.vcxproj = ..\dep\ScriptProjectionHostApi.vcxproj
 	EndProjectSection
@@ -31,7 +30,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584}"
 	ProjectSection(SolutionItems) = preProject
 		..\core\Lib\Backend\Chakra.Backend.vcxproj = ..\core\Lib\Backend\Chakra.Backend.vcxproj
-		..\core\lib\jsrt\Chakra.Jsrt.vcxproj = ..\core\lib\jsrt\Chakra.Jsrt.vcxproj
 		..\core\Lib\Parser\Chakra.Parser.vcxproj = ..\core\Lib\Parser\Chakra.Parser.vcxproj
 	EndProjectSection
 EndProject
@@ -117,6 +115,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreBuild", "CoreBuild", "{
 		..\core\Build\Common.Build.props = ..\core\Build\Common.Build.props
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{6DD17557-3A68-4A94-B436-DB674203B642}"
+	ProjectSection(SolutionItems) = preProject
+		..\core\bin\ChakraCore\ChakraCore.vcxproj = ..\core\bin\ChakraCore\ChakraCore.vcxproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jsrt", "Jsrt", "{B7F80C86-EF41-49A2-936F-3FCBF7DA8D24}"
+	ProjectSection(SolutionItems) = preProject
+		..\core\lib\jsrt\core\Chakra.Jsrt.Core.vcxproj = ..\core\lib\jsrt\core\Chakra.Jsrt.Core.vcxproj
+		..\core\lib\jsrt\Chakra.Jsrt.vcxproj = ..\core\lib\jsrt\Chakra.Jsrt.vcxproj
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,5 +142,7 @@ Global
 		{03D5837B-5546-4635-AA38-4D33AA5FB3BD} = {02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584}
 		{48F771CB-6E65-4F4D-986B-23A538D01324} = {02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584}
 		{7FF46A55-D677-4816-86C2-59034ECFA1EC} = {E0786480-1474-43B0-ACDC-6F05779D9D83}
+		{6DD17557-3A68-4A94-B436-DB674203B642} = {9423EC61-226A-4854-98DB-863286021CDE}
+		{B7F80C86-EF41-49A2-936F-3FCBF7DA8D24} = {02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584}
 	EndGlobalSection
 EndGlobal

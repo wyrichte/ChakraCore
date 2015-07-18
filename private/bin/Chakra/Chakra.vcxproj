@@ -7,7 +7,7 @@
     <RootNamespace>Chakra</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <TargetName>Chakra</TargetName>
-    <TargetName Condition="'$(FreTest)'=='true'">ChakraTest</TargetName>
+    <TargetName Condition="'$(FreTest)'=='true' and '$(BuildingWithBuildExe)'=='true'">ChakraTest</TargetName>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -66,11 +66,11 @@
     <ClCompile>      
       <AdditionalIncludeDirectories>
         $(MSBuildThisFileDirectory);
-        $(ChakraRootDirectory)core\Lib\Common;
-        $(ChakraRootDirectory)core\Lib\Parser;
-        $(ChakraRootDirectory)core\Lib\Runtime;
-        $(ChakraRootDirectory)core\Lib\Backend;
-        $(ChakraRootDirectory)core\Lib\Jsrt;
+        $(ChakraCoreRootDirectory)Lib\Common;
+        $(ChakraCoreRootDirectory)Lib\Parser;
+        $(ChakraCoreRootDirectory)Lib\Runtime;
+        $(ChakraCoreRootDirectory)Lib\Backend;
+        $(ChakraCoreRootDirectory)Lib\Jsrt;
         $(IntDir);
         $(ChakraManifestsIncludeDirectory);
 
@@ -279,8 +279,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptPixelArrayDispatch.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)javascriptThreadService.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)jsfac.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)jsrt.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtContext.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)jsrt.cpp" />   
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtContextChakra.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtDelegateWrapper.cpp" />    
     <ClCompile Include="$(MsBuildThisFileDirectory)NamedEventHandler.cpp" />

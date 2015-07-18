@@ -63,8 +63,9 @@
     <ChakraMemProtectHeapLibs>$(RazzleJscriptObjectRoot)\private\lib\memprotectheap\$(RazzleJscriptObjectDirectory)Chakra.MemProtectHeap.lib</ChakraMemProtectHeapLibs>
     
     
-    <ChakraLibs>$(ChakraCommonLibs);$(ChakraRuntimeLibs);$(ChakraParserLibs);$(ChakraBackendLibs);$(ChakraJsrtLibs);$(ChakraWinRTLibs);$(ChakraTelemetryLibs);$(ChakraMemProtectHeapLibs)</ChakraLibs>
+    <ChakraLibs>$(ChakraRuntimeLibs);$(ChakraParserLibs);$(ChakraBackendLibs);$(ChakraJsrtLibs);$(ChakraWinRTLibs);$(ChakraTelemetryLibs);$(ChakraMemProtectHeapLibs);$(ChakraCommonLibs)</ChakraLibs>
 
+    <ChakraJsrtCoreLibs>$(RazzleJscriptObjectRoot)\core\lib\jsrt\core\$(RazzleJscriptObjectDirectory)Chakra.Jsrt.Core.lib</ChakraJsrtCoreLibs>
 
     <!-- MSBuild doesn't like MachineARM64 yet and Microsoft.CppCommon.targets strangly use ImpLibAdditionaOptions instead of ImpLib.AdditionalOptions -->
     <ImpLibAdditionalOptions Condition="'$(Platform)'=='Arm64'">/machine:arm64 $(ImpLibAdditionalOptions)</ImpLibAdditionalOptions>
