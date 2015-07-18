@@ -358,7 +358,7 @@
     <default>
       <files>cross_scope.js</files>
       <baseline>cross_scope.deferparse.baseline</baseline>
-      <compile-flags>-testtrace:stackfunc -off:simpleJit -Force:Deferparse -on:stackfunc</compile-flags>
+      <compile-flags>-testtrace:stackfunc -off:simpleJit -Force:Deferparse -off:cachescopeinfonames -on:stackfunc</compile-flags>
       <tags>exclude_fre,exclude_dynapogo</tags>
     </default>
   </test>
@@ -415,7 +415,7 @@
     <default>
       <files>multinested_escape.js</files>
       <baseline>multinested_escape.deferparse.baseline</baseline>
-      <compile-flags>-testtrace:stackfunc -off:simpleJit -Force:Deferparse -on:stackfunc</compile-flags>
+      <compile-flags>-testtrace:stackfunc -off:simpleJit -Force:Deferparse -off:cachescopeinfonames -on:stackfunc</compile-flags>
       <tags>exclude_fre,exclude_dynapogo,exclude_arm</tags>
     </default>
   </test>
@@ -439,7 +439,7 @@
     <default>
       <files>box.js</files>
       <baseline>box.deferparse.baseline</baseline>
-      <compile-flags>-testtrace:stackfunc -off:simpleJit -Force:Deferparse -on:stackfunc</compile-flags>
+      <compile-flags>-testtrace:stackfunc -off:simpleJit -Force:Deferparse -off:cachescopeinfonames -on:stackfunc</compile-flags>
       <tags>exclude_fre,exclude_dynapogo,exclude_nonative,exclude_arm</tags>
     </default>
   </test>
@@ -447,7 +447,7 @@
     <default>
       <files>box.js</files>
       <baseline>box.deferparse.baseline</baseline>
-      <compile-flags>-testtrace:stackfunc -off:simpleJit -Force:Deferparse -force:inline -on:stackfunc</compile-flags>
+      <compile-flags>-testtrace:stackfunc -off:simpleJit -Force:Deferparse -off:cachescopeinfonames -force:inline -on:stackfunc</compile-flags>
       <tags>exclude_fre,exclude_dynapogo,exclude_nonative,exclude_arm</tags>
     </default>
   </test>
@@ -511,7 +511,7 @@
     <default>
       <files>box_callparam.js</files>
       <baseline>box_callparam.deferparse.baseline</baseline>
-      <compile-flags>-testtrace:stackfunc -off:simpleJit -on:stackfunc -force:deferparse</compile-flags>
+      <compile-flags>-testtrace:stackfunc -off:simpleJit -on:stackfunc -force:deferparse -off:cachescopeinfonames </compile-flags>
       <tags>exclude_fre,exclude_dynapogo</tags>
     </default>
   </test>
@@ -543,7 +543,7 @@
     <default>
       <files>jitdefer.js</files>
       <baseline>jitdefer.deferparse.baseline</baseline>
-      <compile-flags>-testtrace:stackfunc -off:simpleJit -on:stackfunc -force:deferparse</compile-flags>
+      <compile-flags>-testtrace:stackfunc -off:simpleJit -on:stackfunc -force:deferparse -off:cachescopeinfonames</compile-flags>
       <tags>exclude_fre,exclude_dynapogo,exclude_arm,exclude_nonative</tags>
     </default>
   </test>
