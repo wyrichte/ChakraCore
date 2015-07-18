@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">$(MSBuildProjectDirectory)\..\</SolutionDir>
+        <PackageSource>\\chakrafs01\Nuget\packages</PackageSource>
+        <!-- Enable the restore command to run before builds -->
+        <RestorePackages Condition="  '$(RestorePackages)' == '' ">false</RestorePackages>
+    </PropertyGroup>
+
+    <ItemGroup Condition=" '$(PackageSources)' == '' ">
+        <!-- Package sources used to restore packages. By default, registered sources under %APPDATA%\NuGet\NuGet.Config will be used -->
+        <!-- The official NuGet package source (https://www.nuget.org/api/v2/) will be excluded if package sources are specified and it does not appear in the list -->
+        <!--
+            <PackageSource Include="https://www.nuget.org/api/v2/" />
+            <PackageSource Include="https://my-nuget-source/nuget/" />
+        -->
+    </ItemGroup>
+
+    <PropertyGroup>
+      <NuGetToolsPath>\\chakrafs01\Nuget\support</NuGetToolsPath>
+      <PackagesConfig Condition="Exists('$(RepositoryRoot)\packages.config')">$(RepositoryRoot)\packages.config</PackagesConfig>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <!-- NuGet command -->
+        <NuGetExePath Condition=" '$(NuGetExePath)' == '' ">$(NuGetToolsPath)\NuGet.exe</NuGetExePath>
+        <NuGetConfigFile Condition=" $(NuGetConfigFile) == '' ">$(NuGetToolsPath)\NuGet.config</NuGetConfigFile>
+
+        <NuGetCommand Condition=" '$(OS)' == 'Windows_NT'">"$(NuGetExePath)"</NuGetCommand>
+
+        <PackageOutputDir Condition="$(PackageOutputDir) == ''">$(TargetDir.Trim('\\'))</PackageOutputDir>
+
+        <NonInteractiveSwitch Condition=" '$(VisualStudioVersion)' != '' AND '$(OS)' == 'Windows_NT' ">-NonInteractive</NonInteractiveSwitch>
+
+        <ExpandedPackageDir Condition=" '$(OS)' == 'Windows_NT'">"$(RepositoryRoot)\External"</ExpandedPackageDir>
+
+        <!-- Commands -->
+        <RestoreCommand>$(NuGetCommand) install "$(PackagesConfig)" $(NonInteractiveSwitch) -ConfigFile $(NuGetConfigFile) -Source $(PackageSource) -OutputDirectory $(ExpandedPackageDir)</RestoreCommand>
+    </PropertyGroup>
+
+    <Target Name="CheckPrerequisites" AfterTargets="EnsureNuGetPackageBuildImports">
+        <!-- Raise an error if we're unable to locate nuget.exe  -->
+        <Error Condition="'$(DownloadNuGetExe)' != 'true' AND !Exists('$(NuGetExePath)')" Text="Unable to locate '$(NuGetExePath)'" />        
+    </Target>
+
+    <Target Name="RestorePackages" DependsOnTargets="CheckPrerequisites" AfterTargets="EnsureNuGetPackageBuildImports">
+        <Message Text="Running restore packages target" />
+        <Message Condition="'$(RestorePackages)' == 'false'" Text="Skipping RestorePackages since it's false" />
+        <Message Condition="'$(RestorePackages)' == 'true'" Text="Running $(RestoreCommand)" />
+
+        <Exec Command="$(RestoreCommand)"
+              LogStandardErrorAsError="true"
+              Condition="'$(OS)' == 'Windows_NT' And Exists('$(PackagesConfig)') AND '$(RestorePackages)' == 'true'" />
+    </Target>
+
+    <!-- OSS TODO: Consume package.config, create properties for each package element and use that instead of hardcoding paths in Build.Git.props -->
+
+</Project>

@@ -20,6 +20,8 @@
     <MinWinPrivSdkIncPath>$(PublicInternalPath)\minwin\priv_sdk\inc</MinWinPrivSdkIncPath>
     <MinWinPrivSdkLibPath>$(PublicInternalPath)\minwin\priv_sdk\lib\$(PlatformPathNameAlt)</MinWinPrivSdkLibPath>
     <MinCorePrivSdkLibPath>$(PublicInternalPath)\mincore\priv_sdk\lib\$(PlatformPathNameAlt)</MinCorePrivSdkLibPath>
+    <BaseLibPath Condition="'$(BaseLibPath)'==''">$(PublicInternalPath)\base\lib\$(PlatformPathNameAlt)</BaseLibPath>
+
     <SdkToolsIncPath>$(PublicInternalPath)\sdktools\inc</SdkToolsIncPath>
   </PropertyGroup>
   <!-- Output directories -->
@@ -45,14 +47,15 @@
     <IncludePath>$(IncludePath);$(SolutionDir)..\..\inc</IncludePath>
     
     
-    <ExecutablePath>$(RazzleToolPath)\Dev12\x32\$(PlatformPathName);$(RazzleToolPath)\x86;$(RazzleToolPath)\perl\bin;d:\win\ie\tool</ExecutablePath>
-    
+    <ExecutablePath>$(RazzleToolPath)\Dev12\x32\$(PlatformPathName);$(RazzleToolPath)\x86;$(RazzleToolPath)\perl\bin;</ExecutablePath>
+    <ExecutablePath Condition="'$(PlatformPathName)'=='amd64' and '$(BuildingInsideVisualStudio)'!='true'">$(RazzleToolPath)\Dev12\x64\$(PlatformPathName);$(RazzleToolPath)\amd64;$(RazzleToolPath)\perl\bin;</ExecutablePath>
+   
     <GenerateManifest>false</GenerateManifest>
     <!-- disable incremental build because some library from public contains /GL objects -->
     <LinkIncremental>false</LinkIncremental>
     <!-- Minimal Rebuild /Gm write to this file that we don't really depend on -->
     <NoDependencies>%(NoDependencies);$(IntDir)vc100.idb;$(IntDir)vc100.pdb;$(IntDir)vc110.idb;$(IntDir)vc110.pdb;$(IntDir)vc120.pdb;$(IntDir)vc120.idb</NoDependencies>
-    <ManifestsInboxIncludeDirectory>$(IntDir)..\manifests-inbox</ManifestsInboxIncludeDirectory>
+    <ManifestsInboxIncludeDirectory Condition="'$(ManifestsInboxIncludeDirectory)'==''">$(IntDir)..\manifests-inbox</ManifestsInboxIncludeDirectory>
     <ChakraManifestsIncludeDirectory>$(IntDir)..\manifests</ChakraManifestsIncludeDirectory>
     <ChakraParserIntDir>$(IntDir)..\Chakra.Parser</ChakraParserIntDir>
     <JscriptInfoIntDir>$(IntDir)..\Chakra</JscriptInfoIntDir>

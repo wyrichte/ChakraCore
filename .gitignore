@@ -1,0 +1,12 @@
+*.log
+External/
+*.sdf
+*.suo
+*.opensdf
+Build/VCBuild/
+Build/ipch/
+build_*.log
+build_*.wrn
+build_*.err
+Build/swum-cache.txt
+*.tlog/

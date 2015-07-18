@@ -174,7 +174,9 @@
     <ClInclude Include="WScriptJsrt.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="JsHost.rc" />
+    <ResourceCompile Include="JsHost.rc">
+      <AdditionalIncludeDirectories>$(RazzleToolSdkIncDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="JsHostScriptSite.idl">
@@ -184,9 +186,10 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\dep\common-iel1.vcxproj">
+    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\dep\common-iel1.vcxproj">
       <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0814}</Project>
     </ProjectReference>
+
     <ProjectReference Include="..\..\Lib\SCALookup\Chakra.SCAlookup.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac36}</Project>
     </ProjectReference>
@@ -205,5 +208,7 @@
   <ItemGroup>
     <None Include="jshost.def" />
   </ItemGroup>
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+
 </Project>

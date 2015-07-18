@@ -17,7 +17,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <ItemGroup>
+  <ItemGroup Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'">
     <Midl Include="..\..\published\internal\inc\activdbg_private.idl" />
     <Midl Include="..\..\published\internal\inc\activscp2.idl" />
     <Midl Include="..\..\published\internal\inc\activscp_private.idl" />

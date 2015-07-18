@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- TODO: Can we remove this ItemGroup -->
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F4CEA127-8D10-4C02-BF29-41F0643C11BB}</ProjectGuid>
+    <RootNamespace>ChakraNugetProject</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+
+  <PropertyGroup>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseUnicrt>false</UseUnicrt>
+    <UrtVer>4.5</UrtVer>
+    <Use_Asmmeta>false</Use_Asmmeta>
+    <RestorePackages>true</RestorePackages>
+    <RepositoryRoot Condition="'$(RepositoryRoot)' == ''">$(SolutionDir)\..</RepositoryRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="$(RepositoryRoot)\packages.config" />
+  </ItemGroup>
+
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Message Text="Checked for NuGet Package build imports" />
+  </Target>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

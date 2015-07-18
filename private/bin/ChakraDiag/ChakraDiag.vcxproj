@@ -47,6 +47,10 @@
         $(ChakraRootDirectory)private\Bin\Chakra;
         $(SdkToolsIncPath)
       </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+        %(AdditionalIncludeDirectories);
+        $(RazzleToolSdkIncDirectory);
+      </AdditionalIncludeDirectories>
       <!-- 
         4189: local variable is initialized but not referenced
         4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow) 
@@ -168,7 +172,8 @@
     <ClInclude Include="RemoteTypeHandler.h" />
     <ClInclude Include="RuntimeCore.h" />
     <ClInclude Include="guids.h" />
-    <Midl Include="..\..\..\..\published\sdk\inc\jscript9diag.idl" Condition="'$(BuildingWithBuildExe)'!='true'" />
+    <!-- TODO: Remove this line entirely once using the VS solution from the git repo becomes the norm -->
+    <Midl Include="..\..\..\..\published\sdk\inc\jscript9diag.idl" Condition="'$(BuildingWithBuildExe)'!='true' AND '$(BuildingGitRepo)'!='true' " />
     <ClInclude Include="jsdebug.h" />
     <ClInclude Include="jsdebugProcess.h" />
     <ClInclude Include="jsdebugStackWalker.h" />
@@ -193,7 +198,12 @@
     <ClInclude Include="VirtualReader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="$(MSBuildThisFileDirectory)jscript9diag.rc" />
+    <ResourceCompile Include="$(MSBuildThisFileDirectory)jscript9diag.rc">
+      <AdditionalIncludeDirectories>
+        %(AdditionalIncludeDirectories);
+        $(RazzleToolSdkIncDirectory);
+      </AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="JsDebug.rgs" />

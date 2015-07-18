@@ -6,3 +6,4 @@ DIRS = \
     tools{!min_rt} \
     ProjectionTests{!EXCLUDE_IE_MAIN,!min_rt}\
     unittest{!min_rt} \
+    static{!min_rt} \

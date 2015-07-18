@@ -159,6 +159,31 @@
         <!-- All for ScriptProjectionHostApi -->
         $(OBJECT_ROOT)\inetcore\lib\ScriptProjectionHost\iel3_edge\$(ObjectDirectory)ScriptProjectionHost_Edge_iel3.lib;
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
+        $(PUBLIC_ROOT)\internal\base\lib\$(PlatformPathNameAlt)\AppModel\Common\AppModel.Common.lib;
+        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-l1.lib;
+        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-ro-typeresolution-l1.lib
+      </AdditionalDependencies>
+      <DelayLoadDLLs>
+        %(DelayLoadDLLs);
+        ext-ms-win-rometadata-dispenser-l1-1-0.dll;
+        api-ms-win-core-winrt-l1-1-0.dll;
+        api-ms-win-ro-typeresolution-l1-1-0.dll
+      </DelayLoadDLLs>
+    </Link>
+    <!-- TODO: This will be the default for the VS Solution too once we stop relying on the solution in SD -->
+    <Link Condition="'$(BuildingGitRepo)'=='true'">
+      <!-- For Razzle build, Solution relies on ProjectReferences -->
+      <AdditionalDependencies>
+        $(ChakraLibs);
+        %(AdditionalDependencies);
+        <!-- iedevtools_host_iel1.lib:
+              LoadLatestPDM
+              ShouldUseLocalPDM -->
+        $(IELibPath)\devtb\dtbhost\$(ExternalObjDirectory)\iedevtools_host_iel1.lib;
+        
+        <!-- All for ScriptProjectionHostApi -->
+        $(IELibPath)\ScriptProjectionHost\iel3_edge\$(ExternalObjDirectory)\ScriptProjectionHost_Edge_iel3.lib;
+        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
         $(BaseLibPath)\AppModel\Common\AppModel.Common.lib;
         $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-l1.lib;
         $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-ro-typeresolution-l1.lib
@@ -475,13 +500,16 @@
         $(ManifestsInboxIncludeDirectory);
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(RazzleToolSdkIncDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+
     <ProjectReference Include="..\..\..\core\lib\jsrt\Chakra.Jsrt.vcxproj">
       <Project>{706083f7-6aa4-4558-a153-6352ef9220f5}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\publish\Publish.vcxproj">
+    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\publish\Publish.vcxproj">
+
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
       <Private>true</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
@@ -508,9 +536,10 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\dep\ScriptProjectionHostApi.vcxproj">
+    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\dep\ScriptProjectionHostApi.vcxproj">
       <Project>{62154ab9-058d-4aa5-98e2-bc6d9af71af4}</Project>
     </ProjectReference>
+
     <ProjectReference Include="..\..\..\core\Lib\Backend\Chakra.Backend.vcxproj">
       <Project>{18cf279f-188d-4655-b03d-74f65388e7d1}</Project>
     </ProjectReference>

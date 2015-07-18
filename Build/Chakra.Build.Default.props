@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"> 
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <BuildingGitRepo>false</BuildingGitRepo>
+    <BuildingGitRepo Condition="'$(REPO_ROOT)'!=''">true</BuildingGitRepo>
+  </PropertyGroup>
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="Chakra.Build.Razzle.Default.props" />
 
-  <!-- This needs to be after Chakra.Build.Razzle.Default.props, which sets the Configuration -->
-  <Import Project="$(ChakraCoreBuildDirectory)Common.Build.Default.props" />
-  
   <PropertyGroup>
     <!-- In razzle, Platform is inferred from environment variable _BuildArch, so import Chakra.Build.Razzle.Default.props first -->
     <PlatformPathName>$(Platform)</PlatformPathName>
@@ -13,6 +14,12 @@
     <PlatformPathNameAlt>$(PlatformPathName)</PlatformPathNameAlt>
     <PlatformPathNameAlt Condition="'$(Platform)'=='Win32'">i386</PlatformPathNameAlt>
   </PropertyGroup>
+
+  <Import Condition="'$(BuildingGitRepo)'=='true'" Project="Chakra.Build.Git.Default.props" />
+
+  <!-- This needs to be after Chakra.Build.Razzle.Default.props, which sets the Configuration -->
+  <Import Project="$(ChakraCoreBuildDirectory)Common.Build.Default.props" />
+ 
   <Import Condition="'$(BuildingWithBuildExe)'!='true'" Project="Chakra.Build.Solution.Default.props" />
 
   <PropertyGroup>

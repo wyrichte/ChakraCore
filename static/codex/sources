@@ -1,0 +1,28 @@
+!include ..\..\jslib.inc
+
+TARGETNAME=Chakra.Static.Codex
+TARGETTYPE=LIBRARY
+
+INCLUDES= $(COREINCLUDES);
+
+!if "$(_BUILDARCH)" == "AMD64"
+INCLUDES=$(INCLUDES);amd64
+!else
+INCLUDES=$(INCLUDES);arm
+!endif
+
+PRECOMPILED_INCLUDE=..\stdafx.h
+PRECOMPILED_SOURCEFILE=..\stdafx.cpp
+PRECOMPILED_CXX=1
+
+SOURCES=     \
+    CodexAssertImpl.cpp \
+
+OBJLIBFILES= \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\common\codex\$(O)\chakra.common.codex.lib \
+
+# The old yvals.h header (usually pulled in through <new>) is missing a pop pragma which caused
+# the below errors to be suppressed by accident.  The new yvals.h header fixes this so these warnings
+# are now errors in this project.  To maintain pre-existing behavior these warnings are disabled; you
+# are encouraged to remove the /wd entries and fix the warnings in your code.
+MSC_WARNING_LEVEL=$(MSC_WARNING_LEVEL) /wd4245
