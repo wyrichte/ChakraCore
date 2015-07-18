@@ -715,7 +715,7 @@ sub parse_args()
             {
                 $iter = 5;
             }
-            @testlist = ("bigfib.cpp", "container.cpp", "dry.c", "float-mm.c", "gcc-loops.cpp", "hash-map", "n-body.c", "quicksort.c", "towers.c");
+            @testlist = ("bigfib.cpp", "container.cpp", "dry.c", "float-mm.c", "gcc-loops.cpp", "hash-map", "n-body.c", "quicksort.c", "towers.c", "cdjs");
             $testDescription = "JetStream benchmark";
             $parse_time = 0;
             $parse_scores = 1;
