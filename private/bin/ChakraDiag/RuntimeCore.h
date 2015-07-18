@@ -327,7 +327,7 @@ namespace Projection
 #include "JavascriptExternalFunction.h" // Not really using this one, needed for JavascriptLibrary and is using JavascriptFunction which is using DynamicObject.
 #include "JavascriptTypedObjectSlotAccessorFunction.h"
 #include "CharStringCache.h"
-#include "..\..\..\private\lib\staticlib\base\JavascriptLibrarybase.h"
+#include "JavascriptLibrarybase.h"
 #include "JavascriptLibrary.h"
 
 #ifdef SIMD_JS_ENABLED
@@ -343,7 +343,7 @@ namespace Projection
 #include "ThreadContextTLSEntry.h"
 #include "evalmaprecord.h"
 #include "ScriptContextOptimizationOverrideInfo.h"
-#include "..\..\..\private\Lib\staticlib\base\ScriptContextBase.h"
+#include "ScriptContextBase.h"
 #include "..\..\..\private\Lib\Telemetry\ScriptContextTelemetry.h"
 #include "ScriptContext.h"
 #include "InterpreterStackFrame.h"
