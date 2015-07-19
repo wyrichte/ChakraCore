@@ -15,7 +15,10 @@
 //=============================================================================================
 JsrtContext *JsrtContext::New(JsrtRuntime * runtime)
 {
-    return JsrtContextChakra::New(runtime);
+    JsrtContext * context = JsrtContextChakra::New(runtime);
+    // Pin the jsrtContext instance to javascript library so it doesn't get collected pre-maturely.
+    context->GetScriptContext()->GetLibrary()->PinJsrtContextObject(context);
+    return context;
 }
 
 /* static */
@@ -194,6 +197,7 @@ JsrtContextChakra::JsrtContextChakra(JsrtRuntime * runtime) :
 
     SetScriptContext(this->scriptEngine->GetScriptContext());
     Link();
+    PinCurrentJsrtContext();
 
     this->projectionDelegateWrapper = nullptr;
 }

@@ -188,6 +188,10 @@
         ///     A fatal error in the engine has occurred.
         /// </summary>
         JsErrorFatal,
+        /// <summary>
+        ///     A hosting API was called with object created on different javascript runtime.
+        /// </summary>
+        JsErrorWrongRuntime,
     } JsErrorCode;
 
     /// <summary>
