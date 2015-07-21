@@ -65,6 +65,7 @@ PROJECTION_SOURCES = \
         ..\ArrayAsVector.cpp \
         ..\ArrayProjection.cpp \
         ..\ArrayProjectionEnumerator.cpp \
+        ..\AttrParser.cpp \
         ..\ExternalWeakReferenceImpl.cpp \
         ..\ExternalWeakReferenceSourceImpl.cpp \
         ..\FinalizableTypedArrayContents.cpp \
@@ -97,7 +98,7 @@ EDIT_AND_CONTINUE_SOURCES = \
 
 # NON_LANGUAGE_SERVICE_SOURCES is appended in release/test sources
 NON_LANGUAGE_SERVICE_SOURCES = \
-        ..\jsrt.cpp \
+        ..\jsrtchakra.cpp \
         ..\JsrtContextChakra.cpp \
         ..\JsrtDelegateWrapper.cpp \
 

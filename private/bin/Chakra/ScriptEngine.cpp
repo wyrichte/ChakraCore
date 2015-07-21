@@ -825,6 +825,7 @@ const wchar_t *ScriptEngine::GetDispatchFunctionNameAndContext(Js::JavascriptFun
 // IActiveScriptDebug
 
 // === IActiveScriptDebug ===
+#include "AttrParser.h"
 STDMETHODIMP ScriptEngine::GetScriptTextAttributes(__RPC__in_ecount_full(uNumCodeChars) LPCOLESTR pstrCode, ULONG uNumCodeChars,
                                                    __RPC__in LPCOLESTR pstrDelimiter, DWORD dwFlags,
                                                    __RPC__inout_ecount_full(uNumCodeChars) SOURCE_TEXT_ATTR *prgsta)
@@ -832,7 +833,7 @@ STDMETHODIMP ScriptEngine::GetScriptTextAttributes(__RPC__in_ecount_full(uNumCod
     // Can be called even when no debugger
     if (GetScriptSiteHolder())
     {
-        Parser ps(GetScriptSiteHolder()->GetScriptSiteContext());
+        AttrParser ps(GetScriptSiteHolder()->GetScriptSiteContext());
         return ps.GetTextAttribs(pstrCode, uNumCodeChars, prgsta, uNumCodeChars, dwFlags, ComputeGrfscrUTF16(pstrDelimiter));
     }
     return E_FAIL;
@@ -844,7 +845,7 @@ HRESULT ScriptEngine::GetScriptTextAttributesUTF8(LPCUTF8 pchCode, ULONG cb,
 {
     if (GetScriptSiteHolder())
     {
-        Parser ps(GetScriptSiteHolder()->GetScriptSiteContext());
+        AttrParser ps(GetScriptSiteHolder()->GetScriptSiteContext());
         return ps.GetTextAttribsUTF8(pchCode, cb, prgsta, cch, dwFlags, ComputeGrfscrUTF16(pstrDelimiter));
     }
     return E_FAIL;
@@ -857,7 +858,7 @@ STDMETHODIMP ScriptEngine::GetScriptletTextAttributes(__RPC__in_ecount_full(cch)
     // Can be called even when no debugger
     if (GetScriptSiteHolder())
     {
-        Parser ps(GetScriptSiteHolder()->GetScriptSiteContext());
+        AttrParser ps(GetScriptSiteHolder()->GetScriptSiteContext());
         return ps.GetTextAttribs(pstrCode, cch, prgsta, cch, dwFlags, ComputeGrfscrUTF16(pstrDelimiter));
     }
     return E_FAIL;
@@ -5755,13 +5756,13 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
         END_TRANSLATE_EXCEPTION_TO_HRESULT(hr)
 
 
-            if (FAILED(hr))
+        if (FAILED(hr))
+        {
+            if (fReportError && SCRIPT_E_RECORDED == hr)
             {
-                if (fReportError && SCRIPT_E_RECORDED == hr)
-                {
-                    hr = ReportCompilerError(&si, &se, nullptr, sourceInfo);
-                }
+                hr = ReportCompilerError(&si, &se, nullptr, sourceInfo);
             }
+        }
     }
 
 LReturn:

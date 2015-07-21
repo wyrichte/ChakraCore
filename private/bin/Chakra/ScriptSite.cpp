@@ -1481,6 +1481,7 @@ ScriptSite::DispatchMap * ScriptSite::EnsureDispatchMap(void)
     return this->dispatchMap;
 }
 
+
 LCID ScriptSite::GetUserLocale(void)
 {
     if (NULL != scriptEngine)

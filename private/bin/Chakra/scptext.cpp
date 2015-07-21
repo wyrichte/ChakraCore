@@ -453,7 +453,7 @@ HRESULT CScriptSourceDocumentText::GetContextOfInternalPosition(
         else
         {
             ich = 0;
-            cch = LwMax(0, cch + ich - m_ichMinDisplay);
+            cch = max<long>(0, cch + ich - m_ichMinDisplay);
         }
 
         if (cch > m_ichLimDisplay - ich)

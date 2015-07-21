@@ -50,9 +50,6 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptPixelArrayDispatch.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)javascriptThreadService.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)jsfac.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)jsrt.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtContext.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtDelegateWrapper.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)NamedEventHandler.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)NamedItemList.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)NamespaceProjectionEnumerator.cpp" />
@@ -96,7 +93,6 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)StreamReader.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)StreamWriter.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)TestHooks.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)ThreadServiceWrapperBase.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)typeinfobuilder.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)UnknownImpl.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)VariableArgMethodHelper.cpp" />
@@ -126,7 +122,6 @@
     <ClInclude Include="breakpointProbe.h" />
     <ClInclude Include="builtinoperations.h" />
     <ClInclude Include="caller.h" />
-    <ClInclude Include="chakrart.h" />
     <ClInclude Include="CJavascriptOperations.h" />
     <ClInclude Include="classfac.h" />
     <ClInclude Include="codectx.h" />
@@ -165,10 +160,6 @@
     <ClInclude Include="jscriptdllcommon.h" />
     <ClInclude Include="jsfac.h" />
     <ClInclude Include="jsrt.h" />
-    <ClInclude Include="JsrtComException.h" />
-    <ClInclude Include="JsrtContext.h" />
-    <ClInclude Include="JsrtDelegateWrapper.h" />
-    <ClInclude Include="jsrtprivate.h" />
     <ClInclude Include="NamedEventHandler.h" />
     <ClInclude Include="NamedItemList.h" />
     <ClInclude Include="NamespaceProjectionEnumerator.h" />
@@ -213,7 +204,6 @@
     <ClInclude Include="SpecialProjection.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="TestHooks.h" />
-    <ClInclude Include="ThreadServiceWrapperBase.h" />
     <ClInclude Include="typeinfobuilder.h" />
     <ClInclude Include="UnknownImpl.h" />
     <ClInclude Include="VariableArgMethodHelper.h" />
@@ -238,10 +228,6 @@
     </MASM>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-
     <Filter Include="arm">
       <UniqueIdentifier>{ec0112d5-56f4-430b-abc9-8bdcde6d133f}</UniqueIdentifier>
     </Filter>

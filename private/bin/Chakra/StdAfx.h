@@ -55,7 +55,7 @@
 #include "activprof.h"
 #include "ad1ex.h"
 #include "typeinfobuilder.h"
-#include "..\..\lib\parser\var.h"
+#include "var.h"
 #include "dbgfmt.h"
 #include "codectx.h"
 #include "scpnode.h"

@@ -106,7 +106,7 @@ void NamedItemList::AddFirst(NamedItem * pnid)
         m_pnidFirst = pnid;
     }
 
-    pnid->ulHash = ComputeHash(pnid->bstrItemName);
+    pnid->ulHash = CaseInsensitiveComputeHash(pnid->bstrItemName);
     pnid->pnidNextHash = m_pnidTable[pnid->ulHash % knilTableSize];
     pnid->pnidPrevHash = NULL;
     if (NULL != m_pnidTable[pnid->ulHash % knilTableSize])
@@ -134,7 +134,7 @@ void NamedItemList::AddLast(NamedItem * pnid)
         m_pnidLast = pnid;
     }
 
-    pnid->ulHash = ComputeHash(pnid->bstrItemName);
+    pnid->ulHash = CaseInsensitiveComputeHash(pnid->bstrItemName);
     pnid->pnidNextHash = m_pnidTable[pnid->ulHash % knilTableSize];
     pnid->pnidPrevHash = NULL;
     if (NULL != m_pnidTable[pnid->ulHash % knilTableSize])
@@ -170,7 +170,7 @@ NamedItem * NamedItemList::Find(LPCOLESTR psz)
         return NULL;
 
     NamedItem * pnid;
-    for (pnid = m_pnidTable[ComputeHash(psz) % knilTableSize];
+    for (pnid = m_pnidTable[CaseInsensitiveComputeHash(psz) % knilTableSize];
         NULL != pnid;
         pnid = pnid->pnidNextHash
         )

@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E0786480
 		Chakra.Build.Razzle.props = Chakra.Build.Razzle.props
 		Chakra.Build.Solution.Default.props = Chakra.Build.Solution.Default.props
 		Chakra.Build.Solution.props = Chakra.Build.Solution.props
+		Chakra.NugetProject\Chakra.NugetProject.vcxproj = Chakra.NugetProject\Chakra.NugetProject.vcxproj
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{DDDCE490-9BC4-43E5-A700-346998D8E01D}"
@@ -124,6 +125,38 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jsrt", "Jsrt", "{B7F80C86-E
 	ProjectSection(SolutionItems) = preProject
 		..\core\lib\jsrt\core\Chakra.Jsrt.Core.vcxproj = ..\core\lib\jsrt\core\Chakra.Jsrt.Core.vcxproj
 		..\core\lib\jsrt\Chakra.Jsrt.vcxproj = ..\core\lib\jsrt\Chakra.Jsrt.vcxproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Razzle", "Razzle", "{E50CFD3E-C55D-4C06-9662-23B19D4E0EE3}"
+	ProjectSection(SolutionItems) = preProject
+		..\core\lib\Backend\release\Razzle.Backend.Release.vcxproj = ..\core\lib\Backend\release\Razzle.Backend.Release.vcxproj
+		..\core\lib\Backend\test\Razzle.Backend.Test.vcxproj = ..\core\lib\Backend\test\Razzle.Backend.Test.vcxproj
+		..\core\lib\common\common\release\Razzle.Common.Common.Release.vcxproj = ..\core\lib\common\common\release\Razzle.Common.Common.Release.vcxproj
+		..\core\lib\common\common\test\Razzle.Common.Common.Test.vcxproj = ..\core\lib\common\common\test\Razzle.Common.Common.Test.vcxproj
+		..\core\lib\common\core\release\Razzle.Common.Core.Release.vcxproj = ..\core\lib\common\core\release\Razzle.Common.Core.Release.vcxproj
+		..\core\lib\common\core\test\Razzle.Common.Core.Test.vcxproj = ..\core\lib\common\core\test\Razzle.Common.Core.Test.vcxproj
+		..\core\lib\common\DataStructures\release\Razzle.Common.DataStrctures.Release.vcxproj = ..\core\lib\common\DataStructures\release\Razzle.Common.DataStrctures.Release.vcxproj
+		..\core\lib\common\DataStructures\test\Razzle.Common.DataStructures.Test.vcxproj = ..\core\lib\common\DataStructures\test\Razzle.Common.DataStructures.Test.vcxproj
+		..\core\lib\common\Exceptions\release\Razzle.Common.Exceptions.Release.vcxproj = ..\core\lib\common\Exceptions\release\Razzle.Common.Exceptions.Release.vcxproj
+		..\core\lib\common\Exceptions\test\Razzle.Common.Exceptions.Test.vcxproj = ..\core\lib\common\Exceptions\test\Razzle.Common.Exceptions.Test.vcxproj
+		..\core\lib\common\Memory\release\Razzle.Common.Memory.Release.vcxproj = ..\core\lib\common\Memory\release\Razzle.Common.Memory.Release.vcxproj
+		..\core\lib\common\Memory\test\Razzle.Common.Memory.Test.vcxproj = ..\core\lib\common\Memory\test\Razzle.Common.Memory.Test.vcxproj
+		..\core\lib\common\util\release\Razzle.Common.Util.Release.vcxproj = ..\core\lib\common\util\release\Razzle.Common.Util.Release.vcxproj
+		..\core\lib\common\util\test\Razzle.Common.Util.Test.vcxproj = ..\core\lib\common\util\test\Razzle.Common.Util.Test.vcxproj
+		..\core\lib\jsrt\release\Razzle.Jsrt.Release.vcxproj = ..\core\lib\jsrt\release\Razzle.Jsrt.Release.vcxproj
+		..\core\lib\jsrt\test\Razzle.Jsrt.Test.vcxproj = ..\core\lib\jsrt\test\Razzle.Jsrt.Test.vcxproj
+		..\core\lib\Parser\release\Razzle.Parser.Release.vcxproj = ..\core\lib\Parser\release\Razzle.Parser.Release.vcxproj
+		..\core\lib\Parser\test\Razzle.Parser.Test.vcxproj = ..\core\lib\Parser\test\Razzle.Parser.Test.vcxproj
+		..\core\lib\Runtime\ByteCode\release\Razzle.Runtime.ByteCode.Release.vcxproj = ..\core\lib\Runtime\ByteCode\release\Razzle.Runtime.ByteCode.Release.vcxproj
+		..\core\lib\Runtime\ByteCode\test\Razzle.Runtime.ByteCode.Test.vcxproj = ..\core\lib\Runtime\ByteCode\test\Razzle.Runtime.ByteCode.Test.vcxproj
+		..\core\lib\Runtime\Language\release\Razzle.Runtime.Language.Release.vcxproj = ..\core\lib\Runtime\Language\release\Razzle.Runtime.Language.Release.vcxproj
+		..\core\lib\Runtime\Language\test\Razzle.Runtime.Language.Test.vcxproj = ..\core\lib\Runtime\Language\test\Razzle.Runtime.Language.Test.vcxproj
+		..\core\lib\Runtime\Library\release\Razzle.Runtime.Library.Release.vcxproj = ..\core\lib\Runtime\Library\release\Razzle.Runtime.Library.Release.vcxproj
+		..\core\lib\Runtime\Library\test\Razzle.Runtime.Library.Test.vcxproj = ..\core\lib\Runtime\Library\test\Razzle.Runtime.Library.Test.vcxproj
+		..\core\lib\Runtime\Math\release\Razzle.Runtime.Math.Release.vcxproj = ..\core\lib\Runtime\Math\release\Razzle.Runtime.Math.Release.vcxproj
+		..\core\lib\Runtime\Math\test\Razzle.Runtime.Math.Test.vcxproj = ..\core\lib\Runtime\Math\test\Razzle.Runtime.Math.Test.vcxproj
+		..\core\lib\Runtime\Types\release\Razzle.Runtime.Types.Release.vcxproj = ..\core\lib\Runtime\Types\release\Razzle.Runtime.Types.Release.vcxproj
+		..\core\lib\Runtime\Types\test\Razzle.Runtime.Types.Test.vcxproj = ..\core\lib\Runtime\Types\test\Razzle.Runtime.Types.Test.vcxproj
 	EndProjectSection
 EndProject
 Global

@@ -421,7 +421,6 @@ namespace Projection
 #include "JavascriptProxy.h"
 #undef IsJsDiag
 #include "RegexFlags.h"                 // Needed by regexp.h
-#include "var.h"
 #include "Chars.h"
 #include "CharMap.h"
 #include "CharSet.h"

@@ -204,9 +204,6 @@
     <PublishGenerated Include="$(MsBuildThisFileDirectory)jsrt.h">
       <DestinationFile>$(SdkIncPath)\jsrt.h</DestinationFile>
     </PublishGenerated>
-    <PublishGenerated Include="$(MsBuildThisFileDirectory)chakrart.h">
-      <DestinationFile>$(SdkIncPath)\chakrart.h</DestinationFile>
-    </PublishGenerated>
     <PublishCompiled Include="$(ObjectPath)\$(ObjectDirectory)$(TargetName).lib">
       <DestinationFile>$(SdkLibPath)\chakrart.lib</DestinationFile>
     </PublishCompiled>
@@ -239,6 +236,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsVector.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ArrayProjection.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ArrayProjectionEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)AttrParser.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)breakpointProbe.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)caller.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)CJavascriptOperations.cpp" />
@@ -279,7 +277,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptPixelArrayDispatch.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)javascriptThreadService.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)jsfac.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)jsrt.cpp" />   
+    <ClCompile Include="$(MsBuildThisFileDirectory)jsrtchakra.cpp" />   
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtContextChakra.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtDelegateWrapper.cpp" />    
     <ClCompile Include="$(MsBuildThisFileDirectory)NamedEventHandler.cpp" />
@@ -392,10 +390,10 @@
     <ClInclude Include="ArrayAsVector.h" />
     <ClInclude Include="ArrayProjection.h" />
     <ClInclude Include="ArrayProjectionEnumerator.h" />
+    <ClInclude Include="AttrParser.h" />
     <ClInclude Include="breakpointProbe.h" />
     <ClInclude Include="builtinoperations.h" />
-    <ClInclude Include="caller.h" />
-    <ClInclude Include="chakrart.h" />
+    <ClInclude Include="caller.h" />   
     <ClInclude Include="CJavascriptOperations.h" />
     <ClInclude Include="classfac.h" />
     <ClInclude Include="codectx.h" />
@@ -491,9 +489,10 @@
     <ClInclude Include="ExternalWeakReferenceImpl.h" />
     <ClInclude Include="ExternalWeakReferenceSourceImpl.h" />
     <ClInclude Include="ChakraVersion.h" />
+    <ClInclude Include="var.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="$(MsBuildThisFileDirectory)jscript9.rc">
+    <ResourceCompile Include="$(MsBuildThisFileDirectory)chakra.rc">
       <AdditionalIncludeDirectories>
         $(ChakraParserIntDir);
         $(ManifestsInboxIncludeDirectory);
