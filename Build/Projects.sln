@@ -159,6 +159,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Razzle", "Razzle", "{E50CFD
 		..\core\lib\Runtime\Types\test\Razzle.Runtime.Types.Test.vcxproj = ..\core\lib\Runtime\Types\test\Razzle.Runtime.Types.Test.vcxproj
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5D62C46A-CCBB-461E-9B67-5D7CEB635A54}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

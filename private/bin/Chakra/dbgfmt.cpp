@@ -102,13 +102,9 @@ STDMETHODIMP ComDebugFormatter::GetStringForVariant(VARIANT *pvarIn,
         DebugOnly(pstrT = NULL);
         Assert(SUCCEEDED(hr));
 
-#ifdef TODO_DEBUGGER
-LRestart:
-#endif
         long lVal;
         ULONG ulVal;
-        double dblVal;
-        VAR varVal;
+        double dblVal;        
         OLECHAR strBuffer[kcchBufferMax];
         switch (pvarIn->vt)
         {
@@ -211,64 +207,6 @@ LReal:
             IUnknown *punk;
             pstrT = OLESTR("");
             punk = pvarIn->punkVal;
-#ifdef TODO_DEBUGGER
-            DateObj *pdate;
-            if (SUCCEEDED(punk->QueryInterface(IID_IJsDateObj, (void **)&pdate)))
-            {
-                // Dates return the string.
-                hr = pdate->GetString(&varVal, kdsfDefault);
-                pdate->Release();
-
-LVarVal:
-                if (FAILED(hr))
-                    goto LExit;
-                VariantClear(&varT);
-                if (FAILED(hr = varVal.GetStdVar(&varT)))
-                    goto LExit;
-                Assert(VT_BSTR == varT.vt);
-                // Take ownership of the bstr.
-                *pbstr = varT.bstrVal; 
-                varT.vt = VT_EMPTY;
-                goto LExit;
-            }
-            RegExpObj *pre;
-            if (SUCCEEDED(punk->QueryInterface(IID_IJsRegExpObj, (void **)&pre)))
-            {
-                // Regular expressions return the string.
-                hr = pre->GetString(&varVal);
-                pre->Release();
-                goto LVarVal;
-            }
-            NameTbl *pntbl;
-            if (SUCCEEDED(punk->QueryInterface(IID_INameTbl, (void **)&pntbl)))
-            {
-                VAR var;
-                hr = pntbl->GetVarThis(&var);
-                pntbl->Release();
-                if (FAILED(hr))
-                    goto LExit;
-                VariantClear(&varT);
-                if (FAILED(hr = var.GetStdVar(&varT)))
-                    goto LExit;
-
-                // We don't try to convert the this value if it is an object
-                // so that we don't go into an infinite loop. GetVarThis
-                // will return a ref to itself (pntbl) if it is not assocaiated
-                // with a value. Otherwise, setup the variant to convert
-                // and retry.
-                Assert(VT_EMPTY != varT.vt);
-                switch (varT.vt)
-                {
-                case VT_UNKNOWN:
-                case VT_DISPATCH:
-                    break;
-                default:
-                    pvarIn = &varT;
-                    goto LRestart;
-                }
-            }
-#endif
-
             break;
         default:
             // No string by default - we need to allocate a string because

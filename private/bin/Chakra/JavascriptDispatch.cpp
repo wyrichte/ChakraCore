@@ -7,6 +7,7 @@
 #include "mshtmdid.h"
 #include "JavascriptPixelArrayDispatch.h"
 #include "DispIdHelper.h"
+#include "var.h"
 
 // Initialization order
 //  AB AutoSystemInfo

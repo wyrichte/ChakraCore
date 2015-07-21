@@ -5,7 +5,7 @@
 ********************************************************/
 #include "StdAfx.h"
 #include "guids.h"
-
+#include "var.h"
 
 const long kcchMaxConstBstr = 15;
 struct ConstBstr
@@ -18,7 +18,7 @@ struct ConstBstr
     const OLECHAR *psz;
     long lw;
 
-    VAR *Pvar(void) { return (VAR *)this; }
+    VARIANT *Pvar(void) { return (VARIANT *)this; }
 };
 
 /***************************************************************************
@@ -492,15 +492,6 @@ HRESULT DispatchHelper::MarshalVariantToFrameDisplay(VARIANT *pVar, Js::FrameDis
     }
     return NOERROR;
 }
-
-#define VTE_ARRAY  (VT_ARRAY | VT_VARIANT)
-#define VTE_ARRAY_UNK (VT_ARRAY | VT_UNKNOWN)
-#define VTE_ARRAY_BYTE (VT_ARRAY | VT_UI1)
-#define VTE_BYREF_VARIANT  (VT_BYREF | VT_VARIANT)
-#define VTE_BYREF_ARRAY  (VT_BYREF | VTE_ARRAY)
-#define VTE_BYREF_ARRAY_UNK (VT_BYREF | VTE_ARRAY_UNK)
-#define VTE_BYREF_ARRAY_BYTE (VT_BYREF | VTE_ARRAY_BYTE)
-#define VTE_BYREF_BSTR   (VT_BYREF | VT_BSTR)
 
 Js::Var DispatchHelper::MarshalBSTRToJsVar(Js::ScriptContext * scriptContext, BSTR bstr)
 {
