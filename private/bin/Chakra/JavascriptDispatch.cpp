@@ -1394,7 +1394,7 @@ HRESULT JavascriptDispatch::InvokeOnMember(
             }
             if (wFlags & k_dispPutOrPutRef)
             {
-                arguments.Info.Flags = (Js::CallFlags)(arguments.Info.Flags | Js::CallFlags_CallPut);
+                AssertMsg(false, "This scenario is no longer supported");
             }
 
             if (SUCCEEDED(hr))

@@ -1429,7 +1429,7 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut)
 
         VARIANT *rgvarg = dp.rgvarg;
         long argCount = dp.cArgs;
-        if (args.Info.Flags & CallFlags_CallEval)
+        if ((args.Info.Flags & CallFlags_ExtraArg) && ((args.Info.Flags & CallFlags_CallPut) == 0))
         {
             if (keepThis && argCount < 2)
             {

@@ -177,11 +177,11 @@ observeHandler.apply = function (func, thisArg, args) {
     return func.apply(thisArg, args);
 }
 
-observeHandler.construct = function (func, args) {
+observeHandler.construct = function (func, args, newTarget) {
     LogResult('construct trap');
     VerifyThis(this);
     if (this.trapConstruct) {
-        return this.trapConstruct(func, args);
+        return this.trapConstruct(func, args, newTarget);
     }
     return new func(...args);
 }
@@ -309,13 +309,13 @@ reflectHandler.apply = function (func, thisArg, args) {
     return Reflect.apply(func, thisArg, args);
 }
 
-reflectHandler.construct = function (func, args) {
+reflectHandler.construct = function (func, args, newTarget) {
     LogResult('construct trap');
     VerifyReflectThis(this);
     if (this.trapConstruct) {
-        return this.trapConstruct(func, args);
+        return this.trapConstruct(func, args, newTarget);
     }
-    return Reflect.construct(func, args);
+    return Reflect.construct(func, args, newTarget);
 }
 
 

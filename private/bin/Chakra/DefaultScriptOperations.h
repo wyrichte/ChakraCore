@@ -393,10 +393,10 @@ namespace Js
         C_ASSERT(::CallFlags_New ==  Js::CallFlags_New);
         C_ASSERT(::CallFlags_Value ==  Js::CallFlags_Value);
         C_ASSERT(::CallFlags_Eval ==  Js::CallFlags_Eval);
-        C_ASSERT(::CallFlags_CallEval ==  Js::CallFlags_CallEval);
+        C_ASSERT(::CallFlags_ExtraArg ==  Js::CallFlags_ExtraArg);
         C_ASSERT(::CallFlags_NotUsed ==  Js::CallFlags_NotUsed);
         C_ASSERT(::CallFlags_Wrapped ==  Js::CallFlags_Wrapped);
-        C_ASSERT(::CallFlags_CallPut ==  Js::CallFlags_CallPut);
+        C_ASSERT(::CallFlags_CallPut ==  Js::CallFlags_NewTarget);
 
         C_ASSERT(::RegexFlags_None == UnifiedRegex::NoRegexFlags);
         C_ASSERT(::RegexFlags_IgnoreCase == UnifiedRegex::IgnoreCaseRegexFlag);

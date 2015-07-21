@@ -250,6 +250,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Execute(
     __in IServiceProvider* serviceProvider,
     __out_opt Var *varResult)
 {
+    AssertMsg((callInfo.Flags & CallFlags_CallPut) == 0, "This is NOT allowed.");
     if (varResult != nullptr)
     {
         *varResult = nullptr;

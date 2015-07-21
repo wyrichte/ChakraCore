@@ -442,7 +442,7 @@ HRESULT DispatchHelper::MarshalDispParamToArgumentsNoThrowWithScriptEnter(
                 // Create a new frame display from the contents of the SAFEARRAY and tell the callee that
                 // it's coming.
                 hr = MarshalVariantToFrameDisplay(pVar, (Js::FrameDisplay**)&vars[argument->Info.Count - 1], scriptContext);
-                uint flags = argument->Info.Flags | CallFlags_CallEval;
+                uint flags = argument->Info.Flags | CallFlags_ExtraArg;
                 argument->Info.Flags = (Js::CallFlags)flags;
                 start++;
                 vars--;

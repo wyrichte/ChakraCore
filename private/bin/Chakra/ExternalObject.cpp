@@ -111,7 +111,7 @@ namespace Js
 
     Var ExternalObject::InvokePut(Arguments args)
     {
-        args.Info.Flags = (CallFlags)(args.Info.Flags | CallFlags_CallPut);
+        AssertMsg(false, "This scenario is no longer supported");
         if (args.Info.Count < 3)
         {
             // The v5.8 behavior throws an exception if there is no input parameter to the call. So:
