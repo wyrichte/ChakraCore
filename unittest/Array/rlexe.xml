@@ -631,4 +631,22 @@
       <baseline>CopyOnAccessArray_cache_index_overflow.baseline</baseline>
     </default>
   </test>
+<test>
+   <default>
+      <files>memset.js</files>
+      <compile-flags>-mic:1 -off:simplejit</compile-flags>
+   </default>
+</test>
+<test>
+   <default>
+      <files>memset2.js</files>
+      <compile-flags>-mic:1 -off:simplejit</compile-flags>
+   </default>
+</test>
+<test>
+   <default>
+      <files>memcopy.js</files>
+      <compile-flags>-mic:1 -off:simplejit</compile-flags>
+   </default>
+</test>
 </regress-exe>
