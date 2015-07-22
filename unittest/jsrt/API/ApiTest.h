@@ -162,7 +162,7 @@ namespace JsrtUnitTests
         TEST_METHOD(CrossContextSetPropertyTest)
         {
             bool hasExternalData;
-            JsContextRef oldContext, secondContext;
+            JsContextRef oldContext, secondContext, testContext;
             JsValueRef secondValueRef, secondObjectRef, jsrtExternalObjectRef, mainObjectRef;
             JsPropertyIdRef idRef;
             JsValueRef indexRef;
@@ -172,11 +172,21 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(JsCreateContext(this->runtime, &secondContext) == JsNoError);
             VERIFY_IS_TRUE(JsSetCurrentContext(secondContext) == JsNoError);
             VERIFY_IS_TRUE(JsCreateObject(&secondObjectRef) == JsNoError);
+
+            // Verify the main object is from first context
+            VERIFY_IS_TRUE(JsGetContextOfObject(mainObjectRef, &testContext) == JsNoError);
+            VERIFY_IS_TRUE(testContext == oldContext);
+
             // Create external Object in 2nd context which will be accessed in main context.
             VERIFY_IS_TRUE(JsCreateExternalObject((void *)0xdeadbeef, ExternalObjectFinalizeCallback, &jsrtExternalObjectRef) == JsNoError);
             VERIFY_IS_TRUE(JsIntToNumber(1, &secondValueRef) == JsNoError);
             VERIFY_IS_TRUE(JsIntToNumber(2, &indexRef) == JsNoError);
             VERIFY_IS_TRUE(JsSetCurrentContext(oldContext) == JsNoError);
+
+            // Verify the second object is from second context
+            VERIFY_IS_TRUE(JsGetContextOfObject(secondObjectRef, &testContext) == JsNoError);
+            VERIFY_IS_TRUE(testContext == secondContext);
+
             VERIFY_IS_TRUE(JsSetProperty(mainObjectRef, idRef, secondValueRef, false) == JsNoError);
             VERIFY_IS_TRUE(JsSetProperty(mainObjectRef, idRef, secondObjectRef, false) == JsNoError);
             VERIFY_IS_TRUE(JsSetIndexedProperty(mainObjectRef, indexRef, secondValueRef) == JsNoError);
@@ -229,6 +239,18 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(JsGetProperty(globalRef, propertyIdFooRef, &valueRef) == JsNoError);
             VERIFY_IS_TRUE(JsNumberToInt(valueRef, &answer) == JsNoError);
             VERIFY_IS_TRUE(answer == 100);
+        }
+
+        TEST_METHOD(ExternalDataOnJsrtContextTest)
+        {
+            int i = 5;
+            void *j;
+            JsContextRef currentContext;
+
+            VERIFY_IS_TRUE(JsGetCurrentContext(&currentContext) == JsNoError);
+            VERIFY_IS_TRUE(JsSetContextData(currentContext, &i) == JsNoError);
+            VERIFY_IS_TRUE(JsGetContextData(currentContext, &j) == JsNoError);
+            VERIFY_IS_TRUE(static_cast<int*>(j) == &i);
         }
 
         static void ExternalObjectFinalizeCallback(void *data)

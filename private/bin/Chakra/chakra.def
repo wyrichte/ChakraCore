@@ -24,6 +24,9 @@ EXPORTS
     JsCreateContext
     JsGetCurrentContext
     JsSetCurrentContext
+    JsGetContextOfObject
+    JsGetContextData
+    JsSetContextData
     JsRunScript
     JsGetUndefinedValue
     JsGetNullValue
