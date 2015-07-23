@@ -11,18 +11,6 @@ using namespace std;
 
 #define FAIL(x) do { VERIFY_IS_TRUE(0==1 && x); return; } while(0)
 
-#if _M_IX86
-#define TEST_BUILD_TYPE L"\\i386"
-#elif _M_X64
-#define TEST_BUILD_TYPE L"\\amd64"
-#elif _M_ARM
-#define TEST_BUILD_TYPE L"\\arm"
-#elif _M_ARM64
-#define TEST_BUILD_TYPE L"\\arm64"
-#else
-#error Platform not supported.
-#endif
-
 class runalltests
 {
     TEST_CLASS(runalltests)
@@ -38,21 +26,17 @@ class runalltests
         wstring cwd;
 
         // build the path to rl.exe
-        pos = GetEnvironmentVariable(L"OBJECT_ROOT", buf, _countof(buf));
+        pos = GetEnvironmentVariable(L"_NTTREE", buf, _countof(buf));
         if(pos == 0 || pos > _countof(buf))
-            FAIL("failed to retrieve %OBJECT_ROOT%");
+            FAIL("failed to retrieve %_NTTREE%");
 
         rlpath = buf;
-        pos = GetEnvironmentVariable(L"_BUILDTYPE", buf, _countof(buf));
-        if(pos == 0 || pos > _countof(buf))
-            FAIL("failed to retrieve %_BUILDTYPE%");
-
-        rlpath += L"\\inetcore\\jscript\\unittest\\ut_rl\\obj" + wstring(buf) + TEST_BUILD_TYPE;
+        rlpath += L"\\jscript";
         rlfullpath = rlpath + L"\\rl.exe";
 
         // quick check if rl exists
         if(GetFileAttributes(rlfullpath.c_str()) == INVALID_FILE_ATTRIBUTES)
-            FAIL("rl.exe doesn't exist: bcz inetcore\\jscript\\unittest");
+            FAIL("rl.exe doesn't exist: bcz inetcore\\jscript\\core\\bin\\rl");
 
         // build the path to jshost.exe
         pos = GetEnvironmentVariable(L"_NTTREE", buf, _countof(buf));
