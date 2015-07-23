@@ -7,5 +7,18 @@
   </PropertyGroup>
   <Import Project="$(MSBuiltThisFileDirectory)..\..\..\..\Build\Chakra.Build.Paths.props" />
   <Import Project="..\Chakra.vcxproj" />
+  <ItemDefinitionGroup Condition="'$(BUILD_PGO)'=='PGI'">
+    <Link>
+      <LinkTimeCodeGeneration>PGInstrument</LinkTimeCodeGeneration>
+      <AdditionalDependencies>
+        %(AdditionalDependencies);$(pgortlib);
+      </AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>  
+  <ItemDefinitionGroup Condition="'$(BUILD_PGO)'=='PGO'">
+    <Link>
+      <LinkTimeCodeGeneration>PGOptimization</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>    
 </Project>
 
