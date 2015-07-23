@@ -121,10 +121,6 @@ EXPORTS
     JsGetRuntime
     JsIdle
     JsStartDebugging
-    JsCreateExternalType
-    JsCreateTypedExternalObject
-    JsGetExternalType
-    JsGetDefaultTypeDescription
     JsSetPromiseContinuationCallback
     JsInspectableToObject
     JsObjectToInspectable
