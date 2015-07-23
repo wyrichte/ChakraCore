@@ -10,3 +10,4 @@ build_*.wrn
 build_*.err
 Build/swum-cache.txt
 *.tlog/
+core
