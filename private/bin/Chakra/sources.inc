@@ -160,7 +160,7 @@ SOURCES= \
         ..\scrpting.cpp \
         ..\siteserv.cpp \
         ..\ScriptDebugDocument.cpp \
-        ..\scrutilinc.cpp \
+        ..\scrutil.cpp \
         ..\StreamHelper.cpp \
         ..\StreamReader.cpp \
         ..\StreamWriter.cpp \

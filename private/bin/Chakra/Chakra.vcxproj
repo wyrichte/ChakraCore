@@ -313,7 +313,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)scpnode.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)scptext.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ScriptDAC.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)..\..\..\core\lib\parser\scrutil.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)scrutil.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)DiagHook.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ScriptDebugDocument.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEdit.cpp" />
