@@ -12,6 +12,63 @@
 #include "JsrtDelegateWrapper.h"
 #include "JsrtContextChakra.h"
 
+STDAPI_(JsErrorCode) JsCreateWeakContainer(JsRef ref, JsWeakContainerRef *weakContainerRef)
+{
+    return ContextAPIWrapper<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
+        PARAM_NOT_NULL(ref);
+        PARAM_NOT_NULL(weakContainerRef);
+        *weakContainerRef = JS_INVALID_REFERENCE;
+
+        Recycler *recycler = scriptContext->GetRecycler();
+        recycler->FindOrCreateWeakReferenceHandle((void *)ref, (RecyclerWeakReference<void> **)weakContainerRef);
+        return JsNoError;
+    });
+}
+
+STDAPI_(JsErrorCode) JsIsReferenceValid(JsWeakContainerRef weakContainerRef, bool *isValid)
+{
+    return ContextAPIWrapper<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
+        PARAM_NOT_NULL(weakContainerRef);
+        PARAM_NOT_NULL(isValid);
+        *isValid = false;
+
+        RecyclerWeakReference<void> *weakRef = (RecyclerWeakReference<void> *)weakContainerRef;
+        *isValid = (weakRef->Get() != nullptr);
+        return JsNoError;
+    });
+}
+
+STDAPI_(JsErrorCode) JsGetReference(JsWeakContainerRef weakContainerRef, JsRef *ref)
+{
+    return ContextAPIWrapper<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
+        PARAM_NOT_NULL(weakContainerRef);
+        PARAM_NOT_NULL(ref);
+        *ref = JS_INVALID_REFERENCE;
+
+        RecyclerWeakReference<void> *weakRef = (RecyclerWeakReference<void> *)weakContainerRef;
+        *ref = weakRef->Get();
+        return JsNoError;
+    });
+}
+
+STDAPI_(JsErrorCode) JsGetArrayLength(JsValueRef value, size_t *length)
+{
+    return ContextAPIWrapper<true>([&](Js::ScriptContext *scriptContext) -> JsErrorCode {
+        PARAM_NOT_NULL(value);
+        VALIDATE_INCOMING_REFERENCE(value, scriptContext);
+        PARAM_NOT_NULL(length);
+        *length = 0;
+
+        if (!Js::JavascriptArray::Is(value))
+        {
+            return JsErrorInvalidArgument;
+        }
+
+        *length = Js::JavascriptArray::FromVar(value)->GetLength();
+        return JsNoError;
+    });
+}
+
 STDAPI_(JsErrorCode) JsVariantToValue(VARIANT * variant, JsValueRef * value)
 {
     return ContextAPIWrapper<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode { 

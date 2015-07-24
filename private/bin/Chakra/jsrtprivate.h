@@ -23,17 +23,6 @@ extern "C" {
 /// </summary>
 const JsErrorCode JsErrorNotDebuggingContext = (JsErrorCode)(JsErrorIdleNotEnabled + 7);
 
-/// <summary>
-///     Create runtime with IE12 version.
-/// </summary>
-const JsRuntimeVersion JsRuntimeVersion12 = (JsRuntimeVersion)2;
-
-/// <summary>
-///     Calling <c>JsSetException</c> will also dispatch the exception to the script debugger
-///     (if any) giving the debugger a chance to break on the exception.
-/// </summary>
-const JsRuntimeAttributes JsRuntimeDispatchSetExceptionsToDebugger = (JsRuntimeAttributes)0x00000020;
-
 STDAPI_(JsErrorCode)
 JsSerializeNativeScript(
     _In_z_ const wchar_t *script,

@@ -15,113 +15,14 @@ EXPORTS
     JsVarToExtension
     JsVarAddRef
     JsVarRelease
-    JsSetObjectBeforeCollectCallback
-    JsCreateRuntime
-    JsCollectGarbage
-    JsDisposeRuntime
-    JsAddRef
-    JsRelease
-    JsCreateContext
-    JsGetCurrentContext
-    JsSetCurrentContext
-    JsGetContextOfObject
-    JsGetContextData
-    JsSetContextData
-    JsRunScript
-    JsGetUndefinedValue
-    JsGetNullValue
-    JsGetTrueValue
-    JsGetFalseValue
-    JsBoolToBoolean
-    JsBooleanToBool
-    JsConvertValueToBoolean
-    JsGetValueType
-    JsDoubleToNumber
-    JsIntToNumber
-    JsNumberToDouble
-    JsNumberToInt
-    JsConvertValueToNumber
-    JsPointerToString
-    JsStringToPointer
-    JsConvertValueToString
-    JsGetGlobalObject
-    JsCreateObject
-    JsCreateExternalObject
-    JsConvertValueToObject
-    JsGetPrototype
-    JsSetPrototype
-    JsGetExtensionAllowed
-    JsPreventExtension
-    JsGetProperty
-    JsGetOwnPropertyDescriptor
-    JsSetProperty
-    JsHasProperty
-    JsDeleteProperty
-    JsDefineProperty
-    JsCreateArray
-    JsCreateArrayBuffer
-    JsCreateExternalArrayBuffer
-    JsCreateTypedArray
-    JsCreateDataView
-    JsGetArrayBufferStorage
-    JsGetTypedArrayStorage
-    JsGetDataViewStorage
-    JsHasIndexedProperty
-    JsGetIndexedProperty
-    JsSetIndexedProperty
-    JsDeleteIndexedProperty
-    JsHasIndexedPropertiesExternalData
-    JsGetIndexedPropertiesExternalData
-    JsSetIndexedPropertiesToExternalData
-    JsEquals
-    JsStrictEquals
-    JsHasExternalData
-    JsGetExternalData
-    JsSetExternalData
-    JsCallFunction
-    JsCreateFunction
-    JsCreateNamedFunction
-    JsCreateError
-    JsCreateRangeError
-    JsCreateReferenceError
-    JsCreateSyntaxError
-    JsCreateTypeError
-    JsCreateURIError
-    JsHasException
-    JsGetAndClearException
-    JsSetException
-    JsGetRuntimeMemoryUsage
-    JsGetRuntimeMemoryLimit
-    JsSetRuntimeMemoryLimit
-    JsSetRuntimeMemoryAllocationCallback
-    JsSetRuntimeBeforeCollectCallback
-    JsGetStringLength
+#include "JsrtCommonExports.inc"
     JsValueToVariant
     JsVariantToValue
-    JsDisableRuntimeExecution
-    JsEnableRuntimeExecution
-    JsIsRuntimeExecutionDisabled
-    JsSerializeScript
-    JsParseSerializedScript
-    JsRunSerializedScript
-    JsParseScript
-    JsConstructObject
-    JsGetPropertyIdFromName
-    JsGetPropertyNameFromId
-    JsGetPropertyIdType
-    JsGetOwnPropertyNames
-    JsGetPropertyIdFromSymbol
-    JsGetSymbolFromPropertyId
-    JsCreateSymbol
-    JsGetOwnPropertySymbols
     JsStartProfiling
     JsStopProfiling
     JsEnumerateHeap
     JsIsEnumeratingHeap
-    JsGetRuntime
-    JsIdle
-    JsStartDebugging
-    JsSetPromiseContinuationCallback
+    JsStartDebugging    
     JsInspectableToObject
     JsObjectToInspectable
 #if DBG || CHAKRATEST
