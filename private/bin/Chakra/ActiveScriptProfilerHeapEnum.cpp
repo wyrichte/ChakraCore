@@ -826,10 +826,6 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
         {
             profObj->jsInfo.typeNameId = Js::CustomExternalObject::FromVar((Js::Var)obj)->GetTypeNameId();
         }
-        else if (typeNameId == GetTypeNameId(HeapObjectType_JsrtExternalObject))
-        {
-            profObj->jsInfo.typeNameId = JsrtExternalObject::FromVar((Js::Var)obj)->GetExternalType()->GetNameId();
-        }
         else if (extObj->typeNameId != 0 && extObj->typeNameId != PROFILER_HEAP_OBJECT_NAME_ID_UNAVAILABLE)
         {
             profObj->jsInfo.typeNameId = extObj->typeNameId;
