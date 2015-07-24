@@ -215,7 +215,7 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     m_stsThreadState        = SCRIPTTHREADSTATE_NOTINSCRIPT; // Not running in a script
     m_cNesting              = 0;                             // Count of times nested in script
     m_moduleIDNext               = 1;                             // Next module number. 0 is global!
-    m_lcidUser              = GetDefaultLocale();    // Default locale
+    m_lcidUser              = GetUserDefaultLCID();    // Default locale
     m_lcidUserDefault       = m_lcidUser;
     m_fIsValidCodePage      = TRUE;
     m_codepage              = GetACP();
@@ -3362,7 +3362,7 @@ STDMETHODIMP ScriptEngine::Reset(BOOL fFull)
 
     if (fFull)
     {
-        m_lcidUser              = GetDefaultLocale();
+        m_lcidUser              = GetUserDefaultLCID();
         m_lcidUserDefault       = m_lcidUser;
     }
 
@@ -3781,7 +3781,7 @@ STDMETHODIMP ScriptEngine::GetScriptDispatch(LPCOLESTR pcszItemName, IDispatch *
 
     // Figure out what module this goes in. Assume global module if directHostObject is set
     // and "window" named item is not.
-    if (pcszItemName && pcszItemName[0] != WIDE('\0'))
+    if (pcszItemName && pcszItemName[0] != L'\0')
     {
         pnid = m_NamedItemList.Find(pcszItemName);
         if (!pnid)
@@ -5377,7 +5377,7 @@ HRESULT ScriptEngine::ParseScriptTextCore(
     else
     {
         // Figure out what module this goes in
-        if (pcszItemName && pcszItemName[0] != WIDE('\0'))
+        if (pcszItemName && pcszItemName[0] != L'\0')
         {
             pnid = m_NamedItemList.Find(pcszItemName);
             if (!pnid)
@@ -7848,7 +7848,7 @@ BOOL ScriptEngine::SetCurrentLocale(LCID lcid)
     switch (lcid)
     {
     case LOCALE_USER_DEFAULT:
-        lcid = GetDefaultLocale();
+        lcid = GetUserDefaultLCID();
         break;
         /*
         case LOCALE_SYSTEM_DEFAULT:

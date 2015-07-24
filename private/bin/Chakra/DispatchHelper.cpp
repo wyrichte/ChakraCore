@@ -1266,12 +1266,12 @@ double DispatchHelper::BstrToDbl(BSTR bstr, Js::ScriptContext *const scriptConte
         // Hex
         const OLECHAR *pchT = pch + 2;
 
-        dbl = DblFromHex(pchT, &pch);
+        dbl = Js::NumberUtilities::DblFromHex(pchT, &pch);
         if (pchT == pch)
             goto LNan;
     }
     else
-        dbl = StrToDbl(pch, &pch, scriptContext);
+        dbl = Js::NumberUtilities::StrToDbl(pch, &pch, scriptContext);
 
     while (charClassifier->IsWhiteSpace(*pch))
         pch++;

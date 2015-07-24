@@ -35,6 +35,7 @@
 #include "hostvariant.h"
 #include "refcountedHostVariant.h"
 #include "hostdispatch.h"
+#include "scrutil.h"
 #include "NamedItemList.h"
 #include "hostdispatchenumerator.h"
 #include "dispmemberproxy.h"
