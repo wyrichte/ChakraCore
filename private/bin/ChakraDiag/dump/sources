@@ -43,8 +43,11 @@ PRECOMPILED_CXX=1
 #
 # Must be signed for debugger package
 #
-KIT_SELF_SIGNED=1
 
 PASS2_BINPLACE = -:DEST dbg\files\bin\winext $(OBJ_PATH)\$(O)\jscript9diagdump.dll
 
+
+KIT_SELF_SIGNED=1
+
 MUI_VERIFY_NO_LOC_RESOURCE=1 
+
