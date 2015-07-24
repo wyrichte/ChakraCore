@@ -159,7 +159,7 @@ static HRESULT UnRegisterCLSIDInCategory(REFCLSID clsid, CATID catid)
 
 // ****************************** CClassFactory *************************
 
-STDMETHODIMP CClassFactory:: QueryInterface(REFIID riid, void** ppvObj)
+STDMETHODIMP CClassFactory::QueryInterface(REFIID riid, void** ppvObj)
 {
     AssertMem(ppvObj);
     CHECK_POINTER(ppvObj);
@@ -178,12 +178,12 @@ STDMETHODIMP CClassFactory:: QueryInterface(REFIID riid, void** ppvObj)
 }
 
 
-STDMETHODIMP_(ULONG) CClassFactory:: AddRef(void)
+STDMETHODIMP_(ULONG) CClassFactory::AddRef(void)
 {
     return (ULONG)::InterlockedIncrement(&m_refCount);
 }
 
-STDMETHODIMP_(ULONG) CClassFactory:: Release(void)
+STDMETHODIMP_(ULONG) CClassFactory::Release(void)
 {
     long l = ::InterlockedDecrement(&m_refCount);
     if (0 == l)
@@ -196,7 +196,7 @@ STDMETHODIMP_(ULONG) CClassFactory:: Release(void)
 
 
 
-STDMETHODIMP CClassFactory:: LockServer (BOOL fLock)
+STDMETHODIMP CClassFactory::LockServer(BOOL fLock)
 {
     long l;
     if (fLock)
@@ -209,11 +209,8 @@ STDMETHODIMP CClassFactory:: LockServer (BOOL fLock)
     return NOERROR;
 }
 
-
-#define WSZCAT_SCRIPT       WIDE("Active Scripting Engine")
-#define WSZCAT_SCRIPTPARSE  WIDE("Active Scripting Engine with Parsing")
-#define WSZCAT_SCRIPTENCODE WIDE("Active Scripting Engine with Encoding")
-
+#define WSZCAT_SCRIPT       L"Active Scripting Engine"
+#define WSZCAT_SCRIPTPARSE  L"Active Scripting Engine with Parsing"
 
 STDMETHODIMP CClassFactory::RegisterServer(LPCWSTR threadModel)
 {
