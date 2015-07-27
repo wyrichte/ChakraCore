@@ -17,9 +17,10 @@
   </PropertyGroup>
   <PropertyGroup>   
     <!-- How do we deal with versioning here?? -->
-    <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.0</PUBLIC_ROOT>
+    <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.1</PUBLIC_ROOT>
     <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.1.0.0</RazzleToolPath>
     <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.1.0.0</IELibPath>
+    <RazzleToolSdkIncDirectory>$(RazzleToolPath)\public\sdk\inc\</RazzleToolSdkIncDirectory>
 
     <ExternalObjDirectory>obj$(_BuildType)\$(PlatformPathNameAlt)</ExternalObjDirectory>
 
