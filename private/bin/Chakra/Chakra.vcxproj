@@ -466,6 +466,7 @@
     <ClInclude Include="SCASerialization.h" />
     <ClInclude Include="SCADeserialization.h" />
     <ClInclude Include="ScriptDAC.h" />
+    <ClInclude Include="scrutil.h" />
     <ClInclude Include="DiagHook.h" />
     <ClInclude Include="ScriptDebugDocument.h" />
     <ClInclude Include="ScriptEdit.h" />
