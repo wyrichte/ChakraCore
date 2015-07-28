@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <BuildingGitRepo>true</BuildingGitRepo>
-    <BuildingGitRepo Condition="'$(PUBLIC_ROOT)'!=''">false</BuildingGitRepo>
+    <BuildingGitRepo>false</BuildingGitRepo>
+    <BuildingGitRepo Condition="'$(REPO_ROOT)'!=''">true</BuildingGitRepo>
   </PropertyGroup>
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="Chakra.Build.Razzle.Default.props" />
 
@@ -15,19 +15,8 @@
     <PlatformPathNameAlt Condition="'$(Platform)'=='Win32'">i386</PlatformPathNameAlt>
   </PropertyGroup>
 
-  <!-- Output directories for non-razzle build -->
-  <PropertyGroup Condition="'$(BuildingWithBuildExe)'!='true'">
-    <OutBaseDir Condition="'$(OutBaseDir)'==''">$(SolutionDir)VcBuild</OutBaseDir>
-    <OutDir>$(OutBaseDir)\Bin\$(PlatformPathName.ToLower())_$(Configuration.ToLower())\</OutDir>
-    <IntDir>$(OutBaseDir)\Obj\$(PlatformPathName.ToLower())_$(Configuration.ToLower())\$(MSBuildProjectName)\</IntDir>
-    <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'">$(IntDir)</OutDir>
-    <OutputPath>$(OutDir)</OutputPath>
-  </PropertyGroup>
-  
-  <!-- Git only preconfigurations-->
   <Import Condition="'$(BuildingGitRepo)'=='true'" Project="Chakra.Build.Git.Default.props" />
 
-  <!-- Import for both Git build and solution with razzle build -->
   <Import Condition="'$(BuildingWithBuildExe)'!='true'" Project="Chakra.Build.Solution.Default.props" />
 
   <PropertyGroup>
