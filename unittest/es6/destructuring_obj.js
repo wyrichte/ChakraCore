@@ -15,18 +15,19 @@ var tests = [
       assert.doesNotThrow(function () { eval("{x:y} = {};"); }, "Object pattern as an expression with a single member is valid syntax");
       assert.doesNotThrow(function () { eval("var {x} = {};"); }, "var object declaration pattern with a single member as shorthand is valid syntax");
       assert.doesNotThrow(function () { eval("{x:y} = {};"); }, "Object pattern as an expression with a single member as shorthand is valid syntax");
+      assert.doesNotThrow(function () { eval("var {x} = {}, {y} = {};"); }, "Multiple object pattern in a single var declaration is valid syntax");
     }
   },
 
   {
     name: "Basic object destructuring invalid syntax",
     body: function () {
-      assert.throws(function () { eval("var {};"); }, SyntaxError, "var empty object declaration pattern without an initializer is not valid syntax", "Destructuring expressions must have an initializer");
-      assert.throws(function () { eval("let {};"); }, SyntaxError, "let empty object declaration pattern without an initializer is not valid syntax", "Destructuring expressions must have an initializer");
-      assert.throws(function () { eval("const {};"); }, SyntaxError, "const empty object declaration pattern without an initializer is not valid syntax", "Destructuring expressions must have an initializer");
-      assert.throws(function () { eval("var {a};"); }, SyntaxError, "var object declaration pattern without an initializer is not valid syntax", "Destructuring expressions must have an initializer");
-      assert.throws(function () { eval("let {a};"); }, SyntaxError, "let object declaration pattern without an initializer is not valid syntax", "Destructuring expressions must have an initializer");
-      assert.throws(function () { eval("const {a};"); }, SyntaxError, "const object declaration pattern without an initializer is not valid syntax", "Destructuring expressions must have an initializer");
+      assert.throws(function () { eval("var {};"); }, SyntaxError, "var empty object declaration pattern without an initializer is not valid syntax", "Destructuring declarations must have an initializer");
+      assert.throws(function () { eval("let {};"); }, SyntaxError, "let empty object declaration pattern without an initializer is not valid syntax", "Destructuring declarations must have an initializer");
+      assert.throws(function () { eval("const {};"); }, SyntaxError, "const empty object declaration pattern without an initializer is not valid syntax", "Destructuring declarations must have an initializer");
+      assert.throws(function () { eval("var {a};"); }, SyntaxError, "var object declaration pattern without an initializer is not valid syntax", "Destructuring declarations must have an initializer");
+      assert.throws(function () { eval("let {a};"); }, SyntaxError, "let object declaration pattern without an initializer is not valid syntax", "Destructuring declarations must have an initializer");
+      assert.throws(function () { eval("const {a};"); }, SyntaxError, "const object declaration pattern without an initializer is not valid syntax", "Destructuring declarations must have an initializer");
       assert.throws(function () { eval("var {,} = {}"); }, SyntaxError, "Object declaration pattern without an identifier is not valid syntax", "Expected identifier, string or number");
       assert.throws(function () { eval("{,} = {};"); }, SyntaxError, "Object expression pattern without an identifier is not valid syntax", "Expected identifier, string or number");
     
@@ -138,6 +139,12 @@ var tests = [
       assert.doesNotThrow(function () { eval("let a, r1; {a:(a1 = r1 = 44)} = {}"); }, "Object expression pattern with chained assignments as defaults under paren is valid syntax");
       assert.throws(function () { eval("let a, r1; {a:(a1 = r1) = 44} = {}"); }, SyntaxError, "Object expression pattern with chained assignments but paren in between is not valid syntax", "Unexpected operator in destructuring expression");
       assert.doesNotThrow(function () { eval("var a; `${({a} = {})}`"); }, "Object expression pattern inside a string template is valid syntax");
+      assert.throws(function () { eval("for (let {x} = {} of []) {}"); }, SyntaxError, "for.of has declaration pattern with initializer is not valid syntax", "Destructuring expression cannot have an initializer");
+      assert.throws(function () { eval("for ({x} = {} of []) {}"); }, SyntaxError, "for.of has expression pattern with initializer is not valid syntax", "Destructuring expression cannot have an initializer");
+      assert.doesNotThrow(function () { eval("var a; [a = class aClass {}] = []"); }, "Expression pattern has class as initializer is valid syntax");
+      assert.doesNotThrow(function () { eval("var a; for ({x:x = class aClass {}} of []) {}"); }, "for.of's expression pattern has class as initializer is valid syntax");
+      assert.doesNotThrow(function () { eval("var {x:[...y]} = {x:[1]}"); }, "rest element nesting under object pattern is valid syntax");
+      
     }
   },
   {

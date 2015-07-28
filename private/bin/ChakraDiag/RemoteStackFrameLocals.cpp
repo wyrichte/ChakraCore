@@ -832,7 +832,7 @@ namespace JsDiag
                         break;
                     case DiagCatchScopeInObject:
                         {
-                            Js::Var object = diagFrame->GetReg(prop.location);
+                            Js::Var object = diagFrame->GetReg(debuggerScope->scopeLocation);
                             PROPERTY_INFO info;
                             if (context->GetProperty(object, prop.propId, &info))
                             {
