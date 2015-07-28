@@ -6,21 +6,17 @@
     <ProjectGuid>{0335EF4B-D4E2-426D-80C8-6F312CB4F957}</ProjectGuid>
     <RootNamespace>ut_jsdiag</RootNamespace>
   </PropertyGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseStaticAtl>true</UseStaticAtl>
     <AtlVersion>70</AtlVersion>
     <UseStl>true</UseStl>
     <StlVersion>70</StlVersion>
-  </PropertyGroup> 
+  </PropertyGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />  
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>  
-  <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\atlmfc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;$(PublicInternalPath)\sdktools\inc;$(SolutionDir)..\Exe\jdtest;$(SolutionDir)..\Dll\JScriptDiag</IncludePath>
     <LibraryPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt);$(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt);$(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt);$(SolutionDir)..\tools\External\lib\$(PlatformPathNameAlt)</LibraryPath>

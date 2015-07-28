@@ -7,7 +7,6 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>jd</RootNamespace>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseStaticAtl>true</UseStaticAtl>
@@ -16,12 +15,9 @@
     <AtlVersion>70</AtlVersion>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />    
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup> 
-  <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(SolutionDir)..\Exe\jshost;$(SolutionDir)..\Exe\jdtest;$(SolutionDir)..\Lib\Common\Memory;$(SolutionDir)..\Dll\JScriptDiag;$(IncludePath)</IncludePath>
@@ -50,7 +46,7 @@
       <AdditionalLibraryDirectories>$(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt);$(InternalSdkLibPath)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)'=='chk' or '$(Configuration)'=='fretest' or '$(Configuration)'=='fre'">
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug' or '$(Configuration)'=='Test' or '$(Configuration)'=='Release'">
     <ClCompile>
       <PreprocessorDefinitions>JD_PRIVATE;JD_PRIVATE_CMDS;MPH_CMDS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>

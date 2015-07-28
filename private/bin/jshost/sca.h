@@ -28,7 +28,7 @@ private:
     static Var Serialize(Var function, CallInfo callInfo, ...);
     static Var Deserialize(Var function, CallInfo callInfo, ...);
     template <class APIFuncType>
-    static Var LookupHelper(_In_ APIFuncType ReadIndexableProperty, _In_ Var function, _In_ CallInfo callInfo, _In_ Var* args); //Common method for LookupEx and Lookup, since both just differ by func
+    static Var LookupHelper(_In_ APIFuncType ReadIndexableProperty, _In_ Var function, _In_ CallInfo callInfo, __in_xcount(callInfo.Count) Var* args); //Common method for LookupEx and Lookup, since both just differ by func
     static Var LookupEx(_In_ Var function, _In_ CallInfo callInfo, ...);
     static Var Lookup(_In_ Var function, _In_ CallInfo callInfo, ...);
     static Var DataToKey(_In_ Var function, _In_ CallInfo callInfo, ...);

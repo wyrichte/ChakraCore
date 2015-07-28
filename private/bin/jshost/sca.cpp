@@ -535,7 +535,7 @@ Error:
 }
 
 template <class APIFuncType>
-Var SCA::LookupHelper(_In_ APIFuncType ReadIndexableProperty /* In order to avoid updating baseline of a UT that captures call to apiFunc() */, _In_ Var function, _In_ CallInfo callInfo, _In_ Var* args)
+Var SCA::LookupHelper(_In_ APIFuncType ReadIndexableProperty /* In order to avoid updating baseline of a UT that captures call to apiFunc() */, _In_ Var function, _In_ CallInfo callInfo, __in_xcount(callInfo.Count) Var* args)
 {
     HRESULT hr = S_OK;
 
@@ -746,7 +746,7 @@ HRESULT SCA::EnsureImageDataType(ScriptDirect& pScriptDirect)
         PropertyId nameId;
         IfFailGo(pScriptDirect->ReserveTypeIds(1, &typeId));
         IfFailGo(pScriptDirect->GetOrAddPropertyId(L"ImageData", &nameId));
-        IfFailGo(pScriptDirect->CreateType(typeId, NULL, NULL, pTypeOperations, FALSE, nameId, TRUE, &htypeImageData));
+        IfFailGo(pScriptDirect->CreateType(typeId, NULL, 0, NULL, NULL, pTypeOperations, FALSE, nameId, TRUE, &htypeImageData));
     }
 
 Error:

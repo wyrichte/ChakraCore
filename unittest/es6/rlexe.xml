@@ -931,6 +931,12 @@
       <compile-flags>-ES6Rest -ES6Classes -ES6Super -ES6Destructuring -ES6DefaultArgs -args summary -endargs</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>destructuring_catch.js</files>
+      <compile-flags>-ES6Destructuring -ES6DefaultArgs -args summary -endargs</compile-flags>
+    </default>
+  </test>
   <!--
 <test>
   <default>

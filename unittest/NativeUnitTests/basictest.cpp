@@ -81,7 +81,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     }
 
     HTYPE externalType;
-    hr = activeScriptDirect->CreateType(TypeId_Unspecified, prototype, NULL, NULL, FALSE, constructorId, false, &externalType);
+    hr = activeScriptDirect->CreateType(TypeId_Unspecified, nullptr, 0, prototype, NULL, NULL, FALSE, constructorId, false, &externalType);
     IfFailedReturn(hr);
 
     Var externalVar;
@@ -211,7 +211,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     }
 
     Var jsFunction;
-    hr = activeScriptDirect->BuildDirectFunction(NULL, MyCallerTest, propertyId, &jsFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(NULL, MyCallerTest, propertyId, -1, 0, &jsFunction);
     IfFailedReturn(hr);
 
     BSTR functionBSTRName;
@@ -236,6 +236,64 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     printf("createtypedobject function name is %ls\n", functionBSTRName);
     SysFreeString(functionBSTRName);
 
+
+    // test for FTL inherited typeId for instanceOf type validation
+    uint slot_idx = 1;
+    PropertyId propId = 0x456;
+    const int inheritedIds[] = { 0x2000, 0x3000, 0x4000 };
+    hr = activeScriptDirect->CreateType(TypeId_Unspecified, inheritedIds, 3, prototype, NULL, defaultScriptOperations, FALSE, propId, false, &externalType);
+    IfFailedReturn(hr);
+
+    hr = activeScriptDirect->CreateTypedObject(externalType, sizeof(void*)*(slot_idx+1), FALSE, &externalVar);
+    IfFailedReturn(hr);
+
+    void* slotAddr = nullptr;
+    JavascriptTypeId typeId;
+    hr = activeScriptDirect->VarToExtension(externalVar, &slotAddr, &typeId);
+    IfFailedReturn(hr);
+
+    ((void**)slotAddr)[slot_idx] = jsFunction;
+
+    {
+        Var getter, setter;
+        hr = activeScriptDirect->GetTypedObjectSlotAccessor(0x3000, propId, slot_idx, &getter, &setter);
+        IfFailedReturn(hr);
+
+        hr = defaultScriptOperations->SetAccessors(activeScriptDirect, externalVar, propId, getter, setter);
+        IfFailedReturn(hr);
+
+        Var value;
+        BOOL exist = FALSE;
+        hr = defaultScriptOperations->GetPropertyReference(activeScriptDirect, externalVar, propId, &value, &exist);
+        IfFailedReturn(hr);
+
+        if (value != jsFunction)
+        {
+            return E_FAIL;
+        }
+        printf("inherited typeid test passed 1\n");
+    }
+
+    {
+        Var getter, setter;
+        hr = activeScriptDirect->GetTypedObjectSlotAccessor(0x3001, propId, slot_idx, &getter, &setter);
+        IfFailedReturn(hr);
+
+        hr = defaultScriptOperations->SetAccessors(activeScriptDirect, externalVar, propId, getter, setter);
+        IfFailedReturn(hr);
+
+        Var value;
+        BOOL exist = FALSE;
+        hr = defaultScriptOperations->GetPropertyReference(activeScriptDirect, externalVar, propId, &value, &exist);
+        if (hr == S_OK)
+        {
+            // expect fail
+            return E_FAIL;
+        }
+        printf("inherited typeid test passed 2\n");
+    }
+
+
     return NOERROR;
 };
 
@@ -256,7 +314,7 @@ HRESULT TestDOMToString(IActiveScriptDirect* activeScriptDirect)
     hr = activeScriptDirect->GetOrAddPropertyId(L"my class", &propertyId);
     IfFailedReturn(hr);
 
-    hr = activeScriptDirect->CreateType(TypeId_Unspecified, NULL, NULL, NULL, FALSE, propertyId, false, &prototypeHandle);
+    hr = activeScriptDirect->CreateType(TypeId_Unspecified, nullptr, 0, NULL, NULL, NULL, FALSE, propertyId, false, &prototypeHandle);
     IfFailedReturn(hr);
 
     Var prototype;
@@ -601,7 +659,7 @@ static HRESULT TestCallable(IActiveScriptDirect* activeScriptDirect)
     hr = activeScriptDirect->GetOrAddPropertyId(L"foo", &propertyId);
     if (SUCCEEDED(hr))
     {
-        hr = activeScriptDirect->CreateType(0, nullptr, ObjectEntryPoint, nullptr, false, propertyId, true, &typeRef);
+        hr = activeScriptDirect->CreateType(0, nullptr, 0, nullptr, ObjectEntryPoint, nullptr, false, propertyId, true, &typeRef);
     }
 
     if (SUCCEEDED(hr))

@@ -136,9 +136,9 @@ var tests = [
     {
         name: "Promise.resolve throwing behavior",
         body: function () {
-            assert.throws(function() { Promise.resolve.call(); }, TypeError, "Promise.resolve throws when called with no this parameter", "Function expected");
-            assert.throws(function() { Promise.resolve.call(undefined); }, TypeError, "Promise.resolve throws when this parameter is undefined", "Function expected");
-            assert.throws(function() { Promise.resolve.call(null); }, TypeError, "Promise.resolve throws when this parameter is null", "Function expected");
+            assert.throws(function() { Promise.resolve.call(); }, TypeError, "Promise.resolve throws when called with no this parameter", "Promise.resolve: 'this' is not an Object");
+            assert.throws(function() { Promise.resolve.call(undefined); }, TypeError, "Promise.resolve throws when this parameter is undefined", "Promise.resolve: 'this' is not an Object");
+            assert.throws(function() { Promise.resolve.call(null); }, TypeError, "Promise.resolve throws when this parameter is null", "Promise.resolve: 'this' is not an Object");
             assert.throws(function() { Promise.resolve.call({}); }, TypeError, "Promise.resolve throws when this parameter is non-callable", "Function expected");
             assert.throws(function() { Promise.resolve.call(Math.sin); }, TypeError, "Promise.resolve throws when this parameter is a non-constructor", "Function expected");
         }
@@ -146,9 +146,9 @@ var tests = [
     {
         name: "Promise.reject throwing behavior",
         body: function () {
-            assert.throws(function() { Promise.reject.call(); }, TypeError, "Promise.reject throws when called with no this parameter", "Function expected");
-            assert.throws(function() { Promise.reject.call(undefined); }, TypeError, "Promise.reject throws when called when this parameter is undefined", "Function expected");
-            assert.throws(function() { Promise.reject.call(null); }, TypeError, "Promise.reject throws when called when this parameter is null", "Function expected");
+            assert.throws(function() { Promise.reject.call(); }, TypeError, "Promise.reject throws when called with no this parameter", "Promise.reject: 'this' is not an Object");
+            assert.throws(function() { Promise.reject.call(undefined); }, TypeError, "Promise.reject throws when called when this parameter is undefined", "Promise.reject: 'this' is not an Object");
+            assert.throws(function() { Promise.reject.call(null); }, TypeError, "Promise.reject throws when called when this parameter is null", "Promise.reject: 'this' is not an Object");
             assert.throws(function() { Promise.reject.call({}); }, TypeError, "Promise.reject throws when called when this parameter is non-callable", "Function expected");
             assert.throws(function() { Promise.reject.call(Math.sin); }, TypeError, "Promise.reject throws when this parameter is a non-constructor", "Function expected");
         }
@@ -156,9 +156,9 @@ var tests = [
     {
         name: "Promise.race throwing behavior",
         body: function () {
-            assert.throws(function() { Promise.race.call(); }, TypeError, "Promise.race throws when called with no this parameter", "Function expected");
-            assert.throws(function() { Promise.race.call(undefined); }, TypeError, "Promise.race throws when called when this parameter is undefined", "Function expected");
-            assert.throws(function() { Promise.race.call(null); }, TypeError, "Promise.race throws when called when this parameter is null", "Function expected");
+            assert.throws(function() { Promise.race.call(); }, TypeError, "Promise.race throws when called with no this parameter", "Promise.race: 'this' is not an Object");
+            assert.throws(function() { Promise.race.call(undefined); }, TypeError, "Promise.race throws when called when this parameter is undefined", "Promise.race: 'this' is not an Object");
+            assert.throws(function() { Promise.race.call(null); }, TypeError, "Promise.race throws when called when this parameter is null", "Promise.race: 'this' is not an Object");
             assert.throws(function() { Promise.race.call({}); }, TypeError, "Promise.race throws when called when this parameter is non-callable", "Function expected");
             assert.throws(function() { Promise.race.call(Math.sin); }, TypeError, "Promise.race throws when this parameter is a non-constructor", "Function expected");
         }
@@ -166,9 +166,9 @@ var tests = [
     {
         name: "Promise.all throwing behavior",
         body: function () {
-            assert.throws(function() { Promise.all.call(); }, TypeError, "Promise.all throws when called with no this parameter", "Function expected");
-            assert.throws(function() { Promise.all.call(undefined); }, TypeError, "Promise.all throws when called when this parameter is undefined", "Function expected");
-            assert.throws(function() { Promise.all.call(null); }, TypeError, "Promise.all throws when called when this parameter is null", "Function expected");
+            assert.throws(function() { Promise.all.call(); }, TypeError, "Promise.all throws when called with no this parameter", "Promise.all: 'this' is not an Object");
+            assert.throws(function() { Promise.all.call(undefined); }, TypeError, "Promise.all throws when called when this parameter is undefined", "Promise.all: 'this' is not an Object");
+            assert.throws(function() { Promise.all.call(null); }, TypeError, "Promise.all throws when called when this parameter is null", "Promise.all: 'this' is not an Object");
             assert.throws(function() { Promise.all.call({}); }, TypeError, "Promise.all throws when called when this parameter is non-callable", "Function expected");
             assert.throws(function() { Promise.all.call(Math.sin); }, TypeError, "Promise.all throws when this parameter is a non-constructor", "Function expected");
         }
@@ -196,9 +196,72 @@ var tests = [
                 Object.defineProperty(Promise, Symbol.species, {writable: false});
             }
             VerifyPromiseMethodUsingSpecies(function() { Promise.all.call(Promise, []); }, "Promise.all");
-            VerifyPromiseMethodUsingSpecies(function() { Promise.race.call(Promise, []); }, "Promise.race");
-            VerifyPromiseMethodUsingSpecies(function() { Promise.reject.call(Promise, 'Reject'); }, "Promise.reject");
-            VerifyPromiseMethodUsingSpecies(function() { Promise.resolve.call(Promise, 'Reject'); }, "Promise.resolve");
+            VerifyPromiseMethodUsingSpecies(function() { Promise.race.call(Promise, []); }, "Promise.race");        }
+    },
+    {
+        name: "Promise.resolve checks the 'constructor' property of the argument if it's a promise",
+        body: function () {
+            let x = new Promise(function(resolve, reject) { });
+
+            assert.isTrue(x === Promise.resolve(x), "Promise.resolve called with a promise object, x, returns that promise if 'this' === x.constructor");
+            
+            let xConstructor = {foo: 'my constructor'};
+            x.constructor = xConstructor;
+            
+            assert.isTrue(x === Promise.resolve.call(xConstructor, x), "Promise.resolve called with a promise object, x, returns that promise if 'this' === x.constructor");
+            
+            assert.isFalse(x === Promise.resolve(x), "Promise.resolve called with a promise object, x, returns a new promise if 'this' !== x.constructor");
+        }
+    },
+    {
+        name: "Promise resolve / reject functions handed to the executor function",
+        body: function () {
+            let isCalled = false;
+            new Promise(function(resolve, reject) { 
+                assert.areEqual(1, resolve.length, "Resolve function should have length 1");
+                assert.areEqual('function', typeof resolve, "Resolve function is a function type");
+                assert.areEqual(1, reject.length, "Reject function should have length 1");
+                assert.areEqual('function', typeof reject, "Reject function is a function type");
+                isCalled = true;
+            });
+            
+            assert.isTrue(isCalled, "The executor function was actually called");
+        }
+    },
+    {
+        name: "Promise.all resolve / reject functions",
+        body: function () {
+            let isCalled = false;
+            let p = new Promise(function(resolve, reject) { resolve(); });
+            p.then = function(resolve, reject) { 
+                assert.areEqual(1, resolve.length, "Resolve function should have length 1");
+                assert.areEqual('function', typeof resolve, "Resolve function is a function type");
+                assert.areEqual(1, reject.length, "Reject function should have length 1");
+                assert.areEqual('function', typeof reject, "Reject function is a function type");
+                isCalled = true;
+            };
+            
+            Promise.all([p]);
+            
+            assert.isTrue(isCalled, "The then function was actually called");
+        }
+    },
+    {
+        name: "Executor function passed to Promise constructor via NewPromiseCapability",
+        body: function () {
+            let isCalled = false;
+            let p = new Promise(function(resolve, reject) { resolve(); });
+            let test_ctor = function(executor) {
+                assert.isTrue(this instanceof Promise, "The 'this' argument is a promise object");
+                assert.areEqual(2, executor.length, "Executor function should have length 2");
+                assert.areEqual('function', typeof executor, "Executor function is a function type");
+                isCalled = true;
+                executor(function(){}, function(){});
+            }
+            
+            Promise.resolve.call(test_ctor, p);
+            
+            assert.isTrue(isCalled, "The constructor function was actually called");
         }
     },
 ];

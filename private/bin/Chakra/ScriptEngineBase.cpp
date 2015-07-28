@@ -581,6 +581,21 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototype(
     __in BOOL bindReference,
     __out HTYPE* typeRef)
 {
+    return CreateTypeFromPrototypeInternal(inTypeId, nullptr, 0, objPrototype, entryPoint, operations, fDeferred, nameId, bindReference, typeRef);
+}
+
+HRESULT ScriptEngineBase::CreateTypeFromPrototypeInternal(
+    __in TypeId inTypeId,
+    __in __RPC__in_ecount_full(inheritedTypeIdsCount) const JavascriptTypeId* inheritedTypeIds,
+    __in UINT inheritedTypeIdsCount,
+    __in Js::RecyclableObject* objPrototype,
+    __in ScriptMethod entryPoint,
+    __in ITypeOperations* operations,
+    __in BOOL fDeferred,
+    __in PropertyId nameId,
+    __in BOOL bindReference,
+    __out HTYPE* typeRef)
+{
     HRESULT hr = S_OK;
     Js::TypeId typeId = (Js::TypeId)inTypeId;
     Js::ScriptContext* localScriptContext = scriptContext;
@@ -609,7 +624,7 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototype(
             RecyclerNew(recycler, Js::CustomExternalType,
             localScriptContext, (Js::TypeId)typeId,
                 objPrototype, (Js::JavascriptMethod)entryPoint,
-                customExternalTypeHandler, true, true, operations, nameId);
+                customExternalTypeHandler, true, true, operations, nameId, inheritedTypeIds, inheritedTypeIdsCount);
         IfFailedReturn(customExternalType->Initialize());
         type = customExternalType;
     }
@@ -648,6 +663,8 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototype(
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateType(
     __in JavascriptTypeId typeId,
+    __in __RPC__in_ecount_full(inheritedTypeIdsCount) const JavascriptTypeId* inheritedTypeIds,
+    __in UINT inheritedTypeIdsCount,
     __in Var varPrototype,
     __in ScriptMethod entryPoint,
     __in ITypeOperations* operations,
@@ -671,7 +688,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateType(
 
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
     {
-        hr = CreateTypeFromPrototype((TypeId)typeId, objPrototype, entryPoint, operations, fDeferred, nameId, bindReference, typeRef);
+        hr = CreateTypeFromPrototypeInternal((TypeId)typeId, inheritedTypeIds, inheritedTypeIdsCount, objPrototype, entryPoint, operations, fDeferred, nameId, bindReference, typeRef);
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr);
     return hr;
@@ -1406,10 +1423,12 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::InspectableUnknownToVar(
 }
 
 
-HRESULT STDMETHODCALLTYPE ScriptEngineBase::BuildDirectFunction(
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::BuildDOMDirectFunction(
     __in Var signature,
     __in void* entryPoint,
     __in PropertyId nameId,
+    __in JavascriptTypeId prototypeTypeId,
+    __in UINT64 flags,
     __out Var* jsFunction)
 {
     HRESULT hr = NOERROR;
@@ -1429,7 +1448,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::BuildDirectFunction(
     *jsFunction = nullptr;
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
-        *jsFunction = library->CreateExternalFunction((Js::JavascriptMethod)entryPoint, nameId, signature);
+        *jsFunction = library->CreateExternalFunction((Js::JavascriptMethod)entryPoint, nameId, signature, prototypeTypeId, flags);
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;

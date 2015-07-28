@@ -9,15 +9,17 @@
     <TargetName>Chakra</TargetName>
     <TargetName Condition="'$(FreTest)'=='true' and '$(BuildingWithBuildExe)'=='true'">ChakraTest</TargetName>
   </PropertyGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseStaticAtl>true</UseStaticAtl>
     <AtlVersion>30</AtlVersion>
+  </PropertyGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup>
     <!-- Overrides the default Win7 (Win8 for Arm) targeting for fre build to Win10
         Needs to be after Chakra.Build.Default.props but before Chakra.Build.props -->
-    <NtTargetVersion Condition="'$(Configuration)'=='fre'">$(NtTargetVersion_Win10)</NtTargetVersion>
+    <NtTargetVersion Condition="'$(Configuration)'=='Release'">$(NtTargetVersion_Win10)</NtTargetVersion>
   </PropertyGroup>
   <!-- Localization related stuff for build.exe
       TODO: How do we do localization when we do binary injection? -->
@@ -55,10 +57,6 @@
     <Import Project="$(BuildConfig_ARMASM_Path)armasm.props" />
   </ImportGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Props" />
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
   </PropertyGroup>
@@ -125,14 +123,14 @@
         <!-- For IsMessageBoxWPresent -->
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-ntuser-dialogbox-l1.lib
       </AdditionalDependencies>
-      <AdditionalDependencies Condition="'$(Configuration)'!='fre' AND '$(Platform)'!='ARM' AND '$(Platform)'!='Arm64'">
+      <AdditionalDependencies Condition="'$(Configuration)'!='Release' AND '$(Platform)'!='ARM' AND '$(Platform)'!='Arm64'">
         %(AdditionalDependencies);
         $(ChakraRootDirectory)tools\External\lib\$(PlatformPathNameAlt)\jitprofiling.lib
       </AdditionalDependencies>
       <DelayLoadDLLs>%(DelayLoadDLLs);oleaut32.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-0.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'!='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-1.dll</DelayLoadDLLs>
-      <DelayLoadDLLs Condition="'$(Configuration)'!='fre'">%(DelayLoadDLLs);cryptsp.dll</DelayLoadDLLs>
+      <DelayLoadDLLs Condition="'$(Configuration)'!='Release'">%(DelayLoadDLLs);cryptsp.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OptimiziedBuild)'!='true'">%(DelayLoadDLLs);ext-ms-win-ntuser-dialogbox-l1-1-0.dll</DelayLoadDLLs>
       <!-- Pogo switches -->
       <AdditionalOptions>%(AdditionalOptions) -d2:-pspeed1</AdditionalOptions>
@@ -146,7 +144,7 @@
       <!-- Even though Chakra.Common.Memory is a project reference, it is placed at the end of the command line, and the new operator conflict with the one in msvcrt.lib -->
       <AdditionalDependencies>$(ChakraCommonMemoryLib);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <Link Condition="'$(BuildingWithBuildExe)'=='true'">
+    <Link Condition="'$(BuildingWithBuildExe)'=='true' OR '$(BuildingGitRepo)'=='true'">
       <!-- For Razzle build, Solution relies on ProjectReferences -->
       <AdditionalDependencies>
         $(ChakraLibs);
@@ -154,35 +152,10 @@
         <!-- iedevtools_host_iel1.lib:
               LoadLatestPDM
               ShouldUseLocalPDM -->
-        $(OBJECT_ROOT)\inetcore\lib\devtb\dtbhost\$(ObjectDirectory)iedevtools_host_iel1.lib;
+        $(IELibPath)\devtb\dtbhost\$(ObjectDirectory)iedevtools_host_iel1.lib;
 
         <!-- All for ScriptProjectionHostApi -->
-        $(OBJECT_ROOT)\inetcore\lib\ScriptProjectionHost\iel3_edge\$(ObjectDirectory)ScriptProjectionHost_Edge_iel3.lib;
-        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
-        $(PUBLIC_ROOT)\internal\base\lib\$(PlatformPathNameAlt)\AppModel\Common\AppModel.Common.lib;
-        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-l1.lib;
-        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-ro-typeresolution-l1.lib
-      </AdditionalDependencies>
-      <DelayLoadDLLs>
-        %(DelayLoadDLLs);
-        ext-ms-win-rometadata-dispenser-l1-1-0.dll;
-        api-ms-win-core-winrt-l1-1-0.dll;
-        api-ms-win-ro-typeresolution-l1-1-0.dll
-      </DelayLoadDLLs>
-    </Link>
-    <!-- TODO: This will be the default for the VS Solution too once we stop relying on the solution in SD -->
-    <Link Condition="'$(BuildingGitRepo)'=='true'">
-      <!-- For Razzle build, Solution relies on ProjectReferences -->
-      <AdditionalDependencies>
-        $(ChakraLibs);
-        %(AdditionalDependencies);
-        <!-- iedevtools_host_iel1.lib:
-              LoadLatestPDM
-              ShouldUseLocalPDM -->
-        $(IELibPath)\devtb\dtbhost\$(ExternalObjDirectory)\iedevtools_host_iel1.lib;
-        
-        <!-- All for ScriptProjectionHostApi -->
-        $(IELibPath)\ScriptProjectionHost\iel3_edge\$(ExternalObjDirectory)\ScriptProjectionHost_Edge_iel3.lib;
+        $(IELibPath)\ScriptProjectionHost\iel3_edge\$(ObjectDirectory)ScriptProjectionHost_Edge_iel3.lib;
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
         $(BaseLibPath)\AppModel\Common\AppModel.Common.lib;
         $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-l1.lib;
@@ -194,7 +167,7 @@
         api-ms-win-core-winrt-l1-1-0.dll;
         api-ms-win-ro-typeresolution-l1-1-0.dll
       </DelayLoadDLLs>
-    </Link>
+    </Link>  
     <ImpLib>
       <AdditionalDependencies>$(ChakraLibs);%(AdditionalDependencies)</AdditionalDependencies>
     </ImpLib>
@@ -284,7 +257,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)NamedItemList.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)NamespaceProjectionEnumerator.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)NativeVisualizerExtension.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)'=='fre'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)ObjectAsIPropertyValue.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ObjectAsIReference.cpp" />
@@ -466,7 +439,6 @@
     <ClInclude Include="SCASerialization.h" />
     <ClInclude Include="SCADeserialization.h" />
     <ClInclude Include="ScriptDAC.h" />
-    <ClInclude Include="scrutil.h" />
     <ClInclude Include="DiagHook.h" />
     <ClInclude Include="ScriptDebugDocument.h" />
     <ClInclude Include="ScriptEdit.h" />

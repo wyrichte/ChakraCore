@@ -218,7 +218,7 @@ void MyScriptDirectTests::CreateTypeObject(std::wstring objname)
         {
             WCHAR* pn=L"xasd";
             PropertyId nameId=GetOrAddPropertyId(pn);
-            FAIL_hr(mptr_EzeScriptDirect->CreateType((JavascriptTypeId)-1,nullptr,nullptr,mptr_typeop, false, nameId,true,&newtyperef), L"Create Type");
+            FAIL_hr(mptr_EzeScriptDirect->CreateType((JavascriptTypeId)-1,nullptr,0,nullptr,nullptr,mptr_typeop, false, nameId,true,&newtyperef), L"Create Type");
             FAIL_hr(mptr_EzeScriptDirect->CreateTypedObject(newtyperef,100,TRUE,&typeobj),L"CreateTypedObject");
             FAIL_hr(mptr_typeop->SetProperty(mptr_EzeScriptDirect, globalObj,exists_id,typeobj,&results),L"SetProperty");
         }
@@ -227,7 +227,7 @@ void MyScriptDirectTests::CreateTypeObject(std::wstring objname)
     {
         WCHAR* pn=L"xasd1";
         PropertyId nameId=GetOrAddPropertyId(pn);
-        FAIL_hr(mptr_EzeScriptDirect->CreateType((JavascriptTypeId)-1,nullptr,nullptr,mptr_typeop, false, nameId,true,&newtyperef), L"Create Type");
+        FAIL_hr(mptr_EzeScriptDirect->CreateType((JavascriptTypeId)-1, nullptr, 0, nullptr, nullptr, mptr_typeop, false, nameId, true, &newtyperef), L"Create Type");
         FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(objname.c_str(),&pid),L"GetOrAddPropertyId");;
         if (pid<0)
         {
@@ -390,7 +390,7 @@ BOOL MyScriptDirectTests::CreateTypedObjectWithPrototype(std::wstring ctor_name,
 
     //Create a type with the prototype object
     PropertyId nameId=GetOrAddPropertyId(type_name);
-    FAIL_hr(mptr_EzeScriptDirect->CreateType(TypeId_Unspecified,mptr_data_item->GetPrototypeObj(),nullptr,mptr_typeop, false, nameId,true,&newtyperef),L"Create Type");
+    FAIL_hr(mptr_EzeScriptDirect->CreateType(TypeId_Unspecified, nullptr, 0, mptr_data_item->GetPrototypeObj(), nullptr, mptr_typeop, false, nameId, true, &newtyperef), L"Create Type");
 
     pid_obj=GetOrAddPropertyId(obj_name);
 

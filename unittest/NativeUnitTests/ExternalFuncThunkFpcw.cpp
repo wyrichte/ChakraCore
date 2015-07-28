@@ -29,7 +29,7 @@ HRESULT ExternalFuncFpcwTest(IActiveScriptDirect* activeScriptDirect)
     hr = activeScriptDirect->GetOrAddPropertyId(L"MyFPCWTest", &propertyId);
     IfFailedReturn(hr);
 
-    hr = activeScriptDirect->BuildDirectFunction(NULL, MyFPCWTest, propertyId, &jsFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(NULL, MyFPCWTest, propertyId, -1, 0, &jsFunction);
     IfFailedReturn(hr);
 
     Var args[1];

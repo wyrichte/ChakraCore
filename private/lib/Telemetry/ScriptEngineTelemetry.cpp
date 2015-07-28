@@ -4,7 +4,7 @@
 // Include headers for each long-lasting component:
 #include "ESBuiltIns\ESBuiltInsDatabase.h"
 
-#ifdef TELEMETRY
+#ifdef ENABLE_BASIC_TELEMETRY
 
 bool ScriptEngineTelemetry::isInitialized = false;
 

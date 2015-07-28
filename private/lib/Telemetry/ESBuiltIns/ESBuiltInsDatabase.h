@@ -30,7 +30,7 @@ enum class ESBuiltInPropertyId : uint32
 #undef Prototype
 };
 
-#ifndef TELEMETRY_TRACELOGGING
+#ifdef TELEMETRY_OUTPUTPRINT
 /// <summary>POD type for an ECMAScript built-in property and its associated function value in the case of methods (i.e. an unaliased function property, e.g. String.prototype.substring).</summary>
 class ESBuiltInProperty
 {
@@ -73,7 +73,7 @@ private:
     ESBuiltInsDatabase& operator=(const ESBuiltInsDatabase&) = delete;
     ~ESBuiltInsDatabase() = delete;
 
-#ifndef TELEMETRY_TRACELOGGING
+#ifdef TELEMETRY_OUTPUTPRINT
     static bool                  isInitialized;
     static ESBuiltInPropertyList esbiPropertyList;
 #endif
@@ -103,7 +103,7 @@ public:
         allocator.Free( buffer, nofBytes );
     }
 
-#ifndef TELEMETRY_TRACELOGGING
+#ifdef TELEMETRY_OUTPUTPRINT
     static ESBuiltInPropertyList& GetESBuiltInPropertyIdIdxList();
 
     static ESBuiltInProperty* GetESBuiltInProperty(const ESBuiltInPropertyId propertyId);

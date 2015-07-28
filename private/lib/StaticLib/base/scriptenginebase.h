@@ -121,6 +121,8 @@ public:
 
     HRESULT STDMETHODCALLTYPE CreateType(
         __in JavascriptTypeId typeId,
+        __in __RPC__in_ecount_full(inheritedTypeIdsCount) const JavascriptTypeId* inheritedTypeIds,
+        __in UINT inheritedTypeIdsCount,
         __in Var varPrototype,
         __in ScriptMethod entryPoint,
         __in ITypeOperations* operations,
@@ -266,10 +268,12 @@ public:
         __in Var instance,
         __out BOOL* result);
 
-    HRESULT STDMETHODCALLTYPE BuildDirectFunction(
+    HRESULT STDMETHODCALLTYPE BuildDOMDirectFunction(
         __in Var signature,
         __in void* entryPoint,
         __in PropertyId nameId,
+        __in JavascriptTypeId prototypeTypeId,
+        __in UINT64 flags,
         __out Var* jsFunction);
 
     HRESULT STDMETHODCALLTYPE GetTypedObjectSlotAccessor(
@@ -442,6 +446,18 @@ protected:
 
     HRESULT CreateTypeFromPrototype(
         __in TypeId typeId,
+        __in Js::RecyclableObject* objPrototype,
+        __in ScriptMethod entryPoint,
+        __in ITypeOperations* operations,
+        __in BOOL fDeferred,
+        __in PropertyId nameId,
+        __in BOOL bindReference,
+        __out HTYPE* typeRef);
+
+    HRESULT CreateTypeFromPrototypeInternal(
+        __in TypeId typeId,
+        __in __RPC__in_ecount_full(inheritedTypeIdsCount) const JavascriptTypeId* inheritedTypeIds,
+        __in UINT inheritedTypeIdsCount,
         __in Js::RecyclableObject* objPrototype,
         __in ScriptMethod entryPoint,
         __in ITypeOperations* operations,

@@ -3325,34 +3325,6 @@ namespace ProjectionModel
         return find.hasEventHandlers;
     }
 
-    // Info:        Convert character to lower case, using logic of String.prototype.toLowerCase
-    // Parameters:  inChar - the character to convert to lower case
-    wchar_t CharToLowerCase(wchar_t inChar)
-    {
-        wchar_t outChar = inChar;
-#define UNICODE_TABLES
-#define chSrc inChar
-#define chDst outChar
-#define UNICODE_LOWER_CODE
-#include "unicode.h"
-#undef UNICODE_TABLES
-        return outChar;
-    }
-
-    // Info:        Convert character to upper case, using logic of String.prototype.toUpperCase
-    // Parameters:  inChar - the character to convert to upper case
-    wchar_t CharToUpperCase(wchar_t inChar)
-    {
-        wchar_t outChar = inChar;
-#define UNICODE_TABLES
-#define chSrc inChar
-#define chDst outChar
-#define UNICODE_UPPER_CODE
-#include "unicode.h"
-#undef UNICODE_TABLES
-        return outChar;
-    }
-
     bool CharIsLowerCase(wchar_t c)
     {
         wchar_t upper = CharToUpperCase(c);

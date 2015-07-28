@@ -2,8 +2,9 @@
 #include "ScriptContextTelemetry.h"
 
 #include "ESBuiltIns\ESBuiltInsTelemetryProvider.h"
+#include "DateParse\DateParseTelemetryProvider.h"
 
-#ifdef TELEMETRY
+#ifdef ENABLE_BASIC_TELEMETRY
 
 using namespace Js;
 
@@ -11,15 +12,18 @@ ScriptContextTelemetry::ScriptContextTelemetry( ScriptContext& scriptContext ) :
     scriptContext( scriptContext ),
     telemetryProviders( scriptContext.TelemetryAllocator() ),
 
-    opcodeTelemetry( *this )
+    opcodeTelemetry( *this ),
+    knownMethodTelemetry( *this )
 {
     // Register each Telemetry provider here.
 #ifdef TELEMETRY_ESB
-    {
-        this->telemetryProviders.Add( Anew( scriptContext.TelemetryAllocator(), ESBuiltInsTelemetryProvider, *this ) );
-    }
+       this->telemetryProviders.Add( Anew( scriptContext.TelemetryAllocator(), ESBuiltInsTelemetryProvider, *this ) );
+#endif
+#ifdef TELEMETRY_DateParse
+       this->telemetryProviders.Add( Anew( scriptContext.TelemetryAllocator(), DateParseTelemetryProvider, *this ) );
 #endif
 }
+
 ScriptContextTelemetry::~ScriptContextTelemetry()
 {
 }
@@ -34,19 +38,22 @@ OpcodeTelemetry& ScriptContextTelemetry::GetOpcodeTelemetry()
     return this->opcodeTelemetry;
 }
 
+KnownMethodTelemetry& ScriptContextTelemetry::GetKnownMethodTelemetry()
+{
+    return this->knownMethodTelemetry;
+}
+
 void ScriptContextTelemetry::OutputTelemetry()
 {
     this->ForEachTelemetryProvider(
         [&]( IScriptContextTelemetryProvider* tp )
         {
-#ifndef TELEMETRY_TRACELOGGING
-            {
-                Output::Print(L"\r\n");
-                Output::Print( tp->GetDisplayName() );
-                Output::Print(L"\r\n");
-            }
+#ifdef TELEMETRY_OUTPUTPRINT
+            tp->OutputPrint();
 #endif
-            tp->Output();
+#ifdef TELEMETRY_TRACELOGGING
+            tp->OutputTraceLogging();
+#endif
         }
     );
 }

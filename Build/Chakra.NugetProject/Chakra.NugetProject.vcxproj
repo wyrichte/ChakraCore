@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <!-- TODO: Can we remove this ItemGroup -->
-  <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="All|AnyCPU">
-      <Configuration>All</Configuration>
-      <Platform>AnyCPU</Platform>
-    </ProjectConfiguration>
-  </ItemGroup>  
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
+  <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F4CEA127-8D10-4C02-BF29-41F0643C11BB}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup>
-    <PlatformToolset>v140</PlatformToolset>
-    <PlatformToolset Condition="'$(VisualStudioVersion)'=='12.0'">v120</PlatformToolset>
     <RestorePackages>true</RestorePackages>
     <RepositoryRoot Condition="'$(RepositoryRoot)' == ''">$(SolutionDir)\..</RepositoryRoot>
   </PropertyGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ItemGroup>
     <None Include="$(RepositoryRoot)\packages.config" />
   </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Props" />
+  
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+    
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="Build">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>

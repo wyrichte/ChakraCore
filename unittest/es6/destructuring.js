@@ -6,12 +6,12 @@ var tests = [
     name: "Basic parsing and early errors",
     body: function () {
       // No initializer
-      assert.throws(function () { eval("var [];"); },    SyntaxError, "Destructured var array declaration must have at least one identifier reference",   "Destructuring expressions must have an initializer");
-      assert.throws(function () { eval("let [];"); },    SyntaxError, "Destructured let array declaration must have at least one identifier reference",   "Destructuring expressions must have an initializer");
-      assert.throws(function () { eval("const [];"); },  SyntaxError, "Destructured const array declaration must have at least one identifier reference", "Destructuring expressions must have an initializer");
-      assert.throws(function () { eval("var [a];"); },   SyntaxError, "Destructured var array declaration must have an initializer",                      "Destructuring expressions must have an initializer");
-      assert.throws(function () { eval("let [a];"); },   SyntaxError, "Destructured let array declaration must have an initializer",                      "Destructuring expressions must have an initializer");
-      assert.throws(function () { eval("const [a];"); }, SyntaxError, "Destructured const array declaration must have an initializer",                    "Destructuring expressions must have an initializer");
+      assert.throws(function () { eval("var [];"); },    SyntaxError, "Destructured var array declaration must have at least one identifier reference",   "Destructuring declarations must have an initializer");
+      assert.throws(function () { eval("let [];"); },    SyntaxError, "Destructured let array declaration must have at least one identifier reference",   "Destructuring declarations must have an initializer");
+      assert.throws(function () { eval("const [];"); },  SyntaxError, "Destructured const array declaration must have at least one identifier reference", "Destructuring declarations must have an initializer");
+      assert.throws(function () { eval("var [a];"); },   SyntaxError, "Destructured var array declaration must have an initializer",                      "Destructuring declarations must have an initializer");
+      assert.throws(function () { eval("let [a];"); },   SyntaxError, "Destructured let array declaration must have an initializer",                      "Destructuring declarations must have an initializer");
+      assert.throws(function () { eval("const [a];"); }, SyntaxError, "Destructured const array declaration must have an initializer",                    "Destructuring declarations must have an initializer");
 
       // No identifiers
       assert.doesNotThrow(function () { eval("var [] = [];"); },   "Destructured var array declaration with no identifiers does not throw");

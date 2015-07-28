@@ -8,17 +8,13 @@
     <RootNamespace>JS</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
   </PropertyGroup>
@@ -46,7 +42,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsDatabase.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsOpcodeTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsTelemetryProvider.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)IScriptContextTelemetryProvider.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)OpcodeTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptContextTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptEngineTelemetry.cpp" />
@@ -54,18 +49,23 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TelemetryPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DateParse\DateParseTelemetryProvider.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)KnownMethodTelemetry.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DateParse\DateParseTelemetryProvider.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsDatabase.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsOpcodeTelemetry.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsTelemetryProvider.h" />
     <ClInclude Include="IOpcodeTelemetry.h" />
     <ClInclude Include="IScriptContextTelemetryProvider.h" />
+    <ClInclude Include="KnownMethodTelemetry.h" />
     <ClInclude Include="OpcodeTelemetry.h" />
     <ClInclude Include="ScriptContextTelemetry.h" />
     <ClInclude Include="ScriptEngineTelemetry.h" />
     <ClInclude Include="TelemetryList.includes.h" />
     <ClInclude Include="Telemetry.h" />
+    <ClInclude Include="TelemetryMacros.h" />
     <ClInclude Include="TelemetryPch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -77,8 +77,8 @@
     <None Include="ESBuiltIns\sources.inc" />
     <None Include="ESBuiltIns\TraceLogList.Generator.js" />
     <None Include="ESBuiltIns\TraceLogList.inc" />
+    <None Include="KnownMethodTelemetryList.inc" />
     <None Include="sources.inc" />
-    <None Include="TelemetryList.inc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\publish\Publish.vcxproj">
@@ -93,6 +93,5 @@
       <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
     </ProjectReference>
   </ItemGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

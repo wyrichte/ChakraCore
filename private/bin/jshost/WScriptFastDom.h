@@ -105,7 +105,7 @@ public:
 
     static HRESULT Initialize(IActiveScript * activeScript);
     static HRESULT InitializeStreams(IActiveScriptDirect *activeScriptDirect, Var wscript);
-    static HRESULT InitializeProperty(IActiveScriptDirect *activeScriptDirect, __in wchar_t *propName, __out Var * obj, __out PropertyId *propId);
+    static HRESULT InitializeProperty(IActiveScriptDirect *activeScriptDirect, __in LPCWSTR propName, __out Var * obj, __out PropertyId *propId);
 
     static void EnableEditTests();
     static void AddMessageQueue(MessageQueue *messageQueue);
