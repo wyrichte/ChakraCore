@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef ENABLE_BASIC_TELEMETRY
+
 #include "IOpcodeTelemetry.h"
 
 class ScriptContextTelemetry;
@@ -20,9 +22,15 @@ private:
 
 public:
     
-#define IOPCODETELEMETRY(typeName,field) typeName##* field##;
-#include "TelemetryList.inc"
-#undef IOPCODETELEMETRY
+    /////////////////////
+    // Begin list of OpcodeTelemetry instances (this is not a List<IOpcodeTelemetry> for performance reasons, though this does complicate class definitions and #include order).
+
+#ifdef TELEMETRY_ESB
+    ESBuiltInsOpcodeTelemetry* esBuiltInsOpcodeTelemetry;
+#endif
+
+    // End list of OpcodeTelemetry instances
+    /////////////////////
 
     OpcodeTelemetry(ScriptContextTelemetry& telemetry);
     OpcodeTelemetry(const OpcodeTelemetry& copy) = delete; // `= delete` disables the copy-constructor.
@@ -48,3 +56,4 @@ public:
     void NewScriptObject  (const Js::Var& constructorFunction, const Js::Arguments& arguments, const Js::Var& constructedInstance) override;
 };
 
+#endif

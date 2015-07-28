@@ -1,4 +1,5 @@
 #include "TelemetryPch.h"
+
 #include "ESBuiltInsDatabase.h"
 
 #ifdef TELEMETRY_ESB
@@ -6,14 +7,14 @@
 using namespace JsUtil;
 using namespace Js;
 
-#ifndef TELEMETRY_TRACELOGGING
+#ifdef TELEMETRY_OUTPUTPRINT
 bool                  ESBuiltInsDatabase::isInitialized;
 ESBuiltInPropertyList ESBuiltInsDatabase::esbiPropertyList( &HeapAllocator::Instance );
 #endif
 
 void ESBuiltInsDatabase::Initialize()
 {
-#ifndef TELEMETRY_TRACELOGGING
+#ifdef TELEMETRY_OUTPUTPRINT
     if( ESBuiltInsDatabase::isInitialized ) return;
 
     esbiPropertyList.Add(
@@ -37,7 +38,7 @@ void ESBuiltInsDatabase::Initialize()
 #endif
 }
 
-#ifndef TELEMETRY_TRACELOGGING
+#ifdef TELEMETRY_OUTPUTPRINT
 ESBuiltInProperty::ESBuiltInProperty() :
     esbiPropertyId( ESBuiltInPropertyId::_None ),
     constructorName( nullptr ),
@@ -80,7 +81,7 @@ size_t ESBuiltInsDatabase::GetESBuiltInArrayIndex(ESBuiltInPropertyId propertyId
     return SIZE_MAX;
 }
 
-#ifndef TELEMETRY_TRACELOGGING
+#ifdef TELEMETRY_OUTPUTPRINT
 ESBuiltInProperty* ESBuiltInsDatabase::GetESBuiltInProperty( const ESBuiltInPropertyId esBuiltInPropertyId )
 {
     if( !ESBuiltInsDatabase::isInitialized ) ESBuiltInsDatabase::Initialize();
@@ -147,7 +148,12 @@ ESBuiltInPropertyId ESBuiltInsDatabase::GetESBuiltInPropertyId( ESBuiltInTypeNam
 
     uint32 key = static_cast<uint32>( esbiTypeNameId ) << 16 | ctor | static_cast<uint32>( propertyId );
 
-    return static_cast<ESBuiltInPropertyId>( key );
+    ESBuiltInPropertyId ret = static_cast<ESBuiltInPropertyId>( key );
+
+    // Ensure `ret` is a valid typeName+location+propertyId combination by looking it up in the database.
+
+    size_t usageArrayIndex = GetESBuiltInArrayIndex( ret );
+    return usageArrayIndex == SIZE_MAX ? ESBuiltInPropertyId::_None : ret;
 }
 
 #endif

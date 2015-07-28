@@ -279,7 +279,7 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
 
     DLLAddRef(); // One DLL reference for each existing script engine
 
-#ifdef TELEMETRY
+#ifdef ENABLE_BASIC_TELEMETRY
     ScriptEngineTelemetry::Initialize();
 #endif
 }
@@ -292,7 +292,7 @@ ScriptEngine::~ScriptEngine()
 #endif // DEBUG
     Assert(fKeepEngineAlive || (m_ssState == SCRIPTSTATE_CLOSED || m_ssState == SCRIPTSTATE_UNINITIALIZED));
 
-#ifdef TELEMETRY
+#ifdef ENABLE_BASIC_TELEMETRY
     ScriptEngineTelemetry::Cleanup();
 #endif
 

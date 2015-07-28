@@ -3,38 +3,12 @@
 
 #ifdef TELEMETRY_ESB
 
-// Copy of defines from Telemetry.cpp, which has dependencies on MicrosoftTelemetry.h which cannot be included in a common header file.
-#include <telemetry\MicrosoftTelemetry.h>
-
-#if defined(_M_IX86)
-#define TL_BINARYARCH "x86"
-#elif defined(_M_X64)
-#define TL_BINARYARCH "amd64"
-#elif defined(_M_ARM)
-#define TL_BINARYARCH "arm32"
-#elif defined(_M_ARM64)
-#define TL_BINARYARCH "arm64"
-#else
-#error Unknown architecture
-#endif
-
-#define TraceLogChakra(name, ...) \
-    if (g_TraceLoggingClient->GetShouldLogTelemetry() == true) { \
-        TraceLoggingWrite( \
-        g_hTraceLoggingProv, \
-        name, \
-        TraceLoggingKeyword(MICROSOFT_KEYWORD_TELEMETRY), \
-        TraceLoggingString(VER_IEVERSION_STR, "binaryVersion"), \
-        TraceLoggingString(TL_BINARYFLAVOR, "binaryFlavor"), \
-        TraceLoggingString(TL_BINARYARCH, "binaryArch"), \
-        __VA_ARGS__ \
-        ); \
-    }
+#include "..\TelemetryMacros.h"
 
 using namespace Js;
 
 ESBuiltInsTelemetryProvider::ESBuiltInsTelemetryProvider( ScriptContextTelemetry& scriptContextTelemetry ) :
-    IScriptContextTelemetryProvider( scriptContextTelemetry ),
+    scriptContextTelemetry( scriptContextTelemetry ),
     opcodeTelemetry( *this ),
     usageMap( ESBuiltInsDatabase::CreateUsageMap( *scriptContextTelemetry.GetScriptContext().TelemetryAllocator() ) )
 #ifdef TELEMETRY_ESB_STRINGS
@@ -51,11 +25,6 @@ ESBuiltInsTelemetryProvider::ESBuiltInsTelemetryProvider( ScriptContextTelemetry
 ESBuiltInsTelemetryProvider::~ESBuiltInsTelemetryProvider()
 {
     ESBuiltInsDatabase::FreeUsageMap( *scriptContextTelemetry.GetScriptContext().TelemetryAllocator(), this->usageMap );
-}
-
-const wchar_t* const ESBuiltInsTelemetryProvider::GetDisplayName() const
-{
-    return L"ECMAScript 5-7 Built-Ins Telemetry.";
 }
 
 void ESBuiltInsTelemetryProvider::OnPropertyEncountered( const Var instance, const PropertyId propertyId, const bool successful )
@@ -76,7 +45,7 @@ void ESBuiltInsTelemetryProvider::OnPropertyEncountered( const Var instance, con
 
     ESBuiltInPropertyId esbiPropertyId = ESBuiltInPropertyId::_None;
     bool isConstructorProperty;
-    ESBuiltInTypeNameId esbiTypeNameId = this->GetESBuiltInTypeNameId( instance, propertyId, _Out_ isConstructorProperty, _Out_ esbiPropertyId );
+    ESBuiltInTypeNameId esbiTypeNameId = this->GetESBuiltInTypeNameId( instance, propertyId, isConstructorProperty, esbiPropertyId );
     
     if( esbiTypeNameId == ESBuiltInTypeNameId::_None )
         return;
@@ -153,24 +122,30 @@ ESBuiltInTypeNameId ESBuiltInsTelemetryProvider::GetESBuiltInTypeNameId_Function
 {
     count_GetBuiltInTypeNameFunction++;
     
+    // BUG: the property-accession `String.prototype` causes this method to return `(isConstructor: false, typeId: ESBuiltInTypeNameId::Function)` because `prototype` is a member of Function.
+    // However it should return `(isConstructor: true, typeId: ESBuiltInTypeNameId::String)`
+
+//#ifdef NEVER
     // `instance` could be accessing a property of Function (e.g. Function.bind), or it could be accessing a Constructor Property (e.g. Array.isArray).
     // So see if the PropertyId belongs to Function, and if so, return immediately before doing a name-check.
 
-    ESBuiltInPropertyId belongsToFunction;
-    belongsToFunction = ESBuiltInsDatabase::GetESBuiltInPropertyId( ESBuiltInTypeNameId::Function, /*isConstructorProperty:*/ false, propertyId );
-    if( belongsToFunction != ESBuiltInPropertyId::_None )
+    ESBuiltInPropertyId definedOnFunction;
+    definedOnFunction = ESBuiltInsDatabase::GetESBuiltInPropertyId( ESBuiltInTypeNameId::Function, /*isConstructorProperty:*/ false, propertyId );
+    if( definedOnFunction != ESBuiltInPropertyId::_None )
     {
-        shortcutPropertyFound = belongsToFunction;
+        isConstructorProperty = false;
+        shortcutPropertyFound = definedOnFunction;
         return ESBuiltInTypeNameId::Function;
     }
 
-    belongsToFunction = ESBuiltInsDatabase::GetESBuiltInPropertyId( ESBuiltInTypeNameId::Function, /*isConstructorProperty:*/ true, propertyId );
-    if( belongsToFunction != ESBuiltInPropertyId::_None ) {
+    definedOnFunction = ESBuiltInsDatabase::GetESBuiltInPropertyId( ESBuiltInTypeNameId::Function, /*isConstructorProperty:*/ true, propertyId );
+    if( definedOnFunction != ESBuiltInPropertyId::_None ) {
         // There is a bug here in that `Function_Constructor_length` or `Function_Constructor_prototype` will never be recorded as a Constructor property, as the names are also used by instances, and this code has no way of knowing if this is *a* function, or *the* Function function.
         isConstructorProperty = true;
-        shortcutPropertyFound = belongsToFunction;
+        shortcutPropertyFound = definedOnFunction;
         return ESBuiltInTypeNameId::Function;
     }
+//#endif
 
     // PropertyId does not belong to Function, therefore this is a Constructor property. But which Constructor is it?
     // There are two ways to solve this:
@@ -209,10 +184,11 @@ ESBuiltInTypeNameId ESBuiltInsTelemetryProvider::GetESBuiltInTypeNameId_Object( 
     // `instance` could be a Polyfill Object. Inspect the name of its Constructor to see if it matches (e.g. `function DataView() { this.someDataViewProperty = 'abc'; };` ).
     // However, an optimization: don't name-check if the propertyId already belongs to Object (e.g. hasOwnProperty).
 
-    ESBuiltInPropertyId belongsToObject = ESBuiltInsDatabase::GetESBuiltInPropertyId( ESBuiltInTypeNameId::Object, /*isConstructorProperty:*/ false, propertyId ); // `isConstructorProperty` will always be false because `instance` is not a function and so cannot be a constructor.
-    if( belongsToObject != ESBuiltInPropertyId::_None )
+    ESBuiltInPropertyId definedOnObject = ESBuiltInsDatabase::GetESBuiltInPropertyId( ESBuiltInTypeNameId::Object, /*isConstructorProperty:*/ false, propertyId ); // `isConstructorProperty` will always be false because `instance` is not a function and so cannot be a constructor.
+    if( definedOnObject != ESBuiltInPropertyId::_None )
     {
-        shortcutPropertyFound = belongsToObject;
+        isConstructorProperty = false;
+        shortcutPropertyFound = definedOnObject;
         return ESBuiltInTypeNameId::Object;
     }
 
@@ -277,14 +253,22 @@ ESBuiltInTypeNameId ESBuiltInsTelemetryProvider::GetESBuiltInTypeNameId_Other( c
     count_GetBuiltInTypeNameOther++;
     
     ESBuiltInTypeNameId esbiTypeNameId = ESBuiltInsDatabase::GetESBuiltInTypeNameId_ByTypeId( typeId );
-    Assert( esbiTypeNameId != ESBuiltInTypeNameId::_None );
+    if( esbiTypeNameId == ESBuiltInTypeNameId::_None ) return esbiTypeNameId;
 
     // See if the specified property is defined on the identified type, if not, see if it's defined for Object (and so, is inherited):
     ESBuiltInPropertyId definedOnType = ESBuiltInsDatabase::GetESBuiltInPropertyId( esbiTypeNameId, /*isConstructorProperty:*/ false, propertyId );
     if( definedOnType == ESBuiltInPropertyId::_None )
     {
-        ESBuiltInPropertyId belongsToObject = ESBuiltInsDatabase::GetESBuiltInPropertyId( ESBuiltInTypeNameId::Object, /*isConstructorProperty:*/ false, propertyId ); // `isConstructorProperty` will always be false because `instance` is not a function and so cannot be a constructor.
-        if( belongsToObject != ESBuiltInPropertyId::_None ) return ESBuiltInTypeNameId::Object;
+        ESBuiltInPropertyId definedOnObject = ESBuiltInsDatabase::GetESBuiltInPropertyId( ESBuiltInTypeNameId::Object, /*isConstructorProperty:*/ false, propertyId ); // `isConstructorProperty` will always be false because `instance` is not a function and so cannot be a constructor.
+        if( definedOnObject != ESBuiltInPropertyId::_None )
+        {
+            shortcutPropertyFound = definedOnObject;
+            return ESBuiltInTypeNameId::Object;
+        }
+    }
+    else
+    {
+        shortcutPropertyFound = definedOnType;
     }
 
     return esbiTypeNameId;
@@ -313,35 +297,38 @@ ESBuiltInTypeNameId ESBuiltInsTelemetryProvider::GetESBuiltInTypeNameId( const V
     }
 }
 
-void ESBuiltInsTelemetryProvider::Output()
+void ESBuiltInsTelemetryProvider::OutputTraceLogging()
 {
-#ifdef TELEMETRY_TRACELOGGING
-    {
-        // Unfortunately we cannot #include a file directly within a macro usage.
-        // i.e. this doesn't work:
-        // 
-        // #define BUILTIN(yada) TraceLoggingInt32( yada, #yada )
-        // TraceLogChakra( /*snip*/
-        // #include "ESBuiltInsDatabase.inc"
-        // );
-        //
-        // So the tracelogging call is instead populated by a C++-generation script, which the same effect as the preprocessor, except you need to remember to re-run the script whenever the database changes.
-        // The generated file is TraceLogList.inc, and unfortunately the preprocessor puts it all on a single long line.
+    // Unfortunately we cannot #include a file directly within a macro usage.
+    // i.e. this doesn't work:
+    // 
+    // #define BUILTIN(yada) TraceLoggingInt32( yada, #yada )
+    // TraceLogChakra( /*snip*/
+    // #include "ESBuiltInsDatabase.inc"
+    // );
+    //
+    // So the tracelogging call is instead populated by a C++-generation script, which the same effect as the preprocessor, except you need to remember to re-run the script whenever the database changes.
+    // The generated file is TraceLogList.inc, and unfortunately the preprocessor puts it all on a single long line.
 
-        size_t idx;
+    size_t idx;
 
 #define Get(propertyId) \
-        ( idx = ESBuiltInsDatabase::GetESBuiltInArrayIndex( propertyId ), idx != SIZE_MAX ? this->usageMap[ idx ] : 0 )
+    ( idx = ESBuiltInsDatabase::GetESBuiltInArrayIndex( propertyId ), idx != SIZE_MAX ? this->usageMap[ idx ] : 0 )
 
 // If the compiler complains about running out of heap-space, re-run TraceLogList.Generator.js with a modified entriesPerBlock value (line 39).
 
 #include "TraceLogList.inc"
 
 #undef Get
-        
-    }
-#else
+}
+
+void ESBuiltInsTelemetryProvider::OutputPrint()
+{
+    if( CONFIG_ISENABLED(Js::ESBLangTelFlag) )
     {
+        Output::Print( L"----------\r\n" );
+        Output::Print( L"-- ECMAScript 5-7 Built-Ins Telemetry.\r\n" );
+        Output::Print( L"Date.parse Telemetry.\r\n");
         Output::Print( L"OnPropertyEncountered     : %d \r\n", count_OnPropertyEncountered      );
         Output::Print( L"OnConstructorCalled       : %d \r\n", count_OnConstructorCalled        );
         Output::Print( L"GetBuiltInTypeNameFunction: %d \r\n", count_GetBuiltInTypeNameFunction );
@@ -379,8 +366,8 @@ void ESBuiltInsTelemetryProvider::Output()
         {
             Output::Print( L"No built-ins called.\r\n" );
         }
+        Output::Print( L"----------\r\n");
     }
-#endif
 }
 
 #endif

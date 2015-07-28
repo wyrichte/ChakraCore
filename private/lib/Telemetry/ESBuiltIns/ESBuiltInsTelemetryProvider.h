@@ -11,6 +11,7 @@ class ESBuiltInsTelemetryProvider :
     public IScriptContextTelemetryProvider
 {
 private:
+    ScriptContextTelemetry& scriptContextTelemetry;
     ESBuiltInsOpcodeTelemetry opcodeTelemetry;
     byte*                     usageMap;
 
@@ -33,9 +34,8 @@ public:
     ESBuiltInsTelemetryProvider(ScriptContextTelemetry& scriptContextTelemetry);
     ~ESBuiltInsTelemetryProvider();
 
-    const wchar_t* const GetDisplayName() const override;
-
-    void Output() override;
+    void OutputPrint() override;
+    void OutputTraceLogging() override;
 
     // Built-ins specific telemetry methods below:
 

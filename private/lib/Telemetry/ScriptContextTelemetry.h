@@ -1,8 +1,11 @@
 #pragma once
 
+#ifdef ENABLE_BASIC_TELEMETRY
+
 #include "IScriptContextTelemetryProvider.h"
 
 #include "OpcodeTelemetry.h"
+#include "KnownMethodTelemetry.h"
 
 typedef JsUtil::List<IScriptContextTelemetryProvider*,ArenaAllocator> TelemetryProviderList;
 
@@ -13,8 +16,9 @@ private:
     Js::ScriptContext& scriptContext;
     TelemetryProviderList telemetryProviders;
     
-    // Telemetry aspects: (so far, only OpcodeTelemetry is implemented)
-    OpcodeTelemetry opcodeTelemetry;
+    // Telemetry aspects:
+    OpcodeTelemetry opcodeTelemetry; // Telemetry on specific interpreter opcodes - requires callbacks added to each opcode handler in InterpreterStackFrame
+    KnownMethodTelemetry knownMethodTelemetry; // Telemetry on specific known method calls - requires callbacks added to each desired known method
     
     template<typename Func>
     void ForEachTelemetryProvider( Func callback )
@@ -32,10 +36,13 @@ public:
     ~ScriptContextTelemetry();
 
     Js::ScriptContext& GetScriptContext() const;
+    
     OpcodeTelemetry& GetOpcodeTelemetry();
+    KnownMethodTelemetry& GetKnownMethodTelemetry();
 
     void Initialize();
 
     void OutputTelemetry();
 };
 
+#endif
