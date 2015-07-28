@@ -338,6 +338,38 @@ function test18()
     p.m();
 }
 
+// Verify if targetFunction of bound function is a proxy to function
+function test19() 
+{
+    function foo(a) {
+       this.abc = a;
+     };
+    var _ = new Proxy(foo, {});
+    var p = _.bind();
+    var x = new p('def');
+    print(x.abc);
+}
+
+// Verify if targetFunction passed to Reflect.construct is a proxy to function
+function test20() 
+{
+    function foo(a) {this.abc = a;};
+    var _ = new Proxy(foo, {});
+    var p = _.bind();
+    var x = Reflect.construct(p, ["ade"]);
+    print(x.abc);
+}
+
+// Verify that constructor do return an object.
+function test21() 
+{
+    function foo() {
+        this.a = "b";
+    }
+    var x = new Proxy(foo, {});
+    var y = new x();
+    print(y.a);
+}
 
 
 test0();
@@ -359,3 +391,6 @@ test15();
 test16();
 test17();
 test18();
+test19();
+test20();
+test21();
