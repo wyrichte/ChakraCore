@@ -16,10 +16,6 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />   
   <Import Project="ExternalDependencyCommon.targets" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>  
-  <PropertyGroup Label="UserMacros" />    
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />   
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

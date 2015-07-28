@@ -104,7 +104,7 @@
       
       <!-- Enable Minimal rebuild inside VS, we can expand it if it is worth while (minmial rebuild has PCH problem with optimized build -->
       <MinimalRebuild>false</MinimalRebuild>
-      <MinimalRebuild Condition="'$(BuildingInsideVisualStudio)'=='true' AND '$(Configuration)' == 'chk'">true</MinimalRebuild>
+      <MinimalRebuild Condition="'$(BuildingInsideVisualStudio)'=='true' AND '$(Configuration)' == 'Debug'">true</MinimalRebuild>
 
     </ClCompile>
     

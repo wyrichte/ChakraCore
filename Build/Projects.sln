@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E0786480-1474-43B0-ACDC-6F05779D9D83}"
 	ProjectSection(SolutionItems) = preProject
 		Chakra.Build.Default.props = Chakra.Build.Default.props
+		Chakra.Build.Git.Default.props = Chakra.Build.Git.Default.props
 		Chakra.Build.Paths.props = Chakra.Build.Paths.props
 		Chakra.Build.props = Chakra.Build.props
 		Chakra.Build.Razzle.Default.props = Chakra.Build.Razzle.Default.props
@@ -22,7 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{DD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dep", "dep", "{D231BA17-AE33-4736-BAA4-1A52476BB24A}"
 	ProjectSection(SolutionItems) = preProject
-		..\dep\common-iel1.vcxproj = ..\dep\common-iel1.vcxproj
 		..\dep\dtbhost.vcxproj = ..\dep\dtbhost.vcxproj
 		..\dep\manifests-inbox.vcxproj = ..\dep\manifests-inbox.vcxproj
 		..\dep\ScriptProjectionHostApi.vcxproj = ..\dep\ScriptProjectionHostApi.vcxproj

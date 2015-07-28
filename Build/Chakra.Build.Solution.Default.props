@@ -24,16 +24,9 @@
 
     <SdkToolsIncPath>$(PublicInternalPath)\sdktools\inc</SdkToolsIncPath>
   </PropertyGroup>
-  <!-- Output directories -->
   <PropertyGroup>
-    <OutBaseDir Condition="'$(OutBaseDir)'==''">$(SolutionDir)VcBuild</OutBaseDir>
-    <OutDir>$(OutBaseDir)\Binaries\win-$(PlatformPathName)$(Configuration)\</OutDir>
-    <IntDir>$(OutBaseDir)\Obj\win-$(PlatformPathName)$(Configuration)\$(MSBuildProjectName)\</IntDir>
-    <OutputPath>$(OutDir)</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <RazzleConfigurationPath Condition="'$(Configuration)'=='fretest'">fre</RazzleConfigurationPath>
-    <RazzleConfigurationPath Condition="'$(Configuration)'!='fretest'">$(Configuration)</RazzleConfigurationPath>
+    <RazzleConfigurationPath Condition="'$(Configuration)'=='Debug'">chk</RazzleConfigurationPath>
+    <RazzleConfigurationPath Condition="'$(Configuration)'!='Debug'">fre</RazzleConfigurationPath>    
     <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\..\..\sdpublic</PUBLIC_ROOT>
     <OBJECT_ROOT Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes' AND '$(_OBJECT_ROOT_PREFIX)'==''">$(BASEDIR).obj.$(PlatformPathName)$(RazzleConfigurationPath)</OBJECT_ROOT>
     <OBJECT_ROOT Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes' AND '$(_OBJECT_ROOT_PREFIX)'!=''">$(_OBJECT_ROOT_PREFIX).$(PlatformPathName)$(RazzleConfigurationPath)</OBJECT_ROOT>
@@ -60,7 +53,7 @@
     <ChakraParserIntDir>$(IntDir)..\Chakra.Parser</ChakraParserIntDir>
     <JscriptInfoIntDir>$(IntDir)..\Chakra</JscriptInfoIntDir>
 
-    <ChakraCommonMemoryLib>$(OutDir)Chakra.Common.Memory.lib</ChakraCommonMemoryLib>
+    <ChakraCommonMemoryLib>$(IntDir)..\Chakra.Common.Memory\Chakra.Common.Memory.lib</ChakraCommonMemoryLib>
 
     <!-- ======== From Microsoft.Build.settings ======== -->
     <NtTargetVersion_Win7 >0x601</NtTargetVersion_Win7>

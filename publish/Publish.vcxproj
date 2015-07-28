@@ -6,17 +6,13 @@
     <ProjectGuid>{1876E800-AD77-48C4-A2F7-E5265F24AC35}</ProjectGuid>
     <RootNamespace>Publish</RootNamespace>
   </PropertyGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>    
-  </PropertyGroup>  
+    <ConfigurationType>Utility</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />    
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Props" />
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
   <ItemGroup Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'">
     <Midl Include="..\..\published\internal\inc\activdbg_private.idl" />
     <Midl Include="..\..\published\internal\inc\activscp2.idl" />

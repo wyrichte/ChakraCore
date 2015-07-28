@@ -38,12 +38,12 @@
         <RestoreCommand>$(NuGetCommand) install "$(PackagesConfig)" $(NonInteractiveSwitch) -ConfigFile $(NuGetConfigFile) -Source $(PackageSource) -OutputDirectory $(ExpandedPackageDir)</RestoreCommand>
     </PropertyGroup>
 
-    <Target Name="CheckPrerequisites" AfterTargets="Build">
+    <Target Name="CheckPrerequisites" Condition="'$(BuildingGitRepo)'=='true'" AfterTargets="Build">
         <!-- Raise an error if we're unable to locate nuget.exe  -->
         <Error Condition="'$(DownloadNuGetExe)' != 'true' AND !Exists('$(NuGetExePath)')" Text="Unable to locate '$(NuGetExePath)'" />        
     </Target>
 
-    <Target Name="RestorePackages" DependsOnTargets="CheckPrerequisites" AfterTargets="Build">
+    <Target Name="RestorePackages" Condition="'$(BuildingGitRepo)'=='true'" DependsOnTargets="CheckPrerequisites" AfterTargets="Build">
         <Message Text="Running restore packages target" />
         <Message Condition="'$(RestorePackages)' == 'false'" Text="Skipping RestorePackages since it's false" />
         <Message Condition="'$(RestorePackages)' == 'true'" Text="Running $(RestoreCommand)" />
@@ -52,14 +52,7 @@
               LogStandardErrorAsError="true"
               Condition="'$(OS)' == 'Windows_NT' And Exists('$(PackagesConfig)') AND '$(RestorePackages)' == 'true'" />
     </Target>
-
-    <!-- Empty target to satisfy being in a vcxproj -->
-    <Target Name="Build" />
-    <Target Name="GetNativeManifest" />
-    <Target Name="GetResolvedLinkLibs" />
-    <Target Name="GetCopyToOutputDirectoryItems" />
-    <Target Name="Rebuild" />
-    <Target Name="Clean" />
+ 
     <!-- OSS TODO: Consume package.config, create properties for each package element and use that instead of hardcoding paths in Build.Git.props -->
 
 </Project>

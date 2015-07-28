@@ -9,16 +9,18 @@
   <Import Project="$(NTMAKEENV)\Microsoft.Build.Settings" />
   <!-- Override Configuration from Microsoft.Build.Settings -->
   <PropertyGroup>
-    <Configuration Condition="'$(_BuildType)' == 'fre' and '$(FreTest)' != 'true'">fre</Configuration>
-    <Configuration Condition="'$(_BuildType)' == 'fre' and '$(FreTest)' == 'true'">fretest</Configuration>
-    <Configuration Condition="'$(_BuildType)' == 'chk' and '$(FreTest)' != 'true'">chk</Configuration>
+    <Configuration Condition="'$(_BuildType)' == 'fre' and '$(FreTest)' != 'true'">Release</Configuration>
+    <Configuration Condition="'$(_BuildType)' == 'fre' and '$(FreTest)' == 'true'">Test</Configuration>
+    <Configuration Condition="'$(_BuildType)' == 'chk' and '$(FreTest)' != 'true'">Debug</Configuration>
     <Configuration Condition="'$(_BuildType)' == 'chk' and '$(FreTest)' == 'true'">Invalid</Configuration>
   </PropertyGroup>
   <PropertyGroup Condition="'$(AllowChkTest)' == 'true' and '$(_BuildType)' == 'chk' and '$(FreTest)' == 'true'">
-    <Configuration>chk</Configuration>
+    <Configuration>Debug</Configuration>
     <FreTest />
   </PropertyGroup>
-  <PropertyGroup>   
+  <PropertyGroup>    
+    <IELibPath>$(ObjectRoot)\inetcore\lib</IELibPath>
+    <BaseLibPath>$(PUBLIC_ROOT)\internal\base\lib\$(BuildArchitecture)</BaseLibPath>
     <RazzleJscriptObjectRoot>$(ObjectRoot)\inetcore\jscript</RazzleJscriptObjectRoot>
     <RazzleJscriptObjectDirectory Condition="'$(FreTest)' != 'true'">release\$(ObjectDirectory)</RazzleJscriptObjectDirectory>
     <RazzleJscriptObjectDirectory Condition="'$(FreTest)' == 'true'">test\$(ObjectDirectory)</RazzleJscriptObjectDirectory>

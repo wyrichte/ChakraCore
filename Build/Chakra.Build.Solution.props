@@ -53,7 +53,7 @@
     </ClCompile>
     <Lib>
       <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalOptions>/IGNORE:4078,4221,4198 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/IGNORE:4078,4221,4198 %(AdditionalOptions)</AdditionalOptions>      
     </Lib>
   </ItemDefinitionGroup>
   <!-- Stl -->
