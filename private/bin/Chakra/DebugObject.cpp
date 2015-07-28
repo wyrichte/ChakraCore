@@ -2202,7 +2202,7 @@ HTYPE IASDDebugObjectHelper::EnsureType(JavascriptTypeId typeId, Js::PropertyId 
     {
         BEGIN_LEAVE_SCRIPT(scriptContext)
         {
-            hr = scriptDirect->CreateType(typeId, nullptr /*prototype*/, nullptr /*entryPoint*/, defaultTypeOperations, false /*isDefered*/, nameId, true/*bindReference*/, &returnType);
+            hr = scriptDirect->CreateType(typeId, nullptr/*inheritedTypeIds*/, 0/*inheritedTypeIdsCount*/, nullptr /*prototype*/, nullptr /*entryPoint*/, defaultTypeOperations, false /*isDefered*/, nameId, true/*bindReference*/, &returnType);
         }
         END_LEAVE_SCRIPT(scriptContext);
     }

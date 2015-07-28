@@ -1395,13 +1395,13 @@ void WScriptFastDom::ClearMainScriptSite()
     }
 
 }
-HRESULT WScriptFastDom::InitializeProperty(IActiveScriptDirect *activeScriptDirect, __in wchar_t *propName, __out Var * obj, __out PropertyId *propId)
+HRESULT WScriptFastDom::InitializeProperty(IActiveScriptDirect *activeScriptDirect, __in LPCWSTR propName, __out Var * obj, __out PropertyId *propId)
 {
     HRESULT hr = S_OK;
     HTYPE type;
 
     IfFailedGo(activeScriptDirect->GetOrAddPropertyId(propName, propId));
-    IfFailedGo(activeScriptDirect->CreateType(TypeId_Unspecified, NULL, NULL, NULL, FALSE, *propId, TRUE, &type));
+    IfFailedGo(activeScriptDirect->CreateType(TypeId_Unspecified, NULL, 0, NULL, NULL, NULL, FALSE, *propId, TRUE, &type));
     IfFailedGo(activeScriptDirect->CreateTypedObject(type, 0, TRUE, obj));
     
 LReturn:

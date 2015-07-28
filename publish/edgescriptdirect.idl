@@ -728,7 +728,7 @@ interface IActiveScriptDirect : IUnknown
     ///   nameId          : the proprtyId of name to be return in toString call for objects created from this type. Output format is "[object <name>]"
     ///   bindReference   : The returned instance will live for the lifetime of the script engine (until Close()) and does not have to be managed using VarAddRef/VarRelease
     ///   typeRef         : The type handle to be use in calls to CreateTypedObject
-    HRESULT CreateType([in] JavascriptTypeId typeId, [in, unique] Var prototype, [in, unique] ScriptMethod entryPoint, [in, unique] ITypeOperations* operations, [in] BOOL fDeferred, [in] PropertyId nameId, [in] BOOL bindReference, [out] HTYPE* typeRef);
+    HRESULT CreateType([in] JavascriptTypeId typeId, [in, size_is(inheritedTypeIdsCount)] const JavascriptTypeId* inheritedTypeIds, [in] UINT inheritedTypeIdsCount, [in, unique] Var prototype, [in, unique] ScriptMethod entryPoint, [in, unique] ITypeOperations* operations, [in] BOOL fDeferred, [in] PropertyId nameId, [in] BOOL bindReference, [out] HTYPE* typeRef);
 
     /// Creates a constructor object (eg. jscript:function Foo() { (native) })
     ///   type            : a handle to the type of object to create; required

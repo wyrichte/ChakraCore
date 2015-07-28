@@ -6,12 +6,12 @@
 
 namespace Js
 {
-    class CustomExternalType : public ExternalType
+    class CustomExternalType : public ExternalTypeWithInheritedTypeIds
     {
     public:
-        CustomExternalType(CustomExternalType * type) : ExternalType(type), finalizer(type->finalizer), usage(type->usage), isSimpleWrapper(type->isSimpleWrapper) {}
-        CustomExternalType(ScriptContext* scriptContext, TypeId typeId, RecyclableObject* prototype, JavascriptMethod entryPoint, DynamicTypeHandler * typeHandler, bool isLocked, bool isShared, ITypeOperations * operations, PropertyId nameId) :
-            ExternalType(scriptContext, typeId, prototype, entryPoint, typeHandler, isLocked, isShared, operations, nameId), isSimpleWrapper(false) {}
+        CustomExternalType(CustomExternalType * type) : ExternalTypeWithInheritedTypeIds(type), finalizer(type->finalizer), usage(type->usage), isSimpleWrapper(type->isSimpleWrapper) {}
+        CustomExternalType(ScriptContext* scriptContext, TypeId typeId, RecyclableObject* prototype, JavascriptMethod entryPoint, DynamicTypeHandler * typeHandler, bool isLocked, bool isShared, ITypeOperations * operations, PropertyId nameId, const JavascriptTypeId* inheritedTypeIds, UINT inheritedTypeIdsCount) :
+            ExternalTypeWithInheritedTypeIds(scriptContext, typeId, prototype, entryPoint, typeHandler, isLocked, isShared, operations, nameId, inheritedTypeIds, inheritedTypeIdsCount), isSimpleWrapper(false){}
         HRESULT Initialize();
 
         FinalizeMethod GetFinalizer() const { return finalizer; }
