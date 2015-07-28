@@ -30,6 +30,12 @@
   <!-- Import for both Git build and solution with razzle build -->
   <Import Condition="'$(BuildingWithBuildExe)'!='true'" Project="Chakra.Build.Solution.Default.props" />
 
+  <PropertyGroup>
+    <!-- Always use SdkIncPath for the Chakra full builds. In Git, this will result in us using the 
+         manifest xmls in the expanded NuGet package -->
+    <EventManifestXmlPath>$(SdkIncPath)</EventManifestXmlPath>
+  </PropertyGroup>
+
   <!-- This needs to be after Chakra.Build.Razzle.Default.props, which sets the Configuration -->
   <Import Project="$(ChakraCoreBuildDirectory)Common.Build.Default.props" />
 
