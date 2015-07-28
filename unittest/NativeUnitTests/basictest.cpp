@@ -211,7 +211,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     }
 
     Var jsFunction;
-    hr = activeScriptDirect->BuildDirectFunction(NULL, MyCallerTest, propertyId, &jsFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(NULL, MyCallerTest, propertyId, -1, 0, &jsFunction);
     IfFailedReturn(hr);
 
     BSTR functionBSTRName;

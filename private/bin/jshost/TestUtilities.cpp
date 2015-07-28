@@ -694,7 +694,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
     IfFailedGo(hr);
     Var animalToVarFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::AnimalToVar, animalToVarPropertyId, &animalToVarFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::AnimalToVar, animalToVarPropertyId, -1, 0, &animalToVarFunction);
     IfFailedGo(hr);
     Var lengthValue;
     hr = activeScriptDirect->IntToVar(1, &lengthValue);
@@ -709,7 +709,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     // function = NULL;
     // func = NULL;
     // id = scriptContext->GetOrAddPropertyId(L"VectorIntToVar", (UINT32)wcslen(L"VectorIntToVar"));
-    // hr = scriptContext->GetActiveScriptDirect()->BuildDirectFunction(nullptr, TestUtilities::VectorIntToVar, id, &func);
+    // hr = scriptContext->GetActiveScriptDirect()->BuildDOMDirectFunction(nullptr, TestUtilities::VectorIntToVar, id, -1, 0, &func);
     // if (FAILED(hr)) { return; }
     // function = Js::JavascriptFunction::FromVar(func);
     // Js::JavascriptOperators::InitProperty(function, Js::PropertyIds::length, Js::TaggedInt::ToVarUnchecked(0));
@@ -722,7 +722,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
     IfFailedGo(hr);
     Var getRestrictedStringFromErrorFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::GetRestrictedStringFromError, getRestrictedStringFromErrorPropertyId, &getRestrictedStringFromErrorFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::GetRestrictedStringFromError, getRestrictedStringFromErrorPropertyId, -1, 0, &getRestrictedStringFromErrorFunction);
     IfFailedGo(hr);
     hr = activeScriptDirect->IntToVar(1, &lengthValue);
     IfFailedGo(hr);
@@ -738,7 +738,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
     IfFailedGo(hr);
     Var getCapabilitySidFromErrorFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::GetCapabilitySidFromError, getCapabilitySidFromErrorPropertyId, &getCapabilitySidFromErrorFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::GetCapabilitySidFromError, getCapabilitySidFromErrorPropertyId, -1, 0, &getCapabilitySidFromErrorFunction);
     IfFailedGo(hr);
     hr = activeScriptDirect->IntToVar(1, &lengthValue);
     IfFailedGo(hr);
@@ -754,7 +754,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
     IfFailedGo(hr);
     Var getMemoryFootprintOfRCFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::GetMemoryFootprintOfRC, getMemoryFootprintOfRCPropertyId, &getMemoryFootprintOfRCFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::GetMemoryFootprintOfRC, getMemoryFootprintOfRCPropertyId, -1, 0, &getMemoryFootprintOfRCFunction);
     IfFailedGo(hr);
     hr = activeScriptDirect->IntToVar(1, &lengthValue);
     IfFailedGo(hr);
@@ -768,7 +768,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"DoNotSupportWeakDelegate", &doNotSupportWeakDelegateId);
     IfFailedGo(hr);
     Var doNotSupportWeakDelegateFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::DoNotSupportWeakDelegate, doNotSupportWeakDelegateId, &doNotSupportWeakDelegateFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::DoNotSupportWeakDelegate, doNotSupportWeakDelegateId, -1, 0, &doNotSupportWeakDelegateFunction);
     IfFailedGo(hr);
     hr = javascriptOperations->SetProperty(activeScriptDirect, testUtilitiesObject, doNotSupportWeakDelegateId, doNotSupportWeakDelegateFunction);
     IfFailedGo(hr);
@@ -778,7 +778,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"SupportsWeakDelegate", &supportsWeakDelegateId);
     IfFailedGo(hr);
     Var supportsWeakDelegateFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::SupportsWeakDelegate, supportsWeakDelegateId, &supportsWeakDelegateFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::SupportsWeakDelegate, supportsWeakDelegateId, -1, 0, &supportsWeakDelegateFunction);
     IfFailedGo(hr);
     hr = javascriptOperations->SetProperty(activeScriptDirect, testUtilitiesObject, supportsWeakDelegateId, supportsWeakDelegateFunction);
     IfFailedGo(hr);
@@ -790,7 +790,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
     IfFailedGo(hr);
     Var getSystemStringFromHrFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::GetSystemStringFromHr, getSystemStringFromHrPropertyId, &getSystemStringFromHrFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::GetSystemStringFromHr, getSystemStringFromHrPropertyId, -1, 0, &getSystemStringFromHrFunction);
     IfFailedGo(hr);
     hr = activeScriptDirect->IntToVar(1, &lengthValue);
     IfFailedGo(hr);
@@ -806,7 +806,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
     IfFailedGo(hr);
     Var updateSimpleClassAndReturnAsVarFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::UpdateSimpleClassAndReturnAsVar, updateSimpleClassAndReturnAsVarPropertyId, &updateSimpleClassAndReturnAsVarFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::UpdateSimpleClassAndReturnAsVar, updateSimpleClassAndReturnAsVarPropertyId, -1, 0, &updateSimpleClassAndReturnAsVarFunction);
     IfFailedGo(hr);
     hr = activeScriptDirect->IntToVar(1, &lengthValue);
     IfFailedGo(hr);
@@ -822,7 +822,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
     IfFailedGo(hr);
     Var updateSimpleClassAndReturnAsVarByAlternateInterfaceFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::UpdateSimpleClassAndReturnAsVarByAlternateInterface, updateSimpleClassAndReturnAsVarByAlternateInterfacePropertyId, &updateSimpleClassAndReturnAsVarByAlternateInterfaceFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::UpdateSimpleClassAndReturnAsVarByAlternateInterface, updateSimpleClassAndReturnAsVarByAlternateInterfacePropertyId, -1, 0, &updateSimpleClassAndReturnAsVarByAlternateInterfaceFunction);
     IfFailedGo(hr);
     hr = activeScriptDirect->IntToVar(1, &lengthValue);
     IfFailedGo(hr);
@@ -838,7 +838,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
     IfFailedGo(hr);
     Var varToDispExTestFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::VarToDispExTest, varToDispExTestPropertyId, &varToDispExTestFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::VarToDispExTest, varToDispExTestPropertyId, -1, 0, &varToDispExTestFunction);
     IfFailedGo(hr);
     hr = activeScriptDirect->IntToVar(1, &lengthValue);
     IfFailedGo(hr);
@@ -852,7 +852,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"ClearAllProjectionCaches", &clearAllProjectionCachesId);
     IfFailedGo(hr);
     Var clearAllProjectionCachesFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::ClearAllProjectionCaches, clearAllProjectionCachesId, &clearAllProjectionCachesFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::ClearAllProjectionCaches, clearAllProjectionCachesId, -1, 0, &clearAllProjectionCachesFunction);
     IfFailedGo(hr);
     hr = activeScriptDirect->IntToVar(0, &lengthValue);
     IfFailedGo(hr);
@@ -866,7 +866,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"QueryPerformanceCounter", &queryPerformanceCounterId);
     IfFailedGo(hr);
     Var queryPerformanceCounterFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::QueryPerformanceCounter, queryPerformanceCounterId, &queryPerformanceCounterFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::QueryPerformanceCounter, queryPerformanceCounterId, -1, 0, &queryPerformanceCounterFunction);
     IfFailedGo(hr);
     hr = activeScriptDirect->IntToVar(0, &lengthValue);
     IfFailedGo(hr);
@@ -880,7 +880,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"QueryPerformanceFrequency", &queryPerformanceFrequencyId);
     IfFailedGo(hr);
     Var queryPerformanceFrequencyFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::QueryPerformanceFrequency, queryPerformanceFrequencyId, &queryPerformanceFrequencyFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::QueryPerformanceFrequency, queryPerformanceFrequencyId, -1, 0, &queryPerformanceFrequencyFunction);
     IfFailedGo(hr);
     hr = activeScriptDirect->IntToVar(0, &lengthValue);
     IfFailedGo(hr);
@@ -894,7 +894,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"GetHostType", &getHostTypeId);
     IfFailedGo(hr);
     Var getHostTypeFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::GetHostType, getHostTypeId, &getHostTypeFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::GetHostType, getHostTypeId, -1, 0, &getHostTypeFunction);
     IfFailedGo(hr);
     hr = activeScriptDirect->IntToVar(0, &lengthValue);
     IfFailedGo(hr);
@@ -908,7 +908,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"RestrictedErrorAccessInstanceToVar", &restrictedErrorAccessInstanceToVarId);
     IfFailedGo(hr);
     Var restrictedErrorAccessInstanceToVarFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::RestrictedErrorAccessInstanceToVar, restrictedErrorAccessInstanceToVarId, &restrictedErrorAccessInstanceToVarFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::RestrictedErrorAccessInstanceToVar, restrictedErrorAccessInstanceToVarId, -1, 0, &restrictedErrorAccessInstanceToVarFunction);
     IfFailedGo(hr);
     hr = activeScriptDirect->IntToVar(0, &lengthValue);
     IfFailedGo(hr);
@@ -922,7 +922,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     hr = activeScriptDirect->GetOrAddPropertyId(L"RWineryToVar", &rwineryToVarId);
     IfFailedGo(hr);
     Var rwineryToVarFunction;
-    hr = activeScriptDirect->BuildDirectFunction(nullptr, TestUtilities::RWineryToVar, rwineryToVarId, &rwineryToVarFunction);
+    hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::RWineryToVar, rwineryToVarId, -1, 0, &rwineryToVarFunction);
     IfFailedGo(hr);
     hr = activeScriptDirect->IntToVar(0, &lengthValue);
     IfFailedGo(hr);

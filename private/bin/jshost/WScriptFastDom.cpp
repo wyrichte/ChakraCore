@@ -1359,7 +1359,7 @@ HRESULT WScriptFastDom::AddMethodToObject(__in LPWSTR propertyName, __in IActive
     hr = scriptDirect->GetOrAddPropertyId(propertyName, &propertyId);
     IfFailedGo(hr);    
     Var funcVar;
-    hr = scriptDirect->BuildDirectFunction(NULL, signature, propertyId, &funcVar);
+    hr = scriptDirect->BuildDOMDirectFunction(NULL, signature, propertyId, -1, 0, &funcVar);
     IfFailedGo(hr);
     BOOL result;
     hr =  operations->SetProperty(scriptDirect, wscript, propertyId, funcVar, &result);

@@ -127,7 +127,7 @@ HRESULT ScriptDirect::AddMethod(Var obj, LPCWSTR name, void* entryPoint)
     IfFailGo(m_pScriptDirect->GetOrAddPropertyId(name, &propertyId));
 
     Var func;
-    IfFailGo(m_pScriptDirect->BuildDirectFunction(NULL, entryPoint, propertyId, &func));
+    IfFailGo(m_pScriptDirect->BuildDOMDirectFunction(NULL, entryPoint, propertyId, -1, 0, &func));
     IfFailGo(SetProperty(obj, propertyId, func));
 
 Error:

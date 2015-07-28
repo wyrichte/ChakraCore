@@ -1423,10 +1423,12 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::InspectableUnknownToVar(
 }
 
 
-HRESULT STDMETHODCALLTYPE ScriptEngineBase::BuildDirectFunction(
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::BuildDOMDirectFunction(
     __in Var signature,
     __in void* entryPoint,
     __in PropertyId nameId,
+    __in JavascriptTypeId prototypeTypeId,
+    __in UINT64 flags,
     __out Var* jsFunction)
 {
     HRESULT hr = NOERROR;
@@ -1446,7 +1448,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::BuildDirectFunction(
     *jsFunction = nullptr;
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
-        *jsFunction = library->CreateExternalFunction((Js::JavascriptMethod)entryPoint, nameId, signature);
+        *jsFunction = library->CreateExternalFunction((Js::JavascriptMethod)entryPoint, nameId, signature, prototypeTypeId, flags);
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;

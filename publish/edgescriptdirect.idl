@@ -823,8 +823,10 @@ interface IActiveScriptDirect : IUnknown
     ///   signature         : must be NULL.
     ///   entryPoint        : specifies the entry point for the generated javascript function. Must not be NULL
     ///   nameId            : the proprtyId of name to be return in toString call. Output format is "function <class>() {\n\t[native code]\n}"
+    ///   prototypeTypeId   : the typeId of the prototype
+    ///   flags             : flags of a method, like a method is a getter, setter, etc
     ///   jsFunction        : A Var representing a callable function which can be used with Execute or ITypeOperations.
-    HRESULT BuildDirectFunction([in, unique] Var signature,[in] void* entryPoint, [in] PropertyId nameId, [out] Var* jsFunction);
+    HRESULT BuildDOMDirectFunction([in, unique] Var signature, [in] void* entryPoint, [in] PropertyId nameId, [in] JavascriptTypeId prototypeTypeId, [in] UINT64 flags, [out] Var* jsFunction);
 
     /// Create an error object with specified information which can be thrown using IJavascriptOperations::ThrowException
     ///   errorType         : Specifies the basic type of the exception

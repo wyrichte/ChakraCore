@@ -268,10 +268,12 @@ public:
         __in Var instance,
         __out BOOL* result);
 
-    HRESULT STDMETHODCALLTYPE BuildDirectFunction(
+    HRESULT STDMETHODCALLTYPE BuildDOMDirectFunction(
         __in Var signature,
         __in void* entryPoint,
         __in PropertyId nameId,
+        __in JavascriptTypeId prototypeTypeId,
+        __in UINT64 flags,
         __out Var* jsFunction);
 
     HRESULT STDMETHODCALLTYPE GetTypedObjectSlotAccessor(
