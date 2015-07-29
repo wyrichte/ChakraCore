@@ -5,3 +5,4 @@ DIRS =  RecyclerTest{!EXCLUDE_IE_MAIN,!min_rt,nonprod} \
         Chakra \
         Microsoft.JavaScript{!MOBILECORE,!EXCLUDE_IE_MAIN} \
         ChakraDiag \
+        ChakraThunk \
