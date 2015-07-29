@@ -8,25 +8,10 @@ if "%_LoggingParams%" EQU "" (
 
 set "_msbuildArgs="
 set "_msbuildProj="
-set _ChakraSolution=%REPO_ROOT%\Build\Chakra.Full.sln
-set _ChakraBuildConfig=all-%_BuildType%
 
 :parseArgs
 set _arg=%1
 shift
-
-if "%_arg%" EQU "/core" (
-    set _ChakraSolution=%REPO_ROOT%\core\Build\Chakra.Core.sln
-    if "%_BuildType%" EQU "chk" (
-        set _ChakraBuildConfig=Debug
-    ) else if "%_BuildType%" EQU "fre" (
-        set _ChakraBuildConfig=Release
-    ) else (
-        echo WARNING: Unknown build type '%_BuildType%'
-    )
-
-    goto :parseArgs
-)
 
 if "%_arg%" EQU "/c" (
     set _targets=/t:Clean,Build
@@ -45,8 +30,8 @@ if "%_arg%" NEQ "" (
 
 echo MSBuildArgs are %_msBuildArgs%
 
-echo msbuild %_msBuildArgs% /p:Configuration=%_ChakraBuildConfig% /p:Platform=%_BuildArch% %_ChakraSolution% %_msbuildProj% %_LoggingParams% %_targets%
+echo msbuild %_msBuildArgs% /p:Configuration=all-%_BuildType% /p:Platform=%_BuildArch% %REPO_ROOT%\Build\Chakra.Full.sln %_msbuildProj% %_LoggingParams% %_targets%
 
-msbuild %_msBuildArgs% /p:Configuration=%_ChakraBuildConfig% /p:Platform=%_BuildArch% %_ChakraSolution% %_msbuildProj% %_LoggingParams% %_targets%
+msbuild %_msBuildArgs% /p:Configuration=all-%_BuildType% /p:Platform=%_BuildArch% %REPO_ROOT%\Build\Chakra.Full.sln %_msbuildProj% %_LoggingParams% %_targets%
 
 endlocal

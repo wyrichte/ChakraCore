@@ -1,47 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <PlatformToolset>v120</PlatformToolset>
-    <UseUnicrt>false</UseUnicrt>
-    <UrtVer>4.5</UrtVer>
-    <Use_Asmmeta>false</Use_Asmmeta>
-    <RepositoryRoot>$(REPO_ROOT)</RepositoryRoot>
-  </PropertyGroup>
-  <!-- Output directories -->
-  <PropertyGroup>
-    <OutBaseDir Condition="'$(OutBaseDir)'==''">$(SolutionDir)VcBuild</OutBaseDir>
-    <OutDir>$(OutBaseDir)\Binaries\win-$(PlatformPathName)$(Configuration)\</OutDir>
-    <IntDir>$(OutBaseDir)\Obj\win-$(PlatformPathName)$(Configuration)\$(MSBuildProjectName)\</IntDir>
-    <OutputPath>$(OutDir)</OutputPath>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
+  <PropertyGroup>     
     <USE_EXTERNAL_DEPENDENCIES>yes</USE_EXTERNAL_DEPENDENCIES>
   </PropertyGroup>
   <PropertyGroup>   
     <!-- How do we deal with versioning here?? -->
-    <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.1</PUBLIC_ROOT>
+    <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.0</PUBLIC_ROOT>
     <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.1.0.0</RazzleToolPath>
     <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.1.0.0</IELibPath>
-    <RazzleToolSdkIncDirectory>$(RazzleToolPath)\public\sdk\inc\</RazzleToolSdkIncDirectory>
-
-    <ExternalObjDirectory>obj$(_BuildType)\$(PlatformPathNameAlt)</ExternalObjDirectory>
-
-    <ManifestsInboxIncludeDirectory>$(IELibPath)\manifests\inbox\$(ExternalObjDirectory)</ManifestsInboxIncludeDirectory>
-    <ChakraManifestsIncludeDirectory>$(IntDir)..\manifests</ChakraManifestsIncludeDirectory>
-    <ChakraParserIntDir>$(IntDir)..\Chakra.Parser</ChakraParserIntDir>
-    <JscriptInfoIntDir>$(IntDir)..\Chakra</JscriptInfoIntDir>
     
-    <ChakraCommonCodexLib>$(OutDir)Chakra.Common.AlphaCodex.lib</ChakraCommonCodexLib>
-    <ChakraCommonCommonLib>$(OutDir)Chakra.Common.Common.lib</ChakraCommonCommonLib>
-    <ChakraCommonCoreLib>$(OutDir)Chakra.Common.Core.lib</ChakraCommonCoreLib>
-    <ChakraCommonDataStructureLib>$(OutDir)Chakra.Common.DataStructures.lib</ChakraCommonDataStructureLib>
-    <ChakraRuntimeLanguageLib>$(OutDir)Chakra.Runtime.Language.lib</ChakraRuntimeLanguageLib>
+    <ObjectDirectory Condition="'$(Configuration)'=='Debug'">objchk\$(PlatformPathNameAlt)</ObjectDirectory>
+    <ObjectDirectory Condition="'$(Configuration)'!='Debug'">objfre\$(PlatformPathNameAlt)</ObjectDirectory>
 
-
-    <ChakraParserLibs>$(ChakraParserIntDir)Chakra.Parser.lib</ChakraParserLibs>
-
-    <!-- MSBuild doesn't like MachineARM64 yet and Microsoft.CppCommon.targets strangly use ImpLibAdditionaOptions instead of ImpLib.AdditionalOptions -->
-    <ImpLibAdditionalOptions Condition="'$(Platform)'=='Arm64'">/machine:arm64 $(ImpLibAdditionalOptions)</ImpLibAdditionalOptions>
+    <ManifestsInboxIncludeDirectory>$(IELibPath)\manifests\inbox\$(ObjectDirectory)</ManifestsInboxIncludeDirectory>    
   </PropertyGroup>
-
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>
@@ -51,5 +23,10 @@
       </AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
-
+  <!-- Git always depends on the nuget project -->
+  <ItemGroup>
+    <ProjectReference Condition="'$(ProjectName)'!='Chakra.NugetProject'" Include="$(MSBuildThisFileDirectory)Chakra.NugetProject\Chakra.NugetProject.vcxproj">
+      <Project>{F4CEA127-8D10-4C02-BF29-41F0643C11BB}</Project>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
