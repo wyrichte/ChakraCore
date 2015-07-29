@@ -469,10 +469,10 @@
     <ResourceCompile Include="$(MsBuildThisFileDirectory)chakra.rc">
       <AdditionalIncludeDirectories>
         $(ChakraParserIntDir);
+        $(RazzleToolSdkIncDirectory);
         $(ManifestsInboxIncludeDirectory);
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>$(RazzleToolSdkIncDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>

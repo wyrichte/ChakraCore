@@ -5,12 +5,13 @@
   </PropertyGroup>
   <PropertyGroup>   
     <!-- How do we deal with versioning here?? -->
-    <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.0</PUBLIC_ROOT>
+    <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.2</PUBLIC_ROOT>
     <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.1.0.0</RazzleToolPath>
-    <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.1.0.0</IELibPath>
+    <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.1.0.1</IELibPath>
+    <RazzleToolSdkIncDirectory>$(RazzleToolPath)\public\sdk\inc\</RazzleToolSdkIncDirectory>
     
-    <ObjectDirectory Condition="'$(Configuration)'=='Debug'">objchk\$(PlatformPathNameAlt)</ObjectDirectory>
-    <ObjectDirectory Condition="'$(Configuration)'!='Debug'">objfre\$(PlatformPathNameAlt)</ObjectDirectory>
+    <ObjectDirectory Condition="'$(Configuration)'=='Debug'">objchk\$(PlatformPathNameAlt)\</ObjectDirectory>
+    <ObjectDirectory Condition="'$(Configuration)'!='Debug'">objfre\$(PlatformPathNameAlt)\</ObjectDirectory>
 
     <ManifestsInboxIncludeDirectory>$(IELibPath)\manifests\inbox\$(ObjectDirectory)</ManifestsInboxIncludeDirectory>    
   </PropertyGroup>
