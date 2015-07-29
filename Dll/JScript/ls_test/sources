@@ -1,0 +1,61 @@
+USE_NOTHROW_NEW=1 
+FRETEST=1
+JS_LANGUAGE_SERVICE=1
+!include ..\sources.inc
+
+TARGETNAME=chakralstest
+TARGETTYPE=DYNLINK
+
+C_DEFINES = $(C_DEFINES) -DLANGUAGE_SERVICE=1 -DENABLE_DEBUG_CONFIG_OPTIONS=1 -DENABLE_TEST_HOOKS=1
+
+DLLDEF=..\jscript9lstest.def
+
+!IF "$(_BUILDARCH)" == "arm" || "$(_BUILDARCH)" == "arm64"
+NT_SIGNCODE=1
+TEST_CODE=1
+!ENDIF
+
+INCLUDES= \
+    $(INCLUDES) \
+    $(JSCRIPT_ROOT)\lib\author; \
+    $(OBJ_PATH)\..\..\..\lib\author\test\$(O);
+
+SOURCES= \
+    $(SOURCES) \
+    ..\BinaryFeatureControlOverrides.cpp \
+    ..\AuthoringFactoryDll.cpp           \
+    ..\NativeVisualizerExtension.cpp     \
+    ..\jscript9lstest.rc                 \
+
+RESOURCE_FILE=..\jscript9lstest.rc
+
+TARGETLIBS=     \
+!IF (!$(FREEBUILD) || defined(FRETEST) || defined(NTTESTENV)) && "$(TARGET_DIRECTORY)" != "arm" && "$(TARGET_DIRECTORY)" != "arm64"
+    ..\..\..\tools\external\lib\$(TARGET_DIRECTORY)\jitprofiling.lib \
+!ENDIF
+    $(SDK_LIB_PATH)\xmllite.lib \
+    $(SDK_LIB_PATH)\Uuid.lib \
+    $(SDK_LIB_PATH)\muiload.lib \
+    $(SDK_LIB_PATH)\oleaut32.lib \
+    $(SDK_LIB_PATH)\ole32.lib \
+    $(DS_LIB_PATH)\cryptspp.lib  \
+    $(SDK_LIB_PATH)\kernel32.lib \
+    $(SDK_LIB_PATH)\shell32.lib \
+    $(INETCORE_LIB_PATH)\ieuuid.lib \
+    $(INETCORE_LIB_PATH)\ieuuidp.lib \
+    $(SDK_LIB_PATH)\shlwapi.lib \
+    $(SDK_LIB_PATH)\bcrypt.lib \
+    $(SDK_LIB_PATH)\rpcns4.lib \
+    $(SDK_LIB_PATH)\rpcrt4.lib \
+    $(SDK_LIB_PATH)\crypt32.lib \
+    $(SDK_LIB_PATH)\advapi32.lib \
+!if (defined(FRETEST) || !$(FREEBUILD))
+    $(SDK_LIB_PATH)\user32.lib \
+    $(SDK_LIB_PATH)\dbghelp.lib \
+!endif
+    $(SDK_LIB_PATH)\version.lib  \
+    $(SDK_LIB_PATH)\xmllite.lib  \
+    $(OBJ_PATH)\..\..\..\lib\author\test\$(O)\jscript.authoring.lib \
+    $(JSCRIPT_THUNK_LIB) \
+
+PASS2_BINPLACE= -:DEST projection\winrt $(OBJ_PATH)\$(O)\chakralstest.dll

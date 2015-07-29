@@ -1,0 +1,4 @@
+DIRS =	JScript \
+        Microsoft.JavaScript{!MOBILECORE,!EXCLUDE_IE_MAIN} \
+        JScriptDiag \
+        thunk \
