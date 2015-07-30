@@ -18,8 +18,8 @@
   <!-- Output directories for non-razzle build -->
   <PropertyGroup Condition="'$(BuildingWithBuildExe)'!='true'">
     <OutBaseDir Condition="'$(OutBaseDir)'==''">$(SolutionDir)VcBuild</OutBaseDir>
-    <OutDir>$(OutBaseDir)\bin\$(PlatformPathName.ToLower())_$(Configuration.ToLower())\</OutDir>
-    <IntDir>$(OutBaseDir)\obj\$(PlatformPathName.ToLower())_$(Configuration.ToLower())\$(MSBuildProjectName)\</IntDir>
+    <OutDir>$(OutBaseDir)\Bin\$(PlatformPathName.ToLower())_$(Configuration.ToLower())\</OutDir>
+    <IntDir>$(OutBaseDir)\Obj\$(PlatformPathName.ToLower())_$(Configuration.ToLower())\$(MSBuildProjectName)\</IntDir>
     <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'">$(IntDir)</OutDir>
     <OutputPath>$(OutDir)</OutputPath>
   </PropertyGroup>
@@ -29,6 +29,12 @@
 
   <!-- Import for both Git build and solution with razzle build -->
   <Import Condition="'$(BuildingWithBuildExe)'!='true'" Project="Chakra.Build.Solution.Default.props" />
+
+  <PropertyGroup>
+    <!-- Always use SdkIncPath for the Chakra full builds. In Git, this will result in us using the 
+         manifest xmls in the expanded NuGet package -->
+    <EventManifestXmlPath>$(SdkIncPath)</EventManifestXmlPath>
+  </PropertyGroup>
 
   <!-- This needs to be after Chakra.Build.Razzle.Default.props, which sets the Configuration -->
   <Import Project="$(ChakraCoreBuildDirectory)Common.Build.Default.props" />
