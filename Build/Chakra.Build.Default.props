@@ -18,8 +18,8 @@
   <!-- Output directories for non-razzle build -->
   <PropertyGroup Condition="'$(BuildingWithBuildExe)'!='true'">
     <OutBaseDir Condition="'$(OutBaseDir)'==''">$(SolutionDir)VcBuild</OutBaseDir>
-    <OutDir>$(OutBaseDir)\Bin\$(PlatformPathName.ToLower())_$(Configuration.ToLower())\</OutDir>
-    <IntDir>$(OutBaseDir)\Obj\$(PlatformPathName.ToLower())_$(Configuration.ToLower())\$(MSBuildProjectName)\</IntDir>
+    <OutDir>$(OutBaseDir)\bin\$(PlatformPathName.ToLower())_$(Configuration.ToLower())\</OutDir>
+    <IntDir>$(OutBaseDir)\obj\$(PlatformPathName.ToLower())_$(Configuration.ToLower())\$(MSBuildProjectName)\</IntDir>
     <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'">$(IntDir)</OutDir>
     <OutputPath>$(OutDir)</OutputPath>
   </PropertyGroup>

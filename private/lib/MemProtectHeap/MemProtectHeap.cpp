@@ -491,7 +491,7 @@ public:
     }
 
     // Pase the given command line options into the config table.
-    static void ParseCommandLine(int argc, __in_ecount(argc) WCHAR* argv[])
+    static void ParseCommandLine(int argc, __in_ecount(argc) LPWSTR argv[])
     {
         CmdLineArgsParser parser(null, ConfigurationLoader::Flags());
         parser.Parse(argc, argv);
@@ -1979,7 +1979,7 @@ void MemProtectHeapSetDisableConcurrentThreadExitedCheck(void* heapHandle)
 #endif
 
 #if DBG && defined(INTERNAL_MEM_PROTECT_HEAP_CMDLINE)
-void MemProtectHeapParseCmdLineConfig(int argc, WCHAR* argv[])
+void MemProtectHeapParseCmdLineConfig(int argc, __in_ecount(argc) LPWSTR argv[])
 {
     MemProtectHeap::ParseCommandLine(argc, argv);
 }

@@ -17,7 +17,7 @@ void PrintUsage()
     _tprintf(_T("\nUsage: jdtest [-c dbg_commands] [-q] [-v] [-debug] command\n"));
 }
 
-int _cdecl _tmain(int argc, _TCHAR* argv[])
+int _cdecl _tmain(int argc, __in_ecount(argc) _TCHAR* argv[])
 {
     ULONG targetPid = 0;
     bool attach = false;

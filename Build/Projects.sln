@@ -118,6 +118,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreBuild", "CoreBuild", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{6DD17557-3A68-4A94-B436-DB674203B642}"
 	ProjectSection(SolutionItems) = preProject
+		..\core\bin\ch\ch.vcxproj = ..\core\bin\ch\ch.vcxproj
 		..\core\bin\ChakraCore\ChakraCore.vcxproj = ..\core\bin\ChakraCore\ChakraCore.vcxproj
 	EndProjectSection
 EndProject
