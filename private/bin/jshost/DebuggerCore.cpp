@@ -3007,7 +3007,7 @@ static MutationType MutationTypeFromString(wstring typeStr)
     return MutationTypeNone;
 }
 
-static void tokenizeNames(wchar_t *name, const wchar_t * delim, vector<wstring>& names)
+static void tokenizeNames(__in_z wchar_t *name, __in_z const wchar_t * delim, vector<wstring>& names)
 {
     wchar_t *tok = nullptr;
     wchar_t *context = nullptr;

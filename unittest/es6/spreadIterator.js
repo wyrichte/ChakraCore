@@ -260,9 +260,9 @@ var tests = [
              bar([1],[2]);
              assert.areEqual([[1],[2]], b);
              class d { constructor() {arguments[Symbol.iterator] = simpleIterator(arguments); b = [...arguments]; } };
-             d(1,2,3);
+             new d(1,2,3);
              assert.areEqual([1,2,3],b, "confirm we can override the built iterator");
-             d();
+             new d();
              assert.areEqual([],b);
              function foo(a, b, c, ...rest) { return [a, b, c, ...rest]; }
              b= foo(1,2,3,4,5,6)

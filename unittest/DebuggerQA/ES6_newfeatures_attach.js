@@ -25,7 +25,7 @@ function Run() {
 
     class classTwo extends classOne {        
         constructor() {
-            
+            super();
             placeHolder;
             placeHolder; /**bp:locals(0, LOCALS_FULLNAME);evaluate('constructor', 1, LOCALS_FULLNAME)**/
         }

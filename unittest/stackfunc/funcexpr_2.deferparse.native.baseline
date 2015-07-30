@@ -18,7 +18,7 @@ HasFuncDecl: v0
 RestoreHasFuncAssignment: v0
 HasFuncDecl: v2
 HasMaybeEscapedUse: arguments
-DoStackNestedFunc: Anonymous function (function  (#1.9), #13)
+DoStackNestedFunc: Anonymous function (function  (#1.9), #11)
 DoStackNestedFunc: v0 (function  (#1.8), #8)
 StackScriptFunction (callee): box and disable stack function: v0 (function  (#1.8), #8)
 Boxing StackScriptFunction Object: v0 (functiond Id:  (#1.8), #8)

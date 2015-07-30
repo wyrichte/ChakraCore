@@ -357,7 +357,7 @@ undefined
  |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Properties] count: 2
  |  | 0 boundFunctionWithThisAndArgs: type: FunctionObject flags: (new) optional info records (4)
- |  |    [Internal property] type: FunctionObject flags: (new) optional info records (4)
+ |  |    [Internal property] type: FunctionObject flags: (new) optional info records (5)
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    |    [Function name] f
  |  |    |    [Scopes] count: 1
@@ -380,6 +380,14 @@ undefined
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
  |  |    |    |  |    | 5: type: String flags: (new size_approximate) optional info records (1)
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
+ |  |    |    [Properties] count: 2
+ |  |    |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |    |    |    [Prototype] type: ObjectObject (seen)
+ |  |    |    |    [Properties] count: 1
+ |  |    |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |    |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    |    [Internal property] value: f
+ |  |    |    |    [Prototype] type: StringObject (seen)
  |  |    |    [Relationships] count: 3
  |  |    |    | 0 sourceUrl: value: boundfunction.js
  |  |    |    | 1 sourceRow: value: 12.000000

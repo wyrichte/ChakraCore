@@ -79,8 +79,51 @@
     }
   },
   {
+    "callstack": [
+      {
+        "start": 554,
+        "length": 11,
+        "text": "placeHolder",
+        "frameDescription": "classOne"
+      },
+      {
+        "start": 911,
+        "length": 7,
+        "text": "super()",
+        "frameDescription": "classTwo"
+      },
+      {
+        "start": 1230,
+        "length": 28,
+        "text": "var _class2 = new classTwo()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
     "locals": {
-      "this": "{...}",
+      "this": "<large string>",
+      "arguments": "{...}",
+      "[Scope]1": "Run",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "constructor": {
+        "[Methods]": "{...}",
+        "constructor.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "constructor.arguments": "null",
+        "constructor.caller": "null",
+        "constructor.length": "1",
+        "constructor.name": "Object",
+        "constructor.prototype": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "<large string>",
       "arguments": "{...}",
       "[Scope]1": "Run",
       "[Globals]": ""
@@ -102,13 +145,13 @@
   {
     "callstack": [
       {
-        "start": 1126,
+        "start": 1134,
         "length": 11,
         "text": "placeHolder",
         "frameDescription": "classTwo.prototype.sample1"
       },
       {
-        "start": 1257,
+        "start": 1265,
         "length": 17,
         "text": "_class2.sample1()",
         "frameDescription": "Run"
@@ -129,7 +172,7 @@
         "frameDescription": "classOne.prototype.sample2"
       },
       {
-        "start": 1281,
+        "start": 1289,
         "length": 17,
         "text": "_class2.sample2()",
         "frameDescription": "Run"

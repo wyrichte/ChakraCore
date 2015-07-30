@@ -85,5 +85,5 @@ bool MemProtectHeapIsValidObject(__in void* heapHandle, __in void * memory);
 void MemProtectHeapSetDisableConcurrentThreadExitedCheck(__in void * heapHandle);
 #endif
 #if DBG && defined(INTERNAL_MEM_PROTECT_HEAP_CMDLINE)
-void MemProtectHeapParseCmdLineConfig(int argc, __in_ecount(argc) WCHAR* argv[]);
+void MemProtectHeapParseCmdLineConfig(int argc, __in_ecount(argc) LPWSTR argv[]);
 #endif

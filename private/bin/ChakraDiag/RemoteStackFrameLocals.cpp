@@ -493,6 +493,11 @@ namespace JsDiag
             return false;
         }
 
+        if (propertyId == Js::PropertyIds::_lexicalNewTargetSymbol)
+        {
+            return false;
+        }
+
         Js::ScopeObjectChain::ScopeObjectChainList* scopeChain = GetScopeChain(frame);
         if (scopeChain == nullptr)
         {

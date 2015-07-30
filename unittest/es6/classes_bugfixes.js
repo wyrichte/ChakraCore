@@ -143,7 +143,7 @@ var tests = [
     name: "OS 257621: Class expressions should not have trailing call parens",
     body: function () {
       assert.throws(function () { eval('class{}();'); }, SyntaxError, "Class expressions cannot be called without parens", "Expected identifier");
-      assert.doesNotThrow(function () { eval('(class {})();'); }, "Parenthesized class expressions can be called");
+      assert.doesNotThrow(function () { eval('new (class {})();'); }, "Parenthesized class expressions can be called");
     }
   },
   {
@@ -170,6 +170,7 @@ var tests = [
         class MedicalWorker extends Person { } // to show it works through inheritance chain
         class Doctor extends MedicalWorker {
             constructor(firstName,lastName) {
+                super();
                 this.firstName = firstName;
                 this.lastName = lastName;
             }
@@ -231,4 +232,4 @@ class a {};
 a = null; // No error
 
 // OS 257621 at global scope
-assert.doesNotThrow(function () { eval('(class {})();'); }, "Parenthesized class expressions can be called");
+assert.doesNotThrow(function () { eval('new (class {})();'); }, "Parenthesized class expressions can be new'd");
