@@ -448,15 +448,15 @@ var tests = [
       var test = [];
       class c { constructor() { result = [...arguments]; } };
       class d extends c { };
-      d();
+      new d();
       assert.areEqual(result, [], "Default extends ctor with no args");
 
       test = [1, 2, 3];
-      d(...test);
+      new d(...test);
       assert.areEqual(result, test, "Default extends ctor with some args");
 
       test = [-5, 4.53, "test", null, undefined, 9348579];
-      d(...test);
+      new d(...test);
       assert.areEqual(result, test, "Default extends ctor with different arg types");
     }
   },
@@ -602,4 +602,4 @@ class a {};
 a = null; // No error
 
 // OS 257621 at global scope
-assert.doesNotThrow(function () { eval('(class {})();'); }, "Parenthesized class expressions can be called");
+assert.doesNotThrow(function () { eval('new (class {})();'); }, "Parenthesized class expressions can be new'd");

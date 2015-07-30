@@ -1061,7 +1061,7 @@
   <test>
     <default>
       <files>ES6_newFeatures.js</files>
-      <compile-flags>-debuglaunch -targeted -inspectmaxstringlength:100 -dbgbaseline:ES6_newFeatures.js.dbg.baseline -es6classes -es6super</compile-flags>
+      <compile-flags>-debuglaunch -targeted -inspectmaxstringlength:100 -dbgbaseline:ES6_newFeatures.js.dbg.baseline -es6classes -es6super -es6newtarget</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -1069,14 +1069,14 @@
     <default>
       <files>ES6_newFeatures.js</files>
       <command>jdtest.exe -dbgbaseline:ES6_newFeatures.hybridbug.js.dbg.baseline -inspectmaxstringlength:100 -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -es6classes -es6super</compile-flags>
+      <compile-flags>-debuglaunch:hybrid -es6classes -es6super -es6newtarget</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ES6_newFeatures_attach.js</files>
-      <compile-flags>-targeted -inspectmaxstringlength:100 -es6classes -es6super -dbgbaseline:ES6_newFeatures_attach.js.dbg.baseline</compile-flags>
+      <compile-flags>-targeted -inspectmaxstringlength:100 -es6classes -es6super -es6newtarget -dbgbaseline:ES6_newFeatures_attach.js.dbg.baseline</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>

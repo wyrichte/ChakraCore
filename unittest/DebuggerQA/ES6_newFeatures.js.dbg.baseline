@@ -77,8 +77,50 @@
     }
   },
   {
+    "callstack": [
+      {
+        "start": 470,
+        "length": 11,
+        "text": "placeHolder",
+        "frameDescription": "classOne"
+      },
+      {
+        "start": 787,
+        "length": 7,
+        "text": "super()",
+        "frameDescription": "classTwo"
+      },
+      {
+        "start": 1066,
+        "length": 28,
+        "text": "var _class2 = new classTwo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
     "locals": {
-      "this": "{...}",
+      "this": "<large string>",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "constructor": {
+        "[Methods]": "{...}",
+        "constructor.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "constructor.arguments": "null",
+        "constructor.caller": "null",
+        "constructor.length": "1",
+        "constructor.name": "Object",
+        "constructor.prototype": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "<large string>",
       "arguments": "{...}",
       "[Globals]": ""
     }
@@ -99,13 +141,13 @@
   {
     "callstack": [
       {
-        "start": 974,
+        "start": 982,
         "length": 11,
         "text": "placeHolder",
         "frameDescription": "classTwo.prototype.sample1"
       },
       {
-        "start": 1089,
+        "start": 1097,
         "length": 17,
         "text": "_class2.sample1()",
         "frameDescription": "Global code"
@@ -126,7 +168,7 @@
         "frameDescription": "classOne.prototype.sample2"
       },
       {
-        "start": 1109,
+        "start": 1117,
         "length": 17,
         "text": "_class2.sample2()",
         "frameDescription": "Global code"
