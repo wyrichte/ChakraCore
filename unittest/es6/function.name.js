@@ -569,6 +569,47 @@ var tests = [
         }
     },
     {
+        name: "Bug 3713125",
+        body: function()
+        {
+            var target = Object.defineProperty(function() {}, 'name', { value: 'target' });
+            assert.areEqual('bound bound target', target.bind().bind().name, "confirm bound is appended to the front twice");
+            d = Object.getOwnPropertyDescriptor(target.bind().bind(), 'name')
+            assert.areEqual(false, d.writable);
+            assert.areEqual(false, d.enumerable);
+            assert.areEqual(true,  d.configurable);
+        }
+    },
+    {
+        name: "Bug 3713014",
+        body: function()
+        {
+            var namedSym = Symbol('test');
+            var anonSym = Symbol();
+            class A {
+                set [namedSym](_) {}
+                get [namedSym]() {}
+            }
+            var classASymbolSet = Object.getOwnPropertyDescriptor(A.prototype, namedSym).set;
+            var classASymbolGet = Object.getOwnPropertyDescriptor(A.prototype, namedSym).get;
+            
+            assert.areEqual("get [test]",classASymbolGet.name, " should not throw b\c of toString call on symbol");
+            assert.areEqual("set [test]",classASymbolSet.name, " should not throw b\c of toString call on symbol");
+            
+            class B {
+                set [anonSym](_) {}
+                get [anonSym]() {}
+            }
+            var classBSymbolSet = Object.getOwnPropertyDescriptor(B.prototype, anonSym).set;
+            var classBSymbolGet = Object.getOwnPropertyDescriptor(B.prototype, anonSym).get;
+            
+            assert.areEqual("get ",classBSymbolGet.name, " should not throw b\c of toString call on symbol");
+            assert.areEqual("set ",classBSymbolSet.name, " should not throw b\c of toString call on symbol");
+            
+
+        }
+    },
+    {
         name: "fix for toString override",
         body: function()
         {
