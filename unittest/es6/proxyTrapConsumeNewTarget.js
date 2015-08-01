@@ -7,18 +7,19 @@ var tests = [{
     name: "Proxy construct trap consumes new.target",
     body: function() {
         
-        let testCompleted = false;
+        let result = "";
         
         class A {
             constructor() {
                 assert.areEqual(B, new.target, "The whole point of the test is to make sure new.target flow through proxy!");
-                testCompleted = true;
+                result += "A";
             }
         }
 
         var proxyObject = new Proxy(A, {
             construct: function(target, argumentsList, newTarget) {
-                assert.areEqual(B, target, "B is the target in this case");
+                result += "proxyObject";
+                assert.areEqual(A, target, "A is the target in this case");
                 assert.areEqual(0, argumentsList.length, "No arguments are passed");
                 assert.areEqual(B, newTarget, "B is also the new.target in this case");
                 return Reflect.construct(target, argumentsList, newTarget);
@@ -27,12 +28,13 @@ var tests = [{
 
         class B extends proxyObject {
             constructor() {
+                result += "B";
                 super();
             }
         }
 
         new B();
-        assert.isTrue(testCompleted, "Test indeed ran the code I expect it to"); 
+        assert.areEqual("BproxyObjectA", result, "Test indeed ran the code I expect it to"); 
     }
 }, {
     name: "Proxy construct trap consumes overriden new.target",
@@ -56,15 +58,16 @@ var tests = [{
 }, {
     name: "Proxy construct trap spread case",
     body: function() {
-        let testCompleted = false;
+        let result = "";
         
         function MyConstructor() {
             assert.areEqual(proxyObject, new.target, "myNewTarget is overridden in this case");
-            testCompleted = true;
+            result += "MyConstructor";
         }
 
         var proxyObject = new Proxy(MyConstructor, {
             construct: function(target, argumentsList, newTarget) {
+                result += "proxyObject";
                 assert.areEqual(4, argumentsList.length, "spreaded arguments count should be right");
                 assert.areEqual(1, argumentsList[0], "spreaded arguments[0] should be right");
                 assert.areEqual(2.25, argumentsList[1], "spreaded arguments[1] should be right");
@@ -76,7 +79,7 @@ var tests = [{
 
         var args = [1, 2.25, undefined, 'hello'];
         var newProxyObject = new proxyObject(...args);
-        assert.isTrue(testCompleted, "Test indeed ran the code I expect it to"); 
+        assert.areEqual("proxyObjectMyConstructor", result, "Test indeed ran the code I expect it to"); 
     }
 }];
 

@@ -355,6 +355,18 @@
   </test>
   <test>
     <default>
+      <files>ES6SubclassableBuiltins.js</files>
+      <compile-flags>-ES6Classes -ES6Super -ES6NewTarget -ES6Lambda -ES6Spread -ES6Generators -Off:Deferparse -args summary -endargs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ES6SubclassableBuiltins.js</files>
+      <compile-flags>-ES6Classes -ES6Super -ES6NewTarget -ES6Lambda -ES6Spread -ES6Generators -Force:Deferparse -args summary -endargs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>ES6FunctionAPI.js</files>
       <compile-flags>-ES6 -ES6Classes -ES6Super -ES6Generators -args summary -endargs</compile-flags>
     </default>
