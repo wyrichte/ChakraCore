@@ -22,7 +22,7 @@ EXPORTS
     JsStopProfiling
     JsEnumerateHeap
     JsIsEnumeratingHeap
-    JsStartDebugging    
+    JsStartDebugging
     JsInspectableToObject
     JsObjectToInspectable
 #if DBG || CHAKRATEST
@@ -32,9 +32,6 @@ EXPORTS
     JsIsReferenceValid
     JsGetReference
 
-    JsCreateSymbol
-    JsGetOwnPropertySymbols
-    JsGetPropertyIdFromSymbol
     JsSerializeNativeScript
     JsPrivateCollectGarbageSkipStack
 

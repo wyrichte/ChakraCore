@@ -389,6 +389,21 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(result == true);
         }
 
+        TEST_METHOD(InstanceOfTest)
+        {
+            JsValueRef F;
+            VERIFY_IS_TRUE(JsRunScript(L"F = function(){}", JS_SOURCE_CONTEXT_NONE, L"", &F) == JsNoError);
+            JsValueRef x;
+            VERIFY_IS_TRUE(JsRunScript(L"new F()", JS_SOURCE_CONTEXT_NONE, L"", &x) == JsNoError);
+
+            bool instanceOf;
+            VERIFY_IS_TRUE(JsInstanceOf(x, F, &instanceOf) == JsNoError);
+            VERIFY_IS_TRUE(instanceOf);
+
+            VERIFY_IS_TRUE(JsCreateObject(&x) == JsNoError);
+            VERIFY_IS_TRUE(JsInstanceOf(x, F, &instanceOf) == JsNoError);
+            VERIFY_IS_FALSE(instanceOf);
+        }
         
         TEST_METHOD(LanguageTypeConversionTest)
         {
@@ -1096,7 +1111,7 @@ namespace JsrtUnitTests
         {
             for (int type = JsArrayTypeInt8; type <= JsArrayTypeFloat64; type++)
             {
-                int size = -1;
+                size_t size = 0;
 
                 switch (type)
                 {
@@ -1138,7 +1153,7 @@ namespace JsrtUnitTests
                 VERIFY_ARE_EQUAL(JsValueType::JsArrayBuffer, valueType);
 
                 VERIFY_IS_TRUE(JsGetArrayBufferStorage(arrayBuffer, &originBuffer, &originBufferLength) == JsNoError);
-                VERIFY_ARE_EQUAL(16 * size, (int)originBufferLength);
+                VERIFY_ARE_EQUAL(16 * size, originBufferLength);
 
                 // TypedArray
                 JsValueRef typedArray;
@@ -1147,16 +1162,23 @@ namespace JsrtUnitTests
                 VERIFY_IS_TRUE(JsGetValueType(typedArray, &valueType) == JsNoError);
                 VERIFY_ARE_EQUAL(JsValueType::JsTypedArray, valueType);
 
+                JsTypedArrayType arrayType;
+                JsValueRef tmpArrayBuffer;
+                unsigned int tmpByteOffset, tmpByteLength;
+                VERIFY_IS_TRUE(JsGetTypedArrayInfo(typedArray, &arrayType, &tmpArrayBuffer, &tmpByteOffset, &tmpByteLength) == JsNoError);
+                VERIFY_ARE_EQUAL(type, arrayType);
+                VERIFY_ARE_EQUAL(arrayBuffer, tmpArrayBuffer);
+                VERIFY_ARE_EQUAL(size, tmpByteOffset);
+                VERIFY_ARE_EQUAL(12 * size, tmpByteLength);
+
                 BYTE *buffer;
                 unsigned int bufferLength;
-                JsTypedArrayType arrayType;
                 int elementSize;
-
                 VERIFY_IS_TRUE(JsGetTypedArrayStorage(typedArray, &buffer, &bufferLength, &arrayType, &elementSize) == JsNoError);
                 VERIFY_ARE_EQUAL(originBuffer + size, buffer);
-                VERIFY_ARE_EQUAL(12 * size, (int)bufferLength);
+                VERIFY_ARE_EQUAL(12 * size, bufferLength);
                 VERIFY_ARE_EQUAL(type, arrayType);
-                VERIFY_ARE_EQUAL(size, elementSize);
+                VERIFY_ARE_EQUAL(size, (size_t)elementSize);
 
                 // DataView
                 JsValueRef dataView;
