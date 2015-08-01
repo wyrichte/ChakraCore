@@ -40,8 +40,8 @@
     <IncludePath>$(IncludePath);$(SolutionDir)..\..\inc</IncludePath>
     
     
-    <ExecutablePath>$(RazzleToolPath)\Dev12\x32\$(PlatformPathName);$(RazzleToolPath)\x86;$(RazzleToolPath)\perl\bin;</ExecutablePath>
-    <ExecutablePath Condition="'$(PlatformPathName)'=='amd64' and '$(BuildingInsideVisualStudio)'!='true'">$(RazzleToolPath)\Dev12\x64\$(PlatformPathName);$(RazzleToolPath)\amd64;$(RazzleToolPath)\perl\bin;</ExecutablePath>
+    <ExecutablePath>$(RazzleToolPath)\Dev12\x32\$(PlatformPathName);$(RazzleToolPath)\x86</ExecutablePath>
+    <ExecutablePath Condition="'$(PlatformPathName)'=='amd64' and '$(BuildingInsideVisualStudio)'!='true'">$(RazzleToolPath)\Dev12\x64\$(PlatformPathName);$(RazzleToolPath)\amd64</ExecutablePath>
    
     <GenerateManifest>false</GenerateManifest>
     <!-- disable incremental build because some library from public contains /GL objects -->

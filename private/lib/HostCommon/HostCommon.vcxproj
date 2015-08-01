@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="dbgcontroller.js">
-      <Command>encode.cmd "perl.exe" dbgcontroller.js "$(IntDir)dbgcontroller.js.encoded"</Command>
+      <Command>%windir%\system32\cscript.exe encode.js dbgcontroller.js "$(IntDir)dbgcontroller.js.encoded"</Command>
       <Outputs>$(IntDir)dbgcontroller.js.encoded;%(Outputs)</Outputs>
     </CustomBuild>
   </ItemGroup>
