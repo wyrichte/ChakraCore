@@ -46,6 +46,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptContextTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptEngineTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Telemetry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DirectCall.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TelemetryPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -54,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DateParse\DateParseTelemetryProvider.h" />
+    <ClInclude Include="DirectCall.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsDatabase.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsOpcodeTelemetry.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsTelemetryProvider.h" />

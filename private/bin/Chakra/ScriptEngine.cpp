@@ -8298,6 +8298,12 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::SetActivityId(__in const GUID* pActivity
     if (pActivityId != nullptr)
     {
         this->m_activityID = *pActivityId;
+
+        if (this->m_activityID != GUID_NULL)
+        {
+            ThreadContext::GetContextForCurrentThread()->activityId = this->m_activityID;
+        }
+
         return S_OK;
     }
     else

@@ -20,6 +20,9 @@
 #define TL_MEMSTATS "MemStats.V2"
 #define TL_PARSERSTATS "Parser"
 #define TL_CHAKRAINIT "ChakraInit"
+#define TL_DIRECTCALLRAW "DirectCallRaw.PerfStats"
+#define TL_DIRECTCALLTIME "DirectCallRaw.LogTime"
+
 
 #ifdef DBG
 #define TL_BINARYFLAVOR "CHK"
@@ -78,6 +81,7 @@ class TraceLoggingClient
     CEtwSession *session;
     bool shouldLogTelemetry;	
     bool isHighResAvail;
+    HMODULE edgeHtmlAddress;
 public:
     TraceLoggingClient();
     ~TraceLoggingClient();
@@ -85,6 +89,15 @@ public:
     void SetIsHighResPerfCounterAvailable();
     void FireSiteNavigation(const wchar_t *url, GUID activityId, DWORD host, bool isJSRT);
     void FireChakraInitTelemetry(DWORD host, bool isJSRT);
+
+#ifdef ENABLE_DIRECTCALL_TELEMETRY
+    void FirePeriodicDomTelemetry(GUID activityId);
+    void FireFinalDomTelemetry(GUID activityId);
+#endif
+
+#ifdef ENABLE_DIRECTCALL_TELEMETRY_STATS
+    void FireDomTelemetryStats(double tracelogTimeMs, double logTimeMs);
+#endif
     void ResetTelemetryStats(ThreadContext* threadContext);
 
 };

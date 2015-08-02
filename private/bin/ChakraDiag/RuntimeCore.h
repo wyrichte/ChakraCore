@@ -339,6 +339,10 @@ namespace Projection
 
 #include "MathLibrary.h"
 
+#ifdef ENABLE_BASIC_TELEMETRY
+#include "..\..\..\private\lib\Telemetry\DirectCall.h"
+#endif
+
 #include "ThreadContext.h"
 #include "ThreadContextTLSEntry.h"
 #include "evalmaprecord.h"
