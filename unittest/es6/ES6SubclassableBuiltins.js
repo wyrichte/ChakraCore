@@ -215,7 +215,6 @@ var tests = [
                 test(Number, false, "");
                 test(Object, false, "");
                 test(Promise, false, "function() {}");
-                test(Proxy, true, "{}, function() {}");
                 test(RegExp, false, "");
                 test(Set, false, "");
                 test(String, false, "");

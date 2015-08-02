@@ -371,6 +371,39 @@ function test21()
     print(y.a);
 }
 
+// some basic test262 test cases
+function test22(){
+    
+    //1. Proxy.length is configurable
+    var x = Object.getOwnPropertyDescriptor(Proxy, 'length');
+    print('value : ' + x.value);
+    print('configurable : ' + x.configurable);
+    print('writable : ' + x.writable);
+    print('enumerable : ' + x.enumerable);
+    
+    //2. Revoked proxy passed as target/handler
+    var revocable = Proxy.revocable({}, {});
+    revocable.revoke();
+    try{
+        var x = new Proxy({}, revocable.proxy);
+    } catch(e) {
+        print('expected :' + e.message);
+    }
+
+    try{
+        var x = new Proxy(revocable.proxy,{});
+    } catch(e) {
+        print('expected :' + e.message);
+    }
+
+    //3. Proxy doesn't have prototype
+    print('Proxy.prototype = ' + Object.hasOwnProperty.call(Proxy, 'prototype'));
+
+    //4. Reflect.defineProperty should not throw if target already has a property
+    Reflect.defineProperty(Object.defineProperty({},"x", {value:1}), "x", {value : 2});
+    
+    print('done test22');
+}
 
 test0();
 test1();
@@ -394,3 +427,4 @@ test18();
 test19();
 test20();
 test21();
+test22();
