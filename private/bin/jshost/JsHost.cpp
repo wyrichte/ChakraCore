@@ -146,7 +146,7 @@ HRESULT MemProtectHeapTestInit(void * heap, void *** pobjects, void *** psaved_p
             return hr;
         }
     }
-    
+
     *pobjects = objects;
     return S_OK;
 }
@@ -166,7 +166,7 @@ HRESULT MemProtectTestAlive(void * heap, void ** objects)
 
         if (size != TestObjectSize)
         {
-            fprintf(stderr, "ERROR: MemProtectHeapMemSize get incorrect size for %p: got size %Iu\n", objects[i], size);            
+            fprintf(stderr, "ERROR: MemProtectHeapMemSize get incorrect size for %p: got size %Iu\n", objects[i], size);
             return E_FAIL;
         }
     }
@@ -231,7 +231,7 @@ HRESULT MemProtectHeapTest()
     {
         goto Exit;
     }
-       
+
     JScript9Interface::MemProtectHeapCollect(heap, MemProtectHeap_CollectForce);
 
     hr = MemProtectTestAlive(heap, objects);
@@ -293,16 +293,16 @@ HRESULT DoOneJsrtIteration(BSTR filename)
         IfJsrtErrorFail(JScript9Interface::JsrtStartDebugging());
     }
 
-    Assert(attachFunction == JS_INVALID_REFERENCE);    
-    if (!WScriptJsrt::Initialize([] (JsValueRef function) 
-        { 
+    Assert(attachFunction == JS_INVALID_REFERENCE);
+    if (!WScriptJsrt::Initialize([](JsValueRef function)
+    {
         if (JsNoError != JScript9Interface::JsrtAddRef(function, NULL))
-            {
-                fwprintf(stderr, L"FATAL ERROR: JsAddRef failed\n");
-                exit(-1);
-            }
-            attachFunction = function; 
-        }))
+        {
+            fwprintf(stderr, L"FATAL ERROR: JsAddRef failed\n");
+            exit(-1);
+        }
+        attachFunction = function;
+    }))
     {
         IfFailGo(E_FAIL);
     }
@@ -319,7 +319,7 @@ HRESULT DoOneJsrtIteration(BSTR filename)
 
     // canonicalize that path name to lower case for the profile storage
     size_t len = wcslen(fullPath);
-    for (size_t i = 0; i < len; i ++)
+    for (size_t i = 0; i < len; i++)
     {
         fullPath[i] = towlower(fullPath[i]);
     }
@@ -381,7 +381,7 @@ HRESULT DoOneJsrtIteration(BSTR filename)
             }
         }
 
-    } while(!messageQueue->IsEmpty());
+    } while (!messageQueue->IsEmpty());
 
 Error:
     if (attachFunction != JS_INVALID_REFERENCE)
@@ -391,7 +391,7 @@ Error:
     }
     JScript9Interface::JsrtSetCurrentContext(NULL);
 
-    if(messageQueue != NULL)
+    if (messageQueue != NULL)
     {
         delete messageQueue;
     }
@@ -404,7 +404,7 @@ Error:
     DiagnosticsHelper::DisposeHelper(true /*nullify the debug app*/);
 
     _flushall();
-    
+
     return S_OK;
 }
 
@@ -440,7 +440,7 @@ HRESULT RegisterPSObject(DWORD *cookie)
 
     IUnknown *punk;
     hr = JsHostScriptSitePrxDllGetClassObject(IID_IJsHostScriptSite, IID_IUnknown, (void **)&punk);
-    if(SUCCEEDED(hr))
+    if (SUCCEEDED(hr))
     {
         hr = CoRegisterClassObject(IID_IJsHostScriptSite, punk, CLSCTX_INPROC_SERVER, REGCLS_MULTIPLEUSE, cookie);
         punk->Release();
@@ -463,8 +463,8 @@ DWORD WINAPI EngineThreadProcImpl(LPVOID param)
     HANDLE terminateThreadEvent = waitHandles[1];
 
     HRESULT hr = S_OK;
-  
-    hr = CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);    
+
+    hr = CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);
     if (FAILED(hr))
     {
         return hr;
@@ -475,7 +475,7 @@ DWORD WINAPI EngineThreadProcImpl(LPVOID param)
     hr = RegisterPSObject(&classFactoryCookie);
     if (SUCCEEDED(hr))
     {
-        HANDLE waitFor[] = {shutdownEvent, terminateThreadEvent};
+        HANDLE waitFor[] = { shutdownEvent, terminateThreadEvent };
         int waitForCount = terminateThreadEvent ? 2 : 1;
 
         // Signal that the thread is ready
@@ -487,31 +487,31 @@ DWORD WINAPI EngineThreadProcImpl(LPVOID param)
         if (SUCCEEDED(hr))
         {
             BOOL continueRunning = TRUE;
-            while(SUCCEEDED(hr) && continueRunning)
+            while (SUCCEEDED(hr) && continueRunning)
             {
                 auto result = MsgWaitForMultipleObjectsEx(waitForCount, waitFor, INFINITE, QS_ALLEVENTS, MWMO_ALERTABLE);
 
-                switch(result)
+                switch (result)
                 {
                 case WAIT_OBJECT_0:
                     continueRunning = FALSE;
                 case WAIT_OBJECT_0 + 1:
-                    if (waitForCount==2)
+                    if (waitForCount == 2)
                     {
                         continueRunning = FALSE;
                     }
                     // Fall through
                 case WAIT_OBJECT_0 + 2:
+                {
+                    // Pump messages
+                    MSG msg;
+                    while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
                     {
-                        // Pump messages
-                        MSG msg;
-                        while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-                        {
-                            TranslateMessage(&msg);
-                            DispatchMessage(&msg);
-                        }
+                        TranslateMessage(&msg);
+                        DispatchMessage(&msg);
                     }
-                    break;
+                }
+                break;
 
                 case WAIT_IO_COMPLETION:
                     break;
@@ -565,8 +565,8 @@ HRESULT CreateEngineThread(HANDLE * thread, HANDLE * terminateThreadEvent)
         return HRESULT_FROM_WIN32(GetLastError());
     }
 
-    HANDLE terminateHandle = 0;   
-    if (terminateThreadEvent) 
+    HANDLE terminateHandle = 0;
+    if (terminateThreadEvent)
     {
         *terminateThreadEvent = terminateHandle = CreateEvent(NULL, TRUE, FALSE, NULL);
         if (!terminateHandle)
@@ -575,34 +575,34 @@ HRESULT CreateEngineThread(HANDLE * thread, HANDLE * terminateThreadEvent)
         }
     }
 
-    HANDLE threadProcEvents[] = {readyEvent, terminateHandle};
+    HANDLE threadProcEvents[] = { readyEvent, terminateHandle };
 
-    *thread = CreateThread(NULL, 0, EngineThreadProc, (LPVOID) threadProcEvents, 0, NULL);
+    *thread = CreateThread(NULL, 0, EngineThreadProc, (LPVOID)threadProcEvents, 0, NULL);
     if (!thread)
     {
         hr = HRESULT_FROM_WIN32(GetLastError());
     }
 
-    HANDLE waitHandles[] = {readyEvent, *thread};
+    HANDLE waitHandles[] = { readyEvent, *thread };
     DWORD waitResult = WaitForMultipleObjectsEx(2, waitHandles, FALSE, INFINITE, false);
-    switch(waitResult)
+    switch (waitResult)
     {
     case WAIT_OBJECT_0:
         break;
 
     case WAIT_OBJECT_0 + 1:
+    {
+        if (!GetExitCodeThread(*thread, (LPDWORD)&hr))
         {
-            if (!GetExitCodeThread(*thread, (LPDWORD)&hr))
-            {
-                hr = HRESULT_FROM_WIN32(GetLastError());
-            }
-
-            if (SUCCEEDED(hr))
-            {
-                hr = E_FAIL;
-            }
+            hr = HRESULT_FROM_WIN32(GetLastError());
         }
-        break;
+
+        if (SUCCEEDED(hr))
+        {
+            hr = E_FAIL;
+        }
+    }
+    break;
 
     case WAIT_FAILED:
         hr = HRESULT_FROM_WIN32(GetLastError());
@@ -624,7 +624,7 @@ HRESULT CreateNewEngine(JsHostActiveScriptSite ** scriptSite, bool freeAtShutdow
             hostThreadMap.insert(std::pair<DWORD, JsHostActiveScriptSite*>(GetCurrentThreadId(), *scriptSite));
             (*scriptSite)->AddRef(); // for the reference in hostThreadMap
         }
-        catch(const exception & e)
+        catch (const exception & e)
         {
             Unused(e); // Good to leave around for debugging
             hr = E_FAIL;
@@ -670,7 +670,7 @@ VOID CALLBACK CreateEngineApcProc(ULONG_PTR param)
     CreateEngineApcProcParam * parameters = (CreateEngineApcProcParam*)param;
 
     parameters->hr = CreateNewEngine(&parameters->scriptSite, parameters->freeAtShutdown, HostConfigFlags::flags.DiagnosticsEngine /*actAsDiagnosticsHost*/, false /* APC proc so always on bg thread */, parameters->domainId);
-   
+
     if (parameters->completeEvent)
     {
         SetEvent(parameters->completeEvent);
@@ -727,7 +727,7 @@ HRESULT CreateNewEngine(HANDLE thread, JsHostActiveScriptSite ** scriptSite, boo
                     }
                 }
 
-                CloseHandle(param.completeEvent);                
+                CloseHandle(param.completeEvent);
             }
 
             if (SUCCEEDED(hr))
@@ -767,7 +767,7 @@ HRESULT __stdcall JsHostCreateNewEngine(IActiveScriptDirect** scriptDirect, void
     {
         *jsHostScriptSiteOut = (IJsHostScriptSite*)jsHostScriptSite;
     }
-return hr;
+    return hr;
 }
 
 HRESULT __stdcall JsHostShutdownScriptSite(void* jsHostScriptSite)
@@ -821,7 +821,7 @@ void WaitForThreadsToFinish(std::set<HANDLE> threads)
         HANDLE* handlesRaw = &handles[0]; // We can do that as std::vector is guaranteed to be contiguous.
         DWORD waitResult;
         HRESULT hr = CoWaitForMultipleHandles(0, INFINITE, handleCount, handlesRaw, &waitResult);
-        if (!SUCCEEDED(hr) )
+        if (!SUCCEEDED(hr))
         {
             if (hr != RPC_S_CALLPENDING)
             {
@@ -928,10 +928,10 @@ void DebugAttachOrDetach(typename Message::CustomArgType function)
     });
 }
 
-void FastDomDebugAttach(Var function)           { DebugAttachOrDetach<WScriptFastDom::CallbackMessage, true>(function); }
-void FastDomDebugDetach(Var function)           { DebugAttachOrDetach<WScriptFastDom::CallbackMessage, false>(function); }
-void DispatchDebugAttach(IDispatch* function)   { DebugAttachOrDetach<WScriptDispatchCallbackMessage, true>(function); }
-void DispatchDebugDetach(IDispatch* function)   { DebugAttachOrDetach<WScriptDispatchCallbackMessage, false>(function); }
+void FastDomDebugAttach(Var function) { DebugAttachOrDetach<WScriptFastDom::CallbackMessage, true>(function); }
+void FastDomDebugDetach(Var function) { DebugAttachOrDetach<WScriptFastDom::CallbackMessage, false>(function); }
+void DispatchDebugAttach(IDispatch* function) { DebugAttachOrDetach<WScriptDispatchCallbackMessage, true>(function); }
+void DispatchDebugDetach(IDispatch* function) { DebugAttachOrDetach<WScriptDispatchCallbackMessage, false>(function); }
 
 void FastDomEdit(Var function, IDebugDocumentText* debugDocumentText, ULONG startOffset, ULONG length, PCWSTR editContent, ULONG newLength)
 {
@@ -948,7 +948,7 @@ void FastDomEdit(Var function, IDebugDocumentText* debugDocumentText, ULONG star
         IfFailGo(scriptDirect->QueryInterface(&pActiveScriptEdit));
 
         {
-            ScriptEditRequest request = { debugDocumentText, { startOffset, length }, editContent, newLength };
+            ScriptEditRequest request = { debugDocumentText,{ startOffset, length }, editContent, newLength };
 
             // Query single edit
             IfFailGo(pActiveScriptEdit->QueryEdit(&request, 1, &pScriptEditQuery));
@@ -971,7 +971,7 @@ void FastDomEdit(Var function, IDebugDocumentText* debugDocumentText, ULONG star
                 IfFailGo(pScriptEditQuery->GetResult(i, &result));
                 wprintf(L"EnC: Compile error: %ls, line %d, column %d\n", result.message, result.line, result.column);
             }
-            
+
             //TODO: even more info
         }
 #endif
@@ -979,7 +979,7 @@ void FastDomEdit(Var function, IDebugDocumentText* debugDocumentText, ULONG star
         // Call the script function in message.
         IfFailGo(msg.CallJavascriptFunction());
 
-Error:
+    Error:
         return hr;
     });
 }
@@ -996,10 +996,10 @@ void StartOrStopProfiler(typename Message::CustomArgType function)
     });
 }
 
-void FastDomStartProfiler(Var function)         { return StartOrStopProfiler<WScriptFastDom::CallbackMessage, true>(function); }
-void FastDomStopProfiler(Var function)          { return StartOrStopProfiler<WScriptFastDom::CallbackMessage, false>(function); }
+void FastDomStartProfiler(Var function) { return StartOrStopProfiler<WScriptFastDom::CallbackMessage, true>(function); }
+void FastDomStopProfiler(Var function) { return StartOrStopProfiler<WScriptFastDom::CallbackMessage, false>(function); }
 void DispatchStartProfiler(IDispatch* function) { return StartOrStopProfiler<WScriptDispatchCallbackMessage, true>(function); }
-void DispatchStopProfiler(IDispatch* function)  { return StartOrStopProfiler<WScriptDispatchCallbackMessage, false>(function); }
+void DispatchStopProfiler(IDispatch* function) { return StartOrStopProfiler<WScriptDispatchCallbackMessage, false>(function); }
 
 HRESULT DoOneIASIteration(BSTR filename)
 {
@@ -1033,7 +1033,7 @@ HRESULT DoOneIASIteration(BSTR filename)
         if (filename)
         {
             // Load the main script
-            hr = mainScriptSite->LoadScriptFile(filename);            
+            hr = mainScriptSite->LoadScriptFile(filename);
         }
         else if (pfNativeTestEntryPoint)
         {
@@ -1047,17 +1047,17 @@ HRESULT DoOneIASIteration(BSTR filename)
             }
             else
             {
-                JsHostNativeTestArguments nativeTestArgs = 
-                { 
-                    activeScript, 
-                    (IJsHostScriptSite*)mainScriptSite, 
-                    jscriptLibrary, 
-                    mainScriptSite->GetOnScriptErrorHelper(), 
-                    JsHostLoadScriptFile, 
-                    JsHostCreateNewEngine, 
-                    JsHostShutdownScriptSite, 
+                JsHostNativeTestArguments nativeTestArgs =
+                {
+                    activeScript,
+                    (IJsHostScriptSite*)mainScriptSite,
+                    jscriptLibrary,
+                    mainScriptSite->GetOnScriptErrorHelper(),
+                    JsHostLoadScriptFile,
+                    JsHostCreateNewEngine,
+                    JsHostShutdownScriptSite,
                     JsHostCreateThreadService,
-                    nativeTestargc, 
+                    nativeTestargc,
                     nativeTestargv
                 };
                 hr = pfNativeTestEntryPoint(&nativeTestArgs);
@@ -1078,7 +1078,7 @@ HRESULT DoOneIASIteration(BSTR filename)
     }
 
     CloseHandle(mainEngineThread);
-    
+
     delete messageQueue;
 
     std::set<HANDLE> threads;
@@ -1135,7 +1135,7 @@ HRESULT DoOneIASIteration(BSTR filename)
                 WaitForThreadsToFinish(threads);
             }
         }
-        catch(const exception & e)
+        catch (const exception & e)
         {
             Unused(e); // Good to leave around for debugging
         }
@@ -1154,8 +1154,8 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
 {
     int ret = 1;
     HRESULT hr = S_OK;
- 
-    hr = CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);   
+
+    hr = CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);
     if (FAILED(hr))
     {
         wprintf(L"FATAL ERROR: CoInitializeEx() failed. hr=0x%x\n", hr);
@@ -1205,16 +1205,16 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
 
     // Force one final GC before we CoUninitialize
     JScript9Interface::FinalGC();
-    
+
     if (HostConfigFlags::flags.DumpRecyclerStats)
     {
         PROCESS_MEMORY_COUNTERS_EX memCounters;
 
-        memCounters.cb=sizeof(memCounters);
-        GetProcessMemoryInfo(GetCurrentProcess(),(PROCESS_MEMORY_COUNTERS*)&memCounters,memCounters.cb);
-        wprintf(L"Peak working set %Iu\n",memCounters.PeakWorkingSetSize);
-        wprintf(L"Working set      %Iu\n",memCounters.WorkingSetSize);
-        wprintf(L"Private memory   %Iu\n",memCounters.PrivateUsage);
+        memCounters.cb = sizeof(memCounters);
+        GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&memCounters, memCounters.cb);
+        wprintf(L"Peak working set %Iu\n", memCounters.PeakWorkingSetSize);
+        wprintf(L"Working set      %Iu\n", memCounters.WorkingSetSize);
+        wprintf(L"Private memory   %Iu\n", memCounters.PrivateUsage);
 
         JScript9Interface::DisplayRecyclerStats();
     }
@@ -1225,7 +1225,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     }
     if (UTF8SourceMapper != nullptr)
     {
-        AssertMsg (UTF8SourceMapper->GetRefCount() == 0, "Not all the references were released of the IActiveScriptByteCodeSource passed in to ExecuteByteCodeBuffer");
+        AssertMsg(UTF8SourceMapper->GetRefCount() == 0, "Not all the references were released of the IActiveScriptByteCodeSource passed in to ExecuteByteCodeBuffer");
         delete UTF8SourceMapper;
         UTF8SourceMapper = nullptr;
     }
@@ -1233,6 +1233,72 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     CoUninitialize();
 
     return ret;
+}
+
+#include "..\..\..\core\lib\common\exceptions\reporterror.h"
+LPTOP_LEVEL_EXCEPTION_FILTER originalUnhandledExceptionFilter;
+LONG WINAPI JsHostUnhandledExceptionFilter(LPEXCEPTION_POINTERS lpep)
+{
+    DWORD exceptionCode = lpep->ExceptionRecord->ExceptionCode;
+    if ((exceptionCode == E_OUTOFMEMORY || exceptionCode == E_UNEXPECTED) &&
+        (lpep->ExceptionRecord->ExceptionFlags & EXCEPTION_NONCONTINUABLE) &&
+        lpep->ExceptionRecord->NumberParameters == 2)
+    {
+        JScript9Interface::NotifyUnhandledException(lpep);
+
+        bool crashOnException = false;
+        JScript9Interface::GetCrashOnExceptionFlag(&crashOnException);
+
+        if (!crashOnException)
+        {
+
+            ErrorReason reasonCode = (ErrorReason)lpep->ExceptionRecord->ExceptionInformation[0];
+            wchar_t const * reason = L"Unknown Reason";
+            switch (reasonCode)
+            {
+            case JavascriptDispatch_OUTOFMEMORY:
+                reason = L"JavascriptDispatch out of memory";
+                break;
+            case Fatal_Internal_Error:
+                reason = L"internal error";
+                break;
+            case Fatal_Debug_Heap_OUTOFMEMORY:
+                reason = L"debug heap out of memory";
+                break;
+            case Fatal_Amd64StackWalkerOutOfContexts:
+                reason = L"amd64 stack walker out of contexts";
+                break;
+            case Fatal_Binary_Inconsistency:
+                reason = L"binary inconsistency";
+                break;
+            case WriteBarrier_OUTOFMEMORY:
+                reason = L"write Barrier out of memory";
+                break;
+            case CustomHeap_MEMORYCORRUPTION:
+                reason = L"customHeap memory corruption";
+                break;
+            case LargeHeapBlock_Metadata_Corrupt:
+                reason = L"large heap block metadata corruption";
+                break;
+            case Fatal_Version_Inconsistency:
+                reason = L"version inconsistency";
+                break;
+            case MarkStack_OUTOFMEMORY:
+                reason = L"mark stack out of memory";
+                break;
+            };
+            fwprintf(stderr, L"NON-CONTINUABLE FATAL ERROR: jshost.exe failed due to exception code %x, %s (%d)\n", exceptionCode, reason, reasonCode);
+            _flushall();
+
+            TerminateProcess(::GetCurrentProcess(), exceptionCode);
+        }
+    }
+    return originalUnhandledExceptionFilter(lpep);
+}
+
+void SetupUnhandledExceptionFilter()
+{
+    originalUnhandledExceptionFilter = SetUnhandledExceptionFilter(JsHostUnhandledExceptionFilter);
 }
 
 ///
@@ -1279,10 +1345,10 @@ void LaunchAndAttachDebugger()
     HANDLE hDebuggerEvt;
     hDebuggerEvt = CreateEvent(NULL, TRUE, FALSE, eventName.c_str());
 
-    STARTUPINFO startupInfo = {0};
-    PROCESS_INFORMATION procInfo = {0};
+    STARTUPINFO startupInfo = { 0 };
+    PROCESS_INFORMATION procInfo = { 0 };
     startupInfo.cb = sizeof(STARTUPINFO);
-    if(CreateProcess(NULL, cmdLineBuf, NULL, NULL, FALSE, 0, NULL, NULL, &startupInfo, &procInfo) == FALSE)
+    if (CreateProcess(NULL, cmdLineBuf, NULL, NULL, FALSE, 0, NULL, NULL, &startupInfo, &procInfo) == FALSE)
     {
         wprintf(L"ERROR: failed to attach debugger\n");
         exit(1);
@@ -1291,13 +1357,13 @@ void LaunchAndAttachDebugger()
     CloseHandle(procInfo.hThread);
     CloseHandle(procInfo.hProcess);
 
-    if(WaitForSingleObject(hDebuggerEvt, INFINITE) != WAIT_OBJECT_0)
+    if (WaitForSingleObject(hDebuggerEvt, INFINITE) != WAIT_OBJECT_0)
     {
         wprintf(L"ERROR: failed to attach debugger\n");
         exit(1);
     }
 
-    if(!IsDebuggerPresent())
+    if (!IsDebuggerPresent())
     {
         wprintf(L"ERROR: failed to attach debugger\n");
         exit(1);
@@ -1312,7 +1378,7 @@ void LaunchAndAttachDebugger()
 void LaunchEtwListenerAndWaitForReady()
 {
     WCHAR buf[MAX_PATH];
-    WCHAR cmdLineBuf[1024] = {0};
+    WCHAR cmdLineBuf[1024] = { 0 };
     std::wstring cmdLine;
     std::wstring etwBaseFilename = L"JsEtwConsole";
     std::wstring autoExitFilename;
@@ -1340,7 +1406,7 @@ void LaunchEtwListenerAndWaitForReady()
     cmdLine += buf;
     cmdLine += L" ";
     cmdLine += HostConfigFlags::jsEtwConsoleCmdLine;
-    cmdLine += L" -file "; 
+    cmdLine += L" -file ";
     cmdLine += etwBaseFilename;
     cmdLine += L".etwlog -eventname ";
     cmdLine += etwBaseFilename;
@@ -1392,7 +1458,7 @@ void LaunchEtwListenerAndWaitForReady()
         wprintf(L"ERROR: failed to launch JsEtwConsole with code=%d\n", success);
         exit(1);
     }
-    
+
     // Wait for JsEtwConsole to set the event indicating it has finished starting up
     if (WaitForSingleObject(jsEtwConsoleEvent, INFINITE) != WAIT_OBJECT_0)
     {
@@ -1443,7 +1509,7 @@ void WriteEtwLog()
     etwLogFilename += L".";
     etwLogFilename += buf;
     etwLogFilename += L".etwlog";
-    
+
     wcscpy_s(buf, etwLogFilename.c_str());
 
     FILE* f = _wfopen(buf, L"r");
@@ -1456,13 +1522,13 @@ void WriteEtwLog()
     char* utf8buf = nullptr;
     WCHAR* utf16buf = nullptr;
     const long MAX_FILE_SIZE = 1024 * 1024 * 1;
-    fseek(f , 0, SEEK_END);
+    fseek(f, 0, SEEK_END);
     long fileSize = ftell(f);
     rewind(f);
 
     if (fileSize <= MAX_FILE_SIZE)
     {
-        utf8buf = (char*) malloc(sizeof(char) * fileSize);
+        utf8buf = (char*)malloc(sizeof(char) * fileSize);
 
         if (utf8buf == nullptr)
         {
@@ -1474,7 +1540,7 @@ void WriteEtwLog()
 
         utf8buf[bytesRead] = '\0';
 
-        utf16buf = (WCHAR*) malloc(sizeof(WCHAR) * fileSize);
+        utf16buf = (WCHAR*)malloc(sizeof(WCHAR) * fileSize);
 
         if (utf16buf == nullptr)
         {
@@ -1538,7 +1604,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
     BSTR filename = NULL;
     JScript9Interface::ArgInfo argInfo = { argc, argv, ::PrintUsage, pfNativeTestEntryPoint ? NULL : &filename };        // Call the real entrypoint.
 
-    // Spin-up the ETW console listener, if needed.
+                                                                                                                         // Spin-up the ETW console listener, if needed.
     if (HostConfigFlags::jsEtwConsoleCmdLine != nullptr)
     {
         LaunchEtwListenerAndWaitForReady();
@@ -1562,7 +1628,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
 
     if (HostConfigFlags::flags.MemProtectHeapTest)
     {
-        return MemProtectHeapTest();        
+        return MemProtectHeapTest();
     }
 
     // Check if running in the out of proc debugger was requested
@@ -1625,7 +1691,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
             }
         }
     }
-    __except(JcExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
+    __except (JcExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
     {
         // Flush all I/O buffers
         _flushall();
@@ -1697,7 +1763,7 @@ int HandleNativeTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]
     LPWSTR nativeDllName = argv[i] + nativeTestFlagLen;
     nativeTestDll = LoadLibraryEx(nativeDllName, nullptr, 0);
     int ret = 0;
-    if (! nativeTestDll)
+    if (!nativeTestDll)
     {
         ret = GetLastError();
         fwprintf(stderr, L"FATAL ERROR: Unable to load %s. GLE=0x%x\n", nativeDllName, ret);
@@ -1730,17 +1796,17 @@ int HandleDebuggerBaselineFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR 
     int dbgBaselineFlagLen = wcslen(dbgBaselineFlag);
 
     int i = 0;
-    for(i = 1; i < argc; ++i)
+    for (i = 1; i < argc; ++i)
     {
-        if(!_wcsicmp(argv[i], dbgBaselineFlagWithoutColon)) 
+        if (!_wcsicmp(argv[i], dbgBaselineFlagWithoutColon))
         {
             dbgBaselineFilename = L"";
             break;
-        } 
-        else if(!_wcsnicmp(argv[i], dbgBaselineFlag, dbgBaselineFlagLen))
+        }
+        else if (!_wcsnicmp(argv[i], dbgBaselineFlag, dbgBaselineFlagLen))
         {
             dbgBaselineFilename = argv[i] + dbgBaselineFlagLen;
-            if(wcslen(dbgBaselineFilename) == 0)
+            if (wcslen(dbgBaselineFilename) == 0)
             {
                 fwprintf(stdout, L"[FAILED]: must pass a filename to -dbgbaseline:\n");
                 return 1;
@@ -1752,7 +1818,7 @@ int HandleDebuggerBaselineFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR 
         }
     }
 
-    if(i == argc)
+    if (i == argc)
         return 1;
 
     // remove this flag now
@@ -1763,27 +1829,27 @@ int HandleDebuggerBaselineFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR 
 
 bool HandleJsrtTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
-    LPCWSTR jsrtTestFlag = L"-jsrt";    
+    LPCWSTR jsrtTestFlag = L"-jsrt";
     size_t jsrtTestFlagLen = wcslen(jsrtTestFlag);
-    
+
     int i = HostConfigFlags::FindArg(argc, argv, jsrtTestFlag, jsrtTestFlagLen);
     if (i < 0)
     {
         return false;
     }
-    
+
     // we have the a -jsrt flag
     if (wcslen(argv[i]) != jsrtTestFlagLen)
     {
         LPWSTR jsrtAttributeSupplied = argv[i] + jsrtTestFlagLen + 1;
-        if (! swscanf_s(jsrtAttributeSupplied, L"%x", &jsrtAttributes))
+        if (!swscanf_s(jsrtAttributeSupplied, L"%x", &jsrtAttributes))
         {
             return false;
         }
     }
     // remove the -jsrt flag
     HostConfigFlags::RemoveArg(argc, argv, i);
-    
+
     return true;
 }
 
@@ -1791,7 +1857,7 @@ bool HandleHtmlTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
     bool isHtmlTest = false; // If the test is like http://..., https://..., *.htm, *.html
 
-    // Search for explict -html switch (check http://..., https://..., *.htm, *.html along the way)
+                             // Search for explict -html switch (check http://..., https://..., *.htm, *.html along the way)
     int htmlSwitchIndex = HostConfigFlags::FindArg(argc, argv, [&](PCWSTR arg) -> bool
     {
         if (!isHtmlTest)
@@ -1835,7 +1901,7 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
     bool useJsrt = HandleJsrtTestFlag(argc, argv);
     bool useHtml = HandleHtmlTestFlag(argc, argv);
     HandleAlternateDllFlag(argc, argv);
-    
+
     PeekRuntimeFlag(argc, argv);
 
     if (argc < 2)
@@ -1903,10 +1969,12 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 
 int _cdecl wmain(int argc, __in_ecount(argc) LPWSTR argv[])
 {
+    SetupUnhandledExceptionFilter();
+
     HostConfigFlags::pfnPrintUsage = PrintUsage;
-    
+
     char *jdtestVar = getenv("JDTEST");
-    if(jdtestVar && !strcmp(jdtestVar, "1"))
+    if (jdtestVar && !strcmp(jdtestVar, "1"))
     {
         IsRunningUnderJdtest = true;
     }
@@ -1915,7 +1983,7 @@ int _cdecl wmain(int argc, __in_ecount(argc) LPWSTR argv[])
     int ret = 0;
     if (UseLargeAddresses(argc, argv))
     {
-         ret = TestLargeAddress(argc, argv, wmain1);
+        ret = TestLargeAddress(argc, argv, wmain1);
     }
     else
     {
