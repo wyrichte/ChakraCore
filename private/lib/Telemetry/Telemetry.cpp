@@ -63,7 +63,7 @@ WCHAR *g_ProcessExclusionList[] = {
 
 TraceLoggingClient *g_TraceLoggingClient = NULL;
 
-TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true)
+TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true), edgeHtmlAddress(nullptr)
 {
     // Check if we're running in a process from which telemetry should
     // not be logged.  We'll default to logging telemetry if the process
@@ -85,6 +85,8 @@ TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true)
             }
         }
     }
+
+    edgeHtmlAddress = GetModuleHandle(L"edgehtml.dll");
 
     SetIsHighResPerfCounterAvailable(); // Used as a telemetry point
 
@@ -117,6 +119,9 @@ void TraceLoggingClient::ResetTelemetryStats(ThreadContext* threadContext)
         threadContext->ResetLangStats();
         threadContext->ResetJITStats();
         threadContext->ResetParserStats();
+#ifdef ENABLE_DIRECTCALL_TELEMETRY
+        threadContext->directCallTelemetry.Reset();
+#endif
     }
 }
 
@@ -632,10 +637,48 @@ void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId,
             TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
             );
 
+#ifdef ENABLE_DIRECTCALL_TELEMETRY
+        FireFinalDomTelemetry(activityId);
+#endif
+
         ResetTelemetryStats(threadContext);
 
     }
 }
+
+#ifdef ENABLE_DIRECTCALL_TELEMETRY
+void TraceLoggingClient::FirePeriodicDomTelemetry(GUID activityId)
+{
+    void *data;
+    uint16 dataSize;
+    ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
+    threadContext->directCallTelemetry.GetBinaryData(&data, &dataSize);
+
+    TraceLogChakra(
+        TL_DIRECTCALLRAW,
+        TraceLoggingGuid(activityId, "activityId"),
+        TraceLoggingUInt64(threadContext->directCallTelemetry.GetFrequency(), "Frequency"),
+        TraceLoggingUInt64(reinterpret_cast<uint64>(edgeHtmlAddress), "TridentLoadAddress"),
+        TraceLoggingBinary(data, dataSize, "Data")
+        );
+}
+
+void TraceLoggingClient::FireFinalDomTelemetry(GUID activityId)
+{
+    FirePeriodicDomTelemetry(activityId);
+}
+#endif
+
+#ifdef ENABLE_DIRECTCALL_TELEMETRY_STATS
+void TraceLoggingClient::FireDomTelemetryStats(double tracelogTimeMs, double logTimeMs)
+{
+    TraceLogChakra(
+        TL_DIRECTCALLTIME,
+        TraceLoggingFloat64(tracelogTimeMs, "TraceLogTimeInMs"),
+        TraceLoggingFloat64(logTimeMs, "MaxLogTimeInMs")
+        );
+}
+#endif
 
 
 CEventTraceProperties::CEventTraceProperties()

@@ -9,7 +9,6 @@ var tests = [
       var objects = [
                      Object.create({}),
                      new Boolean(),
-                     Object.create(Proxy.prototype),
                      Object.create(Promise.prototype),
                      Function(""),
                      new Number(),

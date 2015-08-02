@@ -83,3 +83,11 @@ get trap m
 def
 ade
 b
+value : 2
+configurable : true
+writable : false
+enumerable : false
+expected :Proxy argument handler is not a valid object
+expected :Proxy argument target is not a valid object
+Proxy.prototype = false
+done test22

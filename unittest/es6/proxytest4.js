@@ -88,12 +88,7 @@ var tests = [
             assert.areEqual(false, Object.isExtensible(nonExtensionObj), "nonExtensionObject is not extensible");
             assert.areEqual(false, Object.isExtensible(nonExtProxy), "nonExtProxy is not extensible");
             assert.areEqual(savedLogResult.length, 4, "preventExtensions + isExtensible");
-            if (IsUsingReflect()) {
-                assert.throws(function () { nonExtProxy.nonExtObj = 20 }, TypeError);
-            }
-            else {
-                nonExtProxy.nonExtObj = 20;
-            }
+            nonExtProxy.nonExtObj = 20;
             assert.areEqual(nonExtProxy.nonExtObj, undefined, "can't set");
         }
     },

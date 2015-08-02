@@ -221,62 +221,60 @@ construct trap
 PASSED
 Summary of tests: total executed: 46; passed: 46; failed: 0
 Dumping sorted function compiled events
-[FunctionCompiled]: Function: Anonymous function, Line: 117, Column: 27, Character Position: 4861
+[FunctionCompiled]: Function: Anonymous function, Line: 112, Column: 27, Character Position: 4683
 [FunctionCompiled]: Function: Anonymous function, Line: 185, Column: 20, Character Position: 6949
-[FunctionCompiled]: Function: Anonymous function, Line: 261, Column: 27, Character Position: 10440
-[FunctionCompiled]: Function: Anonymous function, Line: 279, Column: 27, Character Position: 11098
-[FunctionCompiled]: Function: Anonymous function, Line: 314, Column: 27, Character Position: 12582
-[FunctionCompiled]: Function: Anonymous function, Line: 335, Column: 27, Character Position: 13338
+[FunctionCompiled]: Function: Anonymous function, Line: 256, Column: 27, Character Position: 10262
+[FunctionCompiled]: Function: Anonymous function, Line: 274, Column: 27, Character Position: 10920
+[FunctionCompiled]: Function: Anonymous function, Line: 309, Column: 27, Character Position: 12404
+[FunctionCompiled]: Function: Anonymous function, Line: 330, Column: 27, Character Position: 13160
 [FunctionCompiled]: Function: Anonymous function, Line: 57, Column: 27, Character Position: 2152
 [FunctionCompiled]: Function: Anonymous function, Line: 72, Column: 27, Character Position: 2803
-[FunctionCompiled]: Function: Anonymous function, Line: 92, Column: 31, Character Position: 4044
 [FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
 [FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
 [FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
 [FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
 [FunctionCompiled]: Function: Global code, Line: 27, Column: 1, Character Position: 1402
-[FunctionCompiled]: Function: IsUsingReflect, Line: 24, Column: 1, Character Position: 449
 [FunctionCompiled]: Function: LogResult, Line: 13, Column: 1, Character Position: 228
 [FunctionCompiled]: Function: VerifyReflectThis, Line: 189, Column: 1, Character Position: 5150
 [FunctionCompiled]: Function: VerifyThis, Line: 18, Column: 1, Character Position: 311
 [FunctionCompiled]: Function: addMessage, Line: 220, Column: 22, Character Position: 8193
 [FunctionCompiled]: Function: areEqual, Line: 228, Column: 19, Character Position: 8404
 [FunctionCompiled]: Function: assert, Line: 149, Column: 14, Character Position: 5620
-[FunctionCompiled]: Function: body, Line: 102, Column: 15, Character Position: 4359
-[FunctionCompiled]: Function: body, Line: 112, Column: 15, Character Position: 4694
-[FunctionCompiled]: Function: body, Line: 123, Column: 15, Character Position: 5088
-[FunctionCompiled]: Function: body, Line: 137, Column: 15, Character Position: 5669
-[FunctionCompiled]: Function: body, Line: 155, Column: 15, Character Position: 6397
-[FunctionCompiled]: Function: body, Line: 174, Column: 15, Character Position: 7120
-[FunctionCompiled]: Function: body, Line: 192, Column: 15, Character Position: 7793
-[FunctionCompiled]: Function: body, Line: 212, Column: 15, Character Position: 8566
-[FunctionCompiled]: Function: body, Line: 233, Column: 15, Character Position: 9321
-[FunctionCompiled]: Function: body, Line: 241, Column: 15, Character Position: 9552
-[FunctionCompiled]: Function: body, Line: 257, Column: 15, Character Position: 10291
-[FunctionCompiled]: Function: body, Line: 267, Column: 15, Character Position: 10643
-[FunctionCompiled]: Function: body, Line: 276, Column: 15, Character Position: 10975
-[FunctionCompiled]: Function: body, Line: 285, Column: 15, Character Position: 11296
-[FunctionCompiled]: Function: body, Line: 293, Column: 15, Character Position: 11556
+[FunctionCompiled]: Function: body, Line: 107, Column: 15, Character Position: 4516
+[FunctionCompiled]: Function: body, Line: 118, Column: 15, Character Position: 4910
+[FunctionCompiled]: Function: body, Line: 132, Column: 15, Character Position: 5491
+[FunctionCompiled]: Function: body, Line: 150, Column: 15, Character Position: 6219
+[FunctionCompiled]: Function: body, Line: 169, Column: 15, Character Position: 6942
+[FunctionCompiled]: Function: body, Line: 187, Column: 15, Character Position: 7615
+[FunctionCompiled]: Function: body, Line: 207, Column: 15, Character Position: 8388
+[FunctionCompiled]: Function: body, Line: 228, Column: 15, Character Position: 9143
+[FunctionCompiled]: Function: body, Line: 236, Column: 15, Character Position: 9374
+[FunctionCompiled]: Function: body, Line: 252, Column: 15, Character Position: 10113
+[FunctionCompiled]: Function: body, Line: 262, Column: 15, Character Position: 10465
+[FunctionCompiled]: Function: body, Line: 271, Column: 15, Character Position: 10797
+[FunctionCompiled]: Function: body, Line: 280, Column: 15, Character Position: 11118
+[FunctionCompiled]: Function: body, Line: 288, Column: 15, Character Position: 11378
 [FunctionCompiled]: Function: body, Line: 30, Column: 15, Character Position: 1009
-[FunctionCompiled]: Function: body, Line: 311, Column: 15, Character Position: 12456
-[FunctionCompiled]: Function: body, Line: 320, Column: 15, Character Position: 12792
-[FunctionCompiled]: Function: body, Line: 330, Column: 15, Character Position: 13168
+[FunctionCompiled]: Function: body, Line: 306, Column: 15, Character Position: 12278
+[FunctionCompiled]: Function: body, Line: 315, Column: 15, Character Position: 12614
+[FunctionCompiled]: Function: body, Line: 325, Column: 15, Character Position: 12990
 [FunctionCompiled]: Function: body, Line: 39, Column: 15, Character Position: 1373
 [FunctionCompiled]: Function: body, Line: 52, Column: 15, Character Position: 1960
 [FunctionCompiled]: Function: body, Line: 64, Column: 15, Character Position: 2448
 [FunctionCompiled]: Function: body, Line: 79, Column: 15, Character Position: 3105
+[FunctionCompiled]: Function: body, Line: 97, Column: 15, Character Position: 4181
 [FunctionCompiled]: Function: cleanupBeforeTestStarts, Line: 12, Column: 1, Character Position: 493
 [FunctionCompiled]: Function: compare, Line: 160, Column: 19, Character Position: 5921
 [FunctionCompiled]: Function: compareAlmostEqualRelative, Line: 193, Column: 38, Character Position: 7145
 [FunctionCompiled]: Function: get isCompatVersion9, Line: 38, Column: 13, Character Position: 1776
 [FunctionCompiled]: Function: get isVersion10OrLater, Line: 41, Column: 13, Character Position: 1887
-[FunctionCompiled]: Function: handler.trapApply, Line: 243, Column: 33, Character Position: 9621
-[FunctionCompiled]: Function: handler.trapConstruct, Line: 295, Column: 37, Character Position: 11625
-[FunctionCompiled]: Function: handler.trapConstruct, Line: 332, Column: 37, Character Position: 13237
-[FunctionCompiled]: Function: handler.trapEnumerate, Line: 226, Column: 37, Character Position: 9082
+[FunctionCompiled]: Function: handler.trapApply, Line: 238, Column: 33, Character Position: 9443
+[FunctionCompiled]: Function: handler.trapConstruct, Line: 290, Column: 37, Character Position: 11447
+[FunctionCompiled]: Function: handler.trapConstruct, Line: 327, Column: 37, Character Position: 13059
+[FunctionCompiled]: Function: handler.trapEnumerate, Line: 221, Column: 37, Character Position: 8904
 [FunctionCompiled]: Function: handler.trapIsExtensible, Line: 54, Column: 40, Character Position: 2029
 [FunctionCompiled]: Function: handler.trapIsExtensible, Line: 69, Column: 40, Character Position: 2680
-[FunctionCompiled]: Function: handler.trapOwnKeys, Line: 114, Column: 35, Character Position: 4763
+[FunctionCompiled]: Function: handler.trapOwnKeys, Line: 109, Column: 35, Character Position: 4585
 [FunctionCompiled]: Function: helpers, Line: 27, Column: 15, Character Position: 1402
 [FunctionCompiled]: Function: initialize, Line: 324, Column: 1, Character Position: 9162
 [FunctionCompiled]: Function: isInBrowser, Line: 33, Column: 22, Character Position: 1555
@@ -309,10 +307,10 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: reflectHandler.set, Line: 267, Column: 22, Character Position: 7557
 [FunctionCompiled]: Function: retVal.next, Line: 142, Column: 19, Character Position: 3899
 [FunctionCompiled]: Function: runTest, Line: 114, Column: 18, Character Position: 4461
-[FunctionCompiled]: Function: runTest, Line: 341, Column: 1, Character Position: 13532
+[FunctionCompiled]: Function: runTest, Line: 336, Column: 1, Character Position: 13354
 [FunctionCompiled]: Function: runTests, Line: 85, Column: 19, Character Position: 3324
 [FunctionCompiled]: Function: target, Line: 326, Column: 14, Character Position: 9193
-[FunctionCompiled]: Function: test, Line: 216, Column: 13, Character Position: 8693
+[FunctionCompiled]: Function: test, Line: 211, Column: 13, Character Position: 8515
 [FunctionCompiled]: Function: testRunner, Line: 78, Column: 18, Character Position: 3067
 [FunctionCompiled]: Function: throws, Line: 262, Column: 17, Character Position: 9945
 [FunctionCompiled]: Function: validate, Line: 212, Column: 20, Character Position: 7897
@@ -520,7 +518,6 @@ Dumping sorted function compiled events
           areEqual
             compare
             validate
-          IsUsingReflect
           observeHandler.set
             String.toString
             LogResult
@@ -1459,27 +1456,24 @@ Dumping sorted function compiled events
           areEqual
             compare
             validate
-          IsUsingReflect
-          throws
-            Anonymous function
-              reflectHandler.set
-                String.toString
-                LogResult
-                  Array.push
-                  Echo
-                VerifyReflectThis
-                reflectHandler.getOwnPropertyDescriptor
-                  String.toString
-                  LogResult
-                    Array.push
-                    Echo
-                  VerifyReflectThis
-                reflectHandler.defineProperty
-                  String.toString
-                  LogResult
-                    Array.push
-                    Echo
-                  VerifyReflectThis
+          reflectHandler.set
+            String.toString
+            LogResult
+              Array.push
+              Echo
+            VerifyReflectThis
+            reflectHandler.getOwnPropertyDescriptor
+              String.toString
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
+            reflectHandler.defineProperty
+              String.toString
+              LogResult
+                Array.push
+                Echo
+              VerifyReflectThis
           reflectHandler.get
             String.toString
             LogResult

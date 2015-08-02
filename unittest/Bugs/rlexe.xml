@@ -226,4 +226,11 @@
       <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -maic:0</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>OS_3797688.js</files>
+      <compile-flags>-loopinterpretcount:3 -bgjit- -maxsimplejitruncount:2 -maxinterpretcount:2 -forceserialized</compile-flags>
+      <tags>BugFix</tags>
+    </default>
+  </test>
 </regress-exe>
