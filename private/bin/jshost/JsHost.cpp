@@ -1235,6 +1235,72 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     return ret;
 }
 
+#include "..\..\..\core\lib\common\exceptions\reporterror.h"
+LPTOP_LEVEL_EXCEPTION_FILTER originalUnhandledExceptionFilter;
+LONG WINAPI JsHostUnhandledExceptionFilter(LPEXCEPTION_POINTERS lpep)
+{
+    DWORD exceptionCode = lpep->ExceptionRecord->ExceptionCode;
+    if ((exceptionCode == E_OUTOFMEMORY || exceptionCode == E_UNEXPECTED) &&
+        (lpep->ExceptionRecord->ExceptionFlags & EXCEPTION_NONCONTINUABLE) &&
+        lpep->ExceptionRecord->NumberParameters == 2)
+    {
+        JScript9Interface::NotifyUnhandledException(lpep);
+
+        bool crashOnException = false;
+        JScript9Interface::GetCrashOnExceptionFlag(&crashOnException);
+
+        if (!crashOnException)
+        {
+
+            ErrorReason reasonCode = (ErrorReason)lpep->ExceptionRecord->ExceptionInformation[0];
+            wchar_t const * reason = L"Unknown Reason";
+            switch (reasonCode)
+            {
+            case JavascriptDispatch_OUTOFMEMORY:
+                reason = L"JavascriptDispatch out of memory";
+                break;
+            case Fatal_Internal_Error:
+                reason = L"internal error";
+                break;
+            case Fatal_Debug_Heap_OUTOFMEMORY:
+                reason = L"debug heap out of memory";
+                break;
+            case Fatal_Amd64StackWalkerOutOfContexts:
+                reason = L"amd64 stack walker out of contexts";
+                break;
+            case Fatal_Binary_Inconsistency:
+                reason = L"binary inconsistency";
+                break;
+            case WriteBarrier_OUTOFMEMORY:
+                reason = L"write Barrier out of memory";
+                break;
+            case CustomHeap_MEMORYCORRUPTION:
+                reason = L"customHeap memory corruption";
+                break;
+            case LargeHeapBlock_Metadata_Corrupt:
+                reason = L"large heap block metadata corruption";
+                break;
+            case Fatal_Version_Inconsistency:
+                reason = L"version inconsistency";
+                break;
+            case MarkStack_OUTOFMEMORY:
+                reason = L"mark stack out of memory";
+                break;
+            };
+            fwprintf(stderr, L"NON-CONTINUABLE FATAL ERROR: jshost.exe failed due to exception code %x, %s (%d)\n", exceptionCode, reason, reasonCode);
+            _flushall();
+
+            TerminateProcess(::GetCurrentProcess(), exceptionCode);
+        }
+    }
+    return originalUnhandledExceptionFilter(lpep);
+}
+
+void SetupUnhandledExceptionFilter()
+{
+    originalUnhandledExceptionFilter = SetUnhandledExceptionFilter(JsHostUnhandledExceptionFilter);
+}
+
 ///
 /// JsHost main methods
 ///
@@ -1903,6 +1969,8 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 
 int _cdecl wmain(int argc, __in_ecount(argc) LPWSTR argv[])
 {
+    SetupUnhandledExceptionFilter();
+
     HostConfigFlags::pfnPrintUsage = PrintUsage;
     
     char *jdtestVar = getenv("JDTEST");
