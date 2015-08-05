@@ -39,7 +39,7 @@ if (Test-Path Env:\TF_BUILD_SOURCEGETVERSION)
     # machine itself. If the token expires, we need to log back onto the
     # machine and re-enter it to update the cache
     $coreRepoUrl = "https://chakraut%40microsoft.com@devdiv.visualstudio.com/DefaultCollection/DevDiv/_git/ChakraCore"
-    $cloneCommand = "$gitExe clone $coreRepoUrl"
+    $cloneCommand = "$gitExe clone $coreRepoUrl core"
 
     $coreRepoPath = Join-Path -Path $sourcesDir -ChildPath "core"
     if (Test-Path ($coreRepoPath)) {
