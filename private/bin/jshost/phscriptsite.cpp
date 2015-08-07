@@ -28,7 +28,9 @@ static std::map<std::wstring, int, std::less<std::wstring>> nativeDllNameMap;
 static std::map<std::wstring,ByteCodeInfo,std::less<std::wstring>> byteCodeFileMap;
                                          
 const IID IID_IActiveScriptByteCode =   {0xBF70A42D,0x05C9,0x4858,0xAD,0xCA,0x40,0x73,0x2A,0xF3,0x2C,0xD6}; 
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
 const IID IID_IActiveScriptNativeCode = {0x6E8F97E0,0x28B6,0x4ECA,0x87,0xA3,0xB4,0x69,0x9D,0x81,0xF7,0xEA};
+#endif
 
 JsFile::JsFile()
 {
@@ -854,6 +856,7 @@ HRESULT JsHostActiveScriptSite::StopScriptEngine()
     return hr;
 }
 
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
 struct WriteNativeCodeProcParam
 {
     JsHostActiveScriptSite * scriptSite;
@@ -981,6 +984,7 @@ HRESULT WriteNativeCode(HANDLE thread, JsHostActiveScriptSite * scriptSite, DWOR
 
     return hr;
 }
+#endif
 
 struct WriteByteCodesProcParam
 {
@@ -1277,7 +1281,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename)
             m_fileMap[m_dwNextSourceCookie].m_sourceContent = ::SysAllocString(contents);
         }
     }
-    
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION    
     if (isUtf8 && (HostConfigFlags::flags.NativeCodeSerializedIsEnabled || HostConfigFlags::flags.NativeCodeInMemorySerializedIsEnabled))
     {
         // Native code creation and consumption
@@ -1460,7 +1464,9 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename)
             }
         }
     }
-    else if (isUtf8 && HostConfigFlags::flags.PerformUTF8BoundaryTestIsEnabled)
+    else
+#endif
+    if (isUtf8 && HostConfigFlags::flags.PerformUTF8BoundaryTestIsEnabled)
     {
         DWORD_PTR dwSourceCookie = this->AddUrl(fullpath);
         hr = PerformUTF8BoundaryTest(this, lengthBytes, (BYTE*)contentsRaw, dwSourceCookie);

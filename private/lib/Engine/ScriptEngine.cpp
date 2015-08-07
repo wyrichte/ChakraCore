@@ -85,6 +85,7 @@ ulong ComputeGrfscrUTF8ForSerialization(const void * pDelimiter)
     return result | fscrNoAsmJs | fscrNoPreJit;
 }
 
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
 ulong ComputeGrfscrUTF8ForNativeSerialization(const void * pDelimiter)
 {
     ulong result = ComputeGrfscrUTF8(pDelimiter);
@@ -97,7 +98,7 @@ ulong ComputeGrfscrUTF8ForNativeSerializationDeserialization(const void * pDelim
     // We don't want to allow proxies since we're going to generate all these functions right now
     return result | fscrIsNativeCode;
 }
-
+#endif
 ulong ComputeGrfscrUTF8ForDeserialization(const void * pDelimiter)
 {
     ulong result = ComputeGrfscrUTF8(pDelimiter);
@@ -109,6 +110,7 @@ ulong ComputeGrfscrUTF8ForDeserialization(const void * pDelimiter)
     return result;
 }
 
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
 ulong ComputeGrfscrUTF8ForNativeDeserialization(const void * pDelimiter)
 {
     ulong result = ComputeGrfscrUTF8(pDelimiter);
@@ -118,6 +120,7 @@ ulong ComputeGrfscrUTF8ForNativeDeserialization(const void * pDelimiter)
     }
     return result | fscrIsNativeCode;
 }
+#endif
 
 #ifdef ENABLE_EXPERIMENTAL_FLAGS
 bool GetExperimentalFlag(const SettingStore::VALUEID<BOOL> id)
@@ -447,7 +450,9 @@ STDMETHODIMP ScriptEngine::QueryInterface(
     QI_IMPL(IID_IRemoteDebugApplicationEvents, IRemoteDebugApplicationEvents);
     QI_IMPL(IID_IObjectSafety, IObjectSafety);
     QI_IMPL(__uuidof(IActiveScriptByteCode), IActiveScriptByteCode);
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
     QI_IMPL(__uuidof(IActiveScriptNativeCode), IActiveScriptNativeCode);
+#endif
     QI_IMPL(__uuidof(IActiveScriptLifecycleEventSink), IActiveScriptLifecycleEventSink);
     QI_IMPL(__uuidof(IDiagnosticsContextHelper), IDiagnosticsContextHelper);
     QI_IMPL(__uuidof(IActiveScriptDebugAttach), IActiveScriptDebugAttach);
@@ -3937,11 +3942,13 @@ HRESULT ScriptEngine::GenerateByteCodeBuffer(
     }
 #endif
 
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
     if(Js::Configuration::Global.flags.IncludeNativeCodeWithSerializedByteCodes)
     {
         // Don't include the source in the PE because the byte code API will provide it at deserialization time anyway.
         return SerializeNativeCode(dwSourceCodeLength, utf8Code, 0, nullptr, punkContext, dwSourceContext, false, pexcepinfo, byteCode, pdwByteCodeSize);
     }
+#endif
 
     return SerializeByteCodes(dwSourceCodeLength, utf8Code, punkContext, dwSourceContext, ComputeGrfscrUTF8ForSerialization, pexcepinfo, byteCode, pdwByteCodeSize);
 }
@@ -3969,6 +3976,7 @@ HRESULT ScriptEngine::ExecuteByteCodeBuffer(
     }
 #endif
 
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
     if(Js::Configuration::Global.flags.IncludeNativeCodeWithSerializedByteCodes)
     {
         return ExecuteNativeCodeInMemoryBuffer(dwByteCodeSize, byteCode, pbyteCodeSource, punkContext, dwSourceContext, pexcepinfo);
@@ -3983,10 +3991,11 @@ HRESULT ScriptEngine::ExecuteByteCodeBuffer(
             return SCRIPT_E_INVALID_BYTECODE;
         }
     }
-
+#endif
     return DeserializeByteCodes(dwByteCodeSize, byteCode, pbyteCodeSource, punkContext, dwSourceContext, ComputeGrfscrUTF8ForDeserialization, true, nullptr, pexcepinfo);
 }
 
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
 HRESULT ScriptEngine::SerializeNativeCode(DWORD dwSourceCodeLength, BYTE * utf8Code, DWORD dwFunctionTableLength, BYTE * functionTable, IUnknown *punkContext, DWORD_PTR dwSourceContext, bool includeSource, EXCEPINFO *pexcepinfo, BYTE ** nativeCode, DWORD * pdwNativeCodeSize)
 {
     BYTE *byteCodeBuffer = nullptr;
@@ -4639,7 +4648,7 @@ HRESULT ScriptEngine::ExecuteNativeCodeInMemoryBuffer(
 
     return ExecuteNativeCodeInMemoryBuffer(dwNativeCodeSize, nativeCode, nullptr, punkContext, dwSourceContext, pexcepinfo);
 }
-
+#endif
 #if !_WIN64 || USE_32_OR_64_BIT
 STDMETHODIMP ScriptEngine::ParseScriptText(
     /* [in]  */ LPCOLESTR pcszCode,
@@ -6455,8 +6464,10 @@ HRESULT ScriptEngine::CompileUTF8Core(
         {
             byte * byteCode; // Note. DEBUG-Only, this buffer gets leaked. The current byte code cache gaurantee is that the buffer lives as long as the process.
             DWORD dwByteCodeSize;
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
             byte * nativeCode = nullptr;
             DWORD dwNativeCodeSize;
+#endif
             Js::FunctionBody* deserializedFunction = nullptr;
 
             OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::CompileUTF8Core: Forcing serialization.\n");
@@ -6466,11 +6477,14 @@ HRESULT ScriptEngine::CompileUTF8Core(
             if (SUCCEEDED(hr))
             {
                 ulong flags = 0;
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
                 if (CONFIG_FLAG(IncludeNativeCodeWithSerializedByteCodes))
                 {
                     flags = fscrIsNativeCode;
                 }
-                else if (CONFIG_FLAG(CreateFunctionProxy))
+                else
+#endif
+                if (CONFIG_FLAG(CreateFunctionProxy))
                 {
                     flags = fscrAllowFunctionProxy;
                 }
@@ -6480,6 +6494,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
                 if (SUCCEEDED(hr))
                 {
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
                     if (CONFIG_FLAG(IncludeNativeCodeWithSerializedByteCodes))
                     {
                         Js::NativeModule *nativeModule;
@@ -6520,6 +6535,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
                         }
                     }
                     else
+#endif
                     {
                         OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::CompileUTF8Core: Serialization succeeded.\n");
                         pRootFunc = deserializedFunction;
