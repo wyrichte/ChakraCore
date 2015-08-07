@@ -1,4 +1,4 @@
-WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js", "self");
+WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js", "self");
 
 var tests = {
   test01: {

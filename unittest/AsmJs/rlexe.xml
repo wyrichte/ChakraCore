@@ -103,6 +103,14 @@
   </test>
   <test>
     <default>
+      <files>clang.js</files>
+      <baseline>clang.baseline</baseline>
+      <compile-flags>-on:asmjs -testtrace:asmjs -simdjs</compile-flags>
+      <tags>Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>CompositionMathUnary.js</files>
       <baseline>CompositionMathUnary.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:0</compile-flags>
@@ -353,6 +361,7 @@
       <baseline>pi.baseline</baseline>
       <tags>exclude_amd64</tags>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -1192,7 +1201,7 @@
       <files>ReadAV1.js</files>
       <baseline>ReadAV1.baseline</baseline>
       <tags></tags>
-      <compile-flags>-on:asmjs -testtrace:asmjs -simdjs</compile-flags>
+      <compile-flags>-on:asmjs -testtrace:asmjs -off:deferparse -simdjs</compile-flags>
     </default>
   </test>
   <test>
@@ -1258,6 +1267,13 @@
       <files>lowererdivbug.js</files>
       <baseline>lowererdivbug.baseline</baseline>
       <compile-flags>-on:asmjs -testtrace:asmjs -simdjs -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>qmarkbug.js</files>
+      <baseline>qmarkbug.baseline</baseline>
+      <compile-flags>-on:asmjs -testtrace:asmjs -simdjs</compile-flags>
     </default>
   </test>
 </regress-exe>

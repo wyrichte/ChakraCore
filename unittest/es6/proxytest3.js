@@ -1,6 +1,6 @@
 // JavaScript source code
 if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in jc/jshost
-    this.WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+    this.WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
     this.WScript.LoadScriptFile("observerProxy.js");
     var csGlobal = this.WScript.LoadScriptFile("observerProxy.js", "samethread");
     var cpGlobal = this.WScript.LoadScriptFile("observerProxy.js", "differetthread");

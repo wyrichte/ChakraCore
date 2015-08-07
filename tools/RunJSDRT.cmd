@@ -12,6 +12,7 @@ set _jscriptRoot=%_targetRoot%\jscript
 set _projectionTestsRoot=
 set _toolsRoot=
 set _unittestRoot=
+set _coreUnittestRoot=
 set _runProjectionTests=
 set _runJSRTUnitTests=
 set _runUnitTests=
@@ -31,10 +32,10 @@ set _htmltags=-nottags html
     if "%1" == "-?" (
         echo Usage: RunJSDRT.cmd [-snapBucketID ^<id^>] [-jscriptRoot ^<path^>] [-targetRoot ^<path^>] [-platform ^<arch^>] [-buildType ^<type^>]
         echo.
-        echo -snapBucketID value needs to be a JS DRT bucket index as defined in 
+        echo -snapBucketID value needs to be a JS DRT bucket index as defined in
         echo the IESNAP model file ^(\\iesnap\SNAP\model\fbl_ie_script_dev.model.xml^).
         echo.
-        echo -jscriptRoot is a path to the location on the local machine in which the 
+        echo -jscriptRoot is a path to the location on the local machine in which the
         echo jscript binaries are located.
         echo ^(default: %_jscriptRoot%^)
         echo.
@@ -45,7 +46,7 @@ set _htmltags=-nottags html
         exit /b 0
     ) else if /i "%1" == "-snapBucketID" (
         :: JS DRT buckets begin at 50 in SNAP. Adjust our index to a simple range [1-n].
-        :: See the IESNAP model file - \\iesnap\SNAP\model\fbl_ie_script_dev.model.xml - for 
+        :: See the IESNAP model file - \\iesnap\SNAP\model\fbl_ie_script_dev.model.xml - for
         :: more information on the JS DRT bucket indices.
         set /a _bucketIndex=%2 - 49
         shift
@@ -115,13 +116,13 @@ set _htmltags=-nottags html
 :ArgLoop
     shift
     goto :NextArgument
-    
+
 :DetectOS
     if not "%_os%" == "" (
         echo Skipping OS detection and using %_os%
         goto :Main
     )
-    
+
     ver | find "10.0"
     if %errorlevel% == 0 (
         set _os=-win10
@@ -146,16 +147,17 @@ set _htmltags=-nottags html
         echo Detected Windows 7
         goto :Main
     )
-    
+
     echo Unknown host OS.
     goto :Error
 
 :Main
     set _toolsRoot=%_targetRoot%\inetcore\jscript\tools
     set _unittestRoot=%_targetRoot%\inetcore\jscript\unittest
+    set _coreUnittestRoot=%_targetRoot%\inetcore\jscript\core\test
     set _projectionTestsRoot=%_targetRoot%\ProjectionTests
-    
-    :: Use the bucket index to figure out which suite of tests to run.    
+
+    :: Use the bucket index to figure out which suite of tests to run.
     if %_bucketIndex% == 0 (
         :: No-op, we didn't specify a bucket
         set _bucketIndex=0
@@ -187,13 +189,13 @@ set _htmltags=-nottags html
         call :RunJSLSUnitTests
         if errorlevel 1 goto :Error
     )
-    
+
     echo.
     echo Successfully executed DRT!
     echo.
 
     goto :End
-    
+
 :OutputInfo
     echo Executing JS DRT Bucket:
     echo   _snap=%_snap%
@@ -205,6 +207,7 @@ set _htmltags=-nottags html
     echo   _jscriptRoot=%_jscriptRoot%
     echo   _toolsRoot=%_toolsRoot%
     echo   _unittestRoot=%_unittestRoot%
+    echo   _coreUnittestRoot=%_coreUnittestRoot%
     echo   _projectionTestsRoot=%_projectionTestsRoot%
     echo   _runProjectionTests=%_runProjectionTests%
     echo   _runJSRTUnitTests=%_runJSRTUnitTests%
@@ -213,63 +216,70 @@ set _htmltags=-nottags html
     echo   _variants=%_variants%
     echo   _os=%_os%
     echo.
-    
+
     goto :End
-    
+
 :RunProjectionTests
     set _jshostRoot=%_projectionTestsRoot%\JSHost
     set _testCmd=%_projectionTestsRoot%\Tests\runalltests.cmd -snapTests %_drt% -platform %_buildArch% -buildType %_buildType% %_variants% %_os% -logverbose -binaryRoot %_jshostRoot%
-    
+
     pushd %_projectionTestsRoot%\Tests
     echo %_testCmd%
     call %_testCmd% 2>&1
     popd
-    
+
     if errorlevel 1 goto :Error
-    
+
     goto :End
-    
+
 :RunUnitTests
     set _tags=
     if %_bucketIndex% neq 0 (
         set _tags=-dirtags include_drt%_bucketIndex%
     )
-    
+
     set _testCmd=%_unittestRoot%\RunAllRLTests.cmd %_snap% %_drt% %_nightly% -platform %_buildArch% -buildType %_buildType% -toolsRoot %_toolsRoot% -binaryRoot %_jscriptRoot% %_variants% %_tags% %_os% %_htmltags%
+
+    pushd %_coreUnittestRoot%
+    echo %_testCmd%
+    call %_testCmd% 2>&1
+    popd
+
+    if errorlevel 1 goto :Error
 
     pushd %_unittestRoot%
     echo %_testCmd%
     call %_testCmd% 2>&1
     popd
-    
+
     if errorlevel 1 goto :Error
-    
+
     goto :End
-    
+
 :RunJSRTUnitTests
     set _testCmd=%_toolsRoot%\RunAllJSRTTests.cmd %_snap% %_drt% -toolsRoot %_toolsRoot% -binaryRoot %_jscriptRoot%
-    
+
     pushd %_toolsRoot%
     echo %_testCmd%
     call %_testCmd% 2>&1
     popd
-    
+
     if errorlevel 1 goto :Error
-    
+
     goto :End
 
 :RunJSLSUnitTests
     set _testCmd=%_toolsRoot%\RunAllJSLSCheckinTests.cmd %_snap% %_drt% -toolsRoot %_toolsRoot% -binaryRoot %_jscriptRoot% -platform %_buildArch% -buildType %_buildType%
-    
+
     pushd %_toolsRoot%
     echo %_testCmd%
     call %_testCmd% 2>&1
     popd
-    
+
     if errorlevel 1 goto :Error
-    
+
     goto :End
-    
+
 :Error
     echo ERROR: Failure in %_scriptFullname%
     endlocal

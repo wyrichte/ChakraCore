@@ -955,6 +955,16 @@ namespace JsDiag
         return RemoteThreadContext(m_reader, GetThreadContext()).GetPropertyName(propertyId);
     }
 
+    ProbeContainer* RemoteScriptContext::GetProbeContainer() const
+    {
+        if (this->GetDebugContext() != nullptr)
+        {
+            RemoteDebugContext remoteDebugContext(m_reader, this->GetDebugContext());
+            return remoteDebugContext.GetProbeContainer();
+        }
+        return nullptr;
+    }
+
     FunctionBody::SourceInfo* RemoteFunctionBody::GetSourceInfo() const
     {
         return this->GetFieldAddr<FunctionBody::SourceInfo>(offsetof(FunctionBody, m_sourceInfo));

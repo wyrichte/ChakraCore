@@ -297,6 +297,7 @@ namespace Projection
 #include "SourceContextInfo.h"          // Used by ScriptContext::noContextSourceContextInfo
 #include "DiagProbe.h"                  // Used by ThreadContext::Diagnostics
 #include "ProbeContainer.h"             // Used by ScriptContext::diagProbesContainer
+#include "DebugContext.h"               // Used by ScriptContext::debugContext
 #include "StackProber.h"                // Used by ThreadContextTLSEntry::prober
 #include "ByteCodeReader.h"             // Used by InterpreterStackFrame::m_reader
 #include "BackEndAPI.h"                 // Used by NativeCodeGenerator.h

@@ -3,7 +3,7 @@
 #include "ScriptDirectUnitTests.h"
 
 
-Var MyFPCWTest(Var function, CallInfo callInfo, Var _this, ...)
+Var MyFPCWTest(Var function, CallInfo callInfo, Var* args)
 {
 #if _M_IX86
     unsigned int i = 0;

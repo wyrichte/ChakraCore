@@ -6,7 +6,7 @@
 //
 
 /// <reference path="../UnitTestFramework/UnitTestFramework.js" />
-WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 
 
 // Bug: "x" is from temp allocator. Supposed to contain string "[object Map]".

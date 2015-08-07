@@ -20,56 +20,43 @@ bool WScriptFastDom::s_enableEditTest = false;
 bool WScriptFastDom::s_stdInAtEOF = false;
 unsigned int MessageBase::s_messageCount = 0;
 
-Var WScriptFastDom::Echo(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::Echo(Var function, CallInfo callInfo, Var* args)
 {
-    va_list argptr;
-    va_start(argptr, thisArg);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     return EchoToStream(stdout, /* newLine */ true, function, callInfo.Count, args);
 }
 
-Var WScriptFastDom::StdErrWriteLine(Var function, CallInfo callInfo, Var thisArg ...)
+Var WScriptFastDom::StdErrWriteLine(Var function, CallInfo callInfo, Var* args)
 {
-    va_list argptr;
-    va_start(argptr, thisArg);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     return EchoToStream(stderr, /* newLine */ true, function, callInfo.Count, args);
 }
 
-Var WScriptFastDom::StdErrWrite(Var function, CallInfo callInfo, Var thisArg ...)
+Var WScriptFastDom::StdErrWrite(Var function, CallInfo callInfo, Var* args)
 {
-    va_list argptr;
-    va_start(argptr, thisArg);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     return EchoToStream(stderr, /* newLine */ false, function, callInfo.Count, args);
 }
 
-Var WScriptFastDom::StdOutWriteLine(Var function, CallInfo callInfo, Var thisArg ...)
+Var WScriptFastDom::StdOutWriteLine(Var function, CallInfo callInfo, Var* args)
 {
-    va_list argptr;
-    va_start(argptr, thisArg);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     return EchoToStream(stdout, /* newLine */ true, function, callInfo.Count, args);
 }
 
-Var WScriptFastDom::StdOutWrite(Var function, CallInfo callInfo, Var thisArg ...)
+Var WScriptFastDom::StdOutWrite(Var function, CallInfo callInfo, Var* args)
 {
-    va_list argptr;
-    va_start(argptr, thisArg);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     return EchoToStream(stdout, /* newLine */ false, function, callInfo.Count, args);
 }
 
-Var WScriptFastDom::StdInReadLine(Var function, CallInfo callInfo, Var thisArg ...)
+Var WScriptFastDom::StdInReadLine(Var function, CallInfo callInfo, Var* args)
 {
-    va_list argptr;
-    va_start(argptr, thisArg);
-    
     HRESULT hr;
     Var result = nullptr;
     IActiveScriptDirect * activeScriptDirect = NULL;
@@ -188,11 +175,8 @@ LReturn:
     return result;
 }
 
-Var WScriptFastDom::StdInEOF(Var function, CallInfo callInfo, Var thisArg ...)
+Var WScriptFastDom::StdInEOF(Var function, CallInfo callInfo, Var* args)
 {
-    va_list argptr;
-    va_start(argptr, thisArg);
-
     HRESULT hr = S_OK;
     IActiveScriptDirect * activeScriptDirect = nullptr;
     Var result = nullptr;
@@ -262,10 +246,9 @@ Var WScriptFastDom::EchoToStream(FILE * stream, bool newLine, Var function, unsi
     return undefined;
 }
 
-Var WScriptFastDom::GetWorkingSet(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::GetWorkingSet(Var function, CallInfo callInfo, Var* args)
 {
-    va_list argptr;
-    va_start(argptr, thisArg);
+    args = &args[1];
 
     HRESULT hr;
     IActiveScriptDirect*  activeScriptDirect = NULL;
@@ -305,7 +288,7 @@ Var WScriptFastDom::GetWorkingSet(Var function, CallInfo callInfo, Var thisArg, 
     return NULL;
 }
 
-Var WScriptFastDom::Quit(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::Quit(Var function, CallInfo callInfo, Var* args)
 {
     HRESULT hr = S_OK;
 
@@ -313,9 +296,7 @@ Var WScriptFastDom::Quit(Var function, CallInfo callInfo, Var thisArg, ...)
 
     if (callInfo.Count > 1)
     {
-        va_list argptr;
-        va_start(argptr, thisArg);
-        Var * arg = (Var*)argptr;
+        Var* arg = &args[1];
 
         IActiveScriptDirect * activeScriptDirect = NULL;
         hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
@@ -445,7 +426,7 @@ bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScr
     return true;
 }
 
-Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
 {
     RunInfo runInfo;
     IActiveScriptDirect * activeScriptDirect = NULL;
@@ -461,9 +442,7 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var thisArg,
     }
 
     Var returnValue = NULL;
-    va_list argptr;
-    va_start(argptr, thisArg);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     if (ParseRunInfoFromArgs(activeScriptDirect, callInfo, args, runInfo))
     {
@@ -602,7 +581,7 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var thisArg,
     return returnValue;
 }
 
-Var WScriptFastDom::LoadScript(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::LoadScript(Var function, CallInfo callInfo, Var* args)
 {
     RunInfo runInfo;
     CComPtr<IActiveScriptDirect> activeScriptDirect = NULL;
@@ -619,9 +598,7 @@ Var WScriptFastDom::LoadScript(Var function, CallInfo callInfo, Var thisArg, ...
     }
 
     Var returnValue = NULL;
-    va_list argptr;
-    va_start(argptr, thisArg);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     if (ParseRunInfoFromArgs(activeScriptDirect, callInfo, args, runInfo, true))
     {
@@ -780,7 +757,7 @@ void WScriptFastDom::ShutdownAll()
     s_messageQueue = NULL;
 }
 
-Var WScriptFastDom::PerformSourceRundown(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::PerformSourceRundown(Var function, CallInfo callInfo, Var* args)
 {
     DiagnosticsHelper *diagnosticsHelper = DiagnosticsHelper::GetDiagnosticsHelper();
     diagnosticsHelper->m_shouldPerformSourceRundown = true;
@@ -790,13 +767,11 @@ Var WScriptFastDom::PerformSourceRundown(Var function, CallInfo callInfo, Var th
     return NULL;
 }
 
-Var WScriptFastDom::DebugDynamicAttach(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::DebugDynamicAttach(Var function, CallInfo callInfo, Var* args)
 {
     if (callInfo.Count > 1)
     {
-        va_list argptr;
-        va_start(argptr, thisArg);
-        Var * args = (Var*)argptr;
+        args = &args[1];
 
         FastDomDebugAttach(args[0]);
     }
@@ -804,7 +779,7 @@ Var WScriptFastDom::DebugDynamicAttach(Var function, CallInfo callInfo, Var this
 }
 
 // Sets the debugger into a mode to perform dynamic detachment (no refresh detach).
-Var WScriptFastDom::DebugDynamicDetach(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::DebugDynamicDetach(Var function, CallInfo callInfo, Var* args)
 {
     HRESULT hr = S_OK;
     if(IsRunningUnderJdtest)
@@ -835,22 +810,18 @@ Var WScriptFastDom::DebugDynamicDetach(Var function, CallInfo callInfo, Var this
 
     if (callInfo.Count > 1)
     {
-        va_list argptr;
-        va_start(argptr, thisArg);
-        Var * args = (Var*)argptr;
+        args = &args[1];
 
         FastDomDebugDetach(args[0]);
     }
     return NULL;
 }
 
-Var WScriptFastDom::Edit(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::Edit(Var function, CallInfo callInfo, Var* args)
 {
     if (callInfo.Count == 3)
     {
-        va_list argptr;
-        va_start(argptr, thisArg);
-        Var * args = (Var*)argptr;
+        args = &args[1];
 
         HRESULT hr = S_OK;
 
@@ -913,27 +884,23 @@ Var WScriptFastDom::Edit(Var function, CallInfo callInfo, Var thisArg, ...)
     return nullptr;
 }
 
-Var WScriptFastDom::StartScriptProfiler(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::StartScriptProfiler(Var function, CallInfo callInfo, Var* args)
 {
     if (callInfo.Count > 1)
     {
-        va_list argptr;
-        va_start(argptr, thisArg);
-        Var * args = (Var*)argptr;
+        args = &args[1];
 
         FastDomStartProfiler(args[0]);
     }
     return nullptr;
 }
 
-Var WScriptFastDom::StopScriptProfiler(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::StopScriptProfiler(Var function, CallInfo callInfo, Var* args)
 {
     Var targetFunction = nullptr; // WScript.StopProfiling([optional]func)
     if (callInfo.Count > 1)
     {
-        va_list argptr;
-        va_start(argptr, thisArg);
-        Var * args = (Var*)argptr;
+        args = &args[1];
         targetFunction = args[0];
     }
 
@@ -941,7 +908,7 @@ Var WScriptFastDom::StopScriptProfiler(Var function, CallInfo callInfo, Var this
     return nullptr;
 }
 
-Var WScriptFastDom::InitializeProjection(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::InitializeProjection(Var function, CallInfo callInfo, Var* args)
 {
     HRESULT hr = S_OK;
 
@@ -968,7 +935,7 @@ Var WScriptFastDom::InitializeProjection(Var function, CallInfo callInfo, Var th
     return NULL;
 }
 
-Var WScriptFastDom::RegisterCrossThreadInterfacePS(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::RegisterCrossThreadInterfacePS(Var function, CallInfo callInfo, Var* args)
 {
     HRESULT hr = S_OK;
 
@@ -995,9 +962,9 @@ Var WScriptFastDom::RegisterCrossThreadInterfacePS(Var function, CallInfo callIn
     return NULL;
 }
 
-Var WScriptFastDom::CopyOnWrite(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::CopyOnWrite(Var function, CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(thisArg, args);
+    args = &args[1];
     HRESULT hr = S_OK;
 
     ScriptDirect scriptDirect;
@@ -1020,9 +987,9 @@ Error:
     return scriptDirect.GetUndefined();
 }
 
-Var WScriptFastDom::CreateCanvasPixelArray(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::CreateCanvasPixelArray(Var function, CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(thisArg, args);
+    args = &args[1];
     HRESULT hr = S_OK;
     ScriptDirect scriptDirect;
     Var result = nullptr;
@@ -1057,10 +1024,10 @@ Error:
     return result;
 }
 
-Var WScriptFastDom::SetTimeout(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::SetTimeout(Var function, CallInfo callInfo, Var* args)
 {
     HRESULT hr = S_OK;
-    ARGUMENTS(thisArg, args);
+    args = &args[1];
     Var result = nullptr;
     ScriptDirect scriptDirect;
 
@@ -1093,10 +1060,10 @@ Error:
     return result;
 }
 
-Var WScriptFastDom::ClearTimeout(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::ClearTimeout(Var function, CallInfo callInfo, Var* args)
 {
     HRESULT hr = S_OK;
-    ARGUMENTS(thisArg, args);
+    args = &args[1];
     Var result = nullptr;
     ScriptDirect scriptDirect;
 
@@ -1121,10 +1088,10 @@ Error:
     return result;
 }
 
-Var WScriptFastDom::EmitStackTraceEvent(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::EmitStackTraceEvent(Var function, CallInfo callInfo, Var* args)
 {
     HRESULT hr = S_OK;
-    ARGUMENTS(thisArg, args);
+    args = &args[1];
     ScriptDirect scriptDirect;
     USHORT maxFrame = JSCRIPT_FULL_STACKTRACE;
     IfFailGo(scriptDirect.From(function));
@@ -1143,9 +1110,9 @@ Error:
     return scriptDirect.GetUndefined();
 }
 
-Var WScriptFastDom::CallFunction(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::CallFunction(Var function, CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(thisArg, args);
+    args = &args[1];
     ScriptDirect scriptDirect;
 
     if (scriptDirect.From(function) == S_OK)
@@ -1165,9 +1132,9 @@ Var WScriptFastDom::CallFunction(Var function, CallInfo callInfo, Var thisArg, .
     return scriptDirect.GetUndefined();
 }
 
-Var WScriptFastDom::SetRestrictedMode(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::SetRestrictedMode(Var function, CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(thisArg, args);
+    args = &args[1];
     ScriptDirect scriptDirect;
 
     if (scriptDirect.From(function) == S_OK)
@@ -1203,9 +1170,9 @@ Var WScriptFastDom::SetRestrictedMode(Var function, CallInfo callInfo, Var thisA
     return scriptDirect.GetUndefined();
 }
 
-Var WScriptFastDom::SetEvalEnabled(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::SetEvalEnabled(Var function, CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(thisArg, args);
+    args = &args[1];
     ScriptDirect scriptDirect;
 
     if (scriptDirect.From(function) == S_OK)
@@ -1229,7 +1196,7 @@ Var WScriptFastDom::SetEvalEnabled(Var function, CallInfo callInfo, Var thisArg,
     return scriptDirect.GetUndefined();
 }
 
-Var WScriptFastDom::TestConstructor(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::TestConstructor(Var function, CallInfo callInfo, Var* args)
 {
     Var obj;
     ScriptDirect scriptDirect;
@@ -1249,9 +1216,9 @@ HRESULT WScriptFastDom::TestConstructorInitMethod(Var instance)
     return S_OK;
 }
 
-Var WScriptFastDom::Shutdown(Var function, CallInfo callInfo, Var thisArg, ...)
+Var WScriptFastDom::Shutdown(Var function, CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(thisArg, args);
+    args = &args[1];
     HRESULT hr = S_OK;
     ScriptDirect scriptDirect;
     Var result = nullptr;

@@ -16,7 +16,7 @@ WScript.Echo("foo".anchor('<')); // Should not be escaped.
 
 WScript.Echo("foo".anchor('aaa"bbbccc')); // Test memcpy shortcut.
 
-WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js", "self");
+WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js", "self");
 var wrappers = ["anchor", "big", "blink", "bold", "fixed", "fontcolor",  
                 "fontsize", "italics", "small", "strike", "sub", "sup"];
 var tests = {

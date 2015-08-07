@@ -51,14 +51,10 @@ MyScriptDirectTests::MyScriptDirectTests(JsHostNativeTestArguments* jsHostArgs) 
     mptr_data_item=0;
 }
 
-Var MyScriptDirectTests::MyObjectConstructor(Var function, CallInfo callInfo, Var _this, ...)
+Var MyScriptDirectTests::MyObjectConstructor(Var function, CallInfo callInfo, Var* args)
 {
-    va_list vl;
-    va_start(vl,_this);
-    Var msdt=0;
-    msdt=va_arg(vl,Var);
+    Var msdt = args[1];
     MyScriptDirectTests* somethis=(MyScriptDirectTests*)*(void**)((byte*)msdt+extensionOffset);
-    va_end(vl);
     IActiveScriptDirect* iasd=somethis->mptr_mydata->activescriptdirect;
     Var typeObj;
     iasd->CreateTypedObject(somethis->mptr_data_item->GetType(),100,TRUE,&typeObj);

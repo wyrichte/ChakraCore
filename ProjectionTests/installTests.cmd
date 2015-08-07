@@ -30,7 +30,7 @@ echo Running Setup Steps...
 call %SDXROOT%\inetcore\jscript\ProjectionTests\Tests\setup.cmd %_SetupArg%
 
 Robocopy %SDXROOT%\inetcore\jscript\ProjectionTests %_Dest% /mir
-xcopy /y %object_root%\inetcore\jscript\unittest\ut_rl\%_BuildAlt%\rl.exe %_Dest%\Tests
+xcopy /y %_NTTREE%\jscript\rl.exe %_Dest%\Tests
 
 if not exist "%_Dest%\JsHost" (
     mkdir "%_Dest%\JsHost"

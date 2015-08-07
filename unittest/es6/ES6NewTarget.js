@@ -1,7 +1,7 @@
 // ES6 new.target tests 
 
 if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in jc/jshost
-    this.WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+    this.WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 }
 
 // global test cases
@@ -43,7 +43,11 @@ var tests = [
     {
         name: "new.target is not valid for assignment",
         body: function() {
-            assert.throws(function() { new.target = 'something'; }, ReferenceError, "new.target cannot be a lhs in an assignment expression", "Invalid left-hand side in assignment");
+            assert.throws(function() { eval("new.target = 'something';"); }, SyntaxError, "new.target cannot be a lhs in an assignment expression - this is an early syntax error", "Syntax error");
+            // TODO: All these need to be early ReferenceErrors but we don't have a good way for the parser to throw those yet
+            // assert.throws(function() { eval("((new.target)) = 'something';"); }, SyntaxError, "new.target cannot be a lhs in an assignment expression - this is an early syntax error", "Syntax error");
+            // assert.throws(function() { eval("new.target[0] = 'something';"); }, SyntaxError, "new.target cannot be a lhs in an assignment expression - this is an early syntax error", "Syntax error");
+            // assert.throws(function() { eval("new.target.prop = 'something';"); }, SyntaxError, "new.target cannot be a lhs in an assignment expression - this is an early syntax error", "Syntax error");
         }
     },
     {

@@ -1,4 +1,5 @@
 // Syntax: TYPENAME(HasLibraryConstructor,TypeName)
+// This list is pulled from the E&I ECMAScript built-ins Properties table/spreadsheet, and sorted alphabetically.
 
 TYPENAME(1,Array)
 TYPENAME(1,ArrayBuffer)

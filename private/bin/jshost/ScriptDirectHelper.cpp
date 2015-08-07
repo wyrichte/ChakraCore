@@ -119,7 +119,7 @@ Error:
     return hr;
 }
 
-HRESULT ScriptDirect::AddMethod(Var obj, LPCWSTR name, void* entryPoint)
+HRESULT ScriptDirect::AddMethod(Var obj, LPCWSTR name, ScriptMethod entryPoint)
 {
     HRESULT hr = S_OK;
 

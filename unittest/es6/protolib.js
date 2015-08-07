@@ -1,6 +1,6 @@
 /// <reference path="../UnitTestFramework/UnitTestFramework.js" />
 if (this.WScript && this.WScript.LoadScriptFile) {
-    WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+    WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 }
 
 function make_engine(/*default=samethread*/thread) {

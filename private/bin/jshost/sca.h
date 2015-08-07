@@ -22,16 +22,16 @@ private:
     static HRESULT CreateMemStream(IStream** ppStream);
 
     // EntryPoints
-    static Var MakeInt64(Var function, CallInfo callInfo, ...);
-    static Var MakeUint64(Var function, CallInfo callInfo, ...);
-    static Var __cdecl ImageDataConstructor(Var function, CallInfo callInfo, Var _this, ...);
-    static Var Serialize(Var function, CallInfo callInfo, ...);
-    static Var Deserialize(Var function, CallInfo callInfo, ...);
+    static Var MakeInt64(Var function, CallInfo callInfo, Var* args);
+    static Var MakeUint64(Var function, CallInfo callInfo, Var* args);
+    static Var ImageDataConstructor(Var function, CallInfo callInfo, Var* args);
+    static Var Serialize(Var function, CallInfo callInfo, Var* args);
+    static Var Deserialize(Var function, CallInfo callInfo, Var* args);
     template <class APIFuncType>
     static Var LookupHelper(_In_ APIFuncType ReadIndexableProperty, _In_ Var function, _In_ CallInfo callInfo, __in_xcount(callInfo.Count) Var* args); //Common method for LookupEx and Lookup, since both just differ by func
-    static Var LookupEx(_In_ Var function, _In_ CallInfo callInfo, ...);
-    static Var Lookup(_In_ Var function, _In_ CallInfo callInfo, ...);
-    static Var DataToKey(_In_ Var function, _In_ CallInfo callInfo, ...);
+    static Var LookupEx(_In_ Var function, _In_ CallInfo callInfo, Var* args);
+    static Var Lookup(_In_ Var function, _In_ CallInfo callInfo, Var* args);
+    static Var DataToKey(_In_ Var function, _In_ CallInfo callInfo, Var* args);
 
     static HRESULT VariantArrayToVar(_In_ ScriptDirect& pScriptDirect, _In_ const VARIANT &value, _Out_ Var* outVar);
     static HRESULT VariantToVar(_In_ ScriptDirect& pScriptDirect, _In_ const VARIANT &value, _Out_ Var* outVar);

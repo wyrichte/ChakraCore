@@ -255,7 +255,7 @@
         shell.execute("registerABIs.cmd");
         shell.popDirectory();
 
-        ccFlags += " -hosttype:2 -TargetWinRTVersion:3";
+        ccFlags += " -bvt -hosttype:2 -TargetWinRTVersion:3";
 
         var rlModeFlag = "-" + config.rlMode;
         if (config.rlMode === "asmbase") {

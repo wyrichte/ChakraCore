@@ -1,7 +1,7 @@
 // jshost -DiagnosticsEngine
 
 if (typeof (WScript) != "undefined") {
-  WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js", "self");
+  WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js", "self");
 }
 
 var x = 10;

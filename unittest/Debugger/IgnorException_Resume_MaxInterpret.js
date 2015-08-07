@@ -4,7 +4,7 @@
 /**exception(resume_ignore):stack();**/
 
 if (typeof (WScript) != "undefined") {
-  WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js", "self");
+  WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js", "self");
 }
 
 var tests = {

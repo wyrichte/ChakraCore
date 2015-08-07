@@ -1,6 +1,6 @@
 // Note: run this using jshost.exe, jc.exe wouldn't find WScript.LoadScriptFile.
 if (typeof(WScript) != "undefined") {
-  WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+  WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 }
 
 var tests = {

@@ -22,6 +22,7 @@
 #define TL_CHAKRAINIT "ChakraInit"
 #define TL_DIRECTCALLRAW "DirectCallRaw.PerfStats"
 #define TL_DIRECTCALLTIME "DirectCallRaw.LogTime"
+#define TL_CHAKRANODEPACK "ChakraNodePackage"
 
 
 #ifdef DBG
@@ -34,6 +35,7 @@
 #endif
 #endif
 
+void __cdecl firePackageTelemetry();
 extern struct _TlgProvider_t const * const g_hTraceLoggingProv;
 
 class CEventTraceProperties
@@ -81,7 +83,13 @@ class TraceLoggingClient
     CEtwSession *session;
     bool shouldLogTelemetry;	
     bool isHighResAvail;
-    HMODULE edgeHtmlAddress;
+    //Code for node telemetry purposes
+    typedef JsUtil::BaseHashSet<const wchar_t*, Recycler, PrimeSizePolicy> NodePackageSet;
+    NodePackageSet *NodePackageIncludeList;
+    bool hasNodeModules;
+    bool isPackageTelemetryFired;
+    LARGE_INTEGER freq;
+    HCRYPTPROV hProv;
 public:
     TraceLoggingClient();
     ~TraceLoggingClient();
@@ -99,7 +107,15 @@ public:
     void FireDomTelemetryStats(double tracelogTimeMs, double logTimeMs);
 #endif
     void ResetTelemetryStats(ThreadContext* threadContext);
-
+    void CreateHashAndFirePackageTelemetry();
+    void InitializeNodePackageList();
+    void ReleaseNodePackageList();
+    void AddPackageName(const wchar_t* packageName);
+    bool IsPackageTelemetryFired(){ return isPackageTelemetryFired; }
+    void SetIsPackageTelemetryFired(bool value){ isPackageTelemetryFired = value; }
+    // For node telemetry purposes
+    void TryLogNodePackage(Recycler*, const wchar_t*url);
+    HCRYPTPROV EnsureCryptoContext();
 };
 
 extern TraceLoggingClient *g_TraceLoggingClient;

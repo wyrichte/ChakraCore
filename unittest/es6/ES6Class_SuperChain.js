@@ -1,7 +1,7 @@
 // ES6 super chain tests 
 
 if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in jc/jshost
-    this.WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+    this.WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 }
 
 class SimpleParent {
@@ -588,16 +588,15 @@ var tests = [
             assert.throws(function() { var result = maker(); }, ReferenceError, "Calling the escaped lambda throws since 'this' is accessed before super call", "Use before declaration");
         }
     },
-    // TODO: enable this test after we support making super calls with CallFlags_New
-    // {
-        // name: "Derived class with null extends expression cannot be new'd",
-        // body: function () {
-            // class NullExtendsExpression extends null {
-            // };
+    {
+        name: "Derived class with null extends expression cannot be new'd",
+        body: function () {
+            class NullExtendsExpression extends null {
+            };
             
-            // assert.throws(function() { new NullExtendsExpression(); }, TypeError, "Class that extends null throws when we attempt to call super as [[construct]]", "Object expected");
-        // }
-    // },
+            assert.throws(function() { new NullExtendsExpression(); }, TypeError, "Class that extends null throws when we attempt to call super as [[construct]]", "Object doesn't support this action");
+        }
+    },
     {
         name: "Derived class with null extends expression can be new'd if constructor returns object",
         body: function () {

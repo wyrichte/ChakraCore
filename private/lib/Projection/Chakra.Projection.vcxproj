@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
+  <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EA882C8D-81FC-42FE-ABD5-2666DB933FDB}</ProjectGuid>
+    <RootNamespace>Chakra</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <TargetName>Chakra.Projection</TargetName>    
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseStaticAtl>true</UseStaticAtl>
+    <AtlVersion>30</AtlVersion>
+  </PropertyGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />  
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
+    <Import Project="$(BuildConfig_ARMASM_Path)armasm.props" />
+  </ImportGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Props" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>
+        $(MSBuildThisFileDirectory);
+        $(ChakraCoreRootDirectory)Lib\Common;
+        $(ChakraCoreRootDirectory)Lib\Parser;
+        $(ChakraCoreRootDirectory)Lib\Runtime;
+        $(ChakraCoreRootDirectory)Lib\Backend;
+        $(ChakraCoreRootDirectory)Lib\Jsrt;
+        $(MSBuildThisFileDirectory)..\Engine;
+        $(MSBuildThisFileDirectory)..\SCA;
+        $(MSBuildThisFileDirectory)..\JsrtChakra;
+        $(MSBuildThisFileDirectory)..\EnC;
+        $(JscriptInfoIntDir);
+        $(ChakraManifestsIncludeDirectory);
+
+        <!-- For winmddefsp.h  -->
+        $(PublicInternalPath)\com\inc\midlrt;
+
+        <!-- For winrtobjectprobe.h in ProjectionObjectInstance.cpp -->
+        $(ComIncPath)
+
+        %(AdditionalIncludeDirectories);
+      </AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>      
+      <!--
+        4510: default constructor could not be generated
+        4610: can never be instantiated - user defined constructor required
+        -->
+      <DisableSpecificWarnings>%(DisableSpecificWarnings);4510;4610</DisableSpecificWarnings>
+    </ClCompile>  
+  </ItemDefinitionGroup>
+  <ItemGroup>    
+    <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MsBuildThisFileDirectory)abidelegates.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ABIEvents.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsCollection.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsIterable.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsIterator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsVector.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayProjection.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ArrayProjectionEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalWeakReferenceImpl.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalWeakReferenceSourceImpl.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)FinalizableTypedArrayContents.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)IBufferProjection.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)InspectableObjectTypeOperations.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)namespaceProjection.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)NamespaceProjectionEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ObjectAsIPropertyValue.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ObjectAsIReference.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionAsyncDebug.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionFastPath.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionMarshaler.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionMemoryInformation.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionMethodInvoker.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionObjectInstance.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionWriter.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)PropertySet.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)PropertySetEnumerator.cpp" />    
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionContext.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)projectionTypeOperations.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)UnknownImpl.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)VariableArgMethodHelper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)VectorArray.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)VectorArrayEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)arm\CallingConvention.cpp">
+      <!-- Since there are more then one CallingConvention.cpp, we need to set them output into different directory, even when they are ExcludedFromBuild -->
+      <ObjectFileName Condition="'$(Platform)'!='ARM'">$(IntDir)\arm</ObjectFileName>
+      <ExcludedFromBuild Condition="'$(Platform)'!='ARM'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="$(MsBuildThisFileDirectory)arm64\CallingConvention.cpp">
+      <!-- Since there are more then one CallingConvention.cpp, we need to set them output into different directory, even when they are ExcludedFromBuild -->
+      <ObjectFileName Condition="'$(Platform)'!='Arm64'">$(IntDir)\arm64</ObjectFileName>
+      <ExcludedFromBuild Condition="'$(Platform)'!='Arm64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="$(MsBuildThisFileDirectory)amd64\projectioncall.asm">
+      <ExcludedFromBuild Condition="'$(Platform)'!='x64'">true</ExcludedFromBuild>
+    </MASM>
+    <MASM Include="$(MsBuildThisFileDirectory)amd64\UnknownImplHelper.asm">
+      <ExcludedFromBuild Condition="'$(Platform)'!='x64'">true</ExcludedFromBuild>
+    </MASM>
+    <ARMASM Include="$(MsBuildThisFileDirectory)arm\projectioncall.asm">
+      <ExcludedFromBuild Condition="'$(Platform)'!='ARM'">true</ExcludedFromBuild>
+    </ARMASM>
+    <ARMASM Include="$(MsBuildThisFileDirectory)arm\UnknownImplHelper.asm">
+      <ExcludedFromBuild Condition="'$(Platform)'!='ARM'">true</ExcludedFromBuild>
+    </ARMASM>
+    <ARMASM Include="$(MsBuildThisFileDirectory)arm64\projectioncall.asm">
+      <ExcludedFromBuild Condition="'$(Platform)'!='Arm64'">true</ExcludedFromBuild>
+    </ARMASM>
+    <ARMASM Include="$(MsBuildThisFileDirectory)arm64\UnknownImplHelper.asm">
+      <ExcludedFromBuild Condition="'$(Platform)'!='Arm64'">true</ExcludedFromBuild>
+    </ARMASM>
+  </ItemGroup>  
+  <ItemGroup>
+    <ClInclude Include="arm\CallingConvention.h">
+      <ExcludedFromBuild Condition="'$(Platform)'!='ARM'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="arm64\CallingConvention.h">
+      <ExcludedFromBuild Condition="'$(Platform)'!='ARM64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+    <Import Project="$(BuildConfig_ARMASM_Path)armasm.targets" />
+  </ImportGroup>
+</Project>

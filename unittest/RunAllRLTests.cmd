@@ -26,12 +26,13 @@
 @echo off
 setlocal
 
-if "%CD%\" NEQ "%~dp0" (
-    echo Current directory is %CD%\
-    echo Script directory is %~dp0- changing
-    cd %~dp0
+if not exist %cd%\rlexedirs.xml (
+    echo RunAllRLTests.cmd Error: rlexedirs.xml not found in current directory.
+    echo RunAllRLTests.cmd must be run from a unit test root directory.
+    exit /b 0
 )
 
+set _runAllRLTestsDir=%~dp0
 set _buildType=%build.type%
 set _buildArch=%build.arch%
 set _Variants=
@@ -486,9 +487,11 @@ if "%_TESTCONFIG%"=="forceserialized" (
 echo %_TESTCONFIG% > %_logsRoot%\_currentRun.tmp
 :: Default variant is no longer run.
 :: if "%_TESTCONFIG%"=="default"      set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -speculationcap:0 %_dynamicprofilecache%
-set _runCmd=call runtests.cmd %_JCBinaryArgument% %_DIRS% -logverbose %_TAGS% %_NOTTAGS% %_DIRTAGS% %_DIRNOTTAGS% -nottags fails_%_TESTCONFIG% -nottags fail_%TARGET_OS% -nottags exclude_%_TESTCONFIG% -nottags exclude_%_buildArch% -nottags exclude_%TARGET_OS% -nottags exclude_%_buildType% %_exclude_ship% %_exclude_serialized% %_exclude_forcedeferparse% %_exclude_nodeferparse% %_exclude_forceundodefer% %_ExcludeHtmlTests% %_ExcludeIntlTests% %_ExcludeApolloTests% %_RLMode% %EXTRA_RL_FLAGS% %_rebase%
+set _runCmd=call %_runAllRLTestsDir%\runtests.cmd %_JCBinaryArgument% %_DIRS% -logverbose %_TAGS% %_NOTTAGS% %_DIRTAGS% %_DIRNOTTAGS% -nottags fails_%_TESTCONFIG% -nottags fail_%TARGET_OS% -nottags exclude_%_TESTCONFIG% -nottags exclude_%_buildArch% -nottags exclude_%TARGET_OS% -nottags exclude_%_buildType% %_exclude_ship% %_exclude_serialized% %_exclude_forcedeferparse% %_exclude_nodeferparse% %_exclude_forceundodefer% %_ExcludeHtmlTests% %_ExcludeIntlTests% %_ExcludeApolloTests% %_RLMode% %EXTRA_RL_FLAGS% %_rebase%
 echo %_runCmd%
 %_runCmd% 2>&1
+
+set EXTRA_CC_FLAGS=%_OLD_CC_FLAGS%
 
 if errorlevel 1 set _Error=1
 if not errorlevel 0 set _Error=1
@@ -501,5 +504,3 @@ echo %_moveCmd%
 %_moveCmd% 2>&1
 
 del /Q %_logsRoot%\_currentRun.tmp
-
-set EXTRA_CC_FLAGS=%_OLD_CC_FLAGS%

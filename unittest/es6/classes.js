@@ -1,6 +1,6 @@
 if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in
   // jc/jshost
-  this.WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+  this.WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 }
 
 function p(x) {
@@ -591,8 +591,104 @@ var tests = [
             
             assert.areEqual([1,2,3], a, "");
         }
+    },
+    {
+        name: "Class static method descriptor values",
+        body: function() {
+            class B {
+                static method() { 
+                    return 'abc';
+                }
+            }
+            
+            assert.areEqual('function', typeof B.method, "Static class method is attached to class constructor");
+            assert.areEqual('abc', B.method(), "Calling static class method calls the correct method");
+            
+            let p = Object.getOwnPropertyDescriptor(B, 'method');
+            
+            assert.isFalse(p.enumerable, "Static class methods are not enumerable");
+            assert.isTrue(p.writable, "Static class methods are writable");
+            assert.isTrue(p.configurable, "Static class methods are configurable");
+        }
+    },
+    {
+        name: "Class method descriptor values",
+        body: function() {
+            class B {
+                method() { 
+                    return 'abc';
+                }
+            }
+            
+            assert.areEqual('function', typeof B.prototype.method, "Class method is attached to class prototype");
+            assert.areEqual('abc', B.prototype.method(), "Calling class method calls the correct method");
+            
+            let p = Object.getOwnPropertyDescriptor(B.prototype, 'method');
+            
+            assert.isFalse(p.enumerable, "Class methods are not enumerable");
+            assert.isTrue(p.writable, "Class methods are writable");
+            assert.isTrue(p.configurable, "Class methods are configurable");
+        }
+    },
+    // TODO: Enable this test when class constructor [[call]] operations are blocked
+    // {
+        // name: "Class constructor methods cannot be called as function",
+        // body: function () {
+            // class A {}
+            
+            // assert.throws(function() { A(); }, TypeError, "Base class constructor does not have a [[call]] slot", "Operation not supported");
+            
+            // class B extends A {}
+            
+            // assert.throws(function() { B(); }, TypeError, "Derived class constructor does not have a [[call]] slot", "Operation not supported");
+            
+            // class SubArray extends Array { };
 
-    }
+            // assert.throws(function() { SubArray(); }, TypeError, "Class derived from built-in does not have a [[call]] slot", "Operation not supported");
+        // }
+    // },
+    {
+        name: "Class methods cannot be called as constructors",
+        body: function() {
+            class B {
+                method() {
+                    return { foo: 'a' };
+                }
+                static method2() {
+                    return { foo: 'b' };
+                }
+            }
+            
+            assert.throws(function() { new B.prototype.method(); }, TypeError, "Base class prototype method cannot be new'd", "Function is not a constructor");
+            assert.throws(function() { new B.method2(); }, TypeError, "Base class static method cannot be new'd", "Function is not a constructor");
+            
+            class C extends B {
+                method3() {
+                    return { foo: 'c' };
+                }
+                static method4() {
+                    return { foo: 'd' };
+                }
+            }
+            
+            assert.throws(function() { new C.prototype.method(); }, TypeError, "Base class prototype method cannot be new'd", "Function is not a constructor");
+            assert.throws(function() { new C.method2(); }, TypeError, "Base class static method cannot be new'd", "Function is not a constructor");
+            assert.throws(function() { new C.prototype.method3(); }, TypeError, "Derived class prototype method cannot be new'd", "Function is not a constructor");
+            assert.throws(function() { new C.method4(); }, TypeError, "Derived class static method cannot be new'd", "Function is not a constructor");
+            
+            class D extends Array {
+                method5() {
+                    return { foo: 'e' };
+                }
+                static method6() {
+                    return { foo: 'f' };
+                }
+            }
+            
+            assert.throws(function() { new D.prototype.method5(); }, TypeError, "Derived class prototype method cannot be new'd", "Function is not a constructor");
+            assert.throws(function() { new D.method6(); }, TypeError, "Derived class static method cannot be new'd", "Function is not a constructor");
+        }
+    },
 ];
 
 testRunner.runTests(tests);

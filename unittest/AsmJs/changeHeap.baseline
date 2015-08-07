@@ -32,7 +32,8 @@ Successfully compiled asm.js code
 Warning: Typed array builtin already defined for var b1
 Successfully compiled asm.js code
 Successfully compiled asm.js code
-Successfully compiled asm.js code
+      Error creating function entry
+Asm.js compilation failed.
       Error creating function entry
 Asm.js compilation failed.
 Successfully compiled asm.js code
@@ -213,8 +214,6 @@ asm.js linking failed.
 42
 43
 42
-Asm.js Runtime Error : Buffer bytelength is not a valid size for asm.js
-asm.js linking failed.
 42
 42
 Asm.js Runtime Error : Buffer bytelength is not a valid size for asm.js

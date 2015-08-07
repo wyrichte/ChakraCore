@@ -48,13 +48,13 @@
   {
     "callstack": [
       {
-        "start": 1058,
+        "start": 1074,
         "length": 39,
         "text": "return Reflect.get(obj, name, receiver)",
         "frameDescription": "get handler"
       },
       {
-        "start": 1287,
+        "start": 1303,
         "length": 9,
         "text": "test3.foo",
         "frameDescription": "body"
@@ -72,7 +72,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 1324,
+        "start": 1340,
         "length": 74,
         "text": "testRunner.runTests(tests, { verbose: WScript.Arguments[0] != \"summary\" })",
         "frameDescription": "Global code"

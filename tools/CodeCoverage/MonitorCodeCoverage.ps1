@@ -80,7 +80,7 @@ for ($i = 0; $i -lt $args.Length; $i++)
     elseif ($args[$i] -eq "-mailto")
     {
         $i++
-            $global:mailTo = "{0}@microsoft.com" -f $args[$i]
+        $global:mailTo = "{0}@microsoft.com" -f $args[$i]
     }
     else
     {
@@ -203,7 +203,7 @@ Function InsertTo-MongoDB ($resultFile)
     }
     $resultDoc['Total'] = $resultObj
 
-    // Build format 10151.0.150704-1800
+    # Build format 10151.0.150704-1800
     $shortBuildNumber = $global:build.Split(".")[2]
     [MongoDB.Bson.BsonDocument] $doc = @{
         "Tag"           = $global:tag;

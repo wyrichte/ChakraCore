@@ -1,4 +1,4 @@
-/// <reference path="../UnitTestFramework/UnitTestFramework.js" />
+/// <reference path="../../core/test/UnitTestFramework/UnitTestFramework.js" />
 
 var tests = [
     {

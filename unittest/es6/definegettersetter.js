@@ -1,7 +1,7 @@
 // Basic __defineGetter__, __defineSetter__, __lookupGetter__, and __lookupSetter tests -- verifies the API properties and functionality
 
 if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in jc/jshost
-    this.WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+    this.WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 }
 
 var globalObject = this;

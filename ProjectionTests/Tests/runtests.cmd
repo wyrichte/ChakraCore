@@ -8,7 +8,7 @@ set _OutputArgument=
 set _OLD_CC=%EXTRA_CC_FLAGS%
 
 REM set defaults for all tests - TargetWinRTVersion:3 is BLUE
-set EXTRA_CC_FLAGS=-hosttype:2 -TargetWinRTVersion:3 %EXTRA_CC_FLAGS%
+set EXTRA_CC_FLAGS=-bvt -hosttype:2 -TargetWinRTVersion:3 %EXTRA_CC_FLAGS%
 
 :NextArgument
 if /i "%1" == "-verbose" (

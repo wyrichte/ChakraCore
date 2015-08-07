@@ -2,13 +2,13 @@
   {
     "callstack": [
       {
-        "start": 623,
+        "start": 639,
         "length": 21,
         "text": "return super.method()",
         "frameDescription": "b.prototype.method"
       },
       {
-        "start": 1112,
+        "start": 1128,
         "length": 15,
         "text": "classb.method()",
         "frameDescription": "body"
@@ -26,7 +26,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 1248,
+        "start": 1264,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -45,19 +45,19 @@
   {
     "callstack": [
       {
-        "start": 358,
+        "start": 374,
         "length": 20,
         "text": "return \"hello world\"",
         "frameDescription": "a.prototype.method"
       },
       {
-        "start": 623,
+        "start": 639,
         "length": 21,
         "text": "return super.method()",
         "frameDescription": "b.prototype.method"
       },
       {
-        "start": 1112,
+        "start": 1128,
         "length": 15,
         "text": "classb.method()",
         "frameDescription": "body"
@@ -75,7 +75,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 1248,
+        "start": 1264,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -93,19 +93,19 @@
   {
     "callstack": [
       {
-        "start": 757,
+        "start": 773,
         "length": 14,
         "text": "super.method()",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 689,
+        "start": 705,
         "length": 101,
         "text": "return (() => {\n            /**bp:stack();locals()**/\n            super.method();\n            })()",
         "frameDescription": "b.prototype.method2"
       },
       {
-        "start": 1136,
+        "start": 1152,
         "length": 16,
         "text": "classb.method2()",
         "frameDescription": "body"
@@ -123,7 +123,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 1248,
+        "start": 1264,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -143,25 +143,25 @@
   {
     "callstack": [
       {
-        "start": 358,
+        "start": 374,
         "length": 20,
         "text": "return \"hello world\"",
         "frameDescription": "a.prototype.method"
       },
       {
-        "start": 757,
+        "start": 773,
         "length": 14,
         "text": "super.method()",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 689,
+        "start": 705,
         "length": 101,
         "text": "return (() => {\n            /**bp:stack();locals()**/\n            super.method();\n            })()",
         "frameDescription": "b.prototype.method2"
       },
       {
-        "start": 1136,
+        "start": 1152,
         "length": 16,
         "text": "classb.method2()",
         "frameDescription": "body"
@@ -179,7 +179,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 1248,
+        "start": 1264,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -197,13 +197,13 @@
   {
     "callstack": [
       {
-        "start": 893,
+        "start": 909,
         "length": 21,
         "text": "return super.method()",
         "frameDescription": "b.prototype.method3"
       },
       {
-        "start": 1161,
+        "start": 1177,
         "length": 16,
         "text": "classb.method3()",
         "frameDescription": "body"
@@ -221,7 +221,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 1248,
+        "start": 1264,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -240,19 +240,19 @@
   {
     "callstack": [
       {
-        "start": 358,
+        "start": 374,
         "length": 20,
         "text": "return \"hello world\"",
         "frameDescription": "a.prototype.method"
       },
       {
-        "start": 893,
+        "start": 909,
         "length": 21,
         "text": "return super.method()",
         "frameDescription": "b.prototype.method3"
       },
       {
-        "start": 1161,
+        "start": 1177,
         "length": 16,
         "text": "classb.method3()",
         "frameDescription": "body"
@@ -270,7 +270,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 1248,
+        "start": 1264,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -288,13 +288,13 @@
   {
     "callstack": [
       {
-        "start": 1018,
+        "start": 1034,
         "length": 27,
         "text": "return super.staticMethod()",
         "frameDescription": "b.staticMethod"
       },
       {
-        "start": 1186,
+        "start": 1202,
         "length": 16,
         "text": "b.staticMethod()",
         "frameDescription": "body"
@@ -312,7 +312,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 1248,
+        "start": 1264,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -331,19 +331,19 @@
   {
     "callstack": [
       {
-        "start": 482,
+        "start": 498,
         "length": 15,
         "text": "return \"static\"",
         "frameDescription": "a.staticMethod"
       },
       {
-        "start": 1018,
+        "start": 1034,
         "length": 27,
         "text": "return super.staticMethod()",
         "frameDescription": "b.staticMethod"
       },
       {
-        "start": 1186,
+        "start": 1202,
         "length": 16,
         "text": "b.staticMethod()",
         "frameDescription": "body"
@@ -361,7 +361,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 1248,
+        "start": 1264,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"

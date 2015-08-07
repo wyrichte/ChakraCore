@@ -2,13 +2,13 @@
   {
     "callstack": [
       {
-        "start": 397,
+        "start": 413,
         "length": 3,
         "text": "a++",
         "frameDescription": "OneClass.Inc"
       },
       {
-        "start": 1417,
+        "start": 1433,
         "length": 26,
         "text": "var temp = OneClass.Inc(1)",
         "frameDescription": "body"
@@ -26,7 +26,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -36,13 +36,13 @@
   {
     "callstack": [
       {
-        "start": 503,
+        "start": 519,
         "length": 3,
         "text": "a--",
         "frameDescription": "OneClass[Dec]"
       },
       {
-        "start": 1452,
+        "start": 1468,
         "length": 27,
         "text": "var temp2 = OneClass.Dec(1)",
         "frameDescription": "body"
@@ -60,7 +60,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -70,13 +70,13 @@
   {
     "callstack": [
       {
-        "start": 608,
+        "start": 624,
         "length": 8,
         "text": "return 1",
         "frameDescription": "get OneClass.One"
       },
       {
-        "start": 1488,
+        "start": 1504,
         "length": 19,
         "text": "temp = OneClass.One",
         "frameDescription": "body"
@@ -94,7 +94,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -104,13 +104,13 @@
   {
     "callstack": [
       {
-        "start": 694,
+        "start": 710,
         "length": 1,
         "text": "a",
         "frameDescription": "set OneClass.One"
       },
       {
-        "start": 1516,
+        "start": 1532,
         "length": 19,
         "text": "OneClass.One = temp",
         "frameDescription": "body"
@@ -128,7 +128,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -138,13 +138,13 @@
   {
     "callstack": [
       {
-        "start": 776,
+        "start": 792,
         "length": 8,
         "text": "return 2",
         "frameDescription": "get OneClass[Two]"
       },
       {
-        "start": 1544,
+        "start": 1560,
         "length": 19,
         "text": "temp = OneClass.Two",
         "frameDescription": "body"
@@ -162,7 +162,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -172,13 +172,13 @@
   {
     "callstack": [
       {
-        "start": 866,
+        "start": 882,
         "length": 1,
         "text": "a",
         "frameDescription": "set OneClass[Two]"
       },
       {
-        "start": 1572,
+        "start": 1588,
         "length": 19,
         "text": "OneClass.Two = temp",
         "frameDescription": "body"
@@ -196,7 +196,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -206,13 +206,13 @@
   {
     "callstack": [
       {
-        "start": 937,
+        "start": 953,
         "length": 12,
         "text": "return a + b",
         "frameDescription": "OneClass.prototype.Sum"
       },
       {
-        "start": 1631,
+        "start": 1647,
         "length": 18,
         "text": "temp = x.Sum(1, 2)",
         "frameDescription": "body"
@@ -230,7 +230,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -240,13 +240,13 @@
   {
     "callstack": [
       {
-        "start": 1023,
+        "start": 1039,
         "length": 12,
         "text": "return a - b",
         "frameDescription": "OneClass.prototype[Diff]"
       },
       {
-        "start": 1658,
+        "start": 1674,
         "length": 20,
         "text": "temp2 = x.Diff(1, 2)",
         "frameDescription": "body"
@@ -264,7 +264,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -274,13 +274,13 @@
   {
     "callstack": [
       {
-        "start": 1107,
+        "start": 1123,
         "length": 8,
         "text": "return 3",
         "frameDescription": "get OneClass.prototype.three"
       },
       {
-        "start": 1687,
+        "start": 1703,
         "length": 14,
         "text": "temp = x.three",
         "frameDescription": "body"
@@ -298,7 +298,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -308,13 +308,13 @@
   {
     "callstack": [
       {
-        "start": 1188,
+        "start": 1204,
         "length": 1,
         "text": "a",
         "frameDescription": "set OneClass.prototype.three"
       },
       {
-        "start": 1710,
+        "start": 1726,
         "length": 14,
         "text": "x.three = temp",
         "frameDescription": "body"
@@ -332,7 +332,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -342,13 +342,13 @@
   {
     "callstack": [
       {
-        "start": 1274,
+        "start": 1290,
         "length": 8,
         "text": "return 4",
         "frameDescription": "get OneClass.prototype[four]"
       },
       {
-        "start": 1733,
+        "start": 1749,
         "length": 13,
         "text": "temp = x.four",
         "frameDescription": "body"
@@ -366,7 +366,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -376,13 +376,13 @@
   {
     "callstack": [
       {
-        "start": 1358,
+        "start": 1374,
         "length": 1,
         "text": "a",
         "frameDescription": "set OneClass.prototype[four]"
       },
       {
-        "start": 1755,
+        "start": 1771,
         "length": 13,
         "text": "x.four = temp",
         "frameDescription": "body"
@@ -400,7 +400,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -418,19 +418,19 @@
   {
     "callstack": [
       {
-        "start": 2310,
+        "start": 2326,
         "length": 3,
         "text": "a++",
         "frameDescription": "OneClass"
       },
       {
-        "start": 2392,
+        "start": 2408,
         "length": 1,
         "text": "{",
         "frameDescription": "TwoClass"
       },
       {
-        "start": 2441,
+        "start": 2457,
         "length": 24,
         "text": "var obj = new TwoClass()",
         "frameDescription": "body"
@@ -448,7 +448,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -601,13 +601,13 @@
   {
     "callstack": [
       {
-        "start": 4531,
+        "start": 4547,
         "length": 27,
         "text": "return super.staticMethod()",
         "frameDescription": "b.staticMethod"
       },
       {
-        "start": 4892,
+        "start": 4908,
         "length": 16,
         "text": "b.staticMethod()",
         "frameDescription": "body"
@@ -625,7 +625,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4929,
+        "start": 4945,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"

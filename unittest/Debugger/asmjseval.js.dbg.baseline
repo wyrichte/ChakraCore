@@ -1,0 +1,423 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "param": "1",
+      "e": "<large string>",
+      "[Scope]1": {
+        "stdlib": "{...}",
+        "imports": "undefined",
+        "heap": "<large string>",
+        "ch": "<large string>",
+        "f": "<large string>",
+        "g": "<large string>",
+        "fr": "<large string>",
+        "a": "43",
+        "impa": "<large string>",
+        "I32": "<large string>",
+        "HEAP32": "<large string>",
+        "inf": "Infinity",
+        "I8": "<large string>",
+        "len": "<large string>",
+        "ln2": "<large string>",
+        "i8": "<large string>",
+        "c": "32",
+        "sn": "<large string>",
+        "impFunc": "<large string>",
+        "impb": "12",
+        "U8": "<large string>",
+        "HEAPU8": "<large string>",
+        "table1": "<large string>",
+        "b": "3.5"
+      },
+      "[Globals]": {
+        "debugCallback": "<large string>",
+        "a": "undefined",
+        "moduleFunc": "<large string>",
+        "buffer": "<large string>",
+        "module": "{...}",
+        "outer": "<large string>",
+        "byteLength": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1261,
+        "length": 27,
+        "text": "a = (a + (HEAPU8[a|0]|0))|0",
+        "frameDescription": "f"
+      },
+      {
+        "start": 2181,
+        "length": 33,
+        "text": "print(Math.round(module.fExp(1)))",
+        "frameDescription": "debugCallback"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "[]",
+        "length": "4",
+        "[0]": "<large string>",
+        "[1]": "<large string>",
+        "[2]": "<large string>",
+        "[3]": "<large string>"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "2"
+      },
+      "param": "2",
+      "e": "<large string>",
+      "[Scope]1": {
+        "stdlib": "{...}",
+        "imports": "undefined",
+        "heap": "<large string>",
+        "ch": "<large string>",
+        "f": "<large string>",
+        "g": "<large string>",
+        "fr": "<large string>",
+        "a": "57",
+        "impa": "<large string>",
+        "I32": "<large string>",
+        "HEAP32": "<large string>",
+        "inf": "Infinity",
+        "I8": "<large string>",
+        "len": "<large string>",
+        "ln2": "<large string>",
+        "i8": "<large string>",
+        "c": "64",
+        "sn": "<large string>",
+        "impFunc": "<large string>",
+        "impb": "12",
+        "U8": "<large string>",
+        "HEAPU8": "<large string>",
+        "table1": "<large string>",
+        "b": "3.5"
+      },
+      "[Globals]": {
+        "debugCallback": "<large string>",
+        "a": "undefined",
+        "moduleFunc": "<large string>",
+        "buffer": "<large string>",
+        "module": "{...}",
+        "outer": "<large string>",
+        "byteLength": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1261,
+        "length": 27,
+        "text": "a = (a + (HEAPU8[a|0]|0))|0",
+        "frameDescription": "f"
+      },
+      {
+        "start": 1415,
+        "length": 22,
+        "text": "impa = +table1[b&3](b)",
+        "frameDescription": "g"
+      },
+      {
+        "start": 2221,
+        "length": 33,
+        "text": "print(Math.round(module.gExp(2)))",
+        "frameDescription": "debugCallback"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "2"
+      },
+      "b": "2",
+      "[Scope]1": {
+        "stdlib": "{...}",
+        "imports": "undefined",
+        "heap": "<large string>",
+        "ch": "<large string>",
+        "f": "<large string>",
+        "g": "<large string>",
+        "fr": "<large string>",
+        "a": "57",
+        "impa": "<large string>",
+        "I32": "<large string>",
+        "HEAP32": "<large string>",
+        "inf": "Infinity",
+        "I8": "<large string>",
+        "len": "<large string>",
+        "ln2": "<large string>",
+        "i8": "<large string>",
+        "c": "64",
+        "sn": "<large string>",
+        "impFunc": "<large string>",
+        "impb": "12",
+        "U8": "<large string>",
+        "HEAPU8": "<large string>",
+        "table1": "<large string>",
+        "b": "3.5"
+      },
+      "[Globals]": {
+        "debugCallback": "<large string>",
+        "a": "undefined",
+        "moduleFunc": "<large string>",
+        "buffer": "<large string>",
+        "module": "{...}",
+        "outer": "<large string>",
+        "byteLength": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1481,
+        "length": 19,
+        "text": "impa = +(impa + ln2",
+        "frameDescription": "g"
+      },
+      {
+        "start": 2221,
+        "length": 33,
+        "text": "print(Math.round(module.gExp(2)))",
+        "frameDescription": "debugCallback"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "<large string>"
+      },
+      "b2": {
+        "__proto__": "{...}"
+      },
+      "[Scope]1": {
+        "stdlib": "{...}",
+        "imports": "undefined",
+        "heap": "<large string>",
+        "ch": "<large string>",
+        "f": "<large string>",
+        "g": "<large string>",
+        "fr": "<large string>",
+        "a": "57",
+        "impa": "<large string>",
+        "I32": "<large string>",
+        "HEAP32": "<large string>",
+        "inf": "Infinity",
+        "I8": "<large string>",
+        "len": "<large string>",
+        "ln2": "<large string>",
+        "i8": "<large string>",
+        "c": "64",
+        "sn": "<large string>",
+        "impFunc": "<large string>",
+        "impb": "12",
+        "U8": "<large string>",
+        "HEAPU8": "<large string>",
+        "table1": "<large string>",
+        "b": "3.5"
+      },
+      "[Globals]": {
+        "debugCallback": "<large string>",
+        "a": "undefined",
+        "moduleFunc": "<large string>",
+        "buffer": "<large string>",
+        "module": "{...}",
+        "outer": "<large string>",
+        "byteLength": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 916,
+        "length": 7,
+        "text": "heap=b2",
+        "frameDescription": "ch"
+      },
+      {
+        "start": 2261,
+        "length": 40,
+        "text": "print(module.ch(new ArrayBuffer(1<<25)))",
+        "frameDescription": "debugCallback"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "[]",
+        "length": "4",
+        "[0]": "<large string>",
+        "[1]": "<large string>",
+        "[2]": "<large string>",
+        "[3]": "<large string>"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "2"
+      },
+      "param": "2",
+      "e": "<large string>",
+      "[Scope]1": {
+        "stdlib": "{...}",
+        "imports": "undefined",
+        "heap": "<large string>",
+        "ch": "<large string>",
+        "f": "<large string>",
+        "g": "<large string>",
+        "fr": "<large string>",
+        "a": "71",
+        "impa": "<large string>",
+        "I32": "<large string>",
+        "HEAP32": "<large string>",
+        "inf": "Infinity",
+        "I8": "<large string>",
+        "len": "<large string>",
+        "ln2": "<large string>",
+        "i8": "<large string>",
+        "c": "128",
+        "sn": "<large string>",
+        "impFunc": "<large string>",
+        "impb": "12",
+        "U8": "<large string>",
+        "HEAPU8": "<large string>",
+        "table1": "<large string>",
+        "b": "3.5"
+      },
+      "[Globals]": {
+        "debugCallback": "<large string>",
+        "a": "undefined",
+        "moduleFunc": "<large string>",
+        "buffer": "<large string>",
+        "module": "{...}",
+        "outer": "<large string>",
+        "byteLength": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1261,
+        "length": 27,
+        "text": "a = (a + (HEAPU8[a|0]|0))|0",
+        "frameDescription": "f"
+      },
+      {
+        "start": 1415,
+        "length": 22,
+        "text": "impa = +table1[b&3](b)",
+        "frameDescription": "g"
+      },
+      {
+        "start": 2308,
+        "length": 33,
+        "text": "print(Math.round(module.gExp(2)))",
+        "frameDescription": "debugCallback"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "2"
+      },
+      "b": "2",
+      "[Scope]1": {
+        "stdlib": "{...}",
+        "imports": "undefined",
+        "heap": "<large string>",
+        "ch": "<large string>",
+        "f": "<large string>",
+        "g": "<large string>",
+        "fr": "<large string>",
+        "a": "71",
+        "impa": "<large string>",
+        "I32": "<large string>",
+        "HEAP32": "<large string>",
+        "inf": "Infinity",
+        "I8": "<large string>",
+        "len": "<large string>",
+        "ln2": "<large string>",
+        "i8": "<large string>",
+        "c": "128",
+        "sn": "<large string>",
+        "impFunc": "<large string>",
+        "impb": "12",
+        "U8": "<large string>",
+        "HEAPU8": "<large string>",
+        "table1": "<large string>",
+        "b": "3.5"
+      },
+      "[Globals]": {
+        "debugCallback": "<large string>",
+        "a": "undefined",
+        "moduleFunc": "<large string>",
+        "buffer": "<large string>",
+        "module": "{...}",
+        "outer": "<large string>",
+        "byteLength": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1481,
+        "length": 19,
+        "text": "impa = +(impa + ln2",
+        "frameDescription": "g"
+      },
+      {
+        "start": 2308,
+        "length": 33,
+        "text": "print(Math.round(module.gExp(2)))",
+        "frameDescription": "debugCallback"
+      }
+    ]
+  }
+]

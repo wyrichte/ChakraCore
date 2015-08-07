@@ -134,14 +134,15 @@ Function Setup-CodeCoverage
         {
             # Instrumenting the binaries
             Write-Host "Instrumenting the binary $binary"
-		if (Test-Path("{0}.bbtf" -f $binary))
-		{
-            		$output = cmd /c $global:bbCoverExe /block /CovSym /I $binary /Cmd chakratest.dll.bbtf 2>&1
-		}
-		else
-		{
-			$output = cmd /c $global:bbCoverExe /block /CovSym /I $binary 2>&1	
-		}
+            $bbtfFile = "{0}.bbtf" -f $binary
+            if (Test-Path($bbtfFile))
+            {
+                $output = cmd /c $global:bbCoverExe /block /CovSym /I $binary /Cmd $bbtfFile 2>&1
+            }
+            else
+            {
+                $output = cmd /c $global:bbCoverExe /block /CovSym /I $binary 2>&1	
+            }
             Write-Host $output
 
             $binOldName = "{0}.old" -f $binary

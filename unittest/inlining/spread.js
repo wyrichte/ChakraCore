@@ -1,7 +1,7 @@
 // -maxInterpretCount:1 -maxSimpleJitRunCount:1 -dump:lowerer:4 -debug -debugbreak:4 -trace:bailout spread.js
 if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in
                                                     // jc/jshost
-    this.WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+    this.WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 }
 
 function transform(a,b,c,d) {

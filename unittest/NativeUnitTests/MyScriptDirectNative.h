@@ -25,7 +25,7 @@ private:
     //Helper Methods 
 private:
     void InitJScriptEngine(JsHostNativeTestArguments* jsHostArgs);
-    static Var MyObjectConstructor(Var function, CallInfo callInfo, Var _this, ...);  
+    static Var MyObjectConstructor(Var function, CallInfo callInfo, Var* args);  
     BOOL GetTypeOp();
     BOOL GetJsop();
     void Pass(std::string message);

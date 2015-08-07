@@ -77,4 +77,10 @@ PASSED
 PASSED
 *** Running test #21 (20): Class method with computed name can be a generator
 PASSED
-Summary of tests: total executed: 21; passed: 21; failed: 0
+*** Running test #22 (21): Class static method descriptor values
+PASSED
+*** Running test #23 (22): Class method descriptor values
+PASSED
+*** Running test #24 (23): Class methods cannot be called as constructors
+PASSED
+Summary of tests: total executed: 24; passed: 24; failed: 0

@@ -215,7 +215,7 @@ typedef [v1_enum] enum TypedArrayBufferAllocationType
     TypedArrayBufferAllocationType_MemAlloc = 0x2
 } TypedArrayBufferAllocationType;
 
-typedef Var (__cdecl *ScriptMethod)(Var method, CallInfo callInfo, Var _this, ...);
+typedef Var (*ScriptMethod)(Var method, CallInfo callInfo, Var* args);
 typedef void (__cdecl *FinalizeMethod)(void* address, FinalizeMode mode);
 typedef HRESULT (__cdecl *InitializeMethod)(Var instance);
 typedef void (__cdecl *CollectGarbageCallBack)(void * context, CollectGarbageCallBackFlags flags);
@@ -826,7 +826,7 @@ interface IActiveScriptDirect : IUnknown
     ///   prototypeTypeId   : the typeId of the prototype
     ///   flags             : flags of a method, like a method is a getter, setter, etc
     ///   jsFunction        : A Var representing a callable function which can be used with Execute or ITypeOperations.
-    HRESULT BuildDOMDirectFunction([in, unique] Var signature, [in] void* entryPoint, [in] PropertyId nameId, [in] JavascriptTypeId prototypeTypeId, [in] UINT64 flags, [out] Var* jsFunction);
+    HRESULT BuildDOMDirectFunction([in, unique] Var signature, [in] ScriptMethod entryPoint, [in] PropertyId nameId, [in] JavascriptTypeId prototypeTypeId, [in] UINT64 flags, [out] Var* jsFunction);
 
     /// Create an error object with specified information which can be thrown using IJavascriptOperations::ThrowException
     ///   errorType         : Specifies the basic type of the exception
@@ -1067,6 +1067,10 @@ interface IActiveScriptDirect : IUnknown
 
     /// Throws an exception with the specified exception object
     HRESULT ThrowException([in] Var exceptionObject);
+
+    /// Set Trident base address.  Used for telemetry purposes.
+    ///   loadAddress       : edgehtml.dll's load address.
+    HRESULT SetTridentLoadAddress([in] void* loadAddress);
 };
 
 /// Return an IActiveScriptDirect interface which respresnts the given instance.

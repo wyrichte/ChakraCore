@@ -213,6 +213,7 @@ construct trap
 PASSED
 *** Running test #45 (21): new on builtin
 construct trap
+get trap prototype on function receiver function
 PASSED
 *** Running test #46 (22): new return undefined
 construct trap

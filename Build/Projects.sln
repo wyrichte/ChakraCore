@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23020.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E0786480-1474-43B0-ACDC-6F05779D9D83}"
 	ProjectSection(SolutionItems) = preProject
@@ -36,8 +36,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{02C8DAB2-62B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{3FBCBF4C-1083-4A70-8929-E89CAA82E781}"
 	ProjectSection(SolutionItems) = preProject
+		..\private\lib\EnC\Chakra.EnC.vcxproj = ..\private\lib\EnC\Chakra.EnC.vcxproj
+		..\private\lib\Engine\Chakra.Engine.vcxproj = ..\private\lib\Engine\Chakra.Engine.vcxproj
+		..\private\lib\JsrtChakra\Chakra.JsrtChakra.vcxproj = ..\private\lib\JsrtChakra\Chakra.JsrtChakra.vcxproj
 		..\private\Lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj = ..\private\Lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj
 		..\private\Lib\MemProtectHeap\Chakra.MemProtectHeap.vcxproj = ..\private\Lib\MemProtectHeap\Chakra.MemProtectHeap.vcxproj
+		..\private\lib\Projection\Chakra.Projection.vcxproj = ..\private\lib\Projection\Chakra.Projection.vcxproj
+		..\private\lib\SCA\Chakra.SCA.vcxproj = ..\private\lib\SCA\Chakra.SCA.vcxproj
 		..\private\Lib\SCALookup\Chakra.SCAlookup.vcxproj = ..\private\Lib\SCALookup\Chakra.SCAlookup.vcxproj
 		..\private\Lib\Telemetry\Chakra.Telemetry.vcxproj = ..\private\Lib\Telemetry\Chakra.Telemetry.vcxproj
 		..\private\Lib\WinRT\Chakra.WinRT.vcxproj = ..\private\Lib\WinRT\Chakra.WinRT.vcxproj
@@ -144,10 +149,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Razzle", "Razzle", "{E50CFD
 		..\core\lib\common\Memory\test\Razzle.Common.Memory.Test.vcxproj = ..\core\lib\common\Memory\test\Razzle.Common.Memory.Test.vcxproj
 		..\core\lib\common\util\release\Razzle.Common.Util.Release.vcxproj = ..\core\lib\common\util\release\Razzle.Common.Util.Release.vcxproj
 		..\core\lib\common\util\test\Razzle.Common.Util.Test.vcxproj = ..\core\lib\common\util\test\Razzle.Common.Util.Test.vcxproj
+		..\private\lib\EnC\release\Razzle.EnC.Release.vcxproj = ..\private\lib\EnC\release\Razzle.EnC.Release.vcxproj
+		..\private\lib\EnC\test\Razzle.EnC.Test.vcxproj = ..\private\lib\EnC\test\Razzle.EnC.Test.vcxproj
+		..\private\lib\Engine\release\Razzle.Engine.Release.vcxproj = ..\private\lib\Engine\release\Razzle.Engine.Release.vcxproj
+		..\private\lib\Engine\test\Razzle.Engine.Test.vcxproj = ..\private\lib\Engine\test\Razzle.Engine.Test.vcxproj
 		..\core\lib\jsrt\release\Razzle.Jsrt.Release.vcxproj = ..\core\lib\jsrt\release\Razzle.Jsrt.Release.vcxproj
 		..\core\lib\jsrt\test\Razzle.Jsrt.Test.vcxproj = ..\core\lib\jsrt\test\Razzle.Jsrt.Test.vcxproj
+		..\private\lib\JsrtChakra\release\Razzle.JsrtChakra.Release.vcxproj = ..\private\lib\JsrtChakra\release\Razzle.JsrtChakra.Release.vcxproj
+		..\private\lib\JsrtChakra\test\Razzle.JsrtChakra.Test.vcxproj = ..\private\lib\JsrtChakra\test\Razzle.JsrtChakra.Test.vcxproj
 		..\core\lib\Parser\release\Razzle.Parser.Release.vcxproj = ..\core\lib\Parser\release\Razzle.Parser.Release.vcxproj
 		..\core\lib\Parser\test\Razzle.Parser.Test.vcxproj = ..\core\lib\Parser\test\Razzle.Parser.Test.vcxproj
+		..\private\lib\Projection\release\Razzle.Projection.Release.vcxproj = ..\private\lib\Projection\release\Razzle.Projection.Release.vcxproj
+		..\private\lib\Projection\test\Razzle.Projection.Test.vcxproj = ..\private\lib\Projection\test\Razzle.Projection.Test.vcxproj
 		..\core\lib\Runtime\ByteCode\release\Razzle.Runtime.ByteCode.Release.vcxproj = ..\core\lib\Runtime\ByteCode\release\Razzle.Runtime.ByteCode.Release.vcxproj
 		..\core\lib\Runtime\ByteCode\test\Razzle.Runtime.ByteCode.Test.vcxproj = ..\core\lib\Runtime\ByteCode\test\Razzle.Runtime.ByteCode.Test.vcxproj
 		..\core\lib\Runtime\Language\release\Razzle.Runtime.Language.Release.vcxproj = ..\core\lib\Runtime\Language\release\Razzle.Runtime.Language.Release.vcxproj
@@ -158,6 +171,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Razzle", "Razzle", "{E50CFD
 		..\core\lib\Runtime\Math\test\Razzle.Runtime.Math.Test.vcxproj = ..\core\lib\Runtime\Math\test\Razzle.Runtime.Math.Test.vcxproj
 		..\core\lib\Runtime\Types\release\Razzle.Runtime.Types.Release.vcxproj = ..\core\lib\Runtime\Types\release\Razzle.Runtime.Types.Release.vcxproj
 		..\core\lib\Runtime\Types\test\Razzle.Runtime.Types.Test.vcxproj = ..\core\lib\Runtime\Types\test\Razzle.Runtime.Types.Test.vcxproj
+		..\private\lib\SCA\release\Razzle.SCA.Release.vcxproj = ..\private\lib\SCA\release\Razzle.SCA.Release.vcxproj
+		..\private\lib\SCA\test\Razzle.SCA.Test.vcxproj = ..\private\lib\SCA\test\Razzle.SCA.Test.vcxproj
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5D62C46A-CCBB-461E-9B67-5D7CEB635A54}"

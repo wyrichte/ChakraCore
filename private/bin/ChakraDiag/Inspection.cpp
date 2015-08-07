@@ -832,9 +832,9 @@ namespace JsDiag
             }
             else
             {
-                if (body->attributes & Js::FunctionInfo::IsDefaultConstructor)
+                if (body->IsDefaultConstructor())
                 {
-                    str = (body->attributes & Js::FunctionInfo::HasSuperReference)
+                    str = (body->HasSuperReference())
                           ? JS_DEFAULT_EXTENDS_CTOR_DISPLAY_STRING
                           : JS_DEFAULT_CTOR_DISPLAY_STRING;
                 }

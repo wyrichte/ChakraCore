@@ -270,7 +270,7 @@ public:
 
     HRESULT STDMETHODCALLTYPE BuildDOMDirectFunction(
         __in Var signature,
-        __in void* entryPoint,
+        __in ScriptMethod entryPoint,
         __in PropertyId nameId,
         __in JavascriptTypeId prototypeTypeId,
         __in UINT64 flags,

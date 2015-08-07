@@ -1,6 +1,6 @@
 // JavaScript source code
 if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in jc/jshost
-    this.WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+    this.WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
     this.WScript.LoadScriptFile("..\\es6\\observerProxy.js");
     var csGlobal = this.WScript.LoadScriptFile("..\\es6\\observerProxy.js", "samethread");
     var cpGlobal = this.WScript.LoadScriptFile("..\\es6\\observerProxy.js", "differetthread");
@@ -8,6 +8,8 @@ if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in jc/js
 else {
     throw new Error('failed');
 }
+
+var testPassStyle = null;
 
 function cleanupBeforeTestStarts() {
     delete handler.trapGetOwnPropertyDescriptor;
@@ -316,7 +318,14 @@ var tests = [
             cleanupBeforeTestStarts();
             var myProxy = new Proxy(Object, handler);
             var newObj = new myProxy();
-            assert.areEqual(savedLogResult.length, 1, "trap builtin");
+            
+            if (testPassStyle === 'Reflect') {
+                assert.areEqual(savedLogResult.length, 2, "When calling Reflect.construct with an object as new.target, we will perform a get of 'prototype' on the func");
+            } 
+            else {
+                assert.areEqual(savedLogResult.length, 1, "trap builtin");
+            }
+            
             assert.areEqual(newObj instanceof Object, true, "isObject");
         }
     },
@@ -333,16 +342,20 @@ var tests = [
     },
 ];
 
-function runTest() {
-  initialize();
-  testRunner.runTests(tests);
-  initialize('Reflect');
-  testRunner.runTests(tests);
+function runTestPass(style) {
+    testPassStyle = style;
+    initialize(style);
+    testRunner.runTests(tests);
+}
+
+function runTestPasses() {
+    runTestPass();
+    runTestPass('Reflect');
 }
 
 if (this.inProfilerTest) {
-  WScript.StartProfiling(runTest);
+    WScript.StartProfiling(runTestPasses);
 }
 else {
-  runTest();
+    runTestPasses();
 }

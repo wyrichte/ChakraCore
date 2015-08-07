@@ -1,7 +1,7 @@
 // ES6 Array builtins using this['constructor'] property to construct their return values
 
 if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in jc/jshost
-    this.WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+    this.WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 }
 
 var tests = [
@@ -135,14 +135,18 @@ var tests = [
             var arr = ['a','b','c','d','e','f'];
             arr['constructor'] = null;
             assert.throws(function() { Array.prototype.splice.call(arr, 0, 3); }, TypeError, "TypeError when [@@species] is not constructor", "Function '[@@species]' is not a constructor");
-            
+
+            var arr = ['a','b','c','d','e','f'];
+            Object.defineProperty(arr, 'constructor', {enumerable: false, configurable: true, writable: true, value: null});
+            assert.throws(function() { Array.prototype.splice.call(arr, 0, 3); }, TypeError, "TypeError when [@@species] is not constructor", "Function '[@@species]' is not a constructor");
+
             var arr = ['a','b','c','d','e','f'];
             arr['constructor'] = undefined;
             var out = Array.prototype.splice.call(arr, 0, 3);
             assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor == undefined");
             assert.areEqual(['a','b','c'], out, "Array.prototype.splice output should show correct Array behavior when constructor == undefined");
             assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor == undefined");
-            
+
             var arr = ['a','b','c','d','e','f'];
             arr['constructor'] = function() {};
             var out = Array.prototype.splice.call(arr, 0, 3);
@@ -150,27 +154,184 @@ var tests = [
             assert.areEqual(['a','b','c'], out, "Array.prototype.splice output should show correct Array behavior when constructor has no [@@species] property");
             assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor has no [@@species] property");
 
+            var builtinArraySpeciesDesc = Object.getOwnPropertyDescriptor(Array, Symbol.species);
+
             var arr = ['a','b','c','d','e','f'];
-            arr['constructor'] = function() {};
-            arr['constructor'][Symbol.species] = Object;
+            Object.defineProperty(Array, Symbol.species, {enumerable: false, configurable: true, writable: true, value: Object});
             var out = Array.prototype.splice.call(arr, 0, 3);
             assert.isFalse(Array.isArray(out), "Return from Array.prototype.splice should be an object when constructor has [@@species] == Object");
             assert.areEqual({'0':'a','1':'b','2':'c',"length":3}, out, "Array.prototype.splice output should show correct Array behavior when constructor has [@@species] == Object");
 
             var arr = ['a','b','c','d','e','f'];
-            arr['constructor'] = function() {};
-            arr['constructor'][Symbol.species] = null;
+            Object.defineProperty(Array, Symbol.species, {enumerable: false, configurable: true, writable: true, value: null});
             var out = Array.prototype.splice.call(arr, 0, 3);
             assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor has [@@species] == null");
             assert.areEqual(['a','b','c'], out, "Array.prototype.splice output should show correct Array behavior when constructor has [@@species] == null");
             assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor has [@@species] == null");
-            
+
+            Object.defineProperty(Array, Symbol.species, builtinArraySpeciesDesc);
+
             var external = WScript.LoadScriptFile("ES6ArrayUseConstructor_helper.js","samethread");
             var arr = ['a','b','c','d','e','f'];
             arr['constructor'] = external.CrossContextArrayConstructor;
             var out = Array.prototype.splice.call(arr, 0, 3);
             assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor is %Array% of a different script context");
             assert.areEqual(['a','b','c'], out, "Array.prototype.splice output should show correct Array behavior when constructor is %Array% of a different script context");
+            assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor is %Array% of a different script context");
+        }
+    },
+    {
+        name: "ArraySpeciesCreate test through Array.prototype.splice - native arrays",
+        body: function () {
+            var arr = [1,2,3,4,5,6];
+            arr['constructor'] = null;
+            assert.throws(function() { Array.prototype.splice.call(arr, 0, 3); }, TypeError, "TypeError when [@@species] is not constructor", "Function '[@@species]' is not a constructor");
+            
+            var arr = [1,2,3,4,5,6];
+            Object.defineProperty(arr, 'constructor', {enumerable: false, configurable: true, writable: true, value: null});
+            assert.throws(function() { Array.prototype.splice.call(arr, 0, 3); }, TypeError, "TypeError when [@@species] is not constructor", "Function '[@@species]' is not a constructor");
+
+            var arr = [1,2,3,4,5,6];
+            arr['constructor'] = undefined;
+            var out = Array.prototype.splice.call(arr, 0, 3);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor == undefined");
+            assert.areEqual([1,2,3], out, "Array.prototype.splice output should show correct Array behavior when constructor == undefined");
+            assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor == undefined");
+            
+            var arr = [1,2,3,4,5,6];
+            arr['constructor'] = function() {};
+            var out = Array.prototype.splice.call(arr, 0, 3);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor has no [@@species] property");
+            assert.areEqual([1,2,3], out, "Array.prototype.splice output should show correct Array behavior when constructor has no [@@species] property");
+            assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor has no [@@species] property");
+
+            var builtinArraySpeciesDesc = Object.getOwnPropertyDescriptor(Array, Symbol.species);
+
+            var arr = [1,2,3,4,5,6];
+            Object.defineProperty(Array, Symbol.species, {enumerable: false, configurable: true, writable: true, value: Object});
+            var out = Array.prototype.splice.call(arr, 0, 3);
+            assert.isFalse(Array.isArray(out), "Return from Array.prototype.splice should be an object when constructor has [@@species] == Object");
+            assert.areEqual({'0':1,'1':2,'2':3,"length":3}, out, "Array.prototype.splice output should show correct Array behavior when constructor has [@@species] == Object");
+
+            var arr = [1,2,3,4,5,6];
+            Object.defineProperty(Array, Symbol.species, {enumerable: false, configurable: true, writable: true, value: null});
+            var out = Array.prototype.splice.call(arr, 0, 3);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor has [@@species] == null");
+            assert.areEqual([1,2,3], out, "Array.prototype.splice output should show correct Array behavior when constructor has [@@species] == null");
+            assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor has [@@species] == null");
+
+            Object.defineProperty(Array, Symbol.species, builtinArraySpeciesDesc);
+            
+            var external = WScript.LoadScriptFile("ES6ArrayUseConstructor_helper.js","samethread");
+            var arr = [1,2,3,4,5,6];
+            arr['constructor'] = external.CrossContextArrayConstructor;
+            var out = Array.prototype.splice.call(arr, 0, 3);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor is %Array% of a different script context");
+            assert.areEqual([1,2,3], out, "Array.prototype.splice output should show correct Array behavior when constructor is %Array% of a different script context");
+            assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor is %Array% of a different script context");
+        }
+    },
+    {
+        name: "ArraySpeciesCreate test through Array.prototype.map",
+        body: function () {
+            var f = function(val) { return val; }
+            var arr = ['a','b','c'];
+            arr['constructor'] = null;
+            assert.throws(function() { Array.prototype.map.call(arr, f); }, TypeError, "TypeError when [@@species] is not constructor", "Function '[@@species]' is not a constructor");
+
+            var arr = ['a','b','c'];
+            Object.defineProperty(arr, 'constructor', {enumerable: false, configurable: true, writable: true, value: null});
+            assert.throws(function() { Array.prototype.map.call(arr, f); }, TypeError, "TypeError when [@@species] is not constructor", "Function '[@@species]' is not a constructor");
+
+            var arr = ['a','b','c'];
+            arr['constructor'] = undefined;
+            var out = Array.prototype.map.call(arr, f);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.map should be an Array object when constructor == undefined");
+            assert.areEqual(['a','b','c'], out, "Array.prototype.map output should show correct Array behavior when constructor == undefined");
+            assert.areEqual(3, out.length, "Array.prototype.map sets the length property of returned object when constructor == undefined");
+
+            var arr = ['a','b','c'];
+            arr['constructor'] = function() {};
+            var out = Array.prototype.map.call(arr, f);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.map should be an Array object when constructor has no [@@species] property");
+            assert.areEqual(['a','b','c'], out, "Array.prototype.map output should show correct Array behavior when constructor has no [@@species] property");
+            assert.areEqual(3, out.length, "Array.prototype.map sets the length property of returned object when constructor has no [@@species] property");
+
+            var builtinArraySpeciesDesc = Object.getOwnPropertyDescriptor(Array, Symbol.species);
+
+            var arr = ['a','b','c'];
+            Object.defineProperty(Array, Symbol.species, {enumerable: false, configurable: true, writable: true, value: Object});
+            var out = Array.prototype.map.call(arr, f);
+            assert.isFalse(Array.isArray(out), "Return from Array.prototype.map should be an object when constructor has [@@species] == Object");
+            assert.areEqual({'0':'a','1':'b','2':'c'}, out, "Array.prototype.map output should show correct Array behavior when constructor has [@@species] == Object");
+
+            var arr = ['a','b','c'];
+            Object.defineProperty(Array, Symbol.species, {enumerable: false, configurable: true, writable: true, value: null});
+            var out = Array.prototype.map.call(arr, f);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.map should be an Array object when constructor has [@@species] == null");
+            assert.areEqual(['a','b','c'], out, "Array.prototype.map output should show correct Array behavior when constructor has [@@species] == null");
+            assert.areEqual(3, out.length, "Array.prototype.map sets the length property of returned object when constructor has [@@species] == null");
+
+            Object.defineProperty(Array, Symbol.species, builtinArraySpeciesDesc);
+
+            var external = WScript.LoadScriptFile("ES6ArrayUseConstructor_helper.js","samethread");
+            var arr = ['a','b','c'];
+            arr['constructor'] = external.CrossContextArrayConstructor;
+            var out = Array.prototype.map.call(arr, f);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.map should be an Array object when constructor is %Array% of a different script context");
+            assert.areEqual(['a','b','c'], out, "Array.prototype.map output should show correct Array behavior when constructor is %Array% of a different script context");
+            assert.areEqual(3, out.length, "Array.prototype.map sets the length property of returned object when constructor is %Array% of a different script context");
+        }
+    },
+    {
+        name: "ArraySpeciesCreate test through Array.prototype.map - native arrays",
+        body: function () {
+            var f = function(val) { return val; }
+            var arr = [1,2,3];
+            arr['constructor'] = null;
+            assert.throws(function() { Array.prototype.map.call(arr, f); }, TypeError, "TypeError when [@@species] is not constructor", "Function '[@@species]' is not a constructor");
+
+            var arr = [1,2,3];
+            Object.defineProperty(arr, 'constructor', {enumerable: false, configurable: true, writable: true, value: null});
+            assert.throws(function() { Array.prototype.map.call(arr, f); }, TypeError, "TypeError when [@@species] is not constructor", "Function '[@@species]' is not a constructor");
+
+            var arr = [1,2,3];
+            arr['constructor'] = undefined;
+            var out = Array.prototype.map.call(arr, f);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor == undefined");
+            assert.areEqual([1,2,3], out, "Array.prototype.splice output should show correct Array behavior when constructor == undefined");
+            assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor == undefined");
+            
+            var arr = [1,2,3];
+            arr['constructor'] = function() {};
+            var out = Array.prototype.map.call(arr, f);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor has no [@@species] property");
+            assert.areEqual([1,2,3], out, "Array.prototype.splice output should show correct Array behavior when constructor has no [@@species] property");
+            assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor has no [@@species] property");
+
+            var builtinArraySpeciesDesc = Object.getOwnPropertyDescriptor(Array, Symbol.species);
+
+            var arr = [1,2,3];
+            Object.defineProperty(Array, Symbol.species, {enumerable: false, configurable: true, writable: true, value: Object});
+            var out = Array.prototype.map.call(arr, f);
+            assert.isFalse(Array.isArray(out), "Return from Array.prototype.splice should be an object when constructor has [@@species] == Object");
+            assert.areEqual({'0':1,'1':2,'2':3}, out, "Array.prototype.splice output should show correct Array behavior when constructor has [@@species] == Object");
+
+            var arr = [1,2,3];
+            Object.defineProperty(Array, Symbol.species, {enumerable: false, configurable: true, writable: true, value: null});
+            var out = Array.prototype.map.call(arr, f);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor has [@@species] == null");
+            assert.areEqual([1,2,3], out, "Array.prototype.splice output should show correct Array behavior when constructor has [@@species] == null");
+            assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor has [@@species] == null");
+
+            Object.defineProperty(Array, Symbol.species, builtinArraySpeciesDesc);
+            
+            var external = WScript.LoadScriptFile("ES6ArrayUseConstructor_helper.js","samethread");
+            var arr = [1,2,3];
+            arr['constructor'] = external.CrossContextArrayConstructor;
+            var out = Array.prototype.map.call(arr, f);
+            assert.isTrue(Array.isArray(out), "Return from Array.prototype.splice should be an Array object when constructor is %Array% of a different script context");
+            assert.areEqual([1,2,3], out, "Array.prototype.splice output should show correct Array behavior when constructor is %Array% of a different script context");
             assert.areEqual(3, out.length, "Array.prototype.splice sets the length property of returned object when constructor is %Array% of a different script context");
         }
     },

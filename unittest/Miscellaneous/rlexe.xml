@@ -99,4 +99,10 @@
       <files>typeinfotest.js</files>
     </default>
   </test>
+  <test>
+    <default>
+      <files>SetTimeout.js</files>
+      <baseline>SetTimeout.baseline</baseline>
+    </default>
+  </test>
 </regress-exe>

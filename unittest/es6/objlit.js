@@ -1,5 +1,5 @@
 if (this.WScript && this.WScript.LoadScriptFile) {
-  this.WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+  this.WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 }
 
 var tests = [

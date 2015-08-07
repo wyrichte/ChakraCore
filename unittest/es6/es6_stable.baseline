@@ -3,8 +3,8 @@ FLAG ES6 = 1 - setting child flag ES6Species = 0
 FLAG ES6Species = 0
 FLAG ES6 = 1 - setting child flag ES6AsyncAwait = 0
 FLAG ES6AsyncAwait = 0
-FLAG ES6 = 1 - setting child flag ES6Classes = 0
-FLAG ES6Classes = 0
+FLAG ES6 = 1 - setting child flag ES6Classes = 1
+FLAG ES6Classes = 1
 FLAG ES6 = 1 - setting child flag ES6DateParseFix = 1
 FLAG ES6DateParseFix = 1
 FLAG ES6 = 1 - setting child flag ES6DefaultArgs = 0
@@ -27,8 +27,6 @@ FLAG ES6 = 1 - setting child flag ES6Math = 1
 FLAG ES6Math = 1
 FLAG ES6 = 1 - setting child flag ES6Object = 1
 FLAG ES6Object = 1
-FLAG ES6 = 1 - setting child flag ES6NewTarget = 0
-FLAG ES6NewTarget = 0
 FLAG ES6 = 1 - setting child flag ES6Number = 1
 FLAG ES6Number = 1
 FLAG ES6 = 1 - setting child flag ES6NumericLiterals = 1
@@ -51,8 +49,6 @@ FLAG ES6 = 1 - setting child flag ES6StringTemplate = 1
 FLAG ES6StringTemplate = 1
 FLAG ES6 = 1 - setting child flag ES6PrototypeChain = 0
 FLAG ES6PrototypeChain = 0
-FLAG ES6 = 1 - setting child flag ES6Super = 0
-FLAG ES6Super = 0
 FLAG ES6 = 1 - setting child flag ES6Symbol = 1
 FLAG ES6Symbol = 1
 FLAG ES6 = 1 - setting child flag ES6ToPrimitive = 0

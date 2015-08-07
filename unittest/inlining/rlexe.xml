@@ -219,4 +219,10 @@
       <tags>BugFix</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>builtInApplyTarget.js</files>
+      <baseline>builtInApplyTarget.baseline</baseline>
+    </default>
+  </test>
 </regress-exe>

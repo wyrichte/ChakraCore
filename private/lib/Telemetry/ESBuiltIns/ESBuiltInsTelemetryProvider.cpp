@@ -324,6 +324,7 @@ void ESBuiltInsTelemetryProvider::OutputTraceLogging()
 
 void ESBuiltInsTelemetryProvider::OutputPrint()
 {
+#ifdef TELEMETRY_OUTPUTPRINT
     if( CONFIG_ISENABLED(Js::ESBLangTelFlag) )
     {
         Output::Print( L"----------\r\n" );
@@ -368,6 +369,7 @@ void ESBuiltInsTelemetryProvider::OutputPrint()
         }
         Output::Print( L"----------\r\n");
     }
+#endif
 }
 
 #endif

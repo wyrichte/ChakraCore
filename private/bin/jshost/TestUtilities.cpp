@@ -131,13 +131,15 @@ Var TestUtilities::ActivateRuntimeClassAndConvertToVar(RuntimeClassFactoryFuncti
     return nullObject;
 }
 
-Var TestUtilities::AnimalToVar(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::AnimalToVar(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     return ActivateRuntimeClassAndConvertToVar(&GetAnimalInstance, function, callInfo, dynamo);
 }
 
-Var TestUtilities::VectorIntToVar(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::VectorIntToVar(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -176,8 +178,9 @@ Var TestUtilities::VectorIntToVar(Var function, CallInfo callInfo, Var dynamo, .
     return nullObject;
 }
 
-Var TestUtilities::GetRestrictedStringFromError(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::GetRestrictedStringFromError(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -194,9 +197,7 @@ Var TestUtilities::GetRestrictedStringFromError(Var function, CallInfo callInfo,
 
     HRESULT hr;
 
-    va_list argptr;
-    va_start(argptr, dynamo);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     if (callInfo.Count < 2) { return undefinedObject; }
     BSTR errorSz;
@@ -214,8 +215,9 @@ Var TestUtilities::GetRestrictedStringFromError(Var function, CallInfo callInfo,
     return undefinedObject;
 }
 
-Var TestUtilities::GetCapabilitySidFromError(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::GetCapabilitySidFromError(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -232,9 +234,7 @@ Var TestUtilities::GetCapabilitySidFromError(Var function, CallInfo callInfo, Va
 
     HRESULT hr;
 
-    va_list argptr;
-    va_start(argptr, dynamo);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     if (callInfo.Count < 2) { return undefinedObject; }
     BSTR capabilitySz;
@@ -252,8 +252,9 @@ Var TestUtilities::GetCapabilitySidFromError(Var function, CallInfo callInfo, Va
     return undefinedObject;
 }
 
-Var TestUtilities::GetMemoryFootprintOfRC(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::GetMemoryFootprintOfRC(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -270,9 +271,7 @@ Var TestUtilities::GetMemoryFootprintOfRC(Var function, CallInfo callInfo, Var d
 
     HRESULT hr;
 
-    va_list argptr;
-    va_start(argptr, dynamo);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     if (callInfo.Count < 2) { return undefinedObject; }
     INT32 gcPressure;
@@ -295,8 +294,9 @@ Var TestUtilities::GetMemoryFootprintOfRC(Var function, CallInfo callInfo, Var d
     return undefinedObject;
 }
 
-Var TestUtilities::GetSystemStringFromHr(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::GetSystemStringFromHr(Var function, CallInfo callInfo, Var* args)
 {    
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -313,9 +313,7 @@ Var TestUtilities::GetSystemStringFromHr(Var function, CallInfo callInfo, Var dy
 
     HRESULT hr;
 
-    va_list argptr;
-    va_start(argptr, dynamo);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     if (callInfo.Count < 2) { return nullObject; }
     Var hrVar = args[0];
@@ -383,8 +381,9 @@ LReturn:
     return nullptr;
 }
 
-Var TestUtilities::UpdateSimpleClassAndReturnAsVar(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::UpdateSimpleClassAndReturnAsVar(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -399,9 +398,7 @@ Var TestUtilities::UpdateSimpleClassAndReturnAsVar(Var function, CallInfo callIn
         return NULL;
     }
 
-    va_list argptr;
-    va_start(argptr, dynamo);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     if (callInfo.Count < 2) { return nullObject; }
     Var instance = args[0];
@@ -423,8 +420,9 @@ Var TestUtilities::UpdateSimpleClassAndReturnAsVar(Var function, CallInfo callIn
     return simpleVar;
 }
 
-Var TestUtilities::UpdateSimpleClassAndReturnAsVarByAlternateInterface(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::UpdateSimpleClassAndReturnAsVarByAlternateInterface(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -441,9 +439,7 @@ Var TestUtilities::UpdateSimpleClassAndReturnAsVarByAlternateInterface(Var funct
 
     HRESULT hr;
 
-    va_list argptr;
-    va_start(argptr, dynamo);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     if (callInfo.Count < 2) { return nullObject; }
     Var instance = args[0];
@@ -475,8 +471,9 @@ Var TestUtilities::UpdateSimpleClassAndReturnAsVarByAlternateInterface(Var funct
     return simpleVar;
 }
 
-Var TestUtilities::VarToDispExTest(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::VarToDispExTest(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -493,9 +490,7 @@ Var TestUtilities::VarToDispExTest(Var function, CallInfo callInfo, Var dynamo, 
 
     HRESULT hr;
 
-    va_list argptr;
-    va_start(argptr, dynamo);
-    Var * args = (Var*)argptr;
+    args = &args[1];
 
     if (callInfo.Count < 2) { return nullObject; }
     Var instance = args[0];
@@ -523,8 +518,9 @@ Var TestUtilities::VarToDispExTest(Var function, CallInfo callInfo, Var dynamo, 
     return result;
 }
 
-Var TestUtilities::ClearAllProjectionCaches(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::ClearAllProjectionCaches(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -542,8 +538,9 @@ Var TestUtilities::ClearAllProjectionCaches(Var function, CallInfo callInfo, Var
     return nullObject;
 }
 
-Var TestUtilities::QueryPerformanceCounter(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::QueryPerformanceCounter(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -560,8 +557,9 @@ Var TestUtilities::QueryPerformanceCounter(Var function, CallInfo callInfo, Var 
 }
 
 
-Var TestUtilities::QueryPerformanceFrequency(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::QueryPerformanceFrequency(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -577,8 +575,9 @@ Var TestUtilities::QueryPerformanceFrequency(Var function, CallInfo callInfo, Va
     return var;   
 }
 
-Var TestUtilities::DoNotSupportWeakDelegate(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::DoNotSupportWeakDelegate(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -597,8 +596,9 @@ Var TestUtilities::DoNotSupportWeakDelegate(Var function, CallInfo callInfo, Var
     return undefinedObject;
 }
 
-Var TestUtilities::SupportsWeakDelegate(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::SupportsWeakDelegate(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -620,8 +620,9 @@ Var TestUtilities::SupportsWeakDelegate(Var function, CallInfo callInfo, Var dyn
     return supportsWeakDelegateVar;
 }
 
-Var TestUtilities::GetHostType(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::GetHostType(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = nullptr;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
     {
@@ -651,13 +652,15 @@ Var TestUtilities::GetHostType(Var function, CallInfo callInfo, Var dynamo, ...)
     return hostTypeVar;
 }
 
-Var TestUtilities::RestrictedErrorAccessInstanceToVar(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::RestrictedErrorAccessInstanceToVar(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     return ActivateRuntimeClassAndConvertToVar(&GetRestrictedErrorAccessInstance, function, callInfo, dynamo);
 }
 
-Var TestUtilities::RWineryToVar(Var function, CallInfo callInfo, Var dynamo, ...)
+Var TestUtilities::RWineryToVar(Var function, CallInfo callInfo, Var* args)
 {
+    Var dynamo = args[0];
     return ActivateRuntimeClassAndConvertToVar(&GetRWineryInstance, function, callInfo, dynamo);
 }
 

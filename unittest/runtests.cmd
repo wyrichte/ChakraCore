@@ -7,6 +7,7 @@ set _Dirs=-all
 set _OutputArgument=
 set _OLD_CC=%EXTRA_CC_FLAGS%
 set _rebase=
+set EXTRA_CC_FLAGS= -bvt %EXTRA_CC_FLAGS%
 
 :NextArgument
 if /i "%1" == "-verbose" (
@@ -70,8 +71,7 @@ goto :NextArgument
 
 :StartScript
 
-call setenv.cmd
-if errorlevel 1 exit /b 1
+set REGRESS=%CD%
 
 if "%NUM_RL_THREADS%" NEQ "" (
     set _RL_THREAD_FLAGS=-threads:%NUM_RL_THREADS%

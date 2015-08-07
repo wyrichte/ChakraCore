@@ -136,9 +136,8 @@ Error:
 //  filename:       Optional output filename
 //  transferVars:   The array (map) of objects which should be transferred instead of cloned.
 //
-Var SCA::Serialize(Var function, CallInfo callInfo, ...)
+Var SCA::Serialize(Var function, CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(callInfo, args);
     HRESULT hr = S_OK;
 
     ScriptDirect pScriptDirect;
@@ -268,9 +267,8 @@ Error:
 //  data:           The data or filename to deserialize
 //  options:        Optional options object
 //
-Var SCA::Deserialize(Var function, CallInfo callInfo, ...)
+Var SCA::Deserialize(Var function, CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(callInfo, args);
     HRESULT hr = S_OK;
 
     ScriptDirect pScriptDirect;
@@ -581,9 +579,8 @@ Error:
 // lookup results: NoProperty, NotIndexable, or Unexpected VT
 //
 
-Var SCA::LookupEx(_In_ Var function, _In_ CallInfo callInfo, ...)
+Var SCA::LookupEx(_In_ Var function, _In_ CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(callInfo, args);
     return LookupHelper(ReadIndexablePropertyEx, function, callInfo, args);
 }
 
@@ -592,19 +589,16 @@ Var SCA::LookupEx(_In_ Var function, _In_ CallInfo callInfo, ...)
 // Lookup tests ReadIndexableProperty. Return the result value, or a string to represent
 // lookup results: NoProperty, NotIndexable, or Unexpected VT
 //
-Var SCA::Lookup(_In_ Var function, _In_ CallInfo callInfo, ...)
+Var SCA::Lookup(_In_ Var function, _In_ CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(callInfo, args);
     return LookupHelper(ReadIndexableProperty, function, callInfo, args);
 }
 
 //
 // DataToKey tests KeyFromStreamToVariant. Return the result value, or undefined if not a valid key.
 //
-Var SCA::DataToKey(_In_ Var function, _In_ CallInfo callInfo, ...)
+Var SCA::DataToKey(_In_ Var function, _In_ CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(callInfo, args);
-
     HRESULT hr = S_OK;
     ScriptDirect pScriptDirect;
     IfFailGo(pScriptDirect.From(function));
@@ -662,27 +656,24 @@ Error:
     return pScriptDirect.GetUndefined();
 }
 
-Var SCA::MakeInt64(Var function, CallInfo callInfo, ...)
+Var SCA::MakeInt64(Var function, CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(callInfo, args);
     return MakeInt64Common(function, callInfo, args,
         [](ScriptDirect& pScriptDirect, UINT64 value, Var* pVar) {
             return pScriptDirect->Int64ToVar((INT64)value, pVar);
     });
 }
 
-Var SCA::MakeUint64(Var function, CallInfo callInfo, ...)
+Var SCA::MakeUint64(Var function, CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(callInfo, args);
     return MakeInt64Common(function, callInfo, args,
         [](ScriptDirect& pScriptDirect, UINT64 value, Var* pVar) {
             return pScriptDirect->UInt64ToVar(value, pVar);
     });
 }
 
-Var __cdecl SCA::ImageDataConstructor(Var function, CallInfo callInfo, Var _this, ...)
+Var SCA::ImageDataConstructor(Var function, CallInfo callInfo, Var* args)
 {
-    ARGUMENTS(callInfo, args);
     HRESULT hr = S_OK;
 
     ScriptDirect pScriptDirect;

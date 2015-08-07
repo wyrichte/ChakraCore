@@ -1,0 +1,374 @@
+[
+  {
+    "evaluate": {
+      "x == 1 && y == 2": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "x == 3 && y == 4": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "x == 5 && y == 6": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "x1 == 'this is x' && y1 == 'this is y'": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "x == 1 && y == 2 && z == 3": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "x == 4 && y == 5 && z == 6": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "x == 1 && y == 10 && z == 11": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "x == 5 && y[0] == 6 && y[1] == 7 && y[2] == 8": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "item == data[i++]": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "item == data[i++]": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "item == data[i++]": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "item == data[i++]": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "x == 10 && y == undefined && z == \"this is z\"": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "x == 10": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "x == 10 && y == undefined && z == \"this is z\"": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "x == 10 && y == 10 && z == \"this is z\"": "true"
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 2516,
+        "length": 28,
+        "text": "var {x, y:[y]} = {x:1, y:[]}",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 2546,
+        "length": 29,
+        "text": "{x1, y1:[y1]} = {x1:1, y1:[]}",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 2664,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 2707,
+        "length": 3,
+        "text": "{x}",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 2712,
+        "length": 3,
+        "text": "{y}",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 2864,
+        "length": 12,
+        "text": "{x} = {x:10}",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 2881,
+        "length": 13,
+        "text": "[y = 1] = [2]",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 2903,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 3119,
+        "length": 25,
+        "text": "catch({x, y = 20, z:[z]})",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3210,
+        "length": 1,
+        "text": "x",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3404,
+        "length": 30,
+        "text": "for (var {item} of [{item:1}])",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3409,
+        "length": 10,
+        "text": "var {item}",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3446,
+        "length": 4,
+        "text": "item",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3409,
+        "length": 10,
+        "text": "var {item}",
+        "frameDescription": "Anonymous function"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3515,
+        "length": 8,
+        "text": "{x = 10}",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "x": "[Uninitialized block variable]"
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3529,
+        "length": 13,
+        "text": "[y = 1] = [2]",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "x == 10": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "x = 20": "20"
+    }
+  },
+  {
+    "evaluate": {
+      "y = 12": "Assignment to const"
+    }
+  },
+  {
+    "evaluate": {
+      "y": "[Uninitialized block variable]"
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3551,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "x==20": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "y == 2": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "x = 20": "Use before declaration"
+    }
+  },
+  {
+    "evaluate": {
+      "x ": "10"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 4069,
+      "to": 4129,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "evaluate": {
+      "m == 12": "true"
+    }
+  },
+  {
+    "evaluate": {
+      "a == 2": "true"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 4388,
+      "to": 4342,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "evaluate": {
+      "m == 12": "true"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 4605,
+      "to": 4713,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 4655,
+      "to": 4713,
+      "IsAllowed": "No"
+    }
+  },
+  {
+    "evaluate": {
+      "m == 12": "true"
+    }
+  },
+  {
+    "setnextstatement": {
+      "from": 4945,
+      "to": 4871,
+      "IsAllowed": "Yes"
+    }
+  },
+  {
+    "evaluate": {
+      "m == 12": "true"
+    }
+  }
+]

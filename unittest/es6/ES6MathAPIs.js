@@ -1,7 +1,7 @@
 // ES6 Math API extensions tests -- verifies the API shape and basic functionality
 
 if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in jc/jshost
-    this.WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+    this.WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 }
 
 // WARNING!!  As a convenience in this test suite assert.areEqual is

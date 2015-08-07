@@ -3736,4 +3736,32 @@
       <tags>fail_mutators</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>asmjsdebug.js</files>
+      <baseline>asmjsdebug.baseline</baseline>
+      <compile-flags>-asmjs -simdjs -testtrace:asmjs -targeted -dbgbaseline:asmjsdebug.js.dbg.baseline</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmjsdebug.js</files>
+      <baseline>asmjsdebug.baseline</baseline>
+      <compile-flags>-asmjs -simdjs -testtrace:asmjs -targeted -dbgbaseline:asmjsdebug.js.dbg.baseline -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmjseval.js</files>
+      <baseline>asmjseval.baseline</baseline>
+      <compile-flags>-asmjs -simdjs -testtrace:asmjs -targeted -dbgbaseline:asmjseval.js.dbg.baseline</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>destructuring-debug.js</files>
+      <compile-flags>-es6defaultargs -es6destructuring -debuglaunch -targeted -InspectMaxStringLength:100 -dbgbaseline:destructuring-debug.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators</tags>
+    </default>
+  </test>
 </regress-exe>

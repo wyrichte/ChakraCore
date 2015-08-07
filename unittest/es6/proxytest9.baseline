@@ -7,10 +7,10 @@ getown
 [object Object]
 proxy getown
 getOwnPropertyDescriptor trap for prop: a
-has trap for prop :writable
 has trap for prop :enumerable
 has trap for prop :configurable
 has trap for prop :value
+has trap for prop :writable
 has trap for prop :get
 has trap for prop :set
 plain key trap!

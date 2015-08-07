@@ -1,7 +1,7 @@
 // ES6 Species Built-In APIs tests -- verifies the shape and basic behavior of the built-in [@@species] property
 
 if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in jc/jshost
-    this.WScript.LoadScriptFile("..\\UnitTestFramework\\UnitTestFramework.js");
+    this.WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 }
 
 function checkSpeciesAccessorDescriptor(name, o, p)

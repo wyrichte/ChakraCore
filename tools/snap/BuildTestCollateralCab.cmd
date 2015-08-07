@@ -25,11 +25,11 @@ set _DestinationPath=%1
 set _JscriptRoot=%2
 set _ToolsRoot=%_JscriptRoot%\tools
 set _UnittestRoot=%_JscriptRoot%\unittest
-set _AuthorRoot=%_JscriptRoot%\lib\author
+set _CoreUnittestRoot=%_JscriptRoot%\core\test
 set _CabFilename=%3
-set _FileFilter=%_ToolsRoot%\*.* %_UnittestRoot%\*.* %_AuthorRoot%\References\*.*
+set _FileFilter=%_ToolsRoot%\*.* %_UnittestRoot%\*.* %_CoreUnittestRoot%\*.*
 
-echo cabarc.exe -r -p -P %_AuthorRoot:~3%\ -P %_JscriptRoot:~3%\ N %_DestinationPath%\%_CabFilename% %_FileFilter%
-cabarc.exe -r -p -P %_AuthorRoot:~3%\ -P %_JscriptRoot:~3%\ N %_DestinationPath%\%_CabFilename% %_FileFilter%
+echo cabarc.exe -r -p -P %_JscriptRoot:~3%\ N %_DestinationPath%\%_CabFilename% %_FileFilter%
+cabarc.exe -r -p -P %_JscriptRoot:~3%\ N %_DestinationPath%\%_CabFilename% %_FileFilter%
 
 endlocal

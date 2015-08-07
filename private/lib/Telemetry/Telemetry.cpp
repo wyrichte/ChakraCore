@@ -57,13 +57,26 @@ WCHAR *g_ProcessExclusionList[] = {
     L"jc",
     L"slate",
     L"mshtmpad",
-    L"te.processhost"
+    L"te.processhost",
+    L"jdtest",
+    L"jsglass",
+    L"loader42"
 };
+
+void __cdecl firePackageTelemetry()
+{
+    if (g_TraceLoggingClient != nullptr && !(g_TraceLoggingClient->IsPackageTelemetryFired()))
+    {
+        g_TraceLoggingClient->CreateHashAndFirePackageTelemetry();
+        g_TraceLoggingClient->ReleaseNodePackageList();
+        g_TraceLoggingClient->SetIsPackageTelemetryFired(true);
+    }
+}
 
 
 TraceLoggingClient *g_TraceLoggingClient = NULL;
 
-TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true), edgeHtmlAddress(nullptr)
+TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true), hasNodeModules(false), isPackageTelemetryFired(false), NodePackageIncludeList(nullptr), freq({ 0 }), hProv(NULL)
 {
     // Check if we're running in a process from which telemetry should
     // not be logged.  We'll default to logging telemetry if the process
@@ -86,8 +99,6 @@ TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true), edgeHtmlAdd
         }
     }
 
-    edgeHtmlAddress = GetModuleHandle(L"edgehtml.dll");
-
     SetIsHighResPerfCounterAvailable(); // Used as a telemetry point
 
     TraceLoggingRegister(g_hTraceLoggingProv);
@@ -100,7 +111,6 @@ TraceLoggingClient::~TraceLoggingClient()
 
 void TraceLoggingClient::SetIsHighResPerfCounterAvailable()
 {
-    LARGE_INTEGER freq;
     if (!QueryPerformanceFrequency(&freq))
     {
         this->isHighResAvail = false;
@@ -135,6 +145,208 @@ void TraceLoggingClient::FireChakraInitTelemetry(DWORD host, bool isJSRT)
         );
 
 }
+
+
+void TraceLoggingClient::TryLogNodePackage(Recycler* recycler, const wchar_t* packageName)
+{
+    wchar_t* name = nullptr;
+    const wchar_t* nodeModule = L"node_modules";
+    bool isNodeModule = packageName && wcswcs(packageName, nodeModule);
+    if (isNodeModule)
+    {
+        const wchar_t NODE_MODULES[] = L"node_modules\\";
+        wchar_t* startPos = wcswcs(packageName, NODE_MODULES);
+        wchar_t* curr = startPos;
+
+        // Find the last node_modules in the path
+        while (curr != nullptr)
+        {
+            curr = curr + _countof(NODE_MODULES);
+            startPos = curr - 1;
+            curr = wcswcs(curr, NODE_MODULES);
+        }
+        // now startPos is at the package name
+        wchar_t ch = L'\\';
+        wchar_t* endPos = wcschr(startPos, ch);
+        if (endPos != nullptr && endPos > startPos)
+        {
+            size_t len = (size_t)(endPos - startPos);
+            name = RecyclerNewArrayLeaf(recycler, wchar_t, len + 1);
+            js_wmemcpy_s(name, len, startPos, len);
+            name[len] = L'\0';
+        }
+        this->AddPackageName(name);
+    }
+}
+
+HCRYPTPROV TraceLoggingClient::EnsureCryptoContext()
+{
+    if (NULL == hProv)
+    {
+        if (!CryptAcquireContext(&hProv, NULL, NULL, PROV_RSA_AES, CRYPT_VERIFYCONTEXT))
+        {
+            Assert(hProv == NULL);
+            return NULL;
+        }
+    }
+    return hProv;
+}
+
+
+void TraceLoggingClient::CreateHashAndFirePackageTelemetry()
+{
+    // Fire Hashed Package Counts and Hashed Packages
+    int packageCount = 0;
+    int upto = 0;
+    wchar_t* buf = L'\0';
+    double hashTime = 0.0;
+
+    ThreadContext* threadContext = ThreadContext::GetThreadContextList();
+    if (threadContext != nullptr && this->hasNodeModules)
+    {
+        LARGE_INTEGER hiResHashStartTime = { 0 };
+        ULONGLONG hashStartTime = 0;
+        if (this->isHighResAvail)
+        {
+            QueryPerformanceCounter(&(hiResHashStartTime));
+        }
+        else
+        {
+            hashStartTime = GetTickCount64();
+        }
+        HCRYPTPROV hProv = NULL;
+        HCRYPTHASH hHash = NULL;
+        hProv = this->EnsureCryptoContext();
+        static const DWORD MaxHashLength = 128;
+        static const DWORD MaxTraceLogLength = 65536;
+        static const DWORD MaxNumberPackages = MaxTraceLogLength / MaxHashLength;
+
+        packageCount = this->NodePackageIncludeList->Count();
+        upto = packageCount < MaxNumberPackages ? packageCount : MaxNumberPackages;
+
+        buf = RecyclerNewArrayLeaf(threadContext->GetRecycler(), wchar_t, (upto * MaxHashLength) + 1);
+        uint counter = 0;
+        for (int i = 0; i < upto; i++)
+        {
+            const wchar_t* stringToHash = this->NodePackageIncludeList->GetValueAt(i);
+            DWORD strSize = wcslen(stringToHash);
+
+            if (hProv &&
+                CryptCreateHash(hProv, CALG_SHA1, 0, 0, &hHash))
+            {
+                if (!CryptHashData(hHash, reinterpret_cast<const BYTE*>(stringToHash), (strSize)*sizeof(wchar_t), 0))
+                {
+                    return;
+                }
+
+                DWORD hashLength;
+                DWORD dwSize = sizeof(hashLength);
+                if (!CryptGetHashParam(hHash, HP_HASHSIZE, reinterpret_cast<BYTE*>(&hashLength), &dwSize, 0))
+                {
+                    return;
+                }
+
+                if (hashLength > MaxHashLength)
+                {
+                    return;
+                }
+
+                BYTE* hashedData = RecyclerNewArrayLeaf(threadContext->GetRecycler(), BYTE, hashLength + 1);
+
+                if (hashedData == nullptr)
+                {
+                    return;
+                }
+
+                if (!CryptGetHashParam(hHash, HP_HASHVAL, reinterpret_cast<BYTE*>(hashedData), &hashLength, 0))
+                {
+                    return;
+                }
+
+                if (hHash != NULL)
+                {
+                    CryptDestroyHash(hHash);
+                }
+
+                for (DWORD i = 0; i < hashLength; ++i)
+                {
+                    wchar_t tmp[3];
+                    swprintf_s(tmp, L"%02X", hashedData[i]);
+                    buf[counter] = tmp[0]; buf[counter + 1] = tmp[1];
+                    counter += 2;
+                }
+
+                buf[counter] = L';';
+                counter++;
+            }
+            else
+            {
+                return;
+            }
+        }
+        buf[counter] = L'\0';
+
+        if (this->isHighResAvail)
+        {
+            LARGE_INTEGER hiResHashStopTime = { 0 };
+            QueryPerformanceCounter(&hiResHashStopTime);
+            hashTime = ((hiResHashStopTime.QuadPart - hiResHashStartTime.QuadPart)* 1000.00 / freq.QuadPart);
+        }
+        else
+        {
+            hashTime = (double)(GetTickCount64() - hashStartTime);
+        }
+    }
+    // we want to see telemetry even if package count is 0, this will give a good sense of ratio. Obvious down side is that we will get telemetry from ALL jsrt apps not just Node but we can
+    // easily filter that.
+    TraceLogChakra(
+        TL_CHAKRANODEPACK,
+        TraceLoggingUInt32(packageCount, "PackageCount"),
+        TraceLoggingUInt32(upto, "HashedPackageCount"),
+        TraceLoggingFloat64(hashTime, "HashTime"),
+        TraceLoggingWideString(buf, "PackageHash")
+        );
+    if (hProv != NULL)
+    {
+        CryptReleaseContext(hProv, 0);
+        hProv = NULL;
+    }
+}
+
+void TraceLoggingClient::InitializeNodePackageList()
+{
+    ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
+    if (threadContext != nullptr && threadContext->GetRecycler() != nullptr)
+    {
+        NodePackageIncludeList = RecyclerNew(threadContext->GetRecycler(), NodePackageSet, threadContext->GetRecycler());
+        threadContext->GetRecycler()->RootAddRef(NodePackageIncludeList);
+        this->hasNodeModules = true;
+    }
+}
+
+void TraceLoggingClient::AddPackageName(const wchar_t* packageName)
+{
+    if (this->NodePackageIncludeList == nullptr)
+    {
+        this->InitializeNodePackageList();
+    }
+
+    if (this->NodePackageIncludeList != nullptr)
+    {
+        this->NodePackageIncludeList->AddNew(packageName);
+    }
+}
+
+
+void TraceLoggingClient::ReleaseNodePackageList()
+{
+    ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
+    if (threadContext != nullptr && this->NodePackageIncludeList != nullptr)
+    {
+        threadContext->GetRecycler()->RootRelease(this->NodePackageIncludeList);
+    }
+}
+
 
 void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId, DWORD host, bool isJSRT)
 {
@@ -658,7 +870,7 @@ void TraceLoggingClient::FirePeriodicDomTelemetry(GUID activityId)
         TL_DIRECTCALLRAW,
         TraceLoggingGuid(activityId, "activityId"),
         TraceLoggingUInt64(threadContext->directCallTelemetry.GetFrequency(), "Frequency"),
-        TraceLoggingUInt64(reinterpret_cast<uint64>(edgeHtmlAddress), "TridentLoadAddress"),
+        TraceLoggingUInt64(reinterpret_cast<uint64>(threadContext->GetTridentLoadAddress()), "TridentLoadAddress"),
         TraceLoggingBinary(data, dataSize, "Data")
         );
 }

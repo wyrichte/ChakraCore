@@ -900,6 +900,19 @@ namespace JsDiag
         bool IsInRange(void* address);
     };
 
+    struct RemoteDebugContext : public RemoteData<DebugContext>
+    {
+        RemoteDebugContext(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+
+        ProbeContainer* GetProbeContainer() const { return this->ReadField<ProbeContainer*>(offsetof(DebugContext, diagProbesContainer)); }
+
+        bool IsInDebugMode() const
+        {
+            DebuggerMode mode = this->ReadField<DebuggerMode>(offsetof(DebugContext, debuggerMode));
+            return mode == DebuggerMode::Debugging;
+        }
+    };
+
     struct RemoteScriptContext : public RemoteData<ScriptContext, DynamicDataBuffer>
     {
         RemoteScriptContext(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType, DynamicDataBuffer>(reader, addr) {}
@@ -910,13 +923,18 @@ namespace JsDiag
         JavascriptLibrary* GetLibrary() const;
         ThreadContext* GetThreadContext() const;
         const PropertyRecord* GetPropertyName(Js::PropertyId propertyId) const;
-        ProbeContainer* GetProbeContainer() const { return this->GetFieldAddr<ProbeContainer>(offsetof(ScriptContext, diagProbesContainer)); }
+        ProbeContainer* GetProbeContainer() const;
         ScriptConfiguration* GetConfig() const { return this->GetFieldAddr<ScriptConfiguration>(offsetof(ScriptContext, config)); }
         DaylightTimeHelper* GetDaylightTimeHelper() const { return this->GetFieldAddr<DaylightTimeHelper>(offsetof(ScriptContext, daylightTimeHelper)); }
+        DebugContext* GetDebugContext() const { return this->ReadField<DebugContext*>(offsetof(ScriptContext, debugContext)); }
         bool IsInDebugMode() const  
         {
-            DebuggerMode mode = this->ReadField<DebuggerMode>(offsetof(ScriptContext, debuggerMode));
-            return mode == DebuggerMode::Debugging;
+            if (this->GetDebugContext() != nullptr)
+            {
+                RemoteDebugContext remoteDebugContext(m_reader, this->GetDebugContext());
+                return remoteDebugContext.IsInDebugMode();
+            }
+            return false;
         }
     private:
         bool IsNativeAddressCheckMeOnly(void* address);    // Check only current script context.

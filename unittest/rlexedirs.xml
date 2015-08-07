@@ -355,12 +355,6 @@
 </dir>
 <dir>
   <default>
-    <files>UnitTestFramework</files>
-    <tags>include_drt5</tags>
-  </default>
-</dir>
-<dir>
-  <default>
     <files>InternalProfile</files>
     <tags>include_drt2</tags>
   </default>

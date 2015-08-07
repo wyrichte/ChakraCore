@@ -1,0 +1,22 @@
+Successfully compiled asm.js code
+import func, val 8
+2
+import func, val 16
+-1
+AsmJs initialization error - AsmJs disabled due to script debugger [@ ]
+debugCallback
+import func, val 32
+1
+import func, val 64
+0
+true
+import func, val 128
+0
+debugCallback
+import func, val 256
+0
+import func, val 512
+1
+true
+import func, val 1024
+0

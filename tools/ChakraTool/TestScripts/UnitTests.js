@@ -4,7 +4,7 @@
 
 (function () {
     var rlCommand = "";
-    var ccFlags = "";
+    var ccFlags = " -bvt";
 
     var variantsConfigObject = {
         interpretedFlags: {
@@ -200,7 +200,7 @@
         }
 
         if (config.buildType === "chk") {
-            ccFlags = "-DumpOnCrash ";
+            ccFlags += " -DumpOnCrash ";
         }
         var rlModeFlag = "-" + config.rlMode;
         if (config.rlMode === "asmbase") {

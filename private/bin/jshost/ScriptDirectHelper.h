@@ -57,7 +57,7 @@ public:
     HRESULT SetItem(Var obj, int index, Var value);
 
     HRESULT AddProperty(Var obj, LPCWSTR name, Var value);
-    HRESULT AddMethod(Var obj, LPCWSTR name, void* entryPoint);
+    HRESULT AddMethod(Var obj, LPCWSTR name, ScriptMethod entryPoint);
     HRESULT HasProperty(Var obj, LPCWSTR name, BOOL* result);
 
     HRESULT StringToVar(LPCWSTR str, Var* value);

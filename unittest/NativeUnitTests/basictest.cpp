@@ -2,12 +2,12 @@
 #include "stdafx.h"
 #include "ScriptDirectUnitTests.h"
 
-Var MyObjectConstructor(Var function, CallInfo callInfo, Var _this, ...)
+Var MyObjectConstructor(Var function, CallInfo callInfo, Var* args)
 {
-    return _this;
+    return args[0];
 }
 
-Var MyCallerTest(Var function, CallInfo callInfo, Var _this, ...)
+Var MyCallerTest(Var function, CallInfo callInfo, Var* args)
 {
     IServiceProvider* serviceProvider;
     IActiveScriptDirect* scriptDirect = NULL;
@@ -643,10 +643,10 @@ static HRESULT TestIsPrimitiveType(IActiveScriptDirect* activeScriptDirect)
     return hr;
 }
 
-Var ObjectEntryPoint(Var method, CallInfo callInfo, Var _this, ...)
+Var ObjectEntryPoint(Var method, CallInfo callInfo, Var* args)
 {
     Print("we are in the object entry\n");
-    return _this;
+    return args[0];
 }
 
 static HRESULT TestCallable(IActiveScriptDirect* activeScriptDirect)
