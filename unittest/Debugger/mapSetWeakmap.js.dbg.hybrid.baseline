@@ -279,6 +279,7 @@
             },
             "constructor": {
               "__proto__": "<large string>",
+              "[Symbol.species]": "<large string>",
               "arguments": "null",
               "caller": "null",
               "length": "0",
@@ -414,6 +415,7 @@
             },
             "constructor": {
               "__proto__": "<large string>",
+              "[Symbol.species]": "<large string>",
               "arguments": "null",
               "caller": "null",
               "length": "0",
@@ -844,6 +846,7 @@
             },
             "constructor": {
               "__proto__": "<large string>",
+              "[Symbol.species]": "<large string>",
               "arguments": "null",
               "caller": "null",
               "length": "0",
@@ -969,6 +972,7 @@
             },
             "constructor": {
               "__proto__": "<large string>",
+              "[Symbol.species]": "<large string>",
               "arguments": "null",
               "caller": "null",
               "length": "0",
@@ -1366,6 +1370,7 @@
             },
             "constructor": {
               "__proto__": "<large string>",
+              "[Symbol.species]": "<large string>",
               "arguments": "null",
               "caller": "null",
               "length": "0",
@@ -1495,6 +1500,7 @@
             },
             "constructor": {
               "__proto__": "<large string>",
+              "[Symbol.species]": "<large string>",
               "arguments": "null",
               "caller": "null",
               "length": "0",

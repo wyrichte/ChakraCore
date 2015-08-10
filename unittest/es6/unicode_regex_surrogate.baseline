@@ -51,14 +51,8 @@ Passed: Case insensitive negation testing.
 ============ 3. Supplementary chars tests ============
 Type: T - Case equivalence failed for: 49, and 131	 Subtests that failed: [1,2,3,4,5,6,7,8,10,12]
 Type: T - Case equivalence failed for: 130, and 69	 Subtests that failed: [1,2,3,4,5,6,7,8,9,11]
-Type: C - Case equivalence failed for: 17F, and 73	 Subtests that failed: [1,2,3,4,5,6,7,8,9,11]
 Type: C - Case equivalence failed for: 1F1, and 1F3	 Subtests that failed: [1,2,3,4,5,6,7,8,9,10,11,12]
-Type: C - Case equivalence failed for: 345, and 3B9	 Subtests that failed: [1,2,3,4,5,6,7,8,9,10,11,12]
-Type: C - Case equivalence failed for: 3F4, and 3B8	 Subtests that failed: [1,2,3,4,5,6,7,8,9,10,11,12]
-Type: C - Case equivalence failed for: 2126, and 3C9	 Subtests that failed: [1,2,3,4,5,6,7,8,9,10,11,12]
-Type: C - Case equivalence failed for: 212A, and 6B	 Subtests that failed: [1,2,3,4,5,6,7,8,9,11]
-Type: C - Case equivalence failed for: 212B, and E5	 Subtests that failed: [1,2,3,4,5,6,7,8,9,10,11,12]
-Passed: 1048/1057
+Passed: 1054/1057
 ============ 4. Random tests ============
 Dx,D
 true

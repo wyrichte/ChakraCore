@@ -4,6 +4,8 @@
 #include "StdAfx.h"
 #ifdef EDIT_AND_CONTINUE
 
+#include "ScriptDebugDocument.h"
+
 namespace Js
 {
     SemanticChange::SemanticChangeList* SemanticChangeAnalyzer::AnalyzeSemanticChanges(EditAllocator* alloc, const ScriptDiff& diff)

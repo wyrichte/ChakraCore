@@ -11,6 +11,7 @@ typedef IDebugApplicationThread64 IDebugBitCorrectApplicationThread;
 typedef IDebugApplicationThread IDebugBitCorrectApplicationThread;
 #endif
 
+class CScriptBody;
 class CCodeContext;
 
 // Internal interface so we can safetly get the bos from a code context.

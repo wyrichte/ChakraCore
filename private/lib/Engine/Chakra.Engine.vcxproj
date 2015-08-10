@@ -34,6 +34,7 @@
         $(MSBuildThisFileDirectory)..\JsrtChakra;
         $(MSBuildThisFileDirectory)..\EnC;
         $(IntDir);
+        $(ChakraInternalIDLIntDir);
         $(ChakraManifestsIncludeDirectory);
 
         <!-- For winmddefsp.h  -->
@@ -49,9 +50,9 @@
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4510;4610</DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemGroup> 
+  <ItemGroup>
     <ClCompile Include="$(MsBuildThisFileDirectory)activescripterror.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)ActiveScriptProfilerHeapEnum.cpp" />   
+    <ClCompile Include="$(MsBuildThisFileDirectory)ActiveScriptProfilerHeapEnum.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)AttrParser.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)breakpointProbe.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)caller.cpp" />
@@ -70,11 +71,11 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)DispMemberProxyType.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)dllfunc.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)DOMProperties.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)DynamicSourceHolder.cpp" />    
+    <ClCompile Include="$(MsBuildThisFileDirectory)DynamicSourceHolder.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)EnumVariantEnumerator.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ErrorTypeHelper.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)EventSink.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalObject.cpp" />    
+    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalObject.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)guids.c">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -83,25 +84,23 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatchType.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)HostObject.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)HostObjectType.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)HostVariant.cpp" />        
+    <ClCompile Include="$(MsBuildThisFileDirectory)HostVariant.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptDispatch.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptExternalOperators.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptPixelArrayDispatch.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)javascriptThreadService.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)jsfac.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)NamedEventHandler.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)NamedItemList.cpp" />    
+    <ClCompile Include="$(MsBuildThisFileDirectory)NamedItemList.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)NativeVisualizerExtension.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild>
     </ClCompile>
-
     <ClCompile Include="$(MsBuildThisFileDirectory)ProfileDataObject.cpp" />
-   
     <ClCompile Include="$(MsBuildThisFileDirectory)proxystub.c">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)QueryContinuePoller.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)MemspectMemoryTracking.cpp" />    
+    <ClCompile Include="$(MsBuildThisFileDirectory)MemspectMemoryTracking.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)refcountedHostVariant.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)scpnode.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)scptext.cpp" />
@@ -135,17 +134,9 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="abidelegates.h" />
-    <ClInclude Include="ABIEvents.h" />
     <ClInclude Include="activescripterror.h" />
     <ClInclude Include="ActiveScriptProfilerHeapEnum.h" />
     <ClInclude Include="ad1ex.h" />
-    <ClInclude Include="ArrayAsCollection.h" />
-    <ClInclude Include="ArrayAsIterable.h" />
-    <ClInclude Include="ArrayAsIterator.h" />
-    <ClInclude Include="ArrayAsVector.h" />
-    <ClInclude Include="ArrayProjection.h" />
-    <ClInclude Include="ArrayProjectionEnumerator.h" />
     <ClInclude Include="AttrParser.h" />
     <ClInclude Include="breakpointProbe.h" />
     <ClInclude Include="builtinoperations.h" />
@@ -165,20 +156,17 @@
     <ClInclude Include="DispMemberProxy.h" />
     <ClInclude Include="dllfunc.h" />
     <ClInclude Include="DOMProperties.h" />
-    <ClInclude Include="DynamicSourceHolder.h" />    
+    <ClInclude Include="DynamicSourceHolder.h" />
     <ClInclude Include="EnumVariantEnumerator.h" />
     <ClInclude Include="ErrorTypeHelper.h" />
     <ClInclude Include="EventSink.h" />
-    <ClInclude Include="FinalizableTypedArrayContents.h" />
     <ClInclude Include="GenerateByteCodeConfig.h" />
     <ClInclude Include="guids.h" />
     <ClInclude Include="HostDispatch.h" />
     <ClInclude Include="HostDispatchEnumerator.h" />
     <ClInclude Include="HostObject.h" />
     <ClInclude Include="HostVariant.h" />
-    <ClInclude Include="IBufferProjection.h" />
     <ClInclude Include="IHTMLDOMConstructor.h" />
-    <ClInclude Include="InspectableObjectTypeOperations.h" />
     <ClInclude Include="JavascriptDispatch.h" />
     <ClInclude Include="JavascriptExternalOperators.h" />
     <ClInclude Include="javascriptpixelarraydispatch.h" />
@@ -188,30 +176,15 @@
     <ClInclude Include="jsfac.h" />
     <ClInclude Include="NamedEventHandler.h" />
     <ClInclude Include="NamedItemList.h" />
-    <ClInclude Include="NamespaceProjectionEnumerator.h" />
     <ClInclude Include="NativeVisualizerExtension.h" />
-    <ClInclude Include="ObjectAsIPropertyValue.h" />
-    <ClInclude Include="ObjectAsIReference.h" />
-    <ClInclude Include="ProjectionAsyncDebug.h" />
-    <ClInclude Include="ProjectionFastPath.h" />
-    <ClInclude Include="ProjectionMarshaler.h" />
-    <ClInclude Include="ProjectionMemoryInformation.h" />
-    <ClInclude Include="ProjectionMethodInvoker.h" />
-    <ClInclude Include="ProjectionObjectInstance.h" />
-    <ClInclude Include="ProjectionWriter.h" />
-    <ClInclude Include="PropertySet.h" />
-    <ClInclude Include="PropertySetEnumerator.h" />
     <ClInclude Include="proxystub.h" />
     <ClInclude Include="QueryContinuePoller.h" />
-    <ClInclude Include="namespaceProjection.h" />
     <ClInclude Include="ProfileDataObject.h" />
-    <ClInclude Include="ProjectionContext.h" />
-    <ClInclude Include="projectionTypeOperations.h" />
     <ClInclude Include="refcountedHostVariant.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ScriptDAC.h" />
     <ClInclude Include="DiagHook.h" />
-    <ClInclude Include="ScriptDebugDocument.h" />        
+    <ClInclude Include="ScriptDebugDocument.h" />
     <ClInclude Include="StreamHelper.h" />
     <ClInclude Include="StreamReader.h" />
     <ClInclude Include="StreamWriter.h" />
@@ -220,21 +193,18 @@
     <ClInclude Include="ScriptEngine.h" />
     <ClInclude Include="scriptsite.h" />
     <ClInclude Include="scrpting.h" />
+    <ClInclude Include="scrutil.h" />
     <ClInclude Include="siteserv.h" />
-    <ClInclude Include="SpecialProjection.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="TestHooks.h" />
     <ClInclude Include="typeinfobuilder.h" />
-    <ClInclude Include="UnknownImpl.h" />
-    <ClInclude Include="VariableArgMethodHelper.h" />
-    <ClInclude Include="VectorArray.h" />
-    <ClInclude Include="VectorArrayEnumerator.h" />
-    <ClInclude Include="ExternalWeakReferenceImpl.h" />
-    <ClInclude Include="ExternalWeakReferenceSourceImpl.h" />
     <ClInclude Include="ChakraVersion.h" />
     <ClInclude Include="var.h" />
-  </ItemGroup>  
+  </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\core\Manifests\Manifests.vcxproj">
+      <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
+    </ProjectReference>
     <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\publish\Publish.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
       <Private>true</Private>
@@ -250,6 +220,9 @@
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\InternalIDL\Chakra.InternalIDL.vcxproj">
+      <Project>{fd37f38b-cce6-4bd2-a3ad-2f93d25467f4}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

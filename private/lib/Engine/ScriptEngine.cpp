@@ -82,13 +82,13 @@ ulong ComputeGrfscrUTF8(const void * pDelimiter)
 ulong ComputeGrfscrUTF8ForSerialization(const void * pDelimiter)
 {
     ulong result = ComputeGrfscrUTF8(pDelimiter);
-    return result | fscrNoPreJit;
+    return result | fscrNoAsmJs | fscrNoPreJit;
 }
 
 ulong ComputeGrfscrUTF8ForNativeSerialization(const void * pDelimiter)
 {
     ulong result = ComputeGrfscrUTF8(pDelimiter);
-    return result | fscrNoPreJit | fscrNoDeferParse | fscrIsNativeCode;
+    return result | fscrNoAsmJs | fscrNoPreJit | fscrNoDeferParse | fscrIsNativeCode;
 }
 
 ulong ComputeGrfscrUTF8ForNativeSerializationDeserialization(const void * pDelimiter)
@@ -405,10 +405,6 @@ ScriptEngine::EnsureScriptContext()
     if (GetExperimentalFlag(SettingStore::IEVALUE_ExperimentalFeatures_ExperimentalJS))
     {
         Js::Configuration::Global.flags.EnableExperimentalFlag();
-    }
-    if (GetExperimentalFlag(SettingStore::IEVALUE_ExperimentalFeatures_Asmjs))
-    {
-        Js::Configuration::Global.flags.EnableAsmJsFlag();
     }
 #endif
 
@@ -5729,6 +5725,11 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags,
         grfscr &= ~fscrDeferFncParse;
     }
 
+    if (CONFIG_FLAG(ForceSerialized))
+    {
+        grfscr |= fscrNoAsmJs;
+    }
+
     if (dwFlags & SCRIPTTEXT_ISNONUSERCODE)
     {
         grfscr |= fscrIsLibraryCode;
@@ -8058,3 +8059,4 @@ IsOs_OneCoreUAP()
     return s_fIsOsOneCoreUAP;
 }
 #endif
+

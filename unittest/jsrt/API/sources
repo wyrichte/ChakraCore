@@ -14,7 +14,7 @@ USE_NATIVE_EH                   =   1
 C_DEFINES                       =   $(C_DEFINES) -DUNICODE -D_UNICODE -DINLINE_TEST_METHOD_MARKUP
 
 INCLUDES                        =   $(INCLUDES);                                           \
-                                    $(JSCRIPT_ROOT)\private\bin\chakra;                    \
+                                    $(JSCRIPT_ROOT)\private\lib\JsrtChakra;                \
                                     $(SDKTOOLS_INC_PATH)\WexTest\Cue;                      \
                                     ..\inc;
 

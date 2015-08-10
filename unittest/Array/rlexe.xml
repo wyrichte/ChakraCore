@@ -211,6 +211,7 @@
   <test>
     <default>
       <files>push2.js</files>
+      <compile-flags>-es6toLength</compile-flags>
       <baseline>push2.baseline</baseline>
     </default>
   </test>

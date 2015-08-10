@@ -28,16 +28,9 @@
         $(ChakraCoreRootDirectory)Lib\Parser;
         $(ChakraCoreRootDirectory)Lib\Runtime;
         $(ChakraCoreRootDirectory)Lib\Backend;
-        $(ChakraCoreRootDirectory)Lib\Jsrt;
+        $(ChakraInternalIDLIntDir);
         $(MSBuildThisFileDirectory)..\Engine;
-        $(MSBuildThisFileDirectory)..\Projection;
-        $(MSBuildThisFileDirectory)..\SCA;
-        $(MSBuildThisFileDirectory)..\EnC;
-        $(JscriptInfoIntDir);
         $(ChakraManifestsIncludeDirectory);
-
-        <!-- For winmddefsp.h  -->
-        $(PublicInternalPath)\com\inc\midlrt;
 
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>
@@ -48,21 +41,21 @@
         -->
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4510;4610</DisableSpecificWarnings>
     </ClCompile>
-  </ItemDefinitionGroup> 
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="$(MsBuildThisFileDirectory)EditTest.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEdit.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)SemanticChange.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
-    </ClCompile>   
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EditTest.h" />
     <ClInclude Include="ScriptEdit.h" />
     <ClInclude Include="SemanticChange.h" />
     <ClInclude Include="StdAfx.h" />
-  </ItemGroup>  
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\publish\Publish.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
@@ -79,6 +72,12 @@
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\InternalIDL\Chakra.InternalIDL.vcxproj">
+      <Project>{fd37f38b-cce6-4bd2-a3ad-2f93d25467f4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\core\Manifests\Manifests.vcxproj">
+      <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

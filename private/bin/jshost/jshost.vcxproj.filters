@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="jshost.def" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="JsHostScriptSite.idl" />

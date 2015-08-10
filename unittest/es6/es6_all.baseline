@@ -1,4 +1,6 @@
 FLAG ES6All = 1
+FLAG ES6 = 1 - setting child flag Simdjs = 1
+FLAG Simdjs = 1
 FLAG ES6 = 1 - setting child flag ES6Species = 1
 FLAG ES6Species = 1
 FLAG ES6 = 1 - setting child flag ES6AsyncAwait = 1

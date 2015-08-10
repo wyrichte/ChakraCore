@@ -126,7 +126,7 @@
  |  |    [Scopes] count: 1
  |  |    | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |    |  [Function name] HETest.outer
- |  |    |  [Properties] count: 3
+ |  |    |  [Properties] count: 4
  |  |    |  | 0 x: value: 12.000000
  |  |    |  | 1 y: type: String flags: (new size_approximate) optional info records (2)
  |  |    |  |    [Internal property] value: test
@@ -134,6 +134,7 @@
  |  |    |  | 2 z: type: Number flags: (new) optional info records (1)
  |  |    |  |    [Prototype] type: NumberObject flags: (new) optional info records (1)
  |  |    |  |    |  [Prototype] type: ObjectObject (seen)
+ |  |    |  | 3 inner: type: FunctionObject (seen)
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: closure_nested.js
  |  |    | 1 sourceRow: value: 18.000000
@@ -148,28 +149,30 @@
  |  |    |    [Scopes] count: 2
  |  |    |    | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |    |    |  [Function name] inner
- |  |    |    |  [Properties] count: 2
+ |  |    |    |  [Properties] count: 4
  |  |    |    |  | 0 aa: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    [Internal property] value: aa
  |  |    |    |  |    [Prototype] type: StringObject (seen)
  |  |    |    |  | 1 bb: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    [Internal property] value: bb
  |  |    |    |  |    [Prototype] type: StringObject (seen)
+ |  |    |    |  | 2 inner_a: type: FunctionObject (seen)
+ |  |    |    |  | 3 inner_b: type: FunctionObject flags: (new) optional info records (4)
+ |  |    |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |    |  |    [Function name] inner_b
+ |  |    |    |  |    [Scopes] count: 2
+ |  |    |    |  |    | scope[0]: type: Scope (seen)
+ |  |    |    |  |    | scope[1]: type: Scope (seen)
+ |  |    |    |  |    [Relationships] count: 3
+ |  |    |    |  |    | 0 sourceUrl: value: closure_nested.js
+ |  |    |    |  |    | 1 sourceRow: value: 30.000000
+ |  |    |    |  |    | 2 sourceCol: value: 23.000000
  |  |    |    | scope[1]: type: Scope (seen)
  |  |    |    [Relationships] count: 3
  |  |    |    | 0 sourceUrl: value: closure_nested.js
  |  |    |    | 1 sourceRow: value: 25.000000
  |  |    |    | 2 sourceCol: value: 23.000000
- |  |    | 1: type: FunctionObject flags: (new) optional info records (4)
- |  |    |    [Prototype] type: FunctionObject (seen)
- |  |    |    [Function name] inner_b
- |  |    |    [Scopes] count: 2
- |  |    |    | scope[0]: type: Scope (seen)
- |  |    |    | scope[1]: type: Scope (seen)
- |  |    |    [Relationships] count: 3
- |  |    |    | 0 sourceUrl: value: closure_nested.js
- |  |    |    | 1 sourceRow: value: 30.000000
- |  |    |    | 2 sourceCol: value: 23.000000
+ |  |    | 1: type: FunctionObject (seen)
 
 ==========>End Heap Dump<===============
 

@@ -6,7 +6,7 @@
     <ProjectGuid>{EA882C8D-81FC-42FE-ABD5-2666DB933EEB}</ProjectGuid>
     <RootNamespace>Chakra</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <TargetName>Chakra.SCA</TargetName>    
+    <TargetName>Chakra.SCA</TargetName>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -14,7 +14,7 @@
     <AtlVersion>30</AtlVersion>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />  
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Props" />
   <PropertyGroup>
@@ -30,10 +30,7 @@
         $(ChakraCoreRootDirectory)Lib\Backend;
         $(ChakraCoreRootDirectory)Lib\Jsrt;
         $(MSBuildThisFileDirectory)..\Engine;
-        $(MSBuildThisFileDirectory)..\Projection;
-        $(MSBuildThisFileDirectory)..\JsrtChakra;
-        $(MSBuildThisFileDirectory)..\EnC;
-        $(JscriptInfoIntDir);
+        $(MSBuildThisFileDirectory)..\Projection;          
         $(ChakraManifestsIncludeDirectory);
 
         <!-- For winmddefsp.h  -->
@@ -41,15 +38,15 @@
 
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>
-      <PrecompiledHeader>Use</PrecompiledHeader>      
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <!--
         4510: default constructor could not be generated
         4610: can never be instantiated - user defined constructor required
         -->
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4510;4610</DisableSpecificWarnings>
-    </ClCompile>  
+    </ClCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>    
+  <ItemGroup>
     <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -64,5 +61,10 @@
     <ClInclude Include="SCADeserialization.h" />
     <ClInclude Include="StdAfx.h" />
   </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />  
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\core\Manifests\Manifests.vcxproj">
+      <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

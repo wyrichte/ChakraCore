@@ -175,7 +175,3 @@ IsEntryListTail(
 #define QI_IMPL_I(intf) QI_IMPL(_uuidof(intf), intf)
 
 class ScriptSite;
-
-// TODO (yongqu): investigate if we need these two at all. 
-typedef IDispatchEx*  NameTbl;
-

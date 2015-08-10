@@ -4,6 +4,8 @@
 #include "StdAfx.h"
 #ifdef EDIT_AND_CONTINUE
 
+#include "ActiveScriptError.h"
+
 namespace Js
 {
     ScriptEdit::ScriptEdit() :
@@ -459,13 +461,14 @@ namespace Js
             
             // avoid defer parse
             grfscr &= ~fscrDeferFncParse;
+            grfscr |= fscrNoAsmJs;
 
             m_functionIdBegin = sourceContextInfo->nextLocalFunctionId; // Save begin functionId
 
             hrParser = m_parser.ParseSourceWithOffset(&m_parseTree,
                 utf8SourceInfo->GetSource(), /*offset*/0, utf8SourceInfo->GetCbLength(), /*cchOffset*/0, utf8SourceInfo->GetIsCesu8(),
                 grfscr, &m_parseException, &sourceContextInfo->nextLocalFunctionId, /*lineNumber*/0, sourceContextInfo,
-                /*functionInfo*/nullptr, /*reparse*/true, /*isAsmJsDisabled*/ true);
+                /*functionInfo*/nullptr, /*reparse*/true);
         }
 
         if (FAILED(hrParser))
@@ -942,3 +945,4 @@ namespace Js
 } // namespace Js
 
 #endif
+

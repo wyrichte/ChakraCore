@@ -114,7 +114,7 @@ static BOOL AttachProcess(HANDLE hmod)
 /****************************** Public Functions *****************************/
 
 #if _WIN32 || _WIN64
-EXTERN_C BOOL WINAPI DllMain(HINSTANCE hmod, DWORD dwReason, PVOID pvReserved)
+EXTERN_C BOOL WINAPI ChakraDllMain(HINSTANCE hmod, DWORD dwReason, PVOID pvReserved)
 {
     // Call DllMain implementation for the the proxy/stub objects for JscriptInfo.idl
     if (!JscriptInfoPrxDllMain(hmod, dwReason, pvReserved))
@@ -191,6 +191,7 @@ void DetachProcess()
     if (g_TraceLoggingClient != nullptr)
     {
         NoCheckHeapDelete(g_TraceLoggingClient);
+        g_TraceLoggingClient = nullptr;
     }
 #endif
 

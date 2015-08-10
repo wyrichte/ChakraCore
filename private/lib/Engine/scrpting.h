@@ -8,6 +8,7 @@
 #pragma once
 
 class ScriptEngine;
+class CScriptSourceDocumentText;
 
 // Beginning of statement descriptor
 struct StatementSpan

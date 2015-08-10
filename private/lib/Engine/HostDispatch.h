@@ -3,6 +3,8 @@
 //----------------------------------------------------------------------------
 #pragma once
 
+enum BuiltInOperation;
+
 // HostDispatch is used to represent IDispatch interfaces passed to us by the host,
 // including named root items. They contain all the logic required to get/set/invoke host objects.
 class HostDispatch : public Js::RecyclableObject

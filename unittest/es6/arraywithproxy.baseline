@@ -1,8 +1,10 @@
 concat test#1
 get trap: concat
+get trap: constructor
 get trap: length
 concat test#2
 get trap: concat
+get trap: constructor
 get trap: length
 has trap: 0
 get trap: 0
@@ -18,6 +20,7 @@ get trap: length
 splice test
 get trap: splice
 get trap: length
+get trap: constructor
 has trap: 0
 get trap: 0
 has trap: 1

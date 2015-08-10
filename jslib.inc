@@ -47,21 +47,30 @@ JS_LIBS_RUNTIME = \
     $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\Math\$(JS_LIBTYPE)\$(O)\chakra.runtime.Math.lib \
     $(OBJECT_JSCRIPT_DIR)\private\lib\Telemetry\$(JS_LIBTYPE)\$(O)\chakra.Telemetry.lib \
 
-JS_LIBS_WINRT = \
-    $(OBJECT_JSCRIPT_DIR)\private\lib\winrt\$(JS_LIBTYPE)\$(O)\chakra.winrt.lib \
-
 JS_LIBS_BACKEND = \
     $(OBJECT_JSCRIPT_DIR)\core\lib\backend\$(JS_LIBTYPE)\$(O)\chakra.backend.lib \
 
-JS_LIBS_JSRT = \
-    $(OBJECT_JSCRIPT_DIR)\core\lib\jsrt\$(JS_LIBTYPE)\$(O)\chakra.jsrt.lib \
 
 JS_LINK_LIBS = \
     $(JS_LIBS_COMMON) \
     $(JS_LIBS_MEMPROTECTHEAP) \
     $(JS_LIBS_PARSER) \
     $(JS_LIBS_RUNTIME) \
-    $(JS_LIBS_JSRT) \
 !ifndef EXCLUDE_BACKEND
     $(JS_LIBS_BACKEND) \
 !endif
+
+JS_LIBS_JSRT = \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\jsrt\$(JS_LIBTYPE)\$(O)\chakra.jsrt.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\jsrtchakra\$(JS_LIBTYPE)\$(O)\chakra.jsrtchakra.lib \
+
+JS_LIBS_WINRT = \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\winrt\$(JS_LIBTYPE)\$(O)\chakra.winrt.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\projection\$(JS_LIBTYPE)\$(O)\chakra.projection.lib \
+
+
+JS_LIBS_ENGINE = \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\engine\$(JS_LIBTYPE)\$(O)\chakra.engine.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\sca\$(JS_LIBTYPE)\$(O)\chakra.SCA.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\enc\$(JS_LIBTYPE)\$(O)\chakra.EnC.lib \
+

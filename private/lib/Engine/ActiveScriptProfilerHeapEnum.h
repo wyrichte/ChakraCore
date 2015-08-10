@@ -2,6 +2,11 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
+namespace Projection
+{
+    class CUnknownImpl;
+};
+
 class ActiveScriptProfilerHeapEnum sealed : public IActiveScriptProfilerHeapEnum
 {
 public:

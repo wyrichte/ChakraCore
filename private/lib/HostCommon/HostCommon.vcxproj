@@ -28,7 +28,7 @@
       <AdditionalIncludeDirectories>
         %(AdditionalIncludeDirectories);
         $(ChakraRootDirectory)\core\lib\common;
-        ..\..\bin\chakra;
+        ..\..\lib\engine;
         $(IntDir)
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>

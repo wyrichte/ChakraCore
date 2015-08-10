@@ -1,8 +1,8 @@
 TypeError: [TypedArray].prototype.set: The ArrayBuffer is detached.
 TypeError: [TypedArray].prototype.set: The ArrayBuffer is detached.
-RangeError: Invalid offset/length when creating typed array
-RangeError: Invalid offset/length when creating typed array
+TypeError: [TypedArray]: The ArrayBuffer is detached.
+TypeError: [TypedArray]: The ArrayBuffer is detached.
 TypeError: [TypedArray].prototype.set: The ArrayBuffer is detached.
 TypeError: [TypedArray].prototype.set: The ArrayBuffer is detached.
-RangeError: Invalid offset/length when creating typed array
-RangeError: Invalid offset/length when creating typed array
+TypeError: [TypedArray]: The ArrayBuffer is detached.
+TypeError: [TypedArray]: The ArrayBuffer is detached.

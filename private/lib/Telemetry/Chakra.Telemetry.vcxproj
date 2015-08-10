@@ -28,7 +28,7 @@
         $(ChakraManifestsIncludeDirectory);
         $(ManifestsInboxIncludeDirectory);
         <!-- For ChakraVersion.h -->
-        $(MSBuildThisFileDirectory)..\..\bin\Chakra;
+        $(MSBuildThisFileDirectory)..\..\lib\Engine;
         %(AdditionalIncludeDirectories);
         <!-- For telemetry\MicrosoftTelemetry.h -->
         $(MinWinPrivSdkIncPath)

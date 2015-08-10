@@ -3,7 +3,7 @@
   <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
   <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{EA882C8D-81FC-42FE-ABD5-2666DB933FEC}</ProjectGuid>
+    <ProjectGuid>{9336AC1D-5D92-4F1E-A9ED-AACB609C2082}</ProjectGuid>
     <RootNamespace>Chakra</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <TargetName>Chakra.JsrtChakra</TargetName>
@@ -31,9 +31,7 @@
         $(ChakraCoreRootDirectory)Lib\Jsrt;
         $(MSBuildThisFileDirectory)..\Engine;
         $(MSBuildThisFileDirectory)..\Projection;
-        $(MSBuildThisFileDirectory)..\SCA;
-        $(MSBuildThisFileDirectory)..\EnC;
-        $(JscriptInfoIntDir);
+        $(ChakraInternalIDLIntDir);
         $(ChakraManifestsIncludeDirectory);
 
         <!-- For winmddefsp.h  -->
@@ -50,29 +48,32 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <!-- Razzle binplace -->
-  <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true' AND '$(TargetName)'=='Chakra'">
+  <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true' AND '$(Configuration)'!='Test'">
     <PublishGenerated Include="$(MsBuildThisFileDirectory)jsrt.h">
       <DestinationFile>$(SdkIncPath)\jsrt.h</DestinationFile>
     </PublishGenerated>
   </ItemGroup>
-  <ItemGroup>  
+  <ItemGroup>
     <ClCompile Include="$(MsBuildThisFileDirectory)jsrtchakra.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtContextChakra.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtDelegateWrapper.cpp" />   
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtDelegateWrapper.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
-    </ClCompile>   
+    </ClCompile>
   </ItemGroup>
-  <ItemGroup>   
+  <ItemGroup>
     <ClInclude Include="jsrt.h" />
     <ClInclude Include="JsrtComException.h" />
     <ClInclude Include="JsrtContext.h" />
     <ClInclude Include="JsrtContextchakra.h" />
     <ClInclude Include="JsrtDelegateWrapper.h" />
-    <ClInclude Include="jsrtprivate.h" />    
+    <ClInclude Include="jsrtprivate.h" />
     <ClInclude Include="StdAfx.h" />
-  </ItemGroup>  
+  </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\core\Manifests\Manifests.vcxproj">
+      <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
+    </ProjectReference>
     <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\publish\Publish.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
       <Private>true</Private>
@@ -88,6 +89,9 @@
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\InternalIDL\Chakra.InternalIDL.vcxproj">
+      <Project>{fd37f38b-cce6-4bd2-a3ad-2f93d25467f4}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

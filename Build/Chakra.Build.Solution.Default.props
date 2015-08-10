@@ -51,7 +51,8 @@
     <ManifestsInboxIncludeDirectory Condition="'$(ManifestsInboxIncludeDirectory)'==''">$(IntDir)..\manifests-inbox</ManifestsInboxIncludeDirectory>
     <ChakraManifestsIncludeDirectory>$(IntDir)..\manifests</ChakraManifestsIncludeDirectory>
     <ChakraParserIntDir>$(IntDir)..\Chakra.Parser</ChakraParserIntDir>
-    <JscriptInfoIntDir>$(IntDir)..\Chakra</JscriptInfoIntDir>
+    <JscriptInfoIntDir>$(IntDir)..\Chakra.Engine</JscriptInfoIntDir>
+    <ChakraInternalIDLIntDir>$(IntDir)..\Chakra.InternalIDL</ChakraInternalIDLIntDir>
 
     <ChakraCommonMemoryLib>$(IntDir)..\Chakra.Common.Memory\Chakra.Common.Memory.lib</ChakraCommonMemoryLib>
 

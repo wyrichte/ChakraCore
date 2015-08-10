@@ -40,7 +40,8 @@
         $(ChakraRootDirectory)core\Lib\Runtime\Library;
         $(ChakraRootDirectory)core\Lib\Runtime\Types;
         $(ChakraRootDirectory)core\Lib\Backend;
-        $(ChakraRootDirectory)private\Bin\Chakra;
+        $(ChakraRootDirectory)private\lib\Engine;
+        $(ChakraRootDirectory)private\lib\Projection;
         $(SdkToolsIncPath)
       </AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories>

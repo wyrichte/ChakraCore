@@ -30,11 +30,11 @@
       <AdditionalIncludeDirectories>
         %(AdditionalIncludeDirectories);
         $(ChakraRootDirectory)core\lib\Common;
-        $(ChakraRootDirectory)private\bin\Chakra;
+        $(ChakraRootDirectory)private\lib\Engine;
         $(ChakraRootDirectory)private\bin\ChakraDiag;
         $(IntDir);
-        $(ChakraRootDirectory)private\lib\HostCommon;
-        $(JscriptInfoIntDir);
+        $(ChakraRootDirectory)private\lib\HostCommon;        
+        $(ChakraInternalIDLIntDir);
         $(ChakraRootDirectory)private\Lib\MemProtectHeap;
         $(ChakraRootDirectory)private\lib\SCALookup;
       </AdditionalIncludeDirectories>
@@ -182,16 +182,11 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\lib\InternalIDL\Chakra.InternalIDL.vcxproj">
+      <Project>{fd37f38b-cce6-4bd2-a3ad-2f93d25467f4}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Lib\SCALookup\Chakra.SCAlookup.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac36}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Bin\Chakra\Chakra.vcxproj">
-      <Project>{ea882c8d-81fc-42fe-abd5-2666db933fda}</Project>
-      <Private>false</Private>
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="..\..\Lib\HostCommon\HostCommon.vcxproj">
       <Project>{f2e998aa-fb27-4f65-a6f7-4142be64294f}</Project>
@@ -200,7 +195,5 @@
   <ItemGroup>
     <None Include="jshost.def" />
   </ItemGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-
 </Project>

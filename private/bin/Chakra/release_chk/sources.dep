@@ -41,7 +41,12 @@ BUILD_PASS1_CONSUMES= \
     inetcore\jscript\lib\runtime\telemetry\release|PASS1 \
     inetcore\jscript\lib\runtime\types\release|PASS1 \
     inetcore\jscript\lib\winrt\release|PASS1 \
+    inetcore\jscript\private\lib\enc\release|PASS1 \
+    inetcore\jscript\private\lib\engine\release|PASS1 \
+    inetcore\jscript\private\lib\jsrtchakra\release|PASS1 \
     inetcore\jscript\private\lib\memprotectheap\release|PASS1 \
+    inetcore\jscript\private\lib\projection\release|PASS1 \
+    inetcore\jscript\private\lib\sca\release|PASS1 \
     inetcore\jscript\private\lib\telemetry\release|PASS1 \
     inetcore\jscript\private\lib\winrt\release|PASS1 \
 

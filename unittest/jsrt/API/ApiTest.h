@@ -899,10 +899,18 @@ namespace JsrtUnitTests
             DWORD scriptSize = 0;
 
             VERIFY_IS_TRUE(JsSerializeScript(script, compiledScript, &scriptSize) == JsNoError);
-            compiledScript = new BYTE[scriptSize];
+            compiledScript = (BYTE*)VirtualAlloc(nullptr, scriptSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+            
             DWORD newScriptSize = scriptSize;
             VERIFY_IS_TRUE(JsSerializeScript(script, compiledScript, &newScriptSize) == JsNoError);
             VERIFY_IS_TRUE(newScriptSize == scriptSize);
+            
+            /*Change protection to READONLY as serialized byte code is supposed to be in READONLY region*/
+
+            DWORD oldProtect;
+            VirtualProtect(compiledScript, scriptSize, PAGE_READONLY, &oldProtect);
+            VERIFY_IS_TRUE(oldProtect == PAGE_READWRITE);
+
             VERIFY_IS_TRUE(JsRunSerializedScript(script, compiledScript, JS_SOURCE_CONTEXT_NONE, L"", &result) == JsNoError);
             VERIFY_IS_TRUE(JsGetValueType(result, &type) == JsNoError);
             VERIFY_IS_TRUE(JsBooleanToBool(result, &boolValue) == JsNoError);
@@ -924,7 +932,127 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(JsSetCurrentContext(current) == JsNoError);
             VERIFY_IS_TRUE(JsDisposeRuntime(second) == JsNoError);
 
-            delete compiledScript;
+            VirtualFree(compiledScript, 0, MEM_RELEASE);
+        }
+
+        #define BYTECODEWITHCALLBACK_METHODBODY L"function test() { return true; }"
+        typedef struct _ByteCodeCallbackTracker
+        {
+            bool loadedScript;
+            bool unloadedScript;
+            LPCWSTR script;
+        } ByteCodeCallbackTracker;
+
+        TEST_METHOD(ByteCodeWithCallbackTest)
+        {
+            LPCWSTR fn_decl = BYTECODEWITHCALLBACK_METHODBODY;
+            LPCWSTR script = BYTECODEWITHCALLBACK_METHODBODY L"; test();";
+            LPCWSTR scriptFnToString = BYTECODEWITHCALLBACK_METHODBODY L"; test.toString();";
+            JsValueRef result;
+            JsValueType type;
+            bool boolValue;
+            BYTE *compiledScript = nullptr;
+            DWORD scriptSize = 0;
+            const wchar_t *stringValue;
+            size_t stringLength;
+            ByteCodeCallbackTracker tracker = {};
+
+            JsRuntimeHandle first, second;
+            JsContextRef firstContext, secondContext, current;
+
+            VERIFY_IS_TRUE(JsCreateRuntime(attributes, NULL, &first) == JsNoError);
+            VERIFY_IS_TRUE(JsCreateContext(first, &firstContext) == JsNoError);
+            VERIFY_IS_TRUE(JsGetCurrentContext(&current) == JsNoError);
+
+            // First run the script returning a boolean.  This should not require the source code.
+            VERIFY_IS_TRUE(JsSerializeScript(script, compiledScript, &scriptSize) == JsNoError);
+            compiledScript = (BYTE*)VirtualAlloc(nullptr, scriptSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+
+            DWORD newScriptSize = scriptSize;
+            VERIFY_IS_TRUE(JsSerializeScript(script, compiledScript, &newScriptSize) == JsNoError);
+            VERIFY_IS_TRUE(newScriptSize == scriptSize);
+
+            /*Change protection to READONLY as serialized byte code is supposed to be in READONLY region*/
+
+            DWORD oldProtect;
+            VirtualProtect(compiledScript, scriptSize, PAGE_READONLY, &oldProtect);
+            VERIFY_IS_TRUE(oldProtect == PAGE_READWRITE);
+
+            tracker.script = script;
+            VERIFY_IS_TRUE(JsRunSerializedScriptWithCallback(
+                [](JsSourceContext sourceContext, const wchar_t** scriptBuffer)
+                {
+                    ((ByteCodeCallbackTracker*)sourceContext)->loadedScript = true;
+                    *scriptBuffer = ((ByteCodeCallbackTracker*)sourceContext)->script;
+                    return true;
+                },
+                    [](JsSourceContext sourceContext)
+                {
+                    // unless we can force unloaded before popping the stack we cant touch tracker.
+                    //((ByteCodeCallbackTracker*)sourceContext)->unloadedScript = true;
+                },
+                compiledScript, (JsSourceContext)&tracker, L"", &result) == JsNoError);
+
+            VERIFY_IS_FALSE(tracker.loadedScript);
+            //TODO: How to ensure this?
+            //VERIFY_IS_TRUE(tracker.unloadedScript);            
+            VERIFY_IS_TRUE(JsGetValueType(result, &type) == JsNoError);
+            VERIFY_IS_TRUE(JsBooleanToBool(result, &boolValue) == JsNoError);
+            VERIFY_IS_TRUE(boolValue);
+
+            VERIFY_IS_TRUE(JsSetCurrentContext(current) == JsNoError);
+            VERIFY_IS_TRUE(JsDisposeRuntime(first) == JsNoError);
+            
+            // Create a second runtime.
+            VERIFY_IS_TRUE(JsCreateRuntime(attributes, NULL, &second) == JsNoError);
+            VERIFY_IS_TRUE(JsCreateContext(second, &secondContext) == JsNoError);
+            VERIFY_IS_TRUE(JsSetCurrentContext(secondContext) == JsNoError);
+            
+
+            tracker.loadedScript = false;
+            tracker.unloadedScript = false;
+            VirtualFree(compiledScript, 0, MEM_RELEASE);
+            compiledScript = NULL;
+            scriptSize = 0;
+
+            // Second run the script returning function.toString().  This should require the source code.
+            VERIFY_IS_TRUE(JsSerializeScript(scriptFnToString, compiledScript, &scriptSize) == JsNoError);
+            compiledScript = (BYTE*)VirtualAlloc(nullptr, scriptSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+
+            newScriptSize = scriptSize;
+            VERIFY_IS_TRUE(JsSerializeScript(scriptFnToString, compiledScript, &newScriptSize) == JsNoError);
+            VERIFY_IS_TRUE(newScriptSize == scriptSize);
+
+            /*Change protection to READONLY as serialized byte code is supposed to be in READONLY region*/
+
+            oldProtect;
+            VirtualProtect(compiledScript, scriptSize, PAGE_READONLY, &oldProtect);
+            VERIFY_IS_TRUE(oldProtect == PAGE_READWRITE);
+            tracker.script = scriptFnToString;
+            VERIFY_IS_TRUE(JsRunSerializedScriptWithCallback(
+                [](JsSourceContext sourceContext, const wchar_t** scriptBuffer)
+                {
+                    ((ByteCodeCallbackTracker*)sourceContext)->loadedScript = true;
+                    *scriptBuffer = ((ByteCodeCallbackTracker*)sourceContext)->script;
+                    return true;
+                },
+                    [](JsSourceContext sourceContext)
+                {
+                    // unless we can force unloaded before popping the stack we cant touch tracker.
+                    //((ByteCodeCallbackTracker*)sourceContext)->unloadedScript = true;
+                },
+                compiledScript, (JsSourceContext)&tracker, L"", &result) == JsNoError);
+
+            VERIFY_IS_TRUE(tracker.loadedScript);
+            //TODO: How to ensure this?
+            //VERIFY_IS_TRUE(tracker.unloadedScript);
+            VERIFY_IS_TRUE(JsGetValueType(result, &type) == JsNoError);
+            VERIFY_IS_TRUE(JsStringToPointer(result, &stringValue, &stringLength) == JsNoError);
+            VERIFY_IS_TRUE(wcscmp(fn_decl, stringValue) == 0);
+
+            VERIFY_IS_TRUE(JsSetCurrentContext(current) == JsNoError);
+            VERIFY_IS_TRUE(JsDisposeRuntime(second) == JsNoError);
+            VirtualFree(compiledScript, 0, MEM_RELEASE);
         }
 
         TEST_METHOD(ContextCleanupTest)

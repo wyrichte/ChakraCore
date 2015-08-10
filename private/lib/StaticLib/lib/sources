@@ -9,8 +9,6 @@ INCLUDES= \
    ..; \
    $(COREINCLUDES); \
    $(JSCRIPT_ROOT)\published; \
-   $(JSCRIPT_ROOT)\lib\author; \
-   $(JSCRIPT_ROOT)\lib\author\lib; \
    $(SDK_LIB_PATH); \
    $(SDK_INC_PATH); \
    $(SDK_INC_PATH)\atl30; \
@@ -19,9 +17,7 @@ INCLUDES= \
    $(PROJECT_OBJ_ROOT)\manifests\inbox\$(O); \
    $(COM_INC_PATH)\midlrt; \
 
-USER_INCLUDES=..\..\..\bin\Chakra; \
-        $(OBJ_PATH)\..\..\lib\author\$(O); \
-        $(OBJ_PATH)\..\..\lib\author\lib\$(O); \
+USER_INCLUDES=..\..\..\lib\Engine
 
 SOURCES= \
     ..\jsstaticlibrary.cpp \

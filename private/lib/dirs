@@ -1,5 +1,11 @@
 DIRS = \
+    EnC \
+    Engine \
     GuidParser \
+    InternalIDL \
+    JsrtChakra \
+    Projection \
+    SCA \
     SCALookup  \
     MemProtectHeap \
     StaticLib  \

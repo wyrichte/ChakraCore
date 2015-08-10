@@ -1,4 +1,117 @@
-!include ..\sources.inc
+!include $(PROJECT_ROOT)\platform.inc
+!include $(JSCRIPT_ROOT)\jslib.inc
+
+USE_NOTHROW_NEW=1
+BUILD_FOR_CORESYSTEM=1
+USE_DEFAULT_WIN32_LIBS=0
+USE_UMBRELLA_LIBS=1
+USE_64BIT_LINKER=1
+LINK_TIME_CODE_GENERATION=1
+
+!if !$(ARM64)
+LINKER_FLAGS=$(LINKER_FLAGS) -d2:-pspeed1
+!endif
+
+USER_INCLUDES=$(JS_LIBS_PARSER_INC);$(OBJ_PATH)\..\..\..\dll\retail\$(O)
+
+C_DEFINES =$(C_DEFINES) -DWINNT -DUNICODE -D_UNICODE
+
+DLLDEF_OBJECTS=$(DLLDEF_OBJECTS) \
+    $(JS_LIBS_MEMPROTECTHEAP) \
+    $(JS_LIBS_JSRT) \
+    $(JS_LIBS_ENGINE) \
+
+MUI_DRV=1
+
+INCLUDES= \
+    $(INCLUDES) \
+    $(COREINCLUDES); \
+    $(SDK_LIB_PATH); \
+    $(SDK_INC_PATH); \
+    $(SDK_INC_PATH)\atl30; \
+    $(COM_INC_PATH); \
+    $(COM_INC_PATH)\winrt; \
+    $(PROJECT_ROOT)\lib\inc; \
+    $(PROJECT_OBJ_ROOT)\manifests\inbox\$(O); \
+    $(COM_INC_PATH)\midlrt; \
+    $(PROJECT_ROOT)\jscript\core\lib\jsrt; \
+    $(PROJECT_OBJ_ROOT)\jscript\manifests\$(O); \
+    ..\; \
+
+EDIT_AND_CONTINUE_SOURCES = \
+        ..\EditTest.cpp \
+        ..\ScriptEdit.cpp \
+        ..\SemanticChange.cpp \
+
+
+# Dependent Libraries
+#   iedevtools_host_iel1.lib:
+#       LoadLatestPDM
+#       ShouldUseLocalPDM
+#
+#   IESettings*, iertutilp.lib
+#       SettingStore
+#
+#   CommonUtilityLibrary.lib:
+#       _DoNotUseDirectly_CULprintf
+#
+#   PathCchApis.lib: (to avoid loading api-ms-win-core-path-l1-1-0.dll)
+#       PathCchCombine  (used in iedevtools_host_iel1.lib)
+#       PatthCchAppend  (used in iedevtools_host_iel1.lib)
+
+LINKLIBS= \
+    $(JS_LIBS_ENGINE) \
+    $(JS_LIBS_JSRT) \
+    $(JS_LIBS_WINRT) \
+    $(JS_LINK_LIBS) \
+    $(INETCORE_LIB_PATH)\iertutilp.lib \
+    $(INETCORE_LIB_PATH)\IESettingsApi.lib \
+    $(INETCORE_LIB_PATH)\IESettingsId.lib \
+    $(MINCORE_PRIV_SDK_LIB_PATH)\pathcchapis.lib    \
+    $(OBJECT_INETCORE_DIR)\lib\devtb\dtbhost\$(O)\iedevtools_host_iel1.lib \
+    $(OBJECT_INETCORE_DIR)\lib\ScriptProjectionHost\iel3_edge\$(O)\ScriptProjectionHost_Edge_iel3.lib \
+    $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib \
+
+TARGETLIBS= \
+    $(BASE_LIB_PATH)\AppModel\Common\AppModel.Common.lib \
+    $(MINCORE_PRIV_SDK_LIB_PATH)\1.3\ext-ms-win-com-ole32-l1.lib \
+    $(MINCORE_PRIV_SDK_LIB_VPATH)\ext-ms-win-rometadata-dispenser-l1.lib \
+    $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \
+    $(MINCORE_SDK_LIB_PATH)\mincore_fw.lib    \
+    $(MINCORE_SDK_LIB_VPATH)\api-ms-win-core-winrt-l1.lib \
+    $(MINCORE_SDK_LIB_VPATH)\api-ms-win-ro-typeresolution-l1.lib \
+    $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
+    $(SDK_LIB_PATH)\muiload.lib \
+    $(SDK_LIB_PATH)\ole32.lib \
+    $(SDK_LIB_PATH)\Uuid.lib \
+!if (!$(FREEBUILD))
+    $(MINCORE_PRIV_SDK_LIB_VPATH)\ext-ms-win-ntuser-dialogbox-l1.lib \
+    $(SDK_LIB_PATH)\dbghelp.lib \
+!endif
+!IF (!$(FREEBUILD) || defined(FRETEST) || defined(NTTESTENV)) && "$(TARGET_DIRECTORY)" != "arm" && "$(TARGET_DIRECTORY)" != "arm64"
+    ..\..\..\tools\external\lib\$(TARGET_DIRECTORY)\jitprofiling.lib \
+!ENDIF
+
+
+# Delay load
+DELAYLOAD = \
+    oleaut32.dll; \
+    ole32.dll; \
+    cryptsp.dll; \
+    crypt32.dll; \
+!if "$(JS_LANGUAGE_SERVICE)" != "1"
+    api-ms-win-core-winrt-l1; \
+    api-ms-win-core-com-l1-1-0.dll; \
+    api-ms-win-ro-typeresolution-l1; \
+    ext-ms-win-rometadata-dispenser-l1-1-0.dll; \
+!IF (!$(FREEBUILD))
+    ext-ms-win-ntuser-dialogbox-l1-1-0.dll; \
+!ENDIF
+!endif
+
+ALLOW_NT_STYLE_DLOAD_ERROR_HANDLER=1
+DLOAD_ERROR_HANDLER=kernelbase.dll
+# End delay load
 
 TARGETNAME=chakra
 TARGET_DESTINATION=retail
@@ -10,14 +123,10 @@ DLLDEF=$(OBJ_PATH)\$(O)\Chakra.def
 _NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WINTHRESHOLD)
 
 SOURCES = \
-    $(SOURCES) \
-    $(NON_LANGUAGE_SERVICE_SOURCES) \
     ..\chakra.rc \
+    ..\ChakraDllFunc.cpp 
 
 RESOURCE_FILE=..\chakra.rc
-
-PASS0_PUBLISH= \
-    {..\jsrt.h=$(SDK_INC_PATH)\jsrt.h} \
 
 PASS1_PUBLISH=\
     {$(OBJ_PATH)\$(O)\chakra.lib=$(SDK_LIB_PATH)\chakrart.lib}

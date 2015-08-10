@@ -105,7 +105,7 @@ var tests = [
        {
             var a = [1,2,3]; 
             var b = [4.4,5.5,6.6];
-            var c = [Object, {}, undefined, null, Math.sin];
+            var c = [Object, {}, undefined, Math.sin];
             for(var i = 0; i < c.length;i++)
             {
                 a['constructor'] = c[i]; 

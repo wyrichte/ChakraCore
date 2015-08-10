@@ -24,6 +24,7 @@
 #if !defined(USED_IN_STATIC_LIB)
 #include <guids.h>
 #endif
+#include "ChakraInternalInterface.h"
 #include "jscriptinfo.h"
 #include "DynamicSourceHolder.h"
 #include "jscriptdllcommon.h"
@@ -40,7 +41,7 @@
 #include "hostdispatchenumerator.h"
 #include "dispmemberproxy.h"
 #include "javascriptdispatch.h"
-#include "..\..\lib\staticlib\base\MockExternalObject.h"
+#include "..\staticlib\base\MockExternalObject.h"
 #include "CustomExternalType.h"
 #include "JavascriptExternalOperators.h"
 #include "DefaultScriptOperations.h"
@@ -106,7 +107,7 @@
 #include "ComObjectBase.h"
 #include "ScriptDAC.h"
 #include "DiagHook.h"
-#include "..\..\lib\staticlib\base\scriptenginebase.h"
+#include "..\staticlib\base\scriptenginebase.h"
 #include "ScriptEngine.h"
 #include "JavascriptThreadService.h"
 #if !defined(USED_IN_STATIC_LIB)

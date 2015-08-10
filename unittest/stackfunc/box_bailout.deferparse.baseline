@@ -9,6 +9,10 @@ HasFuncDecl: v375952
 HasFuncDecl: v375957
 HasMaybeEscapedUse: bar0
 HasMaybeEscapedNestedFunc (MaybeEscapedUseFuncDecl): test0 (function  (#1.2), #3)
+HasFuncDecl: bar0
+RestoreHasFuncAssignment: bar0
+HasFuncDecl: v375952
+HasFuncDecl: v375957
 DoStackNestedFunc: Anonymous function (function  (#1.4), #6)
 HasFuncDecl: escape
 HasFuncDecl: bar0

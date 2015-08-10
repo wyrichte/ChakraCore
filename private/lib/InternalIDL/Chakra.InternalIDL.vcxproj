@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\..\Build\Chakra.Build.Paths.props"/>
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
+  <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{FD37F38B-CCE6-4BD2-A3AD-2F93D25467F4}</ProjectGuid>
+    <RootNamespace>Chakra</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <TargetName>Chakra.InternalIDL</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Props" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Midl Include="$(MsBuildThisFileDirectory)ChakraInternalInterface.idl">
+      <AdditionalIncludeDirectories>$(ChakraRootDirectory)publish;$(PublicInternalPath)\InetCore\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <!-- Targeting NT60 so we don't need to link with ole32 for ObjectStublessClient* -->
+      <MidlTarget Condition="'$(BuildingWithBuildExe)'=='true'">$(MidlTargetVista)</MidlTarget>
+      <AdditionalOptions Condition="'$(BuildingWithBuildExe)'!='true'">%(AdditionalOptions) /target NT60</AdditionalOptions>
+    </Midl>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

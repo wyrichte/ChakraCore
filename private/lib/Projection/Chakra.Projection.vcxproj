@@ -6,7 +6,7 @@
     <ProjectGuid>{EA882C8D-81FC-42FE-ABD5-2666DB933FDB}</ProjectGuid>
     <RootNamespace>Chakra</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <TargetName>Chakra.Projection</TargetName>    
+    <TargetName>Chakra.Projection</TargetName>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -14,7 +14,7 @@
     <AtlVersion>30</AtlVersion>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />  
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
@@ -31,13 +31,10 @@
         $(ChakraCoreRootDirectory)Lib\Common;
         $(ChakraCoreRootDirectory)Lib\Parser;
         $(ChakraCoreRootDirectory)Lib\Runtime;
-        $(ChakraCoreRootDirectory)Lib\Backend;
-        $(ChakraCoreRootDirectory)Lib\Jsrt;
-        $(MSBuildThisFileDirectory)..\Engine;
-        $(MSBuildThisFileDirectory)..\SCA;
-        $(MSBuildThisFileDirectory)..\JsrtChakra;
+        $(ChakraCoreRootDirectory)Lib\Backend;        
+        $(MSBuildThisFileDirectory)..\Engine;        
         $(MSBuildThisFileDirectory)..\EnC;
-        $(JscriptInfoIntDir);
+        $(ChakraInternalIDLIntDir);
         $(ChakraManifestsIncludeDirectory);
 
         <!-- For winmddefsp.h  -->
@@ -48,19 +45,19 @@
 
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>
-      <PrecompiledHeader>Use</PrecompiledHeader>      
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <!--
         4510: default constructor could not be generated
         4610: can never be instantiated - user defined constructor required
         -->
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4510;4610</DisableSpecificWarnings>
-    </ClCompile>  
+    </ClCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>    
+  <ItemGroup>
     <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="$(MsBuildThisFileDirectory)abidelegates.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ABIDelegates.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ABIEvents.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsCollection.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ArrayAsIterable.cpp" />
@@ -73,7 +70,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)FinalizableTypedArrayContents.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)IBufferProjection.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)InspectableObjectTypeOperations.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)namespaceProjection.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)NamespaceProjection.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)NamespaceProjectionEnumerator.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ObjectAsIPropertyValue.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ObjectAsIReference.cpp" />
@@ -85,9 +82,9 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionObjectInstance.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionWriter.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)PropertySet.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)PropertySetEnumerator.cpp" />    
+    <ClCompile Include="$(MsBuildThisFileDirectory)PropertySetEnumerator.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionContext.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)projectionTypeOperations.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionTypeOperations.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)UnknownImpl.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)VariableArgMethodHelper.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)VectorArray.cpp" />
@@ -122,7 +119,7 @@
     <ARMASM Include="$(MsBuildThisFileDirectory)arm64\UnknownImplHelper.asm">
       <ExcludedFromBuild Condition="'$(Platform)'!='Arm64'">true</ExcludedFromBuild>
     </ARMASM>
-  </ItemGroup>  
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arm\CallingConvention.h">
       <ExcludedFromBuild Condition="'$(Platform)'!='ARM'">true</ExcludedFromBuild>
@@ -130,7 +127,48 @@
     <ClInclude Include="arm64\CallingConvention.h">
       <ExcludedFromBuild Condition="'$(Platform)'!='ARM64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="ABIDelegates.h" />
+    <ClInclude Include="ABIEvents.h" />
+    <ClInclude Include="ArrayAsCollection.h" />
+    <ClInclude Include="ArrayAsIterable.h" />
+    <ClInclude Include="ArrayAsIterator.h" />
+    <ClInclude Include="ArrayAsVector.h" />
+    <ClInclude Include="ArrayProjection.h" />
+    <ClInclude Include="ArrayProjectionEnumerator.h" />
+    <ClInclude Include="ExternalWeakReferenceImpl.h" />
+    <ClInclude Include="ExternalWeakReferenceSourceImpl.h" />
+    <ClInclude Include="FinalizableTypedArrayContents.h" />
+    <ClInclude Include="IBufferProjection.h" />
+    <ClInclude Include="InspectableObjectTypeOperations.h" />
+    <ClInclude Include="NamespaceProjection.h" />
+    <ClInclude Include="NamespaceProjectionEnumerator.h" />
+    <ClInclude Include="ObjectAsIPropertyValue.h" />
+    <ClInclude Include="ObjectAsIReference.h" />
+    <ClInclude Include="ProjectionAsyncDebug.h" />
+    <ClInclude Include="ProjectionContext.h" />
+    <ClInclude Include="ProjectionFastPath.h" />
+    <ClInclude Include="ProjectionMarshaler.h" />
+    <ClInclude Include="ProjectionMemoryInformation.h" />
+    <ClInclude Include="ProjectionMethodInvoker.h" />
+    <ClInclude Include="ProjectionObjectInstance.h" />
+    <ClInclude Include="ProjectionTypeOperations.h" />
+    <ClInclude Include="ProjectionWriter.h" />
+    <ClInclude Include="PropertySet.h" />
+    <ClInclude Include="PropertySetEnumerator.h" />
+    <ClInclude Include="SpecialProjection.h" />
     <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="UnknownImpl.h" />
+    <ClInclude Include="VariableArgMethodHelper.h" />
+    <ClInclude Include="VectorArray.h" />
+    <ClInclude Include="VectorArrayEnumerator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\core\Manifests\Manifests.vcxproj">
+      <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\InternalIDL\Chakra.InternalIDL.vcxproj">
+      <Project>{fd37f38b-cce6-4bd2-a3ad-2f93d25467f4}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

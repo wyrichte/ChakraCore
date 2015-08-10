@@ -43,7 +43,9 @@ namespace JsrtUnitTests
                 VERIFY_IS_TRUE(JsSetCurrentContext(context) == JsNoError);
 
                 // Invoke the script
-                VERIFY_IS_TRUE(JsRunScript(script, JS_SOURCE_CONTEXT_NONE, L"", nullptr) == JsErrorOutOfMemory);
+                VERIFY_IS_TRUE(JsRunScript(script, JS_SOURCE_CONTEXT_NONE, L"", nullptr) == JsErrorScriptException);
+                ValidateOOMException();
+               
 
                 VERIFY_IS_TRUE(JsGetRuntimeMemoryLimit(runtime, &memoryLimit) == JsNoError);
                 VERIFY_IS_TRUE(memoryLimit == MemoryLimit);
@@ -55,7 +57,6 @@ namespace JsrtUnitTests
                     VERIFY_IS_TRUE(JsSetRuntimeMemoryLimit(runtime, 0xffffffff) == JsNoError);
                     VERIFY_IS_TRUE(JsRunScript(script, JS_SOURCE_CONTEXT_NONE, L"", nullptr) == JsNoError);
                 }
-
 
                 // Destroy the runtime
                 VERIFY_IS_TRUE(JsSetCurrentContext(JS_INVALID_REFERENCE) == JsNoError);
@@ -86,7 +87,8 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(JsSetCurrentContext(context) == JsNoError);
 
             // Invoke the script
-            VERIFY_IS_TRUE(JsRunScript(script, JS_SOURCE_CONTEXT_NONE, L"", nullptr) == JsErrorOutOfMemory);
+            VERIFY_IS_TRUE(JsRunScript(script, JS_SOURCE_CONTEXT_NONE, L"", nullptr) == JsErrorScriptException);
+            ValidateOOMException();
 
             VERIFY_IS_TRUE(JsGetRuntimeMemoryUsage(runtime, &memoryUsage) == JsNoError);
             VERIFY_IS_TRUE(memoryUsage <= MemoryLimit);
@@ -94,6 +96,30 @@ namespace JsrtUnitTests
             // Destroy the runtime
             VERIFY_IS_TRUE(JsSetCurrentContext(JS_INVALID_REFERENCE) == JsNoError);
             VERIFY_IS_TRUE(JsDisposeRuntime(runtime) == JsNoError);
+        }
+
+        void ValidateOOMException()
+        {
+            JsValueRef exception;
+            JsErrorCode errorCode = JsGetAndClearException(&exception);
+            if (errorCode == JsNoError)
+            {
+                JsPropertyIdRef property;
+                JsValueRef value;
+                LPCWSTR str;
+                size_t length;
+
+                VERIFY_IS_TRUE(JsGetPropertyIdFromName(L"message", &property) == JsNoError);
+                VERIFY_IS_TRUE(JsGetProperty(exception, property, &value) == JsNoError);
+                VERIFY_IS_TRUE(JsStringToPointer(value, &str, &length) == JsNoError);
+                VERIFY_ARE_EQUAL(String(L"Out of memory"), str);
+            }
+            else
+            {
+                // If we don't have enough memory to create error object, then GetAndClearException might 
+                // fail and return ErrorInvalidArgument. Check if we don't get any other error code.
+                VERIFY_IS_TRUE(errorCode == JsErrorInvalidArgument);
+            }
         }
 
         TEST_METHOD(NegativeTest)

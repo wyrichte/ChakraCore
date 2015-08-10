@@ -40,6 +40,19 @@
   </test>
   <test>
     <default>
+      <files>boundBug3837520.js</files>
+      <compile-flags>-es6generators -es6classes -args summary -endargs</compile-flags>
+      <tags>BugFix</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>es6toLength.js</files>
+      <compile-flags>-es6toLength -es6isconcatspreadable -args summary -endargs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>toPrimitiveCrossScriptTestCase.js</files>
       <compile-flags>-es6toprimitive</compile-flags>
     </default>
@@ -1045,6 +1058,12 @@
     <default>
       <files>proxybug2.js</files>
       <tags>exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>regex-case-folding.js</files>
+      <compile-flags>-version:6 -ES6RegexChanges -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>

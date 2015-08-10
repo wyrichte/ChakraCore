@@ -15,6 +15,16 @@ interface ITracker: public IDispatchEx
     STDMETHOD(GetTrackingAlias)   (VARIANT ** ppvar) = 0;
 };
 
+// 0x8f88fd19, 0x5d42, 0x477b, {0xbd, 0x45, 0xf6, 0xa4, 0xa9, 0x77, 0xed, 0x05}
+interface ITrackingService : public IUnknown
+{
+public:
+    STDMETHOD(RegisterTrackingClient) (ITracker* pTracker) = 0;
+    STDMETHOD(UnregisterTrackingClient) (ITracker* pTracker) = 0;
+    STDMETHOD(EnumerateTrackingClient) (void* pv, IUnknown* punk, BOOL fTracker) = 0;
+    STDMETHOD(IsTrackedObject) (IUnknown* pUnk, IDispatchEx** ppDispTracked, BOOL* pfTracker) = 0;
+};
+
 class JavascriptThreadService sealed : public IActiveScriptGarbageCollector,
                    public IActiveScriptDirectGarbageCollector,
                    public ITrackingService,

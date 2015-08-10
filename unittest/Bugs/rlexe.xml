@@ -14,6 +14,13 @@
   </test>
   <test>
     <default>
+      <files>withnonativeApplyOptimizationBug3433559.js</files>
+      <compile-flags>-nonative</compile-flags>
+      <tags>BugFix</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>Win8_486977_BranchStrictEqual.js</files>
       <baseline>Win8_486977_BranchStrictEqual.baseline</baseline>
     </default>
@@ -230,6 +237,14 @@
     <default>
       <files>OS_3797688.js</files>
       <compile-flags>-loopinterpretcount:3 -bgjit- -maxsimplejitruncount:2 -maxinterpretcount:2 -forceserialized</compile-flags>
+      <tags>BugFix</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>OS_3797688_2.js</files>
+      <compile-flags>-MaxinterpretCount:1 -MaxSimpleJITRunCount:1 -force:PolymorphicInlineCache -force:Rejit -force:ObjTypeSpec -force:Cse -bgjit- -loopinterpretcount:3 -bgjit- -loopinterpretcount:2 -forceSerialized</compile-flags>
+      <baseline>OS_3797688_2.baseline</baseline>
       <tags>BugFix</tags>
     </default>
   </test>

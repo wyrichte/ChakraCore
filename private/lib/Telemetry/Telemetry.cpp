@@ -344,6 +344,7 @@ void TraceLoggingClient::ReleaseNodePackageList()
     if (threadContext != nullptr && this->NodePackageIncludeList != nullptr)
     {
         threadContext->GetRecycler()->RootRelease(this->NodePackageIncludeList);
+        this->NodePackageIncludeList = nullptr;
     }
 }
 
