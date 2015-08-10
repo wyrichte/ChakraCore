@@ -570,7 +570,7 @@
   <test>
     <default>
       <files>ES6_intl_simple_attach.js</files>
-      <compile-flags>-targeted -dbgbaseline:ES6_intl_simple_attach.js.dbg.baseline -Intl</compile-flags>
+      <compile-flags>-targeted -InspectMaxStringLength:33 -dbgbaseline:ES6_intl_simple_attach.js.dbg.baseline -Intl</compile-flags>
       <baseline>ES6_intl_simple_attach.js.baseline</baseline>
       <tags>fail_mutators,exclude_winglob</tags>
     </default>

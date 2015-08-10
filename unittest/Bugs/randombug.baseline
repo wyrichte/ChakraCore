@@ -111,7 +111,7 @@ undefined
 25
 Passed
 Test case 46
-name,caller,arguments,length
+length,name,caller,arguments
 Passed
 Test case 47
 \n in label accepted

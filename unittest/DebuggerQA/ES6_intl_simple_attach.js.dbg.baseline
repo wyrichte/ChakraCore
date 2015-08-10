@@ -51,7 +51,8 @@
               "__proto__": "<large string>",
               "arguments": "<large string>",
               "caller": "<large string>",
-              "length": "0"
+              "length": "0",
+              "name": "resolvedOptions"
             }
           },
           "__proto__": {
@@ -99,7 +100,8 @@
               "__proto__": "<large string>",
               "arguments": "<large string>",
               "caller": "<large string>",
-              "length": "0"
+              "length": "0",
+              "name": "resolvedOptions"
             }
           },
           "__proto__": {
@@ -134,7 +136,7 @@
               "arguments": "<large string>",
               "caller": "<large string>",
               "length": "0",
-              "name": "<large string>",
+              "name": "DateTimeFormat",
               "prototype": "{...}"
             },
             "format": {
@@ -148,7 +150,8 @@
               "__proto__": "<large string>",
               "arguments": "<large string>",
               "caller": "<large string>",
-              "length": "0"
+              "length": "0",
+              "name": "resolvedOptions"
             }
           },
           "__proto__": {

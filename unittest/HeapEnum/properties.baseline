@@ -197,9 +197,10 @@
  |  | 9 CtorFunctionNewProto: type: FunctionObject flags: (new) optional info records (4)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] HETest.CtorFunctionNewProto
- |  |    [Properties] count: 2
+ |  |    [Properties] count: 3
  |  |    | 0 prototype: type: ObjectObject (seen)
- |  |    | 1 name: type: String (seen)
+ |  |    | 1 length: value: 0.000000
+ |  |    | 2 name: type: String (seen)
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: properties.js
  |  |    | 1 sourceRow: value: 52.000000
@@ -213,12 +214,13 @@
  |  | 11 CtorFunctionSameProto: type: FunctionObject flags: (new) optional info records (4)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] HETest.CtorFunctionSameProto
- |  |    [Properties] count: 2
+ |  |    [Properties] count: 3
  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
  |  |    |    [Prototype] type: ObjectObject (seen)
  |  |    |    [Properties] count: 1
  |  |    |    | 0 constructor: type: FunctionObject (seen)
- |  |    | 1 name: type: String (seen)
+ |  |    | 1 length: value: 0.000000
+ |  |    | 2 name: type: String (seen)
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: properties.js
  |  |    | 1 sourceRow: value: 55.000000

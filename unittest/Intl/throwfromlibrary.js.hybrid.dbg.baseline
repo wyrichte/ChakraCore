@@ -20,13 +20,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30152,
+        "start": 30167,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 34963,
+        "start": 34978,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"

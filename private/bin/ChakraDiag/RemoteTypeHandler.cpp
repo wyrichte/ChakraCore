@@ -332,6 +332,7 @@ namespace JsDiag
 
     template class RemoteSimpleTypeHandler<1>;
     template class RemoteSimpleTypeHandler<2>;
+    template class RemoteSimpleTypeHandler<3>;
 
     template <class T>
     void RemotePathTypeHandlerBase<T>::EnumProperties(IPropertyListener* listener, bool requireEnumerable)
