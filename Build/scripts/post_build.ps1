@@ -14,7 +14,7 @@ if (Test-Path Env:\TF_BUILD_SOURCEGETVERSION)
     Push-Location $sourcesDir
 
     if ((Test-Path -Path $coreDir)) {
-        Remove-Item -Recurse -Confirm $coreDir
+        Get-ChildItem $coreDir -Recurse | Remove-Item -Recurse -Force
         Write-Host "Cleaned up '$core' repo"
     }
 
