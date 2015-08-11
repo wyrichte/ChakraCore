@@ -55,7 +55,12 @@ if (Test-Path Env:\TF_BUILD_SOURCEGETVERSION)
         Pop-Location
     } else {
         Write-Host "Cloning master branch"
-        iex $cloneCommand
+        $output = iex $cloneCommand
+        if ($LastExitCode -ne 0) {
+            Write-Host "Clone failed with following output:`n$output"
+        } else {
+            Write-Host "Cloning core repo succeeded"
+        }
     }
 
     if ($coreHash -ne $null) {
