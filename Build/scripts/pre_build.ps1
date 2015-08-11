@@ -43,15 +43,15 @@ if (Test-Path Env:\TF_BUILD_SOURCEGETVERSION)
     # machine itself. If the token expires, we need to log back onto the
     # machine and re-enter it to update the cache
     $coreRepoUrl = "mshttps://devdiv.visualstudio.com/DefaultCollection/DevDiv/_git/ChakraCore"
-    $cloneCommand = "$gitExe clone $coreRepoUrl core"
+    $cloneCommand = "$gitExe clone $coreRepoUrl core 2>&1"
 
     $coreRepoPath = Join-Path -Path $sourcesDir -ChildPath "core"
     if (Test-Path ($coreRepoPath)) {
         Write-Host "Pulling master branch"
         Push-Location $coreRepoPath
-        iex "$gitExe checkout master"
-        iex "$gitExe reset --hard"
-        iex "$gitExe pull"
+        iex "$gitExe checkout master 2>&1"
+        iex "$gitExe reset --hard 2>&1"
+        iex "$gitExe pull 2>&1"
         Pop-Location
     } else {
         Write-Host "Cloning master branch"
@@ -66,7 +66,7 @@ if (Test-Path Env:\TF_BUILD_SOURCEGETVERSION)
     if ($coreHash -ne $null) {
         Write-Host "Syncing to $coreHash"
         Push-Location $coreRepoPath
-        iex "$gitExe checkout $coreHash"
+        iex "$gitExe checkout $coreHash 2>&1"
         Pop-Location
     } else {
         Write-Host "Note: No core hash specified"
