@@ -1,11 +1,15 @@
 # 
-# Post-Build script
+# Pre-build script
 #
 # This script is fairly simple. It checks if it's running
 # in a VSO. If it is, it uses the VSO environment variables
 # to figure out the commit that triggered the build, and if
 # such a commit exists, it saves it's description to the build
-# output to make it easy to inspect builds.
+# output to make it easy to inspect builds. This will also 
+# clone the core repository if it doesn't exist, or sync it
+# if it does. If the commit description has a core commit 
+# referenced in it, it will sync the core repo to that particular
+# commit
 #
 
 if (Test-Path Env:\TF_BUILD_SOURCEGETVERSION)
@@ -63,7 +67,12 @@ if (Test-Path Env:\TF_BUILD_SOURCEGETVERSION)
         Write-Host "Note: No core hash specified"
     }
 
+    if (-not(Test-Path -Path $outputDir)) {
+        New-Item -Path $outputDir -ItemType Directory -Force
+    }
+
     $outputFile = Join-Path -Path $outputDir -ChildPath "change.txt"
     iex $command | Out-File $outputFile
     Pop-Location
 }
+
