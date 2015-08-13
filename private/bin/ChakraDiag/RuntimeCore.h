@@ -359,7 +359,6 @@ namespace Projection
 #include "JavascriptFunctionArgIndex.h"
 #include "ByteBlock.h"
 
-#include "FunctionBody.inl"             // Used by inspection
 #include "TaggedInt.h"
 #include "JavascriptConversion.h"       // Needed by TaggedInt.inl
 #include "TaggedInt.inl"                // Used by inspection

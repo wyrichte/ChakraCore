@@ -2246,6 +2246,8 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreatePromise(
     return hr;
 }
 
+#include "Library\JSONParser.h"
+
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseJson(
     __in LPCWSTR str,
     __in UINT length,

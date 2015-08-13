@@ -2214,7 +2214,7 @@ namespace JsDiag
     {
         if (this->IsNonTempLocalVar(slotId))
         {
-            *slotOffset = (slotId - this->GetFirstNonTempLocalIndex()) * DIAGLOCALSLOTSIZE;
+            *slotOffset = (slotId - this->GetFirstNonTempLocalIndex()) * FunctionBody::DIAGLOCALSLOTSIZE;
             return true;
         }
         return false;
