@@ -271,19 +271,19 @@ namespace Projection
 
             PropertyId releaseMethodId = IdOfString(L"msReleaseWinRTObject");
 
-            auto releaseMethod = scriptContext->GetLibrary()->CreateWinRTFunction(reinterpret_cast<Js::JavascriptMethod>(ReleaseMethodThunk), releaseMethodId, nullptr, false);
+            auto releaseMethod = this->CreateWinRTFunction(reinterpret_cast<Js::JavascriptMethod>(ReleaseMethodThunk), releaseMethodId, nullptr, false);
             Var varLength = Js::JavascriptNumber::ToVar(1, scriptContext);
             releaseMethod->SetPropertyWithAttributes(Js::PropertyIds::length, varLength, PropertyNone, NULL, Js::PropertyOperation_None, Js::SideEffects_None);
             scriptContext->GetGlobalObject()->SetPropertyWithAttributes(releaseMethodId, releaseMethod, PropertyBuiltInMethodDefaults, nullptr);
 
             PropertyId getWeakWinRTPropertyId = IdOfString(L"msGetWeakWinRTProperty");
-            auto getWeakWinRTProperty = scriptContext->GetLibrary()->CreateWinRTFunction(reinterpret_cast<Js::JavascriptMethod>(GetWeakWinRTPropertyThunk), getWeakWinRTPropertyId, this, false);
+            auto getWeakWinRTProperty = this->CreateWinRTFunction(reinterpret_cast<Js::JavascriptMethod>(GetWeakWinRTPropertyThunk), getWeakWinRTPropertyId, this, false);
             varLength = Js::JavascriptNumber::ToVar(2, scriptContext);
             getWeakWinRTProperty->SetPropertyWithAttributes(Js::PropertyIds::length, varLength, PropertyNone, NULL, Js::PropertyOperation_None, Js::SideEffects_None);
             scriptContext->GetGlobalObject()->SetPropertyWithAttributes(getWeakWinRTPropertyId, getWeakWinRTProperty, PropertyBuiltInMethodDefaults, nullptr);
 
             PropertyId setWeakWinRTPropertyId = IdOfString(L"msSetWeakWinRTProperty");
-            auto setWeakWinRTProperty = scriptContext->GetLibrary()->CreateWinRTFunction(reinterpret_cast<Js::JavascriptMethod>(SetWeakWinRTPropertyThunk), setWeakWinRTPropertyId, this, false);
+            auto setWeakWinRTProperty = this->CreateWinRTFunction(reinterpret_cast<Js::JavascriptMethod>(SetWeakWinRTPropertyThunk), setWeakWinRTPropertyId, this, false);
             varLength = Js::JavascriptNumber::ToVar(3, scriptContext);
             setWeakWinRTProperty->SetPropertyWithAttributes(Js::PropertyIds::length, varLength, PropertyNone, NULL, Js::PropertyOperation_None, Js::SideEffects_None);
             scriptContext->GetGlobalObject()->SetPropertyWithAttributes(setWeakWinRTPropertyId, setWeakWinRTProperty, PropertyBuiltInMethodDefaults, nullptr);
@@ -878,6 +878,28 @@ namespace Projection
         hr = m_pProjectionHost->Close();
         HeapDelete(this);
         return hr;
+    }
+
+    Js::JavascriptWinRTFunction * 
+    ProjectionContext::CreateWinRTFunction(Js::JavascriptMethod entryPoint, PropertyId nameId, Var signature, bool fConstructor)
+    {
+        Recycler * recycler = this->scriptContext->GetRecycler();
+        auto functionInfo = RecyclerNew(recycler, Js::WinRTFunctionInfo, entryPoint);
+        Js::JavascriptWinRTFunction *function = nullptr;
+        Js::JavascriptLibrary * library = this->scriptContext->GetLibrary();
+        Js::DynamicType * type = this->scriptContext->GetLibrary()->CreateDeferredPrototypeFunctionType(entryPoint);
+        if (fConstructor)
+        {
+            function = RecyclerNewEnumClass(recycler, Js::JavascriptLibrary::EnumFunctionClass, Js::JavascriptWinRTConstructorFunction, type, functionInfo, signature);
+        }
+        else
+        {
+            function = RecyclerNewEnumClass(recycler, Js::JavascriptLibrary::EnumFunctionClass, Js::JavascriptWinRTFunction, type, functionInfo, signature);
+        }
+        function = library->EnsureReadyIfHybridDebugging(function);
+
+        function->SetFunctionNameId(Js::TaggedInt::ToVarUnchecked(nameId));
+        return function;
     }
 
     void ProjectionContext::IncrementSQMCount(DWORD dataID, DWORD count)

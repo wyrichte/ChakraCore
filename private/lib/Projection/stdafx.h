@@ -54,6 +54,7 @@
 #endif
 
 #include "ProjectionMemoryInformation.h"
+#include "JavascriptWinRTFunction.h"
 #include "ProjectionContext.h"
 #include "SpecialProjection.h"
 #include "VariableArgMethodHelper.h"
@@ -102,4 +103,3 @@
 #if !defined(USED_IN_STATIC_LIB)
 #include "ActiveScriptProfilerHeapEnum.h"
 #endif
-

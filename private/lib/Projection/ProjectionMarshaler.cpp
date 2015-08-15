@@ -4,7 +4,7 @@
 #include "stdafx.h"
 
 #include "Common.h"
-#include "Library\JavascriptWinRTDate.h"
+#include "JavascriptWinRTDate.h"
 
 #ifdef PROJECTION_METADATA_TRACE
 #define TRACE_METADATA(...) { ProjectionMarshaler::Trace(__VA_ARGS__); }

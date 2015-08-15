@@ -219,7 +219,7 @@ namespace Projection
     //              nameId - name of the function
     Js::JavascriptWinRTFunction * ProjectionWriter::BuildDirectFunction(Var signature, void * entryPoint, PropertyId nameId, bool fConstructor)
     {
-        auto result = projectionContext->GetScriptContext()->GetLibrary()->CreateWinRTFunction(reinterpret_cast<Js::JavascriptMethod>(entryPoint), nameId, signature, fConstructor);
+        auto result = projectionContext->CreateWinRTFunction(reinterpret_cast<Js::JavascriptMethod>(entryPoint), nameId, signature, fConstructor);
         return result;
     }
 
@@ -586,8 +586,7 @@ namespace Projection
     //              perform the appropriate QI for IStringable.
     void ProjectionWriter::AddToString(__in ProjectionContext *projectionContext, __in Var prototype)
     {
-        Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
-        Js::JavascriptLibrary *library = projectionContext->GetScriptContext()->GetLibrary();
+        Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();        
 
         auto toStringId = projectionContext->toStringId;
         Js::DynamicObject* prototypeObject = Js::DynamicObject::FromVar(prototype);
@@ -598,7 +597,7 @@ namespace Projection
             return;
         }
 
-        auto toStringMethod = library->CreateWinRTFunction(reinterpret_cast<Js::JavascriptMethod>(ProjectionObjectInstance::ToStringThunk), toStringId, nullptr, false);
+        auto toStringMethod = projectionContext->CreateWinRTFunction(reinterpret_cast<Js::JavascriptMethod>(ProjectionObjectInstance::ToStringThunk), toStringId, nullptr, false);
         Var varLength = Js::JavascriptNumber::ToVar(0, scriptContext);
 
         SetProperty(toStringMethod, Js::PropertyIds::length, varLength);

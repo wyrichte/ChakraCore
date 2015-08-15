@@ -70,6 +70,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)FinalizableTypedArrayContents.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)IBufferProjection.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)InspectableObjectTypeOperations.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptWinRTDate.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)NamespaceProjection.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)NamespaceProjectionEnumerator.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ObjectAsIPropertyValue.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="FinalizableTypedArrayContents.h" />
     <ClInclude Include="IBufferProjection.h" />
     <ClInclude Include="InspectableObjectTypeOperations.h" />
+    <ClInclude Include="JavascriptWinRTDate.h" />
     <ClInclude Include="NamespaceProjection.h" />
     <ClInclude Include="NamespaceProjectionEnumerator.h" />
     <ClInclude Include="ObjectAsIPropertyValue.h" />

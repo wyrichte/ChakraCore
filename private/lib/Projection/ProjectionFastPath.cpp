@@ -2,7 +2,7 @@
 // Copyright (C) 1995 - 2010 by Microsoft Corporation.  All rights reserved.
 //----------------------------------------------------------------------------
 #include <stdafx.h>
-#include "Library\JavascriptWinRTDate.h"
+#include "JavascriptWinRTDate.h"
 
 namespace Projection
 {

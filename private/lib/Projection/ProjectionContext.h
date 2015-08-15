@@ -10,6 +10,10 @@
 
 #pragma once
 
+namespace Js
+{
+    class JavascriptWinRTFunction;
+};
 
 namespace Projection
 {
@@ -110,6 +114,7 @@ namespace Projection
         BOOL EnforceAllowForWeb() const { return scriptContext->GetConfig()->GetHostType() == Js::HostTypeWebview; }
 
         BOOL IsWinRTConstructorAllowed() const { return scriptContext->GetConfig()->IsWinRTConstructorAllowed(); }
+        Js::JavascriptWinRTFunction * CreateWinRTFunction(Js::JavascriptMethod entryPoint, PropertyId nameId, Var signature, bool fConstructor);
 
         // Pre-computed ids for common string literals
         MetadataStringId indexOfId;
@@ -136,6 +141,6 @@ namespace Projection
         }
 #endif
 
-        void IncrementSQMCount(DWORD dataID, DWORD count);
+        void IncrementSQMCount(DWORD dataID, DWORD count);        
     };
 };

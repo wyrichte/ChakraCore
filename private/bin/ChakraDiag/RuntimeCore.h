@@ -98,9 +98,7 @@ namespace Js
     class JavascriptBoolean;                // Used by JavascriptLibrary.h
     class NullEnumerator;                   // Used by JavascriptLibrary.h
     class PropertyStringCacheMap;           // Used by JavascriptLibrary.h
-    class JavascriptExternalFunction;       // Used by JavascriptLibrary.h
-    class JavascriptWinRTFunction;          // Used by JavascriptLibrary.h
-    class WinRTFunctionInfo;                // Used by JavascriptLibrary.h
+    class JavascriptExternalFunction;       // Used by JavascriptLibrary.h        
     class HeapArgumentsObject;              // Used by JavascriptLibrary.h
     class ArrayBuffer;                      // Used by JavascriptLibrary.h
     class DataView;                         // Used by JavascriptLibrary.h
