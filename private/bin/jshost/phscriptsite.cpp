@@ -22,10 +22,13 @@ struct ByteCodeInfo
     unsigned long size;
 };
 
+#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
 static std::map<std::wstring,HMODULE,std::less<std::wstring>> nativeFileMap;
 static std::map<std::wstring, int, std::less<std::wstring>> nativeDllNameMap;
+#endif
 static std::map<std::wstring,ByteCodeInfo,std::less<std::wstring>> byteCodeFileMap;
-                                         
+
+
 const IID IID_IActiveScriptByteCode =   {0xBF70A42D,0x05C9,0x4858,0xAD,0xCA,0x40,0x73,0x2A,0xF3,0x2C,0xD6}; 
 #ifdef ENABLE_NATIVE_CODE_SERIALIZATION
 const IID IID_IActiveScriptNativeCode = {0x6E8F97E0,0x28B6,0x4ECA,0x87,0xA3,0xB4,0x69,0x9D,0x81,0xF7,0xEA};
