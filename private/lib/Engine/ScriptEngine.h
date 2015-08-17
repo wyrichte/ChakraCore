@@ -142,9 +142,6 @@ class ScriptEngine :
 #endif
 
     public IActiveScriptByteCode,
-#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
-    public IActiveScriptNativeCode,
-#endif
     public IDiagnosticsContextHelper,
     public IActiveScriptDirectAsyncCausality,
 
@@ -451,36 +448,6 @@ public:
             /* [in] */ __RPC__in_opt IUnknown *punkContext,
             /* [in] */ DWORD_PTR dwSourceContext,
             /* [out] */ __RPC__out EXCEPINFO *pexcepinfo) override;
-
-#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
-    //
-    // IActiveScriptNativeCode
-    //
-
-    STDMETHOD(GenerateNativeCodeBuffer)(THIS_
-            /* [in] */ DWORD dwSourceCodeLength,
-            /* [in, size_is] */ __RPC__in_ecount_full(dwSourceCodeLength) BYTE * utf8Code,
-            /* [in] */ DWORD dwFunctionTableLength,
-            /* [in, size_is] */ __RPC__in_ecount_full(dwFunctionTableLength) BYTE * functionTable,
-            /* [in] */ __RPC__in_opt IUnknown  *punkContext,
-            /* [in] */ DWORD_PTR dwSourceContext,
-            /* [in] */ __RPC__in EXCEPINFO *pexcepinfo,
-            /* [out, size_is] */ __RPC__deref_out_ecount_full_opt(*pdwNativeCodeSize) BYTE ** nativeCode,
-            /* [out] */ DWORD * pdwNativeCodeSize) override;
-
-    STDMETHOD(ExecuteNativeCodeInMemoryBuffer)(THIS_
-            /* [in] */ DWORD dwNativeCodeSize,
-            /* [size_is][in] */ __RPC__in_ecount_full(dwNativeCodeSize) BYTE *byteCode,
-            /* [in] */ __RPC__in_opt IUnknown *punkContext,
-            /* [in] */ DWORD_PTR dwSourceContext,
-            /* [out] */ __RPC__out EXCEPINFO *pexcepinfo) override;
-
-    STDMETHOD(ExecuteNativeCodeModule)(THIS_
-            /* [in] */ LPCWSTR moduleName,
-            /* [in] */ __RPC__in_opt IUnknown  *punkContext,
-            /* [in] */ DWORD_PTR dwSourceContext,
-            /* [out] */ __RPC__out EXCEPINFO *pexcepinfo) override;
-#endif
 
     //
     // IDiagnosticsContextHelper
@@ -814,12 +781,6 @@ protected:
 private:
     HRESULT SerializeByteCodes(DWORD dwSourceCodeLength, BYTE *utf8Code, IUnknown *punkContext, DWORD_PTR dwSourceContext, ComputeGrfscrFunction ComputeGrfscr, EXCEPINFO *pexcepinfo, BYTE **byteCode, DWORD *pdwByteCodeSize);
     HRESULT DeserializeByteCodes(DWORD dwByteCodeSize, BYTE *byteCode, IActiveScriptByteCodeSource* sourceProvider, IUnknown *punkContext, DWORD_PTR dwSourceContext, ComputeGrfscrFunction ComputeGrfscr, bool execute, Js::NativeModule *nativeModule, EXCEPINFO *pexcepinfo);
-
-#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
-    HRESULT SerializeNativeCode(DWORD dwSourceCodeLength, BYTE * utf8Code, DWORD dwFunctionTableLength, BYTE * functionTable, IUnknown *punkContext, DWORD_PTR dwSourceContext, bool includeSource, EXCEPINFO *pexcepinfo, BYTE ** nativeCode, DWORD * pdwNativeCodeSize);
-    HRESULT LoadInMemoryBuffer(BYTE *nativeCode, AutoCOMPtr<IActiveScriptByteCodeSource>& sourceProvider,  BYTE **loadedByteCode, DWORD *loadedByteCodeSize, Js::NativeModule **loadedNativeModule, bool sourceProviderIsEmpty = false);
-    HRESULT ExecuteNativeCodeInMemoryBuffer(DWORD dwNativeCodeSize, BYTE *nativeCode, IActiveScriptByteCodeSource* sourceProvider, IUnknown *punkContext, DWORD_PTR dwSourceContext, EXCEPINFO *pexcepinfo);
-#endif
 
     HRESULT AddScriptletCore(
         /* [in]  */ LPCOLESTR pstrDefaultName,

@@ -30,11 +30,6 @@ FLAG(bool, AutomaticSourceRundown,          "Does a PerformSourceRundown call pr
 FLAG(bool, LogProfilerVerbose,              "Log verbose script profiler events", true)
 FLAG(bool, LogLineColumnProfileInfo,        "Logs line/column information for each function when running with the profiler attached.", true)
 FLAG(bool, LogProfilerCallTree,             "Log script profiler function call tree.", false)
-#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
-FLAG(BSTR, NativeCodeSerialized,            "If source is UTF8, deserializes from native code file", NULL)
-FLAG(BSTR, NativeCodeInMemorySerialized,    "If source is UTF8, deserializes from native code file using the in-memory loader", NULL)
-FLAG(bool, RecreateNativeCodeFile,          "If source is UTF8, serializes to a native code file", false)
-#endif
 FLAG(bool, NoLibraryStackFrameDebugger,     "Disable registering library stack frame debugger options", false)
 FLAG(bool, VerifyShortAndFullNameValues,    "Check that /**bp:evaluate()**/ short name expressions are equal to full name ones.", true)
 FLAG(bool, PerformUTF8BoundaryTest,         "Performs a serialize/deserialize test on utf8 boundary aligned source, source length must be a factor of 4096.", false)

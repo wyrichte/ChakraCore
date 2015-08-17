@@ -22,5 +22,6 @@ unittest/NativeUnitTests/profilecachetest*.out
 unittest/*/testout*
 .*.swp
 sd.ini
+*.vcxproj.user
 *.pyc
 __pycache__/*

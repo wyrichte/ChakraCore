@@ -31,7 +31,6 @@ EXPORTS
     JsCreateWeakContainer
     JsIsReferenceValid
     JsGetReference
-    JsSerializeNativeScript
     JsPrivateCollectGarbageSkipStack
 
     NatVis_ValueType

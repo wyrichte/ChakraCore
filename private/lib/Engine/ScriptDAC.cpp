@@ -3,9 +3,7 @@
 //----------------------------------------------------------------------------
 #include "StdAfx.h"
 #include "CodeGenAllocators.h"
-#ifdef ENABLE_NATIVE_CODE_SERIALIZATION
-#include "PEWriter.h"
-#endif
+#include "CodeGenWorkItemType.h"
 #include "QueuedFullJitWorkItem.h"
 #include "NativeCodeGenerator.h"
 
