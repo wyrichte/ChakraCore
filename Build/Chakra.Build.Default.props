@@ -15,6 +15,9 @@
     <PlatformPathNameAlt Condition="'$(Platform)'=='Win32'">i386</PlatformPathNameAlt>
   </PropertyGroup>
 
+  <ImportGroup>
+    <Import Project="$(ChakraDevConfigDir)\Chakra.Build.user.props" Condition="exists('$(ChakraDevConfigDir)\Chakra.Build.user.props')"/>
+  </ImportGroup>
   <!-- Output directories for non-razzle build -->
   <PropertyGroup Condition="'$(BuildingWithBuildExe)'!='true'">
     <OutBaseDir Condition="'$(OutBaseDir)'!=''">$(OutBaseDir)\$(SolutionName)</OutBaseDir>
