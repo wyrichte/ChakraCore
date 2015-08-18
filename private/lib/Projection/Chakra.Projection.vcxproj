@@ -141,7 +141,7 @@
     <ClInclude Include="FinalizableTypedArrayContents.h" />
     <ClInclude Include="IBufferProjection.h" />
     <ClInclude Include="InspectableObjectTypeOperations.h" />
-    <ClInclude Include="JavascriptWinRTFunction.h />
+    <ClInclude Include="JavascriptWinRTFunction.h" />
     <ClInclude Include="JavascriptWinRTDate.h" />
     <ClInclude Include="NamespaceProjection.h" />
     <ClInclude Include="NamespaceProjectionEnumerator.h" />

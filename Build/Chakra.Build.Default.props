@@ -3,6 +3,7 @@
   <PropertyGroup>
     <BuildingGitRepo>true</BuildingGitRepo>
     <BuildingGitRepo Condition="'$(PUBLIC_ROOT)'!=''">false</BuildingGitRepo>
+    <ChakraDevConfigDir Condition="'$(ChakraDevConfigDir)'==''">$(USEPROFILE)\ChakraDevConfig</ChakraDevConfigDir>
   </PropertyGroup>
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="Chakra.Build.Razzle.Default.props" />
 
