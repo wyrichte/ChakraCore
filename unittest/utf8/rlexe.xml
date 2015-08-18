@@ -7,16 +7,6 @@
       <tags>exclude_serialized</tags>
     </default>
   </test>
-  <!--
-<test>
-    <default>
-        <files>unicode_digit_should_not_crash_jsls.js</files>
-        <compile-flags>-ls -autogs</compile-flags>
-        <baseline>unicode_digit_should_not_crash_jsls.baseline</baseline>
-        <tags>exclude_native,exclude_dynapogo,exclude_amd64,exclude_arm,exclude_drt,exclude_nativeserialized,bugfix</tags>
-    </default>
-</test>
--->
   <test>
     <default>
       <files>unicode_digit_as_identifier_should_work.js</files>

@@ -206,6 +206,10 @@ void DetachProcess()
     JsrtRuntime::Uninitialize();
     JsrtContext::Uninitialize();
 
+    // threadbound entrypoint should be able to get cleanup correctly, however tlsentry
+    // for current thread might be left behind if this thread was initialized.
+    ThreadContextTLSEntry::CleanupThread();
+
     ThreadContextTLSEntry::CleanupProcess();       
 
 #if defined(ENABLE_DEBUG_CONFIG_OPTIONS)

@@ -179,7 +179,6 @@ HRESULT SkipWalker::WalkObject(_In_ const StreamReader& reader, _In_ SCATypeId t
         }
         break;
 
-    case SCA_CanvasPixelArray:
     case SCA_ArrayBuffer:
         hr = WalkByteArrayData(reader);
         break;

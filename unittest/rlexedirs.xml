@@ -217,14 +217,6 @@
     <tags>include_drt5</tags>
   </default>
 </dir>
-<!--
-<dir>
-  <default>
-    <files>DirectAuthor</files>
-    <tags>exclude_apollo,include_drt5</tags>
-  </default>
-</dir>
--->
 <dir>
   <default>
     <files>JSON</files>
@@ -339,14 +331,6 @@
     <tags>include_drt5</tags>
   </default>
 </dir>
-<!-- These rejit tests use testtrace:inline and they are useless when we change the inlining heuristics
-<dir>
-  <default>
-    <files>rejit</files>
-    <tags>exclude_nonative,include_drt5</tags>
-  </default>
-</dir>
-!-->
 <dir>
   <default>
     <files>inlining</files>
@@ -419,15 +403,6 @@
     <tags>exclude_serialized,exclude_snap,Slow</tags>
   </default>
 </dir>
-
-<!--
-<dir>
-  <default>
-    <files>LanguageServicesQA</files>
-    <tags>exclude_apollo,exclude_serialized,exclude_amd64,exclude_arm,exclude_arm64</tags>
-  </default>
-</dir>
--->
 <dir>
   <default>
     <files>AsmJs</files>
@@ -454,25 +429,19 @@
 </dir>
 <dir>
   <default>
-    <files>SIMD.float64x2</files>
-    <tags>exclude_arm,exclude_arm64</tags>
-  </default>
-</dir>
-<dir>
-  <default>
     <files>SIMD.int32x4</files>
     <tags>exclude_arm,exclude_arm64</tags>
   </default>
 </dir>
+  <dir>
+    <default>
+      <files>SIMD.int8x16</files>
+      <tags>exclude_arm,exclude_arm64</tags>
+    </default>
+  </dir>
 <dir>
   <default>
     <files>SIMD.float32x4.asmjs</files>
-    <tags>exclude_arm,exclude_arm64</tags>
-  </default>
-</dir>
-<dir>
-  <default>
-    <files>SIMD.float64x2.asmjs</files>
     <tags>exclude_arm,exclude_arm64</tags>
   </default>
 </dir>

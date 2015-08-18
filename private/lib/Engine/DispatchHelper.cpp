@@ -272,7 +272,6 @@ HRESULT DispatchHelper::MarshalJsVarToVariant(Js::Var var,VARIANT *pVar)
             case Js::TypeIds_NumberObject:
             case Js::TypeIds_StringObject:
             case Js::TypeIds_GlobalObject:
-            case Js::TypeIds_ExtensionEnumerator:
             case Js::TypeIds_ModuleRoot:
             case Js::TypeIds_Arguments:
             case Js::TypeIds_ActivationObject:

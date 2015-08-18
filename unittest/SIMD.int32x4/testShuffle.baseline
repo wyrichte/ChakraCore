@@ -1,4 +1,4 @@
-int32x4 Shuffle
+Int32x4 Shuffle
 Correct
 Correct
 Correct
@@ -11,7 +11,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 Shuffle
+Int32x4 Shuffle
 Correct
 Correct
 Correct
@@ -24,7 +24,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 Shuffle
+Int32x4 Shuffle
 Correct
 Correct
 Correct
@@ -37,7 +37,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 Shuffle
+Int32x4 Shuffle
 Correct
 Correct
 Correct
@@ -50,7 +50,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 Shuffle
+Int32x4 Shuffle
 Correct
 Correct
 Correct
@@ -63,7 +63,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 Shuffle
+Int32x4 Shuffle
 Correct
 Correct
 Correct
@@ -76,7 +76,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 Shuffle
+Int32x4 Shuffle
 Correct
 Correct
 Correct
@@ -89,7 +89,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 Shuffle
+Int32x4 Shuffle
 Correct
 Correct
 Correct
@@ -102,7 +102,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 ShuffleMix
+Int32x4 ShuffleMix
 Correct
 Correct
 Correct
@@ -115,7 +115,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 ShuffleMix
+Int32x4 ShuffleMix
 Correct
 Correct
 Correct
@@ -128,7 +128,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 ShuffleMix
+Int32x4 ShuffleMix
 Correct
 Correct
 Correct
@@ -141,7 +141,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 ShuffleMix
+Int32x4 ShuffleMix
 Correct
 Correct
 Correct
@@ -154,7 +154,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 ShuffleMix
+Int32x4 ShuffleMix
 Correct
 Correct
 Correct
@@ -167,7 +167,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 ShuffleMix
+Int32x4 ShuffleMix
 Correct
 Correct
 Correct
@@ -180,7 +180,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 ShuffleMix
+Int32x4 ShuffleMix
 Correct
 Correct
 Correct
@@ -193,7 +193,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 ShuffleMix
+Int32x4 ShuffleMix
 Correct
 Correct
 Correct

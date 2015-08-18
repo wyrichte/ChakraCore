@@ -79,7 +79,7 @@
         //var shell = testContext.onlyForIntellisense ? Shell(testContext.shell) : testContext.shell;
         //shell.setStdOutWriter(logger.logRaw);
         //shell.setStdErrWriter(logger.logErrorRaw);
-        //logger.logLine("Started JSLS snap setup.", "Setup");
+        //logger.logLine("Started JSRT snap setup.", "Setup");
 
         ////robocopy %_sourceDir% %_targetDir% *.dll *.exe *.mui *.tlb *.js /njh /njs /ndl /purge /xx
         //logger.logLine("Executing robocopy {0} {1} *.dll *.exe *.mui *.tlb *.js /njh /njs /ndl /purge /xx".format(config.snapSourceDir, config.snapTargetDir), "Setup");
@@ -107,7 +107,7 @@
                 type: "Directory",
                 defaultValue: "{0}\\jsrt\\unittest",
                 defaultValueReferences: ["jsBinRoot"],
-                description: "The root directory of JSLS unit test DLL."
+                description: "The root directory of JSRT unit test DLL."
             },
             numberOfThreads: {
                 type: "Number",
@@ -130,8 +130,8 @@
                 defaultValue: 5 * 60 * 1000,
                 description: "The time out for the test in milliseconds, default is 5 min."
             }
-           // snapSourceDir: { type: "Directory", defaultValue: "{0}\\jsrt\\unittest", defaultValueReferences: ["snapBinRoot"], description: "SNAP Only: When calling SNAP setup, this will be resolved to the share directory containing JSLS test scripts." },
-           // snapTargetDir: { type: "Directory", defaultValue: "{0}\\jsrt\\unittest", defaultValueReferences: ["snapJSRoot"], description: "SNAP Only: When calling SNAP setup, this will be resolved to the local directory where JSLS test scripts will be copied to." }
+           // snapSourceDir: { type: "Directory", defaultValue: "{0}\\jsrt\\unittest", defaultValueReferences: ["snapBinRoot"], description: "SNAP Only: When calling SNAP setup, this will be resolved to the share directory containing JSRT test scripts." },
+           // snapTargetDir: { type: "Directory", defaultValue: "{0}\\jsrt\\unittest", defaultValueReferences: ["snapJSRoot"], description: "SNAP Only: When calling SNAP setup, this will be resolved to the local directory where JSRT test scripts will be copied to." }
         }
     });
 }());

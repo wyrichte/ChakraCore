@@ -104,7 +104,6 @@ namespace Js
     class HeapArgumentsObject;              // Used by JavascriptLibrary.h
     class ArrayBuffer;                      // Used by JavascriptLibrary.h
     class DataView;                         // Used by JavascriptLibrary.h
-    class JavascriptPixelArray;             // Used by JavascriptLibrary.h
     class JavascriptDate;                   // Used by JavascriptLibrary.h
     class JavascriptMap;                    // Used by JavascriptLibrary.h
     class JavascriptSet;                    // Used by JavascriptLibrary.h
@@ -123,6 +122,8 @@ namespace Js
     class JavascriptSIMDFloat64x2;          // Used by JavascriptLibrary.h
     class SIMDInt32x4Lib;                   // Used by JavascriptLibrary.h
     class JavascriptSIMDInt32x4;            // Used by JavascriptLibrary.h
+    class SIMDInt8x16Lib;                   // Used by JavascriptLibrary.h
+    class JavascriptSIMDInt8x16;            // Used by JavascriptLibrary.h
 #endif
 
     class JavascriptStringObject;           // Used by JavascriptLibrary.h
@@ -139,6 +140,8 @@ namespace Js
     class JavascriptPromise;                // Used by JavascriptLibrary.h
     class JavascriptPromiseCapability;      // Used by JavascriptLibrary.h
     class JavascriptPromiseReaction;        // Used by JavascriptLibrary.h
+    class JavascriptPromiseAsyncSpawnExecutorFunction; // Used by JavascriptLibrary.h
+    class JavascriptPromiseAsyncSpawnStepArgumentExecutorFunction; // Used by JavascriptLibrary.h
     class JavascriptPromiseCapabilitiesExecutorFunction; // Used by JavascriptLibrary.h
     class JavascriptPromiseResolveOrRejectFunction; // Used by JavascriptLibrary.h
     class JavascriptPromiseReactionTaskFunction; // Used by JavascriptLibrary.h
@@ -291,13 +294,16 @@ namespace Projection
 #include "JavascriptSIMDFloat32x4.h"
 #include "JavascriptSIMDFloat64x2.h"
 #include "JavascriptSIMDInt32x4.h"
+#include "JavascriptSIMDInt8x16.h"
 #endif
 
 #include "RecyclerFastAllocator.h"      // Used by LibraryCommon.h
-#include "SourceContextInfo.h"          // Used by ScriptContext::noContextSourceContextInfo
-#include "DiagProbe.h"                  // Used by ThreadContext::Diagnostics
-#include "ProbeContainer.h"             // Used by ScriptContext::diagProbesContainer
-#include "DebugContext.h"               // Used by ScriptContext::debugContext
+#include "Debug\SourceContextInfo.h"    // Used by ScriptContext::noContextSourceContextInfo
+#include "Debug\DebuggingFlags.h"
+#include "Debug\DiagProbe.h"            // Used by ThreadContext::Diagnostics
+#include "Debug\DebugManager.h"         // Used by ThreadContext::DebugManager
+#include "Debug\ProbeContainer.h"       // Used by ScriptContext::diagProbesContainer
+#include "Debug\DebugContext.h"         // Used by ScriptContext::debugContext
 #include "StackProber.h"                // Used by ThreadContextTLSEntry::prober
 #include "ByteCodeReader.h"             // Used by InterpreterStackFrame::m_reader
 #include "BackEndAPI.h"                 // Used by NativeCodeGenerator.h
@@ -336,6 +342,7 @@ namespace Projection
 #include "SIMDFloat32x4Lib.h"
 #include "SIMDFloat64x2Lib.h"
 #include "SIMDInt32x4Lib.h"
+#include "SIMDInt8x16Lib.h"
 #endif
 
 #include "MathLibrary.h"
@@ -402,7 +409,6 @@ namespace Projection
 #include "ES5Array.h"                   // Needed by ES5Array DAC
 #include "ArrayBuffer.h"
 #include "TypedArray.h"
-#include "JavascriptPixelArray.h"
 #include "JavascriptSymbol.h"
 #include "JavascriptSymbolObject.h"
 #include "ArgumentsObject.h"

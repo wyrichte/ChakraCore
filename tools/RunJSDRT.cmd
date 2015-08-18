@@ -16,7 +16,6 @@ set _coreUnittestRoot=
 set _runProjectionTests=
 set _runJSRTUnitTests=
 set _runUnitTests=
-set _runJSLSUnitTests=
 set _snap=
 set _drt=
 set _nightly=
@@ -94,9 +93,6 @@ set _htmltags=-nottags html
         REM set _runUnitTests=1
         REM set _htmltags=-tags html
         goto :ArgLoop
-    ) else if /i "%1" == "-runJSLSUnitTests" (
-        set _runJSLSUnitTests=1
-        goto :ArgLoop
     ) else if /i "%1" == "-win7" (
         set _os=-win7
         goto :ArgLoop
@@ -161,8 +157,6 @@ set _htmltags=-nottags html
     if %_bucketIndex% == 0 (
         :: No-op, we didn't specify a bucket
         set _bucketIndex=0
-    ) else if %_bucketIndex% == 6 (
-        set _runJSLSUnitTests=1
     ) else if %_bucketIndex% == 7 (
         set _runJSRTUnitTests=1
     ) else if %_bucketIndex% == 9 (
@@ -183,10 +177,6 @@ set _htmltags=-nottags html
     )
     if "%_runJSRTUnitTests%" == "1" (
         call :RunJSRTUnitTests
-        if errorlevel 1 goto :Error
-    )
-    if "%_runJSLSUnitTests%" == "1" (
-        call :RunJSLSUnitTests
         if errorlevel 1 goto :Error
     )
 
@@ -212,7 +202,6 @@ set _htmltags=-nottags html
     echo   _runProjectionTests=%_runProjectionTests%
     echo   _runJSRTUnitTests=%_runJSRTUnitTests%
     echo   _runUnitTests=%_runUnitTests%
-    echo   _runJSLSUnitTests=%_runJSLSUnitTests%
     echo   _variants=%_variants%
     echo   _os=%_os%
     echo.
@@ -258,18 +247,6 @@ set _htmltags=-nottags html
 
 :RunJSRTUnitTests
     set _testCmd=%_toolsRoot%\RunAllJSRTTests.cmd %_snap% %_drt% -toolsRoot %_toolsRoot% -binaryRoot %_jscriptRoot%
-
-    pushd %_toolsRoot%
-    echo %_testCmd%
-    call %_testCmd% 2>&1
-    popd
-
-    if errorlevel 1 goto :Error
-
-    goto :End
-
-:RunJSLSUnitTests
-    set _testCmd=%_toolsRoot%\RunAllJSLSCheckinTests.cmd %_snap% %_drt% -toolsRoot %_toolsRoot% -binaryRoot %_jscriptRoot% -platform %_buildArch% -buildType %_buildType%
 
     pushd %_toolsRoot%
     echo %_testCmd%

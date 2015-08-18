@@ -138,27 +138,9 @@
     <test>
         <default>
             <files>Array.js</files>
-            <baseline>Array.es5.baseline</baseline>
-            <compile-flags>-TraceWin8Allocations -ES6- -KhronosInterop-</compile-flags>
-            <tags>exclude_win7,exclude_fre,exclude_amd64</tags>
-        </default>
-    </test>
-
-    <test>
-        <default>
-            <files>Array.js</files>
             <baseline>Array.baseline</baseline>
             <compile-flags>-TraceWin8Allocations</compile-flags>
             <tags>exclude_win7,exclude_fre,exclude_amd64</tags>
-        </default>
-    </test>
-
-    <test>
-        <default>
-            <files>Array.js</files>
-            <baseline>Array.es5.baseline</baseline>
-            <compile-flags>-RecyclerStress -TraceWin8Allocations -ES6- -KhronosInterop-</compile-flags>
-            <tags>exclude_win7,exclude_fre,exclude_nostress,exclude_snap,exclude_amd64</tags>
         </default>
     </test>
 

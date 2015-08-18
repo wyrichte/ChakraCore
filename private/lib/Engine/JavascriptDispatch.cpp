@@ -76,7 +76,8 @@ JavascriptDispatch* JavascriptDispatch::Create(Js::DynamicObject* scriptObject)
 
         if (jsdisp == NULL)
         {
-            if (scriptObject->GetTypeId() == Js::TypeIds_PixelArray || scriptObject->GetTypeId() == Js::TypeIds_Uint8ClampedArray)
+            // pixel array is only implemented as Uint8ClampedArray in edge mode.
+            if (scriptObject->GetTypeId() == Js::TypeIds_Uint8ClampedArray)
             {
                 // Pixel array has its own object that implements some extra interfaces
                 jsdisp = RecyclerNewFinalizedClientTracked(scriptContext->GetRecycler(), JavascriptPixelArrayDispatch, scriptObject, scriptSite);

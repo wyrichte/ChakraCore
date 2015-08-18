@@ -7,6 +7,37 @@ function p(x) {
   WScript.Echo(x);
 }
 
+function verifyClassMember(obj, name, expectedReturnValue, isGet, isSet, isGenerator) {
+    let p = Object.getOwnPropertyDescriptor(obj, name);
+    
+    if (isGet) {
+        assert.areEqual('function', typeof p.get, `obj[${name}](${isGet},${isSet},${isGenerator}): Get method has 'get' property set in descriptor`);
+        assert.areEqual(expectedReturnValue, obj[name], `obj[${name}](${isGet},${isSet},${isGenerator}): Invoking class get method returns correct value`);
+        assert.areEqual(expectedReturnValue, p.get(), `obj[${name}](${isGet},${isSet},${isGenerator}): Calling class get method function directly returns correct value`);
+    } else if (isSet) {
+        assert.areEqual('function', typeof p.set, `obj[${name}](${isGet},${isSet},${isGenerator}): Set method has 'set' property set in descriptor`);
+        assert.areEqual(undefined, obj[name], `obj[${name}](${isGet},${isSet},${isGenerator}): Invoking class set method returns undefined`);
+        assert.areEqual(expectedReturnValue, p.set(), `obj[${name}](${isGet},${isSet},${isGenerator}): Calling class set method function directly returns correct value`);
+    } else if (isGenerator) {
+        assert.areEqual('function', typeof obj[name], `obj[${name}](${isGet},${isSet},${isGenerator}): Class method generator function has correct type`);
+        
+        let s;
+        for (s of new obj[name]()) {}
+        assert.areEqual(expectedReturnValue, s, `obj[${name}](${isGet},${isSet},${isGenerator}): Calling class method generator returns correct value`);
+        
+        assert.isTrue(p.writable, `obj[${name}](${isGet},${isSet},${isGenerator}): Class method generator functions are writable`);
+    } else {
+        assert.areEqual('function', typeof obj[name], `obj[${name}](${isGet},${isSet},${isGenerator}): Class method has correct type`);
+        assert.areEqual(expectedReturnValue, obj[name](), `obj[${name}](${isGet},${isSet},${isGenerator}): Calling class method returns correct value`);
+        
+        // get/set property descriptors do not have writable properties
+        assert.isTrue(p.writable, `obj[${name}](${isGet},${isSet},${isGenerator}): Class method functions are writable`);
+    }
+    
+    assert.isFalse(p.enumerable, `obj[${name}](${isGet},${isSet},${isGenerator}): Class methods are not enumerable`);
+    assert.isTrue(p.configurable, `obj[${name}](${isGet},${isSet},${isGenerator}): Class methods are configurable`);
+}
+
 var tests = [
   {
     name: "Class requires an extends expression if the extends keyword is used",
@@ -600,16 +631,37 @@ var tests = [
                 static method() { 
                     return 'abc';
                 }
+                static ['method2']() {
+                    return 'def';
+                }
+                static get method3() {
+                    return 'ghi';
+                }
+                static get ['method4']() {
+                    return 'jkl';
+                }
+                static set method5() {
+                    return 'mno';
+                }
+                static set ['method6']() {
+                    return 'pqr';
+                }
+                static *method7() {
+                    yield 'stu';
+                }
+                static *['method8']() {
+                    yield 'vwx';
+                }
             }
             
-            assert.areEqual('function', typeof B.method, "Static class method is attached to class constructor");
-            assert.areEqual('abc', B.method(), "Calling static class method calls the correct method");
-            
-            let p = Object.getOwnPropertyDescriptor(B, 'method');
-            
-            assert.isFalse(p.enumerable, "Static class methods are not enumerable");
-            assert.isTrue(p.writable, "Static class methods are writable");
-            assert.isTrue(p.configurable, "Static class methods are configurable");
+            verifyClassMember(B, 'method', 'abc');
+            verifyClassMember(B, 'method2', 'def');
+            verifyClassMember(B, 'method3', 'ghi', true);
+            verifyClassMember(B, 'method4', 'jkl', true);
+            verifyClassMember(B, 'method5', 'mno', false, true);
+            verifyClassMember(B, 'method6', 'pqr', false, true);
+            verifyClassMember(B, 'method7', 'stu', false, false, true);
+            verifyClassMember(B, 'method8', 'vwx', false, false, true);
         }
     },
     {
@@ -619,16 +671,37 @@ var tests = [
                 method() { 
                     return 'abc';
                 }
+                ['method2']() {
+                    return 'def';
+                }
+                get method3() {
+                    return 'ghi';
+                }
+                get ['method4']() {
+                    return 'jkl';
+                }
+                set method5() {
+                    return 'mno';
+                }
+                set ['method6']() {
+                    return 'pqr';
+                }
+                *method7() {
+                    yield 'stu';
+                }
+                *['method8']() {
+                    yield 'vwx';
+                }
             }
             
-            assert.areEqual('function', typeof B.prototype.method, "Class method is attached to class prototype");
-            assert.areEqual('abc', B.prototype.method(), "Calling class method calls the correct method");
-            
-            let p = Object.getOwnPropertyDescriptor(B.prototype, 'method');
-            
-            assert.isFalse(p.enumerable, "Class methods are not enumerable");
-            assert.isTrue(p.writable, "Class methods are writable");
-            assert.isTrue(p.configurable, "Class methods are configurable");
+            verifyClassMember(B.prototype, 'method', 'abc');
+            verifyClassMember(B.prototype, 'method2', 'def');
+            verifyClassMember(B.prototype, 'method3', 'ghi', true);
+            verifyClassMember(B.prototype, 'method4', 'jkl', true);
+            verifyClassMember(B.prototype, 'method5', 'mno', false, true);
+            verifyClassMember(B.prototype, 'method6', 'pqr', false, true);
+            verifyClassMember(B.prototype, 'method7', 'stu', false, false, true);
+            verifyClassMember(B.prototype, 'method8', 'vwx', false, false, true);
         }
     },
     // TODO: Enable this test when class constructor [[call]] operations are blocked

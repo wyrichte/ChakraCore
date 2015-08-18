@@ -163,7 +163,7 @@ goto :NextArgument
 
 :StartScript
 set WIN_JSHOST_METADATA_BASE_PATH=%_binRoot%
-set _JSHostEXE=%_binRoot%\jshost.exe
+set _JSHostEXE=%_nttree%\jscript\jshost.exe
 set _JCBinaryArgument=-binary %_JSHostEXE%
 
 call :OutputInfo

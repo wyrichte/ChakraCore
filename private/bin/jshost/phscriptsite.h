@@ -14,7 +14,6 @@
 
 // Global buffer for VirtualAlloc used by a test, instantiation is in phscriptsite.cpp; while clean up in final GC.
 extern LPVOID UTF8BoundaryTestBuffer;
-extern LPVOID byteCodeBufferClone;
 
 class SimpleSourceMapper;
 typedef SimpleSourceMapper * SimpleSourceMapperRef;

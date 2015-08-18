@@ -1,8 +1,9 @@
 function asmModule(stdlib, imports) {
     "use asm";
-    
-    var i4 = stdlib.SIMD.int32x4;
+
+    var i4 = stdlib.SIMD.Int32x4;
     var i4check = i4.check;
+    var i4extractLane = i4.extractLane;
     var i4fromFloat64x2 = i4.fromFloat64x2;
     var i4fromFloat64x2Bits = i4.fromFloat64x2Bits;
     var i4fromFloat32x4 = i4.fromFloat32x4;
@@ -14,10 +15,6 @@ function asmModule(stdlib, imports) {
     var i4mul = i4.mul;
     var i4swizzle = i4.swizzle;
     var i4shuffle = i4.shuffle;
-    var i4withX = i4.withX;
-    var i4withY = i4.withY;
-    var i4withZ = i4.withZ;
-    var i4withW = i4.withW;
     var i4lessThan = i4.lessThan;
     var i4equal = i4.equal;
     var i4greaterThan = i4.greaterThan;
@@ -30,8 +27,8 @@ function asmModule(stdlib, imports) {
     //var i4shiftRightByScalar = i4.shiftRightByScalar;
     //var i4shiftRightArithmeticByScalar = i4.shiftRightArithmeticByScalar;
 
-    var f4 = stdlib.SIMD.float32x4;  
-    var f4check = f4.check;  
+    var f4 = stdlib.SIMD.Float32x4;
+    var f4check = f4.check;
     var f4fromFloat64x2 = f4.fromFloat64x2;
     var f4fromFloat64x2Bits = f4.fromFloat64x2Bits;
     var f4fromInt32x4 = f4.fromInt32x4;
@@ -50,10 +47,6 @@ function asmModule(stdlib, imports) {
     var f4sqrt = f4.sqrt;
     var f4swizzle = f4.swizzle;
     var f4shuffle = f4.shuffle;
-    var f4withX = f4.withX;
-    var f4withY = f4.withY;
-    var f4withZ = f4.withZ;
-    var f4withW = f4.withW;
     var f4lessThan = f4.lessThan;
     var f4lessThanOrEqual = f4.lessThanOrEqual;
     var f4equal = f4.equal;
@@ -67,166 +60,125 @@ function asmModule(stdlib, imports) {
     var f4xor = f4.xor;
     var f4not = f4.not;
 
-    var d2 = stdlib.SIMD.float64x2;  
-    var d2check = d2.check;  
-    var d2fromFloat32x4 = d2.fromFloat32x4;
-    var d2fromFloat32x4Bits = d2.fromFloat32x4Bits;
-    var d2fromInt32x4 = d2.fromInt32x4;
-    var d2fromInt32x4Bits = d2.fromInt32x4Bits;
-    var d2abs = d2.abs;
-    var d2neg = d2.neg;
-    var d2add = d2.add;
-    var d2sub = d2.sub;
-    var d2mul = d2.mul;
-    var d2div = d2.div;
-    var d2clamp = d2.clamp;
-    var d2min = d2.min;
-    var d2max = d2.max;
-    var d2reciprocal = d2.reciprocal;
-    var d2reciprocalSqrt = d2.reciprocalSqrt;
-    var d2sqrt = d2.sqrt;
-    var d2swizzle = d2.swizzle;
-    var d2shuffle = d2.shuffle;
-    var d2withX = d2.withX;
-    var d2withY = d2.withY;
-    var d2lessThan = d2.lessThan;
-    var d2lessThanOrEqual = d2.lessThanOrEqual;
-    var d2equal = d2.equal;
-    var d2notEqual = d2.notEqual;
-    var d2greaterThan = d2.greaterThan;
-    var d2greaterThanOrEqual = d2.greaterThanOrEqual;
-    var d2select = d2.select;
-
     var fround = stdlib.Math.fround;
 
     var globImportF4 = f4check(imports.g1);       // global var import
     var globImportI4 = i4check(imports.g2);       // global var import
-    var globImportD2 = d2check(imports.g3);       // global var import
-    var g1 = f4(1.0,2.0,3.0, -0.0);          // global var initialized
-    var g2 = f4(-5.3, -0.0,7.332,8.0);          // global var initialized
-    var g3 = i4(1,2,3,4);          // global var initialized
-	var g4 = i4(5,6,7,8);          // global var initialized
-	var g5 = d2(1.0,2.0);          // global var initialized
-	var g6 = d2(3.0,4.0);          // global var initialized
+    var g1 = f4(1.0, 2.0, 3.0, -0.0);          // global var initialized
+    var g2 = f4(-5.3, -0.0, 7.332, 8.0);          // global var initialized
+    var g3 = i4(1, 2, 3, 4);          // global var initialized
+    var g4 = i4(5, 6, 7, 8);          // global var initialized
+    //var g5 = d2(1.0, 2.0);          // global var initialized
+    //var g6 = d2(3.0, 4.0);          // global var initialized
     var gval = 1234;
     var gval2 = 1234.0;
 
     var f4splat = f4.splat;
-	
-	var sqrt = stdlib.Math.sqrt;
-	var pow = stdlib.Math.pow;
-	
+
+    var sqrt = stdlib.Math.sqrt;
+    var pow = stdlib.Math.pow;
+
     var loopCOUNT = 3;
 
-	function shuffle1()
-    {
-        var xyxy = i4(0,0,0,0);
-		var zwzw = i4(0,0,0,0);
-		var xxxx = i4(0,0,0,0);
-		var xxyy = i4(0,0,0,0);
-		
-		var x=0,y=0,z=0,w=0;
+    function shuffle1() {
+        var xyxy = i4(0, 0, 0, 0);
+        var zwzw = i4(0, 0, 0, 0);
+        var xxxx = i4(0, 0, 0, 0);
+        var xxyy = i4(0, 0, 0, 0);
+
+        var x = 0, y = 0, z = 0, w = 0;
 
         var loopIndex = 0;
-        while ( (loopIndex|0) < (loopCOUNT|0)) {
-			
-            xyxy = i4shuffle(g3, g4, 0,1,4,5);
-			zwzw = i4shuffle(g3, g4, 2,3,6,7);
-			xxxx = i4shuffle(g3, g4, 0,0,4,4);
-			xxyy = i4shuffle(g3, g4, 0, 0, 5, 5);
-			
+        while ((loopIndex | 0) < (loopCOUNT | 0)) {
+
+            xyxy = i4shuffle(g3, g4, 0, 1, 4, 5);
+            zwzw = i4shuffle(g3, g4, 2, 3, 6, 7);
+            xxxx = i4shuffle(g3, g4, 0, 0, 4, 4);
+            xxyy = i4shuffle(g3, g4, 0, 0, 5, 5);
+
             loopIndex = (loopIndex + 1) | 0;
         }
-		x = ( ((xyxy.x + xyxy.x) | 0 ) + ((xyxy.y + xyxy.y) | 0 ) + ((xyxy.z + xyxy.z) | 0 ) + ((xyxy.w + xyxy.w) | 0 ) ) | 0;
-        y = ( ((zwzw.x + zwzw.x) | 0 ) + ((zwzw.y + zwzw.y) | 0 ) + ((zwzw.z + zwzw.z) | 0 ) + ((zwzw.w + zwzw.w) | 0 ) ) | 0;
-        
-        z = ( ((xxxx.x + xxxx.x) | 0 ) + ((xxxx.y + xxxx.y) | 0 ) + ((xxxx.z + xxxx.z) | 0 ) + ((xxxx.w + xxxx.w) | 0 ) ) | 0;
-        
-        w = ( ((xxyy.x + xxyy.x) | 0 ) + ((xxyy.y + xxyy.y) | 0 ) + ((xxyy.z + xxyy.z) | 0 ) + ((xxyy.w + xxyy.w) | 0 ) ) | 0;
-        
-		return i4check(i4(x,y, z, w));
-        
-    }
-    
-    function shuffle2()
-    {
-        var xyxy = i4(0,0,0,0);
-		var zwzw = i4(0,0,0,0);
-		var xxxx = i4(0,0,0,0);
-		var xxyy = i4(0,0,0,0);
-		var v1 = i4(122, 0, 334, -9500);
-        var v2 = i4(102, 3313, 1, 233);
-		var x=0,y=0,z=0,w=0;
-		
-        var loopIndex = 0;
-        for (loopIndex = 0; (loopIndex | 0) < (loopCOUNT | 0) ; loopIndex = (loopIndex + 1) | 0)
-        {
-            xyxy = i4shuffle( v1, v2,  0, 1, 4, 5);
-			zwzw = i4shuffle( v1, v2, 2, 3, 6, 7);
-			xxxx = i4shuffle( v1, v2, 0,0, 4, 4);
-			xxyy = i4shuffle( v1, v2, 0, 0, 5, 5);
-        }
-		x = ( ((xyxy.x + xyxy.x) | 0 ) + ((xyxy.y + xyxy.y) | 0 ) + ((xyxy.z + xyxy.z) | 0 ) + ((xyxy.w + xyxy.w) | 0 ) ) | 0;
-        y = ( ((zwzw.x + zwzw.x) | 0 ) + ((zwzw.y + zwzw.y) | 0 ) + ((zwzw.z + zwzw.z) | 0 ) + ((zwzw.w + zwzw.w) | 0 ) ) | 0;
-        
-        z = ( ((xxxx.x + xxxx.x) | 0 ) + ((xxxx.y + xxxx.y) | 0 ) + ((xxxx.z + xxxx.z) | 0 ) + ((xxxx.w + xxxx.w) | 0 ) ) | 0;
-        
-        w = ( ((xxyy.x + xxyy.x) | 0 ) + ((xxyy.y + xxyy.y) | 0 ) + ((xxyy.z + xxyy.z) | 0 ) + ((xxyy.w + xxyy.w) | 0 ) ) | 0;
-        
-        
-		return i4check(i4(x,y, z, w));
-        
+
+        x = (((i4extractLane(xyxy, 0) + i4extractLane(xyxy, 0)) | 0) + ((i4extractLane(xyxy, 1) + i4extractLane(xyxy, 1)) | 0) + ((i4extractLane(xyxy, 2) + i4extractLane(xyxy, 2)) | 0) + ((i4extractLane(xyxy, 3) + i4extractLane(xyxy, 3)) | 0)) | 0;
+        y = (((i4extractLane(zwzw, 0) + i4extractLane(zwzw, 0)) | 0) + ((i4extractLane(zwzw, 1) + i4extractLane(zwzw, 1)) | 0) + ((i4extractLane(zwzw, 2) + i4extractLane(zwzw, 2)) | 0) + ((i4extractLane(zwzw, 3) + i4extractLane(zwzw, 3)) | 0)) | 0;
+        z = (((i4extractLane(xxxx, 0) + i4extractLane(xxxx, 0)) | 0) + ((i4extractLane(xxxx, 1) + i4extractLane(xxxx, 1)) | 0) + ((i4extractLane(xxxx, 2) + i4extractLane(xxxx, 2)) | 0) + ((i4extractLane(xxxx, 3) + i4extractLane(xxxx, 3)) | 0)) | 0;
+        w = (((i4extractLane(xxyy, 0) + i4extractLane(xxyy, 0)) | 0) + ((i4extractLane(xxyy, 1) + i4extractLane(xxyy, 1)) | 0) + ((i4extractLane(xxyy, 2) + i4extractLane(xxyy, 2)) | 0) + ((i4extractLane(xxyy, 3) + i4extractLane(xxyy, 3)) | 0)) | 0;
+
+        return i4check(i4(x, y, z, w));
+
     }
 
-    function shuffle3()
-    {
-        var xyxy = i4(0,0,0,0);
-		var zwzw = i4(0,0,0,0);
-		var xxxx = i4(0,0,0,0);
-		var xxyy = i4(0,0,0,0);
-		var v1 = i4(122, 0, 334, -9500);
-        var x=0,y=0,z=0,w=0;
+    function shuffle2() {
+        var xyxy = i4(0, 0, 0, 0);
+        var zwzw = i4(0, 0, 0, 0);
+        var xxxx = i4(0, 0, 0, 0);
+        var xxyy = i4(0, 0, 0, 0);
+        var v1 = i4(122, 0, 334, -9500);
+        var v2 = i4(102, 3313, 1, 233);
+        var x = 0, y = 0, z = 0, w = 0;
+
         var loopIndex = 0;
-        
+        for (loopIndex = 0; (loopIndex | 0) < (loopCOUNT | 0) ; loopIndex = (loopIndex + 1) | 0) {
+            xyxy = i4shuffle(v1, v2, 0, 1, 4, 5);
+            zwzw = i4shuffle(v1, v2, 2, 3, 6, 7);
+            xxxx = i4shuffle(v1, v2, 0, 0, 4, 4);
+            xxyy = i4shuffle(v1, v2, 0, 0, 5, 5);
+        }
+        x = (((i4extractLane(xyxy, 0) + i4extractLane(xyxy, 0)) | 0) + ((i4extractLane(xyxy, 1) + i4extractLane(xyxy, 1)) | 0) + ((i4extractLane(xyxy, 2) + i4extractLane(xyxy, 2)) | 0) + ((i4extractLane(xyxy, 3) + i4extractLane(xyxy, 3)) | 0)) | 0;
+        y = (((i4extractLane(zwzw, 0) + i4extractLane(zwzw, 0)) | 0) + ((i4extractLane(zwzw, 1) + i4extractLane(zwzw, 1)) | 0) + ((i4extractLane(zwzw, 2) + i4extractLane(zwzw, 2)) | 0) + ((i4extractLane(zwzw, 3) + i4extractLane(zwzw, 3)) | 0)) | 0;
+        z = (((i4extractLane(xxxx, 0) + i4extractLane(xxxx, 0)) | 0) + ((i4extractLane(xxxx, 1) + i4extractLane(xxxx, 1)) | 0) + ((i4extractLane(xxxx, 2) + i4extractLane(xxxx, 2)) | 0) + ((i4extractLane(xxxx, 3) + i4extractLane(xxxx, 3)) | 0)) | 0;
+        w = (((i4extractLane(xxyy, 0) + i4extractLane(xxyy, 0)) | 0) + ((i4extractLane(xxyy, 1) + i4extractLane(xxyy, 1)) | 0) + ((i4extractLane(xxyy, 2) + i4extractLane(xxyy, 2)) | 0) + ((i4extractLane(xxyy, 3) + i4extractLane(xxyy, 3)) | 0)) | 0;
+
+
+        return i4check(i4(x, y, z, w));
+
+    }
+
+    function shuffle3() {
+        var xyxy = i4(0, 0, 0, 0);
+        var zwzw = i4(0, 0, 0, 0);
+        var xxxx = i4(0, 0, 0, 0);
+        var xxyy = i4(0, 0, 0, 0);
+        var v1 = i4(122, 0, 334, -9500);
+        var x = 0, y = 0, z = 0, w = 0;
+        var loopIndex = 0;
+
         loopIndex = loopCOUNT | 0;
         do {
 
-            xyxy = i4shuffle( i4add(v1, g3), v1,  0,1,4,5);
-			zwzw = i4shuffle( i4mul(v1, g3), g4, 2,3,6,7);
-			xxxx = i4shuffle( i4sub(v1, g3), v1, 0,0,4,4);
-			xxyy = i4shuffle( g3, v1, 0,0,5,5);
+            xyxy = i4shuffle(i4add(v1, g3), v1, 0, 1, 4, 5);
+            zwzw = i4shuffle(i4mul(v1, g3), g4, 2, 3, 6, 7);
+            xxxx = i4shuffle(i4sub(v1, g3), v1, 0, 0, 4, 4);
+            xxyy = i4shuffle(g3, v1, 0, 0, 5, 5);
 
             loopIndex = (loopIndex - 1) | 0;
         }
-        while ( (loopIndex | 0) > 0);
+        while ((loopIndex | 0) > 0);
 
-        x = ( ((xyxy.x + xyxy.x) | 0 ) + ((xyxy.y + xyxy.y) | 0 ) + ((xyxy.z + xyxy.z) | 0 ) + ((xyxy.w + xyxy.w) | 0 ) ) | 0;
-        y = ( ((zwzw.x + zwzw.x) | 0 ) + ((zwzw.y + zwzw.y) | 0 ) + ((zwzw.z + zwzw.z) | 0 ) + ((zwzw.w + zwzw.w) | 0 ) ) | 0;
-        
-        z = ( ((xxxx.x + xxxx.x) | 0 ) + ((xxxx.y + xxxx.y) | 0 ) + ((xxxx.z + xxxx.z) | 0 ) + ((xxxx.w + xxxx.w) | 0 ) ) | 0;
-        
-        w = ( ((xxyy.x + xxyy.x) | 0 ) + ((xxyy.y + xxyy.y) | 0 ) + ((xxyy.z + xxyy.z) | 0 ) + ((xxyy.w + xxyy.w) | 0 ) ) | 0;	
-        
-		return i4check(i4(x,y, z, w));
+        x = (((i4extractLane(xyxy, 0) + i4extractLane(xyxy, 0)) | 0) + ((i4extractLane(xyxy, 1) + i4extractLane(xyxy, 1)) | 0) + ((i4extractLane(xyxy, 2) + i4extractLane(xyxy, 2)) | 0) + ((i4extractLane(xyxy, 3) + i4extractLane(xyxy, 3)) | 0)) | 0;
+        y = (((i4extractLane(zwzw, 0) + i4extractLane(zwzw, 0)) | 0) + ((i4extractLane(zwzw, 1) + i4extractLane(zwzw, 1)) | 0) + ((i4extractLane(zwzw, 2) + i4extractLane(zwzw, 2)) | 0) + ((i4extractLane(zwzw, 3) + i4extractLane(zwzw, 3)) | 0)) | 0;
+        z = (((i4extractLane(xxxx, 0) + i4extractLane(xxxx, 0)) | 0) + ((i4extractLane(xxxx, 1) + i4extractLane(xxxx, 1)) | 0) + ((i4extractLane(xxxx, 2) + i4extractLane(xxxx, 2)) | 0) + ((i4extractLane(xxxx, 3) + i4extractLane(xxxx, 3)) | 0)) | 0;
+        w = (((i4extractLane(xxyy, 0) + i4extractLane(xxyy, 0)) | 0) + ((i4extractLane(xxyy, 1) + i4extractLane(xxyy, 1)) | 0) + ((i4extractLane(xxyy, 2) + i4extractLane(xxyy, 2)) | 0) + ((i4extractLane(xxyy, 3) + i4extractLane(xxyy, 3)) | 0)) | 0;
+
+        return i4check(i4(x, y, z, w));
     }
-    
-    return {func1:shuffle1 , func2:shuffle2, func3:shuffle3 };
+
+    return { func1: shuffle1 , func2: shuffle2, func3: shuffle3 };
 }
 
-var m = asmModule(this, {g1:SIMD.float32x4(9,9,9,9), g2:SIMD.int32x4(1, 2, 3, 4), g3:SIMD.float64x2(10, 10, 10, 10)});
+var m = asmModule(this, { g1: SIMD.Float32x4(9.0, 9.0, 9.0, 9.0), g2: SIMD.Int32x4(1, 2, 3, 4) });
 
 var ret1 = m.func1();
 var ret2 = m.func2();
 var ret3 = m.func3();
 
-
-WScript.Echo(typeof(ret1));
+WScript.Echo(typeof (ret1));
 WScript.Echo(ret1.toString());
 
-WScript.Echo(typeof(ret2));
+WScript.Echo(typeof (ret2));
 WScript.Echo(ret2.toString());
 
-WScript.Echo(typeof(ret3));
+WScript.Echo(typeof (ret3));
 WScript.Echo(ret3.toString());
 
 

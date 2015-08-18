@@ -1978,30 +1978,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreatePixelArray(
     __in UINT length,
     __out Var *instance)
 {
-    if (GetScriptContext()->GetConfig()->IsKhronosInteropEnabled())
-    {
-        return CreateTypedArray(Uint8ClampedArray, nullptr, length, instance);
-    }
-
-    IfNullReturnError(instance, E_INVALIDARG);
-    *instance = nullptr;
-
-    HRESULT hr = NOERROR;
-    hr = VerifyOnEntry();
-    if (FAILED(hr))
-    {
-        return hr;
-    }
-    Js::JavascriptLibrary* library = GetScriptContext()->GetLibrary();
-
-    // JavaScriptPixelArray constructor may throw runtime exceptions.
-    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
-    {
-        *instance = library->CreatePixelArray(length);
-        JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_PIXELARRAY(*instance));
-    }
-    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr);
-    return hr;
+    return CreateTypedArray(Uint8ClampedArray, nullptr, length, instance);
 }
 
 // Sets *ppBuffer to point to the start of the array in RGBA format.
@@ -2012,35 +1989,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetPixelArrayBuffer(
     __deref_out_bcount(*pBufferLength) BYTE **ppBuffer,
     __out UINT *pBufferLength)
 {
-    if (GetScriptContext()->GetConfig()->IsKhronosInteropEnabled())
-    {
-        return GetTypedArrayBuffer(instance, ppBuffer, pBufferLength, nullptr, nullptr);
-    }
-
-    IfNullReturnError(ppBuffer, E_INVALIDARG);
-    *ppBuffer = nullptr;
-    IfNullReturnError(pBufferLength, E_INVALIDARG);
-    *pBufferLength = 0;
-
-    HRESULT hr = NOERROR;
-    hr = VerifyOnEntry(TRUE);
-    if (FAILED(hr))
-    {
-        *ppBuffer = nullptr;
-        return hr;
-    }
-    Js::JavascriptLibrary* library = GetScriptContext()->GetLibrary();
-
-    if (!library->GetPixelArrayBuffer(instance, ppBuffer, pBufferLength))
-    {
-        // The only possible failure is if the instance is not an pixel array
-        return E_INVALIDARG;
-    }
-
-    // Buffer and length should be both zero, or both non-zero
-    Assert((*ppBuffer == nullptr) == (*pBufferLength == 0));
-
-    return NOERROR;
+    return GetTypedArrayBuffer(instance, ppBuffer, pBufferLength, nullptr, nullptr);
 }
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateArrayBuffer(
@@ -2151,15 +2100,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateTypedArray(
         constructorFunc = javascriptLibrary->GetUint8ArrayConstructor();
         break;
     case Uint8ClampedArray:
-        if (scriptContext->GetConfig()->IsKhronosInteropEnabled())
-        {
-            constructorFunc = javascriptLibrary->GetUint8ClampedArrayConstructor();
-        }
-        else
-        {
-            AssertMsg(0, "Uint8ClampedArray is not enabled");
-            hr = E_INVALIDARG;
-        }
+        constructorFunc = javascriptLibrary->GetUint8ClampedArrayConstructor();
         break;
     case Int16Array:
         constructorFunc = javascriptLibrary->GetInt16ArrayConstructor();

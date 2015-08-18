@@ -23,10 +23,10 @@ PASSED
 *** Running test #6 (5): object.keys
 ownKey trap
 getOwnPropertyDescriptor trap prototype
-getOwnPropertyDescriptor trap length
 getOwnPropertyDescriptor trap name
 getOwnPropertyDescriptor trap caller
 getOwnPropertyDescriptor trap arguments
+getOwnPropertyDescriptor trap length
 PASSED
 *** Running test #7 (6): object.keys return undefined
 ownKey trap
@@ -35,16 +35,16 @@ PASSED
 ownKey trap
 from proxy
 prototype
-length
 name
 caller
 arguments
+length
 from target
 prototype
-length
 name
 caller
 arguments
+length
 PASSED
 *** Running test #9 (8): object.getOwnPropertySymbols
 ownKey trap
@@ -137,10 +137,10 @@ PASSED
 *** Running test #29 (5): object.keys
 ownKey trap
 getOwnPropertyDescriptor trap prototype
-getOwnPropertyDescriptor trap length
 getOwnPropertyDescriptor trap name
 getOwnPropertyDescriptor trap caller
 getOwnPropertyDescriptor trap arguments
+getOwnPropertyDescriptor trap length
 PASSED
 *** Running test #30 (6): object.keys return undefined
 ownKey trap
@@ -149,16 +149,16 @@ PASSED
 ownKey trap
 from proxy
 prototype
-length
 name
 caller
 arguments
+length
 from target
 prototype
-length
 name
 caller
 arguments
+length
 PASSED
 *** Running test #32 (8): object.getOwnPropertySymbols
 ownKey trap

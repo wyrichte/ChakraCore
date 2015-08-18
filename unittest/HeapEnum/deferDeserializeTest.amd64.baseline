@@ -67,7 +67,7 @@
  |  |    |  |  |    [Properties] count: 1
  |  |    |  |  |    | 0 length: value: 1.000000
  |  [Prototype] type: ObjectObject (seen)
- |  [Properties] count: 53
+ |  [Properties] count: 52
  |  | 0 NaN: value: -1.#IND00
  |  | 1 Infinity: value: 1.#INF00
  |  | 2 undefined: type: Undefined flags: (new) optional info records (1)
@@ -158,31 +158,29 @@
  |  |    [Prototype] type: FunctionObject (seen)
  |  | 34 Float64Array: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 35 CanvasPixelArray: type: FunctionObject flags: (new) optional info records (1)
- |  |    [Prototype] type: FunctionObject (seen)
- |  | 36 JSON: type: ObjectObject flags: (new) optional info records (1)
+ |  | 35 JSON: type: ObjectObject flags: (new) optional info records (1)
  |  |    [Prototype] type: ObjectObject (seen)
- |  | 37 Map: type: FunctionObject flags: (new) optional info records (1)
+ |  | 36 Map: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 38 Set: type: FunctionObject flags: (new) optional info records (1)
+ |  | 37 Set: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 39 WeakMap: type: FunctionObject flags: (new) optional info records (1)
+ |  | 38 WeakMap: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 40 Error: type: FunctionObject flags: (new) optional info records (1)
+ |  | 39 Error: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 41 EvalError: type: FunctionObject flags: (new) optional info records (1)
+ |  | 40 EvalError: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 42 RangeError: type: FunctionObject flags: (new) optional info records (1)
+ |  | 41 RangeError: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 43 ReferenceError: type: FunctionObject flags: (new) optional info records (1)
+ |  | 42 ReferenceError: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 44 SyntaxError: type: FunctionObject flags: (new) optional info records (1)
+ |  | 43 SyntaxError: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 45 TypeError: type: FunctionObject flags: (new) optional info records (1)
+ |  | 44 TypeError: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 46 URIError: type: FunctionObject flags: (new) optional info records (1)
+ |  | 45 URIError: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 47 Debug: type: ObjectObject flags: (new) optional info records (2)
+ |  | 46 Debug: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
  |  |    [Properties] count: 9
  |  |    | 0 EngineInterface: type: ObjectObject flags: (new) optional info records (1)
@@ -229,7 +227,7 @@
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    |    [Properties] count: 1
  |  |    |    | 0 length: value: 0.000000
- |  | 48 WScript: type: ObjectObject flags: (new) optional info records (2)
+ |  | 47 WScript: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
  |  |    [Properties] count: 25
  |  |    | 0 Echo: type: FunctionObject flags: (new) optional info records (1)
@@ -298,9 +296,9 @@
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    | 24 TestConstructor: type: FunctionObject flags: (new) optional info records (1)
  |  |    |    [Prototype] type: FunctionObject (seen)
- |  | 49 print: type: FunctionObject flags: (new) optional info records (1)
+ |  | 48 print: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 50 SCA: type: ObjectObject flags: (new) optional info records (2)
+ |  | 49 SCA: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
  |  |    [Properties] count: 7
  |  |    | 0 serialize: type: FunctionObject flags: (new) optional info records (1)
@@ -317,14 +315,14 @@
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    | 6 makeUint64: type: FunctionObject flags: (new) optional info records (1)
  |  |    |    [Prototype] type: FunctionObject (seen)
- |  | 51 ImageData: type: FunctionObject flags: (new) optional info records (2)
+ |  | 50 ImageData: type: FunctionObject flags: (new) optional info records (2)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Properties] count: 1
  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
  |  |    |    [Prototype] type: ObjectObject (seen)
  |  |    |    [Properties] count: 1
  |  |    |    | 0 constructor: type: FunctionObject (seen)
- |  | 52 test: type: FunctionObject flags: (new) optional info records (3)
+ |  | 51 test: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] test
  |  |    [Relationships] count: 3

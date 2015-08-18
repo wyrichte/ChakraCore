@@ -73,7 +73,6 @@ TYPENAME_MAP( TypeIds_StringObject, String )
 /*TYPENAME_MAP( TypeIds_ExtensionEnumerator,  )*/
 /*TYPENAME_MAP( TypeIds_Arguments, Array? )*/
 TYPENAME_MAP( TypeIds_ES5Array, Array )
-TYPENAME_MAP( TypeIds_PixelArray, Array )
 TYPENAME_MAP( TypeIds_ArrayBuffer, ArrayBuffer )
 TYPENAME_MAP( TypeIds_Int8Array, Int8Array )
 TYPENAME_MAP( TypeIds_Uint8Array, Uint8Array )

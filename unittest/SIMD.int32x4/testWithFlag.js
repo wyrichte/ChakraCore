@@ -1,90 +1,85 @@
-function equal(a, b)
-{
+function equal(a, b) {
     if (a == b)
         WScript.Echo("Correct");
-    else 
+    else
         WScript.Echo(">> Fail!");
 }
 
-function testWithFlagX()
-{
-    WScript.Echo("int32x4 withFlagX");
-    var a = SIMD.int32x4.bool(true, false, true, false);
-    var c = SIMD.int32x4.withFlagX(a, true);
+function testWithFlagX() {
+    WScript.Echo("Int32x4 withFlagX");
+    var a = SIMD.Int32x4.bool(true, false, true, false);
+    var c = SIMD.Int32x4.withFlagX(a, true);
     equal(true, c.flagX);
     equal(false, c.flagY);
     equal(true, c.flagZ);
     equal(false, c.flagW);
-    c = SIMD.int32x4.withFlagX(a, false);
+    c = SIMD.Int32x4.withFlagX(a, false);
     equal(false, c.flagX);
     equal(false, c.flagY);
     equal(true, c.flagZ);
     equal(false, c.flagW);
-    equal(0x0, c.x);
-    equal(0x0, c.y);
-    equal(-1,  c.z);
-    equal(0x0, c.w);
+    equal(0x0, SIMD.Int32x4.extractLane(c, 0));
+    equal(0x0, SIMD.Int32x4.extractLane(c, 1));
+    equal(-1, SIMD.Int32x4.extractLane(c, 2));
+    equal(0x0, SIMD.Int32x4.extractLane(c, 3));
 }
 
-function testWithFlagY()
-{
-    WScript.Echo("int32x4 withFlagY");
-    var a = SIMD.int32x4.bool(true, false, true, false);
-    var c = SIMD.int32x4.withFlagY(a, true);
+function testWithFlagY() {
+    WScript.Echo("Int32x4 withFlagY");
+    var a = SIMD.Int32x4.bool(true, false, true, false);
+    var c = SIMD.Int32x4.withFlagY(a, true);
     equal(true, c.flagX);
     equal(true, c.flagY);
     equal(true, c.flagZ);
     equal(false, c.flagW);
-    c = SIMD.int32x4.withFlagY(a, false);
+    c = SIMD.Int32x4.withFlagY(a, false);
     equal(true, c.flagX);
     equal(false, c.flagY);
     equal(true, c.flagZ);
     equal(false, c.flagW);
-    equal(-1,  c.x);
-    equal(0x0, c.y);
-    equal(-1,  c.z);
-    equal(0x0, c.w);
+    equal(-1, SIMD.Int32x4.extractLane(c, 0));
+    equal(0x0, SIMD.Int32x4.extractLane(c, 1));
+    equal(-1, SIMD.Int32x4.extractLane(c, 2));
+    equal(0x0, SIMD.Int32x4.extractLane(c, 3));
 }
 
-function testWithFlagZ()
-{
-    WScript.Echo("int32x4 withFlagZ");
-    var a = SIMD.int32x4.bool(true, false, true, false);
-    var c = SIMD.int32x4.withFlagZ(a, true);
-    equal(-1, c.x);
+function testWithFlagZ() {
+    WScript.Echo("Int32x4 withFlagZ");
+    var a = SIMD.Int32x4.bool(true, false, true, false);
+    var c = SIMD.Int32x4.withFlagZ(a, true);
+    equal(-1, SIMD.Int32x4.extractLane(c, 0));
     equal(true, c.flagX);
     equal(false, c.flagY);
     equal(true, c.flagZ);
     equal(false, c.flagW);
-    c = SIMD.int32x4.withFlagZ(a, false);
+    c = SIMD.Int32x4.withFlagZ(a, false);
     equal(true, c.flagX);
     equal(false, c.flagY);
     equal(false, c.flagZ);
     equal(false, c.flagW);
-    equal(-1, c.x);
-    equal(0x0, c.y);
-    equal(0x0, c.y);
-    equal(0x0, c.w);
+    equal(-1, SIMD.Int32x4.extractLane(c, 0));
+    equal(0x0, SIMD.Int32x4.extractLane(c, 1));
+    equal(0x0, SIMD.Int32x4.extractLane(c, 1));
+    equal(0x0, SIMD.Int32x4.extractLane(c, 3));
 }
 
-function testWithFlagW()
-{
-    WScript.Echo("int32x4 withFlagW");
-    var a = SIMD.int32x4.bool(true, false, true, false);
-    var c = SIMD.int32x4.withFlagW(a, true);
+function testWithFlagW() {
+    WScript.Echo("Int32x4 withFlagW");
+    var a = SIMD.Int32x4.bool(true, false, true, false);
+    var c = SIMD.Int32x4.withFlagW(a, true);
     equal(true, c.flagX);
     equal(false, c.flagY);
     equal(true, c.flagZ);
     equal(true, c.flagW);
-    c = SIMD.int32x4.withFlagW(a, false);
+    c = SIMD.Int32x4.withFlagW(a, false);
     equal(true, c.flagX);
     equal(false, c.flagY);
     equal(true, c.flagZ);
     equal(false, c.flagW);
-    equal(-1, c.x);
-    equal(0x0, c.y);
-    equal(-1, c.z);
-    equal(0x0, c.w);
+    equal(-1, SIMD.Int32x4.extractLane(c, 0));
+    equal(0x0, SIMD.Int32x4.extractLane(c, 1));
+    equal(-1, SIMD.Int32x4.extractLane(c, 2));
+    equal(0x0, SIMD.Int32x4.extractLane(c, 3));
 }
 
 testWithFlagX();

@@ -610,6 +610,27 @@ var tests = [
         }
     },
     {
+        name: "OS Bug 3933663 Classes Should not un-defer a class constructor before we store the computed property",
+        body: function()
+        {
+            var first  = 'a'; 
+            var second = 'b';
+            var third  = Symbol('c');
+            var fourth = Symbol();
+            var o;
+            o = {
+            [first]: class {},
+            [second]: class {},
+            [third]: class {},
+            [fourth]: class {}
+            };
+            assert.areEqual("a", o[first].name , "confirm class constructor names are the computed property value a");
+            assert.areEqual("b", o[second].name, "confirm class constructor names are the computed property value b");
+            assert.areEqual("[c]", o[third].name , "confirm class constructor names are the computed property value [c]");
+            assert.areEqual("",  o[fourth].name, "confirm class constructor names are the computed property value empty string");
+        }
+    },
+    {
         name: "fix for toString override",
         body: function()
         {

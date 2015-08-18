@@ -1,139 +1,88 @@
-function equal(a, b)
-{
+function equal(a, b) {
     if (a == b)
         WScript.Echo("Correct");
-    else 
+    else
         WScript.Echo(">> Fail!");
 }
+function testReplaceLane1() {
+    WScript.Echo("Int32x4 Lane1");
+    var a = SIMD.Int32x4(16, 9, 4, 1);
+    var c = SIMD.Int32x4.replaceLane(a, 0, 20);
+    equal(20, SIMD.Int32x4.extractLane(c, 0));
+    equal(9, SIMD.Int32x4.extractLane(c, 1));
+    equal(4, SIMD.Int32x4.extractLane(c, 2));
+    equal(1, SIMD.Int32x4.extractLane(c, 3));
 
-function testWithX()
-{
-    WScript.Echo("int32x4 withX");
-    var a = SIMD.int32x4(16, 9, 4, 1);
-    var c = SIMD.int32x4.withX(a, 20);
-    equal(20, c.x);
-    equal(9, c.y);
-    equal(4, c.z);
-    equal(1, c.w);
-    var m = SIMD.int32x4(1, 2, 3, 4);
-    var n = SIMD.int32x4.withX(m, 20);
-    equal(20, n.x);
-    equal(2, n.y);
-    equal(3, n.z);
-    equal(4, n.w);
-	
-    m = SIMD.int32x4(1, 2, 3, 4);
-    n = SIMD.int32x4.withX(m);
-    equal(0, n.x);
-    equal(2, n.y);
-    equal(3, n.z);
-    equal(4, n.w);
 }
 
-function testWithY()
-{
-    WScript.Echo("int32x4 withY");
-    var a = SIMD.int32x4(16, 9, 4, 1);
-    var c = SIMD.int32x4.withY(a, 20);
-    equal(16, c.x);
-    equal(20, c.y);
-    equal(4, c.z);
-    equal(1, c.w);
-    var m = SIMD.int32x4(1, 2, 3, 4);
-    var n = SIMD.int32x4.withY(m, 20);
-    equal(1, n.x);
-    equal(20, n.y);
-    equal(3, n.z);
-    equal(4, n.w);
-	
-    m = SIMD.int32x4(1, 2, 3, 4);
-    n = SIMD.int32x4.withY(m);
-    equal(1, n.x);
-    equal(0, n.y);
-    equal(3, n.z);
-    equal(4, n.w);
+function testReplaceLane2() {
+    WScript.Echo("Int32x4 Lane2");
+    var a = SIMD.Int32x4(16, 9, 4, 1);
+    var c = SIMD.Int32x4.replaceLane(a, 1, 20);
+
+    equal(16, SIMD.Int32x4.extractLane(c, 0));
+    equal(20, SIMD.Int32x4.extractLane(c, 1));
+    equal(4, SIMD.Int32x4.extractLane(c, 2));
+    equal(1, SIMD.Int32x4.extractLane(c, 3));
+
 }
 
-function testWithZ()
-{
-    WScript.Echo("int32x4 withZ");
-    var a = SIMD.int32x4(16, 9, 4, 1);
-    var c = SIMD.int32x4.withZ(a, 20);
-    equal(16, c.x);
-    equal(9, c.y);
-    equal(20, c.z);
-    equal(1, c.w);
-    var m = SIMD.int32x4(1, 2, 3, 4);
-    var n = SIMD.int32x4.withZ(m, 20);
-    equal(1, n.x);
-    equal(2, n.y);
-    equal(20, n.z);
-    equal(4, n.w);
-	
-    m = SIMD.int32x4(1, 2, 3, 4);
-    n = SIMD.int32x4.withZ(m);
-    equal(1, n.x);
-    equal(2, n.y);
-    equal(0, n.z);
-    equal(4, n.w);
+function testReplaceLane3() {
+    WScript.Echo("Int32x4 Lane3");
+    var a = SIMD.Int32x4(16, 9, 4, 1);
+    var c = SIMD.Int32x4.replaceLane(a, 2, 20);
+
+    equal(16, SIMD.Int32x4.extractLane(c, 0));
+    equal(9, SIMD.Int32x4.extractLane(c, 1));
+    equal(20, SIMD.Int32x4.extractLane(c, 2));
+    equal(1, SIMD.Int32x4.extractLane(c, 3));
+
 }
 
-function testWithW()
-{
-    WScript.Echo("int32x4 withW");
-    var a = SIMD.int32x4(16, 9, 4, 1);
-    var c = SIMD.int32x4.withW(a, 20);
-    equal(16, c.x);
-    equal(9, c.y);
-    equal(4, c.z);
-    equal(20, c.w);
-    var m = SIMD.int32x4(1, 2, 3, 4);
-    var n = SIMD.int32x4.withW(m, 20);
-    equal(1, n.x);
-    equal(2, n.y);
-    equal(3, n.z);
-    equal(20, n.w);
-	
-    m = SIMD.int32x4(1, 2, 3, 4);
-    n = SIMD.int32x4.withW(m);
-    equal(1, n.x);
-    equal(2, n.y);
-    equal(3, n.z);
-    equal(0, n.w);
+function testReplaceLane4() {
+    WScript.Echo("Int32x4 Lane4");
+    var a = SIMD.Int32x4(16, 9, 4, 1);
+    var c = SIMD.Int32x4.replaceLane(a, 3, 20);
+
+    equal(16, SIMD.Int32x4.extractLane(c, 0));
+    equal(9, SIMD.Int32x4.extractLane(c, 1));
+    equal(4, SIMD.Int32x4.extractLane(c, 2));
+    equal(20, SIMD.Int32x4.extractLane(c, 3));
+
 }
 
-testWithX();
-testWithX();
-testWithX();
-testWithX();
-testWithX();
-testWithX();
-testWithX();
-testWithX();
+testReplaceLane1();
+testReplaceLane1();
+testReplaceLane1();
+testReplaceLane1();
+testReplaceLane1();
+testReplaceLane1();
+testReplaceLane1();
+testReplaceLane1();
 
-testWithY();
-testWithY();
-testWithY();
-testWithY();
-testWithY();
-testWithY();
-testWithY();
-testWithY();
+testReplaceLane2();
+testReplaceLane2();
+testReplaceLane2();
+testReplaceLane2();
+testReplaceLane2();
+testReplaceLane2();
+testReplaceLane2();
+testReplaceLane2();
 
-testWithZ();
-testWithZ();
-testWithZ();
-testWithZ();
-testWithZ();
-testWithZ();
-testWithZ();
-testWithZ();
+testReplaceLane3();
+testReplaceLane3();
+testReplaceLane3();
+testReplaceLane3();
+testReplaceLane3();
+testReplaceLane3();
+testReplaceLane3();
+testReplaceLane3();
 
-testWithW();
-testWithW();
-testWithW();
-testWithW();
-testWithW();
-testWithW();
-testWithW();
-testWithW();
+testReplaceLane4();
+testReplaceLane4();
+testReplaceLane4();
+testReplaceLane4();
+testReplaceLane4();
+testReplaceLane4();
+testReplaceLane4();
+testReplaceLane4();

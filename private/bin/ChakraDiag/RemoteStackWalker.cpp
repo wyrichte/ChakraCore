@@ -425,11 +425,11 @@ uint32 RemoteStackWalker::GetByteCodeOffset(uint* loopNumber)
                 // On the topmost frame, if we are on a breakpoint or stepping then we already have the correct
                 // bytecode offset as the instruction has not yet been executed
                 RemoteThreadContext threadContext(m_reader, m_scriptContext->Get()->GetThreadContext());
-                ProbeManager* probeManager = threadContext.GetDiagnostics();
-                if(probeManager)
+                DebugManager* debugManager = threadContext.GetDebugManager();
+                if (debugManager)
                 {
-                    RemoteProbeManager remoteProbeManager(m_reader, probeManager);
-                    if (remoteProbeManager->isAtDispatchHalt)
+                    RemoteDebugManager remoteDebugManager(m_reader, debugManager);
+                    if (remoteDebugManager.GetIsAtDispatchHalt())
                     {
                         // This relies on ProbeContainer::DispatchXXX to adjust bytecode offset on top-most frame, if required
                         // (only ProbeContainer::DispatchExceptionBreakpoint does the adjustment, see setting pHaltState->SetCurrentOffset),
@@ -437,8 +437,8 @@ uint32 RemoteStackWalker::GetByteCodeOffset(uint* loopNumber)
                         // (while hybrid currently sees them all) and DispatchExceptionBreakpoint on the inproc side wouldn't adjust offset 
                         // for top-most frame. So, adjust it here (just fall through for the exception case).
                         // TODO: remove special case (make 'if (!needAdjustment)' block unconditional) when library frame support is added on hybrid side.
-                        Assert(remoteProbeManager->pCurrentInterpreterLocation);
-                        RemoteInterpreterHaltState remoteHaltState(m_reader, remoteProbeManager->pCurrentInterpreterLocation);
+                        Assert(remoteDebugManager.GetInterpreterHaltState());
+                        RemoteInterpreterHaltState remoteHaltState(m_reader, remoteDebugManager.GetInterpreterHaltState());
                         bool needAdjustment = false; // needAdjustment <=> top-most frame && exception && library code.
                         if (remoteHaltState->stopType == StopType::STOP_EXCEPTIONTHROW)
                         {

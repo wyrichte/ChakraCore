@@ -9,5 +9,6 @@ false
 undefined
 aaa = 20
 constructor
+slice
 aaa
 byteLength

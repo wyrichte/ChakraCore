@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
+  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\..\Build\Chakra.Build.Paths.props" />
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
   <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{706083F7-6AA4-4558-A153-6352EF911FF5}</ProjectGuid>
+    <TargetName>edgejsstatic</TargetName>
     <RootNamespace>JS</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
@@ -11,7 +13,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />  
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
   <PropertyGroup>
@@ -25,7 +27,9 @@
         $(ChakraRootDirectory)core\lib\Parser;
         $(ChakraRootDirectory)core\lib\BackEnd;
         <!-- For ChakraVersion.h -->
-        $(MSBuildThisFileDirectory)..\..\bin\Chakra;
+        $(MSBuildThisFileDirectory)..\..\lib\Engine;
+        $(ChakraInternalIDLIntDir);
+        $(ChakraManifestsIncludeDirectory);
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -40,10 +44,15 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>       
-    <ClInclude Include="base\MockExternalObject.h" />    
-    <ClInclude Include="base\scriptenginebase.h" />    
+  <ItemGroup>
+    <ClInclude Include="base\MockExternalObject.h" />
+    <ClInclude Include="base\scriptenginebase.h" />
     <ClInclude Include="StdAfx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\core\Manifests\Manifests.vcxproj">
+      <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

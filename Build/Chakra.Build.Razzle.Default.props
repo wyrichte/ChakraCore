@@ -52,6 +52,7 @@
     <ChakraRuntimeLibs>$(RazzleJscriptObjectRoot)\core\lib\runtime\bytecode\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Bytecode.lib</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(ChakraRuntimeLanguageLib)</ChakraRuntimeLibs>
     
+    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\core\lib\runtime\debug\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Debug.lib</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\core\lib\runtime\library\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Library.lib</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\core\lib\runtime\math\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Math.lib</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\core\lib\runtime\types\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Types.lib</ChakraRuntimeLibs>   

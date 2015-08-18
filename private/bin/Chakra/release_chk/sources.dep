@@ -21,26 +21,11 @@ BUILD_PASS1_CONSUMES= \
     inetcore\jscript\core\lib\jsrt\release|PASS1 \
     inetcore\jscript\core\lib\parser\release|PASS1 \
     inetcore\jscript\core\lib\runtime\bytecode\release|PASS1 \
+    inetcore\jscript\core\lib\runtime\debug\release|PASS1 \
     inetcore\jscript\core\lib\runtime\language\release|PASS1 \
     inetcore\jscript\core\lib\runtime\library\release|PASS1 \
     inetcore\jscript\core\lib\runtime\math\release|PASS1 \
     inetcore\jscript\core\lib\runtime\types\release|PASS1 \
-    inetcore\jscript\lib\backend\release|PASS1 \
-    inetcore\jscript\lib\common\common\release|PASS1 \
-    inetcore\jscript\lib\common\core\release|PASS1 \
-    inetcore\jscript\lib\common\datastructures\release|PASS1 \
-    inetcore\jscript\lib\common\exceptions\release|PASS1 \
-    inetcore\jscript\lib\common\memory\release|PASS1 \
-    inetcore\jscript\lib\common\util\release|PASS1 \
-    inetcore\jscript\lib\memprotectheap\release|PASS1 \
-    inetcore\jscript\lib\parser\release|PASS1 \
-    inetcore\jscript\lib\runtime\bytecode\release|PASS1 \
-    inetcore\jscript\lib\runtime\language\release|PASS1 \
-    inetcore\jscript\lib\runtime\library\release|PASS1 \
-    inetcore\jscript\lib\runtime\math\release|PASS1 \
-    inetcore\jscript\lib\runtime\telemetry\release|PASS1 \
-    inetcore\jscript\lib\runtime\types\release|PASS1 \
-    inetcore\jscript\lib\winrt\release|PASS1 \
     inetcore\jscript\private\lib\enc\release|PASS1 \
     inetcore\jscript\private\lib\engine\release|PASS1 \
     inetcore\jscript\private\lib\jsrtchakra\release|PASS1 \

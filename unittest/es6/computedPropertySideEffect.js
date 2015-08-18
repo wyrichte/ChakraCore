@@ -21,4 +21,16 @@ function g()
 }
 g();
 
+function h()
+{
+    var v0 = 1;
+    var o = { [v0] : v0 = 2};
+    function h() {}
+    if (o[1] !== 2)
+    {
+        WScript.Echo('fail3: o[1] === ', o[1]);
+    }
+}
+h();
+
 WScript.Echo('pass');    

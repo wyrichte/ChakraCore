@@ -71,7 +71,7 @@ namespace JsDiag
             auto reader = m_debugClient->GetReader();
             RemoteThreadContextTLSEntry tlsEntry(reader, threadContextTlsEntry);
             RemoteThreadContext remoteThreadContext(reader, tlsEntry.GetThreadContext());
-            RemoteProbeManager probeManager(reader, remoteThreadContext.GetDiagnostics());
+            RemoteDebugManager debugManager(reader, remoteThreadContext.GetDebugManager());
             ScriptContext* scriptContext = remoteThreadContext.GetScriptContextList();
             HaltCallback* callback = NULL;
             while(scriptContext != NULL)
@@ -90,14 +90,14 @@ namespace JsDiag
             }
             Assert(callback != NULL);
             
-            AsyncBreakController* controller = probeManager.GetFieldAddr<AsyncBreakController>(offsetof(ProbeManager, asyncBreakController));
+            AsyncBreakController* controller = debugManager.GetAsyncBreakController();
             RemoteAsyncBreakController remoteAsyncBreakContoller(reader, controller);
             remoteAsyncBreakContoller.WriteField(offsetof(AsyncBreakController, haltCallback), callback);
 
             if (DIAG_CONFIG_FLAG(EnableJitInDiagMode) && DIAG_CONFIG_FLAG(EnableJitInHybridDebugging))
             {
                 // For JIT mode simulate threadContext->GetDebuggingFlags->SetForceInterpreter(true).
-                RemoteDebuggingFlags debuggingFlags(reader, remoteThreadContext.GetDebuggingFlags());
+                RemoteDebuggingFlags debuggingFlags(reader, debugManager.GetDebuggingFlags());
                 debuggingFlags.SetForceInterpreter(true);
                 // TODO: HybridJit: how do we test for this? Web workers?
             }

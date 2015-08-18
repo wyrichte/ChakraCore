@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
+  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\Build\Chakra.Build.Paths.props" />
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
   <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
   <PropertyGroup Label="Globals">
     <ProjectName>NativeUnitTests</ProjectName>
@@ -10,32 +11,66 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseOfATL>static</UseOfATL>
+    <UseStaticAtl>true</UseStaticAtl>
+    <AtlVersion>70</AtlVersion>
+    <BuildForCoreSystem>true</BuildForCoreSystem>
+    <UseStl>true</UseStl>
+    <StlVersion>70</StlVersion>
+    <TestCode Condition="'$(BuildingWithBuildExe)'=='true'">true</TestCode>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />  
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <IncludePath>$(IntDir)\..\publish;$(Configuration)\$(PlatformPathNameAlt)\published;$(IncludePath);$(PUBLIC_ROOT)\internal\com\inc;$(PUBLIC_ROOT)\sdk\inc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;$(IntDir)\..\..\inc</IncludePath>
-    <LibraryPath>$(PUBLIC_ROOT)\internal\inetcore\lib\$(PlatformPathNameAlt);$(PUBLIC_ROOT)\internal\mincore\priv_sdk\lib\$(PlatformPathNameAlt);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..;..\..\Lib\Common;..\..\Lib\Common\Memory;..\..\Lib\Parser;..\..\Lib\Runtime;..\..\Lib\Runtime\Library;..\..\Lib\Backend;$(IntDir);$(IntDir)..\Common;..\..\Dll\JScriptDiag;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+        %(AdditionalIncludeDirectories);
+        $(ChakraRootDirectory)core\lib\Common;
+        $(ChakraRootDirectory)core\lib\Common\Memory;
+        $(ChakraRootDirectory)core\lib\Memory;
+        $(ChakraRootDirectory)core\lib\Parser;
+        $(ChakraRootDirectory)core\lib\Runtime;
+        $(ChakraRootDirectory)core\lib\Runtime\Library;
+        $(ChakraRootDirectory)core\lib\Backend;
+        $(ChakraRootDirectory)private\bin\Chakra;
+        $(ChakraRootDirectory)private\bin\ChakraDiag;
+        $(IntDir);
+        $(ChakraRootDirectory)private\lib\HostCommon;
+      </AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings);4189;4290</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>muiload.lib;psapi.lib;ntstc_msvcrt.lib;version.lib;CommonUtilityLibrary.lib;ntdll.lib;bcrypt.lib;rpcrt4.lib;ieuuidp.lib;pathcchapis.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(OneCoreSdkLibPath)\$(OneCoreTargetVersionStr)\onecore.lib;
+        $(SdkLibPath)\shlwapi.lib;
+      </AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
       <ModuleDefinitionFile>NativeUnitTests.def</ModuleDefinitionFile>
     </Link>
-  </ItemDefinitionGroup>  
+    <Link Condition="'$(BuildingWithBuildExe)'=='true'">
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(RazzleJscriptObjectRoot)\private\lib\HostCommon\$(ObjectDirectory)\Chakra.Host.Common.lib;
+        $(RazzleJscriptObjectRoot)\private\lib\StaticLib\$(ObjectDirectory)\edgejsstatic.lib;
+        $(RazzleJscriptObjectRoot)\private\bin\ChakraDiag\Lib\$(ObjectDirectory)\ChakraDiagLib.lib;
+        $(SdkLibPath)\advapi32.lib
+      </AdditionalDependencies>
+    </Link>
+  <!-- Razzle binplace -->
+  </ItemDefinitionGroup>
+  <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true'">
+    <BinplaceLinked Include="$(ObjectPath)\$(ObjectDirectory)$(TargetFileName)">
+      <DestinationFolder>jscript</DestinationFolder>
+    </BinplaceLinked>
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AsyncDebug.cpp" />
     <ClCompile Include="basictest.cpp" />
@@ -72,7 +107,13 @@
     <ClInclude Include="Verifier.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Lib\static\static.vcxproj">
+    <ProjectReference Include="..\..\private\bin\ChakraDiag\lib\ChakraDiagLib.vcxproj">
+      <Project>{b47b46fb-c348-4b6c-9157-8b0e7abc84fe}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Private\Lib\HostCommon\HostCommon.vcxproj">
+      <Project>{f2e998aa-fb27-4f65-a6f7-4142be64294f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\private\lib\staticlib\static.vcxproj">
       <Project>{706083f7-6aa4-4558-a153-6352ef911ff5}</Project>
     </ProjectReference>
   </ItemGroup>

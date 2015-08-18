@@ -2,8 +2,21 @@
 <regress-exe>
   <test>
     <default>
-      <files>AsyncAwait.js</files>
-      <compile-flags>-ES6Classes -ES6AsyncAwait -ES6Generators -args summary -endargs</compile-flags>
+      <files>AsyncAwait-syntax.js</files>
+      <compile-flags>-ES6Classes -ES7AsyncAwait -ES6Generators -nodeferparse -args summary -endargs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>AsyncAwait-functionality.js</files>
+      <compile-flags>-ES6Classes -ES7AsyncAwait -ES6Generators -nodeferparse -args summary -endargs</compile-flags>
+      <baseline>AsyncAwait-functionality.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ES6PrototypeChainSpecialCasesNotRegularObject.js</files>
+      <compile-flags>-ES6PrototypeChain -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
@@ -98,12 +111,6 @@
     <default>
       <files>unscopablesWithScopeTest.js</files>
       <compile-flags>-args summary -endargs</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>function.length.js</files>
-      <compile-flags>-ES6Generators -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
@@ -451,7 +458,7 @@
   <test>
     <default>
       <files>ES6TypedArrayExtensions.js</files>
-      <compile-flags> -ES6 -ES6TypedArrayExtensions -es6tostringtag -ES6ObjectLiterals -ES6Iterators -KhronosInterop -ES6Species -args summary -endargs</compile-flags>
+      <compile-flags> -ES6 -ES6TypedArrayExtensions -es6tostringtag -ES6ObjectLiterals -ES6Iterators -ES6Species -args summary -endargs</compile-flags>
       <tags>Slow</tags>
     </default>
   </test>
@@ -989,24 +996,6 @@
       <compile-flags>-ES6Destructuring -ES6DefaultArgs -args summary -endargs</compile-flags>
     </default>
   </test>
-  <!--
-<test>
-  <default>
-    <baseline>ES6StringTemplate_ls.baseline</baseline>
-    <files>ES6StringTemplate_ls.js</files>
-    <compile-flags>-ES6StringTemplate -ls</compile-flags>
-    <tags>exclude_amd64,exclude_arm</tags>
-  </default>
-</test>
-<test>
-  <default>
-    <baseline>ES6All_ls.baseline</baseline>
-    <files>ES6All_ls.js</files>
-    <compile-flags>-ES6All -ls</compile-flags>
-    <tags>exclude_amd64,exclude_arm</tags>
-  </default>
-</test>
--->
   <test>
     <default>
       <files>bug_279376.js</files>
@@ -1127,15 +1116,6 @@
       <tags>BugFix</tags>
     </default>
   </test>
-  <!--
-  <test>
-    <default>
-      <files>bug1988576.js</files>
-      <compile-flags>-ls -trace:jslsscripttrace</compile-flags>
-      <tags>BugFix;exclude_nativeserialized,exclude_amd64,exclude_arm</tags>
-    </default>
-  </test>
--->
   <test>
     <default>
       <files>arraywithproxy.js</files>
@@ -1148,15 +1128,6 @@
       <baseline>proxytest8.baseline</baseline>
     </default>
   </test>
-  <!--
-<test>
-  <default>
-    <files>OS_1245914_Super.js</files>
-    <compile-flags>-ls</compile-flags>
-      <tags>BugFix;exclude_nativeserialized,exclude_amd64,exclude_arm</tags>
-  </default>
-</test>
--->
   <test>
     <default>
       <files>proxytest9.js</files>
@@ -1164,15 +1135,6 @@
       <tags>BugFix</tags>
     </default>
   </test>
-  <!--
-<test>
-  <default>
-    <files>bug_OS_2202717.js</files>
-    <compile-flags>-ls</compile-flags>
-      <tags>BugFix;exclude_nativeserialized,exclude_amd64,exclude_arm</tags>
-  </default>
-</test>
--->
   <test>
     <default>
       <files>ES6Function_bugs.js</files>

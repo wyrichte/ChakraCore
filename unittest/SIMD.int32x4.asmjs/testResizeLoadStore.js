@@ -6,7 +6,7 @@ var m = function(stdlib,imports,buffer){
 	var f32=new F32(buffer);
     var i32=new I32(buffer);
 	var len=stdlib.byteLength;
-	var i4 = stdlib.SIMD.int32x4;
+	var i4 = stdlib.SIMD.Int32x4;
 	var i4load = i4.load;
 	var i4store = i4.store;
 	var i4check = i4.check; 
@@ -34,14 +34,14 @@ this['byteLength'] =
   Function.prototype.call.bind(Object.getOwnPropertyDescriptor(ArrayBuffer.prototype, 'byteLength').get);
 var o = m(this,{},buf1);
 
-o.store(SIMD.int32x4(-5,6,17,8000),4);
+o.store(SIMD.Int32x4(-5,6,17,8000),4);
 var ret = o.load(4);
 print(ret.toString());
 
-o.store(SIMD.int32x4(-5,6,17,8000), i32.length-4);
+o.store(SIMD.Int32x4(-5,6,17,8000), i32.length-4);
 var ret = o.load(i32.length-4);
 print(ret.toString());
-try {o.store(SIMD.int32x4(11, 304, -22239, 34010), f32.length); WScript.Echo("Wrong")} catch(err) { WScript.Echo("Correct");}
+try {o.store(SIMD.Int32x4(11, 304, -22239, 34010), f32.length); WScript.Echo("Wrong")} catch(err) { WScript.Echo("Correct");}
 
 
 
@@ -49,7 +49,7 @@ var buf2 = new ArrayBuffer(0x2000000);
 print(o.changeHeap(buf2));
 
 // heap doubled, no OOB
-o.store(SIMD.int32x4(511, 304, -22239, 34010), i32.length);
+o.store(SIMD.Int32x4(511, 304, -22239, 34010), i32.length);
 var ret = o.load(i32.length);
 print(ret.toString());
-o.store(SIMD.int32x4(511, 304, -22239, 34010), i32.length * 2 - 4);
+o.store(SIMD.Int32x4(511, 304, -22239, 34010), i32.length * 2 - 4);

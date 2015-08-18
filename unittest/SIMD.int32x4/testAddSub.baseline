@@ -1,4 +1,4 @@
-int32x4 add
+Int32x4 add
 Correct
 Correct
 Correct
@@ -7,7 +7,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 add
+Int32x4 add
 Correct
 Correct
 Correct
@@ -16,7 +16,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 add
+Int32x4 add
 Correct
 Correct
 Correct
@@ -25,7 +25,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 add
+Int32x4 add
 Correct
 Correct
 Correct
@@ -34,7 +34,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 add
+Int32x4 add
 Correct
 Correct
 Correct
@@ -43,7 +43,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 add
+Int32x4 add
 Correct
 Correct
 Correct
@@ -52,7 +52,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 add
+Int32x4 add
 Correct
 Correct
 Correct
@@ -61,7 +61,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 sub
+Int32x4 sub
 Correct
 Correct
 Correct
@@ -70,7 +70,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 sub
+Int32x4 sub
 Correct
 Correct
 Correct
@@ -79,7 +79,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 sub
+Int32x4 sub
 Correct
 Correct
 Correct
@@ -88,7 +88,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 sub
+Int32x4 sub
 Correct
 Correct
 Correct
@@ -97,7 +97,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 sub
+Int32x4 sub
 Correct
 Correct
 Correct
@@ -106,7 +106,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 sub
+Int32x4 sub
 Correct
 Correct
 Correct
@@ -115,7 +115,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 sub
+Int32x4 sub
 Correct
 Correct
 Correct

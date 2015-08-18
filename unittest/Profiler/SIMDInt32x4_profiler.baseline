@@ -277,12 +277,12 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
 [FunctionCompiled]: Function: equal, Line: 1, Column: 1, Character Position: 0
 [FunctionCompiled]: Function: testSIMDInt32x4, Line: 9, Column: 1, Character Position: 141
-[FunctionCompiled]: Function: testSIMDInt32x4_BinaryOp, Line: 72, Column: 1, Character Position: 1805
-[FunctionCompiled]: Function: testSIMDInt32x4_CompareOp, Line: 173, Column: 1, Character Position: 4979
-[FunctionCompiled]: Function: testSIMDInt32x4_Select, Line: 245, Column: 1, Character Position: 6917
-[FunctionCompiled]: Function: testSIMDInt32x4_Shuffle, Line: 223, Column: 1, Character Position: 6298
-[FunctionCompiled]: Function: testSIMDInt32x4_Swizzle, Line: 202, Column: 1, Character Position: 5727
-[FunctionCompiled]: Function: testSIMDInt32x4_UnaryOp, Line: 156, Column: 1, Character Position: 4566
-[FunctionCompiled]: Function: testSIMDInt32x4_conversion, Line: 38, Column: 1, Character Position: 940
+[FunctionCompiled]: Function: testSIMDInt32x4_BinaryOp, Line: 71, Column: 1, Character Position: 2597
+[FunctionCompiled]: Function: testSIMDInt32x4_CompareOp, Line: 170, Column: 1, Character Position: 6993
+[FunctionCompiled]: Function: testSIMDInt32x4_Select, Line: 239, Column: 1, Character Position: 9900
+[FunctionCompiled]: Function: testSIMDInt32x4_Shuffle, Line: 218, Column: 1, Character Position: 8958
+[FunctionCompiled]: Function: testSIMDInt32x4_Swizzle, Line: 198, Column: 1, Character Position: 8064
+[FunctionCompiled]: Function: testSIMDInt32x4_UnaryOp, Line: 154, Column: 1, Character Position: 6365
+[FunctionCompiled]: Function: testSIMDInt32x4_conversion, Line: 38, Column: 1, Character Position: 1301
 Passed: Validation
 Script Profiler ends

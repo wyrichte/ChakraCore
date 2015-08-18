@@ -1169,7 +1169,7 @@ HRESULT STDMETHODCALLTYPE DebugPropertySetValueCallback::SetValue(VARIANT *pvarN
 
     scriptContext = pScriptEngine->GetScriptSiteHolder()->GetScriptSiteContext();
 
-    pRefArena = scriptContext->GetThreadContext()->Diagnostics->GetDiagnosticArena();
+    pRefArena = scriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticArena();
 
     if (!pRefArena)
     {

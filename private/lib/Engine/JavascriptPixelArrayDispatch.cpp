@@ -34,18 +34,10 @@ HRESULT JavascriptPixelArrayDispatch::get_length(__out ULONG* plLength)
     IfNullReturnError(plLength, E_INVALIDARG);
     *plLength = 0;
 
-    if (scriptObject->GetTypeId() == Js::TypeIds_PixelArray)
-    {
-        // GetBufferLength returns the buffer size in bytes
-        *plLength = Js::JavascriptPixelArray::FromVar(scriptObject)->GetBufferLength();
-    }
-    else
-    {
-        Assert(scriptObject->GetTypeId() == Js::TypeIds_Uint8ClampedArray);
+    Assert(scriptObject->GetTypeId() == Js::TypeIds_Uint8ClampedArray);
 
-        // GetByteLength returns the array length in bytes (elements * element_size)
-        *plLength = Js::Uint8ClampedArray::FromVar(scriptObject)->GetByteLength();
-    }
+    // GetByteLength returns the array length in bytes (elements * element_size)
+    *plLength = Js::Uint8ClampedArray::FromVar(scriptObject)->GetByteLength();
 
     return S_OK;
 }

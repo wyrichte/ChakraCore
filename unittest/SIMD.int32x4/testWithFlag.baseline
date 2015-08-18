@@ -1,4 +1,4 @@
-int32x4 withFlagX
+Int32x4 withFlagX
 Correct
 Correct
 Correct
@@ -11,7 +11,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagX
+Int32x4 withFlagX
 Correct
 Correct
 Correct
@@ -24,7 +24,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagX
+Int32x4 withFlagX
 Correct
 Correct
 Correct
@@ -37,7 +37,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagX
+Int32x4 withFlagX
 Correct
 Correct
 Correct
@@ -50,7 +50,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagX
+Int32x4 withFlagX
 Correct
 Correct
 Correct
@@ -63,7 +63,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagX
+Int32x4 withFlagX
 Correct
 Correct
 Correct
@@ -76,7 +76,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagX
+Int32x4 withFlagX
 Correct
 Correct
 Correct
@@ -89,7 +89,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagX
+Int32x4 withFlagX
 Correct
 Correct
 Correct
@@ -102,7 +102,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagY
+Int32x4 withFlagY
 Correct
 Correct
 Correct
@@ -115,7 +115,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagY
+Int32x4 withFlagY
 Correct
 Correct
 Correct
@@ -128,7 +128,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagY
+Int32x4 withFlagY
 Correct
 Correct
 Correct
@@ -141,7 +141,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagY
+Int32x4 withFlagY
 Correct
 Correct
 Correct
@@ -154,7 +154,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagY
+Int32x4 withFlagY
 Correct
 Correct
 Correct
@@ -167,7 +167,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagY
+Int32x4 withFlagY
 Correct
 Correct
 Correct
@@ -180,7 +180,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagY
+Int32x4 withFlagY
 Correct
 Correct
 Correct
@@ -193,7 +193,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagY
+Int32x4 withFlagY
 Correct
 Correct
 Correct
@@ -206,7 +206,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagZ
+Int32x4 withFlagZ
 Correct
 Correct
 Correct
@@ -220,7 +220,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagZ
+Int32x4 withFlagZ
 Correct
 Correct
 Correct
@@ -234,7 +234,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagZ
+Int32x4 withFlagZ
 Correct
 Correct
 Correct
@@ -248,7 +248,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagZ
+Int32x4 withFlagZ
 Correct
 Correct
 Correct
@@ -262,7 +262,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagZ
+Int32x4 withFlagZ
 Correct
 Correct
 Correct
@@ -276,7 +276,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagZ
+Int32x4 withFlagZ
 Correct
 Correct
 Correct
@@ -290,7 +290,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagZ
+Int32x4 withFlagZ
 Correct
 Correct
 Correct
@@ -304,7 +304,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagZ
+Int32x4 withFlagZ
 Correct
 Correct
 Correct
@@ -318,7 +318,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagW
+Int32x4 withFlagW
 Correct
 Correct
 Correct
@@ -331,7 +331,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagW
+Int32x4 withFlagW
 Correct
 Correct
 Correct
@@ -344,7 +344,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagW
+Int32x4 withFlagW
 Correct
 Correct
 Correct
@@ -357,7 +357,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagW
+Int32x4 withFlagW
 Correct
 Correct
 Correct
@@ -370,7 +370,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagW
+Int32x4 withFlagW
 Correct
 Correct
 Correct
@@ -383,7 +383,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagW
+Int32x4 withFlagW
 Correct
 Correct
 Correct
@@ -396,7 +396,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagW
+Int32x4 withFlagW
 Correct
 Correct
 Correct
@@ -409,7 +409,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 withFlagW
+Int32x4 withFlagW
 Correct
 Correct
 Correct

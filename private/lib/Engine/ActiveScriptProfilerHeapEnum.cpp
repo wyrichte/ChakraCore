@@ -48,6 +48,7 @@ const ActiveScriptProfilerHeapEnum::InternalTypeIdMap ActiveScriptProfilerHeapEn
     { Js::TypeIds_SIMDFloat32x4, HeapObjectType_SIMD },
     { Js::TypeIds_SIMDFloat64x2, HeapObjectType_SIMD },
     { Js::TypeIds_SIMDInt32x4, HeapObjectType_SIMD },
+    { Js::TypeIds_SIMDInt8x16, HeapObjectType_SIMD },
 #endif
     { Js::TypeIds_HostDispatch, HeapObjectType_HostObject },
     { Js::TypeIds_WithScopeObject, HeapObjectType_Scope },
@@ -65,10 +66,8 @@ const ActiveScriptProfilerHeapEnum::InternalTypeIdMap ActiveScriptProfilerHeapEn
     { Js::TypeIds_BooleanObject, HeapObjectType_BooleanObject},
     { Js::TypeIds_NumberObject, HeapObjectType_NumberObject},
     { Js::TypeIds_StringObject, HeapObjectType_StringObject},
-    { Js::TypeIds_ExtensionEnumerator, HeapObjectType_ExtensionEnumeratorObject},
     { Js::TypeIds_Arguments, HeapObjectType_ArgumentObject},
     { Js::TypeIds_ES5Array, HeapObjectType_ArrayObject},
-    { Js::TypeIds_PixelArray, HeapObjectType_CanvasPixelArray},
     { Js::TypeIds_ArrayBuffer, HeapObjectType_ArrayBuffer},
     { Js::TypeIds_Int8Array, HeapObjectType_TypedArrayObject},
     { Js::TypeIds_Uint8Array, HeapObjectType_TypedArrayObject},
@@ -139,10 +138,8 @@ void ActiveScriptProfilerHeapEnum::CreateTypeNameIds()
     typeNameIdMap[HeapObjectType_ArrayObject].typeNameId = GetPropertyId(L"ArrayObject");
     typeNameIdMap[HeapObjectType_ArrayBuffer].typeNameId = GetPropertyId(L"ArrayBuffer");
     typeNameIdMap[HeapObjectType_BooleanObject].typeNameId = GetPropertyId(L"BooleanObject");
-    typeNameIdMap[HeapObjectType_CanvasPixelArray].typeNameId = GetPropertyId(L"CanvasPixelArray");
     typeNameIdMap[HeapObjectType_DataView].typeNameId = GetPropertyId(L"DataView");
     typeNameIdMap[HeapObjectType_DateObject].typeNameId = GetPropertyId(L"DateObject");
-    typeNameIdMap[HeapObjectType_ExtensionEnumeratorObject].typeNameId = GetPropertyId(L"ExtensionEnumeratorObject");
     typeNameIdMap[HeapObjectType_ErrorObject].typeNameId = GetPropertyId(L"ErrorObject");
     typeNameIdMap[HeapObjectType_GetVarDateFunctionObject].typeNameId = GetPropertyId(L"GetVarDateFunctionObject");
     typeNameIdMap[HeapObjectType_FunctionObject].typeNameId = GetPropertyId(L"FunctionObject");
@@ -908,7 +905,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
             }
         }
     }
-    else if (CONFIG_FLAG(KhronosInterop) && Js::DataView::Is(obj))
+    else if (Js::DataView::Is(obj))
     {
         relationshipCount = _countof(c_dataViewRelationshipNames);
     }
@@ -1095,10 +1092,6 @@ UINT ActiveScriptProfilerHeapEnum::GetObjectSize(void* obj, size_t size)
         if (Js::ArrayBuffer::Is(obj))
         {
             return UInt32Math::Add(size, Js::ArrayBuffer::FromVar(obj)->GetByteLength(), Js::Throw::OutOfMemory);
-        }
-        if (Js::JavascriptPixelArray::Is(obj))
-        {
-            return UInt32Math::Add(size, Js::JavascriptPixelArray::FromVar(obj)->GetBufferLength(), Js::Throw::OutOfMemory);
         }
         if (Js::JavascriptArray::Is(obj))
         {
@@ -1790,8 +1783,6 @@ void ActiveScriptProfilerHeapEnum::FillRelationships(Js::RecyclableObject* obj, 
     }
     else if (Js::DataView::Is(obj))
     {
-        AssertMsg(CONFIG_FLAG(KhronosInterop), "We shouldn't have added relationships for a DataView if Khronos Interop is turned off.");
-
         Js::DataView* dataView = Js::DataView::FromVar(obj);
         uint propId = GetEnginePropertyCount() + _countof(c_functionRelationshipNames);
 

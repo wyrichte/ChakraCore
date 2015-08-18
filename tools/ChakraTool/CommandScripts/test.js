@@ -334,7 +334,7 @@
             },
             snapBucketIDTestMap: {
                 type: "Dictionary",
-                defaultValue: { "0": "", "6": "JSLS", "7": "JSRT", "9": "Projection", "default": "Unit" },
+                defaultValue: { "0": "", "7": "JSRT", "9": "Projection", "default": "Unit" },
                 description: "The mapping between Bucket ID and required tests."
             },
             testOutputRelativePath: {

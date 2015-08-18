@@ -1,7 +1,7 @@
 function asmModule(stdlib, imports) {
     "use asm";
     
-    var i4 = stdlib.SIMD.int32x4;
+    var i4 = stdlib.SIMD.Int32x4;
     var i4check = i4.check;
     var i4splat = i4.splat;
     var i4fromFloat64x2 = i4.fromFloat64x2;
@@ -9,16 +9,8 @@ function asmModule(stdlib, imports) {
     var i4fromFloat32x4 = i4.fromFloat32x4;
     var i4fromFloat32x4Bits = i4.fromFloat32x4Bits;
     //var i4abs = i4.abs;
-    var i4neg = i4.neg;
-    var i4add = i4.add;
-    var i4sub = i4.sub;
-    var i4mul = i4.mul;
     //var i4swizzle = i4.swizzle;
     //var i4shuffle = i4.shuffle;
-    var i4withX = i4.withX;
-    var i4withY = i4.withY;
-    var i4withZ = i4.withZ;
-    var i4withW = i4.withW;
     var i4lessThan = i4.lessThan;
     var i4equal = i4.equal;
     var i4greaterThan = i4.greaterThan;
@@ -31,7 +23,7 @@ function asmModule(stdlib, imports) {
     //var i4shiftRightByScalar = i4.shiftRightByScalar;
     //var i4shiftRightArithmeticByScalar = i4.shiftRightArithmeticByScalar;
 
-    var f4 = stdlib.SIMD.float32x4;  
+    var f4 = stdlib.SIMD.Float32x4;  
     var f4check = f4.check;
     var f4splat = f4.splat;
     var f4fromFloat64x2 = f4.fromFloat64x2;
@@ -52,10 +44,6 @@ function asmModule(stdlib, imports) {
     var f4sqrt = f4.sqrt;
     //var f4swizzle = f4.swizzle;
     //var f4shuffle = f4.shuffle;
-    var f4withX = f4.withX;
-    var f4withY = f4.withY;
-    var f4withZ = f4.withZ;
-    var f4withW = f4.withW;
     var f4lessThan = f4.lessThan;
     var f4lessThanOrEqual = f4.lessThanOrEqual;
     var f4equal = f4.equal;
@@ -69,7 +57,7 @@ function asmModule(stdlib, imports) {
     var f4xor = f4.xor;
     var f4not = f4.not;
 
-    var d2 = stdlib.SIMD.float64x2;  
+    var d2 = stdlib.SIMD.Float64x2;  
     var d2check = d2.check;
     var d2splat = d2.splat;
     var d2fromFloat32x4 = d2.fromFloat32x4;
@@ -90,8 +78,6 @@ function asmModule(stdlib, imports) {
     var d2sqrt = d2.sqrt;
     //var d2swizzle = d2.swizzle;
     //var d2shuffle = d2.shuffle;
-    var d2withX = d2.withX;
-    var d2withY = d2.withY;
     var d2lessThan = d2.lessThan;
     var d2lessThanOrEqual = d2.lessThanOrEqual;
     var d2equal = d2.equal;
@@ -182,6 +168,18 @@ function asmModule(stdlib, imports) {
 
         return f4check(f4add(x,y));
     }
+
+    function func4() {
+        var value1 = f4(0.0, 0.0, 0.0, 0.0);
+        var i = 0;
+
+        for (i = 0; (i | 0) < 1000; i = i + 1) {
+            value1 = f4add(value1, f4splat(1.0));
+            if ((i | 0) == 300) {
+                return f4check(value1);
+            }
+        }
+    }
     
     // TODO: Test conversion of returned value
     function value()
@@ -201,26 +199,27 @@ function asmModule(stdlib, imports) {
         return +ret;
     }
     
-    return {func1:func1, func2:func2, func3:func3/*, func4:func4, func5:func5, func6:func6*/};
+    return {func1:func1, func2:func2, func3:func3, func4:func4, /*func5:func5, func6:func6*/};
 }
 
-var m = asmModule(this, {g1:SIMD.float32x4(90934.2,123.9,419.39,449.0), g2:SIMD.int32x4(-1065353216, -1073741824,-1077936128, -1082130432), g3:SIMD.float64x2(110.20, 58967.0, 14511.670, 191766.23431)});
+var m = asmModule(this, {g1:SIMD.Float32x4(90934.2,123.9,419.39,449.0), g2:SIMD.Int32x4(-1065353216, -1073741824,-1077936128, -1082130432), g3:SIMD.Float64x2(110.20, 58967.0, 14511.670, 191766.23431)});
 
-var s1 = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
-var s2 = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
-var s3 = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
-var s4 = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
-var s5 = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
-var s6 = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
-var s7 = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
-var s8 = SIMD.float32x4(1.0, 2.0, 3.0, 4.0);
+var s1 = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
+var s2 = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
+var s3 = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
+var s4 = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
+var s5 = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
+var s6 = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
+var s7 = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
+var s8 = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
 
 var ret1 = m.func1(s1, 1, s2, 3);
 var ret2 = m.func2(s1, 3, s2, s3, s4, 1);
 var ret3 = m.func3(s1, 33.2, s2, s3, 35.1, s4, 1, s5, s6, 1.0, s7, s8, 5.3);
 
-/*
+
 var ret4 = m.func4();
+/*
 var ret5 = m.func5();
 var ret6 = m.func6();
 */
@@ -244,10 +243,11 @@ WScript.Echo(ret2.toString());
 
 WScript.Echo(typeof(ret3));
 WScript.Echo(ret3.toString());
-/*
+
 WScript.Echo(typeof(ret4));
 WScript.Echo(ret4.toString());
 
+/*
 WScript.Echo(typeof(ret5));
 WScript.Echo(ret5.toString());
 

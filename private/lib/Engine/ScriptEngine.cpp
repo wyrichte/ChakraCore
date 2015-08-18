@@ -347,7 +347,7 @@ ScriptEngine::EnsureScriptContext()
 
     AutoPtr<Js::ScriptContext> newScriptContext(Js::ScriptContext::New(localThreadContext));
 
-    AssertMem(localThreadContext->Diagnostics);
+    Assert(localThreadContext->GetDebugManager() != nullptr);
 
     newScriptContext->DispatchDefaultInvoke = DispMemberProxy::DefaultInvoke;
     newScriptContext->DispatchProfileInoke = DispMemberProxy::ProfileInvoke;
@@ -968,7 +968,7 @@ void ScriptEngine::DispatchHalt(Js::InterpreterHaltState* haltState)
 
         #if DBG
                 void *frameAddress = _AddressOfReturnAddress();
-                threadContext->Diagnostics->SetDispatchHaltFrameAddress(frameAddress);
+                threadContext->GetDebugManager()->SetDispatchHaltFrameAddress(frameAddress);
         #endif
 
                 DbgSetAllowUserToRecoverTab(spActiveScriptSite, false);
@@ -1017,7 +1017,7 @@ void ScriptEngine::HandleResumeAction(Js::InterpreterHaltState* haltState, BREAK
     }
     else
     {
-        scriptContext->GetThreadContext()->Diagnostics->stepController.HandleResumeAction(haltState, resumeAction);
+        scriptContext->GetThreadContext()->GetDebugManager()->stepController.HandleResumeAction(haltState, resumeAction);
     }
 }
 
@@ -1534,7 +1534,7 @@ HRESULT ScriptEngine::DbgHandleBreakpoint(BREAKREASON br, BREAKRESUMEACTION* pBr
 
 #if DBG
         void *frameAddress = _AddressOfReturnAddress();
-        threadContext->Diagnostics->SetDispatchHaltFrameAddress(frameAddress);
+        threadContext->GetDebugManager()->SetDispatchHaltFrameAddress(frameAddress);
 #endif
 
         // Cache locally since HandleBreakPoint can cause script engine to close
@@ -1889,7 +1889,7 @@ STDMETHODIMP ScriptEngine::EnumStackFramesEx32(DWORD dwSpMin, IEnumDebugStackFra
             return E_UNEXPECTED;
         }
 
-        if (!scriptContext || !threadContext->Diagnostics->isAtDispatchHalt)
+        if (!scriptContext || !threadContext->GetDebugManager()->IsAtDispatchHalt())
         {
             // Because jscript engine didn't halt the engine. So we will not be able to generate the stack.
             return E_FAIL;
@@ -1897,7 +1897,7 @@ STDMETHODIMP ScriptEngine::EnumStackFramesEx32(DWORD dwSpMin, IEnumDebugStackFra
 
 #if DBG
         // Validates if there are no javascript frame after we have broken to the debugger.
-        threadContext->Diagnostics->ValidateDebugAPICall();
+        threadContext->GetDebugManager()->ValidateDebugAPICall();
 #endif 
 
         CEnumDebugStackFrames * pedsf = new CEnumDebugStackFrames(dwSpMin, this->GetScriptSiteHolder());
@@ -1981,19 +1981,19 @@ HRESULT ScriptEngine::SetBreakFlagChange(APPBREAKFLAGS abf, IRemoteDebugApplicat
 
     Js::ScriptContext* scriptContext=GetScriptSiteHolder()->GetScriptSiteContext();
 
-    if (APPBREAKFLAG_DEBUGGER_HALT&abf && !threadContext->Diagnostics->isAtDispatchHalt)
+    if (APPBREAKFLAG_DEBUGGER_HALT&abf && !threadContext->GetDebugManager()->IsAtDispatchHalt())
     {
         scriptContext->GetDebugContext()->GetProbeContainer()->AsyncActivate(this);
         if (Js::Configuration::Global.EnableJitInDebugMode())
         {
-            threadContext->GetDebuggingFlags()->SetForceInterpreter(true);
+            threadContext->GetDebugManager()->GetDebuggingFlags()->SetForceInterpreter(true);
         }
     }
     else if (!fDuringSetupDebugApp)
     {
         if (Js::Configuration::Global.EnableJitInDebugMode())
         {
-            threadContext->GetDebuggingFlags()->SetForceInterpreter(false);
+            threadContext->GetDebugManager()->GetDebuggingFlags()->SetForceInterpreter(false);
         }
         scriptContext->GetDebugContext()->GetProbeContainer()->AsyncDeactivate();
     }
@@ -3112,7 +3112,6 @@ HRESULT ScriptEngine::CloseInternal()
             if(scriptSiteContext)
             {
                 scriptSiteContext->SetActiveScriptDirect(NULL);
-                scriptSiteContext->GetDebugContext()->GetProbeContainer()->Close();
             }
             Assert(GetScriptSiteHolder()->GetScriptSiteContext() == this->scriptContext);
             // The script site has taken ownership of the script context;

@@ -608,7 +608,6 @@ namespace JsDiag
     typedef RemoteData<ScriptEntryExitRecord> RemoteScriptEntryExitRecord;
     typedef RemoteData<Type> RemoteType;
     typedef RemoteData<DynamicType> RemoteDynamicType;
-    typedef RemoteData<ProbeManager> RemoteProbeManager;
     typedef RemoteData<AsyncBreakController> RemoteAsyncBreakController;
     typedef RemoteList<ReturnedValue*, JsUtil::List<ReturnedValue*>> RemoteReturnedValueList;
     typedef RemoteData<ReturnedValue> RemoteReturnedValue;
@@ -663,14 +662,23 @@ namespace JsDiag
         bool DoInterruptProbe();
         bool GetIsThreadBound();
         BOOL TestThreadContextFlag(ThreadContextFlags contextFlag);
-        ProbeManager* GetDiagnostics() const { return this->ReadField<ProbeManager*>(offsetof(TargetType, Diagnostics)); }
+        DebugManager* GetDebugManager() const { return this->ReadField<DebugManager*>(offsetof(TargetType, debugManager)); }
         ScriptContext* GetScriptContextList() const { return this->ReadField<ScriptContext*>(offsetof(TargetType, scriptContextList)); }
         bool IsAllJITCodeInPreReservedRegion() const{ return this->ReadField<bool>(offsetof(TargetType, isAllJITCodeInPreReservedRegion)); }
         PreReservedVirtualAllocWrapper * GetPreReservedVirtualAllocator() { return (this->GetFieldAddr<PreReservedVirtualAllocWrapper>(offsetof(TargetType, preReservedVirtualAllocator))); }
         DWORD GetCurrentThreadId() const { return this->ReadField<DWORD>(offsetof(TargetType, currentThreadId)); }
         const PropertyRecord* GetPropertyName(Js::PropertyId propertyId);
-        DebuggingFlags* GetDebuggingFlags();
         Js::JavascriptExceptionObject* GetUnhandledExceptionObject() const;
+    };
+
+    struct RemoteDebugManager : public RemoteData <DebugManager>
+    {
+        RemoteDebugManager(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+        DebuggingFlags* GetDebuggingFlags() const { return this->GetFieldAddr<DebuggingFlags>(offsetof(TargetType, debuggingFlags)); }
+        AsyncBreakController* GetAsyncBreakController() const { return this->GetFieldAddr<AsyncBreakController>(offsetof(TargetType, asyncBreakController)); }
+        StepController* GetStepController() const { return this->GetFieldAddr<StepController>(offsetof(TargetType, stepController)); }
+        InterpreterHaltState* GetInterpreterHaltState() const { return this->ReadField<InterpreterHaltState*>(offsetof(TargetType, pCurrentInterpreterLocation)); }
+        bool GetIsAtDispatchHalt() const { return this->ReadField<bool>(offsetof(TargetType, isAtDispatchHalt)); }
     };
 
     struct RemoteFunctionInfo : public RemoteData<FunctionInfo>
@@ -745,7 +753,7 @@ namespace JsDiag
     {
         RemoteJavascriptFunction(IVirtualReader* reader, const TargetType* addr) : RemoteRecyclableObjectBase<TargetType>(reader, addr) {}
         JavascriptLibrary* GetLibrary();
-        FunctionBody* GetFunction();
+        FunctionBody* GetFunction() const;
         bool_result TryReadDisplayName(_Out_ CString* name);
         static bool_result TryReadDisplayName(IVirtualReader* reader, Js::Var var, _Out_ CString* name);
         Js::Var GetSourceString(const InspectionContext* context) const;
@@ -762,6 +770,7 @@ namespace JsDiag
             JavascriptFunction* nullObject,
             bool& foundThis);
 
+        bool IsLibraryCode() const;
         bool IsScriptFunction() const;
         bool IsBoundFunction(const InspectionContext* inspectionContext) const;
         bool IsStrictMode() const;
@@ -1060,6 +1069,7 @@ namespace JsDiag
         void GetFunctionName(_Out_writes_z_(nameBufferElementCount) LPWSTR nameBuffer, ULONG nameBufferElementCount) const;
         void GetUri(_Out_writes_z_(nameBufferElementCount) LPWSTR nameBuffer, ULONG nameBufferElementCount) const;
 
+        Utf8SourceInfo* GetUtf8SourceInfo() const;
         UINT64 GetDocumentId() const;
         FunctionBody::SourceInfo* GetSourceInfo() const;        
         FunctionEntryPointInfo* GetEntryPointFromNativeAddress(DWORD_PTR codeAddress);
@@ -1391,19 +1401,6 @@ namespace JsDiag
         uint GetLength()
         {
             return ToTargetPtr()->length;
-        }
-    };
-
-    // JavascriptPixelArray is similar to TypedArray
-    struct RemoteJavascriptPixelArray: public RemoteBufferArray<BYTE, false, JavascriptPixelArray>
-    {
-        RemoteJavascriptPixelArray(IVirtualReader* reader, const TargetType* addr):
-            RemoteBufferArray<BYTE, false, JavascriptPixelArray>(reader, addr)
-        {}
-
-        uint GetLength()
-        {
-            return ToTargetPtr()->GetBufferLength();
         }
     };
 

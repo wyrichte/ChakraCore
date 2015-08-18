@@ -267,8 +267,8 @@ namespace JsDiag
         RemoteScriptContext scriptContext(reader, diagFrame->GetScriptContext());
         RemoteProbeContainer remoteProbeContainer(reader, scriptContext.GetProbeContainer());
 
-        RemoteProbeManager remoteProbeManager(reader, remoteProbeContainer->pProbeManager);
-        StepController *stepController = remoteProbeManager.GetFieldAddr<StepController>(offsetof(ProbeManager, stepController));
+        RemoteDebugManager remoteDebugManager(reader, remoteProbeContainer->debugManager);
+        StepController *stepController = remoteDebugManager.GetStepController();
 
         RemoteStepController remoteStepController(reader, stepController);
         ReturnedValueList *returnedValueList = remoteStepController->GetReturnedValueList();

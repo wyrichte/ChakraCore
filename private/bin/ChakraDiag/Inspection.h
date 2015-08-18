@@ -1816,36 +1816,7 @@ namespace JsDiag
     typedef TypedArrayProperty<wchar_t, false, TypedArrayWalker<wchar_t, false, RemoteTypedArray<wchar_t, false>, CharArrayTrace>>
         CharArrayProperty;
 
-    struct JavascriptPixelArrayTrace: TypedArrayTrace<BYTE>
-    {
-        static const LPCWSTR NAME;
-
-        static bool_result TryGetBuiltInProperty(InspectionContext* context, RemoteJavascriptPixelArray& arr,
-            const CString& name, _Outptr_ IJsDebugPropertyInternal** ppDebugProperty)
-        {
-            if (name == L"length")
-            {
-                context->CreateDebugProperty(PROPERTY_INFO(name, arr.GetLength()), nullptr, ppDebugProperty);
-                return true;
-            }
-            return false;
-        }
-    };
-
-    class ATL_NO_VTABLE JavascriptPixelArrayWalker:
-        public BaseTypedArrayWalker<JavascriptPixelArrayWalker, BYTE, false, RemoteJavascriptPixelArray, JavascriptPixelArrayTrace>
-    {
-    public:
-        void InsertSpecialProperties(const DynamicObject* var);
-    };
-
-    //
-    // JavascriptPixelArrayProperty
-    //
-    typedef TypedArrayProperty<BYTE, false, JavascriptPixelArrayWalker>
-        JavascriptPixelArrayProperty;
-
-    class ATL_NO_VTABLE ArrayBufferWalker:
+    class ATL_NO_VTABLE ArrayBufferWalker :
         public ObjectWalker<ArrayBufferWalker>
     {
     public:

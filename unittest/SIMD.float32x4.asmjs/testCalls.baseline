@@ -1,7 +1,9 @@
 Successfully compiled asm.js code
-float32x4
-float32x4(2.0,4.0,6.0,8.0)
-float32x4
-float32x4(4.0,8.0,12.0,16.0)
-float32x4
-float32x4(8.0,16.0,24.0,32.0)
+Float32x4
+Float32x4(2.0,4.0,6.0,8.0)
+Float32x4
+Float32x4(4.0,8.0,12.0,16.0)
+Float32x4
+Float32x4(8.0,16.0,24.0,32.0)
+Float32x4
+Float32x4(301.0,301.0,301.0,301.0)

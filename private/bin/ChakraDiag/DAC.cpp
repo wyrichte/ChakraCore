@@ -131,11 +131,6 @@ namespace JsDiag
         return m_propertyMap->Item(propertyIndex).Value();
     }
 
-    DebuggingFlags* RemoteThreadContext::GetDebuggingFlags()
-    {
-        return this->GetFieldAddr<DebuggingFlags>(offsetof(ThreadContext, debuggingFlags));
-    }
-
     Js::JavascriptExceptionObject* RemoteThreadContext::GetUnhandledExceptionObject() const
     {
         // This method is in sync with ThreadContext::GetUnhandledExceptionObject() on the runtime side.
@@ -195,13 +190,24 @@ namespace JsDiag
         return type->GetLibrary();
     }
 
-    FunctionBody* RemoteJavascriptFunction::GetFunction()
+    FunctionBody* RemoteJavascriptFunction::GetFunction() const
     {
         FunctionInfo* functionInfoAddr = this->ToTargetPtr()->functionInfo;
         Assert(functionInfoAddr);
 
         RemoteFunctionInfo functionInfo(m_reader, functionInfoAddr);
         return functionInfo.GetFunction();
+    }
+
+    bool RemoteJavascriptFunction::IsLibraryCode() const
+    {
+        if (!IsScriptFunction())
+        {
+            return true;
+        }
+
+        RemoteFunctionBody functionBody(this->GetReader(), this->GetFunction());
+        return RemoteUtf8SourceInfo(this->GetReader(), functionBody.GetUtf8SourceInfo())->GetIsLibraryCode();
     }
 
     bool RemoteJavascriptFunction::IsScriptFunction() const
@@ -291,6 +297,11 @@ namespace JsDiag
 
         RemoteJavascriptLibrary library = RemoteJavascriptLibrary(reader, GetLibrary());
         RecyclableObject* nullObject = library.GetNull();
+        if (IsLibraryCode()) // Hide .caller for builtins
+        {
+            *value = nullObject;
+            return true;
+        }
 
         RemoteScriptContext scriptContext = RemoteScriptContext(reader, GetScriptContext());
         RemoteThreadContext threadContext = RemoteThreadContext(reader, scriptContext->threadContext);
@@ -2166,6 +2177,11 @@ namespace JsDiag
     {
         GetFunctionBodyNameData funcBody(*this, displayName, isDynamicScript, isGlobalFunc);
         return FunctionBody::GetExternalDisplayName(&funcBody);
+    }
+
+    Utf8SourceInfo* RemoteFunctionBody::GetUtf8SourceInfo() const
+    {
+        return ReadField<Utf8SourceInfo*>(offsetof(FunctionBody, m_utf8SourceInfo));
     }
 
     UINT64 RemoteFunctionBody::GetDocumentId() const

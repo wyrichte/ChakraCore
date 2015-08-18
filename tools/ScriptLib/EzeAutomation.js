@@ -71,11 +71,7 @@ if (Env == undefined)
 var runProjectionTests = toBool(getEnvVar("_runProjTests", true));
 var runRLTests = toBool(getEnvVar("_runRLTests", true));
 var runJSRTTests = toBool(getEnvVar("_runJSRTTests", true));
-var runJSLSTests = toBool(getEnvVar("_runJSLSTests", true));
 var verboseFlag = toBool(getEnvVar("_verbose", false));
-
-// timeout (if custom)
-var jslsTimeoutInMinutes = 30;
 
 // This should match _Variants in inetcore\jscript\unittest\RunAllRLTests.cmd
 var unittest_variants = [
@@ -328,62 +324,6 @@ function runProjectionUnitTests(bldType, bldArch, timeOut, args, inRazzle, inDRT
     return summaryProjection;
 }
 
-function runJSLSUnitTests(bldType, bldArch, timeOut, args, inRazzle, inDRT)
-{
-    // JSLS tests to run either on x86 and not -snap enabled machines
-    var canRunJSLSTests = bldArch == "x86";
-    var isSnapRun = args && args.match(/-snap/i);
-
-    WScript.Echo("");
-    WScript.Echo("JSLS Test flags:");
-    WScript.Echo("\tisSnapRun: " + isSnapRun);
-    WScript.Echo("\tcanRunJSLSTests: " + canRunJSLSTests);
-    WScript.Echo("\trunJSLSTests: " + runJSLSTests);
-    WScript.Echo("\tinDRT: " + inDRT);
-    WScript.Echo("");
-
-    var summaryJsls = "";
-    if (isSnapRun)
-    {
-        summaryJsls += "\n<---- JSLS Test Summary ---->\n\n";
-        summaryJsls += "File: unittest\\DirectAuthor\\TaefTests bypassed since SNAP run\n";
-        summaryJsls += "Summary: Total=0, Passed=0, Failed=0, Blocked=0, Not Run=0, Skipped=0\n";
-        summaryJsls += "\n<---- End JSLS Test Summary ---->\n";
-
-        return summaryJsls;
-    }
-
-    if (!canRunJSLSTests)
-    {
-        summaryJsls += "\n<---- JSLS Test Summary ---->\n\n";
-        summaryJsls += "File: unittest\\DirectAuthor\\TaefTests bypassed since non-x86 run\n";
-        summaryJsls += "Summary: Total=0, Passed=0, Failed=0, Blocked=0, Not Run=0, Skipped=0\n";
-        summaryJsls += "\n<---- End JSLS Test Summary ---->\n";
-
-        return summaryJsls;
-    }
-
-    if (!runJSLSTests)
-    {
-        summaryJsls += "\n<---- JSLS Test Summary ---->\n\n";
-        summaryJsls += "File: unittest\\DirectAuthor\\TaefTests bypassed via environment variable _runJSLSTests\n";
-        summaryJsls += "Summary: Total=0, Passed=0, Failed=0, Blocked=0, Not Run=0, Skipped=0\n";
-        summaryJsls += "\n<---- End JSLS Test Summary ---->\n";
-
-        return summaryJsls;
-    }
-
-    var jslsLogFile = srcBaseFromScript() + "\\inetcore\\jscript\\unittest\\DirectAuthor\\TaefTests\\te." + bldArch + bldType + ".log";
-    if (FSOFileExists(jslsLogFile)) WshFSO.DeleteFile(jslsLogFile, true);
-
-    // Do not pass the incoming args flags - we do not want the -snap flag to get into the below script
-    var run = runConsoleUnitTestCommand(bldType, bldArch, timeOut, "", inRazzle, inDRT, "\\inetcore\\jscript\\tools", "\\inetcore\\jscript\\tools\\RunAllJSLSCheckinTests.cmd");
-    FSOWriteToFile(run.output, jslsLogFile);
-
-    summaryJsls = _printJSLSCheckinTestSummaryToString(bldType, bldArch, run.output);
-    return summaryJsls;
-}
-
 function runJSRTCheckinTests(bldType, bldArch, timeOut, args, inRazzle, inDRT)
 {
     WScript.Echo("");
@@ -409,7 +349,7 @@ function runJSRTCheckinTests(bldType, bldArch, timeOut, args, inRazzle, inDRT)
     return summaryJSRT;
 }
 
-function runRLUnitTests(bldType, bldArch, inRazzle, inDRT, args, timeOut)
+function runRLUnitTests(bldType, bldArch, inRazzle, inDRT, args, timeOut, testDir)
 {
     bldType = getBldType(bldType);
     bldArch = getBldArch(bldArch);
@@ -425,9 +365,9 @@ function runRLUnitTests(bldType, bldArch, inRazzle, inDRT, args, timeOut)
         return summary;
     }
 
-    runConsoleUnitTestCommand(bldType, bldArch, timeOut, args, inRazzle, inDRT, "\\inetcore\\jscript\\unittest", "\\inetcore\\jscript\\unittest\\RunAllRLTests.cmd");
+    runConsoleUnitTestCommand(bldType, bldArch, timeOut, args, inRazzle, inDRT, "\\inetcore\\jscript\\" + testDir, "\\inetcore\\jscript\\unittest\\RunAllRLTests.cmd");
 
-    var summary = _printUnitTestSummaryToString(bldType, bldArch);
+    var summary = _printUnitTestSummaryToString(bldType, bldArch, testDir);
     return summary;
 }
 
@@ -452,54 +392,32 @@ function runConsoleUnitTests(bldType, bldArch, timeOut, args, inRazzle, inDRT)
     WScript.Echo("\targs = " + args);
     WScript.Echo("");
 
-    var isSnapRunBool = /-snap/i.test(isSnapRun);
-    if (isSnapRunBool) {
-        //Projection and JSLS tests are skipped on SNAP builders by the previous implementation below
-        var chakraToolCommand = "chakra test -trace:*.* -unit:\"-variants:interpreted;dynapogo\" -projection- -traceTestOutput -drt:" + inDRT + " -snap:" + isSnapRunBool + " -buildType:" + bldType + " -platform:" + bldArch;
-
-        WScript.Echo(chakraToolCommand);
-        var returned = runCmdToLog(chakraToolCommand, runSetTimeout(60 * 60 /* minutes */, runSetNoThrow()));
-        if (returned === undefined || returned.exitCode === undefined || returned.exitCode !== 0 /* success */) {
-            WScript.Echo("Returning -1");
-            return -1; //Failure
-        } else {
-            WScript.Echo("Returning 0");
-            return 0; //Success
-        }
-    }
-    
     // Setup Windows.Globalization.dll as all tests now require it.
     // Additionally, each test will make a call of its own to setup Windows.Globalization.dll, and 
     // although this may seem redundant, this allows each test script to be run independently.
     setupWindowsGlobalization();
 
     var summaryProjection = runProjectionUnitTests(bldType, bldArch, timeOut, args, inRazzle, inDRT);
-    var summaryRL = runRLUnitTests(bldType, bldArch, inRazzle, inDRT, args, timeOut);
+    var summaryRLunit = runRLUnitTests(bldType, bldArch, inRazzle, inDRT, args, timeOut, "unittest");
+    var summaryRLcore = runRLUnitTests(bldType, bldArch, inRazzle, inDRT, args, timeOut, "core\\test");
     var summaryJSRT = runJSRTCheckinTests(bldType, bldArch, timeOut, args, inRazzle, inDRT);
-    var summaryJsls = runJSLSUnitTests(bldType, bldArch, timeOut, args, inRazzle, inDRT);
 
     WScript.Echo(summaryProjection);
-    WScript.Echo(summaryRL);
+    WScript.Echo(summaryRLunit);
+    WScript.Echo(summaryRLcore);
     WScript.Echo(summaryJSRT);
-    WScript.Echo(summaryJsls);
-
-    if (!isSnapRun && !inDRT) {
-        copyUserUTLogsToPublicShare(bldType, bldArch);
-    }
 
     var variantCount = _getUnitTestVariantRanCount(bldType, bldArch);
     var unittestRunPattern = new RegExp("(Unit Test Summary ----.*?\\n)((.|\\n)*?; 0 failures){" + variantCount + "}");
     var projectiontestRunPattern = new RegExp("(Unit Test Summary ----.*?\\n)((.|\\n)*?; 0 failures){" + projection_unittest_variants.length + "}");
 
-    var passed = (!runRLTests || summaryRL.match(unittestRunPattern)) &&
+    var passed = (!runRLTests || (summaryRLunit.match(unittestRunPattern) && summaryRLcore.match(unittestRunPattern))) &&
         (!runProjectionTests || summaryProjection.match(projectiontestRunPattern)) &&
-        // Check for JSLS test failures
-        (!runJSLSTests || summaryJsls.match(/Failed=0/g) && summaryJsls.match(/Blocked=0/g)) &&
         // Check for jsrt test failures
         (!runJSRTTests || summaryJSRT.match(/Failed=0/g) && summaryJSRT.match(/Blocked=0/g));
 
     if (passed) {
-        if (!runRLTests || !runProjectionTests || !runJSRTTests || !runJSLSTests) {
+        if (!runRLTests || !runProjectionTests || !runJSRTTests) {
             WScript.Echo("\n\n========================================================================================\n");
             WScript.Echo("Warning - all tests weren't run.\n");
             WScript.Echo("========================================================================================\n\n\n");
@@ -511,80 +429,6 @@ function runConsoleUnitTests(bldType, bldArch, timeOut, args, inRazzle, inDRT)
     WScript.Echo("Unit test summary output didn't match expected output. See runConsoleUnitTests function.\n");
     WScript.Echo("========================================================================================\n\n\n");
     return -1;
-}
-
-/* Copies the local UT logs to a public share for the telemetry tools to process (ChakraUnitTestTelemetry).
-
-    bldType:   The build type of the binaries that the copy is being run for
-               (ex. x86, amd64, etc.).
-
-    bldArch:   The build architecture of the binaries that the copy is being run for
-               (ex. chk, fre, etc.).
-*/
-function copyUserUTLogsToPublicShare(bldType, bldArch)
-{
-    var architectureAndType = getBldArch(bldArch) + getBldType(bldType);
-
-    // Ex. E:\Code\inetcore\jscript\unittest\logs\x86chk
-    var sourceFolder = srcBaseFromScript() + "\\inetcore\\jscript\\unittest\\logs\\" + architectureAndType;
-    var destinationFolder = _getUTLogsPublicShareFolder(architectureAndType);
-
-    WScript.Echo("Copying local UT logs from '" + sourceFolder + "' to '" + destinationFolder + "'.");
-    FSOCreatePath(destinationFolder);
-    FSOCopyFolder(sourceFolder, destinationFolder, true /*overwrite*/);
-}
-
-// Constructs a path to a new UT logs folder for the current UT run.
-// Ex: "\\bpt-scratch\UserFiles\cmorse\Tools\ChakraUnitTestTelemetry\UserLogs\cmorse\cmorse2\fbl_ie_script_dev\x86chk\2013.08.02_16.13.41".
-function _getUTLogsPublicShareFolder(architectureAndType)
-{
-    var publicShareRoot = "\\\\bpt-scratch\\UserFiles\\cmorse\\Tools\\ChakraUnitTestTelemetry\\UserLogs";
-
-    var userName = Env("USERNAME");
-    var branch = Env("_BuildBranch");
-    var machineName = Env("COMPUTERNAME");
-    var dateFolderName = _getUtcDateFolderName();
-
-    var destinationFolderPath =
-        publicShareRoot
-      + "\\"
-      + userName
-      + "\\"
-      + machineName
-      + "\\"
-      + branch
-      + "\\"
-      + architectureAndType
-      + "\\"
-      + dateFolderName;
-
-    return destinationFolderPath;
-}
-
-// Returns a folder name with the name like this (in UTC): "2013.09.20_09.10.34".
-function _getUtcDateFolderName() {
-    var now = new Date();
-    var year = now.getUTCFullYear();
-    var month = now.getUTCMonth() + 1; // Month is from 0-11
-    var day = now.getUTCDate();
-    var hour = now.getUTCHours();
-    var minute = now.getUTCMinutes();
-    var second = now.getUTCSeconds();
-
-    var dateFolderName =
-        year
-      + "."
-      + _getZeroPaddedNumber(month)
-      + "."
-      + _getZeroPaddedNumber(day)
-      + "_"
-      + _getZeroPaddedNumber(hour)
-      + "."
-      + _getZeroPaddedNumber(minute)
-      + "."
-      + _getZeroPaddedNumber(second)
-
-    return dateFolderName;
 }
 
 // Gets a number that is padded with a single leading zero if the number is
@@ -640,55 +484,6 @@ function runJsrtUnitTests(binaryRoot)
     var result = runCmdToLog(runCommand,
         runSetEnv("_NT_SYMBOL_PATH", runGetEnv("_NT_SYMBOL_PATH") + ";" + testPath,
         runSetTimeout(60 * 5 /* 5minutes */, runSetNoThrow())));
-
-    // te.exe sets errorlevel to the number of failed tests
-    return result.exitCode;
-}
-
-function runJSLSCheckinTests(binaryRoot)
-{
-    if (binaryRoot === undefined) {
-        binaryRoot = Env("_NTTREE") + "\\jscript";
-    }
-
-    var testPath = binaryRoot + "\\jsls\\unittest\\";
-
-    WScript.Echo("testPath: " + testPath + "\n");
-    var testBinary = testPath + "DirectAuthorCheckinTests.dll";
-
-    var args = arguments;
-    var logFile = undefined;
-
-    var isSnapRun = false;
-    if (args)
-    {
-        for (var i=0; i < args.length; i++)
-        {
-            if (args[i] == "-snap") isSnapRun = true;
-            if (!logFile) logFile = parseLogFileArg(args[i]);
-        }
-    }
-
-    var logArg = "";
-    if (logFile) {
-        logArg = "\/enableWttLogging \/logFile:\"" + logFile + "\"";
-    }
-
-    debugger;
-
-    var snapSelect = isSnapRun ? " and (not @SNAP=\'No\')" : "";
-    var numberThreads = Env("NUMBER_OF_PROCESSORS");
-    var parallelArg = "";
-    if (numberThreads > 1) {
-        parallelArg = " \/parallel:" + Env("NUMBER_OF_PROCESSORS") * 1.25;
-    }
-    var traceOnErrorArg = " /stacktraceonerror" + (isSnapRun ? "" : " /minidumponcrash");
-
-    var runCommand = "te " + testBinary + " \/select:\"(not @Disabled=\'Yes\')" + snapSelect + "\" \/unicodeoutput:false" + parallelArg + traceOnErrorArg + " \/isolationLevel:class \/logOutput:lowest " + logArg;
-
-    var result = runCmdToLog(runCommand,
-        runSetEnv("_NT_SYMBOL_PATH", runGetEnv("_NT_SYMBOL_PATH") + ";" + testPath,
-        runSetTimeout(jslsTimeoutInMinutes * 60, runSetNoThrow())));
 
     // te.exe sets errorlevel to the number of failed tests
     return result.exitCode;
@@ -1306,15 +1101,15 @@ function _getUnitTestVariantRanCount(bldType, bldArch)
     return variantCount;
 }
 
-function _printUnitTestSummaryToString(bldType, bldArch)
+function _printUnitTestSummaryToString(bldType, bldArch, testDir)
 {
     bldType = getBldType(bldType);
     bldArch = getBldArch(bldArch);
 
-    var summary = "\n<---- Unit Test Summary ---->\n\n";
+    var summary = "\n<---- (" + testDir + ") Unit Test Summary ---->\n\n";
 
     var srcBase = srcBaseFromScript();
-    var unitTestLogsDir = srcBase + "\\inetcore\\jscript\\unittest\\logs\\" + bldArch + bldType;
+    var unitTestLogsDir = srcBase + "\\inetcore\\jscript\\" + testDir + "\\logs\\" + bldArch + bldType;
 
     for (i in unittest_variants)
     {
@@ -1392,35 +1187,6 @@ function _printJSRTTestSummaryToString(bldType, bldArch, runOutput)
 
     summary += "\n\n";
     summary += "<---- End JSRT Test Summary ---->\n";
-
-    return summary;
-}
-
-function _printJSLSCheckinTestSummaryToString(bldType, bldArch, runOutput)
-{
-    bldType = getBldType(bldType);
-    bldArch = getBldArch(bldArch);
-
-    var logfile = srcBaseFromScript() + "\\inetcore\\jscript\\unittest\\DirectAuthor\\TaefTests\\te." + bldArch + bldType + ".log";
-    var summary = "\n<---- JSLS Checkin Test Summary ---->\n\n";
-
-    summary += logfile + ":\n";
-
-    var result;
-    if (runOutput) {
-        result = runOutput.match(/Summary:.*$/mg);
-    } else if (FSOFileExists(logfile)) {
-        result = FSOReadFromFile(logfile).match(/Summary:.*$/mg).slice(1); /* skip the starting , */
-    }
-
-    if (result) {
-        summary += result;
-    } else {
-        summary += "<< NO TESTS RAN >>";
-    }
-
-    summary += "\n\n";
-    summary += "<---- End JSLS Checkin Test Summary ---->\n";
 
     return summary;
 }

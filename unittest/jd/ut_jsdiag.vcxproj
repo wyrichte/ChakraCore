@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
+ <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\Build\Chakra.Build.Paths.props" />
+ <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
  <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0335EF4B-D4E2-426D-80C8-6F312CB4F957}</ProjectGuid>
@@ -12,23 +13,45 @@
     <AtlVersion>70</AtlVersion>
     <UseStl>true</UseStl>
     <StlVersion>70</StlVersion>
+    <BuildForCoreSystem>true</BuildForCoreSystem>
+    <TestCode Condition="'$(BuildingWithBuildExe)'=='true'">true</TestCode>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />  
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
   <PropertyGroup>
-    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\atlmfc;$(PUBLIC_ROOT)\sdk\inc\crt\stl70;$(PublicInternalPath)\sdktools\inc;$(SolutionDir)..\Exe\jdtest;$(SolutionDir)..\Dll\JScriptDiag</IncludePath>
-    <LibraryPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt);$(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt);$(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt);$(SolutionDir)..\tools\External\lib\$(PlatformPathNameAlt)</LibraryPath>
-  </PropertyGroup>  
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
   <ItemDefinitionGroup>
-    <ClCompile>          
+    <ClCompile>
+      <AdditionalIncludeDirectories>
+        %(AdditionalIncludeDirectories);
+        $(ChakraRootDirectory)private\bin\jdtest;
+        $(ChakraRootDirectory)private\bin\ChakraDiag;
+        $(SdkToolsIncPath);
+      </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;dbgeng.lib;engextcpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>
+        $(MinCoreSdkLibPath)\mincore_fw.lib;
+        $(SdkLibPath)\uuid.lib;
+        $(SdkLibPath)\dbghelp.lib;
+        $(SdkLibPath)\dbgeng.lib;
+        $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\engextcpp.lib;
+        $(SdkLibPath)\oleaut32.lib;
+        %(AdditionalDependencies);
+       </AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
-  </ItemDefinitionGroup>  
+  </ItemDefinitionGroup>
+  <!-- Razzle binplace -->
+  <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true'">
+    <BinplaceLinked Include="$(ObjectPath)\$(ObjectDirectory)$(TargetFileName)">
+      <DestinationFolder>jscript</DestinationFolder>
+    </BinplaceLinked>
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ut_jsdiag.h" />
     <ClInclude Include="SinkDebugSite.h" />

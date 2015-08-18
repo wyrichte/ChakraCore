@@ -59,16 +59,16 @@ public:
         Assert(m_scriptContext != nullptr);
         Assert(m_threadContext != nullptr);
 
-        Assert(!m_threadContext->Diagnostics->isAtDispatchHalt);
-        m_threadContext->Diagnostics->isAtDispatchHalt = true;
+        Assert(!m_threadContext->GetDebugManager()->IsAtDispatchHalt());
+        m_threadContext->GetDebugManager()->SetDispatchHalt(true);
 
         Assert(!m_scriptContext->GetDebugContext()->GetProbeContainer()->IsPrimaryBrokenToDebuggerContext());
         m_scriptContext->GetDebugContext()->GetProbeContainer()->SetIsPrimaryBrokenToDebuggerContext(true);
     }
     ~AutoSetDispatchHaltFlag()
     {
-        Assert(m_threadContext->Diagnostics->isAtDispatchHalt);
-        m_threadContext->Diagnostics->isAtDispatchHalt = false;
+        Assert(m_threadContext->GetDebugManager()->IsAtDispatchHalt());
+        m_threadContext->GetDebugManager()->SetDispatchHalt(false);
 
         Assert(m_scriptContext->GetDebugContext()->GetProbeContainer()->IsPrimaryBrokenToDebuggerContext());
         m_scriptContext->GetDebugContext()->GetProbeContainer()->SetIsPrimaryBrokenToDebuggerContext(false);

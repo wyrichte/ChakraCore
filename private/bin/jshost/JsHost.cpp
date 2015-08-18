@@ -1225,17 +1225,11 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     {
         VirtualFree(UTF8BoundaryTestBuffer, 0, MEM_RELEASE);
     }
-
     if (UTF8SourceMapper != nullptr)
     {
         AssertMsg (UTF8SourceMapper->GetRefCount() == 0, "Not all the references were released of the IActiveScriptByteCodeSource passed in to ExecuteByteCodeBuffer");
         delete UTF8SourceMapper;
         UTF8SourceMapper = nullptr;
-    }
-
-    if (byteCodeBufferClone != nullptr)
-    {
-        VirtualFree(byteCodeBufferClone, 0, MEM_RELEASE);
     }
 
     CoUninitialize();

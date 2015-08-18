@@ -1,7 +1,7 @@
 function asmModule(stdlib, imports, buffer) {
     "use asm";
     
-	var i4 = stdlib.SIMD.int32x4;
+	var i4 = stdlib.SIMD.Int32x4;
 	var i4check = i4.check;
     var i4splat = i4.splat;
     var i4fromFloat64x2 = i4.fromFloat64x2;
@@ -15,10 +15,6 @@ function asmModule(stdlib, imports, buffer) {
     var i4mul = i4.mul;
     var i4swizzle = i4.swizzle;
     var i4shuffle = i4.shuffle;
-    var i4withX = i4.withX;
-    var i4withY = i4.withY;
-    var i4withZ = i4.withZ;
-    var i4withW = i4.withW;
     var i4lessThan = i4.lessThan;
     var i4equal = i4.equal;
     var i4greaterThan = i4.greaterThan;
@@ -40,7 +36,7 @@ function asmModule(stdlib, imports, buffer) {
     //var i4shiftLeftByScalar = i4.shiftLeftByScalar;
     //var i4shiftRightByScalar = i4.shiftRightByScalar;
     //var i4shiftRightArithmeticByScalar = i4.shiftRightArithmeticByScalar;
-    var f4 = stdlib.SIMD.float32x4; 
+    var f4 = stdlib.SIMD.Float32x4; 
     var f4check = f4.check;    
     var f4splat = f4.splat;
     var f4fromFloat64x2 = f4.fromFloat64x2;
@@ -61,10 +57,6 @@ function asmModule(stdlib, imports, buffer) {
     var f4sqrt = f4.sqrt;
     var f4swizzle = f4.swizzle;
     var f4shuffle = f4.shuffle;
-    var f4withX = f4.withX;
-    var f4withY = f4.withY;
-    var f4withZ = f4.withZ;
-    var f4withW = f4.withW;
     var f4lessThan = f4.lessThan;
     var f4lessThanOrEqual = f4.lessThanOrEqual;
     var f4equal = f4.equal;
@@ -89,7 +81,7 @@ function asmModule(stdlib, imports, buffer) {
     var f4store3 = f4.store3;
     
     
-    var d2 = stdlib.SIMD.float64x2;  
+    var d2 = stdlib.SIMD.Float64x2;  
     var d2check = d2.check;
     var d2splat = d2.splat;
     var d2fromFloat32x4 = d2.fromFloat32x4;
@@ -110,8 +102,6 @@ function asmModule(stdlib, imports, buffer) {
     var d2sqrt = d2.sqrt;
     var d2swizzle = d2.swizzle;
     var d2shuffle = d2.shuffle;
-    var d2withX = d2.withX;
-    var d2withY = d2.withY;
     var d2lessThan = d2.lessThan;
     var d2lessThanOrEqual = d2.lessThanOrEqual;
     var d2equal = d2.equal;
@@ -702,7 +692,7 @@ function printBuffer(buffer, count)
     var f4;
     for (var i = 0; i < count/* * 16*/; i += 16)
     {
-        f4 = SIMD.float32x4.load(buffer, i);
+        f4 = SIMD.Float32x4.load(buffer, i);
         WScript.Echo(f4.toString());
     }
 }
@@ -727,7 +717,7 @@ SIMDStore2 = 7;
 SIMDStore3 = 8;
 
 //Module initialization
-var m = asmModule(this, {g0:initF32(buffer),g1:SIMD.float32x4(9,9,9,9), g2:SIMD.int32x4(1, 2, 3, 4), g3:SIMD.float64x2(10, 10, 10, 10)}, buffer);
+var m = asmModule(this, {g0:initF32(buffer),g1:SIMD.Float32x4(9,9,9,9), g2:SIMD.Int32x4(1, 2, 3, 4), g3:SIMD.Float64x2(10, 10, 10, 10)}, buffer);
 var values = new Float32Array(buffer);
 
 
@@ -851,7 +841,7 @@ printResults(ret);
 
 
 print("BoundCheck");
-var value = SIMD.float32x4(9.9,1.2,3.4,5.6);
+var value = SIMD.Float32x4(9.9,1.2,3.4,5.6);
 
 WScript.Echo("Test1");
 try {m.storeF32(value, inputLength); WScript.Echo("Wrong");} catch(err) {WScript.Echo("Correct");}

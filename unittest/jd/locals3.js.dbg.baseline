@@ -272,20 +272,41 @@
         "[0] - [Type]": "Number",
         "[0]": "0"
       },
-      "pixelArr - [Type]": "Object, (PixelArray)",
+      "pixelArr - [Type]": "Object, (Uint8ClampedArray)",
       "pixelArr": {
         "[Methods]": {
           "x - [Type]": "Object, (Function)",
-          "x": "function Array() { [native code] }"
+          "x": "function Uint8ClampedArray() { [native code] }"
         },
-        "__proto__ - [Type]": "Object, (PixelArray)",
+        "__proto__ - [Type]": "Object, (Uint8ClampedArray)",
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__ - [Type]": "Object",
           "__proto__": "{...}",
+          "buffer - [Type]": "Object, (ArrayBuffer)",
+          "buffer": "[object ArrayBuffer]",
+          "byteLength - [Type]": "Number",
+          "byteLength": "0",
+          "byteOffset - [Type]": "Number",
+          "byteOffset": "0",
+          "BYTES_PER_ELEMENT - [Type]": "Number",
+          "BYTES_PER_ELEMENT": "1",
           "length - [Type]": "Number",
           "length": "0"
         },
+        "buffer - [Type]": "Object, (ArrayBuffer)",
+        "buffer": {
+          "__proto__ - [Type]": "Object, (ArrayBuffer)",
+          "__proto__": "[object ArrayBuffer]",
+          "byteLength - [Type]": "Number",
+          "byteLength": "4"
+        },
+        "byteLength - [Type]": "Number",
+        "byteLength": "4",
+        "byteOffset - [Type]": "Number",
+        "byteOffset": "0",
+        "BYTES_PER_ELEMENT - [Type]": "Number",
+        "BYTES_PER_ELEMENT": "1",
         "length - [Type]": "Number",
         "length": "4",
         "n - [Type]": "String",
@@ -488,12 +509,6 @@
           "[Methods]": "{...}",
           "__proto__ - [Type]": "Object",
           "__proto__": "{...}",
-          "buffer - [Type]": "Object, (ArrayBuffer)",
-          "buffer": "[object ArrayBuffer]",
-          "byteLength - [Type]": "Number",
-          "byteLength": "8",
-          "byteOffset - [Type]": "Number",
-          "byteOffset": "0",
           "n - [Type]": "String",
           "n": ""
         },

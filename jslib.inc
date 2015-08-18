@@ -44,6 +44,7 @@ JS_LIBS_RUNTIME = \
     $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\types\$(JS_LIBTYPE)\$(O)\chakra.runtime.types.lib \
     $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\library\$(JS_LIBTYPE)\$(O)\chakra.runtime.library.lib \
     $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\bytecode\$(JS_LIBTYPE_LS)\$(O)\chakra.runtime.bytecode.lib \
+    $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\debug\$(JS_LIBTYPE_LS)\$(O)\chakra.runtime.debug.lib \
     $(OBJECT_JSCRIPT_DIR)\core\lib\runtime\Math\$(JS_LIBTYPE)\$(O)\chakra.runtime.Math.lib \
     $(OBJECT_JSCRIPT_DIR)\private\lib\Telemetry\$(JS_LIBTYPE)\$(O)\chakra.Telemetry.lib \
 

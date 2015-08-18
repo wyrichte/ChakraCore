@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\..\..\Build\Chakra.Build.Paths.props" />
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
+  <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
+  <PropertyGroup Label="Globals">
+    <ProjectName>ChakraDiagLib</ProjectName>
+    <ProjectGuid>{B47B46FB-C348-4B6C-9157-8B0E7ABC84FE}</ProjectGuid>
+    <RootNamespace>Js</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <TargetName>ChakraDiagLib</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseStaticAtl>true</UseStaticAtl>
+    <AtlVersion>70</AtlVersion>
+  </PropertyGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>
+        $(ChakraManifestsIncludeDirectory);
+        $(ChakraRootDirectory)core\Lib\Common;
+        $(ChakraRootDirectory)core\Lib\Common\DataStructures;
+        $(ChakraRootDirectory)core\Lib\Common\Memory;
+        $(ChakraRootDirectory)core\Lib\Parser;
+        $(ChakraRootDirectory)core\Lib\Runtime;
+        $(ChakraRootDirectory)core\Lib\Runtime\ByteCode;
+        $(ChakraRootDirectory)core\Lib\Runtime\Language;
+        $(ChakraRootDirectory)core\Lib\Runtime\Library;
+        $(ChakraRootDirectory)core\Lib\Runtime\Types;
+        $(ChakraRootDirectory)core\Lib\Backend;
+        $(ChakraRootDirectory)private\lib\Engine;
+        $(ChakraRootDirectory)private\lib\Projection;
+        $(ChakraRootDirectory)private\bin\Chakra;
+        $(ChakraRootDirectory)private\bin\ChakraDiag;
+        %(AdditionalIncludeDirectories);
+        $(SdkToolsIncPath)
+      </AdditionalIncludeDirectories>
+      <!-- 
+        4189: local variable is initialized but not referenced
+        4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow) 
+        -->
+      <DisableSpecificWarnings>%(DisableSpecificWarnings);4189;4290</DisableSpecificWarnings>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\ScriptDump.cpp" />
+    <ClCompile Include="..\Serializer.cpp" />
+    <ClCompile Include="..\thrownew.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\ScriptDump.h" />
+    <ClInclude Include="..\Serializer.h" />
+    <ClInclude Include="..\thrownew.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

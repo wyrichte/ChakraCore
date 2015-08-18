@@ -12,7 +12,7 @@
       <files>arrayBufferType_v5.js</files>
       <baseline>arraybufferType_v5.baseline</baseline>
       <tags>typedarray</tags>
-      <compile-flags>-ES6- -KhronosInterop-</compile-flags>
+      <compile-flags>-ES6- </compile-flags>
     </default>
   </test>
   <test>
@@ -244,7 +244,7 @@ Below test fails with difference in space. Investigate the cause and re-enable t
     <default>
       <files>pixelArrayRounding.js</files>
       <baseline>pixelArrayRounding.baseline</baseline>
-      <compile-flags>-minInterpretCount:1 -maxInterpretCount:1 -off:simpleJit -ES6- -KhronosInterop-</compile-flags>
+      <compile-flags>-minInterpretCount:1 -maxInterpretCount:1 -off:simpleJit -ES6-</compile-flags>
       <tags>typedarray</tags>
     </default>
   </test>

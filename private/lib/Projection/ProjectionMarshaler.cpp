@@ -1055,11 +1055,6 @@ namespace Projection
                     {
                         hr = GetBuiltinTypedArrayAsPropertyValue(varInput, &propertyValue);
                     }
-                    else if(Js::JavascriptPixelArray::Is(varInput))
-                    {
-                        Js::JavascriptPixelArray *pixelArray = Js::JavascriptPixelArray::FromVar(varInput);
-                        hr = GetTypedArrayAsPropertyValue(pixelArray->GetBufferLength() * Metadata::Assembly::GetBasicTypeSize(ELEMENT_TYPE_U1), pixelArray->GetBufferPointer(), ELEMENT_TYPE_U1, &propertyValue);
-                    }
                     else if (ArrayProjection::Is(varInput))
                     {
                         // winrt array projected
@@ -2018,10 +2013,9 @@ namespace Projection
         BOOL isArray = ArrayAsCollection::IsArrayInstance(arg);
         BOOL isArrayProjection = ArrayProjection::Is(arg); 
         BOOL isTypedArray = Js::TypedArrayBase::Is(arg);
-        BOOL isCanvasPixelArray = Js::JavascriptPixelArray::Is(arg);
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
 
-        if (!isNullArray && !isArray && !isArrayProjection && !isTypedArray && !isCanvasPixelArray)
+        if (!isNullArray && !isArray && !isArrayProjection && !isTypedArray)
         {
             Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_NeedArrayObject);
         }
@@ -2035,10 +2029,6 @@ namespace Projection
         else if (isTypedArray)
         {
             arrayLength = Js::TypedArrayBase::FromVar(arg)->GetLength();
-        }
-        else if (isCanvasPixelArray)
-        {
-            arrayLength = Js::JavascriptPixelArray::FromVar(arg)->GetBufferLength();
         }
         else if (isArrayProjection)
         {
@@ -2060,10 +2050,6 @@ namespace Projection
             if (isArray)
             {
                 Output::Print(L"    Reading data from: Javascript Array\n");
-            }
-            else if (isCanvasPixelArray)
-            {
-                Output::Print(L"    Reading data from: CanvasPixelArray\n");
             }
             else if (isNullArray)
             {
@@ -2133,16 +2119,6 @@ namespace Projection
                     copyElements = false;
                 }
             }
-            else if (isCanvasPixelArray)
-            {
-                // If we need to marshal into the Uint8Array we can copy directly
-                if (BasicType::Is(elementType) && BasicType::From(elementType)->typeCor == ELEMENT_TYPE_U1)
-                {
-                    Js::JavascriptPixelArray *canvasPixelArray = Js::JavascriptPixelArray::FromVar(arg);
-                    *(byte **)arrayPointer = canvasPixelArray->GetBufferPointer();
-                    copyElements = false;
-                }
-            }
             else
             {
                 // Array is js array or null/undefined value with Fill/Pass Array pattern
@@ -2203,7 +2179,7 @@ namespace Projection
                 copyElements = !isOut && copyElements;
             }
 
-            if (isArrayProjection || isTypedArray || isCanvasPixelArray)
+            if (isArrayProjection || isTypedArray)
             {
                 if (copyElements)
                 {
@@ -4357,14 +4333,6 @@ namespace Projection
                     if (Js::Configuration::Global.flags.TraceWin8Allocations)
                     {
                         Output::Print(L"    Reading data into existing: Typed Array %s\n", ArrayProjection::TypedArrayName(inOutArgument));
-                        Output::Flush();
-                    }
-                }
-                else if (Js::JavascriptPixelArray::Is(inOutArgument))
-                {
-                    if (Js::Configuration::Global.flags.TraceWin8Allocations)
-                    {
-                        Output::Print(L"    Reading data into existing: CanvasPixelArray\n");
                         Output::Flush();
                     }
                 }

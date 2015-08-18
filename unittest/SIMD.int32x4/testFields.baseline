@@ -1,235 +1,64 @@
-int32x4 scalar getters
+Int32x4 scalar getters
 Correct
 Correct
 Correct
 Correct
-int32x4 scalar getters
+Int32x4 scalar getters
 Correct
 Correct
 Correct
 Correct
-int32x4 scalar getters
+Int32x4 scalar getters
 Correct
 Correct
 Correct
 Correct
-int32x4 scalar getters
+Int32x4 scalar getters
 Correct
 Correct
 Correct
 Correct
-int32x4 scalar getters
+Int32x4 scalar getters
 Correct
 Correct
 Correct
 Correct
-int32x4 scalar getters
+Int32x4 scalar getters
 Correct
 Correct
 Correct
 Correct
-int32x4 scalar getters
+Int32x4 scalar getters
 Correct
 Correct
 Correct
 Correct
-int32x4 scalar getters
+Int32x4 scalar getters
 Correct
 Correct
 Correct
 Correct
-int32x4 signMask
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 signMask
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 signMask
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 signMask
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 signMask
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 signMask
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 signMask
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 signMask
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 vector getters
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 vector getters
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 vector getters
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 vector getters
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 vector getters
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 vector getters
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 vector getters
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
+I4 ExtractLane
+Int32x4
+Int32x4(10,-20,30,0)
+number
+10
+number
+-20
+number
+30
+number
+0
+
+I4 ReplaceLane
+Int32x4
+Int32x4(10,-20,30,0)
+Int32x4
+Int32x4(10,-20,30,0)
+Int32x4
+Int32x4(10,12,30,0)
+Int32x4
+Int32x4(10,-20,-30,0)
+Int32x4
+Int32x4(10,-20,30,0)
+

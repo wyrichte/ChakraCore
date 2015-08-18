@@ -1,4 +1,4 @@
-int32x4 and
+Int32x4 and
 Correct
 Correct
 Correct
@@ -19,7 +19,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 and
+Int32x4 and
 Correct
 Correct
 Correct
@@ -40,7 +40,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 and
+Int32x4 and
 Correct
 Correct
 Correct
@@ -61,7 +61,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 and
+Int32x4 and
 Correct
 Correct
 Correct
@@ -82,7 +82,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 or
+Int32x4 or
 Correct
 Correct
 Correct
@@ -91,7 +91,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 or
+Int32x4 or
 Correct
 Correct
 Correct
@@ -100,7 +100,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 or
+Int32x4 or
 Correct
 Correct
 Correct
@@ -109,7 +109,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 or
+Int32x4 or
 Correct
 Correct
 Correct

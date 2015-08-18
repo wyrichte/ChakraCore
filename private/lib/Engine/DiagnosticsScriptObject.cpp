@@ -247,8 +247,8 @@ namespace Js
         Js::DynamicObject * emptyTopMostScope = targetScriptContext->GetLibrary()->CreateActivationObject();
         emptyTopMostScope->SetPrototype(targetScriptContext->GetLibrary()->GetNull());
         DynamicObject* activeScopeObject = GetActiveScopeObject(targetScriptContext, &isStrictMode);
-        Js::ProbeManager* probeManager = targetScriptContext->GetDebugContext()->GetProbeContainer()->GetProbeManager();
-        FrameDisplay* environment = probeManager->GetFrameDisplay(targetScriptContext, emptyTopMostScope, activeScopeObject, /* addGlobalThisAtScopeTwo = */ true);
+        Js::DebugManager* debugManager = targetScriptContext->GetDebugContext()->GetProbeContainer()->GetDebugManager();
+        FrameDisplay* environment = debugManager->GetFrameDisplay(targetScriptContext, emptyTopMostScope, activeScopeObject, /* addGlobalThisAtScopeTwo = */ true);
 
         JavascriptExceptionObject* reThrownEx = nullptr;
         try
@@ -257,7 +257,7 @@ namespace Js
             Var value = GlobalObject::VEval(targetLibrary, environment, kmodGlobal, isStrictMode, /*isIndirect=*/ false, args, isLibraryCode, registerDocument, fscrConsoleScopeEval);
             value = CrossSite::MarshalVar(debugEvalScriptContext, value);  // MarshalVar if needed.
             Assert(!CrossSite::NeedMarshalVar(value, debugEvalScriptContext));
-            probeManager->UpdateConsoleScope(emptyTopMostScope, targetScriptContext);
+            debugManager->UpdateConsoleScope(emptyTopMostScope, targetScriptContext);
             return value;
         }
         catch (JavascriptExceptionObject* thrownObject)
@@ -296,7 +296,7 @@ namespace Js
                 }
             }
         }
-        probeManager->UpdateConsoleScope(emptyTopMostScope, targetScriptContext);
+        debugManager->UpdateConsoleScope(emptyTopMostScope, targetScriptContext);
         throw reThrownEx;
     }
 
@@ -315,10 +315,10 @@ namespace Js
         // The good thing is that in break state we can take advantage of debugger scopes and populate (captured) local using them.
         // In non-break state we can't but it's not needed.
         if (targetScriptContext->IsInDebugMode() &&
-            targetScriptContext->GetThreadContext()->Diagnostics->isAtDispatchHalt)
+            targetScriptContext->GetThreadContext()->GetDebugManager()->IsAtDispatchHalt())
         {
-            Assert(targetScriptContext->GetThreadContext()->Diagnostics->GetDiagnosticArena());
-            ArenaAllocator* diagArena = targetScriptContext->GetThreadContext()->Diagnostics->GetDiagnosticArena()->Arena();
+            Assert(targetScriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticArena());
+            ArenaAllocator* diagArena = targetScriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticArena()->Arena();
             DiagStackFrame* frm = nullptr;
 
             // Get the top-most frame matching targetScriptContext.

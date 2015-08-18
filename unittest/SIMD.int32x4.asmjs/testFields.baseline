@@ -1,19 +1,10 @@
 Successfully compiled asm.js code
-Func1
-int32x4
-int32x4(32234,665,3401,5033)
-Func2
-int32x4
-int32x4(1082130432,1082129304,-1074095040,353216)
-Func3
-int32x4
-int32x4(0,-1073741821,-1,1085)
-Func4
-number
-1
 Func5
-number
-3
+Int32x4
+Int32x4(-2130706432,-18048,1073741824,1065353216)
 Func6
 number
-2
+10
+Func7
+Int32x4
+Int32x4(33,10,-1,20)

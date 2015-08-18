@@ -612,6 +612,103 @@ var tests = [
             assert.isFalse(result instanceof NullExtendsExpressionWithConstructor, "Result object is not instanceof class");
         }
     },
+    {
+        name: "Derived constructor with a super call that isn't executed",
+        body: function () {
+            let returnFalse = () => { return false; };
+            class DerivedClassAccessThisImplicitReturn extends SimpleParent {
+                constructor() {
+                    if (returnFalse()) {
+                        super();
+                    }
+                    this.bar = '';
+                }
+            };
+            
+            assert.throws(function() { new DerivedClassAccessThisImplicitReturn(); }, ReferenceError, "When super isn't called, this is undecl", "Use before declaration");
+            
+            class DerivedClassImplicitReturn extends SimpleParent {
+                constructor() {
+                    if (returnFalse()) {
+                        super();
+                    }
+                }
+            };
+            
+            assert.throws(function() { new DerivedClassImplicitReturn(); }, ReferenceError, "When super isn't called, this is undecl", "Use before declaration");
+            
+            class DerivedClassAccessThisExplicitReturn extends SimpleParent {
+                constructor() {
+                    if (returnFalse()) {
+                        super();
+                    }
+                    this.bar = '';
+                    return this;
+                }
+            };
+            
+            assert.throws(function() { new DerivedClassAccessThisExplicitReturn(); }, ReferenceError, "When super isn't called, this is undecl", "Use before declaration");
+            
+            class DerivedClassExplicitReturn extends SimpleParent {
+                constructor() {
+                    if (returnFalse()) {
+                        super();
+                    }
+                    return this;
+                }
+            };
+            
+            assert.throws(function() { new DerivedClassExplicitReturn(); }, ReferenceError, "When super isn't called, this is undecl", "Use before declaration");
+            
+            class DerivedClassAccessThisViaLambdaImplicitReturn extends SimpleParent {
+                constructor() {
+                    let arrow = () => { this.foo = ''; }
+                    if (returnFalse()) {
+                        super();
+                    }
+                    arrow();
+                }
+            };
+            
+            assert.throws(function() { new DerivedClassAccessThisViaLambdaImplicitReturn(); }, ReferenceError, "When super isn't called, this is undecl", "Use before declaration");
+            
+            class DerivedClassAccessThisViaLambdaExplicitReturn extends SimpleParent {
+                constructor() {
+                    let arrow = () => { this.foo = ''; }
+                    if (returnFalse()) {
+                        super();
+                    }
+                    arrow();
+                    return this;
+                }
+            };
+            
+            assert.throws(function() { new DerivedClassAccessThisViaLambdaExplicitReturn(); }, ReferenceError, "When super isn't called, this is undecl", "Use before declaration");
+            
+            class DerivedClassWithThisScopeCaptureNoAccessImplicitReturn extends SimpleParent {
+                constructor() {
+                    let arrow = () => { this.foo = ''; }
+                    if (returnFalse()) {
+                        super();
+                    }
+                }
+            };
+            
+            assert.throws(function() { new DerivedClassWithThisScopeCaptureNoAccessImplicitReturn(); }, ReferenceError, "When super isn't called, this is undecl", "Use before declaration");
+            
+            class DerivedClassWithThisScopeCaptureNoAccessExplicitReturn extends SimpleParent {
+                constructor() {
+                    let arrow = () => { this.foo = ''; }
+                    if (returnFalse()) {
+                        super();
+                    }
+                    return this;
+                }
+            };
+            
+            assert.throws(function() { new DerivedClassWithThisScopeCaptureNoAccessExplicitReturn(); }, ReferenceError, "When super isn't called, this is undecl", "Use before declaration");
+        }
+    },
 ];
 
 testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });

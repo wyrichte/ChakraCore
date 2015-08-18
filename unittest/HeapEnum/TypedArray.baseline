@@ -103,21 +103,21 @@ Pass
  |  |    [Internal property] type: ArrayBuffer (seen)
  |  |    [Prototype] type: TypedArrayObject (seen)
  |  | 7 dataView: type: DataView flags: (new) optional info records (2)
- |  |    [Prototype] type: DataView flags: (new) optional info records (1)
+ |  |    [Prototype] type: ObjectObject flags: (new) optional info records (1)
  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    [Properties] count: 3
+ |  |    [Relationships] count: 3
  |  |    | 0 buffer: type: ArrayBuffer (seen)
  |  |    | 1 byteOffset: value: 0.000000
  |  |    | 2 byteLength: value: 256.000000
  |  | 8 dataViewWithByteOffset: type: DataView flags: (new) optional info records (2)
- |  |    [Prototype] type: DataView (seen)
- |  |    [Properties] count: 3
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Relationships] count: 3
  |  |    | 0 buffer: type: ArrayBuffer (seen)
  |  |    | 1 byteOffset: value: 128.000000
  |  |    | 2 byteLength: value: 128.000000
  |  | 9 dataViewWithByteOffsetAndByteLength: type: DataView flags: (new) optional info records (2)
- |  |    [Prototype] type: DataView (seen)
- |  |    [Properties] count: 3
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Relationships] count: 3
  |  |    | 0 buffer: type: ArrayBuffer (seen)
  |  |    | 1 byteOffset: value: 192.000000
  |  |    | 2 byteLength: value: 32.000000

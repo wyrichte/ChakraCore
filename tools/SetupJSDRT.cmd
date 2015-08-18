@@ -17,7 +17,6 @@ set _projectionTestCab=
 set _setupProjectionTests=
 set _setupJSRTUnitTests=
 set _setupUnitTests=
-set _setupJSLSUnitTests=
 set _snap=
 set _drt=
 set _nightly=
@@ -106,9 +105,6 @@ set _scriptFullname=%~f0
     ) else if /i "%1" == "-setupUnitTests" (
         set _setupUnitTests=1
         goto :ArgLoop
-    ) else if /i "%1" == "-setupJSLSUnitTests" (
-        set _setupJSLSUnitTests=1
-        goto :ArgLoop
     ) else if "%1" == "" (
         goto :Main
     )
@@ -124,8 +120,6 @@ set _scriptFullname=%~f0
     if %_bucketIndex% == 0 (
         :: No-op, we didn't specify a bucket
         set _bucketIndex=0
-    ) else if %_bucketIndex% == 6 (
-        set _setupJSLSUnitTests=1
     ) else if %_bucketIndex% == 7 (
         set _setupJSRTUnitTests=1
     ) else if %_bucketIndex% == 9 (
@@ -158,10 +152,6 @@ set _scriptFullname=%~f0
         call :SetupJSRT
         if errorlevel 1 goto :Error
     )
-    if "%_setupJSLSUnitTests%" == "1" (
-        call :SetupJSLS
-        if errorlevel 1 goto :Error
-    )
 
     echo.
     echo Successfully setup DRT collateral!
@@ -187,7 +177,6 @@ set _scriptFullname=%~f0
     echo   _setupProjectionTests=%_setupProjectionTests%
     echo   _setupJSRTUnitTests=%_setupJSRTUnitTests%
     echo   _setupUnitTests=%_setupUnitTests%
-    echo   _setupJSLSUnitTests=%_setupJSLSUnitTests%
     echo.
     
     goto :EOF
@@ -287,41 +276,6 @@ set _scriptFullname=%~f0
     )
     
     goto :End
-
-:SetupJSLS
-    set _sourceDir=%_binRoot%\jsls\unittest
-    set _targetDir=%_jscriptRoot%\jsls\unittest
-    set _referencesDir=%_targetRoot%\inetcore\jscript\references
-    
-    call :CleanDir %_targetDir%
-    
-    echo Copying JSLS binaries
-    robocopy %_sourceDir% %_targetDir% *.dll *.exe *.mui *.tlb *.js /njh /njs /ndl /purge /xx /np
-
-    call :CheckRoboCopyErrorLevel
-    echo.
-    
-    echo Copying reference scripts
-    robocopy %_referencesDir% %_targetDir% *.js /njh /njs /ndl /purge /xx /np
-    call :CheckRoboCopyErrorLevel
-    echo.
-
-    echo Copying chakrals.dll
-    xcopy /y %_binRoot%\chakrals.dll %_targetDir%
-    call :CheckXCopyErrorLevel
-    echo.
-    
-    echo Copying dependency binaries
-    xcopy /y %_snapBinRoot%\JSLS\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll %_targetDir%
-    call :CheckXCopyErrorLevel
-    echo.
-    
-    if errorlevel 1 goto :Error
-    
-    echo Successfully setup JSLS unit tests
-    echo.
-    
-    goto :EOF
 
 :SetupJSRT
     set _sourceDir=%_binRoot%\jsrt\unittest

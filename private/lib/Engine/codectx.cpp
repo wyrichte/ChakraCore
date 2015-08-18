@@ -21,11 +21,11 @@ static const GUID IID_IInternalCodeContext = { 0x50467580, 0x71b7, 0x11d1, { 0x8
 
 void CDebugStackFrame::ValidateLegitDebugSession()
 {
-    Js::ProbeManager * probeManager = m_scriptSite->GetScriptSiteContext()->GetThreadContext()->Diagnostics;
+    Js::DebugManager * debugManager = m_scriptSite->GetScriptSiteContext()->GetThreadContext()->GetDebugManager();
     OUTPUT_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::ValidateLegitDebugSession: m_debugSessionNumber=%d, probeManager->GetDebugSessionNumber()=%d\n",
-        m_debugSessionNumber, probeManager->GetDebugSessionNumber());
-    Assert(probeManager->isAtDispatchHalt);
-    AssertMsg(m_debugSessionNumber == probeManager->GetDebugSessionNumber(), "Stack frame is outdated");
+        m_debugSessionNumber, debugManager->GetDebugSessionNumber());
+    Assert(debugManager->IsAtDispatchHalt());
+    AssertMsg(m_debugSessionNumber == debugManager->GetDebugSessionNumber(), "Stack frame is outdated");
 }
 
 #else
@@ -381,10 +381,10 @@ HRESULT CDebugStackFrame::Init(ScriptSite* scriptSite, int frameIndex)
         m_framePointers = scriptContext->GetDebugContext()->GetProbeContainer()->GetFramePointers();
 
 #if DBG
-        m_debugSessionNumber = scriptContext->GetThreadContext()->Diagnostics->GetDebugSessionNumber();
+        m_debugSessionNumber = scriptContext->GetThreadContext()->GetDebugManager()->GetDebugSessionNumber();
 #endif
         OUTPUT_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::Init:  this=%p, debug session #%d\n", 
-            this, scriptContext->GetThreadContext()->Diagnostics->GetDebugSessionNumber());
+            this, scriptContext->GetThreadContext()->GetDebugManager()->GetDebugSessionNumber());
 
         Js::DiagStack* framePointers = this->m_framePointers->GetStrongReference();
         m_currentFrame = framePointers->Peek(frameIndex);
@@ -627,7 +627,7 @@ HRESULT CDebugStackFrame::GetDebugPropertyCore(IDebugProperty **ppDebugProperty)
         return  E_FAIL;
     }
 
-    ReferencedArenaAdapter* pRefArena = scriptContext->GetThreadContext()->Diagnostics->GetDiagnosticArena();
+    ReferencedArenaAdapter* pRefArena = scriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticArena();
     if (!pRefArena)
     {
         return E_OUTOFMEMORY;
@@ -702,7 +702,7 @@ STDMETHODIMP CDebugStackFrame::SetValue(VARIANT *pvarNode, DISPID dispid,
         VALIDATE_LEGIT_DEBUGSESSION();
 
         scriptContext = m_scriptSite->GetScriptSiteContext();
-        pRefArena = scriptContext->GetThreadContext()->Diagnostics->GetDiagnosticArena();
+        pRefArena = scriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticArena();
 
         if (!pRefArena)
         {
@@ -1069,7 +1069,7 @@ Js::Var GetThisFromFrame(Js::DiagStackFrame* frame, Js::IDiagObjectAddress ** pp
             // Emulate Js::JavascriptOperators::OP_GetThisScoped using a locals walker and assigning moduleId object if not found by locals walker
             if (localsWalker == nullptr)
             {
-                ArenaAllocator *arena = scriptContext->GetThreadContext()->Diagnostics->GetDiagnosticArena()->Arena();
+                ArenaAllocator *arena = scriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticArena()->Arena();
                 localsWalker = Anew(arena, Js::LocalsWalker, frame, Js::FrameWalkerFlags::FW_EnumWithScopeAlso | Js::FrameWalkerFlags::FW_AllowLexicalThis);
             }
 
@@ -1106,40 +1106,40 @@ static void SetConditionalMutationBreakpointVariables(Js::DynamicObject * active
 {
     // For Conditional Object Mutation Breakpoint user can access the new value, changing property name and mutation type using special variables
     // $newValue$, $propertyName$ and $mutationType$. Add this variables to activation object.
-    Js::ProbeManager* probeManager = scriptContext->GetDebugContext()->GetProbeContainer()->GetProbeManager();
-    Js::MutationBreakpoint *mutationBreakpoint = probeManager->GetActiveMutationBreakpoint();
+    Js::DebugManager* debugManager = scriptContext->GetDebugContext()->GetProbeContainer()->GetDebugManager();
+    Js::MutationBreakpoint *mutationBreakpoint = debugManager->GetActiveMutationBreakpoint();
     if (mutationBreakpoint != nullptr)
     {
-        if (Js::Constants::NoProperty == probeManager->mutationNewValuePid)
+        if (Js::Constants::NoProperty == debugManager->mutationNewValuePid)
         {
-            probeManager->mutationNewValuePid = scriptContext->GetOrAddPropertyIdTracked(L"$newValue$", 10);
+            debugManager->mutationNewValuePid = scriptContext->GetOrAddPropertyIdTracked(L"$newValue$", 10);
         }
-        if (Js::Constants::NoProperty == probeManager->mutationPropertyNamePid)
+        if (Js::Constants::NoProperty == debugManager->mutationPropertyNamePid)
         {
-            probeManager->mutationPropertyNamePid = scriptContext->GetOrAddPropertyIdTracked(L"$propertyName$", 14);
+            debugManager->mutationPropertyNamePid = scriptContext->GetOrAddPropertyIdTracked(L"$propertyName$", 14);
         }
-        if (Js::Constants::NoProperty == probeManager->mutationTypePid)
+        if (Js::Constants::NoProperty == debugManager->mutationTypePid)
         {
-            probeManager->mutationTypePid = scriptContext->GetOrAddPropertyIdTracked(L"$mutationType$", 14);
+            debugManager->mutationTypePid = scriptContext->GetOrAddPropertyIdTracked(L"$mutationType$", 14);
         }
 
-        AssertMsg(probeManager->mutationNewValuePid != Js::Constants::NoProperty, "Should have a valid mutationNewValuePid");
-        AssertMsg(probeManager->mutationPropertyNamePid != Js::Constants::NoProperty, "Should have a valid mutationPropertyNamePid");
-        AssertMsg(probeManager->mutationTypePid != Js::Constants::NoProperty, "Should have a valid mutationTypePid");
+        AssertMsg(debugManager->mutationNewValuePid != Js::Constants::NoProperty, "Should have a valid mutationNewValuePid");
+        AssertMsg(debugManager->mutationPropertyNamePid != Js::Constants::NoProperty, "Should have a valid mutationPropertyNamePid");
+        AssertMsg(debugManager->mutationTypePid != Js::Constants::NoProperty, "Should have a valid mutationTypePid");
 
         Js::Var newValue = mutationBreakpoint->GetBreakNewValueVar();
 
         // Incase of MutationTypeDelete we won't have new value
         if (nullptr != newValue)
         {
-            activeScopeObject->SetProperty(probeManager->mutationNewValuePid,
+            activeScopeObject->SetProperty(debugManager->mutationNewValuePid,
                 mutationBreakpoint->GetBreakNewValueVar(),
                 Js::PropertyOperationFlags::PropertyOperation_None,
                 nullptr);
         }
         else
         {
-            activeScopeObject->SetProperty(probeManager->mutationNewValuePid,
+            activeScopeObject->SetProperty(debugManager->mutationNewValuePid,
                 scriptContext->GetLibrary()->GetUndefined(),
                 Js::PropertyOperationFlags::PropertyOperation_None,
                 nullptr);
@@ -1151,11 +1151,11 @@ static void SetConditionalMutationBreakpointVariables(Js::DynamicObject * active
 
         Js::PropertyOperationFlags flags = static_cast<Js::PropertyOperationFlags>(Js::PropertyOperation_SpecialValue | Js::PropertyOperation_AllowUndecl);
 
-        activeScopeObject->SetPropertyWithAttributes(probeManager->mutationPropertyNamePid,
+        activeScopeObject->SetPropertyWithAttributes(debugManager->mutationPropertyNamePid,
             Js::JavascriptString::NewCopySz(mutationBreakpoint->GetBreakPropertyName(), scriptContext),
             PropertyConstDefaults, nullptr, flags);
 
-        activeScopeObject->SetPropertyWithAttributes(probeManager->mutationTypePid,
+        activeScopeObject->SetPropertyWithAttributes(debugManager->mutationTypePid,
             Js::JavascriptString::NewCopySz(mutationBreakpoint->GetMutationTypeForConditionalEval(mutationBreakpoint->GetBreakMutationType()), scriptContext),
             PropertyConstDefaults, nullptr, flags);       
     }
@@ -1169,7 +1169,7 @@ Js::Var CDebugEval::DoEval(Js::ScriptFunction* pfuncScript, Js::DiagStackFrame* 
     Js::JavascriptFunction* scopeFunction = frame->GetJavascriptFunction();   
     Js::ScriptContext* scriptContext = frame->GetScriptContext();
 
-    ArenaAllocator *arena = scriptContext->GetThreadContext()->Diagnostics->GetDiagnosticArena()->Arena();
+    ArenaAllocator *arena = scriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticArena()->Arena();
     Js::LocalsWalker *localsWalker = Anew(arena, Js::LocalsWalker, frame, Js::FrameWalkerFlags::FW_EnumWithScopeAlso | Js::FrameWalkerFlags::FW_AllowLexicalThis | Js::FrameWalkerFlags::FW_AllowSuperReference);
 
     // Store the diag address of a var to the map so that it will be used for editing the value.
@@ -1202,8 +1202,8 @@ Js::Var CDebugEval::DoEval(Js::ScriptFunction* pfuncScript, Js::DiagStackFrame* 
 
     // Remove its prototype object so that those item will not be visible to the expression evaluation.
     dummyObject->SetPrototype(scriptContext->GetLibrary()->GetNull());
-    Js::ProbeManager* probeManager = scriptContext->GetDebugContext()->GetProbeContainer()->GetProbeManager();
-    Js::FrameDisplay* env = probeManager->GetFrameDisplay(scriptContext, dummyObject, activeScopeObject, /* addGlobalThisAtScopeTwo = */ false);
+    Js::DebugManager* debugManager = scriptContext->GetDebugContext()->GetProbeContainer()->GetDebugManager();
+    Js::FrameDisplay* env = debugManager->GetFrameDisplay(scriptContext, dummyObject, activeScopeObject, /* addGlobalThisAtScopeTwo = */ false);
     pfuncScript->SetEnvironment(env);
 
     Js::Var varThis = GetThisFromFrame(frame, nullptr, localsWalker);
@@ -1217,7 +1217,7 @@ Js::Var CDebugEval::DoEval(Js::ScriptFunction* pfuncScript, Js::DiagStackFrame* 
     Js::Arguments args(1, (Js::Var*) &varThis);
     varResult = pfuncScript->CallFunction(args);
 
-    probeManager->UpdateConsoleScope(dummyObject, scriptContext);
+    debugManager->UpdateConsoleScope(dummyObject, scriptContext);
 
     // We need to find out the edits have been done to the dummy scope object during the eval. We need to apply those mutations to the actual vars.
     ulong count = activeScopeObject->GetPropertyCount();
@@ -1277,7 +1277,7 @@ void CDebugStackFrame::TryFetchValueAndAddress(Js::DiagStackFrame* frame, LPCOLE
         scriptContext->FindPropertyRecord(pszSource, length, &propRecord);
         if (propRecord != nullptr)
         {
-            ArenaAllocator *arena = scriptContext->GetThreadContext()->Diagnostics->GetDiagnosticArena()->Arena();
+            ArenaAllocator *arena = scriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticArena()->Arena();
 
             Js::IDiagObjectModelWalkerBase * localsWalker = Anew(arena, Js::LocalsWalker, frame, Js::FrameWalkerFlags::FW_EnumWithScopeAlso);
 
@@ -1637,7 +1637,7 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
         }
 
         // Package the result as a property
-        ReferencedArenaAdapter* pRefArena = scriptContext->GetThreadContext()->Diagnostics->GetDiagnosticArena();
+        ReferencedArenaAdapter* pRefArena = scriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticArena();
         if (!pRefArena)
         {
             return E_OUTOFMEMORY;

@@ -1,4 +1,4 @@
-float32x4 int32x4 bit conversion
+Float32x4 Int32x4 bit conversion
 Correct
 Correct
 Correct
@@ -19,7 +19,7 @@ Correct
 Correct
 Correct
 Correct
-float32x4 int32x4 bit conversion
+Float32x4 Int32x4 bit conversion
 Correct
 Correct
 Correct
@@ -40,7 +40,7 @@ Correct
 Correct
 Correct
 Correct
-float32x4 int32x4 bit conversion
+Float32x4 Int32x4 bit conversion
 Correct
 Correct
 Correct
@@ -61,7 +61,7 @@ Correct
 Correct
 Correct
 Correct
-float32x4 int32x4 bit conversion
+Float32x4 Int32x4 bit conversion
 Correct
 Correct
 Correct
@@ -82,7 +82,7 @@ Correct
 Correct
 Correct
 Correct
-float32x4 int32x4 bit conversion
+Float32x4 Int32x4 bit conversion
 Correct
 Correct
 Correct
@@ -103,7 +103,7 @@ Correct
 Correct
 Correct
 Correct
-float32x4 int32x4 bit conversion
+Float32x4 Int32x4 bit conversion
 Correct
 Correct
 Correct
@@ -124,7 +124,7 @@ Correct
 Correct
 Correct
 Correct
-float32x4 int32x4 bit conversion
+Float32x4 Int32x4 bit conversion
 Correct
 Correct
 Correct
@@ -145,47 +145,43 @@ Correct
 Correct
 Correct
 Correct
-int32x4 float64x2 conversion
+Int32x4 Float32x4 conversion
 Correct
 Correct
 Correct
 Correct
-int32x4 float64x2 conversion
 Correct
 Correct
 Correct
 Correct
-int32x4 float64x2 conversion
+Int32x4 Float32x4 conversion
 Correct
 Correct
 Correct
 Correct
-int32x4 float64x2 conversion
 Correct
 Correct
 Correct
 Correct
-int32x4 float64x2 conversion
+Int32x4 Float32x4 conversion
 Correct
 Correct
 Correct
 Correct
-int32x4 float64x2 conversion
 Correct
 Correct
 Correct
 Correct
-int32x4 float64x2 conversion
+Int32x4 Float32x4 conversion
 Correct
 Correct
 Correct
 Correct
-int32x4 float64x2 conversion
 Correct
 Correct
 Correct
 Correct
-int32x4 float32x4 conversion
+Int32x4 Float32x4 conversion
 Correct
 Correct
 Correct
@@ -194,7 +190,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 float32x4 conversion
+Int32x4 Float32x4 conversion
 Correct
 Correct
 Correct
@@ -203,7 +199,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 float32x4 conversion
+Int32x4 Float32x4 conversion
 Correct
 Correct
 Correct
@@ -212,43 +208,7 @@ Correct
 Correct
 Correct
 Correct
-int32x4 float32x4 conversion
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 float32x4 conversion
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 float32x4 conversion
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 float32x4 conversion
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-int32x4 float32x4 conversion
+Int32x4 Float32x4 conversion
 Correct
 Correct
 Correct

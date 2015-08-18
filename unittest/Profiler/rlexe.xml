@@ -157,13 +157,6 @@
   </test>
   <test>
     <default>
-      <files>SIMDFloat64x2_profiler.js</files>
-      <baseline>SIMDFloat64x2_profiler.baseline</baseline>
-      <compile-flags>-Simdjs</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>SIMDInt32x4_profiler.js</files>
       <baseline>SIMDInt32x4_profiler.baseline</baseline>
       <compile-flags>-Simdjs</compile-flags>

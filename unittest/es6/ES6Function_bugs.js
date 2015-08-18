@@ -25,7 +25,7 @@ var tests = [
                     get: function () { }
                     });
             }
-            assert.throws(function () { g('length') }, TypeError, "Cannot redefine non-configurable property 'length'");
+            assert.doesNotThrow(function () { g('length') }, "assertion failure on defineProperty 'length' with getter after sealing a function object");
             assert.throws(function () { g('arguments') }, TypeError, "Cannot redefine non-configurable property 'arguments'");
             assert.throws(function () { g('caller') }, TypeError, "Cannot redefine non-configurable property 'caller'");
          }

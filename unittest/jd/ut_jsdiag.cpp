@@ -7,20 +7,21 @@
 
 void EXT_CLASS::CreateDebugProcess(IJsDebugProcess** ppDebugProcess, bool debugMode) 
 {
+    HRESULT hr = S_OK;
     CComPtr<IJsDebug2> jsDebug;
     CreateJsDebug(&jsDebug);
 
     CComPtr<DbgEngDataTarget> dataTarget;
-    UT_HR_SUCCEEDED(CreateComObject(&dataTarget));
-    UT_HR_SUCCEEDED(dataTarget->Init(m_Client));
+    IfFailedAssertReturn(CreateComObject(&dataTarget));
+    IfFailedAssertReturn(dataTarget->Init(m_Client));
 
     DWORD processId;
     IfFailThrow(m_System->GetCurrentProcessSystemId(&processId));
 
     UINT64 baseAddress; ULONG index;
-    UT_HR_SUCCEEDED(FindJScriptModuleByName</*IsPublic*/false>(m_Symbols, &index, &baseAddress));
+    IfFailedAssertReturn(FindJScriptModuleByName</*IsPublic*/false>(m_Symbols, &index, &baseAddress));
 
-    UT_HR_SUCCEEDED(jsDebug->OpenVirtualProcess(dataTarget, /*debugMode*/ debugMode, processId, baseAddress, NULL, ppDebugProcess));
+    IfFailedAssertReturn(jsDebug->OpenVirtualProcess(dataTarget, /*debugMode*/ debugMode, processId, baseAddress, NULL, ppDebugProcess));
 }
 
 // EXT_DECLARE_GLOBALS must be used to instantiate
@@ -40,7 +41,7 @@ void EXT_CLASS::CreateJsDebug(IJsDebug2** ppDebug)
     HRESULT hr = PrivateCoCreate(L"chakradiagtest.dll", CLSID_ChakraDiag, IID_PPV_ARGS(&jsDebug));
     if (FAILED(hr))
     {
-        UT_HR_SUCCEEDED(PrivateCoCreate(L"chakradiag.dll", CLSID_ChakraDiag, IID_PPV_ARGS(&jsDebug)));
+        IfFailedAssertReturn(PrivateCoCreate(L"chakradiag.dll", CLSID_ChakraDiag, IID_PPV_ARGS(&jsDebug)));
     }
 
     *ppDebug = jsDebug.Detach();
@@ -106,12 +107,13 @@ EXT_COMMAND(jsstack,
     DWORD threadId;
     IfFailThrow(m_System->GetCurrentThreadSystemId(&threadId));
 
+    HRESULT hr = S_OK;
+
     CComPtr<IJsDebugProcess> debugProcess;
     CreateDebugProcess(&debugProcess);
     CComPtr<IJsDebugStackWalker> stackWalker;
-    UT_HR_SUCCEEDED(debugProcess->CreateStackWalker(threadId, &stackWalker));
+    IfFailedAssertReturn(debugProcess->CreateStackWalker(threadId, &stackWalker));
     CComPtr<IJsDebugFrame> debugFrame;
-    HRESULT hr;
     while( (hr = stackWalker->GetNext(&debugFrame)) != E_JsDEBUG_OUTSIDE_OF_VM)
     {
         IfFailThrow(hr);
@@ -121,20 +123,20 @@ EXT_COMMAND(jsstack,
         DWORD line, column;
 
         UINT64 start, end;
-        UT_HR_SUCCEEDED(debugFrame->GetStackRange(&start, &end));
+        IfFailedAssertReturn(debugFrame->GetStackRange(&start, &end));
         this->Verb(L"%08I64x, %08I64x ", start, end);
-        UT_ASSERT(end <= start);
-        UT_ASSERT(end != 0 && start != 0);
+        IfFalseAssertReturn(end <= start);
+        IfFalseAssertReturn(end != 0 && start != 0);
 
         UINT64 returnAddress;
-        UT_HR_SUCCEEDED(debugFrame->GetReturnAddress(&returnAddress));
+        IfFailedAssertReturn(debugFrame->GetReturnAddress(&returnAddress));
         this->Verb(L"%08I64x ", returnAddress);
-        UT_ASSERT(returnAddress != 0);
+        IfFalseAssertReturn(returnAddress != 0);
 
-        UT_HR_SUCCEEDED(debugFrame->GetDocumentPositionWithName(&url, &line, &column));
+        IfFailedAssertReturn(debugFrame->GetDocumentPositionWithName(&url, &line, &column));
 
         UINT64 documentId; DWORD characterOffset; DWORD statementLength;
-        UT_HR_SUCCEEDED(debugFrame->GetDocumentPositionWithId(&documentId, &characterOffset, &statementLength));
+        IfFailedAssertReturn(debugFrame->GetDocumentPositionWithId(&documentId, &characterOffset, &statementLength));
 
         wchar_t filename[_MAX_FNAME];
         wchar_t ext[_MAX_EXT];
@@ -166,24 +168,24 @@ EXT_COMMAND(ldsym,
     IfFailThrow(m_Symbols3->GetModuleNameStringT(DEBUG_MODNAME_IMAGE, index, base, imageName, _countof(imageName), NULL),
         "Failed to find chakra module path");
     Verb(L"Use %s\n", imageName);
-
+    HRESULT hr = S_OK;
     // .reload jscript9.dll, if sympath has changed. Without this FindSymbol will still fail if there was a previous failure (e.g., k) with missing symbols.
     if (sympathChanged)
     {
         CString module = CString(moduleName) + ".dll";
-        UT_HR_SUCCEEDED(m_Symbols3->ReloadT(module));
+        IfFailedAssertReturn(m_Symbols3->ReloadT(module));
     }
 
     const CLSID CLSID_JScript9DAC = {0x197060cb, 0x5efb, 0x4a53, 0xb0, 0x42, 0x93, 0x9d, 0xbb, 0x31, 0x62, 0x7c};
     CComPtr<IScriptDAC> pDAC;
     CComPtr<SinkDebugSite> pSinkDebugSite;
 
-    UT_HR_SUCCEEDED(PrivateCoCreate(imageName, CLSID_JScript9DAC, IID_PPV_ARGS(&pDAC)));
+    IfFailedAssertReturn(PrivateCoCreate(imageName, CLSID_JScript9DAC, IID_PPV_ARGS(&pDAC)));
 
-    UT_HR_SUCCEEDED(CreateComObject(&pSinkDebugSite));
-    UT_HR_SUCCEEDED(pSinkDebugSite->Init(this, moduleName, m_Symbols3, m_Data4));
+    IfFailedAssertReturn(CreateComObject(&pSinkDebugSite));
+    IfFailedAssertReturn(pSinkDebugSite->Init(this, moduleName, m_Symbols3, m_Data4));
 
-    UT_HR_SUCCEEDED(pDAC->LoadScriptSymbols(pSinkDebugSite));
+    IfFailedAssertReturn(pDAC->LoadScriptSymbols(pSinkDebugSite));
 
     // Print symbol names for baseline comparison
     pSinkDebugSite->PrintSymbolNames();
@@ -199,7 +201,7 @@ EXT_COMMAND(verifyOM,
     
     ULONG count;
     IfFailThrow(m_System->GetNumberThreads(&count));
-    UT_ASSERT_SZ(count > 1, "Count should be greater than 1 to validate");
+    IfFalseAssertMsgReturn(count > 1, "Count should be greater than 1 to validate");
     ULONG currentThreadId;
     IfFailThrow(m_System->GetCurrentThreadSystemId(&currentThreadId));
     CAutoVectorPtr<ULONG> threads(new ULONG[count]);
@@ -213,15 +215,15 @@ EXT_COMMAND(verifyOM,
             break;
         }
     }
-    UT_ASSERT(otherThreadId != (ULONG)-1);
+    IfFalseAssertReturn(otherThreadId != (ULONG)-1);
     
     CComPtr<IJsDebugStackWalker> stackWalker;
-    UT_HRESULTS_EQUAL(E_JsDEBUG_UNKNOWN_THREAD, debugProcess->CreateStackWalker(otherThreadId, &stackWalker));
-    UT_HRESULTS_EQUAL(E_JsDEBUG_UNKNOWN_THREAD, debugProcess->PerformAsyncBreak(otherThreadId));
+    ReturnIfHRNotEqual(E_JsDEBUG_UNKNOWN_THREAD, debugProcess->CreateStackWalker(otherThreadId, &stackWalker));
+    ReturnIfHRNotEqual(E_JsDEBUG_UNKNOWN_THREAD, debugProcess->PerformAsyncBreak(otherThreadId));
     ULONG threadIdAfterStackWalkerCreation;
     IfFailThrow(m_System->GetCurrentThreadSystemId(&threadIdAfterStackWalkerCreation));
 
-    UT_ASSERT(threadIdAfterStackWalkerCreation == currentThreadId);
+    IfFalseAssertReturn(threadIdAfterStackWalkerCreation == currentThreadId);
 }
 
 EXT_COMMAND(asyncBreak,
@@ -231,14 +233,16 @@ EXT_COMMAND(asyncBreak,
     CComPtr<IJsDebugProcess> debugProcess; 
     CreateDebugProcess(&debugProcess);
     ULONG currentThreadId;
+    HRESULT hr = S_OK;
     IfFailThrow(m_System->GetCurrentThreadSystemId(&currentThreadId));
-    UT_HR_SUCCEEDED(debugProcess->PerformAsyncBreak(currentThreadId));
+    IfFailedAssertReturn(debugProcess->PerformAsyncBreak(currentThreadId));
 }
 
 EXT_COMMAND(bp,
     "Set breakpoint",
     "{;e,o,d=0;characterOffset;The character offset where to set the breakpoint}")
 {
+    HRESULT hr = S_OK;
     ULONG offset = static_cast<ULONG>(GetUnnamedArgU64(0));
 
     CComPtr<IJsDebugProcess> debugProcess; 
@@ -248,29 +252,29 @@ EXT_COMMAND(bp,
     IfFailThrow(m_System->GetCurrentThreadSystemId(&currentThreadId));
 
     CComPtr<IJsDebugStackWalker> stackWalker;
-    UT_HR_SUCCEEDED(debugProcess->CreateStackWalker(currentThreadId, &stackWalker));
+    IfFailedAssertReturn(debugProcess->CreateStackWalker(currentThreadId, &stackWalker));
     CComPtr<IJsDebugFrame> debugFrame;
-    UT_HR_SUCCEEDED(stackWalker->GetNext(&debugFrame));
+    IfFailedAssertReturn(stackWalker->GetNext(&debugFrame));
     UINT64 documentId; DWORD characterOffset; DWORD statementLength;
-    UT_HR_SUCCEEDED(debugFrame->GetDocumentPositionWithId(&documentId, &characterOffset, &statementLength));
-    UT_ASSERT(documentId != 0);
+    IfFailedAssertReturn(debugFrame->GetDocumentPositionWithId(&documentId, &characterOffset, &statementLength));
+    IfFalseAssertReturn(documentId != 0);
     CComPtr<IJsDebugBreakPoint> debugBreakPoint;
-    UT_HR_SUCCEEDED(debugProcess->CreateBreakPoint(documentId, offset, 10, /*isEnabled*/ true, &debugBreakPoint));
+    IfFailedAssertReturn(debugProcess->CreateBreakPoint(documentId, offset, 10, /*isEnabled*/ true, &debugBreakPoint));
     UINT64 breakPointDocumentId;
-    UT_HR_SUCCEEDED(debugBreakPoint->GetDocumentPosition(&breakPointDocumentId, &characterOffset, &statementLength));
-    UT_ASSERT(documentId == breakPointDocumentId);
+    IfFailedAssertReturn(debugBreakPoint->GetDocumentPosition(&breakPointDocumentId, &characterOffset, &statementLength));
+    IfFalseAssertReturn(documentId == breakPointDocumentId);
     wprintf_s(L"Bp position: (%u, %u) \n", characterOffset, statementLength);
     BOOL isEnabled;
-    UT_HR_SUCCEEDED(debugBreakPoint->IsEnabled(&isEnabled));
-    UT_ASSERT(isEnabled == TRUE);
+    IfFailedAssertReturn(debugBreakPoint->IsEnabled(&isEnabled));
+    IfFalseAssertReturn(isEnabled == TRUE);
     
     //  Testing the interface
-    UT_HR_SUCCEEDED(debugBreakPoint->Disable());
-    UT_HR_SUCCEEDED(debugBreakPoint->IsEnabled(&isEnabled));
-    UT_ASSERT(isEnabled == FALSE);
+    IfFailedAssertReturn(debugBreakPoint->Disable());
+    IfFailedAssertReturn(debugBreakPoint->IsEnabled(&isEnabled));
+    IfFalseAssertReturn(isEnabled == FALSE);
 
-    UT_HR_SUCCEEDED(debugBreakPoint->Enable());
-    UT_ASSERT(debugBreakPoint->Enable() == S_FALSE);
+    IfFailedAssertReturn(debugBreakPoint->Enable());
+    IfFalseAssertReturn(debugBreakPoint->Enable() == S_FALSE);
 }
 
 USE_DbgEngDataTarget(); // Use DbgEngDataTarget implementation
@@ -281,41 +285,42 @@ USE_DbgEngDataTarget(); // Use DbgEngDataTarget implementation
 template <class Func>
 void EXT_CLASS::TestGetDump(Func func)
 {
+    HRESULT hr = S_OK;
     //TODO: better logic to determine which dll to use
     HINSTANCE hInstance = LoadLibraryEx(L"chakradiagtest.dll", NULL, 0);
     if (!hInstance)
     {
         hInstance = LoadLibraryEx(L"chakradiag.dll", NULL, 0);
     }
-    UT_ASSERT(hInstance);
+    IfFalseAssertReturn(hInstance);
 
     PFN_GetDumpStreams GetDumpStreams = (PFN_GetDumpStreams)GetProcAddress(hInstance, "GetDumpStreams");
     PFN_FreeDumpStreams FreeDumpStreams = (PFN_FreeDumpStreams)GetProcAddress(hInstance, "FreeDumpStreams");
-    UT_ASSERT(GetDumpStreams);
-    UT_ASSERT(GetDumpStreams);
+    IfFalseAssertReturn(GetDumpStreams);
+    IfFalseAssertReturn(GetDumpStreams);
     
     CComPtr<DbgEngDataTarget> dataTarget;
-    UT_HR_SUCCEEDED(CreateComObject(&dataTarget));
-    UT_HR_SUCCEEDED(dataTarget->Init(m_Client));
+    IfFailedAssertReturn(CreateComObject(&dataTarget));
+    IfFailedAssertReturn(dataTarget->Init(m_Client));
 
     PMINIDUMP_USER_STREAM_INFORMATION pUserStream;
-    UT_ASSERT(GetDumpStreams(dataTarget, MINIDUMP_TYPE::MiniDumpWithoutAuxiliaryState, &pUserStream) == E_INVALIDARG);
-    UT_ASSERT(GetDumpStreams(NULL, MINIDUMP_TYPE::MiniDumpNormal, &pUserStream) == E_INVALIDARG);
-    UT_ASSERT(GetDumpStreams(dataTarget, MINIDUMP_TYPE::MiniDumpNormal, NULL) == E_POINTER);
-    UT_HR_SUCCEEDED(GetDumpStreams(dataTarget, MINIDUMP_TYPE::MiniDumpNormal, &pUserStream));
+    IfFalseAssertReturn(GetDumpStreams(dataTarget, MINIDUMP_TYPE::MiniDumpWithoutAuxiliaryState, &pUserStream) == E_INVALIDARG);
+    IfFalseAssertReturn(GetDumpStreams(NULL, MINIDUMP_TYPE::MiniDumpNormal, &pUserStream) == E_INVALIDARG);
+    IfFalseAssertReturn(GetDumpStreams(dataTarget, MINIDUMP_TYPE::MiniDumpNormal, NULL) == E_POINTER);
+    IfFailedAssertReturn(GetDumpStreams(dataTarget, MINIDUMP_TYPE::MiniDumpNormal, &pUserStream));
 
     if (pUserStream != NULL)
     {
-        UT_ASSERT(pUserStream->UserStreamCount == 1);
-        UT_ASSERT(pUserStream->UserStreamArray != NULL);
+        IfFalseAssertReturn(pUserStream->UserStreamCount == 1);
+        IfFalseAssertReturn(pUserStream->UserStreamArray != NULL);
 
         PMINIDUMP_USER_STREAM pDump = pUserStream->UserStreamArray;
-        UT_ASSERT(pDump->Type == MINIDUMP_STREAM_TYPE::JavaScriptDataStream);
+        IfFalseAssertReturn(pDump->Type == MINIDUMP_STREAM_TYPE::JavaScriptDataStream);
 
         func(pDump->Buffer, pDump->BufferSize, &dataTarget->GetMemoryRegions());
 
         // Release
-        UT_HR_SUCCEEDED(FreeDumpStreams(pUserStream));
+        IfFailedAssertReturn(FreeDumpStreams(pUserStream));
     }
 
     FreeLibrary(hInstance);
@@ -334,34 +339,35 @@ static string GetFileName(PCWSTR pPath)
 //
 void EXT_CLASS::TestReadDump(LPVOID buffer, ULONG bufferSize, _In_opt_ const DbgEngDataTarget::MemoryRegionsType* memoryRegions, const ULONG maxFrames)
 {
+    HRESULT hr = S_OK;
     HINSTANCE hInstance = LoadLibraryEx(L"jscript9diagdump.dll", NULL, 0);
-    UT_ASSERT(hInstance);
+    IfFalseAssertReturn(hInstance);
 
     PDEBUG_STACK_PROVIDER_BEGINTHREADSTACKRECONSTRUCTION BeginThreadStackReconstruction = (PDEBUG_STACK_PROVIDER_BEGINTHREADSTACKRECONSTRUCTION)GetProcAddress(hInstance, "BeginThreadStackReconstruction");
     PDEBUG_STACK_PROVIDER_RECONSTRUCTSTACK ReconstructStack = (PDEBUG_STACK_PROVIDER_RECONSTRUCTSTACK)GetProcAddress(hInstance, "ReconstructStack");
     PDEBUG_STACK_PROVIDER_FREESTACKSYMFRAMES FreeStackSymFrames = (PDEBUG_STACK_PROVIDER_FREESTACKSYMFRAMES)GetProcAddress(hInstance, "FreeStackSymFrames");
     PDEBUG_STACK_PROVIDER_ENDTHREADSTACKRECONSTRUCTION EndThreadStackReconstruction = (PDEBUG_STACK_PROVIDER_ENDTHREADSTACKRECONSTRUCTION)GetProcAddress(hInstance, "EndThreadStackReconstruction");
     JsDiag::PrivateGetStackThreadIdFunc* PrivateGetStackThreadId = (JsDiag::PrivateGetStackThreadIdFunc*)GetProcAddress(hInstance, "PrivateGetStackThreadId");
-    UT_ASSERT(BeginThreadStackReconstruction);
-    UT_ASSERT(ReconstructStack);
-    UT_ASSERT(FreeStackSymFrames);
-    UT_ASSERT(EndThreadStackReconstruction);
-    UT_ASSERT(PrivateGetStackThreadId);
+    IfFalseAssertReturn(BeginThreadStackReconstruction);
+    IfFalseAssertReturn(ReconstructStack);
+    IfFalseAssertReturn(FreeStackSymFrames);
+    IfFalseAssertReturn(EndThreadStackReconstruction);
+    IfFalseAssertReturn(PrivateGetStackThreadId);
 
     // Prepare
     PSTACK_SYM_FRAME_INFO pStackSymFrames;
     ULONG stackSymFramesFilled;
     ULONG noSuchThreadId = (ULONG)-1; // If non 0, no such threadId in the dump
-    UT_ASSERT(ReconstructStack(noSuchThreadId, NULL, 0, &pStackSymFrames, &stackSymFramesFilled) == E_UNEXPECTED); // Before Begin
+    IfFalseAssertReturn(ReconstructStack(noSuchThreadId, NULL, 0, &pStackSymFrames, &stackSymFramesFilled) == E_UNEXPECTED); // Before Begin
 
     // Begin
-    UT_ASSERT(BeginThreadStackReconstruction(MINIDUMP_STREAM_TYPE::ExceptionStream, buffer, bufferSize) == E_INVALIDARG);               // wrong stream type
-    UT_ASSERT(BeginThreadStackReconstruction(MINIDUMP_STREAM_TYPE::JavaScriptDataStream, NULL, bufferSize) == E_INVALIDARG);    // null data
-    UT_ASSERT(BeginThreadStackReconstruction(MINIDUMP_STREAM_TYPE::JavaScriptDataStream, buffer, 0) == E_INVALIDARG);           // 0 size data
+    IfFalseAssertReturn(BeginThreadStackReconstruction(MINIDUMP_STREAM_TYPE::ExceptionStream, buffer, bufferSize) == E_INVALIDARG);               // wrong stream type
+    IfFalseAssertReturn(BeginThreadStackReconstruction(MINIDUMP_STREAM_TYPE::JavaScriptDataStream, NULL, bufferSize) == E_INVALIDARG);    // null data
+    IfFalseAssertReturn(BeginThreadStackReconstruction(MINIDUMP_STREAM_TYPE::JavaScriptDataStream, buffer, 0) == E_INVALIDARG);           // 0 size data
     ULONG bad_data[] = {0, 0, 0, 0};
-    UT_ASSERT(FAILED(BeginThreadStackReconstruction(MINIDUMP_STREAM_TYPE::JavaScriptDataStream, bad_data, sizeof(bad_data))));  // bad data
-    UT_HR_SUCCEEDED(BeginThreadStackReconstruction(MINIDUMP_STREAM_TYPE::JavaScriptDataStream, buffer, bufferSize));
-    UT_ASSERT(BeginThreadStackReconstruction(MINIDUMP_STREAM_TYPE::JavaScriptDataStream, buffer, bufferSize) == E_UNEXPECTED);  // already begun
+    IfFalseAssertReturn(FAILED(BeginThreadStackReconstruction(MINIDUMP_STREAM_TYPE::JavaScriptDataStream, bad_data, sizeof(bad_data))));  // bad data
+    IfFailedAssertReturn(BeginThreadStackReconstruction(MINIDUMP_STREAM_TYPE::JavaScriptDataStream, buffer, bufferSize));
+    IfFalseAssertReturn(BeginThreadStackReconstruction(MINIDUMP_STREAM_TYPE::JavaScriptDataStream, buffer, bufferSize) == E_UNEXPECTED);  // already begun
 
     // Test
     for (ULONG index = 0; ; index++)
@@ -374,7 +380,7 @@ void EXT_CLASS::TestReadDump(LPVOID buffer, ULONG bufferSize, _In_opt_ const Dbg
                 noSuchThreadId = 0; // Oops, found such a thread Id, don't use noSuchThreadId
             }
 
-            UT_HR_SUCCEEDED(ReconstructStack(threadId, NULL, 0, &pStackSymFrames, &stackSymFramesFilled));
+            IfFailedAssertReturn(ReconstructStack(threadId, NULL, 0, &pStackSymFrames, &stackSymFramesFilled));
 
             if (!m_unitTestMode)
             {
@@ -395,7 +401,7 @@ void EXT_CLASS::TestReadDump(LPVOID buffer, ULONG bufferSize, _In_opt_ const Dbg
                 bool isInlineFrame = JsDiag::TryGetInlineFrameId(f.StackFrameEx.InlineFrameContext, &inlineIndex);
                 if (isInlineFrame)
                 {
-                    UT_ASSERT(inlineIndex == nextInlineIndex++);
+                    IfFalseAssertReturn(inlineIndex == nextInlineIndex++);
                 }
                 else
                 {
@@ -433,12 +439,12 @@ void EXT_CLASS::TestReadDump(LPVOID buffer, ULONG bufferSize, _In_opt_ const Dbg
                         {
                             return ip >= range.first && ip < range.first + range.second;
                         });
-                        UT_ASSERT_SZ(it != memoryRegions->end(), "JS frame IP must be in enumerated memory regions");
+                        IfFalseAssertMsgReturn(it != memoryRegions->end(), "JS frame IP must be in enumerated memory regions");
                     }
                 }
             }
 
-            UT_HR_SUCCEEDED(FreeStackSymFrames(pStackSymFrames));
+            IfFailedAssertReturn(FreeStackSymFrames(pStackSymFrames));
         }
         else
         {
@@ -449,14 +455,14 @@ void EXT_CLASS::TestReadDump(LPVOID buffer, ULONG bufferSize, _In_opt_ const Dbg
     // Before End
     if (noSuchThreadId != 0)
     {
-        UT_HR_SUCCEEDED(ReconstructStack(noSuchThreadId, NULL, 0, &pStackSymFrames, &stackSymFramesFilled));
-        UT_ASSERT(pStackSymFrames == NULL);
-        UT_ASSERT(stackSymFramesFilled == 0);
+        IfFailedAssertReturn(ReconstructStack(noSuchThreadId, NULL, 0, &pStackSymFrames, &stackSymFramesFilled));
+        IfFalseAssertReturn(pStackSymFrames == NULL);
+        IfFalseAssertReturn(stackSymFramesFilled == 0);
     }
 
     // End
-    UT_HR_SUCCEEDED(EndThreadStackReconstruction());
-    UT_ASSERT(ReconstructStack(noSuchThreadId, NULL, 0, &pStackSymFrames, &stackSymFramesFilled) == E_UNEXPECTED); // After End
+    IfFailedAssertReturn(EndThreadStackReconstruction());
+    IfFalseAssertReturn(ReconstructStack(noSuchThreadId, NULL, 0, &pStackSymFrames, &stackSymFramesFilled) == E_UNEXPECTED); // After End
     FreeLibrary(hInstance);
 }
 
@@ -464,13 +470,14 @@ EXT_COMMAND(writedump,
     "Write WER js stack dump to a file",
     "{;x;file;file to write dump stream}")
 {
+    HRESULT hr = S_OK;
     CAtlFile file;
     CA2W filename = GetUnnamedArgStr(0);
-    UT_HR_SUCCEEDED(file.Create(filename, GENERIC_WRITE, 0, CREATE_ALWAYS));
+    IfFailedAssertReturn(file.Create(filename, GENERIC_WRITE, 0, CREATE_ALWAYS));
 
     TestGetDump([&](LPVOID buffer, ULONG bufferSize, const DbgEngDataTarget::MemoryRegionsType*)
     {
-        UT_HR_SUCCEEDED(file.Write(buffer, bufferSize));
+        IfFailedAssertReturn(file.Write(buffer, bufferSize));
     });
 }
 
@@ -478,22 +485,23 @@ EXT_COMMAND(readdump,
     "Read WER js stack dump file",
     "{;x;file;file to read}")
 {
+    HRESULT hr = S_OK;
     CAtlFile file;
     CA2W filename = GetUnnamedArgStr(0);
-    UT_HR_SUCCEEDED(file.Create(filename, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING));
+    IfFailedAssertReturn(file.Create(filename, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING));
 
     // Read the file into memory
     ULONGLONG fileSize;
     ULONG bufferSize;
-    UT_HR_SUCCEEDED(file.GetSize(fileSize));
-    UT_HR_SUCCEEDED(ULongLongToULong(fileSize, &bufferSize));
+    IfFailedAssertReturn(file.GetSize(fileSize));
+    IfFailedAssertReturn(ULongLongToULong(fileSize, &bufferSize));
 
     CAutoVectorPtr<BYTE> buffer;
     if (!buffer.Allocate(bufferSize))
     {
         ThrowOutOfMemory();
     }
-    UT_HR_SUCCEEDED(file.Read(buffer, bufferSize));
+    IfFailedAssertReturn(file.Read(buffer, bufferSize));
 
     TestReadDump(buffer, bufferSize, /*memoryRegions*/nullptr);
 }

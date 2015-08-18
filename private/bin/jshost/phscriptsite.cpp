@@ -14,7 +14,6 @@
 #include "hostsysinfo.h"
 
 LPVOID UTF8BoundaryTestBuffer = nullptr;
-LPVOID byteCodeBufferClone = nullptr;
 SimpleSourceMapper *UTF8SourceMapper = nullptr;
 
 struct ByteCodeInfo
@@ -1142,15 +1141,8 @@ HRESULT PerformUTF8BoundaryTest(JsHostActiveScriptSite *scriptSite, DWORD length
     UTF8SourceMapper->Initialize(offsetBuffer, lengthInBytes);
 
     IfFailGo(byteCodeGen->GenerateByteCodeBuffer(lengthInBytes, (BYTE*)contentsRaw, nullptr, dwSourceCookie, &excepinfo, &byteCodeBuffer, &byteCodeBufferSize));
-
-    /* We expect the byte code buffer to be in READ_ONLY state in the ByteCodeSerializer*/
-    byteCodeBufferClone = VirtualAlloc(nullptr, byteCodeBufferSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-    memcpy_s(byteCodeBufferClone, byteCodeBufferSize, byteCodeBuffer, byteCodeBufferSize);
-
-    DWORD oldProtect;
-    VirtualProtect(byteCodeBufferClone, byteCodeBufferSize, PAGE_READONLY, &oldProtect);
-    Assert(oldProtect == PAGE_READWRITE);
-    IfFailGo(byteCodeGen->ExecuteByteCodeBuffer(byteCodeBufferSize, (byte*)byteCodeBufferClone, UTF8SourceMapper, nullptr, dwSourceCookie, &excepinfo));
+    IfFailGo(byteCodeGen->ExecuteByteCodeBuffer(byteCodeBufferSize, byteCodeBuffer, UTF8SourceMapper, nullptr, dwSourceCookie, &excepinfo));
+        
 Error:
     return hr;
 }

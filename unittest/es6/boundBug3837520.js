@@ -62,8 +62,8 @@ var tests = [
                 var boundF = Function.prototype.bind.call(C, null);
                 return Object.getPrototypeOf(boundF) === Object.getPrototypeOf(C);
             }
-            var a = correctProtoBound(Array) && correctProtoBound(null);
-                    //&& correctProtoBound(Function.prototype); // OS bug# 3926712
+            var a = correctProtoBound(Array) && correctProtoBound(null) &&
+                    correctProtoBound(function() {});
             assert.isTrue(a, "confirm Let proto be targetFunction.[[GetPrototypeOf]](). is performed on subclasses");
        }
    },

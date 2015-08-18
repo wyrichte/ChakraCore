@@ -1,39 +1,36 @@
-function equal(a, b)
-{
+function equal(a, b) {
     if (a == b)
         WScript.Echo("Correct");
-    else 
+    else
         WScript.Echo(">> Fail!");
 }
 
-function almostEqual (a, b) {
+function almostEqual(a, b) {
     if (Math.abs(a - b) < 0.00001)
         WScript.Echo("Correct");
     else
         WScript.Echo(">> Fail!");
 }
 
-function testReciprocal()
-{
-    WScript.Echo("float32x4 Reciprocal");
-    var a = SIMD.float32x4(8.0, 4.0, 2.0, -2.0);
-    var c = SIMD.float32x4.reciprocal(a);
-	
-    equal(0.125, c.x);
-    equal(0.250, c.y);
-    equal(0.5, c.z);
-    equal(-0.5, c.w);
+function testReciprocal() {
+    WScript.Echo("Float32x4 Reciprocal");
+    var a = SIMD.Float32x4(8.0, 4.0, 2.0, -2.0);
+    var c = SIMD.Float32x4.reciprocal(a);
+
+    equal(0.125, SIMD.Float32x4.extractLane(c, 0));
+    equal(0.250, SIMD.Float32x4.extractLane(c, 1));
+    equal(0.5, SIMD.Float32x4.extractLane(c, 2));
+    equal(-0.5, SIMD.Float32x4.extractLane(c, 3));
 }
 
-function testReciprocalSqrt()
-{
-    WScript.Echo("float32x4 ReciprocalSqrt");
-    var a = SIMD.float32x4(1.0, 0.25, 0.111111, 0.0625);
-    var c = SIMD.float32x4.reciprocalSqrt(a);
-    almostEqual(1.0, c.x);
-    almostEqual(2.0, c.y);
-    almostEqual(3.0, c.z);
-    almostEqual(4.0, c.w);
+function testReciprocalSqrt() {
+    WScript.Echo("Float32x4 ReciprocalSqrt");
+    var a = SIMD.Float32x4(1.0, 0.25, 0.111111, 0.0625);
+    var c = SIMD.Float32x4.reciprocalSqrt(a);
+    almostEqual(1.0, SIMD.Float32x4.extractLane(c, 0));
+    almostEqual(2.0, SIMD.Float32x4.extractLane(c, 1));
+    almostEqual(3.0, SIMD.Float32x4.extractLane(c, 2));
+    almostEqual(4.0, SIMD.Float32x4.extractLane(c, 3));
 }
 
 

@@ -253,7 +253,7 @@
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>TypedArray.js</files>
       <baseline>TypedArray.baseline</baseline>
-      <compile-flags>-es6- -KhronosInterop-</compile-flags>
+      <compile-flags>-es6- </compile-flags>
     </default>
   </test>
   <test>
@@ -261,7 +261,7 @@
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>TypedArray.js</files>
       <baseline>TypedArray.es6.baseline</baseline>
-      <compile-flags>-KhronosInterop -es6tostringtag -ES6TypedArrayExtensions</compile-flags>
+      <compile-flags>-es6tostringtag -ES6TypedArrayExtensions</compile-flags>
     </default>
   </test>
   <test>

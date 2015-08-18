@@ -600,21 +600,6 @@ namespace JsDiag
         //__super::InsertSpecialProperties(var);
     }
 
-    void JavascriptPixelArrayWalker::InsertSpecialProperties(const DynamicObject* var)
-    {
-        AssertMsg(var, "The pixel array var must be specified to insert special properties.");
-        auto reader = m_context->GetReader();
-        RemoteJavascriptPixelArray arr = RemoteJavascriptPixelArray(reader, static_cast<const JavascriptPixelArray*>(var));
-        RemoteScriptContext scriptContext(reader, var);
-        RemoteThreadContext threadContext(reader, scriptContext.GetThreadContext());
-
-        pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::length, arr.GetLength());
-
-        // Explicitly leave out the super call as JavascriptPixelArrayWalker inserts length
-        // in a different way than its BaseArrayWalker parent.
-        //__super::InsertSpecialProperties(var);
-    }
-
     void ArrayBufferWalker::InsertSpecialProperties(const DynamicObject* var)
     {
         AssertMsg(var, "The array buffer var must be specified to insert special properties.");
@@ -745,6 +730,27 @@ namespace JsDiag
         else
         {
             pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::arguments, error);
+        }
+
+        if (function.IsScriptFunction())
+        {
+            pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::length, function.GetLength());
+        } 
+        else if (function.IsBoundFunction(m_context))
+        {
+            PROPERTY_INFO propInfo;
+            RemoteBoundFunction boundFunction = RemoteBoundFunction(reader, static_cast<const BoundFunction*>(var));
+            uint16 value = boundFunction.GetLength(m_context, &propInfo);
+            if (value == RemoteBoundFunction::TARGETS_RUNTIME_FUNCTION)
+            {
+                // it's a runtimefunction
+                propInfo.name = s_lengthPropertyName;
+                pThis()->InsertItem(propInfo);
+            }
+            else
+            {
+                pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::length, value);
+            }
         }
 
         __super::InsertSpecialProperties(var);
@@ -1399,8 +1405,6 @@ namespace JsDiag
         return m_index == m_dataIndex ?
             m_dataEnumerator.GetPropertyInfo() : m_descriptorEnumerator.GetPropertyInfo();
     }
-
-    const LPCWSTR JavascriptPixelArrayTrace::NAME = L"Object, (PixelArray)";
 
     void RemoteHeapArgumentsObject::GetNamedItems(InspectionContext* context, CAtlArray<PROPERTY_INFO>& arr)
     {
@@ -2211,10 +2215,6 @@ namespace JsDiag
 
         case Js::TypeIds_ES5Array:
             CreateComObject<ES5ArrayProperty>(this, info, parent, ppDebugProperty);
-            return;
-
-        case Js::TypeIds_PixelArray:
-            CreateComObject<JavascriptPixelArrayProperty>(this, info, parent, ppDebugProperty);
             return;
 
         case Js::TypeIds_Int8Array:

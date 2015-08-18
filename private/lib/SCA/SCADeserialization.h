@@ -34,8 +34,6 @@ namespace Js
         void ReadString(const wchar_t** str, charcount_t* len) const;
         void Read(BYTE* buf, uint32 len) const;
 
-        void ReadCanvasPixelArray(Dst* dst, JavascriptLibrary* javascriptLibrary) const;
-
         //
         // Read a TypedArray or DataView.
         //

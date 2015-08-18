@@ -162,7 +162,7 @@ HRESULT CScriptBody::SetBreakPoint(long ibos, BREAKPOINT_STATE bps)
                 BreakpointProbeList* pBreakpointList = this->GetBreakpointList();
                 if (pBreakpointList)
                 {
-                    ArenaAllocator arena(L"bpenumtemp", pScriptContext->GetThreadContext()->GetDiagnosticPageAllocator(), Js::Throw::OutOfMemory);
+                    ArenaAllocator arena(L"TemporaryBreakpointList", pScriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticPageAllocator(), Js::Throw::OutOfMemory);
                     BreakpointProbeList* pDeleteList = this->NewBreakpointList(&arena);
                     Js::StatementLocation statement;
                     if (!this->GetStatementLocation(ibos, &statement))

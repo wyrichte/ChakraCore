@@ -10,14 +10,13 @@ class DummyTestGroup
 {
 protected:
     bool m_fLastTestCaseFailed;
-    UTest::UTCOMMANDARGS m_CommandArgs;
+    bool m_fVerboseEnabled;
 
 public:
     DummyTestGroup()
-        : m_fLastTestCaseFailed(false)
+        : m_fLastTestCaseFailed(false),
+        m_fVerboseEnabled(false)
     {
-        ZeroMemory(&m_CommandArgs, sizeof(m_CommandArgs));
-        m_CommandArgs.m_fDebugBreakEnabled = true; // Enable DebugBreak
     }
 
     bool HasFailure() const
@@ -32,14 +31,13 @@ public:
 
     bool TraceVerbose() const
     {
-        return m_CommandArgs.m_fVerboseEnabled;
+        return m_fVerboseEnabled;
     }
 };
 
-// Use a dummy test group for current scope so that we can use IEUT helpers.
+// Use a dummy test group for current scope.
 #define UT_USE_DUMMY_TEST_GROUP() \
     bool m_fLastTestCaseFailed = false; \
-    UTest::UTCOMMANDARGS m_CommandArgs = {0}; \
 
 // Ensure com hr succeeded. Otherwise fail and print error message.
 #define UT_COM_SUCCEEDED(e) \
@@ -48,10 +46,9 @@ public:
     if (FAILED(_hr_)) \
     { \
         m_fLastTestCaseFailed = true; \
-        _com_error err(_hr_); \
-        UT_COLOR_TRACE(UT_COLOR_ERROR, UT_T(UT_PREFIX_ERROR) UT_T("Error 0x%X: %s %s"), _hr_, err.ErrorMessage(), UT_T(#e)); \
-        UTEST_PRINT_FILE_LINE_FUNC; \
-        UTEST_DEBUG_BREAK; \
+        wprintf(L"Error 0x%X: %s\n", _hr_, L## #e); \
+        wprintf(L"Function %s at %s, line %d\n", __FUNCTIONW__, __FILEW__, __LINE__); \
+        __debugbreak(); \
         return; \
     } \
 } \

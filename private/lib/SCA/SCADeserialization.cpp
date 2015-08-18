@@ -219,10 +219,6 @@ namespace Js
             }
             break;
 
-        case SCA_CanvasPixelArray:
-            ReadCanvasPixelArray(dst, lib);
-            break;
-
         case SCA_ArrayBuffer:
             {
                 uint32 len;
@@ -240,28 +236,7 @@ namespace Js
             // What we want to do is return the buffer as a CanvasPixelArray instead of 
             // Uint8ClampedArray since the older document mode knows what CanvasPixelArray is but
             // not what Uint8ClampedArray is.
-            if (!scriptContext->GetConfig()->IsKhronosInteropEnabled())
-            {
-                uint32 typeId;
-                Read(&typeId);
-
-                // Consume a uint32 here. This should be the SCATypeId for the ArrayBuffer of the 
-                // Uint8ClampedArray. If it isn't SCA_ArrayBuffer we have some kind of corrupt buffer.
-                if (typeId != SCA_ArrayBuffer)
-                {
-                    ThrowSCADataCorrupt();
-                }
-
-                // Now deserialize a CanvasPixelArray from the ArrayBuffer bits.
-                ReadCanvasPixelArray(dst, lib);
-
-                // Consume byteOffset and length which are not used by CanvasPixelArray.
-                uint32 byteOffset, length;
-                Read(&byteOffset);
-                Read(&length);
-
-                break;
-            }
+            // We don't support pixelarray in edge anymore.
             // Intentionally fall through to default (TypedArray) label
 
         default:
@@ -489,19 +464,6 @@ Error:
             uint32 padding;
             m_reader->Read(&padding, sizeof(uint32) - unalignedLen);
         }
-    }
-
-    //
-    // Read a CanvasPixelArray from layout: [byteLen] [bytes]
-    //
-    template <class Reader>
-    void DeserializationCloner<Reader>::ReadCanvasPixelArray(Dst* dst, JavascriptLibrary* javascriptLibrary) const
-    {
-        uint32 len;
-        m_reader->Read(&len);
-        JavascriptPixelArray* pixelArray = javascriptLibrary->CreatePixelArray(len);
-        Read(pixelArray->GetBufferPointer(), pixelArray->GetBufferLength());
-        *dst = pixelArray;
     }
 
     //

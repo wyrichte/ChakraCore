@@ -54,7 +54,7 @@
     <default>
       <files>sca_hostobj.js</files>
       <baseline>sca_hostobj.baseline</baseline>
-      <compile-flags>-ES6- -KhronosInterop-</compile-flags>
+      <compile-flags>-ES6-</compile-flags>
     </default>
   </test>
   <test>

@@ -11,25 +11,11 @@ Correct
 Correct
 Correct
 Type Error
-FromFloat64x2
-Correct
-Correct
-Correct
-Correct
 FromFloat32x4
 Correct
 Correct
 Correct
 Correct
-FromFloat64x2Bits
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
 FromFloat32x4Bits
 >> Fail!
 >> Fail!
@@ -52,25 +38,11 @@ Correct
 Correct
 Correct
 Type Error
-FromFloat64x2
-Correct
-Correct
-Correct
-Correct
 FromFloat32x4
 Correct
 Correct
 Correct
 Correct
-FromFloat64x2Bits
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
 FromFloat32x4Bits
 >> Fail!
 >> Fail!
@@ -93,25 +65,11 @@ Correct
 Correct
 Correct
 Type Error
-FromFloat64x2
-Correct
-Correct
-Correct
-Correct
 FromFloat32x4
 Correct
 Correct
 Correct
 Correct
-FromFloat64x2Bits
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
 FromFloat32x4Bits
 >> Fail!
 >> Fail!
@@ -134,25 +92,11 @@ Correct
 Correct
 Correct
 Type Error
-FromFloat64x2
-Correct
-Correct
-Correct
-Correct
 FromFloat32x4
 Correct
 Correct
 Correct
 Correct
-FromFloat64x2Bits
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
 FromFloat32x4Bits
 >> Fail!
 >> Fail!
@@ -175,25 +119,11 @@ Correct
 Correct
 Correct
 Type Error
-FromFloat64x2
-Correct
-Correct
-Correct
-Correct
 FromFloat32x4
 Correct
 Correct
 Correct
 Correct
-FromFloat64x2Bits
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
 FromFloat32x4Bits
 >> Fail!
 >> Fail!
@@ -216,25 +146,11 @@ Correct
 Correct
 Correct
 Type Error
-FromFloat64x2
-Correct
-Correct
-Correct
-Correct
 FromFloat32x4
 Correct
 Correct
 Correct
 Correct
-FromFloat64x2Bits
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
->> Fail!
 FromFloat32x4Bits
 >> Fail!
 >> Fail!

@@ -151,14 +151,6 @@ namespace Js
                 }
                 break;
 
-            case TypeIds_PixelArray:
-                {
-                    JavascriptPixelArray* arr = JavascriptPixelArray::FromVar(src);
-                    WriteTypeId(SCA_CanvasPixelArray);
-                    Write(arr->GetBufferPointer(), arr->GetBufferLength());
-                }
-                break;
-
             case TypeIds_ArrayBuffer:
                 {
                     ArrayBuffer* buf = ArrayBuffer::FromVar(src);

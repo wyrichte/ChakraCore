@@ -56,7 +56,62 @@ typedef std::wstring string;
 typedef std::string string;
 #endif
 
-#include "IEUtest.h"
+#define IfFailedAssertReturn(expr)  \
+do { \
+    hr = (expr); \
+    if (FAILED(hr)) { \
+        AssertMsg(FALSE, #expr); \
+        return ; \
+    } \
+} while (FALSE)
+
+#define IfFalseAssertReturn(expr)  \
+do { \
+    if (!(expr)) { \
+        AssertMsg(FALSE, #expr); \
+        return ; \
+    } \
+} while (FALSE)
+
+#define IfFalseAssertMsgReturn(expr, msg)  \
+do { \
+    if (!(expr)) { \
+        AssertMsg(FALSE, msg); \
+        return ; \
+    } \
+} while (FALSE)
+
+#define IfFalseAssertReturnEFAIL(expr)  \
+do { \
+    if (!(expr)) { \
+        AssertMsg(FALSE, #expr); \
+        return E_FAIL; \
+    } \
+} while (FALSE)
+
+#define ReturnIfHRNotEqual(expr1, expr2)  { \
+    const HRESULT _hr1_ = (expr1); \
+    const HRESULT _hr2_ = (expr2); \
+    do { \
+        if (_hr1_ != _hr2_) { \
+            AssertMsg(FALSE, "HRESULTs are not equal"); \
+            return ; \
+        } \
+    } while (FALSE); \
+}
+
+#define ExpressionNoThrow( exp ) \
+try \
+{ \
+    exp; \
+} \
+catch (...) \
+{ \
+    m_fLastTestCaseFailed = true; \
+    wprintf(L"'%ls' has thrown an exception but it should not have", L## #exp); \
+    return; \
+}
+
 #include "UTestHelper.h"
 #include "werdump.h"
 #include "MockDataTarget.h"

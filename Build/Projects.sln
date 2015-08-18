@@ -102,6 +102,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runtime", "Runtime", "{48F771CB-6E65-4F4D-986B-23A538D01324}"
 	ProjectSection(SolutionItems) = preProject
 		..\core\Lib\Runtime\ByteCode\Chakra.Runtime.ByteCode.vcxproj = ..\core\Lib\Runtime\ByteCode\Chakra.Runtime.ByteCode.vcxproj
+		..\core\Lib\Runtime\Debug\Chakra.Runtime.Debug.vcxproj = ..\core\Lib\Runtime\Debug\Chakra.Runtime.Debug.vcxproj
 		..\core\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj = ..\core\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj
 		..\core\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj = ..\core\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj
 		..\core\Lib\Runtime\Math\Chakra.Runtime.Math.vcxproj = ..\core\Lib\Runtime\Math\Chakra.Runtime.Math.vcxproj
@@ -164,6 +165,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Razzle", "Razzle", "{E50CFD
 		..\private\lib\Projection\test\Razzle.Projection.Test.vcxproj = ..\private\lib\Projection\test\Razzle.Projection.Test.vcxproj
 		..\core\lib\Runtime\ByteCode\release\Razzle.Runtime.ByteCode.Release.vcxproj = ..\core\lib\Runtime\ByteCode\release\Razzle.Runtime.ByteCode.Release.vcxproj
 		..\core\lib\Runtime\ByteCode\test\Razzle.Runtime.ByteCode.Test.vcxproj = ..\core\lib\Runtime\ByteCode\test\Razzle.Runtime.ByteCode.Test.vcxproj
+		..\core\lib\Runtime\Debug\release\Razzle.Runtime.Debug.Release.vcxproj = ..\core\lib\Runtime\Debug\release\Razzle.Runtime.Debug.Release.vcxproj
+		..\core\lib\Runtime\Debug\test\Razzle.Runtime.Debug.Test.vcxproj = ..\core\lib\Runtime\Debug\test\Razzle.Runtime.Debug.Test.vcxproj
 		..\core\lib\Runtime\Language\release\Razzle.Runtime.Language.Release.vcxproj = ..\core\lib\Runtime\Language\release\Razzle.Runtime.Language.Release.vcxproj
 		..\core\lib\Runtime\Language\test\Razzle.Runtime.Language.Test.vcxproj = ..\core\lib\Runtime\Language\test\Razzle.Runtime.Language.Test.vcxproj
 		..\core\lib\Runtime\Library\release\Razzle.Runtime.Library.Release.vcxproj = ..\core\lib\Runtime\Library\release\Razzle.Runtime.Library.Release.vcxproj

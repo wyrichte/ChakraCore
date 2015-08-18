@@ -104,7 +104,7 @@ void SimpleDebugger::Attach(ULONG pid)
 
     // Create the event
     HANDLE hEvent = OpenEvent(SYNCHRONIZE | EVENT_MODIFY_STATE, FALSE, eventName.c_str());
-    UT_ASSERT(hEvent != NULL);
+    IfFalseAssertReturn(hEvent != NULL);
 
     UT_COM_SUCCEEDED(DebugCreate(IID_PPV_ARGS(&m_client)));
     
@@ -113,8 +113,8 @@ void SimpleDebugger::Attach(ULONG pid)
     UT_COM_SUCCEEDED(m_client.QueryInterface(&m_control));
     UT_COM_SUCCEEDED(m_client.QueryInterface(&m_debugDataSpaces));
 
-    UT_BOOL_API_SUCCEEDED(SetEvent(hEvent));
-    UT_BOOL_API_SUCCEEDED(CloseHandle(hEvent));
+    IfFalseAssertReturn(SetEvent(hEvent));
+    IfFalseAssertReturn(CloseHandle(hEvent));
 
     RunDebugLoop();
     m_client->EndSession(DEBUG_END_PASSIVE); // Cleanup session (and extensions)
@@ -309,7 +309,7 @@ STDMETHODIMP SimpleDebugger::Exception (
             case STATUS_HEAP_CORRUPTION:
             case STATUS_STACK_BUFFER_OVERRUN:
             case STATUS_ASSERTION_FAILURE:
-                UT_ASSERT_RETURN_E_FAIL(false/*Fatal target failure*/); //We can now attach a debugger to jshost non-invasively.
+                IfFalseAssertReturnEFAIL(false/*Fatal target failure*/); //We can now attach a debugger to jshost non-invasively.
             }
         }
         
@@ -403,7 +403,7 @@ STDMETHODIMP SimpleDebugger::Output(_In_ ULONG Mask, _In_ PCTSTR Text)
     return S_OK;
 }
 
-void SimpleDebugger::Out(bool unitTest, _In_ PCTSTR fmt, ...)
+void SimpleDebugger::Out(_In_ bool unitTest, _In_ PCTSTR fmt, ...)
 {
     va_list args;
     va_start(args, fmt);
@@ -450,7 +450,13 @@ HRESULT SimpleDebugger::EnsureDebugInterfaces()
         return S_OK;
     }
 
-    IfFailGo(PrivateCoCreate(L"chakradiagtest.dll", CLSID_ChakraDiag, IID_PPV_ARGS(&m_pJsDebug)));
+    // Once the unittest are using only vs build, we will not be needing chakradiagtest.dll
+    hr = PrivateCoCreate(L"chakradiagtest.dll", CLSID_ChakraDiag, IID_PPV_ARGS(&m_pJsDebug));
+    if (FAILED(hr))
+    {
+        IfFailGo(PrivateCoCreate(L"chakradiag.dll", CLSID_ChakraDiag, IID_PPV_ARGS(&m_pJsDebug)));
+    }
+
     IfFailGo(m_client.QueryInterface<IDebugSystemObjects>(&m_pSystem));
     IfFailGo(m_pSystem->GetCurrentProcessSystemId(&m_procId));
 

@@ -51,7 +51,6 @@ PASS_INDEPENDENT_BINPLACE=\
   ..\Profiler\Taef_Unit_Profiler.xml \
   ..\Prototypes\Taef_Unit_Prototypes.xml \
   ..\Regex\Taef_Unit_Regex.xml \
-  ..\rejit\Taef_Unit_rejit.xml \
   ..\RWC\Taef_Unit_RWC.xml \
   ..\sca\Taef_Unit_sca.xml \
   ..\stackfunc\Taef_Unit_stackfunc.xml \
@@ -70,6 +69,5 @@ PASS_INDEPENDENT_BINPLACE=\
   ..\V8\Taef_Unit_V8.xml \
   ..\V8_Functionality\Taef_Unit_V8_Functionality.xml \
   ..\VT_DATE\Taef_Unit_VT_DATE.xml \
-  ..\LanguageServicesQA\Taef_Unit_LanguageServicesQA.xml \
   ..\AsmJs\Taef_Unit_AsmJs.xml \
   ..\AsmJSFloat\Taef_Unit_AsmJsFloat.xml \

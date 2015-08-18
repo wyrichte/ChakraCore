@@ -1,7 +1,7 @@
 function asmModule(stdlib, imports) {
     "use asm";
     
-    var i4 = stdlib.SIMD.int32x4;
+    var i4 = stdlib.SIMD.Int32x4;
     var i4check = i4.check;
     var i4splat = i4.splat;
     var i4fromFloat64x2 = i4.fromFloat64x2;
@@ -15,10 +15,6 @@ function asmModule(stdlib, imports) {
     var i4mul = i4.mul;
     //var i4swizzle = i4.swizzle;
     //var i4shuffle = i4.shuffle;
-    var i4withX = i4.withX;
-    var i4withY = i4.withY;
-    var i4withZ = i4.withZ;
-    var i4withW = i4.withW;
     var i4lessThan = i4.lessThan;
     var i4equal = i4.equal;
     var i4greaterThan = i4.greaterThan;
@@ -31,7 +27,7 @@ function asmModule(stdlib, imports) {
     //var i4shiftRightByScalar = i4.shiftRightByScalar;
     //var i4shiftRightArithmeticByScalar = i4.shiftRightArithmeticByScalar;
 
-    var f4 = stdlib.SIMD.float32x4;  
+    var f4 = stdlib.SIMD.Float32x4;  
     var f4check = f4.check;
     var f4splat = f4.splat;
     var f4fromFloat64x2 = f4.fromFloat64x2;
@@ -52,10 +48,6 @@ function asmModule(stdlib, imports) {
     var f4sqrt = f4.sqrt;
     //var f4swizzle = f4.swizzle;
     //var f4shuffle = f4.shuffle;
-    var f4withX = f4.withX;
-    var f4withY = f4.withY;
-    var f4withZ = f4.withZ;
-    var f4withW = f4.withW;
     var f4lessThan = f4.lessThan;
     var f4lessThanOrEqual = f4.lessThanOrEqual;
     var f4equal = f4.equal;
@@ -69,7 +61,7 @@ function asmModule(stdlib, imports) {
     var f4xor = f4.xor;
     var f4not = f4.not;
 
-    var d2 = stdlib.SIMD.float64x2;  
+    var d2 = stdlib.SIMD.Float64x2;  
     var d2check = d2.check;
     var d2splat = d2.splat;
     var d2fromFloat32x4 = d2.fromFloat32x4;
@@ -90,8 +82,6 @@ function asmModule(stdlib, imports) {
     var d2sqrt = d2.sqrt;
     //var d2swizzle = d2.swizzle;
     //var d2shuffle = d2.shuffle;
-    var d2withX = d2.withX;
-    var d2withY = d2.withY;
     var d2lessThan = d2.lessThan;
     var d2lessThanOrEqual = d2.lessThanOrEqual;
     var d2equal = d2.equal;
@@ -324,7 +314,7 @@ function asmModule(stdlib, imports) {
     return {func1:conv1, func2:conv2, func3:conv3, func4:conv4, func5:conv5, func6:conv6, func7:conv7, func8:conv8, func9:conv9, func10:conv10, func11:conv11, func12:conv12};
 }
 
-var m = asmModule(this, {g1:SIMD.float32x4(90934.2,123.9,419.39,449.0), g2:SIMD.int32x4(-1065353216, -1073741824,-1077936128, -1082130432), g3:SIMD.float64x2(110.20, 58967.0, 14511.670, 191766.23431)});
+var m = asmModule(this, {g1:SIMD.Float32x4(90934.2,123.9,419.39,449.0), g2:SIMD.Int32x4(-1065353216, -1073741824,-1077936128, -1082130432), g3:SIMD.Float64x2(110.20, 58967.0, 14511.670, 191766.23431)});
 
 var ret1 = m.func1();
 var ret2 = m.func2();

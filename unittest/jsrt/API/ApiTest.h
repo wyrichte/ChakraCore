@@ -899,18 +899,10 @@ namespace JsrtUnitTests
             DWORD scriptSize = 0;
 
             VERIFY_IS_TRUE(JsSerializeScript(script, compiledScript, &scriptSize) == JsNoError);
-            compiledScript = (BYTE*)VirtualAlloc(nullptr, scriptSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-            
+            compiledScript = new BYTE[scriptSize];
             DWORD newScriptSize = scriptSize;
             VERIFY_IS_TRUE(JsSerializeScript(script, compiledScript, &newScriptSize) == JsNoError);
             VERIFY_IS_TRUE(newScriptSize == scriptSize);
-            
-            /*Change protection to READONLY as serialized byte code is supposed to be in READONLY region*/
-
-            DWORD oldProtect;
-            VirtualProtect(compiledScript, scriptSize, PAGE_READONLY, &oldProtect);
-            VERIFY_IS_TRUE(oldProtect == PAGE_READWRITE);
-
             VERIFY_IS_TRUE(JsRunSerializedScript(script, compiledScript, JS_SOURCE_CONTEXT_NONE, L"", &result) == JsNoError);
             VERIFY_IS_TRUE(JsGetValueType(result, &type) == JsNoError);
             VERIFY_IS_TRUE(JsBooleanToBool(result, &boolValue) == JsNoError);
@@ -932,7 +924,7 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(JsSetCurrentContext(current) == JsNoError);
             VERIFY_IS_TRUE(JsDisposeRuntime(second) == JsNoError);
 
-            VirtualFree(compiledScript, 0, MEM_RELEASE);
+            delete compiledScript;
         }
 
         #define BYTECODEWITHCALLBACK_METHODBODY L"function test() { return true; }"

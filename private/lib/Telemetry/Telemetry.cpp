@@ -168,14 +168,23 @@ void TraceLoggingClient::TryLogNodePackage(Recycler* recycler, const wchar_t* pa
         // now startPos is at the package name
         wchar_t ch = L'\\';
         wchar_t* endPos = wcschr(startPos, ch);
-        if (endPos != nullptr && endPos > startPos)
+        size_t len = 0;
+        if (endPos == nullptr) // for cases like node_modules\\foo.js i.e. which doesn't have sub-directory
         {
-            size_t len = (size_t)(endPos - startPos);
+           len = wcslen(startPos);
+        }
+        else
+        {
+            len = (size_t)(endPos - startPos);
+        }
+
+        if (len>0)
+        {
             name = RecyclerNewArrayLeaf(recycler, wchar_t, len + 1);
             js_wmemcpy_s(name, len, startPos, len);
             name[len] = L'\0';
+            this->AddPackageName(name);
         }
-        this->AddPackageName(name);
     }
 }
 

@@ -44,7 +44,7 @@ extern LPCTSTR g_dbgBaselineFilename;
 
 #define IfNullReturnError(EXPR, ERROR) do { if (!(EXPR)) { return (ERROR); } } while(FALSE)
 #define IfFailedReturn(EXPR) do { hr = (EXPR); if (FAILED(hr)) { return hr; }} while(FALSE)
-#define IfFailedGoLabel(expr, label) do { hr = (expr); if (FAILED(hr)) { DebuggerController::LogError(L"%s Hr:0x%x\n", _TEXT(#expr), hr); goto label; } } while (FALSE)
+#define IfFailedGoLabel(expr, label) do { hr = (expr); if (FAILED(hr)) { goto label; } } while (FALSE)
 #define IfFailedGo(expr) IfFailedGoLabel(expr, LReturn)
 
 // The following will assign to hr
@@ -59,11 +59,25 @@ extern LPCTSTR g_dbgBaselineFilename;
     }                          \
  } while (0)
 
+#define IfFalseAssertReturn(expr)  \
+do { \
+    if (!(expr)) { \
+        AssertMsg(FALSE, #expr); \
+        return ; \
+    } \
+} while (FALSE)
+
+#define IfFalseAssertReturnEFAIL(expr)  \
+do { \
+    if (!(expr)) { \
+        AssertMsg(FALSE, #expr); \
+        return E_FAIL; \
+    } \
+} while (FALSE)
 
 #include "edgescriptDirect.h"
 #include "jscript9diag.h"
 #include "jscript9diagprivate.h"
-#include "IEUtest.h"
 #include "UTestHelper.h"
 #include "ScriptDebugEvent.h"
 #include "RemoteData.h"

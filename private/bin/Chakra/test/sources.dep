@@ -31,6 +31,8 @@ BUILD_PASS1_CONSUMES= \
     inetcore\jscript\core\lib\parser\test|PASS1 \
     inetcore\jscript\core\lib\runtime\bytecode\release|PASS1 \
     inetcore\jscript\core\lib\runtime\bytecode\test|PASS1 \
+    inetcore\jscript\core\lib\runtime\debug\release|PASS1 \
+    inetcore\jscript\core\lib\runtime\debug\test|PASS1 \
     inetcore\jscript\core\lib\runtime\language\release|PASS1 \
     inetcore\jscript\core\lib\runtime\language\test|PASS1 \
     inetcore\jscript\core\lib\runtime\library\release|PASS1 \
@@ -39,38 +41,6 @@ BUILD_PASS1_CONSUMES= \
     inetcore\jscript\core\lib\runtime\math\test|PASS1 \
     inetcore\jscript\core\lib\runtime\types\release|PASS1 \
     inetcore\jscript\core\lib\runtime\types\test|PASS1 \
-    inetcore\jscript\lib\backend\release|PASS1 \
-    inetcore\jscript\lib\backend\test|PASS1 \
-    inetcore\jscript\lib\common\common\release|PASS1 \
-    inetcore\jscript\lib\common\common\test|PASS1 \
-    inetcore\jscript\lib\common\core\release|PASS1 \
-    inetcore\jscript\lib\common\core\test|PASS1 \
-    inetcore\jscript\lib\common\datastructures\release|PASS1 \
-    inetcore\jscript\lib\common\datastructures\test|PASS1 \
-    inetcore\jscript\lib\common\exceptions\release|PASS1 \
-    inetcore\jscript\lib\common\exceptions\test|PASS1 \
-    inetcore\jscript\lib\common\memory\release|PASS1 \
-    inetcore\jscript\lib\common\memory\test|PASS1 \
-    inetcore\jscript\lib\common\util\release|PASS1 \
-    inetcore\jscript\lib\common\util\test|PASS1 \
-    inetcore\jscript\lib\memprotectheap\release|PASS1 \
-    inetcore\jscript\lib\memprotectheap\test|PASS1 \
-    inetcore\jscript\lib\parser\release|PASS1 \
-    inetcore\jscript\lib\parser\test|PASS1 \
-    inetcore\jscript\lib\runtime\bytecode\release|PASS1 \
-    inetcore\jscript\lib\runtime\bytecode\test|PASS1 \
-    inetcore\jscript\lib\runtime\language\release|PASS1 \
-    inetcore\jscript\lib\runtime\language\test|PASS1 \
-    inetcore\jscript\lib\runtime\library\release|PASS1 \
-    inetcore\jscript\lib\runtime\library\test|PASS1 \
-    inetcore\jscript\lib\runtime\math\release|PASS1 \
-    inetcore\jscript\lib\runtime\math\test|PASS1 \
-    inetcore\jscript\lib\runtime\telemetry\release|PASS1 \
-    inetcore\jscript\lib\runtime\telemetry\test|PASS1 \
-    inetcore\jscript\lib\runtime\types\release|PASS1 \
-    inetcore\jscript\lib\runtime\types\test|PASS1 \
-    inetcore\jscript\lib\winrt\release|PASS1 \
-    inetcore\jscript\lib\winrt\test|PASS1 \
     inetcore\jscript\private\lib\enc\release|PASS1 \
     inetcore\jscript\private\lib\enc\test|PASS1 \
     inetcore\jscript\private\lib\engine\release|PASS1 \

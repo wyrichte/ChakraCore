@@ -1,239 +1,239 @@
-float32x4 lessThan
+Float32x4 lessThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThanOrEqual
+Float32x4 lessThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 equal
+Float32x4 equal
 Correct
 Correct
 Correct
 Correct
-float32x4 notEqual
+Float32x4 notEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThanOrEqual
+Float32x4 greaterThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThan
+Float32x4 greaterThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThan
+Float32x4 lessThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThanOrEqual
+Float32x4 lessThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 equal
+Float32x4 equal
 Correct
 Correct
 Correct
 Correct
-float32x4 notEqual
+Float32x4 notEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThanOrEqual
+Float32x4 greaterThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThan
+Float32x4 greaterThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThan
+Float32x4 lessThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThanOrEqual
+Float32x4 lessThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 equal
+Float32x4 equal
 Correct
 Correct
 Correct
 Correct
-float32x4 notEqual
+Float32x4 notEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThanOrEqual
+Float32x4 greaterThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThan
+Float32x4 greaterThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThan
+Float32x4 lessThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThanOrEqual
+Float32x4 lessThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 equal
+Float32x4 equal
 Correct
 Correct
 Correct
 Correct
-float32x4 notEqual
+Float32x4 notEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThanOrEqual
+Float32x4 greaterThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThan
+Float32x4 greaterThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThan
+Float32x4 lessThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThanOrEqual
+Float32x4 lessThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 equal
+Float32x4 equal
 Correct
 Correct
 Correct
 Correct
-float32x4 notEqual
+Float32x4 notEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThanOrEqual
+Float32x4 greaterThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThan
+Float32x4 greaterThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThan
+Float32x4 lessThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThanOrEqual
+Float32x4 lessThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 equal
+Float32x4 equal
 Correct
 Correct
 Correct
 Correct
-float32x4 notEqual
+Float32x4 notEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThanOrEqual
+Float32x4 greaterThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThan
+Float32x4 greaterThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThan
+Float32x4 lessThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThanOrEqual
+Float32x4 lessThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 equal
+Float32x4 equal
 Correct
 Correct
 Correct
 Correct
-float32x4 notEqual
+Float32x4 notEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThanOrEqual
+Float32x4 greaterThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThan
+Float32x4 greaterThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThan
+Float32x4 lessThan
 Correct
 Correct
 Correct
 Correct
-float32x4 lessThanOrEqual
+Float32x4 lessThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 equal
+Float32x4 equal
 Correct
 Correct
 Correct
 Correct
-float32x4 notEqual
+Float32x4 notEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThanOrEqual
+Float32x4 greaterThanOrEqual
 Correct
 Correct
 Correct
 Correct
-float32x4 greaterThan
+Float32x4 greaterThan
 Correct
 Correct
 Correct

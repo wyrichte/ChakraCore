@@ -87,21 +87,20 @@ STDMETHODIMP SinkDebugSite::AddSyntheticModule(const void* addr, ULONG size)
     HRESULT hr = S_OK;
 
     // Verify the module is valid
-    UT_ASSERT_RETURN_E_FAIL(addr != NULL);
-    UT_ASSERT_RETURN_E_FAIL(size > 0);
+    IfFalseAssertReturnEFAIL(addr != NULL);
+    IfFalseAssertReturnEFAIL(size > 0);
 
     LPCVOID end = reinterpret_cast<const BYTE*>(addr) + size;
     interval_type m(addr, end);
-    UT_ASSERT_RETURN_E_FAIL(m.begin <= m.end);
+    IfFalseAssertReturnEFAIL(m.begin <= m.end);
 
     // Verify the module doesn't overlap with any existing module
     module_info_list::const_iterator i = std::find_if(m_modules.begin(), m_modules.end(),
         std::bind2nd(std::mem_fun_ref(&interval_type::overlaps), m));
     if (i != m_modules.end())
     {
-        UT_COLOR_TRACE(UT_COLOR_ERROR, UT_T("Error: Synthetic module %p-%p overlaps with previous module %p-%p\n"),
-            m.begin, m.end, i->begin, i->end);
-        UT_ASSERT_RETURN_E_FAIL(false);
+        wprintf(L"Error: Synthetic module %p-%p overlaps with previous module %p-%p\n", m.begin, m.end, i->begin, i->end);
+        IfFalseAssertReturnEFAIL(false);
     }
 
     // Good to go
@@ -114,7 +113,11 @@ STDMETHODIMP SinkDebugSite::AddSyntheticModule(const void* addr, ULONG size)
         hr = E_OUTOFMEMORY;
     }
 
-    UT_TRACE_VERBOSE(UT_T("Synthetic module %p-%p\n"), m.begin, m.end);
+    if (TraceVerbose())
+    {
+        wprintf(L"Synthetic module %p-%p\n", m.begin, m.end);
+    }
+
     return hr;
 }
 
@@ -123,24 +126,24 @@ STDMETHODIMP SinkDebugSite::AddSyntheticSymbol(const void* addr, ULONG size, LPC
     HRESULT hr = S_OK;
 
     // Verify the symbol is valid
-    UT_ASSERT_RETURN_E_FAIL(addr != NULL);
-    UT_ASSERT_RETURN_E_FAIL(size > 0);
-    UT_ASSERT_RETURN_E_FAIL(name != NULL);
+    IfFalseAssertReturnEFAIL(addr != NULL);
+    IfFalseAssertReturnEFAIL(size > 0);
+    IfFalseAssertReturnEFAIL(name != NULL);
 
     LPCVOID end = reinterpret_cast<const BYTE*>(addr) + size;
     CW2T tname(name);
     symbol_info sym(addr, end, string(tname));
-    UT_ASSERT_RETURN_E_FAIL(sym.begin <= sym.end);
-    UT_ASSERT_RETURN_E_FAIL(!sym.name.empty());
+    IfFalseAssertReturnEFAIL(sym.begin <= sym.end);
+    IfFalseAssertReturnEFAIL(!sym.name.empty());
 
     // Verify the symbol doesn't overlap with any existing symbol
     symbol_info_list::const_iterator i = std::find_if(m_symbols.begin(), m_symbols.end(),
         std::bind2nd(std::mem_fun_ref(&symbol_info::overlaps), sym));
     if (i != m_symbols.end())
     {
-        UT_COLOR_TRACE(UT_COLOR_ERROR, UT_T("Error: Synthetic symbol %p-%p (%s) overlaps with previous symbol %p-%p (%s)\n"),
-            sym.begin, sym.end, sym.name.c_str(), i->begin, i->end, i->name.c_str());
-        UT_ASSERT_RETURN_E_FAIL(false);
+        wprintf(L"Error: Synthetic symbol %p-%p (%s) overlaps with previous symbol %p-%p (%s)\n", sym.begin, sym.end, sym.name.c_str(), i->begin, i->end, i->name.c_str());
+
+        IfFalseAssertReturnEFAIL(false);
     }
 
     // Verify the symbol is contained by some existing module
@@ -148,9 +151,8 @@ STDMETHODIMP SinkDebugSite::AddSyntheticSymbol(const void* addr, ULONG size, LPC
         std::bind2nd(std::mem_fun_ref(&interval_type::contains), sym));
     if (m == m_modules.end())
     {
-        UT_COLOR_TRACE(UT_COLOR_ERROR, UT_T("Error: Synthetic symbol %p-%p (%s) isn't contained by any existing synthetic module.\n"),
-            sym.begin, sym.end, sym.name.c_str());
-        UT_ASSERT_RETURN_E_FAIL(false);
+        wprintf(L"Error: Synthetic symbol %p-%p (%s) isn't contained by any existing synthetic module.\n", sym.begin, sym.end, sym.name.c_str());
+        IfFalseAssertReturnEFAIL(false);
     }
 
     // Good to go
@@ -163,7 +165,10 @@ STDMETHODIMP SinkDebugSite::AddSyntheticSymbol(const void* addr, ULONG size, LPC
         hr = E_OUTOFMEMORY;
     }
 
-    UT_TRACE_VERBOSE(UT_T("Synthetic symbol %p-%p %s\n"), sym.begin, sym.end, sym.name.c_str());
+    if (TraceVerbose())
+    {
+       wprintf(L"Synthetic symbol %p-%p %s\n", sym.begin, sym.end, sym.name.c_str());
+    }
     return hr;
 }
 
@@ -190,7 +195,7 @@ void SinkDebugSite::PrintSymbolNames()
             }
         }
 
-        UT_NO_THROW(names.insert(name));
+        ExpressionNoThrow(names.insert(name));
     });
 
     std::for_each(names.begin(), names.end(), [&](const string& name){

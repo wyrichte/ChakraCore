@@ -282,7 +282,6 @@ namespace JsDiag
     };
     typedef RemoteSimpleTypeHandler<1> RemoteSimpleTypeHandlerSize1;
     typedef RemoteSimpleTypeHandler<2> RemoteSimpleTypeHandlerSize2;
-    typedef RemoteSimpleTypeHandler<3> RemoteSimpleTypeHandlerSize3;
     //
     // Handles PathTypeHandler variants
     //

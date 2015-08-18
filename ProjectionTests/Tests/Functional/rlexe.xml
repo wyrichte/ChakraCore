@@ -908,23 +908,6 @@
   <test>
     <default>
       <files>Array.js</files>
-      <baseline>Array.es5.baseline</baseline>
-      <compile-flags>-ES6- -KhronosInterop-</compile-flags>
-      <tags>exclude_win7</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>Array.js</files>
-      <baseline>Array.es5.baseline</baseline>
-      <compile-flags>-NoWinRTFastSig -ES6- -KhronosInterop-</compile-flags>
-      <tags>exclude_win7,exclude_fre</tags>
-    </default>
-  </test>
-
-  <test>
-    <default>
-      <files>Array.js</files>
       <baseline>Array.baseline</baseline>
       <compile-flags></compile-flags>
       <tags>exclude_win7</tags>

@@ -554,10 +554,9 @@ namespace Projection
             isArray = ArrayAsCollection::IsArrayInstance(var) ? true : false; 
             isArrayProjection = ArrayProjection::Is(var) ? true : false; 
             auto isTypedArray = Js::TypedArrayBase::Is(var) ? true : false; 
-            auto isCanvasPixelArray = Js::JavascriptPixelArray::Is(var) ? true : false; 
             isJavascriptArray = Js::JavascriptArray::Is(var) ? true : false;
 
-            if (!isArray && !isArrayProjection && !isTypedArray && !isCanvasPixelArray)
+            if (!isArray && !isArrayProjection && !isTypedArray)
             {
                 Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_NeedArrayObject);
             }
@@ -567,10 +566,6 @@ namespace Projection
                 length = ArrayAsCollection::GetLength(static_cast<Js::JavascriptArray *>(var));
             } 
             else if (isTypedArray)
-            {
-                Js::JavascriptError::ThrowTypeError(scriptContext, VBSERR_TypeMismatch);
-            }
-            else if (isCanvasPixelArray)
             {
                 Js::JavascriptError::ThrowTypeError(scriptContext, VBSERR_TypeMismatch);
             }
