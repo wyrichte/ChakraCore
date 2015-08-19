@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E0786480
 		Chakra.Build.Razzle.props = Chakra.Build.Razzle.props
 		Chakra.Build.Solution.Default.props = Chakra.Build.Solution.Default.props
 		Chakra.Build.Solution.props = Chakra.Build.Solution.props
+		Chakra.Build.targets = Chakra.Build.targets
 		Chakra.NugetProject\Chakra.NugetProject.vcxproj = Chakra.NugetProject\Chakra.NugetProject.vcxproj
 	EndProjectSection
 EndProject
@@ -38,10 +39,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{3FBCBF4C-108
 	ProjectSection(SolutionItems) = preProject
 		..\private\lib\EnC\Chakra.EnC.vcxproj = ..\private\lib\EnC\Chakra.EnC.vcxproj
 		..\private\lib\Engine\Chakra.Engine.vcxproj = ..\private\lib\Engine\Chakra.Engine.vcxproj
+		..\private\lib\InternalIDL\Chakra.InternalIDL.vcxproj = ..\private\lib\InternalIDL\Chakra.InternalIDL.vcxproj
 		..\private\lib\JsrtChakra\Chakra.JsrtChakra.vcxproj = ..\private\lib\JsrtChakra\Chakra.JsrtChakra.vcxproj
 		..\private\Lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj = ..\private\Lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj
 		..\private\Lib\MemProtectHeap\Chakra.MemProtectHeap.vcxproj = ..\private\Lib\MemProtectHeap\Chakra.MemProtectHeap.vcxproj
-		..\private\lib\InternalIDL\Chakra.InternalIDL.vcxproj = ..\private\lib\InternalIDL\Chakra.InternalIDL.vcxproj
 		..\private\lib\Projection\Chakra.Projection.vcxproj = ..\private\lib\Projection\Chakra.Projection.vcxproj
 		..\private\lib\SCA\Chakra.SCA.vcxproj = ..\private\lib\SCA\Chakra.SCA.vcxproj
 		..\private\Lib\SCALookup\Chakra.SCAlookup.vcxproj = ..\private\Lib\SCALookup\Chakra.SCAlookup.vcxproj

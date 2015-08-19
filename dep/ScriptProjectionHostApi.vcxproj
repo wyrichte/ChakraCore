@@ -16,6 +16,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />   
   <Import Project="ExternalDependencyCommon.targets" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />   
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

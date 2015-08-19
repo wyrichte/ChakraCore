@@ -305,5 +305,7 @@
       <Project>{ea882c8d-81fc-42fe-abd5-2666db933eeb}</Project>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/> 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  
 </Project>

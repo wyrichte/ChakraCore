@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="SignTool" Condition="'@(BinplaceLinked)' != ''">
+    <Exec Command="signtool sign /v $(SIGNTOOL_SIGN) @(BinplaceLinked)" />
+  </Target>
+  <PropertyGroup Condition="'$(BuildingWithBuildExe)'=='true' AND '$(NT_SIGNCODE)'=='1'">
+    <AfterBuildLinked>
+      $(AfterBuildLinked);
+      SignTool
+    </AfterBuildLinked>
+  </PropertyGroup>
+</Project>
