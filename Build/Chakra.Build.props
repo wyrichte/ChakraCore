@@ -71,7 +71,7 @@
       <!-- ========= From tools\makefile.def ========= -->
       <AdditionalOptions>%(AdditionalOptions) /d2AllowCompatibleILVersions /d2Zi+</AdditionalOptions>
       <!-- Disable __DATE__ and __TIME__ macro on fre to prevent screwing up servicing -->
-      <AdditionalOptions Condition="'$(OptimiziedBuild)'=='true'">%(AdditionalOptions) /d1nodatetime</AdditionalOptions>
+      <AdditionalOptions Condition="'$(OptimizedBuild)'=='true'">%(AdditionalOptions) /d1nodatetime</AdditionalOptions>
 
       <!-- this is the default in the headers anyways, here just to be explicit -->
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_USE_DECLSPECS_FOR_SAL=1</PreprocessorDefinitions>

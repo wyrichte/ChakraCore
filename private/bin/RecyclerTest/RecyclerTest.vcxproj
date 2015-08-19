@@ -34,7 +34,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(OptimiziedBuild)'=='true'">
+  <ItemDefinitionGroup Condition="'$(OptimizedBuild)'=='true'">
     <ClCompile>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>    
     </ClCompile>

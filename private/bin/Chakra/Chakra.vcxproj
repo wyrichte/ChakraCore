@@ -112,7 +112,7 @@
         $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\CommonUtilityLibrary.lib
       </AdditionalDependencies>
       <!-- IsMessageBoxWPresent -->
-      <AdditionalDependencies Condition="'$(OptimiziedBuild)'!='true'">
+      <AdditionalDependencies Condition="'$(OptimizedBuild)'!='true'">
         %(AdditionalDependencies);
         dbghelp.lib;
 
@@ -127,7 +127,7 @@
       <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-0.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'!='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-1.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(Configuration)'!='Release'">%(DelayLoadDLLs);cryptsp.dll</DelayLoadDLLs>
-      <DelayLoadDLLs Condition="'$(OptimiziedBuild)'!='true'">%(DelayLoadDLLs);ext-ms-win-ntuser-dialogbox-l1-1-0.dll</DelayLoadDLLs>
+      <DelayLoadDLLs Condition="'$(OptimizedBuild)'!='true'">%(DelayLoadDLLs);ext-ms-win-ntuser-dialogbox-l1-1-0.dll</DelayLoadDLLs>
       <!-- Pogo switches -->
       <AdditionalOptions>%(AdditionalOptions) -d2:-pspeed1</AdditionalOptions>
       <!-- ======== From makefile.def ======== -->

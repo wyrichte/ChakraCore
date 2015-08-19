@@ -19,8 +19,8 @@
     <FreTest />
   </PropertyGroup>
   <PropertyGroup>
-    <OptimiziedBuild />
-    <OptimiziedBuild Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='Test'">true</OptimiziedBuild>
+    <OptimizedBuild />
+    <OptimizedBuild Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='Test'">true</OptimizedBuild>
     <NtTargetVersion>$(NtTargetVersion_Win7)</NtTargetVersion>
 
     <!-- On ARM we depend an API that was added in Win8 timeframe, specifically GetCurrentThreadLimits.
@@ -32,7 +32,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <CharacterSet>Unicode</CharacterSet>
-    <WholeProgramOptimization Condition="'$(OptimiziedBuild)'=='true'">true</WholeProgramOptimization>
+    <WholeProgramOptimization Condition="'$(OptimizedBuild)'=='true'">true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup>
     <!-- In razzle, Platform is inferred from environment variable _BuildArch in Microsoft.Build.Settings imported above -->
