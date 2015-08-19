@@ -21,11 +21,11 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>.;..\Common;..\..\Publish;..\..\Lib\Common;..\..\Lib\MemProtectHeap;$(IntDir)..\Common;$(OBJECT_ROOT)\inetcore\jscript\manifests\$(RazzleConfigurationPath)\$(PlatformPathNameAlt);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\Common;..\..\Publish;..\..\Lib\Common;..\..\Lib\MemProtectHeap;$(IntDir)..\Common;$(ChakraManifestsIncludeDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>      
       <AdditionalDependencies>%(AdditionalDependencies);MemProtectHeap.lib;muiload.lib;version.lib;psapi.lib;CommonUtilityLibrary.lib;onecore.lib;mincore_fw.lib;mincore_private.lib;ieshare_common_iel1.lib;iertutilp.lib;iesettingsid.lib;iesettingsapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutDir);$(OBJECT_ROOT)\inetcore\lib\common\iel1_sp\obj$(RazzleConfigurationPath)\$(PlatformPathNameAlt);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>

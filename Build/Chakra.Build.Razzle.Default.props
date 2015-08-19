@@ -18,6 +18,30 @@
     <Configuration>Debug</Configuration>
     <FreTest />
   </PropertyGroup>
+  <PropertyGroup>
+    <OptimiziedBuild />
+    <OptimiziedBuild Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='Test'">true</OptimiziedBuild>
+    <NtTargetVersion>$(NtTargetVersion_Win7)</NtTargetVersion>
+
+    <!-- On ARM we depend an API that was added in Win8 timeframe, specifically GetCurrentThreadLimits.
+         Note that for ARM we don't need to support running on Win7, so it's fine to require Win8 as minimum,
+         but for x86/amd64 we may need to ship IE10 for Win7, thus it's not OK in general to require Win8 as minimum. -->
+    <NtTargetVersion Condition="'$(Platform)'=='ARM' or '$(Platform)'=='Arm64'">$(NtTargetVersion_Win8)</NtTargetVersion>
+
+    <WindowsSDKDesktopARMSupport Condition="'$(Platform)'=='ARM'">true</WindowsSDKDesktopARMSupport>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization Condition="'$(OptimiziedBuild)'=='true'">true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup>
+    <!-- In razzle, Platform is inferred from environment variable _BuildArch in Microsoft.Build.Settings imported above -->
+    <PlatformPathName>$(Platform)</PlatformPathName>
+    <PlatformPathName Condition="'$(Platform)'=='Win32'">x86</PlatformPathName>
+    <PlatformPathName Condition="'$(Platform)'=='x64'">amd64</PlatformPathName>
+    <PlatformPathNameAlt>$(PlatformPathName)</PlatformPathNameAlt>
+    <PlatformPathNameAlt Condition="'$(Platform)'=='Win32'">i386</PlatformPathNameAlt>
+  </PropertyGroup>
   <PropertyGroup>    
     <IELibPath>$(ObjectRoot)\inetcore\lib</IELibPath>
     <BaseLibPath>$(PUBLIC_ROOT)\internal\base\lib\$(BuildArchitecture)</BaseLibPath>

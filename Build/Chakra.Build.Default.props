@@ -2,49 +2,22 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <BuildingGitRepo>true</BuildingGitRepo>
-    <BuildingGitRepo Condition="'$(PUBLIC_ROOT)'!=''">false</BuildingGitRepo>
-    <ChakraDevConfigDir Condition="'$(ChakraDevConfigDir)'==''">$(USEPROFILE)\ChakraDevConfig</ChakraDevConfigDir>
-  </PropertyGroup>
-  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="Chakra.Build.Razzle.Default.props" />
-
-  <PropertyGroup>
-    <!-- In razzle, Platform is inferred from environment variable _BuildArch, so import Chakra.Build.Razzle.Default.props first -->
-    <PlatformPathName>$(Platform)</PlatformPathName>
-    <PlatformPathName Condition="'$(Platform)'=='Win32'">x86</PlatformPathName>
-    <PlatformPathName Condition="'$(Platform)'=='x64'">amd64</PlatformPathName>
-    <PlatformPathNameAlt>$(PlatformPathName)</PlatformPathNameAlt>
-    <PlatformPathNameAlt Condition="'$(Platform)'=='Win32'">i386</PlatformPathNameAlt>
-  </PropertyGroup>
-
-  <ImportGroup>
-    <Import Project="$(ChakraDevConfigDir)\Chakra.Build.user.props" Condition="exists('$(ChakraDevConfigDir)\Chakra.Build.user.props')"/>
-  </ImportGroup>
-  <!-- Output directories for non-razzle build -->
-  <PropertyGroup Condition="'$(BuildingWithBuildExe)'!='true'">
-    <OutBaseDir Condition="'$(OutBaseDir)'!=''">$(OutBaseDir)\$(SolutionName)</OutBaseDir>
-    <OutBaseDir Condition="'$(OutBaseDir)'=='' AND '$(TF_BUILD_BINARIESDIRECTORY)'!=''">$(TF_BUILD_BINARIESDIRECTORY)</OutBaseDir>
-    <OutBaseDir Condition="'$(OutBaseDir)'==''">$(SolutionDir)VcBuild</OutBaseDir>
-    <IntBaseDir Condition="'$(IntBaseDir)'=='' AND '$(TF_BUILD_BUILDDIRECTORY)'!=''">$(TF_BUILD_BUILDDIRECTORY)</IntBaseDir>
-    <IntBaseDir Condition="'$(IntBaseDir)'==''">$(OutBaseDir)</IntBaseDir>
-    <OutDir>$(OutBaseDir)\bin\$(PlatformPathName.ToLower())_$(Configuration.ToLower())\</OutDir>
-    <IntDir>$(IntBaseDir)\obj\$(PlatformPathName.ToLower())_$(Configuration.ToLower())\$(MSBuildProjectName)\</IntDir>
-    <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'">$(IntDir)</OutDir>
-    <OutputPath>$(OutDir)</OutputPath>
+    <BuildingGitRepo Condition="'$(PUBLIC_ROOT)'!=''">false</BuildingGitRepo>        
   </PropertyGroup>
   
-  <!-- Git only preconfigurations-->
-  <Import Condition="'$(BuildingGitRepo)'=='true'" Project="Chakra.Build.Git.Default.props" />
+  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="Chakra.Build.Razzle.Default.props" />
+  <ImportGroup Condition="'$(BuildingWithBuildExe)'!='true'">
+    <Import Project="$(ChakraCoreBuildDirectory)Common.Build.Default.props" />
 
-  <!-- Import for both Git build and solution with razzle build -->
-  <Import Condition="'$(BuildingWithBuildExe)'!='true'" Project="Chakra.Build.Solution.Default.props" />
+    <!-- Git only preconfigurations-->
+    <Import Condition="'$(BuildingGitRepo)'=='true'" Project="Chakra.Build.Git.Default.props" />
 
+    <!-- Import for both Git build and solution with razzle build -->
+    <Import Project="Chakra.Build.Solution.Default.props" />
+  </ImportGroup>
   <PropertyGroup>
     <!-- Always use SdkIncPath for the Chakra full builds. In Git, this will result in us using the 
          manifest xmls in the expanded NuGet package -->
     <EventManifestXmlPath>$(SdkIncPath)</EventManifestXmlPath>
   </PropertyGroup>
-
-  <!-- This needs to be after Chakra.Build.Razzle.Default.props, which sets the Configuration -->
-  <Import Project="$(ChakraCoreBuildDirectory)Common.Build.Default.props" />
-
 </Project>

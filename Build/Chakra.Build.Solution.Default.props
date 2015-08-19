@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PlatformToolset Condition="'$(VisualStudioVersion)'=='11.0'">v110</PlatformToolset>
-    <PlatformToolset Condition="'$(VisualStudioVersion)'=='12.0'">v120</PlatformToolset>
-    <PlatformToolset Condition="'$(VisualStudioVersion)'=='14.0'">v140</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup>
     <!-- ========= Microsoft.Build.Paths ========= -->
     <SdkIncPath>$(PUBLIC_ROOT)\sdk\inc</SdkIncPath>
     <SdkLibPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt)</SdkLibPath>
@@ -28,8 +23,6 @@
     <RazzleConfigurationPath Condition="'$(Configuration)'=='Debug'">chk</RazzleConfigurationPath>
     <RazzleConfigurationPath Condition="'$(Configuration)'!='Debug'">fre</RazzleConfigurationPath>    
     <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\..\..\sdpublic</PUBLIC_ROOT>
-    <OBJECT_ROOT Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes' AND '$(_OBJECT_ROOT_PREFIX)'==''">$(BASEDIR).obj.$(PlatformPathName)$(RazzleConfigurationPath)</OBJECT_ROOT>
-    <OBJECT_ROOT Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes' AND '$(_OBJECT_ROOT_PREFIX)'!=''">$(_OBJECT_ROOT_PREFIX).$(PlatformPathName)$(RazzleConfigurationPath)</OBJECT_ROOT>
     
     <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\..\..\tools</RazzleToolPath>
     <IncludePath>$(PUBLIC_ROOT)\shared\inc</IncludePath>
@@ -38,10 +31,10 @@
     <IncludePath>$(IncludePath);$(SdkIncPath)\minwin</IncludePath>
     <IncludePath>$(IncludePath);$(SdkIncPath)\mincore</IncludePath>
     <IncludePath>$(IncludePath);$(SolutionDir)..\..\inc</IncludePath>
-    
-    
+       
     <ExecutablePath>$(RazzleToolPath)\Dev12\x32\$(PlatformPathName);$(RazzleToolPath)\x86</ExecutablePath>
-    <ExecutablePath Condition="'$(PlatformPathName)'=='amd64' and '$(BuildingInsideVisualStudio)'!='true'">$(RazzleToolPath)\Dev12\x64\$(PlatformPathName);$(RazzleToolPath)\amd64</ExecutablePath>
+    <ExecutablePath Condition="'$(Platform)'=='x64' and '$(BuildingInsideVisualStudio)'!='true'">$(RazzleToolPath)\Dev12\x64\amd64;$(RazzleToolPath)\amd64</ExecutablePath>
+    <ExecutablePath Condition="'$(Platform)'=='x64' and '$(BuildingInsideVisualStudio)'=='true'">$(RazzleToolPath)\Dev12\x32\amd64;$(RazzleToolPath)\x86</ExecutablePath>
    
     <GenerateManifest>false</GenerateManifest>
     <!-- disable incremental build because some library from public contains /GL objects -->
@@ -49,8 +42,7 @@
     <!-- Minimal Rebuild /Gm write to this file that we don't really depend on -->
     <NoDependencies>%(NoDependencies);$(IntDir)vc100.idb;$(IntDir)vc100.pdb;$(IntDir)vc110.idb;$(IntDir)vc110.pdb;$(IntDir)vc120.pdb;$(IntDir)vc120.idb</NoDependencies>
     <ManifestsInboxIncludeDirectory Condition="'$(ManifestsInboxIncludeDirectory)'==''">$(IntDir)..\manifests-inbox</ManifestsInboxIncludeDirectory>
-    <ChakraManifestsIncludeDirectory>$(IntDir)..\manifests</ChakraManifestsIncludeDirectory>
-    <ChakraParserIntDir>$(IntDir)..\Chakra.Parser</ChakraParserIntDir>
+    <ChakraManifestsIncludeDirectory>$(IntDir)..\manifests</ChakraManifestsIncludeDirectory>    
     <JscriptInfoIntDir>$(IntDir)..\Chakra.Engine</JscriptInfoIntDir>
     <ChakraInternalIDLIntDir>$(IntDir)..\Chakra.InternalIDL</ChakraInternalIDLIntDir>
 
