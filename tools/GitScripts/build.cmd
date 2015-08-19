@@ -15,17 +15,25 @@ set _ChakraBuildConfig=all-%_BuildType%
 set _arg=%1
 shift
 
+if "%_BuildType%" EQU "chk" (
+    set _ChakraBuildConfig=Debug
+) else if "%_BuildType%" EQU "fre" (
+    set _ChakraBuildConfig=Release
+) else if "%_BuildType%" EQU "test" (
+    set _ChakraBuildConfig=Test
+) else (
+    echo WARNING: Unknown build type '%_BuildType%'
+)
+
+set _CoreBuild=0
 if "%_arg%" EQU "/core" (
     set _ChakraSolution=%REPO_ROOT%\core\Build\Chakra.Core.sln
-    if "%_BuildType%" EQU "chk" (
-        set _ChakraBuildConfig=Debug
-    ) else if "%_BuildType%" EQU "fre" (
-        set _ChakraBuildConfig=Release
-    ) else (
-        echo WARNING: Unknown build type '%_BuildType%'
-    )
-
+    set _CoreBuild=1
     goto :parseArgs
+)
+
+if "%_CoreBuild%" EQU "0" (
+    set _ChakraBuildConfig=all-%_ChakraBuildConfig%
 )
 
 if "%_arg%" EQU "/c" (

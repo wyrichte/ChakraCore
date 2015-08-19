@@ -41,7 +41,7 @@ void TestEtwEventSinkImpl::WriteMethodEvent(const wchar_t* eventName,
         AutoCriticalSection(&this->csMethodMap);
         auto inserted = this->methodEventMap->insert(MethodEventMap::value_type(methodStartAddress, 
             new MethodInfo(scriptContextId, methodStartAddress, methodSize, methodID, methodFlags, methodAddressRangeID, sourceID, line, column, methodName)));
-        UT_ASSERT_SZ(inserted.second, "Duplicate method load event for the same address:0x%p", methodStartAddress);
+        IfFalsePrintAssertReturn(inserted.second, "Duplicate method load event for the same address:0x%p", methodStartAddress);
     }
     else if (eventName == MethodEventNames::Unload)
     {
@@ -49,20 +49,20 @@ void TestEtwEventSinkImpl::WriteMethodEvent(const wchar_t* eventName,
         {
             AutoCriticalSection(&this->csMethodMap);
             auto methodInfoIt = this->methodEventMap->find(methodStartAddress);
-            UT_ASSERT_SZ(methodInfoIt != methodEventMap->end(), "Load event not found for method:%s", methodName);
+            IfFalsePrintAssertReturn(methodInfoIt != methodEventMap->end(), "Load event not found for method:%s", methodName);
             methodInfo = methodInfoIt->second;
             this->methodEventMap->erase(methodInfoIt);
         }
-        UT_ASSERT(methodInfo->scriptContextId == scriptContextId);
-        UT_ASSERT(methodInfo->methodStartAddress == methodStartAddress);
-        UT_ASSERT(methodInfo->methodSize == methodSize);
-        UT_ASSERT(methodInfo->methodID == methodID);
-        UT_ASSERT(methodInfo->methodFlags == methodFlags);
-        UT_ASSERT(methodInfo->methodAddressRangeID == methodAddressRangeID);
-        UT_ASSERT(methodInfo->sourceID == sourceID);
-        UT_ASSERT(methodInfo->line == line);
-        UT_ASSERT(methodInfo->column == column);
-        UT_ASSERT(methodInfo->name == methodName);
+        IfFalseAssertReturn(methodInfo->scriptContextId == scriptContextId);
+        IfFalseAssertReturn(methodInfo->methodStartAddress == methodStartAddress);
+        IfFalseAssertReturn(methodInfo->methodSize == methodSize);
+        IfFalseAssertReturn(methodInfo->methodID == methodID);
+        IfFalseAssertReturn(methodInfo->methodFlags == methodFlags);
+        IfFalseAssertReturn(methodInfo->methodAddressRangeID == methodAddressRangeID);
+        IfFalseAssertReturn(methodInfo->sourceID == sourceID);
+        IfFalseAssertReturn(methodInfo->line == line);
+        IfFalseAssertReturn(methodInfo->column == column);
+        IfFalseAssertReturn(methodInfo->name == methodName);
         delete methodInfo;
     }
     else if(eventName == MethodEventNames::DCStart || eventName == MethodEventNames::DCEnd)
@@ -71,7 +71,7 @@ void TestEtwEventSinkImpl::WriteMethodEvent(const wchar_t* eventName,
     }
     else
     {
-        UT_FAIL(L"Unexpected method event type");
+        UnconditionallyFail(L"Unexpected method event type");
     }
 }
 
@@ -84,20 +84,20 @@ void TestEtwEventSinkImpl::WriteSourceEvent(const wchar_t* eventName, uint64 sou
     {
         auto inserted = this->sourceEventMap->insert(SourceEventMap::value_type(sourceContext, 
             new SourceInfo(sourceContext, scriptContextId, sourceFlags, url)));
-        UT_ASSERT_SZ(inserted.second, "Duplicate method load event for the same source cookie:0x%p", sourceContext);
+        IfFalsePrintAssertReturn(inserted.second, "Duplicate method load event for the same source cookie:0x%p", sourceContext);
     }
     else if (eventName == SourceEventNames::Unload)
     {
         SourceInfo* sourceInfo;
         auto it = this->sourceEventMap->find(sourceContext);
-        UT_ASSERT_SZ(it != sourceEventMap->end(), "Load event not found for url:%s", url);
+        IfFalsePrintAssertReturn(it != sourceEventMap->end(), "Load event not found for url:%s", url);
         sourceInfo = it->second;
         this->sourceEventMap->erase(it);
         
-        UT_ASSERT(sourceInfo->scriptContextId == scriptContextId);
-        UT_ASSERT(sourceInfo->sourceContext == sourceContext);
-        UT_ASSERT(sourceInfo->sourceFlags == sourceFlags);
-        UT_ASSERT(sourceInfo->url == url);
+        IfFalseAssertReturn(sourceInfo->scriptContextId == scriptContextId);
+        IfFalseAssertReturn(sourceInfo->sourceContext == sourceContext);
+        IfFalseAssertReturn(sourceInfo->sourceFlags == sourceFlags);
+        IfFalseAssertReturn(sourceInfo->url == url);
 
         delete sourceInfo;
     }
@@ -107,7 +107,7 @@ void TestEtwEventSinkImpl::WriteSourceEvent(const wchar_t* eventName, uint64 sou
     }
     else
     {
-        UT_FAIL(L"Unexpected source event type");
+        UnconditionallyFail(L"Unexpected source event type");
     }
 }
 
@@ -168,19 +168,19 @@ void MockEtwController::StartEtwThread()
     s_terminateRequestEvent = CreateEvent(NULL, /*bManualReset*/TRUE, /*bInitialState*/FALSE, NULL);
     if (!s_terminateRequestEvent)
     {
-        UT_FAIL(L"Failed to create terminate request event");
+        UnconditionallyFail(L"Failed to create terminate request event");
     }
 
     terminatedEvent = CreateEvent(NULL, /*bManualReset*/TRUE, /*bInitialState*/FALSE, NULL);
     if (!terminatedEvent)
     {
-        UT_FAIL(L"Failed to create terminated event");
+        UnconditionallyFail(L"Failed to create terminated event");
     }
 
     etwThread = CreateThread(NULL, 0, &EtwThreadProc, this, 0, &etwThreadId);
     if (!etwThread)
     {
-        UT_FAIL(L"Failed to create etw callback thread");
+        UnconditionallyFail(L"Failed to create etw callback thread");
     }
 
     // NOTE: We can't deterministically wait for EtwThreadProc to start here. This function is called
@@ -205,7 +205,7 @@ void MockEtwController::StopEtwThread()
         // Always signal terminate request
         if (!SetEvent(s_terminateRequestEvent))
         {
-            UT_FAIL(L"Failed to signal terminate request event");
+            UnconditionallyFail(L"Failed to signal terminate request event");
         }
 
         // Only proceed if ETW thread really started. There is a small possibility that the thread
@@ -238,8 +238,8 @@ void MockEtwController::StopEtwThread()
         break; // maybe terminated by ExitProcess
 
     default:
-        UT_TRACE(L"Wait for terminate result: %d, last error: %d\n", (int)dwWaitResult, (int)GetLastError());
-        UT_FAIL(L"Failed to wait for terminate event\n");
+        wprintf(L"Wait for terminate result: %d, last error: %d\n", (int)dwWaitResult, (int)GetLastError());
+        UnconditionallyFail(L"Failed to wait for terminate event\n");
         break; // failed
     }
 
@@ -279,7 +279,7 @@ DWORD WINAPI MockEtwController::EtwThreadProc(_In_ LPVOID lpParameter)
             break;  // Not signaled, we can proceed.
 
         default:
-            UT_TRACE(L"Failed to wait for terminate request. Wait result: %d, last error: %d\n", (int)dwWaitResult, (int)GetLastError());
+            wprintf(L"Failed to wait for terminate request. Wait result: %d, last error: %d\n", (int)dwWaitResult, (int)GetLastError());
             return (DWORD)(-1); // Failed
         }
 
@@ -315,7 +315,7 @@ DWORD MockEtwController::Run()
             break;
 
         default:
-            UT_TRACE(L"Failed to wait for terminate request. Wait result: %d, last error: %d\n", (int)dwWaitResult, (int)GetLastError());
+            wprintf(L"Failed to wait for terminate request. Wait result: %d, last error: %d\n", (int)dwWaitResult, (int)GetLastError());
             return (DWORD)(-1); // Failed
         }
     }
@@ -335,7 +335,7 @@ void MockEtwController::WriteMethodEvent(const wchar_t* eventName,
 {
     // DC events should only be from etw thread. Other events (load/unload) should only be from non-etw thread.
     bool isDCEvent = (eventName == MethodEventNames::DCStart || eventName == MethodEventNames::DCEnd);
-    UT_ASSERT(IsEtwThread() == isDCEvent);
+    IfFalseAssertReturn(IsEtwThread() == isDCEvent);
 
     // Call base sink implementation
     __super::WriteMethodEvent(eventName, scriptContextId, methodStartAddress, methodSize, methodID, methodFlags, methodAddressRangeID, sourceID, line, column, methodName);
@@ -345,7 +345,7 @@ void MockEtwController::WriteSourceEvent(const wchar_t* eventName, uint64 source
 {
     // DC events should only be from etw thread. Other events (load/unload) should only be from non-etw thread.
     bool isDCEvent = (eventName == SourceEventNames::DCStart || eventName == SourceEventNames::DCEnd);
-    UT_ASSERT(IsEtwThread() == isDCEvent);
+    IfFalseAssertReturn(IsEtwThread() == isDCEvent);
 
     // Call base sink implementation
     __super::WriteSourceEvent(eventName, sourceContext, scriptContextId, sourceFlags, url);

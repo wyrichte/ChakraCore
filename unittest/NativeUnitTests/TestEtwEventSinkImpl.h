@@ -126,11 +126,11 @@ protected:
             if(eventMap->size() > 0)
             {
                 this->m_fLastTestCaseFailed = true;
-                UT_COLOR_TRACE(UT_COLOR_ERROR, UT_T("Unload events missing for:\n"));
+                printf("Unload events missing for:\n");
             }
             while(it != eventMap->end())
             {
-                UT_COLOR_TRACE(UT_COLOR_ERROR, UT_T("\t\t%s\n"), it->second->Name());
+                printf(("\t\t%s\n"), it->second->Name());
                 delete it->second;
                 it++;
             }
@@ -153,7 +153,6 @@ private:
 
 protected:
     bool           m_fLastTestCaseFailed;
-    UTest::UTCOMMANDARGS  m_CommandArgs;
 
     static TestEtwEventSink* Instance;
 };

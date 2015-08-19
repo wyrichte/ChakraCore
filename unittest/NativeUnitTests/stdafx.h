@@ -39,7 +39,6 @@ typedef unsigned __int16 uint16;
 #include <map>
 #include <assert.h>
 #include "time.h"
-#include "IEUTest.h"
 #include <float.h>
 
 
@@ -52,7 +51,34 @@ private:
     CRITICAL_SECTION* m_cs;
 };
 
+#if DBG
+#define ChakraAssert(x) assert(x)
+#else
+#define ChakraAssert(x)
+#endif
 
+#define IfFalseAssertReturn(expr)  \
+do { \
+    if (!(expr)) { \
+        ChakraAssert(expr); \
+        return ; \
+    } \
+} while (FALSE)
 
+#define IfFalsePrintAssertReturn(expr, msg, ...)  \
+do { \
+    if (!(expr)) { \
+        printf(msg, __VA_ARGS__); \
+        ChakraAssert(expr); \
+        return ; \
+    } \
+} while (FALSE)
+
+#define UnconditionallyFail(str) \
+do { \
+    printf("UNCONDITIONALLY failed: %s", str); \
+    ChakraAssert(false); \
+    return; \
+} while (FALSE)
 
 // TODO: reference additional headers your program requires here
