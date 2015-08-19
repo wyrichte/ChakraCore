@@ -724,66 +724,6 @@ var tests = [
             assert.throws(function () { Array()(func3(...new Set([func3, func3]))) }, TypeError, "Should throw TypeError");
         }
     },
-
-    {
-        name: "CopyOnWrite sanity check",
-        body: function() {
-            var set = new Set();
-            var four = { };
-
-            set.add(1);
-            set.add(2);
-            set.add("three");
-            set.add(four);
-            set.add(true);
-            set.add(undefined);
-
-            var copyset = WScript.CopyOnWrite(set);
-            var copyfour = WScript.CopyOnWrite(four);
-
-            assert.isTrue(set.has(1), "original set is unmodified, still has 1");
-            assert.isTrue(set.has(2), "original set is unmodified, still has 2");
-            assert.isTrue(set.has("three"), "original set is unmodified, still has \"three\"");
-            assert.isTrue(set.has(four), "original set is unmodified, still has 'four' object");
-            assert.isTrue(set.has(true), "original set is unmodified, still has 'true'");
-            assert.isTrue(set.has(undefined), "original set is unmodified, still has 'undefined'");
-
-            assert.isTrue(copyset.has(1), "copy set has 1");
-            assert.isTrue(copyset.has(2), "copy set has 2");
-            assert.isTrue(copyset.has("three"), "copy set has \"three\"");
-            assert.isFalse(copyset.has(four), "copy set does not have 'four' object");
-            assert.isTrue(copyset.has(copyfour), "copy set has copyfour object");
-            assert.isTrue(copyset.has(true), "copy set has 'true'");
-            assert.isTrue(copyset.has(undefined), "copy set has 'undefined'");
-
-            var five = { };
-            copyset.delete(2);
-            copyset.add(6);
-            copyset.add(null);
-            copyset.delete(undefined);
-            copyset.add(five);
-
-            assert.isTrue(set.has(1), "original set is still unmodified, still has 1");
-            assert.isTrue(set.has(2), "original set is still unmodified, still has 2");
-            assert.isTrue(set.has("three"), "original set is still unmodified, still has \"three\"");
-            assert.isTrue(set.has(four), "original set is still unmodified, still has 'four' object");
-            assert.isTrue(set.has(true), "original set is still unmodified, still has 'true'");
-            assert.isTrue(set.has(undefined), "original set is still unmodified, still has 'undefined'");
-            assert.isFalse(set.has(6), "original set is still unmodified, does not have 6");
-            assert.isFalse(set.has(null), "original set is still unmodified, does not have 'null'");
-            assert.isFalse(set.has(five), "original set is still unmodified, does not have 'five' object");
-
-            assert.isTrue(copyset.has(1), "copy set still has 1");
-            assert.isTrue(copyset.has("three"), "copy set still has \"three\"");
-            assert.isFalse(copyset.has(four), "copy set still does not have four object");
-            assert.isTrue(copyset.has(copyfour), "copy set still has copyfour object");
-            assert.isTrue(copyset.has(true), "copy set still has 'true'");
-            assert.isTrue(copyset.has(6), "copy set also now has 6");
-            assert.isTrue(copyset.has(null), "copy set also now has 'null'");
-            assert.isTrue(copyset.has(five), "copy set also now has 'five' object");
-        }
-    },
-
 ];
 
 testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });

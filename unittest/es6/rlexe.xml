@@ -183,7 +183,7 @@
   <test>
     <default>
       <files>map_functionality.js</files>
-      <compile-flags>-ES6ObjectLiterals -ES6Iterators -CopyOnWriteTest -args summary -endargs</compile-flags>
+      <compile-flags>-ES6ObjectLiterals -ES6Iterators -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
@@ -195,7 +195,7 @@
   <test>
     <default>
       <files>set_functionality.js</files>
-      <compile-flags>-ES6ObjectLiterals -ES6Iterators -CopyOnWriteTest -args summary -endargs</compile-flags>
+      <compile-flags>-ES6ObjectLiterals -ES6Iterators -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
@@ -207,7 +207,7 @@
   <test>
     <default>
       <files>weakmap_functionality.js</files>
-      <compile-flags>-ES6ObjectLiterals -ES6Iterators -CopyOnWriteTest -args summary -endargs</compile-flags>
+      <compile-flags>-ES6ObjectLiterals -ES6Iterators -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
@@ -236,7 +236,7 @@
   <test>
     <default>
       <files>weakset_functionality.js</files>
-      <compile-flags>-ES6ObjectLiterals -ES6Iterators -CopyOnWriteTest -args summary -endargs</compile-flags>
+      <compile-flags>-ES6ObjectLiterals -ES6Iterators -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
@@ -1107,13 +1107,6 @@
       <baseline>ProxyInProxy.baseline</baseline>
       <compile-flags> -mic:1 -off:simpleJIT </compile-flags>
       <tags>exclude_fre</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>bug1988502.js</files>
-      <compile-flags>-CopyOnWriteTest</compile-flags>
-      <tags>BugFix</tags>
     </default>
   </test>
   <test>

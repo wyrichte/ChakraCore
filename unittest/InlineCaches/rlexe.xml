@@ -51,14 +51,6 @@
   </test>
   <test>
     <default>
-      <files>CopyOnWrite.js</files>
-      <compile-flags>-CopyOnWriteTest</compile-flags>
-      <baseline>CopyOnWrite.baseline</baseline>
-      <tags>exclude_jsrt</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>Getter_sideeffect.js</files>
     </default>
   </test>

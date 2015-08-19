@@ -25,11 +25,6 @@ HRESULT ScriptDirect::JsVarToExtension(Var instance, void** extensionRef)
     return JScript9Interface::JsVarToExtension(instance, extensionRef);
 }
 
-HRESULT ScriptDirect::JsCopyOnWrite(Var globalObject, Var v, Var *copy)
-{
-    return JScript9Interface::JsCopyOnWrite(globalObject, v, copy);
-}
-
 HRESULT ScriptDirect::From(IActiveScript* pActiveScript)
 {
     HRESULT hr = S_OK;

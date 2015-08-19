@@ -282,23 +282,6 @@ HRESULT __stdcall NotifyOnScriptStateChanged(NotifyOnScriptStateChangedCallBackF
     return S_OK;
 }
 
-HRESULT __stdcall JsCopyOnWrite(Var globalObject, Var v, Var *copy)
-{
-    if(Js::TaggedNumber::Is(globalObject))
-    {
-        Assert(false);
-        return E_INVALIDARG;
-    }
-
-    HRESULT hr = S_OK;
-    BEGIN_TRANSLATE_OOM_TO_HRESULT
-    {
-        *copy = Js::RecyclableObject::FromVar(globalObject)->GetScriptContext()->CopyOnWrite(v);
-    }
-    END_TRANSLATE_OOM_TO_HRESULT(hr);
-    return hr;
-}
-
 HRESULT __stdcall ClearAllProjectionCaches(IActiveScriptDirect * scriptDirect) 
 {
     auto scriptEngine = (ScriptEngine*)scriptDirect;
@@ -439,8 +422,7 @@ HRESULT OnJScript9Loaded()
         GetMemoryFootprintOfRC,
         DoNotSupportWeakDelegate,
         SupportsWeakDelegate,
-        NotifyOnScriptStateChanged,
-        JsCopyOnWrite,
+        NotifyOnScriptStateChanged,        
         ClearAllProjectionCaches,
         SetAssertToConsoleFlag,
         SetEnableCheckMemoryLeakOutput,

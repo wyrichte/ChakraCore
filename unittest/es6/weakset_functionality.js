@@ -412,46 +412,6 @@ var tests = [
         }
     },
 
-    {
-        name: "CopyOnWrite sanity check",
-        body: function () {
-            var weakset = new WeakSet();
-            var o = { };
-            var p = { };
-
-            weakset.add(o);
-            weakset.add(p);
-
-            var copyweakset = WScript.CopyOnWrite(weakset);
-            var copyo = WScript.CopyOnWrite(o);
-            var copyp = WScript.CopyOnWrite(p);
-
-            assert.isTrue(weakset.has(o), "original weakset is unmodified, still has o");
-            assert.isTrue(weakset.has(p), "original weakset is unmodified, still has p");
-
-            assert.isFalse(copyweakset.has(o), "copy weakset does not have o");
-            assert.isFalse(copyweakset.has(p), "copy weakset does not have p");
-            assert.isTrue(copyweakset.has(copyo), "copy weakset has copy o");
-            assert.isTrue(copyweakset.has(copyp), "copy weakset has copy p");
-
-            var a = { };
-
-            assert.isFalse(copyweakset.delete(p), "copy weakset doesn't have p so can't delete it");
-            assert.isTrue(copyweakset.delete(copyp), "copy weakset does have p so can delete it");
-
-            copyweakset.add(copyo);
-            copyweakset.add(a);
-
-            assert.isFalse(weakset.has(copyo), "weakset should remain unmodified, does not have copy o");
-            assert.isFalse(weakset.has(a), "weakset should remain unmodified, does not have a");
-            assert.isTrue(weakset.has(p), "weakset should remain unmodified, still has p");
-
-            assert.isTrue(copyweakset.has(a), "copy weakset has a");
-            assert.isTrue(copyweakset.has(copyo), "copy weakset still has copy o");
-            assert.isFalse(copyweakset.has(copyp), "copy weakset no longer has copy p");
-        }
-    },
-
 ];
 
 testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });

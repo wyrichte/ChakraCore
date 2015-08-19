@@ -377,11 +377,7 @@ public:
     JD_PRIVATE_COMMAND_METHOD(diagframe);
     JD_PRIVATE_COMMAND_METHOD(diageval);
     JD_PRIVATE_COMMAND_METHOD(utmode);
-    JD_PRIVATE_COMMAND_METHOD(jsstream);
-    
-    // Language service commands
-    JD_PRIVATE_COMMAND_METHOD(lsprimarytext);
-    JD_PRIVATE_COMMAND_METHOD(lscontextpath);
+    JD_PRIVATE_COMMAND_METHOD(jsstream);   
 
     MPH_COMMAND_METHOD(mpheap);
 };

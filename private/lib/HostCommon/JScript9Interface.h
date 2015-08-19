@@ -209,8 +209,7 @@ public:
     }    
 
     static LPTSTR GetSystemStringFromHr(HRESULT hr) { return CHECKED_CALL_RETURN(GetSystemStringFromHr, L"", hr); }
-    static HRESULT NotifyOnScriptStateChanged(TestHooks::NotifyOnScriptStateChangedCallBackFuncPtr pfCallBack) { return CHECKED_CALL(NotifyOnScriptStateChanged,pfCallBack); }
-    static HRESULT JsCopyOnWrite(Var globalObject, Var v, Var *copy) { return CHECKED_CALL(JsCopyOnWrite,globalObject, v, copy); }
+    static HRESULT NotifyOnScriptStateChanged(TestHooks::NotifyOnScriptStateChangedCallBackFuncPtr pfCallBack) { return CHECKED_CALL(NotifyOnScriptStateChanged,pfCallBack); }    
     static HRESULT ClearAllProjectionCaches(IActiveScriptDirect * scriptDirect) { return CHECKED_CALL(ClearAllProjectionCaches,scriptDirect); }
     static HRESULT SetAssertToConsoleFlag(bool flag) { return CHECKED_CALL(SetAssertToConsoleFlag,flag); }
 #ifdef CHECK_MEMORY_LEAK

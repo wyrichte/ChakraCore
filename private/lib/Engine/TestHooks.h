@@ -31,8 +31,7 @@ struct TestHooks
     typedef void (__stdcall *DoNotSupportWeakDelegatePtr)(IActiveScriptDirect * scriptDirect);
     typedef BOOL (__stdcall *SupportsWeakDelegatePtr)(IActiveScriptDirect * scriptDirect);
     typedef BOOL (__stdcall * NotifyOnScriptStateChangedCallBackFuncPtr)(IActiveScriptDirect* scriptDirectRef, SCRIPTSTATE ss, void** engineSpecificStorage);
-    typedef HRESULT (__stdcall *NotifyOnScriptStateChanged)(NotifyOnScriptStateChangedCallBackFuncPtr pfCallBack);
-    typedef HRESULT (__stdcall *JsCopyOnWritePtr)(Var globalObject, Var v, Var *copy);
+    typedef HRESULT (__stdcall *NotifyOnScriptStateChanged)(NotifyOnScriptStateChangedCallBackFuncPtr pfCallBack);    
     typedef HRESULT (__stdcall *ClearAllProjectionCachesPtr)(IActiveScriptDirect * scriptDirect);
     typedef HRESULT (__stdcall *SetAssertToConsoleFlagPtr)(bool flag);    
     typedef HRESULT (__stdcall *SetEnableCheckMemoryLeakOutputPtr)(bool flag);
@@ -62,8 +61,7 @@ struct TestHooks
     GetMemoryFootprintOfRCPtr pfGetMemoryFootprintOfRC;
     DoNotSupportWeakDelegatePtr pfDoNotSupportWeakDelegate;
     SupportsWeakDelegatePtr pfSupportsWeakDelegate;
-    NotifyOnScriptStateChanged pfNotifyOnScriptStateChanged;
-    JsCopyOnWritePtr pfJsCopyOnWrite;
+    NotifyOnScriptStateChanged pfNotifyOnScriptStateChanged;    
     ClearAllProjectionCachesPtr pfClearAllProjectionCaches;
     SetAssertToConsoleFlagPtr pfSetAssertToConsoleFlag;
     SetEnableCheckMemoryLeakOutputPtr pfSetEnableCheckMemoryLeakOutput;

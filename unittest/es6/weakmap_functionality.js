@@ -459,54 +459,6 @@ var tests = [
     },
 
     {
-        name: "CopyOnWrite sanity check",
-        body: function () {
-            var weakmap = new WeakMap();
-            var o = { };
-            var p = { };
-            var q = { };
-
-            weakmap.set(o, null);
-            weakmap.set(p, q);
-
-            var copyweakmap = WScript.CopyOnWrite(weakmap);
-            var copyo = WScript.CopyOnWrite(o);
-            var copyp = WScript.CopyOnWrite(p);
-            var copyq = WScript.CopyOnWrite(q);
-
-            assert.isTrue(weakmap.has(o), "original weakmap is unmodified, still has o");
-            assert.isTrue(weakmap.has(p), "original weakmap is unmodified, still has p");
-            assert.isTrue(weakmap.get(o) === null, "original weakmap is unmodified, still has o mapping to null");
-            assert.isTrue(weakmap.get(p) === q, "original weakmap is unmodified, still has p mapping to q");
-
-            assert.isFalse(copyweakmap.has(o), "copy weakmap does not have o");
-            assert.isFalse(copyweakmap.has(p), "copy weakmap does not have p");
-            assert.isTrue(copyweakmap.has(copyo), "copy weakmap has copy o");
-            assert.isTrue(copyweakmap.has(copyp), "copy weakmap has copy p");
-            assert.isTrue(copyweakmap.get(copyp) === copyq, "copy weakmap maps copy p to copy q");
-
-            var a = { };
-            var b = { };
-
-            assert.isFalse(copyweakmap.delete(p), "copy weakmap doesn't have p so can't delete it");
-            assert.isTrue(copyweakmap.delete(copyp), "copy weakmap does have p so can delete it");
-
-            copyweakmap.set(copyo, a);
-            copyweakmap.set(a, b);
-
-            assert.isFalse(weakmap.has(copyo), "weakmap should remain unmodified, does not have copy o");
-            assert.isFalse(weakmap.has(a), "weakmap should remain unmodified, does not have a");
-            assert.isTrue(weakmap.get(o) === null, "weakmap should remain unmodified, still maps o to null");
-            assert.isTrue(weakmap.has(p), "weakmap should remain unmodified, still has p");
-
-            assert.isTrue(copyweakmap.has(a), "copy weakmap has a");
-            assert.isTrue(copyweakmap.get(a) === b, "copy weakmap maps a to b");
-            assert.isTrue(copyweakmap.get(copyo) === a, "copy weakmap now maps copy o to a");
-            assert.isFalse(copyweakmap.has(copyp), "copy weakmap no longer has copy p");
-        }
-    },
-
-    {
         name: "WeakMap can add keys that are sealed and frozen (testworthy because WeakMap implementation sets internal property on key objects)",
         body: function () {
             var wm = new WeakMap();

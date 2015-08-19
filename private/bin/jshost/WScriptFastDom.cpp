@@ -962,31 +962,6 @@ Var WScriptFastDom::RegisterCrossThreadInterfacePS(Var function, CallInfo callIn
     return NULL;
 }
 
-Var WScriptFastDom::CopyOnWrite(Var function, CallInfo callInfo, Var* args)
-{
-    args = &args[1];
-    HRESULT hr = S_OK;
-
-    ScriptDirect scriptDirect;
-    IfFailGo(scriptDirect.From(function));
-
-    if(callInfo.Count != 2)
-    {
-        goto Error;
-    }
-
-    Var globalObject;
-    IfFailGo(scriptDirect->GetGlobalObject(&globalObject));
-
-    Var copy;
-    IfFailGo(ScriptDirect::JsCopyOnWrite(globalObject, args[0], &copy));
-    return copy;
-
-Error:
-    scriptDirect.ThrowIfFailed(hr);
-    return scriptDirect.GetUndefined();
-}
-
 Var WScriptFastDom::CreateCanvasPixelArray(Var function, CallInfo callInfo, Var* args)
 {
     args = &args[1];
@@ -1512,11 +1487,7 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript)
     // Create the GetWorkingSet method
     hr = AddMethodToObject(L"GetWorkingSet", activeScriptDirect, wscript, WScriptFastDom::GetWorkingSet);
     IfFailedGo(hr);
-
-    // Create the CopyOnWrite method
-    hr = AddMethodToObject(L"CopyOnWrite", activeScriptDirect, wscript, WScriptFastDom::CopyOnWrite);
-    IfFailedGo(hr);
-
+    
     // Create the CreateCanvasPixelArray method
     hr = AddMethodToObject(L"CreateCanvasPixelArray", activeScriptDirect, wscript, WScriptFastDom::CreateCanvasPixelArray);
     IfFailedGo(hr);

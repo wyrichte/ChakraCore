@@ -85,8 +85,7 @@ public:
     static bool ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScriptDirect, CallInfo callInfo, Var* args, RunInfo& scriptArgs, bool isSourceRaw = false);
     static Var InitializeProjection(Var function, CallInfo callInfo, Var* args);
     static Var RegisterCrossThreadInterfacePS(Var function, CallInfo callInfo, Var* args);
-    static Var GetWorkingSet(Var function, CallInfo callInfo, Var* args);
-    static Var CopyOnWrite(Var function, CallInfo callInfo, Var* args);
+    static Var GetWorkingSet(Var function, CallInfo callInfo, Var* args);    
     static Var CreateCanvasPixelArray(Var function, CallInfo callInfo, Var* args);
     static Var Shutdown(Var function, CallInfo callInfo, Var* args);
     static Var PerformSourceRundown(Var function, CallInfo callInfo, Var* args);

@@ -23,8 +23,7 @@ public:
     static HRESULT JsVarToScriptDirect(Var instance, IActiveScriptDirect** ppScriptDirect);
     static HRESULT JsVarAddRef(Var instance);
     static HRESULT JsVarRelease(Var instance);
-    static HRESULT JsVarToExtension(Var instance, void** extensionRef);
-    static HRESULT JsCopyOnWrite(Var globalObject, Var v, Var *copy);
+    static HRESULT JsVarToExtension(Var instance, void** extensionRef);    
 
     HRESULT From(IActiveScript* pActiveScript);
     HRESULT From(Var var);

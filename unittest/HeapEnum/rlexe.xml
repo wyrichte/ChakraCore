@@ -267,21 +267,6 @@
   <test>
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
-      <files>CopyOnWrite.js</files>
-      <baseline>CopyOnWrite.baseline</baseline>
-      <compile-flags>-es6-</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
-      <files>CopyOnWrite.js</files>
-      <baseline>CopyOnWrite.es6.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>closure.js</files>
       <baseline>closure.baseline</baseline>
     </default>
