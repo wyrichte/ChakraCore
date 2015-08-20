@@ -111,7 +111,7 @@
     <default>
       <files>nan.js</files>
       <baseline>nan.baseline</baseline>
-      <tags>typedarray</tags>
+      <tags>typedarray,exclude_nonrazzle</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>

@@ -1131,7 +1131,7 @@
   <test>
     <default>
       <files>ES6Function_bugs.js</files>
-      <tags>BugFix</tags>
+      <tags>BugFix,exclude_nonrazzle</tags>
       <compile-flags>-ES6 -args summary -endargs</compile-flags>
     </default>
   </test>

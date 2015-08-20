@@ -4,6 +4,7 @@
     <default>
       <files>sca_basic.js</files>
       <baseline>sca_basic.baseline</baseline>
+      <tags>exclude_nonrazzle</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>
@@ -42,6 +43,7 @@
     <default>
       <files>sca_object.js</files>
       <baseline>sca_object.baseline</baseline>
+      <tags>exclude_nonrazzle</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>

@@ -2,7 +2,7 @@
 <regress-exe>
   <test>
     <default>
-      <tags>Intl,exclude_dynapogo,exclude_drt,exclude_nightly</tags>
+      <tags>Intl,exclude_dynapogo,exclude_drt,exclude_nightly,exclude_nonrazzle</tags>
       <compile-flags>-relbasepath core\lib\runtime\library\injavascript -bytecodefn Intl</compile-flags>
       <command>ValidateGeneratedByteCode.cmd</command>
       <files>Dummy.js</files>
@@ -137,7 +137,7 @@
       <files>funcSource.js</files>
       <command>jdtest.exe -targeted -inspectmaxstringlength:100 -dbgbaseline:funcSource.js.dbg.baseline jshost</command>
       <compile-flags>-debuglaunch:hybrid -Intl</compile-flags>
-      <tags>fail_mutators,exclude_winglob,exclude_serialized</tags>
+      <tags>fail_mutators,exclude_winglob,exclude_serialized,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>

@@ -8,7 +8,7 @@
       <baseline>test1.baseline</baseline>
       <command>jdtest -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;!verifyOM;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
       <compile-flags>-Off:Inline -Off:JITLoopBody -Intl- -dynamicprofilecache:test1.js.1.dpl</compile-flags>
-      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -19,7 +19,7 @@
       <baseline />
       <command>jdtest -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;!verifyOM;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
       <compile-flags>-Intl- -dynamicprofilecache:test1.js.2.dpl</compile-flags>
-      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -29,7 +29,7 @@
       <baseline>test1.jitloop.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
       <compile-flags>-Off:Inline -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:test1.js.1.dpl</compile-flags>
-      <tags>exclude_arm,exclude_jsrt,exclude_interpreted</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -40,7 +40,7 @@
       <baseline />
       <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
       <compile-flags>-Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:test1.js.2.dpl</compile-flags>
-      <tags>exclude_arm,exclude_jsrt,exclude_interpreted</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -51,7 +51,7 @@
       <baseline>test2.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g;!ldsym;!jsstack;    !echo;!echo ---verifyall again---;!ldsym;!jsstack;g" jshost</command>
       <compile-flags>-Off:Inline -Intl-</compile-flags>
-      <tags>exclude_arm,exclude_jsrt</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -70,7 +70,7 @@
       <files>test_try.js</files>
       <baseline>test_try.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---try-catch bp; !jsstack; g; !echo; !echo ---try-finally bp; !jsstack; g;" jshost -enableDebug -DeferLoadingAvailableSource</command>
-      <tags>exclude_jsrt</tags>
+      <tags>exclude_jsrt,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -79,7 +79,7 @@
       <files>test_inline.js</files>
       <baseline>test_inline.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---inlines; !jsstack; g;" jshost -force:inline -enableDebug -DeferLoadingAvailableSource</command>
-      <tags>exclude_jsrt</tags>
+      <tags>exclude_jsrt,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -88,7 +88,7 @@
       <files>test_inline_bailout.js</files>
       <baseline>test_inline_bailout.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---inlines; !jsstack; g;" jshost -maxinterpretcount:1 -off:simpleJit -force:inline -enableDebug -DeferLoadingAvailableSource</command>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -97,7 +97,7 @@
       <files>test_deepRecursion.js</files>
       <baseline>test_deepRecursion.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---deep recursion; !jsstack; g;" jshost -off:simpleJit -enableDebug -DeferLoadingAvailableSource</command>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -245,7 +245,7 @@
       <baseline>dump.baseline</baseline>
       <command>jdtest -q -c ".load ut_jsdiag; g;!jsstack;!echo;!testdump; g;!jsstack;!echo;!testdump; q" jshost</command>
       <compile-flags>-maxinterpretcount:1 -off:simpleJit -force:inline -force:jitloopbody -DeferLoadingAvailableSource-</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonative</tags>
+      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonative,exclude_nonrazzle</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>
@@ -260,7 +260,7 @@
       <baseline>dump.baseline</baseline>
       <command>jdtest -q -c ".load ut_jsdiag; g;!jsstack;!echo;!testdump; g;!jsstack;!echo;!testdump; q" jshost</command>
       <compile-flags>-maxinterpretcount:1 -ForceSerialized -DeferLoadingAvailableSource -off:simpleJit -force:inline -force:jitloopbody</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonative</tags>
+      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonative,exclude_nonrazzle</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>
@@ -275,7 +275,7 @@
       <baseline>dump2.baseline</baseline>
       <command>jdtest -q -c ".load ut_jsdiag;sxe eh; g;!testdump; !echo; g;!testdump; q" jshost</command>
       <compile-flags>-forceNative -off:simpleJit -DeferLoadingAvailableSource-</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>
@@ -290,7 +290,7 @@
       <baseline>dump3.baseline</baseline>
       <command>jdtest -q -c ".load ut_jsdiag;sxe eh;g; !testdump; q" jshost</command>
       <compile-flags>-forceNative -off:simpleJit -enableDebug</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -323,7 +323,7 @@
       <baseline>inlineSameFunc.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g; !jsstack; g;" jshost</command>
       <compile-flags>-maxinterpretcount:1 -off:simplejit -enableDebug</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -332,7 +332,7 @@
       <baseline>PartInitStackFrame.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g; !jsstack; g;" jshost</command>
       <compile-flags>-nonative -InjectPartiallyInitializedInterpreterFrameError:3 -enableDebug -Intl-</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
 </regress-exe>

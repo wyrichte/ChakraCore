@@ -142,7 +142,7 @@
     <default>
       <files>stackoverflow.js</files>
       <baseline>stackoverflow.baseline</baseline>
-      <tags>Slow,Slow</tags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -150,7 +150,7 @@
       <files>stackoverflow.js</files>
       <command>jdtest -q -c "sxe eh;g; !ut_jsdiag.testdump 0; !echo pass; q" jshost -enabledebug</command>
       <compile-flags>-nonative</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>

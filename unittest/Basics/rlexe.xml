@@ -443,7 +443,7 @@
   </test>
   <test>
     <default>
-      <tags>exclude_dynapogo,exclude_drt,exclude_nightly</tags>
+      <tags>exclude_dynapogo,exclude_drt,exclude_nightly,exclude_nonrazzle</tags>
       <compile-flags>-relbasepath core\Lib\Common\Memory\ValidPointersMap</compile-flags>
       <command>ValidateValidPointersMap.cmd</command>
       <files>Dummy.js</files>

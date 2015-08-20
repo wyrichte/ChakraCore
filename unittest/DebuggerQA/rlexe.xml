@@ -587,7 +587,7 @@
       <files>blockscope_butonlyES5code.js</files>
       <command>jdtest.exe -dbgbaseline:blockscope_butonlyES5code.js.dbg.hybrid.baseline -targeted jshost</command>
       <compile-flags>-Intl- -debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators</tags>
+      <tags>fail_mutators,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -1039,7 +1039,7 @@
     <default>
       <files>ES6_specialproperties.js</files>
       <command>jdtest.exe -dbgbaseline:ES6_specialproperties.hybrid.js.dbg.baseline -inspectmaxstringlength:100 -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
+      <compile-flags>-debuglaunch:hybrid,exclude_nonrazzle</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -1114,7 +1114,7 @@
     <default>
       <files>fullName_all.js</files>
       <compile-flags>-targeted -debuglaunch -inspectmaxstringlength:256 -es6classes -dbgbaseline:fullName_all.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>fail_mutators,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
