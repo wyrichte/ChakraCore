@@ -2,6 +2,9 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(ChakraCoreBuildDirectory)Common.Build.props" />
   <PropertyGroup>
+    <!-- location of the nothrownew lib -->
+    <NoThrowNewLib>$(InternalSdkLibPath)\nothrownew.lib</NoThrowNewLib>
+    
     <!-- CFG is turned off for ARM for now -->
     <CFG Condition="'$(CFG)'=='' AND '$(Platform)'!='ARM'">true</CFG>
 
@@ -159,5 +162,5 @@
     </Link>
   </ItemDefinitionGroup>
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="Chakra.Build.Razzle.props" />
-  <Import Condition="'$(BuildingWithBuildExe)'!='true'" Project="Chakra.Build.Solution.props" />
+  <Import Condition="'$(BuildingWithBuildExe)'!='true'" Project="Chakra.Build.Solution.props" /> 
 </Project>

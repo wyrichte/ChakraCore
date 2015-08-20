@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\..\Build\Chakra.Build.Paths.props"/>
   <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
-  <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" /> 
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.ProjectConfiguration.props" /> 
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F2E998AA-FB27-4F65-A6F7-4142BE64294F}</ProjectGuid>
     <RootNamespace>JS</RootNamespace>

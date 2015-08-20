@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\Build\Chakra.Build.Paths.props" />
   <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
-  <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.ProjectConfiguration.props" />
   <PropertyGroup Label="Globals">
     <ProjectName>NativeUnitTests</ProjectName>
     <ProjectGuid>{8FF4141D-195E-4511-8600-5B9851C0F9E3}</ProjectGuid>

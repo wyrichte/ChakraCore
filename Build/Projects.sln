@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E0786480
 		Chakra.Build.Default.props = Chakra.Build.Default.props
 		Chakra.Build.Git.Default.props = Chakra.Build.Git.Default.props
 		Chakra.Build.Paths.props = Chakra.Build.Paths.props
+		Chakra.Build.ProjectConfiguration.props = Chakra.Build.ProjectConfiguration.props
 		Chakra.Build.props = Chakra.Build.props
 		Chakra.Build.Razzle.Default.props = Chakra.Build.Razzle.Default.props
 		Chakra.Build.Razzle.props = Chakra.Build.Razzle.props
