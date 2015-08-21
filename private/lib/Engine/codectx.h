@@ -5,12 +5,6 @@
 ********************************************************/
 #pragma once
 
-#if _WIN64
-typedef IDebugApplicationThread64 IDebugBitCorrectApplicationThread;
-#else
-typedef IDebugApplicationThread IDebugBitCorrectApplicationThread;
-#endif
-
 class CScriptBody;
 class CCodeContext;
 

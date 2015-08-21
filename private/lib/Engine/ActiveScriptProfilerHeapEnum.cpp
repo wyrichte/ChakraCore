@@ -4,6 +4,18 @@
 
 #include "StdAfx.h"
 #include "JsrtExternalObject.h"
+#include "Library\BoundFunction.h"
+#include "Library\JavascriptSymbol.h"
+#include "Library\SameValueComparer.h"
+#include "Library\MapOrSetDataList.h"
+#include "Library\JavascriptMap.h"
+#include "Library\JavascriptSet.h"
+#include "Library\JavascriptWeakMap.h"
+#include "Library\JavascriptWeakSet.h"
+#include "Library\JavascriptArrayIterator.h"
+#include "Library\JavascriptMapIterator.h"
+#include "Library\JavascriptSetIterator.h"
+#include "Library\JavascriptStringIterator.h"
 
 //#define VALIDATE_OPTIONAL_INFO_ALLOCATIONS
 

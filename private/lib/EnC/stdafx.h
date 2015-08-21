@@ -23,12 +23,7 @@
 #include "NamedItemList.h"
 #include "scrpting.h"
 
-#if _WIN64
-typedef IDebugApplicationThread64 IDebugBitCorrectApplicationThread;
-#else
-typedef IDebugApplicationThread IDebugBitCorrectApplicationThread;
-#endif
-
+#include "..\Engine\IDebugBitCorrectApplicationThread.h"
 #include "..\Engine\ScriptEngine.h"
 
 

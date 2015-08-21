@@ -29,6 +29,8 @@ private:
     SourceContextInfo* m_sourceContextInfo;
 };
 
+class CScriptBody;
+
 // This class represents a debug document and provides routines to create and link sources to the PDM.
 // In the debug mode, an instance will be created for each script block, even if the script block is host managed. (Which will help the CCodeContext to get it work done)
 // For non-host managed blocks (eg. Dynamic code), it will create a IDebugDocumentHelper and do the DefineScriptBlock and AddUnicodeText

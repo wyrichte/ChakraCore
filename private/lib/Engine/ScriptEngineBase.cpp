@@ -13,6 +13,8 @@
 #include "webplatform.h"
 #include "edgejsStatic.h"
 
+#include "Library\JavascriptPromise.h"
+
 ScriptEngineBase::ScriptEngineBase() :
     scriptContext(nullptr),
     threadContext(nullptr),

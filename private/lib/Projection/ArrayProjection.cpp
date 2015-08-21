@@ -3,6 +3,7 @@
 //----------------------------------------------------------------------------
 
 #include "StdAfx.h"
+#include "Library\JavascriptProxy.h"
 
 namespace Projection
 {

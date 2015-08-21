@@ -355,12 +355,11 @@ namespace Projection
 #include "evalmaprecord.h"
 #include "ScriptContextOptimizationOverrideInfo.h"
 #include "ScriptContextBase.h"
-#include "..\..\..\private\Lib\Telemetry\ScriptContextTelemetry.h"
+class ScriptContextTelemetry;
 #include "ScriptContext.h"
 #include "InterpreterStackFrame.h"
 #include "CodeGenAllocators.h"
 #include "EmitBuffer.h"
-#include "FunctionCodeGenJitTimeData.h"
 #include "NativeCodeGenerator.h"
 #include "JavascriptFunctionArgIndex.h"
 #include "ByteBlock.h"

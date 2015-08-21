@@ -3,6 +3,9 @@
 //----------------------------------------------------------------------------
 
 #include "stdafx.h"
+#include "Library\dataview.h"
+#include "Library\JavascriptArrayIndexEnumerator.h"
+#include "Library\ES5ArrayIndexEnumerator.h"
 
 namespace Js
 {

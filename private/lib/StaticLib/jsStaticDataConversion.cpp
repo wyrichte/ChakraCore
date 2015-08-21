@@ -4,6 +4,8 @@
 
 #include "stdafx.h"
 #include "ChakraVersion.h"
+#include "Language\JavascriptMathOperators.h"
+#include "Language\JavascriptMathOperators.inl"
 
 namespace JsStaticAPI
 {

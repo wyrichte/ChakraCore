@@ -6,6 +6,8 @@
 #include "StdAfx.h"
 #include "guids.h"
 #include "var.h"
+#include "Library\JavascriptSymbol.h"
+#include "Library\JavascriptVariantDate.h"
 
 const long kcchMaxConstBstr = 15;
 struct ConstBstr

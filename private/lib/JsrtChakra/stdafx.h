@@ -26,13 +26,11 @@
 
 #include "JavascriptExternalOperators.h"
 #include "DefaultScriptOperations.h"
-#include "HostObject.h"
 #include "DispatchHelper.h"
 #include "NamedEventHandler.h"
 #include "activdbg.h"
 #include "activscp_private.h"
 #include "ad1ex.h"
-#include "codectx.h"
 #include "ScriptDebugDocument.h"
 
 #ifdef ENABLE_PROJECTION
@@ -53,6 +51,7 @@
 #include "ComObjectBase.h"
 
 #include "..\..\lib\staticlib\base\scriptenginebase.h"
+#include "IDebugBitCorrectApplicationThread.h"
 #include "ScriptEngine.h"
 #include "JsrtContext.h"
 

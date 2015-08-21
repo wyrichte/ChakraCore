@@ -9,6 +9,7 @@
 #include "edgescriptDirect.h"
 
 #include "Runtime.h"
+#include "Library\AsyncDebug.h"
 
 #include <objsafe.h>
 
@@ -30,13 +31,11 @@
 #include "CustomExternalType.h"
 #include "JavascriptExternalOperators.h"
 #include "DefaultScriptOperations.h"
-#include "HostObject.h"
 #include "DispatchHelper.h"
 #include "EventSink.h"
 
 #include "activscp_private.h"
 #include "ad1ex.h"
-#include "codectx.h"
 #include "scpnode.h"
 
 #include "ScriptDebugDocument.h"
@@ -84,6 +83,7 @@
 
 #include "ComObjectBase.h"
 #include "..\staticlib\base\scriptenginebase.h"
+#include "IDebugBitCorrectApplicationThread.h"
 #include "ScriptEngine.h"
 
 #ifdef ENABLE_PROJECTION

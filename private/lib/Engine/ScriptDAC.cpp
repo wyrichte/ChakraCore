@@ -6,11 +6,7 @@
 #ifdef ENABLE_NATIVE_CODE_SERIALIZATION
 #include "PEWriter.h"
 #endif
-#include "CodeGenWorkItemType.h"
 #include "QueuedFullJitWorkItem.h"
-#include "CodeGenWorkItem.h"
-#include "InliningHeuristics.h"
-#include "InliningDecider.h"
 #include "NativeCodeGenerator.h"
 
 #define DebugSiteOut(fmt, ...)              \

@@ -13,8 +13,16 @@
 #include "webplatform.h"
 #include "edgejsStatic.h"
 #include "GenerateByteCodeConfig.h"
+
+#include "Language\ByteCodeSerializer.h"
+#include "Library\BoundFunction.h"
+
 #ifdef ENABLE_EXPERIMENTAL_FLAGS
 #include <iesettings.h>
+#endif
+
+#ifdef ENABLE_BASIC_TELEMETRY
+#include "..\Telemetry\ScriptEngineTelemetry.h"
 #endif
 
 #define USE_ARENA false    // make this true to disable the memory recycler.
@@ -22,8 +30,6 @@
 #define Compile (this->*(CompileFunction))
 
 HRESULT LoadLatestPDM(__in REFCLSID rclsid, __in REFIID riid, __out LPVOID* ppPDM);
-
-EXTERN_C const GUID GUID_CUSTOM_CONFIRMOBJECTSAFETY;
 
 const LCID k_lcidUSEnglish = 0x409;
 

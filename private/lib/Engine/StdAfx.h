@@ -11,6 +11,21 @@
 #include "edgescriptDirect.h"
 
 #include "Runtime.h"
+#include "Library\EtwTrace.h"
+#include "Library\AsyncDebug.h"
+#include "Library\dataview.h"
+#include "Library\JavascriptProxy.h"
+#include "Library\ThreadBoundThreadContextManager.h"
+#include "Library\HostObjectBase.h"
+#ifdef ENABLE_MUTATION_BREAKPOINT
+// REVIEW: ChakraCore Dependency
+#include "activdbg_private.h"
+#endif
+#include "Debug\DiagObjectModel.h"
+#include "Debug\DiagStackFrame.h"
+#ifdef ENABLE_MUTATION_BREAKPOINT
+#include "Debug\MutationBreakpoint.h"
+#endif
 
 #include <objsafe.h>
 #include <comcat.h>
@@ -58,6 +73,7 @@
 #include "ad1ex.h"
 #include "typeinfobuilder.h"
 #include "dbgfmt.h"
+#include "IDebugBitCorrectApplicationThread.h"
 #include "codectx.h"
 #include "scpnode.h"
 #include "scptext.h"

@@ -1,3 +1,7 @@
+//----------------------------------------------------------------------------
+// Copyright (C) Microsoft. All rights reserved.
+//----------------------------------------------------------------------------
+
 namespace Projection 
 {
     typedef JsUtil::BaseDictionary<const Js::PropertyRecord *, RecyclerWeakReference<Js::RecyclableObject> *, Recycler, PowerOf2SizePolicy> WEAKPROPERTYBAG;

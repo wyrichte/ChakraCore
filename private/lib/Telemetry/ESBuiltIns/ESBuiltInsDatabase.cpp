@@ -1,8 +1,13 @@
+//----------------------------------------------------------------------------
+// Copyright (C) Microsoft. All rights reserved.
+//----------------------------------------------------------------------------
+
 #include "TelemetryPch.h"
 
 #include "ESBuiltInsDatabase.h"
 
 #ifdef TELEMETRY_ESB
+#include "Library\JavascriptRegExpConstructor.h"
 
 using namespace JsUtil;
 using namespace Js;

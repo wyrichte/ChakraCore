@@ -8,7 +8,9 @@
 #include "StdAfx.h"
 #include "guids.h"
 #include "proxystub.h"
-
+#ifdef DYNAMIC_PROFILE_STORAGE
+#include "Language\DynamicProfileStorage.h"
+#endif
 extern CClassFactory* CreateJScript9DACClassFactory(void);
 extern CClassFactory* CreateDiagHookClassFactory(void);
 extern CClassFactory* CreateJScript9ThreadServiceClassFactory();
