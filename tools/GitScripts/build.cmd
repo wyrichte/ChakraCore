@@ -1,3 +1,4 @@
+
 @echo off
 
 setlocal
@@ -10,6 +11,7 @@ set "_msbuildArgs="
 set "_msbuildProj="
 set _ChakraSolution=%REPO_ROOT%\Build\Chakra.Full.sln
 set _ChakraBuildConfig=all-%_BuildType%
+set _CoreBuild=0
 
 :parseArgs
 set _arg=%1
@@ -25,15 +27,10 @@ if "%_BuildType%" EQU "chk" (
     echo WARNING: Unknown build type '%_BuildType%'
 )
 
-set _CoreBuild=0
 if "%_arg%" EQU "/core" (
     set _ChakraSolution=%REPO_ROOT%\core\Build\Chakra.Core.sln
     set _CoreBuild=1
     goto :parseArgs
-)
-
-if "%_CoreBuild%" EQU "0" (
-    set _ChakraBuildConfig=all-%_ChakraBuildConfig%
 )
 
 if "%_arg%" EQU "/c" (
@@ -51,10 +48,16 @@ if "%_arg%" NEQ "" (
     goto :parseArgs
 )
 
+:DoneParsing
+
+if "%_CoreBuild%" EQU "0" (
+    set _ChakraBuildConfig=all-%_ChakraBuildConfig%
+)
+
 echo MSBuildArgs are %_msBuildArgs%
 
-echo msbuild %_msBuildArgs% /p:Configuration=%_ChakraBuildConfig% /p:Platform=%_BuildArch% %_ChakraSolution% %_msbuildProj% %_LoggingParams% %_targets%
+echo msbuild %_msBuildArgs% /m /p:Configuration=%_ChakraBuildConfig% /p:Platform=%_BuildArch% %_ChakraSolution% %_msbuildProj% %_LoggingParams% %_targets%
 
-msbuild %_msBuildArgs% /p:Configuration=%_ChakraBuildConfig% /p:Platform=%_BuildArch% %_ChakraSolution% %_msbuildProj% %_LoggingParams% %_targets%
+msbuild %_msBuildArgs% /m /p:Configuration=%_ChakraBuildConfig% /p:Platform=%_BuildArch% %_ChakraSolution% %_msbuildProj% %_LoggingParams% %_targets%
 
 endlocal

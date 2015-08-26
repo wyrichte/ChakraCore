@@ -10,6 +10,13 @@ cd ..\..
 set REPO_ROOT=%CD%
 popd
 
+if "%PYTHON_PATH%" EQU "" (
+   REM Hardcoded to the path that the enlistment script installs python to
+   set PYTHON_PATH=C:\Python35
+) else (
+   echo Python located in %PYTHON_PATH%
+)
+
 :ContinueArgParse
 if not "%1"=="" (
     if "%1"=="x86" (
@@ -47,19 +54,34 @@ where /q msbuild.exe
 IF "%ERRORLEVEL%" == "0" (
     goto :SkipMsBuildSetup
 )
-REM TODO: Different MSBUILD version?
+
+REM Try Dev14 first
+set MSBUILD_VERSION=14.0
+set MSBUILD_PATH=%ProgramFiles%\msbuild\%MSBUILD_VERSION%\Bin\x86
+
+if not exist "%MSBUILD_PATH%\msbuild.exe" (
+    set "MSBUILD_PATH=%ProgramFiles(x86)%\msbuild\%MSBUILD_VERSION%\Bin\amd64"
+)
+
+if exist "%MSBUILD_PATH%\msbuild.exe" (
+    goto :MSBuildFound
+)
+
+echo Dev14 not found, trying Dev %MSBUILD_VERSION%
 set MSBUILD_VERSION=12.0
 set MSBUILD_PATH=%ProgramFiles%\msbuild\%MSBUILD_VERSION%\Bin\x86
 
 if not exist "%MSBUILD_PATH%\msbuild.exe" (
-    set MSBUILD_PATH="%ProgramFiles(x86)%\msbuild\%MSBUILD_VERSION%\Bin\amd64"
+    set "MSBUILD_PATH=%ProgramFiles(x86)%\msbuild\%MSBUILD_VERSION%\Bin\amd64"
 )
 
-if not exist %MSBUILD_PATH%\msbuild.exe (
+if not exist "%MSBUILD_PATH%\msbuild.exe" (
     echo Can't find msbuild.exe in %MSBUILD_PATH%
-) else (
-    echo Verified MSBuild
-)
+    goto :SkipMsBuildSetup
+) 
+
+:MSBuildFound
+echo MSBuild located at %MSBUILD_PATH%
 
 set PATH=%MSBUILD_PATH%;%PATH%
 set MSBUILD_PATH=
@@ -85,11 +107,25 @@ if not exist %GIT_PATH%\git.exe (
     echo Verified Git
 )
 
-set PATH=%PATH%;%GIT_PATH%;%REPO_ROOT%\tools\GitScripts
+set PATH=%PATH%;%GIT_PATH%;
 set GIT_PATH=
 
 
 :SkipGitSetup
+
+REM Bit of a hack but I can't think of a better way right now
+REM to get git-remote-mshttps in path
+set PATH=%PATH%;%ProgramFiles(x86)%\Git\libexec\git-core
+set PATH=%PATH%;%REPO_ROOT%\tools\GitScripts
+
+if not exist "%PYTHON_PATH%" (
+   echo WARNING: Python not found in %PYTHON_PATH%
+   echo Please run setup from \\chakrafs01\RepoTools\dep\python-install.exe
+   echo Without this, Chakra git scripts will not work
+   echo.
+)
+
+set PATH=%PATH%;%PYTHON_PATH%
 
 REM ============================================
 REM Run initialization script from developer directory if one exists

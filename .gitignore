@@ -22,4 +22,5 @@ unittest/NativeUnitTests/profilecachetest*.out
 unittest/*/testout*
 .*.swp
 sd.ini
-
+*.pyc
+__pycache__/*

@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+
+try:
+    from git_ch import main
+    main()
+except ImportError:
+    import sys
+    sys.stderr.write("Couldn't find git_ch class\n")
+    raise
+except Exception as e:
+    raise
+    # raise SystemExit('Error: %s' % e)
