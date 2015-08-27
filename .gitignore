@@ -3,6 +3,7 @@ External/
 *.sdf
 *.suo
 *.opensdf
+*.user
 Build/VCBuild/
 Build/ipch/
 build_*.log
