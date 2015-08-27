@@ -70,7 +70,6 @@ HRESULT ScriptDocumentProviderBridge::GetDocument(IDebugDocument **ppssd)
     return E_FAIL;
 }
 
-
 HRESULT ScriptDocumentProviderBridge::GetName(DOCUMENTNAMETYPE documentType, BSTR *pbstrName)
 {
     if (m_pActualDocumentProvider == NULL)
@@ -123,8 +122,14 @@ HRESULT ScriptDocumentProviderBridge::GetDocumentClassId(CLSID *pclsidDocument)
 }
 
 
-ScriptDebugDocument::ScriptDebugDocument(CScriptBody *pScriptBody, DWORD_PTR debugSourceContext)
-    : m_refCount(1), m_pScriptBody(pScriptBody), m_debugSourceCookie(debugSourceContext), m_isMarkedClosed(FALSE), m_isAttached(false)
+ScriptDebugDocument::ScriptDebugDocument(CScriptBody *pScriptBody, DWORD_PTR debugSourceContext) : 
+    DebugDocument(pScriptBody->GetUtf8SourceInfo(), pScriptBody->GetRootFunction()),
+    m_refCount(1),
+    m_pScriptBody(pScriptBody),
+    m_debugSourceCookie(debugSourceContext),
+    m_documentText(nullptr),
+    m_isMarkedClosed(FALSE),
+    m_isAttached(false)
 {
     if (m_pScriptBody)
     {
@@ -177,9 +182,9 @@ HRESULT ScriptDebugDocument::ReParentToCaller()
         if (m_debugDocHelper->GetDebugApplicationNode(&pNode) == S_OK)
         {
             Js::Utf8SourceInfo* callerUtfSourceInfo = m_pScriptBody->GetUtf8SourceInfo()->GetCallerUtf8SourceInfo();
-            if (callerUtfSourceInfo && !callerUtfSourceInfo->IsHostManagedSource() && callerUtfSourceInfo->HasScriptDebugDocument())
+            if (callerUtfSourceInfo && !callerUtfSourceInfo->IsHostManagedSource() && callerUtfSourceInfo->HasDebugDocument())
             {
-                ScriptDebugDocument* callerDocument = static_cast<ScriptDebugDocument*>(callerUtfSourceInfo->GetScriptDebugDocument());
+                ScriptDebugDocument* callerDocument = static_cast<ScriptDebugDocument*>(callerUtfSourceInfo->GetDebugDocument());
                 Assert(callerDocument && callerDocument->m_debugDocHelper && callerDocument->m_isAttached);
                 if (callerDocument->m_debugDocHelper && callerDocument->m_isAttached)
                 {
@@ -294,7 +299,7 @@ HRESULT ScriptDebugDocument::Register(const wchar_t * title)
             CComPtr<IDebugDocumentText> spDebugDocumentText;
             if(SUCCEEDED(spDebugDocument->QueryInterface(&spDebugDocumentText)))
             {
-                utfSourceInfo->SetDocumentText(spDebugDocumentText);
+                ((ScriptDebugDocument*)utfSourceInfo->GetDebugDocument())->SetDocumentText(spDebugDocumentText);
             }
         }
     }
@@ -320,7 +325,7 @@ HRESULT ScriptDebugDocument::Register(const wchar_t * title)
             Js::Utf8SourceInfo* callerUtfSourceInfo = utfSourceInfo->GetCallerUtf8SourceInfo();
             if (callerUtfSourceInfo) 
             {
-                ScriptDebugDocument* parentDocument = (callerUtfSourceInfo->HasScriptDebugDocument()) ? static_cast<ScriptDebugDocument*>(callerUtfSourceInfo->GetScriptDebugDocument()) : nullptr;
+                ScriptDebugDocument* parentDocument = (callerUtfSourceInfo->HasDebugDocument()) ? static_cast<ScriptDebugDocument*>(callerUtfSourceInfo->GetDebugDocument()) : nullptr;
                 if (parentDocument && parentDocument->m_debugDocHelper)
                 {
                     parentDocument->m_debugDocHelper->GetDebugApplicationNode(&pParentNode);
@@ -426,6 +431,8 @@ HRESULT ScriptDebugDocument::AttachNode(IDebugApplicationNode *pNode, IDebugAppl
 
 void ScriptDebugDocument::CloseDocument()
 {
+    __super::CloseDocument();
+
     MarkForClose();
 
     if (m_pScriptBody)
@@ -531,7 +538,6 @@ HRESULT ScriptDebugDocument::EnumCodeContextsOfHostPosition(ULONG uCharacterOffs
     return E_FAIL;
 }
 
-
 HRESULT ScriptDebugDocument::EnumCodeContextsOfPosition(ULONG uCharacterOffset, ULONG uNumChars, IEnumDebugCodeContexts **ppEnumCodeContext)
 {
     Assert(ppEnumCodeContext);
@@ -587,7 +593,6 @@ Exit:
 
     return hr;
 }
-
 
 HRESULT ScriptDebugDocument::GetDocumentContext(ULONG uCharacterOffset, ULONG  uNumChars, IDebugDocumentContext ** ppDebugDocumentContext)
 {
@@ -709,4 +714,28 @@ HRESULT ScriptDebugDocument::DbgGetRootApplicationNode(IDebugApplicationNode **p
         return application->GetRootNode(ppdan);
     }
     return hr;
+}
+
+bool ScriptDebugDocument::HasDocumentText() const
+{
+    return m_documentText != nullptr;
+}
+
+void ScriptDebugDocument::SetDocumentText(void* document)
+{
+    Assert(!HasDocumentText());
+    m_documentText = document;
+}
+
+void* ScriptDebugDocument::GetDocumentText() const
+{
+    Assert(HasDocumentText());
+    return m_documentText;
+}
+
+void ScriptDebugDocument::QueryDocumentText(IDebugDocumentText** ppDebugDocumentText)
+{
+    Assert(HasDocumentText());
+    *ppDebugDocumentText = reinterpret_cast<IDebugDocumentText*>(m_documentText);
+    (*ppDebugDocumentText)->AddRef();
 }

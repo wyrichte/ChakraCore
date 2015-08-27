@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Copyright (C) Microsoft. All rights reserved. 
+// Copyright (C) Microsoft. All rights reserved.
 //-----------------------------------------------------------------------------
 
 #include "stdafx.h"
@@ -15,7 +15,7 @@ namespace JsrtUnitTests
     char EngineTest::cmpbuf2[CMPBUF_SIZE];
 
     void EngineTest::RunScript()
-    {               
+    {
         String testLocation;
 
         if (SUCCEEDED(TestData::TryGetValue(L"Location", testLocation)))
@@ -27,13 +27,13 @@ namespace JsrtUnitTests
             {
                 VERIFY_FAIL(L"Error retrieving SDXROOT environment variable");
                 return;
-            } 
+            }
 
             String basePath(sdxRoot);
-            
-            basePath += L"\\inetcore\\jscript\\unittest\\";
 
-            String outputFile = basePath + testLocation + L".out";           
+            basePath += L"\\inetcore\\jscript\\core\\test\\";
+
+            String outputFile = basePath + testLocation + L".out";
             this->output = CreateFile(outputFile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 
             if (!this->output.IsValid())
@@ -41,17 +41,17 @@ namespace JsrtUnitTests
                 VERIFY_FAIL(L"can't open output file");
                 return;
             }
-                                          
+
             LPCWSTR script = LoadScriptFileWithPath(basePath + L"\\" + testLocation + L".js");
-            
+
             if (script == NULL)
-            {                
+            {
                 return;
             }
 
             JsRuntimeHandle runtime;
             VERIFY_IS_TRUE(JsCreateRuntime(JsRuntimeAttributeAllowScriptInterrupt, NULL, &runtime) == JsNoError);
-            
+
             JsContextRef context;
             VERIFY_IS_TRUE(JsCreateContext(runtime, &context) == JsNoError);
             VERIFY_IS_TRUE(JsSetCurrentContext(context) == JsNoError);
@@ -84,8 +84,8 @@ namespace JsrtUnitTests
             String baselineFile = basePath + testLocation + L".baseline";
             VERIFY_IS_TRUE(CompareFiles(baselineFile, outputFile));
         }
-    }    
-   
+    }
+
     JsValueRef EngineTest::EchoCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState)
     {
         EngineTest * _this = (EngineTest *)callbackState;
@@ -93,9 +93,9 @@ namespace JsrtUnitTests
     }
 
     JsValueRef EngineTest::Echo(JsValueRef /* callee */, bool /* isConstructCall */, JsValueRef *arguments, unsigned short argumentCount)
-    {              
+    {
         for (unsigned int i = 1; i < argumentCount; i++)
-        {          
+        {
             if (i > 1)
             {
                 WriteOutput(L" ");
@@ -111,8 +111,8 @@ namespace JsrtUnitTests
             WriteOutput(string);
         }
 
-        WriteOutput(L"\r\n");        
-            
+        WriteOutput(L"\r\n");
+
         return JS_INVALID_REFERENCE;
     }
 
@@ -133,26 +133,26 @@ namespace JsrtUnitTests
         if (!WriteFile(this->output, toWriteNarrow, len, &written, NULL))
         {
             VERIFY_FAIL(L"error writing to output file");
-        } 
+        }
 
         free(toWriteNarrow);
-    }    
+    }
 
     bool EngineTest::CompareFiles(LPCWSTR filename1, LPCWSTR filename2)
     {
         AutoHandle h1, h2;     // automagically closes open handles
-        DWORD count1, count2;        
-        DWORD size1, size2;        
+        DWORD count1, count2;
+        DWORD size1, size2;
 
         h1 = CreateFile(filename1, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
-        if (!h1.IsValid()) 
+        if (!h1.IsValid())
         {
-            VERIFY_FAIL(String(L"Unable to open file %s").Format(filename1));      
+            VERIFY_FAIL(String(L"Unable to open file %s").Format(filename1));
             return false;
         }
-   
+
         h2 = CreateFile(filename2, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
-        if (!h2.IsValid()) 
+        if (!h2.IsValid())
         {
             VERIFY_FAIL(String(L"Unable to open file %s").Format(filename1));
             return false;
@@ -161,26 +161,26 @@ namespace JsrtUnitTests
         // Short circuit by first checking for different file lengths.
 
         // assume <4GB files!
-        size1 = GetFileSize(h1, NULL);  
-        if (size1 == 0xFFFFFFFF) 
+        size1 = GetFileSize(h1, NULL);
+        if (size1 == 0xFFFFFFFF)
         {
             VERIFY_FAIL(String(L"Unable to get file size for %s").Format(filename1));
             return false;
         }
 
         size2 = GetFileSize(h2, NULL);
-        if (size2 == 0xFFFFFFFF) 
+        if (size2 == 0xFFFFFFFF)
         {
             VERIFY_FAIL(String(L"Unable to get file size for %s").Format(filename1));
             return false;
         }
-   
+
         // not equal; don't bother reading the files
-        if (size1 != size2) 
-        {  
+        if (size1 != size2)
+        {
             return false;
         }
-   
+
         do
         {
             if (!ReadFile(h1, cmpbuf1, CMPBUF_SIZE, &count1, NULL) ||
@@ -190,12 +190,12 @@ namespace JsrtUnitTests
                 return false;
             }
 
-            if (count1 != count2 || memcmp(cmpbuf1, cmpbuf2, count1) != 0) 
+            if (count1 != count2 || memcmp(cmpbuf1, cmpbuf2, count1) != 0)
             {
                 return false;
             }
-        } 
-        while (count1 == CMPBUF_SIZE);     
+        }
+        while (count1 == CMPBUF_SIZE);
 
         return true;
     }

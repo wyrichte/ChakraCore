@@ -107,8 +107,14 @@ namespace Js
                 urlVar = Js::JavascriptString::NewCopyBuffer(sourceName, ::SysStringLen(sourceName), scriptContext);
                 ::SysFreeString(sourceName);
 
-                documentIdVar = functionBody->GetUtf8SourceInfo()->HasDocumentText() ? Js::JavascriptNumber::ToVar((uint64)functionBody->GetUtf8SourceInfo()->GetDocumentText(), scriptContext)
-                    : Js::JavascriptNumber::ToVar(0, scriptContext);
+                if (functionBody->GetUtf8SourceInfo()->HasDebugDocument() && functionBody->GetUtf8SourceInfo()->GetDebugDocument()->HasDocumentText())
+                {
+                    documentIdVar = Js::JavascriptNumber::ToVar((uint64)functionBody->GetUtf8SourceInfo()->GetDebugDocument()->GetDocumentText(), scriptContext);
+                }
+                else
+                {
+                    documentIdVar = Js::JavascriptNumber::ToVar(0, scriptContext);
+                }
             }
             else
             {

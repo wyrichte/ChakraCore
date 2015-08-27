@@ -44,7 +44,7 @@ private:
     Js::JavascriptFunction* functionToCall;
     Js::Var* args;
     ushort numberOfArgs;
-    bool isValidFunctionPtr;
+    bool areAllParametersPinned = false;
 };
 #endif
 

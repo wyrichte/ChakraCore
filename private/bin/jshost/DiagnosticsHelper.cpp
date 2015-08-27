@@ -24,7 +24,7 @@ HRESULT WScriptDispatchCallbackMessage::CallJavascriptFunction(bool force/* = fa
 
 DiagnosticsHelper::DiagnosticsHelper()
     : m_debugger(nullptr)
-    , m_pdmPath(nullptr)
+    , m_hInstPdm(nullptr)
     , m_debugAppCookie(0)
     , m_shouldPerformSourceRundown(false)
 {
@@ -52,21 +52,15 @@ void DiagnosticsHelper::ReleaseDiagnosticsHelper(bool forceNull)
         m_debugger->Release();
         m_debugger = nullptr;
     }
-
-    if (m_pdmPath)
-    {
-        delete [] m_pdmPath;
-        m_pdmPath = nullptr;
-    }    
 }
 
 HRESULT DiagnosticsHelper::CreateDocumentHelper(__in IDebugDocumentHelper ** debugDocumentHelper)
 {
     Assert(debugDocumentHelper != nullptr);
     HRESULT hr = S_OK;
-    if (m_pdmPath)
+    if (m_hInstPdm)
     {
-        hr = PrivateCoCreate(m_pdmPath, CLSID_CDebugDocumentHelper, NULL, CLSCTX_INPROC_SERVER, _uuidof(IDebugDocumentHelper), (LPVOID*)debugDocumentHelper);
+        hr = PrivateCoCreate(m_hInstPdm, CLSID_CDebugDocumentHelper, NULL, CLSCTX_INPROC_SERVER, _uuidof(IDebugDocumentHelper), (LPVOID*)debugDocumentHelper);
     }
     else
     {
@@ -166,7 +160,7 @@ HRESULT DiagnosticsHelper::InitializeDebugManager()
     Assert(m_processDebugManager == nullptr);
     Assert(m_debugApplication == nullptr);
 
-    HRESULT hr = LoadPDM(&m_pdmPath, &m_processDebugManager);
+    HRESULT hr = LoadPDM(&m_hInstPdm, &m_processDebugManager);
     if (hr != S_OK)
     {
         wprintf(L"[FAILED] to load the PDM\n");

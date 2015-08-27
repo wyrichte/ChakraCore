@@ -19,6 +19,8 @@ FLAG ES6 = 1 - setting child flag ES6FunctionNameFull = 1
 FLAG ES6FunctionNameFull = 1
 FLAG ES6 = 1 - setting child flag ES6Generators = 1
 FLAG ES6Generators = 1
+FLAG ES6 = 1 - setting child flag ES7ExponentiationOperator = 1
+FLAG ES7ExponentiationOperator = 1
 FLAG ES6 = 1 - setting child flag ES6Iterators = 1
 FLAG ES6Iterators = 1
 FLAG ES6 = 1 - setting child flag ES6IsConcatSpreadable = 1

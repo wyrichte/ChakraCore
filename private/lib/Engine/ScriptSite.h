@@ -603,9 +603,9 @@ public:
 
     void ReParentToCaller(Js::Utf8SourceInfo* sourceInfo)
     {
-        if (sourceInfo && sourceInfo->HasScriptDebugDocument())
+        if (sourceInfo && sourceInfo->HasDebugDocument())
         {
-            ScriptDebugDocument* document = static_cast<ScriptDebugDocument*>(sourceInfo->GetScriptDebugDocument());
+            ScriptDebugDocument* document = static_cast<ScriptDebugDocument*>(sourceInfo->GetDebugDocument());
             document->ReParentToCaller();
         }
     }

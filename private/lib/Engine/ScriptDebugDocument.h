@@ -33,7 +33,7 @@ private:
 // In the debug mode, an instance will be created for each script block, even if the script block is host managed. (Which will help the CCodeContext to get it work done)
 // For non-host managed blocks (eg. Dynamic code), it will create a IDebugDocumentHelper and do the DefineScriptBlock and AddUnicodeText
 
-class ScriptDebugDocument sealed : public IUnknown, public Js::IScriptDebugDocument
+class ScriptDebugDocument sealed : public IUnknown, public Js::DebugDocument
 {
 public:
     ScriptDebugDocument(CScriptBody *pScriptBody, DWORD_PTR debugSourceContext);
@@ -50,7 +50,6 @@ public:
     HRESULT GetDocumentContext(ULONG uCharacterOffset, ULONG  uNumChars, IDebugDocumentContext **    ppDebugDocumentContext);
     DWORD_PTR GetDebugSourceCookie() const { return m_debugSourceCookie; }
 
-    // Js::IScriptDebugDocument
     void CloseDocument();
 
     void MarkForClose();
@@ -58,6 +57,12 @@ public:
     CScriptBody * GetScriptBody() const { return m_pScriptBody; }
     void GetFormattedTitle(LPCWSTR title, _Out_z_cap_(length) LPWSTR formattedTitle, int length);
     HRESULT DbgGetRootApplicationNode(IDebugApplicationNode **ppdan);
+
+    virtual bool HasDocumentText() const override;
+    virtual void SetDocumentText(void* document);
+    void* GetDocumentText() const override;
+    void QueryDocumentText(IDebugDocumentText** ppDebugDocumentText);
+
 private:
     HRESULT AddText();
     Js::ScriptContext * GetScriptContext() const;
@@ -70,6 +75,8 @@ private:
     CComPtr<IDebugDocumentHelper> m_debugDocHelper;
 
     CScriptBody *           m_pScriptBody;
+
+    void* m_documentText;    // A unique document ID, which debugger uses for the source file matching.
 
     // Populated from the IDebugDocuementHelper (When current source is not host managed)
     DWORD_PTR               m_debugSourceCookie;

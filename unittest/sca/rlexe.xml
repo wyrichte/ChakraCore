@@ -89,7 +89,7 @@
     <default>
       <files>sca_array.js</files>
       <baseline>sca_array.baseline</baseline>
-      <tags>Slow,Slow</tags>
+      <tags>Slow,exclude_nonrazzle</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>
@@ -103,7 +103,7 @@
       <files>sca_array.js</files>
       <compile-flags>-ForceES5Array</compile-flags>
       <baseline>sca_array.baseline</baseline>
-      <tags>Slow,Slow</tags>
+      <tags>Slow,exclude_nonrazzle</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>

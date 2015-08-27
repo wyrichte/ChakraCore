@@ -3,6 +3,22 @@
   <test>
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>AsyncAwait.js</files>
+      <baseline>AsyncAwait.baseline</baseline>
+      <compile-flags>-ES6Classes -ES7AsyncAwait -ES6Generators -nodeferparse</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <files>AsyncAwait.js</files>
+      <baseline>AsyncAwait.baseline</baseline>
+      <compile-flags>-ES6Classes -ES7AsyncAwait -ES6Generators -forcedeferparse</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>array.js</files>
       <baseline>array.baseline</baseline>
       <compile-flags>-es6-</compile-flags>

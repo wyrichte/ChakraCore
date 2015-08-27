@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
-  <PropertyGroup>     
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
     <USE_EXTERNAL_DEPENDENCIES>yes</USE_EXTERNAL_DEPENDENCIES>
   </PropertyGroup>
-  <PropertyGroup>   
+  <PropertyGroup>
     <!-- How do we deal with versioning here?? -->
     <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.5</PUBLIC_ROOT>
-    <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.1.0.2</RazzleToolPath>
-    <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.1.0.3</IELibPath>
+    <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.1.0.3</RazzleToolPath>
+    <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.1.0.4</IELibPath>
     <RazzleToolSdkIncDirectory>$(RazzleToolPath)\public\sdk\inc\</RazzleToolSdkIncDirectory>
-    
+
     <ObjectDirectory Condition="'$(Configuration)'=='Debug'">objchk\$(PlatformPathNameAlt)\</ObjectDirectory>
     <ObjectDirectory Condition="'$(Configuration)'!='Debug'">objfre\$(PlatformPathNameAlt)\</ObjectDirectory>
 
-    <ManifestsInboxIncludeDirectory>$(IELibPath)\manifests\inbox\$(ObjectDirectory)</ManifestsInboxIncludeDirectory>    
+    <ManifestsInboxIncludeDirectory>$(IELibPath)\manifests\inbox\$(ObjectDirectory)</ManifestsInboxIncludeDirectory>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>

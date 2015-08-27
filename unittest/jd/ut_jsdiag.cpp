@@ -3,6 +3,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 #include "activaut.h"
+#include <initguid.h>
 #include "guids.h"
 
 void EXT_CLASS::CreateDebugProcess(IJsDebugProcess** ppDebugProcess, bool debugMode) 

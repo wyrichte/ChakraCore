@@ -53,7 +53,7 @@ public:
     static void DisposeHelper(bool forceNull = false);
 
     Debugger                        *m_debugger; // The test debugger.
-    TCHAR                           *m_pdmPath;
+    HINSTANCE                       m_hInstPdm;
     CComPtr<IProcessDebugManager>   m_processDebugManager;
     CComPtr<IDebugApplication>      m_debugApplication;
     CComPtr<IHTMLDocument2>         m_htmlDocument;

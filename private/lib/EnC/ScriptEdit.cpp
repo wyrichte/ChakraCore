@@ -259,12 +259,20 @@ namespace Js
         {
             ScriptDiff* diff = m_scriptDiffs->Item(index);
 
-            diff->OldTree().GetUtf8SourceInfo()->QueryDocumentText(&result->oldDebugDocumentText);
-            if (diff->NewTree().GetUtf8SourceInfo()->HasDocumentText())
+            if (diff->OldTree().GetUtf8SourceInfo()->HasDebugDocument())
             {
-                diff->NewTree().GetUtf8SourceInfo()->QueryDocumentText(&result->newDebugDocumentText);
+                ((ScriptDebugDocument*)diff->OldTree().GetUtf8SourceInfo()->GetDebugDocument())->QueryDocumentText(&result->oldDebugDocumentText);
             }
+            
+            if (diff->NewTree().GetUtf8SourceInfo()->HasDebugDocument())
+            {
+                ScriptDebugDocument* newTreeScriptDebugDocument = (ScriptDebugDocument*)diff->NewTree().GetUtf8SourceInfo()->GetDebugDocument();
 
+                if (newTreeScriptDebugDocument->HasDocumentText())
+                {
+                    newTreeScriptDebugDocument->QueryDocumentText(&result->newDebugDocumentText);
+                }
+            }
             if (diff->NewTree().HasError())
             {
                 AutoCOMPtr<ActiveScriptError> activeScriptError;
@@ -326,8 +334,17 @@ namespace Js
             IfFailGo(E_INVALIDARG);
         }
 
-        const bool exists = m_scriptDiffs->MapUntil([=](int, ScriptDiff* diff) {
-            return diff->OldTree().GetUtf8SourceInfo()->GetDocumentText() == debugDocumentText;
+        const bool exists = m_scriptDiffs->MapUntil([=](int, ScriptDiff* diff)
+        {
+            if (diff->OldTree().GetUtf8SourceInfo()->HasDebugDocument())
+            {
+                ScriptDebugDocument* scriptDebugDocument = (ScriptDebugDocument*)diff->OldTree().GetUtf8SourceInfo()->GetDebugDocument();
+                if (scriptDebugDocument->GetDocumentText() == debugDocumentText)
+                {
+                    return true;
+                }
+            }
+            return false;
         });
         if (exists)
         {
@@ -337,9 +354,13 @@ namespace Js
         Utf8SourceInfo* requestUtf8SourceInfo = nullptr;
         m_scriptEngine->GetScriptContext()->MapScript([&](Utf8SourceInfo* utf8SourceInfo)
         {
-            if (utf8SourceInfo->HasDocumentText() && utf8SourceInfo->GetDocumentText() == debugDocumentText)
+            if (utf8SourceInfo->HasDebugDocument())
             {
-                requestUtf8SourceInfo = utf8SourceInfo;
+                ScriptDebugDocument* scriptDebugDocument = (ScriptDebugDocument*)utf8SourceInfo->GetDebugDocument();
+                if (scriptDebugDocument->HasDocumentText() && scriptDebugDocument->GetDocumentText() == debugDocumentText)
+                {
+                    requestUtf8SourceInfo = utf8SourceInfo;
+                }
                 //TODO: MapUntil
             }
         });

@@ -102,7 +102,12 @@ try{
 }catch(e){
     print(e);
 }
+
 print(function(global,imp){"use asm";var identity=imp.identity; function g(x) { x=+x; return +identity(x) } return g}(this,imp)(13.37));
+
+this.importUndef = function(a){ return undefined;};
+print(function(global,imp){"use asm"; var g = imp.importUndef; function f(x) { x=+x; return +g(x);} return f}(this,this)(13.37));
+print(function(global,imp){"use asm"; var g = imp.importUndef; function f(x) { x=+x; return g(x)|0;} return f}(this,this)(13.37));
 
 // asm.js link errors
 print(function(global,imp){"use asm"; var g = imp.doesntExist; function f(x) { x=+x; return +x;} return f}(this,{})(13.37));

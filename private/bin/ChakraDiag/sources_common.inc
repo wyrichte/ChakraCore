@@ -27,6 +27,7 @@ INCLUDES= \
    $(PROJECT_ROOT)\jscript\core\lib\common\memory; \
    $(PROJECT_ROOT)\jscript\core\lib\common\DataStructures; \
    $(PROJECT_ROOT)\jscript\core\lib\runtime; \
+   $(PROJECT_ROOT)\jscript\core\lib\runtime\debug; \
    $(PROJECT_ROOT)\jscript\core\lib\runtime\library; \
    $(PROJECT_ROOT)\jscript\core\lib\runtime\language; \
    $(PROJECT_ROOT)\jscript\core\lib\runtime\types; \

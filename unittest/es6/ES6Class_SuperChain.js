@@ -240,6 +240,18 @@ var tests = [
         }
     },
     {
+        name: "TypeError is thrown when trying to derive from a function which is not a constructor",
+        body: function () {
+            assert.throws(function () { class A extends JSON { }; }, TypeError, "JSON object does not have an internal Construct slot", "Function is not a constructor");
+            assert.throws(function () { class A extends Math { }; }, TypeError, "Math object does not have an internal Construct slot", "Function is not a constructor");
+
+            function* gf(a) { yield 1 + a + this.a; }
+            assert.throws(function () { class A extends gf { } }, TypeError, "Class deriving from a generator function throws TypeError", "Function is not a constructor");
+
+            assert.throws(function () { class A extends (a) => a {} }, TypeError, "Class deriving from a lambda throws TypeError", "Function is not a constructor");
+        }
+    },
+    {
         name: "Derived class returning undefined, returns 'this' instead",
         body: function () {
             class ImplicitReturnUndefinedNotInitializedThis extends SimpleParent {
@@ -707,6 +719,590 @@ var tests = [
             };
             
             assert.throws(function() { new DerivedClassWithThisScopeCaptureNoAccessExplicitReturn(); }, ReferenceError, "When super isn't called, this is undecl", "Use before declaration");
+        }
+    },
+    {
+        name: "Derived class with super call inside an eval",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    eval('super();');
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class with super call inside an eval which accesses this",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    eval('super(); this.bar = "SuperCallInEvalClass";');
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass', result.bar, "Class derived from SimpleParent can return an object safely");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class with super call inside an eval which accesses new.target",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    eval('assert.areEqual(new.target, SuperCallInEvalClass, "new.target === SuperCallInEvalClass"); super();');
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class with super call inside an eval which accesses new.target and this",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    eval('assert.areEqual(new.target, SuperCallInEvalClass); super(); this.bar = "SuperCallInEvalClass";');
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class with super call inside an eval access to this inside eval and constructor",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    eval('super(); this.bar = "SuperCallInEvalClass";');
+                    this.baz = "SuperCallInEvalClass_ctor";
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass'");
+            assert.areEqual('SuperCallInEvalClass_ctor', result.baz, "Result object has derived field baz set to 'SuperCallInEvalClass_ctor'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class 'this' access inside an eval",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    super();
+                    eval('this.bar = "SuperCallInEvalClass";');
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class 'this' access inside and outside an eval",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    super();
+                    eval('this.bar = "SuperCallInEvalClass";');
+                    this.baz = "SuperCallInEvalClass_ctor";
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass'");
+            assert.areEqual('SuperCallInEvalClass_ctor', result.baz, "Result object has derived field baz set to 'SuperCallInEvalClass_ctor'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class super call inside an eval with an unused arrow super call",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    let arrow = () => { super(); }
+                    eval('super(); this.bar = "SuperCallInEvalClass";');
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class super call inside an arrow with this access in an eval",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    let arrow = () => { super(); }
+                    arrow();
+                    eval('this.bar = "SuperCallInEvalClass";');
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class super call inside an arrow accessing new.target with this access in an eval",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    let arrow = () => { 
+                        assert.areEqual(SuperCallInEvalClass, new.target, "SuperCallInEvalClass === new.target");
+                        super(); 
+                    }
+                    arrow();
+                    eval('this.bar = "SuperCallInEvalClass";');
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class with arrow and eval accessing new.target, this - super in the arrow",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    let arrow = () => { 
+                        assert.areEqual(SuperCallInEvalClass, new.target, "SuperCallInEvalClass === new.target");
+                        super(); 
+                        this.baz = "SuperCallInEvalClass_arrow";
+                    }
+                    arrow();
+                    eval('assert.areEqual(SuperCallInEvalClass, new.target, "SuperCallInEvalClass === new.target"); this.bar = "SuperCallInEvalClass";');
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass'");
+            assert.areEqual('SuperCallInEvalClass_arrow', result.baz, "Result object has derived field baz set to 'SuperCallInEvalClass_arrow'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class with arrow and eval accessing new.target, this - super in the eval",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    let arrow = () => { 
+                        assert.areEqual(SuperCallInEvalClass, new.target, "SuperCallInEvalClass === new.target");
+                        this.baz = "SuperCallInEvalClass_arrow";
+                    }
+                    eval('assert.areEqual(SuperCallInEvalClass, new.target, "SuperCallInEvalClass === new.target"); super(); this.bar = "SuperCallInEvalClass";');
+                    arrow();
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass'");
+            assert.areEqual('SuperCallInEvalClass_arrow', result.baz, "Result object has derived field baz set to 'SuperCallInEvalClass_arrow'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class with arrow and multiple evals accessing new.target, this - super in the eval",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    eval('assert.areEqual(SuperCallInEvalClass, new.target, "SuperCallInEvalClass === new.target");');
+                    let arrow = () => { 
+                        assert.areEqual(SuperCallInEvalClass, new.target, "SuperCallInEvalClass === new.target");
+                        this.baz = "SuperCallInEvalClass_arrow";
+                    }
+                    eval('super();');
+                    arrow();
+                    eval('this.bar = "SuperCallInEvalClass";');
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass'");
+            assert.areEqual('SuperCallInEvalClass_arrow', result.baz, "Result object has derived field baz set to 'SuperCallInEvalClass_arrow'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class testing all arrow/eval scenarios together",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor(callSuperInCtor, callSuperInLambda, callSuperInEval) {
+                    assert.areEqual(SuperCallInEvalClass, new.target, "SuperCallInEvalClass === new.target");
+                    eval('assert.areEqual(SuperCallInEvalClass, new.target, "SuperCallInEvalClass === new.target");');
+                    
+                    let arrow_pre = () => { 
+                        assert.areEqual(SuperCallInEvalClass, new.target, "SuperCallInEvalClass === new.target");
+                    }
+                    let arrow_post = () => {
+                        this.baz = "SuperCallInEvalClass_arrow";
+                    }
+                    let arrow_super = () => {
+                        super();
+                    }
+                    
+                    arrow_pre();
+                    if (callSuperInCtor) {
+                        super();
+                    }
+                    if (callSuperInLambda) {
+                        arrow_super();
+                    }
+                    if (callSuperInEval) {
+                        eval('super();');
+                    }
+                    
+                    arrow_post();
+                    eval('this.bar = "SuperCallInEvalClass_eval";');
+                    this.bot = 'SuperCallInEvalClass_ctor';
+                }
+            };
+            
+            function verifyObj(result) {
+                assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+                assert.areEqual('SuperCallInEvalClass_eval', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass_eval'");
+                assert.areEqual('SuperCallInEvalClass_arrow', result.baz, "Result object has derived field baz set to 'SuperCallInEvalClass_arrow'");
+                assert.areEqual('SuperCallInEvalClass_ctor', result.bot, "Result object has derived field bot set to 'SuperCallInEvalClass_ctor'");
+                assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+                assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+            }
+            
+            verifyObj(new SuperCallInEvalClass(true,false,false));
+            verifyObj(new SuperCallInEvalClass(false,true,false));
+            verifyObj(new SuperCallInEvalClass(false,false,true));
+            
+            assert.throws(function() { new SuperCallInEvalClass(false,false,false); }, ReferenceError, "Not calling super at all will cause a ReferenceError", "Use before declaration");
+            assert.throws(function() { new SuperCallInEvalClass(true,true,false); }, ReferenceError, "Calling super in the ctor and a lambda throws a ReferenceError", "Multiple calls to 'super' in a class constructor are not allowed");
+            assert.throws(function() { new SuperCallInEvalClass(true,false,true); }, ReferenceError, "Calling super in the ctor and eval throws a ReferenceError", "Multiple calls to 'super' in a class constructor are not allowed");
+            assert.throws(function() { new SuperCallInEvalClass(false,true,true); }, ReferenceError, "Calling super in a lambda and eval throws a ReferenceError", "Multiple calls to 'super' in a class constructor are not allowed");
+        }
+    },
+    {
+        name: "Chained derived constructors performing super calls",
+        body: function () {
+            class DerivedClassUsingSuperInEval extends SimpleParent {
+                constructor() {
+                    eval('super();');
+                }
+            };
+            class DerivedClassUsingSuperInArrow extends DerivedClassUsingSuperInEval {
+                constructor() {
+                    let arrow = () => { super(); }
+                    arrow();
+                }
+            };
+            class DerivedClassUsingDefaultConstructor extends DerivedClassUsingSuperInArrow {
+                
+            }
+            class BottomLevelDerivedClass extends DerivedClassUsingDefaultConstructor {
+                constructor() {
+                    super();
+                }
+            };
+            
+            var result = new BottomLevelDerivedClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof DerivedClassUsingSuperInEval, "Result object is instanceof derived class");
+            assert.isTrue(result instanceof DerivedClassUsingSuperInArrow, "Result object is instanceof derived class");
+            assert.isTrue(result instanceof DerivedClassUsingDefaultConstructor, "Result object is instanceof derived class");
+            assert.isTrue(result instanceof BottomLevelDerivedClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class with nested evals performing super",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    var inner = "SuperCallInEvalClass_inner_eval";
+                    var outer = "SuperCallInEvalClass_outer_eval";
+                    eval('eval("super(); this.bar = inner;"); this.baz = outer;');
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass_inner_eval', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass_inner_eval'");
+            assert.areEqual('SuperCallInEvalClass_outer_eval', result.baz, "Result object has derived field baz set to 'SuperCallInEvalClass_outer_eval'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class with eval in arrow performing super",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    var inner = "SuperCallInEvalClass_inner_eval";
+                    var outer = "SuperCallInEvalClass_outer_eval";
+                    var arrow = () => {
+                        eval("super(); this.bar = inner;");
+                        this.baz = outer;
+                    };
+                    arrow();
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass_inner_eval', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass_inner_eval'");
+            assert.areEqual('SuperCallInEvalClass_outer_eval', result.baz, "Result object has derived field baz set to 'SuperCallInEvalClass_outer_eval'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class with nested eval in arrow performing super",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    var inner = "SuperCallInEvalClass_inner_eval";
+                    var outer = "SuperCallInEvalClass_outer_eval";
+                    var arrow = () => {
+                        eval(`eval("super(); this.bar = inner;");`);
+                        this.baz = outer;
+                    };
+                    arrow();
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass_inner_eval', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass_inner_eval'");
+            assert.areEqual('SuperCallInEvalClass_outer_eval', result.baz, "Result object has derived field baz set to 'SuperCallInEvalClass_outer_eval'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    {
+        name: "Derived class with nested eval nested in arrow performing super",
+        body: function () {
+            class SuperCallInEvalClass extends SimpleParent {
+                constructor() {
+                    var inner = "SuperCallInEvalClass_inner_eval";
+                    var outer = "SuperCallInEvalClass_outer_eval";
+                    var arrow = () => {
+                        eval(`eval("super(); this.bar = inner;");`);
+                        this.baz = outer;
+                    };
+                    var exec_arrow = () => {
+                        arrow();
+                    };
+                    exec_arrow();
+                }
+            };
+            
+            var result = new SuperCallInEvalClass();
+            
+            assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            assert.areEqual('SuperCallInEvalClass_inner_eval', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass_inner_eval'");
+            assert.areEqual('SuperCallInEvalClass_outer_eval', result.baz, "Result object has derived field baz set to 'SuperCallInEvalClass_outer_eval'");
+            assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        }
+    },
+    // TODO (MSFT:4275923) : Enable this test case when arrow functions nested in eval are able to call super
+    // {
+        // name: "Derived class with arrow in eval performing super",
+        // body: function () {
+            // class SuperCallInEvalClass extends SimpleParent {
+                // constructor() {
+                    // var inner = "SuperCallInEvalClass_inner_eval";
+                    // var outer = "SuperCallInEvalClass_outer_eval";
+                    // eval('(()=>{super(); this.bar = inner;})(); this.baz = outer;');
+                // }
+            // };
+            
+            // var result = new SuperCallInEvalClass();
+            
+            // assert.areEqual('SimpleParent', result.foo, "Class derived from SimpleParent has foo field set to 'SimpleParent'");
+            // assert.areEqual('SuperCallInEvalClass_inner_eval', result.bar, "Result object has derived field bar set to 'SuperCallInEvalClass_inner_eval'");
+            // assert.areEqual('SuperCallInEvalClass_outer_eval', result.baz, "Result object has derived field baz set to 'SuperCallInEvalClass_outer_eval'");
+            // assert.isTrue(result instanceof SimpleParent, "Result object is instanceof base class");
+            // assert.isTrue(result instanceof SuperCallInEvalClass, "Result object is instanceof derived class");
+        // }
+    // },
+    {
+        name: "Eval class hierarchy with super call",
+        body: function () {
+            let result = eval(`
+                class EvalSimpleParent {
+                    constructor() {
+                        this.foo = "EvalSimpleParent";
+                    }
+                };
+                class EvalDerivedClass extends EvalSimpleParent {
+                    constructor() {
+                        super();
+                        this.bar = "EvalDerivedClass";
+                    }
+                };
+                var o = new EvalDerivedClass();
+                
+                assert.isTrue(o instanceof EvalSimpleParent, "Result object is instanceof base class");
+                assert.isTrue(o instanceof EvalDerivedClass, "Result object is instanceof derived class");
+
+                o;
+            `);
+            
+            assert.areEqual('EvalSimpleParent', result.foo, "Class derived from EvalSimpleParent has foo field set to 'EvalSimpleParent'");
+            assert.areEqual('EvalDerivedClass', result.bar, "Result object has derived field bar set to 'EvalDerivedClass'");
+        }
+    },
+    {
+        name: "Eval class hierarchy with super call inside arrow function",
+        body: function () {
+            let result = eval(`
+                class EvalSimpleParent {
+                    constructor() {
+                        this.foo = "EvalSimpleParent";
+                    }
+                };
+                class EvalDerivedClass extends EvalSimpleParent {
+                    constructor() {
+                        var inner = "EvalDerivedClass_inner";
+                        var outer = "EvalDerivedClass_outer";
+                        var arrow = () => {
+                            super();
+                            this.baz = inner;
+                        };
+                        arrow();
+                        this.bar = outer;
+                    }
+                };
+                var o = new EvalDerivedClass();
+                
+                assert.isTrue(o instanceof EvalSimpleParent, "Result object is instanceof base class");
+                assert.isTrue(o instanceof EvalDerivedClass, "Result object is instanceof derived class");
+
+                o;
+            `);
+            
+            assert.areEqual('EvalSimpleParent', result.foo, "Class derived from EvalSimpleParent has foo field set to 'EvalSimpleParent'");
+            assert.areEqual('EvalDerivedClass_outer', result.bar, "Result object has derived field bar set to 'EvalDerivedClass_outer'");
+            assert.areEqual('EvalDerivedClass_inner', result.baz, "Result object has derived field baz set to 'EvalDerivedClass_inner'");
+        }
+    },
+    {
+        name: "Eval class hierarchy with super call inside nested eval",
+        body: function () {
+            let result = eval(`
+                class EvalSimpleParent {
+                    constructor() {
+                        this.foo = "EvalSimpleParent";
+                    }
+                };
+                class EvalDerivedClass extends EvalSimpleParent {
+                    constructor() {
+                        var inner = "EvalDerivedClass_inner";
+                        var outer = "EvalDerivedClass_outer";
+                        eval('super(); this.bar = inner;');
+                        this.baz = outer;
+                    }
+                };
+                var o = new EvalDerivedClass();
+                
+                assert.isTrue(o instanceof EvalSimpleParent, "Result object is instanceof base class");
+                assert.isTrue(o instanceof EvalDerivedClass, "Result object is instanceof derived class");
+
+                o;
+            `);
+            
+            assert.areEqual('EvalSimpleParent', result.foo, "Class derived from EvalSimpleParent has foo field set to 'EvalSimpleParent'");
+            assert.areEqual('EvalDerivedClass_inner', result.bar, "Result object has derived field bar set to 'EvalDerivedClass_inner'");
+            assert.areEqual('EvalDerivedClass_outer', result.baz, "Result object has derived field baz set to 'EvalDerivedClass_outer'");
+        }
+    },
+    {
+        name: "Eval class hierarchy with super call inside eval inside arrow function",
+        body: function () {
+            let result = eval(`
+                class EvalSimpleParent {
+                    constructor() {
+                        this.foo = "EvalSimpleParent";
+                    }
+                };
+                class EvalDerivedClass extends EvalSimpleParent {
+                    constructor() {
+                        var moreinner = "EvalDerivedClass_moreinner";
+                        var inner = "EvalDerivedClass_inner";
+                        var outer = "EvalDerivedClass_outer";
+                        var arrow = () => {
+                            eval('super(); this.bat = moreinner;');
+                            this.baz = inner;
+                        };
+                        arrow();
+                        this.bar = outer;
+                    }
+                };
+                var o = new EvalDerivedClass();
+                
+                assert.isTrue(o instanceof EvalSimpleParent, "Result object is instanceof base class");
+                assert.isTrue(o instanceof EvalDerivedClass, "Result object is instanceof derived class");
+
+                o;
+            `);
+            
+            assert.areEqual('EvalSimpleParent', result.foo, "Class derived from EvalSimpleParent has foo field set to 'EvalSimpleParent'");
+            assert.areEqual('EvalDerivedClass_outer', result.bar, "Result object has derived field bar set to 'EvalDerivedClass_outer'");
+            assert.areEqual('EvalDerivedClass_inner', result.baz, "Result object has derived field baz set to 'EvalDerivedClass_inner'");
+            assert.areEqual('EvalDerivedClass_moreinner', result.bat, "Result object has derived field bat set to 'EvalDerivedClass_moreinner'");
         }
     },
 ];

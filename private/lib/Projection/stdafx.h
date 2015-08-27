@@ -39,7 +39,6 @@
 #include "codectx.h"
 #include "scpnode.h"
 
-#include "breakpointProbe.h"
 #include "ScriptDebugDocument.h"
 
 #ifdef ENABLE_PROJECTION

@@ -405,6 +405,14 @@ function test22(){
     print('done test22');
 }
 
+// Verify that Object.setPrototype takes null as newPrototype value
+function test23() 
+{
+   var proxy = new Proxy(function() {}, {});
+   Object.setPrototypeOf(proxy, null);
+   print('test23 done.');
+}
+
 test0();
 test1();
 test2();
@@ -428,3 +436,4 @@ test19();
 test20();
 test21();
 test22();
+test23();

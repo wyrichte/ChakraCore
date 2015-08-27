@@ -83,4 +83,6 @@ PASSED
 PASSED
 *** Running test #24 (23): Class methods cannot be called as constructors
 PASSED
-Summary of tests: total executed: 24; passed: 24; failed: 0
+*** Running test #25 (24): Class static member cannot have computed name 'prototype'
+PASSED
+Summary of tests: total executed: 25; passed: 25; failed: 0

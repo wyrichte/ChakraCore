@@ -2086,7 +2086,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateTypedArray(
 
     if (baseVar == nullptr)
     {
-        values[1] = Js::JavascriptNumber::ToVar(length, scriptContext);
+        BEGIN_TRANSLATE_OOM_TO_HRESULT
+        {
+            values[1] = Js::JavascriptNumber::ToVar(length, scriptContext);
+        }
+        END_TRANSLATE_OOM_TO_HRESULT(hr)
     }
     Js::CallInfo info(Js::CallFlags_Value, 2);
 

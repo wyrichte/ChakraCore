@@ -445,6 +445,15 @@ function runJsrtUnitTests(binaryRoot)
         binaryRoot = Env("_NTTREE") + "\\jscript";
     }
     var args = arguments;
+
+    var scriptsSourceFolder = Env("sdxroot") + "\\inetcore\\jscript\\unittest\\jsrt\\scripts";
+    var scriptsDestFolder = binaryRoot + "\\jsrt\\unittest";
+    
+     // Making the current folder writable so that FSOCopyFolder will not fail.
+    FSOMakeWriteable(scriptsDestFolder);
+    WScript.Echo("copying scripts from : " + scriptsSourceFolder + " to : " + scriptsDestFolder);
+    FSOCopyFolder(scriptsSourceFolder, scriptsDestFolder, true);
+
     var testPath = binaryRoot + "\\jsrt\\unittest\\";
     WScript.Echo("testPath: " + testPath + "\n");
     var testList = testPath + "UnitTest.JsRT.API.dll ";

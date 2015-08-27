@@ -8,44 +8,50 @@ var tests = [
     {
         name: "Async keyword with a lambda expressions",
         body: function (index) {
-//             var x = 12;
-//             var y = 14;
-//             var lambdaParenNoArg = async() => x < y;
-//             var lambdaSingleArgNoParen = async x => x;
-//             var lambdaSingleArg = async(x) => x;
-//             var lambdaArgs = async(a, b, c) => a + b + c;
-// 
-//             lambdaParenNoArg().then(result => {
-//                 echo(`Test #${index} - Success lambda expression #1 called with result = '${result}'`);
-//             }, err => {
-//                 echo(`Test #${index} - Error lambda expression #1 called with err = ${err}`);
-//             }).catch(err => {
-//                 echo(`Test #${index} - Catch lambda expression #1 called with err = ${err}`);
-//             });
-// 
-//             lambdaSingleArgNoParen(12).then(result => {
-//                 echo(`Test #${index} - Success lambda expression #2 called with result = '${result}'`);
-//             }, err => {
-//                 echo(`Test #${index} - Error lambda expression #2 called with err = ${err}`);
-//             }).catch(err => {
-//                 echo(`Test #${index} - Catch lambda expression #2 called with err = ${err}`);
-//             });
-// 
-//             lambdaSingleArg(12).then(result => {
-//                 echo(`Test #${index} - Success lambda expression #3 called with result = '${result}'`);
-//             }, err => {
-//                 echo(`Test #${index} - Error lambda expression #3 called with err = ${err}`);
-//             }).catch(err => {
-//                 echo(`Test #${index} - Catch lambda expression #3 called with err = ${err}`);
-//             });
-// 
-//             lambdaArgs(10, 20, 30).then(result => {
-//                 echo(`Test #${index} - Success lambda expression #4 called with result = '${result}'`);
-//             }, err => {
-//                 echo(`Test #${index} - Error lambda expression #4 called with err = ${err}`);
-//             }).catch(err => {
-//                 echo(`Test #${index} - Catch lambda expression #4 called with err = ${err}`);
-//             });
+            var x = 12;
+            var y = 14;
+            var lambdaParenNoArg = async() => x < y;
+            var lambdaArgs = async(a, b, c) => a + b + c;
+
+            lambdaParenNoArg().then(result => {
+                echo(`Test #${index} - Success lambda expression with no argument called with result = '${result}'`);
+            }, err => {
+                echo(`Test #${index} - Error lambda expression with no argument called with err = ${err}`);
+            }).catch(err => {
+                echo(`Test #${index} - Catch lambda expression with no argument called with err = ${err}`);
+            });
+
+            lambdaArgs(10, 20, 30).then(result => {
+                echo(`Test #${index} - Success lambda expression with several arguments called with result = '${result}'`);
+            }, err => {
+                echo(`Test #${index} - Error lambda expression with several arguments called with err = ${err}`);
+            }).catch(err => {
+                echo(`Test #${index} - Catch lambda expression with several arguments called with err = ${err}`);
+            });
+        }
+    },
+    {
+        name: "Async keyword with a lambda expressions and local variable captured and shadowed",
+        body: function (index) {
+            var x = 12;
+            var lambdaSingleArgNoParen = async x => x;
+            var lambdaSingleArg = async(x) => x;
+
+            lambdaSingleArgNoParen(x).then(result => {
+                echo(`Test #${index} - Success lambda expression with single argument and no paren called with result = '${result}'`);
+            }, err => {
+                echo(`Test #${index} - Error lambda expression with single argument and no paren called with err = ${err}`);
+            }).catch(err => {
+                echo(`Test #${index} - Catch lambda expression with single argument and no paren called with err = ${err}`);
+            });
+
+            lambdaSingleArg(x).then(result => {
+                echo(`Test #${index} - Success lambda expression with a single argument a called with result = '${result}'`);
+            }, err => {
+                echo(`Test #${index} - Error lambda expression with a single argument called with err = ${err}`);
+            }).catch(err => {
+                echo(`Test #${index} - Catch lambda expression with a single argument called with err = ${err}`);
+            });
         }
     },
     {
@@ -295,34 +301,34 @@ var tests = [
     {
         name: "Await keyword with a lambda expressions",
         body: function (index) {
-//             {
-//                 async function asyncMethod(x, y, z) {
-//                     var lambdaExp = async(a, b, c) => a * b * c; 
-//                     var lambdaResult = await lambdaExp(x, y, z);
-//                     return lambdaResult;
-//                 }
-// 
-//                 asyncMethod(5, 5, 5).then(result => {
-//                     echo(`Test #${index} - Success await keyword with a lambda expressions #1 called with result = '${result}'`);
-//                 }, err => {
-//                     echo(`Test #${index} - Error await keyword with a lambda expressions #1 called with err = ${err}`);
-//                 }).catch(err => {
-//                     echo(`Test #${index} - Catch await keyword with a lambda expressions #1 called with err = ${err}`);
-//                 });
-//             };
-//             {
-//                 async function await(lambda, x, y, z) {
-//                     return await lambda(x, y, z);
-//                 }
-// 
-//                 await(async(a, b, c) => a + b + c, 10, 20, 30).then(result => {
-//                     echo(`Test #${index} - Success await keyword with a lambda expressions #1 called with result = '${result}'`);
-//                 }, err => {
-//                     echo(`Test #${index} - Error await keyword with a lambda expressions #1 called with err = ${err}`);
-//                 }).catch(err => {
-//                     echo(`Test #${index} - Catch await keyword with a lambda expressions #1 called with err = ${err}`);
-//                 });
-//             };
+            {
+                async function asyncMethod(x, y, z) {
+                    var lambdaExp = async(a, b, c) => a * b * c; 
+                    var lambdaResult = await lambdaExp(x, y, z);
+                    return lambdaResult;
+                }
+
+                asyncMethod(5, 5, 5).then(result => {
+                    echo(`Test #${index} - Success await keyword with a lambda expressions #1 called with result = '${result}'`);
+                }, err => {
+                    echo(`Test #${index} - Error await keyword with a lambda expressions #1 called with err = ${err}`);
+                }).catch(err => {
+                    echo(`Test #${index} - Catch await keyword with a lambda expressions #1 called with err = ${err}`);
+                });
+            };
+            {
+                async function await(lambda, x, y, z) {
+                    return await lambda(x, y, z);
+                }
+
+                await(async(a, b, c) => a + b + c, 10, 20, 30).then(result => {
+                    echo(`Test #${index} - Success await keyword with a lambda expressions #1 called with result = '${result}'`);
+                }, err => {
+                    echo(`Test #${index} - Error await keyword with a lambda expressions #1 called with err = ${err}`);
+                }).catch(err => {
+                    echo(`Test #${index} - Catch await keyword with a lambda expressions #1 called with err = ${err}`);
+                });
+            };
         }
     },
 ];

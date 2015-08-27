@@ -11,6 +11,7 @@ class SourceContextInfo;                // Used in Utf8SourceInfo.h
 namespace Js
 {
     // TODO: consider extracting and pulling enums (instead of forward), as changing their underlying type may break us.
+    class DebugDocument;                    // Used by Utf8SourceInfo.h
     struct Utf8SourceInfo;                  // Used by FunctionBody.h
     class RecyclableObject;                 // Used by RuntimeCommon.h
     struct CallInfo;                        // Used by RuntimeCommon.h
@@ -444,4 +445,8 @@ namespace Projection
 #include "JSONString.h"
 #include "CharClassifier.h"
 #include "WithScopeObject.h"
+#include "BreakpointProbe.h"                // Used by DebugDocument.h
+#include "DebugDocument.h"                  // Used by ScriptDebugDocument.h
+#include "scrpting.h"                       // Used by ScriptDebugDocument.h
+#include "ScriptDebugDocument.h"            // Used by DAC.h
 

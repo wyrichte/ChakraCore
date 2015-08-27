@@ -33,7 +33,7 @@
         $(ChakraRootDirectory)private\lib\Engine;
         $(ChakraRootDirectory)private\bin\ChakraDiag;
         $(IntDir);
-        $(ChakraRootDirectory)private\lib\HostCommon;        
+        $(ChakraRootDirectory)private\lib\HostCommon;
         $(ChakraInternalIDLIntDir);
         $(ChakraRootDirectory)private\Lib\MemProtectHeap;
         $(ChakraRootDirectory)private\lib\SCALookup;
@@ -103,6 +103,9 @@
         $(SdkLibPath)\advapi32.lib
       </AdditionalDependencies>
     </Link>
+    <PostBuildEvent Condition="'$(BuildingWithBuildExe)'!='true'">
+      <Command Condition="'$(Configuration)'!='Release'">"$(ProjectDir)postbuild.cmd" $(PlatformTarget) "$(OutputPath)" "$(IELibPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <!-- Razzle binplace -->
   <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true'">

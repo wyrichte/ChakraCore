@@ -104,6 +104,16 @@ var tests = [
             assert.doesNotThrow(function () { eval("function f() { class C { *await() { } } }"); }, "Can name generator method 'await' in non-generator body");
         }
     },
+    {
+        name: "Async function is not a constructor",
+        body: function () {
+            async function foo() { }
+
+            assert.isFalse(foo.hasOwnProperty('prototype'), "An async function does not have a property named 'prototype'.");
+
+            assert.throws(function () { eval("new foo();"); }, TypeError, "An async function cannot be instantiated because it is not have a constructor.", "Function is not a constructor");
+        }
+    },
 ];
 
 testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });

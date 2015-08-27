@@ -54,7 +54,6 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)activescripterror.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ActiveScriptProfilerHeapEnum.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)AttrParser.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)breakpointProbe.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)caller.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)CJavascriptOperations.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)classfac.cpp" />
@@ -138,7 +137,6 @@
     <ClInclude Include="ActiveScriptProfilerHeapEnum.h" />
     <ClInclude Include="ad1ex.h" />
     <ClInclude Include="AttrParser.h" />
-    <ClInclude Include="breakpointProbe.h" />
     <ClInclude Include="builtinoperations.h" />
     <ClInclude Include="caller.h" />
     <ClInclude Include="CJavascriptOperations.h" />

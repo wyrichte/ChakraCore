@@ -22,6 +22,8 @@ Successfully compiled asm.js code
 Successfully compiled asm.js code
 Successfully compiled asm.js code
 Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
 23
 undefined
 1
@@ -61,6 +63,8 @@ number
 10.4
 38.4
 13.37
+NaN
+0
 Asm.js Runtime Error : Foreign function import doesntExist is not a function
 asm.js linking failed.
 13.37

@@ -221,7 +221,7 @@ namespace Projection
     }
     CUnknownMethodNoErrorImpl_Epilog()
 
-#if _M_AMD64 || defined(_M_ARM)
+#if _M_AMD64 || defined(_M_ARM) || defined (_M_ARM64)
     // CallIndirect which calls the method based on method id
     HRESULT __stdcall CUnknownImpl::CallIndirect(ULONG iMethod, __in_bcount(*pcbArgs) void* pvArgs, ULONG* pcbArgs)
     {

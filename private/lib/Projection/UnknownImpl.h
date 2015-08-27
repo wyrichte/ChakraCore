@@ -34,7 +34,7 @@ namespace Projection
         // VTable for this object
         const PFN_VTABLE_ENTRY* m_pvtbl;
 
-#if _M_AMD64 || defined(_M_ARM)
+#if _M_AMD64 || defined(_M_ARM) || defined(_M_ARM64)
         // CallIndirect which calls the method based on method id
         virtual HRESULT __stdcall CallIndirect(ULONG iMethod, __in_bcount(*pcbArgs) void* pvArgs, ULONG* pcbArgs);
 #endif

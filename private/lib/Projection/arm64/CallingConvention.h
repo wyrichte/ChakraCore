@@ -55,7 +55,7 @@ struct ApcsCallLayout
     byte* GetParameterLocation(const ParameterLocation* loc);
 
     // Allocate data for registers and stack.
-    void ApcsCallLayout::AllocateData(ArenaAllocator* alloc, int generalRegisterCount, int usedFloatRegisterMask, int stackSize);
+    void ApcsCallLayout::AllocateData(ArenaAllocator* alloc, int generalRegisterCount, int floatRegisterCount, int stackSize);
 };
 
 // Helper to determine placement of next parameter (registers/stack) and register/stack usage so far.

@@ -7,7 +7,6 @@ PASS_INDEPENDENT_BINPLACE=\
   ..\Array\Taef_Unit_Array.xml \
   ..\AsyncDebug\Taef_Unit_AsyncDebug.xml \
   ..\bailout\Taef_Unit_bailout.xml \
-  ..\Basics\Taef_Unit_Basics.xml \
   ..\Boolean\Taef_Unit_Boolean.xml \
   ..\Bugs\Taef_Unit_Bugs.xml \
   ..\Closures\Taef_Unit_Closures.xml \
@@ -18,9 +17,7 @@ PASS_INDEPENDENT_BINPLACE=\
   ..\Debugger\Taef_Unit_Debugger.xml \
   ..\DebuggerQA\Taef_Unit_DebuggerQA.xml \
   ..\DynamicCode\Taef_Unit_DynamicCode.xml \
-  ..\eh\Taef_Unit_EH.xml \
   ..\Error\Taef_Unit_Error.xml \
-  ..\es5\Taef_Unit_es5.xml \
   ..\es6\Taef_Unit_es6.xml \
   ..\fieldopts\Taef_Unit_fieldopts.xml \
   ..\FixedFields\Taef_Unit_FixedFields.xml \
@@ -67,7 +64,6 @@ PASS_INDEPENDENT_BINPLACE=\
   ..\UnifiedRegex\Taef_Unit_UnifiedRegex.xml \
   ..\utf8\Taef_Unit_Utf8.xml \
   ..\V8\Taef_Unit_V8.xml \
-  ..\V8_Functionality\Taef_Unit_V8_Functionality.xml \
   ..\VT_DATE\Taef_Unit_VT_DATE.xml \
   ..\AsmJs\Taef_Unit_AsmJs.xml \
   ..\AsmJSFloat\Taef_Unit_AsmJsFloat.xml \

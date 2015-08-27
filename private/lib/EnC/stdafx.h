@@ -21,7 +21,6 @@
 #include "activscp_private.h"
 #include "scrutil.h"
 #include "NamedItemList.h"
-#include "breakpointProbe.h"
 #include "scrpting.h"
 
 #if _WIN64
@@ -36,6 +35,7 @@ typedef IDebugApplicationThread IDebugBitCorrectApplicationThread;
 #ifdef EDIT_AND_CONTINUE
 #include "pnodediff.h"
 #include "ParseTreeComparer.h"
+#include "ScriptDebugDocument.h"
 #include "SemanticChange.h"
 #include "ScriptEdit.h"
 #include "EditTest.h"

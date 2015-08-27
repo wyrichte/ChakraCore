@@ -1534,10 +1534,9 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename)
                 // This engine will be freed earlier than shutdown to ensure there is no sharing memory between threadcontexts
                 hr = CreateNewEngine(newThread, &scriptSite, /*freeAtShutdown*/false, false/*actAsDiagnosticsHost*/, true /* always primary engine */, 0);
                 
-                DWORD_PTR dwSourceCookie = scriptSite->AddUrl(fullpath);
-
                 if (SUCCEEDED(hr))
                 {
+                    DWORD_PTR dwSourceCookie = scriptSite->AddUrl(fullpath);
                     Assert(isUtf8);
                     hr = WriteByteCodes(newThread, scriptSite, lengthBytes, (BYTE*)contentsRaw, dwSourceCookie, bcFullPath);
                 }

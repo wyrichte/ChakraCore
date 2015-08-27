@@ -412,9 +412,9 @@ HRESULT ActiveScriptError::CreateCompileError(const SRCINFO * psi, CompileScript
     
     if(sourceInfo)
     {
-        if(sourceInfo->HasScriptDebugDocument())
+        if (sourceInfo->HasDebugDocument())
         {
-           pase->m_scriptDebugDocument = static_cast<ScriptDebugDocument*>(sourceInfo->GetScriptDebugDocument());
+            pase->m_scriptDebugDocument = static_cast<ScriptDebugDocument*>(sourceInfo->GetDebugDocument());
         }
     }
 

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>RazzleTools</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <authors>hiteshk</authors>
     <owners>hiteshk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -39,5 +39,14 @@
 
     <file src="tools\x86\rcdll.dll" target="x86" />
     <file src="tools\amd64\rcdll.dll" target="amd64" />
+
+    <!-- Needed for running JSRT TAEF tests -->
+    <file src="tools\x86\te.*" target="x86" />
+    <file src="tools\amd64\te.*" target="amd64" />
+    <file src="tools\arm\te.*" target="arm" />
+
+    <file src="tools\x86\Wex.*" target="x86" />
+    <file src="tools\amd64\Wex.*" target="amd64" />
+    <file src="tools\arm\Wex.*" target="arm" />
   </files>
 </package>

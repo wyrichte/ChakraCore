@@ -349,6 +349,13 @@
   </test>
   <test>
     <default>
+      <files>forcefixdataprops.js</files>
+      <compile-flags>-off:simplejit -force:fixdataprops</compile-flags>
+      <tags>exclude_ship</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>PropObjectPointerCopyProp.js</files>
       <baseline />
     </default>

@@ -1,9 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-  <test>
+  <!--<test>
     <default>
       <files>AsyncAwait-syntax.js</files>
       <compile-flags>-ES6Classes -ES7AsyncAwait -ES6Generators -nodeferparse -args summary -endargs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>AsyncAwait-syntax.js</files>
+      <compile-flags>-ES6Classes -ES7AsyncAwait -ES6Generators -forcedeferparse -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
@@ -15,10 +21,11 @@
   </test>
   <test>
     <default>
-      <files>ES6PrototypeChainSpecialCasesNotRegularObject.js</files>
-      <compile-flags>-ES6PrototypeChain -args summary -endargs</compile-flags>
+      <files>AsyncAwait-functionality.js</files>
+      <compile-flags>-ES6Classes -ES7AsyncAwait -ES6Generators -forcedeferparse -args summary -endargs</compile-flags>
+      <baseline>AsyncAwait-functionality.baseline</baseline>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <files>lambda1.js</files>
@@ -895,7 +902,7 @@
   <test>
     <default>
       <files>generators-syntax.js</files>
-      <compile-flags>-ES6Generators -JitES6Generators -ES6Classes -args summary -endargs</compile-flags>
+      <compile-flags>-ES6Generators -JitES6Generators -ES6Classes -ES6DefaultArgs -args summary -endargs</compile-flags>
       <tags>exclude_arm</tags>
     </default>
   </test>
@@ -1192,6 +1199,12 @@
     <default>
         <files>ES6Class_BaseClassConstruction.js</files>
         <compile-flags>-es6classes -args summary -endargs -es6generators</compile-flags>
+    </default>
+</test>
+<test>
+    <default>
+        <files>Expo.js</files>
+        <compile-flags>-args summary -endargs -es7exponentiationoperator</compile-flags>
     </default>
 </test>
 </regress-exe>

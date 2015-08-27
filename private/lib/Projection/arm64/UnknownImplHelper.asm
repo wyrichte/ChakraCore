@@ -7,7 +7,7 @@
 ; Abstract:
 ;
 ;--
-    TTL	Dll\JScript\arm\UnknownImplHelper.asm
+    TTL	Dll\JScript\arm64\UnknownImplHelper.asm
 
     OPT	2	; disable listing
 #include "ksarm64.h"
@@ -52,7 +52,7 @@
 ;
 ; Arguments:
 ;   ...
-;     - x0 == this + 4, i.e. address of m_pvtbl which is 1st field, see UnknownImpl.h:
+;     - x0 == this + 8, i.e. address of m_pvtbl which is 1st field, see UnknownImpl.h:
 ;       vtable-address xxxx -- actual "this".
 ;                      xxxx -- m_pvtbl.
 ;
@@ -86,7 +86,7 @@
 ;              +B0h xxxx        callLayout->FloatRegisters[7] -- for q0-q7.
 ;              +C0h callLayout->GeneralRegisters[0]   -- x0 (home)
 ;              ...
-;              +F8h callLayout->GeneralRegisters[7]   -- x3 (home)
+;              +F8h callLayout->GeneralRegisters[7]   -- x7 (home)
 ;       caller-sp +100h callLayout->Stack[0]              -- the other (stack) args -- prepared by the caller.
 ;                   ...
 ;       
@@ -112,10 +112,10 @@
         add     x8, sp, #0x40
         add     x9, sp, #0xC0
         add     x10, sp, #0x100
-        str     x8, [sp, #0x10]         ; callLayout.FloatRegisters.
-        str     x9, [sp, #0x18]         ; callLayout.GeneralRegisters.
-        str     x10, [sp, #0x20]        ; callLayout.Stack.
-        str     xzr, [sp, #0x28]        ; callLayout.StackSize = 0 -- unused, Note that we don't know the size of the stack at this point.
+        str     x8, [sp, #0x20]         ; callLayout.FloatRegisters.
+        str     x9, [sp, #0x28]         ; callLayout.GeneralRegisters.
+        str     x10, [sp, #0x30]        ; callLayout.Stack.
+        str     xzr, [sp, #0x38]        ; callLayout.StackSize = 0 -- unused, Note that we don't know the size of the stack at this point.
 
         ; Fill the parameters that we pass over to the target call.
         sub     x0, x0, #8              ; x0 = this, (initially x0 = "this" + 8, as it's address of m_pvtbl, see note abobe).
@@ -124,8 +124,8 @@
         add     x3, sp, #0x10           ; x3 = pcbArgs (out parameter).
 
         ; Get the address of the target function.
-        ldr     x16, [x0]               ; Now r12 = address of vtable.
-        ldr     x16, [x16]              ; Now r12 = 1st vtable entry, which is the CallIndirect() method.
+        ldr     x16, [x0]               ; Now x16 = address of vtable.
+        ldr     x16, [x16]              ; Now x16 = 1st vtable entry, which is the CallIndirect() method.
 
         blr     x16                     ; Call into CUnknownImpl::CallIndirect(ulong methodId, StackArgs* pvArgs, ulong* pcbArgs).
 

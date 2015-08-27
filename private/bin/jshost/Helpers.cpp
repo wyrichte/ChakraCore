@@ -159,7 +159,7 @@ void GetShortNameFromUrl(__in LPCWSTR pchUrl, __in LPWSTR pchShortName, __in siz
 
 
 HRESULT PrivateCoCreate(
-    LPCWSTR strModule,
+    HINSTANCE hInstModule,
     REFCLSID rclsid,
     LPUNKNOWN pUnkOuter,
     DWORD dwClsContext,
@@ -168,14 +168,10 @@ HRESULT PrivateCoCreate(
     )
 {
     HRESULT hr = NOERROR;
-    HINSTANCE hInstance = NULL;
     CComPtr <IClassFactory> pClassFactory;
     FN_DllGetClassObject pProc = NULL;
 
-    hInstance = LoadLibraryEx(strModule, NULL, 0);
-    if (hInstance == NULL) return E_FAIL;
-
-    pProc = (FN_DllGetClassObject)GetProcAddress(hInstance, "DllGetClassObject");
+    pProc = (FN_DllGetClassObject)GetProcAddress(hInstModule, "DllGetClassObject");
     if (pProc == NULL) return E_FAIL;
 
     IfFailGo(pProc(rclsid, __uuidof(IClassFactory), (LPVOID*)&pClassFactory));
@@ -184,60 +180,58 @@ Error:
     return hr;
 }
 
-HRESULT LoadPDM(__deref_out_z WCHAR ** ppPdmPath, IProcessDebugManager ** ppPDM)
+HRESULT LoadPDM(HINSTANCE* phInstPdm, IProcessDebugManager ** ppPDM)
 {
-    // First try from the .local.
+    // Only try loading from the same path as jshost.  Do not try to fallback and load
+    // whatever pdm is registered with the system.  We want to ensure that we always
+    // run with our version of pdm.  Therefore, fail fast if it is not found beside jshost.
+    wchar_t pdmPath[_MAX_PATH];
+    wchar_t pdmDir[_MAX_PATH];
+    wchar_t pdmDrive[_MAX_DRIVE];
+    wchar_t *pdmFilename = L"pdm.dll";
 
-    WCHAR * pdmPath = new WCHAR[_MAX_PATH];
-    if (ppPdmPath)
+    if (phInstPdm != nullptr)
     {
-        *ppPdmPath = pdmPath;
+        *phInstPdm = nullptr;
     }
 
-    GetModuleFileName(NULL, pdmPath, _MAX_PATH);
+    DWORD len = GetModuleFileName(nullptr, pdmPath, _MAX_PATH);
+
+    if (len == 0)
+    {
+        return HRESULT_FROM_WIN32(GetLastError());
+    }
+
+    if (len == _MAX_PATH && GetLastError() == ERROR_INSUFFICIENT_BUFFER)
+    {
+        return HRESULT_FROM_WIN32(ERROR_BUFFER_OVERFLOW);
+    }
+
+    _wsplitpath_s(pdmPath, pdmDrive, _MAX_DRIVE, pdmDir, _MAX_PATH, nullptr, 0, nullptr, 0);
+
+    wcscpy_s(pdmPath, pdmDrive);
+    wcscat_s(pdmPath, pdmDir);
+
     size_t strLen = wcslen(pdmPath);
-    size_t localLen = wcslen(L".local\\pdm.dll");
+    size_t localLen = wcslen(pdmFilename);
 
-    if (strLen+localLen < _MAX_PATH)
+    if (strLen + localLen >= _MAX_PATH)
     {
-        wcsncpy_s(pdmPath+strLen, _MAX_PATH-strLen, L".local\\pdm.dll", localLen);
-        if (_waccess_s(pdmPath, 0) == 0)
-        {
-            // Load it from here.
-            return PrivateCoCreate(pdmPath, CLSID_ProcessDebugManager, NULL, CLSCTX_INPROC_SERVER, _uuidof(IProcessDebugManager),(LPVOID*)ppPDM);
-        }
+        return HRESULT_FROM_WIN32(ERROR_BUFFER_OVERFLOW);
     }
 
-    // Now from the _NTTREE
+    wcscat_s(pdmPath, pdmFilename);
+    HINSTANCE hInstPdm = LoadLibrary(pdmPath);
 
-    DWORD envVarLen = GetEnvironmentVariable(L"_NTTREE", NULL, 0);
-    if (envVarLen)
+    if (hInstPdm == nullptr)
     {
-        size_t dlllen = wcslen(L"\\pdm.dll");
-        ZeroMemory(pdmPath, _MAX_PATH);
-
-        if (envVarLen + dlllen < _MAX_PATH)
-        {
-            GetEnvironmentVariable(L"_NTTREE", pdmPath, envVarLen);
-            envVarLen = wcslen(pdmPath);
-
-            wcsncpy_s(pdmPath+envVarLen, _MAX_PATH-envVarLen, L"\\pdm.dll", dlllen);
-
-            if (_waccess_s(pdmPath, 0) == 0)
-            {
-                return PrivateCoCreate(pdmPath, CLSID_ProcessDebugManager, NULL, CLSCTX_INPROC_SERVER, _uuidof(IProcessDebugManager),(LPVOID*)ppPDM);
-            }
-        }
+        return HRESULT_FROM_WIN32(GetLastError());
     }
 
-    delete [] pdmPath;
-    if (ppPdmPath)
+    if (phInstPdm != nullptr)
     {
-        *ppPdmPath = NULL;
+        *phInstPdm = hInstPdm;
     }
 
-    // Try from registry 
-    return CoCreateInstance(CLSID_ProcessDebugManager, NULL, CLSCTX_INPROC_SERVER, _uuidof(IProcessDebugManager),(LPVOID*)ppPDM);
+    return PrivateCoCreate(hInstPdm, CLSID_ProcessDebugManager, NULL, CLSCTX_INPROC_SERVER, _uuidof(IProcessDebugManager), (LPVOID*) ppPDM);
 }
-
-

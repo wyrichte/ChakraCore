@@ -15,6 +15,44 @@
 #include <windows.h>
 #include "intsafe.h"
 #include "psapi.h"
+#include <stdio.h>
+
+#if defined(DBG)
+#define DiagAssert(exp)   \
+    do { \
+        if (!(exp)) \
+        { \
+            fprintf(stderr, "ASSERTION (%s, line %d) %s %s\n", __FILE__, __LINE__, _CRT_STRINGIZE(exp), #exp); \
+            fflush(stderr); \
+            DebugBreak(); \
+        } \
+    } while(0)
+#else
+#define DiagAssert(exp)             ((void)0)
+#endif //defined(DBG)
+
+#define ATLASSERT DiagAssert
+
+// NOTE: This is a workaround to account for the fact that atlsd.lib cannot be linked to in  
+// OneCoreUAP builds because OpenFileMappingA doesn't exist in any APISet. To get around this,  
+// we undefine _DEBUG so that we don't need to link against atlsd.lib  
+// TODO: Remove this workaround when OpenFileMappingA is exposed through an APISet  
+// TODO: More: OpenFileMappingA is marked as legacy, will eventually be removed in next windows release. 
+// OpenFileMappingW is kept normal, need to wait for the onecore decision on ATL
+// we can take the dependency on OpenFileMappingA for this release, but we will have a dependency on api-ms-win-core-kernel32-legacy-l1-1-2.dll
+// which makes unittest painful. so still not link to atlsd.lib
+#if defined(_DEBUG)
+#define JS_ATL_DEBUG
+#undef _DEBUG
+#endif
+#include <atlbase.h>
+#include <atlcoll.h>
+#include <atlcom.h>
+#include <atlstr.h>
+#ifdef JS_ATL_DEBUG
+#define _DEBUG
+#undef JS_ATL_DEBUG
+#endif
 
 // DIAG_DAC indicates runtime #include's that they are compiling under Manual DAC for diagnostics.
 #ifndef DIAG_DAC
@@ -43,27 +81,6 @@
 // WARNING: Do not #include any runtime headers after "DiagAssertion.h". Runtime headers redefines runtime specific Assert.
 //----------------------------------------------------------------------------------------------
 #include "DiagAssertion.h"
-
-// NOTE: This is a workaround to account for the fact that atlsd.lib cannot be linked to in  
-// OneCoreUAP builds because OpenFileMappingA doesn't exist in any APISet. To get around this,  
-// we undefine _DEBUG so that we don't need to link against atlsd.lib  
-// TODO: Remove this workaround when OpenFileMappingA is exposed through an APISet  
-// TODO: More: OpenFileMappingA is marked as legacy, will eventually be removed in next windows release. 
-// OpenFileMappingW is kept normal, need to wait for the onecore decision on ATL
-// we can take the dependency on OpenFileMappingA for this release, but we will have a dependency on api-ms-win-core-kernel32-legacy-l1-1-2.dll
-// which makes unittest painful. so still not link to atlsd.lib
-#if defined(_DEBUG)
-#define JS_ATL_DEBUG
-#undef _DEBUG
-#endif
-#include <atlbase.h>
-#include <atlcoll.h>
-#include <atlcom.h>
-#include <atlstr.h>
-#ifdef JS_ATL_DEBUG
-#define _DEBUG
-#undef JS_ATL_DEBUG
-#endif
 
 
 #ifndef VALIDATE_RUNTIME_VERSION

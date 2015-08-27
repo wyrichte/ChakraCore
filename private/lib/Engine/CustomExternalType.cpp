@@ -318,26 +318,30 @@ namespace Js
 
             BOOL result = false;
             bool fXDomainMarshal = false;
-
+            HRESULT hr = NOERROR;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetOwnProperty)
             {
-                HRESULT hr = this->GetTypeOperations()->GetOwnProperty(requestContext->GetActiveScriptDirect(), this, propertyId, value, &result);
-                if (SUCCEEDED(hr) && result)
+                hr = this->GetTypeOperations()->GetOwnProperty(requestContext->GetActiveScriptDirect(), this, propertyId, value, &result);
+            }
+            END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetOwnProperty);
+            if (SUCCEEDED(hr) && result)
                 {
                     // The site might have been closed during the GetOwnProperty call.
                     if (!this->VerifyObjectAlive()) return FALSE;
                     if ((this->GetOperationUsage().useAlways & OperationFlag_crossDomainCheck) == OperationFlag_crossDomainCheck)
                     {
                         BOOL resultCrossDomainCheck;
-                        this->GetTypeOperations()->CrossDomainCheck(requestContext->GetActiveScriptDirect(), this, &resultCrossDomainCheck);
-                        if ( resultCrossDomainCheck )
+                        BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetOwnProperty)
+                        {
+                            this->GetTypeOperations()->CrossDomainCheck(requestContext->GetActiveScriptDirect(), this, &resultCrossDomainCheck);
+                        }
+                        END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetOwnProperty);
+                        if (resultCrossDomainCheck)
                         {
                             fXDomainMarshal = true;
                         }
                     }
                 }
-            }
-            END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetOwnProperty);
             if(result)
             {
                 // This is defense in depth. In some weird scenario DOM could return S_OK without actually getting the return value.
@@ -460,26 +464,29 @@ namespace Js
 
             BOOL result = FALSE;
             bool fXDomainMarshal = false;
+            HRESULT hr;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetPropertyReference)
             {
-                HRESULT hr;
-
                 hr = this->GetTypeOperations()->GetPropertyReference(requestContext->GetActiveScriptDirect(), this, propertyId, value, &result);
-                if (SUCCEEDED(hr) && result)
+            }
+            END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetPropertyReference);
+            if (SUCCEEDED(hr) && result)
                 {
                     if (!this->VerifyObjectAlive()) return FALSE;
                     if ((this->GetOperationUsage().useAlways & OperationFlag_crossDomainCheck) == OperationFlag_crossDomainCheck)
                     {
                         BOOL resultCrossDomainCheck;
-                        this->GetTypeOperations()->CrossDomainCheck(requestContext->GetActiveScriptDirect(), this, &resultCrossDomainCheck);
-                        if ( resultCrossDomainCheck )
+                        BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetPropertyReference)
+                        {
+                            this->GetTypeOperations()->CrossDomainCheck(requestContext->GetActiveScriptDirect(), this, &resultCrossDomainCheck);
+                        }
+                        END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetPropertyReference);
+                        if (resultCrossDomainCheck)
                         {
                             fXDomainMarshal = true;
                         }
                     }
                 }
-            }
-            END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetPropertyReference);
 
             if(result)
             {

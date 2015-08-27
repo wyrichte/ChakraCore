@@ -44,6 +44,10 @@
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4189;4290</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
+    <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
+    <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
+      <ModuleDefinitionFile>NativeUnitTests.def</ModuleDefinitionFile>
+    </ImpLib>
     <Link>
       <AdditionalDependencies>
         %(AdditionalDependencies);

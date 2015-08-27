@@ -291,14 +291,6 @@ HRESULT TestArrayErrors(IActiveScriptDirect* activeScriptDirect, MyScriptDirectT
     Var var;
     const UINT TOO_BIG_LENGTH = 0x80000000;
 
-    Print("CreatePixelArray is expected to fail with length 3");
-    // This triggers a TypeError
-    if (activeScriptDirect->CreatePixelArray(3, &var) == NOERROR)
-    {
-        hr = E_FAIL;
-        goto LReturn;
-    }
-
     Print("CreatePixelArray is expected to fail with large length");
     // This triggers a TypeError
     if (activeScriptDirect->CreatePixelArray(TOO_BIG_LENGTH, &var) == NOERROR)
@@ -319,7 +311,7 @@ LReturn:
     return hr;
 }
 
-HRESULT TestGetTypedArrayBuffer(IActiveScriptDirect* activeScriptDirect, MyScriptDirectTests* myTests, const LPWSTR* getBufferTests, int countOfGetBufferTests)
+HRESULT TestGetTypedArrayBuffer(IActiveScriptDirect* activeScriptDirect, MyScriptDirectTests* myTests, __in_ecount(countOfGetBufferTests) const LPWSTR* getBufferTests, int countOfGetBufferTests)
 {
     StartTest(myTests, "Test GetTypedArrayBuffer functionality...");
 

@@ -180,8 +180,8 @@ test GetArrayBuffer 8 100000
 test GetArrayBuffer 8 16777216
 Done
 Test TypedArray Error cases...
-CreatePixelArray is expected to fail with length 3
 CreatePixelArray is expected to fail with large length
+RangeError: Invalid offset/length when creating typed array
 CreateArrayBuffer is expected to fail with large length
 Done
 Test GetTypedArrayBuffer functionality...

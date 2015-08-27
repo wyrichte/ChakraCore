@@ -7,6 +7,8 @@
 extern "C" HRESULT amd64_ProjectionCall(void* methodAddress, void* unknown, void* paramStack, ulong argsSize);
 #elif defined(_M_ARM)
 extern "C" HRESULT arm_ProjectionCall(void* entryPoint, ProjectionModel::ApcsCallLayout* callLayout);
+#elif defined(_M_ARM64)
+extern "C" HRESULT arm64_ProjectionCall(void* entryPoint, ProjectionModel::ApcsCallLayout* callLayout);
 #endif
 
 namespace Projection
@@ -14,7 +16,7 @@ namespace Projection
     class ProjectionMethodInvoker
     {
         RtABIMETHODSIGNATURE signature;
-#ifdef _M_ARM
+#ifdef _M_ARM32_OR_ARM64
         ProjectionModel::ApcsCallLayout callLayout;
         ProjectionModel::ParameterLocation* parameterLocations; // Array of locations for each parameter (not including "this" parameter).
 #else

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\..\Build\Chakra.Build.Paths.props" />
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
+  <Import Project="$(BuildConfig_ChakraBuildProjectConfigurationProps)" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{065BC819-E7AF-47D0-AB14-07A99E804A3D}</ProjectGuid>
+    <TargetName>UnitTest.JsRT.WinRT</TargetName>
+    <RootNamespace>jsrt</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <TestCode Condition="'$(BuildingWithBuildExe)'=='true'">true</TestCode>
+  </PropertyGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>
+        %(AdditionalIncludeDirectories);
+        $(ChakraRootDirectory)private\lib\JsrtChakra;
+        $(SdkToolsIncPath)\WexTest\Cue;
+        ..\Inc;
+      </AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);INLINE_TEST_METHOD_MARKUP;</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(InternalSdkLibPath)\nothrownew.lib;
+        $(SdkLibPath)\kernel32.lib;
+        $(SdkLibPath)\user32.lib;
+        $(SdkLibPath)\uuid.lib;
+        $(SdkLibPath)\ole32.lib;
+        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-l1.lib;
+        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-string-l1.lib;
+        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-error-l1.lib;
+        $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Wex.Common.lib;
+        $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Wex.Logger.lib;
+        $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Te.Common.lib;
+      </AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <Link Condition="'$(BuildingWithBuildExe)'=='true'">
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(RazzleJscriptObjectRoot)\private\bin\chakra\test\$(ObjectDirectory)\chakratest.lib;
+        $(RazzleJscriptObjectRoot)\unittest\jsrt\common\$(ObjectDirectory)\unittest.jsrt.common.lib;
+      </AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <!-- Razzle binplace -->
+  <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true'">
+    <BinplaceLinked Include="$(ObjectPath)\$(ObjectDirectory)$(TargetFileName)">
+      <DestinationFolder>jscript\jsrt\unittest</DestinationFolder>
+    </BinplaceLinked>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WinrtTest.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="winrttest.h" />
+    <ClInclude Include="StdAfx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\private\bin\Chakra\Chakra.vcxproj">
+      <Project>{ea882c8d-81fc-42fe-abd5-2666db933fda}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\common\UnitTest.JsRT.Common.vcxproj">
+      <Project>{0efe5130-7a0c-4d5a-9bc0-b0286aad3b82}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

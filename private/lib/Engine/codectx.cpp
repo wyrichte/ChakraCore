@@ -134,7 +134,7 @@ HRESULT CCodeContext::SetBreakPoint(BREAKPOINT_STATE bps)
 {
     if (m_debugDocument != nullptr && m_debugDocument->GetScriptBody())
     {
-        return m_debugDocument->GetScriptBody()->SetBreakPoint(m_ibos, bps);
+        return m_debugDocument->SetBreakPoint(m_ibos, bps);
     }
     return E_FAIL;
 }
@@ -476,9 +476,9 @@ HRESULT CDebugStackFrame::GetCodeContext(IDebugCodeContext **ppCodeContext)
             Js::FunctionBody::StatementMap* pStatementMap = pFunction->GetEnclosingStatementMapFromByteCode(iCurrentByteCodeOffset, false);
 
             ScriptDebugDocument *debugDocument = nullptr;
-            if(pFunction->GetUtf8SourceInfo()->HasScriptDebugDocument())
+            if (pFunction->GetUtf8SourceInfo()->HasDebugDocument())
             {
-                debugDocument = static_cast<ScriptDebugDocument*>(pFunction->GetUtf8SourceInfo()->GetScriptDebugDocument());
+                debugDocument = static_cast<ScriptDebugDocument*>(pFunction->GetUtf8SourceInfo()->GetDebugDocument());
             }
             // Note that debugDocument can be NULL if it failed to register with PDM in ScriptDebugDocument::Register
             // (e.g. because of OOM, etc) in which case click-navigate would be disabled but most of experience is recovered.

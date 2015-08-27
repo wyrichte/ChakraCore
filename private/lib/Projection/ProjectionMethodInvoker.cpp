@@ -23,7 +23,7 @@ namespace Projection
     // Parameters:  signature - model signature to invoke
     //              scriptEngine - script engine
     ProjectionMethodInvoker::ProjectionMethodInvoker(RtABIMETHODSIGNATURE signature, ProjectionContext *projectionContext) :
-#ifdef _M_ARM
+#ifdef _M_ARM32_OR_ARM64
         parameterLocations(nullptr),
 #else
         stack(nullptr), 
@@ -33,7 +33,7 @@ namespace Projection
     {  
         // Since each arena allocator is atlease 4K in size, reuse the arena of projectionmarshaler - both are going to have same life time so it is safe to 
         // share the arena instead of using 2 pages of memory per method call when we could use 1page at a time.
-#ifndef _M_ARM
+#ifndef _M_ARM32_OR_ARM64
         stack = AnewArray(marshal.alloc, byte, signature->GetParameters()->sizeOfCallstack);
 #endif
     }
@@ -44,7 +44,7 @@ namespace Projection
     //   arguments - Javascript arguments.
     void ProjectionMethodInvoker::BuildCallStack(IUnknown* _this, Js::Arguments arguments, bool isDelegate)
     {
-#ifdef _M_ARM
+#ifdef _M_ARM32_OR_ARM64
         this->callLayout.Clear();
 
         // 1st iteration: 
@@ -55,8 +55,13 @@ namespace Projection
         this->parameterLocations = AnewArrayZ(marshal.alloc, ParameterLocation, this->signature->GetParameters()->allParameters->Count());
         InitParameterLocations(this->parameterLocations);
 
+#if _M_ARM
         this->callLayout.AllocateData(marshal.alloc, callingConvention.GetGeneralRegisterCount(),
-            callingConvention.GetFloatRegisters(), callingConvention.GetStackSlotCount() * 4);
+            callingConvention.GetFloatRegisters(), callingConvention.GetStackSlotCount() * sizeof(void*));
+#else
+        this->callLayout.AllocateData(marshal.alloc, callingConvention.GetGeneralRegisterCount(),
+            callingConvention.GetFloatRegisterCount(), callingConvention.GetStackSlotCount() * sizeof(void*));
+#endif
 
         // 2nd iteration: fill-up callLayout: place each argument into its location.
 #else
@@ -65,7 +70,7 @@ namespace Projection
 #endif
 
         this->signature->GetParameters()->allParameters->Cast<RtABIPARAMETER>()->IterateN([&](int parameterLocationIndex, RtABIPARAMETER parameter) {
-#ifdef _M_ARM
+#ifdef _M_ARM32_OR_ARM64
             // Get the place where to write the value.
             byte* location = this->callLayout.GetParameterLocation(&this->parameterLocations[parameterLocationIndex]);
 #endif
@@ -109,15 +114,15 @@ namespace Projection
                 marshal.WriteInParameter(arguments[parameter->inParameterIndex + 1], parameter, location, parameter->GetSizeOnStack());
             }
 
-#ifndef _M_ARM
+#ifndef _M_ARM32_OR_ARM64
             //If we have a missing type, then we build up the stack as a null pointer of size(void *) rather than 0 (missing type)
             location += wasMissingType ? sizeof(void *) : parameter->GetSizeOnStack();
 #endif
 
         });
 
-#ifdef _M_ARM
-        // Plase "this".
+#ifdef _M_ARM32_OR_ARM64
+        // Place "this".
         *((IUnknown**)this->callLayout.GeneralRegisters) = _this;
 #else
         Assert(0==signature->GetParameters()->sizeOfCallstack-(location-stack));
@@ -143,12 +148,12 @@ namespace Projection
         }
 
         // Marshal out the parameters from the stack
-#ifndef _M_ARM
+#ifndef _M_ARM32_OR_ARM64
         byte * location = stack;
 #endif
         signature->GetParameters()->allParameters->Cast<RtABIPARAMETER>()->IterateN([&](int parameterLocationIndex, RtABIPARAMETER parameter) 
         {
-#ifdef _M_ARM
+#ifdef _M_ARM32_OR_ARM64
             AssertMsg(this->parameterLocations, "At this time BuildCallStack should've been already called and parameterLocations should've been allocated.");
             Assert(&this->parameterLocations[parameterLocationIndex]);
             byte* location = this->callLayout.GetParameterLocation(&this->parameterLocations[parameterLocationIndex]);
@@ -168,7 +173,7 @@ namespace Projection
                 else if (parameter->IsArrayParameterWithLengthAttribute())
                 {
                     auto lengthParam = ((AbiArrayParameterWithLengthAttribute *)parameter)->GetLengthParameter(signature->GetParameters()->allParameters);
-#ifdef _M_ARM
+#ifdef _M_ARM32_OR_ARM64
                     byte *lengthParamLocation = this->callLayout.GetParameterLocation(&this->parameterLocations[((AbiArrayParameterWithLengthAttribute *)parameter)->lengthIsParameter]);
 #else
                     byte *lengthParamLocation = stack;
@@ -224,12 +229,12 @@ namespace Projection
                     }
                 }
             }
-#ifndef _M_ARM
+#ifndef _M_ARM32_OR_ARM64
             location += isMissingType ? sizeof(void *) : parameter->GetSizeOnStack();
 #endif
         });
 
-#ifndef _M_ARM
+#ifndef _M_ARM32_OR_ARM64
         Assert(0==signature->GetParameters()->sizeOfCallstack-(location-stack));
 #endif
         return instance;
@@ -361,6 +366,8 @@ dbl_align:
             hr = amd64_ProjectionCall(methodAddress, _this, stack, argsSize/sizeof(LPVOID));
 #elif defined(_M_ARM)
             hr = arm_ProjectionCall(methodAddress, &this->callLayout);
+#elif defined(_M_ARM64)
+            hr = arm64_ProjectionCall(methodAddress, &this->callLayout);
 #else
             AssertMsg(FALSE, "unsupported platform");
             Assert(methodAddress);  // To avoid varning C4189 local variable is initialized but not refereced error for now

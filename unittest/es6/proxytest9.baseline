@@ -91,3 +91,4 @@ expected :Proxy argument handler is not a valid object
 expected :Proxy argument target is not a valid object
 Proxy.prototype = false
 done test22
+test23 done.

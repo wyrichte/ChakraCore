@@ -98,6 +98,37 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(JsDisposeRuntime(runtime) == JsNoError);
         }
 
+        TEST_METHOD(OOSTest) {
+          JsPropertyIdRef property;
+          JsValueRef value, exception;
+          LPCWSTR str;
+          size_t length;
+
+          LPCWSTR script = LoadScriptFile(L"oos.js");
+          // Create the runtime
+          JsRuntimeHandle runtime;
+          VERIFY_IS_TRUE(JsCreateRuntime(attributes, NULL, &runtime) == JsNoError);
+
+          // Create and initialize the script context
+          JsContextRef context;
+          VERIFY_IS_TRUE(JsCreateContext(runtime, &context) == JsNoError);
+          VERIFY_IS_TRUE(JsSetCurrentContext(context) == JsNoError);
+
+          // Invoke the script
+          VERIFY_IS_TRUE(JsRunScript(script, JS_SOURCE_CONTEXT_NONE, L"", nullptr) == JsErrorScriptException);
+
+          // Verify we got OOS
+          VERIFY_IS_TRUE(JsGetAndClearException(&exception) == JsNoError);
+          VERIFY_IS_TRUE(JsGetPropertyIdFromName(L"message", &property) == JsNoError);
+          VERIFY_IS_TRUE(JsGetProperty(exception, property, &value) == JsNoError);
+          VERIFY_IS_TRUE(JsStringToPointer(value, &str, &length) == JsNoError);
+          VERIFY_ARE_EQUAL(String(L"Out of stack space"), str);
+
+          // Destroy the runtime
+          VERIFY_IS_TRUE(JsSetCurrentContext(JS_INVALID_REFERENCE) == JsNoError);
+          VERIFY_IS_TRUE(JsDisposeRuntime(runtime) == JsNoError);
+        }
+
         void ValidateOOMException()
         {
             JsValueRef exception;

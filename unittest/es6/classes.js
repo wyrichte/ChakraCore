@@ -22,7 +22,7 @@ function verifyClassMember(obj, name, expectedReturnValue, isGet, isSet, isGener
         assert.areEqual('function', typeof obj[name], `obj[${name}](${isGet},${isSet},${isGenerator}): Class method generator function has correct type`);
         
         let s;
-        for (s of new obj[name]()) {}
+        for (s of obj[name]()) {}
         assert.areEqual(expectedReturnValue, s, `obj[${name}](${isGet},${isSet},${isGenerator}): Calling class method generator returns correct value`);
         
         assert.isTrue(p.writable, `obj[${name}](${isGet},${isSet},${isGenerator}): Class method generator functions are writable`);
@@ -761,6 +761,20 @@ var tests = [
             
             assert.throws(function() { new D.prototype.method5(); }, TypeError, "Derived class prototype method cannot be new'd", "Function is not a constructor");
             assert.throws(function() { new D.method6(); }, TypeError, "Derived class static method cannot be new'd", "Function is not a constructor");
+        }
+    },
+    {
+        name: "Class static member cannot have computed name 'prototype'",
+        body: function() {
+            assert.throws(function() { eval(`class A { static ['prototype']() {} };`); }, TypeError, "Ordinary static member cannot have computed name 'prototype'", "Class static member cannot be named 'prototype'");
+            assert.throws(function() { eval(`class A { static get ['prototype']() {} };`); }, TypeError, "Static get member cannot have computed name 'prototype'", "Class static member cannot be named 'prototype'");
+            assert.throws(function() { eval(`class A { static set ['prototype']() {} };`); }, TypeError, "Static set member cannot have computed name 'prototype'", "Class static member cannot be named 'prototype'");
+            assert.throws(function() { eval(`class A { static *['prototype']() {} };`); }, TypeError, "Static generator member cannot have computed name 'prototype'", "Class static member cannot be named 'prototype'");
+            
+            assert.doesNotThrow(function() { eval(`class A { ['prototype']() {} };`); }, "Class member with computed name 'prototype' is fine");
+            assert.doesNotThrow(function() { eval(`class A { get ['prototype']() {} };`); }, "Class get member with computed name 'prototype' is fine");
+            assert.doesNotThrow(function() { eval(`class A { set ['prototype']() {} };`); }, "Class set member with computed name 'prototype' is fine");
+            assert.doesNotThrow(function() { eval(`class A { *['prototype']() {} };`); }, "Class generator member with computed name 'prototype' is fine");
         }
     },
 ];

@@ -33,6 +33,13 @@
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
+    <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
+      <AdditionalDependencies>
+        $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\engextcpp.lib;
+        %(AdditionalDependencies);
+       </AdditionalDependencies>
+      <ModuleDefinitionFile>ut_jsdiag.def</ModuleDefinitionFile>
+    </ImpLib>
     <Link>
       <AdditionalDependencies>
         $(MinCoreSdkLibPath)\mincore_fw.lib;
@@ -43,6 +50,7 @@
         $(SdkLibPath)\oleaut32.lib;
         %(AdditionalDependencies);
        </AdditionalDependencies>
+      <ModuleDefinitionFile>ut_jsdiag.def</ModuleDefinitionFile>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>

@@ -35,7 +35,7 @@ namespace Js
     FunctionBody* SemanticChangeAnalyzer::OldRoot() const
     {
         const Utf8SourceInfo* oldUtf8SourceInfo = m_diff.OldTree().GetUtf8SourceInfo();
-        ScriptDebugDocument* scriptDebugDocument = static_cast<ScriptDebugDocument*>(oldUtf8SourceInfo->GetScriptDebugDocument());
+        ScriptDebugDocument* scriptDebugDocument = static_cast<ScriptDebugDocument*>(oldUtf8SourceInfo->GetDebugDocument());
         if (!scriptDebugDocument)
         {
             Throw::OutOfMemory(); // scriptDebugDocument is null, likely previous Register failed

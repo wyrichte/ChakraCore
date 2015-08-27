@@ -127,7 +127,8 @@ namespace JsrtUnitTests
 
         // Run the script.
         VERIFY_IS_TRUE(JsParseScript(script, JS_SOURCE_CONTEXT_NONE, L"", &function) == JsNoError);
-        VERIFY_IS_TRUE(JsCallFunction(function, nullptr, 0, &result) == JsNoError);
+        JsValueRef args[] = { WinRTTest::GetUndefined() };
+        VERIFY_IS_TRUE(JsCallFunction(function, args, _countof(args), &result) == JsNoError);
 
         // Validate the script result.
         wchar_t* stringContent;

@@ -33,18 +33,8 @@
 #define Assert(exp)             AssertMsg(exp, #exp)
 
 #ifndef CompileAssert
-#define CompileAssert(e) \
-    typedef char __C_ASSERT__[(e) ? 1 : -1];
+#define CompileAssert(e)        static_assert(e, #e)
 #endif
-
-//
-// Customize ATLASSERT. Otherwise default ATLASSERT delegates to _ASSERTE in C runtime,
-// which does not hit unless linking to the right debug version of lib/runtime.
-//
-#ifdef ATLASSERT
-#error Include this file before ATL headers
-#endif
-#define ATLASSERT Assert
 
 #ifdef ASSERT
 #undef ASSERT

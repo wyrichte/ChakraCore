@@ -1701,9 +1701,9 @@ ScriptDebugDocument * ScriptEngine::FindDebugDocument(SourceContextInfo * pInfo)
     ScriptDebugDocument *pDebugDocument = nullptr;
     this->MapUTF8SourceInfoUntil([&](Js::Utf8SourceInfo * sourceInfo) -> bool
     {
-        if (sourceInfo->GetSourceContextInfo() == pInfo && sourceInfo->HasScriptDebugDocument())
+        if (sourceInfo->GetSourceContextInfo() == pInfo && sourceInfo->HasDebugDocument())
         {
-            pDebugDocument = static_cast<ScriptDebugDocument*>(sourceInfo->GetScriptDebugDocument());
+            pDebugDocument = static_cast<ScriptDebugDocument*>(sourceInfo->GetDebugDocument());
             return true;
         }
         return false;
@@ -1720,7 +1720,7 @@ void ScriptEngine::RegisterDebugDocument(CScriptBody *pBody, const wchar_t * tit
     if(pDebugDocument)
     {
         // Register will call AddText which might set breakpoints - so setup the utf8SourceInfo with the script debug document
-        pBody->GetUtf8SourceInfo()->SetScriptDebugDocument(pDebugDocument);
+        pBody->GetUtf8SourceInfo()->SetDebugDocument(pDebugDocument);
 
         HRESULT hr = pDebugDocument->Register(title);
         if(FAILED(hr))
@@ -1757,17 +1757,17 @@ HRESULT ScriptEngine::GetDebugDocumentContextFromHostPosition(
     {
         Js::Utf8SourceInfo *pUtf8SourceInfo = pFunctionBody->GetUtf8SourceInfo();
         ScriptDebugDocument *pDebugDocument = nullptr;
-        if (pUtf8SourceInfo->HasScriptDebugDocument())
+        if (pUtf8SourceInfo->HasDebugDocument())
         {
-            pDebugDocument = static_cast<ScriptDebugDocument*>(pUtf8SourceInfo->GetScriptDebugDocument());
+            pDebugDocument = static_cast<ScriptDebugDocument*>(pUtf8SourceInfo->GetDebugDocument());
         }
         else if (pUtf8SourceInfo->IsDynamic())  // This could be the case when current dynamic document is not registered to the PDM.
         { 
             // Register this document at this point.
             pFunctionBody->CheckAndRegisterFuncToDiag(pContext);
-            if (pUtf8SourceInfo->HasScriptDebugDocument())
+            if (pUtf8SourceInfo->HasDebugDocument())
             {
-                pDebugDocument = static_cast<ScriptDebugDocument*>(pUtf8SourceInfo->GetScriptDebugDocument());
+                pDebugDocument = static_cast<ScriptDebugDocument*>(pUtf8SourceInfo->GetDebugDocument());
             }
         }
 

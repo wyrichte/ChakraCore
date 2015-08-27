@@ -15,7 +15,7 @@
 STDAPI_(JsErrorCode) JsCreateWeakContainer(JsRef ref, JsWeakContainerRef *weakContainerRef)
 {
     return ContextAPIWrapper<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
-        PARAM_NOT_NULL(ref);
+        VALIDATE_JSREF(ref);
         PARAM_NOT_NULL(weakContainerRef);
         *weakContainerRef = JS_INVALID_REFERENCE;
 
@@ -54,7 +54,6 @@ STDAPI_(JsErrorCode) JsGetReference(JsWeakContainerRef weakContainerRef, JsRef *
 STDAPI_(JsErrorCode) JsGetArrayLength(JsValueRef value, size_t *length)
 {
     return ContextAPIWrapper<true>([&](Js::ScriptContext *scriptContext) -> JsErrorCode {
-        PARAM_NOT_NULL(value);
         VALIDATE_INCOMING_REFERENCE(value, scriptContext);
         PARAM_NOT_NULL(length);
         *length = 0;
@@ -87,7 +86,6 @@ STDAPI_(JsErrorCode) JsVariantToValue(VARIANT * variant, JsValueRef * value)
 STDAPI_(JsErrorCode) JsValueToVariant(JsValueRef object, VARIANT * variant)
 {
     return ContextAPIWrapper<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode {
-        PARAM_NOT_NULL(object);
         VALIDATE_INCOMING_REFERENCE(object, scriptContext);
         PARAM_NOT_NULL(variant);
         ZeroMemory(variant, sizeof(VARIANT));
@@ -313,7 +311,7 @@ STDAPI_(JsErrorCode) JsInspectableToObject(_In_ IInspectable  *inspectable, _Out
 STDAPI_(JsErrorCode) JsObjectToInspectable(_In_ JsValueRef value, _Out_ IInspectable **inspectable)
 {
     return ContextAPIWrapper<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
-        PARAM_NOT_NULL(value);
+        VALIDATE_JSREF(value);
         PARAM_NOT_NULL(inspectable);
         *inspectable = nullptr;
         // Check if projection is enabled, if not return error

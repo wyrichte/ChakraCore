@@ -57,12 +57,6 @@
 </dir>
 <dir>
   <default>
-    <files>V8_Functionality</files>
-    <tags>exclude_snap,Slow</tags>
-  </default>
-</dir>
-<dir>
-  <default>
     <files>LetConst</files>
     <tags>include_drt5</tags>
   </default>
@@ -95,12 +89,6 @@
   <default>
     <files>Date</files>
     <tags>include_drt5</tags>
-  </default>
-</dir>
-<dir>
-  <default>
-    <files>EH</files>
-    <tags>include_drt4</tags>
   </default>
 </dir>
 <dir>
@@ -244,12 +232,6 @@
 <dir>
   <default>
     <files>Bugs</files>
-    <tags>include_drt4</tags>
-  </default>
-</dir>
-<dir>
-  <default>
-    <files>es5</files>
     <tags>include_drt4</tags>
   </default>
 </dir>

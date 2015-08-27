@@ -104,22 +104,21 @@ functionToCall(functionToCall),
 args(args),
 numberOfArgs(numberOfArgs)
 {
-    isValidFunctionPtr = functionToCall != nullptr;
-    if (isValidFunctionPtr)
+    if (functionToCall != nullptr)
     {
         Recycler *recycler = type->GetScriptContext()->GetRecycler();
-
         // Pin functionToCall and Args so they don't get collected till we dispose this object
         recycler->RootAddRef(functionToCall);
         AssertMsg(args != nullptr, "DebugFuncExecutorInDisposeObject's Dispose doesn't have valid arguments to pass to function.");
         recycler->RootAddRef(args);
+        this->areAllParametersPinned = true;
     }
 }
 
 void DebugFuncExecutorInDisposeObject::Dispose(bool isShutdown)
 {
-    // Check if we set valid function
-    if (isValidFunctionPtr)
+    // Check if we have pinned valid function and args
+    if (areAllParametersPinned)
     {
         Js::ScriptContext* scriptContext = functionToCall->GetScriptContext();
 

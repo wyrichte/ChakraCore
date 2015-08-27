@@ -138,7 +138,13 @@ namespace JsrtUnitTests
 
             VERIFY_IS_TRUE((script = LoadScriptFile(L"ObjectsAndProperties2.js")) != NULL);
             VERIFY_IS_TRUE(JsParseScript(script, JS_SOURCE_CONTEXT_NONE, L"", &function) == JsNoError);
-            VERIFY_IS_TRUE(JsCallFunction(function, nullptr, 0, nullptr) == JsNoError);
+
+            JsValueRef args[] = { JS_INVALID_REFERENCE };
+            VERIFY_IS_TRUE(JsCallFunction(function, nullptr, 10, nullptr) == JsErrorInvalidArgument);
+            VERIFY_IS_TRUE(JsCallFunction(function, args, 0, nullptr) == JsErrorInvalidArgument);
+            VERIFY_IS_TRUE(JsCallFunction(function, args, _countof(args), nullptr) == JsErrorInvalidArgument);
+            args[0] = GetUndefined();
+            VERIFY_IS_TRUE(JsCallFunction(function, args, _countof(args), nullptr) == JsNoError);
 
             // Get proto properties
             JsValueRef circle;        
@@ -629,10 +635,12 @@ namespace JsrtUnitTests
             JsValueRef function;
             JsValueType type;
 
+            JsValueRef args[] = { GetUndefined() };
+
             // throw from script, handle in host        
             VERIFY_IS_TRUE(JsGetPropertyIdFromName(L"throwAtHost", &name) == JsNoError);               
             VERIFY_IS_TRUE(JsGetProperty(global, name, &function) == JsNoError);        
-            VERIFY_IS_TRUE(JsCallFunction(function, NULL, 0, &result) == JsErrorScriptException);        
+            VERIFY_IS_TRUE(JsCallFunction(function, args, _countof(args), &result) == JsErrorScriptException);        
             VERIFY_IS_TRUE(JsGetAndClearException(&exception) == JsNoError);
 
             // setup a host callback for the next couple of tests
@@ -645,12 +653,12 @@ namespace JsrtUnitTests
             // throw from host callback, catch in script        
             VERIFY_IS_TRUE(JsGetPropertyIdFromName(L"callHostWithTryCatch", &name) == JsNoError);        
             VERIFY_IS_TRUE(JsGetProperty(global, name, &function) == JsNoError);        
-            VERIFY_IS_TRUE(JsCallFunction(function, NULL, 0, &result) == JsNoError);
+            VERIFY_IS_TRUE(JsCallFunction(function, args, _countof(args), &result) == JsNoError);
 
             // throw from host callback, through script, handle in host        
             VERIFY_IS_TRUE(JsGetPropertyIdFromName(L"callHostWithNoTryCatch", &name) == JsNoError);        
             VERIFY_IS_TRUE(JsGetProperty(global, name, &function) == JsNoError);        
-            VERIFY_IS_TRUE(JsCallFunction(function, NULL, 0, &result) == JsErrorScriptException);
+            VERIFY_IS_TRUE(JsCallFunction(function, args, _countof(args), &result) == JsErrorScriptException);
         }        
 
         TEST_METHOD(EngineFlagTest)
@@ -1202,26 +1210,28 @@ namespace JsrtUnitTests
                 L");", JS_SOURCE_CONTEXT_NONE, L"", &result) == JsNoError);
             VERIFY_IS_NOT_NULL(callback);
 
+            JsValueRef args[] = { GetUndefined() };
+
             // first then handler was queued
             task = callback;
             callback = JS_INVALID_REFERENCE;
             VERIFY_IS_TRUE(JsGetValueType(task, &valueType) == JsNoError);
             VERIFY_IS_TRUE(valueType == JsFunction);
-            VERIFY_IS_TRUE(JsCallFunction(task, nullptr, 0, &result) == JsNoError);
+            VERIFY_IS_TRUE(JsCallFunction(task, args, _countof(args), &result) == JsNoError);
 
             // the second promise resolution was queued
             task = callback;
             callback = JS_INVALID_REFERENCE;
             VERIFY_IS_TRUE(JsGetValueType(task, &valueType) == JsNoError);
             VERIFY_IS_TRUE(valueType == JsFunction);
-            VERIFY_IS_TRUE(JsCallFunction(task, nullptr, 0, &result) == JsNoError);
+            VERIFY_IS_TRUE(JsCallFunction(task, args, _countof(args), &result) == JsNoError);
 
             // second then handler was queued.
             task = callback;
             callback = JS_INVALID_REFERENCE;
             VERIFY_IS_TRUE(JsGetValueType(task, &valueType) == JsNoError);
             VERIFY_IS_TRUE(valueType == JsFunction);
-            VERIFY_IS_TRUE(JsCallFunction(task, nullptr, 0, &result) == JsNoError);
+            VERIFY_IS_TRUE(JsCallFunction(task, args, _countof(args), &result) == JsNoError);
 
             // we are done; no more new task are queue.
             VERIFY_IS_TRUE(callback == JS_INVALID_REFERENCE);
@@ -1898,6 +1908,13 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(JsStrictEquals(a, a, &equals) == JsNoError);
             return !equals;
         };
+
+        static JsValueRef GetUndefined()
+        {
+            JsValueRef undefined;
+            VERIFY_IS_TRUE(JsGetUndefinedValue(&undefined) == JsNoError);
+            return undefined;
+        }
 
     private:
         JsRuntimeHandle runtime;

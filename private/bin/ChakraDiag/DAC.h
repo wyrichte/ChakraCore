@@ -1103,6 +1103,12 @@ namespace JsDiag
         RegSlot GetLocalsCount() const;
     }; // RemoteFunctionBody.
 
+    struct RemoteScriptDebugDocument : public RemoteData<ScriptDebugDocument>
+    {
+        RemoteScriptDebugDocument(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+        void* GetDocumentId() const { return this->ReadField<void*>(offsetof(TargetType, m_documentText)); }
+    };
+
     struct RemoteUtf8SourceInfo : RemoteData<Utf8SourceInfo>
     {
         RemoteUtf8SourceInfo(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
@@ -1132,10 +1138,14 @@ namespace JsDiag
 
         UINT64 GetDocumentId() const
         {
-            const Utf8SourceInfo* sourceInfo = this->ToTargetPtr();
-            UINT64 documentId = (UINT64)sourceInfo->m_documentText;
+            DebugDocument* debugDocument = this->ToTargetPtr()->m_debugDocument;
 
-            return documentId;
+            if (debugDocument != nullptr)
+            {
+                RemoteScriptDebugDocument remoteScriptDebugDocument(m_reader, (ScriptDebugDocument*)debugDocument);
+                return (UINT64)remoteScriptDebugDocument.GetDocumentId();
+            }
+            return 0;
         }
 
         bool Contains(DWORD offset) const

@@ -921,9 +921,9 @@ private:
     void MapDebugDocumentUntil(TMapFunction map)
     {
         MapUTF8SourceInfoUntil([=] (Js::Utf8SourceInfo * utf8SourceInfo) -> bool {
-            if (utf8SourceInfo->HasScriptDebugDocument())
+            if (utf8SourceInfo->HasDebugDocument())
             {
-                ScriptDebugDocument* document = static_cast<ScriptDebugDocument*>(utf8SourceInfo->GetScriptDebugDocument());
+                ScriptDebugDocument* document = static_cast<ScriptDebugDocument*>(utf8SourceInfo->GetDebugDocument());
                 return map(document);
             }
             return false;

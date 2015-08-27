@@ -33,7 +33,6 @@
 #include "activscp_private.h"
 #include "ad1ex.h"
 #include "codectx.h"
-#include "breakpointProbe.h"
 #include "ScriptDebugDocument.h"
 
 #ifdef ENABLE_PROJECTION

@@ -50,6 +50,8 @@ function simpleThrowFunc() {
     };
 }
 
+var global = (function() { return this; }());
+
 var tests = [
     {
         name: "Simple generator functions with no parameters or locals or captures",
@@ -245,21 +247,27 @@ var tests = [
     {
         name: "Geneartor functions with this reference",
         body: function () {
-            function* gf1(a) { yield 1 + a + this.a; }
-            g = gf1.call({a : 100}, 10);
+            function* gf(a) {
+                yield 1 + a + this.a;
+            }
+            g = gf.call({a : 100}, 10);
             assert.areEqual({value : 111, done: false}, g.next(), "Returns the sum of 1, argument and the this's property's");
             assert.areEqual({value: undefined, done: true}, g.next(), "Generator is in completed state");
+        }
+    },
+    {
+        name: "Generator declarations and methods cannot be used as a constructor",
+        body: function () {
+            function* gf(a) { yield 1 + a + this.a; }
+            assert.throws( function () { new gf(); }, TypeError, "Generator declarations used as constructor throws TypeError", "Function is not a constructor");
+            assert.throws( function () { new gf(10); }, TypeError, "Generator declarations used as constructor with parameters throws TypeError", "Function is not a constructor");
 
-            gf1.prototype.a = 100;
-            g = new gf1(10);
-            assert.areEqual({value : 111, done: false}, g.next(), "Returns the sum of 1, argument and the this's property's");
-            assert.areEqual({value: undefined, done: true}, g.next(), "Generator is in completed state");
+            var obj1 = { *gf() {} };
+            assert.throws( function () { new obj1.gf(); }, TypeError, "Generator methods used as constructor throws TypeError", "Function is not a constructor");
 
-            function* gf2() { yield this.b; }
-            g = new gf2();
-            g.b = 1;
-            assert.areEqual({value : 1, done: false}, g.next(), "Returns the property b from the generator object");
-            assert.areEqual({value: undefined, done: true}, g.next(), "Generator is in completed state");
+            class c { *gf() {} };
+            var obj2 = new c();
+            assert.throws( function () { new obj2.gf(); }, TypeError, "Generator methods in class used as constructor throws TypeError", "Function is not a constructor");
         }
     },
     {
@@ -1433,6 +1441,81 @@ var tests = [
 
             assert.areEqual(0, g.next().value, "Generator function should be able to yield with 'super' reference");
             assert.areEqual("BASE", g.next().value, "Generator function should be able to return with 'super' reference");
+        }
+    },
+    {
+        name: "Cross-site scenarios for generators",
+        body: function () {
+            if (WScript && WScript.LoadScript) {
+                var global = WScript.LoadScript("var obj = { *gf() { yield this.x; return this.y; }, x : 10, y: 11 }; var g = obj.gf();", "samethread");
+                var result = global.g.next();
+                assert.areEqual(10, result.value, "Next call on the generator object created on a different context should yield fine on this thread");
+                assert.areEqual(false, result.done, "The generator object is not closed yet");
+
+                result = global.g.next();
+                assert.areEqual(11, result.value, "Next call on the generator object created on a different context should return fine on this thread");
+                assert.areEqual(true, result.done, "Generator object is in closed state");
+
+                global = WScript.LoadScript("var obj = { *gf() { yield this.x; return this.y; }, x : 10, y: 11 }; var g = obj.gf();", "samethread");
+                global.g.next();
+                result = global.g.return(100);
+                assert.areEqual(100, result.value, "Return call on the generator object created on a different context should return fine on this thread");
+                assert.areEqual(true, result.done, "Generator object is closed by the return call");
+
+                global = WScript.LoadScript("var obj = { *gf() { try { yield this.x; } catch (e) { throw { value : this.x } } }, x : 200 }; var g = obj.gf();", "samethread");
+                global.g.next();
+                try {
+                    global.g.throw(100);
+                } catch (e) {
+                    assert.areEqual(200, e.value, "Throw call on the generator object created on a different context should should propogate the inner throw result");
+                }
+            }
+        }
+    },
+    {
+        name: "This object validation for strict and non-strict generator functions",
+        body: function () {
+            var thisValue = null;
+            function* method1() { thisValue = this; };
+            method1().next();
+            assert.areEqual(global, thisValue, "In non-strict mode generators should use the global this");
+
+            thisValue = null;
+            function* method2() { 'use strict'; thisValue = this; };
+            method2().next();
+            assert.areEqual(undefined, thisValue, "In strict mode generators should follow the strict mode semantics and use undefined");
+        }
+    },
+    {
+        name: "Iterator protocol violation scenarios",
+        body: function () {
+            var closed = false;
+            var g1, g2;
+            function* gf1() { yield 1; }
+            function* gf2() { yield *g1; };
+
+
+            g1 = gf1();
+            g1.throw = undefined,
+            g1.return = function() { closed = true; return {done: true}; }
+            g2 = gf2();
+            g2.next();
+            assert.throws(function() { g2['throw'](new ExpectedException()) }, ExpectedException, "Throw is propogated back to the caller");
+            assert.isTrue(closed, "When throw method is not defined on the iterator IteratorClose is called");
+
+            g1 = gf1();
+            g1.throw = undefined,
+            g1.return = function() {  throw new ExpectedException(); }
+            g2 = gf2();
+            g2.next();
+            assert.throws(function () { g2['throw']({value : 1}); }, ExpectedException, "Inner exceptions from IteratorClose are propogated");
+
+            g1 = gf1();
+            g1.throw = undefined,
+            g1.return = function() { return 10; }
+            g2 = gf2();
+            g2.next();
+            assert.throws(function () { g2['throw']({value : 1}); }, TypeError, "A TypeError is thrown if the inner result of iteractor close is not an object", "Object expected");
         }
     },
     // TODO: Test yield in expression positions of control flow constructs, e.g. initializer, condition, and increment of a for loop

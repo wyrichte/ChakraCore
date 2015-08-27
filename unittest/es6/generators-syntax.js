@@ -90,7 +90,6 @@ var tests = [
 
             assert.throws(function () { eval("function* gf() { function yield() { } }"); }, SyntaxError, "Cannot name function 'yield' in generator body", "The use of a keyword for an identifier is invalid");
             assert.throws(function () { eval("function* gf() { function* yield() { } }"); }, SyntaxError, "Cannot name generator function 'yield' in generator body", "The use of a keyword for an identifier is invalid");
-            assert.throws(function () { eval("function* gf() { var fe = function yield() { } }"); }, SyntaxError, "Cannot name function expression 'yield' in generator body", "The use of a keyword for an identifier is invalid");
             assert.throws(function () { eval("function* gf() { var gfe = function* yield() { } }"); }, SyntaxError, "Cannot name generator function expression 'yield' in generator body", "The use of a keyword for an identifier is invalid");
 
             assert.throws(function () { eval("function* gf() { class yield { } }"); }, SyntaxError, "Cannot name class 'yield' in generator body", "The use of a keyword for an identifier is invalid");
@@ -100,12 +99,25 @@ var tests = [
             assert.throws(function () { eval("function* gf() { var o = { yield }; }"); }, SyntaxError, "Cannot name shorthand property 'yield' in generator body", "The use of a keyword for an identifier is invalid");
 
             // Note, reserved words are allowed for object literal and class PropertyNames, so these cases parse without error.
+            assert.doesNotThrow(function () { eval("function* gf() { var fe = function yield() { } }"); }, "Can name function expression 'yield' in generator body");
             assert.doesNotThrow(function () { eval("function* gf() { var o = { yield: 10 } }"); }, "Can name object literal property 'yield' in generator body");
             assert.doesNotThrow(function () { eval("function* gf() { var o = { get yield() { } } }"); }, "Can name accessor method 'yield' in generator body");
             assert.doesNotThrow(function () { eval("function* gf() { var o = { yield() { } } }"); }, "Can name concise method 'yield' in generator body");
             assert.doesNotThrow(function () { eval("function* gf() { var o = { *yield() { } } }"); }, "Can name generator concise method 'yield' in generator body");
             assert.doesNotThrow(function () { eval("function* gf() { class C { yield() { } } }"); }, "Can name method 'yield' in generator body");
             assert.doesNotThrow(function () { eval("function* gf() { class C { *yield() { } } }"); }, "Can name generator method 'yield' in generator body");
+        }
+    },
+    {
+        name: "It is a SyntaxError if formal parameters' default argument expressions contain a yield expression",
+        body: function () {
+            assert.throws(function () { eval("function *gf(b, a = 1 + yield) {}"); }, SyntaxError, "Formal parameters of generator declaration cannot contain yield expression", "Syntax error");
+            assert.throws(function () { eval("function *gf(b, yield) {}"); }, SyntaxError, "Formal parameters cannot be named yield inside generator declaration", "The use of a keyword for an identifier is invalid");
+            assert.throws(function () { eval("function *gf(a = (10, yield, 20)) {}"); }, SyntaxError, "Parameter initializers cannot contain yield expression inside generator declaration", "Syntax error");
+            assert.throws(function () { eval("gf = function* (b, a = yield) {}"); }, SyntaxError, "Formal parameters of generator expression cannot contain yield expression", "Syntax error");
+            assert.throws(function () { eval("gf = function* (b, yield) {}"); }, SyntaxError, "Formal parameters cannot be named yield inside generator expression", "The use of a keyword for an identifier is invalid");
+            assert.throws(function () { eval("var obj = { *gf(b, a = yield) {} }"); }, SyntaxError, "Formal parameters of generator methods cannot contain yield expression", "Syntax error");
+            assert.throws(function () { eval("var obj = { *gf(b, yield) {} }"); }, SyntaxError, "Formal parameters cannot be named yield inside generator methods", "The use of a keyword for an identifier is invalid");
         }
     },
     {
@@ -129,11 +141,53 @@ var tests = [
             assert.doesNotThrow(function () { eval("function f() { class C { yield() { } } }"); }, "Can name method 'yield' in non-generator body");
             assert.doesNotThrow(function () { eval("function f() { class C { *yield() { } } }"); }, "Can name generator method 'yield' in non-generator body");
         }
-    }
+    },
+    {
+        name: "Yield and yield* followed by new line",
+        body: function () {
+            var x = 0;
+            var gf1 = function *() {
+                yield
+                x = 1;
+            }
+            var g1 = gf1();
+            assert.areEqual({value : undefined, done : false}, g1.next(), "Yield followed by a line terminator is treated as a no operand yield");
+            assert.areEqual(0, x, "x is initialized with zero");
+            assert.areEqual({value : undefined, done : true }, g1.next(), "Generator is in closed state");
+            assert.areEqual(1, x, "Assignment expression is evaluated as a separate expression");
 
+            g1 = 10;
+            function *gf2() {
+                return yield
+                    *g1;
+            }
+            var g2 = gf2();
+            assert.areEqual({value: undefined, done: false}, g2.next(), "If there is a new line between yield and star then yield is treated as yield with no assignment expression");
+            assert.areEqual({value: 100, done: true}, g2.next(10), "*g1 gets treated as a multiplication operation");
+        }
+    },
+    {
+        name: "Scenarios with yield not a keyword inside generator",
+        body: function () {
+            var result;
+            var x = 0;
+            function *gf() {
+                var g = function yield(a) {
+                    if (!a) {
+                        return yield(1);
+                    } else {
+                        return 10;
+                    }
+                };
+                yield g();
+            };
+
+            var g = gf();
+            assert.areEqual({value: 10, done: false}, g.next(), "Yield is allowed as the name of a function expression");
+            assert.areEqual({value: undefined, done: true}, g.next(), "Generator is closed");
+        }
+    },
     // TODO: add test case for function* gfoo() { (yield) => { /* use yield here */ } }
-    // TODO: add test cases for yield appearing as a valid identifier inside generator functions (e.g. above lambda, or e.g. o.yield, etc)
-    // TODO: add test case for automatic semicolon insertion after yield keyword (requires checking value of yield operation, i.e. full implementation)
 ];
 
 testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });

@@ -35,6 +35,12 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
+  <!-- Razzle binplace -->
+  <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true'">
+    <PublishCompiled Include="$(ObjectPath)\$(ObjectDirectory)$(TargetName).lib">
+      <DestinationFile>$(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\$(TargetName).lib</DestinationFile>
+    </PublishCompiled>
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jsStaticDataConversion.cpp" />
     <ClCompile Include="jsStaticLibrary.cpp" />

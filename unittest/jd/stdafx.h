@@ -7,10 +7,20 @@
 #include <windows.h>
 
 #include "DiagAssertion.h"
+
+#if defined(_DEBUG)
+#define JS_ATL_DEBUG
+#undef _DEBUG
+#endif
 #include <atlbase.h>
 #include <atlstr.h>
 #include <atlcom.h>
 #include <atlfile.h>
+#ifdef JS_ATL_DEBUG
+#define _DEBUG
+#undef JS_ATL_DEBUG
+#endif
+
 #include <algorithm>
 #include <set>
 #include <string>

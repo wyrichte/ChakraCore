@@ -83,7 +83,7 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(JsSetCurrentContext(this->context) == JsNoError);
             JsValueRef fiboCallback;
             VERIFY_IS_TRUE(JsCreateFunction(FiboCallback, this, &fiboCallback) == JsNoError);
-            JsValueRef args[2] = { JS_INVALID_REFERENCE, fiboCallback };
+            JsValueRef args[2] = { GetUndefined(), fiboCallback };
             VERIFY_IS_TRUE(JsCallFunction(this->nextFibo, args, 2, nullptr) == JsNoError);
             VERIFY_IS_TRUE(JsSetCurrentContext(JS_INVALID_REFERENCE) == JsNoError);
         }

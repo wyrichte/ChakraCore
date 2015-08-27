@@ -41,6 +41,13 @@ namespace JsrtUnitTests
 
         TEST_METHOD(DoTest);     
 
+        static JsValueRef GetUndefined()
+        {
+            JsValueRef undefined;
+            VERIFY_IS_TRUE(JsGetUndefinedValue(&undefined) == JsNoError);
+            return undefined;
+        }
+
     private:
         static const int fiboCount;  
         static const double fiboStopAt;
