@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <packages>
+<<<<<<< HEAD
+  <package id="RazzleTools" version="1.0.2" />
+  <package id="SDPublics" version="1.0.5" />
+  <package id="IELibs" version="1.0.3" />
+</packages>
+=======
   <package id="RazzleTools" version="1.0.3" />
   <package id="SDPublics" version="1.0.5" />
   <package id="IELibs" version="1.0.4" />
 </packages>
+>>>>>>> SDToGit

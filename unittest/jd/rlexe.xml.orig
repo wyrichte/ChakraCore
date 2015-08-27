@@ -7,8 +7,13 @@
       <files>test1.js</files>
       <baseline>test1.baseline</baseline>
       <command>jdtest -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;!verifyOM;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
-      <compile-flags>-Off:Inline -Off:JITLoopBody -Intl- -dynamicprofilecache:profile.dpl.test1.js.1</compile-flags>
+<<<<<<< HEAD
+      <compile-flags>-Off:Inline -Off:JITLoopBody -Intl- -dynamicprofilecache:test1.js.1.dpl</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
+=======
+      <compile-flags>-Off:Inline -Off:JITLoopBody -Intl- -dynamicprofilecache:profile.dpl.test1.js.1</compile-flags>
+      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
+>>>>>>> SDToGit
     </default>
   </test>
   <test>
@@ -18,8 +23,13 @@
       <files>test1.js</files>
       <baseline />
       <command>jdtest -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;!verifyOM;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
-      <compile-flags>-Intl- -dynamicprofilecache:profile.dpl.test1.js.2</compile-flags>
+<<<<<<< HEAD
+      <compile-flags>-Intl- -dynamicprofilecache:test1.js.2.dpl</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
+=======
+      <compile-flags>-Intl- -dynamicprofilecache:profile.dpl.test1.js.2</compile-flags>
+      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
+>>>>>>> SDToGit
     </default>
   </test>
   <test>
@@ -28,8 +38,13 @@
       <files>test1.js</files>
       <baseline>test1.jitloop.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
-      <compile-flags>-Off:Inline -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.1</compile-flags>
+<<<<<<< HEAD
+      <compile-flags>-Off:Inline -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:test1.js.1.dpl</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
+=======
+      <compile-flags>-Off:Inline -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.1</compile-flags>
+      <tags>exclude_arm,exclude_jsrt,exclude_interpreted</tags>
+>>>>>>> SDToGit
     </default>
   </test>
   <test>
@@ -39,8 +54,13 @@
       <files>test1.js</files>
       <baseline />
       <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
-      <compile-flags>-Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.2</compile-flags>
+<<<<<<< HEAD
+      <compile-flags>-Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:test1.js.2.dpl</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
+=======
+      <compile-flags>-Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.2</compile-flags>
+      <tags>exclude_arm,exclude_jsrt,exclude_interpreted</tags>
+>>>>>>> SDToGit
     </default>
   </test>
   <test>
