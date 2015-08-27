@@ -185,6 +185,8 @@
       <PreprocessToFile>true</PreprocessToFile>
       <PreprocessSuppressLineNumbers>true</PreprocessSuppressLineNumbers>
       <PreprocessorDefinitions Condition="'$(TargetName)'=='ChakraTest'">%(PreprecessorDefinitions);CHAKRATEST=1</PreprocessorDefinitions>
+      <!-- This is for enabling exports which are meant for test only -->
+      <PreprocessorDefinitions Condition="'$(Configuration)'=='Test'">%(PreprecessorDefinitions);CHAKRAFRETEST=1</PreprocessorDefinitions>
       <LinkCompiled>false</LinkCompiled>
       <ImpLibCompiled>false</ImpLibCompiled>
       <!-- Clear the forced includes -->
