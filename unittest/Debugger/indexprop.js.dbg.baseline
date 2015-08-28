@@ -66,6 +66,7 @@
           "multiline": "false",
           "options": "",
           "source": "regex",
+          "sticky": "false",
           "unicode": "false",
           "[106]": "106"
         },

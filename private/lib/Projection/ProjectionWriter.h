@@ -102,6 +102,7 @@ namespace Projection
 
 #if DBG
         bool supportsWeakDelegate;
+        bool isMarkedForClose;
 #endif
 
         // PropertyIds for the event members:

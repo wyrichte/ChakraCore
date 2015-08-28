@@ -1403,6 +1403,11 @@ namespace Projection
             element->MarkForClose();
         });
 
+#if DBG
+        isMarkedForClose = true;
+#endif
+        this->eventHandlingInstanceList.Clear();
+
         // Set the flag to not unregister unknowns
         if (disableUnregister)
         {
@@ -1731,6 +1736,7 @@ namespace Projection
 
 #if DBG
         supportsWeakDelegate = projectionContext->SupportsWeakDelegate();
+        isMarkedForClose = false;
 #endif
 
         lengthId = IdOfString(L"length");
@@ -2021,6 +2027,7 @@ LReturn:
         Assert(supportsWeakDelegate);
         Assert(instance->supportsRefCountProbe);
         rootInPartialGCInstanceList.Remove(instance);
+        Assert(!isMarkedForClose || eventHandlingInstanceList.Count() == 0);
         eventHandlingInstanceList.Remove(instance);
     }
 

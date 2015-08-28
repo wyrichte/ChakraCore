@@ -370,6 +370,13 @@
           ],
           "flagsAsValue": 8
         },
+        "sticky": "false",
+        "sticky - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
         "unicode": "false",
         "unicode - [Attributes]": {
           "flags": [
@@ -435,6 +442,13 @@
         },
         "source": ".\\s?",
         "source - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "sticky": "false",
+        "sticky - [Attributes]": {
           "flags": [
             "JS_PROPERTY_READONLY"
           ],

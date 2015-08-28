@@ -102,6 +102,7 @@
         "multiline": "false",
         "options": "",
         "source": "(?:)",
+        "sticky": "false",
         "unicode": "false"
       }
     }
@@ -467,6 +468,7 @@
         "multiline": "false",
         "options": "",
         "source": "(?:)",
+        "sticky": "false",
         "unicode": "false"
       }
     }

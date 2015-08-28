@@ -81,8 +81,14 @@ PASSED
 PASSED
 *** Running test #23 (22): Class method descriptor values
 PASSED
-*** Running test #24 (23): Class methods cannot be called as constructors
+*** Running test #24 (23): Class constructor cannot be called without new keyword
 PASSED
-*** Running test #25 (24): Class static member cannot have computed name 'prototype'
+*** Running test #25 (24): Class methods cannot be called as constructors
 PASSED
-Summary of tests: total executed: 25; passed: 25; failed: 0
+*** Running test #26 (25): Class static member cannot have computed name 'prototype'
+PASSED
+*** Running test #27 (26): Extends expression of a class declaration or expression is strict mode
+PASSED
+*** Running test #28 (27): Class identifier is evaluated in strict mode
+PASSED
+Summary of tests: total executed: 28; passed: 28; failed: 0

@@ -128,6 +128,13 @@
   </test>
   <test>
     <default>
+      <files>superDotOSBug3930962.js</files>
+      <compile-flags>-args summary -endargs</compile-flags>
+      <tags>BugFix</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>toStringTag.js</files>
       <compile-flags> -nonative -es6classes -es6generators -es6tostringtag -args summary -endargs</compile-flags>
       <tags>exclude_dynapogo</tags>
@@ -589,7 +596,7 @@
     <default>
       <files>unicode_escape_sequences.js</files>
       <baseline>unicode_escape_sequences.baseline</baseline>
-      <compile-flags> -ES6Unicode -ES6RegexChanges</compile-flags>
+      <compile-flags> -ES6Unicode -ES6RegExSticky</compile-flags>
       <tags>exclude_ship</tags>
     </default>
   </test>
@@ -605,7 +612,7 @@
     <default>
       <files>unicode_regex_surrogate_atoms.js</files>
       <baseline>unicode_regex_surrogate_atoms.baseline</baseline>
-      <compile-flags> -ES6Unicode -ES6RegexChanges</compile-flags>
+      <compile-flags> -ES6Unicode -ES6RegExSticky</compile-flags>
       <tags>exclude_ship</tags>
     </default>
   </test>
@@ -730,7 +737,7 @@
     <default>
       <files>unicode_regex_surrogate.js</files>
       <baseline>unicode_regex_surrogate.baseline</baseline>
-      <compile-flags> -ES6Unicode -ES6RegexChanges</compile-flags>
+      <compile-flags> -ES6Unicode -ES6RegExSticky</compile-flags>
       <tags>exclude_ship,Slow,Slow</tags>
     </default>
   </test>
@@ -738,7 +745,7 @@
     <default>
       <files>unicode_sunspider_regexp-dna.js</files>
       <baseline />
-      <compile-flags> -ES6Unicode -ES6RegexChanges</compile-flags>
+      <compile-flags> -ES6Unicode -ES6RegExSticky</compile-flags>
       <tags>exclude_ship</tags>
     </default>
   </test>
@@ -1065,28 +1072,27 @@
   <test>
     <default>
       <files>regex-case-folding.js</files>
-      <compile-flags>-version:6 -ES6RegexChanges -args summary -endargs</compile-flags>
+      <compile-flags>-version:6 -ES6RegExSticky -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>regexflags.js</files>
       <baseline>regexflags.baseline</baseline>
-      <compile-flags>-version:6 -ES6RegexChanges</compile-flags>
+      <compile-flags>-version:6 -ES6RegExSticky</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>RegExpApisTestWithStickyFlag.js</files>
-      <baseline>RegExpApisTestWithStickyFlag.baseline</baseline>
-      <compile-flags>-version:6 -ES6RegexChanges -args summary -endargs</compile-flags>
+      <compile-flags>-version:6 -ES6RegExSticky -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>stickyflag.js</files>
       <baseline>stickyflag.baseline</baseline>
-      <compile-flags>-version:6 -ES6RegexChanges -args summary -endargs</compile-flags>
+      <compile-flags>-version:6 -ES6RegExSticky -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>

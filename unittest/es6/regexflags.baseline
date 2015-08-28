@@ -62,5 +62,5 @@ Test sticky bit with match() with global/sticky flag.
 hello1 ,hello2 ,hello3
 0
 Test sticky bit with split()
-hello1 hello2 hello3
+hello, hello, hello,
 0

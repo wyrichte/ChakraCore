@@ -201,6 +201,11 @@ Pass Delete Test
 
 
 starting Property[ 5 ]:  sticky
-Does Property exist:  false
+Does Property exist:  true
+Is the Property configurable:  false
+PASS, Not Configurable and will not allow redefinition
+PASS
+can you delete the property:  false did it actually delete? false
+Pass Delete Test
 
 

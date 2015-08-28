@@ -45,10 +45,11 @@ STDMETHODIMP CJScript9ClassFactory::CreateInstance(IUnknown *punkOuter, REFIID r
 
     pos = AllocateEngine(szLangName);
     IFNULLMEMRET(pos);
-    if (!pos->InitializeThreadBound())
-        return E_OUTOFMEMORY;
+    IfFailGo(pos->InitializeThreadBound());
 
     hr = pos->QueryInterface(riid, ppvObj);
+
+Error:
     pos->Release();
     return hr;
 }

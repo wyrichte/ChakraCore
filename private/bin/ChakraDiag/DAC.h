@@ -746,7 +746,7 @@ namespace JsDiag
         RemoteScriptConfiguration(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}        
         bool IsES6TypedArrayExtensionsEnabled() { return ToTargetPtr()->IsES6TypedArrayExtensionsEnabled(); }
         bool IsES6UnicodeExtensionsEnabled() { return ToTargetPtr()->IsES6UnicodeExtensionsEnabled(); }
-        bool IsES6RegExChangesEnabled() { return ToTargetPtr()->IsES6RegExChangesEnabled(); }
+        bool IsES6RegExStickyEnabled() { return ToTargetPtr()->IsES6RegExStickyEnabled(); }
     };
 
     struct RemoteJavascriptFunction : public RemoteRecyclableObjectBase<JavascriptFunction>
@@ -1300,7 +1300,7 @@ namespace JsDiag
         RemoteJavascriptRegExp(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
         void GetSource(PCWSTR* pSource, charcount_t* pLength);
         CString GetSource();
-        CString GetOptions(bool IsES6UnicodeExtensionsEnabled = false, bool isEs6RegExpFlagsEnable = false) const;
+        CString GetOptions(bool IsES6UnicodeExtensionsEnabled = false, bool isEs6RegExpStickyFlagEnabled = false) const;
 
         Js::Var GetLastIndex() const
         {

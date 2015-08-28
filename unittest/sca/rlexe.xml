@@ -23,7 +23,7 @@
     <default>
       <files>sca_builtin.js</files>
       <baseline>sca_builtin.userargs.baseline</baseline>
-      <compile-flags>-ES6RegexChanges  -args /s/gyimu -endargs</compile-flags>
+      <compile-flags>-ES6RegExSticky  -args /s/gyimu -endargs</compile-flags>
     </default>
   </test>
   <test>

@@ -89,6 +89,7 @@
         "f.multiline": "false",
         "f.options": "",
         "f.source": "(?:)",
+        "f.sticky": "false",
         "f.unicode": "false"
       }
     }
@@ -374,6 +375,7 @@
         "f.multiline": "false",
         "f.options": "",
         "f.source": "(?:)",
+        "f.sticky": "false",
         "f.unicode": "false"
       }
     }

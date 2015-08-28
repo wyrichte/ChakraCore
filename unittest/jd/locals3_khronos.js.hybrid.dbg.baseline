@@ -335,6 +335,8 @@
           "options": "",
           "source - [Type]": "String",
           "source": "",
+          "sticky - [Type]": "Boolean",
+          "sticky": "false",
           "unicode - [Type]": "Boolean",
           "unicode": "false"
         },
@@ -350,6 +352,8 @@
         "options": "",
         "source - [Type]": "String",
         "source": "abcd",
+        "sticky - [Type]": "Boolean",
+        "sticky": "false",
         "unicode - [Type]": "Boolean",
         "unicode": "false"
       },
@@ -431,6 +435,8 @@
           "options": "",
           "source - [Type]": "String",
           "source": "",
+          "sticky - [Type]": "Boolean",
+          "sticky": "false",
           "unicode - [Type]": "Boolean",
           "unicode": "false"
         },

@@ -1045,6 +1045,34 @@
   </test>
   <test>
     <default>
+      <files>ES6_RegExp_specialproperties.js</files>
+      <compile-flags>-ES6Unicode- -ES6RegExSticky- -debuglaunch -targeted -inspectmaxstringlength:100 -dbgbaseline:ES6_RegExp_specialproperties_default.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ES6_RegExp_specialproperties.js</files>
+      <compile-flags>-ES6Unicode -ES6RegExSticky- -debuglaunch -targeted -inspectmaxstringlength:100 -dbgbaseline:ES6_RegExp_specialproperties_with_unicode.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ES6_RegExp_specialproperties.js</files>
+      <compile-flags>-ES6Unicode- -ES6RegExSticky -debuglaunch -targeted -inspectmaxstringlength:100 -dbgbaseline:ES6_RegExp_specialproperties_with_sticky.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ES6_RegExp_specialproperties.js</files>
+      <compile-flags>-ES6Unicode -ES6RegExSticky -debuglaunch -targeted -inspectmaxstringlength:100 -dbgbaseline:ES6_RegExp_specialproperties_all.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>specialproperties_level2.js</files>
       <compile-flags>-debuglaunch -es6functionnamefull -targeted -inspectmaxstringlength:100 -dbgbaseline:specialproperties_level2.js.debuglaunch.dbg.baseline</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>

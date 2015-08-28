@@ -286,6 +286,9 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
 #endif
     pairCount = 0;
     pSourceContextPairs = nullptr;
+
+    // starting from Vista InitializeCriticalSection does not raise exception
+    InitializeCriticalSection(&m_csInterrupt); // "Interrupt" critical section
 }
 
 ScriptEngine::~ScriptEngine()
@@ -308,22 +311,18 @@ ScriptEngine::~ScriptEngine()
     DLLRelease(); // One DLL reference for each existing script engine
 }
 
-BOOL ScriptEngine::InitializeThreadBound()
+HRESULT ScriptEngine::InitializeThreadBound()
 {
     HRESULT hr = S_OK;
     BEGIN_TRANSLATE_OOM_TO_HRESULT_NESTED
     {
         ThreadContext *threadContext = ThreadBoundThreadContextManager::EnsureContextForCurrentThread();
-
-        if (threadContext == nullptr)
-        {
-            return false;
-        }
-
+        // threadContext won't be null since it's using throw alloc.
+        Assert(threadContext);
         hr = this->Initialize(threadContext);
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
-    return hr == S_OK;
+    return hr;
 }
 
 HRESULT ScriptEngine::Initialize(ThreadContext * threadContext)
@@ -333,8 +332,6 @@ HRESULT ScriptEngine::Initialize(ThreadContext * threadContext)
     this->threadContext = threadContext;
     m_dwSafetyOptions = INTERFACE_USES_DISPEX;
 
-    // starting from Vista InitializeCriticalSection does not raise exception
-    InitializeCriticalSection(&m_csInterrupt); // "Interrupt" critical section
     scriptAllocator = HeapNew(ArenaAllocator, L"ScriptEngine", this->threadContext->GetPageAllocator(), Js::Throw::OutOfMemory);
     eventHandlers = JsUtil::List<BaseEventHandler*, ArenaAllocator>::New(scriptAllocator);
     eventSinks = JsUtil::List<EventSink*, ArenaAllocator>::New(scriptAllocator);
@@ -3460,7 +3457,7 @@ STDMETHODIMP ScriptEngine::Clone(IActiveScript **ppscript)
     // Create a new script instance:
     oleScriptNew = HeapNewNoThrow(ScriptEngine, m_riidLanguage, m_pszLanguageName);
     IFNULLMEMRET(oleScriptNew);
-    if (!oleScriptNew->InitializeThreadBound())
+    if (FAILED(oleScriptNew->InitializeThreadBound()))
     {
         delete oleScriptNew;
         return E_OUTOFMEMORY;

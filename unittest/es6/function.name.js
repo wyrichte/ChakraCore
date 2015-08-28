@@ -569,6 +569,36 @@ var tests = [
         }
     },
     {
+        name: "Bug 3941893 & Bug 4153027",
+        body: function()
+        {
+            class B {
+                static ["n"+"a"+"me"]() {}
+            }
+            assert.areEqual("function", typeof B.name, "Function 'name' attribute should not be inferred in presence of static computed 'name' method");
+            assert.areEqual("name", B.name.name, "Make sure the name is correct");
+            var o = {
+                ['A'+'B'] : class extends B {},
+                ['C'+'B'] : class {},
+                
+                ['a'+'b'] : class extends B {foo_ab(){}},
+                ['c'+'b'] : class {foo_cb(){}},
+                
+                ['d'+'f'] : class extends B {static foo_df(){}},
+                ['f'+'d'] : class {static foo_fd(){}}
+            }
+            
+            assert.areEqual("AB", o.AB.name, "confirm empty super class is properly assigned to a computed property");
+            assert.areEqual("CB", o.CB.name, "confirm empty base class is properly assigned to a computed property");
+            
+            assert.areEqual("ab", o.ab.name, "confirm filled super class is properly assigned to a computed property");
+            assert.areEqual("cb", o.cb.name, "confirm filled base class is properly assigned to a computed property");
+            
+            assert.areEqual("df", o.df.name, "confirm static filled super class is properly assigned to a computed property");
+            assert.areEqual("fd", o.fd.name, "confirm static filled base class is properly assigned to a computed property");
+        }
+    },
+    {
         name: "Bug 3713125",
         body: function()
         {

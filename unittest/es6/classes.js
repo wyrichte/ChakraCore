@@ -9,33 +9,42 @@ function p(x) {
 
 function verifyClassMember(obj, name, expectedReturnValue, isGet, isSet, isGenerator) {
     let p = Object.getOwnPropertyDescriptor(obj, name);
+    let strMethodSignature = `obj[${name}](${isGet},${isSet},${isGenerator})`;
     
     if (isGet) {
-        assert.areEqual('function', typeof p.get, `obj[${name}](${isGet},${isSet},${isGenerator}): Get method has 'get' property set in descriptor`);
-        assert.areEqual(expectedReturnValue, obj[name], `obj[${name}](${isGet},${isSet},${isGenerator}): Invoking class get method returns correct value`);
-        assert.areEqual(expectedReturnValue, p.get(), `obj[${name}](${isGet},${isSet},${isGenerator}): Calling class get method function directly returns correct value`);
+        assert.areEqual('function', typeof p.get, `${strMethodSignature}: Get method has 'get' property set in descriptor`);
+        assert.areEqual(expectedReturnValue, obj[name], `${strMethodSignature}: Invoking class get method returns correct value`);
+        assert.areEqual(expectedReturnValue, p.get(), `${strMethodSignature}: Calling class get method function directly returns correct value`);
+        
+        //assert.isFalse('prototype' in p.get, `${strMethodSignature}: Class method get does not have 'prototype' property`);
     } else if (isSet) {
-        assert.areEqual('function', typeof p.set, `obj[${name}](${isGet},${isSet},${isGenerator}): Set method has 'set' property set in descriptor`);
-        assert.areEqual(undefined, obj[name], `obj[${name}](${isGet},${isSet},${isGenerator}): Invoking class set method returns undefined`);
-        assert.areEqual(expectedReturnValue, p.set(), `obj[${name}](${isGet},${isSet},${isGenerator}): Calling class set method function directly returns correct value`);
+        assert.areEqual('function', typeof p.set, `${strMethodSignature}: Set method has 'set' property set in descriptor`);
+        assert.areEqual(undefined, obj[name], `${strMethodSignature}: Invoking class set method returns undefined`);
+        assert.areEqual(expectedReturnValue, p.set(), `${strMethodSignature}: Calling class set method function directly returns correct value`);
+        
+        //assert.isFalse('prototype' in p.set, `${strMethodSignature}: Class method set does not have 'prototype' property`);
     } else if (isGenerator) {
-        assert.areEqual('function', typeof obj[name], `obj[${name}](${isGet},${isSet},${isGenerator}): Class method generator function has correct type`);
+        assert.areEqual('function', typeof obj[name], `${strMethodSignature}: Class method generator function has correct type`);
         
         let s;
         for (s of obj[name]()) {}
-        assert.areEqual(expectedReturnValue, s, `obj[${name}](${isGet},${isSet},${isGenerator}): Calling class method generator returns correct value`);
+        assert.areEqual(expectedReturnValue, s, `${strMethodSignature}: Calling class method generator returns correct value`);
         
-        assert.isTrue(p.writable, `obj[${name}](${isGet},${isSet},${isGenerator}): Class method generator functions are writable`);
+        assert.isTrue(p.writable, `${strMethodSignature}: Class method generator functions are writable`);
+        
+        //assert.isTrue('prototype' in obj[name], `${strMethodSignature}: Class method generator does have 'prototype' property`);
     } else {
-        assert.areEqual('function', typeof obj[name], `obj[${name}](${isGet},${isSet},${isGenerator}): Class method has correct type`);
-        assert.areEqual(expectedReturnValue, obj[name](), `obj[${name}](${isGet},${isSet},${isGenerator}): Calling class method returns correct value`);
+        assert.areEqual('function', typeof obj[name], `${strMethodSignature}: Class method has correct type`);
+        assert.areEqual(expectedReturnValue, obj[name](), `${strMethodSignature}: Calling class method returns correct value`);
         
         // get/set property descriptors do not have writable properties
-        assert.isTrue(p.writable, `obj[${name}](${isGet},${isSet},${isGenerator}): Class method functions are writable`);
+        assert.isTrue(p.writable, `${strMethodSignature}: Class method functions are writable`);
+        
+        //assert.isFalse('prototype' in obj[name], `${strMethodSignature}: Class method does not have 'prototype' property`);
     }
     
-    assert.isFalse(p.enumerable, `obj[${name}](${isGet},${isSet},${isGenerator}): Class methods are not enumerable`);
-    assert.isTrue(p.configurable, `obj[${name}](${isGet},${isSet},${isGenerator}): Class methods are configurable`);
+    assert.isFalse(p.enumerable, `${strMethodSignature}: Class methods are not enumerable`);
+    assert.isTrue(p.configurable, `${strMethodSignature}: Class methods are configurable`);
 }
 
 var tests = [
@@ -704,23 +713,28 @@ var tests = [
             verifyClassMember(B.prototype, 'method8', 'vwx', false, false, true);
         }
     },
-    // TODO: Enable this test when class constructor [[call]] operations are blocked
-    // {
-        // name: "Class constructor methods cannot be called as function",
-        // body: function () {
-            // class A {}
+    {
+        name: "Class constructor cannot be called without new keyword",
+        body: function () {
+            class A {}
             
-            // assert.throws(function() { A(); }, TypeError, "Base class constructor does not have a [[call]] slot", "Operation not supported");
+            assert.throws(function() { A(); }, TypeError, "Base class constructor does not have a [[call]] slot", "Class constructor cannot be called without the new keyword");
+            assert.throws(function() { A.call(); }, TypeError, "Base class constructor does not have a [[call]] slot", "Class constructor cannot be called without the new keyword");
+            assert.throws(function() { A.apply(); }, TypeError, "Base class constructor does not have a [[call]] slot", "Class constructor cannot be called without the new keyword");
             
-            // class B extends A {}
+            class B extends A {}
             
-            // assert.throws(function() { B(); }, TypeError, "Derived class constructor does not have a [[call]] slot", "Operation not supported");
+            assert.throws(function() { B(); }, TypeError, "Derived class constructor does not have a [[call]] slot", "Class constructor cannot be called without the new keyword");
+            assert.throws(function() { B.call(); }, TypeError, "Derived class constructor does not have a [[call]] slot", "Class constructor cannot be called without the new keyword");
+            assert.throws(function() { B.apply(); }, TypeError, "Derived class constructor does not have a [[call]] slot", "Class constructor cannot be called without the new keyword");
             
-            // class SubArray extends Array { };
+            class SubArray extends Array { };
 
-            // assert.throws(function() { SubArray(); }, TypeError, "Class derived from built-in does not have a [[call]] slot", "Operation not supported");
-        // }
-    // },
+            assert.throws(function() { SubArray(); }, TypeError, "Class derived from built-in does not have a [[call]] slot", "Class constructor cannot be called without the new keyword");
+            assert.throws(function() { SubArray.call(); }, TypeError, "Class derived from built-in does not have a [[call]] slot", "Class constructor cannot be called without the new keyword");
+            assert.throws(function() { SubArray.apply(); }, TypeError, "Class derived from built-in does not have a [[call]] slot", "Class constructor cannot be called without the new keyword");
+        }
+    },
     {
         name: "Class methods cannot be called as constructors",
         body: function() {
@@ -777,6 +791,26 @@ var tests = [
             assert.doesNotThrow(function() { eval(`class A { *['prototype']() {} };`); }, "Class generator member with computed name 'prototype' is fine");
         }
     },
+    {
+        name: "Extends expression of a class declaration or expression is strict mode",
+        body: function() {
+            var BadClass = class extends function() { arguments.caller; } {};
+            assert.throws(function() { Object.getPrototypeOf(BadClass).arguments; }, TypeError, "The extends expression of a class expression should be parsed in strict mode", "Accessing the 'arguments' property of a function is not allowed in strict mode");
+            assert.throws(function() { new BadClass(); }, TypeError, "New'ing a class with a parent constructor that throws in strict mode, should throw", "Accessing the 'caller' property of a function or arguments object is not allowed in strict mode");
+            
+            assert.throws(function() { eval('class WorseClass extends (function foo() { with ({}); return foo; }()) {};'); }, SyntaxError, "The extends expression of a class decl should be parsed in strict mode", "'with' statements are not allowed in strict mode");
+        }
+    },
+    {
+        name: "Class identifier is evaluated in strict mode",
+        body: function() {
+            assert.throws(function() { eval('class arguments {};'); }, SyntaxError, "A class may not be named arguments because assigning to arguments in strict mode is not allowed", "Invalid usage of 'arguments' in strict mode");
+            assert.throws(function() { eval('var x = class arguments {};'); }, SyntaxError, "A class may not be named arguments because assigning to arguments in strict mode is not allowed", "Invalid usage of 'arguments' in strict mode");
+            
+            assert.throws(function() { eval('class eval {};'); }, SyntaxError, "A class may not be named eval because assigning to arguments in strict mode is not allowed", "Invalid usage of 'eval' in strict mode");
+            assert.throws(function() { eval('var x = class eval {};'); }, SyntaxError, "A class may not be named eval because assigning to arguments in strict mode is not allowed", "Invalid usage of 'eval' in strict mode");
+        }
+    }
 ];
 
 testRunner.runTests(tests);

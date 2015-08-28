@@ -90,31 +90,10 @@ var tests = [
     name: "OS 102456: Assert when deleting a non-method property from a class",
     body: function () {
       u3056 = function() {};
-      class eval extends u3056 {};
-      eval.y = "str";
-      delete eval.x;
-      delete eval.y;
-    }
-  },
-  {
-    name: "OS 112054, 206284: A class named arguments allows methods to create an arguments object",
-    body: function () {
-      function foo() {
-        class arguments { };
-        return arguments;
-      }
-
-      function bar() {
-        let arguments = 5;
-        return arguments;
-      }
-      
-      for (let d in [(Math.atan()), arguments.caller, (Math.atan())]) {
-        class arguments {}
-      }
-
-      assert.areEqual("constructor() {}", foo(1,2)+"", "A class named arguments overrides the arguments object")
-      assert.areEqual(5,                    bar(1,2,3),  "A let binding named arguments overrides the arguments object");
+      class c extends u3056 {};
+      c.y = "str";
+      delete c.x;
+      delete c.y;
     }
   },
   {
@@ -144,16 +123,6 @@ var tests = [
     body: function () {
       assert.throws(function () { eval('class{}();'); }, SyntaxError, "Class expressions cannot be called without parens", "Expected identifier");
       assert.doesNotThrow(function () { eval('new (class {})();'); }, "Parenthesized class expressions can be called");
-    }
-  },
-  {
-    name: "OS 863801: Class expression named arguments incorrectly overrides arguments object",
-    body: function () {
-      function test() {
-        assert.areEqual([1, 2, undefined], [arguments[0], arguments[1], arguments[2]], "Arguments object is available");
-        var x = class arguments {};
-      }
-      test(1, 2);
     }
   },
   {

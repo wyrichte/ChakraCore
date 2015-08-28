@@ -686,12 +686,12 @@ namespace JsDiag
         {
             pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::unicode, regularExpression.IsUnicode());
         }
-        if (scriptConfiguration.IsES6RegExChangesEnabled())
+        if (scriptConfiguration.IsES6RegExStickyEnabled())
         {
             pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::sticky, regularExpression.IsSticky());
         }
         pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::source, regularExpression.GetSource());
-        pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::options, regularExpression.GetOptions(scriptConfiguration.IsES6UnicodeExtensionsEnabled(), scriptConfiguration.IsES6RegExChangesEnabled()));
+        pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::options, regularExpression.GetOptions(scriptConfiguration.IsES6UnicodeExtensionsEnabled(), scriptConfiguration.IsES6RegExStickyEnabled()));
 
         __super::InsertSpecialProperties(var);
     }

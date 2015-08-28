@@ -193,7 +193,6 @@ var tests = [
        name: "Pop toLength tests",
        body: function () 
        {
-       /* TODO(falotfi) fix as part of OS bug 3947512
             var o = {
                 0 : 0,
                 4294967294 : 2,
@@ -228,7 +227,7 @@ var tests = [
             assert.areEqual(4294967295, a.length, "length is at max");
             var popped = a.pop();
             assert.areEqual(2, popped, "confirm we start popping at index 4294967294 and get value 2 from it");
-            assert.areEqual(4294967294, a.length, "confirm length decremented by 1");*/
+            assert.areEqual(4294967294, a.length, "confirm length decremented by 1");
        }
    },
    {

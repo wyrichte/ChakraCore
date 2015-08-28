@@ -2420,7 +2420,7 @@ namespace JsDiag
         return IsFlagSet(UnifiedRegex::StickyRegexFlag);
     }
 
-    CString RemoteJavascriptRegExp::GetOptions(bool IsES6UnicodeExtensionsEnabled /* = false */, bool isEs6RegExpFlagsEnable /* = false */) const
+    CString RemoteJavascriptRegExp::GetOptions(bool IsES6UnicodeExtensionsEnabled /* = false */, bool isEs6RegExpStickyFlagEnabled /* = false */) const
     {
         CString options;
 
@@ -2448,7 +2448,7 @@ namespace JsDiag
         {
             options.AppendChar(L'u');
         }
-        if (isEs6RegExpFlagsEnable && pattern.IsSticky())
+        if (isEs6RegExpStickyFlagEnabled && pattern.IsSticky())
         {
             options.AppendChar(L'y');
         }

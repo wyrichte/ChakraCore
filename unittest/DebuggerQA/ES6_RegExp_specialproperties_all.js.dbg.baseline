@@ -1,0 +1,17 @@
+[
+  {
+    "evaluate": {
+      "r": {
+        "__proto__": "",
+        "global": "false",
+        "ignoreCase": "false",
+        "lastIndex": "0",
+        "multiline": "false",
+        "options": "",
+        "source": ".",
+        "sticky": "false",
+        "unicode": "false"
+      }
+    }
+  }
+]

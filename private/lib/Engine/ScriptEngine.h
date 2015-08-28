@@ -704,7 +704,7 @@ public:
 
     // *** ScriptEngine ***
 
-    BOOL InitializeThreadBound();
+    HRESULT InitializeThreadBound();
     HRESULT Initialize(ThreadContext * threadContext);
     HRESULT GetLanguageInfo(BSTR* pbstrLang, GUID* pguidLang);
     HRESULT CloseInternal();

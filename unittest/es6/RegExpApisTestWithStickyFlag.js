@@ -3,6 +3,32 @@ if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in
   this.WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 }
 
+function createMessage(message, prefix) {
+    prefix = (prefix != undefined) ? prefix + ": " : "";
+    return prefix + message;
+}
+
+function assertSplit(re, messagePrefix) {
+    var str = "a,ab,ba,b,";
+    var result = str.split(re);
+    assert.areEqual(3, result.length, createMessage("Sticky = true, RegExp.split() result's length", messagePrefix));
+    assert.areEqual("", result[0], createMessage("Sticky = true, RegExp.split() result[0]", messagePrefix));
+    assert.areEqual("ab,b", result[1], createMessage("Sticky = true, RegExp.split() result[1]", messagePrefix));
+    assert.areEqual("b,", result[2], createMessage("Sticky = true, RegExp.split() result[2]", messagePrefix));
+    assert.areEqual(0, re.lastIndex, createMessage("Sticky = true, lastIndex result on RegExp.split()", messagePrefix));
+}
+
+function assertSplitWithSingleCharacterPattern(re, messagePrefix) {
+    var str = "abaca";
+    var result = str.split(re);
+    assert.areEqual(4, result.length, createMessage("Sticky = true, RegExp.split() result's length", messagePrefix));
+    assert.areEqual("", result[0], createMessage("Sticky = true, RegExp.split() result", messagePrefix));
+    assert.areEqual("b", result[1], createMessage("Sticky = true, RegExp.split() result", messagePrefix));
+    assert.areEqual("c", result[2], createMessage("Sticky = true, RegExp.split() result", messagePrefix));
+    assert.areEqual("", result[3], createMessage("Sticky = true, RegExp.split() result", messagePrefix));
+    assert.areEqual(0, re.lastIndex, createMessage("Sticky = true, lastIndex result on RegExp.split()", messagePrefix));
+}
+
 var tests = [
   {
     name: "RegExp.test() - matches for the beginning of string, otherwise terminates if sticky = true",
@@ -108,18 +134,70 @@ var tests = [
     }
   },   
   {
-    name: "RegExp.split() - ignores sticky flag",
+    name: "RegExp.split() - ignores sticky flag if created via literal",
     body: function () {
-        var str = "a,ab,ba,b,";
         var re = /a,/y;
-        var result = str.split(re, 5);
-        assert.isTrue(result.length == 2, "Sticky = true, RegExp.split() result's length");
-        assert.isTrue(re.lastIndex == 0, "Sticky = true, lastIndex result on RegExp.split()");
-        assert.isTrue(result == ",ab,ba,b,", "Sticky = true, RegExp.split() result");
-        
+        assertSplit(re);
     }
-  },  
-  
+  },
+  {
+    name: "RegExp.split() - ignores sticky flag if created via constructor",
+    body: function () {
+        var re = new RegExp("a,", "y");
+        assertSplit(re, "Non-RegExp pattern");
+
+        var re2 = new RegExp(re);
+        assertSplit(re2, "RegExp pattern, 'flags' aren't present");
+
+        var re3 = new RegExp(re, "y", "RegExp pattern, 'flags' are present");
+        assertSplit(re3);
+
+        var re4 = new RegExp("A,", "y");
+        "asd".split(re);
+        var re5 = new RegExp(re4, "i");
+        assertSplit(re2, "Changed flags");
+    }
+  },
+  {
+    name: "RegExp.split() - ignores sticky flag if created via RegExp.prototype.compile",
+    body: function () {
+        var re = /./.compile("a,", "y");
+        assertSplit(re, "Non-RegExp pattern");
+
+        var re2 = /./.compile(re);
+        assertSplit(re2, "RegExp pattern");
+    }
+  },
+  {
+    name: "RegExp.split() - ignores sticky flag if single-character pattern",
+    body: function () {
+        var reCaseSensitive = /a/y;
+        assertSplitWithSingleCharacterPattern(reCaseSensitive, "Case-sensitive");
+
+        var reCaseInsensitive = /A/iy;
+        assertSplitWithSingleCharacterPattern(reCaseInsensitive, "Case-insensitive");
+    }
+  },
+  {
+    name: "RegExp.split() - result is propagated to the constructor",
+    body: function () {
+        var str = "abac";
+        var re = /(a[c]?)/y;
+        var result = str.split(re);
+
+        // If the actual result is "a", that means we propagated "re"s original pattern
+        // as opposed to the separate one for split().
+        assert.areEqual("ac", RegExp.$1);
+    }
+  },
+  {
+    name: "RegExp.split() - ignores lastIndex",
+    body: function () {
+        var re = /a,/y;
+        re.lastIndex = 3;
+        assertSplit(re);
+    }
+  }
 ];
 
-testRunner.runTests(tests);
+testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });
