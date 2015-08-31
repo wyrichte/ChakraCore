@@ -83,7 +83,7 @@
     "breakpoint": {
       "reason": "breakpoint",
       "location": {
-        "start": 2516,
+        "start": 2520,
         "length": 28,
         "text": "var {x, y:[y]} = {x:1, y:[]}",
         "frameDescription": "Anonymous function"
@@ -94,7 +94,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 2546,
+        "start": 2550,
         "length": 29,
         "text": "{x1, y1:[y1]} = {x1:1, y1:[]}",
         "frameDescription": "Anonymous function"
@@ -105,7 +105,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 2664,
+        "start": 2668,
         "length": 1,
         "text": "}",
         "frameDescription": "Anonymous function"
@@ -116,7 +116,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 2707,
+        "start": 2711,
         "length": 3,
         "text": "{x}",
         "frameDescription": "foo"
@@ -127,7 +127,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 2712,
+        "start": 2716,
         "length": 3,
         "text": "{y}",
         "frameDescription": "foo"
@@ -138,7 +138,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 2864,
+        "start": 2868,
         "length": 12,
         "text": "{x} = {x:10}",
         "frameDescription": "foo"
@@ -149,7 +149,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 2881,
+        "start": 2885,
         "length": 13,
         "text": "[y = 1] = [2]",
         "frameDescription": "foo"
@@ -160,7 +160,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 2903,
+        "start": 2907,
         "length": 1,
         "text": "}",
         "frameDescription": "foo"
@@ -171,7 +171,7 @@
     "breakpoint": {
       "reason": "breakpoint",
       "location": {
-        "start": 3119,
+        "start": 3123,
         "length": 25,
         "text": "catch({x, y = 20, z:[z]})",
         "frameDescription": "Anonymous function"
@@ -182,7 +182,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 3210,
+        "start": 3214,
         "length": 1,
         "text": "x",
         "frameDescription": "Anonymous function"
@@ -193,7 +193,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 3404,
+        "start": 3408,
         "length": 30,
         "text": "for (var {item} of [{item:1}])",
         "frameDescription": "Anonymous function"
@@ -204,7 +204,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 3409,
+        "start": 3413,
         "length": 10,
         "text": "var {item}",
         "frameDescription": "Anonymous function"
@@ -215,7 +215,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 3446,
+        "start": 3450,
         "length": 4,
         "text": "item",
         "frameDescription": "Anonymous function"
@@ -226,7 +226,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 3409,
+        "start": 3413,
         "length": 10,
         "text": "var {item}",
         "frameDescription": "Anonymous function"
@@ -237,7 +237,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 3515,
+        "start": 3519,
         "length": 8,
         "text": "{x = 10}",
         "frameDescription": "foo"
@@ -253,7 +253,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 3529,
+        "start": 3533,
         "length": 13,
         "text": "[y = 1] = [2]",
         "frameDescription": "foo"
@@ -284,7 +284,7 @@
     "breakpoint": {
       "reason": "step",
       "location": {
-        "start": 3551,
+        "start": 3555,
         "length": 1,
         "text": "}",
         "frameDescription": "foo"
@@ -313,8 +313,8 @@
   },
   {
     "setnextstatement": {
-      "from": 4069,
-      "to": 4129,
+      "from": 4073,
+      "to": 4133,
       "IsAllowed": "No"
     }
   },
@@ -330,8 +330,8 @@
   },
   {
     "setnextstatement": {
-      "from": 4388,
-      "to": 4342,
+      "from": 4392,
+      "to": 4346,
       "IsAllowed": "Yes"
     }
   },
@@ -342,15 +342,15 @@
   },
   {
     "setnextstatement": {
-      "from": 4605,
-      "to": 4713,
+      "from": 4609,
+      "to": 4717,
       "IsAllowed": "No"
     }
   },
   {
     "setnextstatement": {
-      "from": 4655,
-      "to": 4713,
+      "from": 4659,
+      "to": 4717,
       "IsAllowed": "No"
     }
   },
@@ -361,8 +361,8 @@
   },
   {
     "setnextstatement": {
-      "from": 4945,
-      "to": 4871,
+      "from": 4949,
+      "to": 4875,
       "IsAllowed": "Yes"
     }
   },
