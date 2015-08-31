@@ -120,7 +120,7 @@ private:
     BOOL m_fHasDispatchedToDebugger : 1;
     BOOL m_fIsFirstChance : 1;
     BOOL m_fIsExceptionCaughtInNonUserCode : 1;
-
+    BOOL m_wasRooted : 1;
 
     CComPtr<IDebugStackFrame> m_pStackFrame;
 };

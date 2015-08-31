@@ -9,7 +9,7 @@
 ActiveScriptError::ActiveScriptError() : m_cRef(1),
         m_dwSourceContext(0), m_ulLineNumber(0), m_lCharacterPosition(0),
         m_bstrSourceLine(nullptr), m_errInfo(nullptr), m_fHasDispatchedToDebugger(FALSE), m_fIsFirstChance(FALSE), m_fIsExceptionCaughtInNonUserCode(FALSE),
-        m_scriptDebugDocument(nullptr), thrownObject(nullptr), recycler(nullptr)
+        m_scriptDebugDocument(nullptr), thrownObject(nullptr), recycler(nullptr), m_wasRooted(FALSE)
 {
     memset(&m_ei, 0, sizeof(m_ei));
     memset(&m_restrictedStr, 0, sizeof(m_restrictedStr));
@@ -47,7 +47,7 @@ void ActiveScriptError::Free()
         m_errInfo->Release();
         m_errInfo = nullptr;
     }
-    if (thrownObject != nullptr && Js::RecyclableObject::Is(this->thrownObject))
+    if (thrownObject != nullptr && Js::RecyclableObject::Is(this->thrownObject) && m_wasRooted)
     {
 #if DBG
         if (recycler->IsValidObject(thrownObject))
@@ -501,6 +501,7 @@ HRESULT ActiveScriptError::CreateRuntimeError(Js::JavascriptExceptionObject * ex
             *ppase = nullptr;
             return hr;
         }
+        pase->m_wasRooted = TRUE;
     }
 
     *pHrError = FillExcepInfo(exceptionObject, nullptr, &pase->m_ei, &pase->m_restrictedStr);
