@@ -332,7 +332,7 @@ STDMETHODIMP ActiveScriptProfilerHeapEnum::Init()
         m_autoSetupRecyclerForNonCollectingMark = new Recycler::AutoSetupRecyclerForNonCollectingMark(m_recycler, true);
         if (! m_autoSetupRecyclerForNonCollectingMark)
         {
-            return E_OUTOFMEMORY;
+            Js::Throw::OutOfMemory();
         }
         m_autoSetupRecyclerForNonCollectingMark->SetupForHeapEnumeration();
         // We only enumerate the global object for the current script engine. Trident is responsible for reporting

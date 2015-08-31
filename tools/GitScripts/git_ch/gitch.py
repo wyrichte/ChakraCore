@@ -1,5 +1,5 @@
 import os
-from git import Repo
+from git import Repo, Submodule
 from plumbum import local
 import re
 import tempfile
@@ -8,6 +8,14 @@ import sys
 
 
 # Helpers
+DEBUG = False
+
+
+def _debug_print(s):
+    if DEBUG:
+        print(s)
+
+
 def _run_system_command(command):
     print("Running '%s'" % command)
     os.system(command)
@@ -66,15 +74,16 @@ def _get_changed_files_for_repo(repo, prefix=''):
     proc = repo.git.status(porcelain=True, untracked_files=True, as_process=True)
     changed_files = []
     for line in proc.stdout:
-        path = prefix + line.decode()[3:].rstrip('\n')
-        blob = _get_blob_for_path(root_tree, path)
-        changed_files.append((path, blob, repo))
+        repo_file_path = line.decode()[3:].rstrip('\n')
+        blob = _get_blob_for_path(root_tree, repo_file_path)
+        if not isinstance(blob, Submodule):
+            changed_files.append((repo_file_path, blob, repo, prefix))
     return changed_files
 
 
 def _store_blob_to_file(repo, blob, target_path):    
     (parent, leaf) = os.path.split(target_path)
-    print("Creating file %s in %s\n" % (leaf, parent))
+    _debug_print("Creating file %s in %s\n" % (leaf, parent))
     if not os.path.exists(parent):
         os.makedirs(parent)
     with open(target_path, "wb") as f:
@@ -96,11 +105,12 @@ def _construct_diff(filelist):
     before = os.path.join(temp_dir, "before")
     after = os.path.join(temp_dir, "after")
 
-    print("Creating %s" % before)
-    for (path, blob, repo) in filelist:
+    _debug_print("Creating %s" % before)
+    for (path, blob, repo, prefix) in filelist:
         if blob:
-            _store_blob_to_file(repo, blob, os.path.join(before, *(path.split("/"))))
-        _copy_repo_file(repo, path, after)
+            target_path = os.path.join(prefix, path)
+            _store_blob_to_file(repo, blob, os.path.join(before, *(target_path.split("/"))))
+        _copy_repo_file(repo, path, os.path.join(after, prefix))
 
     return (temp_dir, before, after)
 
@@ -130,7 +140,7 @@ class GitCh():
         # Create directory structure
         # Diff
         changed_files = _get_changed_files_for_repo(self.full_repo) + \
-                        _get_changed_files_for_repo(self.core_repo, 'core//')
+                        _get_changed_files_for_repo(self.core_repo, 'core/')
         (temp_dir, before, after) = _construct_diff(changed_files)
         _run_system_command("%s %s %s" % (diff_tool, before, after))
 

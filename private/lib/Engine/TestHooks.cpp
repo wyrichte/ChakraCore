@@ -330,7 +330,10 @@ void __stdcall FinalGC()
 
 
     ThreadContext * threadContext = ThreadContext::GetContextForCurrentThread();
-    if (!threadContext)
+
+    // Don't run the final GC if no script context was ever registered with the thread
+    // context- there wouldn't be anything interesting to collect anyway
+    if (!threadContext || threadContext->WasAnyScriptContextEverRegistered() == false)
     {
         return;
     }
