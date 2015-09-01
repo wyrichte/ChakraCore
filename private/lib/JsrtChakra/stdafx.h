@@ -8,6 +8,7 @@
 #include <atlbase.h>
 #include "edgescriptDirect.h"
 #include "Runtime.h"
+#include "Debug\DiagProbe.h"
 
 #include <objsafe.h>
 #include <guids.h>
@@ -25,13 +26,11 @@
 #include "dispmemberproxy.h"
 
 #include "JavascriptExternalOperators.h"
-#include "DefaultScriptOperations.h"
 #include "DispatchHelper.h"
 #include "NamedEventHandler.h"
 #include "activdbg.h"
 #include "activscp_private.h"
 #include "ad1ex.h"
-#include "ScriptDebugDocument.h"
 
 #ifdef ENABLE_PROJECTION
 #include "..\WinRT\WinRTLib.h"

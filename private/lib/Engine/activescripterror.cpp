@@ -4,6 +4,7 @@
 *                                                       *
 ********************************************************/
 #include "stdafx.h"
+#include "errstr.h"
 
 // === ActiveScriptError ==
 ActiveScriptError::ActiveScriptError() : m_cRef(1),

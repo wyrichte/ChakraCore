@@ -1,5 +1,8 @@
+//---------------------------------------------------------------------------
+// Copyright (C) Microsoft. All rights reserved.
+//----------------------------------------------------------------------------
+
 #include "stdafx.h"
-#include "ScriptDebugDocument.h"
 
 ScriptDocumentProviderBridge::ScriptDocumentProviderBridge(IDebugDocumentProvider * pActualDocumentProvider, SourceContextInfo* sourceContextInfo)
     : m_refCount(0), m_pActualDocumentProvider(pActualDocumentProvider), m_sourceContextInfo(sourceContextInfo)

@@ -9,7 +9,11 @@
 #include "dllfunc.h"
 #include <atlcom.h>
 #include "edgescriptDirect.h"
+#include "Parser.h"
 
+// =================
+// Runtime Includes
+// =================
 #include "Runtime.h"
 #include "Library\EtwTrace.h"
 #include "Library\AsyncDebug.h"
@@ -21,11 +25,20 @@
 // REVIEW: ChakraCore Dependency
 #include "activdbg_private.h"
 #endif
+#include "Debug\DebuggingFlags.h"
+#include "Debug\DiagProbe.h"
+#include "Debug\BreakpointProbe.h"
+#include "Debug\DebugDocument.h"
+#include "Debug\DebugManager.h"
+#include "Debug\ProbeContainer.h"
+#include "Debug\DebugContext.h"
 #include "Debug\DiagObjectModel.h"
 #include "Debug\DiagStackFrame.h"
 #ifdef ENABLE_MUTATION_BREAKPOINT
 #include "Debug\MutationBreakpoint.h"
 #endif
+// =================
+
 
 #include <objsafe.h>
 #include <comcat.h>
@@ -161,13 +174,7 @@
 #if !defined(USED_IN_STATIC_LIB)
 #include "ActiveScriptProfilerHeapEnum.h"
 #endif
-#ifdef EDIT_AND_CONTINUE
-#include "pnodediff.h"
-#include "ParseTreeComparer.h"
-#include "SemanticChange.h"
-#include "ScriptEdit.h"
-#include "EditTest.h"
-#endif
 
 #include "resource.h"
 #include "ChakraVersion.h"
+#include "AutoCallerPointer.h"

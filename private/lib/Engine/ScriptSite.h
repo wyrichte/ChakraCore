@@ -100,8 +100,7 @@ private:
     };
 
     APPBREAKFLAGS m_grfbrk;
-    BOOL m_fAllowBreakpoints;
-    BOOL m_fAbort;
+    BOOL m_fAllowBreakpoints;    
     void * m_pvMinorSession;
 
     ThreadContext* threadContext;
@@ -252,14 +251,6 @@ public:
 
     void RecordExcepInfoAndClear(EXCEPINFO *pei, HRESULT *phr);
 
-    void SetAbort(BOOL fAbort) { m_fAbort = fAbort; }
-    HRESULT HandleAbort(void)
-    {
-        if (!m_fAbort || !FInDebuggerCallback())
-            return NOERROR;
-        return RecordError(VBSERR_CantContinue);
-    }
-
     HRESULT SetAppBreakFlags(APPBREAKFLAGS grfbrk, BOOL fIncludeThreadFlags)
     {
         if (!fIncludeThreadFlags)
@@ -395,43 +386,16 @@ private:
 #endif
 };
 
-class AutoCallerPointer
+class ChakraHostScriptContext sealed : public HostScriptContext
 {
 public:
-    AutoCallerPointer(ScriptSite* scriptSite, IUnknown* newCaller) :
-      scriptSite(scriptSite),
-      library(NULL),
-      previousCaller(NULL)
-    {
-        if (!scriptSite->IsClosed())
-        {
-            library = scriptSite->GetScriptSiteContext()->GetLibrary();
-        }
-        scriptSite->SetCaller(newCaller, &originalCaller);
-    }
-    ~AutoCallerPointer()
-    {
-        scriptSite->SetCaller(originalCaller, &previousCaller);
-        RELEASEPTR(previousCaller);
-        RELEASEPTR(originalCaller);
-    }
-private:
-    Js::JavascriptLibrary* library;
-    IUnknown* originalCaller;
-    IUnknown* previousCaller;
-    ScriptSite* scriptSite;
-};
-
-class JScript9HostScriptContext sealed : public HostScriptContext
-{
-public:
-    JScript9HostScriptContext(ScriptSite * scriptSite)
+    ChakraHostScriptContext(ScriptSite * scriptSite)
         : HostScriptContext(scriptSite->GetScriptSiteContext())
     {
         this->scriptSite = scriptSite;
         scriptSite->AddRef();
     }
-    ~JScript9HostScriptContext()
+    ~ChakraHostScriptContext()
     {
         scriptSite->Release();
     }
@@ -530,85 +494,6 @@ public:
         return scriptSite->EnsureParentInfo(scriptContext);
     }
 #endif
-
-    ScriptSite * GetScriptSite() { return scriptSite; }
-private:
-    ScriptSite * scriptSite;
-};
-
-class JScript9HostDebugContext sealed : public HostDebugContext
-{
-public:
-    JScript9HostDebugContext(ScriptSite * scriptSite)
-        : HostDebugContext(scriptSite->GetScriptSiteContext())
-    {
-        this->scriptSite = scriptSite;
-        scriptSite->AddRef();
-    }
-    ~JScript9HostDebugContext()
-    {
-        scriptSite->Release();
-    }
-
-    virtual void Delete()
-    {
-        HeapDelete(this);
-    }
-
-    DWORD_PTR GetHostSourceContext(Js::Utf8SourceInfo * sourceInfo)
-    {
-        DWORD_PTR dwDebugHostSourceContext = Js::Constants::NoHostSourceContext;
-
-        ScriptEngine* scriptEngine = this->GetScriptSite()->GetScriptEngine();
-        SourceContextPair* pSourceContextPairs = scriptEngine->GetSourceContextPairs();
-
-        for (ULONG i = 0; i < scriptEngine->GetSourceContextPairCount(); i++)
-        {
-            if (pSourceContextPairs[i].dwHostSourceContext == sourceInfo->GetHostSourceContext() &&
-                pSourceContextPairs[i].ulCharOffset == sourceInfo->GetSrcInfo()->ulCharOffset)
-            {
-                dwDebugHostSourceContext = pSourceContextPairs[i].dwDebugHostSourceContext;
-                break;
-            }
-        }
-#if DBG
-        if (dwDebugHostSourceContext != Js::Constants::NoHostSourceContext)
-        {
-            // then it must be hostmanaged.
-            Assert(sourceInfo->IsHostManagedSource());
-        }
-        else
-        {
-            Assert(!sourceInfo->IsHostManagedSource());
-        }
-#endif
-        return dwDebugHostSourceContext;
-    }
-
-    HRESULT SetThreadDescription(__in LPCWSTR url)
-    {
-        HRESULT hr = S_OK;
-        ScriptEngine * scriptEngine = this->GetScriptSite()->GetScriptEngine();
-        if (scriptEngine->IsSetThreadDescription())
-        {
-            hr = scriptEngine->SetThreadDescription(url);
-        }
-        return hr;
-    }
-
-    HRESULT DbgRegisterFunction(Js::ScriptContext * scriptContext, Js::FunctionBody * functionBody, DWORD_PTR dwDebugSourceContext, LPCWSTR title)
-    {
-        return this->GetScriptSite()->GetScriptEngine()->DbgRegisterFunction(scriptContext, functionBody, dwDebugSourceContext, title);
-    }
-
-    void ReParentToCaller(Js::Utf8SourceInfo* sourceInfo)
-    {
-        if (sourceInfo && sourceInfo->HasDebugDocument())
-        {
-            ScriptDebugDocument* document = static_cast<ScriptDebugDocument*>(sourceInfo->GetDebugDocument());
-            document->ReParentToCaller();
-        }
-    }
 
     ScriptSite * GetScriptSite() { return scriptSite; }
 private:

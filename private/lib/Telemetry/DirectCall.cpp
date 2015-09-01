@@ -3,7 +3,6 @@
 //----------------------------------------------------------------------------
 
 #include "TelemetryPch.h"
-#include "Runtime.h"
 
 #ifdef ENABLE_DIRECTCALL_TELEMETRY
 

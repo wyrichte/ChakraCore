@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include <setjmp.h>
 #include "MemProtectHeap.h"
+#include "core\ConfigParser.h"
 
 // Initialization order
 //  AB AutoSystemInfo

@@ -3,6 +3,7 @@
 //----------------------------------------------------------------------------
 
 #include "stdafx.h"
+#include "ChakraHostDebugContext.h"
 
 #define DEFINE_OBJECT_NAME(object) const wchar_t *pwszObjectName = L#object;
 
@@ -163,12 +164,12 @@ HRESULT ScriptSite::Init(
         this->recycler = this->GetThreadContext()->GetRecycler();
         this->InitializeExternalLibrary();
 
-        JScript9HostScriptContext * jscript9HostContext = HeapNew(JScript9HostScriptContext, this);
+        ChakraHostScriptContext * jscript9HostContext = HeapNew(ChakraHostScriptContext, this);
         this->GetScriptSiteContext()->SetHostScriptContext(jscript9HostContext);
         this->scriptSiteContext->SetScriptEngineHaltCallback(this->GetScriptEngine());
 
-        JScript9HostDebugContext * jscript9HostDebugContext = HeapNew(JScript9HostDebugContext, this);
-        this->GetScriptSiteContext()->GetDebugContext()->SetHostDebugContext(jscript9HostDebugContext);
+        ChakraHostDebugContext * chakraHostDebugContext = HeapNew(ChakraHostDebugContext, this);
+        this->GetScriptSiteContext()->GetDebugContext()->SetHostDebugContext(chakraHostDebugContext);
 
         this->GetScriptSiteContext()->SetScriptStartEventHandler(ScriptSite::ScriptStartEventHandler);
         this->GetScriptSiteContext()->SetScriptEndEventHandler(ScriptSite::ScriptEndEventHandler);
@@ -1501,7 +1502,7 @@ void ScriptSite::RecordExcepInfoAndClear(EXCEPINFO *pei, HRESULT *phr)
 ScriptSite *
 ScriptSite::FromScriptContext(Js::ScriptContext * scriptContext)
 {
-    return ((JScript9HostScriptContext *)scriptContext->GetHostScriptContext())->GetScriptSite();
+    return ((ChakraHostScriptContext *)scriptContext->GetHostScriptContext())->GetScriptSite();
 }
 
 void
@@ -1747,27 +1748,11 @@ void ScriptSite::InitializeDiagnosticsScriptObject()
 }
 
 #if defined(EDIT_AND_CONTINUE) && defined(ENABLE_DEBUG_CONFIG_OPTIONS)
+#include "EditAndContinue.h"
+
 void ScriptSite::InitializeEditTest()
 {
-    if (!CONFIG_FLAG(EditTest))
-    {
-        return;
-    }
-
-    Js::ScriptContext* scriptContext = this->GetScriptSiteContext();
-    Js::JavascriptLibrary* library = scriptContext->GetLibrary();
-
-    Js::DynamicObject* editTest = library->CreateObject();
-    {
-        const Js::PropertyRecord* propertyRecord;
-        scriptContext->GetOrAddPropertyRecord(L"EditTest", &propertyRecord);
-        library->AddMember(library->GetGlobalObject(), propertyRecord->GetPropertyId(), editTest);
-    }
-
-    library->AddFunctionToLibraryObjectWithPropertyName(editTest, L"LoadTextFile", &Js::EditTest::EntryInfo::LoadTextFile, 1);
-    library->AddFunctionToLibraryObjectWithPropertyName(editTest, L"LCS", &Js::EditTest::EntryInfo::LCS, 2);
-    library->AddFunctionToLibraryObjectWithPropertyName(editTest, L"Ast", &Js::EditTest::EntryInfo::Ast, 1);
-    library->AddFunctionToLibraryObjectWithPropertyName(editTest, L"AstDiff", &Js::EditTest::EntryInfo::AstDiff, 2);
+    EditAndContinue::InitializeEditTest(this->GetScriptSiteContext());
 }
 #endif
 

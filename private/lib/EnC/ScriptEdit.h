@@ -9,44 +9,7 @@ namespace Js
     class ScriptEdit;
     class ScriptParseTree;
     class ScriptDiff;
-    class ScriptEditAction;
-
-    //-----------------------------------------------------------------------------
-    // Dispatch a call synchronously in given thread through PDM.
-    //-----------------------------------------------------------------------------
-    template <class Fn>
-    HRESULT Dispatch(IDebugBitCorrectApplicationThread* pThread, const Fn& fn)
-    {
-        class DebugThreadCallDispatcher :
-            public ComObjectBase<IDebugThreadCall, DebugThreadCallDispatcher>
-        {
-        private:
-            const Fn* m_fn;
-
-        public:
-            void Init(const Fn* fn)
-            {
-                m_fn = fn;
-            }
-
-            STDMETHOD(ThreadCallHandler)(
-                DWORD_PTR dwParam1,
-                DWORD_PTR dwParam2,
-                DWORD_PTR dwParam3)
-            {
-                return (*m_fn)();
-            }
-        };
-
-        CComPtr<DebugThreadCallDispatcher> spDispatcher;
-        HRESULT hr = DebugThreadCallDispatcher::CreateInstance(&spDispatcher);
-        if (SUCCEEDED(hr))
-        {
-            spDispatcher->Init(&fn);
-            hr = pThread->SynchronousCallIntoThread(spDispatcher, 0, 0, 0);
-        }
-        return hr;
-    }
+    class ScriptEditAction;   
     
     //-----------------------------------------------------------------------------
     // ScriptEdit provides EnC service. Only one instance is created/owned by ScriptEngine.

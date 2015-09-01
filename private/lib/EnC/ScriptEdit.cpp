@@ -3,7 +3,6 @@
 //----------------------------------------------------------------------------
 #include "StdAfx.h"
 #ifdef EDIT_AND_CONTINUE
-
 #include "ActiveScriptError.h"
 
 namespace Js

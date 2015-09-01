@@ -3,6 +3,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 #ifdef EDIT_AND_CONTINUE
+#include "EditTest.h"
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
 
 namespace Js

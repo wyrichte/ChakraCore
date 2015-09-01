@@ -7,6 +7,8 @@
 
 namespace Js
 {
+    class ScriptParseTree;
+
     class EditTest
     {
     public:

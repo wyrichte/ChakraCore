@@ -9,7 +9,7 @@
 
 class ScriptEngine;
 class CScriptSourceDocumentText;
-
+struct StatementSpan;
 
 /***************************************************************************
     CScriptBody wraps an ExecBody. This adds script specific state to an

@@ -43,6 +43,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="$(MsBuildThisFileDirectory)EditAndContinue.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)EditTest.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEdit.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)SemanticChange.cpp" />
@@ -51,6 +52,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EditAndContinue.h" />
     <ClInclude Include="EditTest.h" />
     <ClInclude Include="ScriptEdit.h" />
     <ClInclude Include="SemanticChange.h" />

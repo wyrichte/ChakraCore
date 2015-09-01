@@ -159,37 +159,7 @@ namespace Js
             return m_scriptContext;
         }
 
-        void ThrowIfFailed(HRESULT hr) const
-        {
-            if (FAILED(hr))
-            {
-                if (GetScriptContext()->IsInDebugMode())
-                {
-                    JavascriptExceptionObject *exception = null;
-                    try
-                    {
-                        GetScriptContext()->GetDebugContext()->GetProbeContainer()->SetThrowIsInternal(true);
-                        HostDispatch::HandleDispatchError(GetScriptContext(), hr, NULL);
-                    }
-                    catch (JavascriptExceptionObject *exception_)
-                    {
-                        Assert(exception_);
-                        GetScriptContext()->GetDebugContext()->GetProbeContainer()->SetThrowIsInternal(false);
-                        exception = exception_;
-                    }
-
-                    if (exception)
-                    {
-                        // Rethrow the exception again.
-                        throw exception;
-                    }
-                }
-                else
-                {
-                    HostDispatch::HandleDispatchError(GetScriptContext(), hr, NULL);
-                }
-            }
-        }
+        void ThrowIfFailed(HRESULT hr) const;
 
         void __declspec(noreturn) ThrowSCAUnsupported() const
         {

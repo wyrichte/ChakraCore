@@ -4,6 +4,8 @@
 #include "stdafx.h"
 #include "SortProjection.h"
 #include "Visitor.h"
+#include "DataStructures\QuickSort.h"
+
 
 namespace ProjectionModel
 {

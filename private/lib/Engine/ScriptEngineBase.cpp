@@ -1,4 +1,3 @@
-
 //---------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
@@ -13,7 +12,11 @@
 #include "webplatform.h"
 #include "edgejsStatic.h"
 
+#include "Library\JavascriptRegularExpression.h"
 #include "Library\JavascriptPromise.h"
+
+#include "RegexCommon.h"
+#include "Library\RegexHelper.h"
 
 ScriptEngineBase::ScriptEngineBase() :
     scriptContext(nullptr),

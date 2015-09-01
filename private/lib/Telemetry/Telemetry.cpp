@@ -3,6 +3,7 @@
 //----------------------------------------------------------------------------
 
 #include "TelemetryPch.h"
+#include <strsafe.h>
 #include "ChakraVersion.h"
 #include "ieconfig.h"
 #include "globalthreadstate.h"

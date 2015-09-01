@@ -137,8 +137,10 @@
     <ClInclude Include="ActiveScriptProfilerHeapEnum.h" />
     <ClInclude Include="ad1ex.h" />
     <ClInclude Include="AttrParser.h" />
+    <ClInclude Include="AutoCallerPointer.h" />
     <ClInclude Include="builtinoperations.h" />
     <ClInclude Include="caller.h" />
+    <ClInclude Include="ChakraHostDebugContext.h" />
     <ClInclude Include="CJavascriptOperations.h" />
     <ClInclude Include="classfac.h" />
     <ClInclude Include="codectx.h" />

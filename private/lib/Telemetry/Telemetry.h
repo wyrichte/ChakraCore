@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <wincrypt.h>
 #include <winmeta.h>
 #include <evntrace.h>
 #include <TraceLoggingProvider.h>

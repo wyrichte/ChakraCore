@@ -8,7 +8,11 @@
 #include <atlbase.h>
 #include "edgescriptDirect.h"
 
+// =================
+// Runtime Includes
+// =================
 #include "Runtime.h"
+#include "Library\JavascriptRegularExpression.h"
 #include "Library\JavascriptProxy.h"
 #include "Library\SameValueComparer.h"
 #include "Library\MapOrSetDataList.h"
@@ -16,6 +20,8 @@
 #include "Library\JavascriptSet.h"
 #include "Library\JavascriptWeakMap.h"
 #include "Library\JavascriptWeakSet.h"
+// =================
+
 
 #include "jscriptdllcommon.h"
 

@@ -8,6 +8,7 @@
 #include "StdAfx.h"
 #include "guids.h"
 #include "proxystub.h"
+#include "core\ConfigParser.h"
 #ifdef DYNAMIC_PROFILE_STORAGE
 #include "Language\DynamicProfileStorage.h"
 #endif

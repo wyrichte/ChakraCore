@@ -8,6 +8,11 @@
 #include "Library\JSONString.h"
 #include "Library\SingleCharString.h"
 #include "Library\SubString.h"
+
+// Parser includes
+#include "errstr.h"
+// TODO: clean up the need of these regex related header here just for GroupInfo needed in JavascriptRegExpConstructor
+#include "RegexCommon.h"
 #include "Library\JavascriptRegExpConstructor.h"
 
 extern HANDLE g_hInstance;

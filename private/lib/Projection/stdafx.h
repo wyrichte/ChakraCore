@@ -8,8 +8,27 @@
 #include <atlbase.h>
 #include "edgescriptDirect.h"
 
+
+// =================
+// Parser Includes
+// =================
+#include "idiom.h"
+
+// =================
+// Runtime Includes
+// =================
 #include "Runtime.h"
 #include "Library\AsyncDebug.h"
+#include "Debug\DiagProbe.h"
+
+// =================
+// Common Includes
+// =================
+#include "DataStructures\QuickSort.h"
+#include "DataStructures\Option.h"
+#include "DataStructures\ImmutableList.h"
+#include "DataStructures\BufferBuilder.h"
+// =================
 
 #include <objsafe.h>
 
@@ -30,15 +49,12 @@
 #include "..\staticlib\base\MockExternalObject.h"
 #include "CustomExternalType.h"
 #include "JavascriptExternalOperators.h"
-#include "DefaultScriptOperations.h"
 #include "DispatchHelper.h"
 #include "EventSink.h"
 
 #include "activscp_private.h"
 #include "ad1ex.h"
 #include "scpnode.h"
-
-#include "ScriptDebugDocument.h"
 
 #ifdef ENABLE_PROJECTION
 #include "..\..\Lib\WinRT\WinRTLib.h"
@@ -102,3 +118,5 @@
 #if !defined(USED_IN_STATIC_LIB)
 #include "ActiveScriptProfilerHeapEnum.h"
 #endif
+
+#include "AutoCallerPointer.h"

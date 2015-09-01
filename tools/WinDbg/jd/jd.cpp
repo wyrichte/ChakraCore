@@ -913,7 +913,7 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(ExtRemoteTyped scriptContext)
     else
     {
         ExtRemoteTyped hostScriptContextField = scriptContext.Field("hostScriptContext");
-        ExtRemoteTyped hostScriptContext("(JScript9HostScriptContext*)@$extin", hostScriptContextField.GetPtr());
+        ExtRemoteTyped hostScriptContext("(ChakraHostScriptContext*)@$extin", hostScriptContextField.GetPtr());
         if (hostScriptContext.GetPtr())
         {
             try

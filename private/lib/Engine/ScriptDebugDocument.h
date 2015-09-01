@@ -1,3 +1,7 @@
+//---------------------------------------------------------------------------
+// Copyright (C) Microsoft. All rights reserved.
+//----------------------------------------------------------------------------
+
 #pragma once
 
 // A class which is intermediate document provider, which actually delegates the call to the actual provider but changes the GetName implementation.

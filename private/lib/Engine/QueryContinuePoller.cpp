@@ -15,7 +15,7 @@ void QueryContinuePoller::TryInterruptPoll(Js::ScriptContext *scriptContext)
         return;
     }
  
-    ScriptSite *scriptSite = ((JScript9HostScriptContext *)hostScriptContext)->GetScriptSite();
+    ScriptSite *scriptSite = ((ChakraHostScriptContext *)hostScriptContext)->GetScriptSite();
 
     if (scriptSite == null)
     {

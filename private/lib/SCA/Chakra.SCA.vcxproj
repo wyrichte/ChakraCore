@@ -51,6 +51,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)SCADeserialization.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)SCAEngine.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)SCAPropBag.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)SCASerialization.cpp" />
   </ItemGroup>

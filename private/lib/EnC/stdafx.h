@@ -8,7 +8,16 @@
 #include <atlbase.h>
 #include "edgescriptDirect.h"
 
+#include "Parser.h"
+
+// =================
+// Runtime Includes
+// =================
 #include "Runtime.h"
+#include "Debug\DiagProbe.h"
+#include "Debug\BreakpointProbe.h"
+#include "Debug\DebugDocument.h"
+// =================
 
 #include <objsafe.h>
 
@@ -28,10 +37,15 @@
 
 
 #ifdef EDIT_AND_CONTINUE
+#include "pnodewalk.h"
+#include "pnodevisit.h"
+#include "pnodechange.h"
 #include "pnodediff.h"
 #include "ParseTreeComparer.h"
 #include "ScriptDebugDocument.h"
 #include "SemanticChange.h"
 #include "ScriptEdit.h"
 #include "EditTest.h"
+
+#include "EditAndContinue.h"
 #endif

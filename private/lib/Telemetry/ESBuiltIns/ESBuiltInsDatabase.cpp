@@ -7,6 +7,9 @@
 #include "ESBuiltInsDatabase.h"
 
 #ifdef TELEMETRY_ESB
+// Parser includes
+// TODO: clean up the need of these regex related header here just for GroupInfo needed in JavascriptRegExpConstructor
+#include "RegexCommon.h"
 #include "Library\JavascriptRegExpConstructor.h"
 
 using namespace JsUtil;

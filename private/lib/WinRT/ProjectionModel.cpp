@@ -2,6 +2,7 @@
 // Copyright (C) 1995 - 2010 by Microsoft Corporation.  All rights reserved.
 //---------------------------------------------------------------------------
 #include "stdafx.h"
+#include "DataStructures\QuickSort.h"
 
 #ifdef PROJECTION_METADATA_TRACE
 #define TRACE_METADATA(...) { Trace(__VA_ARGS__); }

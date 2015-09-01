@@ -223,8 +223,6 @@ struct JsFunctionCodeGen;                   // Used by NativeCodeGenerator.h
 struct JsLoopBodyCodeGen;                   // Used by NativeCodeGenerator.h
 class InliningDecider;                      // Used by NativeCodeGenerator.h
 class JavascriptDispatch;
-class JScript9HostScriptContext;
-class Scriptsite;
 class StackSym;                             // Used by InlineeFrameInfo.h
 class Func;                                 // Used by InlineeFrameInfo.h
 struct InlinedFrameLayout;                  // Used by InlineeFrameInfo.h
@@ -377,7 +375,6 @@ class ScriptContextTelemetry;
 #include "DictionaryPropertyDescriptor.h"
 #include "DictionaryTypeHandler.h"
 #include "Common\NumberUtilities.inl"   // Needed by JavascriptNumber.h
-#include "BigInt.inl"
 #include "JavascriptTypedNumber.h"
 #include "JavascriptBooleanObject.h"
 #include "JavascriptNumberObject.h"

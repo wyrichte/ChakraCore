@@ -5,9 +5,32 @@
 ********************************************************/
 #include <stdafx.h>
 
+#include "RegexFlags.h"
 
 namespace Js
 {
+    C_ASSERT(::DescriptorFlags_None == None);
+    C_ASSERT(::DescriptorFlags_Accessor == Accessor);
+    C_ASSERT(::DescriptorFlags_Data == Data);
+    C_ASSERT(::DescriptorFlags_Writable == Writable);
+
+    C_ASSERT(::CallFlags_None == Js::CallFlags_None);
+    C_ASSERT(::CallFlags_New == Js::CallFlags_New);
+    C_ASSERT(::CallFlags_Value == Js::CallFlags_Value);
+    C_ASSERT(::CallFlags_Eval == Js::CallFlags_Eval);
+    C_ASSERT(::CallFlags_ExtraArg == Js::CallFlags_ExtraArg);
+    C_ASSERT(::CallFlags_NotUsed == Js::CallFlags_NotUsed);
+    C_ASSERT(::CallFlags_Wrapped == Js::CallFlags_Wrapped);
+    C_ASSERT(::CallFlags_CallPut == Js::CallFlags_NewTarget);
+
+    C_ASSERT(::RegexFlags_None == UnifiedRegex::NoRegexFlags);
+    C_ASSERT(::RegexFlags_IgnoreCase == UnifiedRegex::IgnoreCaseRegexFlag);
+    C_ASSERT(::RegexFlags_Global == UnifiedRegex::GlobalRegexFlag);
+    C_ASSERT(::RegexFlags_Multiline == UnifiedRegex::MultilineRegexFlag);
+    C_ASSERT(::RegexFlags_Unicode == UnifiedRegex::UnicodeRegexFlag);
+    C_ASSERT(::RegexFlags_Sticky == UnifiedRegex::StickyRegexFlag);
+    C_ASSERT(::RegexFlags_All == UnifiedRegex::AllRegexFlags);
+
     OperationUsage DefaultScriptOperations::defaultUsage =
     {
        OperationFlag_all,
