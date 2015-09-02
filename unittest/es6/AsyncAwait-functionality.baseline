@@ -10,6 +10,7 @@ Test #5 - Success async in a class #8 called with result = '10'
 Test #5 - Success async in a class #9 called with result = '10'
 Executing test #6 - Await in an async function
 Executing test #7 - Await keyword with a lambda expressions
+Executing test #8 - Async function with default arguments's value
 
 Completion Results:
 Test #1 - Success lambda expression with no argument called with result = 'true'
@@ -32,7 +33,12 @@ Test #5 - Success async in a class #5 called with result = '12'
 Test #5 - Success async in a class #6 called with result = '12'
 Test #5 - Success async in a class #7 called with result = '10'
 Test #5 - Success async in a class #10 called with result = '10'
+Test #8 - Success async function with default arguments's value overwritten #1 called with result = 'true'
+Test #8 - Success async function with default arguments's value has been rejected as expected #2 called with err = 'expected error'
+Test #8 - Success async function with default arguments's value #3 called with result = 'true'
 Test #6 - Success await in an async function #1 called with result = '-4'
 Test #6 - Success await in an async function #2 called with result = '2'
+Test #6 - Success await in an async function catch a rejected Promise. Error = 'Error: My Error'
+Test #6 - Success await in an async function catch an error. Error = '32'
 Test #7 - Success await keyword with a lambda expressions #1 called with result = '125'
 Test #7 - Success await keyword with a lambda expressions #1 called with result = '60'

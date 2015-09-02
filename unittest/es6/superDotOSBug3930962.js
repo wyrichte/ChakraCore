@@ -37,12 +37,34 @@ var tests = [
                     var super_arrow = () => { 
                         assert.throws(()=>{ super.increment(); }, ReferenceError, "Use before declaration");
                         assert.areEqual(0,count,"We should not have incremented");
-                        //assert.throws(()=>{ super.increment.call(5); }, ReferenceError, "Use before declaration"); //We have a bug with call tracked separately (OS Bug: 4374270)
+                        assert.throws(()=>{ super.increment.call(5); }, ReferenceError, "Use before declaration");
                         assert.throws(()=>{ super[1](); }, ReferenceError, "Use before declaration");
-                        //assert.throws(()=>{ super[1].call(5); }, ReferenceError, "Use before declaration"); //We have a bug with call tracked separately (OS Bug: 4374270)
+                        assert.throws(()=>{ super[1].call(5); }, ReferenceError, "Use before declaration");
                         super();
                     }
                     super_arrow();
+                }
+            }
+            var bar = new B();
+       }
+   },
+   {
+       name: "super.<method>.call",
+       body: function () 
+       {
+            count = 0;
+            class B extends A {
+                constructor() {
+                    super();
+                    var super_arrow = () => { 
+                        super.increment.call(this);
+                        assert.areEqual(2,super.getCount.call(this), "confirm we can make the the method call on class A's method inside a lambda");
+                        assert.areEqual(1,super[1].call(this), "confirm we can make index method call on class A's method inside a lambda");
+                    }
+                    super_arrow();
+                    super.decrement.call(this);
+                    assert.areEqual(1,super.getCount.call(this),"confirm we can make the the method call on class A's method");
+                    assert.areEqual(2,super[2].call(this), "confirm we can make index method call on class A's method");
                 }
             }
             var bar = new B();

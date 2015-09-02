@@ -42,7 +42,8 @@ public:
 
     void Initialize();
 
-    void OutputTelemetry();
+    void OutputPrint();
+	void OutputTraceLogging(GUID activityId, DWORD hostType, bool isJSRT);
 };
 
 #endif

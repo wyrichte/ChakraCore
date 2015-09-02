@@ -21,7 +21,7 @@ public:
     ~DateParseTelemetryProvider();
 
     void OutputPrint() override;
-    void OutputTraceLogging() override;
+    void OutputTraceLogging(GUID activityId, DWORD hostType, bool isJSRT) override;
 
     void JavascriptDate_ParseHelper( Js::ScriptContext* scriptContext, Js::JavascriptString* str, double returnValue, bool exceptionRaised );
 };

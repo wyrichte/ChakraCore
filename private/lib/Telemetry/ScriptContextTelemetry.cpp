@@ -43,19 +43,28 @@ KnownMethodTelemetry& ScriptContextTelemetry::GetKnownMethodTelemetry()
     return this->knownMethodTelemetry;
 }
 
-void ScriptContextTelemetry::OutputTelemetry()
+void ScriptContextTelemetry::OutputPrint()
 {
+#ifdef TELEMETRY_OUTPUTPRINT
     this->ForEachTelemetryProvider(
         [&]( IScriptContextTelemetryProvider* tp )
         {
-#ifdef TELEMETRY_OUTPUTPRINT
             tp->OutputPrint();
-#endif
-#ifdef TELEMETRY_TRACELOGGING
-            tp->OutputTraceLogging();
-#endif
         }
     );
+#endif
+}
+
+void ScriptContextTelemetry::OutputTraceLogging(GUID activityId, DWORD hostType, bool isJSRT)
+{
+#ifdef TELEMETRY_TRACELOGGING
+    this->ForEachTelemetryProvider(
+        [&]( IScriptContextTelemetryProvider* tp )
+        {
+            tp->OutputTraceLogging( activityId, hostType, isJSRT );
+        }
+    );
+#endif
 }
 
 #endif

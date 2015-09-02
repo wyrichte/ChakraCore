@@ -11,5 +11,5 @@ public:
     /// <remarks>This isn't const as to allow implementations to self-mutate.</remarks>
     void OutputPrint();
     
-    void OutputTraceLogging();
+    void OutputTraceLogging(GUID activityId, DWORD hostType, bool isJSRT);
 };

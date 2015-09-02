@@ -35,7 +35,7 @@ public:
     ~ESBuiltInsTelemetryProvider();
 
     void OutputPrint() override;
-    void OutputTraceLogging() override;
+    void OutputTraceLogging(GUID activityId, DWORD hostType, bool isJSRT) override;
 
     // Built-ins specific telemetry methods below:
 

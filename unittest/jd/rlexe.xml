@@ -61,7 +61,7 @@
       <files>test2.js</files>
       <baseline />
       <command>jdtest.exe -q -c ".load ut_jsdiag; g;!ldsym;!jsstack;    !echo;!echo ---verifyall again---;!ldsym;!jsstack;g" jshost</command>
-      <tags>exclude_arm,exclude_jsrt</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>

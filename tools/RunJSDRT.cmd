@@ -226,8 +226,14 @@ set _htmltags=-nottags html
     if %_bucketIndex% neq 0 (
         set _tags=-dirtags include_drt%_bucketIndex%
     )
+    
+    set _full=
+    if "%_nightly%" neq "" (
+        set _tags=-nottags exclude_nonrazzle
+        set _full=-full
+    )
 
-    set _testCmd=%_unittestRoot%\RunAllRLTests.cmd %_snap% %_drt% %_nightly% -platform %_buildArch% -buildType %_buildType% -toolsRoot %_toolsRoot% -binaryRoot %_jscriptRoot% %_variants% %_tags% %_os% %_htmltags%
+    set _testCmd=%_unittestRoot%\RunAllRLTests.cmd %_snap% %_drt% %_nightly% -platform %_buildArch% -buildType %_buildType% -toolsRoot %_toolsRoot% -binaryRoot %_jscriptRoot% %_variants% %_tags% %_os% %_htmltags% %_full%
 
     pushd %_coreUnittestRoot%
     echo %_testCmd%

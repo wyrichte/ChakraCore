@@ -54,9 +54,12 @@ void DateParseTelemetryProvider::OutputPrint()
     }
 }
 
-void DateParseTelemetryProvider::OutputTraceLogging()
+void DateParseTelemetryProvider::OutputTraceLogging(GUID activityId, DWORD hostType, bool isJSRT)
 {
-    TraceLogChakra("Date.parse Telemetry",
+    TraceLogChakra("DateParse",
+        TraceLoggingGuid( activityId, "activityId" ),
+        TraceLoggingUInt32(hostType, "HostingInterface"),
+        TraceLoggingBool(isJSRT, "isJSRT"),
         TraceLoggingUInt32( this->successCount, "Success" ),
         TraceLoggingUInt32( this->failCount, "Failures" )
     );

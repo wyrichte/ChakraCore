@@ -377,19 +377,27 @@ void ScriptSite::Close()
     Recycler* recycler =  this->GetRecycler();
 
 #ifdef ENABLE_BASIC_TELEMETRY
-    // Log out any relevant telemetry data.
-    bool isJSRT = false;
-    ThreadContext* threadContext = this->GetScriptSiteContext()->GetThreadContext();
-    DWORD hostType = scriptEngine->GetHostType(); // 0 for JShost, 1 for browser, 2 for WWA/JSRT, 3 for webview in WWA/XAML
-    if (threadContext != NULL)
     {
-        isJSRT = !(threadContext->GetIsThreadBound());
+        Js::ScriptContext* scriptContext = this->GetScriptSiteContext();
+        // Log out any relevant telemetry data.
+        bool isJSRT = false;
+        ThreadContext* threadContext = scriptContext->GetThreadContext();
+        DWORD hostType = scriptEngine->GetHostType(); // 0 for JShost, 1 for browser, 2 for WWA/JSRT, 3 for webview in WWA/XAML
+        if (threadContext != NULL)
+        {
+            isJSRT = !(threadContext->GetIsThreadBound());
+        }
+        if (!isNonPrimaryEngine || isJSRT)
+        {
+            g_TraceLoggingClient->FireSiteNavigation(scriptContext->GetUrl(), scriptEngine->GetActivityId(), hostType, isJSRT);
+            
+            if (scriptContext->HasTelemetry())
+            {
+                scriptContext->GetTelemetry().OutputTraceLogging(scriptEngine->GetActivityId(), hostType, isJSRT);
+            }
+        }
     }
-    if (!isNonPrimaryEngine || isJSRT)
-    {
-        g_TraceLoggingClient->FireSiteNavigation(this->GetScriptSiteContext()->GetUrl(), scriptEngine->GetActivityId(), hostType,isJSRT);
-    }
-#endif   
+#endif
 
 #ifdef ENABLE_PROJECTION
     Projection::ProjectionContext* projectionContext = scriptEngine->GetProjectionContext();

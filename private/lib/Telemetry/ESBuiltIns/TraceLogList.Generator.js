@@ -62,7 +62,10 @@ function main( inputFileName, outputFileName ) {
 			}
 
 			if( i > 0 ) outfile.Write( "\r\n" + indent + ");\r\n\r\n" );
-			outfile.Write( indent + "TraceLogChakra(\"ESBuiltIns_" + lastType + "_" + blockInType + "\" /* #" + blockNumber + " */," );
+			outfile.Write( indent + "TraceLogChakra(\"ESBuiltIns_" + lastType + "_" + blockInType + "\" /* #" + blockNumber + " */,\r\n" );
+			outfile.Write( indent + "    TraceLoggingGuid( activityId, \"activityId\" ),\r\n" );
+			outfile.Write( indent + "    TraceLoggingUInt32( hostType, \"HostingInterface\" ),\r\n" );
+			outfile.Write( indent + "    TraceLoggingBool( isJSRT, \"isJSRT\" )," );
 
 			countInBlock = 0;
 			blockNumber++;

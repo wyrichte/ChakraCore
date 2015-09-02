@@ -297,7 +297,7 @@ ESBuiltInTypeNameId ESBuiltInsTelemetryProvider::GetESBuiltInTypeNameId( const V
     }
 }
 
-void ESBuiltInsTelemetryProvider::OutputTraceLogging()
+void ESBuiltInsTelemetryProvider::OutputTraceLogging(GUID activityId, DWORD hostType, bool isJSRT)
 {
     // Unfortunately we cannot #include a file directly within a macro usage.
     // i.e. this doesn't work:
