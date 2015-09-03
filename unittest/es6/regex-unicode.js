@@ -64,6 +64,15 @@ var tests = [
                 assertMatches(re, getCharacterInPlane(0xFFFF), "Last character in plane #" + plane);
             }
         }
+    },
+    {
+        name: "A dash character and a non-dash character following a full one shouldn't be interpreted as a range",
+        body: function () {
+            var re = /^[\ud800-\udbff\udc00-\udbff\udc02]$/u;
+
+            assertDoesNotMatch(re, "\udbff\udc01", "Shouldn't be in the second range");
+            assertMatches(re, "-", "Second '-' treated as a normal character");
+        }
     }
 ];
 
