@@ -50,4 +50,11 @@
       <tags>exclude_ship</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>infinite.js</files>
+      <compile-flags></compile-flags>
+      <baseline>infinite.baseline</baseline>
+    </default>
+  </test>
 </regress-exe>

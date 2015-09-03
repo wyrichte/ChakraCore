@@ -4,6 +4,7 @@ External/
 *.suo
 *.opensdf
 *.user
+Build/.vs/
 Build/VCBuild/
 Build/ipch/
 build_*.log
