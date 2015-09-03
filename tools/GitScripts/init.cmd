@@ -120,7 +120,8 @@ set PATH=%PATH%;%REPO_ROOT%\tools\GitScripts
 
 if not exist "%PYTHON_PATH%" (
    echo WARNING: Python not found in %PYTHON_PATH%
-   echo Please run setup from \\chakrafs01\RepoTools\dep\python-install.exe
+   echo Please run setup from \\chakrafs01\RepoTools\dep\python_installer.exe
+   echo Install Python to C:\Python35
    echo Without this, Chakra git scripts will not work
    echo.
 )

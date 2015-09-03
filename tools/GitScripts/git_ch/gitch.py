@@ -31,22 +31,49 @@ def _print_repo_summary(repo):
     print("  Branch: %s" % repo.head.ref)
 
 
-def _ensure_and_switch_to_branch(repo, target_branch):
+def _ensure_and_switch_to_branch(repo, target_branch, fuzzy):
     print("[REPO] %s" % repo.working_dir)
+    _debug_print("Fuzzy is %s, searching for %s" % (fuzzy, target_branch))
+    
     branches = repo.branches
     branch_head = None
+
+    branch_regex = None
+    multi_matched = False
+    if fuzzy:
+        branch_regex = re.compile('.*' + target_branch + '.*', re.IGNORECASE)
+
     for branch in branches:
-        if branch.name == target_branch:
-            branch_head = branch
-            break
+        if fuzzy:
+            if branch_regex.match(branch.name):
+                if branch_head is not None:
+                    print("Multiple branches matched- also matched %s" % branch)
+                    multi_matched = True
+                else:
+                    print("Matched %s" % branch)
+                    branch_head = branch
+        else:
+            if branch.name == target_branch:
+                branch_head = branch
+                break
 
+    if multi_matched:
+        print("ERROR: Ambiguous branch provided- exiting")
+        return
+    
     if branch_head is None:
-        print("Branch doesn't exist in this repo- creating")
-        branch_head = repo.create_head(target_branch)
+        if fuzzy:
+            print("Branch doesn't exist but fuzzy specified so not creating")
+        else:
+            print("Branch doesn't exist in this repo- creating")
+            branch_head = repo.create_head(target_branch)
 
-    print("Switching branch to %s" % target_branch)
-    repo.head.reference = branch_head
-    print("")
+    if branch_head is not None:
+        print("Switching branch to %s" % branch_head.name)
+        branch_head.checkout()
+        print("")
+    else:
+        print("Branch not found- nothing changed")
 
 
 def _get_blob_for_path(root_tree, path):
@@ -154,7 +181,7 @@ class GitCh():
 
     def switch(self, arguments):
         branch_name = arguments.branch_name
-        if not arguments.literal and branch_name != 'master':
+        if not (arguments.literal or arguments.fuzzy) and branch_name != 'master':
             username = local.env["USERNAME"].lower()
             expected_branch_pattern = "^(build|users)/%s/.*"
             r = re.compile(expected_branch_pattern)
@@ -165,5 +192,5 @@ class GitCh():
                 branch_name = "%s/%s/%s" % (prefix, username, branch_name)
 
         print("Branch to switch to: %s" % branch_name)
-        _ensure_and_switch_to_branch(self.full_repo, branch_name)
-        _ensure_and_switch_to_branch(self.core_repo, branch_name)
+        _ensure_and_switch_to_branch(self.full_repo, branch_name, arguments.fuzzy)
+        _ensure_and_switch_to_branch(self.core_repo, branch_name, arguments.fuzzy)

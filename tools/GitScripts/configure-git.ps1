@@ -21,6 +21,14 @@ If (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     throw "Error: You need to run this script as admin"
 }
 
+$repo_root = git rev-parse --show-toplevel
+if ($lastExitCode -ne 0)
+{
+    throw "Error: Please run this script in the root of your ChakraFull enlistment"
+}
+
+$repo_root = $repo_root.Replace("/", "\")
+
 $gitPath = (((Get-Command "git.exe").Path) | Split-Path -Parent | Split-Path -Parent)
 
 Write-Host "Git is installed in $gitPath"
@@ -75,6 +83,22 @@ git config core.safecrlf false
 
 # Rebase preserving merges by default on pulls
 git config pull.rebase preserve
+
+# If the repo being run in has a nested core repo, configure that too
+$core_repo_root = (Join-Path $repo_root "core")
+if (Test-Path (Join-Path $core_repo_root ".git"))
+{
+    Push-Location $core_repo_root
+
+    Write-Host "Configuring core repo"
+    # Set to false because some unit test repros need CRLF instead of LF
+    git config core.safecrlf false
+
+    # Rebase preserving merges by default on pulls
+    git config pull.rebase preserve
+    
+    Pop-Location
+}
 
 Write-Host @"
 Following git config values set:

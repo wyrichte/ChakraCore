@@ -44,6 +44,7 @@ class SwitchCommand(GitChCommand):
         parser.add_argument('branch_name', help='Branch to create or switch to')
         parser.add_argument('--buildable', action='store_true', help='Use this flag if you intend to build this branch on VSO')
         parser.add_argument('--literal', action='store_true', help='Interpret branch name literally')
+        parser.add_argument('-f', '--fuzzy', action='store_true', help='Interpret branch name fuzzily')
         parser.set_defaults(func=class_name.run)
 
     @staticmethod
