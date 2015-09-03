@@ -48,6 +48,23 @@ var tests = [
             assertMatches(/^[^0345]$/u, "\u{10000}", "Code point");
         }
     },
+    {
+        name: "A character set containing a range spanning multiple planes should match characters from all those planes",
+        body: function () {
+            var re = /^[\u0000-\u{10FFFF}]$/u;
+
+            var numberOfPlanes = 17;
+            for (var plane = 0; plane < numberOfPlanes; ++plane) {
+                function getCharacterInPlane(code) {
+                    var codePoint = plane * 0x10000 + code;
+                    return String.fromCodePoint(codePoint);
+                }
+
+                assertMatches(re, getCharacterInPlane(0x0000), "First character in plane #" + plane);
+                assertMatches(re, getCharacterInPlane(0xFFFF), "Last character in plane #" + plane);
+            }
+        }
+    }
 ];
 
 testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });
