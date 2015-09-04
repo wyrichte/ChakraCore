@@ -73,6 +73,13 @@ var tests = [
             assertDoesNotMatch(re, "\udbff\udc01", "Shouldn't be in the second range");
             assertMatches(re, "-", "Second '-' treated as a normal character");
         }
+    },
+    {
+        name: "Reserved characters shouldn't be ignored when they are in a character set together with characters from a supplementary plane",
+        body: function () {
+            assertMatches(/^[\ud800\udc00 \ud800]$/u, "\ud800", "Start of the reserver character range (\\ud800)");
+            assertMatches(/^[\ud800\udc00 \udfff]$/u, "\udfff", "Start of the reserver character range (\\udfff)");
+        }
     }
 ];
 
