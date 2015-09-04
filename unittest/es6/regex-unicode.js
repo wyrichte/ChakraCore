@@ -80,6 +80,16 @@ var tests = [
             assertMatches(/^[\ud800\udc00 \ud800]$/u, "\ud800", "Start of the reserver character range (\\ud800)");
             assertMatches(/^[\ud800\udc00 \udfff]$/u, "\udfff", "Start of the reserver character range (\\udfff)");
         }
+    },
+    {
+        name: "A high and a low surrogate part with a '-' between should be interpreted as a range",
+        body: function () {
+            assertMatches(/^[\ud800-\udfff]$/u, "\ud800", "Range start");
+            assertMatches(/^[\ud800-\udfff]$/u, "\udfff", "Range end");
+
+            // We had a bug where we interpreted the character set below as [\ud800\udfff] and omitted '-'.
+            assertDoesNotMatch(/^[\ud800-\udfff]$/u, "\ud800\udfff", "Not a surrogate pair");
+        }
     }
 ];
 
