@@ -1,0 +1,24 @@
+[
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 35,
+        "length": 9,
+        "text": "var b = 2",
+        "frameDescription": "foo1"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 46,
+        "length": 10,
+        "text": "a, a, b, a",
+        "frameDescription": "foo1"
+      }
+    }
+  }
+]

@@ -3771,4 +3771,12 @@
       <tags>fail_mutators</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>commaexpression_span.js</files>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:commaexpression_span.js.dbg.baseline</compile-flags>
+      <baseline>commaexpression_span.baseline</baseline>
+      <tags>fail_mutators</tags>
+    </default>
+  </test>
 </regress-exe>

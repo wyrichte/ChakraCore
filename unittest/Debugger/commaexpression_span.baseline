@@ -1,0 +1,3 @@
+ReferenceError: 'b' is undefined
+	at foo2() (commaexpression_span.js:7:10)
+	at Global code (commaexpression_span.js:11:1)
