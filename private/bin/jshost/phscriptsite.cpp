@@ -185,7 +185,7 @@ HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
             goto LReturn;
         }
 
-        hr = JScript9Interface::DllGetClassObject(CLSID_Chakra, IID_IClassFactory, (LPVOID*)&jscriptClassFactory);
+        hr = JScript9Interface::DllGetClassObject(CLSID_Chakra, __uuidof(IClassFactory), (LPVOID*)&jscriptClassFactory);
         IfFailedGo(hr);
 
         hr = jscriptClassFactory->CreateInstance(NULL, _uuidof(IActiveScript), (LPVOID*)&activeScript);
@@ -242,13 +242,13 @@ HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
     hr = activeScript->GetScriptDispatch(NULL, &globalObjectDispatch);
     IfFailedGo(hr);
 
-    hr = globalObjectDispatch->QueryInterface(IID_IDispatchEx, (void**)&globalObjectDispatchEx);
+    hr = globalObjectDispatch->QueryInterface(__uuidof(IDispatchEx), (void**)&globalObjectDispatchEx);
     IfFailedGo(hr);
 
     hr = git->RegisterInterfaceInGlobal(activeScript, IID_IActiveScript, &activeScriptCookie);
     IfFailedGo(hr);
 
-    hr = git->RegisterInterfaceInGlobal(globalObjectDispatchEx, IID_IDispatchEx, &globalObjectIDispatchExCookie);
+    hr = git->RegisterInterfaceInGlobal(globalObjectDispatchEx, __uuidof(IDispatchEx), &globalObjectIDispatchExCookie);
     IfFailedGo(hr);
 
 LReturn:
@@ -1509,7 +1509,7 @@ HRESULT JsHostActiveScriptSite::GetByteCodeGenerator(IActiveScriptByteCode ** by
 
 HRESULT JsHostActiveScriptSite::GetGlobalObjectDispatchEx(IDispatchEx ** globalObject)
 {
-    return git->GetInterfaceFromGlobal(globalObjectIDispatchExCookie, IID_IDispatchEx, (void**)globalObject);
+    return git->GetInterfaceFromGlobal(globalObjectIDispatchExCookie, __uuidof(IDispatchEx), (void**)globalObject);
 }
 
 STDMETHODIMP JsHostActiveScriptSite::LoadScriptFile(LPCOLESTR filename)

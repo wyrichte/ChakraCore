@@ -42,8 +42,7 @@
       <AdditionalDependencies>
         %(AdditionalDependencies);
         $(SdkLibPath)\kernel32.lib;
-        $(SdkLibPath)\user32.lib;
-        $(SdkLibPath)\uuid.lib;
+        $(SdkLibPath)\user32.lib;        
         $(SdkLibPath)\ole32.lib;
         $(SdkLibPath)\dbghelp.lib;
         $(SdkLibPath)\dbgeng.lib;

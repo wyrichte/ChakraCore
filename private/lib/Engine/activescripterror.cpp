@@ -88,7 +88,7 @@ STDMETHODIMP ActiveScriptError::QueryInterface(REFIID riid, void **ppv)
         *ppv = (IActiveScriptErrorEx *) this;
     }
 
-    else if (IsEqualIID(riid, IID_IActiveScriptErrorDebug))
+    else if (IsEqualIID(riid, __uuidof(IActiveScriptErrorDebug)))
         *ppv = (IActiveScriptErrorDebug *)this;
 
     else if (IsEqualIID(riid, __uuidof(IActiveScriptWinRTErrorDebug)))
@@ -1017,7 +1017,7 @@ HRESULT ActiveScriptError::CanHandleException(Js::ScriptContext * scriptContext,
             hr = E_FAIL;
             break;
         }
-        hr = pIU->QueryInterface(IID_IServiceProvider, (void **)&pIS);
+        hr = pIU->QueryInterface(__uuidof(IServiceProvider), (void **)&pIS);
         if (SUCCEEDED(hr))
         {
             if (SUCCEEDED(pIU->QueryInterface(IID_IJavascriptLocalProxy, (void**)&jsCaller)))

@@ -263,7 +263,7 @@ Var WScriptFastDom::GetWorkingSet(Var function, CallInfo callInfo, Var* args)
             if (varResult.vt == VT_DISPATCH)
             {
                 CComPtr<IDispatchEx> wsDispatch;
-                hr = varResult.pdispVal->QueryInterface(IID_IDispatchEx, (void**)&wsDispatch);
+                hr = varResult.pdispVal->QueryInterface(__uuidof(IDispatchEx), (void**)&wsDispatch);
                 if (SUCCEEDED(hr))
                 {
                     hr = activeScriptDirect->DispExToVar(wsDispatch, &instance);

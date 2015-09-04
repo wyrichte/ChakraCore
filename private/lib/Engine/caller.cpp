@@ -123,7 +123,7 @@ HRESULT DispatchExCaller::QueryInterface(REFIID riid, void **ppvObj)
     if (IID_IUnknown == riid ||
         IID_IJavascriptLocalProxy == riid)
         *ppvObj = (IServiceProvider *)this;
-    else if (IID_IServiceProvider == riid)
+    else if (__uuidof(IServiceProvider) == riid)
         *ppvObj = (IServiceProvider *)this;
     else if (IID_ICanHandleException == riid)
         *ppvObj = (ICanHandleException *)this;
@@ -212,7 +212,7 @@ HRESULT DispatchExCaller::QSCaller(REFGUID guidService, REFIID riid, void **ppvO
         {
         Assert(NULL == m_pspCaller);
         if (NULL != m_punkCaller &&
-            FAILED(m_punkCaller->QueryInterface(IID_IServiceProvider,
+            FAILED(m_punkCaller->QueryInterface(__uuidof(IServiceProvider),
                 (void **)&m_pspCaller)))
             {
             m_pspCaller = NULL;
@@ -236,7 +236,7 @@ HRESULT DispatchExCaller::QSSite(REFGUID guidService, REFIID riid, void **ppvObj
         {
         Assert(NULL == m_pspSite);
         if (NULL != m_punkSite &&
-            FAILED(m_punkSite->QueryInterface(IID_IServiceProvider,
+            FAILED(m_punkSite->QueryInterface(__uuidof(IServiceProvider),
                 (void **)&m_pspSite)))
             {
             m_pspSite = NULL;

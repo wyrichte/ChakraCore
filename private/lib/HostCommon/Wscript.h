@@ -135,7 +135,7 @@ HRESULT GetWorkingSetFromActiveScript(T* activeScript, VARIANT* varResult)
     }
 
     IActiveScriptGarbageCollector* gc;
-    if (SUCCEEDED(activeScript->QueryInterface(IID_IActiveScriptGarbageCollector, (void**)&gc)))
+    if (SUCCEEDED(activeScript->QueryInterface(__uuidof(IActiveScriptGarbageCollector), (void**)&gc)))
     {
         gc->CollectGarbage(SCRIPTGCTYPE_NORMAL);
         gc->Release();
@@ -163,7 +163,7 @@ HRESULT GetWorkingSetFromActiveScript(T* activeScript, VARIANT* varResult)
     CComPtr<IDispatchEx> dispEx;
     EXCEPINFO ei;
     VARIANT args[5]; // this & other properties 
-    IfFailedReturn(procDispatch->QueryInterface(IID_IDispatchEx, (void**)&dispEx));
+    IfFailedReturn(procDispatch->QueryInterface(__uuidof(IDispatchEx), (void**)&dispEx));
     memset(&ei, 0, sizeof(ei));
     DISPID dispIdNamed;
     DISPPARAMS dispParams;

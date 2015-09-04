@@ -21,14 +21,14 @@ namespace JsrtUnitTests
 
     HRESULT TestComponent::QueryInterface(REFIID riid, void ** object)
     {
-        if (IsEqualIID(riid, IID_IUnknown))
+        if (IsEqualIID(riid, __uuidof(IUnknown)))
         {
             *object = static_cast<IUnknown *>(this);
             this->AddRef();
             return S_OK;
         }
 
-        if (IsEqualIID(riid, IID_IDispatch))
+        if (IsEqualIID(riid, __uuidof(IDispatch)))
         {
             *object = static_cast<IDispatch *>(this);
             this->AddRef();

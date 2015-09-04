@@ -35,8 +35,7 @@
         %(AdditionalDependencies);
         $(InternalSdkLibPath)\nothrownew.lib;
         $(SdkLibPath)\kernel32.lib;
-        $(SdkLibPath)\user32.lib;
-        $(SdkLibPath)\uuid.lib;
+        $(SdkLibPath)\user32.lib;        
         $(SdkLibPath)\ole32.lib;
         $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-l1.lib;
         $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-string-l1.lib;

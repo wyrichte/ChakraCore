@@ -512,7 +512,7 @@ namespace ProjectionModel
     {
         static bool IsSpecializationParameterizedIID(const IID & piid)
         {
-            return piid == IID_IVector1 || piid == IID_IVectorView1 || piid == IID_IAsyncInfo || piid == IID_IMap2 || piid == IID_IMapView2 || piid == Windows::Foundation::IID_IPropertyValue;
+            return piid == IID_IVector1 || piid == IID_IVectorView1 || piid == __uuidof(IAsyncInfo) || piid == IID_IMap2 || piid == IID_IMapView2 || piid == Windows::Foundation::IID_IPropertyValue;
         }
     };
 
@@ -1967,7 +1967,7 @@ namespace ProjectionModel
                 auto getAt = FindMethodSignature(getAtMethodId, instantiated, interfaces, parentProperties, allocator);
                 auto lengthProperty = RtAnew(allocator, AbiArrayLengthProperty, lengthId, exprNull, typeInt32, getSize);
                 return Anew(allocator, VectorViewSpecialization, specializationIID, lengthProperty, getAt);
-            } else if (specializationIID->piid == IID_IAsyncInfo)
+            } else if (specializationIID->piid == __uuidof(IAsyncInfo))
             {
                 return Anew(allocator, PromiseSpecialization, specializationIID);
             } else if (specializationIID->piid == IID_IMap2 || specializationIID->piid == IID_IMapView2)

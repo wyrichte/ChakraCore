@@ -423,10 +423,10 @@ STDMETHODIMP ScriptEngine::QueryInterface(
     QI_IMPL(__uuidof(IActiveScriptProjection), IActiveScriptProjection);
     QI_IMPL(__uuidof(IPrivateScriptProjection), IPrivateScriptProjection);
 #endif
-    QI_IMPL(IID_IActiveScriptProperty, IActiveScriptProperty);
-    QI_IMPL(IID_IVariantChangeType, IVariantChangeType);
-    QI_IMPL(IID_IRemoteDebugApplicationEvents, IRemoteDebugApplicationEvents);
-    QI_IMPL(IID_IObjectSafety, IObjectSafety);
+    QI_IMPL(__uuidof(IActiveScriptProperty), IActiveScriptProperty);
+    QI_IMPL(__uuidof(IVariantChangeType), IVariantChangeType);
+    QI_IMPL(__uuidof(IRemoteDebugApplicationEvents), IRemoteDebugApplicationEvents);
+    QI_IMPL(__uuidof(IObjectSafety), IObjectSafety);
     QI_IMPL(__uuidof(IActiveScriptByteCode), IActiveScriptByteCode);
     QI_IMPL(__uuidof(IActiveScriptLifecycleEventSink), IActiveScriptLifecycleEventSink);
     QI_IMPL(__uuidof(IDiagnosticsContextHelper), IDiagnosticsContextHelper);
@@ -449,8 +449,8 @@ STDMETHODIMP ScriptEngine::QueryInterface(
 #endif // _WIN64 || USE_32_OR_64_BIT
 
     // Profiler Interface
-    QI_IMPL(IID_IActiveScriptProfilerControl, IActiveScriptProfilerControl);
-    QI_IMPL(IID_IActiveScriptProfilerControl2, IActiveScriptProfilerControl);
+    QI_IMPL(__uuidof(IActiveScriptProfilerControl), IActiveScriptProfilerControl);
+    QI_IMPL(__uuidof(IActiveScriptProfilerControl2), IActiveScriptProfilerControl);
     if (GetScriptContext())
     {
         QI_IMPL(__uuidof(IActiveScriptProfilerControl3), IActiveScriptProfilerControl);
@@ -468,11 +468,11 @@ STDMETHODIMP ScriptEngine::QueryInterface(
 #endif
 
 #if !_WIN64 || USE_32_OR_64_BIT
-    QI_IMPL(IID_IActiveScriptDebug32, IActiveScriptDebug32);
+    QI_IMPL(__uuidof(IActiveScriptDebug32), IActiveScriptDebug32);
 #endif // !_WIN64 || USE_32_OR_64_BIT
 
 #if _WIN64 || USE_32_OR_64_BIT
-    QI_IMPL(IID_IActiveScriptDebug64, IActiveScriptDebug64);
+    QI_IMPL(__uuidof(IActiveScriptDebug64), IActiveScriptDebug64);
 #endif // _WIN64 || USE_32_OR_64_BIT
 
     QI_IMPL(IID_IActiveScriptStats, IActiveScriptStats);
@@ -1629,7 +1629,7 @@ HRESULT ScriptEngine::GetDebugSiteCoreNoRef(IActiveScriptSiteDebug **pscriptSite
     if (nullptr == m_scriptSiteDebug)
     {
         HRESULT hr;
-        if (FAILED(hr = m_pActiveScriptSite->QueryInterface(IID_IActiveScriptSiteDebug,(void **)&m_scriptSiteDebug)))
+        if (FAILED(hr = m_pActiveScriptSite->QueryInterface(__uuidof(IActiveScriptSiteDebug),(void **)&m_scriptSiteDebug)))
         {
             m_fDumbHost = TRUE;
             return hr;
@@ -2372,9 +2372,9 @@ HRESULT ScriptEngine::SetupNewDebugApplication(void)
 
     // Connect up to the debug application events.
     IConnectionPointContainer *pcpc;
-    if (SUCCEEDED(hr = m_pda->QueryInterface(IID_IConnectionPointContainer, (void **)&pcpc)))
+    if (SUCCEEDED(hr = m_pda->QueryInterface(__uuidof(IConnectionPointContainer), (void **)&pcpc)))
     {
-        hr = pcpc->FindConnectionPoint(IID_IRemoteDebugApplicationEvents, &m_pcpAppEvents);
+        hr = pcpc->FindConnectionPoint(__uuidof(IRemoteDebugApplicationEvents), &m_pcpAppEvents);
         pcpc->Release();
     }
     IFFAILRET(hr);
@@ -2485,11 +2485,11 @@ HRESULT ScriptEngine::EnsureBrowserMembers(void)
     {
         if (ShouldUseLocalPDM())
         {
-            hr = LoadLatestPDM(CLSID_DebugHelper, IID_IDebugHelper, (void**)&m_debugHelper);
+            hr = LoadLatestPDM(__uuidof(DebugHelper), __uuidof(IDebugHelper), (void**)&m_debugHelper);
         }
         else
         {
-            hr = CoCreateInstance(CLSID_DebugHelper, nullptr, CLSCTX_SERVER, IID_IDebugHelper, (void **)&m_debugHelper);
+            hr = CoCreateInstance(__uuidof(DebugHelper), nullptr, CLSCTX_SERVER, __uuidof(IDebugHelper), (void **)&m_debugHelper);
         }
     }
 LDone:
@@ -2506,14 +2506,14 @@ HRESULT ScriptEngine::GetDefaultDebugApplication(IDebugApplication **ppda)
     
     if (ShouldUseLocalPDM())
     {
-        if (FAILED(hr = LoadLatestPDM(CLSID_ProcessDebugManager, IID_IProcessDebugManager, (void**)&ppdm)))
+        if (FAILED(hr = LoadLatestPDM(__uuidof(ProcessDebugManager), __uuidof(IProcessDebugManager), (void**)&ppdm)))
         {
             goto LNoDebugger;
         }
     }
     else
     {
-        if (FAILED(hr = CoCreateInstance(CLSID_ProcessDebugManager, nullptr, CLSCTX_ALL, IID_IProcessDebugManager, (void **)&ppdm)))
+        if (FAILED(hr = CoCreateInstance(__uuidof(ProcessDebugManager), nullptr, CLSCTX_ALL, __uuidof(IProcessDebugManager), (void **)&ppdm)))
         {
             goto LNoDebugger;
         }
@@ -4652,7 +4652,7 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
                 pfuncScript = pbody->CreateEntryPoint(GetScriptSiteHolder());
                 entryPointDispatch = JavascriptDispatch::Create<false>(pfuncScript);
 
-                hr = entryPointDispatch->QueryInterface(IID_IDispatchEx, (void**)ppdisp);
+                hr = entryPointDispatch->QueryInterface(__uuidof(IDispatchEx), (void**)ppdisp);
                 Assert(hr == S_OK);
             }
         }
@@ -4926,7 +4926,7 @@ HRESULT ScriptEngine::GetObjectOfItem(IDispatch **ppdisp, NamedItem *pnid, LPCOL
     }
     IFFAILRET(m_pActiveScriptSite->GetItemInfo(pnid->bstrItemName, SCRIPTINFO_IUNKNOWN, &punk, nullptr));
     // Get the object's IDispatch
-    hr = punk->QueryInterface(IID_IDispatch, (void **)ppdisp);
+    hr = punk->QueryInterface(__uuidof(IDispatch), (void **)ppdisp);
     punk->Release();
     IFFAILRET(hr);
 
@@ -6555,10 +6555,10 @@ HRESULT ScriptEngine::GetHostSecurityManager(IInternetHostSecurityManager **ppse
     }
 
     IFFAILGO(GetScriptSiteHolder()->GetDispatchExCaller(&pdc));
-    hr = pdc->QSCaller(SID_SInternetHostSecurityManager, IID_IInternetHostSecurityManager, (void **) ppsecman);
+    hr = pdc->QSCaller(SID_SInternetHostSecurityManager, __uuidof(IInternetHostSecurityManager), (void **) ppsecman);
     if (FAILED(hr))
     {
-        IFFAILGO(pdc->QSSite(SID_SInternetHostSecurityManager, IID_IInternetHostSecurityManager, (void **) ppsecman));
+        IFFAILGO(pdc->QSSite(SID_SInternetHostSecurityManager, __uuidof(IInternetHostSecurityManager), (void **) ppsecman));
     }
 
     hr = S_OK;
@@ -6596,7 +6596,7 @@ HRESULT ScriptEngine::GetINETSecurityManagerNoRef(IInternetSecurityManager **pps
         return S_OK;
     }
 
-    hr = m_pActiveScriptSite->QueryInterface(IID_IServiceProvider, (void **)&psp);
+    hr = m_pActiveScriptSite->QueryInterface(__uuidof(IServiceProvider), (void **)&psp);
     if (SUCCEEDED(hr))
     {
         hr = psp->QueryService(SID_SInternetSecurityManager,
@@ -6654,7 +6654,7 @@ HRESULT ScriptEngine::GetSiteHostSecurityManagerNoRef(IInternetHostSecurityManag
     if (nullptr == m_psitehostsecman)
     {
         IServiceProvider * psp;
-        hr = m_pActiveScriptSite->QueryInterface(IID_IServiceProvider, (void **)&psp);
+        hr = m_pActiveScriptSite->QueryInterface(__uuidof(IServiceProvider), (void **)&psp);
         if (SUCCEEDED(hr))
         {
             hr = psp->QueryService(SID_SInternetHostSecurityManager,
@@ -6877,13 +6877,13 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::InspectableUnknownToVarInternal(
     *instance = scriptContext->GetLibrary()->GetNull();
 
     CComPtr<IInspectable> inspectable;
-    hr = unknown->QueryInterface(IID_IInspectable, (void**)&inspectable);
+    hr = unknown->QueryInterface(__uuidof(IInspectable), (void**)&inspectable);
     if (FAILED(hr) || !inspectable)
     {
         return E_INVALIDARG;
     }
     IUnknown* result = nullptr;
-    if (SUCCEEDED(unknown->QueryInterface(IID_IDispatch, (void**)&result)))
+    if (SUCCEEDED(unknown->QueryInterface(__uuidof(IDispatch), (void**)&result)))
     {
         result->Release();
         return E_INVALIDARG;

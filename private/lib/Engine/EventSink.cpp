@@ -18,7 +18,7 @@ HRESULT ScriptEngine::AddEventSinks(ScriptEngine *pos, IDispatch *pdisp)
     IProvideMultipleClassInfo *pmci = NULL;
 
     // First QI for IProvideMultipleClassInfo otherwise use ProvideClassInfo.
-    if (SUCCEEDED(hr = pdisp->QueryInterface(IID_IProvideMultipleClassInfo,
+    if (SUCCEEDED(hr = pdisp->QueryInterface(_uuidof(IProvideMultipleClassInfo),
         (void **)&pmci)))
     {
         AssertMem(pmci);
@@ -34,7 +34,7 @@ HRESULT ScriptEngine::AddEventSinks(ScriptEngine *pos, IDispatch *pdisp)
     {
         if (NULL == ptiCo)
         {
-            if (FAILED(hr = pdisp->QueryInterface(IID_IProvideClassInfo, (void **)&pci)))
+            if (FAILED(hr = pdisp->QueryInterface(__uuidof(IProvideClassInfo), (void **)&pci)))
                 goto LFail;
             AssertMem(pci);
             if (FAILED(hr = pci->GetClassInfo(&ptiCo)))
@@ -302,7 +302,7 @@ HRESULT EventSink::Connect(void)
         return NOERROR;
 
     // Attach ourself to the control.
-    hr = m_pdisp->QueryInterface(IID_IConnectionPointContainer, (void **)&pcpc);
+    hr = m_pdisp->QueryInterface(__uuidof(IConnectionPointContainer), (void **)&pcpc);
     if (FAILED(hr))
     {
         DebugPrintf((L"QI(IConnectionPointContainer) Failed\n"));
@@ -373,7 +373,7 @@ STDMETHODIMP EventSink::QueryInterface(REFIID riid, void **ppv)
 {
     CHECK_POINTER(ppv);
     if (riid == IID_IUnknown ||
-        riid == IID_IDispatch ||
+        riid == __uuidof(IDispatch) ||
         riid == m_iid)
     {
         *ppv = this;

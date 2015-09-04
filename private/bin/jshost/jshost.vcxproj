@@ -55,8 +55,7 @@
         %(AdditionalDependencies);
         $(OneCoreSdkLibPath)\$(OneCoreTargetVersionStr)\onecore.lib;
         $(MinCoreSdkLibPath)\mincore_fw.lib;
-        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
-        $(SdkLibPath)\uuid.lib;
+        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;        
         $(SdkLibPath)\ole32.lib;
         $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-message-l1-1-1.lib;

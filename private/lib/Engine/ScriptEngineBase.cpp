@@ -1334,7 +1334,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::DispExToVar(
 
 #if DBG
     IUnknown* result = nullptr;
-    Assert(FAILED(pdispex->QueryInterface(IID_IInspectable, (void**)&result)));
+    Assert(FAILED(pdispex->QueryInterface(__uuidof(IInspectable), (void**)&result)));
     if (result)
     {
         result->Release();
@@ -1926,7 +1926,7 @@ HRESULT ScriptEngineBase::CreateServiceProvider(bool asCaller, IServiceProvider*
 
     if (SUCCEEDED(hr))
     {
-        hr = dispatchExCaller->QueryInterface(IID_IServiceProvider, (void**)serviceProvider);
+        hr = dispatchExCaller->QueryInterface(__uuidof(IServiceProvider), (void**)serviceProvider);
         dispatchExCaller->Release();
     }
     return hr;

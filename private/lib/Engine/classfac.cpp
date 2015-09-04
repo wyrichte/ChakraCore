@@ -34,7 +34,7 @@ static HRESULT CreateComponentCategory(CATID catid, LPCOLESTR catDescription)
     ICatRegister *  pcr = NULL;
 
     IFFAILRET(CoCreateInstance(CLSID_StdComponentCategoriesMgr,
-        NULL, CLSCTX_INPROC_SERVER, IID_ICatRegister, (void**)&pcr));
+        NULL, CLSCTX_INPROC_SERVER, __uuidof(ICatRegister), (void**)&pcr));
 
     // Make sure the HKCR\Component Categories\{..catid...}
     // key is registered
@@ -64,7 +64,7 @@ static HRESULT RegisterCLSIDInCategory(REFCLSID clsid, CATID catid)
     HRESULT         hr = S_OK ;
     ICatRegister *  pcr = NULL ;
     hr = CoCreateInstance(CLSID_StdComponentCategoriesMgr,
-            NULL, CLSCTX_INPROC_SERVER, IID_ICatRegister, (void**)&pcr);
+            NULL, CLSCTX_INPROC_SERVER, __uuidof(ICatRegister), (void**)&pcr);
     if (SUCCEEDED(hr))
     {
        // Register this category as being "implemented" by
@@ -119,7 +119,7 @@ static HRESULT UnRegisterCLSIDInCategory(REFCLSID clsid, CATID catid)
         return NOERROR;
 
     hr = CoCreateInstance(CLSID_StdComponentCategoriesMgr,
-            NULL, CLSCTX_INPROC_SERVER, IID_ICatRegister, (void**)&pcr);
+            NULL, CLSCTX_INPROC_SERVER, __uuidof(ICatRegister), (void**)&pcr);
     if (SUCCEEDED(hr))
     {
        // Unregister this category as being "implemented" by
@@ -166,7 +166,7 @@ STDMETHODIMP CClassFactory::QueryInterface(REFIID riid, void** ppvObj)
 
     if (IID_IUnknown == riid)
         *ppvObj = (IUnknown *) this;
-    else if (IID_IClassFactory == riid)
+    else if (__uuidof(IClassFactory) == riid)
         *ppvObj = (IClassFactory *) this;
     else
     {

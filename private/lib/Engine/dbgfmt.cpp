@@ -63,7 +63,7 @@ DEFINE_IUNKNOWN(ComDebugFormatter, m_cref)
     STDMETHODIMP ComDebugFormatter::QueryInterface(REFIID riid, void **ppv)
 {
     CHECK_POINTER(ppv);
-    if (IsEqualIID(riid, IID_IUnknown) || IsEqualIID(riid, IID_IDebugFormatter))
+    if (IsEqualIID(riid, IID_IUnknown) || IsEqualIID(riid, __uuidof(IDebugFormatter)))
         *ppv = (IDebugFormatter *)this;
     else
     {

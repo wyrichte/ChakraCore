@@ -233,5 +233,5 @@ HRESULT LoadPDM(HINSTANCE* phInstPdm, IProcessDebugManager ** ppPDM)
         *phInstPdm = hInstPdm;
     }
 
-    return PrivateCoCreate(hInstPdm, CLSID_ProcessDebugManager, NULL, CLSCTX_INPROC_SERVER, _uuidof(IProcessDebugManager), (LPVOID*) ppPDM);
+    return PrivateCoCreate(hInstPdm, __uuidof(ProcessDebugManager), NULL, CLSCTX_INPROC_SERVER, _uuidof(IProcessDebugManager), (LPVOID*) ppPDM);
 }

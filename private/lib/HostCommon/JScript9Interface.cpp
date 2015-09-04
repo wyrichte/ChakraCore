@@ -4,8 +4,6 @@
 
 #include "HostCommonPch.h"
 
-#include <initguid.h>
-#define INITGUID
 #include "guids.h"
 
 JScript9Interface::ArgInfo JScript9Interface::m_argInfo = { 0 };
@@ -165,10 +163,10 @@ HRESULT JScript9Interface::GetThreadService(IActiveScriptGarbageCollector** thre
     }
 
     IClassFactory * jscriptClassFactory = NULL;
-    hr = JScript9Interface::DllGetClassObject(CLSID_ChakraThreadService, IID_IClassFactory, (LPVOID*)&jscriptClassFactory);
+    hr = JScript9Interface::DllGetClassObject(CLSID_ChakraThreadService, __uuidof(IClassFactory), (LPVOID*)&jscriptClassFactory);
     IfFailedGo(hr);
 
-    hr = jscriptClassFactory->CreateInstance(NULL, IID_IActiveScriptGarbageCollector, (LPVOID*)threadService);    
+    hr = jscriptClassFactory->CreateInstance(NULL, __uuidof(IActiveScriptGarbageCollector), (LPVOID*)threadService);    
     jscriptClassFactory->Release();
     IfFailedGo(hr);
 
@@ -194,7 +192,7 @@ HRESULT JScript9Interface::FinalGC()
     }
 
     IClassFactory * jscriptClassFactory = NULL;
-    hr = JScript9Interface::DllGetClassObject(CLSID_Chakra, IID_IClassFactory, (LPVOID*)&jscriptClassFactory);
+    hr = JScript9Interface::DllGetClassObject(CLSID_Chakra, __uuidof(IClassFactory), (LPVOID*)&jscriptClassFactory);
     IfFailedGo(hr);
 
     hr = jscriptClassFactory->CreateInstance(NULL, _uuidof(IActiveScript), (LPVOID*)&activeScript);    
@@ -202,7 +200,7 @@ HRESULT JScript9Interface::FinalGC()
     IfFailedGo(hr);
 
     IActiveScriptGarbageCollector * gc;
-    activeScript->QueryInterface(IID_IActiveScriptGarbageCollector, (LPVOID*)&gc);
+    activeScript->QueryInterface(__uuidof(IActiveScriptGarbageCollector), (LPVOID*)&gc);
     activeScript->Release();
 
     IfFailedGo(hr);

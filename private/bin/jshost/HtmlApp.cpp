@@ -10,6 +10,12 @@
 #include "helpers.h"
 #include <ieconfig.h>
 
+extern "C"
+{
+    const IID IID_IWebBrowserApp = __uuidof(IWebBrowserApp);
+    const IID IID_IBrowserService = __uuidof(IBrowserService);
+}
+
 typedef HRESULT(*PFN_IEEnableScriptDebugging)();
 
 INTERNET_SCHEME GetScheme(LPCTSTR szURL);
@@ -83,61 +89,61 @@ STDMETHODIMP CApp::QueryInterface(REFIID riid, LPVOID* ppv)
 {
     *ppv = NULL;
 
-    if (IID_IUnknown == riid || IID_IPropertyNotifySink == riid)
+    if (IID_IUnknown == riid || __uuidof(IPropertyNotifySink) == riid)
     {
         *ppv = (LPUNKNOWN)(IPropertyNotifySink*)this;
         AddRef();
         return NOERROR;
     }
-    else if (IID_IOleClientSite == riid)
+    else if (__uuidof(IOleClientSite) == riid)
     {
         *ppv = (IOleClientSite*)this;
         AddRef();
         return NOERROR;
     }
-    else if (IID_IOleInPlaceSite == riid || IID_IOleWindow == riid)
+    else if (__uuidof(IOleInPlaceSite) == riid || __uuidof(IOleWindow) == riid)
     {
         *ppv = (IOleInPlaceSite*)this;
         AddRef();
         return NOERROR;
     }
-    else if (IID_IDispatch == riid)
+    else if (__uuidof(IDispatch) == riid)
     {
         *ppv = (IDispatch*)this;
         AddRef();
         return NOERROR;
     }
-    else if (IID_IDocHostUIHandler == riid)
+    else if (__uuidof(IDocHostUIHandler) == riid)
     {
         *ppv = (IDocHostUIHandler*)this;
         AddRef();
         return NOERROR;
     }
-    else if (IID_IOleCommandTarget == riid)
+    else if (__uuidof(IOleCommandTarget) == riid)
     {
         *ppv = (IOleCommandTarget*)this;
         AddRef();
         return NOERROR;
     }
-    else if (IID_IServiceProvider == riid)
+    else if (__uuidof(IServiceProvider) == riid)
     {
         *ppv = (IServiceProvider*)this;
         AddRef();
         return NOERROR;
     }
-    else if (IID_IBrowserService == riid)
+    else if (__uuidof(IBrowserService) == riid)
     {
         *ppv = (IBrowserService *)this;
         AddRef();
         return NOERROR;
     }
-    else if (IID_IDocObjectService == riid)
+    else if (__uuidof(IDocObjectService) == riid)
     {
         *ppv = (IDocObjectService *)this;
         AddRef();
         return NOERROR;
     }
-    else if (IID_IDispatchEx == riid)
+    else if (__uuidof(IDispatchEx) == riid)
     {
         return E_NOTIMPL;
     }
@@ -523,8 +529,8 @@ HRESULT CApp::Init(CAppWindow* pAppWindow)
     CComPtr<IOleControl> pOleControl;
     CComPtr<IConnectionPointContainer> pCPC;
 
-    if (FAILED(hr = PrivateCoCreateForEdgeHtml(CLSID_HTMLDocument, NULL,
-        CLSCTX_INPROC_SERVER, IID_IHTMLDocument2,
+    if (FAILED(hr = PrivateCoCreateForEdgeHtml(__uuidof(HTMLDocument), NULL,
+        CLSCTX_INPROC_SERVER, __uuidof(IHTMLDocument2),
         (LPVOID*)&g_pApp->m_pMSHTML)))
     {
         ODS(L"FATAL ERROR: PrivateCoCreateForEdgeHtml failed\n");
@@ -564,12 +570,12 @@ HRESULT CApp::Init(CAppWindow* pAppWindow)
     IfFailGo(pOleObject->SetClientSite((IOleClientSite*)this));
     IfFailGo(pOleObject->DoVerb(OLEIVERB_SHOW, NULL, this, 0, NULL, NULL)); // Puts mshtml in OS_RUNNING state right away, needed by CMarkup::EnsureFormatCacheChange
 
-    IfFailGo(m_pMSHTML->QueryInterface(IID_IOleControl, (LPVOID*)&pOleControl));
+    IfFailGo(m_pMSHTML->QueryInterface(__uuidof(IOleControl), (LPVOID*)&pOleControl));
     IfFailGo(pOleControl->OnAmbientPropertyChange(DISPID_AMBIENT_USERMODE));
 
     // Hook up sink to catch ready state property change
     IfFailGo(m_pMSHTML->QueryInterface(&pCPC));
-    IfFailGo(pCPC->FindConnectionPoint(IID_IPropertyNotifySink, &m_pCP));
+    IfFailGo(pCPC->FindConnectionPoint(__uuidof(IPropertyNotifySink), &m_pCP));
 
     m_hrConnected = m_pCP->Advise((LPUNKNOWN)(IPropertyNotifySink*)this, &m_dwCookie);
 Error:
@@ -714,7 +720,7 @@ HRESULT CApp::LoadURLFromMoniker()
     }
 
     // Use MSHTML moniker services to load the specified document
-    if (SUCCEEDED(hr = m_pMSHTML->QueryInterface(IID_IPersistMoniker,
+    if (SUCCEEDED(hr = m_pMSHTML->QueryInterface(__uuidof(IPersistMoniker),
                                 (LPVOID*)&pPMk)))
     {
         // Call Load on the IPersistMoniker
@@ -753,7 +759,7 @@ HRESULT CApp::LoadURLFromFile()
     fclose(htmlFile);
 
     // MSHTML supports file persistence for ordinary files.
-    if ( SUCCEEDED(hr = m_pMSHTML->QueryInterface(IID_IPersistFile, (LPVOID*) &pPF)))
+    if ( SUCCEEDED(hr = m_pMSHTML->QueryInterface(__uuidof(IPersistFile), (LPVOID*) &pPF)))
     {
         TCHAR szBuff[MAX_PATH];
         swprintf_s(szBuff, MAX_PATH, L"Loading %s...\n", m_szURL);
@@ -891,25 +897,25 @@ STDMETHODIMP CAppWebBrowser::QueryInterface(REFIID riid, LPVOID* ppv)
         AddRef();
         return NOERROR;
     }
-    else if (IID_IDispatch == riid)
+    else if (__uuidof(IDispatch) == riid)
     {
         *ppv = (IDispatch*)this;
         AddRef();
         return NOERROR;
     }
-    else if (IID_IWebBrowser == riid)
+    else if (__uuidof(IWebBrowser) == riid)
     {
         *ppv = (IWebBrowser*)this;
         AddRef();
         return NOERROR;
     }
-    else if (IID_IWebBrowserApp == riid)
+    else if (__uuidof(IWebBrowserApp) == riid)
     {
         *ppv = (IWebBrowserApp*)this;
         AddRef();
         return NOERROR;
     }
-    else if (IID_IWebBrowser2 == riid)
+    else if (__uuidof(IWebBrowser2) == riid)
     {
         *ppv = (IWebBrowser2*)this;
         AddRef();

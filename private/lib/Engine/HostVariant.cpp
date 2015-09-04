@@ -18,7 +18,7 @@ HostVariant::HostVariant(IDispatch *pdisp, Js::ScriptContext* scriptContext) :
         HRESULT hr;
         BEGIN_LEAVE_SCRIPT(scriptContext)
         {
-            hr = pdisp->QueryInterface(IID_IDispatchEx, (void**)&this->varDispatch.pdispVal);
+            hr = pdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&this->varDispatch.pdispVal);
         }
         END_LEAVE_SCRIPT(scriptContext);
         
@@ -52,7 +52,7 @@ HostVariant::HostVariant(IDispatch *pdisp) :
     if (pdisp)
     {
         HRESULT hr;
-        hr = pdisp->QueryInterface(IID_IDispatchEx, (void**)&this->varDispatch.pdispVal);
+        hr = pdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&this->varDispatch.pdispVal);
         
         if (hr == S_OK && this->varDispatch.pdispVal)
         {

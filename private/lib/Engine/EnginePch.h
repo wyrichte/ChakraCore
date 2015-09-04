@@ -49,7 +49,6 @@
 #include <io.h>
 #include <xmllite.h>
 
-#include <mshtmhst.h>
 #include <devtbhost.h>
 #if !defined(USED_IN_STATIC_LIB)
 #include <guids.h>

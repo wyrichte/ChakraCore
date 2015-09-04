@@ -75,7 +75,7 @@ void ScriptDebugNodeSource::Init(__in IDebugApplicationNode *pDebugApplicationNo
     {
         // Find out if this is HTML or JS file
 
-        hr = spDebugDocument->QueryInterface(IID_IDebugDocumentText,(LPVOID*)&m_spDebugDocumentText.p);
+        hr = spDebugDocument->QueryInterface(__uuidof(IDebugDocumentText),(LPVOID*)&m_spDebugDocumentText.p);
 
         if (hr == S_OK)
         {
@@ -288,18 +288,18 @@ HRESULT ScriptDebugNodeSource::SourceNodeEventSink::ConnectSinkForNodeEvent()
     // Get the IConnectionPointContainer for the node
     CComPtr<IConnectionPointContainer> spConnectionPointContainer;
     
-    hr = m_pSourceFile->GetDebugApplicationNode()->QueryInterface(IID_IConnectionPointContainer, (void**) &spConnectionPointContainer);
+    hr = m_pSourceFile->GetDebugApplicationNode()->QueryInterface(__uuidof(IConnectionPointContainer), (void**) &spConnectionPointContainer);
 
     if (hr == S_OK)
     {
         // Get the IDebugApplicationNodeEvents
         CComPtr<IDebugApplicationNodeEvents> spSink;
-        hr = QueryInterface(IID_IDebugApplicationNodeEvents, (void**) & spSink);
+        hr = QueryInterface(__uuidof(IDebugApplicationNodeEvents), (void**) & spSink);
 
         if (hr == S_OK)
         {
             // Find the connection point for IDebugApplicationNodeEvents
-            hr = spConnectionPointContainer->FindConnectionPoint(IID_IDebugApplicationNodeEvents, &m_spConnectionPoint);
+            hr = spConnectionPointContainer->FindConnectionPoint(__uuidof(IDebugApplicationNodeEvents), &m_spConnectionPoint);
             if (hr == S_OK)
             {
                 // Connect the sink
@@ -346,18 +346,18 @@ HRESULT ScriptDebugNodeSource::SourceNodeEventSink::ConnectSinkForTextEvent(__in
 
     // Get the IConnectionPointContainer for the node
     CComPtr<IConnectionPointContainer> spConnectionPointContainer;
-    HRESULT hr = m_pSourceFile->GetDocumentText()->QueryInterface(IID_IConnectionPointContainer, (void**) & spConnectionPointContainer);
+    HRESULT hr = m_pSourceFile->GetDocumentText()->QueryInterface(__uuidof(IConnectionPointContainer), (void**) & spConnectionPointContainer);
 
     if (SUCCEEDED(hr))
     {
         // Get the IDebugDocumentTextEvents
         CComPtr<IDebugDocumentTextEvents> spSink;
-        hr = QueryInterface(IID_IDebugDocumentTextEvents, (void**) & spSink);
+        hr = QueryInterface(__uuidof(IDebugDocumentTextEvents), (void**) & spSink);
 
         if (SUCCEEDED(hr))
         {
             // Find the connection point for IDebugDocumentTextEvents
-            hr = spConnectionPointContainer->FindConnectionPoint(IID_IDebugDocumentTextEvents, &m_spConnectionPoint);
+            hr = spConnectionPointContainer->FindConnectionPoint(__uuidof(IDebugDocumentTextEvents), &m_spConnectionPoint);
             if (SUCCEEDED(hr))
             {
                 // Connect the sink

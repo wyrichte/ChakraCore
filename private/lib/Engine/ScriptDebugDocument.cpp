@@ -250,11 +250,11 @@ HRESULT ScriptDebugDocument::Register(const wchar_t * title)
             // CreateDebugDocumentHelper simply calls CoCreate on CLSID_CDebugDocumentHelper
             // When using local PDM we can't use CoCreate to get to this, instead
             // use LoadLatestPDM
-            hr = LoadLatestPDM(CLSID_CDebugDocumentHelper,IID_PPV_ARGS(&m_debugDocHelper));
+            hr = LoadLatestPDM(__uuidof(CDebugDocumentHelper),IID_PPV_ARGS(&m_debugDocHelper));
         }
         else
         {
-            hr = CoCreateInstance(CLSID_CDebugDocumentHelper, NULL, CLSCTX_INPROC_SERVER, _uuidof(IDebugDocumentHelper), (LPVOID*)&m_debugDocHelper);
+            hr = CoCreateInstance(__uuidof(CDebugDocumentHelper), NULL, CLSCTX_INPROC_SERVER, _uuidof(IDebugDocumentHelper), (LPVOID*)&m_debugDocHelper);
         }
 
         if (hr != S_OK)

@@ -150,11 +150,11 @@ HRESULT JavascriptDispatch::QueryInterface(REFIID riid, void **ppvObj)
     {
         *ppvObj = (IDispatchEx *)this;
     }
-    else if (IID_IDispatchEx == riid)
+    else if (__uuidof(IDispatchEx) == riid)
     {
         *ppvObj = (IDispatchEx *)this;
     }
-    else if (IID_IDispatch == riid )
+    else if (__uuidof(IDispatch) == riid )
     {
         *ppvObj = (IDispatch *)this;
     }
@@ -191,7 +191,7 @@ HRESULT JavascriptDispatch::QueryInterface(REFIID riid, void **ppvObj)
         }
         return E_NOINTERFACE;
     }
-    else if (IID_IEnumVARIANT == riid)
+    else if (__uuidof(IEnumVARIANT) == riid)
     {
         AssertMsg(false, "Enumerator is removed in Chakra.");
         *ppvObj = NULL;
@@ -1478,7 +1478,7 @@ HRESULT JavascriptDispatch::InvokeOnMember(
             pVarValue = &varValue;
             VariantInit(pVarValue);
 
-            hr = pDisp->QueryInterface(IID_IDispatchEx, (void**)&pDispEx);
+            hr = pDisp->QueryInterface(__uuidof(IDispatchEx), (void**)&pDispEx);
             if (SUCCEEDED(hr) && pDispEx)
             {
                 if (scriptSite)

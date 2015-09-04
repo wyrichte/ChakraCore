@@ -101,7 +101,7 @@ HRESULT CCodeContext::QueryInterface(REFIID iid, void ** ppv)
     CHECK_POINTER(ppv);
     AssertMem(ppv);
 
-    if (iid == IID_IUnknown || iid == IID_IDebugCodeContext)
+    if (iid == IID_IUnknown || iid == __uuidof(IDebugCodeContext))
         *ppv = (IDebugCodeContext *)this;
     else if (iid == IID_IInternalCodeContext)
         *ppv = (IInternalCodeContext *)this;
@@ -198,7 +198,7 @@ HRESULT CEnumCodeContexts::QueryInterface(REFIID iid, void ** ppv)
     CHECK_POINTER(ppv);
     if (InlineIsEqualGUID(iid, IID_IUnknown))
         *ppv = (IUnknown *)this;
-    else if (InlineIsEqualGUID(iid, IID_IEnumDebugCodeContexts))
+    else if (InlineIsEqualGUID(iid, __uuidof(IEnumDebugCodeContexts)))
         *ppv = (IEnumDebugCodeContexts *)this;
     else
     {
@@ -416,9 +416,9 @@ HRESULT CDebugStackFrame::QueryInterface(REFIID iid, void ** ppv)
 
     if (iid == IID_IUnknown)
         *ppv = (IUnknown *)(IDebugStackFrame *)this;
-    else if (iid == IID_IDebugStackFrame)
+    else if (iid == __uuidof(IDebugStackFrame))
         *ppv = (IDebugStackFrame *)this;
-    else if (iid == IID_IDebugExpressionContext)
+    else if (iid == __uuidof(IDebugExpressionContext))
         *ppv = (IDebugExpressionContext *)this;
 #if _M_IX86 || _M_AMD64 || _M_IA64 || _M_ARM // See definition of IID_IDebugSetValueCallback and IID_ISetNextStatement above.
     else if (iid == IID_IDebugSetValueCallback)
@@ -1772,7 +1772,7 @@ HRESULT CDebugEval::QueryInterface(REFIID iid, void ** ppv)
 
     if (iid == IID_IUnknown)
         *ppv = (IUnknown *)this;
-    else if (iid == IID_IDebugSyncOperation)
+    else if (iid == __uuidof(IDebugSyncOperation))
         *ppv = (IDebugSyncOperation *)this;
     else
     {
@@ -1897,9 +1897,9 @@ HRESULT CDebugExpression::QueryInterface(REFIID iid, void ** ppv)
 
     if (iid == IID_IUnknown)
         *ppv = (IUnknown *)(IDebugExpression *)this;
-    else if (iid == IID_IDebugExpression)
+    else if (iid == __uuidof(IDebugExpression))
         *ppv = (IDebugExpression *)this;
-    else if (iid == IID_IDebugAsyncOperationCallBack)
+    else if (iid == __uuidof(IDebugAsyncOperationCallBack))
         *ppv = (IDebugAsyncOperationCallBack *)this;
     else
     {
@@ -1992,7 +1992,7 @@ HRESULT CDebugExpression::GetResultAsString(HRESULT *resultHr, BSTR *resultStrin
         if (nullptr != resultString)
         {
             IDebugProperty *pdp;
-            hr = punkRes->QueryInterface(IID_IDebugProperty, (void **)&pdp);
+            hr = punkRes->QueryInterface(__uuidof(IDebugProperty), (void **)&pdp);
             punkRes->Release();
             if (FAILED(hr))
                 return hr;
@@ -2029,7 +2029,7 @@ HRESULT CDebugExpression::GetResultAsDebugProperty(HRESULT *phrRes,
     if (nullptr != punkRes)
     {
         if (nullptr != ppDebugProperty)
-            punkRes->QueryInterface(IID_IDebugProperty, (void **)ppDebugProperty);
+            punkRes->QueryInterface(__uuidof(IDebugProperty), (void **)ppDebugProperty);
         punkRes->Release();
     }
     return NOERROR;
@@ -2094,9 +2094,9 @@ HRESULT CEnumDebugStackFrames::QueryInterface(REFIID iid, void ** ppv)
 
     if (iid == IID_IUnknown)
         *ppv = (IUnknown *)this;
-    else if (iid == IID_IEnumDebugStackFrames)
+    else if (iid == __uuidof(IEnumDebugStackFrames))
         *ppv = (IEnumDebugStackFrames *)this;
-    else if (iid == IID_IEnumDebugStackFrames64)
+    else if (iid == __uuidof(IEnumDebugStackFrames64))
         *ppv = (IEnumDebugStackFrames64 *)this;
     else
     {

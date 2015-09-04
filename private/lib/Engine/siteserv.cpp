@@ -62,7 +62,7 @@ HRESULT SiteService::QueryInterface(REFIID riid, void **ppvObj)
     {
         *ppvObj = (IUnknown *)this;
     }
-    else if (IID_IServiceProvider == riid)
+    else if (__uuidof(IServiceProvider) == riid)
     {
         *ppvObj = (IServiceProvider *)this;
     }
@@ -113,7 +113,7 @@ HRESULT SiteService::QueryService(REFGUID guidService, REFIID riid, void **ppvOb
         // PREFIX: dereferencing NULL pointer 'punkSite'  Use S_OK instead of FAILED() since
         // GetScriptSite may return S_FALSE and punkSite == NULL
         (S_OK != (hr = pos->GetScriptSite(IID_IUnknown, (void **)&punkSite))) ||
-        FAILED(hr = punkSite->QueryInterface(IID_IServiceProvider, (void **)&pspSite))
+        FAILED(hr = punkSite->QueryInterface(__uuidof(IServiceProvider), (void **)&pspSite))
         )
     {
         goto done;

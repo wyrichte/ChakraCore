@@ -61,7 +61,7 @@ Var HostObject::GetNamespaceParent(
     /* REVIEW: Do we need to handle exception here? */
     BEGIN_LEAVE_SCRIPT(scriptContext)
     {
-        hr = pDisp->QueryInterface(IID_IDispatchEx, (void**)&pDispEx);        
+        hr = pDisp->QueryInterface(__uuidof(IDispatchEx), (void**)&pDispEx);        
         if (SUCCEEDED(hr))
         {
             // Do we have a parent?
@@ -76,7 +76,7 @@ Var HostObject::GetNamespaceParent(
             {
                 // Is the parent an IDispatch?
                 
-                hr = pUnk->QueryInterface(IID_IDispatch, (void**)&namespaceDispatch);
+                hr = pUnk->QueryInterface(__uuidof(IDispatch), (void**)&namespaceDispatch);
                 pUnk->Release();
             }
         }

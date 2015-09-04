@@ -169,7 +169,7 @@ HRESULT DefineWScriptObject(IActiveScriptDirect* scriptDirectRef, WScriptDispatc
     CComPtr<IDispatch> hostDispatch;
     IfFailRet(scriptRef->GetScriptDispatch(NULL, &hostDispatch));
     CComPtr<IDispatchEx> hostDispatchEx;
-    IfFailRet(hostDispatch->QueryInterface(IID_IDispatchEx, (void**)&hostDispatchEx));
+    IfFailRet(hostDispatch->QueryInterface(__uuidof(IDispatchEx), (void**)&hostDispatchEx));
 
     DISPID wscriptId = 0;
     IfFailRet(hostDispatchEx->GetDispID(L"WScript", fdexNameCaseSensitive | fdexNameEnsure, &wscriptId));

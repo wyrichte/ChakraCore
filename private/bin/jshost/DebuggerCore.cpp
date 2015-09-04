@@ -928,7 +928,7 @@ HRESULT Debugger::GetLocalsEnum(CComPtr<IEnumDebugPropertyInfo>& enumLocals)
 
     CComPtr<IDebugProperty> pDebugProperty;
     IfFailGo(GetLocalsEnum(pDebugProperty));
-    IfFailGo(pDebugProperty->EnumMembers(DBGPROP_INFO_ALL, 10, IID_IEnumDebugPropertyInfo, &enumLocals));
+    IfFailGo(pDebugProperty->EnumMembers(DBGPROP_INFO_ALL, 10, __uuidof(IEnumDebugPropertyInfo), &enumLocals));
 
 Error:
     return hr;
@@ -1067,7 +1067,7 @@ HRESULT Debugger::EvaluateExpressionAsDebugProperty(const std::wstring& expressi
     IfFailGo(EnsureCurrentFrame());
 
     // Expression context is related to the stack frame
-    IfFailGo(m_currentFrame->pdsf->QueryInterface(IID_IDebugExpressionContext,
+    IfFailGo(m_currentFrame->pdsf->QueryInterface(__uuidof(IDebugExpressionContext),
         (LPVOID*)&debugExpressionContext
         ));
 
@@ -1133,7 +1133,7 @@ HRESULT Debugger::EvaluateExpressionAsync(const std::wstring& expression, CExprC
     IfFailGo(EnsureCurrentFrame());
 
     // Expression context is related to the stack frame
-    IfFailGo(m_currentFrame->pdsf->QueryInterface(IID_IDebugExpressionContext,
+    IfFailGo(m_currentFrame->pdsf->QueryInterface(__uuidof(IDebugExpressionContext),
         (LPVOID*)&debugExpressionContext
         ));
 
@@ -1646,7 +1646,7 @@ HRESULT Debugger::PopulateSourceLocationInfo(IDebugCodeContext *pDebugCodeContex
         Assert(hr == S_OK);
 
         CComPtr<IDebugDocumentText> spDebugDocumentText;
-        spDebugDocument->QueryInterface(IID_IDebugDocumentText,(LPVOID*)&spDebugDocumentText);
+        spDebugDocument->QueryInterface(__uuidof(IDebugDocumentText),(LPVOID*)&spDebugDocumentText);
 
         spDebugDocumentText->GetPositionOfContext(spDebugDocumentContext, &(pSourceContext->charPosition), &(pSourceContext->contextCount));
         spDebugDocumentText->GetLineOfPosition(pSourceContext->charPosition, &(pSourceContext->lineNumber), &(pSourceContext->columnNumber));
@@ -3057,7 +3057,7 @@ IDebugProperty * Debugger::FindDebugProperty(IEnumDebugPropertyInfo *enumLocals,
             else if ((info.m_dwAttrib & DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE) == DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE)
             {
                 // Get next enum locals
-                info.m_pDebugProp->EnumMembers(DBGPROP_INFO_ALL, 10, IID_IEnumDebugPropertyInfo, &nextEnumLocals);
+                info.m_pDebugProp->EnumMembers(DBGPROP_INFO_ALL, 10, __uuidof(IEnumDebugPropertyInfo), &nextEnumLocals);
                 return FindDebugProperty(nextEnumLocals, names, pos);
             }
             // Value matches so far, but cannot expand anymore! - wrong path!
@@ -3069,7 +3069,7 @@ IDebugProperty * Debugger::FindDebugProperty(IEnumDebugPropertyInfo *enumLocals,
         {
             // Get next enum locals
             nextEnumLocals = NULL; // CComPtr::operator & will assert if non-NULL
-            info.m_pDebugProp->EnumMembers(DBGPROP_INFO_ALL, 10, IID_IEnumDebugPropertyInfo, &nextEnumLocals);
+            info.m_pDebugProp->EnumMembers(DBGPROP_INFO_ALL, 10, __uuidof(IEnumDebugPropertyInfo), &nextEnumLocals);
 
             IDebugProperty *debugProperty = nullptr;
             // [Scope] - just search it from beginning

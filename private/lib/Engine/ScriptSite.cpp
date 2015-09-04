@@ -629,7 +629,7 @@ HRESULT ScriptSite::GetModuleDispatch(
             if (tempModule->GetModuleID() == moduleID)
             {
                  moduleDispatch = JavascriptDispatch::Create<false>(tempModule);
-                 return moduleDispatch->QueryInterface(IID_IDispatch, (void**)dispatch);
+                 return moduleDispatch->QueryInterface(__uuidof(IDispatch), (void**)dispatch);
             }
         }
     }
@@ -2228,6 +2228,9 @@ HRESULT ScriptSite::VerifyDOMSecurity(Js::ScriptContext* targetContext, Js::Var 
     return hr;
 }
 
+// For CMDID_SCRIPTSITE_SID
+#include <mshtmhst.h>
+
 HRESULT ScriptSite::CheckCrossDomainScriptContext(__in Js::ScriptContext* remoteScriptContext)
 {
     // For real cross domain throw failures we need to differentiate an actual SID failure versus a script
@@ -2243,7 +2246,7 @@ HRESULT ScriptSite::CheckCrossDomainScriptContext(__in Js::ScriptContext* remote
         if ( remoteScriptSite )
         {
             IOleCommandTarget* pLocalCommandTarget = NULL;
-            HRESULT hr = scriptEngine->GetScriptSite(IID_IOleCommandTarget, (void**)&pLocalCommandTarget);
+            HRESULT hr = scriptEngine->GetScriptSite(__uuidof(IOleCommandTarget), (void**)&pLocalCommandTarget);
             if ( S_OK == hr )
             {
                 VARIANTARG varLocalSid;
@@ -2253,7 +2256,7 @@ HRESULT ScriptSite::CheckCrossDomainScriptContext(__in Js::ScriptContext* remote
                 if ( S_OK == hr )
                 {
                     IOleCommandTarget* pRemoteCommandTarget = NULL;
-                    hr = remoteScriptSite->scriptEngine->GetScriptSite(IID_IOleCommandTarget, (void**)&pRemoteCommandTarget);
+                    hr = remoteScriptSite->scriptEngine->GetScriptSite(__uuidof(IOleCommandTarget), (void**)&pRemoteCommandTarget);
                     if ( S_OK == hr )
                     {
                         VARIANTARG varRemoteSid;

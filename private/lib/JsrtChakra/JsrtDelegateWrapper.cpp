@@ -3,7 +3,6 @@
 #include "JsrtChakraPch.h"
 #include "JsrtDelegateWrapper.h"
 
-const IID GUID_NULL = {};
 
 STDMETHODIMP CheckApartment()
 {

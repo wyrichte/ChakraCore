@@ -11,7 +11,7 @@ HRESULT WScriptDispatchCallbackMessage::CallJavascriptFunction(bool force/* = fa
     if (m_function)
     {
         CComPtr<IDispatchEx> dispatchEx;
-        if ((hr = m_function->QueryInterface(IID_IDispatchEx, (void **)&dispatchEx)) == S_OK)
+        if ((hr = m_function->QueryInterface(__uuidof(IDispatchEx), (void **)&dispatchEx)) == S_OK)
         {
             DISPPARAMS dpNoArgs = { 0 };
             VARIANT vtRes;
@@ -60,7 +60,7 @@ HRESULT DiagnosticsHelper::CreateDocumentHelper(__in IDebugDocumentHelper ** deb
     HRESULT hr = S_OK;
     if (m_hInstPdm)
     {
-        hr = PrivateCoCreate(m_hInstPdm, CLSID_CDebugDocumentHelper, NULL, CLSCTX_INPROC_SERVER, _uuidof(IDebugDocumentHelper), (LPVOID*)debugDocumentHelper);
+        hr = PrivateCoCreate(m_hInstPdm, __uuidof(CDebugDocumentHelper), NULL, CLSCTX_INPROC_SERVER, _uuidof(IDebugDocumentHelper), (LPVOID*)debugDocumentHelper);
     }
     else
     {
@@ -86,8 +86,8 @@ HRESULT DiagnosticsHelper::HtmlDynamicAttach(DWORD cmdID)
             if (m_debugApplication == nullptr) // m_debugApplication will not be null for multiple dynamic attach scenario
             {
                 CComPtr<IServiceProvider> spServiceProvider;
-                hr = m_htmlDocument->QueryInterface(IID_IServiceProvider, (LPVOID *)&spServiceProvider);
-                if ((hr = spServiceProvider->QueryService(IID_IDebugApplication, IID_IRemoteDebugApplication, (LPVOID *)&m_debugApplication)) == S_OK)
+                hr = m_htmlDocument->QueryInterface(__uuidof(IServiceProvider), (LPVOID *)&spServiceProvider);
+                if ((hr = spServiceProvider->QueryService(__uuidof(IDebugApplication), __uuidof(IRemoteDebugApplication), (LPVOID *)&m_debugApplication)) == S_OK)
                 {
                     hr = AttachToDebugger();
                     if (hr != S_OK)
@@ -141,10 +141,10 @@ HRESULT DiagnosticsHelper::EnableHtmlDebugging()
     HRESULT hr = S_OK;
     CComPtr<IServiceProvider> spserviceProvider;
 
-    if ((hr = m_htmlDocument->QueryInterface(IID_IServiceProvider, (LPVOID *)&spserviceProvider)) == S_OK)
+    if ((hr = m_htmlDocument->QueryInterface(__uuidof(IServiceProvider), (LPVOID *)&spserviceProvider)) == S_OK)
     {
         // m_debugApplication will not be null if we have done dynamic attach more then once.
-        if (m_debugApplication == nullptr && (hr = spserviceProvider->QueryService(IID_IDebugApplication, IID_IRemoteDebugApplication, (LPVOID *)&m_debugApplication)) == S_OK)
+        if (m_debugApplication == nullptr && (hr = spserviceProvider->QueryService(__uuidof(IDebugApplication), __uuidof(IRemoteDebugApplication), (LPVOID *)&m_debugApplication)) == S_OK)
         {
             // This is the case when the host is already in debug mode, eg. set it thru internet option or using iertutil's help
             hr = AttachToDebugger();

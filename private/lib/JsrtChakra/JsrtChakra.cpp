@@ -286,8 +286,8 @@ STDAPI_(JsErrorCode) JsInspectableToObject(_In_ IInspectable  *inspectable, _Out
         CComPtr<IInspectable> dbgInspectable = nullptr;
         CComPtr<IDispatchEx> dbgDispatch = nullptr;
         BEGIN_LEAVE_SCRIPT(scriptContext)
-        Assert(S_OK == inspectable->QueryInterface(IID_IInspectable, (void**)&dbgInspectable));
-        Assert(FAILED(inspectable->QueryInterface(IID_IDispatchEx, (void**)&dbgDispatch)));
+        Assert(S_OK == inspectable->QueryInterface(__uuidof(IInspectable), (void**)&dbgInspectable));
+        Assert(FAILED(inspectable->QueryInterface(__uuidof(IDispatchEx), (void**)&dbgDispatch)));
         END_LEAVE_SCRIPT(scriptContext)
 #endif
         JsrtContextChakra * context = (JsrtContextChakra *)JsrtContext::GetCurrent();
@@ -337,7 +337,7 @@ STDAPI_(JsErrorCode) JsObjectToInspectable(_In_ JsValueRef value, _Out_ IInspect
         // Found a CEO, QI for IInspectable and if succeed return that
         HRESULT hr = NOERROR;
         BEGIN_LEAVE_SCRIPT(scriptContext)
-            hr = externalObject->QueryObjectInterface(IID_IInspectable, (void**)inspectable);
+            hr = externalObject->QueryObjectInterface(__uuidof(IInspectable), (void**)inspectable);
         END_LEAVE_SCRIPT(scriptContext)
             if (FAILED(hr))
             {

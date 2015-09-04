@@ -123,7 +123,7 @@ void DispatchHelper::MarshalJsVarToDispatchVariant(Js::Var var,VARIANT *pVar)
     AssertMsg(jsdisp->GetObject() == var, "Bad dispatch map entry");
     pVar->vt = VT_DISPATCH;
 
-    HRESULT hr = jsdisp->QueryInterface(IID_IDispatchEx, (void**)&pVar->pdispVal);
+    HRESULT hr = jsdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&pVar->pdispVal);
     Assert(hr == S_OK);
 }
 
@@ -668,7 +668,7 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
 
             BEGIN_LEAVE_SCRIPT(scriptContext)
             {
-                hr = pVar->punkVal->QueryInterface(IID_IDispatch, (void**)&dispatch);
+                hr = pVar->punkVal->QueryInterface(__uuidof(IDispatch), (void**)&dispatch);
             }
             END_LEAVE_SCRIPT(scriptContext);
             if (SUCCEEDED(hr) && dispatch)
@@ -713,7 +713,7 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
             else
             {
                 IDispatch* pDispatch = null;
-                hr = pdispVal->QueryInterface(IID_IDispatch, (void**)&pDispatch);
+                hr = pdispVal->QueryInterface(__uuidof(IDispatch), (void**)&pDispatch);
                 if (SUCCEEDED(hr) && pDispatch)
                 {
                     hr = MarshalIDispatchToJsVarNoThrow(scriptContext, pDispatch, pAtom);
@@ -892,7 +892,7 @@ HRESULT DispatchHelper::GetDispatchValue(ScriptSite* scriptSite, IDispatch* pdis
         return E_UNEXPECTED;
     }
 
-    hr = pdisp->QueryInterface(IID_IDispatchEx, (void**)&pDispEx);
+    hr = pdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&pDispEx);
     if (SUCCEEDED(hr) && pDispEx)
     {
         DispatchExCaller *pdc = NULL;

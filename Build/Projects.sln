@@ -188,6 +188,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5D62C4
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{0A181B90-64BC-4144-B05B-3FC90D800CF0}"
+	ProjectSection(SolutionItems) = preProject
+		..\unittest\jsrt\API\UnitTest.JsRT.API.vcxproj = ..\unittest\jsrt\API\UnitTest.JsRT.API.vcxproj
+		..\unittest\jsrt\common\UnitTest.JsRT.Common.vcxproj = ..\unittest\jsrt\common\UnitTest.JsRT.Common.vcxproj
+		..\unittest\jsrt\ComProjection\UnitTest.JsRT.ComProjection.vcxproj = ..\unittest\jsrt\ComProjection\UnitTest.JsRT.ComProjection.vcxproj
+		..\unittest\jsrt\memorypolicy\UnitTest.JsRT.MemoryPolicy.vcxproj = ..\unittest\jsrt\memorypolicy\UnitTest.JsRT.MemoryPolicy.vcxproj
+		..\unittest\jsrt\rentalthreading\UnitTest.JsRT.RentalThreading.vcxproj = ..\unittest\jsrt\rentalthreading\UnitTest.JsRT.RentalThreading.vcxproj
+		..\unittest\jsrt\threadservice\UnitTest.JsRT.ThreadService.vcxproj = ..\unittest\jsrt\threadservice\UnitTest.JsRT.ThreadService.vcxproj
+		..\unittest\jsrt\winrt\UnitTest.JsRT.WinRT.vcxproj = ..\unittest\jsrt\winrt\UnitTest.JsRT.WinRT.vcxproj
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

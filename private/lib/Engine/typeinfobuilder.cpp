@@ -54,7 +54,7 @@ HRESULT GetDispatchTypeInfo(ITypeInfo **ppti)
     ITypeLib *ptlibStdOle;
     if (FAILED(hr = GetStdOleTypeLib(&ptlibStdOle)))
         return hr;
-    hr = ptlibStdOle->GetTypeInfoOfGuid(IID_IDispatch, ppti);
+    hr = ptlibStdOle->GetTypeInfoOfGuid(__uuidof(IDispatch), ppti);
     ptlibStdOle->Release();
     return hr;
 }
@@ -366,7 +366,7 @@ HRESULT TypeInfoBuilder::Create(__in LPCOLESTR pszName, LCID lcid,
     {
         goto LFail;
     }
-    hr = ptlibStdOle->GetTypeInfoOfGuid(IID_IDispatch, &ptiStdDisp);
+    hr = ptlibStdOle->GetTypeInfoOfGuid(__uuidof(IDispatch), &ptiStdDisp);
     ptlibStdOle->Release();
 
     if (FAILED(hr))
@@ -459,7 +459,7 @@ HRESULT TypeInfoBuilder::GetTypeInfo(ITypeInfo * * ppti)
     HRESULT hr;
     ITypeInfo * pti = NULL;
 
-    hr = m_pcti->QueryInterface(IID_ITypeInfo, (void **)&pti);
+    hr = m_pcti->QueryInterface(__uuidof(ITypeInfo), (void **)&pti);
     if (FAILED(hr))
         goto LFail;
 

@@ -360,7 +360,7 @@ HRESULT __stdcall GetThreadService(IActiveScriptGarbageCollector** threadService
             JavascriptThreadService* javascriptThreadService = static_cast<JavascriptThreadService*>(threadServiceWrapper);
             if (javascriptThreadService)
             {
-                hr = javascriptThreadService->QueryInterface(IID_IActiveScriptGarbageCollector, (void**)threadService);
+                hr = javascriptThreadService->QueryInterface(__uuidof(IActiveScriptGarbageCollector), (void**)threadService);
             }
         }
     }

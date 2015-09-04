@@ -5,6 +5,8 @@
 #include "StdAfx.h"
 #include "ComProjectionTest.h"
 
+const IID GUID_NULL = {};
+
 using namespace WEX::Common;
 using namespace WEX::Logging;
 using namespace WEX::TestExecution;
@@ -63,7 +65,7 @@ namespace JsrtUnitTests
     void ComProjectionTest::BasicTest()
     {        
         CComPtr<IUnknown> punk = NULL;        
-        VERIFY_IS_TRUE(SUCCEEDED(CoCreateInstance(fsoClsid, NULL, CLSCTX_INPROC_SERVER, IID_IUnknown, (void **)&punk)));
+        VERIFY_IS_TRUE(SUCCEEDED(CoCreateInstance(fsoClsid, NULL, CLSCTX_INPROC_SERVER, __uuidof(IUnknown), (void **)&punk)));
         
         CComVariant var = punk;                
         JsValueRef fso = JS_INVALID_REFERENCE;

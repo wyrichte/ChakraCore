@@ -12,13 +12,13 @@ HRESULT JavascriptPixelArrayDispatch::QueryInterface(REFIID riid, void **ppvObj)
 
     if (FAILED(hr))
     {
-        if (IID_ICanvasPixelArray == riid)
+        if (__uuidof(ICanvasPixelArray) == riid)
         {
             *ppvObj = (ICanvasPixelArray *)this;
             AddRef();
             hr = S_OK;
         }
-        else if (IID_ICanvasPixelArrayData == riid)
+        else if (__uuidof(ICanvasPixelArrayData) == riid)
         {
             *ppvObj = (ICanvasPixelArrayData *)this;
             AddRef();

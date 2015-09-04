@@ -42,8 +42,7 @@
     </ImpLib>
     <Link>
       <AdditionalDependencies>
-        $(MinCoreSdkLibPath)\mincore_fw.lib;
-        $(SdkLibPath)\uuid.lib;
+        $(MinCoreSdkLibPath)\mincore_fw.lib;        
         $(SdkLibPath)\dbghelp.lib;
         $(SdkLibPath)\dbgeng.lib;
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\engextcpp.lib;

@@ -57,13 +57,13 @@ HRESULT CScriptSourceDocumentText::QueryInterface(REFIID iid, void ** ppvObject)
 {
     CHECK_POINTER(ppvObject);
 
-    if (InlineIsEqualGUID(iid, IID_IDebugDocumentText))
+    if (InlineIsEqualGUID(iid, __uuidof(IDebugDocumentText)))
         *ppvObject = static_cast<IDebugDocumentText *>(this);
-    else if (InlineIsEqualGUID(iid, IID_IDebugDocument))
+    else if (InlineIsEqualGUID(iid, __uuidof(IDebugDocument)))
         *ppvObject = static_cast<IDebugDocument *>(this);
-    else if (InlineIsEqualGUID(iid, IID_IDebugDocumentProvider))
+    else if (InlineIsEqualGUID(iid, __uuidof(IDebugDocumentProvider)))
         *ppvObject = static_cast<IDebugDocumentProvider *>(this);
-    else if (InlineIsEqualGUID(iid, IID_IDebugDocumentInfo))
+    else if (InlineIsEqualGUID(iid, __uuidof(IDebugDocumentInfo)))
         *ppvObject = static_cast<IDebugDocumentInfo *>(static_cast<IDebugDocument *>(this));
     else
     {
@@ -851,7 +851,7 @@ HRESULT CScriptSourceContext::QueryInterface(REFIID iid, void ** ppvObject)
 
     if (InlineIsEqualGUID(iid, IID_IUnknown))
         *ppvObject = static_cast<IUnknown *>(this);
-    else if (InlineIsEqualGUID(iid, IID_IDebugDocumentContext))
+    else if (InlineIsEqualGUID(iid, __uuidof(IDebugDocumentContext)))
         *ppvObject = static_cast<IDebugDocumentContext *>(this);
     else
     {

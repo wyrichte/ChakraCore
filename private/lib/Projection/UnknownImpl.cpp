@@ -84,7 +84,7 @@ namespace Projection
         IfNullReturnError(ppv, E_POINTER);
         *ppv = nullptr;
 
-        if (((g_DelegateVtable != m_pvtbl) && IsEqualGUID(riid, IID_IInspectable))
+        if (((g_DelegateVtable != m_pvtbl) && IsEqualGUID(riid, __uuidof(IInspectable)))
             || IsEqualGUID(riid, m_iid))
         {
             *ppv = &m_pvtbl;
@@ -120,7 +120,7 @@ namespace Projection
             return S_OK;
         }
 
-        if (IsEqualGUID(riid, IID_IWeakReferenceSource) 
+        if (IsEqualGUID(riid, __uuidof(IWeakReferenceSource))
             && m_pWeakReferenceSource != NULL)
         {
             *ppv = m_pWeakReferenceSource;

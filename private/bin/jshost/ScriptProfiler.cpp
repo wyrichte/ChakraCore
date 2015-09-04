@@ -175,7 +175,7 @@ STDMETHODIMP ScriptProfiler::FunctionCompiled(
     if (pDocumentContext != nullptr)
     {
         CComPtr<IDebugDocumentContext> pDebugDocumentContext = nullptr;
-        hr = pDocumentContext->QueryInterface(IID_IDebugDocumentContext, reinterpret_cast<void **>(&pDebugDocumentContext));
+        hr = pDocumentContext->QueryInterface(__uuidof(IDebugDocumentContext), reinterpret_cast<void **>(&pDebugDocumentContext));
         if (SUCCEEDED(hr))
         {
             CComPtr<IDebugDocument> pDocument = NULL;
@@ -183,7 +183,7 @@ STDMETHODIMP ScriptProfiler::FunctionCompiled(
             if (SUCCEEDED(hr))
             {
                 CComPtr<IDebugDocumentText> pDocumentText = NULL;
-                hr = pDocument->QueryInterface(IID_IDebugDocumentText, reinterpret_cast<void **>(&pDocumentText));
+                hr = pDocument->QueryInterface(__uuidof(IDebugDocumentText), reinterpret_cast<void **>(&pDocumentText));
 
                 if (SUCCEEDED(hr))
                 {

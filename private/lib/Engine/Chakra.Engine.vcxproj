@@ -76,7 +76,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)ErrorTypeHelper.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)EventSink.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ExternalObject.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)guids.c">
+    <ClCompile Include="$(MsBuildThisFileDirectory)guids.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatch.cpp" />

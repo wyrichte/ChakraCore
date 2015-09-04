@@ -1074,7 +1074,7 @@ namespace Projection
                             // Either inspectable or unsupported type. 
                             // The GetUnknownOfVar extension would throw for unsupported type.
                             // GetUnknownOfVarExtension should addRef the interface, even if it is the default
-                            GetUnknownOfVarExtension(scriptContext, varInput, IID_IInspectable, (LPVOID *)&propertyValue, nullptr, true);
+                            GetUnknownOfVarExtension(scriptContext, varInput, __uuidof(IInspectable), (LPVOID *)&propertyValue, nullptr, true);
                         }
                     }
                 }
@@ -2664,7 +2664,7 @@ namespace Projection
 
         BEGIN_LEAVE_SCRIPT(scriptContext)
         {
-            hr = interfacePtr->QueryInterface(IID_IInspectable, (void**)&inspectable);
+            hr = interfacePtr->QueryInterface(__uuidof(IInspectable), (void**)&inspectable);
             if (SUCCEEDED(hr))
             {
                 inspectable->Release();

@@ -38,12 +38,12 @@ HRESULT CWinSink::Init(IHTMLWindow2* pWin)
   m_pWin = pWin;
   m_pWin->AddRef();
 
-  if (FAILED(hr = pWin->QueryInterface(IID_IConnectionPointContainer, (LPVOID*)&pCPC)))
+  if (FAILED(hr = pWin->QueryInterface(__uuidof(IConnectionPointContainer), (LPVOID*)&pCPC)))
   {
     goto Error;
   }
 
-  if (FAILED(hr = pCPC->FindConnectionPoint(DIID_HTMLWindowEvents2, &m_pCP)))
+  if (FAILED(hr = pCPC->FindConnectionPoint(__uuidof(HTMLWindowEvents2), &m_pCP)))
   {
     goto Error;
   }
@@ -65,7 +65,7 @@ STDMETHODIMP CWinSink::QueryInterface(REFIID riid, LPVOID* ppv)
     AddRef();
     return NOERROR;
   }
-  else if (IID_IDispatch == riid)
+  else if (__uuidof(IDispatch) == riid)
   {
     *ppv = (IDispatch*)this;
     AddRef();

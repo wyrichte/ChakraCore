@@ -40,8 +40,7 @@
         $(SdkLibPath)\kernel32.lib;
         $(SdkLibPath)\ole32.lib;
         $(SdkLibPath)\oleaut32.lib;
-        $(SdkLibPath)\propsys.lib;
-        $(SdkLibPath)\uuid.lib;
+        $(SdkLibPath)\propsys.lib;        
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Wex.Common.lib;
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Wex.Logger.lib;
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Te.Common.lib;

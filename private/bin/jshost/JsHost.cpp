@@ -1182,7 +1182,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     }
 
     // Initialize GIT
-    hr = CoCreateInstance(CLSID_StdGlobalInterfaceTable, NULL, CLSCTX_INPROC_SERVER, IID_IGlobalInterfaceTable, (void **)&git);
+    hr = CoCreateInstance(CLSID_StdGlobalInterfaceTable, NULL, CLSCTX_INPROC_SERVER, __uuidof(IGlobalInterfaceTable), (void **)&git);
     if (FAILED(hr))
     {
         wprintf(L"FATAL ERROR: CoCreateInstance(CLSID_StdGlobalInterfaceTable) failed. hr=0x%x\n", hr);

@@ -71,7 +71,6 @@
         $(MinCoreSdkLibPath)\mincore_fw.lib;
         $(MinCoreSdkLibPath)\mincore_obsolete.lib;
         $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
-        $(SdkLibPath)\uuid.lib;
 
         <!-- _DoNotUseDirectly_CULprintf in codex -->
         <!-- TODO: Clean this up -->

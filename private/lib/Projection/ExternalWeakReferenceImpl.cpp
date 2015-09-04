@@ -23,7 +23,7 @@ namespace Projection
         IfNullReturnError(ppv, E_POINTER);
 
         if (IsEqualGUID(riid, IID_IUnknown) 
-            || IsEqualGUID(riid, IID_IWeakReference)) 
+            || IsEqualGUID(riid, __uuidof(IWeakReference)))
         {
             *ppv = this;
             AddRef();
@@ -63,7 +63,7 @@ namespace Projection
             return S_OK;
         }
 
-        if (IsEqualGUID(riid, IID_IWeakReferenceSource))
+        if (IsEqualGUID(riid, __uuidof(IWeakReferenceSource)))
         {
             return E_UNEXPECTED;
         }

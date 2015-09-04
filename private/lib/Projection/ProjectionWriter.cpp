@@ -1447,7 +1447,7 @@ namespace Projection
                 // Remove the event handlers if any
                 CComPtr<IInspectable> inspectable = nullptr;
                 Assert(!scriptContext->GetThreadContext()->IsScriptActive());
-                hr = weakReference->Resolve(IID_IInspectable, &inspectable);
+                hr = weakReference->Resolve(__uuidof(IInspectable), &inspectable);
 
                 if (SUCCEEDED(hr) && inspectable != nullptr)
                 {
@@ -1582,7 +1582,7 @@ namespace Projection
 
             // This call can result in re-entrant resolve now if WeakReference is on different thread of out of Proc.
             // Delegate can be invoked and may result in gc which inturn calls resolve now.
-            hr = weakReference->Resolve(IID_IInspectable, &inspectable);
+            hr = weakReference->Resolve(__uuidof(IInspectable), &inspectable);
 
             // There was another round of resolve now so dont continue resolving futher here.
             if (!fResolvingNow)
@@ -1630,7 +1630,7 @@ namespace Projection
 
             // This call can result in re-entrant resolve now if WeakReference is on different thread of out of Proc.
             // Delegate can be invoked and may result in gc which inturn calls resolve now.
-            hr = weakReference->Resolve(IID_IInspectable, &inspectable);
+            hr = weakReference->Resolve(__uuidof(IInspectable), &inspectable);
 
             // There was another round of resolve now so dont continue resolving futher here.
             if (!fResolvingNow)
@@ -2060,7 +2060,7 @@ LReturn:
         {
             CComPtr<IWeakReferenceSource> weakReferenceSource;
             CComPtr<IWeakReference> weakReference;
-            if (SUCCEEDED(unknown->QueryInterface(IID_IWeakReferenceSource, (void**)&weakReferenceSource))
+            if (SUCCEEDED(unknown->QueryInterface(__uuidof(IWeakReferenceSource), (void**)&weakReferenceSource))
                 && SUCCEEDED(weakReferenceSource->GetWeakReference(&weakReference)))
             {
                 BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT

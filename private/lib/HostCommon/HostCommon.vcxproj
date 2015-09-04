@@ -40,6 +40,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)HostConfigFlags.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HostSysInfo.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JScript9Interface.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)HostCommonGuids.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)HostCommonPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

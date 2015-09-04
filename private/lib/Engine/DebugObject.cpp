@@ -513,7 +513,7 @@ Js::Var DebugObject::EntryGetLineOfPosition(Js::RecyclableObject* function, Js::
     if (pDocumentContext != nullptr)
     {
         CComPtr<IDebugDocumentContext> pDebugDocumentContext;
-        HRESULT hr = pDocumentContext->QueryInterface(IID_IDebugDocumentContext, reinterpret_cast<void **>(&pDebugDocumentContext));
+        HRESULT hr = pDocumentContext->QueryInterface(__uuidof(IDebugDocumentContext), reinterpret_cast<void **>(&pDebugDocumentContext));
         if (SUCCEEDED(hr))
         {
             CComPtr<IDebugDocument> pDocument;
@@ -521,7 +521,7 @@ Js::Var DebugObject::EntryGetLineOfPosition(Js::RecyclableObject* function, Js::
             if (SUCCEEDED(hr))
             {
                 CComPtr<IDebugDocumentText> pDocumentText;
-                hr = pDocument->QueryInterface(IID_IDebugDocumentText, (void **)&pDocumentText);
+                hr = pDocument->QueryInterface(__uuidof(IDebugDocumentText), (void **)&pDocumentText);
 
                 if (SUCCEEDED(hr))
                 {
@@ -579,7 +579,7 @@ Js::Var DebugObject::EntryGetPositionOfLine(Js::RecyclableObject* function, Js::
     if (pDocumentContext != nullptr)
     {
         IDebugDocumentContext *pDebugDocumentContext = nullptr;
-        HRESULT hr = pDocumentContext->QueryInterface(IID_IDebugDocumentContext, reinterpret_cast<void **>(&pDebugDocumentContext));
+        HRESULT hr = pDocumentContext->QueryInterface(__uuidof(IDebugDocumentContext), reinterpret_cast<void **>(&pDebugDocumentContext));
         if (SUCCEEDED(hr))
         {
             IDebugDocument *pDocument = NULL;
@@ -587,7 +587,7 @@ Js::Var DebugObject::EntryGetPositionOfLine(Js::RecyclableObject* function, Js::
             if (SUCCEEDED(hr))
             {
                 IDebugDocumentText *pDocumentText = NULL;
-                hr = pDocument->QueryInterface(IID_IDebugDocumentText, (void **)&pDocumentText);
+                hr = pDocument->QueryInterface(__uuidof(IDebugDocumentText), (void **)&pDocumentText);
 
                 if (SUCCEEDED(hr))
                 {

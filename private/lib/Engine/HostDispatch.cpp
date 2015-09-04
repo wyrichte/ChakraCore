@@ -251,7 +251,7 @@ HRESULT HostDispatch::EnsureDispatch()
             hr = iactiveScripteSite->GetItemInfo(itemName, SCRIPTINFO_IUNKNOWN, &itemUnknown, NULL);
             if (SUCCEEDED(hr))
             {
-                hr = itemUnknown->QueryInterface(IID_IDispatch, (void **)&dispatch);
+                hr = itemUnknown->QueryInterface(__uuidof(IDispatch), (void **)&dispatch);
                 if (SUCCEEDED(hr) && !dispatch)
                 {
                     hr = E_NOINTERFACE;
@@ -260,7 +260,7 @@ HRESULT HostDispatch::EnsureDispatch()
                 {
                     itemUnknown->Release();
                     pHostVariant->varDispatch.vt = VT_DISPATCH;
-                    if (dispatch->QueryInterface(IID_IDispatchEx, (void**)&FastGetDispatchNoRef(pHostVariant)) == S_OK
+                    if (dispatch->QueryInterface(__uuidof(IDispatchEx), (void**)&FastGetDispatchNoRef(pHostVariant)) == S_OK
                         && FastGetDispatchNoRef(pHostVariant))
                     {
                         dispatch->Release();

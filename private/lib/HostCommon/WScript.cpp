@@ -15,8 +15,8 @@ Dispatch::Dispatch()
 STDMETHODIMP Dispatch::QueryInterface(REFIID riid, void ** ppvObj)
 {
     QI_IMPL(IID_IUnknown, IDispatchEx);
-    QI_IMPL(IID_IDispatch, IDispatchEx);
-    QI_IMPL(IID_IDispatchEx, IDispatchEx);
+    QI_IMPL(__uuidof(IDispatch), IDispatchEx);
+    QI_IMPL(__uuidof(IDispatchEx), IDispatchEx);
 
     *ppvObj = NULL;
     return E_NOINTERFACE;
@@ -419,7 +419,7 @@ HRESULT WScriptDispatch::Echo(FILE * stream, DISPPARAMS * pdp, IServiceProvider 
     if (SUCCEEDED(hr))
     {
         IVariantChangeType * variantChangeType = NULL;
-        hr = activeScript->QueryInterface(IID_IVariantChangeType, (void**)&variantChangeType);
+        hr = activeScript->QueryInterface(__uuidof(IVariantChangeType), (void**)&variantChangeType);
         if (SUCCEEDED(hr))
         {
             for (unsigned int i = pdp->cNamedArgs; i < pdp->cArgs; i++)

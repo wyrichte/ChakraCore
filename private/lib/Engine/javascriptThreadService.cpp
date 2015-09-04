@@ -354,7 +354,7 @@ STDMETHODIMP JavascriptThreadService::IsTrackedObject(IUnknown * pUnk, IDispatch
                 {
                     HostVariant * hostVariant = NULL;
                     IDispatch* dispatch;
-                    if (SUCCEEDED(pUnk->QueryInterface(IID_IDispatch, (void**)&dispatch)))
+                    if (SUCCEEDED(pUnk->QueryInterface(__uuidof(IDispatch), (void**)&dispatch)))
                     {
                         hostVariant = RecyclerNewTrackedLeaf(recycler, HostVariant, dispatch);
                         hostVariant->SetupTracker(tracker);
@@ -376,7 +376,7 @@ STDMETHODIMP JavascriptThreadService::IsTrackedObject(IUnknown * pUnk, IDispatch
         {
             javascriptDispatch = static_cast<JavascriptDispatch*>(jsProxy);
             javascriptDispatch->SetAsGCTracked();
-            hr = javascriptDispatch->QueryInterface(IID_IDispatchEx, (void**)ppDispTracked);
+            hr = javascriptDispatch->QueryInterface(__uuidof(IDispatchEx), (void**)ppDispTracked);
             jsProxy->Release();
             (*ppDispTracked)->Release();
             *pfTracker = FALSE;

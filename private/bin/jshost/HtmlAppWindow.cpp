@@ -52,9 +52,9 @@ STDMETHODIMP CAppWindow::QueryInterface(REFIID riid, LPVOID* ppv)
 {
     *ppv = NULL;
 
-    if (IID_IOleInPlaceFrame == riid
-        || IID_IOleInPlaceUIWindow == riid
-        || IID_IOleWindow == riid
+    if (__uuidof(IOleInPlaceFrame) == riid
+        || __uuidof(IOleInPlaceUIWindow) == riid
+        || __uuidof(IOleWindow) == riid
         || IID_IUnknown == riid)
     {
         *ppv = (IOleInPlaceFrame*)this;

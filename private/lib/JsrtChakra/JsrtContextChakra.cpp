@@ -94,7 +94,7 @@ public:
             return S_OK;
         }
 
-        if (IsEqualIID(riid, IID_IActiveScriptSiteDebug))
+        if (IsEqualIID(riid, __uuidof(IActiveScriptSiteDebug)))
         {
             *ppvObject = static_cast<IActiveScriptSiteDebug *>(this);
             this->AddRef();

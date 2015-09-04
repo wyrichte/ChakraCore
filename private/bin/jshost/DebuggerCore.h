@@ -298,7 +298,7 @@ public:
         HRESULT hr = S_OK;
 
         CComPtr<IEnumDebugPropertyInfo> enumProps;
-        IfFailGo(debugProperty.m_pDebugProp->EnumMembers(DBGPROP_INFO_ALL, DebuggerController::GetRadix(flags), IID_IEnumDebugPropertyInfo, &enumProps));
+        IfFailGo(debugProperty.m_pDebugProp->EnumMembers(DBGPROP_INFO_ALL, DebuggerController::GetRadix(flags), __uuidof(IEnumDebugPropertyInfo), &enumProps));
         if (!enumProps) return S_OK; // No properties.
 
         ULONG count = 0;
