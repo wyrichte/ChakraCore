@@ -28,5 +28,3 @@ print(function () {"use asm";function f(i) {i=i|0; return i|0} function g() { re
 print(function () {"use asm";function e() { return 42 } function f(i) { i=i|0; switch(i|0) { case 0: return e()|0; default: return 13 } return 0 } function g() { return f(0)|0 } return g}()());
 var m1 = function () {"use asm";function rec(i) { i=i|0; if (!i) return 0; return ((rec((i-1)|0)|0)+1)|0 } return rec}();
 print(m1(100));
-print(m1(1000));
-print(m1(2000));
