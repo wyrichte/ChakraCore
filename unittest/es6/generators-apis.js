@@ -168,22 +168,21 @@ var tests = [
             function* gf() { }
             var generatorFunctionPrototype = Object.getPrototypeOf(gf);
             var generatorPrototype = generatorFunctionPrototype.prototype;
+            var iteratorPrototype = Object.getPrototypeOf(Object.getPrototypeOf([][Symbol.iterator]()));
 
-            assert.areEqual(Object.prototype, Object.getPrototypeOf(generatorPrototype), "Generator prototype's prototype is Object.prototype");
+            assert.areEqual(iteratorPrototype, Object.getPrototypeOf(generatorPrototype), "Generator prototype's prototype is %IteratorPrototype%");
 
             assert.isTrue(generatorPrototype.hasOwnProperty("constructor"), "Generator prototype has 'constructor' property");
             assert.isTrue(generatorPrototype.hasOwnProperty("next"), "Generator prototype has 'next' property");
             assert.isTrue(generatorPrototype.hasOwnProperty("throw"), "Generator prototype has 'throw' property");
             assert.isTrue(generatorPrototype.hasOwnProperty("return"), "Generator prototype has 'return' property");
-            assert.isTrue(generatorPrototype.hasOwnProperty(Symbol.iterator), "Generator prototype has [Symbol.iterator] property");
+            assert.isFalse(generatorPrototype.hasOwnProperty(Symbol.iterator), "Generator prototype does not have [Symbol.iterator] property");
             assert.isTrue(generatorPrototype.hasOwnProperty(Symbol.toStringTag), "Generator prototype has [Symbol.toStringTag] property");
 
             checkAttributes("Generator prototype", generatorPrototype, "constructor", { writable: false, enumerable: false, configurable: true });
             checkAttributes("Generator prototype", generatorPrototype, "next", { writable: true, enumerable: false, configurable: true });
             checkAttributes("Generator prototype", generatorPrototype, "return", { writable: true, enumerable: false, configurable: true });
             checkAttributes("Generator prototype", generatorPrototype, "throw", { writable: true, enumerable: false, configurable: true });
-            // TODO: Symbol.iterator property has moved up to a new prototype object %IteratorPrototype%
-            checkAttributes("Generator prototype", generatorPrototype, Symbol.iterator, { writable: true, enumerable: false, configurable: true });
             checkAttributes("Generator prototype", generatorPrototype, Symbol.toStringTag, { writable: false, enumerable: false, configurable: true });
 
             assert.areEqual(generatorFunctionPrototype, generatorPrototype.constructor, "Generator prototype's 'constructor' property is GeneratorFunction.prototype");

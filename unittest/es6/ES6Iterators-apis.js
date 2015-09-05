@@ -29,6 +29,33 @@ function getNewSetWith12345() {
 
 var tests = [
     {
+        name: "%IteratorPrototype% apis",
+        body: function () {
+            var iteratorPrototype = Object.getPrototypeOf(Object.getPrototypeOf([][Symbol.iterator]()));
+
+            assert.isTrue(iteratorPrototype.hasOwnProperty(Symbol.iterator), "%IteratorPrototype% should have a @@iterator method");
+
+            assert.areEqual(0, iteratorPrototype[Symbol.iterator].length, "@@iterator method takes zero arguments");
+        }
+    },
+    {
+        name: "%IteratorPrototype% is the prototype of all built-in iterators",
+        body: function () {
+            var arrayIteratorPrototype = Object.getPrototypeOf([][Symbol.iterator]());
+            var mapIteratorPrototype = Object.getPrototypeOf((new Map())[Symbol.iterator]());
+            var setIteratorPrototype = Object.getPrototypeOf((new Set())[Symbol.iterator]());
+            var stringIteratorPrototype = Object.getPrototypeOf(""[Symbol.iterator]());
+
+            // The only way to get the $IteratorPrototype% object is indirectly so here
+            // we just assume array is correct and get it from an array iterator.
+            var iteratorPrototype = Object.getPrototypeOf(arrayIteratorPrototype);
+
+            assert.areEqual(iteratorPrototype, Object.getPrototypeOf(mapIteratorPrototype), "%MapIteratorPrototype%'s prototype is %IteratorPrototype%");
+            assert.areEqual(iteratorPrototype, Object.getPrototypeOf(setIteratorPrototype), "%SetIteratorPrototype%'s prototype is %IteratorPrototype%");
+            assert.areEqual(iteratorPrototype, Object.getPrototypeOf(stringIteratorPrototype), "%StringIteratorPrototype%'s prototype is %IteratorPrototype%");
+        }
+    },
+    {
         name: "Array.prototype should have iterator APIs (entries, keys, values, @@iterator)",
         body: function () {
             assert.isTrue(Array.prototype.hasOwnProperty('entries'), "Array.prototype should have an entries method");
@@ -152,11 +179,10 @@ var tests = [
             var aip = Object.getPrototypeOf([].values());
 
             assert.isTrue(aip.hasOwnProperty('next'), "%ArrayIteratorPrototype% should have a next method");
-            assert.isTrue(aip.hasOwnProperty(Symbol.iterator), "%ArrayIteratorPrototype% should have a @@iterator method");
+            assert.isFalse(aip.hasOwnProperty(Symbol.iterator), "%ArrayIteratorPrototype% should not have a @@iterator method");
             assert.isTrue(aip.hasOwnProperty(Symbol.toStringTag), "%ArrayIteratorPrototype% should have a @@toStringTag property");
 
             assert.areEqual(0, aip.next.length, "next method takes zero arguments");
-            assert.areEqual(0, aip[Symbol.iterator].length, "@@iterator method takes zero arguments");
 
             assert.areEqual("Array Iterator", aip[Symbol.toStringTag], "@@toStringTag is the string value 'Array Iterator'");
 
@@ -171,11 +197,10 @@ var tests = [
             var mip = Object.getPrototypeOf((new Map()).values());
 
             assert.isTrue(mip.hasOwnProperty('next'), "%MapIteratorPrototype% should have a next method");
-            assert.isTrue(mip.hasOwnProperty(Symbol.iterator), "%MapIteratorPrototype% should have a @@iterator method");
+            assert.isFalse(mip.hasOwnProperty(Symbol.iterator), "%MapIteratorPrototype% should not have a @@iterator method");
             assert.isTrue(mip.hasOwnProperty(Symbol.toStringTag), "%MapIteratorPrototype% should have a @@toStringTag property");
 
             assert.areEqual(0, mip.next.length, "next method takes zero arguments");
-            assert.areEqual(0, mip[Symbol.iterator].length, "@@iterator method takes zero arguments");
 
             assert.areEqual("Map Iterator", mip[Symbol.toStringTag], "@@toStringTag is the string value 'Map Iterator'");
 
@@ -190,11 +215,10 @@ var tests = [
             var sip = Object.getPrototypeOf((new Set()).values());
 
             assert.isTrue(sip.hasOwnProperty('next'), "%SetIteratorPrototype% should have a next method");
-            assert.isTrue(sip.hasOwnProperty(Symbol.iterator), "%SetIteratorPrototype% should have a @@iterator method");
+            assert.isFalse(sip.hasOwnProperty(Symbol.iterator), "%SetIteratorPrototype% should not have a @@iterator method");
             assert.isTrue(sip.hasOwnProperty(Symbol.toStringTag), "%SetIteratorPrototype% should have a @@toStringTag property");
 
             assert.areEqual(0, sip.next.length, "next method takes zero arguments");
-            assert.areEqual(0, sip[Symbol.iterator].length, "@@iterator method takes zero arguments");
 
             assert.areEqual("Set Iterator", sip[Symbol.toStringTag], "@@toStringTag is the string value 'Set Iterator'");
 
@@ -209,11 +233,10 @@ var tests = [
             var sip = Object.getPrototypeOf(""[Symbol.iterator]());
 
             assert.isTrue(sip.hasOwnProperty('next'), "%StringIteratorPrototype% should have a next method");
-            assert.isTrue(sip.hasOwnProperty(Symbol.iterator), "%StringIteratorPrototype% should have a @@iterator method");
+            assert.isFalse(sip.hasOwnProperty(Symbol.iterator), "%StringIteratorPrototype% should not have a @@iterator method");
             assert.isTrue(sip.hasOwnProperty(Symbol.toStringTag), "%StringIteratorPrototype% should have a @@toStringTag property");
 
             assert.areEqual(0, sip.next.length, "next method takes zero arguments");
-            assert.areEqual(0, sip[Symbol.iterator].length, "@@iterator method takes zero arguments");
 
             assert.areEqual("String Iterator", sip[Symbol.toStringTag], "@@toStringTag is the string value 'String Iterator'");
 
