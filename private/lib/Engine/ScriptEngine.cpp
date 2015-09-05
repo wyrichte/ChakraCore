@@ -6770,7 +6770,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
     // We are not executing the script here so we don't need to catch error.
 
     CompileScriptException se;
-    Js::Utf8SourceInfo* sourceInfo;
+    Js::Utf8SourceInfo* sourceInfo = nullptr;
     Js::JavascriptFunction* jsFunc = scriptContext->LoadScript(scriptText, null, &se, true /* isExpression */, false /* disableDeferredParse */, &sourceInfo, Js::Constants::UnknownScriptCode);
 
     // TODO: is this the right way to handle these parse error?
