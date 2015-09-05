@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
-#include "StdAfx.h"
+#include "EnginePch.h"
 
 // The following is explicilty not localized for WER error reporting
 const ErrorTypeHelper::MapArrayElem ErrorTypeHelper::mapArray[] =

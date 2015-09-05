@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
 //---------------------------------------------------------------------------
-#include "stdafx.h"
+#include "SCALookupPch.h"
 
 //
 // Skips a primitive value layout.

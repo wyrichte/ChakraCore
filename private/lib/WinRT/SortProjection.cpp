@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 // Copyright (C) 1995 - 2010 by Microsoft Corporation.  All rights reserved.
 //---------------------------------------------------------------------------
-#include "stdafx.h"
+#include "WinRTPch.h"
 #include "SortProjection.h"
 #include "Visitor.h"
 #include "DataStructures\QuickSort.h"

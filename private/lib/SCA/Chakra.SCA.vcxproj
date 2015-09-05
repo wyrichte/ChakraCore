@@ -39,6 +39,7 @@
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SCAPch.h</PrecompiledHeaderFile>
       <!--
         4510: default constructor could not be generated
         4610: can never be instantiated - user defined constructor required
@@ -47,7 +48,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp">
+    <ClCompile Include="$(MsBuildThisFileDirectory)SCAPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)SCADeserialization.cpp" />
@@ -60,7 +61,7 @@
     <ClInclude Include="SCAPropBag.h" />
     <ClInclude Include="SCASerialization.h" />
     <ClInclude Include="SCADeserialization.h" />
-    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="SCAPch.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\core\Manifests\Manifests.vcxproj">

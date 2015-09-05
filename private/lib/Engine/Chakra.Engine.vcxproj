@@ -43,6 +43,7 @@
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>EnginePch.h</PrecompiledHeaderFile>
       <!--
         4510: default constructor could not be generated
         4610: can never be instantiated - user defined constructor required
@@ -112,7 +113,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)scriptsite.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)scrpting.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)siteserv.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp">
+    <ClCompile Include="$(MsBuildThisFileDirectory)EnginePch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)StreamHelper.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="dllfunc.h" />
     <ClInclude Include="DOMProperties.h" />
     <ClInclude Include="DynamicSourceHolder.h" />
+    <ClInclude Include="EnginePch.h" />
     <ClInclude Include="EnumVariantEnumerator.h" />
     <ClInclude Include="ErrorTypeHelper.h" />
     <ClInclude Include="EventSink.h" />
@@ -195,8 +197,7 @@
     <ClInclude Include="scriptsite.h" />
     <ClInclude Include="scrpting.h" />
     <ClInclude Include="scrutil.h" />
-    <ClInclude Include="siteserv.h" />
-    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="siteserv.h" />    
     <ClInclude Include="TestHooks.h" />
     <ClInclude Include="typeinfobuilder.h" />
     <ClInclude Include="ChakraVersion.h" />

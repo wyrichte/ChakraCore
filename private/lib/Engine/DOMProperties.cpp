@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "EnginePch.h"
 
 #if DOMEnabled
 const Js::PropertyRecord * Js::DOMProperties::builtInPropertyRecords[] =

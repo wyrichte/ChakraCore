@@ -5,7 +5,7 @@
 // Description:top level functions for dllMain and COM server 
 //TBD to restore the TLS support
 
-#include "StdAfx.h"
+#include "EnginePch.h"
 #include "guids.h"
 #include "proxystub.h"
 #include "core\ConfigParser.h"
@@ -65,7 +65,7 @@ static BOOL AttachProcess(HANDLE hmod)
     }
 #if DOMEnabled
     InitializeAdditionalProperties = Js::DOMProperties::InitializeDOMProperties;
-    TotalNumberOfBuiltInProperties = Js::DOMPropertyIds::_count;
+    Js::TotalNumberOfBuiltInProperties = Js::DOMPropertyIds::_count;
 #endif
     {
         CmdLineArgsParser parser;

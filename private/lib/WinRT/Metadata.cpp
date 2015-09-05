@@ -2,7 +2,7 @@
 // Copyright (C) 1995 - 2010 by Microsoft Corporation.  All rights reserved.
 //---------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include "WinRTPch.h"
 #include "Metadata.h"
 
 #ifdef PROJECTION_METADATA_TRACE

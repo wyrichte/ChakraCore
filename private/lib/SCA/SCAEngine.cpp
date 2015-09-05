@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include "SCAPch.h"
 #include "Debug\ProbeContainer.h"
 #include "Debug\DebugContext.h"
 

@@ -3,7 +3,7 @@
 *   Copyright (C) Microsoft. All rights reserved.       *
 *                                                       *
 ********************************************************/
-#include "stdafx.h"
+#include "EnginePch.h"
 
 HostObject::HostObject(Js::ScriptContext * scriptContext, IDispatch* pDispatch, Js::DynamicType * type):
     Js::HostObjectBase(type), needToCheckOtherItem(FALSE)

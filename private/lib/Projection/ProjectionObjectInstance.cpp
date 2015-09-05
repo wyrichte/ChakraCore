@@ -1,4 +1,8 @@
-#include "stdafx.h"
+//---------------------------------------------------------------------------
+// Copyright (C) Microsoft. All rights reserved.
+//----------------------------------------------------------------------------
+
+#include "ProjectionPch.h"
 #include "IBufferProjection.h"
 #include "winrtobjectprobe.h"
 

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "HostCommonPch.h"
 #include "HostSysInfo.h"
 
 HostSystemInfo HostSystemInfo::Data;

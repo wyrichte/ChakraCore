@@ -40,6 +40,7 @@
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>JsrtChakraPch.h</PrecompiledHeaderFile>
       <!--
         4510: default constructor could not be generated
         4610: can never be instantiated - user defined constructor required
@@ -57,7 +58,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)jsrtchakra.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtContextChakra.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JsrtDelegateWrapper.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp">
+    <ClCompile Include="$(MsBuildThisFileDirectory)JsrtChakraPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
@@ -68,7 +69,7 @@
     <ClInclude Include="JsrtContextchakra.h" />
     <ClInclude Include="JsrtDelegateWrapper.h" />
     <ClInclude Include="jsrtprivate.h" />
-    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="JsrtChakraPch.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\core\Manifests\Manifests.vcxproj">

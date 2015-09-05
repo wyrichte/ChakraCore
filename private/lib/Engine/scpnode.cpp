@@ -5,7 +5,7 @@
 ********************************************************/
 // ScpNode.cpp : Implementation of CProcDMApp and DLL registration.
 
-#include "stdafx.h"
+#include "EnginePch.h"
 #pragma hdrstop
 
 /////////////////////////////////////////////////////////////////////////////

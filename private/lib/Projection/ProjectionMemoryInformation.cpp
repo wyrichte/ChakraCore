@@ -6,7 +6,7 @@
 // General projection related context information for the script engine
 // *******************************************************
 
-#include "stdafx.h"
+#include "ProjectionPch.h"
 
 #if DBG_DUMP
 namespace Projection

@@ -4,7 +4,7 @@
 
 // Description: defs for the main class factory
 
-#include "StdAfx.h"
+#include "EnginePch.h"
 //#include <activscp.h>
 
 #define szSERVERKEY            L"InprocServer32"

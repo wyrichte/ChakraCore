@@ -27,6 +27,7 @@
       <AdditionalIncludeDirectories>
         $(ChakraManifestsIncludeDirectory);
         $(ChakraRootDirectory)core\Lib\Common;
+        $(ChakraRootDirectory)core\Lib\Common\Core;
         $(ChakraRootDirectory)core\Lib\Common\DataStructures;
         $(ChakraRootDirectory)core\Lib\Common\Memory;
         $(ChakraRootDirectory)core\Lib\Parser;

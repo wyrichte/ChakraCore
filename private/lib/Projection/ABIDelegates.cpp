@@ -2,7 +2,7 @@
 // Copyright (C) 2010 by Microsoft Corporation.  All rights reserved.
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include "ProjectionPch.h"
 
 // Description: Implementation for the ABI Projector delegates
 namespace Projection

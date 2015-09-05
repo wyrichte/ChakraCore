@@ -35,6 +35,7 @@
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>EnCPch.h</PrecompiledHeaderFile>
       <!--
         4510: default constructor could not be generated
         4610: can never be instantiated - user defined constructor required
@@ -47,7 +48,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)EditTest.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEdit.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)SemanticChange.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp">
+    <ClCompile Include="$(MsBuildThisFileDirectory)EnCPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
@@ -56,7 +57,7 @@
     <ClInclude Include="EditTest.h" />
     <ClInclude Include="ScriptEdit.h" />
     <ClInclude Include="SemanticChange.h" />
-    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="EnCPch.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\publish\Publish.vcxproj">

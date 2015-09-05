@@ -1,7 +1,7 @@
 //
 //    Copyright (C) Microsoft.  All rights reserved.
 //
-#include "stdafx.h"
+#include "ProjectionPch.h"
 
 #define ReturnDefaultTypeOperationsMethodResult(methodName, scriptDirect, instance, ...)      return __super::methodName(scriptDirect,instance, __VA_ARGS__);
 #define GetDefaultTypeOperationsMethodResult(methodName, scriptDirect, instance, ...)         HRESULT hr = __super::methodName(scriptDirect,instance, __VA_ARGS__);

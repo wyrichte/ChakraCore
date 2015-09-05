@@ -6,7 +6,7 @@
 // Represents the metadata locator which is used as a call back to api that get param iid
 // *******************************************************
 
-#include "stdafx.h"
+#include "WinRTPch.h"
 
 namespace ProjectionModel
 {

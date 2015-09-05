@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
 //---------------------------------------------------------------------------
-#include "stdafx.h"
+#include "SCALookupPch.h"
 
 //
 // Find a property name in the current object properties layout: {name:value} terminator

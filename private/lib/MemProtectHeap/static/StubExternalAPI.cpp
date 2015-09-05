@@ -1,5 +1,9 @@
-#include "stdafx.h"
-#include "core\ConfigParser.h"
+//----------------------------------------------------------------------------
+// Copyright (C) Microsoft. All rights reserved.
+//----------------------------------------------------------------------------
+
+#include "MemProtectHeapPch.h"
+
 // TODO: REMOVE
 __forceinline void js_memcpy_s(__bcount(sizeInBytes) void *dst, size_t sizeInBytes, __in_bcount(count) const void *src, size_t count)
 {

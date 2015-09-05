@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include "EnginePch.h"
 #include "ChakraHostDebugContext.h"
 
 #define DEFINE_OBJECT_NAME(object) const wchar_t *pwszObjectName = L#object;

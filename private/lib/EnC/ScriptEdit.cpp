@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
-#include "StdAfx.h"
+#include "EnCPch.h"
 #ifdef EDIT_AND_CONTINUE
 #include "ActiveScriptError.h"
 

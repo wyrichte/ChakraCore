@@ -3,7 +3,7 @@
 *   Copyright (C) Microsoft. All rights reserved.       *
 *                                                       *
 ********************************************************/
-#include "stdafx.h"
+#include "HostCommonPch.h"
 #include "Wscript.h"
 #include <mshtmcid.h>
 

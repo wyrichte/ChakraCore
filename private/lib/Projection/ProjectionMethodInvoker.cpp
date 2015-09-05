@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 // Copyright (C) 1995 - 2010 by Microsoft Corporation.  All rights reserved.
 //---------------------------------------------------------------------------
-#include "stdafx.h"
+#include "ProjectionPch.h"
 
 extern "C" void __cdecl _alloca_probe_16();
 #ifdef _M_IX86

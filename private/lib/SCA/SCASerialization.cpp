@@ -2,7 +2,8 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include "SCAPch.h"
+#include "common\ByteSwap.h"
 #include "Library\dataview.h"
 #include "Library\JavascriptArrayIndexEnumerator.h"
 #include "Library\ES5ArrayIndexEnumerator.h"

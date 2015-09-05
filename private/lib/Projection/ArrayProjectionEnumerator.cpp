@@ -2,7 +2,7 @@
 // Copyright (C) 2008 - 2009 by Microsoft Corportion.  ll rights reserved.
 //----------------------------------------------------------------------------
 
-#include "Stdafx.h"
+#include "ProjectionPch.h"
 
 namespace Projection
 {

@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include "EnginePch.h"
 
 HostDispatchEnumerator::HostDispatchEnumerator(HostDispatch* inHostDispatch) :
     JavascriptEnumerator(inHostDispatch->GetScriptContext()),

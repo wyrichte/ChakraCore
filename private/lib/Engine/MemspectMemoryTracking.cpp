@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include "EnginePch.h"
 
 #if defined(MEMSPECT_TRACKING)
 

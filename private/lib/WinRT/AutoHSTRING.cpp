@@ -1,5 +1,6 @@
 //---------------------------------------------------------------------------
-// Copyright (C) 1995 - 2010 by Microsoft Corporation.  All rights reserved.
-//---------------------------------------------------------------------------
-#include "stdafx.h"
+// Copyright (C) Microsoft. All rights reserved.
+//----------------------------------------------------------------------------
+
+#include "WinRTPch.h"
 #include "AutoHSTRING.h"

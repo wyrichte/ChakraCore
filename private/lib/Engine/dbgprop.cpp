@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include "EnginePch.h"
 
 #define END_TRANSLATE_EXCEPTION_AND_DBG_HANDLE_ERROBJECT(hr) \
     END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr) \

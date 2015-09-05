@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "StdAfx.h"
+#include "ProjectionPch.h"
 #include "Common.h"
 #include "JavascriptWinRTDate.h"
 

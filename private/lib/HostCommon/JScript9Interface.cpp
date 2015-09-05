@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "StdAfx.h"
+#include "HostCommonPch.h"
 
 #include <initguid.h>
 #define INITGUID

@@ -3,7 +3,7 @@
 *   Copyright (C) Microsoft. All rights reserved.       *
 *                                                       *
 ********************************************************/
-#include "StdAfx.h"
+#include "EnginePch.h"
 #include "JavascriptPixelArrayDispatch.h"
 
 HRESULT JavascriptPixelArrayDispatch::QueryInterface(REFIID riid, void **ppvObj)

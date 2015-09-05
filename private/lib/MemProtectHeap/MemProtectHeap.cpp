@@ -2,10 +2,9 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include "static\MemProtectHeapPch.h"
 #include <setjmp.h>
 #include "MemProtectHeap.h"
-#include "core\ConfigParser.h"
 
 // Initialization order
 //  AB AutoSystemInfo
@@ -494,7 +493,7 @@ public:
     // Pase the given command line options into the config table.
     static void ParseCommandLine(int argc, __in_ecount(argc) LPWSTR argv[])
     {
-        CmdLineArgsParser parser(null, ConfigurationLoader::Flags());
+        CmdLineArgsParser parser(nullptr, ConfigurationLoader::Flags());
         parser.Parse(argc, argv);
     }
 #endif

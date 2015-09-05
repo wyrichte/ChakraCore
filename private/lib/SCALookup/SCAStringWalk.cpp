@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
 //---------------------------------------------------------------------------
-#include "stdafx.h"
+#include "SCALookupPch.h"
 
 //
 // Allocates a BSTR buffer to contain a string value of given length.

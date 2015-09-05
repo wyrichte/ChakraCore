@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include "JsrtChakraPch.h"
 #include "JsrtRuntime.h"
 #include "JsrtComException.h"
 #include "JsrtExternalObject.h"

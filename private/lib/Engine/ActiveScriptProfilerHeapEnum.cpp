@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
-#include "StdAfx.h"
+#include "EnginePch.h"
 #include "JsrtExternalObject.h"
 #include "Library\BoundFunction.h"
 #include "Library\JavascriptSymbol.h"

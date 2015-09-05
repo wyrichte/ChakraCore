@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include "EnginePch.h"
 
 void QueryContinuePoller::TryInterruptPoll(Js::ScriptContext *scriptContext)
 {

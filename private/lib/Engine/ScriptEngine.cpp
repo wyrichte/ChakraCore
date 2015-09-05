@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
-#include "StdAfx.h"
+#include "EnginePch.h"
 #include "share.h"
 #pragma hdrstop
 #include <fcntl.h>
@@ -5045,7 +5045,7 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags,
         grfscr |= (fscrImplicitThis | fscrImplicitParents);
     }
 
-    ULONG deferParseThreshold = Parser::GetDeferralThreshold(psi->sourceContextInfo->sourceDynamicProfileManager);
+    ULONG deferParseThreshold = Parser::GetDeferralThreshold(psi->sourceContextInfo->IsSourceProfileLoaded());
     if (allowDeferParse && psi->ichLimHost > deferParseThreshold)
     {
         grfscr |= fscrDeferFncParse;
@@ -5747,7 +5747,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
         }
         pRootFunc = func->GetFunctionBody();
         // Mark the particular source buffer to have deferred functions using a static deferral threshold and not one based on profile.
-        if (ps.GetSourceLength() > Parser::GetDeferralThreshold(/*profileManager=*/ nullptr) )
+        if (ps.GetSourceLength() > Parser::GetDeferralThreshold(/* isProfileLoaded */ false) )
         {
             srcInfo->grfsi |= fsiDeferredParse;
         }

@@ -33,6 +33,7 @@
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StaticLibPch.h</PrecompiledHeaderFile>
     </ClCompile>
   </ItemDefinitionGroup>
   <!-- Razzle binplace -->
@@ -46,14 +47,14 @@
     <ClCompile Include="jsStaticLibrary.cpp" />
     <ClCompile Include="jsStaticNumber.cpp" />
     <ClCompile Include="jsStaticTaggedInt.cpp" />
-    <ClCompile Include="StdAfx.cpp">
+    <ClCompile Include="StaticLibPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\MockExternalObject.h" />
     <ClInclude Include="base\scriptenginebase.h" />
-    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="StaticLibPch.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\core\Manifests\Manifests.vcxproj">

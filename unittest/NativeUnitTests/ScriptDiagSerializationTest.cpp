@@ -13,6 +13,7 @@
 #include "ntassert.h"
 #include "DiagAssertion.h"
 #include "thrownew.h"
+#include "BasePtr.h"
 #include "AutoPtr.h"
 #include "DiagAutoPtr.h"
 #include "DiagException.h"

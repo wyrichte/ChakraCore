@@ -2,7 +2,7 @@
 // Copyright (C) 1995 - 2010 by Microsoft Corporation.  All rights reserved.
 //----------------------------------------------------------------------------
 #pragma once
-#include "stdafx.h"
+#include "WinRTPch.h"
 
 namespace ProjectionModel
 {

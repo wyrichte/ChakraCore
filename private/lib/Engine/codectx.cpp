@@ -3,7 +3,7 @@
 *   Copyright (C) Microsoft. All rights reserved.       *
 *                                                       *
 ********************************************************/
-#include "stdafx.h"
+#include "EnginePch.h"
 
 #if _M_IX86 || _M_AMD64 || _M_IA64 || _M_ARM
 #pragma warning(push)

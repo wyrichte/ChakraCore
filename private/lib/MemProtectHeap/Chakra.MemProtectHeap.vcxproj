@@ -20,23 +20,20 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>      
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AdditionalIncludeDirectories>
         $(ChakraRootDirectory)core\lib\Common;
         $(ChakraManifestsIncludeDirectory);
         $(ManifestsInboxIncludeDirectory);
         %(AdditionalIncludeDirectories)
-      </AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>      
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)MemProtectHeap.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StdAfx.cpp">
-      <PrecompiledHeader>Create</PrecompiledHeader>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MemProtectHeap.h" />
+    <ClInclude Include="MemProtectHeap.h" />   
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(ChakraRootDirectory)core\Manifests\Manifests.vcxproj">

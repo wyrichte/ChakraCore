@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
-#include "StdAfx.h"
+#include "EnginePch.h"
 
 
 #ifdef ENABLE_JS_ETW

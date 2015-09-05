@@ -36,7 +36,7 @@
         $(ChakraRootDirectory)core\Lib\Parser;
         $(ChakraRootDirectory)core\Lib\Runtime;
         $(ChakraRootDirectory)core\Lib\Runtime\ByteCode;
-	$(ChakraRootDirectory)core\Lib\Runtime\Debug;
+        $(ChakraRootDirectory)core\Lib\Runtime\Debug;
         $(ChakraRootDirectory)core\Lib\Runtime\Language;
         $(ChakraRootDirectory)core\Lib\Runtime\Library;
         $(ChakraRootDirectory)core\Lib\Runtime\Types;

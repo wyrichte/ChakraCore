@@ -2,21 +2,6 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.ProjectConfiguration.props" />
-  <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)PropertyReader.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)SCALookup.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)SCAStringWalk.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)SCAWalk.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)stdafx.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)StreamReader.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="PropertyReader.h" />
-    <ClInclude Include="SCAStringWalk.h" />
-    <ClInclude Include="SCAWalk.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="StreamReader.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1876E800-AD77-48C4-A2F7-E5265F24AC36}</ProjectGuid>
     <RootNamespace>SCALookup</RootNamespace>
@@ -30,6 +15,21 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />  
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PropertyReader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SCALookup.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SCAStringWalk.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SCAWalk.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SCALookupPch.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StreamReader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PropertyReader.h" />
+    <ClInclude Include="SCAStringWalk.h" />
+    <ClInclude Include="SCAWalk.h" />
+    <ClInclude Include="SCALookupPch.h" />
+    <ClInclude Include="StreamReader.h" />
+  </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

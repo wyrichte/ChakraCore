@@ -30,8 +30,8 @@
       <AdditionalIncludeDirectories>
         %(AdditionalIncludeDirectories);
         $(ChakraRootDirectory)core\lib\Common;
+        $(ChakraRootDirectory)core\lib\Common\Core;
         $(ChakraRootDirectory)core\lib\Common\Memory;
-        $(ChakraRootDirectory)core\lib\Memory;
         $(ChakraRootDirectory)core\lib\Parser;
         $(ChakraRootDirectory)core\lib\Runtime;
         $(ChakraRootDirectory)core\lib\Runtime\Library;

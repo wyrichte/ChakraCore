@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "StdAfx.h"
+#include "EnginePch.h"
 
 EnumVariantEnumerator::EnumVariantEnumerator(ScriptSite* scriptSite, IEnumVARIANT *enumerator) :
     JavascriptEnumerator(scriptSite->GetScriptSiteContext()),

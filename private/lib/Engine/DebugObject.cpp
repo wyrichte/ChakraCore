@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "StdAfx.h"
+#include "EnginePch.h"
 
 Js::FunctionInfo DebugObject::EntryInfo::Write(DebugObject::EntryWrite);
 Js::FunctionInfo DebugObject::EntryInfo::WriteLine(DebugObject::EntryWriteLine);

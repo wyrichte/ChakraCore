@@ -12,6 +12,8 @@ namespace Js
 {
     // TODO: consider extracting and pulling enums (instead of forward), as changing their underlying type may break us.
     class DebugDocument;                    // Used by Utf8SourceInfo.h
+    class ParseableFunctionInfo;            // Used by Utf8SourceInfo.h
+    class FunctionBody;                     // Used by Utf8SourceInfo.h
     struct Utf8SourceInfo;                  // Used by FunctionBody.h
     class RecyclableObject;                 // Used by RuntimeCommon.h
     struct CallInfo;                        // Used by RuntimeCommon.h
@@ -374,7 +376,6 @@ class ScriptContextTelemetry;
 #include "SimpleDictionaryTypeHandler.h"
 #include "DictionaryPropertyDescriptor.h"
 #include "DictionaryTypeHandler.h"
-#include "Common\NumberUtilities.inl"   // Needed by JavascriptNumber.h
 #include "JavascriptTypedNumber.h"
 #include "JavascriptBooleanObject.h"
 #include "JavascriptNumberObject.h"

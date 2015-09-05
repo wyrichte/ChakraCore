@@ -26,7 +26,8 @@
         $(ComIncPath)\midlrt;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>      
-      <PrecompiledHeader>Use</PrecompiledHeader>      
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>WinRTPCH.h</PrecompiledHeaderFile>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -37,7 +38,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ModelHelper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectionModel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SortProjection.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)stdafx.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)WinRTPCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Visitor.cpp" />
@@ -52,7 +53,7 @@
     <ClInclude Include="ModelHelper.h" />
     <ClInclude Include="ProjectionModel.h" />
     <ClInclude Include="SortProjection.h" />
-    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="WinRTPCH.h" />
     <ClInclude Include="Visitor.h" />
     <ClInclude Include="WinRTLib.h" />
   </ItemGroup>

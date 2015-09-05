@@ -4,7 +4,7 @@
 
 // Description: defs for the jscript class factory
 
-#include "StdAfx.h"
+#include "EnginePch.h"
 #pragma hdrstop
 
 #include "guids.h"

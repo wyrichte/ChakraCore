@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include <StdAfx.h>
+#include <HostCommonPch.h>
 
 HostConfigFlags HostConfigFlags::flags;
 LPWSTR* HostConfigFlags::argsVal;

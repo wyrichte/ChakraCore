@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "StdAfx.h"
+#include "EnginePch.h"
 #pragma hdrstop
 
 HRESULT ScriptEngine::AddEventSinks(ScriptEngine *pos, IDispatch *pdisp)

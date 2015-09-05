@@ -2,10 +2,13 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include "StaticLibPch.h"
 #include "ChakraVersion.h"
 #include "Language\JavascriptMathOperators.h"
 #include "Language\JavascriptMathOperators.inl"
+
+#define NUMBER_UTIL_INLINE inline
+#include "common\NumberUtilities.inl"
 
 namespace JsStaticAPI
 {

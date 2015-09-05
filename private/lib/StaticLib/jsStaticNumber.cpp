@@ -3,7 +3,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "stdafx.h"
+#include "StaticLibPch.h"
 
 namespace JsStaticAPI
 {

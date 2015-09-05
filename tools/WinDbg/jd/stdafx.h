@@ -122,6 +122,7 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 #include "werdump.h"
 #include "MockDataTarget.h"
 #include "DiagException.h"
+#include "BasePtr.h"
 #include "AutoPtr.h"
 #include "DiagAutoPtr.h"
 #include "thrownew.h"

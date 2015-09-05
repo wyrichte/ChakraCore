@@ -2,7 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
-#include "StdAfx.h"
+#include "EnginePch.h"
 
 #ifndef ENABLE_TEST_HOOKS
 HRESULT OnJScript9Loaded()

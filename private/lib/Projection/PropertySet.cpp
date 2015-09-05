@@ -7,7 +7,7 @@
 // *******************************************************
 
 
-#include "stdafx.h"
+#include "ProjectionPch.h"
 
 namespace Projection
 {

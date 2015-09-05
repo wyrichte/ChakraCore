@@ -3,7 +3,7 @@
 *   Copyright (C) Microsoft. All rights reserved.       *
 *                                                       *
 ********************************************************/
-#include "stdafx.h"
+#include "EnginePch.h"
 
 BOOL HostObject::HasProperty(Js::PropertyId propertyId)
 {        

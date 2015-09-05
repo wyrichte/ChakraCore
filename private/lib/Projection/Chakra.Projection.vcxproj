@@ -46,6 +46,7 @@
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ProjectionPch.h</PrecompiledHeaderFile>
       <!--
         4510: default constructor could not be generated
         4610: can never be instantiated - user defined constructor required
@@ -54,7 +55,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp">
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)ABIDelegates.cpp" />
@@ -152,14 +153,14 @@
     <ClInclude Include="ProjectionFastPath.h" />
     <ClInclude Include="ProjectionMarshaler.h" />
     <ClInclude Include="ProjectionMemoryInformation.h" />
-    <ClInclude Include="ProjectionMethodInvoker.h" />
+    <ClInclude Include="ProjectionMethodInvoker.h" />    
     <ClInclude Include="ProjectionObjectInstance.h" />
+    <ClInclude Include="ProjectionPch.h" />
     <ClInclude Include="ProjectionTypeOperations.h" />
     <ClInclude Include="ProjectionWriter.h" />
     <ClInclude Include="PropertySet.h" />
     <ClInclude Include="PropertySetEnumerator.h" />
-    <ClInclude Include="SpecialProjection.h" />
-    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="SpecialProjection.h" />    
     <ClInclude Include="UnknownImpl.h" />
     <ClInclude Include="VariableArgMethodHelper.h" />
     <ClInclude Include="VectorArray.h" />

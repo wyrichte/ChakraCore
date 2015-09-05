@@ -24,6 +24,7 @@ INCLUDES= \
    ..\; \
    $(PROJECT_ROOT)\jscript\private\bin\Chakra; \
    $(PROJECT_ROOT)\jscript\core\lib\common; \
+   $(PROJECT_ROOT)\jscript\core\lib\common\core; \
    $(PROJECT_ROOT)\jscript\core\lib\common\memory; \
    $(PROJECT_ROOT)\jscript\core\lib\common\DataStructures; \
    $(PROJECT_ROOT)\jscript\core\lib\runtime; \

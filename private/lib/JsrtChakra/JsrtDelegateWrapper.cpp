@@ -1,6 +1,6 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 
-#include "StdAfx.h"
+#include "JsrtChakraPch.h"
 #include "JsrtDelegateWrapper.h"
 
 const IID GUID_NULL = {};

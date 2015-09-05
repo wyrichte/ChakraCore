@@ -1,4 +1,8 @@
-#include "StdAfx.h"
+//---------------------------------------------------------------------------
+// Copyright (C) Microsoft. All rights reserved.
+//----------------------------------------------------------------------------
+
+#include "HostCommonPch.h"
 
 #include "jscript9diag.h"
 

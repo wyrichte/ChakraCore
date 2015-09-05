@@ -23,6 +23,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>MemProtectHeapPch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>
         $(MSBuildThisFileDirectory)..;
         $(ChakraRootDirectory)core\lib\Common;
@@ -43,9 +44,12 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)StubExternalAPI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)InitializeAPI.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\StdAfx.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)MemProtectHeapPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MemProtectHeapPch.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\core\lib\Common\core\Chakra.Common.Core.vcxproj">

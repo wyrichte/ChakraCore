@@ -5,6 +5,7 @@
 ********************************************************/
 #include "StdAfx.h"
 #include "..\..\lib\winrt\autoHSTRING.h"
+#include "..\..\Lib\Common\Core\BasePtr.h"
 #include "..\..\Lib\Common\Memory\AutoPtr.h"
 
 [uuid("63109BE8-1A17-4abc-9F19-AF4A3AA7AC1B")]

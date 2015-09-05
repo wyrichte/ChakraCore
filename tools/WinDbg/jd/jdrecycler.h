@@ -5,7 +5,7 @@
 // include headers that recycler needs
 #include "core\api.h"
 #include "common\MathUtil.h"
-#include "CriticalSection.h"
+#include "core\CriticalSection.h"
 #include "DataStructures\Comparer.h"
 #include <math.h>
 #include "DataStructures\SizePolicy.h"

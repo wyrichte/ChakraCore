@@ -38,6 +38,7 @@ C_DEFINES = $(C_DEFINES) /DJD_PRIVATE
 INCLUDES = \
     $(INCLUDES); \
     $(JSCRIPT_ROOT)\core\lib\common; \
+    $(JSCRIPT_ROOT)\core\lib\common\core; \
     $(JSCRIPT_ROOT)\core\lib\common\common; \
     $(JSCRIPT_ROOT)\core\lib\common\memory; \
     $(JSCRIPT_ROOT)\publish; \

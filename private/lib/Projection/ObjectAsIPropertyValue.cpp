@@ -7,7 +7,7 @@
 // *******************************************************
 
 
-#include "stdafx.h"
+#include "ProjectionPch.h"
 
 #define GetNumericTypeFromObjectReference(typeName)                                                                                                             \
         if (value == nullptr)                                                                                                                                   \

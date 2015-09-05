@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
 //---------------------------------------------------------------------------
-#include "stdafx.h"
+#include "SCALookupPch.h"
 
 // Known internal property names
 static const WCHAR PROPERTYNAME_LENGTH[]        = L"length";

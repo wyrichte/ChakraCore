@@ -19,6 +19,7 @@
 #define null NULL
 #include "thrownew.h"
 #include "DiagException.h"
+#include "BasePtr.h"
 #include "AutoPtr.h"
 #include "DiagAutoPtr.h"
 

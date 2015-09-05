@@ -3,7 +3,7 @@
 *   Copyright (C) Microsoft. All rights reserved.       *
 *                                                       *
 ********************************************************/
-#include "StdAfx.h"
+#include "EnginePch.h"
 
 HostVariant::HostVariant(IDispatch *pdisp, Js::ScriptContext* scriptContext) :
     isUnknown(FALSE),

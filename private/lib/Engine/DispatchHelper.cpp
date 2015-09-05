@@ -3,7 +3,7 @@
 *   Copyright (C) Microsoft. All rights reserved.       *
 *                                                       *
 ********************************************************/
-#include "StdAfx.h"
+#include "EnginePch.h"
 #include "guids.h"
 #include "var.h"
 #include "Library\JavascriptSymbol.h"

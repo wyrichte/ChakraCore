@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
 //---------------------------------------------------------------------------
-#include "stdafx.h"
+#include "SCALookupPch.h"
 
 //
 // Read specified number of bytes. Fail if can't read requested number of bytes.

@@ -7,7 +7,7 @@
 // *******************************************************
 
 
-#include "stdafx.h"
+#include "ProjectionPch.h"
 
 #ifdef PROJECTION_METADATA_TRACE
 #define TRACE_METADATA(...) { Trace(__VA_ARGS__); }
