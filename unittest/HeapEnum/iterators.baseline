@@ -1249,8 +1249,9 @@
  |  |    |    | 1: value: 2.000000
  |  |    |    | 2: value: 3.000000
  |  |    [Prototype] type: ObjectObject flags: (old) optional info records (2)
- |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    |  [Properties] count: 3
+ |  |    |  [Prototype] type: ObjectObject flags: (old) optional info records (1)
+ |  |    |  |  [Prototype] type: ObjectObject (seen)
+ |  |    |  [Properties] count: 2
  |  |    |  | 0 next: type: FunctionObject flags: (old) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 2
@@ -1258,12 +1259,7 @@
  |  |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |  |    |    [Internal property] value: next
  |  |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |  | 1 Symbol.iterator: type: FunctionObject flags: (old) optional info records (2)
- |  |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |  |    [Properties] count: 2
- |  |    |  |    | 0 length: value: 0.000000
- |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 2 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
+ |  |    |  | 1 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
  |  |    |  |    [Internal property] value: Array Iterator
  |  |    |  |    [Prototype] type: StringObject (seen)
  |  | 1 map_iterator: type: MapIterator flags: (old) optional info records (2)
@@ -1349,18 +1345,13 @@
  |  |    |    | 5: value: 3.000000
  |  |    [Prototype] type: ObjectObject flags: (old) optional info records (2)
  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    |  [Properties] count: 3
+ |  |    |  [Properties] count: 2
  |  |    |  | 0 next: type: FunctionObject flags: (old) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 2
  |  |    |  |    | 0 length: value: 0.000000
  |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 1 Symbol.iterator: type: FunctionObject flags: (old) optional info records (2)
- |  |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |  |    [Properties] count: 2
- |  |    |  |    | 0 length: value: 0.000000
- |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 2 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
+ |  |    |  | 1 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
  |  |    |  |    [Internal property] value: Map Iterator
  |  |    |  |    [Prototype] type: StringObject (seen)
  |  | 2 set_iterator: type: SetIterator flags: (old) optional info records (2)
@@ -1425,18 +1416,13 @@
  |  |    |    | 2: value: 3.000000
  |  |    [Prototype] type: ObjectObject flags: (old) optional info records (2)
  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    |  [Properties] count: 3
+ |  |    |  [Properties] count: 2
  |  |    |  | 0 next: type: FunctionObject flags: (old) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 2
  |  |    |  |    | 0 length: value: 0.000000
  |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 1 Symbol.iterator: type: FunctionObject flags: (old) optional info records (2)
- |  |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |  |    [Properties] count: 2
- |  |    |  |    | 0 length: value: 0.000000
- |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 2 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
+ |  |    |  | 1 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
  |  |    |  |    [Internal property] value: Set Iterator
  |  |    |  |    [Prototype] type: StringObject (seen)
  |  | 3 string_iterator: type: StringIterator flags: (old) optional info records (2)
@@ -1445,18 +1431,13 @@
  |  |    |    [Prototype] type: StringObject (seen)
  |  |    [Prototype] type: ObjectObject flags: (old) optional info records (2)
  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    |  [Properties] count: 3
+ |  |    |  [Properties] count: 2
  |  |    |  | 0 next: type: FunctionObject flags: (old) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 2
  |  |    |  |    | 0 length: value: 0.000000
  |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 1 Symbol.iterator: type: FunctionObject flags: (old) optional info records (2)
- |  |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |  |    [Properties] count: 2
- |  |    |  |    | 0 length: value: 0.000000
- |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 2 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
+ |  |    |  | 1 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
  |  |    |  |    [Internal property] value: String Iterator
  |  |    |  |    [Prototype] type: StringObject (seen)
 
@@ -1866,8 +1847,15 @@
  |  [Properties] count: 4
  |  | 0 array_iterator: type: ArrayIterator flags: (old) optional info records (1)
  |  |    [Prototype] type: ObjectObject flags: (old) optional info records (2)
- |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    |  [Properties] count: 3
+ |  |    |  [Prototype] type: ObjectObject flags: (old) optional info records (2)
+ |  |    |  |  [Prototype] type: ObjectObject (seen)
+ |  |    |  |  [Properties] count: 1
+ |  |    |  |  | 0 Symbol.iterator: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 2
+ |  |    |  |  |    | 0 length: value: 0.000000
+ |  |    |  |  |    | 1 name: type: String (seen)
+ |  |    |  [Properties] count: 2
  |  |    |  | 0 next: type: FunctionObject flags: (old) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 2
@@ -1875,63 +1863,43 @@
  |  |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |  |    |    [Internal property] value: next
  |  |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |  | 1 Symbol.iterator: type: FunctionObject flags: (old) optional info records (2)
- |  |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |  |    [Properties] count: 2
- |  |    |  |    | 0 length: value: 0.000000
- |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 2 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
+ |  |    |  | 1 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
  |  |    |  |    [Internal property] value: Array Iterator
  |  |    |  |    [Prototype] type: StringObject (seen)
  |  | 1 map_iterator: type: MapIterator flags: (old) optional info records (1)
  |  |    [Prototype] type: ObjectObject flags: (old) optional info records (2)
  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    |  [Properties] count: 3
+ |  |    |  [Properties] count: 2
  |  |    |  | 0 next: type: FunctionObject flags: (old) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 2
  |  |    |  |    | 0 length: value: 0.000000
  |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 1 Symbol.iterator: type: FunctionObject flags: (old) optional info records (2)
- |  |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |  |    [Properties] count: 2
- |  |    |  |    | 0 length: value: 0.000000
- |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 2 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
+ |  |    |  | 1 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
  |  |    |  |    [Internal property] value: Map Iterator
  |  |    |  |    [Prototype] type: StringObject (seen)
  |  | 2 set_iterator: type: SetIterator flags: (old) optional info records (1)
  |  |    [Prototype] type: ObjectObject flags: (old) optional info records (2)
  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    |  [Properties] count: 3
+ |  |    |  [Properties] count: 2
  |  |    |  | 0 next: type: FunctionObject flags: (old) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 2
  |  |    |  |    | 0 length: value: 0.000000
  |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 1 Symbol.iterator: type: FunctionObject flags: (old) optional info records (2)
- |  |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |  |    [Properties] count: 2
- |  |    |  |    | 0 length: value: 0.000000
- |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 2 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
+ |  |    |  | 1 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
  |  |    |  |    [Internal property] value: Set Iterator
  |  |    |  |    [Prototype] type: StringObject (seen)
  |  | 3 string_iterator: type: StringIterator flags: (old) optional info records (1)
  |  |    [Prototype] type: ObjectObject flags: (old) optional info records (2)
  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    |  [Properties] count: 3
+ |  |    |  [Properties] count: 2
  |  |    |  | 0 next: type: FunctionObject flags: (old) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 2
  |  |    |  |    | 0 length: value: 0.000000
  |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 1 Symbol.iterator: type: FunctionObject flags: (old) optional info records (2)
- |  |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |  |    [Properties] count: 2
- |  |    |  |    | 0 length: value: 0.000000
- |  |    |  |    | 1 name: type: String (seen)
- |  |    |  | 2 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
+ |  |    |  | 1 Symbol.toStringTag: type: String flags: (old size_approximate) optional info records (2)
  |  |    |  |    [Internal property] value: String Iterator
  |  |    |  |    [Prototype] type: StringObject (seen)
 

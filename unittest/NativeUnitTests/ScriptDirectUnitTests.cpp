@@ -195,7 +195,7 @@ HRESULT RunNativeTest(JsHostNativeTestArguments* jsHostArgs)
         Print("\n\nRunning ParseJson tests\n");
         RunParseJsonTest(&test);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"StaticLibVerifcationTest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], L"StaticLibVerificationTest") == 0)
     {
         Print("\n\nRunning static library verification tests\n");
         RunStaticLibVerificationTest();
