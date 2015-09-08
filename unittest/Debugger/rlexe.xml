@@ -3745,6 +3745,12 @@
   </test>
   <test>
     <default>
+      <files>infiniteloop.js</files>
+      <compile-flags>-debuglaunch</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>asmjsdebug.js</files>
       <baseline>asmjsdebug.baseline</baseline>
       <compile-flags>-asmjs -simdjs -testtrace:asmjs -targeted -dbgbaseline:asmjsdebug.js.dbg.baseline</compile-flags>
