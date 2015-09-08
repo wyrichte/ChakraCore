@@ -21,7 +21,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Midl Include="$(MsBuildThisFileDirectory)ChakraInternalInterface.idl">
-      <AdditionalIncludeDirectories>$(ChakraRootDirectory)publish;$(PublicInternalPath)\InetCore\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+        $(ChakraRootDirectory)publish;
+        <!-- For scriptDirectHost.idl -->
+        $(PublicInternalPath)\Inetcore\inc;
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
       <!-- Targeting NT60 so we don't need to link with ole32 for ObjectStublessClient* -->
       <MidlTarget Condition="'$(BuildingWithBuildExe)'=='true'">$(MidlTargetVista)</MidlTarget>
       <AdditionalOptions Condition="'$(BuildingWithBuildExe)'!='true'">%(AdditionalOptions) /target NT60</AdditionalOptions>

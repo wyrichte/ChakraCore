@@ -23,6 +23,8 @@
     <ClCompile>
       <AdditionalIncludeDirectories>
         %(AdditionalIncludeDirectories);
+        $(ChakraRootDirectory)private\lib\JsrtChakra;
+        $(ChakraRootDirectory)core\lib\jsrt;
         $(SdkToolsIncPath)\WexTest\Cue;
         ..\Inc;
       </AdditionalIncludeDirectories>

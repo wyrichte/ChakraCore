@@ -28,13 +28,19 @@
     <Midl Include="..\..\published\internal\inc\scaformat.idl">
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\published\internal\inc</AdditionalIncludeDirectories>
     </Midl>
-    <Midl Include="edgescriptdirect.idl">
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\published\internal\inc</AdditionalIncludeDirectories>
-    </Midl>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="JavascriptTypeId.h" />
-    <ClInclude Include="jsStatic.h" />
+    <Midl Include="edgescriptdirect.idl">
+      <AdditionalIncludeDirectories>
+        <!-- For EdgeJavascriptTypeId.h -->
+        $(ChakraRootDirectory)core\lib\runtime\types;
+        <!-- For scaformat.idl -->
+        $(PublicInternalPath)\inetcore\inc;
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+    </Midl>
+    <ClInclude Include="EdgeJsHostNativeTest.h" />
+    <ClInclude Include="EdgeJsStatic.h" />
   </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -28,15 +28,23 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>
-        %(AdditionalIncludeDirectories);
+        $(IntDir);
         $(ChakraRootDirectory)core\lib\Common;
         $(ChakraRootDirectory)private\lib\Engine;
         $(ChakraRootDirectory)private\bin\ChakraDiag;
-        $(IntDir);
         $(ChakraRootDirectory)private\lib\HostCommon;
-        $(ChakraInternalIDLIntDir);
         $(ChakraRootDirectory)private\Lib\MemProtectHeap;
         $(ChakraRootDirectory)private\lib\SCALookup;
+        $(ChakraRootDirectory)private\lib\JsrtChakra;
+        $(ChakraRootDirectory)core\lib\jsrt;
+        $(ChakraInternalIDLIntDir);
+
+        <!-- For EdgeJsHostNativeTest.h, EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
+        $(ChakraRootDirectory)publish;
+        $(ChakraPublishIntDir);
+        $(ChakraCoreRootDirectory)lib\runtime\types;
+
+        %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
@@ -192,6 +200,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Lib\HostCommon\HostCommon.vcxproj">
       <Project>{f2e998aa-fb27-4f65-a6f7-4142be64294f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

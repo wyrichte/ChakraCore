@@ -27,8 +27,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>
-        %(AdditionalIncludeDirectories);
+      <AdditionalIncludeDirectories>        
+        $(IntDir);
         $(ChakraRootDirectory)core\lib\Common;
         $(ChakraRootDirectory)core\lib\Common\Core;
         $(ChakraRootDirectory)core\lib\Common\Memory;
@@ -38,8 +38,16 @@
         $(ChakraRootDirectory)core\lib\Backend;
         $(ChakraRootDirectory)private\bin\Chakra;
         $(ChakraRootDirectory)private\bin\ChakraDiag;
-        $(IntDir);
         $(ChakraRootDirectory)private\lib\HostCommon;
+
+        <!-- For EdgeJsHostNativeTest.h -->
+        $(ChakraRootDirectory)publish;
+        
+        <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
+        $(ChakraPublishIntDir);
+        $(ChakraCoreRootDirectory)lib\runtime\types;
+
+        %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4189;4290</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -119,6 +127,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\private\lib\staticlib\static.vcxproj">
       <Project>{706083f7-6aa4-4558-a153-6352ef911ff5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>

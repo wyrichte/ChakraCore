@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
- <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\Build\Chakra.Build.Paths.props" />
- <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
- <Import Project="$(BuildConfigPropsPath)Chakra.Build.ProjectConfiguration.props" />
+  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\Build\Chakra.Build.Paths.props" />
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.ProjectConfiguration.props" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0335EF4B-D4E2-426D-80C8-6F312CB4F957}</ProjectGuid>
     <RootNamespace>ut_jsdiag</RootNamespace>
@@ -17,7 +17,7 @@
     <TestCode Condition="'$(BuildingWithBuildExe)'=='true'">true</TestCode>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />  
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
   <PropertyGroup>
@@ -25,11 +25,16 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>
-        %(AdditionalIncludeDirectories);
+      <AdditionalIncludeDirectories>        
         $(ChakraRootDirectory)private\bin\jdtest;
         $(ChakraRootDirectory)private\bin\ChakraDiag;
+
+        <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
+        $(ChakraPublishIntDir);
+        $(ChakraCoreRootDirectory)lib\runtime\types;
+
         $(SdkToolsIncPath);
+        %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
@@ -37,18 +42,18 @@
       <AdditionalDependencies>
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\engextcpp.lib;
         %(AdditionalDependencies);
-       </AdditionalDependencies>
+      </AdditionalDependencies>
       <ModuleDefinitionFile>ut_jsdiag.def</ModuleDefinitionFile>
     </ImpLib>
     <Link>
       <AdditionalDependencies>
-        $(MinCoreSdkLibPath)\mincore_fw.lib;        
+        $(MinCoreSdkLibPath)\mincore_fw.lib;
         $(SdkLibPath)\dbghelp.lib;
         $(SdkLibPath)\dbgeng.lib;
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\engextcpp.lib;
         $(SdkLibPath)\oleaut32.lib;
         %(AdditionalDependencies);
-       </AdditionalDependencies>
+      </AdditionalDependencies>
       <ModuleDefinitionFile>ut_jsdiag.def</ModuleDefinitionFile>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -73,6 +78,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ut_jsdiag.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

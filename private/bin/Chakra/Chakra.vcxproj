@@ -57,32 +57,6 @@
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
   </PropertyGroup>
   <ItemDefinitionGroup>
-    <ClCompile>
-      <AdditionalIncludeDirectories>
-        $(MSBuildThisFileDirectory);
-        $(ChakraCoreRootDirectory)Lib\Common;
-        $(ChakraCoreRootDirectory)Lib\Parser;
-        $(ChakraCoreRootDirectory)Lib\Runtime;
-        $(ChakraCoreRootDirectory)Lib\Backend;
-        $(ChakraCoreRootDirectory)Lib\Jsrt;
-        $(MSBuildThisFileDirectory)..\..\lib\Engine;
-        $(IntDir);
-        $(ChakraManifestsIncludeDirectory);
-
-        <!-- For winmddefsp.h  -->
-        $(PublicInternalPath)\com\inc\midlrt;
-
-        <!-- For winrtobjectprobe.h in ProjectionObjectInstance.cpp -->
-        $(ComIncPath)
-
-        %(AdditionalIncludeDirectories);
-      </AdditionalIncludeDirectories>      
-      <!--
-        4510: default constructor could not be generated
-        4610: can never be instantiated - user defined constructor required
-        -->
-      <DisableSpecificWarnings>%(DisableSpecificWarnings);4510;4610</DisableSpecificWarnings>
-    </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
       <ModuleDefinitionFile>$(IntDir)chakra.def</ModuleDefinitionFile>
@@ -193,6 +167,10 @@
       <ForcedIncludeFiles>
       </ForcedIncludeFiles>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalIncludeDirectories>
+        $(ChakraCoreRootDirectory)Lib\Jsrt;
+        %(AdditionalIncludeDirectories);
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)ChakraDllFunc.cpp" />
   </ItemGroup>
@@ -209,15 +187,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\core\lib\jsrt\Chakra.Jsrt.vcxproj">
       <Project>{706083f7-6aa4-4558-a153-6352ef9220f5}</Project>
-    </ProjectReference>
-    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\publish\Publish.vcxproj">
-      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
-      <Private>true</Private>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
+    </ProjectReference>    
     <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\dep\dtbhost.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac37}</Project>
       <Private>true</Private>

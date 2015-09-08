@@ -54,6 +54,7 @@
     <ChakraParserIntDir>$(RazzleJscriptObjectRoot)\core\lib\parser\$(RazzleJscriptObjectDirectory)</ChakraParserIntDir>
     <JscriptInfoIntDir>$(RazzleJscriptObjectRoot)\private\lib\engine\$(RazzleJscriptObjectDirectory)</JscriptInfoIntDir>
     <ChakraInternalIDLIntDir>$(RazzleJscriptObjectRoot)\private\lib\InternalIDL\$(ObjectDirectory)</ChakraInternalIDLIntDir>
+    <ChakraPublishIntDir>$(RazzleJscriptObjectRoot)\publish\$(ObjectDirectory)</ChakraPublishIntDir>
     
     <!-- Libraries -->
     <ChakraCommonCodexLib>$(RazzleJscriptObjectRoot)\core\lib\common\codex\$(ObjectDirectory)Chakra.Common.Codex.lib</ChakraCommonCodexLib>

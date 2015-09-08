@@ -36,9 +36,6 @@
       <!-- ======== sources.inc ======== -->
       <!-- generates SAL annotations for our interface -->
       <AdditionalOptions>%(AdditionalOptions) -sal_local</AdditionalOptions>
-
-
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\inetcore\inc</AdditionalIncludeDirectories>
     </Midl>
     <ClCompile>
       <PreprocessorDefinitions>_WIN32_WINNT=$(Win32_WinNTVersion);WINVER=$(Win32_WinNTVersion);_WIN32_IE=0x0800;WIN32;BUILD_WINDOWS;NO_SHLWAPI_ISOS;%(PreprocessorDefinitions)</PreprocessorDefinitions>

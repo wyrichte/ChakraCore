@@ -23,6 +23,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>
+        $(IntDir);
         $(MSBuildThisFileDirectory);
         $(ChakraCoreRootDirectory)Lib\Common;
         $(ChakraCoreRootDirectory)Lib\Parser;
@@ -33,14 +34,19 @@
         $(MSBuildThisFileDirectory)..\SCA;
         $(MSBuildThisFileDirectory)..\JsrtChakra;
         $(MSBuildThisFileDirectory)..\EnC;
-        $(IntDir);
+
         $(ChakraInternalIDLIntDir);
         $(ChakraManifestsIncludeDirectory);
+        
+        <!-- For EdgeJsStatic.h, EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
+        $(ChakraRootDirectory)publish;
+        $(ChakraPublishIntDir);
+        $(ChakraCoreRootDirectory)lib\runtime\types;
 
         <!-- For winmddefsp.h  -->
         $(PublicInternalPath)\com\inc\midlrt;
 
-        %(AdditionalIncludeDirectories);
+        %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>EnginePch.h</PrecompiledHeaderFile>
@@ -124,7 +130,14 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MsBuildThisFileDirectory)jscriptinfo.idl">
-      <AdditionalIncludeDirectories>$(ChakraRootDirectory)publish;$(PublicInternalPath)\InetCore\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+        <!-- For EdgeScriptDirect.Idl and EdgeJavascriptTypeId.h -->
+        $(ChakraRootDirectory)publish;
+        $(ChakraCoreRootDirectory)lib\runtime\types;
+        <!-- For scaformat.idl -->
+        $(PublicInternalPath)\inetcore\inc;
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
       <DllDataFileName>%(Filename)_dlldata.c</DllDataFileName>
       <!-- Only needed by razzle -->
       <UseIdlBasedDllData Condition="'$(BuildingWithBuildExe)'=='true'">true</UseIdlBasedDllData>
@@ -196,23 +209,21 @@
     <ClInclude Include="scriptsite.h" />
     <ClInclude Include="scrpting.h" />
     <ClInclude Include="scrutil.h" />
-    <ClInclude Include="siteserv.h" />    
+    <ClInclude Include="siteserv.h" />
     <ClInclude Include="TestHooks.h" />
     <ClInclude Include="typeinfobuilder.h" />
     <ClInclude Include="ChakraVersion.h" />
     <ClInclude Include="var.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\InternalIDL\Chakra.InternalIDL.vcxproj">
+      <Project>{fd37f38b-cce6-4bd2-a3ad-2f93d25467f4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\core\Manifests\Manifests.vcxproj">
       <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
-    </ProjectReference>
-    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\publish\Publish.vcxproj">
-      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
-      <Private>true</Private>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\dep\manifests-inbox.vcxproj">
       <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0815}</Project>
@@ -222,10 +233,7 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\InternalIDL\Chakra.InternalIDL.vcxproj">
-      <Project>{fd37f38b-cce6-4bd2-a3ad-2f93d25467f4}</Project>
-    </ProjectReference>
   </ItemGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

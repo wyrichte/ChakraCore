@@ -45,6 +45,7 @@
     <ChakraManifestsIncludeDirectory>$(IntDir)..\manifests</ChakraManifestsIncludeDirectory>    
     <JscriptInfoIntDir>$(IntDir)..\Chakra.Engine</JscriptInfoIntDir>
     <ChakraInternalIDLIntDir>$(IntDir)..\Chakra.InternalIDL</ChakraInternalIDLIntDir>
+    <ChakraPublishIntDir>$(IntDir)..\Publish</ChakraPublishIntDir>
 
     <ChakraCommonMemoryLib>$(IntDir)..\Chakra.Common.Memory\Chakra.Common.Memory.lib</ChakraCommonMemoryLib>
 

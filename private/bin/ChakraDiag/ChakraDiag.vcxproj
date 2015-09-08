@@ -43,7 +43,12 @@
         $(ChakraRootDirectory)core\Lib\Backend;
         $(ChakraRootDirectory)private\lib\Engine;
         $(ChakraRootDirectory)private\lib\Projection;
-        $(SdkToolsIncPath)
+        
+        <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
+        $(ChakraPublishIntDir);
+        $(ChakraCoreRootDirectory)lib\runtime\types;
+
+        $(SdkToolsIncPath);
       </AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories>
         %(AdditionalIncludeDirectories);
@@ -223,6 +228,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\core\Lib\Runtime\Debug\Chakra.Runtime.Debug.vcxproj">
       <Project>{8C61E4E7-F0D6-420D-A352-3E6E50D406DD}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>

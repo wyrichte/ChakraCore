@@ -26,15 +26,22 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>
-        %(AdditionalIncludeDirectories);
+      <AdditionalIncludeDirectories>        
+        $(IntDir);
         $(ChakraRootDirectory)core\lib\Common;
         $(ChakraRootDirectory)private\bin\jshost;
         $(ChakraRootDirectory)private\bin\ChakraDiag;
-        $(IntDir);
         $(ChakraRootDirectory)private\lib\HostCommon;
         $(ChakraRootDirectory)private\Lib;
+        $(ChakraRootDirectory)private\lib\JsrtChakra;
+        $(ChakraRootDirectory)core\lib\jsrt;
+        
+        <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
+        $(ChakraPublishIntDir);
+        $(ChakraCoreRootDirectory)lib\runtime\types;
+
         $(SdkToolsIncPath)
+        %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
@@ -86,6 +93,9 @@
     </ProjectReference>
     <ProjectReference Include="..\ChakraDiag\ChakraDiag.vcxproj">
       <Project>{d81ef7cf-1d44-46b5-843e-4c0f1626a1e2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>

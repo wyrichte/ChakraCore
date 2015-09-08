@@ -30,9 +30,13 @@
         $(ChakraCoreRootDirectory)Lib\Backend;
         $(ChakraCoreRootDirectory)Lib\Jsrt;
         $(MSBuildThisFileDirectory)..\Engine;
-        $(MSBuildThisFileDirectory)..\Projection;          
+        $(MSBuildThisFileDirectory)..\Projection;
         $(ChakraManifestsIncludeDirectory);
 
+        <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
+        $(ChakraPublishIntDir);
+        $(ChakraCoreRootDirectory)lib\runtime\types;
+        
         <!-- For winmddefsp.h  -->
         $(PublicInternalPath)\com\inc\midlrt;
 
@@ -64,6 +68,9 @@
     <ClInclude Include="SCAPch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\core\Manifests\Manifests.vcxproj">
       <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
     </ProjectReference>

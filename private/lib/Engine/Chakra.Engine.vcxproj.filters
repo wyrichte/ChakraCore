@@ -24,7 +24,6 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)ErrorTypeHelper.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)EventSink.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ExternalObject.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)guids.c" />
     <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatch.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatchEnumerator.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatchType.cpp" />
@@ -54,7 +53,6 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)scriptsite.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)scrpting.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)siteserv.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)StreamHelper.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)StreamReader.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)StreamWriter.cpp" />
@@ -62,6 +60,8 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)typeinfobuilder.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)AttrParser.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)scrutil.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)guids.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)EnginePch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="activescripterror.h" />
@@ -122,13 +122,16 @@
     <ClInclude Include="scriptsite.h" />
     <ClInclude Include="scrpting.h" />
     <ClInclude Include="siteserv.h" />
-    <ClInclude Include="StdAfx.h" />
     <ClInclude Include="TestHooks.h" />
     <ClInclude Include="typeinfobuilder.h" />
     <ClInclude Include="ChakraVersion.h" />
     <ClInclude Include="AttrParser.h" />
     <ClInclude Include="var.h" />
     <ClInclude Include="scrutil.h" />
+    <ClInclude Include="AutoCallerPointer.h" />
+    <ClInclude Include="ChakraHostDebugContext.h" />
+    <ClInclude Include="EnginePch.h" />
+    <ClInclude Include="IDebugBitCorrectApplicationThread.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MsBuildThisFileDirectory)jscriptinfo.idl" />
