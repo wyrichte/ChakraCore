@@ -199,6 +199,7 @@ var tests = [
             var g = gf();
             assert.areEqual(generatorPrototype, Object.getPrototypeOf(Object.getPrototypeOf(g)), "Generator object's prototype is an object whose prototype is Generator prototype");
             assert.areEqual(Object.getPrototypeOf(g), gf.prototype, "Generator object's prototype comes from generator function's .prototype property");
+            assert.isTrue(g instanceof gf, "Generator object is instance of the generator function");
         }
     },
     {

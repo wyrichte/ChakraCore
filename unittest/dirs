@@ -4,4 +4,3 @@ DIRS=\
     jd{!MOBILECORE,noncrit,!EXCLUDE_IE_MAIN} \
     jsrt{!MOBILECORE,!EXCLUDE_IE_MAIN} \
     Microsoft.JavaScript{!MOBILECORE,!EXCLUDE_IE_MAIN} \
-    TaefDataSource{Test,noncrit} \

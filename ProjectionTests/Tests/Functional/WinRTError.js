@@ -13,7 +13,7 @@ if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefin
     verify.members = function verifyMembers(obj, expected, msg) {
         logger.comment("Verifying members of " + msg);
         var expect;
-        for (var mem in obj) {
+        for (var mem in expected) {
             expect = expected[mem];
             verify.defined(expect, mem);
             verify.typeOf(obj[mem], expect, (mem === "stack" && TrimStackTracePath(obj[mem])) || obj[mem]);
@@ -134,18 +134,18 @@ if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefin
         },
         test: function () {
             var errorObjectExpected = {
-                message: "string",
                 description: "string",
                 number: "number",
-                name: "string",
                 stack: "string"
             };
             var expectedString;
+
             for (var err in errors) {
                 logger.comment("Testing HRESULT: e_" + err);
                 var systemErrorString = TestUtilities.GetSystemStringFromHr(errors[err]);
                 var restrictedErrorString = "Originate: e_" + err;
                 expectedString = systemErrorString + "\r\n" + restrictedErrorString;
+
                 try {
                     errorAccess.originateError(errors[err], restrictedErrorString);
                 } catch (e) {
@@ -325,18 +325,18 @@ if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefin
         },
         test: function () {
             var errorObjectExpected = {
-                message: "string",
                 description: "string",
                 number: "number",
-                name: "string",
                 stack: "string"
             };
             var expectedString;
             var capabilityString;
+
             for (var sid in capabilities) {
                 logger.comment("Testing Capability: " + sid);
                 expectedString = "Originate E_ACCESSDENIED with Capability SID: " + sid;
                 capabilityString = errorAccess.getSidString(capabilities[sid]);
+
                 try {
                     errorAccess.originateErrorWithCapabilitySid(errors.accessDenied, expectedString, capabilities[sid]);
                     fail("Expected error to be thrown");

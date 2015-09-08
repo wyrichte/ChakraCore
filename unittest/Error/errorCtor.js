@@ -10,9 +10,16 @@ if (this.WScript && typeof this.WScript.LoadScriptFile === "function")
 
 function PadString(i)
 {
-    var s = i.toString();
-    while (s.length < 12)
-    {
+    var s = "";
+    if (i === null) {
+        s = "null";
+    } else if (i === undefined) {
+        s = "undefined";
+    } else {
+        s = i.toString();
+    } 
+    
+    while (s.length < 12) {
         s += ' ';
     }
     return s;
@@ -38,6 +45,9 @@ function DumpObject(e)
     {
         a[a.length] = i;
     }
+    a[a.length] = "description"; // Explictly adding the known non-enumerable members
+    a[a.length] = "number";
+    a[a.length] = "stack";
     a.sort();
     for (var j = 0; j < a.length; j++)
     {

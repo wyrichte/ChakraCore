@@ -71,7 +71,7 @@
         <default>
             <files>JsObjectsInsideWinrtWrapper.js</files>
             <baseline>JsObjectsInsideWinrtWrapper.baseline</baseline>
-            <compile-flags>-TraceWin8Allocations</compile-flags>
+            <compile-flags>-TraceWin8Allocations -CollectGarbage</compile-flags>
             <tags>exclude_win7,exclude_fre,exclude_amd64</tags>
         </default>
     </test>
@@ -80,7 +80,7 @@
         <default>
             <files>JsObjectsInsideWinrtWrapper.js</files>
             <baseline>JsObjectsInsideWinrtWrapper.baseline</baseline>
-            <compile-flags>-RecyclerStress -TraceWin8Allocations</compile-flags>
+            <compile-flags>-RecyclerStress -TraceWin8Allocations -CollectGarbage</compile-flags>
             <tags>exclude_win7,exclude_fre,exclude_nostress,exclude_snap,exclude_amd64</tags>
         </default>
     </test>
@@ -90,7 +90,7 @@
         <default>
             <files>Promise.js</files>
             <baseline>Promise.baseline</baseline>
-            <compile-flags>-TraceWin8Allocations -CheckMemoryLeak-</compile-flags>
+            <compile-flags>-TraceWin8Allocations -CheckMemoryLeak- -CollectGarbage</compile-flags>
             <tags>exclude_win7,exclude_fre,exclude_amd64</tags>
         </default>
     </test>
@@ -99,7 +99,7 @@
         <default>
             <files>Promise.js</files>
             <baseline>Promise.baseline</baseline>
-            <compile-flags>-RecyclerStress -TraceWin8Allocations -CheckMemoryLeak-</compile-flags>
+            <compile-flags>-RecyclerStress -TraceWin8Allocations -CheckMemoryLeak- -CollectGarbage</compile-flags>
             <tags>exclude_win7,exclude_fre,exclude_native,exclude_nostress,exclude_snap,exclude_amd64</tags>
         </default>
     </test>
@@ -108,7 +108,7 @@
         <default>
             <files>Promise.js</files>
             <baseline>Promise.baseline</baseline>
-            <compile-flags>-RecyclerStress -TraceWin8Allocations -CheckMemoryLeak-</compile-flags>
+            <compile-flags>-RecyclerStress -TraceWin8Allocations -CheckMemoryLeak- -CollectGarbage</compile-flags>
             <!-- On x86chk and armchk in native mode the test produces a bit different but still correct output -->
             <tags>exclude_win7,exclude_fre,exclude_interpreted,exclude_x86,exclude_arm,exclude_nostress,exclude_snap</tags>
         </default>
@@ -118,7 +118,7 @@
         <default>
             <files>Promise.js</files>
             <baseline>Promise.x86.native.recyclerstress.baseline</baseline>
-            <compile-flags>-RecyclerStress -TraceWin8Allocations -CheckMemoryLeak-</compile-flags>
+            <compile-flags>-RecyclerStress -TraceWin8Allocations -CheckMemoryLeak- -CollectGarbage</compile-flags>
             <!-- On x86chk in native mode  the test produces a bit different but still correct output -->
             <tags>exclude_win7,exclude_fre,exclude_interpreted,exclude_amd64,exclude_arm,exclude_nostress,exclude_snap</tags>
         </default>
@@ -128,7 +128,7 @@
         <default>
             <files>Promise.js</files>
             <baseline>Promise.arm.native.recyclerstress.baseline</baseline>
-            <compile-flags>-RecyclerStress -TraceWin8Allocations -CheckMemoryLeak-</compile-flags>
+            <compile-flags>-RecyclerStress -TraceWin8Allocations -CheckMemoryLeak- -CollectGarbage</compile-flags>
             <!-- On x86chk in native mode  the test produces a bit different but still correct output -->
             <tags>exclude_win7,exclude_fre,exclude_interpreted,exclude_x86,exclude_amd64,exclude_nostress,exclude_snap</tags>
         </default>
@@ -139,7 +139,7 @@
         <default>
             <files>Array.js</files>
             <baseline>Array.baseline</baseline>
-            <compile-flags>-TraceWin8Allocations</compile-flags>
+            <compile-flags>-TraceWin8Allocations -CollectGarbage</compile-flags>
             <tags>exclude_win7,exclude_fre,exclude_amd64</tags>
         </default>
     </test>
@@ -148,7 +148,7 @@
         <default>
             <files>msReleaseWinRTObject.js</files>
             <baseline>msReleaseWinRTObject.baseline</baseline>
-            <compile-flags>-TraceWin8Allocations -TraceWin8DeallocationsImmediate</compile-flags>
+            <compile-flags>-TraceWin8Allocations -TraceWin8DeallocationsImmediate -CollectGarbage</compile-flags>
 
             <!-- On ARM in interpreted mode the test produces a bit different but still correct output -->
             <tags>exclude_win7,exclude_fre,exclude_interpreted</tags>
@@ -159,7 +159,7 @@
         <default>
             <files>EventsClosure.NoWeakDelegate.js</files>
             <baseline>EventsClosure.NoWeakDelegate.baseline</baseline>
-            <compile-flags>-TraceWin8Allocations</compile-flags>
+            <compile-flags>-TraceWin8Allocations -CollectGarbage</compile-flags>
             <tags>exclude_win7,exclude_fre,exclude_native,exclude_amd64</tags>
         </default>
     </test>
@@ -168,7 +168,7 @@
         <default>
             <files>EventsClosure.NoWeakDelegate.js</files>
             <baseline>EventsClosure.NoWeakDelegate.baseline</baseline>
-            <compile-flags>-TraceWin8Allocations</compile-flags>
+            <compile-flags>-TraceWin8Allocations -CollectGarbage</compile-flags>
             <tags>exclude_win7,exclude_fre,exclude_interpreted,exclude_amd64</tags>
         </default>
     </test>
@@ -177,7 +177,7 @@
         <default>
             <files>EventsClosure.NoWeakDelegate.js</files>
             <baseline>EventsClosure.NoWeakDelegate.baseline</baseline>
-            <compile-flags>-RecyclerStress -TraceWin8Allocations</compile-flags>
+            <compile-flags>-RecyclerStress -TraceWin8Allocations -CollectGarbage</compile-flags>
             <tags>exclude_win7,exclude_fre,exclude_snap,exclude_amd64,exclude_nostress</tags>
         </default>
     </test>

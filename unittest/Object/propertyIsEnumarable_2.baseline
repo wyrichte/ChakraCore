@@ -5705,7 +5705,7 @@ e.propertyIsEnumerable("cos") : false
 e.propertyIsEnumerable("Date") : false
 e.propertyIsEnumerable("decodeURI") : false
 e.propertyIsEnumerable("decodeURIComponent") : false
-e.propertyIsEnumerable("description") : true
+e.propertyIsEnumerable("description") : false
 e.propertyIsEnumerable("E") : false
 e.propertyIsEnumerable("encodeURI") : false
 e.propertyIsEnumerable("encodeURIComponent") : false
@@ -5773,7 +5773,7 @@ e.propertyIsEnumerable("NaN") : false
 e.propertyIsEnumerable("name") : false
 e.propertyIsEnumerable("Now") : false
 e.propertyIsEnumerable("Number") : false
-e.propertyIsEnumerable("number") : true
+e.propertyIsEnumerable("number") : false
 e.propertyIsEnumerable("NEGATIVE_INFINITY") : false
 e.propertyIsEnumerable("Object") : false
 e.propertyIsEnumerable("parse") : false

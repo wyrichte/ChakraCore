@@ -199,7 +199,7 @@
   </test>
   <test>
     <default>
-      <compile-flags> -FaultInjection:1 -FaultInjectionCount:0 -FaultInjectionType:64 -FaultInjectionScriptContextToTerminateCount:2 </compile-flags>
+      <compile-flags> -FaultInjection:1 -FaultInjectionCount:0 -FaultInjectionType:64 -FaultInjectionScriptContextToTerminateCount:2 -CollectGarbage</compile-flags>
       <files>FaultInjectionForScriptTermination.js</files>
       <baseline>FaultInjectionForScriptTermination.baseline</baseline>
       <tags>exclude_fre,exclude_apollo,Slow,Slow</tags>
@@ -214,6 +214,7 @@
   </test>
   <test>
     <default>
+	  <compile-flags>-CollectGarbage</compile-flags>
       <files>DebugFuncExecutorInDisposeObject3.js</files>
       <baseline>DebugFuncExecutorInDisposeObject3.baseline</baseline>
       <tags>exclude_fre</tags>

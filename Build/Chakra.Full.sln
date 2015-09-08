@@ -82,7 +82,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestScripts", "TestScripts"
 	ProjectSection(SolutionItems) = preProject
 		..\tools\ChakraTool\TestScripts\JSRTTests.js = ..\tools\ChakraTool\TestScripts\JSRTTests.js
 		..\tools\ChakraTool\TestScripts\ProjectionTests.js = ..\tools\ChakraTool\TestScripts\ProjectionTests.js
-		..\tools\ChakraTool\TestScripts\Taef.js = ..\tools\ChakraTool\TestScripts\Taef.js
 		..\tools\ChakraTool\TestScripts\UnitTests.js = ..\tools\ChakraTool\TestScripts\UnitTests.js
 	EndProjectSection
 EndProject

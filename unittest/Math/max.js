@@ -165,3 +165,15 @@ function BLUE143505(a,b)
 };
 WScript.Echo(BLUE143505());
 WScript.Echo(BLUE143505());
+
+function findMaxInArray()
+{
+  var arr = new Array(3);
+  prop1 = 0;
+  arr[1] = 1;
+  arr[0] = 1;
+  WScript.Echo(Math.max.apply(Math, arr));
+  Object.prototype[2] = prop1;
+}
+findMaxInArray();
+findMaxInArray();

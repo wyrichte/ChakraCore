@@ -14,5 +14,4 @@ DIRS=\
     DevAppx{Test,noncrit} \
     CLR{Test} \
     PhoneDevTestPkg{Test,noncrit} \
-    TaefDataSource{Test,noncrit} \
-    
+

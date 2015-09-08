@@ -58,6 +58,12 @@
   </test>
   <test>
     <default>
+      <files>concat7.js</files>
+      <compile-flags>-off:bailonnoprofile -loopinterpretcount:1 -bgjit-</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>concat_empty.js</files>
       <baseline>concat_empty.baseline</baseline>
       <compile-flags>-Intl-</compile-flags>

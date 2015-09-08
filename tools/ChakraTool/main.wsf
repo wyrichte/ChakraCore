@@ -6,7 +6,6 @@
     <script language="JScript" src="TestScripts/UnitTests.js" />
     <script language="JScript" src="TestScripts/ProjectionTests.js" />
     <script language="JScript" src="TestScripts/JSRTTests.js" />
-    <script language="JScript" src="TestScripts/Taef.js" />    
     <script language="JScript" src="CommandScripts/test.js" />
     <script language="JScript" src="CommandScripts/bug.js" />
     <script language="JScript" src="CommandScripts/share.js" />

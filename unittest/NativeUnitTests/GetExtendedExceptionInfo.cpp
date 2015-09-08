@@ -259,7 +259,7 @@ HRESULT STDMETHODCALLTYPE TestOnScriptErrorCompileError_Callback(IActiveScriptEr
 
 HRESULT STDMETHODCALLTYPE VerifyThrownObject(IActiveScriptErrorEx* errorInfoEx, void* context)
 {
-    const LPWSTR codeToRun = L"WScript.Echo('unhandled exception info'); if (typeof _testResult == 'object' && _testResult.number == -2146828260) { WScript.Echo(_testResult.description); } else { for (i in _testResult) WScript.Echo('result.' + i + '=' + _testResult[i]);}";
+    const LPWSTR codeToRun = L"WScript.Echo('unhandled exception info'); if (typeof _testResult == 'object' && _testResult.number == -2146828260) { WScript.Echo(_testResult.description); } else { for (i in _testResult) WScript.Echo('result.' + i + '=' + _testResult[i]); WScript.Echo('result.description=' + _testResult.description); WScript.Echo('result.number=' + _testResult.number); WScript.Echo('result.stack=' + _testResult.stack);}";
     Var thrownObject;
     HRESULT hr;
     hr = errorInfoEx->GetThrownObject(&thrownObject);

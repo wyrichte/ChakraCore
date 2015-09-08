@@ -136,7 +136,7 @@ var tests = [
     }
   },
   {
-    name: "Parameter scope parser shadowing tests",
+    name: "Parameter scope shadowing tests",
     body: function () {
       // These tests exercise logic in FindOrAddPidRef for when we need to look at parameter scope
 
@@ -156,6 +156,17 @@ var tests = [
             };
         }
       }
+
+      function test2() {
+        let l = (z) => {
+            let  w = { z };
+            assert.areEqual(10, w.z, "Identifier reference in object literal should get the correct reference from the arguments");
+            var z; 
+        }
+        l(10);
+      };
+      test2();
+
     }
   },
   {

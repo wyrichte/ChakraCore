@@ -130,6 +130,7 @@ PASS: TestOnScriptErrorGetExceptionInfoWithArguments2
 
 unhandled exception info
 result.description=mm
+result.number=undefined
 result.stack=Error: mm
    at f (:5:5)
    at g (:2:5)
@@ -180,6 +181,7 @@ PASS: TestOnScriptErrorGetExceptionInfoWithArguments
 
 unhandled exception info
 result.description=Error inside of fucntions with a lot of arguments which has to be displayed
+result.number=undefined
 result.stack=Error: Error inside of fucntions with a lot of arguments which has to be displayed
    at h (:23:5)
    at g (:20:5)
@@ -288,6 +290,7 @@ PASS: TestOnScriptErrorGetsExpectedErrorOnStackOverflow
 unhandled exception info
 result.description=Out of memory
 result.number=-2146828281
+result.stack=undefined
     Uncaught exception:
 	exInfo.errorType.typeNumber: 0
 	exInfo.errorType.typeText: Generic error
@@ -477,8 +480,8 @@ PASS: TestOnScriptErrorGetsExpectedCustomErrorOnThrowString
 	    throw new Error
 
 unhandled exception info
-result.number=0
 result.description=
+result.number=0
 result.stack=Error
    at Global code (:1:1)
     Uncaught exception:
@@ -496,6 +499,8 @@ PASS: TestOnScriptErrorGetsExpectedErrorOnExplicitThrow
 	    throw new EvalError
 
 unhandled exception info
+result.description=undefined
+result.number=undefined
 result.stack=EvalError
    at Global code (:1:1)
     Uncaught exception:
@@ -513,6 +518,8 @@ PASS: TestOnScriptErrorGetsExpectedEvalErrorOnExplicitThrow
 	    throw new RangeError
 
 unhandled exception info
+result.description=undefined
+result.number=undefined
 result.stack=RangeError
    at Global code (:1:1)
     Uncaught exception:
@@ -549,6 +556,8 @@ PASS: TestOnScriptErrorGetsExpectedRangeErrorOnArrayLengthSetNegative
 	    throw new ReferenceError
 
 unhandled exception info
+result.description=undefined
+result.number=undefined
 result.stack=ReferenceError
    at Global code (:1:1)
     Uncaught exception:
@@ -566,6 +575,8 @@ PASS: TestOnScriptErrorGetsExpectedReferenceErrorOnExplicitThrow
 	    throw new SyntaxError
 
 unhandled exception info
+result.description=undefined
+result.number=undefined
 result.stack=SyntaxError
    at Global code (:1:1)
     Uncaught exception:
@@ -602,6 +613,8 @@ PASS: TestOnScriptErrorGetsExpectedSyntaxErrorOnBadInput
 	    throw new TypeError
 
 unhandled exception info
+result.description=undefined
+result.number=undefined
 result.stack=TypeError
    at Global code (:1:1)
     Uncaught exception:
@@ -619,6 +632,8 @@ PASS: TestOnScriptErrorGetsExpectedTypeErrorOnExplicitThrow
 	    throw new URIError
 
 unhandled exception info
+result.description=undefined
+result.number=undefined
 result.stack=URIError
    at Global code (:1:1)
     Uncaught exception:
@@ -648,6 +663,9 @@ result.8=r
 result.9=r
 result.10=o
 result.11=r
+result.description=undefined
+result.number=undefined
+result.stack=undefined
     Uncaught exception:
 	exInfo.errorType.typeNumber: 7
 	exInfo.errorType.typeText: Custom error
@@ -665,6 +683,9 @@ PASS: TestOnScriptErrorGetsExpectedCustomErrorOnThrowString
 unhandled exception info
 result.a=aaa
 result.b=bbb
+result.description=undefined
+result.number=undefined
+result.stack=undefined
     Uncaught exception:
 	exInfo.errorType.typeNumber: 7
 	exInfo.errorType.typeText: Custom error
@@ -1073,6 +1094,7 @@ PASS: TestOnScriptErrorGetsExpectedStackTraceOnOOMSO2
 
 unhandled exception info
 result.description=Thrown from baz
+result.number=undefined
 result.stack=Error: Thrown from baz
    at baz (:15:16)
    at foo3 (:11:5)
@@ -1124,6 +1146,7 @@ PASS: TestOnScriptErrorGetsExpectedStackTraceOnNestedThrow
 
 unhandled exception info
 result.description=Thrown from baz
+result.number=undefined
 result.stack=Error: Thrown from baz
    at baz (:25:16)
    at foo3 (:21:5)
@@ -1172,6 +1195,7 @@ PASS: TestOnScriptErrorGetsExpectedStackTraceOnNestedThrowWithFinally
 
 unhandled exception info
 result.description=Thrown from baz
+result.number=undefined
 result.stack=Error: Thrown from baz
    at baz (:22:16)
    at foo3 (:13:9)
@@ -1232,6 +1256,7 @@ PASS: TestOnScriptErrorGetsExpectedStackTraceOnReThrow
 
 unhandled exception info
 result.description=reThrown from baz
+result.number=undefined
 result.stack=Error: reThrown from baz
    at baz (:29:16)
    at foo3 (:20:9)
@@ -1292,6 +1317,8 @@ PASS: TestOnScriptErrorGetsExpectedStackTraceOnReThrowSO
             foo();
 
 unhandled exception info
+result.description=undefined
+result.number=undefined
 result.stack=RangeError
    at evalbar (eval code:1:22)
    at evalfoo (eval code:1:69)
@@ -1437,6 +1464,7 @@ PASS: TestOnScriptErrorGetsExpectedStackTraceOnSO3
 unhandled exception info
 result.description=Out of memory
 result.number=-2146828281
+result.stack=undefined
     Uncaught exception:
 	exInfo.bstrDescription: Out of memory
 	expected stack frame count 1, got: 1
@@ -1478,6 +1506,7 @@ PASS: TestOnScriptErrorGetsExpectedStackTraceOnOOM
 unhandled exception info
 result.description=Out of memory
 result.number=-2146828281
+result.stack=undefined
     Uncaught exception:
 	exInfo.bstrDescription: Out of memory
 	expected stack frame count > 20, got: at least that

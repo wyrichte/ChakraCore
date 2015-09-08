@@ -1056,7 +1056,7 @@
     <default>
       <files>MemoryLeaks.js</files>
       <baseline>MemoryLeaks.baseline</baseline>
-      <compile-flags></compile-flags>
+      <compile-flags>-CollectGarbage</compile-flags>
       <tags>exclude_win7,exclude_amd64</tags>
     </default>
   </test>
@@ -1064,7 +1064,7 @@
     <default>
       <files>MemoryLeaks.js</files>
       <baseline>MemoryLeaks.baseline</baseline>
-      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <compile-flags>-NoWinRTFastSig -CollectGarbage</compile-flags>
       <tags>exclude_win7,exclude_fre,exclude_amd64</tags>
     </default>
   </test>
@@ -1432,7 +1432,7 @@ Re-enable with new baseline
     <default>
       <files>msGetSetWeakWinRTProperty.js</files>
       <baseline>msGetSetWeakWinRTProperty.baseline</baseline>
-      <compile-flags></compile-flags>
+      <compile-flags>-CollectGarbage</compile-flags>
       <tags>exclude_win7</tags>
     </default>
   </test>
@@ -1441,7 +1441,7 @@ Re-enable with new baseline
     <default>
       <files>msGetSetWeakWinRTProperty.js</files>
       <baseline>msGetSetWeakWinRTProperty.baseline</baseline>
-      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <compile-flags>-NoWinRTFastSig -CollectGarbage</compile-flags>
       <tags>exclude_win7,exclude_fre</tags>
     </default>
   </test>

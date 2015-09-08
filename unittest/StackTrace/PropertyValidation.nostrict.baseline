@@ -1,7 +1,4 @@
 Properties of e:
-    description
-    number
-    stack
 
 e.number: -2146823279
 e.stack: ReferenceError: 'BadType' is undefined
@@ -16,9 +13,6 @@ Deleting e.stack ...
 e.stack after delete:
 undefined
 Properties of e:
-    description
-    number
-    stack
 
 e.number: -2146823279
 e.stack: ReferenceError: 'BadType' is undefined

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-  <!--<test>
+  <test>
     <default>
       <files>AsyncAwait-syntax.js</files>
       <compile-flags>-es6experimental -nodeferparse -args summary -endargs</compile-flags>
@@ -25,7 +25,7 @@
       <compile-flags>-es6experimental -forcedeferparse -args summary -endargs</compile-flags>
       <baseline>AsyncAwait-functionality.baseline</baseline>
     </default>
-  </test>-->
+  </test>
   <test>
     <default>
       <files>lambda1.js</files>

@@ -1,8 +1,8 @@
 DIRS =  RecyclerTest{!EXCLUDE_IE_MAIN,!min_rt,nonprod} \
-        jshost{!min_rt,noncrit} \
-        gchost{!min_rt,noncrit} \
-        jdtest{!MOBILECORE,!min_rt,noncrit,!EXCLUDE_IE_MAIN} \
+        jshost{!min_rt,noncrit,!cs_xbox} \
+        gchost{!min_rt,noncrit,!cs_xbox} \
+        jdtest{!MOBILECORE,!min_rt,noncrit,!EXCLUDE_IE_MAIN,!cs_xbox} \
         Chakra \
-        Microsoft.JavaScript{!MOBILECORE,!EXCLUDE_IE_MAIN} \
+        Microsoft.JavaScript{!MOBILECORE,!EXCLUDE_IE_MAIN,!cs_xbox} \
         ChakraDiag \
         ChakraThunk \

@@ -318,17 +318,17 @@ var tests = [
             rejectAwaitMethod(2).then(result => {
                 echo(`Test #${index} - Failed await in an async function doesn't catch a rejected Promise. Result = '${result}'`);
             }, err => {
-                echo(`Test #${index} - Success await in an async function catch a rejected Promise. Error = '${err}'`);
+                echo(`Test #${index} - Success await in an async function catch a rejected Promise in 'err'. Error = '${err}'`);
             }).catch(err => {
-                echo(`Test #${index} - Success await in an async function catch a rejected Promise. Error = '${err}'`);
+                echo(`Test #${index} - Success await in an async function catch a rejected Promise in 'catch'. Error = '${err}'`);
             });
 
             throwAwaitMethod(2).then(result => {
                 echo(`Test #${index} - Failed await in an async function doesn't catch an error. Result = '${result}'`);
             }, err => {
-                echo(`Test #${index} - Success await in an async function catch an error. Error = '${err}'`);
+                echo(`Test #${index} - Success await in an async function catch an error in 'err'. Error = '${err}'`);
             }).catch(err => {
-                echo(`Test #${index} - Success await in an async function catch an error. Error = '${err}'`);
+                echo(`Test #${index} - Success await in an async function catch an error in 'catch'. Error = '${err}'`);
             });
         }
     },
@@ -392,9 +392,9 @@ var tests = [
                 asyncMethod().then(result => {
                     echo(`Test #${index} - Failed async function with default arguments's value has not been rejected as expected #2 called with result = '${result}'`);
                 }, err => {
-                    echo(`Test #${index} - Success async function with default arguments's value has been rejected as expected #2 called with err = '${err}'`);
+                    echo(`Test #${index} - Success async function with default arguments's value has been rejected as expected by 'err' #2 called with err = '${err}'`);
                 }).catch(err => {
-                    echo(`Test #${index} - Success async function with default arguments's value has been rejected as expected #2 called with err = '${err}'`);
+                    echo(`Test #${index} - Success async function with default arguments's value has been rejected as expected by 'catch' #2 called with err = '${err}'`);
                 });
 
                 secondAsyncMethod().then(result => {
@@ -403,6 +403,64 @@ var tests = [
                     echo(`Test #${index} - Error async function with default arguments's value #3 called with err = ${err}`);
                 }).catch(err => {
                     echo(`Test #${index} - Catch async function with default arguments's value #3 called with err = ${err}`);
+                });
+            };
+        }
+    },
+    {
+        name: "Promise in an Async function",
+        body: function (index) {
+            {
+                async function asyncMethodResolved() {
+                    let p = new Promise(function (resolve, reject) {
+                        resolve("resolved");
+                    });
+
+                    return p.then(function (result) {
+                        return result;
+                    });
+                }
+
+                async function asyncMethodResolvedWithAwait() {
+                    let p = new Promise(function (resolve, reject) {
+                        resolve("resolved");
+                    });
+
+                    return await p;
+                }
+
+                async function asyncMethodRejected() {
+                    let p = new Promise(function (resolve, reject) {
+                        reject("rejected");
+                    });
+
+                    return p.then(function (result) {
+                        return result;
+                    });
+                }
+
+                asyncMethodResolved().then(result => {
+                    echo(`Test #${index} - Success resolved promise in an async function #1 called with result = '${result}'`);
+                }, err => {
+                    echo(`Test #${index} - Error resolved promise in an async function #1 called with err = ${err}`);
+                }).catch(err => {
+                    echo(`Test #${index} - Catch resolved promise in an async function #1 called with err = ${err}`);
+                });
+
+                asyncMethodResolvedWithAwait().then(result => {
+                    echo(`Test #${index} - Success resolved promise in an async function #2 called with result = '${result}'`);
+                }, err => {
+                    echo(`Test #${index} - Error resolved promise in an async function #2 called with err = ${err}`);
+                }).catch(err => {
+                    echo(`Test #${index} - Catch resolved promise in an async function #2 called with err = ${err}`);
+                });
+
+                asyncMethodRejected().then(result => {
+                    echo(`Test #${index} - Failed promise in an async function has not been rejected as expected #3 called with result = '${result}'`);
+                }, err => {
+                    echo(`Test #${index} - Success promise in an async function has been rejected as expected by 'err' #3 called with err = '${err}'`);
+                }).catch(err => {
+                    echo(`Test #${index} - Success promise in an async function has been rejected as expected by 'catch' #3 called with err = '${err}'`);
                 });
             };
         }

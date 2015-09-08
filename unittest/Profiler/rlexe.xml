@@ -11,7 +11,7 @@
     <default>
       <files>basictest.js</files>
       <baseline>basictest_rundown.baseline</baseline>
-      <compile-flags>-AutomaticSourceRundown -ForceCleanCacheOnCollect -off:simpleJit</compile-flags>
+      <compile-flags>-AutomaticSourceRundown -ForceCleanCacheOnCollect -off:simpleJit -CollectGarbage</compile-flags>
     </default>
   </test>
   <test>
