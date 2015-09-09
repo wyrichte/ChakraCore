@@ -4,7 +4,6 @@
     <ChakraRootDirectory>$(MSBuildThisFileDirectory)..\</ChakraRootDirectory>
     <ChakraCoreRootDirectory>$(ChakraRootDirectory)core\</ChakraCoreRootDirectory>
     <ChakraCoreBuildDirectory>$(ChakraCoreRootDirectory)Build\</ChakraCoreBuildDirectory>
-    <RazzleToolSdkIncDirectory>$(RazzleToolPath)\public\sdk\inc\</RazzleToolSdkIncDirectory>
         
     <BuildConfig_ARMASM_Path>$(ChakraCoreBuildDirectory)</BuildConfig_ARMASM_Path>
     <BuildConfigPropsPath>$(MSBuildThisFileDirectory)</BuildConfigPropsPath>

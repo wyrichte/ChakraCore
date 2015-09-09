@@ -180,9 +180,7 @@
     <ClInclude Include="WScriptJsrt.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="JsHost.rc">
-      <AdditionalIncludeDirectories>$(RazzleToolSdkIncDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
+    <ResourceCompile Include="JsHost.rc" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="JsHostScriptSite.idl">

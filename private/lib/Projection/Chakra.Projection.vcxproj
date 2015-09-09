@@ -45,7 +45,7 @@
         $(PublicInternalPath)\com\inc\midlrt;
 
         <!-- For winrtobjectprobe.h in ProjectionObjectInstance.cpp -->
-        $(ComIncPath)
+        $(ComIncPath);
 
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>

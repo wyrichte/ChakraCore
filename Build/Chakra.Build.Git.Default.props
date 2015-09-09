@@ -7,8 +7,7 @@
     <!-- How do we deal with versioning here?? -->
     <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.5</PUBLIC_ROOT>
     <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.1.0.3</RazzleToolPath>
-    <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.1.0.4</IELibPath>
-    <RazzleToolSdkIncDirectory>$(RazzleToolPath)\public\sdk\inc\</RazzleToolSdkIncDirectory>
+    <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.1.0.4</IELibPath>    
 
     <ObjectDirectory Condition="'$(Configuration)'=='Debug'">objchk\$(PlatformPathNameAlt)\</ObjectDirectory>
     <ObjectDirectory Condition="'$(Configuration)'!='Debug'">objfre\$(PlatformPathNameAlt)\</ObjectDirectory>
@@ -17,12 +16,21 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>
-        %(AdditionalIncludeDirectories);
+      <AdditionalIncludeDirectories>        
+        <!-- For ntverp.h -->
         $(RazzleToolPath)\public\sdk\inc;
+        <!-- For devtbhost.h and ScriptProjectionHost.hxx -->
         $(IELibPath);
+        %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
     </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>
+        <!-- For ntverp.h -->
+        $(RazzleToolPath)\public\sdk\inc;
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <!-- Git always depends on the nuget project -->
   <ItemGroup>

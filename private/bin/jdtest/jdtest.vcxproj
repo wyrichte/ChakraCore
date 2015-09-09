@@ -40,7 +40,7 @@
         $(ChakraPublishIntDir);
         $(ChakraCoreRootDirectory)lib\runtime\types;
 
-        $(SdkToolsIncPath)
+        $(SdkToolsIncPath);
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
