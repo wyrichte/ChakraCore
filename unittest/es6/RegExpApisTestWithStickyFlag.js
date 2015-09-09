@@ -134,6 +134,23 @@ var tests = [
     }
   },   
   {
+    name: "RegExp.replace() - returns the input string as it is when lastIndex >= input length and replaceValue is a string",
+    body: function () {
+        var str = "abc";
+        var re = /a/y;
+        var lastIndex = str.length;
+        re.lastIndex = lastIndex;
+
+        var result = str.replace(re, "1");
+
+        var messageBase = "Input length: " + str.length + ", lastIndex = " + lastIndex;
+        var message = messageBase + ", result";
+        assert.areEqual(str, result, message);
+        var message = messageBase + ", lastIndex after replace()";
+        assert.areEqual(0, re.lastIndex, message);
+    }
+  },
+  {
     name: "RegExp.split() - ignores sticky flag if created via literal",
     body: function () {
         var re = /a,/y;
