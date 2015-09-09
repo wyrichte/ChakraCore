@@ -61,8 +61,7 @@ namespace Js
     class HostLogger;                       // Used by ThreadContext.h
     class PropertyString;                   // Used by ScriptContext.h
     class TypePath;                         // Used by ScriptContext.h
-    class RegexPatternMruMap;               // Used by ScriptContext.h
-    struct ArrLogRec;                       // Used by ScriptContext.h
+    class RegexPatternMruMap;               // Used by ScriptContext.h    
     struct IDebugDocumentContext;           // Used by ScriptContext.h
     enum SideEffects;                       // Used by ScriptContext.h
     class StaticType;                       // Used by JavascriptNumber.h
