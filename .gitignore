@@ -27,3 +27,5 @@ sd.ini
 *.vcxproj.user
 *.pyc
 __pycache__/*
+*.orig
+
