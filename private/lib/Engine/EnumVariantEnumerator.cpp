@@ -8,7 +8,7 @@ EnumVariantEnumerator::EnumVariantEnumerator(ScriptSite* scriptSite, IEnumVARIAN
     JavascriptEnumerator(scriptSite->GetScriptSiteContext()),
     scriptSite(scriptSite),
     enumerator(enumerator),
-    currentItem(null),
+    currentItem(nullptr),
     fetched(false)
 {
 }
@@ -46,7 +46,7 @@ BOOL EnumVariantEnumerator::MoveNext(Js::PropertyAttributes* attributes)
     HRESULT      hr;
     VARIANT      varItem = { VT_EMPTY };
 
-    currentItem = null;
+    currentItem = nullptr;
     fetched = false;
     
     if (NULL == enumerator)
@@ -75,7 +75,7 @@ void EnumVariantEnumerator::Reset()
 {
     HRESULT      hr;
 
-    currentItem = null;
+    currentItem = nullptr;
     fetched = false;
 
     if (NULL == enumerator)

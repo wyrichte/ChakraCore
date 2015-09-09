@@ -31,7 +31,7 @@ namespace JsDiag
                     context->GetReader(),
                     ToTargetPtr()->bufferOwner + 1,
                     ToTargetPtr()->charLength * sizeof(wchar_t))
-                : null)
+                : nullptr)
     {
     }
 
@@ -179,7 +179,7 @@ namespace JsDiag
     #endif
                 {
                     remoteStringAddress = static_cast<JavascriptString *>(pointer2);
-                    pointer2 = null;
+                    pointer2 = nullptr;
                 }
 
                 CharCount startIndex, copyCharLength;

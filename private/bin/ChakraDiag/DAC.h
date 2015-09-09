@@ -435,7 +435,7 @@ namespace JsDiag
                         EntryType currentEntry = m_entries[currentIndex];
                         RemoteRecyclerWeakReference<TKey> weakKey(m_reader, currentEntry.key);
                         TKey * key = weakKey.Get();
-                        if(key != null)
+                        if(key != nullptr)
                         {
                             fn(key, currentEntry.value);
                         }

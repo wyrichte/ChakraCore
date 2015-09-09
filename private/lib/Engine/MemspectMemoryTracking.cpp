@@ -32,7 +32,7 @@ private:
     static HArena recyclerArena;
     
 public:
-    static bool IsActive() { return _ArenaCreate != null; }
+    static bool IsActive() { return _ArenaCreate != nullptr; }
 
     static void EnsureRecyclerArena() 
     {
@@ -40,7 +40,7 @@ public:
 
         if (!recyclerArena)
         {
-            recyclerArena = _ArenaCreate(null, L"Recycler", 0);
+            recyclerArena = _ArenaCreate(nullptr, L"Recycler", 0);
         }
     }
 
@@ -147,7 +147,7 @@ public:
                     else 
                     {
                         // ArenaCreate is used as the flag to indicate whether MEMSPECT.DLL was successfully loaded.
-                        _ArenaCreate = null;
+                        _ArenaCreate = nullptr;
                     }
                 }
             }
@@ -159,19 +159,19 @@ public:
 };
 
 bool MemspectMemoryTracker::_loadTried = false;
-MemspectMemoryTracker::TArenaCreate MemspectMemoryTracker::_ArenaCreate = null;
-MemspectMemoryTracker::TArenaAllocation MemspectMemoryTracker::_ArenaAllocation = null;
-MemspectMemoryTracker::TArenaFree MemspectMemoryTracker::_ArenaFree = null;
-//MemspectMemoryTracker::TArenaMark MemspectMemoryTracker::_ArenaMark = null;
-MemspectMemoryTracker::TArenaRelease MemspectMemoryTracker::_ArenaRelease = null;
-MemspectMemoryTracker::TArenaDestroy MemspectMemoryTracker::_ArenaDestroy = null;
-MemspectMemoryTracker::HArena MemspectMemoryTracker::recyclerArena = null;
+MemspectMemoryTracker::TArenaCreate MemspectMemoryTracker::_ArenaCreate = nullptr;
+MemspectMemoryTracker::TArenaAllocation MemspectMemoryTracker::_ArenaAllocation = nullptr;
+MemspectMemoryTracker::TArenaFree MemspectMemoryTracker::_ArenaFree = nullptr;
+//MemspectMemoryTracker::TArenaMark MemspectMemoryTracker::_ArenaMark = nullptr;
+MemspectMemoryTracker::TArenaRelease MemspectMemoryTracker::_ArenaRelease = nullptr;
+MemspectMemoryTracker::TArenaDestroy MemspectMemoryTracker::_ArenaDestroy = nullptr;
+MemspectMemoryTracker::HArena MemspectMemoryTracker::recyclerArena = nullptr;
 
 // Arena Tracking
 
 typedef JsUtil::BaseDictionary<Allocator *, MemspectMemoryTracker::HArena, HeapAllocator, PrimeSizePolicy, RecyclerPointerComparer> ArenaMap;
 
-ArenaMap* arenaMap = null;
+ArenaMap* arenaMap = nullptr;
 
 bool arenaMemoryTrackingEnabled = false;
 void ArenaMemoryTracking::Activate()
@@ -198,7 +198,7 @@ MemspectMemoryTracker::HArena FindTracker(Allocator *arena)
     MemspectMemoryTracker::HArena result = (MemspectMemoryTracker::HArena)0;
     if (arenaMap)
     {
-        result = arenaMap->Lookup(arena, null);
+        result = arenaMap->Lookup(arena, nullptr);
     }
     return result;
 }
@@ -302,7 +302,7 @@ void RecyclerMemoryTracking::ReportUnallocated(Recycler * recycler, __in void* a
 
 typedef JsUtil::BaseDictionary<PageAllocator *, MemspectMemoryTracker::HArena, HeapAllocator, PrimeSizePolicy, RecyclerPointerComparer> PageTrackerMap;
 bool pageTrackingEnabled = false;
-PageTrackerMap* pageTrackerMap = null;
+PageTrackerMap* pageTrackerMap = nullptr;
 
 void PageTracking::Activate()
 {
@@ -314,7 +314,7 @@ MemspectMemoryTracker::HArena FindTracker(PageAllocator *pageAllocator)
     MemspectMemoryTracker::HArena result = (MemspectMemoryTracker::HArena)0;
     if (pageTrackerMap)
     {
-        result = pageTrackerMap->Lookup(pageAllocator, null);
+        result = pageTrackerMap->Lookup(pageAllocator, nullptr);
     }
     return result;
 }

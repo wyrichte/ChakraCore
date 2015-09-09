@@ -479,13 +479,13 @@ HRESULT ScriptDebugDocument::AddText()
     Assert(!m_isMarkedClosed);
 
 #if DBG
-    if (m_debugDocHelper == NULL)
+    if (m_debugDocHelper == nullptr)
     {
         Assert(m_pScriptBody->GetUtf8SourceInfo()->IsHostManagedSource());
     }
 #endif
 
-    if (m_debugDocHelper != NULL && m_pScriptBody->GetUtf8SourceInfo() != NULL)
+    if (m_debugDocHelper != nullptr && m_pScriptBody->GetUtf8SourceInfo() != nullptr)
     {
         Js::Utf8SourceInfo *utf8SourceInfo = m_pScriptBody->GetUtf8SourceInfo();
         if (utf8SourceInfo->HasSource()) // On Intl initialization failure the utf8Source can be nullptr
@@ -493,7 +493,7 @@ HRESULT ScriptDebugDocument::AddText()
             int32 cchLength = utf8SourceInfo->GetCchLength();
 
             AutoArrayPtr<wchar_t> sourceContent(HeapNewNoThrowArray(wchar_t, cchLength + 1), cchLength + 1);
-            if (sourceContent != null)
+            if (sourceContent != nullptr)
             {
                 utf8::DecodeIntoAndNullTerminate(sourceContent, utf8SourceInfo->GetSource(), cchLength, utf8::doAllowThreeByteSurrogates);
                 HRESULT hr = S_OK;

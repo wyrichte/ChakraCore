@@ -82,7 +82,7 @@ namespace Projection
         return HRESULT_FROM_WIN32(ERROR_STACK_OVERFLOW);                                                                                                                    \
     }                                                                                                                                                                       \
     AddRef();                                                                                                                                                               \
-    AutoCallerPointer callerPointer(scriptSite, NULL);                                                                                                                      \
+    AutoCallerPointer callerPointer(scriptSite, nullptr);                                                                                                                      \
     HRESULT hr = S_OK;                                                                                                                                                      \
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT                                                                                                                    \
     BEGIN_JS_RUNTIME_CALLROOT_EX(scriptContext, false)                                                                                                                      \
@@ -95,10 +95,10 @@ namespace Projection
     END_JS_RUNTIME_CALL(scriptContext);                                                                                                                                     \
     TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(Js::JavascriptExceptionObject *  exceptionObject)                                                                                  \
     {                                                                                                                                                                       \
-        Var errorObject = exceptionObject->GetThrownObject(null);                                                                                                           \
-        if (errorObject != NULL && (Js::JavascriptError::Is(errorObject) || Js::JavascriptError::IsRemoteError(errorObject)))                                               \
+        Var errorObject = exceptionObject->GetThrownObject(nullptr);                                                                                                           \
+        if (errorObject != nullptr && (Js::JavascriptError::Is(errorObject) || Js::JavascriptError::IsRemoteError(errorObject)))                                               \
         {                                                                                                                                                                   \
-            hr = Js::JavascriptError::GetRuntimeErrorWithScriptEnter(Js::RecyclableObject::FromVar(errorObject), NULL);                                                     \
+            hr = Js::JavascriptError::GetRuntimeErrorWithScriptEnter(Js::RecyclableObject::FromVar(errorObject), nullptr);                                                     \
                                                                                                                                                                             \
             if (Js::JavascriptErrorDebug::Is(errorObject))                                                                                                                  \
             {                                                                                                                                                               \
@@ -112,7 +112,7 @@ namespace Projection
                                                                                                                                                                             \
         if (reportError)                                                                                                                                                    \
         {                                                                                                                                                                   \
-            ScriptSite::HandleJavascriptException(exceptionObject, scriptContext, NULL);                                                                                    \
+            ScriptSite::HandleJavascriptException(exceptionObject, scriptContext, nullptr);                                                                                    \
         }                                                                                                                                                                   \
     }                                                                                                                                                                       \
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr)                                                                                                                                  \
@@ -252,7 +252,7 @@ namespace Projection
     /*                         the actual object when calling the core method                                                */                                             \
     ULONG STDMETHODCALLTYPE ClassMethodImplName(className, methodName)(IUnknown* This)                                                                                      \
     {                                                                                                                                                                       \
-        if (NULL == This)                                                                                                                                                   \
+        if (nullptr == This)                                                                                                                                                   \
         {                                                                                                                                                                   \
             return (ULONG)-1;                                                                                                                                               \
         }                                                                                                                                                                   \

@@ -234,7 +234,7 @@ namespace Js
         else
         {
             RecyclableObject* obj = RecyclableObject::FromVar(src);
-            Var enumeratorVar = null;
+            Var enumeratorVar = nullptr;
 
             if (DynamicObject::IsAnyArrayTypeId(typeId))
             {

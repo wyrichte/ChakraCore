@@ -20,7 +20,7 @@ struct DefaultValue<T*>
 {
     static T* Get()
     {
-        return null;
+        return nullptr;
     }
 };
 
@@ -167,7 +167,7 @@ public:
     NodeType* GetNode(const TKey& key)
     {
         NodeType* node = _nodes.Get(key);
-        if (node == null)
+        if (node == nullptr)
         {
             node = new NodeType;
             if (!node)
@@ -209,7 +209,7 @@ public:
     void ExportToPython(const char* filename)
     {
         FILE* f = fopen(filename, "w+");
-        if (f != null)
+        if (f != nullptr)
         {
             fprintf(f, "import networkx as nx\n");
             fprintf(f, "G = nx.DiGraph()\n");
@@ -233,7 +233,7 @@ public:
     void ExportToJs(const char* filename)
     {
         FILE* f = fopen(filename, "w+");
-        if (f != null)
+        if (f != nullptr)
         {
             this->MapNodes([&](TKey&, NodeType* node)
             {

@@ -133,7 +133,7 @@ memorymapped_tracker::~memorymapped_tracker()
 #ifdef _M_X64
     for (size_t i = 0; i < SlotCount; i++)
     {
-        if (slottable[i] != null)
+        if (slottable[i] != nullptr)
         {
             VirtualFree((void *)slottable[i], 0, MEM_RELEASE);
         }
@@ -166,7 +166,7 @@ volatile char * memorymapped_tracker::from_address(void * addr, size_t& byte, si
         printf("TEST ERROR: calculated address > slotcount.  Address was %p\n", addr);
 
     volatile char * base = slottable[slot];
-    if (base == null)
+    if (base == nullptr)
     {
         base = (char*)VirtualAlloc(0, tablesize, MEM_RESERVE|MEM_COMMIT, PAGE_READWRITE);
         if(base == 0)
@@ -217,21 +217,21 @@ void memorymapped_tracker::set_internal(void *addr, tracker_impl_base::Liveness 
     }
     // Clear the item from the stack for cleanliness since otherwise 
     // the GC could construe this object as being alive
-    addr = null; 
+    addr = nullptr; 
 }
 void memorymapped_tracker::set(void *addr)
 {
     set_internal(addr, Alive);
     // Clear the item from the stack for cleanliness since otherwise 
     // the GC could construe this object as being alive
-    addr = null; 
+    addr = nullptr; 
 }
 void memorymapped_tracker::clear(void *addr)
 {
     set_internal(addr, Dead);
     // Clear the item from the stack for cleanliness since otherwise 
     // the GC could construe this object as being alive
-    addr = null; 
+    addr = nullptr; 
 }
 
 bool memorymapped_tracker::check(void *addr)
@@ -241,7 +241,7 @@ bool memorymapped_tracker::check(void *addr)
     volatile char * table = from_address(addr, byte, bit);
     // Clear the item from the stack for cleanliness since otherwise 
     // the GC could construe this object as being alive
-    addr = null; 
+    addr = nullptr; 
 
     // TODO: thread safety
     return (table[byte] & (1<<bit)) ? true : false;
@@ -268,7 +268,7 @@ void memorymapped_tracker::dump_live()
 #ifdef _M_X64
     for (size_t i = 0; i < SlotCount; i++)
     {
-        if (slottable[i] != null)
+        if (slottable[i] != nullptr)
         {
             dump_live(i, slottable[i]);
         }

@@ -187,7 +187,7 @@ namespace Projection
                     arrayBuffer = scriptContext->GetLibrary()->CreateProjectionArraybuffer(sizeOfBlock);
                     byte *pDuplicateArrayBlock = (byte *)arrayBuffer->GetBuffer();
                     
-                    if (sizeOfBlock != 0 && pDuplicateArrayBlock == null)
+                    if (sizeOfBlock != 0 && pDuplicateArrayBlock == nullptr)
                     {
                         return E_OUTOFMEMORY;
                     }

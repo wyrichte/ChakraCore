@@ -15,7 +15,7 @@ private:
 private:
     static HRESULT EnsureImageDataType(ScriptDirect& pScriptDirect);
     static HRESULT GetOptions(ScriptDirect& pScriptDirect, CallInfo callInfo, Var* args,
-        ISCAContext** ppSCAContext, _Outptr_opt_result_maybenull_ BSTR* pFileName = NULL, unsigned int argIndex = 2);
+        ISCAContext** ppSCAContext, _Outptr_opt_result_maybenull_ BSTR* pFileName = nullptr, unsigned int argIndex = 2);
     static HRESULT GetInStream(ScriptDirect& pScriptDirect, Var data, IStream** ppStream);
 
     static HRESULT CreateMemStream(_In_reads_bytes_opt_(len) const BYTE* pb, UINT len, IStream** ppStream);

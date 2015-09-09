@@ -387,7 +387,7 @@ void JsrtContextChakra::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js
         {
             ScriptEngine * scriptEngine = this->GetScriptEngine();
             // It is safer to ensure it is deserialized at this point before createing a cscriptbody.
-            if (CONFIG_FLAG(ForceSerialized) && scriptFunction->GetFunctionProxy() != null) {
+            if (CONFIG_FLAG(ForceSerialized) && scriptFunction->GetFunctionProxy() != nullptr) {
                 scriptFunction->GetFunctionProxy()->EnsureDeserialized();
             }
             CScriptBody* pbody = HeapNew(CScriptBody, scriptFunction->GetFunctionBody(), scriptEngine, utf8SourceInfo);

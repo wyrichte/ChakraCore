@@ -1137,7 +1137,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionContext(_In_ Var instance, _O
     }
 
     // Might not have deserialized a function at this point
-    if (jsFunction->GetFunctionProxy() != null)
+    if (jsFunction->GetFunctionProxy() != nullptr)
     {
         hr = S_OK;
 
@@ -6771,7 +6771,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
 
     CompileScriptException se;
     Js::Utf8SourceInfo* sourceInfo = nullptr;
-    Js::JavascriptFunction* jsFunc = scriptContext->LoadScript(scriptText, null, &se, true /* isExpression */, false /* disableDeferredParse */, &sourceInfo, Js::Constants::UnknownScriptCode);
+    Js::JavascriptFunction* jsFunc = scriptContext->LoadScript(scriptText, nullptr, &se, true /* isExpression */, false /* disableDeferredParse */, &sourceInfo, Js::Constants::UnknownScriptCode);
 
     // TODO: is this the right way to handle these parse error?
     if (jsFunc == nullptr)
@@ -6780,7 +6780,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
         BEGIN_TRANSLATE_OOM_TO_HRESULT_NESTED
         {
             // Note: pass sourceMapUrl as null, as we don't have IActiveScriptContext for script strings for like setTimeout.
-            sourceContextInfo = this->GetSourceContextInfo(Js::Constants::NoHostSourceContext, wcslen(scriptText), /*isDynamicDocument*/ FALSE , /*sourceMapUrl=*/NULL, /*profileDataCache=*/ nullptr);
+            sourceContextInfo = this->GetSourceContextInfo(Js::Constants::NoHostSourceContext, wcslen(scriptText), /*isDynamicDocument*/ FALSE , /*sourceMapUrl=*/nullptr, /*profileDataCache=*/ nullptr);
         }
         END_TRANSLATE_OOM_TO_HRESULT(hr);
         SRCINFO si = {
@@ -6812,7 +6812,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
         BEGIN_TRANSLATE_OOM_TO_HRESULT
         {
             // Assumption: LoadScript handles -ForceSerialized config option, therefore at this point we might have a defer deserialized top level function
-        if (CONFIG_FLAG(ForceSerialized) && jsFunc->GetFunctionProxy() != null){
+        if (CONFIG_FLAG(ForceSerialized) && jsFunc->GetFunctionProxy() != nullptr){
                 jsFunc->GetFunctionProxy()->EnsureDeserialized();
             }
             jsFunc->GetFunctionBody()->CheckAndRegisterFuncToDiag(scriptContext);

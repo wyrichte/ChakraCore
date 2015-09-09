@@ -931,7 +931,7 @@ STDMETHODIMP ScriptEngine::SetProjectionHost(IActiveScriptProjectionHost * host,
 #ifdef WIN8_COMPAT
 STDMETHODIMP ScriptEngine::SetProjectionHost(IActiveScriptProjectionHost * host, BOOL isConfigurable, DWORD targetVersion)
 {
-    return this->SetProjectionHost(host, isConfigurable, targetVersion, null);
+    return this->SetProjectionHost(host, isConfigurable, targetVersion, nullptr);
 }
 #endif
 

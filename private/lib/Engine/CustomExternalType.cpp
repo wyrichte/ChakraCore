@@ -30,7 +30,7 @@ namespace Js
         }
         if (FAILED(this->GetTypeOperations()->GetFinalizer(&finalizer)))
         {
-            finalizer = null;
+            finalizer = nullptr;
         }
         IUnknown* defaultOperators = nullptr;
         if (NOERROR == this->operations->QueryInterface(
@@ -953,7 +953,7 @@ namespace Js
                 if (SUCCEEDED(hr))
                 {
                     varEnumerator->Release();
-                    if (*enumerator == null)
+                    if (*enumerator == nullptr)
                     {
                         *enumerator = requestContext->GetLibrary()->GetNullEnumerator();
                     }

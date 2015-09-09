@@ -14,11 +14,11 @@ namespace Js
         {
             if (GetScriptContext()->IsInDebugMode())
             {
-                JavascriptExceptionObject *exception = null;
+                JavascriptExceptionObject *exception = nullptr;
                 try
                 {
                     GetScriptContext()->GetDebugContext()->GetProbeContainer()->SetThrowIsInternal(true);
-                    HostDispatch::HandleDispatchError(GetScriptContext(), hr, NULL);
+                    HostDispatch::HandleDispatchError(GetScriptContext(), hr, nullptr);
                 }
                 catch (JavascriptExceptionObject *exception_)
                 {
@@ -35,7 +35,7 @@ namespace Js
             }
             else
             {
-                HostDispatch::HandleDispatchError(GetScriptContext(), hr, NULL);
+                HostDispatch::HandleDispatchError(GetScriptContext(), hr, nullptr);
             }
         }
     }

@@ -44,12 +44,12 @@ HRESULT ScriptEngine::SinkEventsOfNamedItems(long eventHandlerID)
     Assert(eventHandlerID >= 0);
     IDispatch* dispatch;
 
-    if (eventHandlers == NULL)
+    if (eventHandlers == nullptr)
     {
         return S_OK;
     }
 
-    if (eventHandlers == NULL || eventHandlers->Count() <= eventHandlerID)
+    if (eventHandlers == nullptr || eventHandlers->Count() <= eventHandlerID)
     {
         return NOERROR;
     }
@@ -83,7 +83,7 @@ HRESULT ScriptEngine::SinkEventsOfNamedItems(long eventHandlerID)
                 if (dispatch == eventSinks->Item(i)->GetDispatch())
                 {
                     Js::DynamicObject * dynamicObject = eventHandler->GetScriptObject();
-                    if (dynamicObject == null)
+                    if (dynamicObject == nullptr)
                     {
                         return E_ACCESSDENIED;
                     }
@@ -103,12 +103,12 @@ Named Item based event handler.
 NamedEventHandler::NamedEventHandler(void)
 {
     refCount = 1;
-    m_pos = NULL;
-    m_pnid = NULL;
-    m_pszSubItem = NULL;
-    eventHandlerName = NULL;
-    scriptBody = NULL;
-    m_pdisp = NULL;
+    m_pos = nullptr;
+    m_pnid = nullptr;
+    m_pszSubItem = nullptr;
+    eventHandlerName = nullptr;
+    scriptBody = nullptr;
+    m_pdisp = nullptr;
     shouldPersist = FALSE;
     m_fTried = FALSE;
 }
@@ -116,18 +116,18 @@ NamedEventHandler::NamedEventHandler(void)
 
 NamedEventHandler::~NamedEventHandler(void)
 {
-    if (NULL != m_pszSubItem)
+    if (nullptr != m_pszSubItem)
         free((LPVOID)m_pszSubItem);
-    if (NULL != eventHandlerName)
+    if (nullptr != eventHandlerName)
         free((LPVOID)eventHandlerName);
-    if (NULL != scriptObject)
+    if (nullptr != scriptObject)
     {
         ScriptSite* scriptSite = m_pos->GetScriptSiteHolder();
         scriptObject.Unroot(scriptSite->GetRecycler());
     }
-    if (NULL != scriptBody)
+    if (nullptr != scriptBody)
         scriptBody->Release();
-    if (NULL != m_pdisp)
+    if (nullptr != m_pdisp)
         m_pdisp->Release();
 }
 
@@ -150,13 +150,13 @@ HRESULT NamedEventHandler::Create(
 
     HRESULT hr;
 
-    if (NULL == (*ppneh = HeapNewNoThrow(NamedEventHandler)))
+    if (nullptr == (*ppneh = HeapNewNoThrow(NamedEventHandler)))
         return HR(E_OUTOFMEMORY);
     if (FAILED(hr = (*ppneh)->Init(pos, pnid, pszSubItem, pszEvt, pbody,
         fPersist)))
     {
         (*ppneh)->Release();
-        *ppneh = NULL;
+        *ppneh = nullptr;
         return hr;
     }
     return NOERROR;
@@ -174,9 +174,9 @@ HRESULT NamedEventHandler::Init(ScriptEngine *pos, NamedItem *pnid,
 
     m_pos = pos;
     m_pnid = pnid;
-    if (NULL == pszSubItem)
-        m_pszSubItem = NULL;
-    else if (NULL == (m_pszSubItem = ostrdup(pszSubItem)))
+    if (nullptr == pszSubItem)
+        m_pszSubItem = nullptr;
+    else if (nullptr == (m_pszSubItem = ostrdup(pszSubItem)))
         return HR(E_OUTOFMEMORY);
     if (NULL == (eventHandlerName = ostrdup(pszEvt)))
         return HR(E_OUTOFMEMORY);
@@ -190,14 +190,14 @@ HRESULT NamedEventHandler::Init(ScriptEngine *pos, NamedItem *pnid,
 
 IDispatch* NamedEventHandler::GetDispatch(void)
 {
-    if (m_pdisp != NULL)
+    if (m_pdisp != nullptr)
     {
         return m_pdisp;
     }
     m_fTried = TRUE;
 
     if (FAILED(m_pos->GetObjectOfItem(&m_pdisp, m_pnid, m_pszSubItem)))
-        m_pdisp = NULL;
+        m_pdisp = nullptr;
 
     return m_pdisp;
 }
@@ -207,11 +207,11 @@ Js::DynamicObject* NamedEventHandler::GetScriptObject(void)
 {
     ScriptSite *scriptSite;
 
-    if (NULL != scriptObject)
+    if (nullptr != scriptObject)
         return scriptObject;
 
-    if (NULL == (scriptSite = m_pos->GetScriptSiteHolder()))
-        return NULL;
+    if (nullptr == (scriptSite = m_pos->GetScriptSiteHolder()))
+        return nullptr;
 
     this->scriptObject.Root(scriptBody->CreateEntryPoint(scriptSite), scriptSite->GetRecycler());    
     return scriptObject;
@@ -220,18 +220,18 @@ Js::DynamicObject* NamedEventHandler::GetScriptObject(void)
 
 HRESULT NamedEventHandler::Reset(void)
 {
-    if (NULL != scriptBody)
+    if (nullptr != scriptBody)
     {
         scriptBody->Release();
-        scriptBody = NULL;
+        scriptBody = nullptr;
     }
-    if (NULL != m_pdisp)
+    if (nullptr != m_pdisp)
     {
         m_pdisp->Release();
-        m_pdisp = NULL;
+        m_pdisp = nullptr;
     }
 
-    if (NULL != scriptObject)
+    if (nullptr != scriptObject)
     {
         ScriptSite* scriptSite = m_pos->GetScriptSiteHolder();
         scriptObject.Unroot(scriptSite->GetRecycler());        
@@ -250,31 +250,31 @@ HRESULT NamedEventHandler::Clone(__in ScriptEngine *pos, __out BaseEventHandler 
     NamedEventHandler *eventHandlerNew;
     HRESULT hr;
 
-    *ppeh = NULL;
-    if (NULL == (eventHandlerNew = HeapNewNoThrow(NamedEventHandler)))
+    *ppeh = nullptr;
+    if (nullptr == (eventHandlerNew = HeapNewNoThrow(NamedEventHandler)))
         return E_OUTOFMEMORY;
 
     eventHandlerNew->m_pos = pos;
-    if (NULL == (eventHandlerNew->m_pnid = pos->FindNamedItem(m_pnid->bstrItemName)))
+    if (nullptr == (eventHandlerNew->m_pnid = pos->FindNamedItem(m_pnid->bstrItemName)))
     {
         hr = HR(E_UNEXPECTED);
         goto LFail;
     }
-    if (NULL == m_pszSubItem)
+    if (nullptr == m_pszSubItem)
     {
-        eventHandlerNew->m_pszSubItem = NULL;
+        eventHandlerNew->m_pszSubItem = nullptr;
     }
-    else if (NULL == (eventHandlerNew->m_pszSubItem = ostrdup(m_pszSubItem)))
-    {
-        hr = HR(E_OUTOFMEMORY);
-        goto LFail;
-    }
-    if (NULL == (eventHandlerNew->eventHandlerName = ostrdup(eventHandlerName)))
+    else if (nullptr == (eventHandlerNew->m_pszSubItem = ostrdup(m_pszSubItem)))
     {
         hr = HR(E_OUTOFMEMORY);
         goto LFail;
     }
-    if (NULL == (eventHandlerNew->scriptBody = scriptBody->Clone(pos)))
+    if (nullptr == (eventHandlerNew->eventHandlerName = ostrdup(eventHandlerName)))
+    {
+        hr = HR(E_OUTOFMEMORY);
+        goto LFail;
+    }
+    if (nullptr == (eventHandlerNew->scriptBody = scriptBody->Clone(pos)))
     {
         hr = HR(E_OUTOFMEMORY);
         goto LFail;

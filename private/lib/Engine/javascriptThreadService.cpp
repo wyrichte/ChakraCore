@@ -130,8 +130,8 @@ BOOL JavascriptThreadService::Initialize(void)
 
 HRESULT JavascriptThreadService::OnFinishMarkTaskComplete(void)
 {
-    Assert(this->idleTaskHost != null);
-    Assert(this->finishConcurrentTask != null);
+    Assert(this->idleTaskHost != nullptr);
+    Assert(this->finishConcurrentTask != nullptr);
     Assert(this->isIdleTaskScheduled == true); // We reuse the timer flag to indicate that the idle task has been scheduled
 
     this->SetIdleTaskState(IdleTaskState::Completed);
@@ -614,7 +614,7 @@ STDMETHODIMP JavascriptThreadService::OnEvent(_In_ EventId eventId, _In_ VARIANT
 bool 
 JavascriptThreadService::SetTelemetryBlock(ActiveScriptTelemetryBlock * block)
 {
-    if (externalTelemetryBlock != null)
+    if (externalTelemetryBlock != nullptr)
     {
         return externalTelemetryBlock == block;
     }
@@ -630,19 +630,19 @@ JavascriptThreadService::SetTelemetryBlock(ActiveScriptTelemetryBlock * block)
 //============================================================================================================
 BOOL JavascriptThreadService::EnsureTimerProvider()
 {
-    if (timerProvider != NULL)
+    if (timerProvider != nullptr)
     {
         return TRUE;
     }
-    if (NULL == rootTracker)
+    if (nullptr == rootTracker)
     {
         return FALSE;
     }
     HRESULT hr = rootTracker->QueryInterface(__uuidof(ITimerCallbackProvider), (void**)&timerProvider);
-    Assert(SUCCEEDED(hr) && timerProvider != NULL);
+    Assert(SUCCEEDED(hr) && timerProvider != nullptr);
     if (FAILED(hr))
     {
-        timerProvider = NULL;
+        timerProvider = nullptr;
         return FALSE;
     }
     return TRUE;
@@ -670,7 +670,7 @@ bool JavascriptThreadService::OnScheduleIdleCollect(uint ticks, bool canSchedule
 {
     HRESULT hr;
 
-    if (canScheduleAsTask && this->idleTaskHost != null)
+    if (canScheduleAsTask && this->idleTaskHost != nullptr)
     {
         // At this point, one of the following is true:
         // - Either we need to schedule an idle task because a timer isn't scheduled (idleTaskState is NeedToSchedule, isIdleTaskScheduled is false)
@@ -679,7 +679,7 @@ bool JavascriptThreadService::OnScheduleIdleCollect(uint ticks, bool canSchedule
         if (this->idleTaskState == IdleTaskState::NeedToSchedule)
         {
             Assert(this->isIdleTaskScheduled == false);
-            Assert(this->finishConcurrentTask != null);
+            Assert(this->finishConcurrentTask != nullptr);
 
             // If scheduling the idle task fails, fallback to the timer
             if (SUCCEEDED(this->idleTaskHost->AddIdleTask(this->finishConcurrentTask)))

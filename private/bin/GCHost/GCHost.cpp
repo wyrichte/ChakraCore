@@ -150,7 +150,7 @@ void MemProtectFillAndClearArray(void* gcHandle, int** allocs, const int k_alloc
         }
 
         allocs[i] = allocation;
-        if (allocation != null)
+        if (allocation != nullptr)
         {
             *allocation = i;
         }
@@ -161,7 +161,7 @@ void MemProtectFillAndClearArray(void* gcHandle, int** allocs, const int k_alloc
     for (int i = 0; i < k_allocCount; i++)
     {
         int* allocation = allocs[i];
-        if (allocation != null)
+        if (allocation != nullptr)
         {
             Verify(*allocation == i);
             hr = MemProtectHeapUnrootAndZero(gcHandle, allocation);

@@ -278,7 +278,7 @@ ESBuiltInTypeNameId ESBuiltInsTelemetryProvider::GetESBuiltInTypeNameId( const V
 {
     isConstructorProperty = false;
     
-    if( instance == null ) return ESBuiltInTypeNameId::_None;
+    if( instance == nullptr) return ESBuiltInTypeNameId::_None;
 
     Js::TypeId typeId = JavascriptOperators::GetTypeId( instance );
     

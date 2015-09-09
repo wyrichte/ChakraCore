@@ -45,7 +45,7 @@ Js::RecyclableObject* HostDispatch::GetModuleRootCallerObject()
     // to do the lookup. We need to walk the stack to find out which module we're running in.
     Js::ScriptContext* scriptContext = GetScriptContext();
     Js::GlobalObject* globalObject = scriptContext->GetGlobalObject();
-    Js::JavascriptFunction *func = null;
+    Js::JavascriptFunction *func = nullptr;
     if (Js::JavascriptStackWalker::GetCaller(&func, scriptContext))
     {
         // Found a JS caller. Get its module ID.

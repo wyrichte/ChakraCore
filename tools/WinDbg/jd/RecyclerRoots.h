@@ -80,7 +80,7 @@ public:
         {
             ULONG64 heapBlock = _heapBlockHelper.FindHeapBlock(address, _recycler, false);
 
-            if (heapBlock != null && _addresses.count(address) == 0)
+            if (heapBlock != NULL && _addresses.count(address) == 0)
             {
 #if DBG
                 if (g_Ext->m_PtrSize == 4)

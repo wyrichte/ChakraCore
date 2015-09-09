@@ -132,8 +132,8 @@ HRESULT GUIDParser::TryParseGUID(LPCWSTR g, GUID* result)
     }
     StrTrimW(guidStr, whitespace);
 
-    bool containsDashes = (wcschr(guidStr, '-') != NULL);
-    bool containsBraces = (wcschr(guidStr, '{') != NULL);
+    bool containsDashes = (wcschr(guidStr, '-') != nullptr);
+    bool containsBraces = (wcschr(guidStr, '{') != nullptr);
 
     if (containsDashes)
     {
@@ -161,13 +161,13 @@ HRESULT GUIDParser::TryParseHexValueExact(LPCWSTR g, int length, unsigned long* 
 
     CHeapPtr<wchar_t> destStr;
     destStr.Allocate((length+1) * sizeof(wchar_t));
-    destStr[0] = null;
+    destStr[0] = 0;
     errno_t error = wcsncat_s(destStr, (length + 1), g, length);
     if (error != 0)
     {
         return E_INVALIDARG;
     }
-    unsigned long lValue = wcstoul(destStr, null, 16);
+    unsigned long lValue = wcstoul(destStr, nullptr, 16);
 
     *value = lValue;
     return S_OK;
@@ -196,13 +196,13 @@ HRESULT GUIDParser::TryParseHexValue(LPCWSTR g, int maxLength, int* offset, unsi
 
     CHeapPtr<wchar_t> destStr;
     destStr.Allocate((index+1) * sizeof(wchar_t));
-    destStr[0] = null;
+    destStr[0] = 0;
     errno_t error = wcsncat_s(destStr, (index + 1), g, index);
     if (error != 0)
     {
         return E_INVALIDARG;
     }
-    unsigned long lValue = wcstoul(destStr, null, 16);
+    unsigned long lValue = wcstoul(destStr, nullptr, 16);
 
     *value = lValue;
     *offset = index;
@@ -212,7 +212,7 @@ HRESULT GUIDParser::TryParseHexValue(LPCWSTR g, int maxLength, int* offset, unsi
 HRESULT GUIDParser::TryParseGUIDWithHexFormat(LPCWSTR g, GUID* result)
 {
     HRESULT hr = S_OK;
-    unsigned long value = null;
+    unsigned long value = 0;
     int pos = 0;
     int offset = 0;
 
@@ -299,7 +299,7 @@ HRESULT GUIDParser::TryParseGUIDWithHexFormat(LPCWSTR g, GUID* result)
     }
 
     // Check for two closing braces and a null terminator
-    if ((guidStr[pos] != '}') || (guidStr[pos+1] != '}') || (guidStr[pos+2] != null))
+    if ((guidStr[pos] != '}') || (guidStr[pos+1] != '}') || (guidStr[pos+2] != 0))
     {
         return E_INVALIDARG;
     }
@@ -445,7 +445,7 @@ HRESULT GUIDParser::TryParseGUIDWithNoStyle(LPCWSTR g, GUID* result)
         pos += 2;
     }
 
-    if (g[pos] != null)
+    if (g[pos] != 0)
     {
         return E_INVALIDARG;
     }

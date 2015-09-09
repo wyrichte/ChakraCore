@@ -248,7 +248,7 @@ HRESULT DebugProperty::BuildExprAndEval(BSTR bstrFullName,
         if (!func)
         {
             // Clean this exception, as we are not going to report this error.
-            scriptContext->GetThreadContext()->SetRecordedException(null);
+            scriptContext->GetThreadContext()->SetRecordedException(nullptr);
         }
         else
         {
@@ -259,7 +259,7 @@ HRESULT DebugProperty::BuildExprAndEval(BSTR bstrFullName,
             }
 
             // Clean this exception, as we are not going to report this error.
-            scriptContext->GetThreadContext()->SetRecordedException(null);
+            scriptContext->GetThreadContext()->SetRecordedException(nullptr);
         }
     }
 
@@ -810,7 +810,7 @@ HRESULT DebugProperty::EnumMembers(
             return E_FAIL;
         }
 
-        WeakArenaReference<Js::IDiagObjectModelWalkerBase>* pObjectModelWalker = null;
+        WeakArenaReference<Js::IDiagObjectModelWalkerBase>* pObjectModelWalker = nullptr;
         BEGIN_TRANSLATE_OOM_TO_HRESULT
         {
             pObjectModelWalker = pModel->CreateWalker();
@@ -1179,8 +1179,8 @@ HRESULT STDMETHODCALLTYPE DebugPropertySetValueCallback::SetValue(VARIANT *pvarN
 
     // scope
     {
-        Js::WeakDiagStack* weakStack = null;
-        Js::DiagStackFrame* leafFrame = null;
+        Js::WeakDiagStack* weakStack = nullptr;
+        Js::DiagStackFrame* leafFrame = nullptr;
         BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, true)
         {
             ENFORCE_ENTRYEXITRECORD_HASCALLER(scriptContext);
@@ -1356,7 +1356,7 @@ HRESULT EnumDebugPropertyInfo::NextInternal(ULONG celt, DebugPropertyInfo *pi, U
         else
         {
             HostDispatch* pHostDisp = (HostDispatch*)resolvedObj.obj;
-            IDispatch* pDisp = NULL;
+            IDispatch* pDisp = nullptr;
             BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false)
             {
                 ENFORCE_ENTRYEXITRECORD_HASCALLER(scriptContext);
@@ -1364,7 +1364,7 @@ HRESULT EnumDebugPropertyInfo::NextInternal(ULONG celt, DebugPropertyInfo *pi, U
             }
             END_JS_RUNTIME_CALL(scriptContext)
 
-            if (NULL == pDisp)
+            if (nullptr == pDisp)
             {
                 hr = E_FAIL;
                 goto Error;
@@ -1376,7 +1376,7 @@ HRESULT EnumDebugPropertyInfo::NextInternal(ULONG celt, DebugPropertyInfo *pi, U
 
             DebugPropertySetValueCallback* pPropSetValue = new DebugPropertySetValueCallback(m_pApplicationThread, m_pScriptEngine);
 
-            if (pPropSetValue == null)
+            if (pPropSetValue == nullptr)
             {
                 hr = E_OUTOFMEMORY;
                 goto Error;
@@ -1387,7 +1387,7 @@ HRESULT EnumDebugPropertyInfo::NextInternal(ULONG celt, DebugPropertyInfo *pi, U
             if (S_OK != m_pScriptEngine->DbgCreateBrowserFromProperty(&variant, pPropSetValue, resolvedObj.name, &spDbgProp))
             {
                 pi[i].m_dwValidFields = 0;
-                pi[i].m_pDebugProp = NULL;
+                pi[i].m_pDebugProp = nullptr;
                 delete pPropSetValue;
                 hr = E_FAIL;
                 goto Error;

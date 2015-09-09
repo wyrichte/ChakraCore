@@ -23,7 +23,6 @@
 #include "dbghelp.h"
 #include "DbgEng.h"
 
-#define null NULL
 #include "thrownew.h"
 #include "BasePtr.h"
 #include "AutoPtr.h"

@@ -101,7 +101,6 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 #define JD_IS_PUBLIC    false
 #endif
 
-#define null 0
 #define PropertyDeleted         0x08
 
 #include "DataStructures\BitVector.h"

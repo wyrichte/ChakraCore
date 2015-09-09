@@ -252,9 +252,9 @@ void TestWeakReferenceHashTable(Recycler *recycler, ArenaAllocator *alloc, TestC
         {
             volatile RecyclerWeakReferenceBase* weakRef = weakReferences[j];
 
-            Assert(weakRef != null);
-            weakRef = null;
-            weakReferences[j] = null;
+            Assert(weakRef != nullptr);
+            weakRef = nullptr;
+            weakReferences[j] = nullptr;
         }
 
         recycler->CollectNow<CollectNowForceInThread>();
@@ -344,7 +344,7 @@ void TestList(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
         l.objtracker->dump();
     }
     ctx->Finish();
-    recycler->SetCheckFn(null);
+    recycler->SetCheckFn(nullptr);
     delete objtracker;
 }
 
@@ -413,7 +413,7 @@ void TestBasic2(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
         }
     }
     ctx->Finish();
-    recycler->SetCheckFn(null);
+    recycler->SetCheckFn(nullptr);
     delete objtracker;
 }
 
@@ -464,7 +464,7 @@ void TestCycles(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
     }
 
     ctx->Finish();
-    recycler->SetCheckFn(null);
+    recycler->SetCheckFn(nullptr);
     delete objtracker;
 }
 
@@ -596,12 +596,12 @@ void TestPointerSwaps(Recycler *recycler, ArenaAllocator *alloc, TestContext *ct
 
             // complete the reversal
             objtracker->allocator->update_pointer((void**)*testobjs[i], tmp);
-            objtracker->allocator->update_pointer((void**)tmp, NULL);
+            objtracker->allocator->update_pointer((void**)tmp, nullptr);
 
         }
     }
     ctx->Finish();
-    recycler->SetCheckFn(null);
+    recycler->SetCheckFn(nullptr);
     delete objtracker;
 }
 
@@ -744,7 +744,7 @@ void TestMarkSweepDynamic(Recycler* recycler,ArenaAllocator *alloc, TestContext 
         }
     }
     printf("allocated %.2fM\n",(double)totalAlloc/1000000.0);
-    recycler->SetCheckFn(null);
+    recycler->SetCheckFn(nullptr);
     ctx->Finish();
 }
 
@@ -844,7 +844,7 @@ void TestDoublyLinkedList(Recycler* recycler,ArenaAllocator* alloc, TestContext 
         newEntry->data=x;
     }
     ctx->Finish();
-    recycler->SetCheckFn(null);
+    recycler->SetCheckFn(nullptr);
 }
 
 #ifdef RECYCLER_PAGE_HEAP

@@ -281,7 +281,7 @@ Error:
                 {
                     wcscpy_s(urlBuffer, urlBufferSize, sourceName);
                 }
-                else if (sourceName != null) // remote url
+                else if (sourceName != nullptr) // remote url
                 {
                     debugSite->ReadString(sourceName, urlBuffer, urlBufferSize);
                 }

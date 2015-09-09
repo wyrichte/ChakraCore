@@ -2455,7 +2455,7 @@ ActiveScriptProfilerHeapEnum::VtableMap::~VtableMap()
 void
 ActiveScriptProfilerHeapEnum::VtableMap::Initialize()
 {
-    if (m_vtableMapHash != null)
+    if (m_vtableMapHash != nullptr)
     {
         return;
     }
@@ -2463,7 +2463,7 @@ ActiveScriptProfilerHeapEnum::VtableMap::Initialize()
     AutoCriticalSection autocs(ThreadContext::GetCriticalSection());
 
     // recheck after taking the critical section
-    if (m_vtableMapHash != null)
+    if (m_vtableMapHash != nullptr)
     {
         return;
     }

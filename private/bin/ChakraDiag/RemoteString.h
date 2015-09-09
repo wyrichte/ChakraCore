@@ -184,7 +184,7 @@ namespace JsDiag
 
         // These below are used by Copy. Derived classes that don't support these operations need to override (hide) Copy.
         int GetItemCount() const { Assert(false); return 0; }
-        JavascriptString *GetItem(const int index) const { Assert(false); return null; }
+        JavascriptString *GetItem(const int index) const { Assert(false); return nullptr; }
     };
 
     //

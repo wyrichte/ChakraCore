@@ -171,7 +171,7 @@ public:
     Recycler* GetRecycler() const { return recycler; }
     IDispatch* GetGlobalObjectDispatch() ;
     JsUtil::List<HostDispatch*, ArenaAllocator>* GetGlobalDispatches() const { return globalDispatches; }
-    IActiveScriptSiteInterruptPoll * RetrieveInterruptPoll() {IActiveScriptSiteInterruptPoll* poll = m_ppoll; m_ppoll = null; return poll; }
+    IActiveScriptSiteInterruptPoll * RetrieveInterruptPoll() {IActiveScriptSiteInterruptPoll* poll = m_ppoll; m_ppoll = nullptr; return poll; }
     void SetInterruptPoll(IActiveScriptSiteInterruptPoll* poll) {m_ppoll = poll; }
     DWORD GetTicksPerPoll() const { return ticksPerPoll; }
     void SetTicksPerPoll(DWORD ticks) { ticksPerPoll = ticks; }
@@ -299,12 +299,12 @@ public:
 
     static ScriptSite * FromScriptContext(Js::ScriptContext *);
 
-    static HRESULT HandleJavascriptException(Js::JavascriptExceptionObject* exceptionObject, Js::ScriptContext * scriptContext, IServiceProvider * pspCaller = NULL);
+    static HRESULT HandleJavascriptException(Js::JavascriptExceptionObject* exceptionObject, Js::ScriptContext * scriptContext, IServiceProvider * pspCaller = nullptr);
     static HRESULT CallRootFunction(Js::JavascriptFunction * function, Js::Arguments args, IServiceProvider * pspCaller, Var * result);
-    static HRESULT ExternalToPrimitive(Js::DynamicObject * obj, Js::JavascriptHint hint, Var * result, IServiceProvider * pspCaller = NULL);
-    static HRESULT ExternalGetPropertyReference(Js::DynamicObject* scriptObject, DISPID id, Js::Var* varMember, IServiceProvider * pspCaller = NULL);
-    static HRESULT ExternalGetProperty(Js::DynamicObject* scriptObject, DISPID id, Js::Var* varMember, IServiceProvider * pspCaller = NULL);
-    static HRESULT ExternalSetProperty(Js::DynamicObject* scriptObject, DISPID id, Js::Var value, IServiceProvider * pspCaller = NULL);
+    static HRESULT ExternalToPrimitive(Js::DynamicObject * obj, Js::JavascriptHint hint, Var * result, IServiceProvider * pspCaller = nullptr);
+    static HRESULT ExternalGetPropertyReference(Js::DynamicObject* scriptObject, DISPID id, Js::Var* varMember, IServiceProvider * pspCaller = nullptr);
+    static HRESULT ExternalGetProperty(Js::DynamicObject* scriptObject, DISPID id, Js::Var* varMember, IServiceProvider * pspCaller = nullptr);
+    static HRESULT ExternalSetProperty(Js::DynamicObject* scriptObject, DISPID id, Js::Var value, IServiceProvider * pspCaller = nullptr);
 #ifdef ENABLE_HEAP_DUMPER
     static HRESULT RegisterDebugDumpHeap(Js::ScriptContext *pContext);
 #endif
@@ -335,7 +335,7 @@ public:
 
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
     void SetupWindowHost(Js::RecyclableObject * hostObj);
-    void EnsureParentInfo(Js::ScriptContext* scriptContext = NULL);
+    void EnsureParentInfo(Js::ScriptContext* scriptContext = nullptr);
     void EnsureParentInfoWithScriptEnter();
     void SetUrl(BSTR bstrUrl);
     ScriptSite * GetParentScriptSite() { EnsureParentInfo(); return parentScriptSite; }
@@ -378,7 +378,7 @@ private:
 
 
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
-    void DumpSiteInfo(wchar_t const * message, wchar_t const * message2 = null);
+    void DumpSiteInfo(wchar_t const * message, wchar_t const * message2 = nullptr);
     friend class ProfileOnLoadCallBack;
 #endif
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
@@ -417,7 +417,7 @@ public:
 
     BOOL HasCaller()
     {
-        return scriptSite->GetCurrentCallerNoRef() != NULL;
+        return scriptSite->GetCurrentCallerNoRef() != nullptr;
     }
 
     HRESULT PushHostScriptContext()
@@ -489,7 +489,7 @@ public:
     }
 
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
-    void EnsureParentInfo(Js::ScriptContext* scriptContext = NULL) override
+    void EnsureParentInfo(Js::ScriptContext* scriptContext = nullptr) override
     {
         return scriptSite->EnsureParentInfo(scriptContext);
     }

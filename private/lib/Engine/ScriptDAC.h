@@ -40,7 +40,7 @@ namespace Js
 
     public:
         RemoteData():
-            remoteAddress(null)
+            remoteAddress(nullptr)
         {
         }
 

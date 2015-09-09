@@ -9,9 +9,9 @@
 // handy macro for checking HRESULTS.
 #define IfFailRet(EXPR) do { hr = (EXPR); if (FAILED(hr)) { return hr; }} while(FALSE)
 #define IfFailedReturn(EXPR) do { hr = (EXPR); if (FAILED(hr)) { return hr; }} while(FALSE)
-#define IFEMPTYSETNULL(p) do { if ((p) && (0 == *(p))) p = NULL; } while(0)
+#define IFEMPTYSETNULL(p) do { if ((p) && (0 == *(p))) p = nullptr; } while(0)
 #define IfNullReturnError(EXPR, ERROR) do { if (!(EXPR)) { return (ERROR); } } while(FALSE)
-#define ReleasePointer(p) do {if (p){ (p)->Release(); (p) = NULL; }} while (FALSE)
+#define ReleasePointer(p) do {if (p){ (p)->Release(); (p) = nullptr; }} while (FALSE)
 
 #define IfFailGoto(expr, label) \
     do                          \
@@ -32,8 +32,8 @@ class AutoLeaveScriptPtr : public BasePtr<T>
 #endif
 {
 public:
-    AutoLeaveScriptPtr(Js::ScriptContext* scriptContext, T * ptr = null) : 
-      BasePtr(null), scriptContext(scriptContext)
+    AutoLeaveScriptPtr(Js::ScriptContext* scriptContext, T * ptr = nullptr) :
+      BasePtr(nullptr), scriptContext(scriptContext)
 #if DBG
           , AutoNestedHandledExceptionType(ExceptionType_HasStackProbe)
 #endif
@@ -53,14 +53,14 @@ public:
 
     void Release()
     {
-        if (ptr != null)
+        if (ptr != nullptr)
         {
             BEGIN_LEAVE_SCRIPT_NO_STACK_PROBE(scriptContext)
             {
                 ptr->Release();
             }
             END_LEAVE_SCRIPT_NO_STACK_PROBE(scriptContext)
-            this->ptr = null;
+            this->ptr = nullptr;
         }
     }
 private:

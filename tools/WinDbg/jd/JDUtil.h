@@ -13,9 +13,9 @@ public:
         // Trim out the enum numeric value
         char * valueStr = value.GetSimpleValue();
         char * endValueStr = strchr(valueStr, '(');
-        if (endValueStr != null)
+        if (endValueStr != nullptr)
         {
-            *(endValueStr - 1) = null;
+            *(endValueStr - 1) = 0;
         }
         return valueStr;
     }

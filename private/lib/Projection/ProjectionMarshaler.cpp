@@ -2641,7 +2641,7 @@ namespace Projection
         if (Js::JavascriptOperators::GetTypeId(result) == Js::TypeIds_Undefined)
         {
             // GetRuntimeClassName failed, undo interfacePtr
-            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_ReturnValue_NeedInspectable, (PCWSTR)((methodNameId != MetadataStringIdNil) ? StringOfId(methodNameId) : null));
+            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_ReturnValue_NeedInspectable, (PCWSTR)((methodNameId != MetadataStringIdNil) ? StringOfId(methodNameId) : nullptr));
         }
 
         return result;

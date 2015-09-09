@@ -17,7 +17,7 @@ JDByteCode::JDByteCode(EXT_CLASS_BASE * ext, bool dumpProbeBackingBlock, bool ve
     LayoutSize_MediumLayout(ExtRemoteTyped(ext->FillModule("%s!MediumLayout")).GetLong()),
     LayoutSize_LargeLayout(ExtRemoteTyped(ext->FillModule("%s!LargeLayout")).GetLong()),
     
-    readerOffset((ULONG64)-1), propertyNameReader(null), dumpProbeBackingBlock(dumpProbeBackingBlock), verbose(verbose),
+    readerOffset((ULONG64)-1), propertyNameReader(nullptr), dumpProbeBackingBlock(dumpProbeBackingBlock), verbose(verbose),
     RootObjectRegSlot(1),           // TODO: how do find this symbolically?    
     CallIExtended_SpreadArgs(1)     // TODO: how do find this symbolically?    
 {        

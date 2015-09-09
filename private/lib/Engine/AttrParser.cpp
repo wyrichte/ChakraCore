@@ -54,7 +54,7 @@ HRESULT AttrParser::GetTextAttribsImpl(typename EncodingPolicy::EncodedCharPtr p
 
     DebugOnly(m_err.fInited = TRUE; )
 
-    Scanner<EncodingPolicy> *scanner = null;
+    Scanner<EncodingPolicy> *scanner = nullptr;
     try
     {
         // Create the hash table.

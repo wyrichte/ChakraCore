@@ -16,7 +16,7 @@ namespace JsDiag
         {
             RemoteThreadContext remoteThreadContext(reader, threadContext);
             ScriptContext* scriptContext = remoteThreadContext->scriptContextList;
-            while(scriptContext != null)
+            while(scriptContext != nullptr)
             {
                 RemoteScriptContext remoteScriptContext(reader, scriptContext);
                 if(remoteScriptContext->isClosed)

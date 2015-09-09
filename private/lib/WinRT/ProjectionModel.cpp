@@ -3597,7 +3597,7 @@ namespace ProjectionModel
         {
             // bookmark the current RTC being constructed
             CheckForDuplicateTypeId checker(&currentImplementedRuntimeClassInterfaceConstructors);
-            DeferredTypeDefinitionCandidate typeCandidate(type->id, null);
+            DeferredTypeDefinitionCandidate typeCandidate(type->id, nullptr);
             Assert(checker.Contains(typeCandidate) == false);
             checker.AddTypeId(typeCandidate, allocator, stringConverter);
 
@@ -5733,7 +5733,7 @@ namespace ProjectionModel
         }
 
         CheckForDuplicateTypeId checker(&currentImplementedRuntimeClassInterfaceConstructors);
-        DeferredTypeDefinitionCandidate typeCandidate(type->id, null);
+        DeferredTypeDefinitionCandidate typeCandidate(type->id, nullptr);
         return checker.Contains(typeCandidate);
     }
 

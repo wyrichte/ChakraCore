@@ -129,7 +129,7 @@ int __cdecl main(int argc, __in_ecount(argc) char* argv[])
     PageAllocator::BackgroundPageQueue backgroundPageQueue;
     IdleDecommitPageAllocator pageAllocator(NULL, PageAllocatorType_Thread,
         0, IdleDecommitPageAllocator::DefaultMaxFreePageCount, false, &backgroundPageQueue);
-    Recycler * recycler = null;
+    Recycler * recycler = nullptr;
 
     try
     {
@@ -149,8 +149,8 @@ int __cdecl main(int argc, __in_ecount(argc) char* argv[])
         }
 #endif
 
-        recycler = new Recycler(null, &pageAllocator, OutOfMemory);
-        recycler->Initialize(false, null);
+        recycler = new Recycler(nullptr, &pageAllocator, OutOfMemory);
+        recycler->Initialize(false, nullptr);
         recycler->Prime();
 
         ArenaAllocator alloc(L"TestAllocator", &pageAllocator, OutOfMemory);

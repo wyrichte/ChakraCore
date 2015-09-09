@@ -76,7 +76,7 @@ void DebugDisposableObject::Dispose(bool isShutdown)
             {
                 for (uint i = 0; i < allocationCount; i++)
                 {
-                    volatile byte* bytes = null;
+                    volatile byte* bytes = nullptr;
             
                     if (allocateLeaf)
                     {
@@ -89,7 +89,7 @@ void DebugDisposableObject::Dispose(bool isShutdown)
                     }
 
                     // Free it out right now, it'll get collected in the next cycle
-                    bytes = null; 
+                    bytes = nullptr;
                 }
             }
             END_TRANSLATE_OOM_TO_HRESULT(hr);

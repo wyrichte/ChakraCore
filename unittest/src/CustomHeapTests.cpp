@@ -188,11 +188,11 @@ UTEST_GROUP(CustomHeapTests)
 
     void VerifyAllocation(Allocation* allocation, uint size, ushort pdataCount, ushort xdataSize )
     {
-        UT_ASSERT(allocation->page != null);
+        UT_ASSERT(allocation->page != nullptr);
         UT_ASSERT(allocation->size >= size);
         if(allocation->IsLargeAllocation())
         {
-            UT_ASSERT(allocation->largeObjectAllocation.segment != null);
+            UT_ASSERT(allocation->largeObjectAllocation.segment != nullptr);
             UT_ASSERT(allocation->largeObjectAllocation.isDecommitted == false);
         }
 
@@ -202,7 +202,7 @@ UTEST_GROUP(CustomHeapTests)
 #if PDATA_ENABLED
         if(allocXdata && xdataSize > 0)
         {
-            UT_ASSERT(allocation->xdata.address != null);
+            UT_ASSERT(allocation->xdata.address != nullptr);
             
             MEMORY_BASIC_INFORMATION xdataInfo;
             VirtualQuery(allocation->xdata.address, &xdataInfo, sizeof(xdataInfo));
@@ -213,8 +213,8 @@ UTEST_GROUP(CustomHeapTests)
             memset(allocation->xdata.address, 0xAC, xdataSize);
 #ifdef _M_X64
             ULONG64            imageBase       = 0;
-            RUNTIME_FUNCTION  *runtimeFunction = RtlLookupFunctionEntry((ULONG64)allocation->address, &imageBase, null);
-            UT_ASSERT(runtimeFunction != null);
+            RUNTIME_FUNCTION  *runtimeFunction = RtlLookupFunctionEntry((ULONG64)allocation->address, &imageBase, nullptr);
+            UT_ASSERT(runtimeFunction != nullptr);
             UT_ASSERT(runtimeFunction->BeginAddress == ((ULONG64)allocation->address) - imageBase);
             UT_ASSERT_SZ(allocation->xdata.address >= (BYTE*)(allocation->address + allocation->size), "There should be no overlap in xdata and code allocation");
 #endif
@@ -231,8 +231,8 @@ UTEST_GROUP(CustomHeapTests)
     {
 #ifdef _M_X64
         ULONG64            imageBase       = 0;
-        RUNTIME_FUNCTION  *runtimeFunction = RtlLookupFunctionEntry((ULONG64)allocation->address, &imageBase, null);
-        UT_ASSERT(runtimeFunction == null);
+        RUNTIME_FUNCTION  *runtimeFunction = RtlLookupFunctionEntry((ULONG64)allocation->address, &imageBase, nullptr);
+        UT_ASSERT(runtimeFunction == nullptr);
 #endif
     }
 

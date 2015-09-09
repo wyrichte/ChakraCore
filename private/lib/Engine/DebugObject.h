@@ -164,10 +164,10 @@ public:
         {
              if (m_hModule)
              {
-                if (getProcessMemoryInfo == null)
+                if (getProcessMemoryInfo == nullptr)
                 {
                     getProcessMemoryInfo = (PFnGetProcessMemoryInfo)GetFunction("GetProcessMemoryInfo");
-                    if (getProcessMemoryInfo == null)
+                    if (getProcessMemoryInfo == nullptr)
                     {
                         Assert(false);
                         return FALSE;

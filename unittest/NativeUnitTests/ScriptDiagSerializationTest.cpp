@@ -4,8 +4,6 @@
 
 #include "ScriptDirectUnitTests.h"
 
-#define null NULL
-
 // Hack: this test doesn't use ATL. DiagAssertion.h requests to be before ATL headers, but
 // it conflicts with Verifier.Assert in this project.
 #undef ATLASSERT

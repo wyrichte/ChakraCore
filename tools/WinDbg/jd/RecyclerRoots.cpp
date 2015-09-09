@@ -46,7 +46,7 @@ void PinnedObjectMap<TPointerType>::Map(Fn fn)
     {
         currentEntry.address = (TPointerType)_transientPinnedObject;
         currentEntry.pinnedCount = 1;
-        fn(-1, 0, null, currentEntry);
+        fn(-1, 0, NULL, currentEntry);
     }
 
     ExtRemoteData tableEntries(_pinnedObjectEntries, g_Ext->m_PtrSize * _pinnedObjectTableSize);
@@ -156,7 +156,7 @@ void RecyclerObjectGraph::Construct(Addresses& roots)
 #if ENABLE_MARK_OBJ
 void RecyclerObjectGraph::FindPathTo(RootPointers& roots, ULONG64 address, ULONG64 root)
 {
-    if (_objectGraph.GetNode(address) != null)
+    if (_objectGraph.GetNode(address) != nullptr)
     {
         std::vector<ULONG64> shortestPath;
         int pathsFound = 0;
@@ -991,7 +991,7 @@ JD_PRIVATE_COMMAND(oi,
 
     HeapBlockHelper heapBlockHelper(this, recycler);
     ULONG64 heapBlockAddress = heapBlockHelper.FindHeapBlock(objectAddress, recycler);
-    if (heapBlockAddress != null)
+    if (heapBlockAddress != NULL)
     {        
         ExtRemoteTyped heapBlock(FillModuleAndMemoryNS("(%s!%sHeapBlock*)@$extin"), heapBlockAddress);
         ULONG64 heapBlockType = heapBlockHelper.GetHeapBlockType(heapBlock);

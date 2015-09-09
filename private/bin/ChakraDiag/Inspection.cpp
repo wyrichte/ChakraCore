@@ -249,7 +249,7 @@ namespace JsDiag
     BSTR NumberProperty::ToStringRadix10(double value)
     {
         BSTR bstr = ToStringNanOrInfiniteOrZero(value, 10);
-        if (bstr == null)
+        if (bstr == nullptr)
         {
             static const int bufSize = 256;
             wchar_t szBuffer[bufSize]; //TODO: This seems overly generous
@@ -260,7 +260,7 @@ namespace JsDiag
             }
         }
 
-        if (bstr == null)
+        if (bstr == nullptr)
         {
             DiagException::ThrowOOM();
         }
@@ -273,7 +273,7 @@ namespace JsDiag
         Assert(radix >= 2 && radix <= 36);
 
         BSTR bstr = ToStringNanOrInfiniteOrZero(value, radix);
-        if (bstr == null)
+        if (bstr == nullptr)
         {
             static const int bufSize = 256;
             wchar_t szBuffer[bufSize];
@@ -295,7 +295,7 @@ namespace JsDiag
             }
         }
 
-        if (bstr == null)
+        if (bstr == nullptr)
         {
             DiagException::ThrowOOM();
         }
@@ -307,7 +307,7 @@ namespace JsDiag
         DiagBSTRLib lib;
 
         BSTR nanF;
-        if (null != (nanF = JavascriptNumber::ToStringNanOrInfinite(value, lib)))
+        if (nullptr != (nanF = JavascriptNumber::ToStringNanOrInfinite(value, lib)))
         {
             return nanF;
         }
@@ -332,7 +332,7 @@ namespace JsDiag
             }
         }
 
-        return null;
+        return nullptr;
     }
 
     bool_result NumberProperty::TryToObject(_Out_ IJsDebugPropertyInternal** ppDebugProperty)

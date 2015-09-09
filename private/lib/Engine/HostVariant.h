@@ -50,7 +50,7 @@ public:
     {
         if (isUnknown)
         {
-            return NULL;
+            return nullptr;
         }
         return this->varDispatch.pdispVal;
     }
@@ -59,7 +59,7 @@ public:
     { 
         if (isUnknown)
         {
-            return NULL;
+            return nullptr;
         }
         if (this->varDispatch.pdispVal)
         {
@@ -81,7 +81,7 @@ protected:
             if (this->varDispatch.pdispVal)
             {
                 this->varDispatch.pdispVal->Release();
-                this->varDispatch.pdispVal = null;
+                this->varDispatch.pdispVal = nullptr;
             }
         }
     }

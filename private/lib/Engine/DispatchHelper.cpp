@@ -173,7 +173,7 @@ HRESULT DispatchHelper::MarshalJsVarToVariant(Js::Var var,VARIANT *pVar)
     HRESULT hr = S_OK;
 
     AssertMem(pVar);
-    Assert(var != null);
+    Assert(var != nullptr);
 
     VariantInit(pVar);
     if (var)
@@ -659,7 +659,7 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
 
         case VT_UNKNOWN:
         {
-            if (pVar->punkVal == null)
+            if (pVar->punkVal == nullptr)
             {
                 *pAtom = scriptContext->GetLibrary()->GetNull();
                 break;
@@ -685,7 +685,7 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
 
         case VT_DISPATCH:
         {
-            if (pVar->pdispVal == null)
+            if (pVar->pdispVal == nullptr)
             {
                 *pAtom = scriptContext->GetLibrary()->GetNull();
                 break;
@@ -712,7 +712,7 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
             }
             else
             {
-                IDispatch* pDispatch = null;
+                IDispatch* pDispatch = nullptr;
                 hr = pdispVal->QueryInterface(__uuidof(IDispatch), (void**)&pDispatch);
                 if (SUCCEEDED(hr) && pDispatch)
                 {

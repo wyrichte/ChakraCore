@@ -41,7 +41,7 @@
     REG_LIB_FUNC(pwszObjectName, functionPropertyId, entryPoint)\
 
 #define REG_GLOBAL_CONSTRUCTOR(functionPropertyId)\
-    REG_LIB_FUNC(NULL, functionPropertyId, Javascript##functionPropertyId##::NewInstance)\
+    REG_LIB_FUNC(nullptr, functionPropertyId, Javascript##functionPropertyId##::NewInstance)\
 
 #define CHAKRATEL_GCPAUSE_SET_SCRIPTSITECLOSE(recycler) recycler->SetIsScriptSiteCloseGC(true);
 
@@ -56,7 +56,7 @@ HRESULT ScriptSite::Create(
 
     HRESULT hr;
     ScriptSite * scriptSite = HeapNewNoThrow(ScriptSite);
-    if (scriptSite == NULL)
+    if (scriptSite == nullptr)
     {
         hr = E_OUTOFMEMORY;
     }
@@ -192,7 +192,7 @@ HRESULT ScriptSite::Init(
         }
 #endif
 
-        this->m_ppoll = NULL;
+        this->m_ppoll = nullptr;
         // Start with default value. TODO: Make it configurable through IActiveScriptProperty.
         this->ticksPerPoll = scriptEngine->m_dwTicksPerPoll;
         if (SUCCEEDED(iActiveScriptSite->QueryInterface(IID_IActiveScriptSiteInterruptPoll, (void **)&m_ppoll)))
@@ -234,19 +234,19 @@ HRESULT ScriptSite::Init(
         // We need to clean up what Close would have cleaned up
 
         ReleasePointer(m_ppoll);
-        this->scriptEngine->scriptContext = null;
-        this->scriptEngine = NULL;
+        this->scriptEngine->scriptContext = nullptr;
+        this->scriptEngine = nullptr;
         isClosed = true;
 
-        if (scriptSiteContext != null)
+        if (scriptSiteContext != nullptr)
         {
             HeapDelete(scriptSiteContext);
         }
 
-        Assert(moduleRoots == null);
-        Assert(globalDispatches == null);
-        Assert(currentDispatchExCaller == null);
-        Assert(m_punkCaller == null);
+        Assert(moduleRoots == nullptr);
+        Assert(globalDispatches == nullptr);
+        Assert(currentDispatchExCaller == nullptr);
+        Assert(m_punkCaller == nullptr);
     }
 #ifdef ENABLE_BASIC_TELEMETRY
     else
@@ -254,11 +254,11 @@ HRESULT ScriptSite::Init(
         // Log out any relevant telemetry data. This is done to make sure we have some telemetry for cases when Site Navigation is not frequent, like Nodejs etc.
         bool isJSRT = false;
         DWORD hostType = scriptEngine->GetHostType(); // 0 for JShost, 1 for browser, 2 for WWA/JSRT, 3 for webview in WWA/XAML
-        if (threadContext != NULL)
+        if (threadContext != nullptr)
         {
             isJSRT = !(threadContext->GetIsThreadBound());
         }
-        if (g_TraceLoggingClient!=null && (this->scriptEngine->fNonPrimaryEngine == 0 || isJSRT))
+        if (g_TraceLoggingClient!=nullptr && (this->scriptEngine->fNonPrimaryEngine == 0 || isJSRT))
         {
             g_TraceLoggingClient->FireChakraInitTelemetry(hostType, isJSRT);
         }
@@ -286,7 +286,7 @@ ScriptSite::~ScriptSite()
         Output::Flush();
     }
 #if DBG_DUMP
-    if (wszLocation != null)
+    if (wszLocation != nullptr)
     {
         HeapDeleteArray(wcslen(wszLocation) + 1, wszLocation);
     }
@@ -310,21 +310,21 @@ ScriptSite::~ScriptSite()
         this->scriptDirect->Release();
     }
     AssertMsg(isClosed, "ScriptSite dtor without close?");
-    AssertMsg(m_ppoll == NULL, "m_ppoll not NULL at dtor");
-    AssertMsg(moduleRoots == NULL, "moduleRoots not NULL at dtor");
-    AssertMsg(scriptEngine == NULL, "scriptEngine not NULL at dtor");
-    AssertMsg(m_punkCaller == NULL, "m_ppoll not NULL at dtor");
-    AssertMsg(currentDispatchExCaller == NULL, "currentDispatchExCaller not NULL at dtor");
+    AssertMsg(m_ppoll == nullptr, "m_ppoll not NULL at dtor");
+    AssertMsg(moduleRoots == nullptr, "moduleRoots not NULL at dtor");
+    AssertMsg(scriptEngine == nullptr, "scriptEngine not NULL at dtor");
+    AssertMsg(m_punkCaller == nullptr, "m_ppoll not NULL at dtor");
+    AssertMsg(currentDispatchExCaller == nullptr, "currentDispatchExCaller not NULL at dtor");
 
 #ifdef PROFILE_EXEC
-    if (this->nextTopLevelScriptSite != null)
+    if (this->nextTopLevelScriptSite != nullptr)
     {
         ScriptSite* topScriptSite = threadContext->GetTopLevelScriptSite();
         if (topScriptSite && topScriptSite->nextTopLevelScriptSite == topScriptSite)
         {
             Assert(this == topScriptSite);
             Assert(this->prevTopLevelScriptSite == this);
-            threadContext->SetTopLevelScriptSite(null);
+            threadContext->SetTopLevelScriptSite(nullptr);
         }
         else
         {
@@ -383,7 +383,7 @@ void ScriptSite::Close()
         bool isJSRT = false;
         ThreadContext* threadContext = scriptContext->GetThreadContext();
         DWORD hostType = scriptEngine->GetHostType(); // 0 for JShost, 1 for browser, 2 for WWA/JSRT, 3 for webview in WWA/XAML
-        if (threadContext != NULL)
+        if (threadContext != nullptr)
         {
             isJSRT = !(threadContext->GetIsThreadBound());
         }
@@ -418,7 +418,7 @@ void ScriptSite::Close()
     if (pHeapEnum)
     {
         ActiveScriptProfilerHeapEnum* heapEnum = static_cast<ActiveScriptProfilerHeapEnum*>(pHeapEnum);
-        Assert(heapEnum != NULL);
+        Assert(heapEnum != nullptr);
         heapEnum->CloseHeapEnum();
     }
 
@@ -427,7 +427,7 @@ void ScriptSite::Close()
     if (activeScriptKeepAlive)
     {
         activeScriptKeepAlive->Release();
-        activeScriptKeepAlive = NULL;
+        activeScriptKeepAlive = nullptr;
     }
 
     // We need to unlink global object and module roots in script site close, so later on
@@ -438,7 +438,7 @@ void ScriptSite::Close()
         for (int i = 0; i < moduleRoots->Count(); i++)
         {
             Js::ModuleRoot* moduleRoot = moduleRoots->Item(i);
-            moduleRoot->SetHostObject(moduleRoot->GetModuleID(), NULL);
+            moduleRoot->SetHostObject(moduleRoot->GetModuleID(), nullptr);
         }
     }
 
@@ -454,9 +454,9 @@ void ScriptSite::Close()
     if (GetScriptSiteContext()->GetThreadContext()->GetIsThreadBound())
     {
         Js::GlobalObject* globalObject = GetScriptSiteContext()->GetGlobalObject();
-        globalObject->SetHostObject(NULL);
-        globalObject->SetDirectHostObject(NULL, NULL);
-        globalObject = NULL;
+        globalObject->SetHostObject(nullptr);
+        globalObject->SetDirectHostObject(nullptr, nullptr);
+        globalObject = nullptr;
     }
     if (moduleRoots)
     {
@@ -474,8 +474,8 @@ void ScriptSite::Close()
     this->scriptEngine->RemoveScriptBodyMap();
     this->scriptEngine->CleanupHalt();
     this->scriptEngine->debugStackFrame = nullptr;
-    this->scriptEngine->scriptContext = null;
-    this->scriptEngine = NULL;
+    this->scriptEngine->scriptContext = nullptr;
+    this->scriptEngine = nullptr;
     ReleasePointer(m_ppoll);
     ReleasePointer(m_IASDSite);
 
@@ -490,10 +490,10 @@ void ScriptSite::Close()
         javascriptDispatch->ResetToNULL();
         listEntry = RemoveHeadList(&javascriptDispatchListHead);
         // null out the reference on the stack for debug build before we call the recycler below
-        javascriptDispatch = null;
+        javascriptDispatch = nullptr;
     }
     InitializeListHead(&javascriptDispatchListHead);
-    listEntry = null;
+    listEntry = nullptr;
 
     // We must mark ourselves closed before releasing any cross thread objects. Otherwise we may get
     // calls on our type operations which were potentially already freed.
@@ -513,10 +513,10 @@ void ScriptSite::Close()
         hostDispatch->Finalize(false);
         listEntry = RemoveHeadList(&hostDispatchListHead);
         // null out the reference on the stack for debug build before we call the recycler below
-        hostDispatch = null;
+        hostDispatch = nullptr;
     }
     InitializeListHead(&hostDispatchListHead);
-    listEntry = null;
+    listEntry = nullptr;
 
 #if ENABLE_DEBUG_CONFIG_OPTIONS
     if (debugObjectHelper != nullptr)
@@ -539,7 +539,7 @@ void ScriptSite::Close()
     AssertMsg(SUCCEEDED(hr), "Closing failed due to OOM.");
 
     // ScriptContext might have been freed during MarkForClose, null it out.
-    scriptSiteContext = null;
+    scriptSiteContext = nullptr;
 
     if (!isCloned)
     {
@@ -550,7 +550,7 @@ void ScriptSite::Close()
             // Just let other heuristic to activate the GC to clean it up.
             // we don't even need to collect if idle GC is enabled. Just let the
             // orphan markup count & idle GC take of the collection.
-            if (sourceSize != 0 && (GetThreadContext()->GetThreadServiceWrapper() == NULL))
+            if (sourceSize != 0 && (GetThreadContext()->GetThreadServiceWrapper() == nullptr))
             {
                 recycler->CollectNow<CollectOnScriptCloseNonPrimary>();
             }
@@ -581,7 +581,7 @@ void ScriptSite::CreateModuleRoot(
 
     Assert(kmodGlobal != moduleID);
 
-    if (this->moduleRoots == NULL)
+    if (this->moduleRoots == nullptr)
     {
         moduleRoots.Root(RecyclerNew(recycler, JsUtil::List<Js::ModuleRoot*>, recycler,
             JsUtil::List<Js::ModuleRoot*>::DefaultIncrement), recycler);
@@ -650,7 +650,7 @@ HRESULT ScriptSite::GetModuleDispatch(
 // release the scriptEngine at this time.
 void ScriptSite::SetupFastDOM(IActiveScriptDirect* scriptDirect)
 {
-    if (this->scriptDirect == NULL)
+    if (this->scriptDirect == nullptr)
     {
         this->scriptDirect = scriptDirect;
         this->scriptDirect->AddRef();
@@ -663,7 +663,7 @@ Js::ModuleRoot * ScriptSite::GetModuleRoot(
 {
     Assert(kmodGlobal != moduleID);
 
-    if (moduleRoots != NULL)
+    if (moduleRoots != nullptr)
     {
         for (int i = 0 ; i < moduleRoots->Count(); i++)
         {
@@ -675,7 +675,7 @@ Js::ModuleRoot * ScriptSite::GetModuleRoot(
         }
     }
 
-    return null;
+    return nullptr;
 }
 
 
@@ -693,7 +693,7 @@ catch (Js::JavascriptExceptionObject* pError) \
 { \
     if (this->GetThreadContext()->HasPreviousHostScriptContext()) \
     { \
-        DispatchExCaller* pspCaller = NULL; \
+        DispatchExCaller* pspCaller = nullptr; \
         HostScriptContext * hostScriptContext = this->GetThreadContext()->GetPreviousHostScriptContext(); \
         hostScriptContext->GetDispatchExCaller(reinterpret_cast<void **>(&pspCaller)); \
         hr = HandleJavascriptException(pError, scriptContext, static_cast<IServiceProvider *>(pspCaller)); \
@@ -701,7 +701,7 @@ catch (Js::JavascriptExceptionObject* pError) \
     } \
     else \
     { \
-        hr = HandleJavascriptException(pError, scriptContext, NULL); \
+        hr = HandleJavascriptException(pError, scriptContext, nullptr); \
     } \
 } \
 CATCH_UNHANDLED_EXCEPTION(hr)
@@ -722,11 +722,11 @@ HRESULT ScriptSite::AddExternalObject(
     __in long lwCookie)
 {
     HRESULT hr = S_OK;
-    HostDispatch *  hostDispatch = null;
+    HostDispatch *  hostDispatch = nullptr;
     Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
     {
-        if (NULL == pdisp && 0 != lwCookie)
+        if (nullptr == pdisp && 0 != lwCookie)
         {
             // call host back to get the object on first reference
             hostDispatch = HostDispatch::Create(scriptContext, pszName);
@@ -788,9 +788,9 @@ HRESULT ScriptSite::AddGlobalDispatch(
 {
     HRESULT hr = NOERROR;
     Js::ScriptContext * scriptContext = GetScriptSiteContext();
-    if (this->globalDispatches == NULL)
+    if (this->globalDispatches == nullptr)
     {
-        if (hostAllocator == NULL)
+        if (hostAllocator == nullptr)
         {
             hostAllocator = HeapNew(ArenaAllocator, L"Global-Host", this->GetThreadContext()->GetPageAllocator(), Js::Throw::OutOfMemory);
         }
@@ -807,7 +807,7 @@ HRESULT ScriptSite::AddGlobalDispatch(
         dispatch,
         library->GetHostObjectType());
 
-    if (globalObject->GetHostObject() == null)
+    if (globalObject->GetHostObject() == nullptr)
     {
         globalObject->SetHostObject(hostObject);
     }
@@ -848,7 +848,7 @@ HRESULT ScriptSite::HandleJavascriptException(Js::JavascriptExceptionObject* exc
         return E_OUTOFMEMORY;
     }
 
-    if (pspCaller != null)
+    if (pspCaller != nullptr)
     {
         hr = ActiveScriptError::CanHandleException(scriptContext, exceptionObject, pspCaller);
     }
@@ -906,12 +906,12 @@ HRESULT ScriptSite::ReportError(Js::JavascriptExceptionObject * pError, Js::Scri
     ActiveScriptError * pase;
     Js::ScriptContext * errorScriptContext = scriptContext;
 
-    if (SUCCEEDED(ActiveScriptError::CreateRuntimeError(pError, &hr, NULL, errorScriptContext, &pase)))
+    if (SUCCEEDED(ActiveScriptError::CreateRuntimeError(pError, &hr, nullptr, errorScriptContext, &pase)))
     {
         if (!errorScriptContext->IsClosed()) //Report error only if errorScriptContext is not closed.
         {
             ScriptSite * errorScriptSite = ScriptSite::FromScriptContext(errorScriptContext);
-            Assert(errorScriptSite != NULL);
+            Assert(errorScriptSite != nullptr);
             ThreadContext* threadContext = errorScriptContext->GetThreadContext();
             threadContext->SetHasUnhandledException();
             threadContext->SetUnhandledExceptionObject(pError);
@@ -922,7 +922,7 @@ HRESULT ScriptSite::ReportError(Js::JavascriptExceptionObject * pError, Js::Scri
                 threadContext->SetRecordedException(nullptr);
                 hr = SCRIPT_E_REPORTED;
             }
-            threadContext->SetUnhandledExceptionObject(NULL);
+            threadContext->SetUnhandledExceptionObject(nullptr);
             threadContext->ResetHasUnhandledException();
             pError->ClearStackTrace();
         }
@@ -1025,7 +1025,7 @@ HRESULT ScriptSite::ExternalToNumberCanThrow(Js::Var instance, double* result)
     if ( hr == S_OK )
     {
         Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-        Assert(scriptContext != null && !scriptContext->IsClosed());
+        Assert(scriptContext != nullptr && !scriptContext->IsClosed());
 
         BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
         {
@@ -1040,7 +1040,7 @@ HRESULT ScriptSite::ExternalToNumberCanThrow(Js::Var instance, double* result)
 HRESULT ScriptSite::ExternalToString(Js::Var instance, Js::JavascriptString ** result)
 {
     Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    Assert(scriptContext != null);
+    Assert(scriptContext != nullptr);
     HRESULT hr = NO_ERROR;
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
     {
@@ -1049,7 +1049,7 @@ HRESULT ScriptSite::ExternalToString(Js::Var instance, Js::JavascriptString ** r
         return hr;
     }
     END_TRANSLATE_EXCEPTION_AND_REPORT_ERROROBJECT_TO_HRESULT_NO_SP(hr, scriptContext);
-    *result = NULL;
+    *result = nullptr;
     return hr;
 }
 
@@ -1073,7 +1073,7 @@ HRESULT ScriptSite::ExternalToInt32CanThrow(Js::Var instance, int * result)
     if ( hr == S_OK )
     {
         Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-        Assert(scriptContext != null && !scriptContext->IsClosed());
+        Assert(scriptContext != nullptr && !scriptContext->IsClosed());
 
         BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
         {
@@ -1081,7 +1081,7 @@ HRESULT ScriptSite::ExternalToInt32CanThrow(Js::Var instance, int * result)
             return S_OK;
         }
         END_TRANSLATE_EXCEPTION_AND_REPORT_ERROROBJECT_TO_HRESULT_NO_SP(hr, scriptContext);
-        *result = NULL;
+        *result = 0;
     }
     return hr;
 }
@@ -1090,7 +1090,7 @@ HRESULT ScriptSite::ExternalToInt32CanThrow(Js::Var instance, int * result)
 HRESULT ScriptSite::ExternalToInt64(Js::Var instance, __int64 * result)
 {
     Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    Assert(scriptContext != null);
+    Assert(scriptContext != nullptr);
 
     // Try to handle the optimal case of a tagged int before falling back to external conversion.
     if (Js::TaggedInt::Is(instance))
@@ -1106,14 +1106,14 @@ HRESULT ScriptSite::ExternalToInt64(Js::Var instance, __int64 * result)
         return S_OK;
     }
     END_TRANSLATE_EXCEPTION_AND_REPORT_ERROROBJECT_TO_HRESULT_NO_SP(hr, scriptContext);
-    *result = NULL;
+    *result = 0;
     return hr;
 }
 
 HRESULT ScriptSite::ExternalToUInt64(Js::Var instance, unsigned __int64 * result)
 {
     Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    Assert(scriptContext != null);
+    Assert(scriptContext != nullptr);
 
     // Try to handle the optimal case of a tagged int before falling back to external conversion.
     if (Js::TaggedInt::Is(instance))
@@ -1129,14 +1129,14 @@ HRESULT ScriptSite::ExternalToUInt64(Js::Var instance, unsigned __int64 * result
         return S_OK;
     }
     END_TRANSLATE_EXCEPTION_AND_REPORT_ERROROBJECT_TO_HRESULT_NO_SP(hr, scriptContext);
-    *result = NULL;
+    *result = 0;
     return hr;
 }
 
 HRESULT ScriptSite::ExternalToBoolean(Js::Var instance, BOOL * result)
 {
     Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    Assert(scriptContext != null);
+    Assert(scriptContext != nullptr);
 
     HRESULT hr = NO_ERROR;
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
@@ -1145,14 +1145,14 @@ HRESULT ScriptSite::ExternalToBoolean(Js::Var instance, BOOL * result)
         return S_OK;
     }
     END_TRANSLATE_EXCEPTION_AND_REPORT_ERROROBJECT_TO_HRESULT_NO_SP(hr, scriptContext);
-    *result = NULL;
+    *result = FALSE;
     return hr;
 }
 
 HRESULT ScriptSite::ExternalBOOLToVar(BOOL b, Js::Var * result)
 {
     Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    Assert(scriptContext != null);
+    Assert(scriptContext != nullptr);
 
     // This runtime operation don't throw, so we can just call it directly
     *result = Js::JavascriptBoolean::ToVar(b, scriptContext);
@@ -1180,9 +1180,9 @@ HRESULT ScriptSite::ExternalInt32ToVarCanThrow(int32 i, Js::Var * result)
     if ( hr == S_OK )
     {
         Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-        Assert(scriptContext != null);
+        Assert(scriptContext != nullptr);
 
-        *result = null;
+        *result = nullptr;
         BEGIN_TRANSLATE_OOM_TO_HRESULT
         {
             // This runtime operation only throw OOM
@@ -1196,7 +1196,7 @@ HRESULT ScriptSite::ExternalInt32ToVarCanThrow(int32 i, Js::Var * result)
 HRESULT ScriptSite::ExternalInt64ToVar(__int64 value, Js::Var* result)
 {
     Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    Assert(scriptContext != null);
+    Assert(scriptContext != nullptr);
 
     if ( !Js::TaggedInt::IsOverflow(value) )
     {
@@ -1205,7 +1205,7 @@ HRESULT ScriptSite::ExternalInt64ToVar(__int64 value, Js::Var* result)
     }
 
     HRESULT hr = S_OK;
-    *result = null;
+    *result = nullptr;
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         // This runtime operation only throw OOM
@@ -1218,7 +1218,7 @@ HRESULT ScriptSite::ExternalInt64ToVar(__int64 value, Js::Var* result)
 HRESULT ScriptSite::ExternalUInt64ToVar(unsigned __int64 value, Js::Var* result)
 {
     Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    Assert(scriptContext != null);
+    Assert(scriptContext != nullptr);
 
     if ( !Js::TaggedInt::IsOverflow(value) )
     {
@@ -1227,7 +1227,7 @@ HRESULT ScriptSite::ExternalUInt64ToVar(unsigned __int64 value, Js::Var* result)
     }
 
     HRESULT hr = S_OK;
-    *result = null;
+    *result = nullptr;
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         // This runtime operation only throw OOM
@@ -1241,10 +1241,10 @@ HRESULT ScriptSite::ExternalUInt64ToVar(unsigned __int64 value, Js::Var* result)
 HRESULT ScriptSite::ExternalDoubleToVar(double d, Js::Var * result)
 {
     Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    Assert(scriptContext != null);
+    Assert(scriptContext != nullptr);
 
     HRESULT hr = S_OK;
-    *result = null;
+    *result = nullptr;
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         // This runtime operation only throw OOM
@@ -1268,10 +1268,10 @@ HRESULT ScriptSite::ExternalToDate(Js::Var instance, double * result)
 HRESULT ScriptSite::ExternalDateToVar(double d, Js::Var * result)
 {
     Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    Assert(scriptContext != null);
+    Assert(scriptContext != nullptr);
 
     HRESULT hr = S_OK;
-    *result = null;
+    *result = nullptr;
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         *result = scriptContext->GetLibrary()->CreateDate(d);
@@ -1283,10 +1283,10 @@ HRESULT ScriptSite::ExternalDateToVar(double d, Js::Var * result)
 HRESULT ScriptSite::ExternalSYSTEMTIMEToVar(SYSTEMTIME* pst, Js::Var * result)
 {
     Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    Assert(scriptContext != null);
+    Assert(scriptContext != nullptr);
 
     HRESULT hr = S_OK;
-    *result = null;
+    *result = nullptr;
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         *result = scriptContext->GetLibrary()->CreateDate(pst);
@@ -1297,7 +1297,7 @@ HRESULT ScriptSite::ExternalSYSTEMTIMEToVar(SYSTEMTIME* pst, Js::Var * result)
 
 HRESULT ScriptSite::Execute(__in Js::RecyclableObject *pScrObj, __in Js::Arguments* args, __in IServiceProvider * pspCaller, __out_opt Js::Var* varResult)
 {
-    Js::JavascriptFunction*         func = NULL;
+    Js::JavascriptFunction*         func = nullptr;
     Js::Var                        atomResult;
     HRESULT                         hr = S_OK;
 
@@ -1306,14 +1306,14 @@ HRESULT ScriptSite::Execute(__in Js::RecyclableObject *pScrObj, __in Js::Argumen
         *varResult = nullptr;
     }
 
-    if (this->scriptEngine == null)
+    if (this->scriptEngine == nullptr)
     {
         // The session has closed already.
         return E_UNEXPECTED;
     }
 
     // Call through DynamicObject and put the result (if any) in pVarRes.
-    if (pScrObj == null ||
+    if (pScrObj == nullptr ||
         !Js::JavascriptConversion::IsCallable(pScrObj))
     {
         return JSERR_NeedFunction;
@@ -1386,7 +1386,7 @@ void ScriptSite::SetCaller(__in IUnknown *punkNew, __deref_out_opt IUnknown **pp
     if (!isClosed)
     {
         m_punkCaller = punkNew;
-        if (NULL != m_punkCaller)
+        if (nullptr != m_punkCaller)
             m_punkCaller->AddRef();
     }
     else
@@ -1483,7 +1483,7 @@ void ScriptSite::ReleaseDispatchExCaller(
 ScriptSite::DispatchMap * ScriptSite::EnsureDispatchMap(void)
 {
     AssertCanHandleOutOfMemory();
-    if (this->dispatchMap == null)
+    if (this->dispatchMap == nullptr)
     {
         if (hostAllocator == NULL)
         {
@@ -1602,10 +1602,10 @@ void ScriptSite::InitializeTypes()
 
     library->hostDispatchType->SetHasSpecialPrototype(true);
 
-    library->moduleRootType = Js::DynamicType::New(scriptContext, Js::TypeIds_ModuleRoot, library->GetObjectPrototype(), null,
+    library->moduleRootType = Js::DynamicType::New(scriptContext, Js::TypeIds_ModuleRoot, library->GetObjectPrototype(), nullptr,
         Js::SimpleDictionaryTypeHandler::New(scriptContext->GetRecycler(), 0, 0, 0, true, true), true, true);
 
-    library->hostObjectType = Js::DynamicType::New(scriptContext, Js::TypeIds_HostObject, library->GetNull(), null,
+    library->hostObjectType = Js::DynamicType::New(scriptContext, Js::TypeIds_HostObject, library->GetNull(), nullptr,
         Js::SimplePathTypeHandler::New(scriptContext, scriptContext->GetRootPath(), 0, 0, 0, true, true), true, true);
 }
 
@@ -1615,7 +1615,7 @@ void ScriptSite::InitializeDebugObject()
     Js::JavascriptLibrary* library = scriptContext->GetLibrary();
 
     Js::DynamicObject* debugObject = Js::DynamicObject::New(recycler,
-        Js::DynamicType::New(scriptContext, Js::TypeId::TypeIds_Object, library->GetObjectPrototype(), null,
+        Js::DynamicType::New(scriptContext, Js::TypeId::TypeIds_Object, library->GetObjectPrototype(), nullptr,
         Js::DeferredTypeHandler<ScriptSite::InitializeDebugObjectType>::GetDefaultInstance()));
 
     library->EnsureDebugObject(debugObject);
@@ -1781,17 +1781,17 @@ ScriptSite::SetUrl(BSTR bstrUrl)
 void
 ScriptSite::DumpSiteInfo(wchar_t const * message, wchar_t const * message2)
 {
-    if (message2 == null) { message2 = L""; }
+    if (message2 == nullptr) { message2 = L""; }
 #if DBG_DUMP
     Output::Print(L"%p> ScriptSite %d(%p): %s%s\n\t", this->threadId, this->allocId, this, message, message2);
     EnsureParentInfo();
 
-    if (this->parentScriptSite != null)
+    if (this->parentScriptSite != nullptr)
     {
         Output::Print(L"%s ScriptSite %d(%p)",
             this->isCloned? L"Cloned" : L"Parent", this->parentAllocId, parentScriptSite);
     }
-    else if (this->nextTopLevelScriptSite != null)
+    else if (this->nextTopLevelScriptSite != nullptr)
     {
         Output::Print(L"Top Level");
     }
@@ -1800,7 +1800,7 @@ ScriptSite::DumpSiteInfo(wchar_t const * message, wchar_t const * message2)
         Output::Print(L"Unknown");
     }
 
-    if (this->wszLocation != null)
+    if (this->wszLocation != nullptr)
     {
         Output::Print(L": URL: %s",  this->wszLocation);
     }
@@ -1828,7 +1828,7 @@ ProfileOnLoadCallBack::EntryProfileOnLoadCallBack(Js::RecyclableObject* function
     ScriptSite * scriptSite = callback->scriptSite;
     Js::RecyclableObject * hostDispatch = scriptSite->windowHost;
     Js::ScriptContext * scriptContext = scriptSite->GetScriptSiteContext();
-    Assert(hostDispatch != null);
+    Assert(hostDispatch != nullptr);
 
     if (Js::Configuration::Global.flags.IsEnabled(Js::ProfileFlag)
 #ifdef PROFILE_MEMORY
@@ -1889,7 +1889,7 @@ ProfileOnLoadCallBack::AttachEvent(ScriptSite * scriptSite)
 {
     // document.attachEvent("onreadystatechange", callback)
     Js::RecyclableObject * hostDispatch = scriptSite->windowHost;
-    Assert(hostDispatch != null);
+    Assert(hostDispatch != nullptr);
 
     Js::ScriptContext * scriptContext = scriptSite->GetScriptSiteContext();
 
@@ -1960,7 +1960,7 @@ void ScriptSite::EnsureParentInfoWithScriptEnter()
         Var aValue;
         PropertyId propertyId;
         Js::PropertyRecord const * propertyRecord;
-        Assert(this->parentScriptSite == null);
+        Assert(this->parentScriptSite == nullptr);
 
         // check if this is a top level script site.
         scriptContext->GetOrAddPropertyRecord(L"top", _countof(L"top") - 1, &propertyRecord);
@@ -2017,7 +2017,7 @@ void ScriptSite::EnsureParentInfoWithScriptEnter()
             ScriptSite * current = threadContext->GetTopLevelScriptSite();
             do
             {
-                if (current->windowHost != null && Js::JavascriptOperators::Equal(aValue, current->windowHost, scriptContext))
+                if (current->windowHost != nullptr && Js::JavascriptOperators::Equal(aValue, current->windowHost, scriptContext))
                 {
                     this->parentScriptSite = current;
 #if DBG_DUMP
@@ -2030,13 +2030,13 @@ void ScriptSite::EnsureParentInfoWithScriptEnter()
             while (current != threadContext->GetTopLevelScriptSite());
 
 #ifdef PROFILE_EXEC
-            if (this->parentScriptSite != null && Js::Configuration::Global.flags.IsEnabled(Js::ProfileFlag))
+            if (this->parentScriptSite != nullptr && Js::Configuration::Global.flags.IsEnabled(Js::ProfileFlag))
             {
                 this->GetScriptSiteContext()->SetProfilerFromScriptContext(this->parentScriptSite->GetScriptSiteContext());
             }
 #endif
 #ifdef PROFILE_MEM
-            if (this->parentScriptSite != null)
+            if (this->parentScriptSite != nullptr)
             {
                 this->GetScriptSiteContext()->DisableProfileMemoryDumpOnDelete();
             }
@@ -2063,7 +2063,7 @@ ScriptSite::SetupWindowHost(Js::RecyclableObject * hostObj)
         return;
     }
 
-    Assert(windowHost == null);
+    Assert(windowHost == nullptr);
     Assert(!hasParentInfo);
     Assert(!isCloned);
 

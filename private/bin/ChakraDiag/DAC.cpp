@@ -159,7 +159,7 @@ namespace JsDiag
     template <typename TTargetType>
     bool RemoteEntryPointInfo<TTargetType>::HasNativeAddress()
     {
-        return this->ToTargetPtr()->nativeAddress != NULL;
+        return this->ToTargetPtr()->nativeAddress != nullptr;
     }
 
     template <typename TTargetType>
@@ -1032,7 +1032,7 @@ namespace JsDiag
 
     bool RemoteDynamicObject::HasObjectArray(InspectionContext* context)
     {
-        return ((ToTargetPtr()->objectArray != null) && !ToTargetPtr()->UsesObjectArrayOrFlagsAsFlags() && 
+        return ((ToTargetPtr()->objectArray != nullptr) && !ToTargetPtr()->UsesObjectArrayOrFlagsAsFlags() &&
             !((RemoteDynamicTypeHandler(context, GetTypeHandler(), ToTargetPtr())).IsObjectHeaderInlinedTypeHandler()));
     }
 
@@ -1063,16 +1063,16 @@ namespace JsDiag
 
     LoopHeader* RemoteFunctionBody::GetLoopHeader(uint index)
     {
-        Assert(this->ToTargetPtr()->loopHeaderArray != NULL);
+        Assert(this->ToTargetPtr()->loopHeaderArray != nullptr);
         Assert(index < this->ToTargetPtr()->loopCount);
         
         return this->ToTargetPtr()->loopHeaderArray + index;
     }
 
     BOOL RemoteFunctionBody::GetMatchingStatementMapFromNativeOffset(
-        StatementData* statementMap, DWORD_PTR codeAddress, uint loopNum, uint32 inlineeOffset, FunctionBody *inlinee /* = NULL */)
+        StatementData* statementMap, DWORD_PTR codeAddress, uint loopNum, uint32 inlineeOffset, FunctionBody *inlinee /* = nullptr */)
     {
-        AssertMsg(loopNum == LoopHeader::NoLoop || inlineeOffset == 0 && inlinee == NULL, 
+        AssertMsg(loopNum == LoopHeader::NoLoop || inlineeOffset == 0 && inlinee == nullptr,
             "Interpreter Jit loop body frame can't have inlinees.");
         return inlineeOffset != 0 ? 
             this->GetMatchingStatementMapFromNativeOffset(statementMap, codeAddress, inlineeOffset, inlinee) :
@@ -1080,13 +1080,13 @@ namespace JsDiag
     }
 
     BOOL RemoteFunctionBody::GetMatchingStatementMapFromNativeAddress(
-        StatementData* statementMap, DWORD_PTR codeAddress, uint loopNum, FunctionBody *inlinee /* = NULL */)
+        StatementData* statementMap, DWORD_PTR codeAddress, uint loopNum, FunctionBody *inlinee /* = nullptr */)
     {
-        SmallSpanSequence* spanSequence = NULL;
+        SmallSpanSequence* spanSequence = nullptr;
         DWORD_PTR nativeBaseAddress = NULL;
 
         FunctionEntryPointInfo* entryPointAddr = this->GetEntryPointFromNativeAddress(codeAddress);
-        if (entryPointAddr != NULL)
+        if (entryPointAddr != nullptr)
         {
             RemoteFunctionEntryPointInfo entryPoint(m_reader, entryPointAddr);
             spanSequence = entryPoint.GetNativeThrowSpanSequence();
@@ -1095,7 +1095,7 @@ namespace JsDiag
         else
         {
             LoopEntryPointInfo* entryPointAddr = this->GetLoopEntryPointFromNativeAddress(codeAddress, loopNum);
-            if (entryPointAddr != NULL)
+            if (entryPointAddr != nullptr)
             {
                 RemoteLoopEntryPointInfo entryPoint(m_reader, entryPointAddr);
                 spanSequence = entryPoint.GetNativeThrowSpanSequence();
@@ -1108,12 +1108,12 @@ namespace JsDiag
     }
 
     BOOL RemoteFunctionBody::GetMatchingStatementMapFromNativeOffset(
-        StatementData* statementMap, DWORD_PTR codeAddress, uint32 offset, FunctionBody *inlinee /* = NULL */)
+        StatementData* statementMap, DWORD_PTR codeAddress, uint32 offset, FunctionBody *inlinee /* = nullptr */)
     {
         FunctionEntryPointInfo* entryPointAddr = this->GetEntryPointFromNativeAddress(codeAddress);
 
-        SmallSpanSequence * spanSequence = NULL;
-        if (entryPointAddr != NULL)
+        SmallSpanSequence * spanSequence = nullptr;
+        if (entryPointAddr != nullptr)
         {
             RemoteFunctionEntryPointInfo entryPoint(m_reader, entryPointAddr);
             spanSequence = entryPoint.GetNativeThrowSpanSequence();
@@ -1243,14 +1243,14 @@ namespace JsDiag
                 }
 
                 if (pSourceSpan->begin < characterOffset
-                    && (firstStatementLocation->function == NULL || firstStatementLocation->statement.begin < pSourceSpan->begin))
+                    && (firstStatementLocation->function == nullptr || firstStatementLocation->statement.begin < pSourceSpan->begin))
                 {
                     firstStatementLocation->function = this->GetRemoteAddr();
                     firstStatementLocation->statement = *pSourceSpan;
                     firstStatementLocation->bytecodeSpan = statementMap->byteCodeSpan;
                 }
                 else if (pSourceSpan->begin >= characterOffset
-                    && (secondStatementLocation->function == NULL || secondStatementLocation->statement.begin > pSourceSpan->begin))
+                    && (secondStatementLocation->function == nullptr || secondStatementLocation->statement.begin > pSourceSpan->begin))
                 {
                     secondStatementLocation->function = this->GetRemoteAddr();
                     secondStatementLocation->statement = *pSourceSpan;
@@ -1731,7 +1731,7 @@ namespace JsDiag
             return -1;
         }
 
-        Assert(this->ToTargetPtr()->pSpanSequence == NULL);
+        Assert(this->ToTargetPtr()->pSpanSequence == nullptr);
 
         RemoteList<FunctionBody::StatementMap*> statementMaps(m_reader, statementMapsAddr);
 
@@ -2144,7 +2144,7 @@ namespace JsDiag
             {
                 wcscpy_s(urlBuffer, urlBufferElementCount, sourceName);
             }
-            else if (sourceName != null) // remote url
+            else if (sourceName != nullptr) // remote url
             {
                 HRESULT hr = m_reader->ReadString(sourceName, urlBuffer, urlBufferElementCount);
                 CheckHR(hr, DiagErrorCode::READ_STRING);
@@ -2328,7 +2328,7 @@ namespace JsDiag
     bool RemoteJavascriptBooleanObject::GetValue()
     {
         JavascriptBoolean* value = ToTargetPtr()->value;
-        return value != NULL ? RemoteJavascriptBoolean::GetValue(m_reader, value) : false;
+        return value != nullptr ? RemoteJavascriptBoolean::GetValue(m_reader, value) : false;
     }
 
     bool RemoteJavascriptBooleanObject::GetValue(IVirtualReader* reader, Js::Var var)
@@ -2479,7 +2479,7 @@ namespace JsDiag
         }
 
         // Not expecting compat mode (and can't inspect HostDispatch)
-        Assert(ToTargetPtr()->hostObject == NULL);
+        Assert(ToTargetPtr()->hostObject == nullptr);
 
         return GetRemoteAddr(); // this
     }

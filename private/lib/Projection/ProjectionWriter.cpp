@@ -162,7 +162,7 @@ namespace Projection
         JsUtil::List<FunctionOverload*>* constructors = signature->overloads;
         size_t arity = args.Info.Count - 1; // Minus one for 'this'
         Js::JavascriptWinRTFunction* arityMatch = nullptr;
-        size_t matchArgCount = null;
+        size_t matchArgCount = 0;
 
         for (int i = 0; i < constructors->Count(); i++)
         {

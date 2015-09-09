@@ -34,7 +34,7 @@ HostVariant::HostVariant(IDispatch *pdisp, Js::ScriptContext* scriptContext) :
     }
     else
     {
-        this->varDispatch.pdispVal = NULL;
+        this->varDispatch.pdispVal = nullptr;
     }
 #ifdef TRACK_DISPATCH
     LogAlloc();
@@ -66,7 +66,7 @@ HostVariant::HostVariant(IDispatch *pdisp) :
     }
     else
     {
-        this->varDispatch.pdispVal = NULL;
+        this->varDispatch.pdispVal = nullptr;
     }
 #ifdef TRACK_DISPATCH
     LogAlloc();
@@ -136,11 +136,11 @@ HRESULT HostVariant::Initialize(VARIANT * variant)
 {    
     Assert(!(variant->vt & VT_BYREF));
 #if DBG
-    ITracker* tracker = NULL;
+    ITracker* tracker = nullptr;
     if (variant->vt == VT_UNKNOWN)
     {
         Assert(FAILED(variant->punkVal->QueryInterface(IID_ITrackerJS9, (void**)&tracker)));
-        if (tracker != NULL)
+        if (tracker != nullptr)
         {
             tracker->Release();
         }
@@ -191,7 +191,7 @@ void HostVariant::Dispose(bool isShutdown)
     {
         Assert(!isTracked);
         IDispatch * dispatch = FinalizeInternal();
-        if (dispatch != null)
+        if (dispatch != nullptr)
         {
             FinalizeDispatch(dispatch);
         }
@@ -217,25 +217,25 @@ void HostVariant::FinalizeDispatch(IDispatch * dispatch)
 
 IDispatch * HostVariant::FinalizeInternal()
 {  
-    IDispatch* dispatch = null;
+    IDispatch* dispatch = nullptr;
     if (isUnknown)
     {
         VariantClear(&varDispatch);
-        return null;
+        return nullptr;
     }
 
     if (this->varDispatch.vt == VT_LPWSTR)
     {
-        this->varDispatch.bstrVal = NULL;
+        this->varDispatch.bstrVal = nullptr;
 #ifdef TRACK_DISPATCH
         LogFree();
 #endif
-        return null;
+        return nullptr;
     }
 
-    if (this->varDispatch.pdispVal == NULL)
+    if (this->varDispatch.pdispVal == nullptr)
     {
-        return null;
+        return nullptr;
     }
 
     // If we are still tracked here, then the finalize is call from HostDispatch.
@@ -243,13 +243,13 @@ IDispatch * HostVariant::FinalizeInternal()
     // be referenced by another HostDispatch.
     if (isTracked)
     {
-        return null;
+        return nullptr;
     }
    
     // We can come in here recursively from previous release call of the 
     // same object. Clear up the variant to prevent double release.
     dispatch = this->varDispatch.pdispVal;
-    this->varDispatch.pdispVal = NULL;
+    this->varDispatch.pdispVal = nullptr;
         
     
 #ifdef TRACK_DISPATCH
@@ -288,7 +288,7 @@ void HostVariant::SetupTracker(ITracker* inTracker)
 
 #ifdef TRACK_DISPATCH
 CriticalSection HostVariant::s_cs;
-HostVariant::LinkList* HostVariant::allocatedLinkList = NULL;
+HostVariant::LinkList* HostVariant::allocatedLinkList = nullptr;
 int HostVariant::activeHostVariantCount = 0;
 
 void
@@ -312,16 +312,16 @@ HostVariant::LogFree()
     if (Js::Configuration::Global.flags.TrackDispatch)
     {
         LinkList* current = allocatedLinkList;
-        if (current != NULL && current->object == this)
+        if (current != nullptr && current->object == this)
         {
             allocatedLinkList = allocatedLinkList->next;
             delete current;
         }
         else
         {
-            while (current != NULL)
+            while (current != nullptr)
             {
-                if (current->next != NULL && current->next->object == this)
+                if (current->next != nullptr && current->next->object == this)
                 {
                     LinkList* temp = current->next;
                     current->next = current->next->next;
@@ -332,7 +332,7 @@ HostVariant::LogFree()
             } ;
         }
         this->stackBackTrace->Delete(&NoCheckHeapAllocator::Instance);
-        stackBackTrace = NULL;
+        stackBackTrace = nullptr;
         HostVariant::activeHostVariantCount--;
     }
 }

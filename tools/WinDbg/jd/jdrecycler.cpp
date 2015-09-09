@@ -144,7 +144,7 @@ PrintHeapBlockStats::ProcessHeapBlock(size_t, size_t, ULONG64 blockAddress, ExtR
     ushort objectSize = heapBlock.Field("objectSize").GetUshort();
     uint bucketIndex = (objectSize >> heapBlockHelper.GetObjectAllocationShift()) - 1;
 
-    RecyclerBucketStats* stats = null;
+    RecyclerBucketStats* stats = nullptr;
 
     if (type == ext->enum_SmallNormalBlockType())
         stats = &normalStats[bucketIndex];
@@ -785,7 +785,7 @@ ExtRemoteTyped HeapBlockHelper::FindHeapBlock32(ULONG64 address, ExtRemoteTyped 
     uint id1 = HeapBlockMap32::GetLevel1Id((void *)address);
     ExtRemoteTyped l2map = heapBlockMap.Field("map").ArrayElement(id1);
     
-    if (l2map.GetPtr() == null)
+    if (l2map.GetPtr() == NULL)
     {
         if (allowOutput)
         {
@@ -810,7 +810,7 @@ ExtRemoteTyped HeapBlockHelper::FindHeapBlockTyped(ULONG64 address, ExtRemoteTyp
 
         ExtRemoteTyped node = heapBlockMap.Field("list");
 
-        while (node.GetPtr() != null)
+        while (node.GetPtr() != NULL)
         {
             if (node.Field("nodeIndex").GetUlong() == index)
             {
@@ -905,7 +905,7 @@ bool EXT_CLASS_BASE::CheckTypeName(PCSTR typeName, ULONG* typeId /*= nullptr*/)
     char buf[MAX_SYM_NAME];
     ULONG id = 0;
     sprintf_s(buf, "%s!%s", typeName, GetModuleName());
-    HRESULT hr = this->m_Symbols2->GetSymbolTypeId(buf, &id, NULL);
+    HRESULT hr = this->m_Symbols2->GetSymbolTypeId(buf, &id, nullptr);
     if (typeId != nullptr)
     {
         *typeId = id;
@@ -938,7 +938,7 @@ JD_PRIVATE_COMMAND(markmap,
     }
 
     FILE* f = fopen(filename, "w+");
-    if (f != null)
+    if (f != nullptr)
     {
         Out("Recycler is 0x%p\n", recycler);
         ExtRemoteTyped map = recycler.Field("markMap");
@@ -1207,8 +1207,8 @@ void HeapBlockHelper::DumpLargeHeapBlockObject(ExtRemoteTyped& heapBlockObject, 
     ULONG64 objectCount = EXT_CLASS_BASE::GetSizeT(heapBlockObject.Field("objectCount")); 
 
     ExtRemoteTyped freeBitWord;
-    heapObject.isFreeSet = (headerAddress >= blockAddress && heapObject.index < EXT_CLASS_BASE::GetSizeT(heapBlockObject.Field("allocCount")) && headerData.m_Data == null);
-    heapObject.freeBitWord = null;
+    heapObject.isFreeSet = (headerAddress >= blockAddress && heapObject.index < EXT_CLASS_BASE::GetSizeT(heapBlockObject.Field("allocCount")) && headerData.m_Data == NULL);
+    heapObject.freeBitWord = NULL;
 
     ExtRemoteTyped markBitWord;
     ULONG64 markBitVector = (heapBlock + sizeOfHeapBlock + largeObjectHeaderPtrSize * objectCount);
@@ -1576,7 +1576,7 @@ JD_PRIVATE_COMMAND(showblockinfo,
         recycler = RemoteThreadContext::GetCurrentThreadContext().GetRecycler().GetExtRemoteTyped();
     }
 
-    if (address != null)
+    if (address != NULL)
     {
         ExtRemoteTyped heapBlock(FillModuleAndMemoryNS("(%s!%sHeapBlock*)@$extin"), address);
         heapBlock = CastWithVtable(heapBlock);
@@ -1612,7 +1612,7 @@ JD_PRIVATE_COMMAND(findblock,
     HeapBlockHelper helper(this, recycler);
     ULONG64 heapBlock = helper.FindHeapBlock(address, recycler);
 
-    if (heapBlock != null)
+    if (heapBlock != NULL)
     {
         ExtRemoteTyped heapBlock(FillModuleAndMemoryNS("%s!%sHeapBlock"), heapBlock, false);
         helper.GetHeapBlockType(heapBlock);
@@ -1869,7 +1869,7 @@ private:
             smallCount++;
         }
 
-        if (execStr != NULL)
+        if (execStr != nullptr)
         {
             CHAR    buffer[20] = "0x";
             std::string cmd = execStr;
@@ -1924,7 +1924,7 @@ JD_PRIVATE_COMMAND(hbm,
         recycler = RemoteThreadContext::GetCurrentThreadContext().GetRecycler().GetExtRemoteTyped();
     }
 
-    PCSTR execStr = NULL;
+    PCSTR execStr = nullptr;
     bool filter = false;
     if (HasArg("match"))
     {
@@ -2454,7 +2454,7 @@ void ShowStack(ExtRemoteTyped heapBlock, PCSTR stackType, EXT_CLASS_BASE* ext)
     ExtRemoteTyped stackField = heapBlock.Field(stackFieldName.c_str());
     std::string HeapBlockType = ext->FillModuleAndMemoryNS("%s!%sHeapBlock");
     char buffer[1024];
-    if (stackField.GetPtr() != null)
+    if (stackField.GetPtr() != NULL)
     {
         sprintf_s(buffer, "%s", ext->FillModuleV("dps @@c++(((%s*)(0x%llx))->%s->stackBackTrace) L@@c++(((%s*)(0x%llx))->%s->framesCount)",
             HeapBlockType.c_str(), heapBlock.GetPtr(), stackFieldName.c_str(), HeapBlockType.c_str(), heapBlock.GetPtr(), stackFieldName.c_str()));
@@ -2757,7 +2757,7 @@ void MphCmdsWrapper::InitializeForMPH()
     IEMode mode = legacy;
     sprintf_s(buffer, "%s!MemProtectHeap", memGCModules[mode]); // should not be inlined
     ULONG typeIdMemProtectHeap;
-    if (ext->m_Symbols2->GetSymbolTypeId(buffer, &typeIdMemProtectHeap, NULL) == S_OK)
+    if (ext->m_Symbols2->GetSymbolTypeId(buffer, &typeIdMemProtectHeap, nullptr) == S_OK)
     {
         if (verbose)
         {
@@ -2768,7 +2768,7 @@ void MphCmdsWrapper::InitializeForMPH()
     {
         mode = edge;
         sprintf_s(buffer, "%s!MemProtectHeap", memGCModules[mode]); // should not be inlined
-        if (ext->m_Symbols2->GetSymbolTypeId(buffer, &typeIdMemProtectHeap, NULL) == S_OK)
+        if (ext->m_Symbols2->GetSymbolTypeId(buffer, &typeIdMemProtectHeap, nullptr) == S_OK)
         {
             if (verbose)
             {

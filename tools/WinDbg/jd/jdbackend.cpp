@@ -7,7 +7,7 @@
 #include "jdbackend.h"
 #define TEMP_BUFFER_SIZE 1024
 static char s_tempBuffer[TEMP_BUFFER_SIZE];
-#define RETURNBUFFER(fmt, ...) if (buffer == null) { buffer = s_tempBuffer; len = sizeof(s_tempBuffer); }; sprintf_s(buffer, len, fmt, __VA_ARGS__); return buffer
+#define RETURNBUFFER(fmt, ...) if (buffer == nullptr) { buffer = s_tempBuffer; len = sizeof(s_tempBuffer); }; sprintf_s(buffer, len, fmt, __VA_ARGS__); return buffer
 
 char * JDBackend::GetStackSymDumpString(ExtRemoteTyped stackSym, char * buffer, size_t len)
 {
@@ -262,7 +262,7 @@ void JDBackend::DumpInstrBase(ExtRemoteTyped instr)
     ExtRemoteTyped src1 = instr.Field("m_src1");
     ExtRemoteTyped src2 = instr.Field("m_src2");
 
-    if (dst.GetPtr() != null)
+    if (dst.GetPtr() != NULL)
     {
         ext->Out("%15s = ", GetOpndDumpString(dst));
     }
@@ -274,10 +274,10 @@ void JDBackend::DumpInstrBase(ExtRemoteTyped instr)
     // Trim out the enum numeric value    
     ext->Out("%-20s", GetEnumString(opcode));
 
-    if (src1.GetPtr() != null)
+    if (src1.GetPtr() != NULL)
     {
         ext->Out(" %-8s", GetOpndDumpString(src1));
-        if (src2.GetPtr() != null)
+        if (src2.GetPtr() != NULL)
         {
             ext->Out(", %-15s", GetOpndDumpString(src2));
         }

@@ -59,7 +59,7 @@ Graph<TKey, TAux>::FindPath(const TKey& from, const TKey& to)
             item.distance = Infinity;
 
             distance[node] = Infinity;
-            previous[node] = null;
+            previous[node] = nullptr;
 
             if (node->Edges.Count() == 0 &&
                 node->Predecessors.Count() == 0)
@@ -119,7 +119,7 @@ Graph<TKey, TAux>::FindPath(const TKey& from, const TKey& to)
     }
 
     auto node = toNode;
-    while (previous[node] != null)
+    while (previous[node] != nullptr)
     {
         result.push_back(node->Key);
         node = previous[node];

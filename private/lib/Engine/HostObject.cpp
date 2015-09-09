@@ -36,13 +36,13 @@ Var HostObject::GetNamespaceParent(
 
     if (!Js::RecyclableObject::Is(childDispatch))
     {
-        return null;       
+        return nullptr;
     }
 
     // Do we have an external object?
     if(Js::JavascriptOperators::GetTypeId(childDispatch) != Js::TypeIds_HostDispatch)
     {
-        return null;
+        return nullptr;
     }
 
     pExternal = static_cast<HostDispatch*>(childDispatch);
@@ -52,9 +52,9 @@ Var HostObject::GetNamespaceParent(
     // Do we have an IDispatchEx?
 
     pDisp = pExternal->GetDispatchNoRef();
-    if (NULL == pDisp)
+    if (nullptr == pDisp)
     {
-        return null;
+        return nullptr;
     }
 
     AssertInScript();
@@ -85,7 +85,7 @@ Var HostObject::GetNamespaceParent(
 
     if (FAILED(hr))
     {
-        return null;
+        return nullptr;
     }
 
     // Yes to all of the above: make a proxy for the parent's IDispatch.

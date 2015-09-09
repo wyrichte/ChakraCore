@@ -35,7 +35,7 @@ namespace Js
     {
         Var currentName = NULL;
         ScriptContext* scriptContext = GetScriptContext();
-        if (varEnumerator == null)
+        if (varEnumerator == nullptr)
         {
             return scriptContext->GetLibrary()->GetUndefined();
         }
@@ -63,7 +63,7 @@ namespace Js
     {
         BOOL itemsAvailable = FALSE;
         ScriptContext* scriptContext = GetScriptContext();
-        if (varEnumerator == null)
+        if (varEnumerator == nullptr)
         {
             return FALSE;
         }

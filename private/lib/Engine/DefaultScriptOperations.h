@@ -16,7 +16,7 @@ namespace Js
     END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr) \
     catch (Js::JavascriptExceptionObject *  pError) \
     { \
-        DispatchExCaller * pdc = NULL; \
+        DispatchExCaller * pdc = nullptr; \
         if (hostScriptContext) \
         { \
             hr = hostScriptContext->GetDispatchExCaller((void **)&pdc); \
@@ -27,7 +27,7 @@ namespace Js
         } \
         else \
         { \
-            hr = ScriptSite::HandleJavascriptException(pError, scriptContext, NULL); \
+            hr = ScriptSite::HandleJavascriptException(pError, scriptContext, nullptr); \
         } \
     } \
     CATCH_UNHANDLED_EXCEPTION(hr)
@@ -42,19 +42,19 @@ namespace Js
 
         STDMETHODIMP QueryInterface(REFIID riid,void **ppv)
         {
-            if (ppv==NULL)
+            if (ppv == nullptr)
                 return E_POINTER;
             if (IsEqualGUID(riid,__uuidof(IVarEnumerator))) {
-                *ppv=static_cast<IVarEnumerator*>(this);
+                *ppv = static_cast<IVarEnumerator*>(this);
             }
             else if (IsEqualGUID(riid,__uuidof(IVarEnumerator2))) {
-                *ppv=static_cast<IVarEnumerator2*>(this);
+                *ppv  =static_cast<IVarEnumerator2*>(this);
             }
             else if (IsEqualGUID(riid,IID_IUnknown)) {
-                *ppv=static_cast<IVarEnumerator*>(this);
+                *ppv = static_cast<IVarEnumerator*>(this);
             }
             else {
-                *ppv=NULL;
+                *ppv = nullptr;
                 return E_NOINTERFACE;
             }
             reinterpret_cast<IUnknown*>(*ppv)->AddRef();
@@ -85,7 +85,7 @@ namespace Js
 
         STDMETHODIMP GetJavascriptEnumerator(/*[out*/ Var * enumerator)
         {
-            *enumerator = null;
+            *enumerator = nullptr;
             return NOERROR;
         }
     };
@@ -101,7 +101,7 @@ namespace Js
 
         STDMETHODIMP QueryInterface(REFIID riid,void **ppv)
         {
-            if (ppv==NULL)
+            if (ppv== nullptr)
                 return E_POINTER;
             if (IsEqualGUID(riid,__uuidof(IVarEnumerator))) {
                 *ppv=static_cast<IVarEnumerator*>(this);
@@ -113,7 +113,7 @@ namespace Js
                 *ppv=static_cast<IVarEnumerator*>(this);
             }
             else {
-                *ppv=NULL;
+                *ppv= nullptr;
                 return E_NOINTERFACE;
             }
             reinterpret_cast<IUnknown*>(*ppv)->AddRef();
@@ -369,7 +369,7 @@ namespace Js
             HostScriptContext * hostScriptContext;
             RecyclableObject* objInstance = RecyclableObject::FromVar(instance);
             Js::ScriptContext * scriptContext = GetCurrentScriptContext(scriptDirect, &hostScriptContext);
-            if (NULL == scriptContext)
+            if (nullptr == scriptContext)
             {
                 // trident might call this with the site closed during navigation; we don't need to do anything
                 // here if we are closed already.

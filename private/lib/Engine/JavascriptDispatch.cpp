@@ -38,7 +38,7 @@ JavascriptDispatch* JavascriptDispatch::Create(Js::DynamicObject* scriptObject)
     Js::ScriptContext * scriptContext = scriptObject->GetScriptContext();
     ScriptSite * scriptSite = ScriptSite::FromScriptContext(scriptContext);
     ScriptSite::DispatchMap * dispMap = scriptSite->EnsureDispatchMap();
-    JavascriptDispatch* jsdisp = NULL;
+    JavascriptDispatch* jsdisp = nullptr;
 
     if (inScript)
     {
@@ -63,8 +63,8 @@ JavascriptDispatch* JavascriptDispatch::Create(Js::DynamicObject* scriptObject)
             if (jsdisp)
             {
                 AssertMsg(!jsdisp->isGCTracked, "JD wrapping CEO shouldn't be GC tracked");
-                Assert(jsdisp->scriptSite == NULL);
-                Assert(jsdisp->scriptObject != NULL);
+                Assert(jsdisp->scriptSite == nullptr);
+                Assert(jsdisp->scriptObject != nullptr);
                 jsdisp->scriptSite = scriptSite;
                 scriptSite->AddRef();
                 scriptSite->AddDispatchCount();
@@ -74,7 +74,7 @@ JavascriptDispatch* JavascriptDispatch::Create(Js::DynamicObject* scriptObject)
             }
         }
 
-        if (jsdisp == NULL)
+        if (jsdisp == nullptr)
         {
             // pixel array is only implemented as Uint8ClampedArray in edge mode.
             if (scriptObject->GetTypeId() == Js::TypeIds_Uint8ClampedArray)
@@ -106,7 +106,7 @@ JavascriptDispatch* JavascriptDispatch::Create(Js::DynamicObject* scriptObject)
     }
     else
     {
-        Assert(jsdisp != NULL);
+        Assert(jsdisp != nullptr);
         Assert(jsdisp->GetObject() == scriptObject);
     }
     return jsdisp;
@@ -118,11 +118,11 @@ JavascriptDispatch::JavascriptDispatch(
    : refCount(0),
    scriptSite(inScriptSite),
    scriptObject(scriptObject),
-   dispIdEnumerator(null),
+   dispIdEnumerator(nullptr),
    isGCTracked(FALSE),
    isFinalized(FALSE),
    isInCall(FALSE),
-   dispIdPropertyStringMap(NULL)
+   dispIdPropertyStringMap(nullptr)
 #if DBG
    ,isFinishCreated(FALSE)
 #endif
@@ -146,7 +146,7 @@ HRESULT JavascriptDispatch::QueryInterface(REFIID riid, void **ppvObj)
     // scriptObject can be NULL if we are dealing with an external object or function after
     // the script engine closes. If this is the case we should respond to IUnknown directly
     // instead of forwarding (change of identity to COM) and avoid our fallback to QueryObjectInterface.
-    if (IID_IUnknown == riid && (scriptObject == null || !scriptObject->IsExternal()))
+    if (IID_IUnknown == riid && (scriptObject == nullptr || !scriptObject->IsExternal()))
     {
         *ppvObj = (IDispatchEx *)this;
     }
@@ -168,25 +168,25 @@ HRESULT JavascriptDispatch::QueryInterface(REFIID riid, void **ppvObj)
     }
     else if (IID_ITrackerJS9 == riid)
     {
-        *ppvObj = NULL;
+        *ppvObj = nullptr;
         return E_NOINTERFACE;
     }
     else if (IID_IJsArray == riid)
     {
-        if (scriptObject != null && Js::JavascriptArray::Is(scriptObject))
+        if (scriptObject != nullptr && Js::JavascriptArray::Is(scriptObject))
         {
             // Identity check for mshtml.dll.
-            *ppvObj = NULL;
+            *ppvObj = nullptr;
             return E_NOTIMPL;
         }
         return E_NOINTERFACE;
     }
     else if (IID_IJsArguments == riid)
     {
-        if (scriptObject != null && Js::ArgumentsObject::Is(scriptObject))
+        if (scriptObject != nullptr && Js::ArgumentsObject::Is(scriptObject))
         {
             // Identity check for mshtml.dll.
-            *ppvObj = NULL;
+            *ppvObj = nullptr;
             return E_NOTIMPL;
         }
         return E_NOINTERFACE;
@@ -194,12 +194,12 @@ HRESULT JavascriptDispatch::QueryInterface(REFIID riid, void **ppvObj)
     else if (__uuidof(IEnumVARIANT) == riid)
     {
         AssertMsg(false, "Enumerator is removed in Chakra.");
-        *ppvObj = NULL;
+        *ppvObj = nullptr;
         return E_NOINTERFACE;
     }
     else
     {
-        if (NULL != scriptObject)
+        if (nullptr != scriptObject)
         {
             HRESULT hr = NOERROR;
 #if DBG
@@ -225,14 +225,14 @@ HRESULT JavascriptDispatch::QueryInterface(REFIID riid, void **ppvObj)
             }
             if (FAILED(hr))
             {
-                *ppvObj = NULL;
+                *ppvObj = nullptr;
                 VERIFYHRESULTBEFORERETURN(hr, scriptContext);
                 return hr;
             }
         }
         else
         {
-            *ppvObj = NULL;
+            *ppvObj = nullptr;
             return E_NOINTERFACE;
         }
     }
@@ -269,7 +269,7 @@ ULONG JavascriptDispatch::AddRef(void)
 #if defined(CHECK_MEMORY_LEAK) || defined(LEAK_REPORT)
     if (Js::Configuration::Global.flags.LeakStackTrace)
     {
-        Assert(trackNode != null);
+        Assert(trackNode != nullptr);
         StackBackTraceNode::Prepend(&NoCheckHeapAllocator::Instance, trackNode->refCountStackBackTraces,
             StackBackTrace::Capture(&NoCheckHeapAllocator::Instance, StackToSkip, StackTraceDepth));
     }
@@ -279,11 +279,11 @@ ULONG JavascriptDispatch::AddRef(void)
 
 void JavascriptDispatch::RemoveFromDispatchMap()
 {
-    if (scriptObject != NULL)
+    if (scriptObject != nullptr)
     {
         ScriptSite::DispatchMap * dispMap = scriptSite->GetDispatchMap();
         bool removed = false;
-        if (dispMap != null)
+        if (dispMap != nullptr)
         {
             removed = dispMap->Remove(scriptObject);
         }
@@ -294,9 +294,9 @@ void JavascriptDispatch::RemoveFromDispatchMap()
 void JavascriptDispatch::Finalize(bool isShutdown)
 {
     Assert(isShutdown || refCount == 0);
-    Assert(scriptSite != null || (!isGCTracked && refCount == 0));
+    Assert(scriptSite != nullptr || (!isGCTracked && refCount == 0));
     isFinalized = TRUE;
-    if (scriptSite != null)
+    if (scriptSite != nullptr)
     {
         Assert(isGCTracked || isShutdown || !isFinishCreated);
         RemoveFromDispatchMap();
@@ -306,9 +306,9 @@ void JavascriptDispatch::Finalize(bool isShutdown)
 void JavascriptDispatch::Dispose(bool isShutdown)
 {
     Assert(isShutdown || refCount == 0);
-    Assert(scriptSite != null || (!isGCTracked && refCount == 0));
+    Assert(scriptSite != nullptr || (!isGCTracked && refCount == 0));
     Assert(isFinalized);
-    if (scriptSite != null)
+    if (scriptSite != nullptr)
     {
         Assert(isGCTracked || isShutdown || !isFinishCreated);
         if (!scriptSite->isClosed)
@@ -348,7 +348,7 @@ ULONG JavascriptDispatch::Release(void)
             }
             scriptSite->ReleaseDispatchCount();
             scriptSite->Release();
-            scriptSite = null;
+            scriptSite = nullptr;
 #ifdef TRACK_JS_DISPATCH
             LogFree();
 #endif
@@ -356,7 +356,7 @@ ULONG JavascriptDispatch::Release(void)
 #if defined(CHECK_MEMORY_LEAK) || defined(LEAK_REPORT)
         else if (Js::Configuration::Global.flags.LeakStackTrace)
         {
-            Assert(trackNode != null);
+            Assert(trackNode != nullptr);
             StackBackTraceNode::DeleteAll(&NoCheckHeapAllocator::Instance, trackNode->refCountStackBackTraces);
         }
 #endif
@@ -369,7 +369,7 @@ ULONG JavascriptDispatch::Release(void)
 #if defined(CHECK_MEMORY_LEAK) || defined(LEAK_REPORT)
     else if (Js::Configuration::Global.flags.LeakStackTrace)
     {
-        Assert(trackNode != null);
+        Assert(trackNode != nullptr);
         StackBackTraceNode::Prepend(&NoCheckHeapAllocator::Instance, trackNode->refCountStackBackTraces,
             StackBackTrace::Capture(&NoCheckHeapAllocator::Instance, StackToSkip, StackTraceDepth));
     }
@@ -390,7 +390,7 @@ HRESULT JavascriptDispatch::GetTypeInfoCount(UINT *pctinfo)
 
 HRESULT JavascriptDispatch::GetTypeInfo(UINT iti, LCID lcid, ITypeInfo **ppti)
 {
-    *ppti = NULL;
+    *ppti = nullptr;
     if (0 != iti)
         return DISP_E_BADINDEX;
 
@@ -494,17 +494,17 @@ HRESULT JavascriptDispatch::Invoke(DISPID id, REFIID riid, LCID lcid, WORD wFlag
 {
     if (IID_NULL != riid)
     {
-        if (NULL != pvarRes)
+        if (nullptr != pvarRes)
         {
             VariantInit(pvarRes);
         }
-        if (NULL != pei)
+        if (nullptr != pei)
         {
             memset(pei, 0, sizeof(*pei));
         }
         return DISP_E_UNKNOWNINTERFACE;
     }
-    return InvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, NULL);
+    return InvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, nullptr);
 }
 
 HRESULT JavascriptDispatch::OP_InitPropertyWithScriptEnter(Var instance, PropertyId propertyId, Var newValue)
@@ -545,7 +545,7 @@ HRESULT JavascriptDispatch::GetDispID(BSTR bstr, DWORD grfdex, DISPID *pid)
     hr1 = VerifyOnEntry();
     IfFailedReturn(hr1);
 
-    Assert(scriptObject != NULL);
+    Assert(scriptObject != nullptr);
     AutoActiveCallPointer autoActiveCallPointer(this);
 
     BOOL isPropertyId = TRUE;
@@ -585,7 +585,7 @@ HRESULT JavascriptDispatch::GetDispID(BSTR bstr, DWORD grfdex, DISPID *pid)
                 }
                 else
                 {
-                    Js::PropertyRecord const * propertyRecord = NULL;
+                    Js::PropertyRecord const * propertyRecord = nullptr;
                     if (propertyId == Js::Constants::NoProperty)
                     {
                         // the type handler should keep the propertyid alive. We don't need to cache the property here.
@@ -639,14 +639,14 @@ HRESULT JavascriptDispatch::GetPropertyIdWithFlag(__in BSTR bstrName, DWORD grfd
 {
     Js::PropertyId newPropertyId = Js::Constants::NoProperty;
     *propertyId = Js::Constants::NoProperty;
-    *propertyRecord = null;
+    *propertyRecord = nullptr;
     HRESULT hr = DISP_E_UNKNOWNNAME;
     Js::ScriptContext* scriptContext = this->GetScriptContext();
 
     *pIsPropertyId = TRUE;
 
     int nameLength = bstrName ? (int)wcslen(bstrName) : 0;
-    if (bstrName == null)
+    if (bstrName == nullptr)
     {
     }
     else if (Js::JavascriptOperators::TryConvertToUInt32(bstrName, nameLength, indexVal) &&
@@ -670,14 +670,14 @@ HRESULT JavascriptDispatch::GetPropertyIdWithFlag(__in BSTR bstrName, DWORD grfd
         }
 
         JsUtil::List<const RecyclerWeakReference<Js::PropertyRecord const>*>* list = scriptContext->FindPropertyIdNoCase((LPWSTR)bstrName, nameLength);
-        if (list != null)
+        if (list != nullptr)
         {
             AssertMsg(list->Count() > 0, "The list must contain at least one entry or else it would not have been added to the propertyMapNoCase dictionary.");
 
-            Js::PropertyRecord const* caseSensitivePropertyRecord = null;
+            Js::PropertyRecord const* caseSensitivePropertyRecord = nullptr;
             scriptContext->FindPropertyRecord((LPCWSTR) bstrName, nameLength, &caseSensitivePropertyRecord);
 
-            if (caseSensitivePropertyRecord != null)
+            if (caseSensitivePropertyRecord != nullptr)
             {
                 // We want to prefer the case sensitive matched string so lets walk through the list and
                 // if we find it, move it to the front of the list
@@ -685,7 +685,7 @@ HRESULT JavascriptDispatch::GetPropertyIdWithFlag(__in BSTR bstrName, DWORD grfd
                 {
                     const RecyclerWeakReference<Js::PropertyRecord const>* currentPropertyStringWeakRef = list->Item(i);
                     Js::PropertyRecord const * propertyRecord = currentPropertyStringWeakRef->Get();
-                    if (propertyRecord == null)
+                    if (propertyRecord == nullptr)
                     {
                         continue;
                     }
@@ -719,7 +719,7 @@ HRESULT JavascriptDispatch::GetPropertyIdWithFlag(__in BSTR bstrName, DWORD grfd
             {
                 const RecyclerWeakReference<Js::PropertyRecord const>* currentPropertyStringWeakRef = list->Item(i);
                 Js::PropertyRecord const * propertyRecord = currentPropertyStringWeakRef->Get();
-                if (propertyRecord == null)
+                if (propertyRecord == nullptr)
                 {
                     continue;
                 }
@@ -849,7 +849,7 @@ HRESULT JavascriptDispatch::GetPropertyIdWithFlag(__in BSTR bstrName, DWORD grfd
 HRESULT JavascriptDispatch::CreateSafeArrayOfProperties(__out VARIANT* pvarRes)
 {
     HRESULT hr = NOERROR;
-    if (NULL == pvarRes)
+    if (nullptr == pvarRes)
     {
         return NOERROR;
     }
@@ -862,12 +862,12 @@ HRESULT JavascriptDispatch::CreateSafeArrayOfProperties(__out VARIANT* pvarRes)
     {
         ActiveScriptError * pase;
         Js::ScriptContext * errorScriptContext = pError->GetScriptContext() ? pError->GetScriptContext() : this->GetScriptContext();
-        if (SUCCEEDED(ActiveScriptError::CreateRuntimeError(pError, &hr, NULL, errorScriptContext, &pase)))
+        if (SUCCEEDED(ActiveScriptError::CreateRuntimeError(pError, &hr, nullptr, errorScriptContext, &pase)))
         {
-            if (errorScriptContext != null && !errorScriptContext->IsClosed())
+            if (errorScriptContext != nullptr && !errorScriptContext->IsClosed())
             {
                 ScriptSite * errorScriptSite = ScriptSite::FromScriptContext(errorScriptContext);
-                Assert(errorScriptSite != NULL);
+                Assert(errorScriptSite != nullptr);
                 if (NOERROR == errorScriptSite->GetScriptEngine()->OnScriptError((IActiveScriptError *) IACTIVESCRIPTERROR64 pase))
                 {
                     hr = SCRIPT_E_REPORTED;
@@ -884,17 +884,17 @@ HRESULT JavascriptDispatch::CreateSafeArrayOfProperties(__out VARIANT* pvarRes)
 class AutoSafeArray
 {
 public:
-    AutoSafeArray(SAFEARRAY * safeArray = null) : safeArray(safeArray) {}
+    AutoSafeArray(SAFEARRAY * safeArray = nullptr) : safeArray(safeArray) {}
     ~AutoSafeArray()
     {
-        if (safeArray != null)
+        if (safeArray != nullptr)
         {
             SafeArrayDestroy(safeArray);
         }
     }
     operator SAFEARRAY *() { return safeArray; }
-    SAFEARRAY * Detach() { SAFEARRAY * ret = safeArray; safeArray = null; return ret; }
-    SAFEARRAY * operator->() { Assert(safeArray != null); return safeArray; }
+    SAFEARRAY * Detach() { SAFEARRAY * ret = safeArray; safeArray = nullptr; return ret; }
+    SAFEARRAY * operator->() { Assert(safeArray != nullptr); return safeArray; }
 private:
     SAFEARRAY * safeArray;
 };
@@ -922,7 +922,7 @@ HRESULT JavascriptDispatch::CreateSafeArrayOfPropertiesWithScriptEnter(VARIANT* 
             arrayBound.cElements = length;
             arrayBound.lLbound = 0;
             AutoSafeArray localSafeArray(SafeArrayCreate(VT_VARIANT, 1, &arrayBound));
-            if (NULL == localSafeArray)
+            if (nullptr == localSafeArray)
             {
                 hr = E_OUTOFMEMORY;
             }
@@ -960,7 +960,7 @@ HRESULT JavascriptDispatch::CreateSafeArrayOfPropertiesWithScriptEnter(VARIANT* 
 Js::ScriptContext *
 JavascriptDispatch::GetScriptContext()
 {
-    Assert(scriptObject != null);
+    Assert(scriptObject != nullptr);
     Js::ScriptContext* scriptContext = scriptObject->GetScriptContext();
     Assert(scriptSite->IsClosed() || scriptSite->GetScriptSiteContext() == scriptContext);
     return scriptContext;
@@ -994,18 +994,18 @@ HRESULT JavascriptDispatch::InvokeEx(
     AutoActiveCallPointer autoActiveCallPointer(this);
 
     // Initialize out parameters.
-    if (pvarRes != NULL)
+    if (pvarRes != nullptr)
     {
         VariantInit(pvarRes);
     }
 
-    if (pei != NULL)
+    if (pei != nullptr)
     {
         memset(pei, 0, sizeof(*pei));
     }
 
     // Validate in parameters.
-    if (pdp == NULL || pdp->cArgs < pdp->cNamedArgs)
+    if (pdp == nullptr || pdp->cArgs < pdp->cNamedArgs)
     {
         hr = E_INVALIDARG;
     }
@@ -1083,7 +1083,7 @@ HRESULT JavascriptDispatch::InvokeEx(
             doPrintProfile = true;
         }
 #endif
-        if (doPrintProfile && scriptSite->GetParentScriptSite() == null &&
+        if (doPrintProfile && scriptSite->GetParentScriptSite() == nullptr &&
             Js::JavascriptFunction::Is(this->scriptObject))
         {
             Js::JavascriptFunction *func = Js::JavascriptFunction::FromVar(this->scriptObject);
@@ -1150,17 +1150,17 @@ HRESULT JavascriptDispatch::InvokeBuiltInOperation(
     IfFailedReturn(hr);
 
     // Initialize out parameters.
-    if (pVarRes != NULL)
+    if (pVarRes != nullptr)
     {
         VariantInit(pVarRes);
     }
-    if (pei != NULL)
+    if (pei != nullptr)
     {
         memset(pei, 0, sizeof(*pei));
     }
 
     // Validate in parameters.
-    if (pdp == NULL || pdp->cArgs < pdp->cNamedArgs)
+    if (pdp == nullptr || pdp->cArgs < pdp->cNamedArgs)
     {
         hr = E_INVALIDARG;
     }
@@ -1168,8 +1168,8 @@ HRESULT JavascriptDispatch::InvokeBuiltInOperation(
     Js::ScriptContext * scriptContext = GetScriptContext();
     Js::JavascriptLibrary* library = scriptContext->GetLibrary();
 
-    Js::DynamicObject * parentObject = NULL;
-    Js::JavascriptMethod entryPoint = NULL;
+    Js::DynamicObject * parentObject = nullptr;
+    Js::JavascriptMethod entryPoint = nullptr;
 
     switch (operation)
     {
@@ -1200,12 +1200,12 @@ HRESULT JavascriptDispatch::InvokeBuiltInOperation(
     END_TRANSLATE_OOM_TO_HRESULT(hr)
 
     Js::JavascriptFunction * builtInFunction = scriptContext->GetBuiltInLibraryFunction(entryPoint);
-    if (builtInFunction == NULL)
+    if (builtInFunction == nullptr)
     {
         return JSERR_NeedFunction;
     }
 
-    Js::Arguments arguments(0, NULL);
+    Js::Arguments arguments(0, nullptr);
     if (scriptSite->IsClosed())
     {
         return JSERR_CantExecute;
@@ -1273,15 +1273,15 @@ HRESULT JavascriptDispatch::InvokeOnMember(
     IServiceProvider *  pspCaller)
 {
     HRESULT         hr = S_OK;
-    IDispatchEx     *pDispEx = NULL;
-    VARIANT         *pVarValue = NULL;
+    IDispatchEx     *pDispEx = nullptr;
+    VARIANT         *pVarValue = nullptr;
     Js::Var        varMember;
-    Js::Var        value = NULL;
+    Js::Var        value = nullptr;
 
     Js::JavascriptLibrary* library = scriptObject->GetLibrary();
 
     // This should be checked already
-    Assert(scriptObject != null);
+    Assert(scriptObject != nullptr);
 
     // Examine wFlags to figure out the action we need to perform.
 
@@ -1363,7 +1363,7 @@ HRESULT JavascriptDispatch::InvokeOnMember(
                 }
                 // The javascript dispatch could be an entry point for a call originating from another thread (cross-tab scenario)
                 // Let's ensure that the caller's threadContext records the exception if the current threadContext has one recorded.
-                if((hr == SCRIPT_E_PROPAGATE || hr == SCRIPT_E_RECORDED) && scriptContext->GetThreadContext()->GetRecordedException() != NULL)
+                if((hr == SCRIPT_E_PROPAGATE || hr == SCRIPT_E_RECORDED) && scriptContext->GetThreadContext()->GetRecordedException() != nullptr)
                 {
                     hr = scriptSite->HandleJavascriptException(scriptContext->GetAndClearRecordedException(), scriptContext, pspCaller);
                 }
@@ -1371,13 +1371,13 @@ HRESULT JavascriptDispatch::InvokeOnMember(
         }
         else
         {
-            if (varMember == null ||
+            if (varMember == nullptr ||
                 !Js::RecyclableObject::Is(varMember))
             {
                 return JSERR_NeedFunction;
             }
             Js::RecyclableObject *obj = Js::RecyclableObject::FromVar(varMember);
-            Js::Arguments arguments(0, NULL);
+            Js::Arguments arguments(0, nullptr);
             ScriptSite* targetScriptSite;
             IfFailedReturn(GetTargetScriptSite(obj,&targetScriptSite));
             if (targetScriptSite->IsClosed())
@@ -1470,7 +1470,7 @@ HRESULT JavascriptDispatch::InvokeOnMember(
             // WOOB 1116700
             // in objectfallback.js, msxml can call into JavascriptDispatch InvokeEx with pdp != NULL
             // but pDisp NULL, when mshtml is passivating. We can't do much at this time anyhow.
-            if (pDisp == NULL)
+            if (pDisp == nullptr)
             {
                 return E_FAIL;
             }
@@ -1484,7 +1484,7 @@ HRESULT JavascriptDispatch::InvokeOnMember(
                 if (scriptSite)
                 {
                     ScriptEngine *scriptEngine = scriptSite->GetScriptEngine();
-                    if (scriptEngine == NULL)
+                    if (scriptEngine == nullptr)
                     {
                         return E_UNEXPECTED;
                     }
@@ -1495,7 +1495,7 @@ HRESULT JavascriptDispatch::InvokeOnMember(
             }
             else
             {
-                hr = pDisp->Invoke(0, IID_NULL, lcid, DISPATCH_PROPERTYGET, &dispEmpty, pVarValue, pei, NULL);
+                hr = pDisp->Invoke(0, IID_NULL, lcid, DISPATCH_PROPERTYGET, &dispEmpty, pVarValue, pei, nullptr);
             }
 
             if (FAILED(hr))
@@ -1572,7 +1572,7 @@ HRESULT JavascriptDispatch::InvokeOnSelf(
         return DISP_E_MEMBERNOTFOUND;
     }
 
-    if (scriptSite->GetScriptEngine() == NULL)
+    if (scriptSite->GetScriptEngine() == nullptr)
     {
         return E_UNEXPECTED;
     }
@@ -1588,7 +1588,7 @@ HRESULT JavascriptDispatch::InvokeOnSelf(
 
         hr = scriptSite->ExternalToPrimitive(this->scriptObject, hint, &varValue, pspCaller);
 
-        if (SUCCEEDED(hr) && (pVarRes != NULL))
+        if (SUCCEEDED(hr) && (pVarRes != nullptr))
         {
             hr = DispatchHelper::MarshalJsVarToVariantNoThrow(varValue, pVarRes, library->GetScriptContext());
         }
@@ -1598,7 +1598,7 @@ HRESULT JavascriptDispatch::InvokeOnSelf(
         // Do call/construct
         Js::Var varResult;
         Js::Var thisPointer = this->GetScriptContext()->GetLibrary()->GetNull();
-        Js::Arguments arguments(0, NULL);
+        Js::Arguments arguments(0, nullptr);
         hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowWithScriptEnter(pdp, thisPointer, this->GetScriptContext(), scriptObject, &arguments);
         if (wFlags & DISPATCH_CONSTRUCT)
         {
@@ -1608,7 +1608,7 @@ HRESULT JavascriptDispatch::InvokeOnSelf(
         if (SUCCEEDED(hr))
         {
             hr = scriptSite->Execute(scriptObject, &arguments, pspCaller, &varResult);
-            if (SUCCEEDED(hr) && (pVarRes != NULL))
+            if (SUCCEEDED(hr) && (pVarRes != nullptr))
             {
                 hr = DispatchHelper::MarshalJsVarToVariantNoThrow(varResult, pVarRes, library->GetScriptContext());
             }
@@ -1727,15 +1727,15 @@ HRESULT JavascriptDispatch::GetMemberName(DISPID id, BSTR *pbstr)
     }
 
     Js::PropertyRecord const* propertyName = this->GetScriptContext()->GetPropertyName(id);
-    if ((propertyName == NULL) ||
+    if ((propertyName == nullptr) ||
         (propertyName->GetLength() == 0) ||
-        (propertyName->GetBuffer() == NULL))
+        (propertyName->GetBuffer() == nullptr))
     {
         return E_INVALIDARG;
     }
 
     *pbstr = SysAllocStringLen(propertyName->GetBuffer(), (uint)propertyName->GetLength()); // Using SysAllocStringLen for BSTR
-    if (NULL == *pbstr)
+    if (nullptr == *pbstr)
     {
         return E_OUTOFMEMORY;
     }
@@ -1798,7 +1798,7 @@ HRESULT JavascriptDispatch::GetNextDispIDWithScriptEnter(DWORD grfdex, DISPID id
     Js::ScriptContext* scriptContext = this->GetScriptContext();
     BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false)
     {
-        if (dispIdEnumerator == NULL || dispIdEnumerator->GetScriptContext() != scriptContext) CreateDispIdEnumerator();
+        if (dispIdEnumerator == nullptr || dispIdEnumerator->GetScriptContext() != scriptContext) CreateDispIdEnumerator();
 
         Js::PropertyId currentPropertyId;
         if (DISPID_STARTENUM == id)
@@ -1874,7 +1874,7 @@ HRESULT JavascriptDispatch::GetNameSpaceParent(IUnknown **ppunk)
     IfFailedReturn(hr);
     AutoActiveCallPointer autoActiveCallPointer(this);
     IfNullReturnError(ppunk, E_INVALIDARG);
-    *ppunk = NULL;
+    *ppunk = nullptr;
 #if DBG
     Js::ScriptContext* scriptContext = this->GetScriptContext();
 #endif
@@ -1932,7 +1932,7 @@ HRESULT JavascriptDispatch::HasInstance(VARIANT varInstance, BOOL * result, EXCE
         return E_ACCESSDENIED;
     }
 
-    if (pei != NULL)
+    if (pei != nullptr)
     {
         memset(pei, 0, sizeof(*pei));
     }
@@ -2052,7 +2052,7 @@ HRESULT JavascriptDispatch::GetTargetScriptSite(__in Js::RecyclableObject* obj, 
     }
 
     *targetScriptSite = ScriptSite::FromScriptContext(targetScriptContext);
-    Assert(*targetScriptSite != NULL);
+    Assert(*targetScriptSite != nullptr);
     return NOERROR;
 }
 
@@ -2071,7 +2071,7 @@ AutoActiveCallPointer::~AutoActiveCallPointer()
         javascriptDispatch->ResetIsInCall();
 
         // we don't need to zero out if the JavascriptDispatch is already released during the call.
-        if (javascriptDispatch->scriptSite != NULL && javascriptDispatch->scriptSite->IsClosed())
+        if (javascriptDispatch->scriptSite != nullptr && javascriptDispatch->scriptSite->IsClosed())
         {
             if ((Js::JavascriptFunction::Is(javascriptDispatch->scriptObject) || Js::ExternalObject::Is(javascriptDispatch->scriptObject)))
             {
@@ -2090,10 +2090,10 @@ HRESULT JavascriptDispatch::ResetContentToNULL()
     // this is called when a site is closed. we should clean up the cache when the JavascriptDispatch is reset.
     if (Js::CustomExternalObject::Is(scriptObject))
     {
-        Js::CustomExternalObject::FromVar(scriptObject)->CacheJavascriptDispatch(NULL);
+        Js::CustomExternalObject::FromVar(scriptObject)->CacheJavascriptDispatch(nullptr);
     }
-    scriptObject = NULL;
-    dispIdEnumerator = NULL;
+    scriptObject = nullptr;
+    dispIdEnumerator = nullptr;
     return NOERROR;
 }
 
@@ -2113,7 +2113,7 @@ HRESULT JavascriptDispatch::VerifyOnEntry()
     // frame is called, we will av accessing the zeroed out javascriptfunction.
     // The solution is to treat finalized JavascriptDispatch as Disposed already. I'm not aware of similar problem
     // for other disposable objects.
-    if (scriptObject == NULL || isFinalized)
+    if (scriptObject == nullptr || isFinalized)
     {
         AssertMsg(isFinalized || scriptSite->IsClosed(), "ScriptContext not closed but script object is NULL");
         return E_ACCESSDENIED;
@@ -2158,7 +2158,7 @@ void JavascriptDispatch::CachePropertyId(Js::PropertyRecord const * propertyReco
 
 
 #ifdef TRACK_JS_DISPATCH
-JavascriptDispatch::TrackNode* JavascriptDispatch::allocatedList = NULL;
+JavascriptDispatch::TrackNode* JavascriptDispatch::allocatedList = nullptr;
 CriticalSection JavascriptDispatch::s_cs;
 
 void
@@ -2178,12 +2178,12 @@ JavascriptDispatch::LogAlloc()
         node->stackBackTrace = StackBackTrace::Capture(&NoCheckHeapAllocator::Instance, StackToSkip, StackTraceDepth);
         node->hadShutdown = false;
 #if defined(CHECK_MEMORY_LEAK) || defined(LEAK_REPORT)
-        node->refCountStackBackTraces = null;
+        node->refCountStackBackTraces = nullptr;
 #endif
         AutoCriticalSection autocs(&s_cs);
         node->next = allocatedList;
-        node->prev = null;
-        if (allocatedList != null)
+        node->prev = nullptr;
+        if (allocatedList != nullptr)
         {
             allocatedList->prev = node;
         }
@@ -2192,14 +2192,14 @@ JavascriptDispatch::LogAlloc()
     }
     else
     {
-        trackNode = null;
+        trackNode = nullptr;
     }
 }
 
 void
 JavascriptDispatch::LogFree(bool isShutdown)
 {
-    if (trackNode != null)
+    if (trackNode != nullptr)
     {
         if (isShutdown)
         {
@@ -2208,19 +2208,19 @@ JavascriptDispatch::LogFree(bool isShutdown)
         }
 
         AutoCriticalSection autocs(&s_cs);
-        if (trackNode->prev == null)
+        if (trackNode->prev == nullptr)
         {
             Assert(trackNode == allocatedList);
             allocatedList = trackNode->next;
-            if (allocatedList != null)
+            if (allocatedList != nullptr)
             {
-                allocatedList->prev = null;
+                allocatedList->prev = nullptr;
             }
         }
         else
         {
             trackNode->prev->next = trackNode->next;
-            if (trackNode->next != null)
+            if (trackNode->next != nullptr)
             {
                 trackNode->next->prev = trackNode->prev;
             }
@@ -2241,7 +2241,7 @@ JavascriptDispatch::PrintJavascriptRefCountStackTraces()
 {
     AutoCriticalSection autocs(&s_cs);
     TrackNode * curr = allocatedList;
-    while (curr != null)
+    while (curr != nullptr)
     {
         Output::Print(L"%p\n", curr->javascriptDispatch);
         Output::Print(L" Allocation Stack Trace:\n");
@@ -2262,7 +2262,7 @@ JavascriptDispatchLeakOutput leakoutput;
 JavascriptDispatchLeakOutput::~JavascriptDispatchLeakOutput()
 {
     AutoCriticalSection autocs(&JavascriptDispatch::s_cs);
-    if (!Js::Configuration::Global.flags.LeakStackTrace || JavascriptDispatch::allocatedList == null)
+    if (!Js::Configuration::Global.flags.LeakStackTrace || JavascriptDispatch::allocatedList == nullptr)
     {
         return;
     }

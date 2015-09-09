@@ -156,7 +156,7 @@ namespace Projection
     {
         *found = false;
         *index = UINT_MAX;
-        Var element = null;
+        Var element = nullptr;
         bool isSearchTaggedInt = Js::TaggedInt::Is(varValue);
 
         // If length = 0 the item  is not found return with S_OK

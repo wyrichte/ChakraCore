@@ -9,7 +9,7 @@ void QueryContinuePoller::TryInterruptPoll(Js::ScriptContext *scriptContext)
     // Poll the host on the main thread.
 
     HostScriptContext *hostScriptContext = scriptContext->GetHostScriptContext();
-    if (hostScriptContext == null)
+    if (hostScriptContext == nullptr)
     {
         // No host for this script.
         return;
@@ -17,7 +17,7 @@ void QueryContinuePoller::TryInterruptPoll(Js::ScriptContext *scriptContext)
  
     ScriptSite *scriptSite = ((ChakraHostScriptContext *)hostScriptContext)->GetScriptSite();
 
-    if (scriptSite == null)
+    if (scriptSite == nullptr)
     {
         // Report an error?
         return;
@@ -46,7 +46,7 @@ void QueryContinuePoller::DoInterruptPoll(ScriptSite *scriptSite)
 HRESULT QueryContinuePoller::GetInterruptPollState(ScriptSite *scriptSite)
 {
     IActiveScriptSiteInterruptPoll *iPoll = scriptSite->RetrieveInterruptPoll();
-    if (iPoll == null)
+    if (iPoll == nullptr)
     {
         // Host doesn't support QC.
         return E_FAIL;
