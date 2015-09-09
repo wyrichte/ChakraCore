@@ -29,6 +29,10 @@ function assertSplitWithSingleCharacterPattern(re, messagePrefix) {
     assert.areEqual(0, re.lastIndex, createMessage("Sticky = true, lastIndex result on RegExp.split()", messagePrefix));
 }
 
+function createReplaceValue(replaceValueType) {
+    return replaceValueType === "string" ? "1" : function () { return "1"; };
+}
+
 var tests = [
   {
     name: "RegExp.test() - matches for the beginning of string, otherwise terminates if sticky = true",
@@ -91,63 +95,89 @@ var tests = [
   {
     name: "RegExp.replace() - matches for the beginning of string, otherwise terminates if sticky = true",
     body: function () {
-        var str = "abcabcababc";
-        var re = /abc/y;
-        assert.isTrue(str.replace(re, "1") == "1abcababc", "Sticky = true, RegExp.replace() result");
-        assert.isTrue(re.lastIndex == 3, "Sticky = true, lastIndex result on RegExp.replace()");
-        assert.isTrue(str.replace(re, "1") == "abc1ababc", "Sticky = true, RegExp.replace() result");
-        assert.isTrue(re.lastIndex == 6, "Sticky = true, lastIndex result on RegExp.replace()");
-        assert.isTrue(str.replace(re, "1") == "abcabcababc", "Sticky = true, RegExp.replace() result");
-        assert.isTrue(re.lastIndex == 0, "Sticky = true, lastIndex result on RegExp.replace()");
+        function assertReplace(replaceValueType) {
+            var str = "abcabcababc";
+            var re = /abc/y;
+            var replaceValue = createReplaceValue(replaceValueType);
+            assert.isTrue(str.replace(re, replaceValue) == "1abcababc", "Sticky = true, replaceValue type = " + replaceValueType + ", RegExp.replace() result");
+            assert.isTrue(re.lastIndex == 3, "Sticky = true, replaceValue type = " + replaceValueType + ", lastIndex result on RegExp.replace()");
+            assert.isTrue(str.replace(re, replaceValue) == "abc1ababc", "Sticky = true, replaceValue type = " + replaceValueType + ", RegExp.replace() result");
+            assert.isTrue(re.lastIndex == 6, "Sticky = true, replaceValue type = " + replaceValueType + ", lastIndex result on RegExp.replace()");
+            assert.isTrue(str.replace(re, replaceValue) == "abcabcababc", "Sticky = true, replaceValue type = " + replaceValueType + ", RegExp.replace() result");
+            assert.isTrue(re.lastIndex == 0, "Sticky = true, replaceValue type = " + replaceValueType + ", lastIndex result on RegExp.replace()");
+        }
+
+        ["string", "function"].forEach(assertReplace);
+
     }
   },
   {
     name: "RegExp.replace() - matches for the beginning of string, otherwise terminates if sticky = true, lastIndex set",
     body: function () {
-        var str = "abcabcababc";
-        var re = /abc/y;
-        re.lastIndex = 4;
-        assert.isTrue(str.replace(re, "1") == "abcabcababc", "Sticky = true, RegExp.replace() result");
-        assert.isTrue(re.lastIndex == 0, "Sticky = true, lastIndex result on RegExp.replace()");
+        function assertReplace(replaceValueType) {
+            var str = "abcabcababc";
+            var re = /abc/y;
+            re.lastIndex = 4;
+            var replaceValue = createReplaceValue(replaceValueType);
+            assert.isTrue(str.replace(re, replaceValue) == "abcabcababc", "Sticky = true, replaceValue type = " + replaceValueType + ", RegExp.replace() result");
+            assert.isTrue(re.lastIndex == 0, "Sticky = true, replaceValue type = " + replaceValueType + ", lastIndex result on RegExp.replace()");
+        }
+
+        ["string", "function"].forEach(assertReplace);
     }
   },  
   {
     name: "RegExp.replace() - matches for the beginning of string, otherwise terminates if sticky = true, global = true",
     body: function () {
-        var str = "abcabcababc";
-        var re = /abc/gy;
-        assert.isTrue(str.replace(re, "1") == "11ababc", "Sticky = true, RegExp.replace() result");
-        assert.isTrue(re.lastIndex == 0, "Sticky = true, lastIndex result on RegExp.replace()");
-        assert.isTrue(str.replace(re, "1") == "11ababc", "Sticky = true, RegExp.replace() result");
-        assert.isTrue(re.lastIndex == 0, "Sticky = true, lastIndex result on RegExp.replace()");
+        function assertReplace(replaceValueType) {
+            var str = "abcabcababc";
+            var re = /abc/gy;
+            var replaceValue = createReplaceValue(replaceValueType);
+            assert.isTrue(str.replace(re, replaceValue) == "11ababc", "Sticky = true, replaceValue type = " + replaceValueType + ", RegExp.replace() result");
+            assert.isTrue(re.lastIndex == 0, "Sticky = true, replaceValue type = " + replaceValueType + ", lastIndex result on RegExp.replace()");
+            assert.isTrue(str.replace(re, replaceValue) == "11ababc", "Sticky = true, replaceValue type = " + replaceValueType + ", RegExp.replace() result");
+            assert.isTrue(re.lastIndex == 0, "Sticky = true, replaceValue type = " + replaceValueType + ", lastIndex result on RegExp.replace()");
+        }
+
+        ["string", "function"].forEach(assertReplace);
     }
   },  
   {
     name: "RegExp.replace() - matches for the beginning of string, otherwise terminates if global = true",
     body: function () {
-        var str = "abcabcababc";
-        var re = /abc/g;
-        assert.isTrue(str.replace(re, "1") == "11ab1", "Sticky = true, RegExp.replace() result");
-        assert.isTrue(re.lastIndex == 0, "Sticky = true, lastIndex result on RegExp.replace()");
-        assert.isTrue(str.replace(re, "1") == "11ab1", "Sticky = true, RegExp.replace() result");
-        assert.isTrue(re.lastIndex == 0, "Sticky = true, lastIndex result on RegExp.replace()");
+        function assertReplace(replaceValueType) {
+            var str = "abcabcababc";
+            var re = /abc/g;
+            var replaceValue = createReplaceValue(replaceValueType);
+            assert.isTrue(str.replace(re, replaceValue) == "11ab1", "Sticky = true, replaceValue type = " + replaceValueType + ", RegExp.replace() result");
+            assert.isTrue(re.lastIndex == 0, "Sticky = true, replaceValue type = " + replaceValueType + ", lastIndex result on RegExp.replace()");
+            assert.isTrue(str.replace(re, replaceValue) == "11ab1", "Sticky = true, replaceValue type = " + replaceValueType + ", RegExp.replace() result");
+            assert.isTrue(re.lastIndex == 0, "Sticky = true, replaceValue type = " + replaceValueType + ", lastIndex result on RegExp.replace()");
+        }
+
+        ["string", "function"].forEach(assertReplace);
     }
   },   
   {
-    name: "RegExp.replace() - returns the input string as it is when lastIndex >= input length and replaceValue is a string",
+    name: "RegExp.replace() - returns the input string as it is when lastIndex >= input length",
     body: function () {
-        var str = "abc";
-        var re = /a/y;
-        var lastIndex = str.length;
-        re.lastIndex = lastIndex;
+        function assertReplace(replaceValueType) {
+            var str = "abc";
+            var re = /a/y;
+            var lastIndex = str.length;
+            re.lastIndex = lastIndex;
+            var replaceValue = createReplaceValue(replaceValueType);
 
-        var result = str.replace(re, "1");
+            var result = str.replace(re, replaceValue);
 
-        var messageBase = "Input length: " + str.length + ", lastIndex = " + lastIndex;
-        var message = messageBase + ", result";
-        assert.areEqual(str, result, message);
-        var message = messageBase + ", lastIndex after replace()";
-        assert.areEqual(0, re.lastIndex, message);
+            var messageBase = "Input length: " + str.length + ", lastIndex = " + lastIndex + ", replaceValue type = " + replaceValueType;
+            var message = messageBase + ", result";
+            assert.areEqual(str, result, message);
+            var message = messageBase + ", lastIndex after replace()";
+            assert.areEqual(0, re.lastIndex, message);
+        }
+
+        ["string", "function"].forEach(assertReplace);
     }
   },
   {
