@@ -15,3 +15,5 @@ set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -bvt
 pushd %_RootDir%\core\test
 call %_RootDir%\core\test\runtests.cmd -binary jshost.exe -binDir %_RootDir%\Build\VcBuild\Bin -nottags html -includeChBroken %*
 popd
+
+exit /b %ERRORLEVEL%
