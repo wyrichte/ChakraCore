@@ -12,6 +12,11 @@
 #include "JsrtDelegateWrapper.h"
 #include "JsrtContextChakra.h"
 
+#include "hostdispatch.h"
+#include "dispmemberproxy.h"
+#include "DispatchHelper.h"
+#include "ActiveScriptProfilerHeapEnum.h"
+
 STDAPI_(JsErrorCode) JsCreateWeakContainer(JsRef ref, JsWeakContainerRef *weakContainerRef)
 {
     return ContextAPIWrapper<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {

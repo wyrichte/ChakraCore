@@ -4,6 +4,9 @@
 #pragma once
 
 enum BuiltInOperation;
+interface ITracker;
+class HostVariant;
+class RefCountedHostVariant;
 
 // HostDispatch is used to represent IDispatch interfaces passed to us by the host,
 // including named root items. They contain all the logic required to get/set/invoke host objects.
@@ -86,8 +89,8 @@ public:
     ScriptSite* GetScriptSite() const { return scriptSite; }
     IDispatch* GetDispatchNoRef();
     IDispatch* GetDispatch();
-    BOOL CanSupportIDispatchEx() const { return GetHostVariant() && GetHostVariant()->supportIDispatchEx; }
-    __inline static IDispatch*& FastGetDispatchNoRef(HostVariant* hostVariant)  { return hostVariant->varDispatch.pdispVal; }
+    BOOL CanSupportIDispatchEx() const;
+    static IDispatch*& FastGetDispatchNoRef(HostVariant* hostVariant);
 
     BOOL HasProperty(const wchar_t * name);
     BOOL GetValue(const wchar_t * name, Js::Var *pValue);
@@ -117,16 +120,7 @@ public:
     static Js::Var Invoke(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     BOOL IsInstanceOf(Js::Var prototypeProxy);
     
-    VARIANT* GetVariant() const
-    {
-        HostVariant* hostVariant = GetHostVariant();
-        if (hostVariant)
-        {
-            return &(hostVariant->varDispatch);
-        }
-
-        return NULL;
-    }
+    VARIANT* GetVariant() const;
     static __declspec(noreturn) void HandleDispatchError(Js::ScriptContext * scriptContext, HRESULT hr, EXCEPINFO* exceptInfo);
     static HRESULT QueryInterfaceWithLeaveScript(IUnknown* obj, REFIID iid, void** returnObj, Js::ScriptContext* scriptContext);
 
@@ -157,7 +151,7 @@ private:
     HRESULT CallInvoke(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei);
     HRESULT GetDispID(LPCWSTR psz, ULONG flags, DISPID *pid);
     HRESULT GetIDsOfNames(LPCWSTR psz, DISPID *pid);
-    HostVariant* GetHostVariant() const { return refCountedHostVariant->GetHostVariant(); }
+    HostVariant* GetHostVariant() const;
     HRESULT QueryObjectInterfaceInScript(REFIID riid, void** ppvObj);
 
     __inline BOOL IsGlobalDispatch();

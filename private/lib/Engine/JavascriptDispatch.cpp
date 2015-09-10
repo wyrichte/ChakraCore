@@ -8,6 +8,7 @@
 #include "JavascriptPixelArrayDispatch.h"
 #include "DispIdHelper.h"
 #include "var.h"
+#include "typeinfobuilder.h"
 
 // Initialization order
 //  AB AutoSystemInfo

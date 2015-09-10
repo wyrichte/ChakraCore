@@ -59,6 +59,9 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)SCAEngine.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)SCAPropBag.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)SCASerialization.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)StreamHelper.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)StreamReader.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)StreamWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SCAEngine.h" />
@@ -66,6 +69,9 @@
     <ClInclude Include="SCASerialization.h" />
     <ClInclude Include="SCADeserialization.h" />
     <ClInclude Include="SCAPch.h" />
+    <ClInclude Include="StreamHelper.h" />
+    <ClInclude Include="StreamReader.h" />
+    <ClInclude Include="StreamWriter.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\publish\Publish.vcxproj">

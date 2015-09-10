@@ -180,9 +180,6 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     , m_fAllowWinRTConstructor(false)
     , m_activityID(GUID_NULL)
 {
-#if DEBUG
-    //    dprintf("New %s script engine -> %p\n", g_pstrDLLName, this);
-#endif // DEBUG
     m_lwCookieCount         = 0;
     m_refCount                  = 1;
     m_ssState               = SCRIPTSTATE_UNINITIALIZED;
@@ -269,9 +266,6 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
 ScriptEngine::~ScriptEngine()
 {
     Assert(m_refCount == 0);
-#if DEBUG
-    //    dprintf("Deleting %s script engine %p\n", g_pstrDLLName, this);
-#endif // DEBUG
     Assert(fKeepEngineAlive || (m_ssState == SCRIPTSTATE_CLOSED || m_ssState == SCRIPTSTATE_UNINITIALIZED));
 
 #ifdef ENABLE_BASIC_TELEMETRY
@@ -3445,10 +3439,6 @@ STDMETHODIMP ScriptEngine::Clone(IActiveScript **ppscript)
 
     CHECK_POINTER(ppscript);
     *ppscript = nullptr;
-
-#if DEBUG
-    //    dprintf("Cloning %s script engine %p\n", g_pstrDLLName, this);
-#endif // DEBUG
 
     if (m_ssState == SCRIPTSTATE_CLOSED)
         return E_UNEXPECTED;

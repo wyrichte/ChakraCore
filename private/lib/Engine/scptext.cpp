@@ -780,7 +780,7 @@ IUnknown *CScriptSourceContext::ptextunk()
 
 CScriptSourceContext::CScriptSourceContext()
 {
-    _Module.Lock();
+    DLLAddRef();
     m_cRef = 1;
     m_scriptDocumentText = NULL;
     m_cCharacterPosition = 0;
@@ -792,7 +792,7 @@ CScriptSourceContext::CScriptSourceContext(
         ULONG cPos,
         ULONG cNumChars)
 {
-    _Module.Lock();
+    DLLAddRef();
     m_cRef = 1;
     m_scriptDocumentText = scriptDocumentText;
     if (m_scriptDocumentText)
@@ -827,7 +827,7 @@ CScriptSourceContext::~CScriptSourceContext()
     {
         ptextunk()->Release();
     }
-    _Module.Unlock();
+    DLLRelease();
 }
 
     // IUnknown:

@@ -9,6 +9,14 @@
 #include "jsrtprivate.h"
 #include "ScriptProjectionHost.hxx"
 #include "JsrtContextChakra.h"
+#include <guids.h>
+
+#include "refcountedHostVariant.h"
+#include "hostdispatch.h"
+#include "dispmemberproxy.h"
+#include "scrpting.h"
+#include "ScriptSite.h"
+
 
 //=============================================================================================
 // These JsrtContext are divergent from the Core implementation so we can use JsrtContextChakra

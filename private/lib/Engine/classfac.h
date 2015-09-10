@@ -4,10 +4,6 @@
 
 // Description: declarations for the main class factory
 #pragma once
-extern const WCHAR * g_pstrDLLName;
-
-void DLLAddRef(void);
-void DLLRelease(void);
 
 // If this were a completely general class, we'd provide a list of CATIDs to
 // register. But we'll do the easier flag set for the scripting categories.
@@ -44,9 +40,6 @@ public:
         , m_guidClassID(guidClassID)
         , m_grfCategories(grfCategories)
     {
-#if DEBUG
-        g_pstrDLLName = pszDllName;
-#endif
         // Take a global lock to syncrontize with DllCanUnloadNow
         AutoCriticalSection autocs(ThreadContext::GetCriticalSection());
         DLLAddRef();

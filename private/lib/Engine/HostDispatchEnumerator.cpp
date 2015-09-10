@@ -3,6 +3,7 @@
 //----------------------------------------------------------------------------
 
 #include "EnginePch.h"
+#include "hostdispatchenumerator.h"
 
 HostDispatchEnumerator::HostDispatchEnumerator(HostDispatch* inHostDispatch) :
     JavascriptEnumerator(inHostDispatch->GetScriptContext()),

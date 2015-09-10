@@ -6,6 +6,8 @@
 #include "Debug\ProbeContainer.h"
 #include "Debug\DebugContext.h"
 
+#include "hostdispatch.h"
+
 namespace Js
 {
     void ScriptContextHolder::ThrowIfFailed(HRESULT hr) const

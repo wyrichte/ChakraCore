@@ -10,6 +10,8 @@
 
 #pragma once
 
+class ScriptEngine;
+
 namespace Js
 {
     class JavascriptWinRTFunction;

@@ -51,7 +51,7 @@ CCodeContext::CCodeContext(ScriptDebugDocument *debugDocument, long ibos, ULONG 
     m_cch(cch),
     m_isLibraryCode(isLibraryCode)
 {
-    _Module.Lock();
+    DLLAddRef();
     if (m_debugDocument)
     {
         Assert(!m_isLibraryCode); // LibraryCode doesn't have debugDocument
@@ -63,7 +63,7 @@ CCodeContext::CCodeContext(ScriptDebugDocument *debugDocument, long ibos, ULONG 
 CCodeContext::~CCodeContext(void)
 {
     Close();
-    _Module.Unlock();
+    DLLRelease();    
 }
 
 
@@ -323,14 +323,14 @@ CDebugStackFrame::CDebugStackFrame(void)
      m_currentFrame(nullptr),
      m_frameIndex(-1)
 {
-    _Module.Lock();
+    DLLAddRef();
 }
 
 
 CDebugStackFrame::~CDebugStackFrame(void)
 {
     Close();
-    _Module.Unlock();
+    DLLRelease();
 
     if (nullptr != m_framePointers)
     {
@@ -1843,7 +1843,7 @@ CDebugExpression::CDebugExpression(CDebugEval *debugEval)
       m_asyncOperation(nullptr),
       m_exprCallback(nullptr)
 {
-    _Module.Lock();
+    DLLAddRef();
     AssertMem(m_debugEval);
     m_debugEval->AddRef();
 }
@@ -1859,7 +1859,7 @@ CDebugExpression::~CDebugExpression(void)
         m_asyncOperation = nullptr;
     }
     Assert(m_exprCallback == nullptr);
-    _Module.Unlock();
+    DLLRelease();    
 }
 
 

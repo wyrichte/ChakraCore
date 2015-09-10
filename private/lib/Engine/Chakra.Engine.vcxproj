@@ -77,8 +77,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)DispMemberProxyType.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)dllfunc.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)DOMProperties.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)DynamicSourceHolder.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)EnumVariantEnumerator.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)DynamicSourceHolder.cpp" />    
     <ClCompile Include="$(MsBuildThisFileDirectory)ErrorTypeHelper.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)EventSink.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ExternalObject.cpp" />
@@ -117,14 +116,10 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEngine.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEngineBase.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)scriptsite.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)scrpting.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)siteserv.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)scrpting.cpp" />    
     <ClCompile Include="$(MsBuildThisFileDirectory)EnginePch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="$(MsBuildThisFileDirectory)StreamHelper.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)StreamReader.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)StreamWriter.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)TestHooks.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)typeinfobuilder.cpp" />
   </ItemGroup>
@@ -171,8 +166,7 @@
     <ClInclude Include="dllfunc.h" />
     <ClInclude Include="DOMProperties.h" />
     <ClInclude Include="DynamicSourceHolder.h" />
-    <ClInclude Include="EnginePch.h" />
-    <ClInclude Include="EnumVariantEnumerator.h" />
+    <ClInclude Include="EnginePch.h" />    
     <ClInclude Include="ErrorTypeHelper.h" />
     <ClInclude Include="EventSink.h" />
     <ClInclude Include="GenerateByteCodeConfig.h" />
@@ -200,16 +194,12 @@
     <ClInclude Include="ScriptDAC.h" />
     <ClInclude Include="DiagHook.h" />
     <ClInclude Include="ScriptDebugDocument.h" />
-    <ClInclude Include="StreamHelper.h" />
-    <ClInclude Include="StreamReader.h" />
-    <ClInclude Include="StreamWriter.h" />
     <ClInclude Include="scpnode.h" />
     <ClInclude Include="scptext.h" />
     <ClInclude Include="ScriptEngine.h" />
     <ClInclude Include="scriptsite.h" />
     <ClInclude Include="scrpting.h" />
-    <ClInclude Include="scrutil.h" />
-    <ClInclude Include="siteserv.h" />
+    <ClInclude Include="scrutil.h" />    
     <ClInclude Include="TestHooks.h" />
     <ClInclude Include="typeinfobuilder.h" />
     <ClInclude Include="ChakraVersion.h" />

@@ -3,6 +3,8 @@
 //----------------------------------------------------------------------------
 #pragma once
 
+class DispatchExCaller;
+
 const ulong kcbosMaskTestPoll   = 0x001F;
 const ulong kluTickPollInterval = 500; // 2 times per second.
 

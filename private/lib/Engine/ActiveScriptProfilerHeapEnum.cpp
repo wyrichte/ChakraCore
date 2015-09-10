@@ -17,6 +17,12 @@
 #include "Library\JavascriptSetIterator.h"
 #include "Library\JavascriptStringIterator.h"
 
+
+#ifdef ENABLE_PROJECTION
+#include "ProjectionWriter.h"
+#include "namespaceProjection.h"
+#endif
+
 //#define VALIDATE_OPTIONAL_INFO_ALLOCATIONS
 
 // ToDo: Assert that these don't collide with PROFILER_HEAP_OBJECT_FLAGS.

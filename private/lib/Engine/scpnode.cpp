@@ -10,11 +10,10 @@
 
 /////////////////////////////////////////////////////////////////////////////
 //
-CComEngineModule _Module;
 
 CStandardScriptSourceNode::CStandardScriptSourceNode(void)
 {
-    _Module.Lock();
+    DLLAddRef();
     m_refCount = 1;
     m_pdan = NULL;
     m_pszShort = NULL;
@@ -54,7 +53,7 @@ HRESULT CStandardScriptSourceNode::Close(void)
 CStandardScriptSourceNode::~CStandardScriptSourceNode(void)
 {
     Close();
-    _Module.Unlock();
+    DLLRelease();
 }
 
 

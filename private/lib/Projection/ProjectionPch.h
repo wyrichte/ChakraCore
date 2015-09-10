@@ -6,7 +6,7 @@
 #define WIN32_LEAN_AND_MEAN 1
 
 #include <atlbase.h>
-#include "edgescriptDirect.h"
+
 
 
 // =================
@@ -30,32 +30,37 @@
 #include "DataStructures\BufferBuilder.h"
 // =================
 
+//====================================
+// Engine includes
+//====================================
 #include <objsafe.h>
-
+#include "activscp_private.h"
+#include "edgescriptDirect.h"
 #include "ChakraInternalInterface.h"
-
-#include "jscriptdllcommon.h"
-#include "customEnumerator.h"
-
-#include "classfac.h"
-#include "siteserv.h"
-#include "hostvariant.h"
-#include "refcountedHostVariant.h"
-#include "hostdispatch.h"
 #include "scrutil.h"
 #include "NamedItemList.h"
-#include "hostdispatchenumerator.h"
-#include "dispmemberproxy.h"
+#include "..\staticlib\base\scriptenginebase.h"
+#include "IDebugBitCorrectApplicationThread.h"
+#include "ScriptEngine.h"
+
+#include "jscriptdllcommon.h"
+#include "dllfunc.h"
+#include "refcountedHostVariant.h"
+#include "hostdispatch.h"
+
+#if !defined(USED_IN_STATIC_LIB)
+#include "ActiveScriptProfilerHeapEnum.h"
+#endif
+
+#include "scriptsite.h"
+#include "AutoCallerPointer.h"
+
 #include "..\staticlib\base\MockExternalObject.h"
 #include "CustomExternalType.h"
-#include "JavascriptExternalOperators.h"
-#include "DispatchHelper.h"
-#include "EventSink.h"
 
-#include "activscp_private.h"
-#include "ad1ex.h"
-#include "scpnode.h"
-
+//====================================
+// Projection includes
+//====================================
 #ifdef ENABLE_PROJECTION
 #include "..\..\Lib\WinRT\WinRTLib.h"
 
@@ -95,14 +100,7 @@
 #include "ProjectionTypeOperations.h"
 #include "ObjectAsIPropertyValue.h"
 #include "ObjectAsIReference.h"
-#endif
 
-#include "ComObjectBase.h"
-#include "..\staticlib\base\scriptenginebase.h"
-#include "IDebugBitCorrectApplicationThread.h"
-#include "ScriptEngine.h"
-
-#ifdef ENABLE_PROJECTION
 #include "ArrayProjectionEnumerator.h"
 #include "ArrayProjection.h"
 #include "InspectableObjectTypeOperations.h"
@@ -110,13 +108,3 @@
 #include "NamespaceProjectionEnumerator.h"
 #endif
 
-#include "scrpting.h"
-#include "caller.h"
-#include "activescripterror.h"
-#include "scriptsite.h"
-#include "DOMProperties.h"
-#if !defined(USED_IN_STATIC_LIB)
-#include "ActiveScriptProfilerHeapEnum.h"
-#endif
-
-#include "AutoCallerPointer.h"

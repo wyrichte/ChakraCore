@@ -6,7 +6,7 @@
 #define WIN32_LEAN_AND_MEAN 1
 
 #include <atlbase.h>
-#include "edgescriptDirect.h"
+
 
 #include "Parser.h"
 
@@ -19,23 +19,27 @@
 #include "Debug\DebugDocument.h"
 // =================
 
+//====================================
+// Engine includes
+//====================================
 #include <objsafe.h>
-
-#include "ChakraInternalInterface.h"
-
-#include "classfac.h"
-#include "jscriptdllcommon.h"
-#include "ComObjectBase.h"
-#include "..\StaticLib\base\ScriptEngineBase.h"
 #include "activscp_private.h"
+#include "edgescriptDirect.h"
+#include "ChakraInternalInterface.h"
 #include "scrutil.h"
 #include "NamedItemList.h"
+#include "..\StaticLib\base\ScriptEngineBase.h"
+#include "IDebugBitCorrectApplicationThread.h"
+#include "ScriptEngine.h"
+
+#include "jscriptdllcommon.h"
+#include "dllfunc.h"
+#include "ComObjectBase.h"
 #include "scrpting.h"
 
-#include "..\Engine\IDebugBitCorrectApplicationThread.h"
-#include "..\Engine\ScriptEngine.h"
-
-
+//====================================
+// EnC includes
+//====================================
 #ifdef EDIT_AND_CONTINUE
 #include "pnodewalk.h"
 #include "pnodevisit.h"

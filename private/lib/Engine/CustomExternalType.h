@@ -6,6 +6,7 @@
 
 namespace Js
 {
+    class CustomEnumerator;
     class CustomExternalType : public ExternalTypeWithInheritedTypeIds
     {
     public:

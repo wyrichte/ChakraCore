@@ -6,7 +6,6 @@
 #define WIN32_LEAN_AND_MEAN 1
 
 #include <atlbase.h>
-#include "edgescriptDirect.h"
 
 // =================
 // Runtime Includes
@@ -22,17 +21,13 @@
 #include "Library\JavascriptWeakSet.h"
 // =================
 
-
 #include "jscriptdllcommon.h"
-
-#include "hostvariant.h"
-#include "refcountedHostVariant.h"
-#include "hostdispatch.h"
+#include "edgescriptDirect.h"
 
 #include "SCAEngine.h"
 #include "StreamHelper.h"
 #include "StreamReader.h"
 #include "StreamWriter.h"
-#include "SCAPropBag.h"
 #include "SCASerialization.h"
 #include "SCADeserialization.h"
+#include "SCAPropBag.h"

@@ -6,6 +6,7 @@
 #include <EnginePch.h>
 #include "mshtmdid.h"
 #include "DispIdHelper.h"
+#include "typeinfobuilder.h"
 
 // Useful constants:
 

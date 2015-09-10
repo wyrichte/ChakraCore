@@ -18,6 +18,14 @@
 #include "RegexCommon.h"
 #include "Library\RegexHelper.h"
 
+// SCA support
+#include "SCAEngine.h"
+#include "StreamHelper.h"
+#include "StreamReader.h"
+#include "StreamWriter.h"
+#include "SCASerialization.h"
+#include "SCADeserialization.h"
+
 ScriptEngineBase::ScriptEngineBase() :
     scriptContext(nullptr),
     threadContext(nullptr),

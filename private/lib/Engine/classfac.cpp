@@ -5,27 +5,9 @@
 // Description: defs for the main class factory
 
 #include "EnginePch.h"
-//#include <activscp.h>
 
-#define szSERVERKEY            L"InprocServer32"
+#define szSERVERKEY         L"InprocServer32"
 #define szOTHERSERVERKEY    L"InprocServer"
-
-long g_cLibLocks = 0;
-
-void DLLAddRef(void)
-{
-    _Module.Lock();
-    // DebugPrintf(("DLL %s references -> %d\n", g_pstrDLLName, g_cLibRef));
-    Assert(_Module.GetLockCount() >= 0);
-}
-
-void DLLRelease(void) 
-{
-    _Module.Unlock();
-    // DebugPrintf(("DLL %s references -> %d\n", g_pstrDLLName, g_cLibRef));
-    Assert(_Module.GetLockCount() >= 0);
-}
-
 
 // Helper function to create a component category and associated description
 static HRESULT CreateComponentCategory(CATID catid, LPCOLESTR catDescription)
@@ -198,14 +180,14 @@ STDMETHODIMP_(ULONG) CClassFactory::Release(void)
 
 STDMETHODIMP CClassFactory::LockServer(BOOL fLock)
 {
-    long l;
     if (fLock)
     {
-        l = ::InterlockedIncrement(&g_cLibLocks);
+        DLLAddRef();
     }
     else
-        l = ::InterlockedDecrement(&g_cLibLocks);
-    Assert(l >= 0);
+    {
+        DLLRelease();
+    }
     return NOERROR;
 }
 

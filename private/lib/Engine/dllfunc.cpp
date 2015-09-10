@@ -12,6 +12,9 @@
 #ifdef DYNAMIC_PROFILE_STORAGE
 #include "Language\DynamicProfileStorage.h"
 #endif
+#include "JsrtContext.h"
+#include "TestHooks.h"
+
 extern CClassFactory* CreateJScript9DACClassFactory(void);
 extern CClassFactory* CreateDiagHookClassFactory(void);
 extern CClassFactory* CreateJScript9ThreadServiceClassFactory();
@@ -21,26 +24,13 @@ CClassFactory* (*pfCreateJscript9ClassFactory)(void) = CreateJscript9ClassFactor
 typedef CClassFactory* (PFNCreateClassFactory)(void);
 PFNCreateClassFactory* const classFactories[] = {CreateJscript9ClassFactory, CreateJScript9ThreadServiceClassFactory};
 
-const WCHAR * threadModelBoth        = L"Both";
-const WCHAR * threadModelApartment   = L"Apartment";
-ATOM  lockedDll = 0;
-const WCHAR * g_pstrDLLName = L"";
-
+static const WCHAR * threadModelBoth        = L"Both";
+static const WCHAR * threadModelApartment   = L"Apartment";
+static ATOM  lockedDll = 0;
 static long s_cLibRef   = 0;
 static CriticalSection s_csDllCanUnloadNow;
 
-//#include <initguid.h>
-
-#include "muiload.h"
-
-//IE MSHTML responsiveness events
-#ifdef ENABLE_JS_ETW
-#include <IERESP_mshtml.h>
-#endif
 extern HANDLE g_hInstance;
-#if DEBUG
-extern void ValidateNameTableTerm(void);
-#endif
 
 static BOOL AttachProcess(HANDLE hmod)
 {    
@@ -114,6 +104,59 @@ static BOOL AttachProcess(HANDLE hmod)
 #endif    
 }
 
+void DetachProcess()
+{
+    if (g_hInstance == NULL)
+    {
+        return;
+    }
+
+#ifdef ENABLE_BASIC_TELEMETRY
+    if (g_TraceLoggingClient != nullptr)
+    {
+        NoCheckHeapDelete(g_TraceLoggingClient);
+        g_TraceLoggingClient = nullptr;
+    }
+#endif
+
+    ThreadBoundThreadContextManager::DestroyAllContextsAndEntries();
+
+    // In JScript, we never unload except for when the app shuts down
+    // because DllCanUnloadNow always returns S_FALSE. As a result
+    // its okay that we never try to cleanup. Attempting to cleanup on
+    // shutdown is bad because we shouldn't free objects built into
+    // other dlls.
+
+    JsrtRuntime::Uninitialize();
+    JsrtContext::Uninitialize();
+
+    // threadbound entrypoint should be able to get cleanup correctly, however tlsentry
+    // for current thread might be left behind if this thread was initialized.
+    ThreadContextTLSEntry::CleanupThread();
+
+    ThreadContextTLSEntry::CleanupProcess();
+
+#if defined(ENABLE_DEBUG_CONFIG_OPTIONS)
+    if (Js::Configuration::Global.flags.Console && Js::Configuration::Global.flags.ConsoleExitPause)
+    {
+        HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
+
+        FlushConsoleInputBuffer(handle);
+
+        Output::Print(L"Press any key to exit...\n");
+        Output::Flush();
+
+        WaitForSingleObject(handle, INFINITE);
+
+    }
+#endif
+
+#if PROFILE_DICTIONARY
+    DictionaryStats::OutputStats();
+#endif
+    g_hInstance = NULL;
+}
+
 /****************************** Public Functions *****************************/
 
 #if _WIN32 || _WIN64
@@ -183,61 +226,6 @@ EXTERN_C BOOL WINAPI ChakraDllMain(HINSTANCE hmod, DWORD dwReason, PVOID pvReser
 }
 #endif // _WIN32 || _WIN64
 
-void DetachProcess()
-{    
-    if (g_hInstance == NULL)
-    {
-        return;
-    }
-
-#ifdef ENABLE_BASIC_TELEMETRY
-    if (g_TraceLoggingClient != nullptr)
-    {
-        NoCheckHeapDelete(g_TraceLoggingClient);
-        g_TraceLoggingClient = nullptr;
-    }
-#endif
-
-    ThreadBoundThreadContextManager::DestroyAllContextsAndEntries();
-
-    // In JScript, we never unload except for when the app shuts down
-    // because DllCanUnloadNow always returns S_FALSE. As a result
-    // its okay that we never try to cleanup. Attempting to cleanup on
-    // shutdown is bad because we shouldn't free objects built into
-    // other dlls.
-
-    JsrtRuntime::Uninitialize();
-    JsrtContext::Uninitialize();
-
-    // threadbound entrypoint should be able to get cleanup correctly, however tlsentry
-    // for current thread might be left behind if this thread was initialized.
-    ThreadContextTLSEntry::CleanupThread();
-
-    ThreadContextTLSEntry::CleanupProcess();       
-
-#if defined(ENABLE_DEBUG_CONFIG_OPTIONS)
-    if (Js::Configuration::Global.flags.Console && Js::Configuration::Global.flags.ConsoleExitPause)
-    {
-        HANDLE handle = GetStdHandle( STD_INPUT_HANDLE );
-
-        FlushConsoleInputBuffer(handle);
-
-        Output::Print(L"Press any key to exit...\n");
-        Output::Flush();
-
-        WaitForSingleObject(handle, INFINITE);
-
-    }
-#endif
-
-#if DEBUG
-    //ValidateNameTableTerm(); //TBD - replace this with an equivalent mechanism. When dettaching is good to verify no objects leak
-#endif
-#if PROFILE_DICTIONARY
-    DictionaryStats::OutputStats();
-#endif
-    g_hInstance = NULL;
-}
 
 //
 // declare class factories
@@ -341,6 +329,32 @@ STDAPIEXPORT DllUnregisterServer(void)
     return hr;
 }
 
+
+//You may derive a class from CComModule and use it if you want to override
+//something, but do not change the name of _Module
+class CComEngineModule :
+    public CComModule
+{
+public:
+    LONG Lock();
+    LONG Unlock();
+    LONG GetLockCount();
+};
+
+CComEngineModule _Module;
+
+void DLLAddRef(void)
+{
+    _Module.Lock();    
+    Assert(_Module.GetLockCount() >= 0);
+}
+
+void DLLRelease(void)
+{
+    _Module.Unlock();    
+    Assert(_Module.GetLockCount() >= 0);
+}
+
 STDAPIEXPORT DllCanUnloadNow(void)
 {
     // Call DllCanUnloadNow implementation for the the proxy/stub objects for JscriptInfo.idl
@@ -387,5 +401,5 @@ LONG CComEngineModule::Unlock()
 
 LONG CComEngineModule::GetLockCount() 
 {
-    return (LONG)(s_cLibRef + g_cLibLocks);
+    return (LONG)s_cLibRef;
 }

@@ -3,6 +3,10 @@
 //----------------------------------------------------------------------------
 
 #include "EnginePch.h"
+#ifdef ENABLE_PROJECTION
+#include "ProjectionWriter.h"
+#endif
+#include "TestHooks.h"
 
 #ifndef ENABLE_TEST_HOOKS
 HRESULT OnJScript9Loaded()

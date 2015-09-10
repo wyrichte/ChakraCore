@@ -183,6 +183,33 @@ BOOL HostDispatch::Is(Var instance)
     }
     return FALSE;
 }
+
+VARIANT * HostDispatch::GetVariant() const
+{
+    HostVariant* hostVariant = GetHostVariant();
+    if (hostVariant)
+    {
+        return &(hostVariant->varDispatch);
+    }
+
+    return NULL;
+}
+
+HostVariant * HostDispatch::GetHostVariant() const
+{
+    return refCountedHostVariant->GetHostVariant();
+}
+
+BOOL HostDispatch::CanSupportIDispatchEx() const
+{
+    return GetHostVariant() && GetHostVariant()->supportIDispatchEx;
+}
+
+IDispatch*& HostDispatch::FastGetDispatchNoRef(HostVariant* hostVariant) 
+{ 
+    return hostVariant->varDispatch.pdispVal; 
+}
+
 // 
 // This method checks and makes sure that hostVariant is defined and doesn't point to a NULL dispVal
 //

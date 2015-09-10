@@ -4,6 +4,7 @@
 *                                                       *
 ********************************************************/
 #include "EnginePch.h"
+#include "hostdispatchenumerator.h"
 
 Js::RecyclableObject * HostDispatch::GetPrototypeSpecial()
 {    
