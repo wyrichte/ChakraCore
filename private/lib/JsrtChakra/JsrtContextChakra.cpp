@@ -23,10 +23,7 @@
 //=============================================================================================
 JsrtContext *JsrtContext::New(JsrtRuntime * runtime)
 {
-    JsrtContext * context = JsrtContextChakra::New(runtime);
-    // Pin the jsrtContext instance to javascript library so it doesn't get collected pre-maturely.
-    context->GetScriptContext()->GetLibrary()->PinJsrtContextObject(context);
-    return context;
+    return JsrtContextChakra::New(runtime);
 }
 
 /* static */
