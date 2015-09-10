@@ -24,7 +24,6 @@ TARGETLIBS = \
     $(SDK_LIB_PATH)\ole32.lib \
     $(SDK_LIB_PATH)\oleaut32.lib \
     $(SDK_LIB_PATH)\user32.lib \
-    $(SDK_LIB_PATH)\uuid.lib \
     $(ATL_LIBS) \
 
 SOURCES = \

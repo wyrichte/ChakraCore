@@ -30,6 +30,7 @@ INCLUDES= \
 
 SOURCES=\
     ..\module.cpp \
+    ..\guids.cpp \
     ..\FabrikamKitchenServer.rc \
 
 DLOAD_ERROR_HANDLER= kernel32
@@ -37,7 +38,6 @@ DLOAD_ERROR_HANDLER= kernel32
 TARGETLIBS=\
     $(OBJ_PATH)\..\..\lib\$(O)\fabrikamkitchenserver.lib \
     $(SDK_LIB_PATH)\user32.lib   \
-    $(SDK_LIB_PATH)\uuid.lib \
     $(MINWIN_SDK_LIB_PATH)\ntdllp.lib \
     $(MINCORE_SDK_LIB_VPATH)\api-ms-win-core-winrt-error-l1.lib \
     $(MINCORE_SDK_LIB_VPATH)\api-ms-win-core-winrt-l1.lib \

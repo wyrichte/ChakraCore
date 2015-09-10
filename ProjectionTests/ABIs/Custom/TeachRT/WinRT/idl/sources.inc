@@ -56,6 +56,7 @@ INCLUDES = \
 
 SOURCES=\
     $(SOURCES) \
+    ..\guids.c \
     $(OBJ_PATH)\$O\Fabrikam_p.c \
     $(OBJ_PATH)\$O\Fabrikam_i.c \
     $(OBJ_PATH)\$O\privateinterfaces_p.c \
@@ -63,7 +64,6 @@ SOURCES=\
     $(OBJ_PATH)\$O\dlldata.c \
 
 TARGETLIBS = \
-    $(SDK_LIB_PATH)\uuid.lib \
     $(SDK_LIB_PATH)\rpcrt4.lib \
     $(MINCORE_SDK_LIB_VPATH)\api-ms-win-core-winrt-string-l1.lib \
     $(COM_LIB_PATH)\combasep.lib \

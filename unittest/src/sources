@@ -44,7 +44,6 @@ TARGETLIBS=     \
     $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
     $(MINCORE_SDK_LIB_PATH)\mincore_fw.lib    \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \
-    $(SDK_LIB_PATH)\Uuid.lib \
     $(SDK_LIB_PATH)\muiload.lib \
     $(SDK_LIB_PATH)\ole32.lib \
     $(SDK_LIB_PATH)\version.lib \

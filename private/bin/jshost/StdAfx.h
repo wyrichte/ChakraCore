@@ -69,7 +69,7 @@
 #include <io.h>
 #include <assert.h>
 #include <strsafe.h>
-#include <cor.h>
+
 #include <vector>
 #include <list>
 #include <map>
@@ -94,16 +94,10 @@
 #include <functional>
 #include "Psapi.h"
 
-#include <roapi.h>
-#include <winstring.h>
-#include <shlwapi.h>
 #include <wininet.h>
 #include <mshtml.h>
 #include <mshtmdid.h>
 #include <mshtmhst.h>
-
-#include <ieguidp.h>
-#include <interned.h>
 #include <mshtmcid.h>
 
 #include "intsafe.h"

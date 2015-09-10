@@ -6,6 +6,11 @@
 
 #include "stdafx.h"
 
+extern const IID GUID_NULL = {};
+
+// Copied from com\ole32\comcat\src\guids.cpp
+const CLSID CLSID_StdComponentCategoriesMgr = { 0x0002E005,0x0000,0x0000,{ 0xC0,0x00,0x00,0x00,0x00,0x00,0x00,0x46 } };
+
 Module _Module;
 
 // Used to determine whether the DLL can be unloaded by OLE.

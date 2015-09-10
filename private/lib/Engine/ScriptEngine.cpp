@@ -10,7 +10,7 @@
 #include <IERESP_mshtml.h>
 #include "microsoft-scripting-jscript9.internalevents.h"
 #endif
-#include "webplatform.h"
+#include "mshtmhst.h"
 #include "edgejsStatic.h"
 #include "GenerateByteCodeConfig.h"
 

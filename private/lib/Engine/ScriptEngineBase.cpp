@@ -9,7 +9,6 @@
 #ifdef ENABLE_JS_ETW
 #include <IERESP_mshtml.h>
 #endif
-#include "webplatform.h"
 #include "edgejsStatic.h"
 
 #include "Library\JavascriptRegularExpression.h"
