@@ -2,14 +2,13 @@
 // need to run with -mic:1 -off:simplejit -off:JITLoopBody -off:inline
 // Run locally with -trace:memop -trace:bailout to help find bugs
 
-var testCases = [
+let testCases = [
   function() {
     return {
       start: 0,
       end: 100,
       test: function testBasic(a) {
-        for(var i = 0; i < 100; i++)
-        {
+        for(let i = 0; i < 100; i++) {
           a[i] = 0;
         }
       }
@@ -20,31 +19,28 @@ var testCases = [
       start: 5,
       end: 101,
       test: function testReverse(a) {
-        for(var i = 100; i >= 5; i--)
-        {
+        for(let i = 100; i >= 5; i--) {
           a[i] = 0;
         }
       }
     };
   },
-  function(results) {
+  function() {
+    let results = [];
     return {
       runner: function testMultipleMemset(arrayGen) {
-        var a = arrayGen(), b = arrayGen(), c = arrayGen();
-        for(var i = 0; i < 10; i++)
-        {
+        let a = arrayGen(), b = arrayGen(), c = arrayGen();
+        for(let i = 0; i < 10; i++) {
           a[i] = b[i] = c[i] = 0;
         }
-        results.concat([a, b, c]);
+        results.push([a, b, c]);
       },
       check: function() {
-        for(var i = 0; i < results.length; ) {
-          compare_result(results[i], results[i + 2]);
-          ++i;
-          compare_result(results[i], results[i + 2]);
-          ++i;
-          compare_result(results[i], results[i + 2]);
-          ++i;
+        let base = results[0];
+        for(let i = 1; i < results.length; ++i) {
+          for(let j = 0; j < 3; ++j) {
+            compareResult(base[j], results[i][j], 0, 10);
+          }
         }
       }
     };
@@ -54,8 +50,7 @@ var testCases = [
       start: 4,
       end: 30,
       test: function testUnroll(a) {
-        for(var i = 4; i < 30; )
-        {
+        for(let i = 4; i < 30;) {
           a[i] = 0;
           i++;
           a[i] = 0;
@@ -69,8 +64,7 @@ var testCases = [
       start: 8,
       end: 10,
       test: function testMissingValues(a) {
-        for(var i = 8; i < 10; i++)
-        {
+        for(let i = 8; i < 10; i++) {
           a[i] = 0;
         }
       }
@@ -82,8 +76,7 @@ var testCases = [
       end: 6,
       test: function testOverwrite(a) {
         a[5] = 3;
-        for(var i = 0; i < 6; i++)
-        {
+        for(let i = 0; i < 6; i++) {
           a[i] = 0;
         }
       }
@@ -94,8 +87,7 @@ var testCases = [
       start: 10,
       end: 50,
       test: function testNegativeConstant(a) {
-        for(var i = 10; i < 50; i++)
-        {
+        for(let i = 10; i < 50; i++) {
           a[i] = -1;
         }
       }
@@ -106,8 +98,7 @@ var testCases = [
       start: -50,
       end: 10,
       test: function testNegativeStartIndex(a) {
-        for(var i = -50; i < 10; i++)
-        {
+        for(let i = -50; i < 10; i++) {
           a[i] = -3;
         }
       }
@@ -115,22 +106,30 @@ var testCases = [
   }
 ];
 
-var arrayGenerators = [
-  function() {return new Array(10); }, // the one for the interpreter
-  function() {return new Array(10); },
-  function() {return []; }
+let arrayGenerators = [
+  // the one for the interpreter
+  function() {
+    return new Array(10);
+  },
+  function() {
+    return new Array(10);
+  },
+  function() {
+    return [];
+  }
   // causes bailouts right now: BailOut: function: testMultipleMemset ( (#1.2), #3) offset: #0036 Opcode: BailOnNotArray Kind: BailOutOnNotNativeArray
   // function() {return [1, 2, 3, 4, 5, 6, 7]; }
 ];
 
-for(var testCase of testCases) {
-  var results = [];
-  var testInfo = testCase(results);
-  for(var gen of arrayGenerators) {
+for(let testCase of testCases) {
+  let results = [];
+  let testInfo = testCase();
+  for(let gen of arrayGenerators) {
     if(testInfo.runner) {
-      testInfo.runner(gen);
+      let result = testInfo.runner(gen);
+      results.push(result);
     } else {
-      var newArray = gen();
+      let newArray = gen();
       testInfo.test(newArray);
       results.push(newArray);
     }
@@ -139,18 +138,17 @@ for(var testCase of testCases) {
   if(testInfo.check) {
     testInfo.check(results);
   } else {
-    var base = results[0]; // result from the interpreter
+    let base = results[0]; // result from the interpreter
     for(let i = 1; i < results.length; ++i) {
-      compare_result(base, results[i], testInfo.start, testInfo.end);
+      compareResult(base, results[i], testInfo.start, testInfo.end);
     }
   }
 }
-var passed = true;
-function compare_result(a, b, start, end) {
-  for(var i = start; i < end; i++) {
-    if(a[i] !== b[i])
-    {
-      WScript.Echo(i + " " + a[i] + " " + b[i]);
+let passed = true;
+function compareResult(a, b, start, end) {
+  for(let i = start; i < end; i++) {
+    if(a[i] !== b[i]) {
+      print(`${i}: ${a[i]} !== ${b[i]}`);
       passed = false;
       return false;
     }
@@ -158,12 +156,9 @@ function compare_result(a, b, start, end) {
   return true;
 }
 
-if(passed)
-{
-  WScript.Echo("PASSED");
-}
-else
-{
-  WScript.Echo("FAILED");
+if(passed) {
+  print("PASSED");
+} else {
+  print("FAILED");
 }
 
