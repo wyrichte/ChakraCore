@@ -172,10 +172,18 @@ var tests = [
             assert.throws(() => { eval('(x, y)[7] => {};'); }, SyntaxError, "valid expression syntax that is invalid parameter list syntax on lhs of =>", "Expected '=>'");
             assert.throws(() => { eval('x() => {};'); }, SyntaxError, "valid expression syntax that is invalid parameter list syntax on lhs of =>", "Syntax error");
 
+            assert.throws(() => { eval('0 || () => 0'); }, SyntaxError, "Arrow function no params is not valid on RHS of ||", "Expected '('");
+            assert.throws(() => { eval('0 || x => 0'); }, SyntaxError, "Arrow function naked param is not valid on RHS of ||", "Expected '('");
+            assert.throws(() => { eval('0 || (x) => 0'); }, SyntaxError, "Arrow function single param is not valid on RHS of ||", "Expected '('");
+            assert.throws(() => { eval('0 || (x,y) => 0'); }, SyntaxError, "Arrow function more than single param is not valid on RHS of ||", "Expected '('");
+
             assert.doesNotThrow(function () { eval('function foo() { }; foo(x => x);'); }, "lambda with one formal and nor parentheses parses as argument to function call");
             assert.doesNotThrow(function () { eval('function foo() { }; foo(() => "abc"); foo(() => "abc", 123);'); }, "lambda with no formals parses as argument to function call");
             assert.doesNotThrow(function () { eval('function foo() { }; foo((x, y) => "abc"); foo(b => "abc", 123);'); }, "lambda with multiple formals parses as argument to function call");
             assert.doesNotThrow(function () { eval('({})[x => x]'); }, "lambda parses as argument to element access operator");
+            assert.doesNotThrow(function () { eval('() => () => 0'); }, "lambda nested in lambda");
+            assert.doesNotThrow(function () { eval('() => x => (a, b, c) => 0'); }, "lambda nested in lambda nested in lambda with parameters");
+            assert.doesNotThrow(function () { eval('y => () => (a) => 0'); }, "lambda nested in lambda nested in lambda with other parameters");
         }
     },
     {
