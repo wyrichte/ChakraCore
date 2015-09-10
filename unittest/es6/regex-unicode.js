@@ -15,10 +15,15 @@ function assertDoesNotMatch(re, string, message) {
     assertTest(assert.isFalse, ...arguments);
 }
 
-// TODO: RegExp functions currently process strings as a list of code units as opposed to a list of code
-//       points. This causes a RegExp to match just the high surrogate. For example, /[^\ud800\udc00]/
-//       matches "\ud800". Some of the patterns below have the format "^...$" to force the RegExp to match
-//       the string fully. Once the bug is fixes, the '^'s and '$'s can be removed. The bug # is 3679792.
+// TODO: RegExp functions currently process strings as a list of code units as
+//       opposed to a list of code points. This causes a RegExp to match just
+//       the high surrogate. For example, /[^\ud800\udc00]/ matches
+//       "\ud800\udc00". This this due to "\ud800" being in the negated set and
+//       matching the first code unit in the string.
+//
+//       Some of the patterns below have the format "^...$" to force the RegExp
+//       to match the string fully. Once the bug is fixes, the '^'s and '$'s
+//       can be removed. The bug # is 3679792.
 var tests = [
     {
         name: "A character set containing a negated character from a supplementary plane shouldn't match the character itself",
