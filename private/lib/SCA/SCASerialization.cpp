@@ -4,6 +4,11 @@
 
 #include "SCAPch.h"
 #include "common\ByteSwap.h"
+#include "Library\JavascriptNumberObject.h"
+#include "Library\LiteralStringObject.h"
+#include "Library\JavascriptBooleanObject.h"
+#include "Library\DateImplementation.h"
+#include "Library\JavascriptDate.h"
 #include "Library\dataview.h"
 #include "Library\JavascriptArrayIndexEnumerator.h"
 #include "Library\ES5ArrayIndexEnumerator.h"

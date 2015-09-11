@@ -2,6 +2,9 @@
 // Copyright (C) 1995 - 2010 by Microsoft Corporation.  All rights reserved.
 //----------------------------------------------------------------------------
 #include <ProjectionPch.h>
+#include "Library\JavascriptBooleanObject.h"
+#include "Library\DateImplementation.h"
+#include "Library\JavascriptDate.h"
 #include "JavascriptWinRTDate.h"
 
 namespace Projection

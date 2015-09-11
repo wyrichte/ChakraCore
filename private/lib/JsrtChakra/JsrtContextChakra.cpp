@@ -17,6 +17,9 @@
 #include "scrpting.h"
 #include "ScriptSite.h"
 
+#ifdef ENABLE_BASIC_TELEMETRY
+#include "..\Telemetry\Telemetry.h"
+#endif
 
 //=============================================================================================
 // These JsrtContext are divergent from the Core implementation so we can use JsrtContextChakra

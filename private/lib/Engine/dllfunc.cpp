@@ -15,6 +15,10 @@
 #include "JsrtContext.h"
 #include "TestHooks.h"
 
+#ifdef ENABLE_BASIC_TELEMETRY
+#include "..\Telemetry\Telemetry.h"
+#endif
+
 extern CClassFactory* CreateJScript9DACClassFactory(void);
 extern CClassFactory* CreateDiagHookClassFactory(void);
 extern CClassFactory* CreateJScript9ThreadServiceClassFactory();

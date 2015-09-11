@@ -22,9 +22,11 @@
 #include "Library\ThreadContextTLSEntry.h"
 #include "Library\ThreadBoundThreadContextManager.h"
 #include "Library\HostObjectBase.h"
+#include "Library\DateImplementation.h"
+#include "Library\JavascriptDate.h"
 #ifdef ENABLE_MUTATION_BREAKPOINT
-// REVIEW: ChakraCore Dependency
 #include "activdbg_private.h"
+#include "Debug\MutationBreakpoint.h"
 #endif
 #include "Debug\DebuggingFlags.h"
 #include "Debug\DiagProbe.h"
@@ -35,9 +37,6 @@
 #include "Debug\DebugContext.h"
 #include "Debug\DiagObjectModel.h"
 #include "Debug\DiagStackFrame.h"
-#ifdef ENABLE_MUTATION_BREAKPOINT
-#include "Debug\MutationBreakpoint.h"
-#endif
 #include "Language\JavascriptStackWalker.h"
 // =================
 

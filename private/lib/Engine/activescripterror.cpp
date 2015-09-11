@@ -5,6 +5,7 @@
 ********************************************************/
 #include "EnginePch.h"
 #include "errstr.h"
+#include "Library\JavascriptErrorDebug.h"
 
 // === ActiveScriptError ==
 ActiveScriptError::ActiveScriptError() : m_cRef(1),

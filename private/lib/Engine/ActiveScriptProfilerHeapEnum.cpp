@@ -4,6 +4,7 @@
 
 #include "EnginePch.h"
 #include "JsrtExternalObject.h"
+#include "Library\LiteralStringObject.h"
 #include "Library\BoundFunction.h"
 #include "Library\JavascriptSymbol.h"
 #include "Library\SameValueComparer.h"
@@ -2441,6 +2442,11 @@ void ActiveScriptProfilerHeapEnum::CloseHeapEnum()
     {
         m_scriptEngine.GetScriptContext()->ClearHeapEnum();
     }
+}
+
+bool ActiveScriptProfilerHeapEnum::IsJavascriptString(Js::RecyclableObject* obj)
+{
+    return !Js::JavascriptStringObject::Is(obj) && Js::JavascriptString::Is(obj);
 }
 
 #ifdef HEAP_ENUMERATION_VALIDATION

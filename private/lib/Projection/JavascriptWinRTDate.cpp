@@ -3,7 +3,8 @@
 //----------------------------------------------------------------------------
 
 #include "ProjectionPch.h"
-#include "Common.h"
+#include "Library\DateImplementation.h"
+#include "Library\JavascriptDate.h"
 #include "JavascriptWinRTDate.h"
 
 namespace Js

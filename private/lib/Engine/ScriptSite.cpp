@@ -3,8 +3,11 @@
 //----------------------------------------------------------------------------
 
 #include "EnginePch.h"
+#include "Library\DOMFastPathInfo.h"
+#include "ChakraHostScriptContext.h"
 #include "ChakraHostDebugContext.h"
 #ifdef ENABLE_BASIC_TELEMETRY
+#include "..\Telemetry\Telemetry.h"
 #include "..\Telemetry\ScriptContextTelemetry.h"
 #endif
 
@@ -1511,9 +1514,15 @@ void ScriptSite::RecordExcepInfoAndClear(EXCEPINFO *pei, HRESULT *phr)
 }
 
 ScriptSite *
+ScriptSite::FromHostScriptContext(HostScriptContext * hostScriptContext)
+{
+    return ((ChakraHostScriptContext *)hostScriptContext)->GetScriptSite();
+}
+
+ScriptSite *
 ScriptSite::FromScriptContext(Js::ScriptContext * scriptContext)
 {
-    return ((ChakraHostScriptContext *)scriptContext->GetHostScriptContext())->GetScriptSite();
+    return ScriptSite::FromHostScriptContext(scriptContext->GetHostScriptContext());
 }
 
 void

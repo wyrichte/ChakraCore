@@ -57,8 +57,7 @@ namespace Js
     class JavascriptString;                 // Used by ThreadContext.h
     class StringCopyInfo;
     class ProbeManager;                     // Used by ThreadContext.h
-    class ProbeContainer;
-    class HostLogger;                       // Used by ThreadContext.h
+    class ProbeContainer;    
     class PropertyString;                   // Used by ScriptContext.h
     class TypePath;                         // Used by ScriptContext.h
     class RegexPatternMruMap;               // Used by ScriptContext.h    

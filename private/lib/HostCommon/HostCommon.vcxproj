@@ -72,9 +72,9 @@
   </ItemGroup>
   <!-- Razzle binplace -->
   <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true'">
-    <BinplaceLinked Include="dbgcontroller.js">
+    <BinplaceGenerated Include="dbgcontroller.js">
       <DestinationFolder>jscript</DestinationFolder>
-    </BinplaceLinked>
+    </BinplaceGenerated>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\publish\Publish.vcxproj">

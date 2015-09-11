@@ -20,6 +20,7 @@
 #include "Runtime.h"
 #include "Library\AsyncDebug.h"
 #include "Debug\DiagProbe.h"
+#include "Library\JavascriptErrorDebug.h"
 
 // =================
 // Common Includes
@@ -28,7 +29,6 @@
 #include "DataStructures\Option.h"
 #include "DataStructures\ImmutableList.h"
 #include "DataStructures\BufferBuilder.h"
-// =================
 
 //====================================
 // Engine includes

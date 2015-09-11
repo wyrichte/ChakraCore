@@ -75,6 +75,13 @@ inline long CchRawBstr(LPCOLESTR bstr)
 
 BOOL FNumber(VARIANT *pvar){return (pvar->vt == VT_I4 || pvar->vt == VT_R8);}
 
+// This is here instead of in DispatchHelper to avoid referencing DateImplementation in the header
+class DispatchHelperInternal
+{
+public:
+    static HRESULT GetDateDefaultStringBstr(VARIANT *pvarRes, Js::YMD *pymd, Js::DateImplementation::TZD *ptzd, ulong noDateTime, Js::ScriptContext *scriptContext);
+};
+
 //-----------------------------------------------------------------------------------
 //
 // MarshalJsVarsToVariants
@@ -1326,7 +1333,7 @@ HRESULT DispatchHelper::GetStringForNumber(VARIANT *src, __out_ecount(pszLen) OL
     return hr;
 }
 
-HRESULT DispatchHelper::GetDateDefaultStringBstr(VARIANT *pvarRes, Js::YMD *pymd, Js::DateImplementation::TZD *ptzd, ulong noDateTime, Js::ScriptContext *scriptContext)
+HRESULT DispatchHelperInternal::GetDateDefaultStringBstr(VARIANT *pvarRes, Js::YMD *pymd, Js::DateImplementation::TZD *ptzd, ulong noDateTime, Js::ScriptContext *scriptContext)
 {
     AssertMem(pvarRes);
     AssertMem(pymd);
@@ -1434,7 +1441,7 @@ HRESULT DispatchHelper::ConvertVarDateToStr(double dbl, VARIANT *dst, Js::Script
     }
 
     Js::DateImplementation::GetYmdFromTv(tv, &ymd);
-    return GetDateDefaultStringBstr(dst, &ymd, &tzd, 0, scriptContext);
+    return DispatchHelperInternal::GetDateDefaultStringBstr(dst, &ymd, &tzd, 0, scriptContext);
 }
 
 // Convert from source VARAINT to dst VARIANT with VT_BSTR type.

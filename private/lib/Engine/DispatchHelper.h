@@ -52,8 +52,7 @@ private:
     static inline BOOL DispatchHelper::AlreadyRecorded(HRESULT hr);
     static HRESULT ConvertToScalar(VARIANT *pvarSrc, VARIANT  *pvarDst, int vt, Js::ScriptContext *const scriptContext);
     static BOOL ConvertToScalarCore(VARIANT *pvarSrc, VARIANT  *pvarDst, int vt, Js::ScriptContext *const scriptContext);
-    static HRESULT GetStringForNumber(VARIANT *src, __out_ecount(pszLen) OLECHAR * psz, int pszLen); 
-    static HRESULT GetDateDefaultStringBstr(VARIANT *pvarRes, Js::YMD *pymd, Js::DateImplementation::TZD *ptzd, ulong noDateTime, Js::ScriptContext *scriptContext);
+    static HRESULT GetStringForNumber(VARIANT *src, __out_ecount(pszLen) OLECHAR * psz, int pszLen);     
     static HRESULT ConvertVarDateToStr(double dbl, VARIANT *dst, Js::ScriptContext *scriptContext);
     static inline BOOL VariantIsReturnValue(VariantPropertyFlag VariantPropertyFlag)  {return (VariantPropertyFlag & IsReturnValue) != 0; }    
 };

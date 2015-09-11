@@ -336,7 +336,7 @@ private:
     bool IsScopeSlotArray(ULONG flags) const { return (flags & PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_SCOPE_SLOT_ARRAY) != 0; }
     bool IsRecyclableObject(ULONG flags) const { return ! IsScopeSlotArray(flags) && !IsBoundFunctionArgs(flags); }
     bool IsSiteClosed(ULONG flags) const { return (flags & PROFILER_HEAP_OBJECT_FLAGS_SITE_CLOSED) != 0; }
-    bool IsJavascriptString(Js::RecyclableObject* obj) { return ! Js::JavascriptStringObject::Is(obj) && Js::JavascriptString::Is(obj); }
+    bool IsJavascriptString(Js::RecyclableObject* obj);
     bool IsJavascriptString(Js::Var obj) { Assert(Js::RecyclableObject::Is(obj)); return IsJavascriptString(Js::RecyclableObject::FromVar(obj)); }
     bool IsBoundFunction(Js::Var obj) { return Js::RecyclableObject::Is(obj) && Js::JavascriptFunction::Is(obj) && (Js::JavascriptFunction::FromVar(obj))->IsBoundFunction(); }
     bool IsBoundFunctionArgs(ULONG flags) const { return (flags & PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_BOUND_FUNCTION_ARGUMENT_LIST) != 0; }

@@ -10,6 +10,8 @@
 #include "var.h"
 #include "typeinfobuilder.h"
 
+#include "Library\JSON.h"
+
 // Initialization order
 //  AB AutoSystemInfo
 //  AD PerfCounter

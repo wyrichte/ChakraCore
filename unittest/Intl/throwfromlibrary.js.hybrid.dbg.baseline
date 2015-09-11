@@ -2,31 +2,31 @@
   {
     "callstack": [
       {
-        "start": 9935,
+        "start": 10306,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 2632,
+        "start": 3003,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9585,
+        "start": 9956,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30152,
+        "start": 30523,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 34963,
+        "start": 35334,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"

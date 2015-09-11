@@ -5,4 +5,5 @@
 #pragma once
 
 #include "Runtime.h"
+#include "Telemetry.h"
 #include "ScriptContextTelemetry.h"

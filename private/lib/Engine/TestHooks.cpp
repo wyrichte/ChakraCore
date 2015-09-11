@@ -7,6 +7,7 @@
 #include "ProjectionWriter.h"
 #endif
 #include "TestHooks.h"
+#include "Library\JavascriptErrorDebug.h"
 
 #ifndef ENABLE_TEST_HOOKS
 HRESULT OnJScript9Loaded()

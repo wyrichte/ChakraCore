@@ -4,6 +4,7 @@
 *                                                       *
 ********************************************************/
 #include "EnginePch.h"
+#include "Library\JSON.h"
 
 #include <mshtml.h>
 
@@ -542,16 +543,6 @@ HRESULT HostDispatch::GetDispID(LPCWSTR psz, ULONG flags, DISPID *pid)
     }
     END_LEAVE_SCRIPT(scriptContext);
 
-#ifdef TEST_LOG
-    if(Js::Configuration::Global.flags.IsEnabled(Js::HostLoggingFlag))
-    {
-        if(SUCCEEDED(hr))
-        {
-            this->GetScriptContext()->GetThreadContext()->GetHostLogger()->AddCachedPropertyName(pDispEx, *pid, psz);
-        }
-    }
-#endif
-
     return hr;
 }
 
@@ -575,20 +566,6 @@ HRESULT HostDispatch::GetIDsOfNames(LPCWSTR psz, DISPID* pid)
         cycleStack = cycleStack->Next;
     }
     END_LEAVE_SCRIPT(scriptContext);
-
-#ifdef TEST_LOG
-    if(Js::Configuration::Global.flags.IsEnabled(Js::HostLoggingFlag))
-    {
-        if(SUCCEEDED(hr))
-        {
-            // Need to re-recheck for hostVariant since GetIDsOfNames could have freed the script engine
-            HostVariant* pHostVariant = NULL;
-            IfFailedReturn(GetHostVariantWrapper(&pHostVariant));
-
-            this->GetScriptContext()->GetThreadContext()->GetHostLogger()->AddCachedPropertyName(FastGetDispatchNoRef(pHostVariant), *pid, psz);
-        }
-    }
-#endif
 
     return hr;
 }
@@ -625,23 +602,11 @@ BOOL HostDispatch::GetValueByDispId(DISPID id, Js::Var *pValue)
     
     if (pHostVariant->supportIDispatchEx)
     {
-#ifdef TEST_LOG
-        if (Js::Configuration::Global.flags.IsEnabled(Js::HostLoggingFlag))
-        {
-            scriptContext->GetThreadContext()->GetHostLogger()->LogInvokeCall(FastGetDispatchNoRef(pHostVariant), id, DISPATCH_PROPERTYGET);
-        }
-#endif
         VariantInit(&varValue);
         hr = this->CallInvokeEx(id, DISPATCH_PROPERTYGET, &dispEmpty, &varValue, &ei);
     }
     else
     {
-#ifdef TEST_LOG
-        if(Js::Configuration::Global.flags.IsEnabled(Js::HostLoggingFlag))
-        {
-            scriptContext->GetThreadContext()->GetHostLogger()->LogInvokeCall(FastGetDispatchNoRef(pHostVariant), id, DISPATCH_PROPERTYGET);
-        }
-#endif
         VariantInit(&varValue);
         hr = this->CallInvoke(id, DISPATCH_PROPERTYGET, &dispEmpty, &varValue, &ei);
     }
@@ -663,12 +628,6 @@ BOOL HostDispatch::GetValueByDispId(DISPID id, Js::Var *pValue)
         Js::Var var;
         DispatchHelper::VariantPropertyFlag propertyFlag = DispatchHelper::VariantPropertyFlag::IsReturnValue;
         hr = DispatchHelper::MarshalVariantToJsVar(&varValue, &var, scriptContext, propertyFlag);
-#ifdef TEST_LOG
-        if(Js::Configuration::Global.flags.IsEnabled(Js::HostLoggingFlag))
-        {
-            scriptContext->GetThreadContext()->GetHostLogger()->LogInvokeResult(var);
-        }
-#endif
         VariantClear(&varValue);
         if (SUCCEEDED(hr))
         {
@@ -747,8 +706,6 @@ BOOL HostDispatch::PutValueByDispId(DISPID id, Js::Var value)
     WORD         wFlags = DISPATCH_PROPERTYPUT | DISPATCH_PROPERTYPUTREF;
     VARIANT      varValue;
 
-    Js::ScriptContext * scriptContext = this->GetScriptContext();
-
     hr = DispatchHelper::MarshalJsVarToVariant(value, &varValue);
     if (FAILED(hr))
     {
@@ -773,22 +730,10 @@ BOOL HostDispatch::PutValueByDispId(DISPID id, Js::Var value)
 
     if (pHostVariant->supportIDispatchEx)
     {
-#ifdef TEST_LOG
-        if (Js::Configuration::Global.flags.IsEnabled(Js::HostLoggingFlag))
-        {
-            scriptContext->GetThreadContext()->GetHostLogger()->LogInvokeCall(FastGetDispatchNoRef(pHostVariant), id, wFlags, value);
-        }
-#endif
         hr = this->CallInvokeEx(id, wFlags, &dp, nullptr, &ei);
     }
     else
     {
-#ifdef TEST_LOG
-        if (Js::Configuration::Global.flags.IsEnabled(Js::HostLoggingFlag))
-        {
-            scriptContext->GetThreadContext()->GetHostLogger()->LogInvokeCall(FastGetDispatchNoRef(pHostVariant), id, wFlags, value);
-        }
-#endif
         hr = this->CallInvoke(id, wFlags, &dp, NULL, &ei);
     }
 
@@ -1552,19 +1497,6 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut)
             pvarRes = &varRes;
         }
 
-    #ifdef TEST_LOG
-        if (Js::Configuration::Global.flags.IsEnabled(Js::HostLoggingFlag))
-        {
-            // Requery hostVariant since the QI on the hostVariant's dispatch pointer could have inadvertently freed it
-            HostVariant* pHostVariant = nullptr;
-
-            // Log the invoke call only if the script engine hasn't been shut down. If it has, 
-            // we're going to return an error anyway in InvokeMarshaled
-            if (SUCCEEDED(GetHostVariantWrapper(&pHostVariant))) {
-                scriptContext->GetThreadContext()->GetHostLogger()->LogInvokeCall(FastGetDispatchNoRef(pHostVariant), id, invokeFlags, args);
-            }
-        }
-    #endif
         hr = InvokeMarshaled(id, invokeFlags, &dp, pvarRes, &ei);
         if (pvarDisplay != nullptr)
         {
@@ -1594,12 +1526,6 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut)
             {
                 DispatchHelper::VariantPropertyFlag propertyFlag = DispatchHelper::VariantPropertyFlag::IsReturnValue;
                 hr = DispatchHelper::MarshalVariantToJsVar(&varRes, &result, scriptContext, propertyFlag);
-    #ifdef TEST_LOG
-                if(Js::Configuration::Global.flags.IsEnabled(Js::HostLoggingFlag))
-                {
-                    scriptContext->GetThreadContext()->GetHostLogger()->LogInvokeResult(result);
-                }
-    #endif
                 VariantClear(&varRes);
 
                 if (FAILED(hr))
@@ -1689,22 +1615,10 @@ BOOL HostDispatch::GetDefaultValue(Js::JavascriptHint hint, Js::Var* value, BOOL
         {
             return FALSE;
         }
-#ifdef TEST_LOG
-        if (Js::Configuration::Global.flags.IsEnabled(Js::HostLoggingFlag))
-        {
-            scriptContext->GetThreadContext()->GetHostLogger()->LogInvokeCall(FastGetDispatchNoRef(hostVariant), DISPID_VALUE, wFlags);
-        }
-#endif
         hr = this->CallInvokeEx(DISPID_VALUE, wFlags, &dp, &varValue, &ei);
     }
     else
     {
-#ifdef TEST_LOG
-        if (Js::Configuration::Global.flags.IsEnabled(Js::HostLoggingFlag))
-        {
-            scriptContext->GetThreadContext()->GetHostLogger()->LogInvokeCall(FastGetDispatchNoRef(hostVariant), DISPID_VALUE, wFlags);
-        }
-#endif
         hr = this->CallInvoke(DISPID_VALUE, wFlags, &dp, &varValue, &ei);
     }
 
@@ -1712,12 +1626,6 @@ BOOL HostDispatch::GetDefaultValue(Js::JavascriptHint hint, Js::Var* value, BOOL
     {
         DispatchHelper::VariantPropertyFlag propertyFlag = DispatchHelper::VariantPropertyFlag::IsReturnValue;
         hr = DispatchHelper::MarshalVariantToJsVar(&varValue, value, scriptContext, propertyFlag);
-#ifdef TEST_LOG
-        if(Js::Configuration::Global.flags.IsEnabled(Js::HostLoggingFlag))
-        {
-            scriptContext->GetThreadContext()->GetHostLogger()->LogInvokeResult(*value);
-        }
-#endif
         VariantClear(&varValue);
         if (SUCCEEDED(hr))
         {
