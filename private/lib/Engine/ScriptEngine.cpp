@@ -408,12 +408,6 @@ STDMETHODIMP ScriptEngine::QueryInterface(
     QI_IMPL(IID_IActiveScript, IActiveScript);
     QI_IMPL(__uuidof(IActiveScriptGarbageCollector), IActiveScriptGarbageCollector);
 #ifdef ENABLE_PROJECTION
-#ifdef WIN8_COMPAT
-    if (Js::Configuration::Global.flags.Win8Compat)
-    {
-        QI_IMPL(__uuidof(IActiveScriptProjection), IActiveScriptProjectionWin8);
-    }
-#endif
     QI_IMPL(__uuidof(IActiveScriptProjection), IActiveScriptProjection);
     QI_IMPL(__uuidof(IPrivateScriptProjection), IPrivateScriptProjection);
 #endif

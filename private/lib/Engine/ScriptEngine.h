@@ -36,20 +36,6 @@ interface IDebugSetValueCallback;
 
 #ifdef ENABLE_PROJECTION
 using namespace Projection;
-#ifdef WIN8_COMPAT
-interface IActiveScriptProjectionWin8 : public IUnknown
-{
-    public:
-        virtual HRESULT STDMETHODCALLTYPE SetProjectionHost( 
-            /* [in] */ IActiveScriptProjectionHost *host,
-            /* [in] */ BOOL isConfigurable,
-            /* [in] */ DWORD targetVersion) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE ReserveNamespace( 
-            /* [in] */ LPCWSTR name,
-            /* [in] */ BOOL isExtensible) = 0;
-};
-#endif
 #endif
 
 // ---------------------------------------------------------------------------
@@ -85,9 +71,6 @@ class ScriptEngine :
 #ifdef ENABLE_PROJECTION
     public IActiveScriptProjection,
     public IPrivateScriptProjection,
-#ifdef WIN8_COMPAT
-    public IActiveScriptProjectionWin8,
-#endif
 #endif
 
     public IActiveScriptByteCode,
@@ -367,9 +350,6 @@ public:
     //
     STDMETHOD(SetProjectionHost)(IActiveScriptProjectionHost * host, BOOL isConfigurable, DWORD targetVersion, IDelegateWrapper* delegateWrapper);
     STDMETHOD(ReserveNamespace)(LPCWSTR name, BOOL isExtensible);
-#ifdef WIN8_COMPAT
-    STDMETHOD(SetProjectionHost)(IActiveScriptProjectionHost * host, BOOL isConfigurable, DWORD targetVersion);
-#endif
 
     //
     // IPrivateScriptProjection

@@ -928,13 +928,6 @@ STDMETHODIMP ScriptEngine::SetProjectionHost(IActiveScriptProjectionHost * host,
     return projectionContext->SetProjectionHost(host, isConfigurable, targetVersion, delegateWrapper);
 }
 
-#ifdef WIN8_COMPAT
-STDMETHODIMP ScriptEngine::SetProjectionHost(IActiveScriptProjectionHost * host, BOOL isConfigurable, DWORD targetVersion)
-{
-    return this->SetProjectionHost(host, isConfigurable, targetVersion, nullptr);
-}
-#endif
-
 STDMETHODIMP ScriptEngine::ReserveNamespace(LPCWSTR name, BOOL isExtensible)
 {
     HRESULT hr = EnsureProjection();
