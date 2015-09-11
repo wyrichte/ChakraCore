@@ -4,7 +4,7 @@
 #include "EnCPch.h"
 #ifdef EDIT_AND_CONTINUE
 #include "ActiveScriptError.h"
-
+#include "ByteCode\ByteCodeAPI.h"
 namespace Js
 {
     ScriptEdit::ScriptEdit() :

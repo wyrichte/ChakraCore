@@ -19,6 +19,7 @@
 #include "Library\AsyncDebug.h"
 #include "Library\dataview.h"
 #include "Library\JavascriptProxy.h"
+#include "Library\ThreadContextTLSEntry.h"
 #include "Library\ThreadBoundThreadContextManager.h"
 #include "Library\HostObjectBase.h"
 #ifdef ENABLE_MUTATION_BREAKPOINT
@@ -37,6 +38,7 @@
 #ifdef ENABLE_MUTATION_BREAKPOINT
 #include "Debug\MutationBreakpoint.h"
 #endif
+#include "Language\JavascriptStackWalker.h"
 // =================
 
 //====================================

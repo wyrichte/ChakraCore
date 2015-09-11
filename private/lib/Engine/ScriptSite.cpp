@@ -4,6 +4,9 @@
 
 #include "EnginePch.h"
 #include "ChakraHostDebugContext.h"
+#ifdef ENABLE_BASIC_TELEMETRY
+#include "..\Telemetry\ScriptContextTelemetry.h"
+#endif
 
 #define DEFINE_OBJECT_NAME(object) const wchar_t *pwszObjectName = L#object;
 

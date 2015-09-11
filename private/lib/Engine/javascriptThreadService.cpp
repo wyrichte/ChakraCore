@@ -4,7 +4,6 @@
 
 #include "EnginePch.h"
 #include "share.h"
-
 /// 
 /// Idle Task that is used to do finish a GC on idle
 /// This is scheduled by the timer-based Idle GC callback when the idle callback

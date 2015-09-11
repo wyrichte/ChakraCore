@@ -17,6 +17,7 @@
 #include "core\ConfigParser.h"
 #include "Language\ByteCodeSerializer.h"
 #include "Library\BoundFunction.h"
+#include "ByteCode\ByteCodeAPI.h"
 
 #ifdef ENABLE_EXPERIMENTAL_FLAGS
 #include <iesettings.h>
