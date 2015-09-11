@@ -56,8 +56,10 @@
         $(SdkLibPath)\shlwapi.lib;
         $(SdkLibPath)\oleaut32.lib;
         $(SdkLibPath)\advapi32.lib
-        </AdditionalDependencies>
+      </AdditionalDependencies>
       <SubSystem>Console</SubSystem>
+      <!-- Always use LTCG since atls_nouser32.lib contain /GL objects -->
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <Link Condition="'$(BuildingWithBuildExe)'=='true'">
       <AdditionalDependencies>

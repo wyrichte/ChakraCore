@@ -132,9 +132,9 @@
         $(SdkLibPath)\msvcrt.lib;
         $(InternalSdkLibPath)\ucrtshims_msvcrt.lib
       </AdditionalDependencies>
-      
-      <!-- Always use LTCG since some library contain /GL objects -->
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+
+      <!-- Incremental LTCG crashes the razzle version of the compiler a lot, disable for now -->
+      <LinkTimeCodeGeneration Condition="'%(LinkTimeCodeGeneration)'=='UseFastLinkTimeCodeGeneration'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <ImpLib>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>

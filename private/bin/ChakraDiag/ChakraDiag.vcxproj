@@ -95,6 +95,9 @@
         $(ChakraCommonDataStructureLib);
         $(ChakraRuntimeLanguageLib)
       </AdditionalDependencies>
+
+      <!-- Always use LTCG since atls_nouser32.lib contain /GL objects -->
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <!-- Razzle binplace -->

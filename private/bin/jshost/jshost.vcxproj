@@ -109,6 +109,9 @@
         $(RazzleJscriptObjectRoot)\private\lib\HostCommon\$(ObjectDirectory)\Chakra.Host.Common.lib;
         $(SdkLibPath)\advapi32.lib
       </AdditionalDependencies>
+
+      <!-- Always use LTCG since dloadwin7helper.lib contain /GL objects -->
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent Condition="'$(BuildingWithBuildExe)'!='true'">
       <Command Condition="'$(Configuration)'!='Release'">"$(ProjectDir)postbuild.cmd" $(PlatformTarget) "$(OutputPath)" "$(IELibPath)"</Command>

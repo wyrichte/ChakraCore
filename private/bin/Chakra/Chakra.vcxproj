@@ -105,6 +105,9 @@
       <!-- ======== From makefile.def ======== -->
       <!-- REVIEW: Turn off de-virtualization since it causes somewhat random virtual size differences (bigger and smaller) -->
       <AdditionalOptions>%(AdditionalOptions) -d2:-TypeProp- -d2:-SpecDevirt-</AdditionalOptions>
+
+      <!-- Always use LTCG since IESettingsApi.lib contain /GL objects -->
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>

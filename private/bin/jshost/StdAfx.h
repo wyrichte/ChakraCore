@@ -101,7 +101,7 @@
 #include <mshtml.h>
 #include <mshtmdid.h>
 #include <mshtmhst.h>
-#include <mshtmpid.h>
+
 #include <ieguidp.h>
 #include <interned.h>
 #include <mshtmcid.h>

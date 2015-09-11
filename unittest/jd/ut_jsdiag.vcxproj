@@ -56,6 +56,9 @@
       </AdditionalDependencies>
       <ModuleDefinitionFile>ut_jsdiag.def</ModuleDefinitionFile>
       <SubSystem>Console</SubSystem>
+
+      <!-- Always use LTCG since engextcpp.lib contain /GL objects -->
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <!-- Razzle binplace -->
